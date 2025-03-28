@@ -324,7 +324,7 @@
                                     <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
                                             {{-- <img class="img-fluid modal-image-first" id="img1" src="{{ asset('assets/app/img/upload-1.png')}}" style="height: 284px;object-fit: cover;"> --}}
 
-                                            <img class="img-fluid" id="img1" src="{{asset($escort->imagePosition(1))}}" style="height: 220px;object-fit: cover;width: 167px;">
+                                            <img class="img-fluid upld-img" id="img1" src="{{asset($escort->imagePosition(1))}}" style="height: 220px;object-fit: cover;width: 167px;">
                                         </label>
                                     </div>
                                 </div>
@@ -1499,6 +1499,27 @@
         </div>
     </div>
 </div>
+<div class="modal programmatic" id="setAsDefaultForMainAccount" style="display: none">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content custome_modal_max_width">
+                <div class="modal-header main_bg_color border-0">
+                    {{-- <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5> --}}
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                    </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Would you like to update Media in your My Information page for future Profiles? 
+                    <div class="modal-footer">
+                        <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal" value="close" id="close_change">No</button>
+                        <button type="button" class="btn main_bg_color site_btn_primary" onclick="setAsDefultImages()">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @push('script')
 <script>
     // $('.newbtn').bind("click" , function () {
@@ -1535,15 +1556,15 @@
             $("#photo_gallery_banner").modal("hide");
         });
 
-        $(".modalPopup .item4").on('click', function(e) {
-            let imageSrc = $(this).find('img').attr('src');
-            let mediaId = $(this).find('img').data('id');
-            $("#blah"+updatePosition).attr('src',imageSrc);
-            $("#img"+updatePosition).attr('src',imageSrc);
-            $("#mediaId"+updatePosition).val(mediaId);
-
-            $("#photo_gallery").modal("hide");
-        });
+        // $(".modalPopup .item4").on('click', function(e) {
+        //     let imageSrc = $(this).find('img').attr('src');
+        //     let mediaId = $(this).find('img').data('id');
+        //     $("#blah"+updatePosition).attr('src',imageSrc);
+        //     $("#img"+updatePosition).attr('src',imageSrc);
+        //     $("#mediaId"+updatePosition).val(mediaId);
+        //     $("#photo_gallery").modal("hide");
+        // });
+        
         $(".modalPopup .item2").on('click', function(e) {
             let imageSrc = $(this).find('img').attr('src');
             let mediaId = $(this).find('img').data('id');
@@ -1554,6 +1575,83 @@
             $("#photo_gallery_banner").modal("hide");
         });
     });
+
+let profile_selected_images = [];
+
+$(".modalPopup .item4").on('click', function(e) {
+       let imageSrc = $(this).find('img').attr('src');
+       let mediaId = $(this).find('img').data('id');
+       let img_target = $("#img"+updatePosition);
+       let media_image_length = $(".upld-img").length;
+       /**
+        * Get existing profile image data to check duplicates
+        */
+        let srcArray = $(".upld-img").map(function() {
+            return $(this).attr("src"); // Get the 'src' attribute of each <img>
+        }).get();
+
+       let newObject = { imageSrc: imageSrc, mediaId: mediaId, img_target: img_target, updatePosition: updatePosition };
+       let duplicateImage = srcArray.findIndex(item => item === imageSrc);
+       //let duplicateImage = profile_selected_images.findIndex(item => item.mediaId === mediaId);
+       if(duplicateImage !== -1){
+            swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
+       }
+       else{
+            let index = profile_selected_images.findIndex(item => item.updatePosition === updatePosition);
+            if (index !== -1) {
+                profile_selected_images[index] = { ...profile_selected_images[index], ...newObject };
+            }
+            else{
+                profile_selected_images.push(newObject);
+            }
+            $("#blah"+updatePosition).attr('src',imageSrc);
+            $("#img"+updatePosition).attr('src',imageSrc);
+            $("#mediaId"+updatePosition).val(mediaId);
+            if(profile_selected_images.length > 0){
+                $("#setAsDefaultForMainAccount").modal('show');
+            }
+       }
+       $("#photo_gallery").modal("hide");
+   });
+
+function setAsDefultImages(){
+    if(profile_selected_images.length > 0){
+        profile_selected_images.map((item,index)=>{
+            updateDefaultImage(item.updatePosition, item.mediaId, item.img_target, item.imageSrc);
+            if(profile_selected_images.length==(index+1)){
+                profile_selected_images = [];
+            }
+        });
+        $("#setAsDefaultForMainAccount").modal('hide');
+    }
+}   
+
+function updateDefaultImage(position, meidaId, img_target, media_src) {
+    console.log({position:position,meidaId:meidaId});
+       var url = "{{ route('escort.default.images') }} ";
+       $.ajax({
+           type: 'POST',
+           url: url,
+           data: {
+               position: position,
+               meidaId: meidaId
+           },
+           headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+           success : function (data) {
+               if(data.error == true) {
+                   img_target.attr('data-id', meidaId);
+                   img_target.attr('src', media_src);
+               } else {
+                   swal.fire('', "<p>"+data.msg+"</p>", 'error');
+                   // $('.comman_msg').html();
+                   // $("#comman_modal").modal('show');
+                   $('#comman_modal').on('hidden.bs.modal', function () {
+                       // location.reload();
+                   });
+               }
+           }
+       });
+   }
 
 
     function readURL(input) {

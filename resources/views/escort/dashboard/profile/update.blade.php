@@ -1435,9 +1435,10 @@
         var id = $(this).attr('id');
         $(this).removeClass('active');
         $(".nav-link").removeClass('active');
-
         $("#"+id).addClass('active');
-        console.log("id=" +id)
+        if(profile_selected_images.length > 0){
+            $("#setAsDefaultForMainAccount").modal('show');
+        }
     });
 
     $('.covidreport').on('change', function(e) {
@@ -2051,59 +2052,7 @@ function update_escort_default(updateButton, form_data)
     });
 }
 
-let profile_selected_images = [];
-$(".modalPopup .item4").on('click', function(e) {
-       let imageSrc = $(this).find('img').attr('src');
-       let mediaId = $(this).find('img').data('id');
-       let img_target = $("#img"+updatePosition);
-       let newObject = { imageSrc: imageSrc, mediaId: mediaId, img_target: img_target, updatePosition: updatePosition };
-       let index = profile_selected_images.findIndex(item => item.updatePosition === updatePosition);
-       if (index !== -1) {
-        profile_selected_images[index] = { ...profile_selected_images[index], ...newObject };
-       }
-       else{
-        profile_selected_images.push(newObject);
-       }
-       
-   });
 
-function setAsDefultImages(){
-    if(profile_selected_images.length > 0){
-        profile_selected_images.map((item,index)=>{
-            updateDefaultImage(item.updatePosition, item.mediaId, item.img_target, item.imageSrc);
-            if(profile_selected_images.length==(index+1)){
-                profile_selected_images = [];
-            }
-        });
-    }
-}   
-
-function updateDefaultImage(position, meidaId, img_target, media_src) {
-    console.log({position:position,meidaId:meidaId});
-       var url = "{{ route('escort.default.images') }} ";
-       $.ajax({
-           type: 'POST',
-           url: url,
-           data: {
-               position: position,
-               meidaId: meidaId
-           },
-           headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-           success : function (data) {
-               if(data.error == true) {
-                   img_target.attr('data-id', meidaId);
-                   img_target.attr('src', media_src);
-               } else {
-                   swal.fire('', "<p>"+data.msg+"</p>", 'error');
-                   // $('.comman_msg').html();
-                   // $("#comman_modal").modal('show');
-                   $('#comman_modal').on('hidden.bs.modal', function () {
-                       // location.reload();
-                   });
-               }
-           }
-       });
-   }
 
 </script>
 @endpush
