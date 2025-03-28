@@ -1466,4 +1466,9 @@
        let mediaId = $(this).find('img').data('id');
        let img_target = $("#img"+updatePosition);
        console.log("1467");
-       updateDefaultImage(updatePosition, mediaId, img_target, ima
+       updateDefaultImage(updatePosition, mediaId, img_target, imageSrc);
+
+       $("#photo_gallery_banner").modal("hide");
+   });
+</script>
+@endpush
