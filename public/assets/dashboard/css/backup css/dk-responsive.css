@@ -1,0 +1,102 @@
+
+@media only screen 
+  and (min-device-width: 320px) 
+  and (max-device-width: 900px)
+   {
+.h3, h3 {
+    font-size: 1.55rem;
+}
+.h4, h4 {
+    font-size: 1.4rem;
+}
+.super-btn-bg{
+    padding: 1px 5px;
+    font-size: 14px;
+} 
+.bulk-btn{
+    font-size: 14px;
+}  
+
+.sidebar .nav-item .collapse{
+    background: #0c223d;
+}
+
+.table-content tr td {
+    font-size: 11px;
+    width: auto;
+}
+.width30{
+    width: 30% !important;
+}
+.admin-box div {
+    font-size: 12px;
+}
+.professional-content-bg{
+margin:0px;
+}
+.heading-btn-inline {
+    display: flex;
+    flex-direction: column;
+}	   
+.heading-btn-inline button{ 
+    width: 90%;
+    margin-top: 10px;
+	margin-left:0px
+}	
+.request-filter-box{
+    margin-bottom: 20px;
+}
+
+.three-btn>button {
+    padding: 10px 10px;
+    font-size: 14px;
+}
+
+select.select-width option{
+font-size: 9px;width: 30%;
+} 
+
+ td.qty select {
+    width: auto;
+}
+    .left-all-published {
+    display: flex;
+    justify-content: space-between;
+    align-items: normal;
+    flex-direction: column;
+}
+.page-filter-form {
+    display: flex;
+    align-items: normal;
+    flex-direction: column;
+}
+.page-filter-form div {
+    padding-right: 4px;
+}
+.page-filter-form div:last-child {
+    margin-left: 0;
+    margin-top: 5px;
+}
+.all-page-table{
+    width: 1200px;
+}
+.bothsearch-form {
+    display: flex;
+    justify-content: center;
+}
+}
+
+@media screen and (max-width: 900px) {
+.about-me-box-one {
+    padding: 20px;
+    background: #fff;
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+.admin-box h3 {
+    font-size: 35px;
+     
+} 
+
+}

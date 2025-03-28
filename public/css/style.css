@@ -1,0 +1,249 @@
+
+*{
+	margin: 0px;
+	box-sizing: border-box;
+}
+input::-webkit-input-placeholder {
+    font-size: 13px;
+}
+.text_decoration_for_a a{
+	text-decoration: none;
+}
+
+.primery_color{
+	color: #2C3E50;
+}
+.heading_color{
+	color:#0C223D;
+}
+
+.section_bg_color .reg_info{
+	color: white;
+}
+.padding_ninty_top_ninty_px{
+	padding-top: 90px;
+}
+.padding_ninty_btm_ninty_px{
+  padding-bottom: 60px;
+}
+.angle_bg_image{
+  background-image: url(../img/aerobgimage.png);
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+  /*  content: "";
+    position: absolute;
+    top: 445px;
+    border-left: 920px solid transparent;
+    border-right: 920px solid transparent;
+    border-top: 80px solid #ff0000;
+    margin: auto;*/
+}
+/*.triangle-down{
+    width: 0;
+    height: 0;
+    border-left: 920px solid transparent;
+    border-right: 920px solid transparent;
+    border-top: 80px solid #0c223d;
+    margin: auto;
+}*/
+.register_list_style ul li:: before{
+	content: "\2022";
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+}
+.reg_info h1{
+	font-family: Poppins;
+	font-weight: bold;
+	font-size: 48px;
+}
+.reg_info h2{
+	font-family: Poppins;
+	font-weight: 500;
+	font-size: 28px;
+	line-height: 42px;
+}
+.reg_info ul li,p{
+	font-family: Quicksand;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 27.5px;
+}
+.reg_box_form_style{
+	position: relative;
+}
+.regstractionform {
+	background: white;
+	position: absolute;
+	width: 100%;
+	top: 0px;
+	padding: 20px;
+	box-shadow: 0px 1px 20px 0px;
+}
+
+.regstractionform h4{
+	font-family: Poppins;
+	color: #0C223D;
+	font-size: 25px;
+	line-height: 36px;
+	padding-bottom: 10px;
+}
+.myacording-design ul {
+  list-style: auto;
+}
+
+.form-group label {
+	font-family:Poppins;
+	font-size: 11px;
+	line-height: 16.5px;
+	font-weight: 600;
+	color: #2C3E50;
+	padding-bottom: 5px;
+
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 0px;
+    border-bottom: 1px solid #5D6D7E;
+    border-radius: 0px;
+    /*transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;*/
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #0C223D;
+    outline: 0;
+    box-shadow:none;
+}
+.site_btn_primary {
+	color: #fff;
+	font-family: Poppins;
+	font-size: 18px;
+	line-height: 23.76px;
+    background-color: #0C223D;
+    border-color: #0C223D;
+}
+
+.btn:focus {
+     outline: 0;
+    box-shadow: none;
+}
+.form-check{
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+.form-check-input {
+    margin-top: 0.44rem;
+}
+.form-check label{
+	font-family:Poppins;
+	font-size: 11px;
+	line-height: 16.5px;
+}
+.form-check a{
+	text-decoration: none;
+}
+.termsandconditions_text_color{
+	color: #ff3c5f;
+
+}
+.termsandconditions_text_color:hover{
+	color: #ff3c5f;
+}
+
+/*accordion style start here*/
+
+.accordion-container{
+  position: relative;
+  margin: 10px auto;
+}
+.set{
+  position: relative;
+  margin-bottom: 15px;
+  border: 1px solid #5D6D7E;
+  border-radius: 3px;
+}
+.set > a{
+  cursor: pointer;
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #0C223D;
+  font-family: Poppins;
+  font-size: 18px;
+  line-height: 18.5px;
+  font-weight: 500;
+  /*border-bottom: 1px solid #90A0B7;*/
+  -webkit-transition:all 0.2s linear;
+  -moz-transition:all 0.2s linear;
+  transition:all 0.2s linear;
+}
+.set > a i{
+  float: right;
+  margin-top: 2px;
+}
+
+.content{
+  display:none;
+}
+.content .accodien_manage_padding_content{
+	padding: 10px 15px;
+}
+.content p{
+  border-top: 1px solid #90A0B7;
+  font-family: Quicksand;
+  font-size: 14px;
+  line-height: 18.5px;
+  padding: 10px 0px;
+  margin: 0;
+}
+
+/*accordion style start here*/
+
+
+@media screen and (max-width: 768px) {
+  .regstractionform  {
+    position: relative;
+  }
+  .reg_info h1 {
+    font-size: 30px;
+}
+.reg_info h2 {
+    font-size: 20px;
+}
+.set > a {
+
+    padding: 10px 10px;
+    font-size: 16px;
+    line-height: 18.5px;
+}
+}
+
+/*Escort Registration start here*/
+.padding_three_hundred{
+  padding-top: 300px;
+}
+.padding_bottom_eight_px{
+  padding-bottom: 80px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .padding_three_hundred  {
+     padding-top: 90px;
+  }
+}
+
+/*Escort Registration end here*/
