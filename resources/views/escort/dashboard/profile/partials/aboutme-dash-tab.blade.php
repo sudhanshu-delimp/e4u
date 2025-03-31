@@ -1578,7 +1578,7 @@
 
 let profile_selected_images = [];
 
-$(".modalPopup .item4").on('click', function(e) {
+$(".modalPopup .item4, .modalPopup .item2").on('click', function(e) {
        let imageSrc = $(this).find('img').attr('src');
        let mediaId = $(this).find('img').data('id');
        let img_target = $("#img"+updatePosition);

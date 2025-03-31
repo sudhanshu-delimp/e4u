@@ -996,7 +996,7 @@
                         } else {
                             $('#blah'+input.id[3]).attr('src', e.target.result);
 
-                            $('#img'+input.id[3]).attr('src', e.target.result);
+                            //$('#img'+input.id[3]).attr('src', e.target.result);
                             // alert("Uploaded image has valid Width and Height.");
                         }
 
