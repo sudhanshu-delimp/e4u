@@ -183,6 +183,7 @@ return [
 			17=>'Spanish',
 			18=>'Taiwanese',
 			19=>'Thai',
+			20=>'Indonesian',
 		],
 		'travels'=>[
 			1 =>'No',
