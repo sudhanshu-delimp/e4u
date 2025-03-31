@@ -161,8 +161,12 @@
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3" for=""> BRB Date & Time:</label>
-                                        <div class="col-sm-6">
-                                            <input type="datetime-local" required min="{{date('Y-m-d')}}" class="form-control form-control-sm removebox_shdow" name="brb_time" data-parsley-type="" data-parsley-type-message="">
+                                        <div class="col-sm-3">
+                                            <input type="date" required min="{{date('Y-m-d')}}" class="form-control form-control-sm removebox_shdow" name="brb_date" data-parsley-type="" data-parsley-type-message="">
+                                            <span id="brb-time-errors"></span>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <input type="time" required min="{{date('Y-m-d')}}" class="form-control form-control-sm removebox_shdow" name="brb_time" data-parsley-type="" data-parsley-type-message="">
                                             <span id="brb-time-errors"></span>
                                         </div>
                                         <div class="col-sm-3"></div>
