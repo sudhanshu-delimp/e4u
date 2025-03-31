@@ -132,7 +132,7 @@ class EscortGalleryController extends AppController
                             ];
                             if($key == 8) {
                                 $data['position'] = $key;
-                                $data['default'] = 1;
+                                //$data['default'] = 1;
                             }
 
                             //We are not counting verification image
@@ -159,7 +159,7 @@ class EscortGalleryController extends AppController
 
                                 $this->media->nullPosition($userId,$key);
                                 $media->position = $key;
-                                $media->default = 1;
+                                //$media->default = 1;
                                 $media->save();
                             }
                             $my_data['status'] = 200;
@@ -176,12 +176,12 @@ class EscortGalleryController extends AppController
                             if(!$media = $this->media->findByPath('escorts/'.$file_path)) {
 
                                 $mediaRecordId = null;
-                                if($bannerImages = EscortMedia::where('position', '=', 9)->where('user_id', '=', auth()->user()->id)->get()) {
-                                    foreach ($bannerImages as $bannerImage) {
-                                        $bannerImage->default = 0;
-                                        $bannerImage->save();
-                                    }
-                                }
+                                // if($bannerImages = EscortMedia::where('position', '=', 9)->where('user_id', '=', auth()->user()->id)->get()) {
+                                //     foreach ($bannerImages as $bannerImage) {
+                                //         $bannerImage->default = 0;
+                                //         $bannerImage->save();
+                                //     }
+                                // }
 
                                 $data = [
                                     'user_id' => $userId,
