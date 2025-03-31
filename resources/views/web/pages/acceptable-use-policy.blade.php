@@ -1,4 +1,4 @@
-@extends('layouts.web')
+@extends('layouts.tnc')
 @section('style')
     <style>
         .loader {

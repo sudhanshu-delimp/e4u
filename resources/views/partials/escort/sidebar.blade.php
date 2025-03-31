@@ -85,13 +85,13 @@
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png')}}">
                     <span style="{{request()->segment(2) == 'create-profile' ? 'color: #e5365a;' : ''}}">New</span>
                 </a>
-                <a class="collapse-item" href="{{ route('escort.list', 'current') }}">
+                <a class="collapse-item" href="{{ route('escort.list', 'listed') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
-                    <span style="{{request()->segment(2) == 'list' && request()->segment(3) == 'current'  ? 'color: #e5365a;' : ''}}">Current</span>
+                    <span style="{{request()->segment(2) == 'list' && request()->segment(3) == 'listed'  ? 'color: #e5365a;' : ''}}">Listed</span>
                 </a>
-                <a class="collapse-item" href="{{ route('escort.list', 'past') }}">
+                <a class="collapse-item" href="{{ route('escort.list', 'archive') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
-                    <span style="{{request()->segment(2) == 'list' && request()->segment(3) == 'past'  ? 'color: #e5365a;' : ''}}">Past</span>
+                    <span style="{{request()->segment(2) == 'list' && request()->segment(3) == 'archive'  ? 'color: #e5365a;' : ''}}">Archive</span>
                 </a>
             </div>
         </div>
@@ -114,9 +114,9 @@
                     <span style="{{(request()->segment(2) == 'listings' && request()->segment(3) == 'current')  ? 'color: #e5365a;' : ''}}">View</span>
                 </a>
 
-                <a class="collapse-item" href="{{ route('escort.dashboard.listings', 'past')}}">
+                <a class="collapse-item" href="{{ route('escort.dashboard.listings', 'archive')}}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
-                    <span style="{{(request()->segment(2) == 'listings' && request()->segment(3) == 'past')  ? 'color: #e5365a;' : ''}}">Past</span>
+                    <span style="{{(request()->segment(2) == 'listings' && request()->segment(3) == 'archive')  ? 'color: #e5365a;' : ''}}">Archive</span>
                 </a>
 
             </div>

@@ -4912,6 +4912,27 @@ textarea.parsley-error {
 .wcustom-50 {
     width: 50%;
 }
+.tnc-footer {
+    border: none;
+    padding: 0;
+  }
+  .back-tohome {
+    position: absolute;
+    right: 0;
+}
+.back-tohome a {
+    background: #ff3c5f;
+    color: #fff !important;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    margin: 0;
+}
+.no--listing {
+    padding: 100px 15px !important;
+    text-align: center;
+}
 /* new css start 28 march end */
 
 /* Media Query Start*/
@@ -5334,6 +5355,19 @@ div.defult-modal .modal-body h3{
     .profile-sidebar-margin-top .remove_padding_for_carousel video {
         height: 300px;
         object-fit: cover;
+    }
+    .back-tohome {
+        position: unset;
+        margin-top: 0.7rem;
+    }
+    .custom--header {
+        flex-direction: column;
+    }
+    .custom--header a.navbar-brand {
+        margin: 0;
+    }
+    .back-tohome a {
+        font-size: 10px;
     }
 }
 

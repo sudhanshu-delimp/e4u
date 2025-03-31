@@ -213,6 +213,8 @@ input::-webkit-input-placeholder {
 /*accordion style start here*/
 
 
+
+
 @media screen and (max-width: 768px) {
   .regstractionform  {
     position: relative;

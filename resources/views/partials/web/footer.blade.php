@@ -306,7 +306,7 @@
                   <div class="form-check p-0 pl-2">
                      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" required  data-parsley-errors-container="#ch_name" data-parsley-required-message="Please acknowledge the Declaration">
                      <p><label class="form-check-label" for="defaultCheck1">
-                             I declare I am over the Age of Majority and I agree to the <a href="{{url('terms-conditions')}}" target="_blank"><span>Terms and Conditions</span></a> and <a href="{{url('acceptable-usage-policy')}}" target="_blank"><span>Policies</span></a>.
+                             I declare I am over the Age of Majority and I agree to the <a href="{{url('terms-conditions')}}"><span>Terms and Conditions</span></a> and <a href="{{url('acceptable-usage-policy')}}"><span>Policies</span></a>.
                          </label>
                         </p>
                      </label>

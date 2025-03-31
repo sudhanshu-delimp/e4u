@@ -257,10 +257,15 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                 <div class="grid_list_icon_box display_inline_block my-shortlist">
                     <ul class="mb-0 mt-1 pt-1">
                         <li>
-                            <h3 class="preChanges">Escorts Grid View</h3>
+                            <h3 class="preChanges">Escorts Grid View </h3>
                         </li>
                     </ul>
+                    
                 </div>
+            </div>
+
+            <div class="no--listing">
+                        <p><i>There are no listings for your search criteria.</i></p>
             </div>
         </div>
         @endif
