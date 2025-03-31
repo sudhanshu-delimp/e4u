@@ -24,7 +24,7 @@
     pointer-events: none;
 }
 </style>
-<div class="profile_description_banner overlay_parent" style="background: none;">
+<div class="profile_description_banner overlay_parent custom--overlay" style="background: none;">
     <div class="overlay">
         @if($brb)
             <div class="brb_details">
@@ -36,7 +36,7 @@
     {{--
     <div class="profile_description_banner" style="background: url({{$escort->banner_image ? $escort->banner_image : asset('assets/app/img/profiledescrition.png')}});">
         --}}
-        <div class="container profile_pic_holder"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: 100%;">
+        <div class="container profile_pic_holder custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: 100%;">
         <div class="container-fluid back_to_search_btn pt-2" style="text-align: right;">
             <div class="row">
                 <div class="col-12">

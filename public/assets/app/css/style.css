@@ -4933,6 +4933,31 @@ textarea.parsley-error {
     padding: 100px 15px !important;
     text-align: center;
 }
+.custom--overlay .overlay {
+    background-color: transparent;
+    width: 100%;
+}
+.custom--profile:before {
+    content: "";
+    background: #000000a3;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: unset;
+}
+.custom--profile {
+    position: relative;
+}
+.custom--profile .profile_page_title, .custom--profile .profile_page_name_and_phno, .custom--profile .profile_page_location_and_id, .custom--profile ul.profile_page_social_profiles {
+    position: relative;
+    z-index: 2;
+}
+.custom--overlay .brb_details {
+    color: #fff;
+}
 /* new css start 28 march end */
 
 /* Media Query Start*/
