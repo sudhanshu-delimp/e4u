@@ -235,6 +235,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
         </div>
         @else
         <div class="row grid_list_part" id="prosud" style="display: block;">
+            @if(count($escorts) > 0)
             <div class="col-12 align-items-center">
                 <div class="grid_list_icon_box display_inline_block" data-toggle="modal1" data-target="#" data-url="grid-escort-list">
                     <a href="#" class="active" id="grid-modal" data-toggle="tooltip" title="Grid view">
@@ -244,7 +245,6 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                             <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <!--  <img src="{{ asset('assets/app/img/grid-pic.svg')}}"> -->
                     </a>
                 </div>
                 <div class="grid_list_icon_box display_inline_block">
@@ -260,13 +260,13 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                             <h3 class="preChanges">Escorts Grid View </h3>
                         </li>
                     </ul>
-                    
                 </div>
-            </div>
-
-            <div class="no--listing">
-                        <p><i>There are no listings for your search criteria.</i></p>
-            </div>
+            </div>              
+            @else
+                <div class="no--listing">
+                    <p><i>There are no listings for your search criteria.</i></p>
+                </div>
+            @endif
         </div>
         @endif
         <div class="modal defult-modal" id="forhelp">

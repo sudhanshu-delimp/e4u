@@ -185,35 +185,39 @@
         <!-- ================     service provider start here     ========================= -->
        
         <div class="row grid_list_part grid_wishlist_part mb-5" id="v_li_wishlist" style="display: block;">
+        @if(count($escorts) > 0)
             <div class="col-12 align-items-center">
-                <div class="grid_list_icon_box display_inline_block " data-toggle="modal1" data-target="#" data-url="grid-escort-list">
-                    <a href="#" class="active" id="grid-modal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
-                            <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <!--  <img src="{{ asset('assets/app/img/grid-pic.svg')}}"> -->
-                    </a>
-                </div>
-                <div class="grid_list_icon_box display_inline_block">
-                    <a href="#" class=" " id="grid-list">
-                        <!-- <img src="{{ asset('assets/app/img/line.svg')}}"> -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24" viewBox="0 0 27 24" fill="none">
-                            <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
-                <div class="grid_list_icon_box display_inline_block my-shortlist" >
-                    <ul class="mb-0 mt-1 pt-1">
-                        <li><h3>My Shortlist</h3></li>
-                        <li><a href="#" data-toggle="modal" data-target="#forhelp" title="Filters explained">Help <i class="fa fa-question-circle-o" aria-hidden="true"></i></a></li>
-                    </ul>
+                    <div class="grid_list_icon_box display_inline_block " data-toggle="modal1" data-target="#" data-url="grid-escort-list">
+                        <a href="#" class="active" id="grid-modal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                                <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="grid_list_icon_box display_inline_block">
+                        <a href="#" class=" " id="grid-list">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24" viewBox="0 0 27 24" fill="none">
+                                <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="grid_list_icon_box display_inline_block my-shortlist" >
+                        <ul class="mb-0 mt-1 pt-1">
+                            <li><h3>My Shortlist</h3></li>
+                            <li><a href="#" data-toggle="modal" data-target="#forhelp" title="Filters explained">Help <i class="fa fa-question-circle-o" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-       
+        @else
+            <div class="no--listing">
+                <p><i>There are no listings for your search criteria.</i></p>
+            </div>
+        @endif    
+        
         <div class="modal defult-modal" id="forhelp">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content rounded-0">
@@ -335,7 +339,7 @@
 </section>
 <!-- ================       service provider end here        ========================= -->
 <!-- ==============        pagination start here            ====================-->
-<section class="padding_ninty_btm_ninty_px">
+<!-- <section class="padding_ninty_btm_ninty_px">
     <div class="container">
         <div class="space_between_row">
             <nav aria-label="Page navigation example">
@@ -359,7 +363,7 @@
             </nav>
         </div>
     </div>
-</section>
+</section> -->
 <!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
 <div class="modal hh" id="my_legbox" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
