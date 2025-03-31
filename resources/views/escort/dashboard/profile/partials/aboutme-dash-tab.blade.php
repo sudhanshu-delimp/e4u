@@ -1594,7 +1594,7 @@ $(".modalPopup .item4").on('click', function(e) {
        let duplicateImage = srcArray.findIndex(item => item === imageSrc);
        //let duplicateImage = profile_selected_images.findIndex(item => item.mediaId === mediaId);
        if(duplicateImage !== -1){
-            swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
+            swal.fire('', "<p>It's a duplicate image. Please select another image 001.</p>", 'error');
        }
        else{
             let index = profile_selected_images.findIndex(item => item.updatePosition === updatePosition);
