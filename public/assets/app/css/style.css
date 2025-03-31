@@ -4908,6 +4908,11 @@ textarea.parsley-error {
 #myFrontpop {
     background: #000000d6;
 }
+/* new css start 28 march */
+.wcustom-50 {
+    width: 50%;
+}
+/* new css start 28 march end */
 
 /* Media Query Start*/
 @media (max-width: 1500px) {
@@ -5986,6 +5991,12 @@ a.termsandconditions_text_color{
     }
 
     /*profile css End*/
+}
+
+@media screen and (max-width: 568px){
+    h4.custom-mt {
+        margin-top: 1rem;
+    }
 }
 
 @media screen and (max-width: 478px) {

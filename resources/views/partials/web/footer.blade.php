@@ -4,6 +4,7 @@
    list-style: none;
    color: rgb(248, 0, 0)
    }
+   
 </style>
 @endsection
 <footer class="footer_bg_color padding_fifty_top_and_btm">
@@ -22,9 +23,9 @@
                <p>Any price indicated in an Advertiser's Profile relates to their time only and nothing else. Any service offered or whatever else that may occur is a mutual decision between consenting adults and is private between them. It is your responsibility to be cognisant of and to comply with the Local Laws.</p><p>Further details may be found in the Terms and Conditions.</p>
             </div>
             <div class="col footer_text_color_white">
-               <h4>Location </h4>
+               <h4 class="custom-mt">Location </h4>
                <div class="d-flex">
-                  <div class="">
+                  <div class="wcustom-50">
                      <ul class="list-group footer_list_style_none">
                         @foreach(config('escorts.profile.cities') as $key => $city)
                         <li><a href="{{route('find.all', [request()->segment(2),'city'=>$key])}}" class="" id="{{$key}}">{{$city}}</a></li>
@@ -36,12 +37,9 @@
                         <li><a href="{{ url('all-escorts-list') }}">Darwin</a></li>
                         --}}
                   </ul>
-                <h4>Resources</h4>
-                <ul class="list-group footer_list_style_none">
-                    <li><a href="{{('http://www.nationaluglymugs.com.au')}}" target="_blank">NUM</a></li>
-                </ul>
+                
                   </div>
-                  <div class="">
+                  <div class="wcustom-50">
                      <ul class="list-group footer_list_style_none">
                         @foreach(config('escorts.profile.cities') as $key => $city)
                         @if($loop->iteration > 4)
@@ -53,8 +51,19 @@
                         <li><a href="{{ url('all-escorts-list') }}">Perth</a></li>
                         <li><a href="{{ url('all-escorts-list') }}">Sydney</a></li>
                         --}}
-                     </ul><br><br>
-                    <ul class="list-group footer_list_style_none">
+                     </ul>
+                  </div>
+               </div>
+               <h4 class="custom-mt">Resources</h4>
+               <div class="d-flex">
+                  <div class="wcustom-50">
+                  <ul class="list-group footer_list_style_none">
+                    <li><a href="{{('http://www.nationaluglymugs.com.au')}}" target="_blank">NUM</a></li>
+                </ul>
+                
+                  </div>
+                  <div class="wcustom-50">
+                  <ul class="list-group footer_list_style_none">
                        <li><a href="{{('http://www.punterbox.com.au')}}" target="_blank">Punterbox</a></li>
                     </ul>
                   </div>
