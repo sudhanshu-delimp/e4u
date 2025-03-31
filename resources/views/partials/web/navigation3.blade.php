@@ -20,7 +20,7 @@
                         <a class="dropdown-item" href="{{ route('find.all',['gender'=>1]) }}"><img src="{{asset('assets/app/img/male-user.svg')}}">Male</a>
                         <a class="dropdown-item saptate_by_border" href="{{ route('find.all',['gender'=>2]) }}"><img src="{{asset('assets/app/img/couple.svg')}}">Couples</a>
                         <a class="dropdown-item" href="{{ route('find.all',['gender'=>3]) }}"><img src="{{asset('assets/app/img/Vector.svg')}}">Transgender</a>
-
+                        <a class="dropdown-item" href="{{ route('find.all',['gender'=>4]) }}"><img src="{{asset('assets/app/img/male-user.svg')}}">Cross Dresser</a>
                         {{-- <li><a href="{{route('find.all', [request()->segment(2),'city'=>$key])}}" class="" id="{{$key}}">{{$city}}</a></li> --}}
                     </div>
                   </li>
