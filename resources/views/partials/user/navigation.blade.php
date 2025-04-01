@@ -1,5 +1,5 @@
 
-   <nav class="navbar navbar-expand-lg navbar-light main_bg_color">
+   <nav class="navbar navbar-expand-lg navbar-light main_bg_color custom--header">
       <div class="container-fluid manage_header_padding">
          <a class="navbar-brand" href="{{ route('home') }}">
          <img src="{{ asset('assets/app/img/logo.png') }}" width="172" height="61" class="d-inline-block align-top" alt="">

@@ -6,9 +6,10 @@ return [
 			"1" => "Amber",
 			"2" => "Blue",
 			"3" => "Brown",
-			"4" => "Gray",
+			"4" => "Grey",
 			"5" => "Green",
 			"6" => "Hazel",
+			"7" => "Black",
 		],
 		'shaved-type'=>[
 			1=>'Yes',
@@ -269,7 +270,8 @@ return [
 			7 => 'Mixed White and Asian',
 			8 => 'Mixed White and Black African',
 			9 => 'Mixed White and Black Caribbean',
-			10 => 'Other Mixed',
+			10 => 'European and Scandinavian',
+			11 => 'Other Mixed',
 		],
 		'genders' => [
 			'6' => 'Female',

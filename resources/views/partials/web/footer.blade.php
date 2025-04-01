@@ -642,6 +642,16 @@
      });
    });
 </script>
+<script>
+   $(window).on("scroll", function () {
+    if ($(this).scrollTop() > 50) {
+        $(".home--header").addClass("header--active");
+    } else {
+        $(".home--header").removeClass("header--active");
+    }
+});
+</script>
+
 <!-- <script>
    $(".accordion-container").click(function() {
 
@@ -653,6 +663,9 @@
 
 
 </script> -->
+
+
+
 @stack('scripts')
 </body>
 </html>

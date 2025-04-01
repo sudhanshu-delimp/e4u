@@ -4958,6 +4958,18 @@ textarea.parsley-error {
 .custom--overlay .brb_details {
     color: #fff;
 }
+.custom--header, .header--active {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+}
+.header--active {
+    background: #fff;
+    border-bottom: 1px solid #dddddd52;
+}
+.header--active:before {
+    height: 90px !important;
+}
 /* new css start 28 march end */
 
 /* Media Query Start*/

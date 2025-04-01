@@ -1,4 +1,4 @@
-<div class="blue-bg-before">
+<div class="blue-bg-before home--header">
          <nav class="navbar navbar-expand-lg navbar-light blue_and_white_nav_blue_in_small">
          <div class="container-fluid manage_header_padding">
             <a class="navbar-brand" href="{{ route('home') }}">
@@ -131,3 +131,6 @@
       </nav>
 
 </div>
+<script>
+
+</script>
