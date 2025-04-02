@@ -85,11 +85,11 @@
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png')}}">
                     <span style="{{request()->segment(2) == 'create-profile' ? 'color: #e5365a;' : ''}}">New</span>
                 </a>
-                <a class="collapse-item" href="{{ route('escort.list', 'listed') }}">
+                <a class="collapse-item" href="{{ route('escort.list', 'current') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
                     <span style="{{request()->segment(2) == 'list' && request()->segment(3) == 'listed'  ? 'color: #e5365a;' : ''}}">Listed</span>
                 </a>
-                <a class="collapse-item" href="{{ route('escort.list', 'archive') }}">
+                <a class="collapse-item" href="{{ route('escort.list', 'past') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
                     <span style="{{request()->segment(2) == 'list' && request()->segment(3) == 'archive'  ? 'color: #e5365a;' : ''}}">Archive</span>
                 </a>
