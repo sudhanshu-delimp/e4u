@@ -3689,7 +3689,10 @@ progress.dislike::-webkit-progress-value {
 /*Policy page end  here*/
 
 /*footer start here */
-
+.custom--footer {
+    position: absolute;
+    width: 100%;
+}
 .footer_bg_color {
     background: #192a3e;
 }
@@ -4969,6 +4972,16 @@ textarea.parsley-error {
 }
 .header--active:before {
     height: 90px !important;
+}
+.custom--headingbod {
+    border-bottom: unset !important;
+}
+.custom--footer {
+    position: absolute;
+    width: 100%;
+}
+.custom--body-text {
+    min-height: 100vh;
 }
 /* new css start 28 march end */
 

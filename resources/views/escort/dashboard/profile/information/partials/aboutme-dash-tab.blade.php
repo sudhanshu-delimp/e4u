@@ -18,7 +18,7 @@
         @csrf
         <!-- upload video  -->
         <div class="about_me_drop_down_info ">
-            <div class="about_me_heading_in_first_tab fill_profile_headings_global">
+            <div class="about_me_heading_in_first_tab fill_profile_headings_global custom--headingbod">
                 <h2>About me</h2>
             </div>
             <div class="padding_20_all_side pb-0">
@@ -537,7 +537,7 @@
                     <div class="col-lg-12 stage">
                         <div class="form-group row tab-about-me-row-padding">
                             <label class="col-sm-3 font-weight-500 small-icon" for="exampleFormControlSelect1" style="font-size: 18px;">
-                                Stage Names
+                            Create Stage Names
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="You can create as many as you like. Select your Stage Name from the drop down list that will appear in the Profile creator." data-boundary="window">
                             </label>
                             <div class="col-sm-8">
