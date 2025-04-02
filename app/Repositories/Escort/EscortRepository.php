@@ -263,19 +263,13 @@ class EscortRepository extends BaseRepository implements EscortInterface
     {
         //dd($escort_id);
         $plan_type = $this->filter($this->model, $str , $user_id, $escort_id, $userId,$gen);
-       // dd($plan_type->get());
+        //dd($plan_type->get());
         if($user_id) {
             $plan_type = $plan_type->whereHas('shortListed', function($q) use($user_id) {
                 $q->where('add_to_list.user_id', $user_id);
             });
         }
-
-
-        // if($user_id) {
-        //     $collection = $collection->whereHas('shortListed', function($q) use($user_id) {
-        //         $q->where('add_to_list.user_id', $user_id);
-        //     });
-        // }
+        
         if(!empty($escort_id)) {
             $plan_type = $plan_type
             ->whereIn('id', $escort_id);
@@ -330,28 +324,16 @@ class EscortRepository extends BaseRepository implements EscortInterface
     public function filter($collection, $str = [], $user_id, $escort_id, $userId, $gen)
     {
         $age[] = explode('-',$str['age']);
-        //dd($age);
         if(!empty($str['age'])) {
             $age_min = $age[0][0];
             $age_max = $age[0][1];
         }
 
 
-        // $e4u = substr($str['string'],0,5);
-        // $userId = "";
-        // if($e4u == "E4U20") {
-        //     $userId = substr($str['string'],5,6);
-        //     $str['string'] = "";
-
-        // }
-
-
         $mytime = Carbon::now()->format('d-m-Y');
-            //dd($mytime);
 
         $collection = $collection
                    ->where('enabled', 1);
-
         if(!empty($gen))
         {
             $collection = $collection->where('gender','=',$gen);
@@ -363,28 +345,11 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 ->whereIn('id', $escort_id);
         }
 
+        
         if(!empty($str['duration_price']))
         {
-            //$escort->durations()->where('name','=','1 Hour')->first()->pivot->incall_price
 
             $duration_price = $str['duration_price'];
-            // $collection = $collection->with('durations')->where( function($q) use ($duration_price){
-            //     $q->whereHas('durations', function($q) use ($duration_price){
-            //         //$q->with('pivot');
-            //         //$q->wherePivotNotNull('outcall_price');
-
-            //         // $q->where(function($q) use($duration_price) {
-            //         //     $q->with('pivot');
-            //         //     //$q->wherePivotNotNull('outcall_price');
-            //         //     // if($duration_price == 'outcall_price') {
-
-            //         //     //     $q->whereNotNull('outcall_price');
-            //         //     // }
-            //         // });
-            //     })
-            //     ->join('escort_rate', 'escorts.id', '=', 'escort_rate.escort_id')
-            //     ->where('escort_rate.outcall_price', '!=', null);
-            // });
 
             $collection = $collection->where( function($q) use ($duration_price){
                 $q->whereHas('durations', function($q) use ($duration_price){
@@ -405,26 +370,12 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
 
                 });
-                // ->join('escort_rate', 'escorts.id', '=', 'escort_rate.escort_id')
-                // ->where('escort_rate.outcall_price', '!=', null)
-                // ->where('escorts.enabled', '=', 1);
             });
         //    dd($collection->get());
         }
+        
         if(!empty($str['string']))
         {
-
-            //$collection = $collection->where('name','LIKE',"%$str[string]%");
-            // if($collection->count() <= 0 ) {
-            //     $uid = $str['string'];
-            //     $collection = $collection->whereHas('user', function($q) use ($uid){
-
-            //         $q->where('member_id', $uid);
-
-            //     });
-
-            // dd($collection);
-            // }
             $uid = $str['string'];
             $collection = $collection->where(function($q) use ($uid){
                 $q->orWhere('name',$uid);
@@ -436,23 +387,15 @@ class EscortRepository extends BaseRepository implements EscortInterface
                     });
                 });
             });
-            //if($collection->count() <= 0 ) {
-
-
-                // $collection = $collection->whereHas('user', function($q) use ($uid){
-
-
-                // });
-               // dd($collection->get());
-           // }
 
         }
-
+        
         if(!empty($str['city_id']))
         {
             $collection = $collection->where('city_id','=',$str['city_id']);
             //->orWhere('name','LIKE','%'.$str)
         }
+       
         if($str['gender'] != null )
         {
 
@@ -486,7 +429,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 $q->whereIn('services.id', $services);
             });
         }
-
+        
         return $collection;
     }
     public function findByMassageCentre($count = null,$str = null)

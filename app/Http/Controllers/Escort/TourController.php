@@ -181,20 +181,33 @@ class TourController extends Controller
         //dd($tour->id);
         $arr = [];
         //dd($request->cityId);
-        if(!empty($request->stateId)) {
-            foreach($request->stateId as $key => $stateId)
-            {
-                $arr += [$stateId  => [
-                            "profile_id" => (int) $request->escortId[$key],
-                            "start_date" => $tourData['start_date'],
-                            "end_date" => $tourData['end_date'],
-                            "user_id" => auth()->user()->id,
-                            "tour_plan" => $request->tour_plan[$key],
-                            ]
-                        ];
+        // if(!empty($request->stateId)) {
+        //     foreach($request->stateId as $key => $stateId)
+        //     {
+        //         $arr += [$stateId  => [
+        //                     "profile_id" => (int) $request->escortId[$key],
+        //                     "start_date" => $tourData['start_date'],
+        //                     "end_date" => $tourData['end_date'],
+        //                     "user_id" => auth()->user()->id,
+        //                     "tour_plan" => $request->tour_plan[$key],
+        //                     ]
+        //                 ];
+        //     }
+        // }
+           
+        if (!empty($request->stateId)) {
+            
+            foreach ($request->stateId as $key => $stateId) {
+                $arr[$stateId] = [ 
+                    "profile_id" => (int) $request->escortId[$key] ?? null,  // Added safety check
+                    "start_date" => $tourData['start_date'] ?? null,  // Avoid undefined index error
+                    "end_date" => $tourData['end_date'] ?? null,
+                    "user_id" => auth()->id(),
+                    "tour_plan" => $request->tour_plan[$key] ?? null,
+                ];
             }
         }
-        //dd($arr);
+
         $error = true;
 
         if($data = $tour->locations()->sync($arr)) {

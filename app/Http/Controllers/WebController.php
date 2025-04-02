@@ -80,7 +80,6 @@ class WebController extends Controller
             $limit = 25;
         }
         list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
-
         $escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escort_id = [], $userId = null ,$gen);
         //dd($escorts);
         $services = $this->services->all();
