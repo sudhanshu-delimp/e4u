@@ -1,4 +1,4 @@
-<footer class="footer_bg_color padding_fifty_top_and_btm">
+<footer class="footer_bg_color padding_fifty_top_and_btm ">
    <section class="footer_mange_padding">
        <div class="container-fluid">
            <div class="row">

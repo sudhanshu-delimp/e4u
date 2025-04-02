@@ -918,6 +918,11 @@ span.dollar-sign{
 }
 /*tab css end*/
 
+/* New Css 2025 */
+.custom--headingbod {
+    border-bottom: unset !important;
+}
+/* New Css 2025 end */
 
 .available-tab-table .table td{
     white-space: nowrap;

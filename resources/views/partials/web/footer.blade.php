@@ -7,7 +7,7 @@
    
 </style>
 @endsection
-<footer class="footer_bg_color padding_fifty_top_and_btm">
+<footer class="footer_bg_color padding_fifty_top_and_btm custom--footer">
    <section class="footer_mange_padding">
       <div class="container-fluid">
          <div class="row">
