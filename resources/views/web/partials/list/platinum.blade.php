@@ -1,4 +1,4 @@
-<div class="listview_each_section_border_btm silver-sec">
+<div class="listview_each_section_border_btm silver-sec aa">
     <div class="manage_listview_margin_gold_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view list_provide_cruise">
         <div class="row plat_num_row">
             <div class="col-md-12 col-lg-8 col-xl-8 col-sm-12 self-w-73">

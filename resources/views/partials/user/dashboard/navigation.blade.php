@@ -132,12 +132,12 @@
                                 </a>
                                 
                                 <a class="dropdown-item" href="#">
-                                <img class="mr-2 pl-1" src="{{asset('assets/dashboard/img/menu-icon/account-network.png')}}">
+                                <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox.png')}}">
                                     My Legbox
                                 </a>
                                 
                                 <a class="dropdown-item" href="#">
-                                    <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/cellphone-information.png')}}">
+                                    <img class="mr-2 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyNotebox.png')}}">
                                     My Notebox
                                 </a>
                                 

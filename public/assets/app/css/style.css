@@ -4286,7 +4286,7 @@ ul.footerbtn-flex li {
 }
 
 .platinum-sec {
-    border-left: 1px solid;
+    /* border-left: 1px solid; */
 }
 
 .silver-sec {
@@ -4294,9 +4294,11 @@ ul.footerbtn-flex li {
 }
 
 .silver-sec:last-child {
-    border-bottom: 1px solid;
+    /* border-bottom: 1px solid; */
 }
-
+.custom-mb {
+    margin-bottom: 2rem;
+}
 .text {
     position: absolute;
     top: 9.5%;
@@ -4308,7 +4310,10 @@ ul.footerbtn-flex li {
     font-family: 'Poppins';
     font-weight: 700;
     font-size: 14px;
+    display: none;
 }
+
+
 
 .gold {
     top: 50.2%;
@@ -4982,6 +4987,9 @@ textarea.parsley-error {
 }
 .custom--body-text {
     min-height: 100vh;
+}
+.cstm--icon {
+    width: 26px;
 }
 /* new css start 28 march end */
 
