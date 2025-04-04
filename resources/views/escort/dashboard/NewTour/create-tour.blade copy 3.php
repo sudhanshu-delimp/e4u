@@ -1,6 +1,14 @@
 @extends('layouts.escort')
 @section('style')
-
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
+<style type="text/css">
+    .parsley-errors-list {
+    list-style: none;
+    color: rgb(248, 0, 0)
+    }
+</style>
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5">
@@ -31,76 +39,14 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-md-8">
-                <div class="card shadow-sm">
-    <div class="card-body">
-        <form id="locationForm">
-            <!-- Tour Name Input -->
-            <div class="mb-3">
-                <label for="tourName" class="form-label fw-bold">Tour Name</label>
-                <input type="text" id="tourName" name="tour_name" class="form-control" value="{{ old('name', $tour->name) }}" placeholder="Enter Tour Name">
-            </div>
+                    <form id="locationForm" class="container mt-4 p-3 border rounded shadow-sm bg-light">
+                        <div id="locationsContainer" class="mb-3"></div>
 
-            <div id="locationsContainer" class="mb-3">
-            @foreach($tour->locations as $location)
-                <div class="location-group card p-3 mb-3">
-                    <div class="row g-2">
-                        <div class="col-md-4">
-                            <label class="form-label">Location</label>
-                            <select name="locations[{{ $loop->index }}][id]" class="form-select">
-                                @foreach($locations as $loc)
-                                    <option value="{{ $loc['id'] }}" {{ $loc->id == $location->location_id ? 'selected' : '' }}>{{ $loc['name'] }}</option>
-                                @endforeach
-                            </select>
+                        <div class="d-flex gap-2">
+                            <button type="button" id="addLocation" class="btn btn-primary">Add Location</button>
+                            <button type="submit" id="saveButton" class="btn btn-success" disabled>Save</button>
                         </div>
-                        <div class="col-md-3">
-                            <label class="form-label">Start Date</label>
-                            <input type="date" name="locations[{{ $loop->index }}][start_date]" class="form-control" value="{{ $location->start_date }}" required>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label">End Date</label>
-                            <input type="date" name="locations[{{ $loop->index }}][end_date]" class="form-control" value="{{ $location->end_date }}" required>
-                        </div>
-                        <div class="col-md-2">
-                            <button type="button" class="btn btn-danger removeLocation">Remove</button>
-                        </div>
-                    </div>
-
-                    <!-- Profiles -->
-                    <div class="profiles mt-3">
-                        @foreach($location->profiles as $profile)
-                            <div class="profile d-flex align-items-center gap-2 p-2 border rounded">
-                                <select name="locations[{{ $loop->parent->index }}][profiles][{{ $loop->index }}][id]" class="form-select w-25">
-                                    @foreach($profiles as $prof)
-                                        <option value="{{ $prof->id }}" {{ $prof->id == $profile->profile_id ? 'selected' : '' }}>{{ $prof->name }}</option>
-                                    @endforeach
-                                </select>
-                                <select name="locations[{{ $loop->parent->index }}][profiles][{{ $loop->index }}][tour_plan]" class="form-select w-25">
-                                    <option value="1" {{ $profile->tour_plan == 1 ? 'selected' : '' }}>Standard</option>
-                                    <option value="2" {{ $profile->tour_plan == 2 ? 'selected' : '' }}>Premium</option>
-                                    <option value="3" {{ $profile->tour_plan == 3 ? 'selected' : '' }}>Custom</option>
-                                </select>
-                                <button type="button" class="btn btn-danger removeProfile">Remove</button>
-                            </div>
-                        @endforeach
-                    </div>
-
-                    <button type="button" class="btn btn-primary addProfile mt-2">Add Profile</button>
-                </div>
-            @endforeach
-            </div>
-        </form>
-    </div>
-
-    <!-- Card Footer with Buttons -->
-    <div class="card-footer bg-white d-flex gap-3 justify-content-end">
-        <button type="button" id="addLocation" class="btn btn-primary px-4 py-2 rounded">
-            <i class="fas fa-map-marker-alt"></i> Add Location
-        </button>
-        <button type="submit" id="saveButton" class="btn btn-success px-4 py-2 rounded" disabled>
-            <i class="fas fa-save"></i> Save
-        </button>
-    </div>
-</div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -108,6 +54,13 @@
 </div>
 @endsection
 @push('script')
+<!-- file upload plugin start here -->
+<!-- file upload plugin end here -->
+<!-- <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script> -->
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", async function () {
     let locationsContainer = document.getElementById("locationsContainer");
@@ -192,10 +145,10 @@
     </select>
     
     <select name="tour_plan[][]" class="form-select tour-plan-dropdown w-25">
-        <option value="1" >Platinum</option>
-        <option value="2">Gold</option>
-        <option value="3" >Silver</option>
-        <option value="4">Free</option>
+        <option value="">Select Tour Plan</option>
+        <option value="standard">Standard</option>
+        <option value="premium">Premium</option>
+        <option value="custom">Custom</option>
     </select>
 
     <span class="profile-dates text-muted">Start: ${startDate}, End: ${endDate}</span>
@@ -368,94 +321,6 @@ function updateProfileButtonState(locationGroup) {
 
     addProfileButton.disabled = !(startDate && endDate);
 }
-
-    saveButton.addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent form submission
-        let formData = collectFormData();
-        if (!formData) {
-            alert("Please fill in all required fields before saving.");
-            return;
-        }
-        console.log("Collected Form Data:", formData);
-        // Example: Submit via AJAX
-        fetch("{{ route('account.save_tour') }}", {
-            method: "POST",
-            headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: JSON.stringify(formData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        if (data.success) {
-            alert("Tour saved successfully!");
-           
-        } else {
-            alert("Error saving tour: " + data.message);
-        }
-        })
-        .catch(error => console.error("Error:", error));
-    });
-
-    function collectFormData() {
-        let tourName = document.getElementById("tourName").value.trim();
-        if (!tourName) {
-            alert("Please enter a Tour Name.");
-            return null;
-        }
-
-        let locations = [];
-        document.querySelectorAll(".location-group").forEach(locationGroup => {
-            let locationId = locationGroup.querySelector(".location-dropdown").value;
-            let startDate = locationGroup.querySelector(".start-date").value;
-            let endDate = locationGroup.querySelector(".end-date").value;
-
-            if (!locationId || !startDate || !endDate) {
-                alert("Please fill in all location details.");
-                return null;
-            }
-
-            let profiles = [];
-            locationGroup.querySelectorAll(".profile").forEach(profileDiv => {
-                let profileId = profileDiv.querySelector(".profile-dropdown").value;
-                let tourPlan = profileDiv.querySelector(".tour-plan-dropdown").value;
-
-                if (!profileId || !tourPlan) {
-                    alert("Please select a profile and tour plan.");
-                    return null;
-                }
-
-                profiles.push({
-                    profile_id: profileId,
-                    tour_plan: tourPlan
-                });
-            });
-
-            if (profiles.length === 0) {
-                alert("Each location must have at least one profile.");
-                return null;
-            }
-
-            locations.push({
-                location_id: locationId,
-                start_date: startDate,
-                end_date: endDate,
-                profiles: profiles
-            });
-        });
-
-        if (locations.length < 2) {
-            alert("You must add at least two locations.");
-            return null;
-        }
-
-        return {
-            tour_name: tourName,
-            locations: locations
-        };
-    }
 });
 
 </script>
