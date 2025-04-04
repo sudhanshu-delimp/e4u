@@ -141,7 +141,7 @@
                                                                 <li>
                                                                     Discount only applies:
                                                                 </li>
-                                                                <ol type="a" class="">
+                                                                <ol type="a" class="custom--substyle">
                                                                     <li>to a single transaction; and</li>
                                                                     <li>from day 22.</li>
                                                                 </ol>
@@ -476,7 +476,7 @@
                                                 <div class="card border-0 mb-0 pb-0">
                                                     <div class="card-body border-0 p-0 mt-2">
                                                         <p>For every [$value (200.00)] spent by an Escort, Escorts4U will apply one day of free
-                                                            advertising. When creating your Profile or Tour, the program is automatically applied.</p>
+                                                        advertising. When creating your Profile or Tour, the program is automatically applied.</p>
                                                     </div>
                                                 </div>
 

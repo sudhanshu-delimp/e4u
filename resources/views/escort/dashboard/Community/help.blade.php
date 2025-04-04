@@ -33,7 +33,7 @@
                             <div class="container-fluid" style="padding: 0px 0px;">
                                 <!-- Page Heading -->
                                 <div class="d-sm-flex align-items-center justify-content-between">
-                                    <div class="v-main-heading h3">Help for Advertisers
+                                    <div class="v-main-heading h3">Help & Tips
                                         <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes">
                                             <b>Help?</b></h6>
                                     </div>
@@ -45,7 +45,7 @@
                                             <li>Use these information pages for any questions you may have about the
                                                 Services.
                                             </li>
-                                            <li>If you can't find the answer, raise a <a href='escort-dashboard/submit_ticket'>Support Ticket</a> and we will get
+                                            <li>If you can't find the answer, raise a <a href='/submit_ticket'>Support Ticket</a> and we will get
                                                 back to you.
                                             </li>
                                         </ol>

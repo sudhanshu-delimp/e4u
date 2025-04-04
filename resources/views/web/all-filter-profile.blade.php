@@ -384,11 +384,15 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                 @endswitch
             @endforeach
         </div>
-        <div class="grid list-view" style="display: none">
+        <div class="grid list-view " style="display: none">
             @foreach($escorts as $plan_type => $members)
             @switch($plan_type)
             @case(1)
         <div class="platinum-sec">
+        <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png')}}" data-toggle="tooltip" title="Platinum Members - {{count($members)}} {{ count($members) == 1 ? 'Listing' : 'Listings' }}">
+                        {{count($members)}}
+                        <span class="bordertopp"> {{ count($members) == 1 ? 'Listing' : 'Listings' }}</span>
+                    </div>
         <div class="text">
             @if(count($members) > 1)
             {{ count($members) }} Listings
@@ -402,7 +406,9 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
         </div>
             @break
             @case(2)
-            <div class="platinum-sec">
+            <div class="platinum-sec gold">
+            <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png')}}" data-toggle="tooltip" title="Gold Members - {{count($members)}} {{ count($members) == 1 ? 'Listing' : 'Listings' }}">{{count($members)}}<span class="bordertopp">{{ count($members) == 1 ? 'Listing' : 'Listings' }}</span></div>
+
         <div class="text gold">
             @if(count($members) > 1)
             {{ count($members) }} Listings
@@ -418,6 +424,8 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
             @break
             @case(3)
             <div class="listview_each_section_border_btm silver_card">
+            <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/dark_silver.png')}}" data-toggle="tooltip" title="Silver Members - {{count($members)}} {{ count($members) == 1 ? 'Listing' : 'Listings' }}">{{count($members)}}<span class="bordertopp">{{ count($members) == 1 ? 'Listing' : 'Listings' }}</span></div>
+
                 <div class="row  mx-md-n2">
                     @foreach($members as $escort)
                     @include('web.partials.list.silver')

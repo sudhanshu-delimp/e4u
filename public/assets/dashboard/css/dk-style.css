@@ -922,6 +922,23 @@ span.dollar-sign{
 .custom--headingbod {
     border-bottom: unset !important;
 }
+.cstm--icon {
+    width: 30px;
+}
+ol.custom--substyle{
+    list-style-type: none; /* remove default list style */
+    counter-reset: note-counter;
+    padding-left: 0;
+}
+ol.custom--substyle li{
+  position: relative;
+  padding-left: 1.5em;
+  text-indent: -1.5em; /* align sub-paragraph properly */
+  counter-increment: note-counter;
+}
+ol.custom--substyle li:before {
+    content: "(" counter(note-counter, lower-alpha) ") ";
+}
 /* New Css 2025 end */
 
 .available-tab-table .table td{
@@ -2363,7 +2380,7 @@ padding-bottom:80px;
     font-size: 14px;
 }
 .list-sec .table thead th {
-    border-bottom: 0px solid #e3e6f0;
+    /* border-bottom: 0px solid #e3e6f0; */
     font-weight: 500;
 }
 .list-sec .table td, .table th {
