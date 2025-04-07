@@ -326,3 +326,4 @@ Route::post('escort-state-name/{id}',[TourController::class, 'nameByState'])->na
 Route::get('/get-account-locations', [TourController::class, 'getAccountLocations'])->name('account.locations');
 Route::get('/get-account-profiles', [TourController::class, 'getAccountProfiles'])->name('account.location_profiles');
 Route::post('/save-account-tour', [TourController::class, 'saveAccountTour'])->name('account.save_tour');
+Route::post('/update-account-tour/{id}', [TourController::class, 'updateAccountTour'])->name('account.update_tour');

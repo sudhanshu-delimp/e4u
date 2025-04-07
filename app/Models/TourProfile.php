@@ -14,4 +14,9 @@ class TourProfile extends Model
     {
         return $this->belongsTo(TourLocation::class);
     }
+
+    public function escort()
+    {
+        return $this->belongsTo(Escort::class);
+    }
 }
