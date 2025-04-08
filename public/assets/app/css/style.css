@@ -122,7 +122,23 @@ div.tip div {
     text-decoration: none;
 	background-color: rgb(12, 34, 61);
 }
-
+a.back--search {
+    position: fixed;
+    right: 15px;
+    border-radius: 3px;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    z-index: 2;
+    top: 15%;
+}
+a.back--search .previous_icon {
+    background: #ff3c5f;
+}
+a.back--search .previous_icon i {
+    position: relative;
+    top: -1px;
+}
 .max_width_for_content {
     max-width: 1920px;
     position: relative;
@@ -3906,7 +3922,7 @@ ul.footerbtn-flex li {
 .next-preview-fixed>div>div {
     position: fixed;
     z-index: 999;
-    top: 50%;
+    top: 30%;
 }
 
 .next-preview-fixed>div>div.previous_btn_profile {
