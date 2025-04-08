@@ -37,7 +37,7 @@
                                     <button class="input-group-text border-0 remove_bg_color_of_search_btn" id="search-addon" type="submit">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
-                                    <input type="search" name="name" class="form-control remove_border_btm rounded " placeholder="Search by name / Member ID" aria-label="Search" aria-describedby="search-addon" value="{{ request()->get('name') }}">
+                                    <input type="search" name="name" class="form-control remove_border_btm rounded " placeholder="aaSearch by name / Member ID" aria-label="Search" aria-describedby="search-addon" value="{{ request()->get('name') }}">
                                 </div>
                             </div>
                             <div class="display_inline_block  mr-1 item_dis">
@@ -190,7 +190,7 @@
                     @include('web.partials.grid.massage-gold')
                     {{-- <div class="col-lg col-md-6 col-sm-6 mb-5">
                         <div class="five_column_content_top d-flex justify-content-between wish_span" style="z-index: 1;width: 90%;">
-                            <span><img src="{{ asset('assets/app/img/pro_tect.svg')}}" class="" title="This advertiser is E4U verified"></span>
+                            
                             <span class="card_tit second">Juli test</span>
                             <span class="add_to_favrate"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span>
                         </div>

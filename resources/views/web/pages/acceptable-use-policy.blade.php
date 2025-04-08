@@ -49,13 +49,13 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <p>
-                                            These acceptable usage policy guidelines <strong>(Guidelines)</strong> describe the
-                                            proper kinds of conduct and prohibited uses of Escorts4U services <strong>(Services)</strong>.
+                                            These acceptable usage policy guidelines (<b>Guidelines</b>) describe the
+                                            proper kinds of conduct and prohibited uses of Escorts4U services (<b>Services</b>).
                                             These Guidelines are not
                                             exhaustive and Escorts4U reserves the right to modify them at any time,
                                             effective upon posting of the modified Guidelines to the Escorts4U website
                                             at: <a href="https://www.e4u.com.au/">www.e4u.com.au</a>
-                                            <strong>(Website)</strong>.
+                                            (<b>Website</b>).
                                         </p>
                                         <p>
                                             By registering for and using the Services, and thereby accepting the Terms
@@ -64,7 +64,7 @@
                                             violation of the Guidelines may result in the termination or suspension of
                                             your Account in
                                             the manner described in the Escorts4U Terms and Conditions
-                                            <strong>(Terms)</strong>. These Guidelines
+                                            (<b>Terms</b>). These Guidelines
                                             are to be read in conjunction with the <a
                                                 href="{{ url('terms-conditions')}}">Terms</a>.
                                         </p>
@@ -101,8 +101,8 @@
                                                     for:</p>
                                                 <ul>
                                                     <li>
-                                                        <p class="mb-0">your use of the Services (see also <a href="{{ url('covid-19-statement')}}">Covid-19
-                                                                Statement</a>)</p>
+                                                        <p class="mb-0">your use of the Services (see also Covid-19
+                                                                Statement)</p>
                                                     </li>
                                                     <li>
                                                         <p class="mb-0">any and all content that you display, upload,
@@ -322,9 +322,7 @@
                                                                 href="{{ url('terms-conditions')}}"><span
                                                                     style="color: #FF3C5F;">Terms</span></a>,
                                                             incorporating this policy, by publishing prohibited content
-                                                            or images (see also <a
-                                                                href="{{ url('law-enforcement')}}"><span
-                                                                    style="color: #FF3C5F;">Law Enforcement &amp; Trafficking Policy</span></a>).
+                                                            or images (see also Law Enforcement &amp; Trafficking Policy).
                                                         </p>
                                                     </li>
                                                 </ul>
@@ -367,7 +365,7 @@
                                             We may change or modify this Policy in the future. We will note the date
                                             that revisions were last made at the bottom of this page. Any revision will
                                             take effect upon its posting. It is your responsibility to check the <a
-                                                href="{{ url('terms-conditions')}}">Terms and Conditions</a>and this
+                                                href="{{ url('terms-conditions')}}"> Terms and Conditions</a> and this
                                             Policy from time to time to review the most current version.
                                         </p>
                                         <p>

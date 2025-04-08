@@ -1,7 +1,7 @@
 <div class="col-lg col-md-6 col-sm-6 mb-5">
     <div class="six_column_content_top d-flex justify-content-between mid_tit wish_span" style="z-index: 1;width: 90%;">
        <span>
-       <img src="{{asset('assets/img/verified media.png')}}" class="" title="This Escort's Media has been verified by E4U" style="width: 12px;height: 12px;"></span>
+       <img src="{{asset('assets/img/verified media.png')}}" class="custom-sheild" title="This Escort's Media has been verified by E4U" style="width: 12px;height: 12px;"></span>
        <span class="six_column_fonts_top">{{ substr($escort->name,0,15)}}</span>
        
         @if(auth()->user())

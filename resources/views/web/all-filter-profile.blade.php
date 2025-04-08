@@ -127,10 +127,10 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                         <div class="display_inline_block mb-1 mr-2">
                             <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown" name="price" value="{{ request()->get('price') }}">
                                 <option value="" selected >Any Price</option>
-                                <option value="200"{{ (request()->get('price') == '200') ? 'selected' : '' }}>Up to $ 200</option>
-                                <option value="350"{{ (request()->get('price') == '350') ? 'selected' : '' }}>Up to $ 350</option>
+                                <option value="300"{{ (request()->get('price') == '300') ? 'selected' : '' }}>Up to $ 300</option>
                                 <option value="500"{{ (request()->get('price') == '500') ? 'selected' : '' }}>Up to $ 500</option>
-                                <option value="501"{{ (request()->get('price') == '501') ? 'selected' : '' }}>Over $ 500</option>
+                                <option value="800"{{ (request()->get('price') == '800') ? 'selected' : '' }}>Up to $ 800</option>
+                                <option value="800"{{ (request()->get('price') == '800') ? 'selected' : '' }}>Over $ 800</option>
                             </select>
                         </div>
                         <div class="display_inline_block mb-1 mr-2">

@@ -11,8 +11,29 @@
    <section class="footer_mange_padding">
       <div class="container-fluid">
          <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                <a href="#"><img src="{{ asset('assets/app/img/logo.png') }}" class="img-fluid" alt="logo"></a>
+            </div>
+            <div class="col-md-6">
+            <ul class="footer_list_style_none footerbtn-flex custom--foter-login">
+                  <li class="dropdown">
+                     <a style="padding: 5px 15px;width:120px; text-align: center;" class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="{{ route('register') }}">Register</a>
+                     <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                        <a class="dropdown-item" href="{{ route('advertiser.register') }}">Advertiser</a>
+                        <a class="dropdown-item" href="{{ route('register') }}">Viewer</a>
+                        <a class="dropdown-item" href="{{ route('agent.register')}}">Agent </a>
+                     </div>
+                  </li>
+                  <li class="dropdown">
+                     <a style="padding: 5px 15px; width:120px; text-align: center;" class="nav-link dropdown-toggle   footer_login_btn primery_color" id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="{{ route('register') }}">Log in</a>
+                     <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
+                        <a class="dropdown-item" href="{{ route('advertiser.login') }}">Advertiser</a>
+                        <a class="dropdown-item" href="{{ route('viewer.login') }}">Viewer</a>
+                        <a class="dropdown-item" href="{{ route('agent.login') }}">Agent</a>
+                        {{--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#global-login-modal">I am a Viewer</a>--}}
+                     </div>
+                  </li>
+               </ul>
             </div>
          </div>
          <div class="row">
@@ -54,20 +75,7 @@
                      </ul>
                   </div>
                </div>
-               <h4 class="custom-mt">Resources</h4>
-               <div class="d-flex">
-                  <div class="wcustom-50">
-                  <ul class="list-group footer_list_style_none">
-                    <li><a href="{{('http://www.nationaluglymugs.com.au')}}" target="_blank">NUM</a></li>
-                </ul>
-                
-                  </div>
-                  <div class="wcustom-50">
-                  <ul class="list-group footer_list_style_none">
-                       <li><a href="{{('http://www.punterbox.com.au')}}" target="_blank">Punterbox</a></li>
-                    </ul>
-                  </div>
-               </div>
+            
             </div>
             <div class="col footer_text_color_white">
                <h4>Legal</h4>
@@ -116,26 +124,23 @@
                   </div>
                </div>
             </div>
-            <div class="col dk-right">
-               <ul class="footer_list_style_none footerbtn-flex mt-lg-5">
-                  <li class="dropdown">
-                     <a style="padding: 5px 15px;width:120px; text-align: center;" class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="{{ route('register') }}">Register</a>
-                     <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
-                        <a class="dropdown-item" href="{{ route('advertiser.register') }}">Advertiser</a>
-                        <a class="dropdown-item" href="{{ route('register') }}">Viewer</a>
-                        <a class="dropdown-item" href="{{ route('agent.register')}}">Agent </a>
-                     </div>
-                  </li>
-                  <li class="dropdown">
-                     <a style="padding: 5px 15px; width:120px; text-align: center;" class="nav-link dropdown-toggle   footer_login_btn primery_color" id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="{{ route('register') }}">Log in</a>
-                     <div class="dropdown-menu register_dropdown" aria-labelledby="navbarDropdownn">
-                        <a class="dropdown-item" href="{{ route('advertiser.login') }}">Advertiser</a>
-                        <a class="dropdown-item" href="{{ route('viewer.login') }}">Viewer</a>
-                        <a class="dropdown-item" href="{{ route('agent.login') }}">Agent</a>
-                        {{--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#global-login-modal">I am a Viewer</a>--}}
-                     </div>
-                  </li>
+            <div class="col dk-right custom--resurce">
+            <h4>Resources</h4>
+
+         <div class="d-flex footer_text_color_white">
+               <div class="wcustom-100">
+               <ul class="list-group footer_list_style_none ">
+               <li><a href="{{('https://agencymanagement.com.au')}}" target="_blank">Agency Management</a></li>
+               <li><a href="{{('http://www.nationaluglymugs.com.au')}}" target="_blank">NUM</a></li>
+               <li><a href="{{('http://www.peamsaustralia.com.au')}}" target="_blank">PEAMS</a></li>
+               <li><a href="{{('http://www.punterbox.com.au')}}" target="_blank">Punterbox</a></li>
+                  
                </ul>
+               
+               </div>
+               
+            </div>
+               
             </div>
          </div>
       </div>
@@ -282,10 +287,10 @@
             </div>
             <div class="modal-body">
                <h5 class="modal-title">User Agreement</h5>
-               <p>This Website contains sexually explicit material <b>(Explicit Material).</b> Do NOT continue if:</p>
+               <p>This Website contains sexually explicit material (<b>Explicit Material</b>). Do NOT continue if:</p>
                <ol class="pl-3">
                   <li>You are not at least 18 years of age or the age of majority in any jurisdiction that
-                     you view the Explicit Material <b>(Age of Majority)</b>.
+                     you view the Explicit Material (<b>Age of Majority</b>).
                   </li>
                   <li>The Explicit Material offends you.</li>
                   <li>Viewing the Explicit Material is not legal in the location where you view it.</li>

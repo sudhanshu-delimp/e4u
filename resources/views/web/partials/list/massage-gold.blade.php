@@ -15,7 +15,7 @@
                                 </span>
                             </div> --}}
                             <div class="verify_image">
-                                <img src="{{ asset('assets/app/img/verifyimage.png')}}">
+                                <img src="{{ asset('assets/app/img/verifyimage.png')}}" class="custom-sheild">
                             </div>
                         </div>
                         </a>

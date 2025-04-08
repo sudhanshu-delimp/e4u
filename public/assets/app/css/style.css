@@ -2949,7 +2949,7 @@ a.admin-login:hover {
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     gap: 15px;
-    width: 244px;
+    width: 304px;
 }
 
 .search_btn_profile * {
@@ -3725,12 +3725,13 @@ progress.dislike::-webkit-progress-value {
     color: white;
 }
 
-.footer_text_color_white h4 {
+.footer_text_color_white h4, .custom--resurce h4  {
     font-family: Montserrat;
     font-size: 15px;
     font-weight: 700;
     line-height: 24px;
     padding-bottom: 10px;
+    color: #fff;
 }
 
 .footer_text_color_white ul li {
@@ -3826,7 +3827,7 @@ progress.dislike::-webkit-progress-value {
 }
 
 .footer_mange_padding .row .col.dk-right {
-    max-width: 150px;
+    max-width: 180px;
 }
 
 .footer_mange_padding .row .col:nth-child(3) {
@@ -3836,9 +3837,19 @@ progress.dislike::-webkit-progress-value {
 .footer_mange_padding .row .col:nth-child(4) {
     max-width: 21%;
 }
-
+.custom--foter-login {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+.wcustom-100 {
+    width: 100%;
+}
+img.custom-sheild {
+    opacity: 0;
+}
 .footer_mange_padding .container-fluid>.row>.col:first-child {
-    padding-right: 3% !important;
+    padding-right: 2% !important;
 }
 
 .footer_mange_padding .row .col:nth-child(4) .row>div:first-child,

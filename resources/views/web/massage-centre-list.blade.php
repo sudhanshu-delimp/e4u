@@ -29,7 +29,8 @@
                 <form method="" action="">
                     <div class="row">
                         <div class="col-md-4">
-                            <h5 class="normal_heading">Search Filters</h5>
+                            <h5 class="normal_heading mb-0">Search Filters</h5>
+                            <span style="color:#FF3349">Listings reshuffle every two hours. </span>
                         </div>
                         <div class="col-md-8 ryt_srch_btn">
                             <div class="display_inline_block pad_ryt">
@@ -37,7 +38,7 @@
                                     <button class="input-group-text border-0 remove_bg_color_of_search_btn" id="search-addon" type="submit">
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                     </button>
-                                    <input type="search" name="name" class="form-control remove_border_btm rounded " placeholder="Search by name / Member ID" aria-label="Search" aria-describedby="search-addon" value="{{ request()->get('name') }}">
+                                    <input type="search" name="name" class="form-control remove_border_btm rounded " placeholder="Search by Member ID or Business Name" aria-label="Search" aria-describedby="search-addon" value="{{ request()->get('name') }}">
                                 </div>
                             </div>
                             <div class="display_inline_block  mr-1 item_dis">
