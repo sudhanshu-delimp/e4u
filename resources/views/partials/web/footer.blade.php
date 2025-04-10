@@ -149,8 +149,10 @@
       <div class="footer_copy_right">
          <div class="row">
             <div class="col-lg-9 col-md-9 footer_text_color_white">
-               &copy; E4U . 2024
+               <div class="custom--copyryt">
+               <span>E4U . 2024</span>  <span>|</span> <div><a href="#" class="cook--seting">Cookie Settings</a></div> <span>|</span>
                <a class="admin-login" href="{{ route('admin.login') }}">Login as Admin</a>
+               </div>
             </div>
             <div class="col-lg-3 col-md-3 manage_alments_in_ds text-right">
                <span class="footer_text_color_white">Follow us:</span>
@@ -324,6 +326,92 @@
          </div>
       </div>
    </div>
+
+   <!-- Poup -->
+      <div id="privacy-popup" class="popup-overlay custom--cookie--popup">
+         <div class="popup-content">
+            <div class="popup--header">
+               <h2>Privacy Preference Center</h2>
+               <a id="close-popup" class="close-btn">×</a>
+            </div>
+         <div class="popup--content--area">
+            <p>When you visit any website, it may store or retrieve information on your browser, mostly in
+            the form of cookies. This information might be about you, your preferences or your device
+            and is mostly used to make the website work as you expect it to. The information does not
+            usually directly identify you, but it can give you a more personalised web experience.
+            Because we respect your right to privacy, you can choose not to allow some types of
+            cookies. Click on the different category headings to find out more and change our default
+            settings. However, blocking some types of cookies may impact your experience with this
+            Website and our service offering.</p>
+            <a href="#">More information</a>
+
+            <div class="btn-group">
+            <button class="btn allow">Allow All</button>
+            </div>
+
+                  <div class="consent-section">
+               <h3>Manage Consent Preferences</h3>
+
+               <div class="accordion-item">
+               <div class="accordion-header">
+               <span>Functional Cookies</span>
+               <label class="switch">
+               <input type="checkbox">
+               <span class="slider round"></span>
+               </label>
+               </div>
+               <div class="accordion-content">
+               <p>These cookies enable the W ebsite to provide enhanced functionality and personalisation. They may be set by us or by third party providers whose services we have added to our pages
+(see Concierge Services). If you do not allow these cookies then some or all of these services may not function properly.</p>
+               </div>
+               </div>
+
+               <div class="accordion-item">
+               <div class="accordion-header">
+               <span>Strictly Necessary Cookies <strong class="always-active">Always Active</strong></span>
+               </div>
+               <div class="accordion-content">
+               <p>These cookies are necessary for the Website to function and cannot be switched off in our systems. They are usually only set in response to actions made by you which amount to a request for services, such as setting your privacy preferences, logging in, selecting filters within the Advertiser Home Page or filling in any forms. You can set your browser to block or alert you about these cookies, but some parts of the Website may not then work. These cookies do not store any personally identifiable information about you.</p>
+               </div>
+               </div>
+
+               <div class="accordion-item">
+               <div class="accordion-header">
+               <span>Performance Cookies</span>
+               <label class="switch">
+               <input type="checkbox">
+               <span class="slider round"></span>
+               </label>
+               </div>
+               <div class="accordion-content">
+               <p>These cookies allow us to count visits and traffic sources so we can measure and improve the performance of the Website. They help us to know which pages are the most and least popular and see how visitors move around the Website. All information these cookies collect is aggregated and therefore anonymous. If you do not allow these cookies we will not know when you have visited our Website, and will not be able to monitor its performance.</p>
+               </div>
+               </div>
+
+               <div class="accordion-item">
+               <div class="accordion-header">
+               <span>Targeting Cookies</span>
+               <label class="switch">
+               <input type="checkbox">
+               <span class="slider round"></span>
+               </label>
+               </div>
+               <div class="accordion-content">
+               <p>These cookies may be set through our Website by our advertising partners (as and when they are appointed). They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites. They do not store directly personal information, but are based on uniquely identifying your browser and internet device. If you do not allow these cookies, you will experience less targeted advertising.</p>
+               </div>
+               </div>
+               </div>
+
+
+         </div>
+
+         <div class="footer-buttons">
+         <button class="btn reject">Reject All</button>
+         <button class="btn confirm">Confirm My Choices</button>
+         </div>
+         </div>
+      </div>
+    <!--  -->
 </footer>
 </section>
 <script src="{{ asset('assets/app/js/jquery-3.6.0.min.js') }}"></script>
@@ -656,7 +744,26 @@
     }
 });
 </script>
+<script>
+jQuery(document).ready(function(){
+jQuery('.custom--cookie--popup .close-btn').click(function(){
+jQuery('.custom--cookie--popup').removeClass('cookie--activate');
+});	
+jQuery('a.cook--seting').click(function(){
+jQuery('.custom--cookie--popup').addClass('cookie--activate');
+});	
+});
 
+
+$(".accordion-header").on("click", function () {
+  const $parent = $(this).parent();
+
+  // Toggle only if it has content (i.e. not Strictly Necessary which is always active)
+  if ($parent.find(".accordion-content").length) {
+    $parent.toggleClass("active");
+  }
+});
+</script>
 <!-- <script>
    $(".accordion-container").click(function() {
 

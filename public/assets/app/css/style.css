@@ -3032,17 +3032,29 @@ a.admin-login:hover {
 }
 
 .table_border_dash {
-    border: 1px solid #0C223D;
+    /* border: 1px solid #0C223D; */
 }
-
+.table_border_dash tbody {
+    border: 1px solid #0c223d;
+}
 .table_border_dash_left {
 
     border-right: 1px dashed #0C223D
 
 }
+.margin_zero_for_table .col-lg-4:first-child .table_border_dash thead {
+    border-left: 1px solid #0c223d;
+}
+.margin_zero_for_table .col-lg-4:last-child .table_border_dash tbody {
+    border-right-width: 1px;
+  }
 .table_border_dash th {
     border-bottom-color: #0C223D !important;
 }
+.table_border_dash tbody {
+    border-right:
+  2px solid #0c223d;
+  }
 .table_border_solid_right {
 
     border-left: 1px solid #AEAEAE;
@@ -3051,7 +3063,8 @@ a.admin-login:hover {
     border-right: 2px solid #fff;
 }
 .margin_zero_for_table .col-lg-4:last-child .table_border_dash thead {
-    border-right: unset;
+    border-right-color: #0c223d;
+  border-right-width: 1px;
 }
 .table_border_dash td {
     /* padding:4px; */
@@ -5030,6 +5043,254 @@ textarea.parsley-error {
 }
 .cstm--icon {
     width: 26px;
+}
+.custom--copyryt {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.custom--cookie--popup {
+    display: block;
+    background: red;
+}
+
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+
+.btn-group .btn,
+.footer-buttons .btn {
+  margin: 10px 5px 0;
+  padding: 10px 15px;
+  background-color: #e6007e;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+
+/* Toggle switch style */
+.custom--cookie--popup .switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+}
+.custom--cookie--popup .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.custom--cookie--popup .slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+.custom--cookie--popup .slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+.custom--cookie--popup input:checked + .slider {
+  background-color: #e6007e;
+}
+.custom--cookie--popup input:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+.custom--cookie--popup .consent-section {
+  font-family: sans-serif;
+  margin-top: 20px;
+}
+
+.custom--cookie--popup .accordion-item {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
+}
+
+.custom--cookie--popup .accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.custom--cookie--popup .accordion-header span {
+  font-weight: bold;
+  flex: 1;
+}
+
+.custom--cookie--popup .always-active {
+  color: #ff3c5f;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.custom--cookie--popup .accordion-content {
+  display: none;
+  padding: 10px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Show content when open */
+.accordion-item.active .accordion-content {
+  display: block;
+}
+
+/* Toggle switch style */
+.custom--cookie--popup .switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+}
+.custom--cookie--popup .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.custom--cookie--popup .slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+.custom--cookie--popup .slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+.custom--cookie--popup input:checked + .slider {
+  background-color: #ff3c5f;
+}
+.custom--cookie--popup input:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+.custom--cookie--popup .footer-buttons {
+    border-top: 1px solid #e9e9e9;
+    padding: 15px 30px 15px 30px;
+    background: #0c223d;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+.custom--cookie--popup .footer-buttons button, 
+.custom--cookie--popup .btn-group button{
+    margin: 0;
+    background-color: #ff3c5f;
+}
+.popup--header {
+    padding: 15px 30px 15px 30px;
+    background: #0c223d;
+    border-bottom: 1px solid #e9e9e9;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.popup--header h2 {
+    color: #fff;
+    line-height: 1.1;
+    margin: 0;
+    font-size: 20px;
+    width: 100%;
+    font-weight: 600;
+}
+.popup--content--area {
+    overflow-y: auto;
+    height: 50vh;
+    padding: 20px 30px 20px 30px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+.cookie--activate {
+    display: flex;
+}
+.custom--cookie--popup .close-btn {
+    background: transparent;
+    box-shadow: unset !important;
+    padding: 0;
+    font-size: 27px;
+    height: max-content !important;
+    border: none;
+    transform: scale(1.5);
+    color: #ff3c5f !important;
+    width: max-content;
+    cursor: pointer;
+}
+.custom--cookie--popup .popup-content {
+    background: white;
+    width: 500px;
+    max-height: 90vh;
+    position: relative;
+    border-radius: 2px;
+    font-family: sans-serif;
+    overflow: hidden;
+    box-shadow: 0px 2px 10px -3px #999;
+}
+.custom--cookie--popup .popup--content--area p {
+    margin: 0;
+    color: #212529;
+    font-size: 14px;
+}
+.custom--cookie--popup .popup--content--area a {
+    color: #ff3c5f;
+    margin-bottom: 1.5rem;
+    text-decoration: underline;
+    margin-top: 5px;
+    font-size: 14px;
+}
+.custom--cookie--popup .consent-section h3 {
+  font-size: 16px;
+    font-weight: 600;
+}
+/* width */
+.popup--content--area::-webkit-scrollbar {
+  width: 10px;
+}
+/* Handle */
+.popup--content--area::-webkit-scrollbar-thumb {
+  background: #d8d8d8; 
+  border-radius: 10px;
+}
+.custom--cookie--popup .accordion-header span {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    flex: 1;
+    font-size: 15px;
+}
+.custom--copyryt a {
+    color: #fff;
 }
 /* new css start 28 march end */
 
