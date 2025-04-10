@@ -132,7 +132,7 @@
                <ul class="list-group footer_list_style_none ">
                <li><a href="{{('https://agencymanagement.com.au')}}" target="_blank">Agency Management</a></li>
                <li><a href="{{('http://www.nationaluglymugs.com.au')}}" target="_blank">NUM</a></li>
-               <li><a href="{{('http://www.peamsaustralia.com.au')}}" target="_blank">PEAMS</a></li>
+               <li><a href="{{('http://www.peamsaustralia.com.au')}}" target="_blank">PEAMS Australia</a></li>
                <li><a href="{{('http://www.punterbox.com.au')}}" target="_blank">Punterbox</a></li>
                   
                </ul>

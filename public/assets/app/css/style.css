@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
 
+:root {
+    --blue--text: #0C223D;
+    --white: #ffffff;
+    --black-body: #212529;
+  }
+
+
 
 * {
     margin: 0px;
@@ -3025,21 +3032,27 @@ a.admin-login:hover {
 }
 
 .table_border_dash {
-    border: 1px solid #AEAEAE;
+    border: 1px solid #0C223D;
 }
 
 .table_border_dash_left {
 
-    border-right: 1px dashed #AEAEAE;
+    border-right: 1px dashed #0C223D
 
 }
-
+.table_border_dash th {
+    border-bottom-color: #0C223D !important;
+}
 .table_border_solid_right {
 
     border-left: 1px solid #AEAEAE;
-
 }
-
+.table_border_dash thead {
+    border-right: 2px solid #fff;
+}
+.margin_zero_for_table .col-lg-4:last-child .table_border_dash thead {
+    border-right: unset;
+}
 .table_border_dash td {
     /* padding:4px; */
     vertical-align: top;
@@ -3563,7 +3576,7 @@ progress.dislike::-webkit-progress-value {
     font-weight: 600;
     font-size: 15px;
     line-height: 28px;
-    color: #2C3E50;
+    color: var(--black-body);
 }
 
 .about_box_small_heading_value {
@@ -3572,7 +3585,7 @@ progress.dislike::-webkit-progress-value {
     font-weight: 500;
     font-size: 14px;
     line-height: 28px;
-    color: #5D6D7E;
+    color: var(--black-body);
 }
 
 .who_we_are_sub_heading {
@@ -3710,7 +3723,7 @@ progress.dislike::-webkit-progress-value {
     width: 100%;
 }
 .footer_bg_color {
-    background: #192a3e;
+    background: #0C223D;
 }
 
 .footer_mange_padding {
@@ -3840,7 +3853,7 @@ progress.dislike::-webkit-progress-value {
 .custom--foter-login {
     display: flex;
     gap: 10px;
-    justify-content: flex-end;
+    flex-direction: row-reverse;
 }
 .wcustom-100 {
     width: 100%;
