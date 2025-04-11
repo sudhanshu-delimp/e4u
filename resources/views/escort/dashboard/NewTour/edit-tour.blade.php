@@ -7,7 +7,7 @@
     <!--middle content start here-->
     <div class="row">
         <div class="col-md-12">
-            <div class="v-main-heading h3" style="display: inline-block;">Create New</div>
+            <div class="v-main-heading h3" style="display: inline-block;">Create New </div>
             <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
 
         </div>
@@ -29,8 +29,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-8">
+            <div class="row justify-content-center tour-dashrow">
+                <div class="col-md-8 tour-dashcol">
                 <div class="card shadow-sm">
     <div class="card-body">
         <form id="locationForm">
