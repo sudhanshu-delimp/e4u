@@ -5261,6 +5261,7 @@ textarea.parsley-error {
     margin: 0;
     color: #212529;
     font-size: 14px;
+    text-align: justify;
 }
 .custom--cookie--popup .popup--content--area a {
     color: #ff3c5f;
@@ -5291,6 +5292,14 @@ textarea.parsley-error {
 }
 .custom--copyryt a {
     color: #fff;
+}
+.custom--copyryt svg {
+    width: 16px;
+    margin-right: 2px;
+}
+.custom--copyryt a.admin-login {
+    font-size: 16px;
+    font-weight: 400;
 }
 /* new css start 28 march end */
 

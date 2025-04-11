@@ -150,7 +150,7 @@
          <div class="row">
             <div class="col-lg-9 col-md-9 footer_text_color_white">
                <div class="custom--copyryt">
-               <span>E4U . 2024</span>  <span>|</span> <div><a href="#" class="cook--seting">Cookie Settings</a></div> <span>|</span>
+               <span><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#fff"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12Z" stroke="#fff" stroke-width="1.5"></path> <path d="M14 15.6672C13.475 15.8812 12.8952 16 12.2857 16C9.91878 16 8 14.2091 8 12C8 9.79086 9.91878 8 12.2857 8C12.8952 8 13.475 8.11876 14 8.33283" stroke="#fff" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>E4U . 2024</span>  <span>|</span> <div><a href="#" class="cook--seting">Cookie Settings</a></div> <span>|</span>
                <a class="admin-login" href="{{ route('admin.login') }}">Login as Admin</a>
                </div>
             </div>
@@ -339,7 +339,8 @@
             the form of cookies. This information might be about you, your preferences or your device
             and is mostly used to make the website work as you expect it to. The information does not
             usually directly identify you, but it can give you a more personalised web experience.
-            Because we respect your right to privacy, you can choose not to allow some types of
+            </p><br>
+            <p>Because we respect your right to privacy, you can choose not to allow some types of
             cookies. Click on the different category headings to find out more and change our default
             settings. However, blocking some types of cookies may impact your experience with this
             Website and our service offering.</p>
