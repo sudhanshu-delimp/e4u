@@ -29,6 +29,11 @@ use Illuminate\Support\Facades\Storage;
 use App\Repositories\Escort\EscortMediaInterface;
 use App\Models\EscortCovidReport;
 use App\Repositories\Tour\TourInterface;
+
+use App\Models\Tour;
+use App\Models\TourLocation;
+use App\Models\TourProfile;
+use Illuminate\Support\Facades\DB;
 //use Illuminate\Http\Request;
 
 class TourController extends Controller
@@ -93,18 +98,27 @@ class TourController extends Controller
         return response()->json(compact('template', 'status'), 200);
         //return response()->json(compact('find_tour'));
     }
-    public function createTour()
+    public function createTour($id = null)
     {
-        $escort = $this->escort->FindByUsers(auth()->user()->id);
-        $escorts = $escort->whereNotNull('state_id')->where('default_setting',0)->unique('state_id');
+        // $escort = $this->escort->FindByUsers(auth()->user()->id);
+        // $escorts = $escort->whereNotNull('state_id')->where('default_setting',0)->unique('state_id');
 
-        $user_names = $escort->whereNotNull('state_id')->where('default_setting',0);
+        // $user_names = $escort->whereNotNull('state_id')->where('default_setting',0);
 
-        $tours = $this->tour->all();
-        $find_tour = null;
+        // $tours = $this->tour->all();
+        // $find_tour = null;
 
         //dd($user_names);
-        return view('escort.dashboard.NewTour.create-tour',compact('escorts','tours','find_tour','user_names'));
+        //return view('escort.dashboard.NewTour.create-tour',compact('escorts','tours','find_tour','user_names'));
+        if(!empty($id)){
+            $tour = Tour::findOrFail($id);
+            $tourLocations = TourLocation::where(['tour_id'=>$id])->get();
+            $userLocations = $this->getAccountLocations(true);
+            return view('escort.dashboard.NewTour.edit-tour',compact('tour','tourLocations','userLocations'));
+        }
+        else{
+            return view('escort.dashboard.NewTour.create-tour');
+        }
     }
     public function nameByState($id)
     {
@@ -120,35 +134,56 @@ class TourController extends Controller
         //return response()->json(compact('find_tour'));
     }
 
-    public function TourDataTable($type = NULL)
+    public function TourDataTable(Request $request, $type = NULL)
     {
-        $user_id = auth()->user()->id;
 
-        $conditions = [];
-        if($type == 'current') {
-            $conditions[] = ['end_date', '>', date('Y-m-d H:i:s')];
-        } elseif($type == 'past') {
-            $conditions[] = ['end_date', '<', date('Y-m-d H:i:s')];
-        }
-        list($tour, $count) = $this->tour->paginated(
-            request()->get('start'),
-            request()->get('length'),
-            request()->get('order')[0]['column'],
-            request()->get('order')[0]['dir'],
-            request()->get('columns'),
-            request()->get('search')['value'],
-            $user_id,
-            $conditions
-        );
+    $today = \Carbon\Carbon::today();
+    $user_id = auth()->user()->id;
+    $search = $request->get('search');
+    $sortBy = $request->get('sort_by', 'id');
+    $sortDir = $request->get('sort_dir', 'desc');
+    $length = $request->get('length', 10);
+    $start = $request->get('start', 0);
+    $query = \App\Models\Tour::with('locations');
+    $query->where('user_id', $user_id);
+    if ($type === 'current') {
+        $query->whereHas('locations', fn($q) => $q->where('end_date', '>=', $today));
+    } elseif ($type === 'past') {
+        $query->whereDoesntHave('locations', fn($q) => $q->where('end_date', '>=', $today));
+    }
 
-        $data = array(
-            "draw"            => intval(request()->input('draw')),
-            "recordsTotal"    => intval($count),
-            "recordsFiltered" => intval($count),
-            "data"            => $tour
-        );
-        //dd($data);
-        return response()->json($data);
+    // Search by tour name
+    if ($search) {
+        $query->where('name', 'like', '%' . $search . '%');
+    }
+
+    $total = $query->count();
+    $tours = $query->orderBy($sortBy, $sortDir)
+    ->skip($start)
+    ->take($length)
+    ->get()
+    ->map(function ($tour) {
+        $startDate = $tour->locations->min('start_date');
+        $endDate = $tour->locations->max('end_date');
+        $days = $startDate && $endDate ? \Carbon\Carbon::parse($startDate)->diffInDays(\Carbon\Carbon::parse($endDate)) + 1 : 0;
+
+        return [
+            'id' => $tour->id,
+            'name' => $tour->name,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'days' => $days,
+            'action' => '<div class="dropdown no-arrow archive-dropdown">
+            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item" id="cdTour" href="'.route('escort.store.tour', $tour->id).'">Edit <i class="fa fa-fw fa-pen " style="float: right;"></i></a> </div></div>'
+        ];
+    });
+
+return response()->json([
+    'data' => $tours,
+    'recordsTotal' => $total,
+    'recordsFiltered' => $total,
+]);
 
     }
 
@@ -718,5 +753,193 @@ class TourController extends Controller
             $type = 2;  //2=>image; 3=>video (banner)
         }
         return [$type, 'attatchment/'.$str];
+    }
+
+    public function getAccountLocations($asArray = false)
+    {
+        $escort = $this->escort->FindByUsers(auth()->user()->id);
+        $stateIds = $escort->whereNotNull('state_id')->pluck('state_id')->unique()->toArray();
+        $allStates = config('escorts.profile.states');
+        $userStates = [];
+        foreach ($stateIds as $stateId) {
+            if (isset($allStates[$stateId])) {
+                $userStates[] = [
+                    'id' => $stateId,
+                    'name' => $allStates[$stateId]['stateName']
+                ];
+            }
+        }
+        return $asArray ? $userStates : response()->json($userStates);
+    }
+
+    public function getAccountProfiles(Request $request){
+        $stateId = $request->input('state_id');
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $escort = $this->escort->FindByUsers(auth()->user()->id);
+        // $escorts = $escort->where('state_id',$stateId)->toArray();
+        $escorts = $escort->where('state_id', $stateId);
+
+        $availableEscorts = $escorts->filter(function ($escort) use ($startDate, $endDate) {
+            return !$escort->purchase()
+                ->where(function ($query) use ($startDate, $endDate) {
+                    $query->where('start_date', '<=', $endDate)
+                          ->where('end_date', '>=', $startDate);
+                })->exists(); // true = overlap found, false = no overlap or no purchases
+        })->values();
+
+        $userProfiles = [];
+        foreach ($availableEscorts as $escort) {
+                $userProfiles[] = [
+                    'id' => $escort['id'],
+                    'name' => $escort['name']
+                ];
+        }
+        return response()->json($userProfiles);
+    }
+
+    public function saveAccountTour(Request $request){
+        DB::beginTransaction();
+        try {
+              // Create a new Tour
+            $tour = Tour::create([
+                'name' => $request->tour_name,
+                'user_id' => auth()->id() // Assuming the user is logged in
+            ]);
+
+            foreach ($request->locations as $location) {
+                // Create Tour Location
+                $tourLocation = TourLocation::create([
+                    'tour_id' => $tour->id,
+                    'state_id' => $location['location_id'],
+                    'start_date' => $location['start_date'],
+                    'end_date' => $location['end_date']
+                ]);
+
+                // Add Profiles to Location
+                foreach ($location['profiles'] as $profile) {
+                    TourProfile::create([
+                        'tour_location_id' => $tourLocation->id,
+                        'escort_id' => $profile['profile_id'],
+                        'tour_plan' => $profile['tour_plan']
+                    ]);
+                }
+            }
+            DB::commit();
+            return response()->json([
+                'success' => true,
+                'message' => 'Tour created successfully!',
+                'tour_id' => $tour->id
+            ]);
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => 'Error saving tour: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function updateAccountTour(Request $request, $id)
+{
+    DB::beginTransaction();
+    try {
+        // Step 1: Update the tour basic info
+        $tour = Tour::findOrFail($id);
+        $tour->update([
+            'name' => $request->tour_name,
+        ]);
+
+        $existingLocationIds = [];
+
+        // Step 2: Loop through locations
+        foreach ($request->locations as $location) {
+            if (isset($location['id'])) {
+                // Update existing location
+                $tourLocation = TourLocation::find($location['id']);
+                if ($tourLocation) {
+                    $tourLocation->update([
+                        'state_id' => $location['location_id'],
+                        'start_date' => $location['start_date'],
+                        'end_date' => $location['end_date'],
+                    ]);
+                }
+            } else {
+                // Create new location
+                $tourLocation = TourLocation::create([
+                    'tour_id' => $tour->id,
+                    'state_id' => $location['location_id'],
+                    'start_date' => $location['start_date'],
+                    'end_date' => $location['end_date'],
+                ]);
+            }
+
+            $existingLocationIds[] = $tourLocation->id;
+
+            // Step 3: Sync profiles in each location
+            $existingProfileIds = [];
+
+            foreach ($location['profiles'] as $profile) {
+                if (isset($profile['id'])) {
+                    // Update existing profile
+                    $tourProfile = TourProfile::find($profile['id']);
+                    if ($tourProfile) {
+                        $tourProfile->update([
+                            'escort_id' => $profile['profile_id'],
+                            'tour_plan' => $profile['tour_plan'],
+                        ]);
+                    }
+                } else {
+                    // Create new profile
+                    $tourProfile = TourProfile::create([
+                        'tour_location_id' => $tourLocation->id,
+                        'escort_id' => $profile['profile_id'],
+                        'tour_plan' => $profile['tour_plan'],
+                    ]);
+                }
+
+                $existingProfileIds[] = $tourProfile->id ?? null;
+            }
+
+            // Delete removed profiles from this location
+            TourProfile::where('tour_location_id', $tourLocation->id)
+                ->whereNotIn('id', array_filter($existingProfileIds))
+                ->delete();
+        }
+
+        // Step 4: Delete removed locations
+        TourLocation::where('tour_id', $tour->id)
+            ->whereNotIn('id', $existingLocationIds)
+            ->each(function ($loc) {
+                // Delete related profiles too
+                $loc->profiles()->delete();
+                $loc->delete();
+            });
+
+        DB::commit();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Tour updated successfully!',
+            'tour_id' => $tour->id
+        ]);
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json([
+            'success' => false,
+            'message' => 'Error updating tour: ' . $e->getMessage()
+        ], 500);
+    }
+}
+
+
+    public function updateTour($id)
+    {
+        $tour = Tour::with(['locations.profiles'])->findOrFail($id);
+        dd($tour);
+        //$locations = Location::all();
+        //$profiles = Profile::all();
+        //return view('escort.dashboard.NewTour.create-tour',compact('escorts','tours','find_tour','user_names'));
     }
 }

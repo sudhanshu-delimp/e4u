@@ -145,7 +145,8 @@ Route::post('/view-tour',[TourController::class, 'viewTour'])->name('escort.view
 //Route::post('/create-tour/{id}',[TourController::class, 'create'])->name('escort.create.tour');
 Route::get('/archive-tour-{name?}/{id}',[TourController::class, 'tourProfileList'])->name('escort.archive.tour.name');
 Route::post('/create-tour/{id?}',[TourController::class, 'createStoreTour'])->name('escort.store.tour');
-Route::get('create-tour',[TourController::class, 'createTour']);
+Route::get('create-tour/{id?}',[TourController::class, 'createTour'])->name('escort.store.tour');
+//Route::get('update-tour',[TourController::class, 'updateTour']);
 Route::post('/delete-tour/{id}',[TourController::class, 'DeleteTour'])->name('escort.delete.tour');
 Route::get('/archive-tours-list',[TourController::class, 'viewTourList'])->name('escort.tour.view');
 Route::get('/archive-tours-dataTable/{type}',[TourController::class, 'TourDataTable'])->name('escort.tour.dataTable');
@@ -322,3 +323,7 @@ Route::post('remove-playmate/{id}',[ProfileInformationController::class, 'remove
 //     return view('escort.dashboard.Playmates.playmates');
 // })->name('my.playmates');
 Route::post('escort-state-name/{id}',[TourController::class, 'nameByState'])->name('escort.stateId');
+Route::get('/get-account-locations', [TourController::class, 'getAccountLocations'])->name('account.locations');
+Route::get('/get-account-profiles', [TourController::class, 'getAccountProfiles'])->name('account.location_profiles');
+Route::post('/save-account-tour', [TourController::class, 'saveAccountTour'])->name('account.save_tour');
+Route::post('/update-account-tour/{id}', [TourController::class, 'updateAccountTour'])->name('account.update_tour');

@@ -199,44 +199,11 @@
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Days</th>
-                        <th>Total Cost</th>
-                        <th>Payment Status</th>
-                        <th>Location</th>
                         <th>Action</th>
                      </tr>
                   </thead>
                   <tbody>
-                     {{-- @foreach($tours as $tour)
-                     <tr class="tr-sec">
-                        <td><a href ="{{ route('escort.archive.tour.name',['id'=>$tour->id,'name'=> strtolower(str_replace(' ','-',$tour->name))]) }}">{{$tour->name}}</a></td>
-                        <td>{{ $start_date = Carbon\Carbon::parse($tour->start_date)->format('d/m/Y') }}</td>
-                        <td>{{ $end_date = Carbon\Carbon::parse($tour->end_date)->format('d/m/Y') }}</td>
-                        <td>{{( Carbon\Carbon::parse($tour->end_date)->diffInDays(Carbon\Carbon::parse($tour->start_date)))}}</td>
-                        <td>{{$tour->price}}</td>
-                        <td>@foreach(config('escorts.profile.cities') as $key => $city)
-                           @if(in_array($key,$tour->location)) {{$city}},
-                           @endif
-                           @endforeach
-                        </td>
-                        <td>
-                           <div class="dropdown no-arrow archive-dropdown">
-                              <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item editTour" id="cdTour" href="#" data-toggle="modal" data-id="{{$tour->id}}" data-target="#exampleModal22">Edit <i class="fa fa-fw fa-pen " style="float: right;"></i></a> <a class="dropdown-item deleteTour" href="#" id="openDeleteTour" data-id="{{$tour->id}}" data-toggle="modal" data-target="#deleteModal22">Delete <i class="fa fa-fw fa-trash" style="float: right;"></i> </a>
-                              </div>
-                           </div>
-                        </td>
-                     </tr>
-                     @endforeach --}}
-                     {{--
-                     <tr class="tr-sec">
-                        <td><a href ="{{url('/escort-dashboard/archive-tour-summer')}}">Summer Tour</a></td>
-                        <td>01/02/2022</td>
-                        <td>10/02/2022</td>
-                        <td>10</td>
-                        <td>$160.00</td>
-                        <td>Perth , Sydney </td>
-                     </tr>
-                     --}}
+
                   </tbody>
                </table>
             </div>
@@ -257,38 +224,28 @@
    });
 
    $(document).ready( function () {
-   // var table = $('#myTable').DataTable({
-       var table = $('#sailorTable').DataTable({
-           "language": {
-               "zeroRecords": "No record(s) found."
-           },
-           processing: true,
-           serverSide: true,
-           lengthChange: true,
-           order: [0,'asc'],
-           searchable:false,
-           //searching:false,
-           bStateSave: false,
-
-           ajax: {
-               url: "{{ route('escort.tour.dataTable', $type) }}",
-               data: function (d) {
-                   d.type = 'player';
-               }
-           },
-           columns: [
-               { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'start_dates', name: 'start_dates', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'end_dates', name: 'end_names', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'days', name: 'days', searchable: true, orderable:true,defaultContent: 'NA' },
-               { data: 'total_cost', name: 'total_cost', searchable: true, orderable:true,defaultContent: 'NA' },
-               { data: 'transaction_Status_Code', name: 'transaction_Status_Code', searchable: true, orderable:true,defaultContent: 'NA' },
-               { data: 'locations', name: 'locations', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
-           ]
-       });
-
+      var table = $('#sailorTable').DataTable({
+         serverSide: true,
+         processing: true,
+         ajax: {
+            url: "{{ route('escort.tour.dataTable', $type) }}",
+            data: function (d) {
+            d.search = d.search.value;
+            d.length = d.length;
+            d.start = d.start;
+            d.sort_by = d.columns[d.order[0].column].data;
+            d.sort_dir = d.order[0].dir;
+            }
+         },
+         columns: [
+            { data: 'id', name: 'ID' },
+            { data: 'name', name: 'Tour Name' },
+            { data: 'start_date', name: 'Start Date' },
+            { data: 'end_date', name: 'End Date' },
+            { data: 'days', name: 'Days' },
+            { data: 'action', name: 'Action', orderable: false, searchable: false },
+         ]
+      });
    });
 
    $.ajaxSetup({
