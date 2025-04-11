@@ -134,35 +134,56 @@ class TourController extends Controller
         //return response()->json(compact('find_tour'));
     }
 
-    public function TourDataTable($type = NULL)
+    public function TourDataTable(Request $request, $type = NULL)
     {
-        $user_id = auth()->user()->id;
 
-        $conditions = [];
-        if($type == 'current') {
-            $conditions[] = ['end_date', '>', date('Y-m-d H:i:s')];
-        } elseif($type == 'past') {
-            $conditions[] = ['end_date', '<', date('Y-m-d H:i:s')];
-        }
-        list($tour, $count) = $this->tour->paginated(
-            request()->get('start'),
-            request()->get('length'),
-            request()->get('order')[0]['column'],
-            request()->get('order')[0]['dir'],
-            request()->get('columns'),
-            request()->get('search')['value'],
-            $user_id,
-            $conditions
-        );
+    $today = \Carbon\Carbon::today();
+    $user_id = auth()->user()->id;
+    $search = $request->get('search');
+    $sortBy = $request->get('sort_by', 'id');
+    $sortDir = $request->get('sort_dir', 'desc');
+    $length = $request->get('length', 10);
+    $start = $request->get('start', 0);
+    $query = \App\Models\Tour::with('locations');
+    $query->where('user_id', $user_id);
+    if ($type === 'current') {
+        $query->whereHas('locations', fn($q) => $q->where('end_date', '>=', $today));
+    } elseif ($type === 'past') {
+        $query->whereDoesntHave('locations', fn($q) => $q->where('end_date', '>=', $today));
+    }
 
-        $data = array(
-            "draw"            => intval(request()->input('draw')),
-            "recordsTotal"    => intval($count),
-            "recordsFiltered" => intval($count),
-            "data"            => $tour
-        );
-        //dd($data);
-        return response()->json($data);
+    // Search by tour name
+    if ($search) {
+        $query->where('name', 'like', '%' . $search . '%');
+    }
+
+    $total = $query->count();
+    $tours = $query->orderBy($sortBy, $sortDir)
+    ->skip($start)
+    ->take($length)
+    ->get()
+    ->map(function ($tour) {
+        $startDate = $tour->locations->min('start_date');
+        $endDate = $tour->locations->max('end_date');
+        $days = $startDate && $endDate ? \Carbon\Carbon::parse($startDate)->diffInDays(\Carbon\Carbon::parse($endDate)) + 1 : 0;
+
+        return [
+            'id' => $tour->id,
+            'name' => $tour->name,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'days' => $days,
+            'action' => '<div class="dropdown no-arrow archive-dropdown">
+            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item" id="cdTour" href="'.route('escort.store.tour', $tour->id).'">Edit <i class="fa fa-fw fa-pen " style="float: right;"></i></a> </div></div>'
+        ];
+    });
+
+return response()->json([
+    'data' => $tours,
+    'recordsTotal' => $total,
+    'recordsFiltered' => $total,
+]);
 
     }
 
