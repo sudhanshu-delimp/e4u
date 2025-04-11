@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12 mt-4" id="profile_and_tour_options">
+        <div class="col-md-12 mt-4 custom--tourdash" id="profile_and_tour_options">
             <div class="row collapse" id="notes">
                 <div class="col-md-12 mb-5">
                     <div class="card">
@@ -29,8 +29,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-md-8">
+            <div class="row justify-content-center tour-dashrow">
+                <div class="col-md-8 tour-dashcol">
                 <div class="card shadow-sm">
     <div class="card-body">
         <form id="locationForm">

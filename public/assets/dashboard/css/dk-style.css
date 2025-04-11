@@ -1,3 +1,10 @@
+:root {
+    --blue--text: #0C223D;
+    --white: #ffffff;
+    --black-body: #212529;
+    --peach:#ff3c5f;
+  }
+
 
 .removebox_shdow:focus{
     outline: 0;
@@ -557,6 +564,71 @@ color:#0c223d ;
     padding: 0px 75px 0px 0px;
 }
 /*tab css end* /
+
+/* New css 11march 2025 Start */
+.custom--tourdash .tour-dashrow, .tour-dashcol {
+    width: 100%;
+    max-width: 100%;
+    flex: unset;
+}
+.tour-dashrow .card-footer {
+    background-color: #0c223d !important;
+}
+.tour-dashrow .card-footer {
+    gap: 10px;
+}
+.tour-dashrow .card-footer button {
+    background: #ff3c5f;
+    border-color: #ff3c5f;
+}
+.custom--tourdash .location-dropdown, .location-group .profiles .profile select {
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #6e707e;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #d1d3e2;
+    border-radius: .35rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+.location-group .profiles .profile .removeProfile {
+    background: #ff3c5f;
+    border-color: #ff3c5f;
+    padding: 5px 10px;
+    margin-left: auto;
+    border-radius: .35rem;
+}
+.location-group .g-2 .col-md-2 {
+    gap: 10px;
+}
+.location-group .g-2 .col-md-2 button {
+    width: 120px;
+}
+.location-group .g-2 > div {
+    width: max-content;
+    max-width: unset;
+    flex: unset;
+}
+.location-group .g-2 .col-md-4 {
+    width: 40% !important;
+}
+.location-group .profiles .profile > .d-flex {
+    gap: 10px;
+}
+.location-group .g-2 .col-md-2 .addProfile {
+    background: #0c223d;
+    border-color: #0c223d;
+}
+.location-group .g-2 .col-md-2 .removeLocation {
+    background: #ff3c5f;
+}
+/* New css 11march 2025 end */
+
+
 /*first tab about me section*/
 
 .gap_between_btns{
