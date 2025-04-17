@@ -102,6 +102,7 @@
                             @endphp
                             @foreach($relatedEscorts as $escort)
                                 @php
+                                    // dd($relatedEscorts, $escort);
                                     if($escort['purchase']) {
                                 @endphp
                                 @foreach($escort['purchase'] as $purchase)

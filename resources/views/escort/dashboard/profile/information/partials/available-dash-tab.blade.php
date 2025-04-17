@@ -23,9 +23,9 @@
                             </div>
                             <div class="row col-xl-5 col-lg-6 col-md-12 ml-xl-4">
                                 <div class="col-lg-5 col-md-5">
-                                    <div class="service_rate_dolor_symbol form-group" @disabled(true)>
+                                    <div class="service_rate_dolor_symbol form-group" data-parsley-gt="#{{$shortDays[$day]}}_to" @disabled(true)>
                                         <select class="form-control form-control-sm select_tag_remove_box_sadow {{$day}} p-0"
-                                                name="{{$shortDays[$day]}}_from" id="{{$shortDays[$day]}}from" data-parsley-gt="#{{$shortDays[$day]}}_to">
+                                                name="{{$shortDays[$day]}}_from" id="{{$shortDays[$day]}}from" >
                                             <option value="" selected>H:M</option>
                                             @for($i=1; $i <=12;$i++)
                                                 <option value="{{ $i.':00' }}" {{(sprintf("%02d", $i).':00'== $escort->availabilityCheck($day, 'from')) ? "selected" : ''}}>{{sprintf("%02d", $i)}}:00</option>
