@@ -110,16 +110,15 @@ class CreateController extends Controller
     public function index($id = null)
     {
         $user = auth()->user();
-
         // $escort = $this->escort->make();
         if(!empty($user->profile_creator) && in_array(2,$user->profile_creator)) {
             if(!$escort = $this->escort->findDefault($user->id,1)) {
-                // $escort = $this->escort->make();
-                $escort = $user->escorts->first();
+                $escort = $this->escort->make();
+                // $escort = $user->escorts->first();
             }
         } else {
-            // $escort = $this->escort->make();
-            $escort = $user->escorts->first();
+            $escort = $this->escort->make();
+            // $escort = $user->escorts->first();
         }
 
         // if(!$escort = $user->escorts->where('user_id', $user->id)->where('completed', 1)->first()) {
