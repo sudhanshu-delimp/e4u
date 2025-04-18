@@ -24,7 +24,7 @@
                     d="M10 0.720703V6.7207H18V0.720703H10ZM10 18.7207H18V8.7207H10V18.7207ZM0 18.7207H8V12.7207H0V18.7207ZM0 10.7207H8V0.720703H0V10.7207Z"
                     fill="#C2CFE0" />
             </svg>
-           <span id="dash" style="{{  $_SERVER['REQUEST_URI'] == '/escort-dashboard' ? 'color: #e5365a;' : ''}}">Dashboard </span>
+           <span id="dash" style="{{  $_SERVER['REQUEST_URI'] == '/escort-dashboard' ? 'color: #e5365a;' : ''}}">Dashboard</span>
 
 
         </a>
@@ -114,7 +114,7 @@
                     <span style="{{(request()->segment(2) == 'listings' && request()->segment(3) == 'current')  ? 'color: #e5365a;' : ''}}">View</span>
                 </a>
 
-                <a class="collapse-item" href="{{ route('escort.dashboard.listings', 'archive')}}">
+                <a class="collapse-item" href="{{ route('escort.dashboard.listings', 'past')}}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
                     <span style="{{(request()->segment(2) == 'listings' && request()->segment(3) == 'archive')  ? 'color: #e5365a;' : ''}}">Archive</span>
                 </a>

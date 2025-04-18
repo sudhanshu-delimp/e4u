@@ -144,7 +144,8 @@ class UpdateController extends AppController
         $createOrUpdate = 'C';
         if($id) {
             $escort_data = $this->escort->find($id);
-            if (!is_object($escort_data->end_date) || (Carbon::parse($escort_data->end_date)->format('Y-m-d') < date('Y-m-d'))) {
+
+            if (Carbon::parse($escort_data->end_date)->format('Y-m-d') < date('Y-m-d')) {
                 $escort_data->enabled = 0;
                 $escort_data->save();
             }
@@ -424,6 +425,7 @@ class UpdateController extends AppController
 
     public function updateProfile($id)
     {
+        // dd($id);
         $escort = $this->escort->find($id);
         if($escort->user_id != auth()->user()->id) {
             return redirect()->route('escort.list', 'current')->with('error', "This profile doesn't belongs to you");
@@ -440,6 +442,9 @@ class UpdateController extends AppController
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [8, 10], $id);
             $users_for_available_playmate = $this->user->findPlaymates(auth()->user()->id);
             $defaultImages = $this->media->findDefaultMedia($user->id,0);
+
+            // dd($users_for_available_playmate );
+
             return view('escort.dashboard.profile.update',compact('defaultImages', 'media', 'users_for_available_playmate', 'path','escort','service','availability','service_one','service_two','service_three','durations','user'));
         }
     }

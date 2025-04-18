@@ -176,7 +176,7 @@ class EscortPolyPaymentController extends Controller
         $data = [
             /*'start_date' => $activate_listing['start_date'],
             'end_date' => $activate_listing['end_date'],*/
-//            'membership' => $activate_listing['membership'],
+           // 'membership' => $activate_listing['membership'],
             /*'days' => $days,*/
             'Amount' => ($final_fee-$final_dis),
             "CurrencyCode" => "AUD",
@@ -350,8 +350,8 @@ class EscortPolyPaymentController extends Controller
         $header[] = 'Authorization: Basic '.$auth;
 
         $ch = curl_init("https://poliapi.apac.paywithpoli.com/api/v2/Transaction/Initiate");
-//        $ch = curl_init("https://poliapi.apac.paywithpoli.com/api");
-//        $ch = curl_init("https://polipaymenturl.com");
+       // $ch = curl_init("https://poliapi.apac.paywithpoli.com/api");
+       // $ch = curl_init("https://polipaymenturl.com");
         //See the cURL documentation for more information: http://curl.haxx.se/docs/sslcerts.html
         //We recommend using this bundle: https://raw.githubusercontent.com/bagder/ca-bundle/master/ca-bundle.crt
         //curl_setopt( $ch, CURLOPT_CAINFO, "ca-bundle.crt");
@@ -367,7 +367,7 @@ class EscortPolyPaymentController extends Controller
         curl_close ($ch);
 
         $json = json_decode($response, true);
-//        dd($json);
+       // dd($json);
         //Poli_transaction::create( $json);
 
         //$header = header('Location: '.$json['NavigateURL']);
@@ -587,7 +587,7 @@ class EscortPolyPaymentController extends Controller
             //Payment::create($item);  //Moved to polyPaymentUrl()
             Purchase::create($item);
 
-            if($item['start_date'] == date('Y-m-d')) {
+            if ($item['start_date'] <= date('Y-m-d') && $item['end_date'] >= date('Y-m-d')) {
                 $escort = $this->escort->find($item['referenceId']);
                 $escort->start_date = $item['start_date'];
                 $escort->end_date = $item['end_date'];

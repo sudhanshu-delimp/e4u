@@ -67,14 +67,17 @@ class EscortController extends Controller
     }
 
 
-    function listing_checkout(UpdateEscortRequest $request) {
+    // function listing_checkout(UpdateEscortRequest $request) {
+    function listing_checkout(Request $request) {
 //        $escort_id = $request->escort_id;
-
         $data = $request->data;
         $checkoutData = [];
         $escort_ids = [];
         foreach ($data as $idx => $listing) {
+            
+
             $index = date('Ymd', strtotime($listing['start_date'])).rand(100,999);
+            // dump($data, $idx, $listing, $index);
 //            $data[$idx]['escort_id'] = $escort_id;
             $escort_ids[] = $listing['escort_id'];
             $checkoutData[$index] = $data[$idx];
@@ -89,12 +92,8 @@ class EscortController extends Controller
     }
 
 
-    function listings($type) {
-        /*$relatedEscorts = Escort::where('user_id', auth()->user()->id)->pluck('name', 'id')->toArray();
-        $idOfEscorts = array_keys($relatedEscorts);*/
-
-//        $relatedEscorts = Escort::where('user_id', auth()->user()->id)->purchase()->toArray();
-
+    function listings($type) 
+    {
         $relatedEscorts = Escort::select(['id', 'name', 'profile_name', 'city_id', 'state_id'])
             ->with(['purchase' => function ($query) use ($type) {
                 if($type == 'past') {
@@ -113,7 +112,6 @@ class EscortController extends Controller
         return view('escort.dashboard.listings', compact('type', 'relatedEscorts'));
     }
 
-
     public function escortList($type)
     {
         $escort = auth()->user()->escort;
@@ -125,13 +123,8 @@ class EscortController extends Controller
         return view('escort.dashboard.list', compact('escort', 'type', 'active_escorts'));
     }
 
-
-
     public function dataTable($type = NULL)
     {
-        //$usr_type = $this->user->find(auth()->user()->id);
-
-        //dd($usr_type->agentEscorts->pluck("id")->toArray());
         $conditions = [];
         if($type == 'current') {
             $conditions[] = ['enabled', 1];
@@ -258,7 +251,6 @@ class EscortController extends Controller
     }
     public function profileTourPermissionUpdate(UpdateEscortRequest $request)
     {
-        //dd($request->all());
         $data = [];
         $data = [
                 'viewer_contact_type' => $request->viewer_contact_type,

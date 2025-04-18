@@ -67,7 +67,7 @@ class Escort extends Model
     }
     public function purchase()
     {
-        return $this->hasMany('App\Models\Purchase', 'escort_id');
+        return $this->hasMany(Purchase::class, 'escort_id','id');
     }
     public function brb()
     {
