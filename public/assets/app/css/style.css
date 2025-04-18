@@ -147,6 +147,9 @@ a.back--search .previous_icon i {
     position: relative;
     top: -1px;
 }
+a.back--search span.previous_icon {
+    font-size: 12px;
+}
 .max_width_for_content {
     max-width: 1920px;
     position: relative;

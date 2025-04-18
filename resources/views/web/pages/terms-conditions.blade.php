@@ -129,7 +129,7 @@
 @section('content')
     <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
         <div class="container">
-            <h1 class="cms-page-title">Terms & Condition</h1>
+            <h1 class="cms-page-title">Terms & Conditions</h1>
             <div class="accordion-container">
                 <div class="set cms-accordion">
                     <a class="cms-accordion-title">
@@ -1710,7 +1710,7 @@
                 <!-- Part D - Advertisers -->
                 <div class="set cms-accordion">
                     <a class="cms-accordion-title">
-                        Part D - Agents
+                        Part D - Support Agents
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <div class="content ">
