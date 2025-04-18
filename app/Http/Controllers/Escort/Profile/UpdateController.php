@@ -102,15 +102,12 @@ class UpdateController extends AppController
             
             $users = $this->user->find($user->id);
             
-            $userData = $users->escorts_names;
-            if(count($userData) > 0){
-                array_push($userData, $request->name) ;
-                $users->escorts_names = $userData;
-            }else{
-                $users->escorts_names = [$request->name] ;
+            $escortNames = $users->escorts_names;
+            if($escortNames == NULL || !in_array($request->name, $escortNames)) {
+                $escortNames[] = $request->name;
+                $users->escorts_names = $escortNames;
+                $users->save();
             }
-            
-            $users->save();
        }
 
         $input = [
@@ -140,6 +137,7 @@ class UpdateController extends AppController
             'smoke'=> $request->smoke ?: $escortDefault->getRawOriginal('smoke'),
             'license'=>$request->license ? $request->license : $escortDefault->license,
             'age'=>$request->age ? $request->age : $escortDefault->age,
+            // 'name'=>$request->name ? $request->name : $escortDefault->name,
         ];
 
         if($this->escort->update($escortDefault->id, $input)) {
@@ -246,14 +244,14 @@ class UpdateController extends AppController
             $id = $escort->id;
             //$error = 1;
 
-            $user = $this->user->find(auth()->user()->id);
+            // $user = $this->user->find(auth()->user()->id);
             
-            $escortNames = $user->escorts_names;
-            if($escortNames == NULL || !in_array($input['name'], $escortNames)) {
-                $escortNames[] = $input['name'];
-                $user->escorts_names = $escortNames;
-                $user->save();
-            }
+            // $escortNames = $user->escorts_names;
+            // if($escortNames == NULL || !in_array($input['name'], $escortNames)) {
+            //     $escortNames[] = $input['name'];
+            //     $user->escorts_names = $escortNames;
+            //     $user->save();
+            // }
         } else {
 //            $errors['profile_save'] = 'Error while saving the profile';
             $errors = 'Error while saving the profile';
