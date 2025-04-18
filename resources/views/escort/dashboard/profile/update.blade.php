@@ -1470,7 +1470,7 @@
             console.log(previous);
             //var label = jQuery(this).closest(".form-group").find("label").text();
 
-            console.log("label "+label);
+            console.log("label ji"+label);
         }).on('change paste', function() {
             // Do soomething with the previous value after the change
             var Current = $(this).val();
@@ -1479,6 +1479,8 @@
             $('#label').val(label);
             $('#current').val(Current);
             $('#previous').val(previous);
+            console.log("label ji paste previous "+ label , Current, previous);          
+
             //$(".Lname").text("current value "+Current+ " previous ="+previous);
             $("#Lname").html("<p>Would you like to update <b>"+label+"</b> in your My Information page for future Profiles?</p>");
 
@@ -1506,6 +1508,8 @@
     $(document).ready(function(){
 
         $('#save_change').on("click", function (e) {
+
+            console.log('save chnages by jiten');
             $('#change_all').removeClass('programmatic');
             if($('#label').val() == 'Gender') {
                 _displayGenderDependentFields($('#current').val());
@@ -2032,6 +2036,7 @@ function update_escort(updateButton, form_data)
 
 function update_escort_default(updateButton, form_data)
 {
+    console.log('jit', updateButton, form_data)
     updateButton.prop('disabled', true).html('<div class="spinner-border"></div>');
     var url = "{{ route('escort.update_escort_default')}}";
     $.ajax({
@@ -2051,8 +2056,6 @@ function update_escort_default(updateButton, form_data)
         }
     });
 }
-
-
 
 </script>
 @endpush

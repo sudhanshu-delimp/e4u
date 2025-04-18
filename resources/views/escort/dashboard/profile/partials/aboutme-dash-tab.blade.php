@@ -151,7 +151,7 @@
                                     <label class="col-sm-2 font-weight-500" for="stageName">Stage Name:<span style='color:red'>*</span></label>
                                     <div class="col-sm-6">
                                         @if( !empty($user->profile_creator) && in_array(1,$user->profile_creator))
-                                            <select onclick="stageNameInput(this)" class="form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
+                                            <select onclick="stageNameInput(this)" class="change_default form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
                                                 <option value="" selected>-Choose Your Stage Name-</option>
                                                 {{-- <option value="" selected disabled>-Not Set-</option> --}}
                                                 @if(!empty(auth()->user()->escorts_names))
@@ -161,7 +161,7 @@
                                                 @endif
                                                 <option value="new">Add a new Stage Name</option>
                                             </select>
-                                            <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" class="form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
+                                            <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" class="change_default form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
                                         @else
                                             <input type="text" id="stageName" required="required" name="name" title="(for public display)" class="form-control form-control-sm select_tag_remove_box_sadow" value="{{$escort->name ? $escort->name : '' }}" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)" data-parsley-errors-container="#stageName-errors">
                                         @endif
@@ -1697,7 +1697,6 @@
 
 
     $("body").on("click","#save_change",function(){
-        console.log('hey jiten');
         let field = $("#trigger-element").val();
         let value = $("#current").val();
         update_escort_default($(this), {
