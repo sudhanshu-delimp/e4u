@@ -1496,9 +1496,9 @@
         if ($('#change_all').hasClass('programmatic')) {
             console.log('hide', e.relatedTarget);
             var trigger_elem =  $('#trigger-element').val();
-            console.log('trigger_elem');
+            console.log('trigger_elem by jiten');
             console.log(trigger_elem);
-            $('[name="'+trigger_elem+'"]').val($('#previous').val());
+            //$('[name="'+trigger_elem+'"]').val($('#previous').val());
         }
 
         //console.log(trigger_elem, $('select[name="'+trigger_elem+'"]'));

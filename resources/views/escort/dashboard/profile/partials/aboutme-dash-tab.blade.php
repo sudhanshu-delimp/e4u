@@ -1577,9 +1577,9 @@
         });
     });
 
-let profile_selected_images = [];
+    let profile_selected_images = [];
 
-$(".modalPopup .item4, .modalPopup .item2").on('click', function(e) {
+    $(".modalPopup .item4, .modalPopup .item2").on('click', function(e) {
        let imageSrc = $(this).find('img').attr('src');
        let mediaId = $(this).find('img').data('id');
        let img_target = $("#img"+updatePosition);
@@ -1615,43 +1615,43 @@ $(".modalPopup .item4, .modalPopup .item2").on('click', function(e) {
        $("#photo_gallery").modal("hide");
    });
 
-function setAsDefultImages(){
-    if(profile_selected_images.length > 0){
-        profile_selected_images.map((item,index)=>{
-            updateDefaultImage(item.updatePosition, item.mediaId, item.img_target, item.imageSrc);
-            if(profile_selected_images.length==(index+1)){
-                profile_selected_images = [];
+    function setAsDefultImages(){
+        if(profile_selected_images.length > 0){
+            profile_selected_images.map((item,index)=>{
+                updateDefaultImage(item.updatePosition, item.mediaId, item.img_target, item.imageSrc);
+                if(profile_selected_images.length==(index+1)){
+                    profile_selected_images = [];
+                }
+            });
+            $("#setAsDefaultForMainAccount").modal('hide');
+        }
+    }   
+
+    function updateDefaultImage(position, meidaId, img_target, media_src) {
+        console.log({position:position,meidaId:meidaId});
+        var url = "{{ route('escort.default.images') }} ";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                position: position,
+                meidaId: meidaId
+            },
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            success : function (data) {
+                if(data.error == true) {
+                    img_target.attr('data-id', meidaId);
+                    img_target.attr('src', media_src);
+                } else {
+                    swal.fire('', "<p>"+data.msg+"</p>", 'error');
+                    // $('.comman_msg').html();
+                    // $("#comman_modal").modal('show');
+                    $('#comman_modal').on('hidden.bs.modal', function () {
+                        // location.reload();
+                    });
+                }
             }
         });
-        $("#setAsDefaultForMainAccount").modal('hide');
-    }
-}   
-
-function updateDefaultImage(position, meidaId, img_target, media_src) {
-    console.log({position:position,meidaId:meidaId});
-       var url = "{{ route('escort.default.images') }} ";
-       $.ajax({
-           type: 'POST',
-           url: url,
-           data: {
-               position: position,
-               meidaId: meidaId
-           },
-           headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-           success : function (data) {
-               if(data.error == true) {
-                   img_target.attr('data-id', meidaId);
-                   img_target.attr('src', media_src);
-               } else {
-                   swal.fire('', "<p>"+data.msg+"</p>", 'error');
-                   // $('.comman_msg').html();
-                   // $("#comman_modal").modal('show');
-                   $('#comman_modal').on('hidden.bs.modal', function () {
-                       // location.reload();
-                   });
-               }
-           }
-       });
    }
 
 
@@ -1697,6 +1697,7 @@ function updateDefaultImage(position, meidaId, img_target, media_src) {
 
 
     $("body").on("click","#save_change",function(){
+        console.log('hey jiten');
         let field = $("#trigger-element").val();
         let value = $("#current").val();
         update_escort_default($(this), {
