@@ -473,6 +473,7 @@
                                         @php
 
                                             $escort->gender ? $escortGender = $escort->getRawOriginal('gender') : $escortGender = auth()->user()->gender;
+                                            // dd($escort);
                                             // if(empty($escort->gender)){
                                             //     $escortGender = auth()->user()->gender;
                                             // }

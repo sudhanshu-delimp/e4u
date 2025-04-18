@@ -123,8 +123,6 @@ class EscortController extends Controller
         return view('escort.dashboard.list', compact('escort', 'type', 'active_escorts'));
     }
 
-
-
     public function dataTable($type = NULL)
     {
         $conditions = [];
