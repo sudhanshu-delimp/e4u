@@ -47,7 +47,7 @@ class EnableEscortProfile extends Command
             Escort::where('id', $listing['escort_id'])->update(
                 array(
                     'start_date' => $listing['start_date'] . ' 00:00:00',
-                    'eroutes/web.phpnd_date' => $listing['end_date'] . ' 10:00:00',
+                    'end_date' => $listing['end_date'] . ' 10:00:00',
                     'membership' => $listing['membership'],
                     'enabled' => 1,
                 )
