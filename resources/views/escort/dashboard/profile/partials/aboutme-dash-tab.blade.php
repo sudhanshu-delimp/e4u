@@ -155,7 +155,7 @@
                                             $routeIsNewprofile = Str::contains(request()->path(), 'create-profile');
                                         @endphp
                                         @if( !empty($user->profile_creator) && in_array(1,$user->profile_creator) && $routeIsNewprofile)
-                                            <select onclick="stageNameInput(this)" class="change_default form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
+                                            <select onclick="stageNameInput(this)" class=" form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
                                                 <option value="" selected>-Choose Your Stage Name-</option>
                                                 {{-- <option value="" selected disabled>-Not Set-</option> --}}
                                                 @if(!empty(auth()->user()->escorts_names))
@@ -169,7 +169,7 @@
                                         @else
 
                                             @if($profile_type && !$routeIsNewprofile)
-                                                <select onclick="stageNameInput(this)" style="display: block" class="change_default change_default_select form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
+                                                <select onclick="stageNameInput(this)" style="display: block" class=" change_default_select form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
                                                     <option value="" selected>-Choose Your Stage Name-</option>
                                                     {{-- <option value="" selected disabled>-Not Set-</option> --}}
                                                     @if(!empty(auth()->user()->escorts_names))
@@ -179,7 +179,7 @@
                                                     @endif
                                                     <option value="new">Add a new Stage Name</option>
                                                 </select>
-                                                <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" value="{{$escort->name ? $escort->name : '' }}" class="change_default form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
+                                                <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" value="{{$escort->name ? $escort->name : '' }}-edit" class="change_default form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
                                             @endif
 
                                             
