@@ -22,6 +22,7 @@ use App\Models\State;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use App\Repositories\MassageProfile\MassageProfileInterface;
+use Illuminate\Support\Facades\Session;
 
 class WebController extends Controller
 {
@@ -99,9 +100,12 @@ class WebController extends Controller
                 $escortId[] = $id;
             }
 
-        }else{
-            $userStateId   = auth()->user()->state_id;
-            $escortId = Escort::where('state_id', $userStateId)->pluck('id')->toArray(); 
+        }else{       
+            $stateId = Session::get('session_state_id');;           
+            $userStateId   = $stateId ? $stateId : (auth()->user() ? auth()->user()->state_id : null);
+            if($userStateId != null){
+                $escortId = Escort::where('state_id', $userStateId)->pluck('id')->toArray(); 
+            }
         }
 
         list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
