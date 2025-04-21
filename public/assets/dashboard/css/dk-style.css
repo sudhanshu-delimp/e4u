@@ -629,6 +629,9 @@ color:#0c223d ;
 .custom--hide {
     display: none;
 }
+.sidebaar-custom .cstm--icon {
+    width: 28px !important;
+}
 /* New css 11march 2025 end */
 
 
