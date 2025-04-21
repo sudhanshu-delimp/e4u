@@ -150,7 +150,11 @@
                                 <div class="form-group row tab-about-me-row-padding">
                                     <label class="col-sm-2 font-weight-500" for="stageName">Stage Name:<span style='color:red'>*</span></label>
                                     <div class="col-sm-6">
-                                        @if( !empty($user->profile_creator) && in_array(1,$user->profile_creator))
+                                        @php
+                                            $profile_type = isset($profile_type);
+                                            $routeIsNewprofile = Str::contains(request()->path(), 'create-profile');
+                                        @endphp
+                                        @if( !empty($user->profile_creator) && in_array(1,$user->profile_creator) && $routeIsNewprofile)
                                             <select onclick="stageNameInput(this)" class="change_default form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
                                                 <option value="" selected>-Choose Your Stage Name-</option>
                                                 {{-- <option value="" selected disabled>-Not Set-</option> --}}
@@ -163,7 +167,23 @@
                                             </select>
                                             <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" class="change_default form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
                                         @else
-                                            <input type="text" id="stageName" required="required" name="name" title="(for public display)" class="change_default form-control form-control-sm select_tag_remove_box_sadow" value="{{$escort->name ? $escort->name : '' }}" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)" data-parsley-errors-container="#stageName-errors">
+
+                                            @if($profile_type && !$routeIsNewprofile)
+                                                <select onclick="stageNameInput(this)" style="display: block" class="change_default change_default_select form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
+                                                    <option value="" selected>-Choose Your Stage Name-</option>
+                                                    {{-- <option value="" selected disabled>-Not Set-</option> --}}
+                                                    @if(!empty(auth()->user()->escorts_names))
+                                                        @foreach(auth()->user()->escorts_names as $key => $name)
+                                                            <option value='{{ $name}}' {{ ($escort->name == $name)? 'selected' : ''}}>{{ $name}}</option>
+                                                        @endforeach
+                                                    @endif
+                                                    <option value="new">Add a new Stage Name</option>
+                                                </select>
+                                                <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" value="{{$escort->name ? $escort->name : '' }}" class="change_default form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
+                                            @endif
+
+                                            
+                                            {{-- <input type="text" id="stageName" required="required" name="name" title="(for public display)" class="change_default stageNameOnBlank form-control form-control-sm select_tag_remove_box_sadow" value="{{$escort->name ? $escort->name : '' }}" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)" data-parsley-errors-container="#stageName-errors"> --}}
                                         @endif
                                     </div>
                                     <div class="col-sm-4">
@@ -1703,6 +1723,18 @@
             [field] : value
         });
     });
+
+    $("body").on("keyup change",".stageNameOnBlank",function(){
+        let $this = $(this);
+
+        if ($this.val().trim() === "") {
+            console.log('heycdsd');
+            $(".change_default_select").show();
+            $(".stageNameOnBlank").hide();
+            return true;
+        }
+    });
+
     // UPDATE BUTTONS
     $("body").on("click","#updateVaccineStatus",function(){
         if($("[name=covidreport]").is(':checked')) {
