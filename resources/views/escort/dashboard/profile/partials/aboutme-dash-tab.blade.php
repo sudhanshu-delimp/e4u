@@ -163,7 +163,7 @@
                                             </select>
                                             <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" class="change_default form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
                                         @else
-                                            <input type="text" id="stageName" required="required" name="name" title="(for public display)" class="form-control form-control-sm select_tag_remove_box_sadow" value="{{$escort->name ? $escort->name : '' }}" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)" data-parsley-errors-container="#stageName-errors">
+                                            <input type="text" id="stageName" required="required" name="name" title="(for public display)" class="change_default form-control form-control-sm select_tag_remove_box_sadow" value="{{$escort->name ? $escort->name : '' }}" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)" data-parsley-errors-container="#stageName-errors">
                                         @endif
                                     </div>
                                     <div class="col-sm-4">

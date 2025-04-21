@@ -1479,7 +1479,12 @@
             $('#label').val(label);
             $('#current').val(Current);
             $('#previous').val(previous);
-            console.log("label ji paste previous "+ label , Current, previous);          
+            console.log("label ji paste previous: "+ label , Current, previous);    
+            
+            if (label == 'stageName' && Current === 'new'){
+                return true;
+            } 
+
 
             //$(".Lname").text("current value "+Current+ " previous ="+previous);
             $("#Lname").html("<p>Would you like to update <b>"+label+"</b> in your My Information page for future Profiles?</p>");
