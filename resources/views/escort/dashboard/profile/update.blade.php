@@ -1482,7 +1482,12 @@
             console.log("label ji paste previous: "+ label , Current, previous);    
             
             if (label == 'stageName' && Current === 'new'){
+                
                 return true;
+            } 
+
+            if (label == 'stageNameInp'){
+                label = 'Stage Name';
             } 
 
 
