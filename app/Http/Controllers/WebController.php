@@ -107,8 +107,6 @@ class WebController extends Controller
         list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
         $escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escortId, $userId = null ,$gen);
 
-        
-
         return view('web.all-filter-profile', compact('user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
