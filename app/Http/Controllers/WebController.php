@@ -11,11 +11,14 @@ use App\Repositories\Escort\AvailabilityInterface;
 use App\Repositories\Page\PageInterface;
 use App\Models\Add_to_list;
 use App\Models\Add_to_massage_shortlist;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\Escort;
 use App\Models\Payment;
 use App\Models\EscortLike;
 use App\Models\MassageLike;
 use App\Models\EscortBrb;
-
+use App\Models\State;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use App\Repositories\MassageProfile\MassageProfileInterface;
@@ -43,12 +46,16 @@ class WebController extends Controller
         $user = 1;
 
         $array = config('escorts.profile.genders');
+        
+
         $gender_one = array_flip($array);
         if($gender != null) {
             $gen = $gender_one[$gender];
         } else {
             $gen = null;
         }
+
+        // dd($array, auth()->user(), $gender_one, $gen);
 
 
         //dd($gen[$gender]);
@@ -60,7 +67,7 @@ class WebController extends Controller
         if(auth()->user() && auth()->user()->type == 0) {
             $user_type = auth()->user();
         }
-        //dd($user_type->myLegBox->pluck('id')->toArray());
+        // dd(request()->all(), auth()->user());
 
         $params  = [
             'string' => request()->get('name'),
@@ -79,8 +86,7 @@ class WebController extends Controller
         } else {
             $limit = 25;
         }
-        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
-        $escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escort_id = [], $userId = null ,$gen);
+        
         //dd($escorts);
         $services = $this->services->all();
         //dd($escorts->shortListed);
@@ -93,7 +99,16 @@ class WebController extends Controller
                 $escortId[] = $id;
             }
 
+        }else{
+            $userStateId   = auth()->user()->state_id;
+            $escortId = Escort::where('state_id', $userStateId)->pluck('id')->toArray(); 
         }
+
+        list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
+        $escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escortId, $userId = null ,$gen);
+
+        
+
         return view('web.all-filter-profile', compact('user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
