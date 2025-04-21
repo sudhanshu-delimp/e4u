@@ -261,7 +261,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
     public function findByPlan($count = null, $str = [], $user_id = null, $escort_id = [], $userId = null,$gen = null)
     {
-        //dd($escort_id);
         $plan_type = $this->filter($this->model, $str , $user_id, $escort_id, $userId,$gen);
         //dd($plan_type->get());
         if($user_id) {

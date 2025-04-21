@@ -131,7 +131,7 @@
                                 @csrf
                                 <input type="hidden" name="user_startDate" id="user_startDate" value="{{ date('Y-m-d',strtotime(auth()->user()->created_at)) }}">
                                 <div class="tab-content tab-content-bg" id="myTabContent">
-                                    @include('escort.dashboard.profile.partials.aboutme-dash-tab')
+                                    @include('escort.dashboard.profile.partials.aboutme-dash-tab',['profile_type'=>'updated'])
                                     @include('escort.dashboard.profile.partials.services-dash-tab')
                                     @include('escort.dashboard.profile.partials.available-dash-tab')
 {{--                                    @include('escort.dashboard.profile.partials.pricing-dash-tab')--}}
@@ -1470,15 +1470,25 @@
             console.log(previous);
             //var label = jQuery(this).closest(".form-group").find("label").text();
 
-            console.log("label "+label);
+            console.log("label ji"+label);
         }).on('change paste', function() {
             // Do soomething with the previous value after the change
             var Current = $(this).val();
-            var label = $(this).attr('id');
+            // var label = $(this).attr('id');
+            // var label = $(this).('id');
+            var original = $(this).parent().prev().text();
+            let label = original.substring(0, original.lastIndexOf(":"));
             $('#trigger-element').val( $(this).attr('name'));
             $('#label').val(label);
             $('#current').val(Current);
             $('#previous').val(previous);
+            console.log("label ji paste previous: "+ label , Current, previous);    
+            
+            if (label == 'stageName' && Current === 'new'){
+                
+                return true;
+            } 
+
             //$(".Lname").text("current value "+Current+ " previous ="+previous);
             $("#Lname").html("<p>Would you like to update <b>"+label+"</b> in your My Information page for future Profiles?</p>");
 
@@ -1496,9 +1506,9 @@
         if ($('#change_all').hasClass('programmatic')) {
             console.log('hide', e.relatedTarget);
             var trigger_elem =  $('#trigger-element').val();
-            console.log('trigger_elem');
+            console.log('trigger_elem by jiten');
             console.log(trigger_elem);
-            $('[name="'+trigger_elem+'"]').val($('#previous').val());
+            //$('[name="'+trigger_elem+'"]').val($('#previous').val());
         }
 
         //console.log(trigger_elem, $('select[name="'+trigger_elem+'"]'));
@@ -1506,6 +1516,8 @@
     $(document).ready(function(){
 
         $('#save_change').on("click", function (e) {
+
+            console.log('save chnages by jiten');
             $('#change_all').removeClass('programmatic');
             if($('#label').val() == 'Gender') {
                 _displayGenderDependentFields($('#current').val());
@@ -1833,12 +1845,17 @@
 
 
                 }
+                
+                console.log('hey profile tab parent');
+
                 if($('#my_escort_profile').parsley(
                     { excluded: "input[type=number], input[type=hidden]" }
                     // { excluded: "input[type=number], input[type=hidden], [disabled], :hidden" }
                 ).validate({group: 'goup_one'})){
+                    console.log('hey profile tab parent -child');
                     e.target
                     if(e.target.id == "profile-tab" && ckeditorGroup != false ) {
+                        console.log('hey profile tab');
                         $('.define_process_bar_color').attr('style','width :80%');//.percent
                         $('#percent').html('80%');
 
@@ -2032,6 +2049,7 @@ function update_escort(updateButton, form_data)
 
 function update_escort_default(updateButton, form_data)
 {
+    console.log('jit', updateButton, form_data)
     updateButton.prop('disabled', true).html('<div class="spinner-border"></div>');
     var url = "{{ route('escort.update_escort_default')}}";
     $.ajax({
@@ -2051,8 +2069,6 @@ function update_escort_default(updateButton, form_data)
         }
     });
 }
-
-
 
 </script>
 @endpush

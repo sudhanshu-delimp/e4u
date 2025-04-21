@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PinUps;
 use Illuminate\Http\Request;
 use App\Repositories\State\StateInterface;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -28,6 +29,7 @@ class HomeController extends Controller
 
     public function getGioLocation(Request $request)
     {
+        // dd($request->all());
         $stateName = null;
         $error = false;
         if(!empty($request->ipinfo->region)) {
@@ -41,7 +43,7 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        //dd($request->ipinfo->region);
+        Session::put('session_state_id', $request->query('location_state'));
 
         if($stateId = $request->query('location_state')) {
             $lastMonday = date('Y-m-d', strtotime('last monday', strtotime('next monday')));;

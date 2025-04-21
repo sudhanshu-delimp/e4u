@@ -93,9 +93,23 @@ class UpdateController extends AppController
 
 
     public function update_escort_default(Request $request) {
+        
         $error=true;
         $user = auth()->user();
         $escortDefault = $this->escort->findDefault($user->id, 1);
+
+       if(!empty($request->name)){
+            
+            $users = $this->user->find($user->id);
+            
+            $escortNames = $users->escorts_names;
+            if($escortNames == NULL || !in_array($request->name, $escortNames)) {
+                $escortNames[] = $request->name;
+                $users->escorts_names = $escortNames;
+                $users->save();
+            }
+       }
+
         $input = [
 //            'gender'=> $request->gender ?: $escortDefault->gender,
             'orientation'=> $request->orientation ?: $escortDefault->getRawOriginal('orientation'),
@@ -123,7 +137,9 @@ class UpdateController extends AppController
             'smoke'=> $request->smoke ?: $escortDefault->getRawOriginal('smoke'),
             'license'=>$request->license ? $request->license : $escortDefault->license,
             'age'=>$request->age ? $request->age : $escortDefault->age,
+            // 'name'=>$request->name ? $request->name : $escortDefault->name,
         ];
+
         if($this->escort->update($escortDefault->id, $input)) {
             $error = false;
         }
@@ -168,7 +184,7 @@ class UpdateController extends AppController
 
         $galleryStorageFull = false;
         $escortDefault = $this->escort->findDefault($user->id, 1);
-        //dd($request->all());
+
         $input = [
             'name' => $request->name ?$request->name : ($escortDefault->name ?: null),
             'city_id' => $request->city_id ?$request->city_id : ($escortDefault->city_id ?: null),
@@ -222,20 +238,20 @@ class UpdateController extends AppController
             'about'=>$request->about ? $request->about : ($escortDefault->about ?: null),
             'about_title'=>$request->about_title ? $request->about_title : ($escortDefault->about_title ?: null),
         ];
-//         dd($request->all());
 //        $errors = [];
         $errors = '';
         if($escort = $this->escort->store($input,$id)) {
             $id = $escort->id;
             //$error = 1;
 
-            $user = $this->user->find(auth()->user()->id);
-            $escortNames = $user->escorts_names;
-            if($escortNames == NULL || !in_array($input['name'], $escortNames)) {
-                $escortNames[] = $input['name'];
-                $user->escorts_names = $escortNames;
-                $user->save();
-            }
+            // $user = $this->user->find(auth()->user()->id);
+            
+            // $escortNames = $user->escorts_names;
+            // if($escortNames == NULL || !in_array($input['name'], $escortNames)) {
+            //     $escortNames[] = $input['name'];
+            //     $user->escorts_names = $escortNames;
+            //     $user->save();
+            // }
         } else {
 //            $errors['profile_save'] = 'Error while saving the profile';
             $errors = 'Error while saving the profile';
@@ -492,7 +508,6 @@ class UpdateController extends AppController
         if(isset($request->draft)) {
             $my_data['draft'] = 1;
         }
-       // dd($request->all());
 
 
         $user_days = Carbon::parse($request->end_date)->diffInDays(Carbon::parse($user->created_at));
@@ -524,7 +539,6 @@ class UpdateController extends AppController
             $error = 0;
 
             $escort = $this->escort->findDefault($user->id,1);
-            //dd($request->all());
             $input = [
                 'name' => $request->name ?$request->name : null,
                 'city_id' => $request->city_id ?$request->city_id : null,
@@ -571,7 +585,7 @@ class UpdateController extends AppController
                 'about'=>$request->about ? $request->about : null,
                 'about_title'=>$request->about_title ? $request->about_title : null,
             ];
-            // dd($request->all());
+    
             if($request->membership == 4) {
                 $input['start_date'] = $request->start_date;
                 $input['end_date'] = $request->end_date;

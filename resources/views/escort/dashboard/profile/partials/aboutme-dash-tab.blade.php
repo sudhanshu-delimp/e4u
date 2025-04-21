@@ -150,8 +150,12 @@
                                 <div class="form-group row tab-about-me-row-padding">
                                     <label class="col-sm-2 font-weight-500" for="stageName">Stage Name:<span style='color:red'>*</span></label>
                                     <div class="col-sm-6">
-                                        @if( !empty($user->profile_creator) && in_array(1,$user->profile_creator))
-                                            <select onclick="stageNameInput(this)" class="form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
+                                        @php
+                                            $profile_type = isset($profile_type);
+                                            $routeIsNewprofile = Str::contains(request()->path(), 'create-profile');
+                                        @endphp
+                                        @if( !empty($user->profile_creator) && in_array(1,$user->profile_creator) && $routeIsNewprofile)
+                                            <select onclick="stageNameInput(this)" class=" form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
                                                 <option value="" selected>-Choose Your Stage Name-</option>
                                                 {{-- <option value="" selected disabled>-Not Set-</option> --}}
                                                 @if(!empty(auth()->user()->escorts_names))
@@ -161,9 +165,25 @@
                                                 @endif
                                                 <option value="new">Add a new Stage Name</option>
                                             </select>
-                                            <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" class="form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
+                                            <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" class="change_default form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
                                         @else
-                                            <input type="text" id="stageName" required="required" name="name" title="(for public display)" class="form-control form-control-sm select_tag_remove_box_sadow" value="{{$escort->name ? $escort->name : '' }}" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)" data-parsley-errors-container="#stageName-errors">
+
+                                            @if($profile_type && !$routeIsNewprofile)
+                                                <select onclick="stageNameInput(this)" style="display: block" class=" change_default_select form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
+                                                    <option value="" selected>-Choose Your Stage Name-</option>
+                                                    {{-- <option value="" selected disabled>-Not Set-</option> --}}
+                                                    @if(!empty(auth()->user()->escorts_names))
+                                                        @foreach(auth()->user()->escorts_names as $key => $name)
+                                                            <option value='{{ $name}}' {{ ($escort->name == $name)? 'selected' : ''}}>{{ $name}}</option>
+                                                        @endforeach
+                                                    @endif
+                                                    <option value="new">Add a new Stage Name</option>
+                                                </select>
+                                                <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" value="{{$escort->name ? $escort->name : '' }}-edit" class="change_default form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
+                                            @endif
+
+                                            
+                                            {{-- <input type="text" id="stageName" required="required" name="name" title="(for public display)" class="change_default stageNameOnBlank form-control form-control-sm select_tag_remove_box_sadow" value="{{$escort->name ? $escort->name : '' }}" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)" data-parsley-errors-container="#stageName-errors"> --}}
                                         @endif
                                     </div>
                                     <div class="col-sm-4">
@@ -1577,9 +1597,9 @@
         });
     });
 
-let profile_selected_images = [];
+    let profile_selected_images = [];
 
-$(".modalPopup .item4, .modalPopup .item2").on('click', function(e) {
+    $(".modalPopup .item4, .modalPopup .item2").on('click', function(e) {
        let imageSrc = $(this).find('img').attr('src');
        let mediaId = $(this).find('img').data('id');
        let img_target = $("#img"+updatePosition);
@@ -1615,43 +1635,43 @@ $(".modalPopup .item4, .modalPopup .item2").on('click', function(e) {
        $("#photo_gallery").modal("hide");
    });
 
-function setAsDefultImages(){
-    if(profile_selected_images.length > 0){
-        profile_selected_images.map((item,index)=>{
-            updateDefaultImage(item.updatePosition, item.mediaId, item.img_target, item.imageSrc);
-            if(profile_selected_images.length==(index+1)){
-                profile_selected_images = [];
+    function setAsDefultImages(){
+        if(profile_selected_images.length > 0){
+            profile_selected_images.map((item,index)=>{
+                updateDefaultImage(item.updatePosition, item.mediaId, item.img_target, item.imageSrc);
+                if(profile_selected_images.length==(index+1)){
+                    profile_selected_images = [];
+                }
+            });
+            $("#setAsDefaultForMainAccount").modal('hide');
+        }
+    }   
+
+    function updateDefaultImage(position, meidaId, img_target, media_src) {
+        console.log({position:position,meidaId:meidaId});
+        var url = "{{ route('escort.default.images') }} ";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {
+                position: position,
+                meidaId: meidaId
+            },
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            success : function (data) {
+                if(data.error == true) {
+                    img_target.attr('data-id', meidaId);
+                    img_target.attr('src', media_src);
+                } else {
+                    swal.fire('', "<p>"+data.msg+"</p>", 'error');
+                    // $('.comman_msg').html();
+                    // $("#comman_modal").modal('show');
+                    $('#comman_modal').on('hidden.bs.modal', function () {
+                        // location.reload();
+                    });
+                }
             }
         });
-        $("#setAsDefaultForMainAccount").modal('hide');
-    }
-}   
-
-function updateDefaultImage(position, meidaId, img_target, media_src) {
-    console.log({position:position,meidaId:meidaId});
-       var url = "{{ route('escort.default.images') }} ";
-       $.ajax({
-           type: 'POST',
-           url: url,
-           data: {
-               position: position,
-               meidaId: meidaId
-           },
-           headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-           success : function (data) {
-               if(data.error == true) {
-                   img_target.attr('data-id', meidaId);
-                   img_target.attr('src', media_src);
-               } else {
-                   swal.fire('', "<p>"+data.msg+"</p>", 'error');
-                   // $('.comman_msg').html();
-                   // $("#comman_modal").modal('show');
-                   $('#comman_modal').on('hidden.bs.modal', function () {
-                       // location.reload();
-                   });
-               }
-           }
-       });
    }
 
 
@@ -1703,6 +1723,18 @@ function updateDefaultImage(position, meidaId, img_target, media_src) {
             [field] : value
         });
     });
+
+    $("body").on("keyup change",".stageNameOnBlank",function(){
+        let $this = $(this);
+
+        if ($this.val().trim() === "") {
+            console.log('heycdsd');
+            $(".change_default_select").show();
+            $(".stageNameOnBlank").hide();
+            return true;
+        }
+    });
+
     // UPDATE BUTTONS
     $("body").on("click","#updateVaccineStatus",function(){
         if($("[name=covidreport]").is(':checked')) {
