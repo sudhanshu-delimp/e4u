@@ -1474,7 +1474,10 @@
         }).on('change paste', function() {
             // Do soomething with the previous value after the change
             var Current = $(this).val();
-            var label = $(this).attr('id');
+            // var label = $(this).attr('id');
+            // var label = $(this).('id');
+            var original = $(this).parent().prev().text();
+            let label = original.substring(0, original.lastIndexOf(":"));
             $('#trigger-element').val( $(this).attr('name'));
             $('#label').val(label);
             $('#current').val(Current);
@@ -1485,11 +1488,6 @@
                 
                 return true;
             } 
-
-            if (label == 'stageNameInp'){
-                label = 'Stage Name';
-            } 
-
 
             //$(".Lname").text("current value "+Current+ " previous ="+previous);
             $("#Lname").html("<p>Would you like to update <b>"+label+"</b> in your My Information page for future Profiles?</p>");
