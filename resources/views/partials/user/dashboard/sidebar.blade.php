@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion sidebaar-custom" id="accordionSidebar">
    <!-- Sidebar - Brand -->
    <!-- <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('home')}}">
       <img src="{{ asset('assets/app/img/logo.svg') }} " alt="">
@@ -122,9 +122,7 @@
    </li>
    <li class="nav-item">
       <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo" aria-expanded="true">
-         <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13 19.7207H15V21.7207H13V19.7207ZM9 21.7207H11V19.7207H9V21.7207ZM5 21.7207H7V19.7207H5V21.7207ZM14.5 0.720703C12.76 0.720703 11.09 1.5307 10 2.8007C8.91 1.5307 7.24 0.720703 5.5 0.720703C2.42 0.720703 0 3.1307 0 6.2207C0 9.9907 3.4 13.0807 8.55 17.7507L10 19.0707L11.45 17.7507C16.6 13.0807 20 9.9907 20 6.2207C20 3.1307 17.58 0.720703 14.5 0.720703Z" fill="#C2CFE0"/>
-         </svg>
+      <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox-light.png')}}">
          <span>My Legbox</span>
       </a>
       <div id="collapseTwo" class=" collapse  @if(request()->segment(2) == 'my-legbox-list' || request()->segment(2) == 'massage-legbox-list' ||request()->segment(3) == 'my-legbox-notes' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -133,7 +131,7 @@
                <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M5 9.7207V7.7207H19V9.7207H5ZM5 15.7207V13.7207H19V15.7207H5ZM5 3.7207V1.7207H19V3.7207H5ZM1 4.7207V1.7207H0V0.720703H2V4.7207H1ZM0 13.7207V12.7207H3V16.7207H0V15.7207H2V15.2207H1V14.2207H2V13.7207H0ZM2.25 6.7207C2.44891 6.7207 2.63968 6.79972 2.78033 6.94037C2.92098 7.08103 3 7.27179 3 7.4707C3 7.6707 2.92 7.8607 2.79 7.9907L1.12 9.7207H3V10.7207H0V9.8007L2 7.7207H0V6.7207H2.25Z" fill="#C2CFE0"/>
                </svg>
-               <span class="pl-3" style="{{request()->segment(2) == 'my-legbox-list' ? 'color: #e5365a;' : ''}} ">List</span>
+               <span class="pl-3" style="{{request()->segment(2) == 'my-legbox-list' ? 'color: #e5365a;' : ''}} ">Escort List</span>
             </a>
             <a class="collapse-item" href="{{ route('user.massage.legbox.list') }}">
                <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -152,7 +150,7 @@
    </li>
    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ugly" aria-expanded="false" aria-controls="collapseten">
-             <img src="{{ asset('assets/dashboard/img/menu-icon/Vector.png')}}">
+        <img class="mr-2 pl-1 cstm--icon " src="{{asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png')}}">
              <span>Punterbox</span>
         </a>
         <div id="ugly" class=" collapse  @if(request()->segment(3) == 'report' || request()->segment(3) == 'lookup' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -165,6 +163,26 @@
             <a class="collapse-item" href="{{ route('user.lookup') }}">
                 <img src="{{ asset('assets/app/img/icons-list.png')}}">
             <span class="pl-3" style="{{request()->segment(3) == 'lookup' ? 'color: #e5365a;' : ''}}">Look Up</span>
+            </a>
+
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#uglynote" aria-expanded="false" aria-controls="collapseten">
+        <img class="mr-2 pl-1 cstm--icon " src="{{asset('assets/dashboard/img/menu-icon/Icon_MyNotebox-light.png')}}">
+             <span>Notebox</span>
+        </a>
+        <div id="uglynote" class=" collapse  @if(request()->segment(3) == 'report' || request()->segment(3) == 'lookup' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="py-0 collapse-inner rounded mb-2">
+             <a class="collapse-item show" href="{{ route('user.report') }}">
+                <img src="{{ asset('assets/app/img/icons-bug.png')}}">
+                <span class="pl-3" style="{{request()->segment(3) == 'report' ? 'color: #e5365a;' : ''}}">New</span>
+            </a>
+
+            <a class="collapse-item" href="{{ route('user.lookup') }}">
+                <img src="{{ asset('assets/app/img/icons-list.png')}}">
+            <span class="pl-3" style="{{request()->segment(3) == 'lookup' ? 'color: #e5365a;' : ''}}">List</span>
             </a>
 
             </div>

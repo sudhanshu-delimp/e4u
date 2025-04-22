@@ -122,7 +122,7 @@
                         User Name: {{auth()->user()->name }}
                     </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ route('user.account.edit')}}">
+                                <a class="dropdown-item" href="/user-dashboard/change-features">
                                     <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/account1-edit.png')}}">
                                     Change Features
                                 </a>
@@ -131,18 +131,18 @@
                                     Change Password
                                 </a>
                                 
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/user-dashboard/my-legbox-list">
                                 <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox.png')}}">
                                     My Legbox
                                 </a>
                                 
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="/user-dashboard/my-legbox-list">
                                     <img class="mr-2 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyNotebox.png')}}">
                                     My Notebox
                                 </a>
                                 
-                                <a class="dropdown-item" href="#">
-                                    <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/cellphone-information.png')}}">
+                                <a class="dropdown-item" href="/user-dashboard/punterbox/lookup">
+                                    <img class="mr-2 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox.png')}}">
                                     Punterbox
                                 </a>
                                 
