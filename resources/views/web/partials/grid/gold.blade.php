@@ -30,7 +30,7 @@
                 <span class="add_to_favrate" data-escortId="{{$escort->id}}"><i class="fa fa-heart-o" aria-hidden="true" title="Removed from Legbox" data-name="{{$escort->name}}"></i></span>
             @endif
         </div>
-    <a  class="card card_box_style six_col_card mb-0 short-card" href="{{ route('profile.description',$escort->id)}}">
+    <a  class="card card_box_style six_col_card mb-0 short-card" href="{{ route('profile.description',[$escort->id,$escort->city_id, $escort->membership])}}">
         <div class="card2 card_box_style1 six_col_card1">
             <img class="card-img-top" src=" {{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}" alt="Card image cap">
             <div class="six_column_content_top d-flex justify-content-between mid_tit wish_span"></div>

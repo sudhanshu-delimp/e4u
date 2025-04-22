@@ -132,7 +132,7 @@ Route::get('admin-dashboard/e4u-database/escorts', function()
 	})->name('admin.e4u-database.escorts');
 //  end shortlist
 /********** escort profile description **********/
-Route::get('/escort-profile/{id}', [App\Http\Controllers\WebController::class,'profileDescription'])->name('profile.description');
+Route::get('/escort-profile/{id}/{city?}/{membershipId?}', [App\Http\Controllers\WebController::class,'profileDescription'])->name('profile.description');
 Route::get('/center-profile/{id}', [App\Http\Controllers\WebController::class,'centerProfileDescription'])->name('center.profile.description');
 Route::post('/store-message/{id}', [App\Http\Controllers\Escort\MessageReviewController::class,'saveMessage'])->name('store.message');
 Route::post('/review-advertiser/{id}', [App\Http\Controllers\Escort\MessageReviewController::class,'SaveReviewAdvertiser'])->name('review.advertiser');

@@ -530,6 +530,10 @@
                var stateId = $(this).val();
 
            })
+
+           var stateId = $.cookie('state-id');
+            console.log('State ID from cookie ji:', stateId);
+            
            // $("#defaultCheck1").click(function(){
            //     if (this.checked) {
            //         $(".agree").prop('disabled',false); // If checked enable item
@@ -652,14 +656,16 @@
            $("body").on('click','.agree',function(){
 
                if ($('#agreeMyForm').parsley().isValid()) {
-                   var stateId = $('#location_state').data('value');
+                  //  var stateId = $('#location_state').data('value');
+                   var stateId = $('#location_state').val();
                    $.cookie('user-agreement', 'true', { expires: 5});
 
                    // $.cookie('state-id', stateId, { expires: 5});
                    $.cookie('state-id', stateId, { expires: 5});
+                   $.cookie('session-state-id', stateId);
                    $("#myFrontpop").modal("hide");
 
-                   console.log($.cookie('user-agreement'));
+                   console.log('Ji ',$.cookie('user-agreement'), $.cookie('session-state-id'));
                     //$("#onloadpopup").modal('show');
                }
 

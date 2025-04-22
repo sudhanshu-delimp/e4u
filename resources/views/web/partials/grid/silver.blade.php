@@ -20,7 +20,7 @@
             <span class="add_to_favrate" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
             @endif
         </div>
-    <a  class="card card_box_style mb-0 short-card" href="{{ route('profile.description',$escort->id)}}">
+    <a  class="card card_box_style mb-0 short-card" href="{{ route('profile.description',[$escort->id, $escort->city_id, $escort->membership])}}">
         <div class="card2 card_box_style1">
             <img class="card-img-top" src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}" alt="Card image cap">
             <div class="seven_column_content_top d-flex justify-content-between mid_tit wish_span"></div>

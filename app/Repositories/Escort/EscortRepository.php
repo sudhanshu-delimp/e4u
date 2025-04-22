@@ -8,6 +8,7 @@ use App\Models\Escort;
 use App\Models\User;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Arr;
 
 class EscortRepository extends BaseRepository implements EscortInterface
 {
@@ -25,23 +26,48 @@ class EscortRepository extends BaseRepository implements EscortInterface
         return $this->model->offset($to)->limit($from)->get();
     }
 
-    public function getlinks($escort_id)
+    public function getlinks($escort_id, $city=null, $membershipId=null, $filterEscortsCollection =null)
     {
-        $next = $this->model
-            ->where('id', '>', $escort_id)
-            ->whereNotNull('membership')
-            ->first();
+        $next = null;
+        $previous = null;
+        
+        foreach($filterEscortsCollection as $key => $profile){
+           $currentExists =  $profile->where('id', $escort_id)->first();
+            
+           if($currentExists && $currentExists->id == $profile->id){
+                if($key >= 0 && $key < count($filterEscortsCollection) -1){
+                    $next = $filterEscortsCollection[$key+1];
+                }
 
-        $previous = $this->model
-            ->where('id', '<', $escort_id)
-            ->whereNotNull('membership')
-            ->latest()->first();
+                if($key > 0){
+                        $previous = $filterEscortsCollection[$key-1];
+                }
+           }
+        }
 
         return [
-            $next ? route('profile.description', $next->id) : '#',
-            $previous ? route('profile.description', $previous->id) : '#',
+            $next ? route('profile.description', [$next->id, $city, $membershipId]) : '#',
+            $previous ? route('profile.description', [$previous->id, $city, $membershipId]) : '#',
         ];
     }
+
+    // public function getlinks($escort_id)
+    // {
+    //     $next = $this->model
+    //         ->where('id', '>', $escort_id)
+    //         ->whereNotNull('membership')
+    //         ->first();
+
+    //     $previous = $this->model
+    //         ->where('id', '<', $escort_id)
+    //         ->whereNotNull('membership')
+    //         ->latest()->first();
+
+    //     return [
+    //         $next ? route('profile.description', $next->id) : '#',
+    //         $previous ? route('profile.description', $previous->id) : '#',
+    //     ];
+    // }
 
     public function paginatedByEscortId($start, $limit, $order_key, $dir, $columns, $search = null, $escort_id,$stateId = null)
 	{
@@ -261,6 +287,12 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
     public function findByPlan($count = null, $str = [], $user_id = null, $escort_id = [], $userId = null,$gen = null)
     {
+        $profileDetails = false;
+        if($gen == 'profile_details'){
+            $profileDetails = true;
+            $gen = null;
+        }
+
         $plan_type = $this->filter($this->model, $str , $user_id, $escort_id, $userId,$gen);
         //dd($plan_type->get());
         if($user_id) {
@@ -286,7 +318,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
                            $q->orderBy('plan_type', 'asc');
                        })
                    ->with('user')
-                    ->orderBy('membership', 'asc')
+                    // ->orderBy('membership', 'asc')
+                    ->orderBy('id', 'asc')
                     ->paginate($count);
                     // ->paginate($count ?? 25);
         //dd($plan_type);
@@ -299,6 +332,11 @@ class EscortRepository extends BaseRepository implements EscortInterface
         $collection = $collection->groupBy(['user' => function($item) {
             return $item->membership;
         }], $preserveKeys = true)->sortKeys();
+
+        
+        if($profileDetails){
+            return  $collection->flatten(1);
+        }
 
         $pagination = $plan_type->setCollection($collection);
 
@@ -387,6 +425,12 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 });
             });
 
+        }
+
+        if(!empty($str['state_id']))
+        {
+            $collection = $collection->where('state_id','=',$str['state_id']);
+            //->orWhere('name','LIKE','%'.$str)
         }
         
         if(!empty($str['city_id']))

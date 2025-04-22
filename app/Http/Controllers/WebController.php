@@ -78,9 +78,18 @@ class WebController extends Controller
             'price' => request()->get('price'),
             'duration_price' => request()->get('duration_price'),
             'services' => request()->get('services'),
-            'enabled' => request()->get('enabled', 1)
+            'enabled' => request()->get('enabled', 1),
+            'state_id' => request()->get('state-id') ? request()->get('state-id') : Session::get('session_state_id'),
+            'limit'=> request()->get('limit')
         ];
 
+        session(['search_escort_filters' => $params]);
+        session(['search_escort_filters_url' => url()->full()]);
+
+        if($params['city_id'] && $params['state_id']){
+            $filterStateExist = City::where('id',$params['city_id'])->where('state_id',$params['state_id'])->exists();
+            $params['state_id'] = $filterStateExist ? $params['state_id'] : null;
+        }
 
         if(request()->get('limit')) {
             $limit = request()->get('limit');
@@ -100,12 +109,6 @@ class WebController extends Controller
                 $escortId[] = $id;
             }
 
-        }else{       
-            $stateId = Session::get('session_state_id');;           
-            $userStateId   = $stateId ? $stateId : (auth()->user() ? auth()->user()->state_id : null);
-            if($userStateId != null){
-                $escortId = Escort::where('state_id', $userStateId)->pluck('id')->toArray(); 
-            }
         }
 
         list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
@@ -535,7 +538,7 @@ class WebController extends Controller
 
         return $services;
     }
-    public function profileDescription(Request $request, $id)
+    public function profileDescription(Request $request, $id, $city=null, $membershipId =null)
     {
         $escort = $this->escort->find($id);
         $media = $this->escortMedia->get_videos($escort->user_id);
@@ -553,8 +556,20 @@ class WebController extends Controller
         // $mytime = Carbon::now()->format('Y-m-d');
         // $escort = Escort::whereDate('end_date','<',$mytime)->where('id',$id)->update(['enabled'=>0]);
         //
+        $escortId =[];
 
-        list($next, $previous) = $this->escort->getlinks($id);
+        $filterEscortsParams = session('search_escort_filters');
+
+        if(isset($filterEscortsParams['limit'])) {
+            $limit = $filterEscortsParams['limit'];
+        } else {
+            $limit = 25;
+        }
+
+        $filterEscorts = $this->escort->findByPlan($limit, $filterEscortsParams, $user_id = null, $escortId, $userId = null , 'profile_details');
+        $backToSearchButton = session('search_escort_filters_url');
+
+        list($next, $previous) = $this->escort->getlinks($id, $city, $membershipId, $filterEscorts);
         $availability = $escort ? $escort->availability : null;
 
         /*new functionality*/
@@ -664,7 +679,7 @@ class WebController extends Controller
 
         // return view('web.description',compact('escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three'));
 
-        return view('web.description',compact('brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three'));
+        return view('web.description',compact('brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three','backToSearchButton'));
     }
     public function centerProfileDescription($id)
     {

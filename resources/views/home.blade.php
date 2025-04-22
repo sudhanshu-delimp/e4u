@@ -214,6 +214,14 @@
 @endsection
 @push('scripts')
 <script>
- 
+    let stateId = $.cookie('session-state-id');
+
+    if (stateId) {
+        let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
+        let newUrl = currentHref + '?state-id=' + stateId;
+        document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
+        console.log(' view escort url : '+ newUrl);
+    }
+    
 </script>
 @endpush

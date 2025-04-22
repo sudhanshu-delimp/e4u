@@ -23,7 +23,7 @@
             @endif
         </div>
 
-    <a class="card short-card card_box_style mb-0" href="{{ route('profile.description',$escort->id)}}">
+    <a class="card short-card card_box_style mb-0" href="{{ route('profile.description',[$escort->id,$escort->city_id, $escort->membership])}}">
     <div class="card2 card_box_style1">
        
             <img class="card-img-top" src="{{ $escort->default_image ? asset($escort->default_image) : asset('assets/app/img/service-provider/Frame-408.png') }}" alt="Card image cap">
