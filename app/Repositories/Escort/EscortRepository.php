@@ -45,7 +45,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
            }
         }
 
-        # Note : ?no-page query handle in blade file for disable buttons purpose
+        # Note : ?no-next-page query handle in blade file for disable buttons purpose
         return [
             $next ? route('profile.description', [$next->id, $city, $membershipId]) : '?no-next-page',
             $previous ? route('profile.description', [$previous->id, $city, $membershipId]) : '?no-prev-page',

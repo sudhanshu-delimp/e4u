@@ -22,6 +22,7 @@ use App\Models\State;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use App\Repositories\MassageProfile\MassageProfileInterface;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
 class WebController extends Controller
@@ -42,7 +43,7 @@ class WebController extends Controller
         $this->page = $page;
         $this->massage_profile = $massage_profile;
     }
-    public function allEscortList($gender = null)
+    public function allEscortList(Request $request, $gender = null)
     {
         $user = 1;
 
@@ -68,23 +69,28 @@ class WebController extends Controller
         if(auth()->user() && auth()->user()->type == 0) {
             $user_type = auth()->user();
         }
-        // dd(request()->all(), auth()->user());
+
+        $userLocation = null;
+        if($request->lat != '' && $request->lng != ''){
+           $userLocation = $this->getRealTimeGeolocationOfUsers($request->lat, $request->lng);
+        }
 
         $params  = [
             'string' => request()->get('name'),
-            'city_id' => request()->get('city'),
+            'city_id' => $userLocation ? $userLocation['city'] : request()->get('city'),
             'gender' => request()->get('gender'),
             'age' => request()->get('age'),
             'price' => request()->get('price'),
             'duration_price' => request()->get('duration_price'),
             'services' => request()->get('services'),
             'enabled' => request()->get('enabled', 1),
-            'state_id' => request()->get('state-id') ? request()->get('state-id') : Session::get('session_state_id'),
+            'state_id' => $userLocation ? $userLocation['state'] : request()->get('state-id') ,
             'limit'=> request()->get('limit')
         ];
 
         session(['search_escort_filters' => $params]);
         session(['search_escort_filters_url' => url()->full()]);
+        session(['is_shortlisted_profile' => false]);
 
         if($params['city_id'] && $params['state_id']){
             $filterStateExist = City::where('id',$params['city_id'])->where('state_id',$params['state_id'])->exists();
@@ -96,8 +102,7 @@ class WebController extends Controller
         } else {
             $limit = 25;
         }
-        
-        //dd($escorts);
+
         $services = $this->services->all();
         //dd($escorts->shortListed);
         //$addToList = Add_to_list::all();,'addToList'
@@ -118,9 +123,81 @@ class WebController extends Controller
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
 
+    public function getRealTimeGeolocationOfUsers($lat, $lng)
+    {
+        try {
+            $apiKey = config('services.google_map.api_key'); // env('GOOGLE_MAPS_API_KEY');
+        
+            // Get location details from Google Maps Reverse Geocoding
+            $geoUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$lat},{$lng}&key={$apiKey}";
+            $response = Http::get($geoUrl);
+        
+            $state = 'Unknown';
+        
+            if ($response->successful()) {
+                foreach ($response['results'][0]['address_components'] as $component) {
+                    if (in_array('administrative_area_level_1', $component['types'])) {
+                        $state = $component['long_name'];
+                        break;
+                    }
+                }
+            }
+
+           $stateFromDb = State::where('name','like','%'.'Tasmania'.'%')->first();
+        //    $stateFromDb = State::where('name','like','%'.$state.'%')->first();
+
+            $stateCapital = config('escorts.profile.states')[$stateFromDb->id] ?? null;
+
+            $parms =[
+                'state'=> $stateFromDb ? $stateFromDb->id : null,
+                'city'=> $stateCapital ? array_key_first($stateCapital['cities']) : null,
+            ];
+
+            return $parms;
+        } catch (\Exception $e) {
+            //throw $th;
+            $parms =[
+                'state'=>null,
+                'city'=>null,
+            ];
+
+            return $parms;
+        }
+        
+    }
+    // public function getRealTimeGeolocationOfUsers()
+    // {
+    //     try {
+    //         // $ip = $_SERVER['REMOTE_ADDR']; // Get user's IP address
+    //         $ip = 'https://e4udev2.perth-cake1.powerwebhosting.com.au/'; // Get user's IP address
+    //         $accessKey = 'your_api_key'; // Optional if using paid service or high limits
+
+    //         // Use the IPInfo API (no key required for basic usage)
+    //         $response = file_get_contents("http://ipinfo.io/{$ip}/json");
+    //         $location = json_decode($response, true);
+
+    //         $parms =[
+    //             'ip'=>$location['ip'],
+    //             'city'=>$location['city'],
+    //             'state'=>$location['region'],
+    //             'country'=>$location['country'],
+    //         ];
+
+    //         return $parms;
+    //     } catch (\Exception $e) {
+    //         //throw $th;
+    //         $parms =[
+    //             'city'=>null,
+    //             'state'=>null
+    //         ];
+
+    //         return $parms;
+    //     }
+        
+    // }
+
     public function shortList()
     {
-
         $user = auth()->user();
 
         $params  = [
@@ -155,8 +232,7 @@ class WebController extends Controller
         else {
             $escortId[] = null;
         }
-        //dd($escortId);
-
+        
         //$user = auth()->user();
         $user = null;
         $user_type = null;
@@ -174,9 +250,12 @@ class WebController extends Controller
             'services' => request()->get('services'),
         ];
 
+        session(['search_shorlisting_escort_filters' => $params]);
+        session(['search_shorlisting_escort_filters_url' => url()->full()]);
+        session(['is_shortlisted_profile' => true]);
+
         $escorts = $this->escort->findByMyShortlist(50, $params, $userid, $escortId);
         list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
-
 
         $services = $this->services->all();
 
@@ -540,7 +619,6 @@ class WebController extends Controller
     }
     public function profileDescription(Request $request, $id, $city=null, $membershipId =null)
     {
-        
         $escort = $this->escort->find($id);
         $media = $this->escortMedia->get_videos($escort->user_id);
         $path = $this->escortMedia->findByVideoposition($escort->user_id,1)['path'];
@@ -560,6 +638,7 @@ class WebController extends Controller
         $escortId =[];
 
         $filterEscortsParams = session('search_escort_filters');
+
         if($filterEscortsParams == null){
             $filterEscortsParams  = [
                 'string' => request()->get('name'),
@@ -581,9 +660,27 @@ class WebController extends Controller
             $limit = 25;
         }
 
-        $filterEscorts = $this->escort->findByPlan($limit, $filterEscortsParams, $user_id = null, $escortId, $userId = null , 'profile_details');
         $backToSearchButton = session('search_escort_filters_url');
 
+        if(session('is_shortlisted_profile') == true){
+            $cartKeys = array_keys(session('cart'));
+            if (count($cartKeys) > 0) {
+                sort($cartKeys); // Sort the array in ascending order
+                $escortId = $cartKeys;
+            } else {
+                $escortId = [];
+            }
+
+            $filterEscortsParams = session('search_shorlisting_escort_filters');
+            $backToSearchButton = session('search_shorlisting_escort_filters_url');
+        }
+
+        $filterEscorts = $this->escort->findByPlan($limit, $filterEscortsParams, $user_id = null, $escortId, $userId = null , 'profile_details');
+
+        if(session('is_shortlisted_profile') == true){
+            $filterEscorts = $filterEscorts->sortBy('id')->values();
+        }
+        
         list($next, $previous) = $this->escort->getlinks($id, $city, $membershipId, $filterEscorts);
         $availability = $escort ? $escort->availability : null;
 
