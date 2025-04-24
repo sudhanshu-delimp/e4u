@@ -540,6 +540,7 @@ class WebController extends Controller
     }
     public function profileDescription(Request $request, $id, $city=null, $membershipId =null)
     {
+        
         $escort = $this->escort->find($id);
         $media = $this->escortMedia->get_videos($escort->user_id);
         $path = $this->escortMedia->findByVideoposition($escort->user_id,1)['path'];
@@ -559,6 +560,20 @@ class WebController extends Controller
         $escortId =[];
 
         $filterEscortsParams = session('search_escort_filters');
+        if($filterEscortsParams == null){
+            $filterEscortsParams  = [
+                'string' => request()->get('name'),
+                'city_id' => request()->get('city'),
+                'gender' => request()->get('gender'),
+                'age' => request()->get('age'),
+                'price' => request()->get('price'),
+                'duration_price' => request()->get('duration_price'),
+                'services' => request()->get('services'),
+                'enabled' => request()->get('enabled', 1),
+                'state_id' => request()->get('state-id') ? request()->get('state-id') : Session::get('session_state_id'),
+                'limit'=> request()->get('limit')
+            ];
+        }
 
         if(isset($filterEscortsParams['limit'])) {
             $limit = $filterEscortsParams['limit'];

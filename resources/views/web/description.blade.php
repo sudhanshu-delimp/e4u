@@ -20,10 +20,42 @@
         padding-top: 5%;
     }
 @endif
+
+
 .fa-thumbs-down, .fa-thumbs-up {
     pointer-events: none;
 }
+
 </style>
+
+@if(str_contains(url()->full(), '?no-next-page='))
+    <style>
+        .nextDisableButtonCss {
+            background: gray;
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+
+        .nextDisableButtonCss a {
+            cursor: not-allowed;
+        }
+    </style>
+@endif
+
+@if(str_contains(url()->full(), '?no-prev-page='))
+    <style>
+        .previousDisableButtonCss {
+            background: gray;
+            opacity: 0.2;
+            cursor: not-allowed;
+        }
+
+        .previousDisableButtonCss a {
+            cursor: not-allowed;
+        }
+    </style>
+@endif
+
 <div class="profile_description_banner overlay_parent custom--overlay" style="background: none;">
     <div class="overlay">
         @if($brb)
@@ -98,14 +130,15 @@
     </div>
     <div class="container-fluid px-0 next-preview-fixed">
         <div class="d-flex d-flex justify-content-between">
-            <div class="previous_btn_profile next_previous_btn_pogision preview-dk">
-                <a href="{{ $previous}}" class="text-decoration-none d-flex">
+            <div class="previous_btn_profile next_previous_btn_pogision preview-dk previousDisableButtonCss">
+                <a href="{{ $previous}}" class="text-decoration-none d-flex ">
                 <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span>
                 <span class="previous_text remove_in_sm">Previous</span>
                 </a>
             </div>
-            <div class="next_btn_profile next_previous_btn_pogision next-dk">
-                <a href="{{ $next}}" class="text-decoration-none">
+            
+            <div class="next_btn_profile next_previous_btn_pogision next-dk nextDisableButtonCss" >
+                <a href="{{ $next}}" class="text-decoration-none ">
                 <span class="previous_text remove_in_sm">Next</span>
                 <span class="previous_icon"><i class="fa fa-chevron-right text-white" aria-hidden="true"></i></span>
                 </a>
