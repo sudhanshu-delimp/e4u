@@ -131,14 +131,14 @@
     <div class="container-fluid px-0 next-preview-fixed">
         <div class="d-flex d-flex justify-content-between">
             <div class="previous_btn_profile next_previous_btn_pogision preview-dk previousDisableButtonCss">
-                <a href="{{ $previous}}" class="text-decoration-none d-flex ">
+                <a href="{{ str_contains(url()->full(), '?no-prev-page=') ? '#' : $previous}}" class="text-decoration-none d-flex ">
                 <span class="previous_icon"><i class="fa fa-chevron-left text-white" aria-hidden="true"></i></span>
                 <span class="previous_text remove_in_sm">Previous</span>
                 </a>
             </div>
             
             <div class="next_btn_profile next_previous_btn_pogision next-dk nextDisableButtonCss" >
-                <a href="{{ $next}}" class="text-decoration-none ">
+                <a href="{{ str_contains(url()->full(), '?no-next-page=') ? '#' : $next}}" class="text-decoration-none ">
                 <span class="previous_text remove_in_sm">Next</span>
                 <span class="previous_icon"><i class="fa fa-chevron-right text-white" aria-hidden="true"></i></span>
                 </a>
