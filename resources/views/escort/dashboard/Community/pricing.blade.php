@@ -475,7 +475,7 @@
                                             <div class="card-body p-0">
                                                 <div class="card border-0 mb-0 pb-0">
                                                     <div class="card-body border-0 p-0 mt-2">
-                                                        <p>For every [$value (200.00)] spent by an Escort, Escorts4U will apply one day of free
+                                                        <p>For every $200.00 spent by an Escort, Escorts4U will apply one day of free
                                                         advertising. When creating your Profile or Tour, the program is automatically applied.</p>
                                                     </div>
                                                 </div>
@@ -506,4 +506,5 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
 @endpush
