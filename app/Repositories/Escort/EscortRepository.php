@@ -433,14 +433,14 @@ class EscortRepository extends BaseRepository implements EscortInterface
         // dd($collection->get());
         if(!empty($str['state_id']))
         {
-            $newCollection = $collection->where('state_id',$str['state_id']);
+            $collection = $collection->where('state_id',$str['state_id']);
             // dd($newCollection->get()->toArray() );
-            if(count($newCollection->get()->toArray()) <= 0){
-                $collection = $collection;
-                //dd($collection);
-            }else{
-                $collection = $newCollection;
-            }
+            // if(count($newCollection->get()->toArray()) <= 0){
+            //     $collection = $collection;
+            //     //dd($collection);
+            // }else{
+            //     $collection = $newCollection;
+            // }
             //->orWhere('name','LIKE','%'.$str)
         }
 

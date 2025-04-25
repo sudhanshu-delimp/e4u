@@ -110,7 +110,7 @@ class WebController extends Controller
         //$addToList = Add_to_list::all();,'addToList'
         //dd($escorts);
         $escortId = [];
-        if(session('cart')) {
+        if(session('cart') && session('is_shortlisted_profile')) {
             foreach(session('cart') as $id => $vlaue) {
 
                 $escortId[] = $id;
@@ -121,7 +121,7 @@ class WebController extends Controller
         list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
         $escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escortId, $userId = null ,$gen);
 
-        //dd($escorts,$params);
+        //dd($escorts,$params, session('is_shortlisted_profile'));
         $locationCityId = $params['city_id'];
 
         return view('web.all-filter-profile', compact('user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId'));
