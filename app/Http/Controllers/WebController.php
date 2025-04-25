@@ -143,8 +143,8 @@ class WebController extends Controller
                 }
             }
 
-           $stateFromDb = State::where('name','like','%'.'Tasmania'.'%')->first();
-        //    $stateFromDb = State::where('name','like','%'.$state.'%')->first();
+        //    $stateFromDb = State::where('name','like','%'.'Tasmania'.'%')->first();
+           $stateFromDb = State::where('name','like','%'.$state.'%')->first();
 
             $stateCapital = config('escorts.profile.states')[$stateFromDb->id] ?? null;
 
