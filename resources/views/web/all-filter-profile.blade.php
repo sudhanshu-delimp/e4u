@@ -28,6 +28,7 @@ $genderId = 0;
 function checkCommonCityAndGender($cityId, $genderId, $escort) {
     if($cityId == $escort['city_id'] || $cityId == 0) {
         $cityId = $escort['city_id'];
+    
     } else {
         $cityId = -1;
     }
@@ -36,8 +37,6 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
     } else {
         $genderId = -1;
     }
-
-
     return [$cityId, $genderId];
 }
 @endphp
@@ -99,7 +98,8 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                             <select class="custome_form_control_border_radus padding_five_px" id="" name="city">
                                 <option value="" selected >All Cities</option>
                                 @foreach(@config('escorts.profile.cities') as $key =>$city)
-                                <option value="{{$key}}" {{ (request()->get('city') ==$key) ? 'selected' : '' }}>{{$city}}</option>
+                                {{-- <option value="{{$key}}" {{ (request()->get('city') == $key) ? 'selected' : '' }}>{{$city}}</option> --}}
+                                <option value="{{$key}}" {{ ($locationCityId == $key) ? 'selected' : '' }}>{{$city}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -318,8 +318,10 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
         <div class="otherliste" style="display: block;">
             {{-- {{dd($escorts)}} --}}
             @foreach($escorts as $plan_type => $members)
-
+            
+            {{-- dd($escorts, $plan_type, $members) --}}
                 @switch($plan_type)
+                
                 @case(1)
                 <div class="space_between_row" style="display:block">
                     <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png')}}" data-toggle="tooltip" title="Platinum Members - {{count($members)}} {{ count($members) == 1 ? 'Listing' : 'Listings' }}">
@@ -769,6 +771,10 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
         if ($cityId > 0) {
             echo "if($('[name=\"city\"]').val() == '') {
                     $('[name=\"city\"]').val($cityId);
+                    if(request()->get('city') == null && $locationCityId == null){
+                        $('[name=\"city\"]').val()
+                    }
+
                 }";
         }
         if ($genderId > 0) {

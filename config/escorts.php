@@ -320,6 +320,7 @@ return [
 			"6235" => "Melbourne",
 			"6839" => "Perth",
 			"7408" => "Sydney",
+			"57601" => "Agra",
 
 		],
 		// 'state-cities' => [
@@ -345,7 +346,14 @@ return [
 			"Northern Territory" => 8,
 		],
 		'states' => [
-
+'4022'=>[
+				"stateName" => 'Uttar Pradesh',
+				'cities'=>[
+					57601 => [
+						'cityName' => 'Agra',
+					],
+				],
+			],
 			'3907'=>[
 				"stateName" => 'Australian Capital Territory',
 				'cities'=>[

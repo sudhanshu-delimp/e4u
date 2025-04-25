@@ -294,8 +294,10 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $gen = null;
         }
 
+        
         $plan_type = $this->filter($this->model, $str , $user_id, $escort_id, $userId,$gen);
-        //dd($plan_type->get());
+        // dd($plan_type->get());
+
         if($user_id) {
             $plan_type = $plan_type->whereHas('shortListed', function($q) use($user_id) {
                 $q->where('add_to_list.user_id', $user_id);
@@ -428,11 +430,21 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
         }
 
+        // dd($collection->get());
         if(!empty($str['state_id']))
         {
-            $collection = $collection->where('state_id','=',$str['state_id']);
+            $newCollection = $collection->where('state_id',$str['state_id']);
+            // dd($newCollection->get()->toArray() );
+            if(count($newCollection->get()->toArray()) <= 0){
+                $collection = $collection;
+                //dd($collection);
+            }else{
+                $collection = $newCollection;
+            }
             //->orWhere('name','LIKE','%'.$str)
         }
+
+        //dd($collection->get(), $str['state_id']);
         
         if(!empty($str['city_id']))
         {

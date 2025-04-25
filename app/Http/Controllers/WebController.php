@@ -88,6 +88,8 @@ class WebController extends Controller
             'limit'=> request()->get('limit')
         ];
 
+        // dd($params);
+
         session(['search_escort_filters' => $params]);
         session(['search_escort_filters_url' => url()->full()]);
         session(['is_shortlisted_profile' => false]);
@@ -119,7 +121,10 @@ class WebController extends Controller
         list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
         $escorts = $this->escort->findByPlan($limit, $params, $user_id = null, $escortId, $userId = null ,$gen);
 
-        return view('web.all-filter-profile', compact('user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts'));
+        //dd($escorts,$params);
+        $locationCityId = $params['city_id'];
+
+        return view('web.all-filter-profile', compact('user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
 
