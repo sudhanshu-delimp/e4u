@@ -769,13 +769,15 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
 
        <?php
         if ($cityId > 0) {
+
+            
             echo "if($('[name=\"city\"]').val() == '') {
                     $('[name=\"city\"]').val($cityId);
-                    if(request()->get('city') == null && $locationCityId == null){
-                        $('[name=\"city\"]').val()
-                    }
-
                 }";
+
+            if(request()->get('city') == null && $locationCityId == null){
+                echo "$('[name=\"city\"]').val()";
+            }
         }
         if ($genderId > 0) {
             echo "if($('[name=\"gender\"]').val() == '') {
