@@ -632,6 +632,34 @@ color:#0c223d ;
 .sidebaar-custom .cstm--icon {
     width: 28px !important;
 }
+div#myTable_wrapper [aria-label="Subscription Type"] {
+    border-right: 2px solid white;
+}
+span.custom--help {
+    font-size: 16px;
+    margin-left: 20px;
+    color: #ff3c5f;
+}
+.custom-help-contain a.card-link {
+    color: #0c223d;
+}
+.custom-note-section .card-body {
+    border: none !important;
+    margin: 0 !important;
+}
+.custom-note-section .card {
+    border: 1px solid #e3e6f0 !important;
+    border-radius: .35rem;
+}
+.custom-note-section .card-body {
+    padding: 0 !important;
+}
+.custom-note-section {
+    display: none;
+}
+.help-note-toggle .custom-note-section {
+    display: block;
+}
 /* New css 11march 2025 end */
 
 
