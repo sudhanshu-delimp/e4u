@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginContr
 use App\Http\Controllers\Escort\EscortController;
 use Illuminate\Support\Facades\Cookie;
 use App\Http\Controllers\SupportTicketsController;
+use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Mail\sendPlaymateAccountDisableMail;
 /*
 |--------------------------------------------------------------------------
@@ -325,9 +326,9 @@ Route::get('/upload-avatar',function(){
     return view('user.upload-avatar');
 })->name('upload.avatar');
 
-Route::get('/user-dashboard/change-features',function(){
-    return view('user.dashboard.change-features');
-})->name('change-features');
+Route::get('/user-dashboard/change-features',[ViewerPrefrenceController::class, 'getViewerPrefrence'])->name('change-features');
+
+Route::post('/user-dashboard/viewer-prefrence',[ViewerPrefrenceController::class, 'setViewerPrefrence'])->name('set-viewer-preference');
 
 Route::get('admin-dashboard/alerts/new', function(){
         return view('admin.alerts.new');

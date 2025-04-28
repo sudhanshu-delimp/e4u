@@ -66,8 +66,11 @@ class WebController extends Controller
         // }
 
         $user_type = null;
+        $userInterest = null;
         if(auth()->user() && auth()->user()->type == 0) {
             $user_type = auth()->user();
+            $userInterest = auth()->user()->interest;
+            
         }
 
         $userLocation = null;
@@ -75,9 +78,20 @@ class WebController extends Controller
            $userLocation = $this->getRealTimeGeolocationOfUsers($request->lat, $request->lng);
         }
 
+        $paramData = [];
+        if($userInterest){
+            $cityParameterExist = request()->has('city');
+            $paramData['city_id'] = $cityParameterExist ? null : $userInterest->city ;
+            $paramData['interest'] = $userInterest->interests;
+            $userLocation = null;
+        }else{
+            $paramData['interest'] = null;
+            $paramData['city_id'] = null;
+        }
+
         $params  = [
             'string' => request()->get('name'),
-            'city_id' => $userLocation ? $userLocation['city'] : request()->get('city'),
+            'city_id' => $userLocation ? $userLocation['city'] : (request()->get('city') ? request()->get('city') : $paramData['city_id']),
             'gender' => request()->get('gender'),
             'age' => request()->get('age'),
             'price' => request()->get('price'),
@@ -85,10 +99,9 @@ class WebController extends Controller
             'services' => request()->get('services'),
             'enabled' => request()->get('enabled', 1),
             'state_id' => $userLocation ? $userLocation['state'] : request()->get('state-id') ,
-            'limit'=> request()->get('limit')
+            'limit'=> request()->get('limit'),
+            'interest'=> $paramData['interest'] ,
         ];
-
-        // dd($params);
 
         session(['search_escort_filters' => $params]);
         session(['search_escort_filters_url' => url()->full()]);

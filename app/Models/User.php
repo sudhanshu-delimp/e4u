@@ -343,6 +343,11 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Escort', 'user_id');
     }
+
+    public function interest()
+    {
+        return $this->hasOne(ViewerInterest::class, 'user_id');
+    }
     // public function massageProfiles()
     // {
     //     return $this->hasMany('App\Models\MassageProfile', 'user_id');
