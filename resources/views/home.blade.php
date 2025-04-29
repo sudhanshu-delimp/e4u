@@ -215,9 +215,8 @@
 @push('scripts')
 <script>
     let stateId = $.cookie('session-state-id');
-    
-    @if(auth()->user())
-        console.log('hey user');
+
+    @if(auth()->user() && (auth()->user()->interest && auth()->user()->interest->city == null))
         navigator.geolocation.getCurrentPosition(async function(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
@@ -226,12 +225,6 @@
             let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
             // let newUrl = currentHref + '?state-id=' + stateId;
             document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
-
-            console.log(' view escort url : '+ newUrl);
-
-            // const response = await fetch(url+`/?lat=${latitude}&lng=${longitude}`);
-            // const data = await response.json();
-            // console.log(data); // Shows country and capital
         });
     @else
         console.log('hey else');
