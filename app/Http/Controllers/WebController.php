@@ -79,21 +79,20 @@ class WebController extends Controller
         }
 
         $paramData = [];
-        if($userInterest){
+        if($userInterest && ($userInterest->interests || $userInterest->city)){
             $cityParameterExist = request()->has('city');
             $genderParameterExist = request()->has('gender');
             $paramData['city_id'] = $cityParameterExist ? null : $userInterest->city ;
             $paramData['interest'] = $genderParameterExist ? null : $userInterest->interests;
             $paramData['gender'] = $genderParameterExist ? null : (($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 ) ? json_decode($userInterest->interests)[0] : null);
             // $paramData['gender'] = ($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 )? json_decode($userInterest->interests)[0] : null;
-            $userLocation = null;
+            //$userLocation = null;
+            $userLocation['city'] = $paramData['city_id'];
         }else{
             $paramData['interest'] = null;
             $paramData['city_id'] = null;
             $paramData['gender'] = null;
         }
-
-        
 
         $params  = [
             'string' => request()->get('name'),

@@ -216,7 +216,7 @@
 <script>
     let stateId = $.cookie('session-state-id');
 
-    @if(auth()->user() && (auth()->user()->interest && auth()->user()->interest->city == null))
+    @if(auth()->user())
         navigator.geolocation.getCurrentPosition(async function(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
@@ -228,12 +228,12 @@
         });
     @else
         console.log('hey else');
-        if (stateId) {
-            let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
-            let newUrl = currentHref + '?state-id=' + stateId;
-            document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
-            console.log(' view escort url : '+ newUrl);
-        }
+        // if (stateId) {
+        //     let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
+        //     let newUrl = currentHref + '?state-id=' + stateId;
+        //     document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
+        //     console.log(' view escort url : '+ newUrl);
+        // }
     @endif
 
     
