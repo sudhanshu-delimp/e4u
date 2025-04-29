@@ -1,8 +1,22 @@
 <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab">
 
     <form id="socials_link" action="{{ route('escort.settings.social')}}" method="POST" enctype="multipart/form-data">
-        <div class="about_me_heading_in_first_tab fill_profile_headings_global">
+        <div class="fill_profile_headings_global custom--social-head">
             <h2>Social Links</h2>
+            <span class="custom--help"><b>Help?</b></span>
+        </div>
+        <div class="custom-note-section">
+            <div class="card" style="">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b> </h3> 
+                    <ol class="mb-0">
+                    <li>By completing these settings, the information set out under My Social Media will by default be included and appear in your Profile when posted.
+                    </li>
+                    <li>You can over ride these settings when creating a Profile, provided you have enabled the feature (see My Account - Profile & Tour options).
+                    </li>
+                    </ol>
+                </div>
+            </div>
         </div>
         <div class="padding_20_all_side pb-0">
             <div class="row">

@@ -1,4 +1,21 @@
 <div class="tab-pane fade" id="available" role="tabpanel" aria-labelledby="contact-tab">
+<div class="col-md-12  fill_profile_headings_global custom--social-head">
+            <h2>My Availability</h2>
+            <span class="custom--help"><b>Help?</b></span>
+</div>
+<div class="custom-note-section">
+                            <div class="card" style="">
+                            <div class="card-body">
+                            <h3 class="NotesHeader"><b>Notes:</b> </h3> 
+                            <ol class=" mb-0">
+                                <li>By completing these settings, the information set out under My Available Times will by default appear in your Profile creator.</li>
+                                <li>Leave the time blank if you are unavailable. Select ‘By Appointment’ as an alternative to a particular time period.</li>
+                                <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account">feature</a> (see My Account - Profile &amp; Tour options).</li>
+                            </ol>
+                            </div>
+                            </div>
+</div>
+
     <div class="about_me_drop_down_info p-0">
         {{--
         <div class="fill_profile_headings_global">

@@ -22,6 +22,7 @@
                 <h3><b>Coming Soon</b></h3>
             </div>
                </div>
+               <div>qqqq</div>
                <!--middle content end here-->
                <!--right side bar start from here-->
             </div>

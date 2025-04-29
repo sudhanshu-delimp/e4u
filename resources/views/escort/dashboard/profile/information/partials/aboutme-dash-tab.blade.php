@@ -18,9 +18,24 @@
         @csrf
         <!-- upload video  -->
         <div class="about_me_drop_down_info ">
-            <div class="about_me_heading_in_first_tab fill_profile_headings_global custom--headingbod">
+        
+        
+            <div class="about_me_heading_in_first_tab fill_profile_headings_global custom--headingbod custom--social-head">
                 <h2>About me</h2>
+                <span class="custom--help"><b>Help?</b></span>
             </div>
+            <div class="custom-note-section">
+                            <div class="card" style="">
+                            <div class="card-body">
+                            <h3 class="NotesHeader"><b>Notes:</b> </h3> 
+                            <ol class=" mb-0">
+                                <li>By completing these settings, the information set out under My Available Times will by default appear in your Profile creator.</li>
+                                <li>Leave the time blank if you are unavailable. Select ‘By Appointment’ as an alternative to a particular time period.</li>
+                                <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account">feature</a> (see My Account - Profile & Tour options).</li>
+                            </ol>
+                            </div>
+                            </div>
+                        </div>
             <div class="padding_20_all_side pb-0">
                 <!--New Row from here-->
                 <div class="row">
