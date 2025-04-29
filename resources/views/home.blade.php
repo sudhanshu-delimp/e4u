@@ -216,7 +216,7 @@
 <script>
     let stateId = $.cookie('session-state-id');
 
-    @if(auth()->user())
+    {{-- @if(auth()->user()) --}}
         navigator.geolocation.getCurrentPosition(async function(position) {
             const latitude = position.coords.latitude;
             const longitude = position.coords.longitude;
@@ -226,7 +226,6 @@
             // let newUrl = currentHref + '?state-id=' + stateId;
             document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
         });
-    @else
         console.log('hey else');
         // if (stateId) {
         //     let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
@@ -234,7 +233,7 @@
         //     document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
         //     console.log(' view escort url : '+ newUrl);
         // }
-    @endif
+    {{-- @endif --}}
 
     
 

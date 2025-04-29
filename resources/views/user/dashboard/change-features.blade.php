@@ -175,7 +175,7 @@
                                   <input class="form-check-input" {{ in_array('4', $interests) ? 'checked' : ''}} id="inetrest_cross" type="checkbox" name="interests[]" value="4">
                                   <label class="form-check-label" for="inetrest_cross">Cross dresser</label>
                               </div>
-                                <div class="form-group mt-4 col-md-6">
+                                {{-- <div class="form-group mt-4 col-md-6">
                                     <label>Preferred City</label>
                                     <select class="form-control" name="city">
                                       <option value="">Select City</option>
@@ -183,7 +183,7 @@
                                         <option value="{{$key}}" {{ ($preference && $preference->city == $key ) ? 'selected' : ''  }}>{{Str::title($city)}}</option>
                                       @endforeach
                                     </select>
-                                </div>
+                                </div> --}}
                                
                             </div>
 

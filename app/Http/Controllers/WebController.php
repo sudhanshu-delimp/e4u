@@ -79,15 +79,19 @@ class WebController extends Controller
         }
 
         $paramData = [];
-        if($userInterest && ($userInterest->interests || $userInterest->city)){
-            $cityParameterExist = request()->has('city');
+        if($userInterest && $userInterest->interests){
+            //$cityParameterExist = request()->has('city');
             $genderParameterExist = request()->has('gender');
-            $paramData['city_id'] = $cityParameterExist ? null : $userInterest->city ;
+            //$paramData['city_id'] = $cityParameterExist ? null : $userInterest->city ;
             $paramData['interest'] = $genderParameterExist ? null : $userInterest->interests;
             $paramData['gender'] = $genderParameterExist ? null : (($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 ) ? json_decode($userInterest->interests)[0] : null);
             // $paramData['gender'] = ($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 )? json_decode($userInterest->interests)[0] : null;
             //$userLocation = null;
-            $userLocation['city'] = $paramData['city_id'];
+             $stateCapital = config('escorts.profile.states')[$user_type->state_id] ?? null;
+             
+             $userLocation['city'] = $stateCapital ? array_key_first($stateCapital['cities']) : null;
+             $userLocation['state'] = $user_type->state_id;
+            //  dd($userLocation['city']);
         }else{
             $paramData['interest'] = null;
             $paramData['city_id'] = null;
@@ -96,14 +100,15 @@ class WebController extends Controller
 
         $params  = [
             'string' => request()->get('name'),
-            'city_id' => $userLocation ? $userLocation['city'] : (request()->get('city') ? request()->get('city') : $paramData['city_id']),
+            'city_id' => request()->get('city') ? request()->get('city') : ($userLocation ? $userLocation['city'] : null),
+            // 'city_id' => $userLocation ? $userLocation['city'] : (request()->get('city') ? request()->get('city') : $paramData['city_id']),
             'gender' => request()->get('gender') ? request()->get('gender') : $paramData['gender'],
             'age' => request()->get('age'),
             'price' => request()->get('price'),
             'duration_price' => request()->get('duration_price'),
             'services' => request()->get('services'),
             'enabled' => request()->get('enabled', 1),
-            'state_id' => $userLocation ? $userLocation['state'] : request()->get('state-id') ,
+            'state_id' => request()->get('state-id') ? request()->get('state-id') : ($userLocation ? $userLocation['state'] : null) ,
             'limit'=> request()->get('limit'),
             'interest'=> $paramData['interest'] ,
         ];
