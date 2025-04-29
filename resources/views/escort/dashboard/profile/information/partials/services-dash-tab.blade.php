@@ -1,8 +1,24 @@
 <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab">
 
     <div class="about_me_drop_down_info ">
-        <div class="fill_profile_headings_global">
+        <div class="fill_profile_headings_global custom--social-head">
             <h2>My Services</h2>
+            <span class="custom--help"><b>Help?</b></span>
+        </div>
+        <div class="custom-note-section">
+            <div class="card" style="">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b> </h3> 
+                    <ol class=" mb-0">
+                    <li>By completing these settings, the information set out under Service Tags will by default appear in your Profile creator.
+                    </li>
+                    <li>Any value you attach to a Service Tag is a separate value and is not included in your rates.
+                    </li>
+                    <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account">feature</a> (see My Account - Profile & Tour options).
+                    </li>
+                    </ol>
+                </div>
+            </div>
         </div>
         <div class="padding_20_all_side pb-0">
             <form id="myServices" action="{{ route('escort.settings.services') }}" method="POST">

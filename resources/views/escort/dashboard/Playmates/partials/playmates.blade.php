@@ -147,8 +147,37 @@
 </style>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 about_me_heading_in_first_tab fill_profile_headings_global">
+        <div class="col-md-12  fill_profile_headings_global custom--social-head">
             <h2>My Playmates</h2>
+            <span class="custom--help"><b>Help?</b></span>
+        </div>
+        <div class="custom-note-section">
+            <div class="card" style="">
+                <div class="card-body">
+                <h3 class="NotesHeader"><b>Notes:</b> </h3> 
+                    <ol class=" mb-0">
+                        <li>
+                            By activating this feature:
+                            <ol type="a" class="ol_lower_alpha_bracket">
+                                <li>your Profiles can be searched for by other Escorts; and</li>
+                                <li>the Playmates listed under My Active Playmates will by default appear in your
+                                    Profile creator. You should check with the Escort they are still available as a
+                                    Playmate before creating a Profile. A Viewer will be able to view the Playmate’s
+                                    Profile from your Profile.</li>
+                            </ol>
+                        </li>
+                        <li>You can over ride these settings when creating a Profile, provided you
+                            have enabled the feature (see My Account - Profile & Tour options).
+                        </li>
+                        <li>
+                            You can search for other Escorts to link up as your Playmate by searching
+                            either their Account Name or Membership ID. We recommend you search
+                            by Membership ID which always appears at the top of any of the Escort's
+                            Profiles.
+                        </li>
+                    </ol>
+                </div>
+            </div>
         </div>
         <div class="col-md-12 mt-4">
             {{--<div class="card collapse" id="notes">

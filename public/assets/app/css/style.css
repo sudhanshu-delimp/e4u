@@ -651,7 +651,7 @@ div#add_wishlist1 .modal-dialog {
 }
 
 .modal-body button {
-    background: #2C3E50 !important;
+    background: #0c223d !important;
     padding: 20px 80px 22px 40px;
     font-weight: 700;
     line-height: 4px;
@@ -3083,7 +3083,7 @@ a.admin-login:hover {
     font-weight: 500;
     font-size: 18px;
     line-height: 27px;
-    background: #192a3e;
+    background: #0c223d;
     text-align: center;
     color: #ffffff;
 }
@@ -3195,7 +3195,7 @@ i.fa.fa-heart-o {
 }
 
 .table_heading_bgcolor_color {
-    background: #323c47;
+    background: #0c223d;
     color: #fff;
 }
 
@@ -3227,7 +3227,7 @@ i.fa.fa-heart-o {
 
 .like_and_process_bar_padding {
     padding: 7px;
-    background: #2c3e50;
+    background: #0c223d;
 }
 
 .like_img i.fa {
@@ -3486,7 +3486,7 @@ progress.dislike::-webkit-progress-value {
 .arroww .carousel-control-next {
     width: 30px;
     height: 30px;
-    background: #2c3e50;
+    background: #0c223d;
     text-shadow: none;
     top: 4px;
 }
@@ -4697,7 +4697,7 @@ div#onloadpopup .modal-dialog-centered.modal-dialog-bottom-right {
 }
 
 div#onloadpopup .modal-dialog-centered.modal-dialog-bottom-right .modal-content {
-    background: rgb(12 34 61);
+    background: #0c223d;
 }
 
 .modal.show#onloadpopup .modal-body {

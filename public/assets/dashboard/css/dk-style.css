@@ -639,6 +639,7 @@ span.custom--help {
     font-size: 16px;
     margin-left: 20px;
     color: #ff3c5f;
+    cursor: pointer;
 }
 .custom-help-contain a.card-link {
     color: #0c223d;
@@ -659,6 +660,10 @@ span.custom--help {
 }
 .help-note-toggle .custom-note-section {
     display: block;
+}
+.custom--social-head {
+    display: flex;
+    align-items: center;
 }
 /* New css 11march 2025 end */
 
@@ -2865,7 +2870,7 @@ input:checked + .slider:before {
     }
     #myFrontpop .modal-header{
     justify-content: center;
-    background-color: #192A3E;
+    background-color: #0c223d;
     color: #fff;
     border-radius: 0;
     }

@@ -162,22 +162,12 @@
             <div class="card custom-help-contain">
                <div class="card-header">
                   <a class="card-link" data-toggle="collapse" href="#additional_information">
-                  My Additional Information <span class="custom--help"><b>Help?</b></span>
+                  My Additional Information 
                   </a>
                </div>
                <div id="additional_information" class="collapse" data-parent="#accordion">
                   <div class="card-body pb-0">
-                    <div class="custom-note-section">
-                        <div class="card" style="">
-                        <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3> 
-                        <ol class=" mb-0">
-                        <li>By completing these settings, the information set out under My Additional Information will by default appear in your Profile creator.</li>
-                        <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account">feature</a> (see My Account - Profile & Tour options).</li>
-                        </ol>
-                        </div>
-                        </div>
-                    </div>
+                
                      @include('escort.dashboard.profile.information.partials.aboutme-dash-tab')
                   </div>
                </div>
@@ -186,23 +176,11 @@
                  <div class="card-header">
                      <a class="collapsed card-link" data-toggle="collapse" href="#my_available_times">
                          My Available Times
-                         <span class="custom--help"><b>Help?</b></span>
+                        
                      </a>
                  </div>
                  <div id="my_available_times" class="collapse" data-parent="#accordion">
                      <div class="card-body pb-0">
-                        <div class="custom-note-section">
-                            <div class="card" style="">
-                            <div class="card-body">
-                            <h3 class="NotesHeader"><b>Notes:</b> </h3> 
-                            <ol class=" mb-0">
-                                <li>By completing these settings, the information set out under My Available Times will by default appear in your Profile creator.</li>
-                                <li>Leave the time blank if you are unavailable. Select ‘By Appointment’ as an alternative to a particular time period.</li>
-                                <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account">feature</a> (see My Account - Profile & Tour options).</li>
-                            </ol>
-                            </div>
-                            </div>
-                        </div>
                          @include('escort.dashboard.profile.information.partials.available-dash-tab')
                      </div>
                  </div>
@@ -211,40 +189,11 @@
                <div class="card-header">
                   <a class="collapsed card-link" data-toggle="collapse" href="#my_playmates">
                   My Playmates
-                  <span class="custom--help"><b>Help?</b></span>
+                  
                   </a>
                </div>
                <div id="my_playmates" class="collapse" data-parent="#accordion">
                   <div class="card-body pb-0">
-                    <div class="custom-note-section">
-                    <div class="card" style="">
-                    <div class="card-body">
-                    <h3 class="NotesHeader"><b>Notes:</b> </h3> 
-                        <ol class=" mb-0">
-                            <li>
-                                By activating this feature:
-                                <ol type="a" class="ol_lower_alpha_bracket">
-                                    <li>your Profiles can be searched for by other Escorts; and</li>
-                                    <li>the Playmates listed under My Active Playmates will by default appear in your
-                                        Profile creator. You should check with the Escort they are still available as a
-                                        Playmate before creating a Profile. A Viewer will be able to view the Playmate’s
-                                        Profile from your Profile.</li>
-                                </ol>
-                            </li>
-                            <li>You can over ride these settings when creating a Profile, provided you
-                                have enabled the feature (see My Account - Profile & Tour options).
-                            </li>
-                            <li>
-                                You can search for other Escorts to link up as your Playmate by searching
-                                either their Account Name or Membership ID. We recommend you search
-                                by Membership ID which always appears at the top of any of the Escort's
-                                Profiles.
-                            </li>
-                        </ol>
-                    </div>
-                    </div>
-                    </div>
-
                      @include('escort.dashboard.Playmates.partials.playmates')
                   </div>
                </div>
@@ -252,24 +201,12 @@
                <div class="card-header">
                   <a class="collapsed card-link" data-toggle="collapse" href="#my_rates">
                   My Rates
-                  <span class="custom--help"><b>Help?</b></span>
+                  
                   </a>
                </div>
                <div id="my_rates" class="collapse" data-parent="#accordion">
                   <div class="card-body pb-0">
-                    <div class="custom-note-section">
-                        <div class="card" style="">
-                        <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3> 
-                        <ol class=" mb-0">
-                        <li>By completing these settings, the information set out under My Rates will by default appear in your Profile creator.</li>
-                        <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account">feature</a> (see My Account - Profile & Tour options).</li>
-                        <li>Rates set for Socialising are hourly.</li>
-                        <li>If the value is $0 then the public display in the Profile is N/A</li>
-                        </ol>
-                        </div>
-                        </div>
-                    </div>
+                    
                      @include('escort.dashboard.profile.information.partials.rate-dash-tab')
                   </div>
                </div>
@@ -278,26 +215,12 @@
                <div class="card-header">
                   <a class="collapsed card-link" data-toggle="collapse" href="#my_service_tags">
                   My Service (tags)
-                  <span class="custom--help"><b>Help?</b></span>
+                  
                   </a>
                </div>
                <div id="my_service_tags" class="collapse" data-parent="#accordion">
                   <div class="card-body pb-0">
-                    <div class="custom-note-section">
-                        <div class="card" style="">
-                        <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3> 
-                        <ol class=" mb-0">
-                        <li>By completing these settings, the information set out under Service Tags will by default appear in your Profile creator.
-                        </li>
-                        <li>Any value you attach to a Service Tag is a separate value and is not included in your rates.
-                        </li>
-                        <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account">feature</a> (see My Account - Profile & Tour options).
-                        </li>
-                        </ol>
-                        </div>
-                        </div>
-                    </div>
+                    
                      @include('escort.dashboard.profile.information.partials.services-dash-tab')
                   </div>
                </div>
@@ -393,24 +316,11 @@
                <div class="card-header">
                   <a class="collapsed card-link" data-toggle="collapse" href="#my_social_media">
                   My Social Media
-                  <span class="custom--help"><b>Help?</b></span>
                   </a>
                </div>
                <div id="my_social_media" class="collapse" data-parent="#accordion">
                   <div class="card-body pb-0">
-                  <div class="custom-note-section">
-                        <div class="card" style="">
-                        <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3> 
-                     <ol class="mb-0">
-                        <li>By completing these settings, the information set out under My Social Media will by default be included and appear in your Profile when posted.
-                        </li>
-                        <li>You can over ride these settings when creating a Profile, provided you have enabled the feature (see My Account - Profile & Tour options).
-                        </li>
-                     </ol>
-                    </div>
-                    </div>
-                    </div>
+                  
                      @include('escort.dashboard.profile.information.partials.social-media-dash-tab')
                   </div>
                </div>
