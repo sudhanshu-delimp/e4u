@@ -156,24 +156,24 @@
                             <div class="form-group">
                                 <label>What are your interests?</label><br>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" {{ in_array('6', $interests) ? 'checked' : ''}} name="interests[]" value="6">
-                                    <label class="form-check-label">Female</label>
+                                    <input class="form-check-input" id="inetrest_female" type="checkbox" {{ in_array('6', $interests) ? 'checked' : ''}} name="interests[]" value="6">
+                                    <label class="form-check-label" for="inetrest_female">Female</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" {{ in_array('1', $interests) ? 'checked' : ''}} name="interests[]" value="1">
-                                    <label class="form-check-label">Male</label>
+                                    <input class="form-check-input" id="inetrest_male" type="checkbox" {{ in_array('1', $interests) ? 'checked' : ''}} name="interests[]" value="1">
+                                    <label class="form-check-label" for="inetrest_male">Male</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" {{ in_array('3', $interests) ? 'checked' : ''}} type="checkbox" name="interests[]" value="3">
-                                    <label class="form-check-label">Trans</label>
+                                    <input class="form-check-input" {{ in_array('3', $interests) ? 'checked' : ''}} id="inetrest_trans" type="checkbox" name="interests[]" value="3">
+                                    <label class="form-check-label" for="inetrest_trans">Trans</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" {{ in_array('5', $interests) ? 'checked' : ''}} type="checkbox" name="interests[]" value="5">
-                                    <label class="form-check-label">BDSM</label>
+                                    <input class="form-check-input" {{ in_array('5', $interests) ? 'checked' : ''}} id="inetrest_bdsm" type="checkbox" name="interests[]" value="5">
+                                    <label class="form-check-label" for="inetrest_bdsm">BDSM</label>
                                 </div>
                                 <div class="form-check">
-                                  <input class="form-check-input" {{ in_array('4', $interests) ? 'checked' : ''}} type="checkbox" name="interests[]" value="4">
-                                  <label class="form-check-label">Cross dresser</label>
+                                  <input class="form-check-input" {{ in_array('4', $interests) ? 'checked' : ''}} id="inetrest_cross" type="checkbox" name="interests[]" value="4">
+                                  <label class="form-check-label" for="inetrest_cross">Cross dresser</label>
                               </div>
                                 <div class="form-group mt-4 col-md-6">
                                     <label>Preferred City</label>
