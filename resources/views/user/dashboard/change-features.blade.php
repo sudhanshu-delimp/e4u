@@ -18,7 +18,19 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="v-main-heading h3">Change Features</div>
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                    </div>
+                @endif
             </div>
+           
             <div class="col-md-12 mt-4" id="profile_and_tour_options">
 
                 {{-- <form class="v-form-design" method="POST" action="{{ route('set-viewer-prefrence') }}">
@@ -201,8 +213,6 @@
         $('#userProfile').parsley({
 
         });
-
-
 
         $('#userProfile').on('submit', function(e) {
             e.preventDefault();

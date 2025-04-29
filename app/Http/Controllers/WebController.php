@@ -81,18 +81,24 @@ class WebController extends Controller
         $paramData = [];
         if($userInterest){
             $cityParameterExist = request()->has('city');
+            $genderParameterExist = request()->has('gender');
             $paramData['city_id'] = $cityParameterExist ? null : $userInterest->city ;
-            $paramData['interest'] = $userInterest->interests;
+            $paramData['interest'] = $genderParameterExist ? null : $userInterest->interests;
+            $paramData['gender'] = $genderParameterExist ? null : (($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 ) ? json_decode($userInterest->interests)[0] : null);
+            // $paramData['gender'] = ($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 )? json_decode($userInterest->interests)[0] : null;
             $userLocation = null;
         }else{
             $paramData['interest'] = null;
             $paramData['city_id'] = null;
+            $paramData['gender'] = null;
         }
+
+        
 
         $params  = [
             'string' => request()->get('name'),
             'city_id' => $userLocation ? $userLocation['city'] : (request()->get('city') ? request()->get('city') : $paramData['city_id']),
-            'gender' => request()->get('gender'),
+            'gender' => request()->get('gender') ? request()->get('gender') : $paramData['gender'],
             'age' => request()->get('age'),
             'price' => request()->get('price'),
             'duration_price' => request()->get('duration_price'),
@@ -102,6 +108,8 @@ class WebController extends Controller
             'limit'=> request()->get('limit'),
             'interest'=> $paramData['interest'] ,
         ];
+
+        //dd($params);
 
         session(['search_escort_filters' => $params]);
         session(['search_escort_filters_url' => url()->full()]);
@@ -136,8 +144,9 @@ class WebController extends Controller
 
         //dd($escorts,$params, session('is_shortlisted_profile'));
         $locationCityId = $params['city_id'];
+        $filterGenderId = $params['gender'];
 
-        return view('web.all-filter-profile', compact('user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId'));
+        return view('web.all-filter-profile', compact('user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
 

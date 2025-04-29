@@ -50,7 +50,7 @@ class ViewerPrefrenceController extends Controller
         );
 
         if($preference){
-            return redirect()->back()->with('success','Preference added successfully.');
+            return redirect()->back()->with('success','Preference updated successfully.');
         }
 
         return redirect()->back()->with('error','Something is wrong! Please try again.');

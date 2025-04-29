@@ -215,29 +215,37 @@
 @push('scripts')
 <script>
     let stateId = $.cookie('session-state-id');
+    
+    @if(auth()->user())
+        console.log('hey user');
+        navigator.geolocation.getCurrentPosition(async function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const newUrl = "{{ route('find.all') }}" +`/?lat=${latitude}&lng=${longitude}`;
 
-    // navigator.geolocation.getCurrentPosition(async function(position) {
-    //     const latitude = position.coords.latitude;
-    //     const longitude = position.coords.longitude;
-    //     const newUrl = "{{ route('find.all') }}" +`/?lat=${latitude}&lng=${longitude}`;
+            let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
+            // let newUrl = currentHref + '?state-id=' + stateId;
+            document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
 
-    //     let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
-    //     // let newUrl = currentHref + '?state-id=' + stateId;
-    //     document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
+            console.log(' view escort url : '+ newUrl);
 
-    //     console.log(' view escort url : '+ newUrl);
+            // const response = await fetch(url+`/?lat=${latitude}&lng=${longitude}`);
+            // const data = await response.json();
+            // console.log(data); // Shows country and capital
+        });
+    @else
+        console.log('hey else');
+        if (stateId) {
+            let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
+            let newUrl = currentHref + '?state-id=' + stateId;
+            document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
+            console.log(' view escort url : '+ newUrl);
+        }
+    @endif
 
-    //     // const response = await fetch(url+`/?lat=${latitude}&lng=${longitude}`);
-    //     // const data = await response.json();
-    //     // console.log(data); // Shows country and capital
-    // });
+    
 
-    if (stateId) {
-        let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
-        let newUrl = currentHref + '?state-id=' + stateId;
-        document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
-        console.log(' view escort url : '+ newUrl);
-    }
+   
     
 </script>
 @endpush

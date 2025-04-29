@@ -107,12 +107,12 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                             <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown" name="gender">
 
                                 <option value="" selected >Gender</option>
-                                <option value="1" {{ (request()->get('gender') ==1) || request()->segment(2) == 'Male' ? 'selected' : '' }}>Male</option>
-                                <option value="6"{{ (request()->get('gender') ==6) || request()->segment(2) == 'Female' ? 'selected' : '' }}>Female</option>
-                                <option value="2"{{ (request()->get('gender') ==2) || request()->segment(2) == 'Couples' ? 'selected' : '' }}>Couples</option>
-                                <option value="3"{{ (request()->get('gender') ==3) || request()->segment(2) == 'Transgender' ? 'selected' : '' }}>Transgender</option>
-                                <option value="4"{{ (request()->get('gender') ==4) || request()->segment(2) == 'Cross Dresser' ? 'selected' : '' }}>Cross Dresser</option>
-                                <option value="5"{{ (request()->get('gender') ==5) || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>Massage Centres</option>
+                                <option value="1" {{ ($filterGenderId =='1') || request()->segment(2) == 'Male' ? 'selected' : '' }}>Male</option>
+                                <option value="6"{{ ($filterGenderId =='6') || request()->segment(2) == 'Female' ? 'selected' : '' }}>Female</option>
+                                <option value="2"{{ ($filterGenderId =='2') || request()->segment(2) == 'Couples' ? 'selected' : '' }}>Couples</option>
+                                <option value="3"{{ ($filterGenderId =='3') || request()->segment(2) == 'Transgender' ? 'selected' : '' }}>Transgender</option>
+                                <option value="4"{{ ($filterGenderId =='4') || request()->segment(2) == 'Cross Dresser' ? 'selected' : '' }}>Cross Dresser</option>
+                                <option value="5"{{ ($filterGenderId =='5') || request()->segment(2) == 'Massage Centres' ? 'selected' : '' }}>Massage Centres</option>
                             </select>
                         </div>
                         <div class="display_inline_block mb-1 mr-2">
@@ -769,17 +769,17 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
 
        <?php
         if ($cityId > 0) {
-
             
-            echo "if($('[name=\"city\"]').val() == '') {
+            /*echo "if($('[name=\"city\"]').val() == '') {
                     $('[name=\"city\"]').val($cityId);
-                }";
+                }"; */
 
             if(request()->get('city') == null && $locationCityId == null){
                 echo "$('[name=\"city\"]').val()";
             }
         }
-        if ($genderId > 0) {
+        
+        if ($genderId > 0 && $filterGenderId != null) {
             echo "if($('[name=\"gender\"]').val() == '') {
                     $('[name=\"gender\"]').val($genderId);
                 }";
