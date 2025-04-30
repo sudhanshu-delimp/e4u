@@ -238,7 +238,8 @@ return [
 			4 =>'Cash & Rewards',
 			5 =>'Card & Rewards',
 			6 =>'Cash or PayID',
-			7 =>'Rewards',
+			7 =>'PayID',
+			8 =>'Rewards',
 		],
 		'smokes'=>[
 			1=>'Yes',

@@ -665,6 +665,12 @@ span.custom--help {
     display: flex;
     align-items: center;
 }
+.custom--table-suport tbody tr td:not(.custom--table-suport tbody tr td:first-child) {
+    text-align: center;
+}
+tr.custom--row th:not(tr.custom--row th:last-child) {
+    border-right: 1px solid #fff;
+}
 /* New css 11march 2025 end */
 
 
