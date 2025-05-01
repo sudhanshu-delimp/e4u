@@ -64,7 +64,7 @@
                                                     <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
 
 {{--                                                        <h5 class="price-sec">Profile &amp; Tour Fees</h5>--}}
-                                                        <table id="myTable price-sec" class="table table-striped dataTable no-footer" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                        <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                             <thead class="text-center">
                                                                 <tr role="row" style="border-bottom: 2px solid white;">
                                                                     <th class="sorting_disabled" rowspan="1" colspan="4" style="width: 212px; border-right: 2px solid white;" aria-label="Fees">
@@ -74,8 +74,8 @@
                                                                         <p><b>Discounts</b><sup>(1)</sup></p>
                                                                     </th>
                                                                 </tr>
-                                                                <tr role="row">
-                                                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="
+                                                                <tr role="row" class="custom--row">
+                                                                    <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 212px;" aria-label="
                                                                         Profile Name">Membership Type
                                                                     </th>
                                                                     <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="
@@ -159,14 +159,14 @@
                                                     <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
 
                                                         {{--                                                        <h5 class="price-sec">Profile &amp; Tour Fees</h5>--}}
-                                                        <table id="myTable price-sec" class="table table-striped dataTable no-footer" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                        <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                             <thead class="text-center">
                                                             <tr role="row">
                                                                 <th class="sorting_disabled" rowspan="1" colspan="5" style="width: 212px;" aria-label="Fees">
                                                                     <p><b>Profile / Tour Ready Reckoner</b></p>
                                                                 </th>
                                                             </tr>
-                                                            <tr role="row">
+                                                            <tr role="row" class="custom--row">
                                                                 <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
                                                                     Start Date
                                                                 </th>
@@ -215,21 +215,21 @@
                                                 <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                                     <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
 {{--                                                        <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
-                                                        <table id="myTable price-sec" class="table table-striped dataTable no-footer" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                        <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                             <thead class="text-center">
                                                             <tr role="row">
                                                                 <th class="sorting_disabled" rowspan="1" colspan="3" style="width: 212px;" aria-label="Fees">
                                                                     <p><b>Support Fees for setting up Concierge & Support Services</b></p>
                                                                 </th>
                                                             </tr>
-                                                            <tr role="row">
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
+                                                            <tr role="row" class="custom--row">
+                                                                <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
                                                                     Service Type
                                                                 </th>
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
+                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Profile Name">
                                                                     Frequency
                                                                 </th>
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">
+                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Date Created">
                                                                     Fee
                                                                 </th>
                                                             </tr>
@@ -293,15 +293,15 @@
                                                 <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                                     <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                         {{--                                                        <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
-                                                        <table id="myTable price-sec" class="table table-striped dataTable no-footer" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                        <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                             <thead class="text-center">
                                                             <tr role="row">
                                                                 <th class="sorting_disabled" rowspan="1" colspan="3" style="width: 212px;" aria-label="Fees">
                                                                     <p><b>Concierge & Support Services</b></p>
                                                                 </th>
                                                             </tr>
-                                                            <tr role="row">
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
+                                                            <tr role="row" class="custom--row">
+                                                                <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
                                                                     Service Type
                                                                 </th>
                                                                 <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">
@@ -343,7 +343,7 @@
                                                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                                             <ol class="mb-0" type="1">
                                                                 <li>
-                                                                    An Escort can engage an <a style="color:#FF3C5F" href="#">Agent</a> to undertake any of the Services,
+                                                                    An Escort can engage an <a style="color:#FF3C5F" href="/escort-dashboard/escort-agency-request">Agent</a> to undertake any of the Services,
                                                                     otherwise Escorts4U will assist Escorts with support. A Fee applies.
                                                                 </li>
                                                                 <li>Platinum and Gold Membership includes Verified Media.</li>
@@ -373,21 +373,21 @@
                                                 <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                                     <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
                                                         {{--                                                        <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
-                                                        <table id="myTable price-sec" class="table table-striped dataTable no-footer" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                        <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                             <thead class="text-center">
                                                             <tr role="row">
                                                                 <th class="sorting_disabled" rowspan="1" colspan="3" style="width: 212px;" aria-label="Fees">
                                                                     <p><b>Other Support Fees - Support Services</b></p>
                                                                 </th>
                                                             </tr>
-                                                            <tr role="row">
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
+                                                            <tr role="row" class="custom--row">
+                                                                <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
                                                                     Fee
                                                                 </th>
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
+                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Profile Name">
                                                                     Frequency
                                                                 </th>
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">
+                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Date Created">
                                                                     Fee
                                                                 </th>
                                                             </tr>
