@@ -160,7 +160,6 @@ class WebController extends Controller
         $age      = request()->get('age');
         $location = request()->get('location');
         $page     = request()->get('page', 1);
-        //$perPage  = $limit;
         $perPage  = 2;
 
 
@@ -183,20 +182,34 @@ class WebController extends Controller
         $gold = $applyFilters(Escort::where('enabled', 1)->where('membership', '1'))->get();
         $silver = $applyFilters(Escort::where('enabled', 1)->where('membership', '2'))->get();
         $platinum = $applyFilters(Escort::where('enabled', 1)->where('membership', '3'))->get();
+        $all = collect();
+        $goldSlice = $gold->slice(($page - 1) * $perPage, $perPage);
+        $all = $all->merge($goldSlice);
+        $remaining = $perPage - $goldSlice->count();
+        if ($remaining > 0) {
+            $silverStart = max(0, ($page * $perPage) - $gold->count());
+            $silverSlice = $silver->slice($silverStart, $remaining);
+            $all = $all->merge($silverSlice);
+            $remaining -= $silverSlice->count();
+           // dd($silverSlice);
+        }
         
-        $merged = $gold->concat($silver)->concat($platinum);
-        $sliced = $merged->slice(($page - 1) * $perPage, $perPage)->values();
+        if ($remaining > 0) {
+            $platinumStart = max(0, ($page * $perPage) - $gold->count() - $silver->count());
+            $platinumSlice = $platinum->slice($platinumStart, $remaining);
+            $all = $all->merge($platinumSlice);
+            //dd($platinumSlice);
+        }
+        //dd($all->toArray());
+        $total = $gold->count() + $silver->count() + $platinum->count();
+
         $paginator = new LengthAwarePaginator(
-            $sliced,
-            $merged->count(),
+            $all,
+            $total,
             $perPage,
             $page,
-            [
-                'path' => request()->url(),  // Only the base URL (without query)
-                'query' => request()->except(['ipinfo']) // Exclude the 'ipinfo' query parameters
-            ]
+            ['path' => request()->url(), 'query' => request()->query()]
         );
-        
 
 //         @foreach($paginator as $profile)
 //     {{ $profile->name }} - {{ $profile->membership }}

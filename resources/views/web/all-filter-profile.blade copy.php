@@ -41,10 +41,6 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
 }
 @endphp
 @section('content')
-
-@php
-    $grouped = $paginator->getCollection()->groupBy('membership');
-@endphp
 <section class="">
     <div class="container filter-contain">
         <div class="search_filters">
@@ -320,49 +316,75 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
 
         </div>
         <div class="otherliste" style="display: block;">
+            {{dd($escorts)}}
+            @foreach($escorts as $plan_type => $members)
+            
+            {{-- dd($escorts, $plan_type, $members) --}}
+                @switch($plan_type)
                 
+                @case(1)
                 <div class="space_between_row" style="display:block">
-                    <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png')}}" data-toggle="tooltip" title="Platinum Members - {{1}} {{ 1 == 1 ? 'Listing' : 'Listings' }}">
-                    {{$grouped->has('1') && $grouped->get('1') ? $grouped->get('1')->count():0}}
-                        <span class="bordertopp"> {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}</span>
+                    <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png')}}" data-toggle="tooltip" title="Platinum Members - {{count($members)}} {{ count($members) == 1 ? 'Listing' : 'Listings' }}">
+                        {{count($members)}}
+                        <span class="bordertopp"> {{ count($members) == 1 ? 'Listing' : 'Listings' }}</span>
                     </div>
                     <div class="row responsive_colums_in_lg_five_col escost_list">
-                    @if ($grouped->has('1'))
-                    @foreach ($grouped['1'] as $escort)
+                        @foreach($members as $key => $escort)
+                        <?php
+                            list($cityId, $genderId) = checkCommonCityAndGender($cityId, $genderId, $escort);
+                            $pName[] = explode(" ",$escort->name);
+                        ?>
+
                         @include('web.partials.grid.platinum')
-                    @endforeach
-                    @endif
-                       
+                        @endforeach
                     </div>
                 </div>
-                <div class="space_between_row" style="display:block">
-                    <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png')}}" data-toggle="tooltip" title="Platinum Members - {{1}} {{ 1 == 1 ? 'Listing' : 'Listings' }}">
-                    {{$grouped->has('2') && $grouped->get('2') ? $grouped->get('2')->count():0}}
-                        <span class="bordertopp"> {{ $grouped->has('2') && $grouped->get('2') &&  $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}</span>
-                    </div>
-                    <div class="row responsive_colums_in_lg_five_col escost_list">
-                    @if ($grouped->has('2'))
-                    @foreach ($grouped['2'] as $escort)
+                @break
+                @case(2)
+                <div class="space_between_row pt-0" style="display:block">
+                    <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png')}}" data-toggle="tooltip" title="Gold Members - {{count($members)}} {{ count($members) == 1 ? 'Listing' : 'Listings' }}">{{count($members)}}<span class="bordertopp">{{ count($members) == 1 ? 'Listing' : 'Listings' }}</span></div>
+                    <div class="row responsive_colums_in_lg_six_col escost_list">
+                        @foreach($members as $key => $escort)
+                        <?php
+                            list($cityId, $genderId) = checkCommonCityAndGender($cityId, $genderId, $escort);
+                            $pName[] = explode(" ",$escort->name);
+                        ?>
                         @include('web.partials.grid.gold')
-                    @endforeach
-                    @endif
-                       
+                        @endforeach
                     </div>
                 </div>
-                <div class="space_between_row" style="display:block">
-                    <div class="bod_image"><img src="{{ asset('assets/app/img/dark_silver.png')}}" data-toggle="tooltip" title="Platinum Members - {{1}} {{ 1 == 1 ? 'Listing' : 'Listings' }}">
-                        {{$grouped->has('3') ? $grouped->get('3')->count():0}}
-                        <span class="bordertopp"> {{ $grouped->has('3') && $grouped->get('3') && $grouped->get('3')->count() == 1 ? 'Listing' : 'Listings' }}</span>
-                    </div>
-                    <div class="row responsive_colums_in_lg_five_col escost_list">
-                    @if ($grouped->has('3'))
-                    @foreach ($grouped['3'] as $escort)
+                @break
+                @case(3)
+                <div class="space_between_row pt-0 bod-bottom" style="display:block">
+                    <div class="bod_image"><img src="{{ asset('assets/app/img/dark_silver.png')}}" data-toggle="tooltip" title="Silver Members - {{count($members)}} {{ count($members) == 1 ? 'Listing' : 'Listings' }}">{{count($members)}}<span class="bordertopp">{{ count($members) == 1 ? 'Listing' : 'Listings' }}</span></div>
+                    <div class="row responsive_colums_in_lg_seven_col escost_list">
+                        @foreach($members as $key => $escort)
+                        <?php
+                            list($cityId, $genderId) = checkCommonCityAndGender($cityId, $genderId, $escort);
+                            $pName[] = explode(" ",$escort->name);
+                        ?>
                         @include('web.partials.grid.silver')
-                    @endforeach
-                    @endif
-                       
+                        @endforeach
                     </div>
                 </div>
+                @break
+                @case(4)
+                <div class="space_between_row pt-0" style="display:block">
+
+                    <div class="bod_image"><img src="{{ asset('assets/app/img/Group 153.png')}}" data-toggle="tooltip" title="Free Members - {{count($members)}} {{ count($members) == 1 ? 'Listing' : 'Listings' }}">{{count($members)}}<span class="bordertopp">{{ count($members) == 1 ? 'Listing' : 'Listings' }}</span></div>
+                    <div class="row responsive_colums_in_lg_nine_col nine_card_area">
+                        @foreach($members as $key => $escort)
+                        <?php
+                            list($cityId, $genderId) = checkCommonCityAndGender($cityId, $genderId, $escort);
+                            $pName[] = explode(" ",$escort->name);
+                        ?>
+                        @include('web.partials.grid.free')
+                        @endforeach
+                    </div>
+                </div>
+                @default
+                @endswitch
+            @endforeach
         </div>
         <div class="grid list-view " style="display: none">
             @foreach($escorts as $plan_type => $members)
@@ -429,13 +451,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
     </div>
     </div>
 
-    <!-- <div class="page-sec mb-5 mt-4">{!! $escorts->links('pagination::bootstrap-4') !!}</div> -->
-
-    {{-- Custom Pagination with Bootstrap --}}
-<div class="page-sec mb-5 mt-4">
-    {{ $paginator->links('pagination::custom-bootstrap') }}
-</div>
-
+    <div class="page-sec mb-5 mt-4">{!! $escorts->links('pagination::bootstrap-4') !!}</div>
 
     </div>
     </div>
