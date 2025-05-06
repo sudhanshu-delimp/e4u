@@ -365,66 +365,61 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                 </div>
         </div>
         <div class="grid list-view " style="display: none">
-            @foreach($escorts as $plan_type => $members)
-            @switch($plan_type)
-            @case(1)
+           
         <div class="platinum-sec">
-        <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png')}}" data-toggle="tooltip" title="Platinum Members - {{count($members)}} {{ count($members) == 1 ? 'Listing' : 'Listings' }}">
-                        {{count($members)}}
-                        <span class="bordertopp"> {{ count($members) == 1 ? 'Listing' : 'Listings' }}</span>
+        <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png')}}" data-toggle="tooltip" title="Platinum Members - {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}">
+        {{$grouped->has('1') ? $grouped->get('1')->count():0}}
+                        <span class="bordertopp"> {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}</span>
                     </div>
         <div class="text">
-            @if(count($members) > 1)
-            {{ count($members) }} Listings
+            @if($grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() > 1)
+            {{ $grouped->get('1')->count() }} Listings
             @else
-            {{ count($members) }} Listing
+            {{ $grouped->get('1')->count() }} Listing
             @endif
         </div>
-            @foreach($members as $escort)
-            @include('web.partials.list.platinum')
-            @endforeach
+            @if ($grouped->has('1'))
+                @foreach ($grouped['1'] as $escort)
+                    @include('web.partials.list.platinum')
+                @endforeach
+            @endif
         </div>
-            @break
-            @case(2)
             <div class="platinum-sec gold">
-            <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png')}}" data-toggle="tooltip" title="Gold Members - {{count($members)}} {{ count($members) == 1 ? 'Listing' : 'Listings' }}">{{count($members)}}<span class="bordertopp">{{ count($members) == 1 ? 'Listing' : 'Listings' }}</span></div>
+            <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png')}}" data-toggle="tooltip" title="Gold Members - {{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}">{{$grouped->has('2') ? $grouped->get('2')->count():0}}<span class="bordertopp">{{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}</span></div>
 
         <div class="text gold">
-            @if(count($members) > 1)
-            {{ count($members) }} Listings
+            @if($grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() > 1)
+            {{ $grouped->get('2')->count() }} Listings
             @else
-            {{ count($members) }} Listing
+            {{ $grouped->get('2')->count() }} Listing
             @endif
 
         </div>
-            @foreach($members as $escort)
-            @include('web.partials.list.gold')
-            @endforeach
+            @if ($grouped->has('2'))
+                @foreach ($grouped['2'] as $escort)
+                    @include('web.partials.list.gold')
+                @endforeach
+            @endif
         </div>
-            @break
-            @case(3)
             <div class="listview_each_section_border_btm silver_card">
-            <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/dark_silver.png')}}" data-toggle="tooltip" title="Silver Members - {{count($members)}} {{ count($members) == 1 ? 'Listing' : 'Listings' }}">{{count($members)}}<span class="bordertopp">{{ count($members) == 1 ? 'Listing' : 'Listings' }}</span></div>
-
+            <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/dark_silver.png')}}" data-toggle="tooltip" title="Silver Members - {{ $grouped->has('3') && $grouped->get('3') && $grouped->get('3')->count() == 1 ? 'Listing' : 'Listings' }}">{{$grouped->has('3') ? $grouped->get('3')->count():0}}<span class="bordertopp">{{ $grouped->has('3') && $grouped->get('3') && $grouped->get('3')->count() == 1 ? 'Listing' : 'Listings' }}</span></div>
                 <div class="row  mx-md-n2">
-                    @foreach($members as $escort)
+                    @if ($grouped->has('3'))
+                @foreach ($grouped['3'] as $escort)
                     @include('web.partials.list.silver')
-                    @endforeach
+                @endforeach
+            @endif
                 </div>
             </div>
-            @break
-            @case(4)
             <div class="manage_listview_margin_siliver_section free_card">
                 <div class="row">
-                    @foreach($members as $escort)
-
+                @if ($grouped->has('4'))
+                @foreach ($grouped['4'] as $escort)
                     @include('web.partials.list.free')
-                    @endforeach
+                @endforeach
+            @endif
                 </div>
             </div>
-            @default
-            @endswitch
-            @endforeach
         </div>
     </div>
     </div>
