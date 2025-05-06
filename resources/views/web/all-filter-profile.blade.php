@@ -372,11 +372,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                         <span class="bordertopp"> {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}</span>
                     </div>
         <div class="text">
-            @if($grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() > 1)
-            {{ $grouped->get('1')->count() }} Listings
-            @else
-            {{ $grouped->get('1')->count() }} Listing
-            @endif
+            {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}
         </div>
             @if ($grouped->has('1'))
                 @foreach ($grouped['1'] as $escort)
@@ -388,11 +384,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
             <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png')}}" data-toggle="tooltip" title="Gold Members - {{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}">{{$grouped->has('2') ? $grouped->get('2')->count():0}}<span class="bordertopp">{{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}</span></div>
 
         <div class="text gold">
-            @if($grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() > 1)
-            {{ $grouped->get('2')->count() }} Listings
-            @else
-            {{ $grouped->get('2')->count() }} Listing
-            @endif
+        {{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}
 
         </div>
             @if ($grouped->has('2'))
