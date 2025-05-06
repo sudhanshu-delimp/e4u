@@ -100,10 +100,9 @@ class WebController extends Controller
             $paramData['gender'] = null;
         }
 
-        $params  = [
+        $params = $str  = [
             'string' => request()->get('name'),
             'city_id' => request()->get('city') ? request()->get('city') : ($userLocation ? $userLocation['city'] : null),
-            // 'city_id' => $userLocation ? $userLocation['city'] : (request()->get('city') ? request()->get('city') : $paramData['city_id']),
             'gender' => request()->get('gender') ? request()->get('gender') : $paramData['gender'],
             'age' => request()->get('age'),
             'price' => request()->get('price'),
@@ -111,7 +110,7 @@ class WebController extends Controller
             'services' => request()->get('services'),
             'enabled' => request()->get('enabled', 1),
             'state_id' => request()->get('state-id') ? request()->get('state-id') : ($userLocation ? $userLocation['state'] : null) ,
-            'limit'=> request()->get('limit'),
+            //'limit'=> request()->get('limit'),
             'interest'=> $paramData['interest'] ,
         ];
 
@@ -160,31 +159,126 @@ class WebController extends Controller
         $age      = request()->get('age');
         $location = request()->get('location');
         $page     = request()->get('page', 1);
-        //$perPage  = $limit;
-        $perPage  = 2;
+        $perPage  = $limit;
+        //$perPage  = 4;
+        $applyFilters = function ($query,$str) use ($gender, $age, $location) {
+        $age = explode('-',$str['age']);
+        if(!empty($str['age'])) {
+            $age_min = $age[0];
+            $age_max = $age[1];
+        }
+
+        $query->where('enabled', 1);
+        if(!empty($gen))
+        {
+            $query->where('gender','=',$gen);
+        }
+
+        if(!empty($escort_id)) {
+            $query->whereIn('id', $escort_id);
+        }
+
+        
+        if(!empty($str['duration_price']))
+        {
+
+            $duration_price = $str['duration_price'];
+
+            $query->where( function($q) use ($duration_price){
+                $q->whereHas('durations', function($q) use ($duration_price){
+
+                    //$q->with('pivot');
+                    if($duration_price == "incall_price"){
+                        $q->Where('incall_price', '!=',null);
+
+                    }
+                    if($duration_price == "outcall_price"){
+                        $q->Where('outcall_price', '!=',null);
+
+                    }
+                    if($duration_price == "massage_price"){
+                        $q->Where('massage_price', '!=',null);
+
+                    }
 
 
-         $applyFilters = function ($query) use ($gender, $age, $location) {
-            if ($gender) {
-                $query->where('gender', $gender);
-            }
+                });
+            });
+        }
         
-            if ($age) {
-                $query->where('age', $age);
-            }
+        if(!empty($str['string']))
+        {
+            $uid = $str['string'];
+            $query->where(function($q) use ($uid){
+                $q->orWhere('name',$uid);
+                $q->orWhere( function($q) use ($uid){
+                    $q->whereHas('user', function($q) use ($uid){
+
+                        $q->where('member_id', $uid);
+
+                    });
+                });
+            });
+
+        }
+
+        if(!empty($str['state_id']))
+        {
+            $query->where('state_id',$str['state_id']);
+        }
         
-            if ($location) {
-                $query->where('location', $location);
-            }
+        if(!empty($str['city_id']))
+        {
+            $query->where('city_id','=',$str['city_id']);
+        }
+
+        if(isset($str['interest']) && $str['interest'] != null )
+        {
+            $query->whereIn('gender', json_decode($str['interest']));
+        }
+       
+        if($str['gender'] != null)
+        {
+            $query->where('gender','=',$str['gender']);
+        }
+
+        if(!empty($str['age']) )
+        {
+            $query->whereBetween('age',[$age_min, $age_max]);
+        }
+
+        if(!empty($str['enabled'])) {
+            $query->where('enabled', $str['enabled']);
+        } else {
+            
+        }
+        if($price = $str['price']) {
+            $query->whereHas('services', function($q) use($price) {
+                if($price <= 500) {
+                    $q->where('price','<=', $price);
+                } else {
+                    $q->where('price','>', 500);
+                }
+            });
+        }
+
+        if($services = $str['services'])
+        {
+            $query->whereHas('services', function($q) use($services) {
+                $q->whereIn('services.id', $services);
+            });
+        }
         
             return $query;
         };
 
-        $gold = $applyFilters(Escort::where('enabled', 1)->where('membership', '1'))->get();
-        $silver = $applyFilters(Escort::where('enabled', 1)->where('membership', '2'))->get();
-        $platinum = $applyFilters(Escort::where('enabled', 1)->where('membership', '3'))->get();
+        $platinum = $applyFilters(Escort::where('membership', '1'),$str)->get();
+        $gold = $applyFilters(Escort::where('membership', '2'),$str)->get();
+        $silver = $applyFilters(Escort::where('membership', '3'),$str)->get();
         
-        $merged = $gold->concat($silver)->concat($platinum);
+        
+        $merged = $platinum->concat($gold)->concat($silver);
+       
         $sliced = $merged->slice(($page - 1) * $perPage, $perPage)->values();
         $paginator = new LengthAwarePaginator(
             $sliced,
@@ -196,16 +290,7 @@ class WebController extends Controller
                 'query' => request()->except(['ipinfo']) // Exclude the 'ipinfo' query parameters
             ]
         );
-        
-
-//         @foreach($paginator as $profile)
-//     {{ $profile->name }} - {{ $profile->membership }}
-// @endforeach
-
-// {{ $paginator->links() }}
-        //dd($paginator);
         return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId'));
-        //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
 
     public function getRealTimeGeolocationOfUsers($lat, $lng)

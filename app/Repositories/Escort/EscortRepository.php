@@ -286,6 +286,18 @@ class EscortRepository extends BaseRepository implements EscortInterface
         return $result;
     }
 
+    public function findProfiles($str = [], $user_id = null, $escort_id = [], $userId = null,$gen = null){
+        $str['enabled'] = '1'; 
+        $str['membership'] = '1'; 
+        $gold = $this->filter($this->model, $str , $user_id, $escort_id, $userId,$gen)->get();
+        $str['membership'] = '2'; 
+        $silver = $this->filter($this->model, $str , $user_id, $escort_id, $userId,$gen)->get();
+        $str['membership'] = '3'; 
+        $platinum = $this->filter($this->model, $str , $user_id, $escort_id, $userId,$gen)->get();
+        $merged = $gold->concat($silver)->concat($platinum);
+        return $merged;
+    }
+
     public function findByPlan($count = null, $str = [], $user_id = null, $escort_id = [], $userId = null,$gen = null)
     {
         $profileDetails = false;
