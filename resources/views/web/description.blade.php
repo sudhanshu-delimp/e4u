@@ -56,7 +56,7 @@
     </style>
 @endif
 
-<div class="profile_description_banner overlay_parent custom--overlay" style="background: none;">
+<div class="profile_description_banner overlay_parent custom--overlay custom--brb-overlay" style="background: none;">
     <div class="overlay">
         @if($brb)
             <div class="brb_details">

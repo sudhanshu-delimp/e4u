@@ -111,12 +111,12 @@
 
                 <a class="collapse-item" href="{{ route('escort.dashboard.listings', 'current') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
-                    <span style="{{(request()->segment(2) == 'listings' && request()->segment(3) == 'current')  ? 'color: #e5365a;' : ''}}">View</span>
+                    <span style="{{(request()->segment(2) == 'listings' && request()->segment(3) == 'current')  ? 'color: #e5365a;' : ''}}">Current</span>
                 </a>
 
                 <a class="collapse-item" href="{{ route('escort.dashboard.listings', 'past')}}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
-                    <span style="{{(request()->segment(2) == 'listings' && request()->segment(3) == 'archive')  ? 'color: #e5365a;' : ''}}">Archive</span>
+                    <span style="{{(request()->segment(2) == 'listings' && request()->segment(3) == 'archive')  ? 'color: #e5365a;' : ''}}">Past</span>
                 </a>
 
             </div>

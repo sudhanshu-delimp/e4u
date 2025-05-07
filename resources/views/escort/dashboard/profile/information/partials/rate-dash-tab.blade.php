@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="padding_20_all_side pb-0">
+        <div class="padding_20_all_side pb-0 custom-blow-wide">
             <form id='storeRate' action="{{ route('escort.settings.rate') }}" method="Post">
                 @csrf
                 <div class="row">
