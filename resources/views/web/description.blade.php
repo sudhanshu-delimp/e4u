@@ -493,7 +493,7 @@
                     <div class="profile_card_border profile_page_box_heading">
                         <h2>Who Am I?</h2>
                     </div>
-                    <div class="padding_20_tob_btm_side">
+                    <div class="padding_20_tob_btm_side who-tittle">
                         {!! $escort->about_title !!}
                     </div>
                     <div class="padding_20_tob_btm_side">
