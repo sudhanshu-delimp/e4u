@@ -48,7 +48,8 @@ return [
 			1=>'Email',
 			2=>'Sms',
 			//3=>'Text-msg',
-			4=>'Call'
+			4=>'Call',
+			5=>'Call or SMS'
 		],
 		'breast-size'=>[
 			24 => ['A','B','C','D','DD','E','F','G','H'],

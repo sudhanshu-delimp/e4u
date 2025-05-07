@@ -16,7 +16,7 @@
    <div class="row">
       <div class="col-md-12">
          <div class="v-main-heading h3">
-             Visa, Migration & Education Services
+             Visa & Education
              <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
          </div>
       </div>
@@ -40,7 +40,7 @@
             <div class="col-md-12">
                <div class="row">
                   <div class="col-md-12">
-                     <h3 class="pb-2 pt-2"><b>Partnership</b> </h3>
+                     <h2 class="pb-2 pt-2"><b>Partnership</b> </h2>
                      <p>Escorts4U has partnered with PEAMS Australia Pty Ltd <span><b>(Partner)</b></span> a leading provider of
                          Visa, Migration and Education placement services <span><b>(Services)</b></span> to provide practical advice to
                          assist you with compliance under the <i>Migration Act 1958 (Cth)</i>, whilst at the same time
@@ -52,13 +52,13 @@
          <form class=" ">
             <div class="row">
                <div class="col-md-12">
-                  <h3 class="pb-2 pt-2"><b>Available services</b> </h3>
+                  <h2 class="pb-2 pt-2"><b>Available services</b> </h2>
                   <p>The following Services are available through our Partner:</p>
                   <ul>
                      <li>Visa and Migration advice including applications, renewals and ongoing assistance</li>
                      <li>Education course selection advice including ongoing assistance</li>
                   </ul>
-                  <h3 class="pb-2 pt-2"><b>Request for assistance</b> </h3>
+                  <h2 class="pb-2 pt-2"><b>Request for assistance</b> </h2>
                    <div class="form-group w-50">
                        <div><label for="preference"><b>Your contact preference</b> </label></div>
                        <div class="form-check form-check-inline">
