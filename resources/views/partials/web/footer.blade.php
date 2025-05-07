@@ -172,7 +172,7 @@
             <!-- Modal body -->
 
             <!-- Poup -->
-               <div id="privacy-popup" class="popup-overlay custom--cookie--popup">
+               <!-- <div id="privacy-popup" class="popup-overlay custom--cookie--popup">
                   <div class="popup-content">
                      <div class="popup--header">
                         <h2>Privacy Preference Center</h2>
@@ -249,7 +249,21 @@
                         <button class="btn confirm">Confirm My Choices</button>
                      </div>
                   </div>
+               </div> -->
+
+                <!-- Modal body -->
+            <div class="modal-body">
+               <div class="row">
+                  <div class="col-md-8 align-self-center">
+                     <h4 class="modal-title">Cookie Policy</h4>
+                     <p>When clicking on “I accept”, you agree that we and our partners may store and/or access information on your device, such as unique IDs in cookies to process personal data. You may accept or manage your choices by clicking below, including your right to object where legitimate interest is used. You can withdraw your consent or manage your choices at anytime in your My Account settings or the cookie manager. For additional information please refer to our Privacy Policy located in the footer of this Website. Your choices may be signaled to our partners and will not affect browsing data.</p>
+                  </div>
+                  <div class="col-md-4 align-self-center">
+                     <button type="button" class="btn btn-danger close">I Accept</button>
+                     <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#cookies-notice">Manage Preferences</button>
+                  </div>
                </div>
+            </div>
             
          </div>
       </div>
