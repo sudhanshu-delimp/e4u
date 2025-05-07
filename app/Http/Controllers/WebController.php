@@ -113,9 +113,6 @@ class WebController extends Controller
             //'limit'=> request()->get('limit'),
             'interest'=> $paramData['interest'] ,
         ];
-
-        //dd($params);
-
         session(['search_escort_filters' => $params]);
         session(['search_escort_filters_url' => url()->full()]);
         session(['is_shortlisted_profile' => false]);
