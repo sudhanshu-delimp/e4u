@@ -5056,10 +5056,7 @@ textarea.parsley-error {
     gap: 10px;
     align-items: center;
 }
-.custom--cookie--popup {
-    display: block;
-    background: red;
-}
+
 
 .popup-overlay {
   display: none;
@@ -5307,6 +5304,14 @@ textarea.parsley-error {
 .custom--copyryt a.admin-login {
     font-size: 16px;
     font-weight: 400;
+}
+
+.custom--onload--popup .custom--cookie--popup {
+    display: flex;
+    background: transparent;
+}
+.remove--popup {
+    display: none !important;
 }
 /* new css start 28 march end */
 

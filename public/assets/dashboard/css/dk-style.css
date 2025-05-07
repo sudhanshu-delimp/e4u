@@ -671,6 +671,12 @@ span.custom--help {
 tr.custom--row th:not(tr.custom--row th:last-child) {
     border-right: 1px solid #fff;
 }
+.custom--accordfee .card-header a {
+    color: #0c223d;
+}
+.custom--accordfee .myacording-design .card h3 {
+    font-size: 22px;
+}
 /* New css 11march 2025 end */
 
 
