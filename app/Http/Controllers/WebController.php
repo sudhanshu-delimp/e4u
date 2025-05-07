@@ -113,6 +113,10 @@ class WebController extends Controller
             //'limit'=> request()->get('limit'),
             'interest'=> $paramData['interest'] ,
         ];
+
+        echo '<pre>';
+        print_r($str);
+        echo '</pre>';
         session(['search_escort_filters' => $params]);
         session(['search_escort_filters_url' => url()->full()]);
         session(['is_shortlisted_profile' => false]);
@@ -219,10 +223,10 @@ class WebController extends Controller
 
         }
 
-        if(!empty($str['state_id']))
-        {
-            $query->where('state_id',$str['state_id']);
-        }
+        // if(!empty($str['state_id']))
+        // {
+        //     $query->where('state_id',$str['state_id']);
+        // }
         
         if(!empty($str['city_id']))
         {
