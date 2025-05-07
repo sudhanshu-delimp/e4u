@@ -114,9 +114,9 @@ class WebController extends Controller
             'interest'=> $paramData['interest'] ,
         ];
 
-        echo '<pre>';
-        print_r($str);
-        echo '</pre>';
+        // echo '<pre>';
+        // print_r($str);
+        // echo '</pre>';
         session(['search_escort_filters' => $params]);
         session(['search_escort_filters_url' => url()->full()]);
         session(['is_shortlisted_profile' => false]);
