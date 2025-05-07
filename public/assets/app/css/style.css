@@ -5313,6 +5313,10 @@ textarea.parsley-error {
 .remove--popup {
     display: none !important;
 }
+.who-tittle {
+    color: #ff3c5f;
+    padding-bottom: 0;
+}
 /* new css start 28 march end */
 
 /* Media Query Start*/
