@@ -5317,6 +5317,23 @@ textarea.parsley-error {
     color: #ff3c5f;
     padding-bottom: 0;
 }
+.custom--brb-overlay .brb_details {
+    color: #fff;
+    padding: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #ff3c5f;
+}
+.custom--brb-overlay .overlay {
+    position: unset;
+    margin: unset;
+}
+.custom--brb-overlay .brb_details h1 {
+    font-size: 30px;
+}
+.custom--brb-overlay .brb_details h3 {
+    font-size: 20px;
+}
 /* new css start 28 march end */
 
 /* Media Query Start*/

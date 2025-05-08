@@ -87,12 +87,13 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Stage Name</th>
                                 <th>Profile Name</th>
                                 <th>Location</th>
+                                <th>Stage Name</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
-                                <th>Days</th>
+                                <th>Days</th>                                
+                                <!-- <th>Fee / Fee Paid</th> -->
                             </tr>
                             </thead>
                             <tbody>

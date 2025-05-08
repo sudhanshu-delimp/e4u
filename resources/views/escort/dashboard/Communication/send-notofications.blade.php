@@ -133,6 +133,7 @@
    <!-- Footer -->
    <!-- End of Footer -->
 </div>
+
 <div class="modal fade upload-modal" id="new-ban" tabindex="-1" role="dialog" aria-labelledby="new-ban" aria-hidden="true" data-backdrop="static">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -151,9 +152,20 @@
                      </select>
                   </div>
                   <div class="col-12 mb-3">
-                     <div class="form-group text-center" style="border: 2px dashed #e3e6f0;padding: 15px 0px 35px 0px;">
-                        <label class="form-check-label" for="exampleCheck1" style="color: #323C47;">You are about to send notification to all viewers located in Home state </label>
-                     </div>
+                     <div class="form-group text-left" style="border: 2px dashed #e3e6f0;padding: 15px 10px 35px 10px;">
+                     <label class="form-check-label" for="exampleCheck1" style="color: #323C47;">You are about to send notification to all viewers located in Home State. </label>
+                     <!-- if only one selected -->
+                      
+                     <label class="form-check-label" for="exampleCheck1" style="color: #323C47;">You are about to send notification to <span>[Viewers name]</span>  and viewers located in <span>[Location]</span>. </label>
+                           <div class="card-body px-0">
+                              <h4 class="NotesHeader"><b>Notes:</b> </h4>
+                                <ol>
+                                  <li>The Viewer will only receive this Notification if they have the feature
+                                  enabled.</li>
+                                  <li>The Notification will identify you by your Membership ID and Stage Name.</li>
+                              </ol>
+                            </div>
+                  </div>
                   </div>
                </div>
             </form>
@@ -162,6 +174,7 @@
             <div class="col-10 pl-0">
                <div class="form-group">
                   <label class="form-check-label pr-4" for="exampleCheck1">Date:<span class="ml-1" style="font-weight: 300;">12/31/2022</span></label>
+                  <label class="form-check-label pr-4" for="exampleCheck1">  No. of Viewers:<span class="ml-1" style="font-weight: 300;">[total]</span></label>
                </div>
             </div>
             <button type="button" class="btn btn-primary">Send</button>

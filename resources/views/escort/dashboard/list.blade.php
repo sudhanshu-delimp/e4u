@@ -105,11 +105,12 @@
                           Profile Name
 
                        </th>
+                       <th>Location</th>
+                       <!-- <th>Membership</th> -->
                        <th>
                           Stage Name
 
                        </th>
-                       <th>Location</th>
                        <th>Mobile Number</th>
                        <!-- <th>Competitor</th>-->
                        <th>

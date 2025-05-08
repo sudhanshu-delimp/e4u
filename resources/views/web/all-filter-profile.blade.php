@@ -159,7 +159,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                             </button>
                         </div>
                     </div>
-                    <div class="service_tags">
+                    <!-- <div class="service_tags">
                         <div class="row serve-row-one">
                             <div class="col-md-2">
                                 <h5 class="normal_heading">Service Tags</h5>
@@ -202,7 +202,64 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+                    <!-- Service tags start -->
+                        <div class="service_tagss">
+                        <div class="row serve-row-one">
+                        <div class="col-md-10">
+                        <!-- accordien start here -->
+                        <div class="accordion-container-new">
+                        <div class="set mb-0">
+                        <a class=" py-lg-0 py-2" style="font-weight:500;display: flex; align-items: center;justify-content: space-between;">
+                        Service Tags
+                        <i class="fa fa-angle-down"></i>
+                        </a>
+                        <div class="content">
+                        <div class="accodien_manage_padding_content">
+                        <div class="display_inline_block mb-1 mr-1">
+                        <select class="custome_form_control_border_radus padding_five_px" id="service_id_one">
+                        <option value="">Fun Stuff - On Viewer</option>
+                        @foreach($service_one as $key => $service)
+                        <option id="{{ $service->name}}" value="{{$service->id}}" {{ (request()->get('services') == $service->id) ? 'selected' : '' }}>{{$service->name}}</option>
+                        @endforeach
+                        </select>
+                        </div>
+                        <div class="display_inline_block mb-1 mr-1">
+                        <select class="custome_form_control_border_radus padding_five_px" id="service_id_two">
+                        <option value="">Kinky Stuff - On Viewer</option>
+                        @foreach($service_two as $key => $service)
+                        <option id="{{ $service->name}}" value="{{$service->id}}" {{ (request()->get('services') == $service->id) ? 'selected' : '' }}>{{$service->name}}</option>
+                        @endforeach
+                        </select>
+                        </div>
+                        <div class="display_inline_block mb-1 mr-1">
+                        <select class="custome_form_control_border_radus padding_five_px" id="service_id_three">
+                        <option value="">Fun Stuff - On Escort</option>
+                        @foreach($service_three as $key => $service)
+                        <option id="{{ $service->name}}" value="{{$service->id}}" {{ (request()->get('services') == $service->id) ? 'selected' : '' }}>{{$service->name}}</option>
+                        @endforeach
+                        </select>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        <!-- accordien end here -->
+                        </div>
+                        <div class="col-md-2 align-items-center">
+                        <input type="reset" id="resetAll" class="btn reset_filter" title="Reset Service Tags" value="Clear Tags">
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="col-md-12">
+                        <div class="selected_service_tag">
+                        <ul id="selectedService">
+                        </ul>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        <!-- end -->
                 </form>
             </div>
         </div>
