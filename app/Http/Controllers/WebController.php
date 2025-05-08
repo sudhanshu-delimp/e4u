@@ -276,9 +276,10 @@ class WebController extends Controller
         $platinum = $applyFilters(Escort::where('membership', '1'),$str)->get();
         $gold = $applyFilters(Escort::where('membership', '2'),$str)->get();
         $silver = $applyFilters(Escort::where('membership', '3'),$str)->get();
+        $free = $applyFilters(Escort::where('membership', '4'),$str)->get();
         
         
-        $merged = $platinum->concat($gold)->concat($silver);
+        $merged = $platinum->concat($gold)->concat($silver)->concat($free);
        
         $sliced = $merged->slice(($page - 1) * $perPage, $perPage)->values();
         $paginator = new LengthAwarePaginator(
