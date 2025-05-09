@@ -11,4 +11,9 @@ class EscortBrb extends Model
     public $timestamps = false;
     protected $table = "escort_brb";
     protected $guarded = ['id'];
+
+    public function escort()
+    {
+        return $this->belongsTo(Escort::class, 'profile_id');
+    }
 }

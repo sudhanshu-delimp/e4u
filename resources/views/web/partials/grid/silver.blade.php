@@ -22,12 +22,13 @@
         </div>
     <a  class="card card_box_style mb-0 short-card" href="{{ route('profile.description',[$escort->id, $escort->city_id, $escort->membership])}}">
         <div class="card2 card_box_style1">
+        @if($escort->latestActiveBrb)
         <div class="brb--content">
                 <div class="brb--wrappr">
-                <span class="brb-text">BRB</span> at <span class="brb-time">12:09 PM</span> <span class="brb-date">09-05-2025</span>
+                <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->brb_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->brb_time))}}</span>
                 </div>
-
             </div>
+            @endif
             <img class="card-img-top" src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}" alt="Card image cap">
             <div class="seven_column_content_top d-flex justify-content-between mid_tit wish_span"></div>
             <div class="seven_column_bottom_content">

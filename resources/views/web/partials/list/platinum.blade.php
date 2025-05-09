@@ -6,12 +6,13 @@
                     <div class="col-md-4 pl-0">
                         <a href="{{ route('profile.description',$escort->id)}}">
                             <div class="section_wise_level_icon_img">
+                            @if($escort->latestActiveBrb)
                             <div class="brb--content">
-                <div class="brb--wrappr">
-                <span class="brb-text">BRB</span> at <span class="brb-time">12:09 PM</span> <span class="brb-date">09-05-2025</span>
-                </div>
-
-            </div>
+                                <div class="brb--wrappr">
+                                    <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->brb_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->brb_time))}}</span>
+                                </div>
+                            </div>
+                            @endif
                                 <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}" class="img-fluid height_for_platinum" title="View Profile">
                             <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/profile/image36.png')}}"></div>
                                 <div class="add_to_fab_list_view_each_sec">

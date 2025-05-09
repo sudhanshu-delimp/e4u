@@ -5,6 +5,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Carbon\Carbon;
 
 class Escort extends Model
@@ -73,6 +74,15 @@ class Escort extends Model
     {
         return $this->hasMany('App\Models\EscortBrb', 'profile_id');
     }
+    
+    public function latestActiveBrb(): HasOne
+    {
+        return $this->hasOne(EscortBrb::class, 'profile_id', 'id')
+            ->where('brb_time', '>', now())
+            ->where('active', 'Y')
+            ->orderBy('brb_time', 'desc');
+    }
+
     public function likes()
     {
         return $this->belongsTo('App\Models\EscortLike', 'escort_id');
