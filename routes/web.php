@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
+use App\Http\Controllers\Escort\ConciergeController;
 use App\Http\Controllers\Escort\EscortController;
 use Illuminate\Support\Facades\Cookie;
 use App\Http\Controllers\SupportTicketsController;
@@ -223,6 +224,9 @@ Route::get('/blogs', function() { return view('web.pages.blogs'); });
 Route::get('/visa-migration', function() { return view('web.pages.visa-migration'); });
 Route::get('/cookie-policy', function() { return view('web.pages.cookie-policy'); });
 Route::get('/pin-up', function() { return view('web.pages.pinupme'); });
+
+Route::post('/mobile-read-sim',[ConciergeController::class, 'mobileReadSim'])->name('mobile-read-sim');
+Route::post('/mobile-order-sim-payment',[ConciergeController::class, 'mobileOrderSimPayment'])->name('mobile-order-sim-payment');
 
 Route::post('/feedback-data', [App\Http\Controllers\FeedbackController::class,'showOption'])->name('web.option');
 Route::post('/feedback', [App\Http\Controllers\FeedbackController::class,'store'])->name('web.feedback.save');

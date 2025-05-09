@@ -186,7 +186,7 @@
                                                         My Name
                                                         <img class="delay_tooltip" src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="You can also create <a target='_blank' href='{{route('escort.profile.information')}}'>Stage Names</a> to use in any Profile." data-boundary="window">
                                                     </label>
-                                                    <input type="text" class="form-control" name="name" placeholder="Jane Doe" value="{{ $escort->name }}">
+                                                    <input type="text" class="form-control" name="name" placeholder="Enter name..." value="{{ $escort->name }}">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
