@@ -21,7 +21,7 @@
     100% { transform: rotate(360deg); }
     }
     .apply-filter-btn{
-        font-size:16px !important;
+        font-size:16px ;
     }
 </style>
 @endsection

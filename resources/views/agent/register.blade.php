@@ -65,23 +65,42 @@
                            </select>
                         </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Be mindful of what you have used in other websites" name="password" required autocomplete="new-password" data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-                            <div class="termsandconditions_text_color">
-                                <!-- error sms here -->
-                                @error('password')
-                                <strong>{{ $message }}</strong>
-                                @enderror
+                        <div class="form-group position-relative custom--password">
+                                <label for="exampleInputPassword1">{{ __('Password') }}</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="exampleInputPassword1"
+                                        placeholder="Be mindful of what you have used in other websites" name="password"
+                                        required autocomplete="new-password"
+                                        data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
+                                        data-parsley-required-message="@lang('errors/validation/required.password')"
+                                        data-parsley-pattern-message="@lang('errors/validation/valid.password')">
+                                    <span class="input-group-text custom--eye" id="togglePassword" style="cursor: pointer;">
+                                        <i class="fa fa-eye" id="eyeIcon"></i>
+                                    </span>
+                                </div>
+                                <div class="termsandconditions_text_color">
+                                    @error('password')
+                                    <strong>{{ $message }}</strong>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group mb-0">
-                            <label for="conformPassword">{{ __('Confirm Password') }}</label>
-                            <input type="password" class="form-control" id="conformPassword" placeholder="Confirm your password" name="password_confirmation" data-parsley-equalto="#exampleInputPassword1" data-parsley-equalto-message="Confirm password should be the same password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.confirm_password')">
-                            <div class="termsandconditions_text_color">
-                                <!-- error sms here -->
+                            <div class="form-group position-relative custom--password">
+                                <label for="conformPassword">{{ __('Confirm Password') }}</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="conformPassword"
+                                        placeholder="Confirm your password" name="password_confirmation"
+                                        data-parsley-equalto="#exampleInputPassword1"
+                                        data-parsley-equalto-message="Confirm password should be the same password"
+                                        required autocomplete="new-password"
+                                        data-parsley-required-message="@lang('errors/validation/required.confirm_password')">
+                                    <span class="input-group-text custom--eye" id="toggleConfirmPassword" style="cursor: pointer;">
+                                        <i class="fa fa-eye" id="confirmEyeIcon"></i>
+                                    </span>
+                                </div>
+                                <div class="termsandconditions_text_color">
+                                    <!-- error sms here -->
+                                </div>
                             </div>
-                        </div>
 
                         {{--<div class="form-check form-check-inline">
                             <input class="form-check-input" required type="radio" name="type" id="inlineRadio1" value="3"{{ old('type') == 3 ? ' checked' : null }}>
@@ -726,6 +745,27 @@ $("body").on("click","#submit_button",function(){
 </section>
 @endsection
 @section('script')
+<script>
+    document.getElementById("togglePassword").addEventListener("click", function () {
+        const passwordField = document.getElementById("exampleInputPassword1");
+        const eyeIcon = document.getElementById("eyeIcon");
+        const isPassword = passwordField.type === "password";
+
+        passwordField.type = isPassword ? "text" : "password";
+        eyeIcon.classList.toggle("fa-eye");
+        eyeIcon.classList.toggle("fa-eye-slash");
+    });
+
+    document.getElementById("toggleConfirmPassword").addEventListener("click", function () {
+        const confirmPasswordField = document.getElementById("conformPassword");
+        const confirmEyeIcon = document.getElementById("confirmEyeIcon");
+        const isPassword = confirmPasswordField.type === "password";
+
+        confirmPasswordField.type = isPassword ? "text" : "password";
+        confirmEyeIcon.classList.toggle("fa-eye");
+        confirmEyeIcon.classList.toggle("fa-eye-slash");
+    });
+</script>
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script>
 $(function() {
@@ -861,5 +901,7 @@ $("body").on("click","#submit_button",function(){
 });
 
 </script>
+
+
 @endsection
 >>>>>>> Stashed changes
