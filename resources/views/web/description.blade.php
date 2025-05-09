@@ -94,7 +94,10 @@
                         @endif
                 </div>
                 <div class="profile_page_name_and_phno">
-                    <p>Perth - {{ $escort->phone}} </p>
+                <p>Perth - {{ preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $escort->phone)) }}</p>
+
+
+                    
                 </div>
             </div>
             <div class="profile_page_location_and_id">
@@ -332,24 +335,37 @@
                                     <span class="about_box_small_heading">Gender:</span> <span class="about_box_small_heading_value">{{ $escort->gender}}</span>
                                 </div>
                                 <div class="mb-2">
+                                    <span class="about_box_small_heading">Body type:</span> <span class="about_box_small_heading_value"> {{ config("escorts.profile.body-type.$escort->body_type")}}</span>
+                                </div>
+                                
+                                
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12">
+                            <div class="mb-2">
+                                    <span class="about_box_small_heading">Age:</span> <span class="about_box_small_heading_value">{{ $escort->age}}</span>
+                                </div>
+                                <div class="mb-2">
                                     <span class="about_box_small_heading">Nationality:</span> <span class="about_box_small_heading_value"> {{ ($escort->nationality) ? $escort->nationality->name : ''}}</span>
                                 </div>
+                                
+                                
                             </div>
                             <div class="col-lg-4 col-md-4 col-12">
                                 <div class="mb-2">
                                     <span class="about_box_small_heading">Orientation:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.orientation.$escort->orientation") }}</span>
                                 </div>
-                                <div class="mb-2">
-                                    <span class="about_box_small_heading">Age:</span> <span class="about_box_small_heading_value">{{ $escort->age}}</span>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4 col-12">
+                                
                                 <div class="mb-2">
                                     <span class="about_box_small_heading">Ethnicity:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.ethnicities.$escort->ethnicity")}}</span>
                                 </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12 col-12">
                                 <div class="mb-2">
-                                    <span class="about_box_small_heading">Body type:</span> <span class="about_box_small_heading_value"> {{ config("escorts.profile.body-type.$escort->body_type")}}</span>
+                                                <span class="about_box_small_heading">Available to:</span> @if(!empty($escort->available_to)) @foreach($escort->available_to as $available_to) <span class="about_box_small_heading_value">{{ config("escorts.profile.available-to.$available_to") }}</span>@endforeach @endif
                                 </div>
+                                
+                                
                             </div>
                         </div>
                     </div>
@@ -469,20 +485,25 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-12">
                                         <div class="mb-2">
-                                            <span class="about_box_small_heading">Languages:</span> @if(!empty($escort->language)) @foreach($escort->language as $lang)<span class="about_box_small_heading_value"> {{ config("escorts.profile.languages.$lang") }}</span>@endforeach @endif
-                                        </div>
-                                        <div class="mb-2">
                                             <span class="about_box_small_heading">Travel:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.travels.$escort->travel") }}</span>
                                         </div>
+                                        
                                     </div>
                                     <div class="col-lg-8 col-md-8 col-12">
-                                        <div class="mb-2">
-                                            <span class="about_box_small_heading">Available to:</span> @if(!empty($escort->available_to)) @foreach($escort->available_to as $available_to) <span class="about_box_small_heading_value">{{ config("escorts.profile.available-to.$available_to") }}</span>@endforeach @endif
-                                        </div>
+                                        
                                         <div class="mb-2">
                                             <span class="about_box_small_heading">SWA License:</span> <span class="about_box_small_heading_value">{{ $escort->license}}</span>
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-12 col-md-12 col-12">
+                                        
+                                    <div class="mb-2">
+                                            <span class="about_box_small_heading">Languages:</span> @if(!empty($escort->language)) @foreach($escort->language as $lang)<span class="about_box_small_heading_value"> {{ config("escorts.profile.languages.$lang") }}</span>@endforeach @endif
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -1191,22 +1212,10 @@
             @endphp
             <b>When texting me please say:</b>
             <p class="profile_description_contect_pera">
-                " <b><i>Hi {{ $escort->name}}, I found you on Escorts4u ...</i></b>"
-                @if(!empty($escort->user->viewer_contact_type))
-                    @if(in_array(1, $escort->user->viewer_contact_type) || in_array(2, $escort->user->viewer_contact_type) )
-                        @if(in_array(3, $escort->user->viewer_contact_type))
-                        on my number {{ $number}} or email {{ $escort->user->email ? $escort->user->email : ''}}
-                        @else
-                        on my number {{ $number}}
-                        @endif
-                    @elseif(in_array(3, $escort->user->viewer_contact_type))
-                        on my email {{ $escort->user->email ? $escort->user->email : ''}}
-                    @else
-                        on my number --
-                    @endif
-                @else
-                    on my number --
-                @endif
+                    "<b><i>Hi {{ $escort->name }}, I found you on Escorts4u ...</i></b>" @if(!empty($escort->user->viewer_contact_type)) @if(in_array(1, $escort->user->viewer_contact_type) || in_array(2, $escort->user->viewer_contact_type)) @if(in_array(3,
+                    $escort->user->viewer_contact_type)) on my number {{ preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $number)) }} or email {{ $escort->user->email ?? '' }} @else on my number {{
+                    preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $number)) }} @endif @elseif(in_array(3, $escort->user->viewer_contact_type)) on my email {{ $escort->user->email ?? '' }} @else on my number -- @endif @else
+                    on my number -- @endif
             </p>
         </div>
     </div>

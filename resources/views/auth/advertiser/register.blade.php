@@ -113,33 +113,44 @@
                                 </select>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group position-relative custom--password">
                                 <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1"
-                                       placeholder="Be mindful of what you have used in other websites" name="password"
-                                       required autocomplete="new-password"
-                                       data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
-                                       data-parsley-required-message="@lang('errors/validation/required.password')"
-                                       data-parsley-pattern-message="@lang('errors/validation/valid.password')">
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="exampleInputPassword1"
+                                        placeholder="Be mindful of what you have used in other websites" name="password"
+                                        required autocomplete="new-password"
+                                        data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
+                                        data-parsley-required-message="@lang('errors/validation/required.password')"
+                                        data-parsley-pattern-message="@lang('errors/validation/valid.password')">
+                                    <span class="input-group-text custom--eye" id="togglePassword" style="cursor: pointer;">
+                                        <i class="fa fa-eye" id="eyeIcon"></i>
+                                    </span>
+                                </div>
                                 <div class="termsandconditions_text_color">
-                                    <!-- error sms here -->
                                     @error('password')
                                     <strong>{{ $message }}</strong>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="form-group">
+
+                            <div class="form-group position-relative custom--password">
                                 <label for="conformPassword">{{ __('Confirm Password') }}</label>
-                                <input type="password" class="form-control" id="conformPassword"
-                                       placeholder="Confirm your password" name="password_confirmation"
-                                       data-parsley-equalto="#exampleInputPassword1"
-                                       data-parsley-equalto-message="Confirm password should be the same password"
-                                       required autocomplete="new-password"
-                                       data-parsley-required-message="@lang('errors/validation/required.confirm_password')">
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="conformPassword"
+                                        placeholder="Confirm your password" name="password_confirmation"
+                                        data-parsley-equalto="#exampleInputPassword1"
+                                        data-parsley-equalto-message="Confirm password should be the same password"
+                                        required autocomplete="new-password"
+                                        data-parsley-required-message="@lang('errors/validation/required.confirm_password')">
+                                    <span class="input-group-text custom--eye" id="toggleConfirmPassword" style="cursor: pointer;">
+                                        <i class="fa fa-eye" id="confirmEyeIcon"></i>
+                                    </span>
+                                </div>
                                 <div class="termsandconditions_text_color">
                                     <!-- error sms here -->
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label for="conformPassword">Referred by Agent (Agent ID)</label>
                                 <input type="txt" class="form-control" id="" placeholder="Enter Agent ID">
@@ -698,4 +709,25 @@
             console.log("working");
         });
     </script>
+    <script>
+    document.getElementById("togglePassword").addEventListener("click", function () {
+        const passwordField = document.getElementById("exampleInputPassword1");
+        const eyeIcon = document.getElementById("eyeIcon");
+        const isPassword = passwordField.type === "password";
+
+        passwordField.type = isPassword ? "text" : "password";
+        eyeIcon.classList.toggle("fa-eye");
+        eyeIcon.classList.toggle("fa-eye-slash");
+    });
+
+    document.getElementById("toggleConfirmPassword").addEventListener("click", function () {
+        const confirmPasswordField = document.getElementById("conformPassword");
+        const confirmEyeIcon = document.getElementById("confirmEyeIcon");
+        const isPassword = confirmPasswordField.type === "password";
+
+        confirmPasswordField.type = isPassword ? "text" : "password";
+        confirmEyeIcon.classList.toggle("fa-eye");
+        confirmEyeIcon.classList.toggle("fa-eye-slash");
+    });
+</script>
 @endsection

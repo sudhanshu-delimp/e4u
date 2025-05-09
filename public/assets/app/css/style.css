@@ -2950,6 +2950,7 @@ a.admin-login:hover {
     letter-spacing: 0.01em;
 }
 
+
 .ryt_srch_btn .custome_form_control * {
     padding-top: 0;
     padding-bottom: 0;
@@ -2993,6 +2994,7 @@ a.admin-login:hover {
 .slect__btn_tab button {
     width: 100%;
     height: 40px;
+    background: transparent;
 }
 
 .slect__btn_tab>div {
@@ -5029,7 +5031,7 @@ textarea.parsley-error {
 .custom--header, .header--active {
     position: sticky;
     top: 0;
-    z-index: 9999;
+    z-index: 999;
 }
 .header--active {
     background: #fff;
@@ -5346,6 +5348,24 @@ textarea.parsley-error {
     color: #fff;
     font-size: 12px;
     text-align: center;
+}
+.apply-filter-btn, .reset_filter {
+    font-size: 15px !important;
+}
+.search_filters_inside select{
+    border: 1px solid #90a0b7;
+    background: transparent;
+}
+.custom--password .custom--eye {
+    background: transparent;
+    border: none;
+    padding: 0;
+    position: absolute;
+    right: 0;
+}
+.custom--password input:focus {
+    background: transparent;
+    z-index: 0 !important;
 }
 /* new css start 28 march end */
 
