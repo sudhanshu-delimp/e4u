@@ -17,7 +17,7 @@ class EscortBrbController extends Controller
         if($newBrb->save()) {
             $response = [
                 'success' => true,
-                'message' => 'BRB added for the profile'
+                'message' => 'BRB has been added to your Profile.'
             ];
         } else {
             $response = [
