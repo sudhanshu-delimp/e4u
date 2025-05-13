@@ -41,6 +41,15 @@ class HomeController extends Controller
 
     }
 
+    public function noticeDmca(Request $request)
+    {
+        return view('web.dmca');
+    }
+    public function becomeInfluencer(Request $request)
+    {
+        return view('web.influencer');
+    }
+
     public function index(Request $request)
     {
         Session::put('session_state_id', $request->query('location_state'));

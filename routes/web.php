@@ -65,7 +65,8 @@ Route::get('state-list',[App\Http\Controllers\StateController::class,'stateList'
 
 //Route::get('/escorts', [App\Http\Controllers\HomeController::class, 'intendedRedirect'])->name('dashboard');
 
-
+Route::get('/dmca', [App\Http\Controllers\HomeController::class, 'noticeDmca'])->name('notice.dmca');
+Route::get('/influencer', [App\Http\Controllers\HomeController::class, 'becomeInfluencer'])->name('become.influencer');
 
 
 

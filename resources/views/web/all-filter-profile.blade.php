@@ -75,7 +75,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                                     <input type="search" name="name" class="form-control remove_border_btm rounded " placeholder="Search by Member ID or Name" aria-label="Search" aria-describedby="search-addon" value="{{ request()->get('name') }}">
                                 </div>
                             </div>
-                            <div class="display_inline_block  mr-1 item_dis">
+                            <div class="display_inline_block   item_dis">
                                 <span class="item-head">Display item</span>
                                 <select class="custome_form_control_border_radus padding_five_px" name="limit">
                                     <option value="25">25</option>
@@ -83,14 +83,15 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                                     <option value="75">75</option>
                                     <option value="100">100</option>
                                 </select>
-                            </div>
-                            <div class="display_inline_block">
+                                <div class="display_inline_block custom-refreshbuton">
                                 <div class="margin_btn_reset">
                                     <a type="reset" class="btn reset_filter" href="{{ route('find.all') }}" data-toggle="tooltip" title="Refresh page">
                                     <i class="fa fa-repeat" aria-hidden="true"></i>
                                     </a>
                                 </div>
                             </div>
+                            </div>
+                            
                             <div class="display_inline_block">
                                 <div class="margin_btn_reset">
                                     <button type="button" class="btn reset_filter" id="v_wishlist">
