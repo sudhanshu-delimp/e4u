@@ -1,4 +1,4 @@
-<div class="container-fluid pl-3 pl-lg-5 register-pin-up mb-5 custom--hide">
+<div class="container-fluid pl-3 pl-lg-5 register-pin-up mb-5 ">
     <!--middle content start here-->
     <div class="row">
         <div class="col-md-12">
