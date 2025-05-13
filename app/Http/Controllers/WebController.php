@@ -276,7 +276,7 @@ class WebController extends Controller
         $platinum = $applyFilters(Escort::with('durations')->where('membership', '1'),$str)->get();
         $gold = $applyFilters(Escort::with('durations')->where('membership', '2'),$str)->get();
         $silver = $applyFilters(Escort::with('durations')->where('membership', '3'),$str)->get();
-        
+        $free = $applyFilters(Escort::with('durations')->where('membership', '4'),$str)->get();
         
         $merged = $platinum->concat($gold)->concat($silver);
 
@@ -317,6 +317,14 @@ class WebController extends Controller
             //$item->star_rating = $lp;
             return $item;
         })->collect();
+        
+        // $platinum = $applyFilters(Escort::where('membership', '1'),$str)->get();
+        // $gold = $applyFilters(Escort::where('membership', '2'),$str)->get();
+        // $silver = $applyFilters(Escort::where('membership', '3'),$str)->get();
+        // $free = $applyFilters(Escort::where('membership', '4'),$str)->get();
+        
+        
+        $merged = $platinum->concat($gold)->concat($silver)->concat($free);
        
         $sliced = $merged->slice(($page - 1) * $perPage, $perPage)->values();
         $paginator = new LengthAwarePaginator(

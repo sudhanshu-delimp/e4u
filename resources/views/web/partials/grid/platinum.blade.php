@@ -1,4 +1,4 @@
-<div class="col-lg col-md-6 col-sm-6 mb-5">
+<div class="col-lg col-md-6 col-sm-6 mb-5 brb--text">
 
 <div class="five_column_content_top d-flex justify-content-between wish_span" style="z-index: 1;width: 90%;">
             <span><img width="18" height="18" src="{{ asset('assets/img/verified media.png') }}" class="" title="This Escort's Media has been verified by E4U"></span>
@@ -25,7 +25,14 @@
 
     <a class="card short-card card_box_style mb-0" href="{{ route('profile.description',[$escort->id,$escort->city_id, $escort->membership])}}">
     <div class="card2 card_box_style1">
-       
+        
+            @if($escort->latestActiveBrb)
+                <div class="brb--content">
+                    <div class="brb--wrappr">
+                        <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->brb_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->brb_time))}}</span>
+                    </div>
+                </div>
+            @endif
             <img class="card-img-top" src="{{ $escort->default_image ? asset($escort->default_image) : asset('assets/app/img/service-provider/Frame-408.png') }}" alt="Card image cap">
         
         <div class="five_column_content_top d-flex justify-content-between wish_span"></div>

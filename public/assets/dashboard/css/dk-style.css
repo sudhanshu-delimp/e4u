@@ -680,6 +680,11 @@ tr.custom--row th:not(tr.custom--row th:last-child) {
 .custom-blow-wide .service_rate_dolor_symbol input, .horizontal-scroll-rates .form-control {
     padding-right: 0 !important;
 }
+.myacording-design .card-header a {
+    color: #0c223d;
+}
+
+
 /* New css 11march 2025 end */
 
 

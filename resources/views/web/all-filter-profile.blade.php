@@ -20,6 +20,9 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
     }
+    .apply-filter-btn{
+        font-size:16px ;
+    }
 </style>
 @endsection
 @php
@@ -53,11 +56,18 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                 <form id="allfilters" method="" action="">
                     <div class="row">
                         <div class="col-md-4">
-                            <h5 class="normal_heading mb-0">Search Filters</h5>
+                            <div class="custom-search-help">
+                                <h5 class="normal_heading mb-0">Search Filters</h5>
+                                <div class="display_inline_block helpquation">
+                                    <a href="#" data-toggle="modal" data-target="#forhelp" title="Filters explained">
+                                    Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+                                    </a>
+                               </div>
+                            </div>
                             <span style="color:#FF3349">Membership Type reshuffles every 2 hours. </span>
                         </div>
                         <div class="col-md-8 ryt_srch_btn">
-                            <div class="display_inline_block pad_ryt">
+                            <div class="display_inline_block ">
                                 <div class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile">
                                     <button class="input-group-text border-0 remove_bg_color_of_search_btn" id="search-addon" type="submit">
                                     <i class="fa fa-search" aria-hidden="true"></i>
@@ -81,7 +91,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                                     </a>
                                 </div>
                             </div>
-                            <div class="display_inline_block pad_ryt">
+                            <div class="display_inline_block">
                                 <div class="margin_btn_reset">
                                     <button type="button" class="btn reset_filter" id="v_wishlist">
                                         {{--  auth()->user() ? route('web.show.shortlist') : --}}
@@ -91,11 +101,12 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                                     </button>
                                 </div>
                             </div>
-                            <div class="display_inline_block helpquation">
-                                <a href="#" data-toggle="modal" data-target="#forhelp" title="Filters explained">
-                                Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
-                                </a>
-                            </div>
+                            <div class="display_inline_block mb-1">
+                                <button type="submit" class="btn reset_filter " data-toggle="tooltip" title="clear shortlist button">
+                                Clear Shortlist
+                                </button>
+                           </div>
+                           
                         </div>
                     </div>
                     <div class="fiter_btns slect__btn_tab">
@@ -154,8 +165,8 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                             <img src="{{ asset('assets/img/e4u-verified-dark.png')}}">
                             </button>
                         </div>
-                        <div class="display_inline_block mb-1 mr-2">
-                            <button type="submit" class="btn reset_filter" data-toggle="tooltip" title="Apply filters - Search">
+                        <div class="display_inline_block mb-1 ">
+                            <button type="submit" class="btn reset_filter apply-filter-btn" data-toggle="tooltip" title="Apply filters - Search">
                             Apply Filters
                             </button>
                         </div>
@@ -207,58 +218,83 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                     <!-- Service tags start -->
                         <div class="service_tagss">
                         <div class="row serve-row-one">
-                        <div class="col-md-10">
-                        <!-- accordien start here -->
-                        <div class="accordion-container-new">
-                        <div class="set mb-0">
-                        <a class=" py-lg-0 py-2" style="font-weight:500;display: flex; align-items: center;justify-content: space-between;">
-                        Service Tags
-                        <i class="fa fa-angle-down"></i>
-                        </a>
-                        <div class="content">
-                        <div class="accodien_manage_padding_content">
-                        <div class="display_inline_block mb-1 mr-1">
-                        <select class="custome_form_control_border_radus padding_five_px" id="service_id_one">
-                        <option value="">Fun Stuff - On Viewer</option>
-                        @foreach($service_one as $key => $service)
-                        <option id="{{ $service->name}}" value="{{$service->id}}" {{ (request()->get('services') == $service->id) ? 'selected' : '' }}>{{$service->name}}</option>
-                        @endforeach
-                        </select>
-                        </div>
-                        <div class="display_inline_block mb-1 mr-1">
-                        <select class="custome_form_control_border_radus padding_five_px" id="service_id_two">
-                        <option value="">Kinky Stuff - On Viewer</option>
-                        @foreach($service_two as $key => $service)
-                        <option id="{{ $service->name}}" value="{{$service->id}}" {{ (request()->get('services') == $service->id) ? 'selected' : '' }}>{{$service->name}}</option>
-                        @endforeach
-                        </select>
-                        </div>
-                        <div class="display_inline_block mb-1 mr-1">
-                        <select class="custome_form_control_border_radus padding_five_px" id="service_id_three">
-                        <option value="">Fun Stuff - On Escort</option>
-                        @foreach($service_three as $key => $service)
-                        <option id="{{ $service->name}}" value="{{$service->id}}" {{ (request()->get('services') == $service->id) ? 'selected' : '' }}>{{$service->name}}</option>
-                        @endforeach
-                        </select>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-                        <!-- accordien end here -->
-                        </div>
-                        <div class="col-md-2 align-items-center">
-                        <input type="reset" id="resetAll" class="btn reset_filter" title="Reset Service Tags" value="Clear Tags">
-                        </div>
-                        </div>
-                        <div class="row">
-                        <div class="col-md-12">
-                        <div class="selected_service_tag">
-                        <ul id="selectedService">
-                        </ul>
-                        </div>
-                        </div>
-                        </div>
+                        <div class="col-md-12 custom--service-tag">
+                                <!-- accordien start here -->
+                                <div class="accordion-container-new">
+                                    <div class="set mb-0">
+                                        <a class=" py-lg-0 py-2" style="font-weight:500;display: flex; align-items: center;justify-content: space-between;">
+                                        Service Tags
+                                        <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        <div class="content">
+                                            <div class="accodien_manage_padding_content">
+                                                <div class="display_inline_block mb-1 mr-1">
+                                                    <select class="custome_form_control_border_radus padding_five_px" id="service_id_one">
+                                                        <option value="">Fun Stuff - On Viewer</option>
+                                                        @foreach($service_one as $key => $service)
+                                                        <option id="{{ $service->name}}" value="{{$service->id}}" {{ (request()->get('services') == $service->id) ? 'selected' : '' }}>{{$service->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="display_inline_block mb-1 mr-1">
+                                                    <select class="custome_form_control_border_radus padding_five_px" id="service_id_two">
+                                                        <option value="">Kinky Stuff - On Viewer</option>
+                                                        @foreach($service_two as $key => $service)
+                                                        <option id="{{ $service->name}}" value="{{$service->id}}" {{ (request()->get('services') == $service->id) ? 'selected' : '' }}>{{$service->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="display_inline_block mb-1 mr-1">
+                                                    <select class="custome_form_control_border_radus padding_five_px" id="service_id_three">
+                                                        <option value="">Fun Stuff - On Escort</option>
+                                                        @foreach($service_three as $key => $service)
+                                                        <option id="{{ $service->name}}" value="{{$service->id}}" {{ (request()->get('services') == $service->id) ? 'selected' : '' }}>{{$service->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <input type="reset" id="resetAll" class="btn reset_filter" title="Reset Service Tags" value="Clear Tags">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- accordien end here -->
+                               <!-- Grid View -->
+
+                                <div class="row grid_list_part" id="prosud aa" style="display: block;">
+                                @if(count($escorts) > 0)
+                                <div class="col-12 align-items-center">
+                                    <div class="grid_list_icon_box display_inline_block grid--btn" data-toggle="modal1" data-target="#" data-url="grid-escort-list">
+                                        <a href="#" class="active" id="grid-modal" data-toggle="tooltip">
+                                            <span>Grid view</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                                                <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="grid_list_icon_box display_inline_block list-btn">
+                                        <a href="#" class=" " id="grid-list" data-toggle="tooltip"><!-- <img src="{{ asset('assets/app/img/line.svg')}}"> -->
+                                        <span>List view</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24" viewBox="0 0 27 24" fill="none">
+                                                <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    
+                                </div>              
+                                @else
+                                    <div class="no--listing">
+                                        <p><i>There are no listings for your search criteria.</i></p>
+                                    </div>
+                                @endif
+                                </div>
+
+                               <!-- Grid view end -->
+                            </div>
+                                </div>
+                        
                         </div>
                         <!-- end -->
                 </form>
@@ -296,40 +332,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
             </div>
         </div>
         @else
-        <div class="row grid_list_part" id="prosud" style="display: block;">
-            @if(count($escorts) > 0)
-            <div class="col-12 align-items-center">
-                <div class="grid_list_icon_box display_inline_block" data-toggle="modal1" data-target="#" data-url="grid-escort-list">
-                    <a href="#" class="active" id="grid-modal" data-toggle="tooltip" title="Grid view">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
-                            <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
-                <div class="grid_list_icon_box display_inline_block">
-                    <a href="#" class=" " id="grid-list" data-toggle="tooltip" title="List view"><!-- <img src="{{ asset('assets/app/img/line.svg')}}"> -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24" viewBox="0 0 27 24" fill="none">
-                            <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
-                <div class="grid_list_icon_box display_inline_block my-shortlist">
-                    <ul class="mb-0 mt-1 pt-1">
-                        <li>
-                            <h3 class="preChanges">Escorts Grid View </h3>
-                        </li>
-                    </ul>
-                </div>
-            </div>              
-            @else
-                <div class="no--listing">
-                    <p><i>There are no listings for your search criteria.</i></p>
-                </div>
-            @endif
-        </div>
+        
         @endif
         <div class="modal defult-modal" id="forhelp">
             <div class="modal-dialog modal-dialog-centered">
@@ -378,9 +381,9 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
 
         </div>
         <div class="otherliste" style="display: block;">
-                
+            @if($grouped->has('1'))
                 <div class="space_between_row" style="display:block">
-                    <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png')}}" data-toggle="tooltip" title="Platinum Members - {{1}} {{ 1 == 1 ? 'Listing' : 'Listings' }}">
+                    <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png')}}" data-toggle="tooltip" title="Platinum Members - {{$grouped->get('1')->count()}} {{ $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}">
                     {{$grouped->has('1') && $grouped->get('1') ? $grouped->get('1')->count():0}}
                         <span class="bordertopp"> {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}</span>
                     </div>
@@ -390,25 +393,29 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                         @include('web.partials.grid.platinum')
                     @endforeach
                     @endif
-                       
+                    
                     </div>
                 </div>
-                <div class="space_between_row" style="display:block">
-                    <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png')}}" data-toggle="tooltip" title="Platinum Members - {{1}} {{ 1 == 1 ? 'Listing' : 'Listings' }}">
-                    {{$grouped->has('2') && $grouped->get('2') ? $grouped->get('2')->count():0}}
-                        <span class="bordertopp"> {{ $grouped->has('2') && $grouped->get('2') &&  $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}</span>
+            @endif
+            @if($grouped->has('2'))
+                    <div class="space_between_row" style="display:block">
+                        <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png')}}" data-toggle="tooltip" title="Gold Members - {{$grouped->get('2')->count()}} {{ $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}">
+                        {{$grouped->has('2') && $grouped->get('2') ? $grouped->get('2')->count():0}}
+                            <span class="bordertopp"> {{ $grouped->has('2') && $grouped->get('2') &&  $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}</span>
+                        </div>
+                        <div class="row responsive_colums_in_lg_five_col escost_list">
+                        @if ($grouped->has('2'))
+                        @foreach ($grouped['2'] as $escort)
+                            @include('web.partials.grid.gold')
+                        @endforeach
+                        @endif
+                        
+                        </div>
                     </div>
-                    <div class="row responsive_colums_in_lg_five_col escost_list">
-                    @if ($grouped->has('2'))
-                    @foreach ($grouped['2'] as $escort)
-                        @include('web.partials.grid.gold')
-                    @endforeach
-                    @endif
-                       
-                    </div>
-                </div>
+            @endif
+            @if($grouped->has('3'))
                 <div class="space_between_row" style="display:block">
-                    <div class="bod_image"><img src="{{ asset('assets/app/img/dark_silver.png')}}" data-toggle="tooltip" title="Platinum Members - {{1}} {{ 1 == 1 ? 'Listing' : 'Listings' }}">
+                    <div class="bod_image"><img src="{{ asset('assets/app/img/dark_silver.png')}}" data-toggle="tooltip" title="Silver Members - {{$grouped->get('3')->count()}} {{ $grouped->get('3')->count() == 1 ? 'Listing' : 'Listings' }}">
                         {{$grouped->has('3') ? $grouped->get('3')->count():0}}
                         <span class="bordertopp"> {{ $grouped->has('3') && $grouped->get('3') && $grouped->get('3')->count() == 1 ? 'Listing' : 'Listings' }}</span>
                     </div>
@@ -418,61 +425,85 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                         @include('web.partials.grid.silver')
                     @endforeach
                     @endif
-                       
+                        
                     </div>
                 </div>
+            @endif
+            @if($grouped->has('4'))
+                <div class="space_between_row" style="display:block">
+                    <div class="bod_image"><img src="{{ asset('assets/app/img/Group 153.png')}}" data-toggle="tooltip" title="Free Members - {{$grouped->get('4')->count()}} {{ $grouped->get('4')->count() == 1 ? 'Listing' : 'Listings' }}">
+                        {{$grouped->has('4') ? $grouped->get('4')->count():0}}
+                        <span class="bordertopp"> {{ $grouped->has('4') && $grouped->get('4') && $grouped->get('4')->count() == 1 ? 'Listing' : 'Listings' }}</span>
+                    </div>
+                    <div class="row responsive_colums_in_lg_five_col escost_list">
+                    @if ($grouped->has('4'))
+                    @foreach ($grouped['4'] as $escort)
+                        @include('web.partials.grid.free')
+                    @endforeach
+                    @endif
+                        
+                    </div>
+                </div>
+            @endif
         </div>
         <div class="grid list-view " style="display: none">
+        @if ($grouped->has('1'))
         <div class="platinum-sec">
-            <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png')}}" data-toggle="tooltip" title="Platinum Members - {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}">
-                {{$grouped->has('1') ? $grouped->get('1')->count():0}}
-                <span class="bordertopp"> {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}</span>
-            </div>
-            <div class="text">
-                {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}
-            </div>
-            @if ($grouped->has('1'))
-                @foreach ($grouped['1'] as $escort)
-                    @include('web.partials.list.platinum')
-                @endforeach
-            @endif
-        </div>
+                    <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png')}}" data-toggle="tooltip" title="Platinum Members - {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}">
+                        {{$grouped->has('1') ? $grouped->get('1')->count():0}}
+                        <span class="bordertopp"> {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}</span>
+                    </div>
+                    <div class="text">
+                        {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}
+                    </div>
+                    @if ($grouped->has('1'))
+                        @foreach ($grouped['1'] as $escort)
+                            @include('web.partials.list.platinum')
+                        @endforeach
+                    @endif
+                </div>
+        @endif
+        @if ($grouped->has('2'))
         <div class="platinum-sec gold">
-            <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png')}}" data-toggle="tooltip" title="Gold Members - {{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}">
-                {{$grouped->has('2') ? $grouped->get('2')->count():0}}
-                <span class="bordertopp">{{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}</span>
-            </div>
-            <div class="text gold">
-                {{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}
-            </div>
-            @if ($grouped->has('2'))
-                @foreach ($grouped['2'] as $escort)
-                    @include('web.partials.list.gold')
-                @endforeach
-            @endif
-        </div>
+                    <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png')}}" data-toggle="tooltip" title="Gold Members - {{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}">
+                        {{$grouped->has('2') ? $grouped->get('2')->count():0}}
+                        <span class="bordertopp">{{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}</span>
+                    </div>
+                    <div class="text gold">
+                        {{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}
+                    </div>
+                    @if ($grouped->has('2'))
+                        @foreach ($grouped['2'] as $escort)
+                            @include('web.partials.list.gold')
+                        @endforeach
+                    @endif
+                </div>
+        @endif
+        @if ($grouped->has('3'))
         <div class="listview_each_section_border_btm silver_card">
-            <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/dark_silver.png')}}" data-toggle="tooltip" title="Silver Members - {{ $grouped->has('3') && $grouped->get('3') && $grouped->get('3')->count() == 1 ? 'Listing' : 'Listings' }}">{{$grouped->has('3') ? $grouped->get('3')->count():0}}<span class="bordertopp">{{ $grouped->has('3') && $grouped->get('3') && $grouped->get('3')->count() == 1 ? 'Listing' : 'Listings' }}</span></div>
-                <div class="row  mx-md-n2">
-                @if ($grouped->has('3'))
-                    @foreach ($grouped['3'] as $escort)
-                        @include('web.partials.list.silver')
-                    @endforeach
-                @endif
-                </div>
-            </div>
+                    <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/dark_silver.png')}}" data-toggle="tooltip" title="Silver Members - {{ $grouped->has('3') && $grouped->get('3') && $grouped->get('3')->count() == 1 ? 'Listing' : 'Listings' }}">{{$grouped->has('3') ? $grouped->get('3')->count():0}}<span class="bordertopp">{{ $grouped->has('3') && $grouped->get('3') && $grouped->get('3')->count() == 1 ? 'Listing' : 'Listings' }}</span></div>
+                        <div class="row  mx-md-n2">
+                            @if ($grouped->has('3'))
+                                @foreach ($grouped['3'] as $escort)
+                                    @include('web.partials.list.silver')
+                                @endforeach
+                            @endif
+                        </div>
         </div>
-            <div class="manage_listview_margin_siliver_section free_card">
+        @endif
+        @if ($grouped->has('4'))
+        <div class="manage_listview_margin_siliver_section free_card">
+        <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/Group 153.png')}}" data-toggle="tooltip" title="Free Members - {{ $grouped->has('4') && $grouped->get('4') && $grouped->get('4')->count() == 1 ? 'Listing' : 'Listings' }}">{{$grouped->has('4') ? $grouped->get('4')->count():0}}<span class="bordertopp">{{ $grouped->has('4') && $grouped->get('4') && $grouped->get('4')->count() == 1 ? 'Listing' : 'Listings' }}</span></div>
                 <div class="row">
-                @if ($grouped->has('4'))
-                    @foreach ($grouped['4'] as $escort)
-                        @include('web.partials.list.free')
-                    @endforeach
-                @endif
+                    @if ($grouped->has('4'))
+                        @foreach ($grouped['4'] as $escort)
+                            @include('web.partials.list.free')
+                        @endforeach
+                    @endif
                 </div>
             </div>
+        @endif
         </div>
-    </div>
     </div>
 
     <!-- <div class="page-sec mb-5 mt-4">{!! $escorts->links('pagination::bootstrap-4') !!}</div> -->
