@@ -31,10 +31,8 @@
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
-                                        <img src="{{ asset('assets/app/img/logo.png')}}" alt="E4U Logo"
+                                        <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/logo.svg" alt="E4U Logo"
                                             style="height: 50px;">
-                                        {{-- <img src="http://127.0.0.1:8000/assets/app/img/logo.png" alt="E4U Logo"
-                                            style="height: 50px;"> --}}
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
                                         Order Confirmation - Mobile SIM<br>
