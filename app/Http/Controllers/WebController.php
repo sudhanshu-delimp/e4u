@@ -273,12 +273,50 @@ class WebController extends Controller
             return $query;
         };
 
-        $platinum = $applyFilters(Escort::where('membership', '1'),$str)->get();
-        $gold = $applyFilters(Escort::where('membership', '2'),$str)->get();
-        $silver = $applyFilters(Escort::where('membership', '3'),$str)->get();
+        $platinum = $applyFilters(Escort::with('durations')->where('membership', '1'),$str)->get();
+        $gold = $applyFilters(Escort::with('durations')->where('membership', '2'),$str)->get();
+        $silver = $applyFilters(Escort::with('durations')->where('membership', '3'),$str)->get();
         
         
         $merged = $platinum->concat($gold)->concat($silver);
+
+         $merged = $merged->map(function($item, $key) {
+            //dd($item);
+            # Add services with duration if exists
+            if($item->durations){
+                 $item->massage_price = $item->durations()->where('name','=','1 Hour')->first() ? $item->durations()->where('name','=','1 Hour')->first()->pivot->massage_price : null;
+                $item->incall_price = $item->durations()->where('name','=','1 Hour')->first() ? $item->durations()->where('name','=','1 Hour')->first()->pivot->incall_price : null;
+                $item->outcall_price = $item->durations()->where('name','=','1 Hour')->first() ? $item->durations()->where('name','=','1 Hour')->first()->pivot->outcall_price : null;    
+            }
+
+            # get star rating on the bases on like and unlike
+            $total = EscortLike::where('escort_id',$item->id)->count();
+            if($total > 0) {
+                $likeCount = EscortLike::where('like',1)->where('escort_id',$item->id)->count();
+                $dislikeCount = EscortLike::where('like',0)->where('escort_id',$item->id)->count();
+                $lp = round($likeCount/$total * 100);
+                $dp = round($dislikeCount/$total * 100);
+            } else {
+                $lp = 0;
+                $dp = 0;
+            }
+
+            if ($lp == 100) {
+                $item->star_rating = 5;
+            } elseif ($lp < 100 && $lp > 80) {
+                $item->star_rating = 4;
+            } elseif ($lp <= 80 && $lp > 60) {
+                $item->star_rating = 3;
+            } elseif ($lp <= 60 && $lp > 40) {
+                $item->star_rating = 2;
+            } elseif ($lp <= 40 && $lp > 20) {
+                $item->star_rating = 1;
+            } else {
+                $item->star_rating = 0;
+            }
+            //$item->star_rating = $lp;
+            return $item;
+        })->collect();
        
         $sliced = $merged->slice(($page - 1) * $perPage, $perPage)->values();
         $paginator = new LengthAwarePaginator(
@@ -291,6 +329,8 @@ class WebController extends Controller
                 'query' => request()->except(['ipinfo']) // Exclude the 'ipinfo' query parameters
             ]
         );
+
+        //dd($escorts);
         return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId'));
     }
 
@@ -953,6 +993,8 @@ class WebController extends Controller
             $lp = 0;
             $dp = 0;
         }
+
+        // dd($lp, $dp); lp-67 dp-33
 
         $brb = new EscortBrb();
         $brb = $brb->where('profile_id', $id)->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc')->first();

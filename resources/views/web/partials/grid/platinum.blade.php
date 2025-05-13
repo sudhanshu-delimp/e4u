@@ -33,12 +33,22 @@
         <div class="five_column_bottom_content">
             <div class="d-flex justify-content-between five_column_fonts">
                <span>{{ $escort->city ? $escort->city->name : "" }} {{ $escort->age ? " - ".$escort->age : "" }}</span>
+                {{-- <span class="give_rating_after_get_servive">
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                <i class="fa fa-star" aria-hidden="true"></i>
+                </span> --}}
                 <span class="give_rating_after_get_servive">
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
-                <i class="fa fa-star" aria-hidden="true"></i>
+                    @for($i=1; $i<= 5; $i++)
+                        @if($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
+                        {{-- @if($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating) --}}
+                            <i class="fa fa-star" aria-hidden="true" ></i>
+                        @else
+                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                        @endif
+                    @endfor
                 </span>
             </div>
             <div class="d-flex justify-content-between five_column_fonts">
@@ -47,10 +57,12 @@
             </div>
             <div class="d-flex justify-content-between five_column_fonts">
                 <span>Services:</span>
-                <span>
-                <img src="{{ asset('assets/app/img/aerodownicon.svg') }}">
-                <img src="{{ asset('assets/app/img/upaeroicon.svg') }}">
-                </span>
+                {{-- dd($escort) --}}
+                <span class="image_height_width_for_col_six">
+                    <img src="{{ asset('assets/app/img/heart-white.png') }}" title="Massage" style="width: 16px; height:17px; display:{{ $escort->massage_price != null ? '': 'none'}};">
+                    <img src="{{ asset('assets/app/img/aerodownicon.svg') }}" style="display:{{ $escort->incall_price != null ? '': 'none'}};" title="Incalls">
+                    <img src="{{ asset('assets/app/img/upaeroicon.svg') }}" style="display:{{ $escort->outcall_price != null ? '': 'none'}};" title="Outcalls">
+                    </span>
             </div>
             <div class="d-flex justify-content-between five_column_fonts">
                 <span>Gender:</span>
@@ -62,7 +74,7 @@
                 <span>
                 @if($escort->available_to)
                 @foreach($escort->available_to as $key => $available_to)
-                <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}">
+                <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}" title="{{ config('escorts.profile.available-to')[$available_to] }}">
                 @endforeach
                 @endif
                 </span>

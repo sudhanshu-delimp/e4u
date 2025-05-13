@@ -459,7 +459,7 @@ class UpdateController extends AppController
             $users_for_available_playmate = $this->user->findPlaymates(auth()->user()->id);
             $defaultImages = $this->media->findDefaultMedia($user->id,0);
 
-            // dd($users_for_available_playmate );
+            //dd($durations );
 
             return view('escort.dashboard.profile.update',compact('defaultImages', 'media', 'users_for_available_playmate', 'path','escort','service','availability','service_one','service_two','service_three','durations','user'));
         }

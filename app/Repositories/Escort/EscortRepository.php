@@ -5,6 +5,7 @@ namespace App\Repositories\Escort;
 use App\Repositories\BaseRepository;
 use App\Traits\DataTablePagination;
 use App\Models\Escort;
+use App\Models\EscortLike;
 use App\Models\User;
 use Carbon\Carbon;
 use DB;
@@ -341,8 +342,39 @@ class EscortRepository extends BaseRepository implements EscortInterface
         $collection = $plan_type->getCollection();
 
         $collection = $collection->map(function($item, $key) {
+            //dd($item);
+            # get star rating on the bases on like and unlike
+            $total = EscortLike::where('escort_id',$item->id)->count();
+            if($total > 0) {
+                $likeCount = EscortLike::where('like',1)->where('escort_id',$item->id)->count();
+                $dislikeCount = EscortLike::where('like',0)->where('escort_id',$item->id)->count();
+                $lp = round($likeCount/$total * 100);
+                $dp = round($dislikeCount/$total * 100);
+            } else {
+                $lp = 0;
+                $dp = 0;
+            }
+
+            
+
+            if ($lp == 100) {
+                $item->star_rating = 5;
+            } elseif ($lp < 100 && $lp > 80) {
+                $item->star_rating = 4;
+            } elseif ($lp <= 80 && $lp > 60) {
+                $item->star_rating = 3;
+            } elseif ($lp <= 60 && $lp > 40) {
+                $item->star_rating = 2;
+            } elseif ($lp <= 40 && $lp > 20) {
+                $item->star_rating = 1;
+            } else {
+                $item->star_rating = 0;
+            }
+            //$item->star_rating = $lp;
             return $item;
         })->collect();
+
+        // dd($collection);
 
         $collection = $collection->groupBy(['user' => function($item) {
             return $item->membership;
@@ -353,8 +385,14 @@ class EscortRepository extends BaseRepository implements EscortInterface
             return  $collection->flatten(1);
         }
 
-        $pagination = $plan_type->setCollection($collection);
+        
 
+        $collection = $collection->map(function($item, $key) {
+            return $item;
+        })->collect();
+
+        //dd($collection);
+        $pagination = $plan_type->setCollection($collection);
         return $pagination;
     }
     public function findByMyShortlist($count = null, $str = [], $user_id = null, $escort_id = [], $userId = null, $gen=null)

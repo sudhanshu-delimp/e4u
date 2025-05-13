@@ -43,6 +43,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
 @section('content')
 
 @php
+    //dd($escorts);
     $grouped = $paginator->getCollection()->groupBy('membership');
 @endphp
 <section class="">

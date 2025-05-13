@@ -22,6 +22,7 @@ class ConciergeMobileSim extends Model
         'comments',
         'terms',
         'status',
-        'period_required'
+        'period_required',
+        'order_ref'
     ];
 }

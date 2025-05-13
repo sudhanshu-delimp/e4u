@@ -44,12 +44,14 @@ class ConciergeController extends Controller
             'comments' => $request->comments,
             'terms' => $request->has('terms') ? 1 : 0,
             'status' => false,
+            'order_ref'=>'ord_'. uniqid()
         ]);
 
         $data = [
             'concierge_mobile_sim_id' =>$simData->id,
             'name'=> $simData->first_name. ' '. $simData->last_name,
             'date'=> $simData->created_at->format('d-m-Y'),
+            'order_ref'=> $simData->order_ref,
             'fees'=> 20.00,
             'total'=> 20.00,
         ];
@@ -86,20 +88,17 @@ class ConciergeController extends Controller
 
     function mobileOrderSimPayment(Request $request)
     {
-        //dd($request->all());
-        
         $simData = ConciergeMobileSim::where('id',$request->concierge_mobile_sim_id)->first();
         
         $body = [
             'email' => $simData->email,
             'member_id' => $simData->user_id,
             'escort_name' => $simData->first_name. ' '. $simData->last_name,
+            'order_ref'=> $simData->order_ref,
             'subject' => 'Mobile Sim Request'
          ];
 
-         
-
-        Mail::to($request->email)->cc(['e4u@voxaustralia.com.au', 'admin@e4u.com.au'])->send(new sendOrderMobileSimRequest($body));
+        Mail::to($simData->email)->cc([config('escorts.mobileOrderSimRequest.vox'), config('escorts.mobileOrderSimRequest.admin')])->send(new sendOrderMobileSimRequest($body));
 
         if(!$simData){
             return view('escort.dashboard.Concierge.mobile-read-sim',['simData'=>null,'status'=>false]);

@@ -170,7 +170,7 @@
                                 <label class="col-3" for="exampleFormControlSelect1">{{ $duration->name}}:</label>
                                 <div class="col-3">
                                     <div class="service_rate_dolor_symbol form-group">
-                                        <span>$</span>
+                                        <span>$</span> 
                                         <input type="number" placeholder="0" min="0" data-parsley-excluded="true" class="form-control form-control-sm select_tag_remove_box_sadow" id="massage_price" name="massage_price[]" value="{{ $escort->durationRate($duration->id, 'massage_price') }}" step="10" max=9999 >
                                     </div>
                                 </div>

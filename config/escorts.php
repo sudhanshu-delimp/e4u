@@ -677,5 +677,9 @@ return [
             'Other'
         ]
     ],
+	'mobileOrderSimRequest'=>[
+		'vox'=>'e4u@voxaustralia.com.au',
+		'admin'=>'admin@e4u.com.au',
+	],
 	'poli_payment_authorization_code' =>base64_encode(env('POLI_PAYMENT_ID').':'.env('POLI_PAYMENT_CODE')),
 ];
