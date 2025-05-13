@@ -55,11 +55,18 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                 <form id="allfilters" method="" action="">
                     <div class="row">
                         <div class="col-md-4">
-                            <h5 class="normal_heading mb-0">Search Filters</h5>
+                            <div class="custom-search-help">
+                                <h5 class="normal_heading mb-0">Search Filters</h5>
+                                <div class="display_inline_block helpquation">
+                                    <a href="#" data-toggle="modal" data-target="#forhelp" title="Filters explained">
+                                    Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+                                    </a>
+                               </div>
+                            </div>
                             <span style="color:#FF3349">Membership Type reshuffles every 2 hours. </span>
                         </div>
                         <div class="col-md-8 ryt_srch_btn">
-                            <div class="display_inline_block pad_ryt">
+                            <div class="display_inline_block ">
                                 <div class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile">
                                     <button class="input-group-text border-0 remove_bg_color_of_search_btn" id="search-addon" type="submit">
                                     <i class="fa fa-search" aria-hidden="true"></i>
@@ -83,7 +90,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                                     </a>
                                 </div>
                             </div>
-                            <div class="display_inline_block pad_ryt">
+                            <div class="display_inline_block">
                                 <div class="margin_btn_reset">
                                     <button type="button" class="btn reset_filter" id="v_wishlist">
                                         {{--  auth()->user() ? route('web.show.shortlist') : --}}
@@ -93,11 +100,12 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                                     </button>
                                 </div>
                             </div>
-                            <div class="display_inline_block helpquation">
-                                <a href="#" data-toggle="modal" data-target="#forhelp" title="Filters explained">
-                                Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
-                                </a>
-                            </div>
+                            <div class="display_inline_block mb-1">
+                                <button type="submit" class="btn reset_filter " data-toggle="tooltip" title="clear shortlist button">
+                                Clear Shortlist
+                                </button>
+                           </div>
+                           
                         </div>
                     </div>
                     <div class="fiter_btns slect__btn_tab">
@@ -156,7 +164,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                             <img src="{{ asset('assets/img/e4u-verified-dark.png')}}">
                             </button>
                         </div>
-                        <div class="display_inline_block mb-1 mr-2">
+                        <div class="display_inline_block mb-1 ">
                             <button type="submit" class="btn reset_filter apply-filter-btn" data-toggle="tooltip" title="Apply filters - Search">
                             Apply Filters
                             </button>
@@ -209,7 +217,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                     <!-- Service tags start -->
                         <div class="service_tagss">
                         <div class="row serve-row-one">
-                        <div class="col-md-12">
+                        <div class="col-md-12 custom--service-tag">
                                 <!-- accordien start here -->
                                 <div class="accordion-container-new">
                                     <div class="set mb-0">
@@ -249,17 +257,43 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                                     </div>
                                 </div>
                                 <!-- accordien end here -->
-                               
+                               <!-- Grid View -->
+
+                                <div class="row grid_list_part" id="prosud aa" style="display: block;">
+                                @if(count($escorts) > 0)
+                                <div class="col-12 align-items-center">
+                                    <div class="grid_list_icon_box display_inline_block grid--btn" data-toggle="modal1" data-target="#" data-url="grid-escort-list">
+                                        <a href="#" class="active" id="grid-modal" data-toggle="tooltip">
+                                            <span>Grid view</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                                                <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div class="grid_list_icon_box display_inline_block list-btn">
+                                        <a href="#" class=" " id="grid-list" data-toggle="tooltip"><!-- <img src="{{ asset('assets/app/img/line.svg')}}"> -->
+                                        <span>List view</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24" viewBox="0 0 27 24" fill="none">
+                                                <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    
+                                </div>              
+                                @else
+                                    <div class="no--listing">
+                                        <p><i>There are no listings for your search criteria.</i></p>
+                                    </div>
+                                @endif
+                                </div>
+
+                               <!-- Grid view end -->
                             </div>
                                 </div>
-                        <div class="row">
-                        <div class="col-md-12">
-                        <div class="selected_service_tag">
-                        <ul id="selectedService">
-                        </ul>
-                        </div>
-                        </div>
-                        </div>
+                        
                         </div>
                         <!-- end -->
                 </form>
@@ -297,40 +331,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
             </div>
         </div>
         @else
-        <div class="row grid_list_part" id="prosud" style="display: block;">
-            @if(count($escorts) > 0)
-            <div class="col-12 align-items-center">
-                <div class="grid_list_icon_box display_inline_block" data-toggle="modal1" data-target="#" data-url="grid-escort-list">
-                    <a href="#" class="active" id="grid-modal" data-toggle="tooltip" title="Grid view">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
-                            <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
-                <div class="grid_list_icon_box display_inline_block">
-                    <a href="#" class=" " id="grid-list" data-toggle="tooltip" title="List view"><!-- <img src="{{ asset('assets/app/img/line.svg')}}"> -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24" viewBox="0 0 27 24" fill="none">
-                            <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
-                <div class="grid_list_icon_box display_inline_block my-shortlist">
-                    <ul class="mb-0 mt-1 pt-1">
-                        <li>
-                            <h3 class="preChanges">Escorts Grid View </h3>
-                        </li>
-                    </ul>
-                </div>
-            </div>              
-            @else
-                <div class="no--listing">
-                    <p><i>There are no listings for your search criteria.</i></p>
-                </div>
-            @endif
-        </div>
+        
         @endif
         <div class="modal defult-modal" id="forhelp">
             <div class="modal-dialog modal-dialog-centered">

@@ -104,7 +104,7 @@ label.cabinet input.file{
             <div class="row mt-4">
                 <div class="col-md-12 mt-4">
                     <div id="accordion" class="myacording-design mb-5">
-                        <div class="card">
+                        <div class="card custom-help-contain">
                             <div class="card-header">
                                 <a class="card-link" data-toggle="collapse" href="#File_name" aria-expanded="true">
                                 Additional Upload Information
