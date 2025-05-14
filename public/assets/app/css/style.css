@@ -5434,6 +5434,15 @@ textarea.parsley-error {
 .custom-refreshbuton .reset_filter i {
     font-size: 16px;
 }
+.custom--copyryt a:hover {
+    color: #ff3c5f !important;
+}
+.login--eye .custom--eye {
+    top: 12px;
+}
+img.twitter-x-logo {
+    max-width: 18px;
+}
 /* new css start 28 march end */
 
 /* Media Query Start*/

@@ -217,7 +217,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                         </div>
                     </div> -->
                     <!-- Service tags start -->
-                        <div class="service_tagss">
+                    <div class="service_tagss">
                         <div class="row serve-row-one">
                         <div class="col-md-12 custom--service-tag">
                                 <!-- accordien start here -->
@@ -262,7 +262,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                                <!-- Grid View -->
 
                                 <div class="row grid_list_part" id="prosud aa" style="display: block;">
-                                @if(count($escorts) > 0)
+                                
                                 <div class="col-12 align-items-center">
                                     <div class="grid_list_icon_box display_inline_block grid--btn" data-toggle="modal1" data-target="#" data-url="grid-escort-list">
                                         <a href="#" class="active" id="grid-modal" data-toggle="tooltip">
@@ -285,18 +285,14 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                                     </div>
                                     
                                 </div>              
-                                @else
-                                    <div class="no--listing">
-                                        <p><i>There are no listings for your search criteria.</i></p>
-                                    </div>
-                                @endif
+                                
                                 </div>
 
                                <!-- Grid view end -->
                             </div>
                                 </div>
                         
-                        </div>
+                    </div>
                         <!-- end -->
                 </form>
             </div>

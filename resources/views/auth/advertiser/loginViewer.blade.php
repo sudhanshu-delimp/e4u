@@ -32,15 +32,24 @@
                                @enderror
                            </div>
                         </div>
-                        <div class="form-group label_margin_zero_for_login">
-                           <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="" name="password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-                           <div class="termsandconditions_text_color">
-                               <!-- error sms here -->
-                               @error('password')
-                                   {{ $message }}
-                               @enderror
-                           </div>
+                        <div class="form-group label_margin_zero_for_login position-relative custom--password login--eye">
+                            <label for="exampleInputPassword1">{{ __('Password') }}</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder=""
+                                    name="password" required autocomplete="new-password"
+                                    data-parsley-required-message="@lang('errors/validation/required.password')"
+                                    data-parsley-pattern-message="@lang('errors/validation/valid.password')">
+
+                                <span class="input-group-text custom--eye" id="togglePassword" style="cursor: pointer;">
+                                    <i class="fa fa-eye" id="passwordEyeIcon"></i>
+                                </span>
+                            </div>
+
+                            <div class="termsandconditions_text_color">
+                                @error('password')
+                                    {{ $message }}
+                                @enderror
+                            </div>
                         </div>
                         <div id="formerror">
                         </div>
@@ -452,4 +461,33 @@
 
 });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            const type = input.getAttribute("type") === "password" ? "text" : "password";
+            input.setAttribute("type", type);
+            icon.classList.toggle("fa-eye");
+            icon.classList.toggle("fa-eye-slash");
+        }
+
+        // Password field
+        const togglePassword = document.getElementById("togglePassword");
+        if (togglePassword) {
+            togglePassword.addEventListener("click", function () {
+                togglePasswordVisibility("exampleInputPassword1", "passwordEyeIcon");
+            });
+        }
+
+        // Confirm Password field
+        const toggleConfirm = document.getElementById("toggleConfirmPassword");
+        if (toggleConfirm) {
+            toggleConfirm.addEventListener("click", function () {
+                togglePasswordVisibility("conformPassword", "confirmEyeIcon");
+            });
+        }
+    });
+</script>
+
 @endsection

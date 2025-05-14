@@ -25,12 +25,12 @@
 <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
    <div class="container">
       <h1 class="home_heading_first">DMCA Notices</h1>
-       <p>The United States Digital Millennium Copyright Act <strong>(DMCA Act)</strong> provides measures for
-       owners of copyrighted material <strong>(Material)</strong> to address allegations of misuse of the Material.</p>
+       <p>The United States Digital Millennium Copyright Act (<b>DMCA Act</b>) provides measures for
+       owners of copyrighted material (<b>Material</b>) to address allegations of misuse of the Material.</p>
        <p>Escorts4U recognises the spirit of the DCMA Act and therefore takes any allegations of
 intellectual property infringement seriously. If you believe that your intellectual property is
-being used without your permission by an Advertiser (Infringement) on the Website, you can
-bring the alleged Infringement to our attention <strong>(Report)</strong>.
+being used without your permission by an Advertiser (<b>Infringement</b>) on the Website, you can
+bring the alleged Infringement to our attention (<b>Report</b>).
 </p>
  
       <p>To assist us in addressing your Report, please provide the following important information:
@@ -42,7 +42,7 @@ bring the alleged Infringement to our attention <strong>(Report)</strong>.
             </p>
          </li>
          <li>
-            <p class="mb-0">A description of the material that is allegedly infringed, or, if there are multiple
+            <p class="mb-0">A description of the Material that is allegedly infringed, or, if there are multiple
             Infringements, a list of the Material;
             </p>
          </li>
@@ -64,21 +64,28 @@ bring the alleged Infringement to our attention <strong>(Report)</strong>.
             on behalf of the copyright owner by providing the expressed terms of the authorisation.</p>
          </li>
       </ul>
-      <p><strong> Please forward your Report to:</strong>
+      <p> Please forward your Report to:
       </p>
-      <p> <strong>Blackbox Tech Pty Ltd <br>
+      <p> Blackbox Tech Pty Ltd <br>
 GPO Box T1756<br>
 Perth WA 6845 <br> or: <br>
-E: <a href="mailto:info@escorts4u.com.au">info@escorts4u.com.au</a> </strong></p>
+E: <a href="mailto:info@escorts4u.com.au">info@escorts4u.com.au</a> </p>
       <h3 class="primery_color normal_heading">Disclaimer
       </h3>
-      <p>Blackbox Tech Pty Ltd <strong>(Blackbox Tech)</strong> co-operates with copyright holders when called
+      <p>Blackbox Tech Pty Ltd (<b>Blackbox Tech</b>) co-operates with copyright holders when called
 upon and aims to ensure that their Material is not misused by Advertisers. To the full extent
 permitted by law, Blackbox Tech disclaims all and any claims for any Infringement, expressed
 or implied, regarding any use of the Material posted by an Advertiser.<p>
     <p>Blackbox Tech reserves the right to pursue claims against any person who makes a false
 Report about an Advertiser and the Material, and reserves all of its rights to seek
-compensation for any damages or losses suffered as a result of any fraudulent Report.</p>
+compensation for any damages or losses suffered as a result of any false Report.</p>
+
+<h3 class="primery_color normal_heading">Changes to this Policy
+      </h3>
+      <p>We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="http://e4u.local/terms-conditions" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to review the most current version.<p>
+    <p>Escorts4U archives all previous versions of this Policy.</p>
+ 
+ <p><b>This policy was last updated 14-05-2025</b></p>
      
      
      
