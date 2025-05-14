@@ -134,13 +134,6 @@
                     <!-- Card Body -->
                     <div class="card-body task-sec">
                         <div class="d-flex align-items-center mb-2  row">
-                            {{-- <div class="col-md-12">
-                     <input type="submit" id='new_task' value="New Task" class="btn btn-sm btn-primary shadow-none create-tour-sec" name="submit">
-                     <input type="submit" id='edit_task' value="Edit Task" class="btn btn-primary shadow-none create-tour-sec" name="submit">
-                     <input type="submit" id='complete_task' value="Complete Task" class="btn btn-primary shadow-none create-tour-sec" name="submit">
-                     <input type="submit" id='view_task' value="View Task" class="btn btn-primary shadow-none create-tour-sec" name="submit">
-                     <input type="submit" id='open_task' value="Open Task" class="btn btn-primary shadow-none create-tour-sec" name="submit">
-                  </div> --}}
                             <div class="col-md-12">
                                 <button type="submit" id="new_task" name="submit"
                                     class="btn btn-sm btn-primary shadow-none create-tour-sec">New Task</button>
@@ -170,7 +163,7 @@
                                 <label class="font-weight-bold mb-0">Status</label>
                             </div>
                         </div>
-                        <div class="card-body pl-1 Dash-table">
+                        <div class="card-body pl-1 Dash-table task_table">
                             <div class="table-full-width">
                                 <table class="table">
                                     <tbody>
@@ -817,23 +810,29 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="new-ban-4">New Task</h5>
+                    <h5 class="modal-title" id="task_title">New Task</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" action="#">
-                        <h4>Are you sure you want to mark this Appointment as completed?</h4>
-                        <div class="row">
+                    <form method="post" id="task_form" action="#">
+                        {{ csrf_field() }}
+                        <div class="row" id="task_form_html">
+                            <h4 id="task_desc">Are you sure you want to mark this Appointment as completed?</h4>
+                        </div>
+                        
+                        <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
+                                    <label for="exampleFormControlTextarea1" class="ml-2 showDateLabel" style="display: none;">Date Created: {{\Carbon\Carbon::now()->format('d-m-Y')}}.
+                                    </label>
                                     <button type="submit"
-                                        class="btn btn-primary shadow-none float-right ml-2 border-0">Yes</button>
+                                        class="btn btn-primary shadow-none float-right ml-2 border-0" id="save_button">Yes</button>
                                     <button type="button"
                                         class="btn btn-primary shadow-none float-right ml-2 border-0 bg-danger"
-                                        data-dismiss="modal" aria-label="Close">No</button>
+                                        data-dismiss="modal" aria-label="Close" id="cancel_button">No</button>
                                 </div>
                             </div>
                         </div>
@@ -843,24 +842,342 @@
         </div>
     </div>
 @endsection
+@section('style')
+    <style>
+        .toggle-task-form {
+            font-size: 16px;
+            /* color: #007bff; */
+            display: inline-block;
+            margin: 20px 0px;
+        }
+        .agent-tour .card {
+            padding: 5px 12px !important; 
+        }
+        .upload-modal .btn {
+            padding: 7px 20px 7px 20px !important;
+            background: #087132;
+        }
+    </style>
+@endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script>
         $(document).ready(function() {
+
+            $(".showDateLabel").hide();
             // Reusable click event
             $('.create-tour-sec').on('click', function(e) {
                 e.preventDefault();
+                $(".showDateLabel").hide();
 
                 let buttonId = $(this).attr('id');
                 let taskName = $(this).text();
 
-                // Set modal content dynamically
-                $('#taskModalLabel').text(taskName);
-                $('#taskModalContent').text(`You clicked on "${taskName}" button (ID: ${buttonId}).`);
+                console.log('hell', buttonId);
+                console.log('hellsd', taskName);
+
+
+                if(buttonId == 'new_task'){
+                    $('#task_title').text(taskName);
+                    newTask();
+                }else if(buttonId == 'edit_task'){
+                    $('#task_title').text(taskName);
+                    editTask();
+                }else if(buttonId == 'view_task'){
+                    $('#task_title').text(taskName);
+                    viewTask();
+                }else if(buttonId == 'complete_task'){
+                    $('#task_title').text(taskName);
+                    completeTask();
+                }else if(buttonId == 'open_task'){
+                    $('#task_title').text(taskName);
+                    openTask();
+                }else{
+
+                }
 
                 // Show modal
                 $('#taskModal').modal('show');
             });
+
+             $('#save_button').on('click', function(e) {
+                e.preventDefault(); // prevent the default form submission
+
+                let formData = $('#task_form').serialize(); // serialize form data
+                let actionUrl = $('#task_form').attr('action');
+
+                console.log(formData, actionUrl , ' jitemn');
+
+                //callAjax(formData, actionUrl);
+            });
+
         });
+
+        $(document).on('click', '.toggle-task-form', function () {
+            $(this).next('.task-form-body').slideToggle();
+            $(this).toggleClass('open');
+
+            console.log('Toggle clicked');
+
+            if ($(this).hasClass('open')) {
+                $(this).find('i').removeClass('top-icon-bg fas fa-chevron-down fa-fw');
+                $(this).find('i').addClass('top-icon-bg fas fa-chevron-up fa-fw');
+                console.log('Toggle open');
+            } else {
+                $(this).find('i').removeClass('top-icon-bg fas fa-chevron-up fa-fw');
+                $(this).find('i').addClass('top-icon-bg fas fa-chevron-down fa-fw');
+                console.log('Toggle close');
+            }
+        });
+
+        function newTask()
+        {
+            let addNewTaskHtml =`
+                <div class="mx-auto my-2 col-md-11">
+                    <div class="form-group ">
+                        <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
+                        <input id="title" placeholder="Enter Title..." name="title" type="text"
+                            class="form-control" required>
+                        @error('title')
+                            <div class="text-danger text-sm">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group pt-2 pb-3" data-i="">
+                        <label for="exampleFormControlTextarea1"><b>Importance</b><span class="text-danger">*</span>
+                        </label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio1" value="high">
+                            <label class="form-check-label" for="inlineRadio1">High</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio2" checked value="medium">
+                            <label class="form-check-label"  for="inlineRadio2">Medium</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio3" value="low">
+                            <label class="form-check-label" for="inlineRadio3">Low</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1"><b>Task Description</b>
+                        </label>
+                        <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="5"
+                            placeholder="Up to 300 character"></textarea>
+                    </div>
+                    
+                </div>
+            `;
+
+            $("#task_form_html").html(addNewTaskHtml);
+            $("#save_button").show();
+            $("#save_button").text('Add');
+            $("#cancel_button").text('Cancel');
+            $(".showDateLabel").show();
+            console.log('hey new task');
+        }
+
+        function editTask()
+        {
+            let editNewTaskHtml =`
+                <div class="mx-auto my-2 col-md-11">
+                    <div class="form-group ">
+                        <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
+                        <input id="title" placeholder="Enter Title..." name="title" type="text"
+                            class="form-control" required>
+                        @error('title')
+                            <div class="text-danger text-sm">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="pt-2 pb-3" data-i="">
+                        <label for="exampleFormControlTextarea1"><b>Importance</b><span class="text-danger">*</span>
+                        </label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio1" value="high">
+                            <label class="form-check-label" for="inlineRadio1">High</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio2" checked value="medium">
+                            <label class="form-check-label"  for="inlineRadio2">Medium</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio3" value="low">
+                            <label class="form-check-label" for="inlineRadio3">Low</label>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="status"><b>Status</b><span class="text-danger">*</span> </label>
+                        <select class="custom-select" aria-label="Default select example" name="" id="">
+                            <option value="open" >Open</option>
+                            <option value="inprogress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        @error('title')
+                            <div class="text-danger text-sm">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1"><b>Description</b>
+                        </label>
+                        <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="5"
+                            placeholder="Up to 300 character"></textarea>
+                    </div>
+                </div>
+            `;
+
+            $("#task_form_html").html(editNewTaskHtml);
+            $("#save_button").show();
+            $("#save_button").text('Update');
+            $("#cancel_button").text('Cancel');
+            $(".showDateLabel").show();
+        }
+
+        function completeTask()
+        {
+            let completeHtml = `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
+            var checkboxInputs = $(".task_table input[type='checkbox']:checked");
+            
+            if (checkboxInputs.length === 0) {
+                $("#task_form_html").html(completeHtml);
+                $("#save_button").hide();
+                $("#cancel_button").text('Cancel');
+                return false;
+            }
+
+            completeHtml = `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc">Are you sure you want to mark all selected tasks as completed?</h4></div>`;
+
+            $("#task_form_html").html(completeHtml);
+            $("#save_button").text('Yes');
+            $("#save_button").show();
+            $("#cancel_button").text('Cancel');
+
+
+        }
+        
+        function viewTask()
+        {
+             let completeHtml = `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
+            var checkboxInputs = $(".task_table input[type='checkbox']:checked");
+            
+            if (checkboxInputs.length === 0) {
+                $("#task_form_html").html(completeHtml);
+                $("#save_button").hide();
+                $("#cancel_button").text('Cancel');
+                return false;
+            }
+
+            console.log(checkboxInputs.length, ' jite');
+            let selectedTask = 1;
+            let viewTaskHtml = ``;
+            for(selectedTask; selectedTask <= checkboxInputs.length; selectedTask++){
+                viewTaskHtml += `
+                    <div class="task-form-wrapper mx-auto my-2 col-md-11" style="cursor:pointer;">
+                        <div class=" col-md-12 card shadow-sm border-0 rounded-3">
+                            <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10" style="background:#C2CFE0; ">
+                                <h6 class="mb-0 text-dark">Task Summary</h6> <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>                            
+                            </div>
+                            <div class="task-form-body p-2" style="display: none;">
+                                <!-- Your original form HTML -->
+                                <div class="form-group">
+                                    <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
+                                    <input id="title" placeholder="Enter Title..." name="title" type="text" class="form-control" required>
+                                </div>
+
+                                <div class="pt-2 pb-3">
+                                    <label><b>Importance</b><span class="text-danger">*</span></label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio1" value="high">
+                                        <label class="form-check-label" for="inlineRadio1">High</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio2" value="medium" checked>
+                                        <label class="form-check-label" for="inlineRadio2">Medium</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio3" value="low">
+                                        <label class="form-check-label" for="inlineRadio3">Low</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="status"><b>Status</b><span class="text-danger">*</span></label>
+                                    <select class="custom-select" name="status" id="status">
+                                        <option value="open">Open</option>
+                                        <option value="inprogress">In Progress</option>
+                                        <option value="completed">Completed</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1"><b>Description</b></label>
+                                    <textarea class="form-control" name="description" rows="5" placeholder="Up to 300 characters"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit"
+                                        class="edit_button btn btn-success shadow-none float-right ml-2 border-0" >Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                `;
+            }
+
+            $("#task_form_html").html(viewTaskHtml);
+            //$("#save_button").text('Yes');
+            $("#save_button").hide();
+            $("#cancel_button").text('Cancel');
+        }
+
+        function openTask()
+        {
+            let openHtml = `<div class="col-md-11 mx-auto my-3">
+                <div class="card shadow-sm border-0 rounded-3">
+                    <div class="card-header text-white" style="background:#C2CFE0;">
+                        <h5 class="mb-0 text-dark" >Task Summary</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <strong>Open Tasks:</strong>
+                            <span class="badge text-light bg-warning fs-6 p-1" >20</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                            <strong>In Progress Tasks:</strong>
+                            <span class="badge bg-primary text-light fs-6 p-1" >30</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center py-2">
+                            <strong>Completed Tasks:</strong>
+                            <span class="badge bg-success text-light fs-6 p-1" >20</span>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+            $("#task_form_html").html(openHtml);
+            //$("#save_button").text('Yes');
+            $("#save_button").hide();
+            $("#cancel_button").text('Cancel');
+        }
+
+        function callAjax(formData, actionUrl)
+        {
+            $.ajax({
+                    url: actionUrl, // form action URL
+                    type: 'POST',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+                    },
+                    success: function(response) {
+                        // handle success
+                        alert('Task marked as completed successfully.');
+                        // Optionally close modal or reset form
+                    },
+                    error: function(xhr) {
+                        // handle error
+                        alert('Something went wrong. Please try again.');
+                    }
+                });
+        }
+
     </script>
 @endsection
