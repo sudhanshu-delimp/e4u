@@ -284,9 +284,34 @@ class WebController extends Controller
             //dd($item);
             # Add services with duration if exists
             if($item->durations){
-                 $item->massage_price = $item->durations()->where('name','=','1 Hour')->first() ? $item->durations()->where('name','=','1 Hour')->first()->pivot->massage_price : null;
+
+                // dd( $item->durations()->min('incall_price'), $item->durations()->min('massage_price'),  $item->durations()->min('outcall_price'));
+
+                $item->massage_price = $item->durations()->where('name','=','1 Hour')->first() ? $item->durations()->where('name','=','1 Hour')->first()->pivot->massage_price : null;
                 $item->incall_price = $item->durations()->where('name','=','1 Hour')->first() ? $item->durations()->where('name','=','1 Hour')->first()->pivot->incall_price : null;
                 $item->outcall_price = $item->durations()->where('name','=','1 Hour')->first() ? $item->durations()->where('name','=','1 Hour')->first()->pivot->outcall_price : null;    
+
+                
+
+                $lowest_massage_price = $item->durations()->where('duration_id','!=',1)->min('massage_price') ? $item->durations()->min('massage_price') : null;
+                $lowest_incall_price = $item->durations()->where('duration_id','!=',1)->min('incall_price') ? $item->durations()->min('incall_price') : null;
+                $lowest_outcall_price = $item->durations()->where('duration_id','!=',1)->min('outcall_price') ? $item->durations()->min('outcall_price') : null;
+
+               $lowestPriceArray = [];
+
+                if ($lowest_massage_price !== null) {
+                    $lowestPriceArray[] = (float) $lowest_massage_price;
+                }
+                if ($lowest_incall_price !== null) {
+                    $lowestPriceArray[] = (float) $lowest_incall_price;
+                }
+                if ($lowest_outcall_price !== null) {
+                    $lowestPriceArray[] = (float) $lowest_outcall_price;
+                }
+
+                $lowest = !empty($lowestPriceArray) ? min($lowestPriceArray) : '';
+                
+                $item->lowest_rate_price = $lowest;
             }
 
             # get star rating on the bases on like and unlike
