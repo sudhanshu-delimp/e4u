@@ -161,9 +161,7 @@
             <div class="col-lg-3 col-md-3 manage_alments_in_ds text-right">
                <span class="footer_text_color_white">Follow us:</span>
                <ul class="footer_social_icons">
-                  <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                  <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                  <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                  <li><a href="https://x.com/Escorts46919U" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo"></a></li>
                </ul>
             </div>
          </div>

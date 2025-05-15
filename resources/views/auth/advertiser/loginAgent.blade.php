@@ -23,20 +23,32 @@
                                @enderror --}}
                            </div>
                         </div>
-                        <div class="form-group label_margin_zero_for_login">
+                        <div class="form-group label_margin_zero_for_login" style="position: relative;">
                            <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="" name="password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-                           <div class="termsandconditions_text_color">
-                               <!-- error sms here -->
-                               {{-- @error('password')
-                                   {{ $message }}
-                               @enderror --}}
-                               @error('phone')
+                           <input type="password" class="form-control" id="exampleInputPassword1" placeholder=""
+                              name="password" required autocomplete="new-password"
+                              data-parsley-required-message="@lang('errors/validation/required.password')"
+                              data-parsley-pattern-message="@lang('errors/validation/valid.password')">
 
-                                       {{ $message }}
-                               @enderror
+                           {{-- Eye icon --}}
+                           <span toggle="#exampleInputPassword1" class="toggle-password" style="
+                              position: absolute;
+                              top: 38px;
+                              right: 15px;
+                              cursor: pointer;">
+                              <i class="fa fa-eye" id="toggleEyeIcon"></i>
+                           </span>
+
+                           <div class="termsandconditions_text_color">
+                              @error('password')
+                                    {{ $message }}
+                              @enderror
+                              @error('phone')
+                                    {{ $message }}
+                              @enderror
                            </div>
                         </div>
+
                         <div id="formerror">
                         </div>
                        <!--<div class="form-check form-check-inline">
@@ -363,6 +375,20 @@ $(document).ready(function() {
       });
    });
 });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleIcon = document.querySelector(".toggle-password");
+        const passwordInput = document.querySelector("#exampleInputPassword1");
+        const eyeIcon = document.querySelector("#toggleEyeIcon");
+
+        toggleIcon.addEventListener("click", function () {
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+            eyeIcon.classList.toggle("fa-eye");
+            eyeIcon.classList.toggle("fa-eye-slash");
+        });
+    });
 </script>
 
 @endsection
