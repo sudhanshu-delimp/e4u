@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
 use App\Mail\sendOrderMobileSimRequest;
+use App\Mail\sendOrderMobileSimRequestToAdmin;
+use App\Mail\sendOrderMobileSimRequestToVox;
 use App\Models\ConciergeMobileSim;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +27,7 @@ class ConciergeController extends Controller
             'period_required' => 'nullable',
             'comments' => 'nullable|string',
             'terms' => 'accepted',
+            'auth' => 'accepted',
         ]);
 
         // dd($request->all());
@@ -95,10 +98,19 @@ class ConciergeController extends Controller
             'member_id' => $simData->user_id,
             'escort_name' => $simData->first_name. ' '. $simData->last_name,
             'order_ref'=> $simData->order_ref,
-            'subject' => 'Mobile Sim Request'
+            'subject' => 'Mobile Sim Request',
+            'mobile' => $simData->mobile,
+            'address' => $simData->delivery_address,
+            'period' => $simData->period_required,
+            'comment' => $simData->comments,
+            'pref_email' => $simData->contact_pref_email,
+            'pref_mobile' => $simData->contact_pref_mobile,
+            'payment_authorized' => 'Yes',
          ];
 
-        Mail::to($simData->email)->cc([config('escorts.mobileOrderSimRequest.vox'), config('escorts.mobileOrderSimRequest.admin')])->send(new sendOrderMobileSimRequest($body));
+        Mail::to($simData->email)->queue(new sendOrderMobileSimRequest($body));
+        Mail::to(config('escorts.mobileOrderSimRequest.vox'))->queue(new sendOrderMobileSimRequestToVox($body));
+        Mail::to(config('escorts.mobileOrderSimRequest.admin'))->queue(new sendOrderMobileSimRequestToAdmin($body));
 
         if(!$simData){
             return view('escort.dashboard.Concierge.mobile-read-sim',['simData'=>null,'status'=>false]);
