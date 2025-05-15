@@ -285,7 +285,7 @@ class WebController extends Controller
             # Add services with duration if exists
             if($item->durations){
 
-                // dd( $item->durations()->min('incall_price'), $item->durations()->min('massage_price'),  $item->durations()->min('outcall_price'));
+                //dd( $item->durations()->where('duration_id','!=',1)->get());
 
                 $item->massage_price = $item->durations()->where('name','=','1 Hour')->first() ? $item->durations()->where('name','=','1 Hour')->first()->pivot->massage_price : null;
                 $item->incall_price = $item->durations()->where('name','=','1 Hour')->first() ? $item->durations()->where('name','=','1 Hour')->first()->pivot->incall_price : null;
@@ -293,9 +293,9 @@ class WebController extends Controller
 
                 
 
-                $lowest_massage_price = $item->durations()->where('duration_id','!=',1)->min('massage_price') ? $item->durations()->min('massage_price') : null;
-                $lowest_incall_price = $item->durations()->where('duration_id','!=',1)->min('incall_price') ? $item->durations()->min('incall_price') : null;
-                $lowest_outcall_price = $item->durations()->where('duration_id','!=',1)->min('outcall_price') ? $item->durations()->min('outcall_price') : null;
+                $lowest_massage_price = $item->durations()->where('duration_id','!=',1)->min('massage_price') ? $item->durations()->where('duration_id','!=',1)->min('massage_price') : null;
+                $lowest_incall_price = $item->durations()->where('duration_id','!=',1)->min('incall_price') ? $item->durations()->where('duration_id','!=',1)->min('incall_price') : null;
+                $lowest_outcall_price = $item->durations()->where('duration_id','!=',1)->min('outcall_price') ? $item->durations()->where('duration_id','!=',1)->min('outcall_price') : null;
 
                $lowestPriceArray = [];
 
