@@ -121,7 +121,7 @@
                                         <label for="period_required"><b>Period required</b><span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group">
-                                            <input type="period_required" value="{{ old('period_required') }}" required
+                                            <input type="number" value="{{ old('period_required') }}" required
                                                 class="form-control" name="period_required" id="period_required"
                                                 placeholder="Enter months" min="1">
                                             <div class="input-group-append">

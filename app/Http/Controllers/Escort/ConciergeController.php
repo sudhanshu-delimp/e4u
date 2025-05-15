@@ -92,11 +92,12 @@ class ConciergeController extends Controller
     function mobileOrderSimPayment(Request $request)
     {
         $simData = ConciergeMobileSim::where('id',$request->concierge_mobile_sim_id)->first();
+        $username = Auth::user()->name;
         
         $body = [
             'email' => $simData->email,
             'member_id' => $simData->user_id,
-            'escort_name' => $simData->first_name. ' '. $simData->last_name,
+            'escort_name' => $username ? $username : $simData->first_name,
             'order_ref'=> $simData->order_ref,
             'subject' => 'Mobile Sim Request',
             'mobile' => $simData->mobile,
