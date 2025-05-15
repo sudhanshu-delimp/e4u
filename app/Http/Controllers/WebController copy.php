@@ -362,6 +362,13 @@ class WebController extends Controller
         return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
+
+    public function clearShortList()
+    {
+        session('cart','');
+        return redirect()->back()->with('success','Shortlist is clear successfully.');
+    }
+
     public function mcMyShortList()
     {
 

@@ -77,9 +77,9 @@
                                 </div>
                             </div>
                             <div class="display_inline_block mb-1">
-                                <button type="submit" class="btn reset_filter " data-toggle="tooltip" title="clear shortlist button">
+                                <a type="submit" href="{{route('shortlist.clear-list')}}" class="btn reset_filter " data-toggle="tooltip" title="clear shortlist button">
                                 Clear Shortlist
-                                </button>
+                                </a>
                            </div>
                            
                         </div>

@@ -118,6 +118,7 @@ Route::post('/add-to-shortlist/{id}', [App\Http\Controllers\WebController::class
 Route::post('/remove-shortlist', [App\Http\Controllers\WebController::class,'removeShortList'])->name('web.remove.shortlist');
 Route::get('/my-shortlist', [App\Http\Controllers\WebController::class,'shortList'])->name('web.show.shortlist');
 Route::get('/showList', [App\Http\Controllers\WebController::class,'showAddList'])->name('web.show.showAddList');
+Route::get('/clear-short-list', [App\Http\Controllers\WebController::class,'clearShortList'])->name('shortlist.clear-list');
 Route::get('admin-dashboard/e4u-cms/pages', function()
 	{
 		return view('admin.e4u-cms.pages');
