@@ -58,7 +58,8 @@
                 </div>
                 <div class="d-flex justify-content-between six_column_fonts">
                     <span>Price:</span>
-                    <span>From $ {{$escort->durations()->where('name','1 Hour')->first() ? $escort->durations()->where('name','1 Hour')->first()->pivot->massage_price : ''}} / hr</span>
+                    <span>From $ {{$escort->lowest_rate_price}} / hr</span>
+                    {{-- <span>From $ {{$escort->durations()->where('name','1 Hour')->first() ? $escort->durations()->where('name','1 Hour')->first()->pivot->massage_price : ''}} / hr</span> --}}
                 </div>
                 <div class="d-flex justify-content-between six_column_fonts">
                     <span>Services:</span>

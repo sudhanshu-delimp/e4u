@@ -49,32 +49,25 @@
                     <tr>
                         <td style="padding: 30px;">
                             <!-- Greeting -->
-                            <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Dear {{ $body['escort_name'] }},</b></p>
-                            {{-- <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Escort ID: {{ $body['member_id'] }},</b> --}}
-                            </p>
+                            <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Dear Supplier,</b></p>
+                            {{-- <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Escort ID: {{ $body['member_id'] }},</b></p> --}}
                             <!-- Main Message -->
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                Your request for a Mobile SIM has been received. Please allow <strong>72 hours</strong>
-                                for the SIM to
-                                arrive. We will express post your Mobile SIM to your nominated address.
+                                Please be advised that we have received a request to supply a Mobile SIM from an E4U
+                                Member. Their request will be processed by the next business day.
                             </p>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                If you do not receive your SIM within <strong>72 hours</strong>, please lodge a Support
-                                Ticket, by logging
-                                onto your Dashboard, and quote your reference number [Ref number].
+                                We will forward you details of the allotted SIM for your records by separate email
+                                notification.
                             </p>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                We confirm payment will be made according to your instructions.
-                            </p>
-                            <p style="font-size: 14px; line-height: 1.6; margin-bottom: 15px;">
-                                <strong>Note:</strong> Your Sim Will:<br>
-                                <p style="font-size: 14px; line-height: 1.6; margin-bottom: 15px; margin-left:15px;">(a) be dispatched on the next business day; and</p>
-                                <p style="font-size: 14px; line-height: 1.6; margin-bottom: 15px; margin-left:15px;">(b) have been activated. Simply install the SIM into your phone and you can use it immediately</p>
+                                If you do not hear from us within 48 hours, we invite you to contact us for an update.
+                                Please quote the reference number: {{ $body['order_ref'] }}.
                             </p>
                             <!-- Closing -->
                             <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
-                                <b>E4U - Operations centre</b>
+                                <b>E4U - Operations Centre</b>
                             </p>
                         </td>
                     </tr>
@@ -85,7 +78,7 @@
                     <tr>
                         <td>
                             This is an automatically generated email by the Escorts4u Operations Centre.<br>
-                            &copy; Copyright 2025 Blackbox Tech Pty Ltd. All rights reserved.
+                            &copy; Copyright 2025 Blackbox Tech Pty Ltd. All rights reserved..
                         </td>
                     </tr>
                 </table>

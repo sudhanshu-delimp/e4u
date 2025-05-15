@@ -74,26 +74,26 @@
                                 <b>Your details:</b>
                                 <div class="ml-4 mt-2">
                                     <div class="form-group w-50">
-                                        <label for="email"><b>First Name</b><span class="text-danger">*</span> </label>
-                                        <input id="name" placeholder="First Name" name="first_name" type="text"
-                                            class="form-control" required>
+                                        <label for="email"><b>Your Name</b><span class="text-danger">*</span> </label>
+                                        <input id="name" value="{{ old('first_name') }}" placeholder="Birth Name"
+                                            name="first_name" type="text" class="form-control" required>
                                         @error('first_name')
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group w-50">
+                                    {{-- <div class="form-group w-50">
                                         <label for="email"><b>Last Name</b> </label>
                                         <input id="name" placeholder="Last Name" name="last_name" type="text"
                                             class="form-control">
                                         @error('last_name')
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group w-50">
                                         <label for="email"><b>Email Address</b><span class="text-danger">*</span>
                                         </label>
-                                        <input id="name" required placeholder="Email Address" name="email"
-                                            type="text" class="form-control">
+                                        <input id="email" value="{{ old('email') }}" required
+                                            placeholder="Email Address" name="email" type="text" class="form-control">
                                         @error('email')
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
@@ -101,8 +101,8 @@
                                     <div class="form-group w-50">
                                         <label for="email"><b>Mobile Number</b> <span class="text-danger">*</span>
                                         </label>
-                                        <input id="name" placeholder="Mobile Number" name="mobile" type="number"
-                                            class="form-control" required>
+                                        <input id="mobile" value="{{ old('mobile') }}" placeholder="Mobile Number"
+                                            name="mobile" type="number" class="form-control" required>
                                         @error('mobile')
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
@@ -110,27 +110,42 @@
                                     <div class="form-group w-50">
                                         <label for="email"><b> Delivery address
                                             </b> <span class="text-danger">*</span> </label>
-                                        <input id="name" placeholder="Your address" name="delivery_address"
-                                            type="text" class="form-control" required>
+                                        <input id="delivery_address" value="{{ old('delivery_address') }}"
+                                            placeholder="Your address" name="delivery_address" type="text"
+                                            class="form-control" required>
                                         @error('delivery_address')
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
+                                    </div>
+                                    <div class="form-group w-50">
+                                        <label for="period_required"><b>Period required</b><span
+                                                class="text-danger">*</span></label>
+                                        <div class="input-group">
+                                            <input type="number" value="{{ old('period_required') }}" required
+                                                class="form-control" name="period_required" id="period_required"
+                                                placeholder="Enter months" min="1">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">Months</span>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="form-group w-50">
                                         <label for="exampleFormControlTextarea1"><b>Comments</b> (<i>please provide any
                                                 additional information to assist us</i>)
                                         </label>
                                         <textarea class="form-control" name="comments" id="exampleFormControlTextarea1" rows="5"
-                                            placeholder="Up to 300 character"></textarea>
+                                             placeholder="Up to 300 character">{{ old('comments') }}</textarea>
                                     </div>
                                     <div class="form-group w-50">
-                                        <label for="period_required"><b>Period required</b><span class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <input type="number" required class="form-control" name="period_required" id="period_required" placeholder="Enter months" min="1">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Months</span>
-                                            </div>
+                                        <div class="form-check form-check-inline">
+                                            <input name="auth" class="form-check-input" type="checkbox"
+                                                id="auth">
+                                            <label class="form-check-label" for="auth"> I authorise E4U to debit my
+                                                nominated Card.</label>
                                         </div>
+                                        @error('auth')
+                                            <div class="text-danger text-sm">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                     <div class="form-group w-50">
                                         <div class="form-check form-check-inline">
@@ -145,6 +160,7 @@
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
+
                                     <button type="submit" class="new-btn-sec btn btn-primary shadow-none">
                                         Place Order
                                     </button>
@@ -160,8 +176,8 @@
 
         {{-- popup --}}
 
-        <div class="modal fade upload-modal" id="new-ban" style="backdrop-filter: brightness(0.5);" tabindex="-1" role="dialog" aria-labelledby="new-ban"
-            aria-hidden="true" data-backdrop="static">
+        <div class="modal fade upload-modal" id="new-ban" style="backdrop-filter: brightness(0.5);" tabindex="-1"
+            role="dialog" aria-labelledby="new-ban" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content" style="border: 2px solid;">
                     <div class="modal-header">
@@ -178,7 +194,9 @@
                             reference. If you have not received your Mobile SIM within 48 hours, please raise a Support
                             Ticket quoting the reference.
                         </p>
-                        <p>Date Sent:<span class="ml-1 sent_date" style="">{{ (isset($simData) && $simData != null) ? $simData->created_at->format('d-m-Y') : '' }}</span></p>
+                        <p>Date Sent:<span class="ml-1 sent_date"
+                                style="">{{ isset($simData) && $simData != null ? $simData->created_at->format('d-m-Y') : '' }}</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -198,10 +216,9 @@
                 $('#new-ban').hide();
             })
 
-            @if((isset($simData) && $simData != null))
+            @if (isset($simData) && $simData != null)
                 $('#new-ban').show();
             @endif
-
         </script>
 
         <script>
@@ -221,7 +238,7 @@
             //                 'X-CSRF-TOKEN': $('input[name="_token"]').val()
             //             },
             //             success: function (response) {
-                            
+
             //                 $(".sent_date").text(response.data.created_at)
             //                 $('#new-ban').show();
             //                 //alert('Order submitted successfully!');
@@ -241,5 +258,4 @@
             //     });
             // });
         </script>
-
     @endpush

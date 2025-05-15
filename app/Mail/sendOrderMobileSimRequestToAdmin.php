@@ -7,18 +7,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class sendOrderMobileSimRequest extends Mailable implements ShouldQueue
+class sendOrderMobileSimRequestToAdmin extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
-    public $data;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
+    public $data;
+
     public function __construct($data)
-    {
-        
+    { 
         $this->data = $data;
     }
 
@@ -30,7 +31,7 @@ class sendOrderMobileSimRequest extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'))
-            ->markdown('emails.sendOrderMobileSimRequest')
+            ->markdown('emails.sendOrderMobileSimRequestToAdmin')
             ->subject($this->data['subject'])
             ->with('body',$this->data);
     }
