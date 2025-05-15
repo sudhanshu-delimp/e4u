@@ -1183,7 +1183,7 @@
                     @endforeach
                 </div>
             @else
-                <p class="profile_description_contect_pera">Does not have any Playmates.</p>
+            <p class="profile_description_contect_pera">{{$escort->profile_name}} ({{$escort->name}}) does not have any Playmates.</p>
             @endif
         </div>
     </div>
