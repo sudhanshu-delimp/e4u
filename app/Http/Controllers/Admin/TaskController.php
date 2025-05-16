@@ -7,6 +7,8 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Repositories\Escort\EscortInterface;
 use App\Repositories\User\UserInterface;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class TaskController extends Controller
 {
@@ -22,15 +24,20 @@ class TaskController extends Controller
 
     public function addTask(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'priority' => 'required|string',
-            'status' => 'required|string',
-            'description' => 'nullable|string',
+        $validator = FacadesValidator::make($request->all(), [
+            'title' => 'required',
+            'priority' => 'required',
+            'status' => 'required',
+            'description' => 'nullable',
             'user_id' => 'required|exists:users,id',
         ]);
 
-        $task = Task::create($validated);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $task = Task::create($request->all());
+        return response()->json(['success' => true, 'task' => $task]);
     }
 
     public function editTask(Request $request)
