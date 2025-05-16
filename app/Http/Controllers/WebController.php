@@ -348,7 +348,11 @@ class WebController extends Controller
         // $silver = $applyFilters(Escort::where('membership', '3'),$str)->get();
         // $free = $applyFilters(Escort::where('membership', '4'),$str)->get();
         
-        
+        //echo $platinum->count();
+        $memberTotalCount[1] =  $platinum->count();
+        $memberTotalCount[2] =  $gold->count();
+        $memberTotalCount[3] =  $silver->count();
+        $memberTotalCount[4] =  $free->count();
         $merged = $platinum->concat($gold)->concat($silver)->concat($free);
        
         $sliced = $merged->slice(($page - 1) * $perPage, $perPage)->values();
@@ -364,7 +368,7 @@ class WebController extends Controller
         );
 
         //dd($escorts);
-        return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId'));
+        return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId', 'memberTotalCount'));
     }
 
     public function getRealTimeGeolocationOfUsers($lat, $lng)

@@ -458,10 +458,10 @@
                     <div class="space_between_row" style="display:block">
                         <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
                                 data-toggle="tooltip"
-                                title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
-                            {{ $memberTotalCount[1] }}
+                                title="Platinum Members - {{ $grouped->get('1')->count() }} {{ $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}">
+                            {{ $grouped->has('1') && $grouped->get('1') ? $grouped->get('1')->count() : 0 }}
                             <span class="bordertopp">
-                                {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
+                                {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}</span>
                         </div>
                         <div class="row responsive_colums_in_lg_five_col escost_list">
                             @if ($grouped->has('1'))
@@ -477,10 +477,10 @@
                     <div class="space_between_row" style="display:block">
                         <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png') }}"
                                 data-toggle="tooltip"
-                                title="Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}">
-                             {{ $memberTotalCount[2] }}
-                             <span class="bordertopp">
-                                {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
+                                title="Gold Members - {{ $grouped->get('2')->count() }} {{ $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}">
+                            {{ $grouped->has('2') && $grouped->get('2') ? $grouped->get('2')->count() : 0 }}
+                            <span class="bordertopp">
+                                {{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}</span>
                         </div>
                         <div class="row responsive_colums_in_lg_five_col escost_list">
                             @if ($grouped->has('2'))
@@ -496,10 +496,10 @@
                     <div class="space_between_row" style="display:block">
                         <div class="bod_image"><img src="{{ asset('assets/app/img/dark_silver.png') }}"
                                 data-toggle="tooltip"
-                                title="Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}">
-                          {{ $memberTotalCount[3] }}
-                             <span class="bordertopp">
-                                {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
+                                title="Silver Members - {{ $grouped->get('3')->count() }} {{ $grouped->get('3')->count() == 1 ? 'Listing' : 'Listings' }}">
+                            {{ $grouped->has('3') ? $grouped->get('3')->count() : 0 }}
+                            <span class="bordertopp">
+                                {{ $grouped->has('3') && $grouped->get('3') && $grouped->get('3')->count() == 1 ? 'Listing' : 'Listings' }}</span>
                         </div>
                         <div class="row responsive_colums_in_lg_five_col escost_list">
                             @if ($grouped->has('3'))
@@ -515,10 +515,10 @@
                     <div class="space_between_row" style="display:block">
                         <div class="bod_image"><img src="{{ asset('assets/app/img/Group 153.png') }}"
                                 data-toggle="tooltip"
-                                title="Free Members -{{ $memberTotalCount[4] }} {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}">
-                          {{ $memberTotalCount[4] }}
-                             <span class="bordertopp">
-                                {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
+                                title="Free Members - {{ $grouped->get('4')->count() }} {{ $grouped->get('4')->count() == 1 ? 'Listing' : 'Listings' }}">
+                            {{ $grouped->has('4') ? $grouped->get('4')->count() : 0 }}
+                            <span class="bordertopp">
+                                {{ $grouped->has('4') && $grouped->get('4') && $grouped->get('4')->count() == 1 ? 'Listing' : 'Listings' }}</span>
                         </div>
                         <div class="row responsive_colums_in_lg_five_col escost_list">
                             @if ($grouped->has('4'))
@@ -536,13 +536,13 @@
                     <div class="platinum-sec">
                         <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
                                 data-toggle="tooltip"
-                                title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
-                            {{ $memberTotalCount[1] }}
+                                title="Platinum Members - {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}">
+                            {{ $grouped->has('1') ? $grouped->get('1')->count() : 0 }}
                             <span class="bordertopp">
-                                {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
+                                {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}</span>
                         </div>
                         <div class="text">
-                            {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}
+                            {{ $grouped->has('1') && $grouped->get('1') && $grouped->get('1')->count() == 1 ? 'Listing' : 'Listings' }}
                         </div>
                         @if ($grouped->has('1'))
                             @foreach ($grouped['1'] as $escort)
@@ -555,13 +555,13 @@
                     <div class="platinum-sec gold">
                         <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png') }}"
                                 data-toggle="tooltip"
-                                title="Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}">
-                            {{ $memberTotalCount[2] }}
+                                title="Gold Members - {{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}">
+                            {{ $grouped->has('2') ? $grouped->get('2')->count() : 0 }}
                             <span
-                                class="bordertopp">{{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}</span>
+                                class="bordertopp">{{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}</span>
                         </div>
                         <div class="text gold">
-                            {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}
+                            {{ $grouped->has('2') && $grouped->get('2') && $grouped->get('2')->count() == 1 ? 'Listing' : 'Listings' }}
                         </div>
                         @if ($grouped->has('2'))
                             @foreach ($grouped['2'] as $escort)
@@ -574,8 +574,8 @@
                     <div class="listview_each_section_border_btm silver_card">
                         <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/dark_silver.png') }}"
                                 data-toggle="tooltip"
-                                title="Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}">{{ $memberTotalCount[3] }}<span
-                                class="bordertopp">{{ $memberTotalCount[3]  == 1 ? 'Listing' : 'Listings' }}</span>
+                                title="Silver Members - {{ $grouped->has('3') && $grouped->get('3') && $grouped->get('3')->count() == 1 ? 'Listing' : 'Listings' }}">{{ $grouped->has('3') ? $grouped->get('3')->count() : 0 }}<span
+                                class="bordertopp">{{ $grouped->has('3') && $grouped->get('3') && $grouped->get('3')->count() == 1 ? 'Listing' : 'Listings' }}</span>
                         </div>
                         <div class="row  mx-md-n2">
                             @if ($grouped->has('3'))
@@ -590,8 +590,8 @@
                     <div class="manage_listview_margin_siliver_section free_card">
                         <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/Group 153.png') }}"
                                 data-toggle="tooltip"
-                                title="Free Members - {{ $memberTotalCount[4] }} {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}">{{ $memberTotalCount[4] }}<span
-                                class="bordertopp">{{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
+                                title="Free Members - {{ $grouped->has('4') && $grouped->get('4') && $grouped->get('4')->count() == 1 ? 'Listing' : 'Listings' }}">{{ $grouped->has('4') ? $grouped->get('4')->count() : 0 }}<span
+                                class="bordertopp">{{ $grouped->has('4') && $grouped->get('4') && $grouped->get('4')->count() == 1 ? 'Listing' : 'Listings' }}</span>
                         </div>
                         <div class="row">
                             @if ($grouped->has('4'))
