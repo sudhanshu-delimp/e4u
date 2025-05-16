@@ -1182,7 +1182,7 @@
                 $("#task_form_html").html(completeHtml);
                 $("#save_button").hide();
                 $("#cancel_button").text('Cancel');
-                return false;
+                return false; 
             }
 
             console.log(checkboxInputs.length, ' jite');
