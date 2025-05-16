@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\SupportTicketsController;
-
+use App\Http\Controllers\Admin\TaskController;
 
 Route::get('', 'DashboardController@index')->name('admin.index');
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
@@ -18,7 +18,12 @@ Route::get('/upload-my-avatar', [DashboardController::class, 'uploadAvatar'])->n
 Route::post('upload-avatar/{id}',[DashboardController::class,'storeMyAvatar'])->name('admin.save.avatar');
 Route::post('remove-avatar',[DashboardController::class,'removeMyAvatar'])->name('admin.avatar.remove');
 
-
+# Dashboard escort tasks
+Route::post('/task-add',[TaskController::class,'addTask'])->name('dashboard.ajax-add-task');
+Route::post('/task-edit',[TaskController::class,'editTask'])->name('dashboard.ajax-edit-task');
+Route::post('/task-update',[TaskController::class,'updateTask'])->name('dashboard.ajax-update-task');
+Route::post('/task-status',[TaskController::class,'statusTask'])->name('dashboard.ajax-change-status');
+Route::post('/task-open',[TaskController::class,'openTask'])->name('dashboard.ajax-open-task');
 
 Route::post('submit_ticket', [SupportTicketsController::class,'submit_ticket'])->name('admin.support-ticket.create');
 Route::get('support_tickets',[SupportTicketsController ::class, 'index'])->name('admin.support-ticket.list');

@@ -822,14 +822,15 @@
                         <div class="row" id="task_form_html">
                             <h4 id="task_desc">Are you sure you want to mark this Appointment as completed?</h4>
                         </div>
-                        
+
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
-                                    <label for="exampleFormControlTextarea1" class="ml-2 showDateLabel" style="display: none;">Date Created: {{\Carbon\Carbon::now()->format('d-m-Y')}}.
+                                    <label for="exampleFormControlTextarea1" class="ml-2 showDateLabel"
+                                        style="display: none;">Date Created: {{ \Carbon\Carbon::now()->format('d-m-Y') }}.
                                     </label>
-                                    <button type="submit"
-                                        class="btn btn-primary shadow-none float-right ml-2 border-0" id="save_button">Yes</button>
+                                    <button type="submit" class="btn btn-primary shadow-none float-right ml-2 border-0"
+                                        id="save_button">Yes</button>
                                     <button type="button"
                                         class="btn btn-primary shadow-none float-right ml-2 border-0 bg-danger"
                                         data-dismiss="modal" aria-label="Close" id="cancel_button">No</button>
@@ -850,9 +851,11 @@
             display: inline-block;
             margin: 20px 0px;
         }
+
         .agent-tour .card {
-            padding: 5px 12px !important; 
+            padding: 5px 12px !important;
         }
+
         .upload-modal .btn {
             padding: 7px 20px 7px 20px !important;
             background: #087132;
@@ -877,22 +880,22 @@
                 console.log('hellsd', taskName);
 
 
-                if(buttonId == 'new_task'){
+                if (buttonId == 'new_task') {
                     $('#task_title').text(taskName);
                     newTask();
-                }else if(buttonId == 'edit_task'){
+                } else if (buttonId == 'edit_task') {
                     $('#task_title').text(taskName);
                     editTask();
-                }else if(buttonId == 'view_task'){
+                } else if (buttonId == 'view_task') {
                     $('#task_title').text(taskName);
                     viewTask();
-                }else if(buttonId == 'complete_task'){
+                } else if (buttonId == 'complete_task') {
                     $('#task_title').text(taskName);
                     completeTask();
-                }else if(buttonId == 'open_task'){
+                } else if (buttonId == 'open_task') {
                     $('#task_title').text(taskName);
                     openTask();
-                }else{
+                } else {
 
                 }
 
@@ -900,20 +903,20 @@
                 $('#taskModal').modal('show');
             });
 
-             $('#save_button').on('click', function(e) {
+            $('#save_button').on('click', function(e) {
                 e.preventDefault(); // prevent the default form submission
 
                 let formData = $('#task_form').serialize(); // serialize form data
                 let actionUrl = $('#task_form').attr('action');
 
-                console.log(formData, actionUrl , ' jitemn');
+                console.log(formData, actionUrl, ' jitemn');
 
                 //callAjax(formData, actionUrl);
             });
 
         });
 
-        $(document).on('click', '.toggle-task-form', function () {
+        $(document).on('click', '.toggle-task-form', function() {
             $(this).next('.task-form-body').slideToggle();
             $(this).toggleClass('open');
 
@@ -930,9 +933,8 @@
             }
         });
 
-        function newTask()
-        {
-            let addNewTaskHtml =`
+        function newTask() {
+            let addNewTaskHtml = `
                 <div class="mx-auto my-2 col-md-11">
                     <div class="form-group ">
                         <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
@@ -976,9 +978,8 @@
             console.log('hey new task');
         }
 
-        function editTask()
-        {
-            let editNewTaskHtml =`
+        function editTask() {
+            let editNewTaskHtml = `
                 <div class="mx-auto my-2 col-md-11">
                     <div class="form-group ">
                         <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
@@ -1031,11 +1032,11 @@
             $(".showDateLabel").show();
         }
 
-        function completeTask()
-        {
-            let completeHtml = `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
+        function completeTask() {
+            let completeHtml =
+                `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
             var checkboxInputs = $(".task_table input[type='checkbox']:checked");
-            
+
             if (checkboxInputs.length === 0) {
                 $("#task_form_html").html(completeHtml);
                 $("#save_button").hide();
@@ -1043,21 +1044,20 @@
                 return false;
             }
 
-            completeHtml = `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc">Are you sure you want to mark all selected tasks as completed?</h4></div>`;
+            completeHtml =
+                `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc">Are you sure you want to mark all selected tasks as completed?</h4></div>`;
 
             $("#task_form_html").html(completeHtml);
             $("#save_button").text('Yes');
             $("#save_button").show();
             $("#cancel_button").text('Cancel');
-
-
         }
-        
-        function viewTask()
-        {
-             let completeHtml = `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
+
+        function viewTask() {
+            let completeHtml =
+                `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
             var checkboxInputs = $(".task_table input[type='checkbox']:checked");
-            
+
             if (checkboxInputs.length === 0) {
                 $("#task_form_html").html(completeHtml);
                 $("#save_button").hide();
@@ -1068,7 +1068,7 @@
             console.log(checkboxInputs.length, ' jite');
             let selectedTask = 1;
             let viewTaskHtml = ``;
-            for(selectedTask; selectedTask <= checkboxInputs.length; selectedTask++){
+            for (selectedTask; selectedTask <= checkboxInputs.length; selectedTask++) {
                 viewTaskHtml += `
                     <div class="task-form-wrapper mx-auto my-2 col-md-11" style="cursor:pointer;">
                         <div class=" col-md-12 card shadow-sm border-0 rounded-3">
@@ -1128,8 +1128,7 @@
             $("#cancel_button").text('Cancel');
         }
 
-        function openTask()
-        {
+        function openTask() {
             let openHtml = `<div class="col-md-11 mx-auto my-3">
                 <div class="card shadow-sm border-0 rounded-3">
                     <div class="card-header text-white" style="background:#C2CFE0;">
@@ -1158,26 +1157,24 @@
             $("#cancel_button").text('Cancel');
         }
 
-        function callAjax(formData, actionUrl)
-        {
+        function callAjax(formData, actionUrl) {
             $.ajax({
-                    url: actionUrl, // form action URL
-                    type: 'POST',
-                    data: formData,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
-                    },
-                    success: function(response) {
-                        // handle success
-                        alert('Task marked as completed successfully.');
-                        // Optionally close modal or reset form
-                    },
-                    error: function(xhr) {
-                        // handle error
-                        alert('Something went wrong. Please try again.');
-                    }
-                });
+                url: actionUrl, // form action URL
+                type: 'POST',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+                },
+                success: function(response) {
+                    // handle success
+                    alert('Task marked as completed successfully.');
+                    // Optionally close modal or reset form
+                },
+                error: function(xhr) {
+                    // handle error
+                    alert('Something went wrong. Please try again.');
+                }
+            });
         }
-
     </script>
 @endsection
