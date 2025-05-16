@@ -23,6 +23,7 @@
    .form-control, .form-check-input {
       background-color: #fff;
       color: #000;
+      border-radius:5px;
     }
     #membershipForm label{
       font-weight:bold;
@@ -48,6 +49,61 @@
     .form-control {
       border: 1px solid #d1d3e2;
     }
+    .modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.modal-box {
+  background: #fff;
+  border-radius: 8px;
+  padding: 30px 20px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  font-family: 'Poppins', sans-serif;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+ 
+.icon {
+    font-size: 48px;
+    color: #4CAF50;
+    border: 1px solid;
+    width: 75px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+}
+ 
+.message {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #333;
+}
+ 
+.ok-btn {
+  background-color: #6C63FF;
+  border: none;
+  color: white;
+  padding: 8px 20px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.ok-btn:hover {
+  background-color: #5952d4;
+}
+ 
 </style>
 @endsection
 @section('content')
@@ -64,44 +120,55 @@ an Influencer’ program works.
  
       </p>
      
-      <form id="membershipForm">
+      <form id="membershipForm" onsubmit="handleFormSubmit(event)">
  
-<div class="mb-3">
-  <label for="membershipId" class="form-label">Membership ID <span class="text-danger">*</span></label>
-  <input type="text" class="form-control" id="membershipId" placeholder="Membership ID" name="membershipId" required >
-</div>
+        <div class="mb-3">
+          <label for="membershipId" class="form-label">Membership ID <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="membershipId" placeholder="Membership ID" name="membershipId" required >
+        </div>
  
-<div class="mb-3">
-  <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
-  <input type="email" class="form-control" id="email" placeholder="Email Address" name="email" required>
-</div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" id="email" placeholder="Email Address" name="email" required>
+        </div>
  
-<div class="mb-3">
-  <label class="form-label">Social Media Address(es) <span class="text-danger">*</span></label>
-  <div id="socialMediaContainer">
-    <input type="url" class="form-control mb-2" name="socialMedia[]" placeholder="Social Media Address(es)" required>
-  </div>
-  <button type="button" class="btn btn-outline-light btn-sm" onclick="addSocialMedia()">Add
-  Address</button>
-</div>
- 
-<div class="mb-3">
-  <label for="comments" class="form-label">Comments</label>
-  <textarea class="form-control" id="comments" name="comments" placeholder="Message" rows="3"></textarea>
-</div>
- 
-<div class="form-check mb-3">
-  <input class="form-check-input" type="checkbox" id="ccEmail" name="ccEmail">
-  <label class="form-check-label" for="ccEmail">CC email to me</label>
-</div>
+        <div class="mb-3">
+        <label class="form-label">Social Media Address(es) <span class="text-danger">*</span></label>
+        <div id="socialMediaContainer">
+          <div class="input-group mb-2">
+            <input type="url" class="form-control" name="socialMedia[]" placeholder="Social Media Address(es)" required>
+          </div>
+        </div>
+        <button type="button" class="btn btn-outline-light btn-sm" onclick="addSocialMedia()">Add Address</button>
+      </div>
  
  
+        <div class="mb-3">
+          <label for="comments" class="form-label">Comments</label>
+          <textarea class="form-control" id="comments" name="comments" placeholder="Message" rows="3"></textarea>
+        </div>
  
-<button type="submit" class="btn btn-primary">Send Request</button>
-</form>
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="ccEmail" name="ccEmail">
+          <label class="form-check-label" for="ccEmail">CC email to me</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Request</button>
+    </form>
      
    </div>
 </section>
+ 
+ 
+<!-- Modal -->
+<!-- Success Modal -->
+<div id="confirmationModal" class="modal-overlay" style="display:none;">
+  <div class="modal-box">
+    <div class="icon">&#10004;</div>
+    <p class="message">Thank you for your request.<br>An email has been forwarded.</p>
+    <button onclick="closeModal()" class="ok-btn">OK</button>
+  </div>
+</div>
+ 
 @endsection
 @push('scripts')
 <script>
@@ -134,16 +201,57 @@ an Influencer’ program works.
    skipValuesage[handle].innerHTML = values[handle];
    });
  
-  function addSocialMedia() {
-    const container = document.getElementById('socialMediaContainer');
-    const input = document.createElement('input');
-    input.type = 'url';
-    input.name = 'socialMedia[]';
-    input.required = true;
-    input.className = 'form-control mb-2';
-    input.placeholder = 'Social Media Address';
-    container.appendChild(input);
-  }
+   function addSocialMedia() {
+  const container = document.getElementById('socialMediaContainer');
+ 
+  // Wrapper div for input + remove button
+  const inputGroup = document.createElement('div');
+  inputGroup.className = 'input-group mb-2';
+ 
+  // Create input field
+  const input = document.createElement('input');
+  input.type = 'url';
+  input.name = 'socialMedia[]';
+  input.required = true;
+  input.className = 'form-control';
+  input.placeholder = 'Social Media Address';
+ 
+  // Create remove (X) button
+  const removeBtn = document.createElement('button');
+  removeBtn.type = 'button';
+  removeBtn.className = 'btn btn-outline-danger ml-2';
+  removeBtn.innerHTML = 'Remove Address';
+  removeBtn.onclick = function () {
+    container.removeChild(inputGroup);
+  };
+ 
+  // Add input and remove button to wrapper
+  inputGroup.appendChild(input);
+  inputGroup.appendChild(removeBtn);
+ 
+  // Add wrapper to container
+  container.appendChild(inputGroup);
+}
+ 
+ 
+function handleFormSubmit(event) {
+  event.preventDefault(); // prevent page reload
+ 
+  const form = document.getElementById('membershipForm');
+ 
+ 
+ 
+  // Reset form
+  form.reset();
+ 
+  // Show modal
+  document.getElementById('confirmationModal').style.display = 'block';
+}
+ 
+function closeModal() {
+  document.getElementById('confirmationModal').style.display = 'none';
+}
  
 </script>
 @endpush
+ 

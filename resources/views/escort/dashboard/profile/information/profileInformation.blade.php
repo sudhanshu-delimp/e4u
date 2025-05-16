@@ -126,6 +126,19 @@
     position: relative;
     height: 25px;
 }
+
+.custom-x-link{        
+    background: #0c223d;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    .custom-x-link .twitter-x-logo{
+        width:18px;
+    }
 </style>
 @endsection
 @section('content')
