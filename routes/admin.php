@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\SupportTicketsController;
-
+use App\Http\Controllers\Admin\TaskController;
 
 Route::get('', 'DashboardController@index')->name('admin.index');
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
@@ -17,8 +17,6 @@ Route::post('/change-password', [DashboardController::class, 'updatePassword'])-
 Route::get('/upload-my-avatar', [DashboardController::class, 'uploadAvatar'])->name('admin.profile.avatar');
 Route::post('upload-avatar/{id}',[DashboardController::class,'storeMyAvatar'])->name('admin.save.avatar');
 Route::post('remove-avatar',[DashboardController::class,'removeMyAvatar'])->name('admin.avatar.remove');
-
-
 
 Route::post('submit_ticket', [SupportTicketsController::class,'submit_ticket'])->name('admin.support-ticket.create');
 Route::get('support_tickets',[SupportTicketsController ::class, 'index'])->name('admin.support-ticket.list');

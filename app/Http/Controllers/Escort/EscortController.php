@@ -20,6 +20,7 @@ use Carbon\Carbon;
 use App\Models\Escort;
 use App\Models\Pricing;
 use App\Models\PinUps;
+use App\Models\Task;
 use Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -52,11 +53,10 @@ class EscortController extends Controller
         $result2 = $this->attemptlogin->secondLastlogin(auth()->user()->id);
 
         $escorts = $this->escort->all();
+        $tasks= Task::latest()->paginate(10);
 
-
-        return view('escort.dashboard.index', compact('escorts','result','result2'));
+        return view('escort.dashboard.index', compact('escorts','result','result2','tasks'));
     }
-
 
     function add_listing() {
         $escorts = Escort::where('user_id', auth()->user()->id)->where('profile_name', '!=', NULL)->get();
