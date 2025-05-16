@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\TaskController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\User\Dashboard\UserController;
@@ -171,6 +172,15 @@ Route::get('/massage-legbox-listing', [UserController::class, 'legboxMassageData
 // function(){
 //  	return view('user.dashboard.legbox.list');
 // });
+
+# Dashboard escort tasks
+Route::get('/task-fetch',[TaskController::class,'fetchTask'])->name('dashboard.ajax-fetch-task');
+Route::post('/task-add',[TaskController::class,'addTask'])->name('dashboard.ajax-add-task');
+Route::post('/task-edit',[TaskController::class,'editTask'])->name('dashboard.ajax-edit-task');
+Route::post('/task-update',[TaskController::class,'updateTask'])->name('dashboard.ajax-update-task');
+Route::post('/task-status',[TaskController::class,'statusTask'])->name('dashboard.ajax-change-status');
+Route::post('/task-open',[TaskController::class,'openTask'])->name('dashboard.ajax-open-task');
+Route::post('/task-delete',[TaskController::class,'destroy'])->name('dashboard.ajax-delete-task');
 
 Route::get('/user-dashboard/my-legbox-notes',function(){
     return view('user.dashboard.legbox.notes');

@@ -7,57 +7,105 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use App\Repositories\Escort\EscortInterface;
 use App\Repositories\User\UserInterface;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Illuminate\Support\Facades\Auth;
+// use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
-    protected $escort;
-    protected $user;
-
-    public function __construct(EscortInterface $escort, UserInterface $user)
+    public function fetchTask(Request $request)
     {
-        $this->escort = $escort;
-        $this->user = $user;
+        $data = Task::orderByRaw("CASE 
+            WHEN status = 'open' THEN 0 
+            WHEN status = 'inprogress' THEN 1 
+            ELSE 2 
+        END")
+        ->orderByDesc('id') // then by newest
+        ->paginate(7);
 
+        return response()->json([
+            'status' => true,
+            'data' => $data,
+            'task_name' => 'fetch_task'
+        ], 200, [
+            'Content-Type' => 'application/json',
+        ]);
     }
 
     public function addTask(Request $request)
     {
-        $validator = FacadesValidator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'priority' => 'required',
-            'status' => 'required',
-            'description' => 'nullable',
-            'user_id' => 'required|exists:users,id',
+            'task_priority' => 'required',
+            'description' => 'nullable'
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $task = Task::create($request->all());
-        return response()->json(['success' => true, 'task' => $task]);
+        $task = new Task();
+        $task->title = $request->title;
+        $task->priority = $request->task_priority;
+        $task->description = $request->description;
+        $task->status = 'open';
+        $task->user_id = Auth::user()->id;
+        $task->save();
+
+        return response()->json(['success' => true, 'task' => $task,'task_name' => 'add_task']);
     }
 
-    public function editTask(Request $request)
+    public function editTask($id)
     {
 
     }
 
-    public function updateTask(Request $request)
+    public function updateTask(Request $request,$id)
     {
+        $task = Task::findOrFail($id);
 
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'priority' => 'required',
+            'description' => 'nullable',
+            'status' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $task->update($request->all());
+
+        return response()->json(['success' => true, 'task' => $task,'task_name' => 'update_task']);
     }
 
     public function statusTask(Request $request)
     {
-
+        dd($request->all());
     }
 
     public function openTask(Request $request)
     {
+        $openCount = Task::where('status', 'open')->count();
+        $inprogressCount = Task::where('status', 'inprogress')->count();
+        $completedCount = Task::where('status', 'completed')->count();
 
+        return response()->json([
+            'status' => true,
+            'data' => [
+                'open' => $openCount,
+                'inprogress' => $inprogressCount,
+                'completed' => $completedCount
+            ],
+            'task_name' => 'open'
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        Task::findOrFail($id)->delete();
+        return response()->json(['success' => true]);
     }
 
 }
