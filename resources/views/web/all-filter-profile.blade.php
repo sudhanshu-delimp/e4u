@@ -460,10 +460,7 @@
                                 data-toggle="tooltip"
                                 title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
                             {{ $memberTotalCount[1] }}
-                                title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
-                            {{ $memberTotalCount[1] }}
                             <span class="bordertopp">
-                                {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
                                 {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
                         </div>
                         <div class="row responsive_colums_in_lg_five_col escost_list">
