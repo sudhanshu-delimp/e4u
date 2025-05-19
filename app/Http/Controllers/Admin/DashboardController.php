@@ -8,6 +8,7 @@ use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\StoreEscortRequest;
 use App\Http\Requests\UpdateEscortRequest;
+use App\Models\Task;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
@@ -31,7 +32,9 @@ class DashboardController extends BaseController
 
     public function index()
     {
-        return view('admin.dashboard');
+        //dd('dfd');
+        $task = Task::latest()->paginate(10);
+        return view('admin.dashboard',['tasks'=>$task]);
     }
     public function edit()
     {

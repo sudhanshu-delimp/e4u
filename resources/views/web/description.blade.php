@@ -1,6 +1,47 @@
 @extends('layouts.web')
 @section('content')
 <style>
+.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+ 
+  .tooltip-wrapper .tooltip-text {
+    visibility: hidden;
+    background-color: #2B3D50;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 5px 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 110%; /* tooltip upar show ho */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+ 
+  /* Tooltip arrow */
+  .tooltip-wrapper .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* tooltip box ke bottom se */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #2B3D50 transparent transparent transparent; /* top arrow */
+  }
+ 
+  .tooltip-wrapper:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+
 @if($brb)
     .overlay_parent {
         position: relative;
@@ -119,14 +160,14 @@
                     <i class="fa fa-facebook" aria-hidden="true"></i></a>
                 </li>
                 <li><a href="//{{ $escort->user->social_links ? $escort->user->social_links['insta'] : null }}" target="_blanck"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                <li><a href="//{{ $escort->user->social_links ? $escort->user->social_links['twitter'] : null }}" target="_blanck"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="//{{ $escort->user->social_links ? $escort->user->social_links['twitter'] : null }}" target="_blanck"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" style="width:15px"></a></li>
                 @else
                 <li>
                     <a href="#">
                     <i class="fa fa-facebook" aria-hidden="true"></i></a>
                 </li>
                 <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                <li><a href="" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" style="width:15px"></a></li>
                 @endif
             </ul>
         </div>
@@ -1196,9 +1237,16 @@
         <div class="padding_20_tob_btm_side reduse_pad">
             <span class="span_display_block connecting_me_chat_phone">
                 You can contact me by:
-                <img src="{{ asset('assets/app/img/wechat.svg') }}">
-                or
-                <img src="{{ asset('assets/app/img/phoneicon.svg') }}"></span>
+                <!-- Tooltip for WeChat Icon -->
+                    <div class="tooltip-wrapper">
+                        <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
+                        <div class="tooltip-text">Call me</div>
+                    </div>
+                    or
+                    <div class="tooltip-wrapper">
+                            <img src="{{ asset('assets/app/img/wechat.svg') }}">
+                            <div class="tooltip-text">Text me</div>
+                    </div>
             </br>
             @php
 

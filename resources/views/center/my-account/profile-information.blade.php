@@ -6,6 +6,18 @@
     .swal-button {
     background-color: #242a2c;
     }
+    .custom-x-link{        
+    background: #0c223d;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    .custom-x-link .twitter-x-logo{
+        width:18px;
+    }
 </style>
 @stop
 @section('content')
@@ -1041,7 +1053,8 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-group row align-items-center">
-                                                        <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><i class="fab fa-twitter"></i></span></label>
+                                                        <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons">
+                                                            <div class="custom-x-link"> <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo"> </div></span></label>
                                                         <div class="col-sm-7 col-lg-7 col-md-7 col-10">
                                                             <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Twitter" name="social_links[twitter]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="">
                                                         </div>

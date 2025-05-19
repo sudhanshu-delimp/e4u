@@ -225,7 +225,7 @@
         </div>
         <!-- ================     service provider start here     ========================= -->
        
-        <div class="row grid_list_part grid_wishlist_part mb-5" id="v_li_wishlist" style="display: block;">
+        <div class="row grid_list_part grid_wishlist_part mb-5" id="v_li_wishlist" style="display: none;">
         @if(count($escorts) > 0)
             <div class="col-12 align-items-center">
                     <div class="grid_list_icon_box display_inline_block " data-toggle="modal1" data-target="#" data-url="grid-escort-list">

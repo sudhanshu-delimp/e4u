@@ -159,128 +159,82 @@
                         </div>
                         <div class="d-flex align-items-center mt-4 justify-content-between">
                             <label class="font-weight-bold mb-0">Task</label>
-                            <div class="text-center mr-5">
-                                <label class="font-weight-bold mb-0">Status</label>
+                            <div class="text-center ">
+                                <label class="font-weight-bold mb-0" style="margin-left: 220px;">Status</label>
+                            </div>
+                            <div class="text-center">
+                                <label class="font-weight-bold mb-0" style="margin-right: 35px">Action</label>
                             </div>
                         </div>
+                        {{-- $tasks --}}
                         <div class="card-body pl-1 Dash-table task_table">
                             <div class="table-full-width">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <td class="border-0 pl-0 pr-0">
-                                                <div class="form-check m-0 p-0">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="border-0 pl-0 task-color"><i
-                                                    class="fas fa-circle text-high taski mr-2"></i>Follow up Bill re
-                                                appointment</td>
-                                            <td class="td-actions text-right border-0">
-                                                <span class="badge badge-danger-lighten task-1">Done</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-0 pl-0 pr-0">
-                                                <div class="form-check m-0 p-0">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="border-0 pl-0 task-color"><i
-                                                    class="fas fa-circle text-high taski mr-2"></i>Check Commission
-                                                Statement</td>
-                                            <td class="td-actions text-right border-0">
-                                                <span class="badge badge-danger-lighten task-2">Inprogress</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-0 pl-0 pr-0">
-                                                <div class="form-check m-0 p-0">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="border-0 pl-0 task-color"><i
-                                                    class="fas fa-circle text-medium taski mr-2"></i>Prepare Information
-                                                Package for Lin's Massage Centre</td>
-                                            <td class="td-actions text-right border-0">
-                                                <span class="badge badge-danger-lighten task-2">Inprogress</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-0 pl-0 pr-0">
-                                                <div class="form-check m-0 p-0">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="border-0 pl-0 task-color"><i
-                                                    class="fas fa-circle text-medium taski mr-2"></i>Follow up Carla Brasil
-                                                for Visa Application</td>
-                                            <td class="td-actions text-right border-0">
-                                                <span class="badge badge-danger-lighten task-2">Inprogress</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-0 pl-0 pr-0">
-                                                <div class="form-check m-0 p-0">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="border-0 pl-0 task-color"><i
-                                                    class="fas fa-circle text-low taski mr-2"></i>Create Tour for Oxi
-                                                Miller on 15/08/2022</td>
-                                            <td class="td-actions text-right border-0">
-                                                <span class="badge badge-danger-lighten task-2">Inprogress</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-0 pl-0 pr-0">
-                                                <div class="form-check m-0 p-0">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="border-0 pl-0 task-color"><i
-                                                    class="fas fa-circle text-low taski mr-2"></i>Update Home State for
-                                                Carla Brasil on 01/09/2022</td>
-                                            <td class="td-actions text-right border-0">
-                                                <span class="badge badge-danger-lighten task-2">Inprogress</span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-0 pl-0 pr-0">
-                                                <div class="form-check m-0 p-0">
-                                                    <label class="form-check-label">
-                                                        <input class="form-check-input" type="checkbox" value="">
-                                                        <span class="form-check-sign"></span>
-                                                    </label>
-                                                </div>
-                                            </td>
-                                            <td class="border-0 pl-0 task-color"><i
-                                                    class="fas fa-circle text-low taski mr-2"></i>Research Joondalup for
-                                                Massage Centres</td>
-                                            <td class="td-actions text-right border-0">
-                                                <span class="badge badge-danger-lighten task-2">Inprogress</span>
-                                            </td>
-                                        </tr>
+                                <table class="table" >
+                                    <tbody id="taskList">
+                                        
+                                        {{-- @foreach ($tasks as $task)
+
+                                            @php
+                                                
+                                                $taskBadgeColor = '#f6c23e ';
+                                                if($task->status === 'inprogress'){
+                                                    $taskBadgeColor = '#4e73df ';
+                                                }
+
+                                                if($task->status === 'completed'){
+                                                    $taskBadgeColor = '#1cc88a';
+                                                }
+
+                                                $priorityColor = 'text-high';
+                                                if($task->priority === 'medium'){
+                                                    $priorityColor = 'text-medium';
+                                                }
+                                                if($task->priority === 'low'){
+                                                    $priorityColor = 'text-low';
+                                                }
+                                                $checkboxId = 'task_checkbox_' . $task->id;
+                                            @endphp
+                                            <tr>
+                                                <td class="border-0 pl-0 pr-0">
+                                                    <div class="form-check m-0 p-0">
+                                                        <label class="form-check-label" for="{{ $checkboxId }}">
+                                                            <input class="form-check-input" id="{{ $checkboxId }}" type="checkbox" value="">
+                                                            <span class="form-check-sign"></span>
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                                <td class="border-0 pl-0 task-color">
+                                                    <label for="{{ $checkboxId }}" class="mb-0 cursor-pointer">
+                                                    <i
+                                                        class="fas fa-circle {{$priorityColor}} taski mr-2"></i>{{Str::title($task->title)}}
+                                                    </label></td>
+                                                <td class="td-actions text-left border-0 ">
+                                                    <span class="badge badge-danger-lighten task-1" style="background: {{$taskBadgeColor}}; padding:5px 10px; max-width:120px; width:100%;">{{Str::title($task->status)}}</span>
+                                                </td>
+                                                <td class="theme-color  pr-0 bg-white" style="border: none;">
+                                                    <div class="dropdown no-arrow">
+                                                        <a class="dropdown-toggle" href="#" role="button"
+                                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false">
+                                                            <i
+                                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                        </a>
+                                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                            aria-labelledby="dropdownMenuLink" style="">
+                                                            <a class="dropdown-item" href="#" data-toggle="modal"
+                                                                data-target="#new-ban">Delete</a>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach --}}
+                                        
                                     </tbody>
                                 </table>
+                            </div>
+                            <div class="d-flex justify-content-center mt-4 custome_paginator">
+                                {{-- {!! $tasks->links() !!} --}}
                             </div>
                         </div>
                     </div>
@@ -822,14 +776,15 @@
                         <div class="row" id="task_form_html">
                             <h4 id="task_desc">Are you sure you want to mark this Appointment as completed?</h4>
                         </div>
-                        
+
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
-                                    <label for="exampleFormControlTextarea1" class="ml-2 showDateLabel" style="display: none;">Date Created: {{\Carbon\Carbon::now()->format('d-m-Y')}}.
+                                    <label for="exampleFormControlTextarea1" class="ml-2 showDateLabel"
+                                        style="display: none;">Date Created: {{ \Carbon\Carbon::now()->format('d-m-Y') }}.
                                     </label>
-                                    <button type="submit"
-                                        class="btn btn-primary shadow-none float-right ml-2 border-0" id="save_button">Yes</button>
+                                    <button type="submit" class="btn btn-primary shadow-none float-right ml-2 border-0"
+                                        id="save_button">Yes</button>
                                     <button type="button"
                                         class="btn btn-primary shadow-none float-right ml-2 border-0 bg-danger"
                                         data-dismiss="modal" aria-label="Close" id="cancel_button">No</button>
@@ -850,12 +805,21 @@
             display: inline-block;
             margin: 20px 0px;
         }
+
         .agent-tour .card {
-            padding: 5px 12px !important; 
+            padding: 5px 12px !important;
         }
+
         .upload-modal .btn {
             padding: 7px 20px 7px 20px !important;
             background: #087132;
+        }
+        .page-item:hover .fa {
+            color: white !important;
+        }
+
+        .page-item:hover .page-link {
+            color: white;
         }
     </style>
 @endsection
@@ -877,22 +841,25 @@
                 console.log('hellsd', taskName);
 
 
-                if(buttonId == 'new_task'){
+                if (buttonId == 'new_task') {
                     $('#task_title').text(taskName);
                     newTask();
-                }else if(buttonId == 'edit_task'){
+                } else if (buttonId == 'edit_task') {
                     $('#task_title').text(taskName);
                     editTask();
-                }else if(buttonId == 'view_task'){
+                } else if (buttonId == 'view_task') {
                     $('#task_title').text(taskName);
                     viewTask();
-                }else if(buttonId == 'complete_task'){
+                } else if (buttonId == 'complete_task') {
                     $('#task_title').text(taskName);
                     completeTask();
-                }else if(buttonId == 'open_task'){
+                } else if (buttonId == 'open_task') {
                     $('#task_title').text(taskName);
+                    let formData = $('#task_form').serialize(); // serialize form data
+                    let actionUrl = '{{route("dashboard.ajax-open-task")}}';
+                    callAjax(formData, actionUrl);
                     openTask();
-                }else{
+                } else {
 
                 }
 
@@ -900,20 +867,21 @@
                 $('#taskModal').modal('show');
             });
 
-             $('#save_button').on('click', function(e) {
+            $('#save_button').on('click', function(e) {
                 e.preventDefault(); // prevent the default form submission
 
                 let formData = $('#task_form').serialize(); // serialize form data
-                let actionUrl = $('#task_form').attr('action');
+                let actionUrl = $('#task_form').attr('action');  // let actionUrl = "{{ route('dashboard.ajax-add-task')}}";
 
-                console.log(formData, actionUrl , ' jitemn');
+                console.log(formData, actionUrl, ' jitemn');
 
-                //callAjax(formData, actionUrl);
+                callAjax(formData, actionUrl);
+                
             });
 
         });
 
-        $(document).on('click', '.toggle-task-form', function () {
+        $(document).on('click', '.toggle-task-form', function() {
             $(this).next('.task-form-body').slideToggle();
             $(this).toggleClass('open');
 
@@ -930,9 +898,8 @@
             }
         });
 
-        function newTask()
-        {
-            let addNewTaskHtml =`
+        function newTask() {
+            let addNewTaskHtml = `
                 <div class="mx-auto my-2 col-md-11">
                     <div class="form-group ">
                         <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
@@ -968,61 +935,139 @@
                 </div>
             `;
 
+            let addUrl = "{{ route('dashboard.ajax-add-task')}}";
+            $('#task_form').attr('action',addUrl); 
+
             $("#task_form_html").html(addNewTaskHtml);
             $("#save_button").show();
             $("#save_button").text('Add');
             $("#cancel_button").text('Cancel');
             $(".showDateLabel").show();
+           
             console.log('hey new task');
         }
 
-        function editTask()
+        function editTask() 
         {
-            let editNewTaskHtml =`
-                <div class="mx-auto my-2 col-md-11">
-                    <div class="form-group ">
-                        <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
-                        <input id="title" placeholder="Enter Title..." name="title" type="text"
-                            class="form-control" required>
-                        @error('title')
-                            <div class="text-danger text-sm">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="pt-2 pb-3" data-i="">
-                        <label for="exampleFormControlTextarea1"><b>Importance</b><span class="text-danger">*</span>
-                        </label><br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio1" value="high">
-                            <label class="form-check-label" for="inlineRadio1">High</label>
+
+            let completeHtml =
+                `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
+            var checkboxInputs = $(".task_table input[type='checkbox']:checked");
+
+            if (checkboxInputs.length === 0) {
+                $("#task_form_html").html(completeHtml);
+                $("#save_button").hide();
+                $("#cancel_button").text('Cancel');
+                return false;
+            }
+
+            console.log(checkboxInputs);
+            console.log('checkboxInputs');
+
+            let selectedTask = 1;
+            let editNewTaskHtml = ``;
+            for (selectedTask; selectedTask <= checkboxInputs.length; selectedTask++) {
+                editNewTaskHtml += `
+                    <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
+                        <div class=" col-md-12 card shadow-sm border-0 rounded-3">
+                            <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10" style="background:#C2CFE0; ">
+                                <h6 class="mb-0 text-dark">Task Summary</h6> <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>                            
+                            </div>
+                            <div class="task-form-body p-2" style="display: none;">
+                                <!-- Your original form HTML -->
+                                <div class="form-group">
+                                    <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
+                                    <input id="title" placeholder="Enter Title..." name="title" type="text" class="form-control" required>
+                                </div>
+
+                                <div class="pt-2 pb-3">
+                                    <label><b>Importance</b><span class="text-danger">*</span></label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio1" value="high">
+                                        <label class="form-check-label" for="inlineRadio1">High</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio2" value="medium" checked>
+                                        <label class="form-check-label" for="inlineRadio2">Medium</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio3" value="low">
+                                        <label class="form-check-label" for="inlineRadio3">Low</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="status"><b>Status</b><span class="text-danger">*</span></label>
+                                    <select class="custom-select" name="status" id="status">
+                                        <option value="open">Open</option>
+                                        <option value="inprogress">In Progress</option>
+                                        <option value="completed">Completed</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1"><b>Description</b></label>
+                                    <textarea class="form-control" name="description" rows="5" placeholder="Up to 300 characters"></textarea>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio2" checked value="medium">
-                            <label class="form-check-label"  for="inlineRadio2">Medium</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio3" value="low">
-                            <label class="form-check-label" for="inlineRadio3">Low</label>
-                        </div>
+                        
                     </div>
-                    <div class="form-group ">
-                        <label for="status"><b>Status</b><span class="text-danger">*</span> </label>
-                        <select class="custom-select" aria-label="Default select example" name="" id="">
-                            <option value="open" >Open</option>
-                            <option value="inprogress">In Progress</option>
-                            <option value="completed">Completed</option>
-                        </select>
-                        @error('title')
-                            <div class="text-danger text-sm">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1"><b>Description</b>
-                        </label>
-                        <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="5"
-                            placeholder="Up to 300 character"></textarea>
-                    </div>
-                </div>
-            `;
+                `;
+            }
+
+            $("#task_form_html").html(editNewTaskHtml);
+
+            // $editTaskData = fetchAjaxEditData(formData);
+
+            // let editNewTaskHtml = `
+            //     <div class="mx-auto my-2 col-md-11">
+            //         <div class="form-group ">
+            //             <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
+            //             <input id="title" placeholder="Enter Title..." name="title" type="text"
+            //                 class="form-control" required>
+            //             @error('title')
+            //                 <div class="text-danger text-sm">{{ $message }}</div>
+            //             @enderror
+            //         </div>
+            //         <div class="pt-2 pb-3" data-i="">
+            //             <label for="exampleFormControlTextarea1"><b>Importance</b><span class="text-danger">*</span>
+            //             </label><br>
+            //             <div class="form-check form-check-inline">
+            //                 <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio1" value="high">
+            //                 <label class="form-check-label" for="inlineRadio1">High</label>
+            //             </div>
+            //             <div class="form-check form-check-inline">
+            //                 <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio2" checked value="medium">
+            //                 <label class="form-check-label"  for="inlineRadio2">Medium</label>
+            //             </div>
+            //             <div class="form-check form-check-inline">
+            //                 <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio3" value="low">
+            //                 <label class="form-check-label" for="inlineRadio3">Low</label>
+            //             </div>
+            //         </div>
+            //         <div class="form-group ">
+            //             <label for="status"><b>Status</b><span class="text-danger">*</span> </label>
+            //             <select class="custom-select" aria-label="Default select example" name="" id="">
+            //                 <option value="open" >Open</option>
+            //                 <option value="inprogress">In Progress</option>
+            //                 <option value="completed">Completed</option>
+            //             </select>
+            //             @error('title')
+            //                 <div class="text-danger text-sm">{{ $message }}</div>
+            //             @enderror
+            //         </div>
+            //         <div class="form-group">
+            //             <label for="exampleFormControlTextarea1"><b>Description</b>
+            //             </label>
+            //             <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="5"
+            //                 placeholder="Up to 300 character"></textarea>
+            //         </div>
+            //     </div>
+            // `;
+
+            let updateUrl = "{{ route('dashboard.ajax-update-task')}}";
+            $('#task_form').attr('action',updateUrl); 
 
             $("#task_form_html").html(editNewTaskHtml);
             $("#save_button").show();
@@ -1031,11 +1076,57 @@
             $(".showDateLabel").show();
         }
 
-        function completeTask()
+        function fetchAllTaskData()
         {
-            let completeHtml = `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
+            let fetchUrl = "{{ route('dashboard.ajax-fetch-task')}}";
+            var formData = new from();
+             $.ajax({
+                url: fetchUrl, // form action URL
+                type: 'POST',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+                },
+                success: function(response) {
+                    // handle success
+                    alert('Task marked as completed successfully.');
+                    // Optionally close modal or reset form
+                },
+                error: function(xhr) {
+                    // handle error
+                    alert('Something went wrong. Please try again.');
+                }
+            });
+        }
+
+        function fetchAjaxEditData(formData)
+        {
+            let editUrl = "{{ route('dashboard.ajax-edit-task')}}";
+
+             $.ajax({
+                url: actionUrl, // form action URL
+                type: 'POST',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+                },
+                success: function(response) {
+                    // handle success
+                    alert('Task marked as completed successfully.');
+                    // Optionally close modal or reset form
+                },
+                error: function(xhr) {
+                    // handle error
+                    alert('Something went wrong. Please try again.');
+                }
+            });
+        }
+
+        function completeTask() {
+            let completeHtml =
+                `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
             var checkboxInputs = $(".task_table input[type='checkbox']:checked");
-            
+
             if (checkboxInputs.length === 0) {
                 $("#task_form_html").html(completeHtml);
                 $("#save_button").hide();
@@ -1043,32 +1134,61 @@
                 return false;
             }
 
-            completeHtml = `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc">Are you sure you want to mark all selected tasks as completed?</h4></div>`;
+            let selectedTask = 1;
+            let completedTaskIds = [];
+
+            for (selectedTask; selectedTask <= checkboxInputs.length; selectedTask++) {
+                let taskId = $(this).data('id');
+                if (taskId) {
+                    completedTaskIds.push(taskId);
+                }
+            }
+
+            let formData = new FormData();
+            formData.append('task_ids', JSON.stringify(completedTaskIds)); //
+
+            completeHtml =
+                `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc">Are you sure you want to mark all selected tasks as completed?</h4></div>`;
 
             $("#task_form_html").html(completeHtml);
             $("#save_button").text('Yes');
             $("#save_button").show();
             $("#cancel_button").text('Cancel');
+            let actionStatusUrl = "{{route('dashboard.ajax-change-status')}}";
+            //callAjax(formData, actionStatusUrl);
 
 
+            // let formData = new FormData();
+            // formData.append('task_ids', JSON.stringify(completedTaskIds)); //
+
+            // completeHtml =
+            //     `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc">Are you sure you want to mark all selected tasks as completed?</h4></div>`;
+
+            // $("#task_form_html").html(completeHtml);
+            // let actionUrl = "{{route('dashboard.ajax-change-status')}}";
+            // $("#save_button").text('Yes');
+            // $("#save_button").show();
+            // $("#cancel_button").text('Cancel');
+
+            // callAjax(formData, actionUrl);
         }
-        
-        function viewTask()
-        {
-             let completeHtml = `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
+
+        function viewTask() {
+            let completeHtml =
+                `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
             var checkboxInputs = $(".task_table input[type='checkbox']:checked");
-            
+
             if (checkboxInputs.length === 0) {
                 $("#task_form_html").html(completeHtml);
                 $("#save_button").hide();
                 $("#cancel_button").text('Cancel');
-                return false;
+                return false; 
             }
 
             console.log(checkboxInputs.length, ' jite');
             let selectedTask = 1;
             let viewTaskHtml = ``;
-            for(selectedTask; selectedTask <= checkboxInputs.length; selectedTask++){
+            for (selectedTask; selectedTask <= checkboxInputs.length; selectedTask++) {
                 viewTaskHtml += `
                     <div class="task-form-wrapper mx-auto my-2 col-md-11" style="cursor:pointer;">
                         <div class=" col-md-12 card shadow-sm border-0 rounded-3">
@@ -1128,8 +1248,8 @@
             $("#cancel_button").text('Cancel');
         }
 
-        function openTask()
-        {
+        function openTask(openData) {
+
             let openHtml = `<div class="col-md-11 mx-auto my-3">
                 <div class="card shadow-sm border-0 rounded-3">
                     <div class="card-header text-white" style="background:#C2CFE0;">
@@ -1138,15 +1258,15 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
                             <strong>Open Tasks:</strong>
-                            <span class="badge text-light bg-warning fs-6 p-1" >20</span>
+                            <span class="badge text-light bg-warning fs-6 p-1 totalOpenTask" >20</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
                             <strong>In Progress Tasks:</strong>
-                            <span class="badge bg-primary text-light fs-6 p-1" >30</span>
+                            <span class="badge bg-primary text-light fs-6 p-1 totalInprogressTask" >30</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-center py-2">
                             <strong>Completed Tasks:</strong>
-                            <span class="badge bg-success text-light fs-6 p-1" >20</span>
+                            <span class="badge bg-success text-light fs-6 p-1 totalCompletedTask" >20</span>
                         </div>
                     </div>
                 </div>
@@ -1158,26 +1278,164 @@
             $("#cancel_button").text('Cancel');
         }
 
-        function callAjax(formData, actionUrl)
-        {
+        function callAjax(formData, actionUrl) {
             $.ajax({
-                    url: actionUrl, // form action URL
-                    type: 'POST',
-                    data: formData,
+                url: actionUrl, // form action URL
+                type: 'POST',
+                data: formData,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+                },
+                success: function(response) {
+                    console.log(response);
+                    // console.log('response');
+
+                    if(response.task_name == 'open'){
+                        $('.totalOpenTask').text(response.data.open);
+                        $('.totalInprogressTask').text(response.data.inprogress);
+                        $('.totalCompletedTask').text(response.data.completed);
+                        return true;
+                    }
+
+                    if(response.task_name == 'add_task'){
+                        loadTasks(1);
+                        $('#taskModal').modal('hide');
+                        return true;
+                    }
+
+                    //alert('Task marked as completed successfully.');
+                    // Optionally close modal or reset form
+                },
+                error: function(xhr) {
+                    // handle error
+                    alert('Something went wrong. Please try again.');
+                }
+            });
+        }
+
+        // $(document).ready(function () {
+            loadTasks(1);
+
+            // handle pagination click
+            $(document).on('click', '.page-link', function (e) {
+                e.preventDefault();
+                let page = $(this).data('page');
+                loadTasks(page);
+            });
+
+            function loadTasks(page = 1) {
+               let baseUrl = "{{ route('dashboard.ajax-fetch-task') }}"+'?page='+page;
+                 $.ajax({
+                    url: baseUrl, // form action URL
+                    type: 'GET',
+                    contentType: 'application/json',
                     headers: {
+                        'Accept': 'application/json',
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
                     },
                     success: function(response) {
-                        // handle success
-                        alert('Task marked as completed successfully.');
-                        // Optionally close modal or reset form
+                        console.log(response, response.data)
+                        console.log('response, response.data.data')
+                        
+                        renderTasks(response.data.data); 
+                        renderPagination(response.data);  
                     },
                     error: function(xhr) {
                         // handle error
-                        alert('Something went wrong. Please try again.');
+                        //alert('Something went wrong. Please try again.');
                     }
                 });
-        }
+            }
 
+            function renderTasks(tasks) {
+               
+                let html = '';
+                var taskBadgeColor = '#9d1d08 ';
+                var priorityColor = 'text-high';
+
+                $.each(tasks, function (index, task) {
+
+                    if(task.status == 'inprogress'){
+                        taskBadgeColor = '#4e73df ';
+                    }
+
+                    if(task.status == 'completed'){
+                        taskBadgeColor = '#1cc88a';
+                    }
+
+                    
+                    if(task.priority == 'medium'){
+                        priorityColor = 'text-medium';
+                    }
+                    if(task.priority === 'low'){
+                        priorityColor = 'text-low';
+                    }
+                    let checkboxId = 'task_checkbox_' + task.id;
+                    let taskId = task.id;
+
+                    html += `<tr>
+                        <td class="border-0 pl-0 pr-0">
+                            <div class="form-check m-0 p-0">
+                                <label class="form-check-label" for="`+checkboxId+`">
+                                    <input class="form-check-input" name="task_ids" data-id="`+taskId+`" id="`+checkboxId+`" type="checkbox" value="">
+                                    <span class="form-check-sign"></span>
+                                </label>
+                            </div>
+                        </td>
+                        <td class="border-0 pl-0 task-color">
+                            <label for="`+checkboxId+`" class="mb-0 cursor-pointer">
+                            <i
+                                class="fas fa-circle `+priorityColor+` taski mr-2"></i>`+task.title+`
+                            </label></td>
+                        <td class="td-actions text-left border-0 ">
+                            <span class="badge badge-danger-lighten task-1" style="background: `+taskBadgeColor+`; padding:5px 10px; max-width:120px; width:100%;">`+task.status+`</span>
+                        </td>
+                        <td class="theme-color  pr-0 bg-white" style="border: none;">
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button"
+                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i
+                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink" style="">
+                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                        data-target="#new-ban">Delete</a>
+                                    
+                                </div>
+                            </div>
+                        </td>
+                    </tr>`;
+                });
+                
+                $('#taskList').html(html);
+            }
+
+            function renderPagination(data) {
+                let pagination = `<nav><ul class="pagination">`;
+
+                if (data.current_page > 1) {
+                    pagination += `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page - 1}"><i class="fa fa-angle-left"></i></a></li>`;
+                }else{
+                    pagination += `<li class="page-item page-link"><i class="fa fa-angle-left"></i></li>`;
+                }
+
+                for (let i = 1; i <= data.last_page; i++) {
+                    pagination += `<li class="page-item ${i === data.current_page ? 'active' : ''}">
+                        <a href="#" class="page-link" data-page="${i}">${i}</a>
+                    </li>`;
+                }
+
+                if (data.current_page < data.last_page) {
+                    pagination += `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page + 1}"><i class="fa fa-angle-right"></i></a></li>`;
+                }else{
+                    pagination += `<li class="page-item page-link"><i class="fa fa-angle-right"></i></li>`;
+                }
+
+                pagination += `</ul></nav>`;
+                $('.custome_paginator').html(pagination);
+            }
+        // });
     </script>
 @endsection

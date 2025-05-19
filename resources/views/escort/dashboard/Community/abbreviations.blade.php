@@ -798,7 +798,7 @@ Creator's Content, including by subscription and payments made by a User to view
                               </div>
                               <div class=" wi-icon-box">
                                  <div class="mr-3 wi-icon-icon">
-                                    <img src="{{ asset('assets/img/Twitter.png') }}" alt="" class=" wi-icon">
+                                    <img src="{{ asset('assets/img/twitter-custom.png') }}" alt="" class=" wi-icon">
                                  </div>
                                  <div class="wi-icon-content-box">
                                     <p class="wi-icon-content">means the platform known as Twitter</p>
