@@ -309,13 +309,13 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-
+                       $("#modal-title").text('Password Expiry');
                         if (data.error == true) {
                             var msg = "Saved";
                             $('.comman_msg').text(msg);
                             //$("#my_account_modal").show();
                             $("#comman_modal").modal('show');
-                            location.reload();
+                           // location.reload();
 
                         } else {
                             // $('.comman_msg').html("Please enter your correct current password");
