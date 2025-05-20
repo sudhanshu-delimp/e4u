@@ -50,19 +50,19 @@
                         </div>
                         <div class="form-check">
                             <input class="form-check-input akhplaymate" name="playmate" type="checkbox" id="method_Email_dummy" value="1" {{auth()->user()->available_playmate == 1 ? 'checked' : ''}} >
-                            <label class="form-check-label " for="Method_Email">I’m available as a playmate</label>
+                            <label class="form-check-label " for="Method_Email">I'm available as a playmate</label>
                         </div>
                         <div class="pt-1"><i>Some features are enabled by default unless you disable them.</i></div>
                         </div>
                         <div class="form-group">
                         <label for="email">Agent</label><br>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="Method_Message" value="option1">
-                            <label class="form-check-label" for="Method_Message">Receive communications</label>
+                            <input class="form-check-input" type="checkbox" id="agent_communications1" value="1"  name="agent_communications[]" @if(!empty(auth()->user()->agent_communications)) {{(in_array(1 , auth()->user()->agent_communications)) ? 'checked' : null }} @endif >
+                            <label class="form-check-label" for="agent_communications1">Receive communications</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
-                            <label class="form-check-label" for="Method_Text">Send communications</label>
+                            <input class="form-check-input" type="checkbox" id="agent_communications2" value="2" name="agent_communications[]" @if(!empty(auth()->user()->agent_communications)) {{(in_array(2 , auth()->user()->agent_communications)) ? 'checked' : null }} @endif >
+                            <label class="form-check-label" for="agent_communications2">Send communications</label>
                         </div>
                         <div class="pt-1"><i>Enable communications between you and your Escort Agency (if applicable).</i></div>
                         </div>
@@ -322,7 +322,7 @@
 
     $('#profile_notification_options').on('submit', function(e) {
       e.preventDefault();
-
+         $("#modal-title").text('Notifications & Features');
         var form = $(this);
         var url = form.attr('action');
         var data = new FormData(form[0]);

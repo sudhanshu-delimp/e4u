@@ -352,8 +352,7 @@ class WebController extends Controller
         $memberTotalCount[2] =  $gold->count();
         $memberTotalCount[3] =  $silver->count();
         $memberTotalCount[4] =  $free->count();
-        
-        
+
         $merged = $platinum->concat($gold)->concat($silver)->concat($free);
        
         $sliced = $merged->slice(($page - 1) * $perPage, $perPage)->values();
