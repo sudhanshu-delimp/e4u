@@ -412,13 +412,10 @@
                            <p>if you arrive at a place and you are in any way worried about your physical security or
                                see
                                any danger signs, leave immediately.</p>
-
-
-                           <br>
-                           <p><b>Changes to this Guide</b></p>
-                           <span>
-                               This Guide was last updated on 24-01-2024.
-                           </span>
+                           <div class="container mt-4 px-0 chagneto-policy"> 
+                                <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+                                <p><b>This Guide was last updated on 19-05-2025</b></p>
+                            </div>
                        </div>
                    </div>
                </div>

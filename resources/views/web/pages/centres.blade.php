@@ -71,8 +71,10 @@
         setting up your details in your Account. Check out our <a class="termsandconditions_text_color" href="{{ url('help-for-massage-centres')}}" class="e4ulinks">Help for Massage Centres</a> 
         information summary as well. 
     </p>
-    <p><b>Changes to this Guide</b></p>
-            <p>This Guide was last updated on 13-07-2024.</p>
+    <div class="container mt-4 px-0 chagneto-policy"> 
+            <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+            <p><b>This Guide was last updated on 19-05-2025</b></p>
+        </div>
    </div>
 </section>
 @endsection

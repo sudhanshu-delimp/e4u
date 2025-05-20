@@ -66,8 +66,10 @@
         made available to them. You can also seek out Massage Centres with a view to having
         them register with Escorts4U where you will receive a payment for your services.
     </p>
-    <p><b>Changes to this Guide</b></p>
-            <p>This Guide was last updated on 13-07-2024.</p>
+    <div class="container mt-4 px-0 chagneto-policy"> 
+            <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+            <p><b>This Guide was last updated on 19-05-2025</b></p>
+        </div>
    </div>
 </section>
 @endsection
