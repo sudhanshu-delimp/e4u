@@ -143,7 +143,7 @@
                                             <label class="form-check-label" for="auth"> I authorise E4U to debit my
                                                 nominated Card.</label>
                                         </div>
-                                        @error('auth')
+                                        @error('auth') 
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
