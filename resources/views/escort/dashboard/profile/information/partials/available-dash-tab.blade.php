@@ -38,7 +38,7 @@
                                 </label>
                                 <input type="hidden" value="{{$day}}">
                             </div>
-                            <div class="row col-xl-5 col-lg-6 col-md-12 ml-xl-4">
+                            <div class="row col-xl-4 col-lg-5 col-md-12 ml-xl-4">
                                 <div class="col-lg-5 col-md-5">
                                     <div class="service_rate_dolor_symbol form-group" data-parsley-gt="#{{$shortDays[$day]}}_to" @disabled(true)>
                                         <select class="form-control form-control-sm select_tag_remove_box_sadow {{$day}} p-0"
@@ -78,7 +78,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row col-xl-5 col-lg-4">
+                            <div class="row col-xl-6 col-lg-5">
+                                 <div class="form-check form-check-inline">
+                                    <input class="form-check-input {{$day}}" type="radio" name="availability_time[{{$day}}]"
+                                           id="{{$day}}_til_ate" value="til_ate"
+                                           data-parsley-multiple="covidreport" @if(!empty($escort->availability->availability_time[$day])) {{ $escort->availability->availability_time[$day] == 'til_ate' ? 'checked' : ''}} @endif>
+                                    <label class="form-check-label" for="{{$day}}_til_ate">... Til late</label>
+                                </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input {{$day}}" type="radio" name="availability_time[{{$day}}]"
                                            id="{{$day}}_unavailable" value="unavailable"

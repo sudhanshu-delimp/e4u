@@ -775,7 +775,7 @@
 
    $('#storeRate').on('submit', function(e) {
        e.preventDefault();
-
+      $("#modal-title").text('');
        var form = $(this);
        var url = form.attr('action');
        var data = new FormData($('#storeRate')[0]);
@@ -811,9 +811,10 @@
 
    $('#myability').on('submit', function(e) {
        e.preventDefault();
-
+        $("#modal-title").text('');
        var form = $(this);
-
+       $("#modal-title").text('My Availability');
+       $("#modal-title").text('');
        if (form.parsley().isValid()) {
 
            $('#my_abilities').prop('disabled', true);

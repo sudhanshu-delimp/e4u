@@ -56,6 +56,7 @@ class User extends Authenticatable
         'tour_permissition_type' => 'array',
         'alert_notifications' => 'array',
         'profile_creator' => 'array',
+        'agent_communications' => 'array',
     ];
 
     /**
