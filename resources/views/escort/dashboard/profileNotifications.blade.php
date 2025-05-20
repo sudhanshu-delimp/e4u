@@ -50,7 +50,7 @@
                         </div>
                         <div class="form-check">
                             <input class="form-check-input akhplaymate" name="playmate" type="checkbox" id="method_Email_dummy" value="1" {{auth()->user()->available_playmate == 1 ? 'checked' : ''}} >
-                            <label class="form-check-label " for="Method_Email">I'm available as a playmate</label>
+                            <label class="form-check-label " for="method_Email_dummy">I'm available as a playmate</label>
                         </div>
                         <div class="pt-1"><i>Some features are enabled by default unless you disable them.</i></div>
                         </div>
@@ -69,12 +69,12 @@
                         <div class="form-group">
                         <label for="email">Alert notifications</label><br>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="alert_notifications[]" id="Method_Message" value="1" @if(!empty(auth()->user()->alert_notifications)) {{(in_array(1 , auth()->user()->alert_notifications)) ? 'checked' : null }} @endif>
-                            <label class="form-check-label" for="Method_Message">Email (A-Alert)</label>
+                            <input class="form-check-input" type="checkbox" name="alert_notifications[]" id="alert_notifications1" value="1" @if(!empty(auth()->user()->alert_notifications)) {{(in_array(1 , auth()->user()->alert_notifications)) ? 'checked' : null }} @endif>
+                            <label class="form-check-label" for="alert_notifications1">Email (A-Alert)</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" name="alert_notifications[]" type="checkbox" id="Method_Text" value="2"  @if(!empty(auth()->user()->alert_notifications)) {{(in_array(2 , auth()->user()->alert_notifications)) ? 'checked' : null }} @endif>
-                            <label class="form-check-label" for="Method_Text">Text</label>
+                            <input class="form-check-input" name="alert_notifications[]" type="checkbox" id="alert_notifications2" value="2"  @if(!empty(auth()->user()->alert_notifications)) {{(in_array(2 , auth()->user()->alert_notifications)) ? 'checked' : null }} @endif>
+                            <label class="form-check-label" for="alert_notifications2">Text</label>
                         </div>
                         <div class="pt-1"><i>How Escorts4U will communicate with you.</i></div>
                         </div>
