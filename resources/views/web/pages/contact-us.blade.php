@@ -29,6 +29,20 @@
                 transform: rotate(360deg);
             }
         }
+        #contect .form-group label {
+        font-size:16px;
+        line-height:unset;
+        padding-bottom:0px;
+        text-transform:capitalize;
+    }
+    .btn-primary {
+      background-color: #0C223D;
+      border-color: #0C223D;
+    }
+    .btn-primary:hover {
+      background-color: #0C223D;
+      border-color: #0C223D;
+    }
     </style>
 @endsection
 @section('content')
@@ -86,7 +100,7 @@
                     <label for="exampleFormControlTextarea1">Comment</label>
                     <textarea class="form-control border_for_form" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
-                <button type="submit" id="" class="btn site_btn_primary mb-3">Send message</button>
+                <button type="submit" id="" class="btn btn-primary mb-3">Send message</button>
             </form>
 
 

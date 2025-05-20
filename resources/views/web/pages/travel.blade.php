@@ -48,10 +48,11 @@
 
         </ul>
 
-       <div class="mt-5">
-           <b>Changes to this Guide</b><br>
-           <span>This Guide was last updated on 02-2024.</span>
-       </div>
+       
+        <div class="container mt-4 px-0 chagneto-policy"> 
+            <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+            <p><b>This Guide was last updated on 19-05-2025</b></p>
+        </div>
    </div>
 </section>
 @endsection
