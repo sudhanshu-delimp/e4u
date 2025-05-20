@@ -277,6 +277,7 @@ class EscortController extends Controller
         $data = [];
         $data = [
                 'alert_notifications' => $request->alert_notifications,
+                'agent_communications' => $request->agent_communications,
         ];
 
         $error = true;
