@@ -24,6 +24,44 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
     }
+
+    .form-control, .form-check-input {
+      background-color: #fff;
+      color: #000;
+      border-radius:5px;
+      border:1px solid #d1d3e2;
+    }
+    
+    #myfeedback label{
+      font-weight:bold;
+    }
+    #myfeedback .form-group label {
+        font-size:16px;
+        line-height:unset;
+        padding-bottom:0px;
+        text-transform:capitalize;
+    }
+    .btn-primary {
+      background-color: #0C223D;
+      border-color: #0C223D;
+    }
+    .btn-primary:hover {
+      background-color: #0C223D;
+      border-color: #0C223D;
+    }
+    .btn-outline-light{
+       
+      background-color: #0C223D;
+      border-color: #0C223D;
+    }
+    .btn-outline-light:hover {
+      background-color: #0C223D;
+      border-color: #0C223D;
+      color: #fff;
+    }
+    .form-control {
+      border: 1px solid #d1d3e2;
+    }
 </style>
 @endsection
 @section('content')
@@ -36,7 +74,7 @@
          @csrf
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4"><span style="color:red">* </span>Subject</label>
+                    <label for="inputEmail4">Subject <span style="color:red">* </span></label>
                     <select class="form-control border_for_form" id="fb-subject" name="subject_id" required="">
                         <option id="placeholder" selected="" disabled="" value="">--- Select ---</option>
                         @foreach(config('escorts.profile.subjects') as $key => $subject)
@@ -45,7 +83,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                     <label for="inputPassword4"><span style="color:red">* </span>Option</label>
+                     <label for="inputPassword4">Option <span style="color:red">* </span></label>
                      <select class="form-control border_for_form" id="fb-options" name="option_id" >
                         <option value="" selected="" disabled>--- Please choose from above ---</option>
                      </select>
@@ -56,7 +94,7 @@
                 <textarea class="form-control border_for_form" name="comment" id="exampleFormControlTextarea1" rows="3"></textarea>
             </div>
             <div class="form-group">
-                <label for="inputAddress"><span style="color:red">* </span>Email address</label>
+                <label for="inputAddress">Email address <span style="color:red">* </span></label>
                 <input type="email" name="email" required class="form-control border_for_form" id="inputEmail4" placeholder="Email address" data-parsley-required-message="@lang('errors/validation/required.email')" data-parsley-type-message="@lang('errors/validation/valid.email')">
                 <div class="termsandconditions_text_color">
                     @error('email')
@@ -64,13 +102,14 @@
                     @enderror
                 </div>
             </div>
-            <button type="submit" id="" class="btn site_btn_primary mb-3">Submit Feedback</button>
-            <div class="form-check form-check-inline mb-2 ml-sm-2">
+            <div class="form-check mb-3">
                 <input class="form-check-input" type="checkbox" id="inlineFormCheck">
                 <label class="form-check-label" for="inlineFormCheck">
-                cc Yourself
+                CC Yourself
                 </label>
             </div>
+            <button type="submit" class="btn btn-primary mb-3">Submit Feedback</button>
+           
         </form>
         
     </div>

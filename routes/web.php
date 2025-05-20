@@ -209,7 +209,7 @@ Route::get('/law-enforcement', function() { return view('web.pages.law-enforceme
 Route::get('/privacy-policy', function() { return view('web.pages.privacy-policy'); });
 Route::get('/refund-policy', function() { return view('web.pages.refund-policy'); });
 Route::get('/spam-policy', function() { return view('web.pages.spam-policy'); });
-Route::get('/terms-conditions', function() { return view('web.pages.terms-conditions'); });
+Route::get('/terms-conditions', function() { return view('web.pages.terms-conditions'); })->name('pages.terms-conditions');
 Route::get('/abbreviations', function() { return view('web.pages.abbreviations'); });
 Route::get('/alerts', function() { return view('web.pages.alerts'); });
 Route::get('/blog', function() { return view('web.pages.blog'); });

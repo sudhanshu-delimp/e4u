@@ -104,6 +104,7 @@
                                     </select>
                                     <div class="display_inline_block custom-refreshbuton">
                                         <div class="margin_btn_reset">
+                                            
                                             <a type="reset" class="btn reset_filter" href="{{ route('find.all') }}"
                                                 data-toggle="tooltip" title="Refresh page">
                                                 <i class="fa fa-repeat" aria-hidden="true"></i>
@@ -125,7 +126,10 @@
                                     </div>
                                 </div>
                                 <div class="display_inline_block mb-1">
-                                    <a type="submit" href="{{ route('shortlist.clear-list') }}" class="btn reset_filter "
+                                    @php
+                                        $query = Arr::except(request()->query(), ['ipinfo']);
+                                    @endphp
+                                    <a type="submit" href="{{ route('shortlist.clear-list', $query) }}" class="btn reset_filter "
                                         data-toggle="tooltip" title="clear shortlist button">
                                         Clear Shortlist
                                     </a>

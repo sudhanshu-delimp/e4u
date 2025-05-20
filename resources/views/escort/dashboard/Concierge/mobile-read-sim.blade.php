@@ -143,7 +143,7 @@
                                             <label class="form-check-label" for="auth"> I authorise E4U to debit my
                                                 nominated Card.</label>
                                         </div>
-                                        @error('auth')
+                                        @error('auth') 
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -152,7 +152,7 @@
                                             <input name="terms" class="form-check-input" type="checkbox"
                                                 id="pref_terms">
                                             <label class="form-check-label" for="pref_terms"> I have read and agree to the
-                                                <a href="http://127.0.0.1:8000/terms-conditions"
+                                                <a href="{{ route('pages.terms-conditions') }}#mobile-sim"
                                                     target="_blank">Terms.</a></label>
 
                                         </div>

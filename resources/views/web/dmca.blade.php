@@ -80,13 +80,10 @@ or implied, regarding any use of the Material posted by an Advertiser.<p>
 Report about an Advertiser and the Material, and reserves all of its rights to seek
 compensation for any damages or losses suffered as a result of any false Report.</p>
 
-<h3 class="primery_color normal_heading">Changes to this Policy
-      </h3>
-      <p>We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="http://e4u.local/terms-conditions" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to review the most current version.<p>
-    <p>Escorts4U archives all previous versions of this Policy.</p>
- 
- <p><b>This policy was last updated 14-05-2025</b></p>
-     
+<div class="container mt-4 px-0 chagneto-policy"> 
+            <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+            <p><b>This Guide was last updated on 19-05-2025</b></p>
+        </div>
      
      
    </div>

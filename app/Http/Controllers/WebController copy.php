@@ -363,9 +363,10 @@ class WebController extends Controller
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
 
-    public function clearShortList()
+    public function clearShortList(Request $request)
     {
         session('cart','');
+        //return $this->allEscortList($request, $gender = null);
         return redirect()->back()->with('success','Shortlist is clear successfully.');
     }
 

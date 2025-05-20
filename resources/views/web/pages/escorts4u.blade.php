@@ -130,9 +130,12 @@ upload Content for Users to view either as a pay-per-view or by subscription.
         pleasure that follows. If your experience was a wonderful one, please write a review about
         your experience (registration required).
     </p>
-    <p><b>Changes to this Guide</b></p>
-            <p>This Guide was last updated on 13-07-2024.</p>
-   </div>
+    <div class="container mt-4 px-0 chagneto-policy">
+        <hr style="border: none; border-top: 1px solid #ccc; margin-top: 40px; margin-bottom: 20px;">
+        <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+        <p><b>This Guide was last updated on 19-05-2025</b></p>
+    </div>
+   </div>        
 </section>
 @endsection
 @push('scripts')

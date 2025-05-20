@@ -143,7 +143,10 @@
                             <div class="form-group">
                                 <label>Alert notifications</label><br>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" {{ (isset($preference->notifications) && in_array('email', $preference->notifications)) ? 'checked' : ''}} id="notifications_email" name="notifications[]" value="email">
+                                    @php
+                                        $prefNotification = isset($preference->notifications) ? json_decode($preference->notifications) : [];
+                                    @endphp
+                                    <input class="form-check-input" type="checkbox" {{ (isset($preference->notifications) && in_array('email', $prefNotification)) ? 'checked' : ''}} id="notifications_email" name="notifications[]" value="email">
                                     <label class="form-check-label" for="notifications_email">Email</label>
                                 </div>
                                 <div class="form-check">
