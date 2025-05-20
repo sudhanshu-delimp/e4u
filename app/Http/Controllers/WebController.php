@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Arr;
 
 class WebController extends Controller
 {
@@ -468,17 +469,18 @@ class WebController extends Controller
         return view('web.all-filter-profile', compact('user','services', 'service_one', 'service_two', 'service_three', 'escorts'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
-    public function showAddList()
+    public function showAddList(Request $request)
     {
+        //dd($request->all());
         $escortId = [];
         if(session('cart')) {
             foreach(session('cart') as $id => $vlaue) {
-
                 $escortId[] = $id;
             }
-
         }
         else {
+            //dd('hefye');
+            // return redirect()->route('find.all', $query);
             $escortId[] = null;
         }
         
@@ -508,16 +510,22 @@ class WebController extends Controller
 
         $services = $this->services->all();
 
+        $backToListing = session('search_escort_filters_url');
+
         //dd($escorts);
         //dd($escorts->items()[1]->where(8));
-        return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts'));
+        return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts','backToListing'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
 
-    public function clearShortList()
+    public function clearShortList(Request $request)
     {
+        
         session()->forget('cart'); 
-        return redirect()->back()->with('success', 'Shortlist has been cleared successfully.');
+        $query = Arr::except(request()->query(), ['ipinfo']);
+
+        // Redirect with preserved query parameters
+        return redirect()->route('find.all', $query);
     }
 
     public function mcMyShortList()
