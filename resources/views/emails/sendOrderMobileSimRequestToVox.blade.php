@@ -35,7 +35,7 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                        Mobile SIM Order - Mobile SIM<br>
+                                        Mobile SIM Order<br>
                                         <span style="font-size: 13px; color: #cccccc;">(Ref:
                                             {{ $body['order_ref'] }})</span><br>
                                         <span style="font-size: 13px; color: #cccccc;">Member ID:
@@ -49,7 +49,7 @@
                     <tr>
                         <td style="padding: 30px;">
                             <!-- Greeting -->
-                            <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Dear Supplier,</b></p>
+                            <p style="font-size: 16px; margin: 0 0 15px 0;">Dear Supplier,</p>
                             {{-- <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Escort ID: {{ $body['member_id'] }},</b></p> --}}
                             <!-- Main Message -->
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
