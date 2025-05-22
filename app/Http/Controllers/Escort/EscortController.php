@@ -116,8 +116,12 @@ class EscortController extends Controller
     {
         $escort = auth()->user()->escort;
 
-        $active_escorts = Escort::select(['id', 'name', 'profile_name'])
+        $active_escorts = Escort::select(['id', 'name', 'profile_name', 'state_id', 'city_id'])
+            ->with('state', function($query){
+                $query->select(['id', 'name', 'country_id']);
+            })
             ->where(['enabled' => 1, 'user_id' => auth()->user()->id])
+            ->whereNotNull('profile_name')
             ->get()->toArray();
 
         return view('escort.dashboard.list', compact('escort', 'type', 'active_escorts'));
@@ -393,9 +397,8 @@ class EscortController extends Controller
     }
     public function storeMyAvatar(StoreAvatarMediaRequest $request,$id)
     {
-        $attachment = $request->file('avatar_img');
-        //$extension = explode('/', mime_content_type($request->src))[1];
-        $extension = $attachment->getClientOriginalExtension();
+        //$attachment = $request->file('avatar_img');
+        $extension = explode('/', mime_content_type($request->src))[1];
         $data = $request->src;
 
         list($type, $data)  = explode(';', $data);

@@ -193,6 +193,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->name = $item->name ? $item->name :"NA";
             $item->pro_name = $item->profile_name ? $item->profile_name :"NA";
             $item->city_name = $item->city ? $item->city->name : null;
+            $item->state_name = $item->state ? $item->state->name : null;
             if($item->enabled ==1) {
                 $item->enabled = "Active"; } elseif($item->enabled ==0) {
                     $item->enabled = "Inactive";} else {

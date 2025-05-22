@@ -103,19 +103,16 @@
                        <th>ID</th>
                        <th>
                           Profile Name
-
+                       </th>
+                       <th>
+                          Stage Name
                        </th>
                        <th>Location</th>
                        <!-- <th>Membership</th> -->
-                       <th>
-                          Stage Name
-
-                       </th>
                        <th>Mobile Number</th>
                        <!-- <th>Competitor</th>-->
                        <th>
                           Date Created
-
                        </th>
                        <th>Status</th>
                        <!--<th>Joined E4U</th>-->
@@ -153,7 +150,7 @@
                                             <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="profile_id" name="profile_id" data-parsley-errors-container="#profile-errors" required data-parsley-required-message="Select Profile">
                                                 <option value="">Select Profile</option>
                                                 @foreach($active_escorts as $profile)
-                                                    <option value="{{$profile['id']}}">{{ $profile['name'] }}</option>
+                                                    <option value="{{$profile['id']}}">{{$profile['id']}} - {{$profile['name']}} @if(isset($profile['state']['name']))- {{$profile['state']['name']}}@endif</option>
                                                 @endforeach
                                             </select>
                                             <span id="profile-errors"></span>
@@ -253,7 +250,8 @@
                { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'pro_name', name: 'profile_name', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'city_name', name: 'city_name', searchable: false, orderable:true ,defaultContent: 'NA'},
+               //{ data: 'city_name', name: 'city_name', searchable: false, orderable:true ,defaultContent: 'NA'},
+               { data: 'state_name', name: 'state_name', searchable: false, orderable:true ,defaultContent: 'NA'},
                { data: 'phone', name: 'phone', searchable: true, orderable:true,defaultContent: 'NA' },
                { data: 'start_date_parsed', name: 'created_at', searchable: false, orderable:false,defaultContent: 'NA' },
                { data: 'enabled', name: 'enabled', searchable: false, orderable:true,defaultContent: 'NA' },
