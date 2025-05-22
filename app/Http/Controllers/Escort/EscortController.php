@@ -393,8 +393,9 @@ class EscortController extends Controller
     }
     public function storeMyAvatar(StoreAvatarMediaRequest $request,$id)
     {
-        //$attachment = $request->file('avatar_img');
-        $extension = explode('/', mime_content_type($request->src))[1];
+        $attachment = $request->file('avatar_img');
+        //$extension = explode('/', mime_content_type($request->src))[1];
+        $extension = $attachment->getClientOriginalExtension();
         $data = $request->src;
 
         list($type, $data)  = explode(';', $data);
