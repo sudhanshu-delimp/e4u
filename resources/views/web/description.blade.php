@@ -821,104 +821,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
-                    <div class="profile_card_border profile_page_box_heading">
-                        <h2>Reviews</h2>
-                    </div>
-                    <div class="padding_20_tob_btm_side">
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <!-- Wrapper for carousel items -->
-                            <div class="carousel-inner">
-                                <div class="carousel-item carousel-item-next carousel-item-left">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-6">
-                                            <div class="d-flex align-items-center gap_between_text_and_img">
-                                                <div class="manage_testimonials_profile_img">
-                                                    <img src="{{ asset('assets/app/img/profile/testmonialbyimg.png') }}">
-                                                </div>
-                                                <div class="testimonial_by">Sierra</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="star-rating star-align-dk">
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><b class="">3.5</b></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum idac nisl bibendum scelerisque non non.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item active carousel-item-left">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-6">
-                                            <div class="d-flex align-items-center gap_between_text_and_img">
-                                                <div class="manage_testimonials_profile_img">
-                                                    <img src="{{ asset('assets/app/img/profile/testmonialbyimg.png') }}">
-                                                </div>
-                                                <div class="testimonial_by">Sierra</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="star-rating star-align-dk">
-                                                <ul class="list-inline">
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><b class="">3.5</b></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum idac nisl bibendum scelerisque non non.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Carousel controls -->
-                            <div class="row">
-                                <div class="col-md-6">
-                                    @if(auth()->user())
-                                        @if(auth()->user()->type == 0)
-                                            <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
-                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                                Add Reviews
-                                            </button>
-                                        @endif
-                                    @else
-                                        <button type="button" class="btn add_reviews_btn all_btn_flx">
-                                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                            <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
-                                        </button>
-                                    @endif
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="arroww next_prev">
-                                        <a class="carousel-control-prev manage_oprcity" href="#myCarousel" data-slide="prev">
-                                        <img src="{{ asset('assets/app/img/prev.svg') }}">
-                                        </a>
-                                        <a class="carousel-control-next manage_oprcity" href="#myCarousel" data-slide="next">
-                                        <img src="{{ asset('assets/app/img/next.svg') }}">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="col-md-4 profile-sidebar-margin-top">
                 <!-- video crousal start -->
@@ -1391,6 +1293,133 @@
         </div>
     </div>
     <!-- tip section end here -->
+
+    
+    <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
+        <div class="profile_card_border profile_page_box_heading">
+            <h2>Reviews</h2>
+        </div>
+        <div class="padding_20_tob_btm_side">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Wrapper for carousel items -->
+                            <div class="carousel-inner">
+                                <div class="carousel-item carousel-item-next carousel-item-left">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6 d-none">
+                                            <div class="d-flex align-items-center gap_between_text_and_img">
+                                                <div class="manage_testimonials_profile_img">
+                                                    <img src="{{ asset('assets/app/img/profile/testmonialbyimg.png') }}">
+                                                </div>
+                                                <div class="testimonial_by">Sierra</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="star-rating">
+                                                <div class="testimonial_by">Sierra</div>
+                                                <ul class="list-inline mb-0">
+                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
+                                                    <li class="list-inline-item testi_icon_color"><b class="">3.5</b></li>
+                                                </ul>
+                                                <p class="mb-0">Reviewed [19-05-2025]</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum idac nisl bibendum scelerisque non non.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="carousel-item active carousel-item-left">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6 d-none">
+                                            <div class="d-flex align-items-center gap_between_text_and_img">
+                                                <div class="manage_testimonials_profile_img d-none">
+                                                    <img src="{{ asset('assets/app/img/profile/testmonialbyimg.png') }}">
+                                                </div>
+                                                <div class="testimonial_by">Sierra</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                        <div class="star-rating">
+                                                <div class="testimonial_by">Sierra</div>
+                                                <ul class="list-inline mb-0">
+                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
+                                                    <li class="list-inline-item testi_icon_color"><b class="">3.5</b></li>
+                                                </ul>
+                                                <p class="mb-0">Reviewed [19-05-2025]</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum idac nisl bibendum scelerisque non non.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Carousel controls -->
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    @if(auth()->user())
+                                        @if(auth()->user()->type == 0)
+                                            <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                Add Reviews
+                                            </button>
+                                        @endif
+                                    @else
+                                        <button type="button" class="btn add_reviews_btn all_btn_flx">
+                                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                            <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
+                                        </button>
+                                    @endif
+                                </div>
+                                <div class="col-md-12 custom-review-arrow">
+                                    <div class="arroww next_prev">
+                                        <a class="carousel-control-prev manage_oprcity custom-prev" href="#myCarousel" data-slide="prev">
+                                        <img src="{{ asset('assets/app/img/prev.svg') }}">
+                                        </a>
+                                        <a class="carousel-control-next manage_oprcity custom-next" href="#myCarousel" data-slide="next">
+                                        <img src="{{ asset('assets/app/img/next.svg') }}">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--- if escort has no review then show this section -->
+                    <div class="py-3 row d-none">
+                        <div class="col-md-12">
+                            <p class="testimonial">
+                                <strong>Sierra</strong> has no Reviews. Why don’t you give <strong>Sierra</strong> their first Review?’ 
+                            </p>
+                        </div>
+                        <div class="col-md-12 mb-4">
+                            @if(auth()->user())
+                                @if(auth()->user()->type == 0)
+                                    <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                        Add Reviews
+                                    </button>
+                                @endif
+                                @else
+                                     <button type="button" class="btn add_reviews_btn all_btn_flx">
+                                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
+                                    </button>
+                            @endif
+                        </div>
+                    </div>
+                </div>
 </div>
 <!-- sssssssssssssssss -->
 </div>
@@ -1550,33 +1579,35 @@
                         <div class="col">
                             <div class="form-group popup_massage_box">
                                 <label for="exampleFormControlTextarea1">Tell us about your experience:</label>
-                                <textarea name="description" class="form-control popup_massage_box" id="review_textarea" rows="3" placeholder="Message (250 characters)"></textarea>
+                                <textarea name="description" class="form-control popup_massage_box" id="review_textarea" rows="3" placeholder="Message (500 characters)"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="revew-myratings">
                         <p class="mb-0" style="font-size: 20px;">Rating:</p>
-                        <div class="rating">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-                                <path d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z" stroke="#FF3C5F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        <div class="rating-stars">
+                            <!-- Repeatable SVG stars -->
+                            <svg class="star" data-value="1" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-                                <path d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z" stroke="#FF3C5F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <svg class="star" data-value="2" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-                                <path d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z" stroke="#FF3C5F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <svg class="star" data-value="3" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-                                <path d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z" stroke="#FF3C5F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <svg class="star" data-value="4" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-                                <path d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z" stroke="#FF3C5F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <svg class="star" data-value="5" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
                             </svg>
                         </div>
+                        <input type="hidden" id="userRating" name="rating" value="0">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn main_bg_color site_btn_primary">Post Reviews</button>
+                    <button type="submit" class="btn main_bg_color site_btn_primary rounded">Submit Review</button>
                 </div>
             </form>
         </div>
@@ -2052,5 +2083,30 @@
         console.log(cid[1] + "-" + Eid);
         console.log(cidcl);
     });
+</script>
+
+<script>
+  $('#myCarousel').carousel({
+    interval: false
+  });
+
+  $(document).ready(function () {
+  $('.rating-stars .star').on('click', function () {
+    const rating = $(this).data('value');
+    $('#userRating').val(rating);
+
+    // Remove 'filled' class from all stars
+    $('.rating-stars .star').removeClass('filled');
+
+    // Add 'filled' class to selected stars
+    $('.rating-stars .star').each(function () {
+      if ($(this).data('value') <= rating) {
+        $(this).addClass('filled');
+      }
+    });
+  });
+});
+
+
 </script>
 @endpush
