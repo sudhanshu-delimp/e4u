@@ -434,7 +434,7 @@
       e.preventDefault();
 
       var form = $(this);
-
+      $("#modal-title").text('About Me');
       if (form.parsley().isValid()) {
 
         var url = form.attr('action');
@@ -472,6 +472,7 @@
         var form = $(this);
         var url = form.attr('action');
         var data = new FormData(form[0]);
+         $("#modal-title").text('Profile and Tour options');
         $.ajax({
           method: form.attr('method'),
           url: url,

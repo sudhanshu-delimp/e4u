@@ -52,7 +52,7 @@
         <!-- font awsome -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
 
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css?v1.1') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/shivam-dk-resoponsive.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
         <script>
@@ -66,5 +66,6 @@
 
 <body>
 
-<a id="back-to-top-2" href="#" class="btn btn-light btn-lg back-to-top" role="button"><img src="{{ asset('assets/img/Vector(23).svg') }}"></a>
+<a id="back-to-top-2" href="#" class="btn btn-light btn-lg back-to-top" style="display: none;" role="button"><img src="{{ asset('assets/img/Vector(23).svg') }}"></a>
+<a id="back-to-bottom-2" href="#" class="btn btn-light btn-lg back-to-bottom" style="display: none;" role="button"><img src="{{ asset('assets/img/Vector(23).svg') }}" ></a>
 <section class="mx-auto max_width_for_content">

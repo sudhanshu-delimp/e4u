@@ -826,6 +826,40 @@
     }, 500);
      });
    });
+
+$(document).ready(function () {
+    // Show the button only if content is taller than window
+    if ($(document).height() > $(window).height()) {
+        $('#back-to-bottom-2').show();
+    } else {
+        $('#back-to-bottom-2').hide();
+    }
+
+    // Scroll handler
+    $('#back-to-bottom-2').fadeOut();
+    $(window).scroll(function () {
+        let scrollTop = $(this).scrollTop();
+        let windowHeight = $(this).height();
+        let documentHeight = $(document).height();
+
+        // Check if at the bottom of the page
+        if (scrollTop + windowHeight >= documentHeight - 10) {
+            $('#back-to-bottom-2').fadeOut(); // Hide at bottom
+        } else if (scrollTop > 10) {
+            $('#back-to-bottom-2').fadeIn();  // Show when scrolling
+        } else {
+            $('#back-to-bottom-2').fadeOut(); // Hide at top
+        }
+    });
+
+    // Scroll to bottom on click
+    $('#back-to-bottom-2').click(function () {
+        $('html, body').animate({
+            scrollTop: $(document).height() - $(window).height()
+        }, 400);
+        return false;
+    });
+});
 </script>
 <script>
    $(window).on("scroll", function () {

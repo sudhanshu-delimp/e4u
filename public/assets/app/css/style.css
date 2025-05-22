@@ -4336,16 +4336,31 @@ ul.footerbtn-flex li {
     color: #ecf0f1;
     position: fixed;
     bottom: 25px;
-    right: 25px;
+    right: 20px;
     border-radius: 0;
     z-index: 9999;
     border: 0;
     padding: 8px;
 }
 
-.back-to-top:hover {
+.back-to-top:hover, .back-to-bottom:hover {
     background-color: #FF3C5F;
 }
+
+.back-to-bottom {
+  background-color: #FF3C5F;
+  color: #ecf0f1;
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  border-radius: 0;
+  z-index: 9999;
+  border: 0;
+  padding: 8px;
+  margin-bottom: 5px;
+  display: none;
+}
+.back-to-bottom img {transform: rotate(180deg);}
 
 .platinum-sec {
     /* border-left: 1px solid; */
