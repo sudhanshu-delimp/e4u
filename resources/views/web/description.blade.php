@@ -1389,7 +1389,7 @@
                                         <img src="{{ asset('assets/app/img/prev.svg') }}">
                                         </a>
                                         <a class="carousel-control-next manage_oprcity custom-next" href="#myCarousel" data-slide="next">
-                                        <img src="{{ asset('assets/app/img/next.svg') }}">
+                                        <img src="{{ asset('assets/app/img/next.svg') }}"> 
                                         </a>
                                     </div>
                                 </div>
