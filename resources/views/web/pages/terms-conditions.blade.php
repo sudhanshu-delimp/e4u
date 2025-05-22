@@ -2656,7 +2656,7 @@
                 
                 <!-- Part G - Concierge Services -->
                 <div class="set cms-accordion">
-                    <a class="cms-accordion-title">
+                    <a class="cms-accordion-title" id="mobile-sim">
                         Part G - Concierge Services
                         <i class="fa fa-angle-down"></i>
                     </a>
@@ -3430,6 +3430,35 @@
 
         skipSliderage.noUiSlider.on("update", function (values, handle) {
             skipValuesage[handle].innerHTML = values[handle];
+        });
+    </script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            const hash = window.location.hash;
+        
+            if (hash === '#mobile-sim') {
+            const trigger = document.querySelector(hash); // #mobile-sim
+        
+            if (trigger) {
+                // Find the accordion wrapper
+                const accordionWrapper = trigger.closest('.cms-accordion');
+        
+                if (accordionWrapper) {
+                const content = accordionWrapper.querySelector('.content');
+        
+                if (content) {
+                    // Show the content (accordion open)
+                    content.style.display = 'block';
+        
+                    // Optionally, add an 'active' class
+                    trigger.classList.add('active');
+        
+                    // Scroll to it smoothly
+                    trigger.scrollIntoView({ behavior: 'smooth' });
+                }
+                }
+            }
+            }
         });
     </script>
 @endpush

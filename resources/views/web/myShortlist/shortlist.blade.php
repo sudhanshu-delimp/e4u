@@ -77,7 +77,10 @@
                                 </div>
                             </div>
                             <div class="display_inline_block mb-1">
-                                <a type="submit" href="{{route('shortlist.clear-list')}}" class="btn reset_filter " data-toggle="tooltip" title="clear shortlist button">
+                                @php
+                                    $query = Arr::except(request()->query(), ['ipinfo']);
+                                @endphp
+                                <a type="submit" href="{{route('shortlist.clear-list', $query)}}" class="btn reset_filter " data-toggle="tooltip" title="clear shortlist button">
                                 Clear Shortlist
                                 </a>
                            </div>
@@ -218,6 +221,14 @@
                                <!-- Grid view end -->
                             </div>
                                 </div>
+                                <div class="row">
+                                <div class="col-md-12">
+                                    <div class="selected_service_tag">
+                                        <ul id="selectedService">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         
                     </div>
                 </form>
@@ -225,10 +236,11 @@
         </div>
         <!-- ================     service provider start here     ========================= -->
        
-        <div class="row grid_list_part grid_wishlist_part mb-5" id="v_li_wishlist" style="display: none;">
-        @if(count($escorts) > 0)
-            <div class="col-12 align-items-center">
-                    <div class="grid_list_icon_box display_inline_block " data-toggle="modal1" data-target="#" data-url="grid-escort-list">
+        {{-- dd(count($escorts)) --}}
+        <div class="row grid_list_part grid_wishlist_part mb-5" id="v_li_wishlist" style="display: block;">
+        {{-- @if(count($escorts) > 0) --}}
+            <div class="col-12 align-items-left">
+                    {{-- <div class="grid_list_icon_box display_inline_block " data-toggle="modal1" data-target="#" data-url="grid-escort-list">
                         <a href="#" class="active" id="grid-modal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
                                 <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -244,16 +256,24 @@
                                 <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </a>
-                    </div>
+                    </div> --}}
                     <div class="grid_list_icon_box display_inline_block my-shortlist" >
-                        <ul class="mb-0 mt-1 pt-1">
+                        <ul class="mb-0 mt-1 pt-1 ml-0" >
                             <li><h3>My Shortlist</h3></li>
-                            <li><a href="#" data-toggle="modal" data-target="#forhelp" title="Filters explained">Help <i class="fa fa-question-circle-o" aria-hidden="true"></i></a></li>
+                            {{-- <li><a href="#" data-toggle="modal" data-target="#forhelp" title="Filters explained">Help <i class="fa fa-question-circle-o" aria-hidden="true"></i></a></li> --}}
+                            {{-- <li><a href="#" data-toggle="modal" data-target="#forhelp" title="Back To Listings">Back To Listings</a></li> --}}
+                            <li class="fiter_btns slect__btn_tab"><div class="display_inline_block mb-1 mr-2 ">
+                                <a type="submit" href="{{ $backToListing }}" class="btn reset_filter p-1" data-toggle="tooltip" title="Apply filters - Search">
+                                {{-- <i class="fa fa-back" aria-hidden="true"></i> --}}
+                                <i class="fa fa-arrow-left ml-0" aria-hidden="true" style="padding: 5px;font-size: 16px;"></i>
+                                 Back To Listings
+                                </a>
+                            </div></li>
                         </ul>
                     </div>
                 </div>
             </div>
-        @else
+        @if(count($escorts) <= 0)
             <div class="no--listing">
                 <p><i>There are no listings for your search criteria.</i></p>
             </div>

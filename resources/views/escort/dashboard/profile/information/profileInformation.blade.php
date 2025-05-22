@@ -348,6 +348,7 @@
 <!-- file upload plugin start here -->
 @push('script')
 <script>
+    $("#modal-title").text('');
    $('#select2-dropdown').select2({
        createTag: function (params) {
            var term = $.trim(params.term);
@@ -403,9 +404,8 @@
    });
    $('#update_about_me').on('submit', function(e) {
        e.preventDefault();
-
        var form = $(this);
-
+      $("#modal-title").text('My Additional Information');
        if (form.parsley().isValid()) {
 
            var url = form.attr('action');
@@ -454,7 +454,7 @@
        e.preventDefault();
 
        var form = $(this);
-
+        $("#modal-title").text('My Social Media');
        if (form.parsley().isValid()) {
 
            var url = form.attr('action');
@@ -504,7 +504,7 @@
        e.preventDefault();
 
        var form = $(this);
-
+        $("#modal-title").text('My Social Media');
        if (form.parsley().isValid()) {
 
            var url = form.attr('action');
@@ -731,7 +731,7 @@
            var form = $(this);
            var url = form.attr('action');
            var data = new FormData($('#myServices')[0]);
-           console.log(data);
+           $("#modal-title").text('My Service (tags)');
            $('#my_services').prop('disabled', true);
            $('#my_services').html('<div class="spinner-border"></div>');
 
@@ -775,11 +775,10 @@
 
    $('#storeRate').on('submit', function(e) {
        e.preventDefault();
-
        var form = $(this);
        var url = form.attr('action');
        var data = new FormData($('#storeRate')[0]);
-       console.log(data);
+       $("#modal-title").text('My Rates');
        $('#store_rate').prop('disabled', true);
        $('#store_rate').html('<div class="spinner-border"></div>');
        $.ajax({
@@ -811,9 +810,8 @@
 
    $('#myability').on('submit', function(e) {
        e.preventDefault();
-
        var form = $(this);
-
+       $("#modal-title").text('My Available Times');
        if (form.parsley().isValid()) {
 
            $('#my_abilities').prop('disabled', true);
