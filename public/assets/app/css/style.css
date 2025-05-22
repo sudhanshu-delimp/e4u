@@ -3373,8 +3373,8 @@ progress.dislike::-webkit-progress-value {
 .testimonial_by {
     font-family: Quicksand;
     font-style: normal;
-    font-weight: 600;
-    font-size: 18px;
+    font-weight: bold;
+    font-size: 20px;
     line-height: 30px;
     color: #0c223d;
 }
@@ -3384,7 +3384,15 @@ progress.dislike::-webkit-progress-value {
     top: 0px;
     right: 0px;
 }
-
+#myCarousel{
+    padding-bottom: 50px !important;
+}
+.custom-review-arrow .arroww{
+    position: absolute;
+    left: 37% !important;
+    right: unset;
+    top: 5px;
+}
 .arroww {
     position: absolute;
     right: 15px;
@@ -3429,7 +3437,6 @@ progress.dislike::-webkit-progress-value {
     line-height: 20px;
     color: #000000;
 }
-
 .carousel .img-box {
     width: 107px;
     height: 107px;
@@ -3449,7 +3456,7 @@ progress.dislike::-webkit-progress-value {
 }
 
 .carousel .testimonial {
-    padding: 30px 0 10px;
+    padding: 15px 0;
 }
 
 .carousel .overview {
@@ -3492,7 +3499,10 @@ progress.dislike::-webkit-progress-value {
     text-shadow: none;
     top: 4px;
 }
-
+.arroww .custom-prev,
+.arroww .custom-next {
+    top: 0px !important;
+}
 .arroww_tip_crousal .carousel-control-prev i,
 .arroww_tip_crousal .carousel-control-next i {
     font-size: 17px;
@@ -3567,7 +3577,7 @@ progress.dislike::-webkit-progress-value {
     font-size: 18px;
     line-height: 27px;
     text-align: center;
-    background: #192a3e;
+    background: #0C223D;
     color: #ffffff;
 }
 
@@ -4650,6 +4660,8 @@ table {
 .revew-myratings {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
 }
 
 .revew-myratings p {
@@ -4689,7 +4701,20 @@ table {
     left: 0;
     color: gold;
 }
+.rating-stars {
+    display: flex;
+    gap: 5px;
+  }
 
+  .rating-stars .star {
+    cursor: pointer;
+    transition: fill 0.2s, stroke 0.2s;
+  }
+
+  .rating-stars .star.filled {
+    fill: #FF3C5F;
+    stroke: #FF3C5F;
+  }
 .modal.show#onloadpopup {
     background: rgb(1 1 1 / 50%);
     padding-right: 0 !important;

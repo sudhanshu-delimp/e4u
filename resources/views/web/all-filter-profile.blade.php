@@ -94,6 +94,43 @@
                                             aria-describedby="search-addon" value="{{ request()->get('name') }}">
                                     </div>
                                 </div>
+                                {{-- <div class="display_inline_block ">
+                                    <div class="input-group">
+                                        <div class="d-flex align-items-start">
+                                            <input type="radio" name="locationByRadio" title=""> <label
+                                                for="" style="font-size: 12px;
+                                                    color: #90a0b7;">Your Location</label>
+                                        </div>
+                                        
+                                        <div class="d-flex align-items-start">
+                                            <input type="radio" name="locationByRadio"><label
+                                                for="">Australia</label>
+                                        </div>
+                                    </div>
+                                </div> --}}
+                                <div class="display_inline_block">
+                                    <div class="d-flex flex-column gap-2" style="width:105px">
+                                        <div class="d-flex align-items-start"
+                                            style="
+                                    padding-top: 2px;">
+                                            <input type="radio" name="locationByRadio" id="yourLocation">
+                                            <label for="yourLocation"
+                                                style="margin-left: 8px; font-size: 12px; color: #90a0b7; 
+                                    margin-bottom: 3px;">
+                                                Your Location
+                                            </label>
+                                        </div>
+
+                                        <div class="d-flex align-items-start">
+                                            <input type="radio" name="locationByRadio" id="australia">
+                                            <label for="australia"
+                                                style="margin-left: 8px; font-size: 12px; color: #90a0b7;">
+                                                Australia
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="display_inline_block   item_dis">
                                     <span class="item-head">Display item</span>
                                     <select class="custome_form_control_border_radus padding_five_px" name="limit">
@@ -104,7 +141,7 @@
                                     </select>
                                     <div class="display_inline_block custom-refreshbuton">
                                         <div class="margin_btn_reset">
-                                            
+
                                             <a type="reset" class="btn reset_filter" href="{{ route('find.all') }}"
                                                 data-toggle="tooltip" title="Refresh page">
                                                 <i class="fa fa-repeat" aria-hidden="true"></i>
@@ -116,7 +153,6 @@
                                 <div class="display_inline_block">
                                     <div class="margin_btn_reset">
                                         <button type="button" class="btn reset_filter" id="v_wishlist">
-                                            {{--  auth()->user() ? route('web.show.shortlist') : --}}
                                             <a href="{{ route('web.show.showAddList') }}" data-toggle="tooltip"
                                                 title="View Shortlist"> <i class="fa fa-list" aria-hidden="true"></i>
                                                 <span class="badge badge-pill badge-danger"
@@ -129,8 +165,8 @@
                                     @php
                                         $query = Arr::except(request()->query(), ['ipinfo']);
                                     @endphp
-                                    <a type="submit" href="{{ route('shortlist.clear-list', $query) }}" class="btn reset_filter "
-                                        data-toggle="tooltip" title="clear shortlist button">
+                                    <a type="submit" href="{{ route('shortlist.clear-list', $query) }}"
+                                        class="btn reset_filter " data-toggle="tooltip" title="clear shortlist button">
                                         Clear Shortlist
                                     </a>
                                 </div>
@@ -457,155 +493,161 @@
                 </div>
 
             </div>
-            <div class="otherliste" style="display: block;">
-                @if ($grouped->has('1'))
-                    <div class="space_between_row" style="display:block">
-                        <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
-                                data-toggle="tooltip"
-                                title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
-                            {{ $memberTotalCount[1] }}
-                            <span class="bordertopp">
-                                {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
+            @if (!$grouped->isEmpty())
+                <div class="otherliste" style="display: block;">
+                    @if ($grouped->has('1'))
+                        <div class="space_between_row" style="display:block">
+                            <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
+                                    data-toggle="tooltip"
+                                    title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
+                                {{ $memberTotalCount[1] }}
+                                <span class="bordertopp">
+                                    {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
+                            </div>
+                            <div class="row responsive_colums_in_lg_five_col escost_list">
+                                @if ($grouped->has('1'))
+                                    @foreach ($grouped['1'] as $escort)
+                                        @include('web.partials.grid.platinum')
+                                    @endforeach
+                                @endif
+
+                            </div>
                         </div>
-                        <div class="row responsive_colums_in_lg_five_col escost_list">
+                    @endif
+                    @if ($grouped->has('2'))
+                        <div class="space_between_row" style="display:block">
+                            <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png') }}"
+                                    data-toggle="tooltip"
+                                    title="Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}">
+                                {{ $memberTotalCount[2] }}
+                                <span class="bordertopp">
+                                    {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
+                            </div>
+                            <div class="row responsive_colums_in_lg_five_col escost_list">
+                                @if ($grouped->has('2'))
+                                    @foreach ($grouped['2'] as $escort)
+                                        @include('web.partials.grid.gold')
+                                    @endforeach
+                                @endif
+
+                            </div>
+                        </div>
+                    @endif
+                    @if ($grouped->has('3'))
+                        <div class="space_between_row" style="display:block">
+                            <div class="bod_image"><img src="{{ asset('assets/app/img/dark_silver.png') }}"
+                                    data-toggle="tooltip"
+                                    title="Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}">
+                                {{ $memberTotalCount[3] }}
+                                <span class="bordertopp">
+                                    {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
+                            </div>
+                            <div class="row responsive_colums_in_lg_five_col escost_list">
+                                @if ($grouped->has('3'))
+                                    @foreach ($grouped['3'] as $escort)
+                                        @include('web.partials.grid.silver')
+                                    @endforeach
+                                @endif
+
+                            </div>
+                        </div>
+                    @endif
+                    @if ($grouped->has('4'))
+                        <div class="space_between_row" style="display:block">
+                            <div class="bod_image"><img src="{{ asset('assets/app/img/Group 153.png') }}"
+                                    data-toggle="tooltip"
+                                    title="Free Members -{{ $memberTotalCount[4] }} {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}">
+                                {{ $memberTotalCount[4] }}
+                                <span class="bordertopp">
+                                    {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
+                            </div>
+                            <div class="row responsive_colums_in_lg_five_col escost_list">
+                                @if ($grouped->has('4'))
+                                    @foreach ($grouped['4'] as $escort)
+                                        @include('web.partials.grid.free')
+                                    @endforeach
+                                @endif
+
+                            </div>
+                        </div>
+                    @endif
+                </div>
+                <div class="grid list-view " style="display: none">
+                    @if ($grouped->has('1'))
+                        <div class="platinum-sec">
+                            <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
+                                    data-toggle="tooltip"
+                                    title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
+                                {{ $memberTotalCount[1] }}
+                                <span class="bordertopp">
+                                    {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
+                            </div>
+                            <div class="text">
+                                {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}
+                            </div>
                             @if ($grouped->has('1'))
                                 @foreach ($grouped['1'] as $escort)
-                                    @include('web.partials.grid.platinum')
+                                    @include('web.partials.list.platinum')
                                 @endforeach
                             @endif
-
                         </div>
-                    </div>
-                @endif
-                @if ($grouped->has('2'))
-                    <div class="space_between_row" style="display:block">
-                        <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png') }}"
-                                data-toggle="tooltip"
-                                title="Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}">
-                            {{ $memberTotalCount[2] }}
-                            <span class="bordertopp">
-                                {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
-                        </div>
-                        <div class="row responsive_colums_in_lg_five_col escost_list">
+                    @endif
+                    @if ($grouped->has('2'))
+                        <div class="platinum-sec gold">
+                            <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png') }}"
+                                    data-toggle="tooltip"
+                                    title="Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}">
+                                {{ $memberTotalCount[2] }}
+                                <span class="bordertopp">{{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}</span>
+                            </div>
+                            <div class="text gold">
+                                {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}
+                            </div>
                             @if ($grouped->has('2'))
                                 @foreach ($grouped['2'] as $escort)
-                                    @include('web.partials.grid.gold')
-                                @endforeach
-                            @endif
-
-                        </div>
-                    </div>
-                @endif
-                @if ($grouped->has('3'))
-                    <div class="space_between_row" style="display:block">
-                        <div class="bod_image"><img src="{{ asset('assets/app/img/dark_silver.png') }}"
-                                data-toggle="tooltip"
-                                title="Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}">
-                            {{ $memberTotalCount[3] }}
-                            <span class="bordertopp">
-                                {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
-                        </div>
-                        <div class="row responsive_colums_in_lg_five_col escost_list">
-                            @if ($grouped->has('3'))
-                                @foreach ($grouped['3'] as $escort)
-                                    @include('web.partials.grid.silver')
-                                @endforeach
-                            @endif
-
-                        </div>
-                    </div>
-                @endif
-                @if ($grouped->has('4'))
-                    <div class="space_between_row" style="display:block">
-                        <div class="bod_image"><img src="{{ asset('assets/app/img/Group 153.png') }}"
-                                data-toggle="tooltip"
-                                title="Free Members -{{ $memberTotalCount[4] }} {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}">
-                            {{ $memberTotalCount[4] }}
-                            <span class="bordertopp">
-                                {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
-                        </div>
-                        <div class="row responsive_colums_in_lg_five_col escost_list">
-                            @if ($grouped->has('4'))
-                                @foreach ($grouped['4'] as $escort)
-                                    @include('web.partials.grid.free')
-                                @endforeach
-                            @endif
-
-                        </div>
-                    </div>
-                @endif
-            </div>
-            <div class="grid list-view " style="display: none">
-                @if ($grouped->has('1'))
-                    <div class="platinum-sec">
-                        <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
-                                data-toggle="tooltip"
-                                title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
-                            {{ $memberTotalCount[1] }}
-                            <span class="bordertopp">
-                                {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}</span>
-                        </div>
-                        <div class="text">
-                            {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}
-                        </div>
-                        @if ($grouped->has('1'))
-                            @foreach ($grouped['1'] as $escort)
-                                @include('web.partials.list.platinum')
-                            @endforeach
-                        @endif
-                    </div>
-                @endif
-                @if ($grouped->has('2'))
-                    <div class="platinum-sec gold">
-                        <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png') }}"
-                                data-toggle="tooltip"
-                                title="Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}">
-                            {{ $memberTotalCount[2] }}
-                            <span class="bordertopp">{{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}</span>
-                        </div>
-                        <div class="text gold">
-                            {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}
-                        </div>
-                        @if ($grouped->has('2'))
-                            @foreach ($grouped['2'] as $escort)
-                                @include('web.partials.list.gold')
-                            @endforeach
-                        @endif
-                    </div>
-                @endif
-                @if ($grouped->has('3'))
-                    <div class="listview_each_section_border_btm silver_card">
-                        <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/dark_silver.png') }}"
-                                data-toggle="tooltip"
-                                title="Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}">{{ $memberTotalCount[3] }}<span
-                                class="bordertopp">{{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
-                        </div>
-                        <div class="row  mx-md-n2">
-                            @if ($grouped->has('3'))
-                                @foreach ($grouped['3'] as $escort)
-                                    @include('web.partials.list.silver')
+                                    @include('web.partials.list.gold')
                                 @endforeach
                             @endif
                         </div>
-                    </div>
-                @endif
-                @if ($grouped->has('4'))
-                    <div class="manage_listview_margin_siliver_section free_card">
-                        <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/Group 153.png') }}"
-                                data-toggle="tooltip"
-                                title="Free Members - {{ $memberTotalCount[4] }} {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}">{{ $memberTotalCount[4] }}<span
-                                class="bordertopp">{{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
+                    @endif
+                    @if ($grouped->has('3'))
+                        <div class="listview_each_section_border_btm silver_card">
+                            <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/dark_silver.png') }}"
+                                    data-toggle="tooltip"
+                                    title="Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}">{{ $memberTotalCount[3] }}<span
+                                    class="bordertopp">{{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
+                            </div>
+                            <div class="row  mx-md-n2">
+                                @if ($grouped->has('3'))
+                                    @foreach ($grouped['3'] as $escort)
+                                        @include('web.partials.list.silver')
+                                    @endforeach
+                                @endif
+                            </div>
                         </div>
-                        <div class="row">
-                            @if ($grouped->has('4'))
-                                @foreach ($grouped['4'] as $escort)
-                                    @include('web.partials.list.free')
-                                @endforeach
-                            @endif
+                    @endif
+                    @if ($grouped->has('4'))
+                        <div class="manage_listview_margin_siliver_section free_card">
+                            <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/Group 153.png') }}"
+                                    data-toggle="tooltip"
+                                    title="Free Members - {{ $memberTotalCount[4] }} {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}">{{ $memberTotalCount[4] }}<span
+                                    class="bordertopp">{{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}</span>
+                            </div>
+                            <div class="row">
+                                @if ($grouped->has('4'))
+                                    @foreach ($grouped['4'] as $escort)
+                                        @include('web.partials.list.free')
+                                    @endforeach
+                                @endif
+                            </div>
                         </div>
-                    </div>
-                @endif
-            </div>
+                    @endif
+                </div>
+            @else
+                <div class="no--listing">
+                    <p><i>There are no listings for your search criteria.</i></p>
+                </div>
+            @endif
         </div>
 
         <!-- <div class="page-sec mb-5 mt-4">{!! $escorts->links('pagination::bootstrap-4') !!}</div> -->
@@ -952,8 +994,8 @@
             
             if ($genderId > 0 && $filterGenderId != null) {
                 echo "if($('[name=\"gender\"]').val() == '') {
-                                                        $('[name=\"gender\"]').val($genderId);
-                                                    }";
+                                                                                $('[name=\"gender\"]').val($genderId);
+                                                                            }";
             }
             ?>
         });

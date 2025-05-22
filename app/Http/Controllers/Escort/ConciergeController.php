@@ -55,8 +55,10 @@ class ConciergeController extends Controller
             'name'=> $simData->first_name. ' '. $simData->last_name,
             'date'=> $simData->created_at->format('d-m-Y'),
             'order_ref'=> $simData->order_ref,
-            'fees'=> 20.00,
-            'total'=> 20.00,
+            'fees'=> 85.00,
+            'total'=> 85.00,
+            'period_required' => (int)$request->period_required,
+            'perioid_text' => '/ month'
         ];
 
         // dd($simData, $data);

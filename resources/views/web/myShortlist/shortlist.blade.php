@@ -80,7 +80,7 @@
                                 @php
                                     $query = Arr::except(request()->query(), ['ipinfo']);
                                 @endphp
-                                <a type="submit" href="{{route('shortlist.clear-list', $query)}}" class="btn reset_filter " data-toggle="tooltip" title="clear shortlist button">
+                                <a type="submit" href="{{route('shortlist.clear-list', $query)}}" class="btn reset_filter clear_shortlist_class " data-toggle="tooltip" title="clear shortlist button">
                                 Clear Shortlist
                                 </a>
                            </div>
@@ -972,5 +972,19 @@
       console.log(cidcl);
       
     });
+
+    navigator.geolocation.getCurrentPosition(async function(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        let currentHref = document.querySelector(".clear_shortlist_class");
+        const url = new URL(currentHref.href);
+        url.searchParams.set("lat", latitude);
+        url.searchParams.set("lng", longitude);
+
+        console.log(url.toString(), ' hello shortlist url');
+        document.querySelector(".clear_shortlist_class").setAttribute("href", url.toString());
+    });
+
 </script>
 @endpush

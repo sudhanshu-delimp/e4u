@@ -250,10 +250,7 @@
                                             <div class="col-md-8">
                                                 <div class="form-group">
                                                     <label for="email">Method of contact - how we communicate with you</label><br>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_Message" value="1"  @if(!empty($escort->contact_type)) {{(in_array(1 , $escort->contact_type)) ? 'checked' : null }} @endif>
-                                                        <label class="form-check-label" for="Method_Message">Message (via Console)</label>
-                                                    </div>
+                                                    
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_call_me" value="4" @if(!empty($escort->contact_type)) {{(in_array(4 , $escort->contact_type)) ? 'checked' : null }} @endif>
                                                         <label class="form-check-label" for="Method_call_me">Call me</label>
@@ -261,6 +258,10 @@
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_Email" value="3"  @if(!empty($escort->contact_type)) {{(in_array(3 , $escort->contact_type)) ? 'checked' : null }} @endif>
                                                         <label class="form-check-label" for="Method_Email">Email me</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_Message" value="1"  @if(!empty($escort->contact_type)) {{(in_array(1 , $escort->contact_type)) ? 'checked' : null }} @endif>
+                                                        <label class="form-check-label" for="Method_Message">Message (via Console)</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_Text" value="2"  @if(!empty($escort->contact_type)) {{(in_array(2 , $escort->contact_type)) ? 'checked' : null }} @endif>
