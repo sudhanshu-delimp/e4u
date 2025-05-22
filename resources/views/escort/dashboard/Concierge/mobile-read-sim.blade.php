@@ -189,7 +189,7 @@
                     </div>
                     <div class="modal-body pb-0">
                         <p>
-                            You are about to send notification to all viewers located in Home State. Your Request for a
+                            Your Request for a
                             Mobile SIM has been received. You will also receive an A-Alert confirming your request with a
                             reference. If you have not received your Mobile SIM within 48 hours, please raise a Support
                             Ticket quoting the reference.

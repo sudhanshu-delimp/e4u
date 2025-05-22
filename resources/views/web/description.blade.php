@@ -188,7 +188,7 @@
                 </a>
             </div>
         </div>
-    </div>
+    </div> 
     <div class="container profile_contain">
         <div class="row">
             <!-- ffffffffff -->
@@ -416,6 +416,7 @@
 <!--                    --><?php
 //                    dd($escort->user->contact_type);
 //                    ?>
+                    
                     <div class="padding_20_tob_btm_side">
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-12">
@@ -1139,16 +1140,37 @@
         <div class="padding_20_tob_btm_side reduse_pad">
             <span class="span_display_block connecting_me_chat_phone">
                 You can contact me by:
-                <!-- Tooltip for WeChat Icon -->
+               <!-- Tooltip for WeChat Icon -->
+                    @php
+                        $contactType = isset($user->contact_type) ? json_decode($user->contact_type) : [];
+                    @endphp
+                    @if(in_array(3,$contactType))
                     <div class="tooltip-wrapper">
-                        <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
-                        <div class="tooltip-text">Call me</div>
+                        <img src="{{ asset('assets/app/img/email-me.png') }}">
+                        <div class="tooltip-text">Email me</div>
                     </div>
-                    or
-                    <div class="tooltip-wrapper">
-                            <img src="{{ asset('assets/app/img/wechat.svg') }}">
-                            <div class="tooltip-text">Text me</div>
-                    </div>
+                    
+                    
+                    @endif
+ 
+                    @if(in_array(4,$contactType))
+                        @if(in_array(3,$contactType))
+                            or
+                        @endif
+                        <div class="tooltip-wrapper">
+                            <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
+                            <div class="tooltip-text">Call me</div>
+                        </div>
+                    @endif
+                    @if(in_array(2,$contactType))
+                        @if(in_array(4,$contactType))
+                            or
+                        @endif
+                        <div class="tooltip-wrapper">
+                                <img src="{{ asset('assets/app/img/wechat.svg') }}">
+                                <div class="tooltip-text">Text me</div>
+                        </div>
+                    @endif
             </br>
             @php
 

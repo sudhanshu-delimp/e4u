@@ -215,6 +215,7 @@
 @push('scripts')
 <script>
     let stateId = $.cookie('session-state-id');
+    console.log('hey sds');
 
     {{-- @if(auth()->user()) --}}
         navigator.geolocation.getCurrentPosition(async function(position) {

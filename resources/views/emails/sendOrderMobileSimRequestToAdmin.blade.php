@@ -35,7 +35,7 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                        Mobile SIM Order - Mobile SIM<br>
+                                        Mobile SIM Order<br>
                                         <span style="font-size: 13px; color: #cccccc;">(Ref:
                                             {{ $body['order_ref'] }})</span><br>
                                         <span style="font-size: 13px; color: #cccccc;">Member ID:
@@ -87,39 +87,39 @@
         <!-- Info Table -->
         <table cellpadding="8" cellspacing="0" border="0" style="width: 100%; font-size: 14px; border-collapse: collapse;">
             <tr>
-                <td style="font-weight: bold; width: 180px;">Member Name:</td>
+                <td style=" width: 180px;">Member Name:</td>
                 <td>{{ $body['escort_name'] }}</td>
             </tr>
             <tr>
-                <td style="font-weight: bold;">Member ID:</td>
+                <td style="">Member ID:</td>
                 <td>{{ $body['member_id'] }}</td>
             </tr>
             <tr>
-                <td style="font-weight: bold;">Email:</td>
+                <td style="">Email:</td>
                 <td>{{ $body['email'] }}</td>
             </tr>
             <tr>
-                <td style="font-weight: bold;">Mobile:</td>
+                <td style="">Mobile:</td>
                 <td>{{ $body['mobile'] ?? 'N/A' }}</td>
             </tr>
             <tr>
-                <td style="font-weight: bold;">Delivery Address:</td>
+                <td style="">Delivery Address:</td>
                 <td>{{ $body['address'] ?? 'N/A' }}</td>
             </tr>
             <tr>
-                <td style="font-weight: bold;">Period Required:</td>
+                <td style="">Period Required:</td>
                 <td>{{ $body['period'] ?? 'N/A' }}</td>
             </tr>
             <tr>
-                <td style="font-weight: bold;">Payment Authorised:</td>
+                <td style="">Payment Authorised:</td>
                 <td>{{ $body['payment_authorized'] ?? 'N/A' }}</td>
             </tr>
             <tr>
-                <td style="font-weight: bold;">Comments (By Escort):</td>
+                <td style="">Comments (By Escort):</td>
                 <td>{{ $body['comment'] ?? 'None' }}</td>
             </tr>
             <tr>
-                <td style="font-weight: bold;">Contact Preference:</td>
+                <td style="">Contact Preference:</td>
                 <td>
                     {{ $body['pref_email'] ? 'Email' : '' }}
                     {{ $body['pref_mobile'] ? ', Mobile' : '' }}
