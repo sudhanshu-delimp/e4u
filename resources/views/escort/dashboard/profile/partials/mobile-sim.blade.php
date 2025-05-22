@@ -43,8 +43,12 @@
                                     {{ $data['date'] ? date('d-m-Y', strtotime($data['date'])) : '' }}</label>
                             </p>
                             <p>
+                                <span class="bold_text" id="">Period:
+                                    </span><label id="fee_tab">{{ $data['period_required'] }} Months</label>
+                            </p>
+                            <p>
                                 <span class="bold_text" id="">Fees:
-                                    ${{ number_format($data['fees'], 2) }}</span><label id="fee_tab"></label>
+                                    </span><label id="fee_tab">${{ number_format($data['fees'], 2) }} {{ $data['perioid_text']}}</label>
                             </p>
                         </div>
                         {{-- @endforeach --}}
