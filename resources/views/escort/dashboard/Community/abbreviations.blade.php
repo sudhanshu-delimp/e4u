@@ -267,7 +267,7 @@
                 <div class="content">
                     <div class="accodien_manage_padding_content">
    <p class="pt-4"><b>An Overview</b></p>
-   <p>These Website Abbreviations (<b>Abbreviations</b>) are to be read in conjunction with the <a href="{{ asset('terms-conditions') }}" class="termsandconditions_text_color text-decoration-none">Terms and Conditions</a>. To the extent of any inconsistency between these Abbreviations
+   <p>These Website Abbreviations (<b>Abbreviations</b>) are to be read in conjunction with the <a href="{{ asset('terms-conditions') }}" class="termsandconditions_text_color custom_links_design">Terms and Conditions</a>. To the extent of any inconsistency between these Abbreviations
       and the Terms and Conditions, the Terms and Conditions prevail.
    </p>
    <p class="pt-4"><b>Abbreviations</b></p>
@@ -279,8 +279,8 @@
          <p style="border-top: 0px;"><b>A-Alert:</b> means an email or text message (notification) being forwarded to a Viewer by an Advertiser
             alerting the Viewer to an information update.
          </p>
-         <p><b>Account</b> or <b>My Account:</b> has the same meaning as “<a href="{{('terms-conditions#B2')}}" class="termsandconditions_text_color text-decoration-none">Account</a>” described in the Terms and incorporates the Membership Number.</p>
-         <p><b>Advertiser: </b>has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Advertiser</a>” described
+         <p><b>Account</b> or <b>My Account:</b> has the same meaning as “<a href="{{('terms-conditions#B2')}}" class="termsandconditions_text_color custom_links_design">Account</a>” described in the Terms and incorporates the Membership Number.</p>
+         <p><b>Advertiser: </b>has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Advertiser</a>” described
             in the Terms.
          </p>
          <p><b>Advertiser Home Page: </b>means either of or collectively the Escort Home
@@ -351,7 +351,7 @@
 Agent), including any photos, videos, audio (for example music and other sounds), livestream
 material, data, text (such as comments and hashtags), metadata, images, interactive features,
 emojis, GIFs, memes, and any other material whatsoever.</p>
-         <p><b>Corporations Act: </b>has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Corporations Act</a>”
+         <p><b>Corporations Act: </b>has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Corporations Act</a>”
             described in the Terms.
          </p>
          <p><b>Creator:</b> means an Escort who has enabled their My Playbox service under their Account to post
@@ -370,14 +370,14 @@ Creator's Content, including by subscription and payments made by a User to view
             information.
          </p>
          <h2 id="E">E</h2>
-         <p><b>E4U: </b>has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">E4U</a>” described in the
+         <p><b>E4U: </b>has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">E4U</a>” described in the
             Terms.
          </p>
          <p><b>E4U Verification Icon:</b> means the unique icon placed on a Verified Photo
             and which certifies the Media has been verified as
             authentic.
          </p>
-         <p><b>Escort:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Escort</a>” described in
+         <p><b>Escort:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Escort</a>” described in
             the Terms.
          </p>
          <p><b>Escorts Home Page:</b> means the landing page that Profiles appear on,
@@ -395,7 +395,7 @@ Creator's Content, including by subscription and payments made by a User to view
          <!-- <p></p> -->
          <h2 id="F">F</h2>
          <p><b>Favorite:</b> has the same meaning as Legbox.</p>
-         <p><b>Fee</b> or <b>Fees:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Fees</a>” described in the
+         <p><b>Fee</b> or <b>Fees:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Fees</a>” described in the
             Terms.
          </p>
          <p><b>Footer:</b> means the block of text, links and icons located at
@@ -406,7 +406,7 @@ Creator's Content, including by subscription and payments made by a User to view
             and has limitations placed on it.
          </p>
          <h2 id="G">G</h2>
-         <p><b>Geolocation: </b>has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Geolocation</a>”
+         <p><b>Geolocation: </b>has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Geolocation</a>”
             described in the Terms.
          </p>
          <p><b>Gold: </b>means the middle level of paid Membership an
@@ -419,7 +419,7 @@ Creator's Content, including by subscription and payments made by a User to view
          <p><b>Home Page:</b> means the default page a User lands on when
             entering the Website.
          </p>
-         <p><b>Home State: </b>has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Home State</a>”
+         <p><b>Home State: </b>has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Home State</a>”
             described in the Terms.
          </p>
          <h2 id="I">I</h2>
@@ -438,25 +438,25 @@ Creator's Content, including by subscription and payments made by a User to view
          <p><b>Local Laws: </b>means the respective State and Commonwealth
             laws which govern the provision of escort
             services, as defined in those laws, in your location
-            (see also FAQs - <a href="{{('terms-conditions')}}class="termsandconditions_text_color text-decoration-none">Local Laws</a>).
+            (see also FAQs - <a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Local Laws</a>).
          </p>
          <p><b>Location: </b>means the State, other than your Home State,
             that you are presently located in.
          </p>
          <h2 id="M">M</h2>
-         <p><b>Massage Centre:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Massage Centre</a>”
+         <p><b>Massage Centre:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Massage Centre</a>”
             described in the Terms.
          </p>
          <p><b>Massage Centre Home Page:</b> means the landing page that Massage Centre
             Profiles appear on and which Viewers have a
             search facility.
          </p>
-         <p><b>Massage Centre Profile: </b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Massage Centre
+         <p><b>Massage Centre Profile: </b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Massage Centre
             Profile</a>” described in the Terms.
          </p>
          <p><b>Massage Centre ID: </b> means the reference number allocated to the Massage Centre by Escorts4U and which identifies the said Massage Centre.
          </p>
-         <p><b>Masseur:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Masseur</a>” described in
+         <p><b>Masseur:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Masseur</a>” described in
             the Terms.
          </p>
          <p><b>Masseur ID:</b> means the reference number allocated to the Masseur by Escorts4U and which identifies the said Masseur as a subsidiary Member of a Massage Centre. 
@@ -468,7 +468,7 @@ Creator's Content, including by subscription and payments made by a User to view
             video files and includes your Thumbnail and
             Banner Image which is posted on a Profile.
          </p>
-         <p><b>Member</b>  or <b>Membership:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Member</a> and
+         <p><b>Member</b>  or <b>Membership:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Member</a> and
             Membership” described in the Terms.
          </p>
          <p><b>Membership Number</b> and <b>Member ID:</b> means collectively the unique number allocated to the Member by Escorts4U after having completed the online registration, incorporating the Agent ID, Escort ID, Massage Centre ID and Viewer ID.
@@ -508,11 +508,11 @@ Creator's Content, including by subscription and payments made by a User to view
          <p><b>POA</b>: Means, in relation to a Profile, price on
             application.
          </p>
-         <p><b>Policy</b>: has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Policies</a>” described in
+         <p><b>Policy</b>: has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Policies</a>” described in
             the Terms.
          </p>
          <p><b>Privacy Act:</b> means the <i>Privacy Act 1988 (Cth).</i></p>
-         <p><b>Profile</b> and <b> Profile Page:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Profile</a>” described in
+         <p><b>Profile</b> and <b> Profile Page:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Profile</a>” described in
             the Terms.
          </p>
          <p><b>Profile ID Number:</b> means the unique number attached at a Profile.</p>
@@ -538,7 +538,7 @@ Creator's Content, including by subscription and payments made by a User to view
             a Viewer and the Advertiser and which are
             displayed on the Profile Page.
          </p>
-         <p><b>Services: </b> has the same meaning as “<a href="{{('terms-conditions')}}class="termsandconditions_text_color text-decoration-none">Services</a>” described in
+         <p><b>Services: </b> has the same meaning as “<a href="{{('terms-conditions')}}" class=" termsandconditions_text_color custom_links_design">Services</a>” described in
             the Terms.
          </p>
          <p><b>Short List: </b> means the page contained within the Website that lists the results of the User’s Profile selections which have been tagged from within the Escorts Home Page.
@@ -554,7 +554,7 @@ Creator's Content, including by subscription and payments made by a User to view
          <p><b>Subscription:</b> means the period of time a Viewer subscribes to
             the Website.
          </p>
-         <p><b>Support Services:</b> has the same meaning as “<a href="{{('terms-conditions')}}class="termsandconditions_text_color text-decoration-none">Support Services</a>” described in the Terms.</p>
+         <p><b>Support Services:</b> has the same meaning as “<a href="{{('terms-conditions')}}"  class="termsandconditions_text_color custom_links_design">Support Services</a>” described in the Terms.</p>
          <p><b>Support Ticket:</b> means an online secure request from a User, via
             this Website, to Escorts4U raising an issue or
             requesting Escorts4U to look into and to resolve a
@@ -579,14 +579,14 @@ Creator's Content, including by subscription and payments made by a User to view
             default display photo image for all of your display
             photos that appear in a Profile (in portrait).
          </p>
-         <p><b>Tour:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Tour</a>” described in the
+         <p><b>Tour:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Tour</a>” described in the
             Terms.
          </p>
          <h2 id="U">U</h2>
          <p><b>UMReport:</b> means the Ugly Mug Report, submitted by an
             Advertiser.
          </p>
-         <p><b>User/s:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">User</a>” described in the
+         <p><b>User/s:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">User</a>” described in the
             Terms.
          </p>
          <h2 id="V">V</h2>
@@ -598,7 +598,7 @@ Creator's Content, including by subscription and payments made by a User to view
             Escorts4U together with a form of identity and
             which is matched by facial identity.
          </p>
-         <p><b>Viewer:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Viewer</a>” described in
+         <p><b>Viewer:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Viewer</a>” described in
             the Terms.
          </p>
          <p><b>Viewer ID:</b> means the reference number allocated to the Viewer by Escorts4U and which identifies the said Viewer.
@@ -609,7 +609,7 @@ Creator's Content, including by subscription and payments made by a User to view
             to a User by Escorts4U alerting the User of an
             update about the Website.
          </p>
-         <p class="pb-4"><b>Website:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Website</a>” described in
+         <p class="pb-4"><b>Website:</b> has the same meaning as “<a href="{{('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Website</a>” described in
             the Terms.
          </p>
       </div>
@@ -635,9 +635,9 @@ Creator's Content, including by subscription and payments made by a User to view
                         <p class="mb-3">
                            These icons used in the Website <span class="bold-custon">(Icons)</span> are provided to assist Users navigate their way
                            through the Website and to provide clarity and certainty. The meaning ascribed to an Icon
-                           should be read in conjunction with the <a href="{{ url('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Terms and Conditions</a>. To the extent of any
+                           should be read in conjunction with the <a href="{{ url('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Terms and Conditions</a>. To the extent of any
                            inconsistency between the meaning ascribed to an Icon and the Terms and Conditions,
-                           the <a href="{{ url('terms-conditions')}}" class="termsandconditions_text_color text-decoration-none">Terms and Conditions</a> prevail.
+                           the <a href="{{ url('terms-conditions')}}" class="termsandconditions_text_color custom_links_design">Terms and Conditions</a> prevail.
                         </p>
                         <p class="mb-3"><b>Icons</b></p>
                         <div class="row">

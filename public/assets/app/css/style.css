@@ -1051,9 +1051,11 @@ div.defult-modal .modal-body ol li {
     font-size: 13px;
     line-height: 16.5px;
 }
-
+.custom_hr{
+    border: none; border-top: 1px solid #ccc; margin-top: 40px; margin-bottom: 20px;
+}
 .form-check a {
-    text-decoration: none;
+    /* text-decoration: none; */
 }
 
 .termsandconditions_text_color {

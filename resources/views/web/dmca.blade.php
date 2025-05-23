@@ -80,7 +80,8 @@ or implied, regarding any use of the Material posted by an Advertiser.<p>
 Report about an Advertiser and the Material, and reserves all of its rights to seek
 compensation for any damages or losses suffered as a result of any false Report.</p>
 
-<div class="container mt-4 px-0 chagneto-policy"> 
+<div class="container mt-4 px-0 chagneto-policy">
+<hr class="custom_hr"> 
             <h2 class="primery_color normal_heading">Changes to this Guide</h2>
             <p><b>This Guide was last updated on 19-05-2025</b></p>
         </div>

@@ -46,7 +46,7 @@
             </p>
             <h2 class="primery_color normal_heading">Where to register</h2>
             <p>To register your interest, Advertisers need to <a href="{{ route('advertiser.login') }}"
-                                                                 class="termsandconditions_text_color text-decoration-none">logon</a>
+                                                                 class="termsandconditions_text_color">logon</a>
                 and at their Dashboard:</p>
 
             <ul>
@@ -58,9 +58,11 @@
 you create.</p>
             
 <div class="container mt-4 px-0 chagneto-policy"> 
+    <hr class="custom_hr">
             <h2 class="primery_color normal_heading">Changes to this Guide</h2>
-            <p><b>This Guide was last updated on 19-05-2025</b></p>
+            <p><b>This Guide was last updated on 23-05-2025</b></p>
         </div>
+   </div>
     </section>
 @endsection
 @push('scripts')

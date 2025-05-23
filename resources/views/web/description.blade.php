@@ -1500,7 +1500,7 @@
     </div>
 </div>
 <!-- model end here 1-->
-<!-- model start here 2-->
+<!-- Report advertiser model start here 2-->
 <div class="modal fade ss" id="sendcarlat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content custome_modal_max_width">
@@ -1517,22 +1517,22 @@
             <form id="" action="{{ route('review.advertiser',[$escort->id])}}" method="post">
                 @csrf
                 <div class="modal-body">
-                    <p class="mb-1 mt-3"><b>Notes</b></p>
+                    <p class="mb-1 mt-3"><b>Notes :</b></p>
                     <div class="row">
                         <div class="col">
-                            <ul>
+                            <ol>
                                 <li>Only report if you had direct contact with the Escort.</li>
-                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended. Only genuine reports will be considered.</li>
-                                <li>The Profile page URL will automatically attach to this report.</li>
-                                <li>You will receive a notification when this report has been resolved. </li>
-                            </ul>
+                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended.
+                                Only genuine reports will be considered.</li>
+                                <li>The Advertisers Membership Number will automatically attach to this report.</li>
+                            </ol>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group popup_massage_box">
                                 <label for="exampleFormControlTextarea1">What is wrong:</label>
-                                <textarea name="description" class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="3" placeholder="Message (250 characters)"></textarea>
+                                <textarea name="description" class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="3" placeholder="Message (500 characters)"></textarea>
                             </div>
                         </div>
                     </div>
@@ -1563,12 +1563,79 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn main_bg_color site_btn_primary">Forward Report</button>
+                    <button type="submit" class="btn main_bg_color site_btn_primary rounded">Send Report</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<!-- Report Advertiser Modal login popup if not login-->
+<div class="modal fade" id="reportAdvertiserNew" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custome_modal_max_width">
+ 
+            <!-- Header with navy background and [X] -->
+            <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
+                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Report Advertiser</h5>
+                <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;">
+                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/newcross.png" class="img-fluid img_resize_in_smscreen">
+                </button>
+            </div>
+ 
+            <!-- Body content -->
+            <!-- Body content -->
+            <div class="modal-body text-center">
+                <p class="font-weight-bold">Please log in or Register to report Advertiser</p>
+                <div class="d-flex justify-content-center mt-3">
+                    <a href="{{ route('login') }}" class="mx-3 font-weight-bold" style="color:#0C223D; text-decoration:none;">[Login]</a>
+                    <a href="{{ route('register') }}" class="mx-3 font-weight-bold" style="color:#0C223D; text-decoration:none;">[Register]</a>
+                </div>
+            </div>
+ 
+        </div>
+    </div>
+</div>
+ 
+ 
+<!-- Report Advertiser Modal confirmation popup -->
+<div class="modal fade" id="reportLogedIn" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custome_modal_max_width">
+ 
+            <!-- Header with navy background and [X] -->
+            <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
+                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Report Loged</h5>
+                <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;">
+                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/newcross.png" class="img-fluid img_resize_in_smscreen">
+                </button>
+            </div>
+ 
+            <!-- if logi Body content -->
+           
+            <div class="modal-body text-left">
+                <p class="font-weight-bold">Thank you for your report. Someone from our team will be in
+                touch shortly.</p>
+             
+            </div>
+ 
+        </div>
+    </div>
+</div>
+ 
+<!-- Trigger Button -->
+<!--- <button type="button" class="btn btn-outline-danger mt-3" data-toggle="modal" data-target="#reportLogedIn">
+   Viewer Loged In
+</button>
+
+ <button type="button" class="btn btn-outline-danger mt-3" data-toggle="modal" data-target="#reportAdvertiserNew">
+ login popup
+ </button> -->
+
+
+
+
+
 <!-- model start here 3-->
 <div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

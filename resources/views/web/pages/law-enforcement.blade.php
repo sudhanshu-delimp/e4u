@@ -63,7 +63,7 @@
 
 
             <h2 class="primery_color normal_heading">Anti-Human Trafficking</h2>
-            <p class="text_decoration_for_a">Escorts4U is committed to addressing the issues associated with and the fight against
+            <p class="">Escorts4U is committed to addressing the issues associated with and the fight against
                 human trafficking and will co-operate with law enforcement authorities and agencies in any
                 investigation of suspected abuse of human rights and trafficking (see also <a
                     href="{{ url('terms-conditions')}}" class="termsandconditions_text_color">Terms and
@@ -94,6 +94,7 @@
                 emergency (Australia), call 000.</p>
 
             <div class="container mt-4 px-0 chagneto-policy">
+            <hr class="custom_hr">
                 <h2 class="primery_color normal_heading">Changes to this Policy</h2>
                 <p>We may change or modify this Policy in the future. We will note the date that revisions were last
                     made at the bottom of this page. Any revision will take effect upon its posting. It is your
@@ -101,7 +102,7 @@
                         Conditions</a> and this Policy from time to time to
                     review the most current version.</p>
                 <p>Escorts4U archives all previous versions of this Policy.</p>
-                <p><b>This policy was last updated 24-01-2024</b></p>
+                <p><b>This policy was last updated 23-05-2025</b></p>
             </div>
 
         <!-- <h2 class="primery_color normal_heading">Changes to this Policy</h2>

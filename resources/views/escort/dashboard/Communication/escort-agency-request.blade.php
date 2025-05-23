@@ -27,7 +27,7 @@
                             <div class="card-body">
                               <h3 class="NotesHeader"><b>Notes:</b> </h3>
                               <ol>
-                                  <li>This form will be pre-populated with your details according to what you have selected in your <a href="notifications-features">Notifications & Features</a> settings.
+                                  <li>This form will be pre-populated with your details according to what you have selected in your <a href="notifications-features" class="custom_links_design">Notifications & Features</a> settings.
                               Use this form to request an Agent for assistance.</li>
                                   <li>Select the Agent you wish to appoint from the list of available Agents (Step 1).</li>
                                   <li>Complete the form to request the selected Agent for assistance. When completing the form please ensure all of the details are correct and you have selected the correct option for communications (Step 2).</li>

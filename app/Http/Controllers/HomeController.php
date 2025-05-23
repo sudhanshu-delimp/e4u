@@ -45,6 +45,12 @@ class HomeController extends Controller
     {
         return view('web.dmca');
     }
+
+    public function thankyou(Request $request)
+    {
+        return view('web.pages.thankyou');
+    }
+
     public function becomeInfluencer(Request $request)
     {
         return view('web.influencer');

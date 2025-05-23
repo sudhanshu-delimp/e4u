@@ -254,7 +254,7 @@
                         <ol class=" mb-0">
                         <li>By completing these settings, the information set out under My playmates will by default appear in your Profile creator. You should check with the Escort they are still available as a playmate before creating a Profile. A Viewer will be able to view the playmate’s Profile from your Profile
                         </li>
-                        <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account">feature</a> (see My Account - Profile & Tour options).
+                        <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account" class="custom_links_design">feature</a> (see My Account - Profile & Tour options).
                         </li>
                         </ol>
                         </div>

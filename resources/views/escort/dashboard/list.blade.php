@@ -37,7 +37,7 @@
                           <ol>
                               <li>Use this feature to review and make changes to your Profiles.</li>
                               <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action function, you will be able to View, Edit or Delete the Profile.</li>
-                              <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming">View Listings</a></li>
+                              <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming" class="custom_links_design">View Listings</a></li>
                           </ol>
                         </div>
                     </div>
