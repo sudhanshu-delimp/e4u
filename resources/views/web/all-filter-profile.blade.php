@@ -1307,6 +1307,7 @@
             $('input[name="locationByRadio"]').on('change', function () {
                 let selectedLocation = {};
                 selectedLocation.location = $(this).attr('id'); // "yourLocation" or "australia"
+                $('input[name="locationByRadio"]').prop('disabled', true);
 
                 //console.log(selectedLocation.location, ' out if')
                 if(selectedLocation.location == 'yourLocation'){
