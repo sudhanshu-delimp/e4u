@@ -359,12 +359,12 @@
             </div>
         </div>
     </li>
-    <li class="nav-item">
+    <!--<li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('new') }}">
         <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/alert.png')}}">
         <span>Alerts</span>
         </a>
-       <!--  <div id="collapsenew" class=" collapse @if(request()->segment(3) == 'new') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+         <div id="collapsenew" class=" collapse @if(request()->segment(3) == 'new') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
                 <a class="collapse-item" href="{{ route('new') }}">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/new.png')}}">
@@ -376,7 +376,21 @@
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/suspend.png')}}">
                 <span style="">Suspend</span></a>
             </div>
-        </div> -->
+        </div>
+    </li> -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Publications" aria-expanded="false" aria-controls="collapseTwo">
+        <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/publication.png')}}">
+        <span>Publications </span>
+        </a>
+        <div id="Publications" class="collapse @if(request()->segment(3) == 'publicpages' || request()->segment(3) == 'consoles') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div class="py-0 collapse-inner rounded mb-2">
+            <a class="nav-link collapsed" href="{{ route('new') }}">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/alert.png')}}">
+                <span style="{{request()->segment(3) == 'publicpages' ? 'color: #e5365a;' : ''}}">Alerts</span>
+                </a>
+            </div>
+        </div>
     </li>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Analytics" aria-expanded="false" aria-controls="collapseTwo">

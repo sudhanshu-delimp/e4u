@@ -14,7 +14,7 @@
                     </li>
                     <li>Any value you attach to a Service Tag is a separate value and is not included in your rates.
                     </li>
-                    <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account">feature</a> (see My Account - Profile & Tour options).
+                    <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account" class="custom_links_design">feature</a> (see My Account - Profile & Tour options).
                     </li>
                     </ol>
                 </div>

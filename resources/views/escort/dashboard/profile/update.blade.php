@@ -54,7 +54,7 @@
                           <ol>
                               <li>Use this feature to create your Profiles. You can create as many Profiles as you like for as many Locations as you like.</li>
                               <li>The Profiles you create will be used to create Tours.</li>
-                              <li>Each time you create a Profile, it will be pre-populated with your <a href="/escort-dashboard/profile-informations">Profile Information</a> you have set. Take the time to set up your <a href="/escort-dashboard/profile-informations">Profile Information</a> and <a href="/escort-dashboard/archive-medias">Media</a>. Any changes you make in the Profile Creator will only apply to that Profile unless you click the ‘Update’ button for the section you have changed. Otherwise your Profile Information settings will not change.</li>
+                              <li>Each time you create a Profile, it will be pre-populated with your <a href="/escort-dashboard/profile-informations" class="custom_links_design">Profile Information</a> you have set. Take the time to set up your <a href="/escort-dashboard/profile-informations" class="custom_links_design">Profile Information</a> and <a href="/escort-dashboard/archive-medias" class="custom_links_design">Media</a>. Any changes you make in the Profile Creator will only apply to that Profile unless you click the ‘Update’ button for the section you have changed. Otherwise your Profile Information settings will not change.</li>
                           </ol>
                         </div>
                     </div>

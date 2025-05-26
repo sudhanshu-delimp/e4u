@@ -50,9 +50,11 @@
         </ul>
 
         <div class="container mt-4 px-0 chagneto-policy"> 
+    <hr class="custom_hr">
             <h2 class="primery_color normal_heading">Changes to this Guide</h2>
-            <p><b>This Guide was last updated on 19-05-2025</b></p>
+            <p><b>This Guide was last updated on 23-05-2025</b></p>
         </div>
+   </div>
    </div>
 </section>
 @endsection

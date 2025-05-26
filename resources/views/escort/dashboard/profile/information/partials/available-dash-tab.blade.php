@@ -10,7 +10,7 @@
                             <ol class=" mb-0">
                                 <li>By completing these settings, the information set out under My Available Times will by default appear in your Profile creator.</li>
                                 <li>Leave the time blank if you are unavailable. Select ‘By Appointment’ as an alternative to a particular time period.</li>
-                                <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account">feature</a> (see My Account - Profile &amp; Tour options).</li>
+                                <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account" class="custom_links_design">feature</a> (see My Account - Profile &amp; Tour options).</li>
                             </ol>
                             </div>
                             </div>

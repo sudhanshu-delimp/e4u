@@ -53,7 +53,7 @@
                                        <li>To treat an Escort and Masseur with respect and like fellow human beings (they are
                                           and never forget that)
                                        </li>
-                                       <li>Make sure you know and understand the <a class="theme-text-color" href="{{ url('law-enforcement')}}">Local Laws</a> and do not get arrested
+                                       <li>Make sure you know and understand the <a class="custom_links_design" href="{{ url('law-enforcement')}}">Local Laws</a> and do not get arrested
                                        </li>
                                        <li>Do not take any drugs to the appointment</li>
                                        <li>Do not do anything which feels uncomfortable. If you feel uncomfortable or in danger, leave immediately
@@ -300,7 +300,7 @@
                                     <p>A review is encouraged, especially when you have something nice to say about your
                                        experience with the Escort or Masseur.
                                     </p>
-                                    <p>You have to be <a class="theme-text-color" href="{{ url('register')}}"> registered </a> as a Viewer to provide a review. Viewers simply log onto to the
+                                    <p>You have to be <a class="custom_links_design" href="{{ url('register')}}">registered</a> as a Viewer to provide a review. Viewers simply log onto to the
                                        Website and click the “Add Review” button at the bottom of the Profile Page.
                                     </p>
                                  </div>

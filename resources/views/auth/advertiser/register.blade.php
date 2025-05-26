@@ -45,9 +45,9 @@
                             <h2>Registration with us is free</h2>
                             <p>There are no Fees when you create an Account. Fees only apply when you post a Profile or Tour
                                 where you are charged according to the number of days and the Membership Type you select.
-                                See also <span class="text_decoration_for_a"><a href="{{ url('help-for-advertisers')}}"
+                                See also <span><a href="{{ url('help-for-advertisers')}}"
                                                                                 class="termsandconditions_text_color">Help for Advertisers</a></span>
-                                and <span class="text_decoration_for_a"><a href="{{ url('help-for-massage-centres')}}"
+                                and <span><a href="{{ url('help-for-massage-centres')}}"
                                                                            class="termsandconditions_text_color">Help for Massage Centres</a></span>
                                 for more information on Package benefits, Profiles & Tours, Fees and your obligations.</p>
                         </div>
@@ -276,7 +276,7 @@
                                 along the way. You will always know what the Fees are before you commit to posting your
                                 Profile. You can also create a Profile and archive it until you are ready to post it.
                                 Create as many Profiles as you like.</p>
-                            <span class="text_decoration_for_a custome_span_color">Go to <a
+                            <span class=" custome_span_color">Go to <a
                                     href="{{ url('help-for-advertisers')}}" class="termsandconditions_text_color">help for Advertisers</a> for details on Membership Packages associated with each Membership Type.</span>
                             <table class="table2">
                                 <thead>
@@ -392,7 +392,7 @@
                         <div class="accodien_manage_padding_content">
                             <p>Escorts4U has partnered with a leading provider of online booking services for
                                 accommodation and travel. For more information go to <span
-                                    class="text_decoration_for_a"><a href="{{ url('help-for-advertisers')}}"
+                                    class=""><a href="{{ url('help-for-advertisers')}}"
                                                                      class="termsandconditions_text_color">Help for Advertisers</a></span>
                                 and select "Travel & Accommodation".</p>
                         </div>
@@ -408,7 +408,7 @@
                             <p>Escorts4U has partnered with the Condom Man where you can order products online and they
                                 will be delivered to your door. For more information about ordering products
                                 go to <span
-                                    class="text_decoration_for_a"><a href="#" class="termsandconditions_text_color">Products</a></span>. (This service is only available to Perth Escorts).</p>
+                                    class=""><a href="#" class="termsandconditions_text_color">Products</a></span>. (This service is only available to Perth Escorts).</p>
                         </div>
                     </div>
                 </div>
@@ -420,7 +420,7 @@
                     <div class="content">
                         <div class="accodien_manage_padding_content">
                             <p>Escorts4U has partnered with an experienced advisor in this complex area. For more
-                                information about these services go to <span class="text_decoration_for_a"><a
+                                information about these services go to <span class=""><a
                                         href="{{ url('help-for-advertisers')}}" class="termsandconditions_text_color">Help for Advertisers</a></span>
                                 and select "Visa applications & banking". Our partner can also provide advice on
                                 education placements. You can submit an enquiry with our partner.</p>
@@ -435,11 +435,11 @@
                     <div class="content">
                         <div class="accodien_manage_padding_content">
                             <p>We have many sources you can access for help and information. See <span
-                                    class="text_decoration_for_a"><a href="{{ url('help-for-advertisers')}}"
+                                    class=""><a href="{{ url('help-for-advertisers')}}"
                                                                      class="termsandconditions_text_color">help for Advertisers</a></span>
-                                and <span class="text_decoration_for_a"><a href="{{ url('faqs')}}"
+                                and <span class=""><a href="{{ url('faqs')}}"
                                                                            class="termsandconditions_text_color">FAQs</a></span>,
-                                or if you still can not find the answer, <span class="text_decoration_for_a"><a
+                                or if you still can not find the answer, <span class=""><a
                                         href="{{ url('contact-us')}}"
                                         class="termsandconditions_text_color">contact us</a></span> directly.</p>
                         </div>

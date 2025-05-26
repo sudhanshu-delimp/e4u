@@ -198,7 +198,7 @@
                                  <div class="col-md-12">
                                     <div class="form-group">
                                        <h5 for="mobile">Your Agreement</h5>
-                                       <label>You can retrieve your Agent Agreement by <a href="#" data-toggle="modal" data-target="#Agent_Agreement"><span style="color: #FF3C5F;">clicking here.</span></a></label>
+                                       <label>You can retrieve your Agent Agreement by <a href="#" data-toggle="modal" data-target="#Agent_Agreement" class="custom_links_design"><span style="color: #FF3C5F;">clicking here.</span></a></label>
                                     </div>
                                  </div>
                               </div>

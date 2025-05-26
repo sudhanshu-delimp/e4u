@@ -70,48 +70,53 @@
         <h1 class="home_heading_first margin_btm_twenty_px">Feedback</h1>
         <h3>Let us know your thoughts</h3>
         <p>We value your feedback and appreciate any contribution on how to improve and manage our Website.</p>
-        <form id="myfeedback" method="POST" action="{{route('web.feedback.save')}}">
-         @csrf
+        <form id="myfeedback" method="POST" action="{{ route('web.feedback.save') }}">
+            @csrf
+
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="inputEmail4">Subject <span style="color:red">* </span></label>
-                    <select class="form-control border_for_form" id="fb-subject" name="subject_id" required="">
-                        <option id="placeholder" selected="" disabled="" value="">--- Select ---</option>
-                        @foreach(config('escorts.profile.subjects') as $key => $subject)
-                           <option value="{{$key}}">{{$subject}}</option>
-                        @endforeach
+                    <label for="fb-subject">Subject <span style="color:red">*</span></label>
+                    <select class="form-control border_for_form" id="fb-subject" name="subject_id" required>
+                        <option value="" selected disabled>--- Select ---</option>
+                        <option value="Complaint">Complaint</option>
+                        <option value="Complement">Complement</option>
+                        <option value="Improvement suggestion">Improvement suggestion</option>
+                        <option value="New feature suggestion">New feature suggestion</option>
+                        <option value="Report Advertiser">Report Advertiser (include Member ID)</option>
+                        <option value="Request for Information">Request for Information</option>
+                        <option value="Report a bug in the Website">Report a bug in the Website</option>
+                        <option value="Report Scammer">Report Scammer</option>
                     </select>
                 </div>
+
                 <div class="form-group col-md-6">
-                     <label for="inputPassword4">Option <span style="color:red">* </span></label>
-                     <select class="form-control border_for_form" id="fb-options" name="option_id" >
-                        <option value="" selected="" disabled>--- Please choose from above ---</option>
-                     </select>
+                    <label for="fb-options">Option</label>
+                    <!-- This select will be shown/hidden based on subject -->
+                    <select class="form-control border_for_form d-none" id="fb-options" name="option_id"></select>
+                    <!-- Fallback text input -->
+                    <input type="text" class="form-control border_for_form d-none" id="fb-option-text" name="option_text" placeholder="Write your option">
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Comment</label>
-                <textarea class="form-control border_for_form" name="comment" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="inputAddress">Email address <span style="color:red">* </span></label>
-                <input type="email" name="email" required class="form-control border_for_form" id="inputEmail4" placeholder="Email address" data-parsley-required-message="@lang('errors/validation/required.email')" data-parsley-type-message="@lang('errors/validation/valid.email')">
+                <label for="inputEmail4">Email address <span style="color:red">*</span></label>
+                <input type="email" name="email" required class="form-control border_for_form" id="inputEmail4" placeholder="Email address"
+                    data-parsley-required-message="@lang('errors/validation/required.email')"
+                    data-parsley-type-message="@lang('errors/validation/valid.email')">
                 <div class="termsandconditions_text_color">
                     @error('email')
-                    <strong>{{ $message }}</strong>
+                        <strong>{{ $message }}</strong>
                     @enderror
                 </div>
             </div>
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" id="inlineFormCheck">
-                <label class="form-check-label" for="inlineFormCheck">
-                CC Yourself
-                </label>
-            </div>
+
+<div class="form-group">
+    <label for="exampleFormControlTextarea1">Comment</label>
+    <textarea class="form-control border_for_form" name="comment" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
+</div>
+
             <button type="submit" class="btn btn-primary mb-3">Submit Feedback</button>
-           
         </form>
-        
     </div>
 </section>
 @endsection
@@ -224,4 +229,55 @@
     
    });
 </script>
+<script>
+    const subjectSelect = document.getElementById('fb-subject');
+    const optionSelect = document.getElementById('fb-options');
+    const optionText = document.getElementById('fb-option-text');
+
+    // Define subjects with predefined options
+    const subjectOptions = {
+        "Request for Information": [
+            "To become a Support Agent",
+            "Concierge Services",
+            "My Playbox"
+        ],
+        "Report a bug in the Website": [
+            "Public page",
+            "Escort listing page",
+            "Massage Centre listing page",
+            "Escort Console",
+            "Massage Centre Console",
+            "Agent Console",
+            "Viewer Console"
+        ]
+    };
+
+    // Default state: show text input, hide select
+    optionText.classList.remove('d-none');
+    optionSelect.classList.add('d-none');
+
+    subjectSelect.addEventListener('change', function () {
+        const selected = this.value;
+
+        if (subjectOptions[selected]) {
+            // Populate and show the select box
+            optionSelect.innerHTML = `<option disabled selected>--- Select Option ---</option>`;
+            subjectOptions[selected].forEach(opt => {
+                const option = document.createElement('option');
+                option.value = opt;
+                option.textContent = opt;
+                optionSelect.appendChild(option);
+            });
+
+            // Show select, hide text input
+            optionSelect.classList.remove('d-none');
+            optionText.classList.add('d-none');
+        } else {
+            // Show input text field, hide select
+            optionSelect.classList.add('d-none');
+            optionText.classList.remove('d-none');
+        }
+    });
+</script>
+
 @endpush

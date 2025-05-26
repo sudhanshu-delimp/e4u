@@ -315,7 +315,7 @@
                                                 <h5 class="policy_sub_headings"><u>Protection of Minors</u></h5>
                                                 <ul class="padding_zero_px">
                                                     <li>
-                                                        <p class="padding_left_five_px text_decoration_for_a">Escorts4U
+                                                        <p class="padding_left_five_px">Escorts4U
                                                             takes seriously the protection of minors. We are serious in
                                                             applying youth protection law and will exclude any
                                                             Advertiser who violates our <a

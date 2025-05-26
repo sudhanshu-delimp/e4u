@@ -190,7 +190,7 @@
                                 telephone on 1300 363 992 or by using the contact details on the OAIC website.</p>
 
                             <h2 class="primery_color normal_heading">Responsible authority</h2>
-                            <p class="text_decoration_for_a">Any requests, questions or complaints regarding data privacy and protection should be
+                            <p class="">Any requests, questions or complaints regarding data privacy and protection should be
                                 addressed to the Privacy Officer: <a href="email:privacy@escorts4u.com.au">privacy@escorts4u.com.au</a></p>
 
 
@@ -321,7 +321,7 @@
                                 internet
                                 usage. The IP address, that your browser conveys within the scope of Google Analytics,
                                 will not be associated with any other data held by Google Analytics.</p>
-                            <p class="text_decoration_for_a">You may refuse the use of Cookies by selecting the
+                            <p>You may refuse the use of Cookies by selecting the
                                 appropriate settings on your browser,
                                 however, please note that if you do this you may not be able to use the full
                                 functionality of

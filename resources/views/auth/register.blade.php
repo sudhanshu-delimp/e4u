@@ -20,7 +20,7 @@
                                 <li>Complete a private Note (Notebox) about your experience with an Advertiser (from your Dashboard)</li>
                             </ul>
                         </div>
-                        <p>See also <span class="text_decoration_for_a"><a href="{{ url('help-for-viewers') }}" class="termsandconditions_text_color">Help for Viewers</a></span> for more information on Membership benefits and your obligations.</p>
+                        <p>See also <span><a href="{{ url('help-for-viewers') }}" class="termsandconditions_text_color">Help for Viewers</a></span> for more information on Membership benefits and your obligations.</p>
                     </div>
                 </div>
             </div>
@@ -197,8 +197,8 @@
                 </a>
                 <div class="content">
                     <div class="accodien_manage_padding_content">
-                        <p>We have many sources you can access for help and information. See <span class="text_decoration_for_a"><a class="termsandconditions_text_color" href="{{ url('help-for-viewers')}}"> help for viewers</a></span> and <span class="text_decoration_for_a"><a class="termsandconditions_text_color"href="{{ url('faqs')}}">FAQs</a></span>, or if you still can not find the answer, <span class="text_decoration_for_a"><a class="termsandconditions_text_color" href="#">contact us</a></span> directly.</p>
-                        <p>We also welcome <span class="text_decoration_for_a"><a class="termsandconditions_text_color" href="{{ url('feedback')}}">feedback</a></span> on how we can improve the delivery of our Services.</p>
+                        <p>We have many sources you can access for help and information. See <span><a class="termsandconditions_text_color" href="{{ url('help-for-viewers')}}"> help for viewers</a></span> and <span><a class="termsandconditions_text_color"href="{{ url('faqs')}}">FAQs</a></span>, or if you still can not find the answer, <span><a class="termsandconditions_text_color" href="#">contact us</a></span> directly.</p>
+                        <p>We also welcome <span><a class="termsandconditions_text_color" href="{{ url('feedback')}}">feedback</a></span> on how we can improve the delivery of our Services.</p>
                     </div>
                 </div>
             </div>

@@ -26,7 +26,7 @@
                           <ol>
                               <li>Use this feature to create a new Profile listing. The Profile, with verified Media, will be published immediately upon payment having been processed.</li>
                               <li>The Membership Type will default to Platinum. You can change the Membership Type by selecting the preferred Membership Type from the drop down list.</li>
-                              <li>Make sure you have <a href="https://e4udev.perth-cake1.powerwebhosting.com.au/escort-dashboard/create-profile">created</a> your Profile before you commence a new listing. All your Profiles will appear in the drop down list for the Location you are presently in. You can create as many listings as you like. Go to <a href="https://e4udev.perth-cake1.powerwebhosting.com.au/escort-dashboard/create-tour">New Tour</a> if you want to create a Tour.</li>
+                              <li>Make sure you have <a href="https://e4udev.perth-cake1.powerwebhosting.com.au/escort-dashboard/create-profile" class="custom_links_design">created</a> your Profile before you commence a new listing. All your Profiles will appear in the drop down list for the Location you are presently in. You can create as many listings as you like. Go to <a href="https://e4udev.perth-cake1.powerwebhosting.com.au/escort-dashboard/create-tour" class="custom_links_design">New Tour</a> if you want to create a Tour.</li>
                           </ol>
                         </div>
                     </div>
