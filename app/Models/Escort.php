@@ -47,7 +47,7 @@ class Escort extends Model
     {
 
          switch($this->membership)
-         {
+         { 
              case(1): return "Platinum";  break;
              case(2): return "Gold";  break;
              case(3): return "Silver";  break;

@@ -93,10 +93,19 @@
                                 <th>Start Date</th>
                                 <th>End Date</th>
                                 <th>Days</th>                                
-                                <!-- <th>Fee / Fee Paid</th> -->
+                                <th>Fee @if($type=='past') Paid @endif</th>
                             </tr>
                             </thead>
                             <tbody>
+
+                                ID
+                                Profile Name
+                                Location
+                                Stage Name
+                                Start Date
+                                End date
+                                Days
+                                Fee
                             @php
                                 $i = 1;
                                 $dataTableData = [];
@@ -109,13 +118,16 @@
                                 @foreach($escort['purchase'] as $purchase)
                                     @php
                                         $dataTableData[] = [
-                                           'sl_no' => $i++,
+                                           //'sl_no' => $i++,
+                                           'sl_no' => $escort['id'],
                                            'profile_name' => $escort['profile_name'],
+                                           //'city' => config("escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName")."<br>".(config("escorts.profile.states.$escort[state_id].stateName")),
+                                           'city' => (config("escorts.profile.states.$escort[state_id].stateName")),
                                            'name' => $escort['name'],
-                                           'city' => config("escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName")."<br>".(config("escorts.profile.states.$escort[state_id].stateName")),
                                            'start_date' => date('d-m-Y', strtotime($purchase['start_date'])),
                                            'end_date' => date('d-m-Y', strtotime($purchase['end_date'])),
                                            'days' => ( Carbon\Carbon::parse($purchase['end_date'])->diffInDays(Carbon\Carbon::parse($purchase['start_date']))),
+                                           'fee' => ''
                                        ];
                                     @endphp
                                     {{--<tr class="tr-sec">
@@ -158,11 +170,12 @@
                    columns: [
                        {data: 'sl_no', searchable: false, orderable:false},
                        {data: 'profile_name'},
-                       {data: 'name'},
                        {data: 'city'},
+                       {data: 'name'},
                        {data: 'start_date'},
                        {data: 'end_date'},
-                       {data: 'days', searchable: false}
+                       {data: 'days', searchable: false},
+                       {data: 'fee', searchable: false}
                    ]
                });
            })

@@ -19,7 +19,18 @@
         border-radius: 15%;
         padding: 0 5px;
     }
+.parsley-errors-list {
+    list-style: none;
+    color: rgb(248, 0, 0);
+    padding: 0;
+    }
+    .parsley-errors-list li{
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 6px;
+    }
 </style>
+
 @endsection
 @section('content')
 <div class="d-flex flex-column container-fluid pl-3 pl-lg-5">
@@ -101,19 +112,13 @@
                  <thead id="table-sec" class="table-bg">
                     <tr>
                        <th>ID</th>
-                       <th>
-                          Profile Name
-                       </th>
-                       <th>
-                          Stage Name
-                       </th>
-                       <th>Location</th>
-                       <!-- <th>Membership</th> -->
+                       <th>Profile Name</th>
+                        <th>Location</th>
+                       <th>Stage Name</th>
+                       <th>Membership</th>
                        <th>Mobile Number</th>
                        <!-- <th>Competitor</th>-->
-                       <th>
-                          Date Created
-                       </th>
+                       <th>Date Created</th>
                        <th>Status</th>
                        <!--<th>Joined E4U</th>-->
                        <th >Action</th>
@@ -146,7 +151,7 @@
                                 <div class="container p-0">
                                     <div class="form-group row">
                                         <label class="col-sm-3" for=""> Profile:</label>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-8">
                                             <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="profile_id" name="profile_id" data-parsley-errors-container="#profile-errors" required data-parsley-required-message="Select Profile">
                                                 <option value="">Select Profile</option>
                                                 @foreach($active_escorts as $profile)
@@ -155,26 +160,26 @@
                                             </select>
                                             <span id="profile-errors"></span>
                                         </div>
-                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-1"></div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3" for=""> BRB Date & Time:</label>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <input type="date" required min="{{date('Y-m-d')}}" class="form-control form-control-sm removebox_shdow" name="brb_date" data-parsley-type="" data-parsley-type-message="">
                                             <span id="brb-time-errors"></span>
                                         </div>
-                                        <div class="col-sm-3">
-                                            <input type="time" required min="{{date('Y-m-d')}}" class="form-control form-control-sm removebox_shdow" name="brb_time" data-parsley-type="" data-parsley-type-message="">
+                                        <div class="col-sm-4">
+                                            <input type="time"  class="form-control form-control-sm removebox_shdow" name="brb_time" required data-parsley-time required>
                                             <span id="brb-time-errors"></span>
                                         </div>
-                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-1"></div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3" for=""> BRB Note:</label>
-                                        <div class="col-sm-6">
-                                            <textarea type="date" class="form-control form-control-sm" name="brb_note"></textarea>
+                                        <div class="col-sm-8">
+                                            <textarea class="form-control form-control-sm" name="brb_note" id="brb_note" required></textarea>
                                         </div>
-                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-2=1"></div>
                                     </div>
                                 </div>
                             </div>
@@ -226,6 +231,7 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
    $(document).ready( function () {
+       var shouldHide = '{{$type == "past" ? false :true}}';
        var table = $("#sailorTable").DataTable({
            "language": {
                "zeroRecords": "No record(s) found."
@@ -249,9 +255,11 @@
            columns: [
                { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'pro_name', name: 'profile_name', searchable: true, orderable:true ,defaultContent: 'NA'},
+                { data: 'state_name', name: 'state_name', searchable: false, orderable:true ,defaultContent: 'NA'},
                { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'membership', name: 'membership', searchable: false, orderable:true ,defaultContent: 'NA', visible: shouldHide},
                //{ data: 'city_name', name: 'city_name', searchable: false, orderable:true ,defaultContent: 'NA'},
-               { data: 'state_name', name: 'state_name', searchable: false, orderable:true ,defaultContent: 'NA'},
+              
                { data: 'phone', name: 'phone', searchable: true, orderable:true,defaultContent: 'NA' },
                { data: 'start_date_parsed', name: 'created_at', searchable: false, orderable:false,defaultContent: 'NA' },
                { data: 'enabled', name: 'enabled', searchable: false, orderable:true,defaultContent: 'NA' },
@@ -558,6 +566,16 @@
        });
    });
 
+    window.Parsley.addValidator('time', {
+    validateString: function(value) {
+      // Regex to validate time in HH:MM format (24-hour)
+      return /^([01]\d|2[0-3]):([0-5]\d)$/.test(value);
+    },
+    messages: {
+      en: 'Please enter a valid time (HH:MM).'
+    }
+  });
+ $('#brb_form').parsley({});
 
    $("#brb_form").on('submit', function (e) {
        e.preventDefault();
