@@ -26,7 +26,7 @@
                   <h3 class="NotesHeader"><b>Notes:</b> </h3>
                   <ol>
                       <li>This form will be pre-populated with your details according to what you have
-                          entered in <a href="{{ url('escort.profile.information')}}">My Account</a>.
+                          entered in <a href="{{ url('escort.profile.information')}} " class="custom_links_design">My Account</a>.
                           You can alter any of the information.</li>
                       <li>Complete the form to request contact. When completing the form please ensure
                           all of the details are correct and you have selected the correct option for

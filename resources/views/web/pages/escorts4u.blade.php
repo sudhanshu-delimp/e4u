@@ -131,7 +131,7 @@ upload Content for Users to view either as a pay-per-view or by subscription.
         your experience (registration required).
     </p>
     <div class="container mt-4 px-0 chagneto-policy">
-        <hr style="border: none; border-top: 1px solid #ccc; margin-top: 40px; margin-bottom: 20px;">
+    <hr class="custom_hr">
         <h2 class="primery_color normal_heading">Changes to this Guide</h2>
         <p><b>This Guide was last updated on 19-05-2025</b></p>
     </div>

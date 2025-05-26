@@ -45,7 +45,7 @@
                                             <li>Use these information pages for any questions you may have about the
                                                 Services.
                                             </li>
-                                            <li>If you can't find the answer, raise a <a href='/submit_ticket'>Support Ticket</a> and we will get
+                                            <li>If you can't find the answer, raise a <a href='/submit_ticket' class="custom_links_design">Support Ticket</a> and we will get
                                                 back to you.
                                             </li>
                                         </ol>
@@ -407,7 +407,7 @@
                                                         </tbody>
                                                     </table>
                                                     <p class="mt-4"><sup>1</sup> Feature availability is subject to the
-                                                        <a href="faqs.php">Local Laws</a></p>
+                                                        <a href="faqs.php" class="custom_links_design">Local Laws</a></p>
                                                     <p><sup>2</sup> Monthly fee of $5.00 (to cover SMS costs)</p>
                                                     <p><sup>3</sup> Payment by credit card</p>
                                                     <h5 class="mt-4">Some other great services</h5>

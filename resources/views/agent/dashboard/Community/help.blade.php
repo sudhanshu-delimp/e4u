@@ -142,7 +142,7 @@
                                     <div class="col-sm-12">
                                        <p class="pt-2"><b>Q: How do I get in touch with Escorts4U if I have any queries?</b></p>
                                        <p>
-                                          You can forward an email to our <a href="#" style="color:#FF3C5F">support team</a> anytime. Please allow us some time to
+                                          You can forward an email to our <a href="#" style="color:#FF3C5F" class="custom_links_design">support team</a> anytime. Please allow us some time to
                                           get back to you. We will get back to you within 24 hours, usually sooner.
                                        </p>
                                     </div>

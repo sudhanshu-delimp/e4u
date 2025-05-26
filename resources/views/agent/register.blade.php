@@ -15,7 +15,7 @@
                             Register and we will be in touch to go over what being an Agent can do for you.
                             </br>
                             </br>
-                            See also <span class="text_decoration_for_a"><a href="{{ url('help-for-agents')}}" class="termsandconditions_text_color" style="font-size: 16px;">Help for Agent</a></span> for more information about benefits and your obligations.
+                            See also <span ><a href="{{ url('help-for-agents')}}" class="termsandconditions_text_color" style="font-size: 16px;">Help for Agent</a></span> for more information about benefits and your obligations.
                         </p>
                     </div>
                 </div>

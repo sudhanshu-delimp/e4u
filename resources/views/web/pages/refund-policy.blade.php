@@ -38,7 +38,7 @@
             </p>
          </li>
          <li>
-            <p class="text_decoration_for_a mb-0">You have breached our <a class="termsandconditions_text_color" href="{{ url('terms-conditions')}}">Terms and Conditions</a> including any of the <a href="{{ url('faqs#Local_Laws')}}" class="termsandconditions_text_color">Local Laws</a></p>
+            <p class=" mb-0">You have breached our <a class="termsandconditions_text_color" href="{{ url('terms-conditions')}}">Terms and Conditions</a> including any of the <a href="{{ url('faqs#Local_Laws')}}" class="termsandconditions_text_color">Local Laws</a></p>
          </li>
          <li>
             <p class="mb-0">Your Profile is not presented in the form you asked for. (Profiles are presented in our
@@ -91,12 +91,13 @@
           to account for the proportion of any Fees payable for the Services already utilised by you.
       </p>
       <div class="container mt-4 px-0 chagneto-policy">
+      <hr class="custom_hr">
          <h2 class="primery_color normal_heading">Changes to this Policy</h2>
          <p>We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
             review the most current version.
          </p>
          <p>Escorts4U archives all previous versions of this Policy.</p>
-         <p><b>This policy was last updated 24-01-2024</b></p>
+         <p><b>This policy was last updated 23-05-2025</b></p>
       </div>
    </div>
 </section>

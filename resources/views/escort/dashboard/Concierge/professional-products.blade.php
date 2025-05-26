@@ -254,7 +254,7 @@ PO Box 1569<br>
 Bibra Lake DC WA 6965<br></p>
 <p>T: +61 418 957 236<br>
 E: info@condomman.com.au<br>
-W: <a target="_blank" href="https://www.condomman.com.au"><span class="theme-text-color">www.condomman.com.au</span></a></p>
+W: <a target="_blank" href="https://www.condomman.com.au"><span class="custom_links_design">www.condomman.com.au</span></a></p>
          </div>
       </div>
    </div>

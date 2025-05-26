@@ -430,7 +430,7 @@ not available to meet, but they still can view your Profile</li>
 
                             <p><b>Notes: </b> 1 Feature availability is subject to the <a
                                     href="{{ url('law-enforcement')}}"
-                                    class="termsandconditions_text_color text-decoration-none">Local Laws</a></p>
+                                    class="termsandconditions_text_color">Local Laws</a></p>
                             <ul style="list-style:none; padding-left: 46px;">
                                 <li>2 Monthly fee of $5.00 (to cover SMS costs)</li>
                                 <li>3 Payment by Card</li>
@@ -774,7 +774,7 @@ service.
                                 </li>
                                 <li>Overly explicit, and most likely do not comply with the <a
                                         href="{{ url('faqs')}}"
-                                        class="termsandconditions_text_color text-decoration-none">Local Laws</a> or Classification
+                                        class="termsandconditions_text_color">Local Laws</a> or Classification
                                         Laws</li>
                                 <li>Have borders or frames that have been added with a photo program (please upload
                                     your original images without borders)
@@ -915,7 +915,7 @@ Profile, indicating the service is available to Viewers.</p>
                                 people.</p>
                             <p>If you are a Massage Centre, you only need to create one Profile as a Massage
                                 Centre Profile allows you to post up to 8 Masseur Profiles (see <a href="help-for-massage-centres"
-                                                                                                   class="termsandconditions_text_color text-decoration-none">Help
+                                                                                                   class="termsandconditions_text_color">Help
                                     for Massage Centres</a>).
                             </p>
                             <p><b>Q: How are Profiles ordered?</b></p>
@@ -1067,7 +1067,7 @@ Profile, indicating the service is available to Viewers.</p>
                                 guidelines of confidentiality, and we can reassure you that we will always protect your
                                 interests and respect to everything you say.</p>
                             <p>We follow the <a href="{{ url('faqs')}}"
-                                                class="termsandconditions_text_color text-decoration-none">Local
+                                                class="termsandconditions_text_color">Local
                                     Laws</a> and the principles set out in the Privacy Act and the Notifiable
                                     Data Breaches scheme.</p>
                             <p><b>Q: Is the NUM funded by the police?</b></p>
@@ -1167,7 +1167,14 @@ Profile, indicating the service is available to Viewers.</p>
                                 access your online banking, simply go to the "International Transfers" page of the
                                 Bank website and follow the instructions. There are terms and conditions attached to
                                 the Bank which you have to comply with in relation to international money transfers.</p>
-
+                                <div class="container mt-4 px-0 chagneto-policy">
+                                    <hr class="custom_hr">
+                                    <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                                    <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                                            review the most current version.</p>
+                                    <p>Escorts4U archives all previous versions of this Policy.</p>
+                                    <p><b>This policy was last updated 23-05-2025</b></p>
+                                </div>
                         </div>
                     </div>
                 </div>

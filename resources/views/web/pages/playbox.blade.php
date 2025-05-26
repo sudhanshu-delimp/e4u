@@ -70,9 +70,9 @@
             <p>You can view the content on an pay-per-play basis or subscribe to the Escort’s Playbox. What
         a great way to see the Escort before you hook up with them!</p>
         
-        <div class="container mt-4 px-0 chagneto-policy"> 
+        <div class="container mt-4 px-0 chagneto-policy"> <hr class="custom_hr">
             <h2 class="primery_color normal_heading">Changes to this Guide</h2>
-            <p><b>This Guide was last updated on 19-05-2025</b></p>
+            <p><b>This Guide was last updated on 23-05-2025</b></p>
         </div>
    </div>
 </section>

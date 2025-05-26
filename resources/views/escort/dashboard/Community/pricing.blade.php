@@ -343,7 +343,7 @@
                                                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                                             <ol class="mb-0" type="1">
                                                                 <li>
-                                                                    An Escort can engage an <a style="color:#FF3C5F" href="/escort-dashboard/escort-agency-request">Agent</a> to undertake any of the Services,
+                                                                    An Escort can engage an <a style="color:#FF3C5F" href="/escort-dashboard/escort-agency-request" class="custom_links_design">Agent</a> to undertake any of the Services,
                                                                     otherwise Escorts4U will assist Escorts with support. A Fee applies.
                                                                 </li>
                                                                 <li>Platinum and Gold Membership includes Verified Media.</li>

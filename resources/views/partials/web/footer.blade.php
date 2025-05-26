@@ -15,6 +15,7 @@
                <a href="#"><img src="{{ asset('assets/app/img/logo.png') }}" class="img-fluid" alt="logo"></a>
             </div>
             <div class="col-md-6">
+               @if(!auth()->user())
             <ul class="footer_list_style_none footerbtn-flex custom--foter-login">
                   <li class="dropdown">
                      <a style="padding: 5px 15px;width:120px; text-align: center;" class="nav-link dropdown-toggle footer_reg_btn" id="navbarDropdownn" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="{{ route('register') }}">Register</a>
@@ -34,6 +35,7 @@
                      </div>
                   </li>
                </ul>
+               @endif
             </div>
          </div>
          <div class="row">
@@ -826,6 +828,40 @@
     }, 500);
      });
    });
+
+$(document).ready(function () {
+    // Show the button only if content is taller than window
+    if ($(document).height() > $(window).height()) {
+        $('#back-to-bottom-2').show();
+    } else {
+        $('#back-to-bottom-2').hide();
+    }
+
+    // Scroll handler
+    $('#back-to-bottom-2').fadeOut();
+    $(window).scroll(function () {
+        let scrollTop = $(this).scrollTop();
+        let windowHeight = $(this).height();
+        let documentHeight = $(document).height();
+
+        // Check if at the bottom of the page
+        if (scrollTop + windowHeight >= documentHeight - 10) {
+            $('#back-to-bottom-2').fadeOut(); // Hide at bottom
+        } else if (scrollTop > 10) {
+            $('#back-to-bottom-2').fadeIn();  // Show when scrolling
+        } else {
+            $('#back-to-bottom-2').fadeOut(); // Hide at top
+        }
+    });
+
+    // Scroll to bottom on click
+    $('#back-to-bottom-2').click(function () {
+        $('html, body').animate({
+            scrollTop: $(document).height() - $(window).height()
+        }, 400);
+        return false;
+    });
+});
 </script>
 <script>
    $(window).on("scroll", function () {

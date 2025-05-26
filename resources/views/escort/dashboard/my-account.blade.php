@@ -138,8 +138,8 @@
                                 Make sure you take the time to complete everything, it will help you
                                 manage your Account much better, especially with communication. If you
                                 are not sure about any of the settings, get in touch with our
-                                <a href="{{ url('contact-us')}}">Help Centre</a>
-                                or your <a href="{{ url('escort-dashboard/escort-agency-request')}}">Agent</a> if you have appointed one.
+                                <a href="{{ url('contact-us')}}" class="custom_links_design">Help Centre</a>
+                                or your <a href="{{ url('escort-dashboard/escort-agency-request')}}" class="custom_links_design">Agent</a> if you have appointed one.
 {{--                                Agent [link to request an Agent is appointed]--}}
                             </li>
                             <li>There is some general information also available to you inside each of the
@@ -301,7 +301,7 @@
                                                 <li>If you have any queries regarding your appointed Agent, contact the Escorts4U help centre by raising a Support Ticket. Please include the Agent ID number. </li>
                                             </ol>
                                             <h5>Home State</h5>
-                                            <p>If you want to change your Home State, contact the Escorts4U help centre by raising a <a class=" " href="{{ url('escort-dashboard/submitticket') }}" style="font-size: 16px;"><span class="theme-text-color">Support Ticket.</span></a> You can not change your Home State, only Escorts4U support staff can change your Home State. You will have to provide proof that you have relocated to a new Home State.</p>
+                                            <p>If you want to change your Home State, contact the Escorts4U help centre by raising a <a class=" " href="{{ url('escort-dashboard/submitticket') }}" style="font-size: 16px;"><span class="custom_links_design">Support Ticket.</span></a> You can not change your Home State, only Escorts4U support staff can change your Home State. You will have to provide proof that you have relocated to a new Home State.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -435,7 +435,7 @@
       e.preventDefault();
 
       var form = $(this);
-
+      $("#modal-title").text('About Me');
       if (form.parsley().isValid()) {
 
         var url = form.attr('action');
@@ -473,6 +473,7 @@
         var form = $(this);
         var url = form.attr('action');
         var data = new FormData(form[0]);
+         $("#modal-title").text('Profile and Tour options');
         $.ajax({
           method: form.attr('method'),
           url: url,

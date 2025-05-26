@@ -31,7 +31,7 @@
                             <ol class=" mb-0">
                                 <li>By completing these settings, the information set out under My Available Times will by default appear in your Profile creator.</li>
                                 <li>Leave the time blank if you are unavailable. Select ‘By Appointment’ as an alternative to a particular time period.</li>
-                                <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account">feature</a> (see My Account - Profile & Tour options).</li>
+                                <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account" class="custom_links_design">feature</a> (see My Account - Profile & Tour options).</li>
                             </ol>
                             </div>
                             </div>
@@ -556,7 +556,7 @@
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="You can create as many as you like. Select your Stage Name from the drop down list that will appear in the Profile creator." data-boundary="window">
                             </label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control form-control-sm select_tag_remove_box_sadow{{-- js-example-tokenizer--}}" id="st_name" placeholder="Enter stage name">
+                                <input type="text" class="form-control form-control-sm {{-- js-example-tokenizer--}}" id="st_name" placeholder="Enter stage name">
                                     {{-- <option value="">-Not Set-</option> --}}
 
                                 {{-- </select> --}}

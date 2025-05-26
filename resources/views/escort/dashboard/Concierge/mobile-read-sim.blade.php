@@ -29,7 +29,7 @@
                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
                             <ol>
                                 <li>This form will be pre-populated with your details according to what you have
-                                    entered in <a href="{{ url('escort.profile.information') }}">My Account</a>.
+                                    entered in <a href="{{ url('escort.profile.information') }}" class="custom_links_design">My Account</a>.
                                     You can alter any of the information.</li>
                                 <li>Payment is based on the period you have selected for the Mobile SIM.</li>
                                 <li>Complete the form to request the Mobile SIM. When completing the form please
@@ -153,7 +153,7 @@
                                                 id="pref_terms">
                                             <label class="form-check-label" for="pref_terms"> I have read and agree to the
                                                 <a href="{{ route('pages.terms-conditions') }}#mobile-sim"
-                                                    target="_blank">Terms.</a></label>
+                                                    target="_blank" class="custom_links_design">Terms.</a></label>
 
                                         </div>
                                         @error('terms')

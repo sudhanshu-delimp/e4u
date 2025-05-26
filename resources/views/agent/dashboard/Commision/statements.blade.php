@@ -49,7 +49,7 @@
                                  <li class="mb-0">All Commission paid to you under the Agent Agreement will be paid into your
                                     nominated Bank Account. Commission is inclusive of GST.
                                  </li>
-                                 <li class="mb-0">Any queries regarding Commission must be raised by logging a <a href="http://localhost/e4u/public/agent-dashboard/submitticket" class="termsandconditions_text_color text-decoration-none">Support Ticket</a> with
+                                 <li class="mb-0">Any queries regarding Commission must be raised by logging a <a href="http://localhost/e4u/public/agent-dashboard/submitticket" class="termsandconditions_text_color custom_links_design">Support Ticket</a> with
                                     E4U.
                                  </li>
                               </ol>

@@ -15,6 +15,12 @@ a{
     text-decoration: none ;
     color: #FF3C5F;
 }
+
+
+.custom_links_design:hover{
+    text-decoration:underline;
+    color:#ff3c5f;
+ }
 .margin_zero_for_row{
     margin: 0px;
 }
@@ -2175,6 +2181,20 @@ span.nvainside_nav_font{
     color: #334D6E;
 }
 
+.v-main-heading h1 {
+    font-family: Poppins;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 42px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-bottom: 20px;
+    padding-top: 60px;
+    color: #0C223D;
+    text-transform: capitalize;
+}
+
 .v-main-heading.h3 {
     font-family: Poppins;
     font-size: 42px;
@@ -2545,7 +2565,7 @@ padding-bottom:80px;
     flex-direction: row;
     align-items: center;
     padding: 10px 20px;
-    background: #2C3E50 !important;
+    background: #0C223D !important;
     border-radius: 3px;
     border: 0;
     text-transform: capitalize;

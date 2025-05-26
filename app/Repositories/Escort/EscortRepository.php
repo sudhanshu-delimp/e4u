@@ -193,6 +193,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->name = $item->name ? $item->name :"NA";
             $item->pro_name = $item->profile_name ? $item->profile_name :"NA";
             $item->city_name = $item->city ? $item->city->name : null;
+            $item->state_name = $item->state ? $item->state->name : null;
             if($item->enabled ==1) {
                 $item->enabled = "Active"; } elseif($item->enabled ==0) {
                     $item->enabled = "Inactive";} else {
@@ -203,7 +204,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
            // this data for agent: list Adertiser <Manage Profile
             $item->phone = $item->phone ? $item->phone :"NA";
             $item->gender = $item->gender ? $item->gender :"NA";
-            $item->membership = $item->membership ? $item->membership :"NA";
+            $item->membership = $item->membership ? $item->membershipType :"NA";
             $item->homeState = $item->user ? $item->user->state->iso2 :"NA";
             $item->vaccine = $item->covidreport ? $item->covidreport :"NA";
             $item->actionAgentEscortProfile = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"> <a class="dropdown-item" href="'.route('profile.description', $item->id).'"  data-id="'.$item->id.'" target="_blank">View</a> <div class="dropdown-divider"></div><a class="dropdown-item" data-user_id="'.$item->user_id.'" href="profile/'.$item->id.'/'.$item->user_id.'" data-id="'.$item->id.'" data-name="'.$item->name.'" data-category="'.($item->id).'" target="_blank">Edit</a>   </div></div>';

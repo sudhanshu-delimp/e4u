@@ -70,7 +70,7 @@
                     <form id="allfilters" method="" action="">
                         <div class="row">
                             <div class="col-md-4">
-                                <div class="custom-search-help">
+                                <div class="custom-search-help mb-2 ">
                                     <h5 class="normal_heading mb-0">Search Filters</h5>
                                     <div class="display_inline_block helpquation">
                                         <a href="#" data-toggle="modal" data-target="#forhelp"

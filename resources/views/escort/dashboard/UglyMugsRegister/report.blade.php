@@ -35,7 +35,7 @@
                               use the NUM service at any time.
                           </li>
                           <li>
-                              If you have enabled, under your <a href="{{route('escort.profile.notifications')}}" class="termsandconditions_text_color">Account</a> settings, to be notified when a new listing
+                              If you have enabled, under your <a href="{{route('escort.profile.notifications')}}" class="termsandconditions_text_color custom_links_design">Account</a> settings, to be notified when a new listing
                               is added to the NUM, you are charged a monthly Fee.
                           </li>
                           <li>
