@@ -399,7 +399,6 @@ class EscortController extends Controller
         $attachment = $request->file('avatar_img');
         $extension = $attachment->getClientOriginalExtension();
         //$extension = explode('/', mime_content_type($request->src))[1];
-        $extension = explode('/', mime_content_type($request->src))[1];
         $data = $request->src;
 
         list($type, $data)  = explode(';', $data);
