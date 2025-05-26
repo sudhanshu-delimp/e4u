@@ -94,37 +94,27 @@
                                             aria-describedby="search-addon" value="{{ request()->get('name') }}">
                                     </div>
                                 </div>
-                                {{-- <div class="display_inline_block ">
-                                    <div class="input-group">
-                                        <div class="d-flex align-items-start">
-                                            <input type="radio" name="locationByRadio" title=""> <label
-                                                for="" style="font-size: 12px;
-                                                    color: #90a0b7;">Your Location</label>
-                                        </div>
-                                        
-                                        <div class="d-flex align-items-start">
-                                            <input type="radio" name="locationByRadio"><label
-                                                for="">Australia</label>
-                                        </div>
-                                    </div>
-                                </div> --}}
                                 <div class="display_inline_block">
                                     <div class="d-flex flex-column gap-2" style="width:105px">
                                         <div class="d-flex align-items-start"
-                                            style="
-                                    padding-top: 2px;">
-                                            <input type="radio" name="locationByRadio" id="yourLocation">
+                                            @php
+                                                $myLocation = false;
+                                                if(request()->filled('lat')){
+                                                    $myLocation = true; 
+                                                }
+                                            @endphp
+                                            style=" padding-top: 2px;" title="Undertake a search within your Location only">
+                                            <input type="radio" name="locationByRadio" {{ ($radio_location_filter != null || $myLocation) ? 'checked':'' }} id="yourLocation">
                                             <label for="yourLocation"
-                                                style="margin-left: 8px; font-size: 12px; color: #90a0b7; 
-                                    margin-bottom: 3px;">
+                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
                                                 Your Location
                                             </label>
                                         </div>
 
-                                        <div class="d-flex align-items-start">
-                                            <input type="radio" name="locationByRadio" id="australia">
+                                        <div class="d-flex align-items-start" title="Undertake a search Australia wide">
+                                            <input type="radio" name="locationByRadio" id="australia" {{ ($radio_location_filter == null && $myLocation == false) ? 'checked' : ''}}>
                                             <label for="australia"
-                                                style="margin-left: 8px; font-size: 12px; color: #90a0b7;">
+                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
                                                 Australia
                                             </label>
                                         </div>
@@ -994,8 +984,8 @@
             
             if ($genderId > 0 && $filterGenderId != null) {
                 echo "if($('[name=\"gender\"]').val() == '') {
-                                                                                $('[name=\"gender\"]').val($genderId);
-                                                                            }";
+                                                                                            $('[name=\"gender\"]').val($genderId);
+                                                                                        }";
             }
             ?>
         });
@@ -1311,6 +1301,56 @@
             console.log(cid[1] + "-" + Eid);
             console.log(cidcl);
 
+        });
+
+        $(document).ready(function () {
+            $('input[name="locationByRadio"]').on('change', function () {
+                let selectedLocation = {};
+                selectedLocation.location = $(this).attr('id'); // "yourLocation" or "australia"
+
+                //console.log(selectedLocation.location, ' out if')
+                if(selectedLocation.location == 'yourLocation'){
+
+                    navigator.geolocation.getCurrentPosition(async function(position) {
+                        const latitude = position.coords.latitude;
+                        const longitude = position.coords.longitude;
+                        selectedLocation.lat = latitude;
+                        selectedLocation.lng = longitude;
+
+                        console.log(longitude, latitude, ' jitendera')
+                        sendLocationData(selectedLocation);
+                       
+                    });
+                    
+                }else{
+                    selectedLocation.lat = '';
+                    selectedLocation.lng = '';
+                    sendLocationData(selectedLocation);
+                }
+
+                
+            });
+
+            function sendLocationData(data) {
+                $.ajax({
+                    url: '{{ route("location.filter") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        data: data
+                    },
+                    success: function (response) {
+                        if(response.status){
+                            $("#"+data.location).attr('checked', true);
+                            window.location.href = response.location;
+                        }
+                        console.log('Location filter updated:', response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error in location filter:', error);
+                    }
+                });
+            }
         });
     </script>
 @endpush

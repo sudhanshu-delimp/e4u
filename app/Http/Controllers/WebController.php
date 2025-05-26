@@ -47,6 +47,21 @@ class WebController extends Controller
         $this->page = $page;
         $this->massage_profile = $massage_profile;
     }
+
+    public function filterLocation(Request $request)
+    {
+        session(['radio_location_filter' => true]);
+        $query['lat'] = isset($request->data['lat']) ? $request->data['lat'] : '';
+        $query['lng'] = isset($request->data['lng']) ? $request->data['lng'] : '';
+
+        if($query['lat'] == ''){
+            session()->forget('radio_location_filter'); 
+        }
+
+        $url = route('find.all', $query);
+        return response()->json(['status' => true, 'location' => $url]);
+    }
+
     public function allEscortList(Request $request, $gender = null)
     {
         $user = 1;
@@ -369,8 +384,10 @@ class WebController extends Controller
             ]
         );
 
+        $radio_location_filter = session('radio_location_filter');
+
         //dd($escorts);
-        return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount'));
+        return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount','radio_location_filter'));
     }
 
     public function getRealTimeGeolocationOfUsers($lat, $lng)
@@ -511,10 +528,11 @@ class WebController extends Controller
         $services = $this->services->all();
 
         $backToListing = session('search_escort_filters_url');
+        $radio_location_filter = session('radio_location_filter');
 
         //dd($escorts);
         //dd($escorts->items()[1]->where(8));
-        return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts','backToListing'));
+        return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts','backToListing','radio_location_filter'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
 
