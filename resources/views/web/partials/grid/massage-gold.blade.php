@@ -85,7 +85,7 @@
             @if(!empty($escortId))
                 {{-- @if($escort->shortListed->isEmpty()) --}}
                 @if(in_array($escort->id,$escortId))
-                <img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_btn.svg') }}">
+                <img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
                 Remove from Shortlist
                 @else
                 Add to Shortlist      

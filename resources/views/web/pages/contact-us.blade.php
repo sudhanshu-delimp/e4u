@@ -100,7 +100,7 @@
                     <label for="exampleFormControlTextarea1">Comment</label>
                     <textarea class="form-control border_for_form" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
                 </div>
-                <button type="submit" id="" class="btn btn-primary mb-3">Send message</button>
+                <button type="submit" id="" class="btn btn-primary mb-3">Send Message</button>
             </form>
 
 

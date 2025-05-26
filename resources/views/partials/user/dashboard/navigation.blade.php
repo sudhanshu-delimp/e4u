@@ -136,7 +136,7 @@
                                     My Legbox
                                 </a>
                                 
-                                <a class="dropdown-item" href="/user-dashboard/my-legbox-list">
+                                <a class="dropdown-item" href="{{ route('user.new') }}">
                                     <img class="mr-2 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyNotebox.png')}}">
                                     My Notebox
                                 </a>

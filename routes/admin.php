@@ -64,11 +64,17 @@ Route::get('global-monitoring',function(){
 return view('admin.global-monitoring');
  })->name('admin.global-monitoring');
 
+ Route::get('massage-centre-listings', function(){
+     return view('admin.massage-centre-listings');
+ })->name('massage-centre-listings');
+  
+ 
 Route::get('database',function(){
     return view('admin.database');
 })->name('admin.database');
 
 Route::get('accounting-reports',function(){
+
     return view('admin.accounting-reports');
 })->name('admin.accounting-reports');
 

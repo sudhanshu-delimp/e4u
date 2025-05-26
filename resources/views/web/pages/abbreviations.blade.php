@@ -39,6 +39,9 @@
     h2 {
   scroll-margin-top: 110px; /* match your fixed header height */
 }
+.accordian_wrapper p{
+    text-align:justify;
+}
 </style>
 @endsection
 @section('content')
@@ -1032,21 +1035,24 @@
 
 </script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function () {
     const paragraphs = document.querySelectorAll(".accordian_wrapper p");
+
+    const WORD_LIMIT = 15; // Uniform word limit
 
     paragraphs.forEach(p => {
         const originalHTML = p.innerHTML.trim();
 
-        // Extract plain text
+        // Extract plain text only
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = originalHTML;
         const textOnly = tempDiv.textContent || tempDiv.innerText || "";
         const words = textOnly.trim().split(/\s+/);
 
-        if (words.length > 8) {
-            const shortWords = words.slice(0, 7);
+        if (words.length > WORD_LIMIT) {
+            const shortWords = words.slice(0, WORD_LIMIT);
             const colonIndex = shortWords.findIndex(w => w.includes(":"));
+
             let shortText = "";
 
             if (colonIndex > 0) {
@@ -1057,7 +1063,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 shortText = shortWords.join(" ") + "...";
             }
 
-            const fullHTML = p.innerHTML; // Store original full HTML before any changes
+            const fullHTML = p.innerHTML;
 
             function showShort() {
                 p.innerHTML = `

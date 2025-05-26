@@ -82,7 +82,6 @@ class PageController extends Controller
 		return redirect('admin.page.index')->with('status','Record successfully inserted!..');
 
     }
-
     /**
      * Display the specified resource.
      *
