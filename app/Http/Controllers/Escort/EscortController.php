@@ -434,7 +434,6 @@ class EscortController extends Controller
         //     $user->save();
         // }
         return response()->json(compact('type','avatarName'));
-        die();
     }
     public function removeMyAvatar()
     {
