@@ -127,7 +127,7 @@
                                            'start_date' => date('d-m-Y', strtotime($purchase['start_date'])),
                                            'end_date' => date('d-m-Y', strtotime($purchase['end_date'])),
                                            'days' => ( Carbon\Carbon::parse($purchase['end_date'])->diffInDays(Carbon\Carbon::parse($purchase['start_date']))),
-                                           'fee' => ''
+                                           'fee' => isset($escort['pricing']['price']) ? $escort['pricing']['price'] : 0.00,
                                        ];
                                     @endphp
                                     {{--<tr class="tr-sec">

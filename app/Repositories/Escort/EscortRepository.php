@@ -124,7 +124,6 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
 		$order = $this->getOrder($order_key);
 		$searchables = $this->getSearchableFields($columns);
-
 		$query = $this->model
 			->offset($start)
 		    ->limit($limit)
