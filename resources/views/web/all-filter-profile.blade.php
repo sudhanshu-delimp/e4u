@@ -1357,7 +1357,7 @@
         $('input[name="locationByRadio"]').prop('disabled', true);
         $(document).ready(function () {
             // Enable the radio buttons when the page is fully loaded
-            $('input[name="locationByRadio"]').prop('disabled', false);
+            $('input[name="locationByRadio"]').prop('disabled', false); 
         });
     </script>
 @endpush
