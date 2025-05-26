@@ -54,7 +54,6 @@ class EscortController extends Controller
 
         $escorts = $this->escort->all();
         $tasks= Task::latest()->paginate(10);
-
         return view('escort.dashboard.index', compact('escorts','result','result2','tasks'));
     }
 
@@ -94,7 +93,7 @@ class EscortController extends Controller
 
     function listings($type) 
     {
-        $relatedEscorts = Escort::select(['id', 'name', 'profile_name', 'city_id', 'state_id'])
+        $relatedEscorts = Escort::select(['id', 'name', 'profile_name', 'city_id', 'state_id', 'membership'])
             ->with(['purchase' => function ($query) use ($type) {
                 if($type == 'past') {
                     $query->where('end_date', '<', date('Y-m-d'));
@@ -104,10 +103,10 @@ class EscortController extends Controller
                 $query->orderBy('start_date', 'ASC');
             }])
             ->whereHas('purchase')
+            ->with('pricing')
             ->where('user_id', auth()->user()->id)
             ->orderBy('name', 'ASC')
             ->get()->toArray();
-
 
         return view('escort.dashboard.listings', compact('type', 'relatedEscorts'));
     }

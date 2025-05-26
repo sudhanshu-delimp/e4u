@@ -142,6 +142,11 @@ class Escort extends Model
         return $this->hasOne('App\Models\Availability','escort_id');
     }
 
+    public function pricing()
+    {
+        return $this->belongsTo('App\Models\Pricing', 'membership', 'membership_id');
+    }
+
     /***
      * @CreatedOn: 14-Jul-2023
      * @By:Bikash Chhualsingh
