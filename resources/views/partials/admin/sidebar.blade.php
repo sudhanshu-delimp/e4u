@@ -376,7 +376,7 @@
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/suspend.png')}}">
                 <span style="">Suspend</span></a>
             </div>
-        </div>
+        </div> 
     </li> -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Publications" aria-expanded="false" aria-controls="collapseTwo">
