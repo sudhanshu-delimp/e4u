@@ -1128,7 +1128,7 @@
                         $('.class_msg').text(name + ' has been added to your Shortlist');
                         $('#add_wishlist').modal('show');
                         $('.myescort_' + Eid).html(
-                            '<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_btn.svg') }}"> Remove from Shortlist'
+                            '<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}"> Remove from Shortlist'
                         )
                         $('#session_count').text(data.count_session);
                         //
@@ -1154,7 +1154,7 @@
                                         ' has been remove from your Shortlist');
                                     $('#add_wishlist').modal('show');
                                     $('.myescort_' + Eid).html(
-                                        '<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_btn.svg') }}"> Add to Shortlist'
+                                        '<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}"> Add to Shortlist'
                                     )
                                     $('#session_count').text(data.count_session);
                                     //location.reload();

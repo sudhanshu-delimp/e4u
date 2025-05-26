@@ -96,8 +96,8 @@
                                 @else
 
                                 {{-- <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist" data-escortId="{{$escort->id}}">
-                                <img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_btn.svg') }}">Add to shortlist</button> --}}
-                                <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_{{$escort->id}}" id="escort_{{$escort->id}}" data-name="{{$escort->name}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_btn.svg') }}">
+                                <img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">Add to shortlist</button> --}}
+                                <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_{{$escort->id}}" id="escort_{{$escort->id}}" data-name="{{$escort->name}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
                                     @if(!empty($escortId))
                                         @if(in_array($escort->id,$escortId))
                                         Remove from Shortlist

@@ -175,12 +175,12 @@
         </a>
         <div id="uglynote" class=" collapse  @if(request()->segment(3) == 'report' || request()->segment(3) == 'lookup' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-             <a class="collapse-item show" href="{{ route('user.report') }}">
+             <a class="collapse-item show" href="{{ route('user.new') }}">
                 <img src="{{ asset('assets/app/img/icons-bug.png')}}">
                 <span class="pl-3" style="{{request()->segment(3) == 'report' ? 'color: #e5365a;' : ''}}">New</span>
             </a>
 
-            <a class="collapse-item" href="{{ route('user.lookup') }}">
+            <a class="collapse-item" href="{{ route('user.list') }}">
                 <img src="{{ asset('assets/app/img/icons-list.png')}}">
             <span class="pl-3" style="{{request()->segment(3) == 'lookup' ? 'color: #e5365a;' : ''}}">List</span>
             </a>

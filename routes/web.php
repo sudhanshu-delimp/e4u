@@ -336,6 +336,14 @@ Route::get('/user-dashboard/punterbox/lookup',function(){
     return view('user.dashboard.punterbox.lookup');
 })->name('user.lookup');
 
+Route::get('/user-dashboard/notebox/new',function(){
+    return view('user.dashboard.notebox.new');
+})->name('user.new');
+
+Route::get('/user-dashboard/notebox/list',function(){
+    return view('user.dashboard.notebox.list');
+})->name('user.list');
+
 Route::get('/user-dashboard/punterbox/report',function(){
     return view('user.dashboard.punterbox.report');
 })->name('user.report');
