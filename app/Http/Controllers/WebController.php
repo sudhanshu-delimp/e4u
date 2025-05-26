@@ -18,6 +18,7 @@ use App\Models\Payment;
 use App\Models\EscortLike;
 use App\Models\MassageLike;
 use App\Models\EscortBrb;
+use App\Models\Reviews;
 use App\Models\State;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
@@ -901,7 +902,8 @@ class WebController extends Controller
     }
     public function profileDescription(Request $request, $id, $city=null, $membershipId =null)
     {
-        $escort = $this->escort->find($id);
+        $escort = Escort::where('id',$id)->with('reviews','reviews.user')->first();
+        //dd($escort);
         $media = $this->escortMedia->get_videos($escort->user_id);
         $path = $this->escortMedia->findByVideoposition($escort->user_id,1)['path'];
         if(! $escort) {
@@ -1075,7 +1077,8 @@ class WebController extends Controller
 
         // return view('web.description',compact('escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three'));
 
-        
+        //$reviews = Reviews::where('escort_id',$id)->with('review')->get();
+
         $user = DB::table('users')->where('id',(int)$escort->user_id)->select('contact_type')->first();
         //dd($user, $escort->user_id);
         return view('web.description',compact('brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three','backToSearchButton','user'));

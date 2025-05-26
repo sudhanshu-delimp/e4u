@@ -371,6 +371,11 @@ class Escort extends Model
         return $this->belongsToMany('App\Models\City', 'tour_location', 'profile_id', 'city_id');
     }
 
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\Reviews', 'escort_id', 'id');
+    }
+
     ///////////////////
     public function gallary()
     {
