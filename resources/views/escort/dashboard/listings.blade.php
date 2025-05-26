@@ -24,6 +24,13 @@
             top: 40px;
             position: relative;
         }
+         .brb_icon {
+        color: white;
+        background-color: #e5365a;
+        border-radius: 15%;
+        padding: 0 5px;
+    }
+    
     </style>
 @endsection
 @section('content')
@@ -117,10 +124,15 @@
                                 @endphp
                                 @foreach($escort['purchase'] as $purchase)
                                     @php
+                                    $brb = $escort['profile_name'];
+                                    if((isset($escort['brb'][0]['brb_time']))) {
+                                        $brb = '<span id="brb_'.$escort['id'].'" >'.$escort['profile_name'].' <sup title="Brb at '.date('d-m-Y h:i A', strtotime($escort['brb'][0]['brb_time'])).'" class="brb_icon">BRB</sup></span>';
+                                    }
                                         $dataTableData[] = [
                                            //'sl_no' => $i++,
                                            'sl_no' => $escort['id'],
-                                           'profile_name' => $escort['profile_name'],
+                                           //'profile_name' => $escort['profile_name'],
+                                           'profile_name' => $escort['profile_name'] ? $brb :"NA",
                                            //'city' => config("escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName")."<br>".(config("escorts.profile.states.$escort[state_id].stateName")),
                                            'city' => (config("escorts.profile.states.$escort[state_id].stateName")),
                                            'name' => $escort['name'],
