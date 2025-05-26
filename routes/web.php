@@ -104,6 +104,7 @@ Route::get('/all-escorts-list', [App\Http\Controllers\WebController::class,'allE
 // Route::get('/all-escorts-list/{gender?}', [App\Http\Controllers\WebController::class,'allEscortList'])->name('find.all');
 Route::get('/massage-centres-list', [App\Http\Controllers\WebController::class,'massageList'])->name('find.massage.centre');
 //Route::get('/search-filter', [App\Http\Controllers\WebController::class,'searchfilter'])->name('web.search.filter');
+Route::post('/location/filter', [App\Http\Controllers\WebController::class, 'filterLocation'])->name('location.filter');
 
 Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class,'gridEscortList'])->name('grid.escort.list');
 //Route::get('/advertiser',function() { return view('escort.index_escort'); });

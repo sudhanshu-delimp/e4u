@@ -49,6 +49,26 @@
                                     <input type="search" name="name" class="form-control remove_border_btm rounded " placeholder="Search by Member ID or Name" aria-label="Search" aria-describedby="search-addon" value="{{ request()->get('name') }}">
                                 </div>
                             </div>
+                            <div class="display_inline_block">
+                                <div class="d-flex flex-column gap-2" style="width:105px">
+                                    <div class="d-flex align-items-start"
+                                        style=" padding-top: 2px;" title="Undertake a search within your Location only">
+                                        <input type="radio" name="locationByRadio" {{ $radio_location_filter != null ? 'checked':'' }} id="yourLocation">
+                                        <label for="yourLocation"
+                                            style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
+                                            Your Location
+                                        </label>
+                                    </div>
+
+                                    <div class="d-flex align-items-start" title="Undertake a search Australia wide">
+                                        <input type="radio" name="locationByRadio" id="australia" {{ $radio_location_filter == null ? 'checked' : ''}}>
+                                        <label for="australia"
+                                            style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
+                                            Australia
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="display_inline_block   item_dis">
                                 <span class="item-head">Display item</span>
                                 <select class="custome_form_control_border_radus padding_five_px" name="limit">
@@ -984,6 +1004,55 @@
 
         console.log(url.toString(), ' hello shortlist url');
         document.querySelector(".clear_shortlist_class").setAttribute("href", url.toString());
+    });
+
+    $(document).ready(function () {
+        $('input[name="locationByRadio"]').on('change', function () {
+            let selectedLocation = {};
+            selectedLocation.location = $(this).attr('id'); // "yourLocation" or "australia"
+
+            //console.log(selectedLocation.location, ' out if')
+            if(selectedLocation.location == 'yourLocation'){
+
+                navigator.geolocation.getCurrentPosition(async function(position) {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    selectedLocation.lat = latitude;
+                    selectedLocation.lng = longitude;
+
+                    console.log(longitude, latitude, ' jitendera')
+                    sendLocationData(selectedLocation);
+                    
+                });
+                
+            }else{
+                selectedLocation.lat = '';
+                selectedLocation.lng = '';
+                sendLocationData(selectedLocation);
+            }
+
+            
+        });
+
+        function sendLocationData(data) {
+            $.ajax({
+                url: '{{ route("location.filter") }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    data: data
+                },
+                success: function (response) {
+                    if(response.status){
+                        window.location.href = response.location;
+                    }
+                    console.log('Location filter updated:', response);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error in location filter:', error);
+                }
+            });
+        }
     });
 
 </script>
