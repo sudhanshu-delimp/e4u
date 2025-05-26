@@ -100,7 +100,7 @@
                                             @php
                                                 $myLocation = false;
                                                 if(request()->filled('lat')){
-                                                    $myLocation = true;
+                                                    $myLocation = true; 
                                                 }
                                             @endphp
                                             style=" padding-top: 2px;" title="Undertake a search within your Location only">
