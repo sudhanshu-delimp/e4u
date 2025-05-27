@@ -141,8 +141,6 @@ class WebController extends Controller
             $params['city_id'] = request()->get('city'); // city_id = 6839
         }
 
-        //dd($params, $request->all(), request()->get('city'));
-
         // echo '<pre>';
         // print_r($str);
         // echo '</pre>';
