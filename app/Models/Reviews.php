@@ -9,4 +9,11 @@ class Reviews extends Model
 {
     use HasFactory;
     protected $guarded =['id'];
+
+    public function user()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'user_id');
+    }
+
+    
 }

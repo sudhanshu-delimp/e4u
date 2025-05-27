@@ -253,6 +253,7 @@
                                 </button>
                             </div>
                             <div class="display_inline_block mb-1 ">
+                                <input type="hidden" name="filter_button_submit" value="1">
                                 <button type="submit" class="btn reset_filter apply-filter-btn" data-toggle="tooltip"
                                     title="Apply filters - Search">
                                     Apply Filters

@@ -47,7 +47,7 @@ class MessageReviewController extends Controller
         if(auth()->user() && auth()->user()->type == 0) {
             $data = [
                 'description' => $request->description,
-                'star_rating' => !empty($request->star_rating) ? $request->star_rating : NULL,
+                'star_rating' => $request->rating ? $request->rating : NULL,
                 'user_id' => auth()->user()->id,
                 'escort_id' => $escort_id,
             ];

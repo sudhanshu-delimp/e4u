@@ -18,6 +18,7 @@ use App\Models\Payment;
 use App\Models\EscortLike;
 use App\Models\MassageLike;
 use App\Models\EscortBrb;
+use App\Models\Reviews;
 use App\Models\State;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
@@ -98,23 +99,22 @@ class WebController extends Controller
         }
 
         $paramData = [];
+        $location_filter_set_same_city = false;
         if($userInterest && $userInterest->interests){
             //$cityParameterExist = request()->has('city');
             $genderParameterExist = request()->has('gender');
-            //$paramData['city_id'] = $cityParameterExist ? null : $userInterest->city ;
             $paramData['interest'] = $genderParameterExist ? null : $userInterest->interests;
             $paramData['gender'] = $genderParameterExist ? null : (($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 ) ? json_decode($userInterest->interests)[0] : null);
-            // $paramData['gender'] = ($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 )? json_decode($userInterest->interests)[0] : null;
-            //$userLocation = null;
              $stateCapital = config('escorts.profile.states')[$user_type->state_id] ?? null;
              
              $userLocation['city'] = $stateCapital ? array_key_first($stateCapital['cities']) : null;
              $userLocation['state'] = $user_type->state_id;
-            //  dd($userLocation['city']);
+             $location_filter_set_same_city = ($userLocation['city'] == request()->get('city')) ? true : false;
         }else{
             $paramData['interest'] = null;
             $paramData['city_id'] = null;
             $paramData['gender'] = null;
+           // session(['radio_location_filter' => false]);
         }
 
         $params = $str  = [
@@ -130,6 +130,16 @@ class WebController extends Controller
             //'limit'=> request()->get('limit'),
             'interest'=> $paramData['interest'] ,
         ];
+
+        $radio_location_filter = session('radio_location_filter');
+        if($params['city_id'] == null){
+            $radio_location_filter = null;
+        }
+
+        if($request->get('filter_button_submit') == '1' && !$location_filter_set_same_city){
+            $radio_location_filter = null;
+            $params['city_id'] = request()->get('city'); // city_id = 6839
+        }
 
         // echo '<pre>';
         // print_r($str);
@@ -384,9 +394,7 @@ class WebController extends Controller
             ]
         );
 
-        $radio_location_filter = session('radio_location_filter');
-
-        //dd($escorts);
+        //dd($radio_location_filter);
         return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount','radio_location_filter'));
     }
 
@@ -901,7 +909,8 @@ class WebController extends Controller
     }
     public function profileDescription(Request $request, $id, $city=null, $membershipId =null)
     {
-        $escort = $this->escort->find($id);
+        $escort = Escort::where('id',$id)->with('reviews','reviews.user')->first();
+        //dd($escort);
         $media = $this->escortMedia->get_videos($escort->user_id);
         $path = $this->escortMedia->findByVideoposition($escort->user_id,1)['path'];
         if(! $escort) {
@@ -1075,7 +1084,8 @@ class WebController extends Controller
 
         // return view('web.description',compact('escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three'));
 
-        
+        //$reviews = Reviews::where('escort_id',$id)->with('review')->get();
+
         $user = DB::table('users')->where('id',(int)$escort->user_id)->select('contact_type')->first();
         //dd($user, $escort->user_id);
         return view('web.description',compact('brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three','backToSearchButton','user'));
