@@ -99,23 +99,22 @@ class WebController extends Controller
         }
 
         $paramData = [];
+        $location_filter_set_same_city = false;
         if($userInterest && $userInterest->interests){
             //$cityParameterExist = request()->has('city');
             $genderParameterExist = request()->has('gender');
-            //$paramData['city_id'] = $cityParameterExist ? null : $userInterest->city ;
             $paramData['interest'] = $genderParameterExist ? null : $userInterest->interests;
             $paramData['gender'] = $genderParameterExist ? null : (($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 ) ? json_decode($userInterest->interests)[0] : null);
-            // $paramData['gender'] = ($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 )? json_decode($userInterest->interests)[0] : null;
-            //$userLocation = null;
              $stateCapital = config('escorts.profile.states')[$user_type->state_id] ?? null;
              
              $userLocation['city'] = $stateCapital ? array_key_first($stateCapital['cities']) : null;
              $userLocation['state'] = $user_type->state_id;
-            //  dd($userLocation['city']);
+             $location_filter_set_same_city = ($userLocation['city'] == request()->get('city')) ? true : false;
         }else{
             $paramData['interest'] = null;
             $paramData['city_id'] = null;
             $paramData['gender'] = null;
+           // session(['radio_location_filter' => false]);
         }
 
         $params = $str  = [
@@ -131,6 +130,18 @@ class WebController extends Controller
             //'limit'=> request()->get('limit'),
             'interest'=> $paramData['interest'] ,
         ];
+
+        $radio_location_filter = session('radio_location_filter');
+        if($params['city_id'] == null){
+            $radio_location_filter = null;
+        }
+
+        if($request->get('filter_button_submit') == '1' && !$location_filter_set_same_city){
+            $radio_location_filter = null;
+            $params['city_id'] = request()->get('city'); // city_id = 6839
+        }
+
+        //dd($params, $request->all(), request()->get('city'));
 
         // echo '<pre>';
         // print_r($str);
@@ -385,9 +396,7 @@ class WebController extends Controller
             ]
         );
 
-        $radio_location_filter = session('radio_location_filter');
-
-        //dd($escorts);
+        //dd($radio_location_filter);
         return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount','radio_location_filter'));
     }
 
