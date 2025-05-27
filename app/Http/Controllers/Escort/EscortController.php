@@ -93,8 +93,7 @@ class EscortController extends Controller
 
     function listings($type) 
     {
-        $relatedEscorts = Escort::select(['id', 'name', 'profile_name', 'city_id', 'state_id', 'membership'])
-            ->with(['purchase' => function ($query) use ($type) {
+        $relatedEscorts = Escort::with(['purchase' => function ($query) use ($type) {
                 if($type == 'past') {
                     $query->where('end_date', '<', date('Y-m-d'));
                 } else {
@@ -104,6 +103,11 @@ class EscortController extends Controller
             }])
             ->whereHas('purchase')
             ->with('pricing')
+            ->with([
+                'Brb' => function($query){
+                    $query->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                }
+            ])
             ->where('user_id', auth()->user()->id)
             ->orderBy('name', 'ASC')
             ->get()->toArray();
