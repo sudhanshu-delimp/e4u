@@ -66,8 +66,16 @@ return view('admin.global-monitoring');
 
  Route::get('massage-centre-listings', function(){
      return view('admin.massage-centre-listings');
- })->name('massage-centre-listings');
+ })->name('admin.massage-centre-listings');
   
+ Route::get('escort-listings', function(){
+    return view('admin.escort-listings');
+})->name('admin.escort-listings');
+ 
+Route::get('logged-in-Users', function(){
+    return view('admin.logged-in-Users');
+})->name('admin.logged-in-Users');
+ 
  
 Route::get('database',function(){
     return view('admin.database');

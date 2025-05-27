@@ -341,25 +341,30 @@
             </div>
         </div> -->
     </li>
-    
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Monitoring" aria-expanded="false" aria-controls="collapseTwo">
-        <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/globe.png')}}">
-        <span>Global Monitoring </span>
+        <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/chart.png')}}">
+        <span>Global Monitoring</span>
         </a>
-        <div id="Monitoring" class="collapse @if(request()->segment(3) == 'publicpages' || request()->segment(3) == 'consoles') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+        <div id="Monitoring" class="collapse @if(request()->is('*global-monitoring*') || request()->is('*logged-in-Users*') 
+         || request()->is('*escort-listings*') || request()->is('*massage-centre-listings*'))  show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
-                <a class="nav-link collapsed" href="{{ route('admin.global-monitoring')}}">
-                    <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/globe.png')}}">
-                    <span style="{{request()->segment(3) == 'publicpages' ? 'color: #e5365a;' : ''}}">Global Monitoring</span>
+                <a class="collapse-item" href="{{ route('admin.global-monitoring')}}">
+                    
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/globe.png')}}">
+                <span style="{{request()->is('*global-monitoring*')  ? 'color: #e5365a;' : ''}}">Global Monitoring</span>
                 </a>
-                <a class="nav-link collapsed" href="{{ route('massage-centre-listings')}}">
-                    <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png')}}">
-                    <span style="{{request()->segment(3) == 'publicpages' ? 'color: #e5365a;' : ''}}">Massage Centre Listings</span>
+                <a class="collapse-item" href="{{ route('admin.logged-in-Users') }}">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/login-user.png')}}">
+                <span style="{{request()->is('*logged-in-Users*') ? 'color: #e5365a;' : ''}}">Logged in Users</span>
                 </a>
-                <a class="nav-link collapsed" href="{{ route('massage-centre-listings')}}">
-                    <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png')}}">
-                    <span style="{{request()->segment(3) == 'publicpages' ? 'color: #e5365a;' : ''}}">Escort Listings</span>
+                <a class="collapse-item" href="{{ route('admin.escort-listings') }}">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png')}}">
+                <span style="{{request()->is('*escort-listings*') ? 'color: #e5365a;' : ''}}">Escort Listings</span>
+                </a>
+                <a class="collapse-item" href="{{ route('admin.massage-centre-listings') }}">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png')}}">
+                <span style="{{request()->is('*massage-centre-listings*') ? 'color: #e5365a;' : ''}}">Massage Centre Listings</span>
                 </a>
             </div>
         </div>
@@ -407,11 +412,11 @@
         <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/publication.png')}}">
         <span>Publications </span>
         </a>
-        <div id="Publications" class="collapse @if(request()->segment(3) == 'publicpages' || request()->segment(3) == 'consoles') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+        <div id="Publications" class="collapse @if(request()->is('*new*')) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
             <a class="nav-link collapsed" href="{{ route('new') }}">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/alert.png')}}">
-                <span style="{{request()->segment(3) == 'publicpages' ? 'color: #e5365a;' : ''}}">Alerts</span>
+                <span style="{{request()->is('*new*') ? 'color: #e5365a;' : ''}}">Alerts</span>
                 </a>
             </div>
         </div>
