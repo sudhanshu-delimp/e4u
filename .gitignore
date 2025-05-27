@@ -31,3 +31,6 @@ composer.lock
 auth.json
 /public/escorts/*
 /public/avatars/*
+/old_bkp/
+/error_log
+.htaccess
