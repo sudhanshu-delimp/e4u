@@ -135,7 +135,7 @@
                         @endif
                 </div>
                 <div class="profile_page_name_and_phno">
-                <p>Perth - {{ preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $escort->phone)) }}</p>
+                <p>{{$escort->city->name}} - {{ preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $escort->phone)) }}</p>
 
 
                     
@@ -1332,12 +1332,12 @@
                                                 <div class="manage_testimonials_profile_img">
                                                     <img src="{{ asset('assets/app/img/profile/testmonialbyimg.png') }}">
                                                 </div>
-                                                <div class="testimonial_by">Sierra</div>
+                                                <div class="testimonial_by">Sierra-1</div>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="star-rating">
-                                                <div class="testimonial_by">Sierra</div>
+                                                <div class="testimonial_by">Sierra-1</div>
                                                 <ul class="list-inline mb-0">
                                                     <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
                                                     <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>

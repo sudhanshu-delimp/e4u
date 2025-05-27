@@ -155,7 +155,7 @@
                                             <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="profile_id" name="profile_id" data-parsley-errors-container="#profile-errors" required data-parsley-required-message="Select Profile">
                                                 <option value="">Select Profile</option>
                                                 @foreach($active_escorts as $profile)
-                                                    <option value="{{$profile['id']}}">{{$profile['id']}} - {{$profile['name']}} @if(isset($profile['state']['name']))- {{$profile['state']['name']}}@endif</option>
+                                                    <option value="{{$profile['id']}}" profile_name="{{$profile['profile_name']}}">{{$profile['id']}} - {{$profile['name']}} @if(isset($profile['state']['name']))- {{$profile['state']['name']}}@endif</option>
                                                 @endforeach
                                             </select>
                                             <span id="profile-errors"></span>
@@ -580,10 +580,14 @@
    $("#brb_form").on('submit', function (e) {
        e.preventDefault();
        var form = $(this);
+       var profileId = $("#profile_id").val();
+       
        // if (form.parsley().isValid()) {
            //var url = '/escort-dashboard/escort-brb/add';
            var url = "{{ route('escort.brb.add') }}";
            var data = new FormData(form[0]);
+           var selectedProfileName = $('#profile_id option:selected').attr('profile_name');
+
            $.ajax({
                method: 'POST',
                url: url,
@@ -601,6 +605,8 @@
                        });
                        $("#brb_form")[0].reset();
                        $('#add_brb').modal('hide');
+                       var txy = selectedProfileName + ' <sup title="Brb at '+data.response.brbtime+'" class="brb_icon">BRB</sup>';
+                       $("#brb_"+profileId).html(txy);
                    } else {
                        Swal.fire({
                            icon: "error",
