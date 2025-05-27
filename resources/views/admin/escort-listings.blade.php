@@ -20,7 +20,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="v-main-heading">
-                <h1> Massage Centre Listings <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                <h1> Escort Listings <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                         style="font-size:16px"><b>Help?</b> </span></h1>
             </div>
             <div class=" my-4">
@@ -28,7 +28,7 @@
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
-                            <li>New features launched in the Website</li>
+                            <li>All current (published) Listings are displayed in this table.</li>
                             <li>You have limited Action access according to your security level.</li>
                             <li>Prefixes:</li>
                             <p>1. ACT 2. NSW 3. Vic 4. Qld 5. SA 6. W A 7. Tas 8. NT</p>
@@ -79,7 +79,7 @@
                             <th scope="col">
                                 Profile Name
                             </th>
-                            <th scope="col">Masseurs</th>
+                            <th scope="col">Type</th>
                             <th scope="col">Listed</th>
                             <th scope="col">De-listed</th>
                             <th scope="col">Days</th>
@@ -93,7 +93,7 @@
                             <td class="theme-color">Lins Massage</td>
                             <td class="theme-color">Perth</td>
                             <td class="theme-color">Perth 01</td>
-                            <td class="theme-color">4</td>
+                            <td class="theme-color">Platinum</td>
                             <td class="theme-color">23-05-2025</td>
                             <td class="theme-color">17-06-2025</td>
                             <td class="theme-color">14</td>
@@ -112,8 +112,8 @@
                                         <a class="dropdown-item" href="#">Withdrawn <i class="fa fa-times text-dark"
                                                 style="float: right;"></i></a> -->
                                         <!-- <div class="dropdown-divider"></div> -->
-                                        <a class="dropdown-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#view-listing" href="#">View Listing <i class="fa fa-eye text-dark"
-                                                style="color: var(--peach);" ></i></a>
+                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">View Listing <i class="fa fa-eye text-dark"
+                                                style="color: var(--peach);" data-toggle="modal" data-target="#view-listing"></i></a>
                                     </div>
                                 </div>
                             </td>
@@ -194,8 +194,8 @@
                                     <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">Perth 01</td>
                                     </tr>
                                     <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Masseurs</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">4</td>
+                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Type</strong></td>
+                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;">Platinum</td>
                                     </tr>
                                     <tr>
                                     <td style="border: 1px solid #ccc; padding: 8px;"><strong>Listed Date</strong></td>
