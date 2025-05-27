@@ -135,7 +135,7 @@
                         @endif
                 </div>
                 <div class="profile_page_name_and_phno">
-                <p>Perth - {{ preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $escort->phone)) }}</p>
+                <p>{{$escort->city->name}} - {{ preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $escort->phone)) }}</p>
 
 
                     
