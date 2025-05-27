@@ -1319,7 +1319,7 @@
     
     <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
         <div class="profile_card_border profile_page_box_heading">
-            <h2><img src="http://127.0.0.1:8000/assets/app/img/reviews.png"> Reviews</h2>
+            <h2 class="custom--review"><img src="/assets/app/img/review-custom.png"> Reviews</h2>
         </div>
         <div class="padding_20_tob_btm_side">
                         <div id="myCarousel" class="carousel slide" data-ride="carousel">
