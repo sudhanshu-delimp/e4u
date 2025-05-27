@@ -30,3 +30,4 @@ composer.lock
 .phpactor.json
 auth.json
 /public/escorts/*
+/public/avatars/*

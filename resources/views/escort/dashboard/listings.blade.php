@@ -30,7 +30,9 @@
         border-radius: 15%;
         padding: 0 5px;
     }
-    
+    .list-sec td{
+        font-size: 16px !important;
+    }
     </style>
 @endsection
 @section('content')
@@ -89,7 +91,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="table-responsive pl-1 pt-3 list-sec" id="">
+                    <div class="table-responsive pl-1 pt-3 list-sec">
                         <table id="listings" class="table table-striped" width="100%">
                             <thead>
                             <tr>
