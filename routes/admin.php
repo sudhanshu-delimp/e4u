@@ -72,9 +72,9 @@ return view('admin.global-monitoring');
     return view('admin.escort-listings');
 })->name('admin.escort-listings');
  
-Route::get('logged-in-Users', function(){
-    return view('admin.logged-in-Users');
-})->name('admin.logged-in-Users');
+Route::get('logged-in-users', function(){
+    return view('admin.logged-in-users');
+})->name('admin.logged-in-users');
  
  
 Route::get('database',function(){
