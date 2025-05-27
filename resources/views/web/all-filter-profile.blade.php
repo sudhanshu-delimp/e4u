@@ -112,7 +112,7 @@
                                         </div>
 
                                         <div class="d-flex align-items-start" title="Undertake a search Australia wide">
-                                            <input type="radio" name="locationByRadio" id="australia" {{ ($radio_location_filter == null && $myLocation == false) ? 'checked' : ''}}>
+                                            <input type="radio" name="locationByRadio" id="australia" {{ ($radio_location_filter == null && $myLocation == false ) ? 'checked' : ''}}>
                                             <label for="australia"
                                                 style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
                                                 Australia

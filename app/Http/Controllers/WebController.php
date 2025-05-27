@@ -90,12 +90,12 @@ class WebController extends Controller
         if(auth()->user() && auth()->user()->type == 0) {
             $user_type = auth()->user();
             $userInterest = auth()->user()->interest;
-            
         }
 
         $userLocation = null;
         if($request->lat != '' && $request->lng != ''){
            $userLocation = $this->getRealTimeGeolocationOfUsers($request->lat, $request->lng);
+           session(['radio_location_filter'=> true]);
         }
 
         $paramData = [];
@@ -132,13 +132,9 @@ class WebController extends Controller
         ];
 
         $radio_location_filter = session('radio_location_filter');
-        if($params['city_id'] == null){
-            $radio_location_filter = null;
-        }
 
-        if($request->get('filter_button_submit') == '1' && !$location_filter_set_same_city){
-            $radio_location_filter = null;
-            $params['city_id'] = request()->get('city'); // city_id = 6839
+        if($request->get('filter_button_submit') == '1' ){
+            $params['city_id'] = $str['city_id'] = request()->get('city'); // city_id = 6839
         }
 
         // echo '<pre>';
@@ -151,6 +147,7 @@ class WebController extends Controller
         if($params['city_id'] && $params['state_id']){
             $filterStateExist = City::where('id',$params['city_id'])->where('state_id',$params['state_id'])->exists();
             $params['state_id'] = $filterStateExist ? $params['state_id'] : null;
+            //$radio_location_filter = true;
         }
 
         if(request()->get('limit')) {
