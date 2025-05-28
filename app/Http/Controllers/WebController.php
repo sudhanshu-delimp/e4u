@@ -224,17 +224,12 @@ class WebController extends Controller
         
         if(!empty($str['string']))
         {
-            
-
             $uid = $str['string'];
             $query->where(function($q) use ($uid){
-                //dd($radioLocation);
-                $q->orWhere('name',$uid);
+                $q->orWhere('name','like', '%'.$uid.'%');
                 $q->orWhere( function($q) use ($uid){
                     $q->whereHas('user', function($q) use ($uid){
-
                         $q->where('member_id', $uid);
-
                     });
                 });
             });
