@@ -56,7 +56,8 @@ class WebController extends Controller
         $query['lng'] = isset($request->data['lng']) ? $request->data['lng'] : '';
 
         if($query['lat'] == ''){
-            session()->forget('radio_location_filter'); 
+            //session()->forget('radio_location_filter'); 
+            session(['radio_location_filter' => false]);
         }
 
         $url = route('find.all', $query);
@@ -100,7 +101,9 @@ class WebController extends Controller
             
             $userLocation['city'] = $stateCapital ? array_key_first($stateCapital['cities']) : null;
             $userLocation['state'] = $user_type->state_id;
-            session(['radio_location_filter' => true]);
+            if(session('radio_location_filter')){
+                session(['radio_location_filter' => true]);
+            }
             
         }else{
             $paramData['interest'] = null;
