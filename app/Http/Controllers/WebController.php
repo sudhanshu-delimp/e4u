@@ -77,14 +77,6 @@ class WebController extends Controller
             $gen = null;
         }
 
-        // dd($array, auth()->user(), $gender_one, $gen);
-
-
-        //dd($gen[$gender]);
-        // if(!$user_type = auth()->user()) {
-        //     $user_type = auth()->user()->make();
-        // }
-
         $user_type = null;
         $userInterest = null;
         if(auth()->user() && auth()->user()->type == 0) {
@@ -904,7 +896,7 @@ class WebController extends Controller
 
         return $services;
     }
-    public function profileDescription(Request $request, $id, $city=null, $membershipId =null)
+    public function profileDescription(Request $request, $id, $city=null, $membershipId =null, $viewType='grid')
     {
         $escort = Escort::where('id',$id)->with('reviews','reviews.user')->first();
         //dd($escort);
@@ -973,6 +965,12 @@ class WebController extends Controller
         $availability = $escort ? $escort->availability : null;
 
         /*new functionality*/
+
+        if(request()->has('list')){
+            $viewType = 'list';
+            $next = $next. '?'.$viewType;
+            $previous = $previous. '?'.$viewType;
+        }
 
         $services1 = $this->servicesById($id, 1);
 
@@ -1085,7 +1083,7 @@ class WebController extends Controller
 
         $user = DB::table('users')->where('id',(int)$escort->user_id)->select('contact_type')->first();
         //dd($user, $escort->user_id);
-        return view('web.description',compact('brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three','backToSearchButton','user'));
+        return view('web.description',compact('brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three','backToSearchButton','user','viewType'));
     }
     public function centerProfileDescription($id)
     {

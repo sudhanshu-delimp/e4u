@@ -319,13 +319,19 @@
                                     </div>
                                     <!-- accordien end here -->
                                     <!-- Grid View -->
+                                    @php
+                                        $viewType = 'grid';
+                                        if (request()->get('view') === 'list') {
+                                            $viewType = 'list';
+                                        }
+                                    @endphp
 
                                     <div class="row grid_list_part" id="prosud aa" style="display: block;">
 
                                         <div class="col-12 align-items-center">
                                             <div class="grid_list_icon_box display_inline_block grid--btn"
                                                 data-toggle="modal1" data-target="#" data-url="grid-escort-list">
-                                                <a href="#" class="active" id="grid-modal" data-toggle="tooltip">
+                                                <a href="#" class="{{$viewType == 'grid' ? 'active' : ''}}" id="grid-modal" data-toggle="tooltip">
                                                     <span>Grid view</span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                                         viewBox="0 0 30 30" fill="none">
@@ -349,8 +355,8 @@
                                                 </a>
                                             </div>
                                             <div class="grid_list_icon_box display_inline_block list-btn">
-                                                <a href="#" class=" " id="grid-list"
-                                                    data-toggle="tooltip"><!-- <img src="{{ asset('assets/app/img/line.svg') }}"> -->
+                                                <a href="#" class="{{$viewType == 'list' ? 'active' : ''}}" id="grid-list"
+                                                    data-toggle="tooltip">
                                                     <span>List view</span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24"
                                                         viewBox="0 0 27 24" fill="none">
@@ -487,7 +493,7 @@
             @if (!$grouped->isEmpty())
                 <div class="otherliste" style="display: block;">
                     @if ($grouped->has('1'))
-                        <div class="space_between_row" style="display:block">
+                        <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
                             <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
                                     data-toggle="tooltip"
                                     title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
@@ -506,7 +512,7 @@
                         </div>
                     @endif
                     @if ($grouped->has('2'))
-                        <div class="space_between_row" style="display:block">
+                        <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
                             <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png') }}"
                                     data-toggle="tooltip"
                                     title="Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}">
@@ -525,7 +531,7 @@
                         </div>
                     @endif
                     @if ($grouped->has('3'))
-                        <div class="space_between_row" style="display:block">
+                        <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
                             <div class="bod_image"><img src="{{ asset('assets/app/img/dark_silver.png') }}"
                                     data-toggle="tooltip"
                                     title="Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}">
@@ -544,7 +550,7 @@
                         </div>
                     @endif
                     @if ($grouped->has('4'))
-                        <div class="space_between_row" style="display:block">
+                        <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
                             <div class="bod_image"><img src="{{ asset('assets/app/img/Group 153.png') }}"
                                     data-toggle="tooltip"
                                     title="Free Members -{{ $memberTotalCount[4] }} {{ $memberTotalCount[4] == 1 ? 'Listing' : 'Listings' }}">
@@ -563,7 +569,7 @@
                         </div>
                     @endif
                 </div>
-                <div class="grid list-view " style="display: none">
+                <div class="grid list-view " style="display: {{$viewType == 'list' ? 'block' : 'none'}}">
                     @if ($grouped->has('1'))
                         <div class="platinum-sec">
                             <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
