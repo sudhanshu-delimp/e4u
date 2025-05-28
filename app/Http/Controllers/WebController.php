@@ -244,7 +244,7 @@ class WebController extends Controller
         // if(!empty($str['state_id']))
         // {
         //     $query->where('state_id',$str['state_id']);
-        // }
+        // } 
         
         if(!empty($str['city_id']))
         {
