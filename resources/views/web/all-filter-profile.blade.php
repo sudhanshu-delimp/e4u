@@ -1314,7 +1314,7 @@
             $('input[name="locationByRadio"]').on('change', function () {
                 let selectedLocation = {};
                 selectedLocation.location = $(this).attr('id'); // "yourLocation" or "australia"
-                $('input[name="locationByRadio"]').prop('disabled', true);
+                //$('input[name="locationByRadio"]').prop('disabled', true);
 
                 //console.log(selectedLocation.location, ' out if')
                 if(selectedLocation.location == 'yourLocation'){
@@ -1350,7 +1350,7 @@
                     success: function (response) {
                         if(response.status){
                             $("#"+data.location).attr('checked', true);
-                            window.location.href = response.location;
+                            //window.location.href = response.location;
                         }
                         console.log('Location filter updated:', response);
                     },
@@ -1362,10 +1362,10 @@
         });
 
         // disable the radio buttons when the page is not fully loaded added
-        $('input[name="locationByRadio"]').prop('disabled', true); 
-        $(document).ready(function () {
-            // Enable the radio buttons when the page is fully loaded
-            $('input[name="locationByRadio"]').prop('disabled', false); 
-        });
+        // $('input[name="locationByRadio"]').prop('disabled', true); 
+        // $(document).ready(function () {
+        //     // Enable the radio buttons when the page is fully loaded
+        //     $('input[name="locationByRadio"]').prop('disabled', false); 
+        // });
     </script>
 @endpush
