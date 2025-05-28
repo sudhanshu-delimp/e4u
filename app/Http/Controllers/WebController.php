@@ -56,8 +56,7 @@ class WebController extends Controller
         $query['lng'] = isset($request->data['lng']) ? $request->data['lng'] : '';
 
         if($query['lat'] == ''){
-            //session()->forget('radio_location_filter'); 
-            session(['radio_location_filter' => false]);
+            session()->forget('radio_location_filter'); 
         }
 
         $url = route('find.all', $query);
@@ -101,9 +100,6 @@ class WebController extends Controller
             
             $userLocation['city'] = $stateCapital ? array_key_first($stateCapital['cities']) : null;
             $userLocation['state'] = $user_type->state_id;
-            if(session('radio_location_filter')){
-                session(['radio_location_filter' => true]);
-            }
             
         }else{
             $paramData['interest'] = null;
@@ -228,8 +224,11 @@ class WebController extends Controller
         
         if(!empty($str['string']))
         {
+            
+
             $uid = $str['string'];
             $query->where(function($q) use ($uid){
+                //dd($radioLocation);
                 $q->orWhere('name',$uid);
                 $q->orWhere( function($q) use ($uid){
                     $q->whereHas('user', function($q) use ($uid){
@@ -249,7 +248,10 @@ class WebController extends Controller
         
         if(!empty($str['city_id']))
         {
-            $query->where('city_id','=',$str['city_id']);
+            $radioLocation = request()->get('locationByRadio');  // australia
+            if($radioLocation != 'australia'){
+                $query->where('city_id','=',$str['city_id']);
+            }
         }
 
         if(isset($str['interest']) && $str['interest'] != null )

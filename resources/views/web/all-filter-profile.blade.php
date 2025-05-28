@@ -104,7 +104,7 @@
                                                 }
                                             @endphp
                                             style=" padding-top: 2px;" title="Undertake a search within your Location only">
-                                            <input type="radio" name="locationByRadio" {{ ($radio_location_filter != null || $myLocation) ? 'checked':'' }} id="yourLocation">
+                                            <input type="radio" name="locationByRadio" {{ ($radio_location_filter != null || $myLocation) ? 'checked':'' }} value="your_location" id="yourLocation">
                                             <label for="yourLocation"
                                                 style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
                                                 Your Location
@@ -112,7 +112,7 @@
                                         </div>
 
                                         <div class="d-flex align-items-start" title="Undertake a search Australia wide">
-                                            <input type="radio" name="locationByRadio" id="australia" {{ ($radio_location_filter == null && $myLocation == false ) ? 'checked' : ''}}>
+                                            <input type="radio" name="locationByRadio" value="australia" id="australia" {{ ($radio_location_filter == null && $myLocation == false ) ? 'checked' : ''}}>
                                             <label for="australia"
                                                 style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
                                                 Australia
