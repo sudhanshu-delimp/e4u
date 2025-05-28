@@ -99,17 +99,17 @@ class WebController extends Controller
         }
 
         $paramData = [];
-        $location_filter_set_same_city = false;
         if($userInterest && $userInterest->interests){
             //$cityParameterExist = request()->has('city');
             $genderParameterExist = request()->has('gender');
             $paramData['interest'] = $genderParameterExist ? null : $userInterest->interests;
             $paramData['gender'] = $genderParameterExist ? null : (($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 ) ? json_decode($userInterest->interests)[0] : null);
-             $stateCapital = config('escorts.profile.states')[$user_type->state_id] ?? null;
-             
-             $userLocation['city'] = $stateCapital ? array_key_first($stateCapital['cities']) : null;
-             $userLocation['state'] = $user_type->state_id;
-             $location_filter_set_same_city = ($userLocation['city'] == request()->get('city')) ? true : false;
+            $stateCapital = config('escorts.profile.states')[$user_type->state_id] ?? null;
+            
+            $userLocation['city'] = $stateCapital ? array_key_first($stateCapital['cities']) : null;
+            $userLocation['state'] = $user_type->state_id;
+            session(['radio_location_filter' => true]);
+            
         }else{
             $paramData['interest'] = null;
             $paramData['city_id'] = null;
