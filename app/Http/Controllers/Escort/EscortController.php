@@ -287,7 +287,7 @@ class EscortController extends Controller
                     }
                     $dataTableData[] = [
                         //'sl_no' => $i++,
-                        'id' => $escort['id']. " " .$purchase['id'],
+                        'id' => $escort['id'],
                         //'profile_name' => $escort['profile_name'],
                         'profile_name' => $escort['profile_name'] ? $brb : 'NA',
                         //'city' =>
