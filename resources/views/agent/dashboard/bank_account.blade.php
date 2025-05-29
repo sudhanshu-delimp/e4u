@@ -36,7 +36,7 @@
                                             <li class="mb-0">
                                                 You can add new your Bank Account details by clicking the 'Add New' button. SMS 2FA authentification is applied for any changes to your Bank Account details.
                                             </li>
-                                            <li class="mb-0">Any queries regarding payments to your Bank Account can be raised by logging a <a href="{{ route('submitticket') }}" class="termsandconditions_text_color text-decoration-none">Support Ticket</a> with E4U.
+                                            <li class="mb-0">Any queries regarding payments to your Bank Account can be raised by logging a <a href="{{ route('submitticket') }}" class="termsandconditions_text_color custom_links_design">Support Ticket</a> with E4U.
                                             </li>
                                         </ol>
                                     </div>

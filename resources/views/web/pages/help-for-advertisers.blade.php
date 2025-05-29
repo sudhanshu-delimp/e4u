@@ -144,6 +144,15 @@ not available to meet, but they still can view your Profile</li>
                             <p>When you appoint an Agent, you enter into an arrangement with the Agent directly for
                                 the Agent to provide the Agent Services. The Agent will have full access to your
                                 Account.</p>
+                                 <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                         </div>
                     </div>
                 </div>
@@ -470,6 +479,15 @@ not available to meet, but they still can view your Profile</li>
                                 </tr>
                                 </tbody>
                             </table>
+                             <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                         </div>
                     </div>
                 </div>
@@ -610,6 +628,15 @@ not available to meet, but they still can view your Profile</li>
                             <p>If you upgrade your Membership Type you will not lose any remaining days you have paid
                                 for. They will be applied automatically if you do not continue at the higher Membership
                                 Type</p>
+                                 <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                         </div>
                     </div>
                 </div>
@@ -643,6 +670,15 @@ Escorts Playbox page. This is particularly helpful for Viewers to get to see an 
                             <p>Yes. There are terms & conditions (Playbox Terms) that you need to agree to before you can set up your Playbox. The Playbox Terms are specific to the My Playbox
 service.
                             </p>
+                             <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                         </div>
                     </div>
                 </div>
@@ -703,6 +739,15 @@ service.
                                 notified when your turn becomes available and asked if you still wish to proceed with
                                 the listing. If you confirm you wish to proceed, your Profile will appear in the Pin Up
                                 position the following day. Your Card will be automatically debited.</p>
+                                 <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                         </div>
                     </div>
                 </div>
@@ -802,6 +847,15 @@ service.
                                 </li>
                             </ul>
                             <p>We recommend your videos are brief and highlight your personality.</p>
+                             <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                         </div>
                     </div>
                 </div>
@@ -840,6 +894,15 @@ service.
                             <p><b>Q: Can I request a report?</b></p>
                             <p>Yes you can. Simply go to your Dashboard and select the report type you want and
                                 the frequency you want the report to be sent to you.</p>
+                                 <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                         </div>
                     </div>
                 </div>
@@ -978,6 +1041,15 @@ Profile, indicating the service is available to Viewers.</p>
                                 </li>
 
                             </ul>
+                             <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                         </div>
                     </div>
                 </div>
@@ -1013,6 +1085,15 @@ Profile, indicating the service is available to Viewers.</p>
                             <p>You can access your email account via your mobile phone email app (Microsoft
                                 Outlook) or a web browser. It is very easy, simply follow the install instructions and
                                 you will be up and running within minutes.</p>
+                                 <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                         </div>
                     </div>
                 </div>
@@ -1036,6 +1117,15 @@ Profile, indicating the service is available to Viewers.</p>
                             <p><b>Q: Will I get the same discounts on offers as if I went direct?</b></p>
                             <p>Yes you will. Any promotions and discounts on offer directly will be available through
                                 the Website as well</p>
+                                 <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                         </div>
                     </div>
                 </div>
@@ -1119,7 +1209,15 @@ Profile, indicating the service is available to Viewers.</p>
                             </p>
                             <p><b>Q: What happens if I make a false report?</b></p>
                             <p>If we determine that you have mad a false report your Account will be cancelled.</p>
-
+ <!-- changes to policy -->
+ <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                         </div>
                     </div>
                 </div>
@@ -1167,14 +1265,15 @@ Profile, indicating the service is available to Viewers.</p>
                                 access your online banking, simply go to the "International Transfers" page of the
                                 Bank website and follow the instructions. There are terms and conditions attached to
                                 the Bank which you have to comply with in relation to international money transfers.</p>
-                                <div class="container mt-4 px-0 chagneto-policy">
-                                    <hr class="custom_hr">
-                                    <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                                    <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                                            review the most current version.</p>
-                                    <p>Escorts4U archives all previous versions of this Policy.</p>
-                                    <p><b>This policy was last updated 23-05-2025</b></p>
-                                </div>
+                                <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                         </div>
                     </div>
                 </div>

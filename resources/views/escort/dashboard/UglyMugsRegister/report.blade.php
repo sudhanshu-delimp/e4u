@@ -50,11 +50,12 @@
                               each other.</li>
                           <li>
                               Escorts4U makes no claims:
-                              <ul>
+                              <ol type="a" class="ol_lower_alpha_bracket"
+                              >
                                   <li>as to the accuracy or legitimacy of the allegations; and</li>
                                   <li>nor do we investigate the authenticity of the reports (provided in confidence by
                                       Advertisers)</li>
-                              </ul>
+   </ol>
                           </li>
                           <li>The NUM is not to be used to make a complaint about another Advertiser.</li>
                       </ol>

@@ -47,7 +47,14 @@
                          <p><strong>Viewer - Notes</strong></p>
                         <p>We have today launched the long awaited "Notes" feature for Viewers. You can now add your notes to any of your favourite Escorts from within your Account. Simply log on, go to your Favourites and select the "Notes" feature on the Escort's Profile.</p>
                         <p class="c-red"><b>Note</b>: Advertisers can not see your notes.</p>
-
+                        <div class="container mt-4 px-0 chagneto-policy">
+                            <hr class="custom_hr">
+                            <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                            <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                                    review the most current version.</p>
+                            <p>Escorts4U archives all previous versions of this Policy.</p>
+                            <p><b>This policy was last updated 28-05-2025</b></p>
+                        </div>
                         
                     </div>
                 </div>
@@ -64,7 +71,14 @@
                         <p><strong>Be aware of a WhatsApp scam!!!</strong></p>
                         <p>If a person contacts you and they ask you to verify your account data, username, password, email address and also your credit card data, BLOCK THEM IMMEDIATELY. They might pretend to be the owner of Escorts4U and their phone number will often start with and international prefix like +1 or +7.</p>
                         <p class="c-red"><b>Note</b>: Escorts4U will never ask for your PASSWORD, EMAIL or CREDIT CARD data.</p>
-                        
+                        <div class="container mt-4 px-0 chagneto-policy">
+                            <hr class="custom_hr">
+                            <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                            <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                                    review the most current version.</p>
+                            <p>Escorts4U archives all previous versions of this Policy.</p>
+                            <p><b>This policy was last updated 28-05-2025</b></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,7 +93,14 @@
                         <p><strong>Launch!!!</strong></p>
                         <p>Escorts4U launches in Australia.</p>
                         <p class="c-red"><b>Note</b>:</p>
-                        
+                        <div class="container mt-4 px-0 chagneto-policy">
+                            <hr class="custom_hr">
+                            <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                            <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                                    review the most current version.</p>
+                            <p>Escorts4U archives all previous versions of this Policy.</p>
+                            <p><b>This policy was last updated 28-05-2025</b></p>
+                        </div>
                     </div>
                 </div>
             </div>         

@@ -60,27 +60,26 @@
                                 <?php
                             if ($type == "current") {
                             ?>
-                                <h3 class="NotesHeader"><b>Notes:</b></h3>
-                                <ol>
-                                    <li>Use this feature to check all of your current listings, no matter the Location. This
-                                        report does not include listings associated with a Tour.
-                                    </li>
-                                    <li>You can change the Profile listing by selecting 'Action'. You will be able to:
-                                        <ol type="a">
-                                            <li>Edit, Suspend or Delete the listing; and</li>
-                                            <li>Switch on and off your Be Right Back (<b>BRB</b>) notification. When you
-                                                activate
-                                                your BRB, a floating notification will appear at the top of your Profile
-                                                advising when you will be returning, but allowing your Profile still to be
-                                                viewed.
-                                            </li>
-                                        </ol>
-                                    </li>
-                                    <li>Where you suspend a listing that is currently posted, you will not be refunded any
-                                        Fee.
-                                    </li>
-                                </ol>
-                                <?php
+                            <h3 class="NotesHeader"><b>Notes:</b></h3>
+                            <ol>
+                                <li>Use this feature to check all of your current listings, no matter the Location. This
+                                    report does not include listings associated with a Tour.
+                                </li>
+                                <li>You can change the Profile listing by selecting 'Action'. You will be able to:
+                                    <ol type="a" class="ol_lower_alpha_bracket">
+                                        <li>Edit, Suspend or Delete the listing; and</li>
+                                        <li>Switch on and off your Be Right Back (<b>BRB</b>) notification. When you activate
+                                            your BRB, a floating notification will appear at the top of your Profile
+                                            advising when you will be returning, but allowing your Profile still to be
+                                            viewed.
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>Where you suspend a listing that is currently posted, you will not be refunded any
+                                    Fee.
+                                </li>
+                            </ol>
+                            <?php
                             } else if ($type == "past") {
                             ?>
                                 <h3 class="NotesHeader"><b>Notes:</b></h3>

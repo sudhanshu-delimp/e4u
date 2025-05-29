@@ -20,7 +20,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="v-main-heading">
-                <h1> Massage Centre Listings <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                <h1> Visitors <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                         style="font-size:16px"><b>Help?</b> </span></h1>
             </div>
             <div class=" my-4">
@@ -28,10 +28,9 @@
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
-                            <li>New features launched in the Website</li>
-                            <li>You have limited Action access according to your security level.</li>
-                            <li>Prefixes:</li>
-                            <p>1. ACT 2. NSW 3. Vic 4. Qld 5. SA 6. W A 7. Tas 8. NT</p>
+                            <li>All Visitors to the Website are displayed in this table. Users to the Website are displayed
+                            under 'Logged in Users'.</li>
+                            <li>You have no Action options for Visitors.</li>
                         </ol>
 
                     </div>
@@ -56,8 +55,8 @@
                 <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
                   
                     <div class="total_listing">
-                        <div><span>Total Listings : </span></div>
-                        <div><span>4,456</span></div>
+                        <div><span>Total Visitors : </span></div>
+                        <div><span>456</span></div>
                     </div>
                 </div>
             </div>
@@ -66,39 +65,33 @@
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">
-                                Member ID
+                            Date
 
                             </th>
                             <th scope="col">
-                                Member
-
+                            Landed
                             </th>
                             <th scope="col">
-                                Listing
+                            Idle
                             </th>
                             <th scope="col">
-                                Profile Name
+                            Origin
                             </th>
-                            <th scope="col">Masseurs</th>
-                            <th scope="col">Listed</th>
-                            <th scope="col">De-listed</th>
-                            <th scope="col">Days</th>
-                            <th scope="col">Left</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">IP Address</th>
+                            <th scope="col">Platform</th>
+                            <th scope="col">Page</th>
                         </tr>
                     </thead>
                     <tbody class="table-content">
                         <tr class="row-color">
-                            <td width="10%" class="theme-color">M60178</td>
-                            <td class="theme-color">Lins Massage</td>
-                            <td class="theme-color">Perth</td>
-                            <td class="theme-color">Perth 01</td>
-                            <td class="theme-color">4</td>
-                            <td class="theme-color">23-05-2025</td>
-                            <td class="theme-color">17-06-2025</td>
-                            <td class="theme-color">14</td>
-                            <td class="theme-color">15</td>
-                            <td>
+                            <td width="10%" class="theme-color">23-05-2025</td>
+                            <td class="theme-color">10:26:37 am</td>
+                            <td class="theme-color">10:25:25</td>
+                            <td class="theme-color">Australia</td>
+                            <td class="theme-color">123.176.113.164</td>
+                            <td class="theme-color">Firefox</td>
+                            <td class="theme-color">/all-escorts-list?city=7408</td>
+                             <!--<td>
                                 <div class="dropdown no-arrow ml-3">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -106,17 +99,17 @@
                                     </a>
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink" style="">
-                                        <!-- <a class="dropdown-item" href="#">Published <i class="fa fa-check text-dark"
+                                        <a class="dropdown-item" href="#">Published <i class="fa fa-check text-dark"
                                                 style="float: right;"></i></a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="#">Withdrawn <i class="fa fa-times text-dark"
                                                 style="float: right;"></i></a> -->
-                                        <!-- <div class="dropdown-divider"></div> -->
+                                        <!-- <div class="dropdown-divider"></div> 
                                         <a class="dropdown-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#view-listing" href="#">View Listing <i class="fa fa-eye text-dark"
                                                 style="color: var(--peach);" ></i></a>
                                     </div>
                                 </div>
-                            </td>
+                            </td>-->
                         </tr>
                     </tbody>
                 </table>

@@ -4,7 +4,7 @@
             <div class="col-md-12 col-lg-8 col-xl-8 col-sm-12 self-w-73">
                 <div class="row plat-inner mr-0 ml-0">
                     <div class="col-md-4 pl-0">
-                        <a href="{{ route('profile.description',$escort->id)}}">
+                        <a href="{{ route('profile.description',$escort->id)}}?list">
                             <div class="section_wise_level_icon_img">
                             @if($escort->latestActiveBrb)
                             <div class="brb--content">
@@ -18,12 +18,14 @@
                                 <div class="add_to_fab_list_view_each_sec">
                                     @if(auth()->user())
                                         @if(auth()->user()->type == 0)
-                                        <span class="add_to_favrate @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}}">
+                                        <span class="add_to_favrate custom--favourite @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}}">
                                             @if(!empty($user_type))
                                                 @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
                                                     <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
+                                                    <span class="custom-heart-text">Remove from My Legbox</span>
                                                 @else
                                                     <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                                    <span class="custom-heart-text">Add to My Legbox</span>
                                                 @endif
                                             @endif
                                         </span>
@@ -48,12 +50,12 @@
                             </div>
                             <div class="add_to_shortlist_btn manage_btn_gor_gold_in_responsive">
                                 @if(Request::path() == "showList")
-                                <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn removeshortlist"  data-name="{{$escort->name}}"  data-escortId="{{$escort->id}}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
+                                <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn removeshortlist custom-sort-filter"  data-name="{{$escort->name}}"  data-escortId="{{$escort->id}}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
                                 Remove from Shortlist</button>
                                 @else
 
 
-                                <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_{{$escort->id}}" id="escort_{{$escort->id}}" data-name="{{$escort->name}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
+                                <button type="button" class="btn custom-sort-filter btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_{{$escort->id}}" id="escort_{{$escort->id}}" data-name="{{$escort->name}}" data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
                                     @if(!empty($escortId))
                                          @if(in_array($escort->id,$escortId))
                                         Remove from Shortlist

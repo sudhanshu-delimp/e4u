@@ -1343,9 +1343,11 @@ span.second {
     font-weight: bold;
     font-size: 16px;
     line-height: 16px;
-    color: #5d6d7e;
+    color: #0c223d;
 }
-
+.add_reviews_btn:hover, button#legbox_btn:hover, .profile_message_btn_cc:hover {
+    color: #ffff;
+}
 .profile_hr h4 {
     margin-top: 12px;
     font-family: Poppins;
@@ -1359,8 +1361,6 @@ span.second {
 .pinup_social_profile_padiing_top_btm {
     padding: 41px 0px;
 }
-
-.pinup_social_icons {}
 
 .smGlobalBtn {
     display: inline-block;
@@ -1850,6 +1850,7 @@ span.second {
 .add_to_favrate {
     color: #ff3c5f;
     font-size: 15px;
+    cursor: pointer;
 }
 
 
@@ -2293,10 +2294,7 @@ a#grid-list {
     text-shadow: none;
 }
 
-.gold_list_frame .listiconprofilelistview {
-    height: auto;
-    width: auto;
-}
+
 
 .gold_icon_list {
     font-size: 12px;
@@ -2569,7 +2567,7 @@ i.fa {
 
 .gold_list_frame .btn_for_profile_list_view {
     height: 40px;
-    width: 100%;
+    
 }
 
 
@@ -5127,8 +5125,20 @@ textarea.parsley-error {
 #myFrontpop {
     background: #000000d6;
 }
-
-
+.custom--decoration span.toggle-btn:hover, .custom--decoration .accodien_manage_padding_content a:hover {
+    text-decoration: underline !important;
+}
+h2.custom--review img {
+    max-width: 30px;
+    line-height: unset;
+    height: unset;
+}
+.custom-sort-filter {
+    color: #ff3c5f !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    margin-left: auto;
+}
 /* new css start 28 march */
 
 .wcustom-50 {
@@ -5685,8 +5695,28 @@ textarea.parsley-error {
 img.twitter-x-logo {
     max-width: 18px;
 }
-
-
+.peach--text {
+    color: #ff3c5f;
+}
+.custom--favourite span.custom-heart-text {
+    background: #ff3c5f;
+    position: absolute;
+    top: 38px;
+    right: 0px;
+    color: #fff;
+    padding: 10px;
+    border-radius: 3px;
+    font-size: 11px;
+    opacity: 0;
+    visibility: hidden;
+}
+.custom--favourite:hover span.custom-heart-text {
+    opacity: 1;
+    visibility: visible;
+}
+.brb--listing .custom--favourite span.custom-heart-text {
+    width: max-content;
+}
 /* new css start 28 march end */
 
 

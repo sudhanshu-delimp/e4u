@@ -2,7 +2,7 @@
     <div class="manage_listview_margin_siliver_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view silver_listbx">
         <div class="row">
             <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-                <a href="{{ route('profile.description',$escort->id)}}">
+                <a href="{{ route('profile.description',$escort->id)}}?list">
                     <div class="section_wise_level_icon_img">
                     @if($escort->latestActiveBrb)
                     <div class="brb--content">
@@ -16,12 +16,14 @@
                         <div class="add_to_fab_list_view_each_sec">
                             @if(auth()->user())
                             @if(auth()->user()->type == 0)
-                            <span class="add_to_favrate @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}}">
+                            <span class="add_to_favrate custom--favourite @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}}">
                                 @if(!empty($user_type))
                                     @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
                                         <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
+                                        <span class="custom-heart-text">Remove from My Legbox</span>
                                     @else
                                         <i class="fa fa-heart-o" aria-hidden="true"></i>
+                                        <span class="custom-heart-text">Add to My Legbox</span>
                                     @endif
                                 @endif
                             </span>
@@ -72,7 +74,7 @@
                         <img class="list_view_free_img_height_width" src="{{ asset('assets/app/img/areodownimg.png')}}">
                     </div>
                     <div class="mb-3">                                            
-                        <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_34" style="padding: 0;font-size: 12px;height: 30px;padding-right: 5px;"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png')}}">Add to Shortlist</button>
+                        <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn shortlist myescort_34 peach--text" style="padding: 0;font-size: 12px;height: 30px;padding-right: 5px;"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png')}}">Add to Shortlist</button>
                     </div>
                     <div class="video_icon">
                         <a href="#"><img src="{{ asset('assets/app/img/video_play.svg')}}"></a>
