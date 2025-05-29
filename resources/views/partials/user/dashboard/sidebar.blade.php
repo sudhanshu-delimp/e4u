@@ -56,12 +56,7 @@
 
                   <span style="{{request()->segment(2) == 'notifications-features' ? 'color: #e5365a;' : ''}}">Notifications</span>
                </a>
-<!--                <a class="collapse-item" href="#">
-                  <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                     <path d="M16 12.7207V4.7207H17V2.7207H7V4.7207H8V12.7207L6 14.7207V16.7207H11.2V22.7207H12.8V16.7207H18V14.7207L16 12.7207Z" fill="#C2CFE0"/>
-                  </svg>
-                  <span>My pin-up Escort</span>
-               </a> -->
+
               <a class="collapse-item" href="{{route('user.profile.avatar')}}">
                   <img width="16" height="17" viewBox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
 
@@ -169,25 +164,25 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#uglynote" aria-expanded="false" aria-controls="collapseten">
-        <img class="mr-2 pl-1 cstm--icon " src="{{asset('assets/dashboard/img/menu-icon/Icon_MyNotebox-light.png')}}">
-             <span>Notebox</span>
-        </a>
-        <div id="uglynote" class=" collapse  @if(request()->segment(3) == 'report' || request()->segment(3) == 'lookup' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="py-0 collapse-inner rounded mb-2">
-             <a class="collapse-item show" href="{{ route('user.new') }}">
-                <img src="{{ asset('assets/app/img/icons-bug.png')}}">
-                <span class="pl-3" style="{{request()->segment(3) == 'report' ? 'color: #e5365a;' : ''}}">New</span>
-            </a>
-
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#notebox" aria-expanded="false" aria-controls="notebox">
+        <img class="mr-2 pl-1 cstm--icon" src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyNotebox-light.png') }}">
+        <span>Notebox</span>
+    </a>
+    <div id="notebox" class="collapse @if(request()->segment(3) == 'list' || request()->segment(3) == 'new') show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="py-0 collapse-inner rounded mb-2">
             <a class="collapse-item" href="{{ route('user.list') }}">
-                <img src="{{ asset('assets/app/img/icons-list.png')}}">
-            <span class="pl-3" style="{{request()->segment(3) == 'lookup' ? 'color: #e5365a;' : ''}}">List</span>
+                <img src="{{ asset('assets/app/img/icons-list.png') }}">
+                <span class="pl-3" style="{{ request()->segment(3) == 'list' ? 'color: #e5365a;' : '' }}">List</span>
             </a>
 
-            </div>
+            <a class="collapse-item" href="{{ route('user.new') }}">
+                <img src="{{ asset('assets/app/img/icons-bug.png') }}">
+                <span class="pl-3" style="{{ request()->segment(3) == 'new' ? 'color: #e5365a;' : '' }}">New</span>
+            </a>
         </div>
-    </li>
+    </div>
+</li>
+    
    {{-- <li class="nav-item">
       <a class="nav-link" href="#">
          <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">

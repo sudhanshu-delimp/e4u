@@ -53,7 +53,7 @@ class LoginController extends Controller
     /////////////VIEWER LOGIN
     public function login(Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
        // dd($request->path);
 
         $this->validateLogin($request);
@@ -72,6 +72,10 @@ class LoginController extends Controller
             if($user == null || $user->type != 0) {
                 return $this->sendFailedLoginResponse($request);
                 }
+        }
+
+        if($user->type == 0){
+            session(['radio_location_filter' => true]);
         }
 
         $hasher = app('hash');
