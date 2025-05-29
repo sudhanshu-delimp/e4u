@@ -118,7 +118,7 @@
                                     <ol class="pl-4">
                                         <li>Upload your photos here (up to 30) and then select your default images including your Thumbnail, other photos (up to six portrait) and your Banner Image (landscape) (<b>Default Images</b>).</li>
                                         <li>Your Default Images will always appear in the Profile Creator when you activate the Profile Creator (for a new Profile). If you change any of the Default Images in the Profile Creator, like when you are creating a second Profile for the same Location, you will be asked if you want to update your changes to the Default Images.</li>
-                                        <li>When uploading your Photos, make sure they comply with our <a href="/escort-dashboard/help">Profile Image</a> guidelines, especially in terms of the pixilation and the size of the photo.</li>
+                                        <li>When uploading your Photos, make sure they comply with our <a href="/escort-dashboard/help" class="custom_links_design">Profile Image</a> guidelines, especially in terms of the pixilation and the size of the photo.</li>
                                         <li>If you don't upload a Banner Image (which is located at the top of your Profile), you can select a template image from the list (<b>Template</b>).  There is a Template designed to represent each Location.  We encourage you to upload your own Banner.  Remember, it is a landscape image and you can include a montage.</li>
                                     </ol>
                                 </div>

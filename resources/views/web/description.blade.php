@@ -113,7 +113,7 @@
         <div class="container-fluid back_to_search_btn pt-2" style="text-align: right;">
             <div class="row">
                 <div class="col-12">
-                    <a href="{{ $backToSearchButton }}" class="back--search"> Back to search <span class="previous_icon"><i class="fa fa-chevron-up text-white" aria-hidden="true"></i></span></a>
+                    <a href="{{ $backToSearchButton }}&view={{$viewType}}" class="back--search"> Back to search <span class="previous_icon"><i class="fa fa-chevron-up text-white" aria-hidden="true"></i></span></a>
                 </div>
             </div>
         </div>

@@ -139,6 +139,7 @@
             <li><p class="padding_left_five_px text_decoration_for_a">Excorts takes seriously the protection of minors. We are serious in applying youth protection law and will exclude any Advertiser who violates our <a href="#" class="termsandconditions_text_color ">Terms and Conditions</a>, incorporating this policy, by publishing prohibited content or images (see also <a href="#" class="termsandconditions_text_color text_decoration-none">Law Enforcement & Trafficking Policy</a>).</p>
          </li>
          </ul>
+         
    <h2 class="primery_color normal_heading">Changes to this Policy</h2>
    <p>We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check both the Terms & Conditions and this Policy from time to time to review the most current version.</p>
    <p>Escorts4U archives all previous versions of this Policy</p>

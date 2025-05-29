@@ -60,7 +60,7 @@
                           <ol>
                               <li>Use this feature to check all of your past listings (<b>Listing</b>), no matter the Location.  This report includes Listings associated with past Tours.</li>
                               <li>The report will provide you with information associated with the Listing, such as the:
-                                  <ol type="a">
+                                  <ol type="a" class="ol_lower_alpha_bracket">
                                       <li>Location and duration of the Listing; and</li>
                                       <li>Fees associated with the Listing.</li>
                                   </ol>

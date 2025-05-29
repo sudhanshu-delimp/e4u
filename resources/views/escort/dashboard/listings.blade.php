@@ -58,7 +58,7 @@
                                     report does not include listings associated with a Tour.
                                 </li>
                                 <li>You can change the Profile listing by selecting 'Action'. You will be able to:
-                                    <ol type="a">
+                                    <ol type="a" class="ol_lower_alpha_bracket">
                                         <li>Edit, Suspend or Delete the listing; and</li>
                                         <li>Switch on and off your Be Right Back (<b>BRB</b>) notification. When you activate
                                             your BRB, a floating notification will appear at the top of your Profile

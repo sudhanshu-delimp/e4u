@@ -77,39 +77,30 @@ class WebController extends Controller
             $gen = null;
         }
 
-        // dd($array, auth()->user(), $gender_one, $gen);
-
-
-        //dd($gen[$gender]);
-        // if(!$user_type = auth()->user()) {
-        //     $user_type = auth()->user()->make();
-        // }
-
         $user_type = null;
         $userInterest = null;
         if(auth()->user() && auth()->user()->type == 0) {
             $user_type = auth()->user();
             $userInterest = auth()->user()->interest;
-            
         }
 
         $userLocation = null;
         if($request->lat != '' && $request->lng != ''){
            $userLocation = $this->getRealTimeGeolocationOfUsers($request->lat, $request->lng);
+           session(['radio_location_filter'=> true]);
         }
 
         $paramData = [];
-        $location_filter_set_same_city = false;
         if($userInterest && $userInterest->interests){
             //$cityParameterExist = request()->has('city');
             $genderParameterExist = request()->has('gender');
             $paramData['interest'] = $genderParameterExist ? null : $userInterest->interests;
             $paramData['gender'] = $genderParameterExist ? null : (($paramData['interest'] && count(json_decode($userInterest->interests)) == 1 ) ? json_decode($userInterest->interests)[0] : null);
-             $stateCapital = config('escorts.profile.states')[$user_type->state_id] ?? null;
-             
-             $userLocation['city'] = $stateCapital ? array_key_first($stateCapital['cities']) : null;
-             $userLocation['state'] = $user_type->state_id;
-             $location_filter_set_same_city = ($userLocation['city'] == request()->get('city')) ? true : false;
+            $stateCapital = config('escorts.profile.states')[$user_type->state_id] ?? null;
+            
+            $userLocation['city'] = $stateCapital ? array_key_first($stateCapital['cities']) : null;
+            $userLocation['state'] = $user_type->state_id;
+            
         }else{
             $paramData['interest'] = null;
             $paramData['city_id'] = null;
@@ -132,13 +123,9 @@ class WebController extends Controller
         ];
 
         $radio_location_filter = session('radio_location_filter');
-        if($params['city_id'] == null){
-            $radio_location_filter = null;
-        }
 
-        if($request->get('filter_button_submit') == '1' && !$location_filter_set_same_city){
-            $radio_location_filter = null;
-            $params['city_id'] = request()->get('city'); // city_id = 6839
+        if($request->get('filter_button_submit') == '1' ){
+            $params['city_id'] = $str['city_id'] = request()->get('city'); // city_id = 6839
         }
 
         // echo '<pre>';
@@ -151,6 +138,7 @@ class WebController extends Controller
         if($params['city_id'] && $params['state_id']){
             $filterStateExist = City::where('id',$params['city_id'])->where('state_id',$params['state_id'])->exists();
             $params['state_id'] = $filterStateExist ? $params['state_id'] : null;
+            //$radio_location_filter = true;
         }
 
         if(request()->get('limit')) {
@@ -238,12 +226,10 @@ class WebController extends Controller
         {
             $uid = $str['string'];
             $query->where(function($q) use ($uid){
-                $q->orWhere('name',$uid);
+                $q->orWhere('name','like', '%'.$uid.'%');
                 $q->orWhere( function($q) use ($uid){
                     $q->whereHas('user', function($q) use ($uid){
-
                         $q->where('member_id', $uid);
-
                     });
                 });
             });
@@ -253,11 +239,14 @@ class WebController extends Controller
         // if(!empty($str['state_id']))
         // {
         //     $query->where('state_id',$str['state_id']);
-        // }
+        // } 
         
         if(!empty($str['city_id']))
         {
-            $query->where('city_id','=',$str['city_id']);
+            $radioLocation = request()->get('locationByRadio');  // australia
+            if($radioLocation != 'australia'){
+                $query->where('city_id','=',$str['city_id']);
+            }
         }
 
         if(isset($str['interest']) && $str['interest'] != null )
@@ -907,7 +896,7 @@ class WebController extends Controller
 
         return $services;
     }
-    public function profileDescription(Request $request, $id, $city=null, $membershipId =null)
+    public function profileDescription(Request $request, $id, $city=null, $membershipId =null, $viewType='grid')
     {
         $escort = Escort::where('id',$id)->with('reviews','reviews.user')->first();
         //dd($escort);
@@ -976,6 +965,12 @@ class WebController extends Controller
         $availability = $escort ? $escort->availability : null;
 
         /*new functionality*/
+
+        if(request()->has('list')){
+            $viewType = 'list';
+            $next = $next. '?'.$viewType;
+            $previous = $previous. '?'.$viewType;
+        }
 
         $services1 = $this->servicesById($id, 1);
 
@@ -1088,7 +1083,7 @@ class WebController extends Controller
 
         $user = DB::table('users')->where('id',(int)$escort->user_id)->select('contact_type')->first();
         //dd($user, $escort->user_id);
-        return view('web.description',compact('brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three','backToSearchButton','user'));
+        return view('web.description',compact('brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three','backToSearchButton','user','viewType'));
     }
     public function centerProfileDescription($id)
     {

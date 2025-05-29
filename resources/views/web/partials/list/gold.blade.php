@@ -4,7 +4,7 @@
             <div class="col-md-12 col-lg-8 col-xl-8 col-sm-12 pr-3 pr-lg-0 self-w-73">
                 <div class="row plat-inner  mr-0 ml-0">
                     <div class="col-md-4 featured-pic pl-0">
-                        <a href="{{ route('profile.description',$escort->id)}}">
+                        <a href="{{ route('profile.description',$escort->id)}}?list">
                         <div class="section_wise_level_icon_img">
                         @if($escort->latestActiveBrb)
                         <div class="brb--content">

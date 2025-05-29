@@ -50,7 +50,7 @@
                                         <ol class="pl-4">
                                         <li>Upload your videos here (up to six) and then select your default videos to be included in your Profiles (up to three) (<b>Default Videos</b>).</li>
                                         <li>Your Default Videos will always appear in the Profile Creator when you activate the Profile Creator (for a new Profile). If you change any of the Default Videos in the Profile Creator, you will be asked if you want to update your changes to the Default Videos.</li>
-                                        <li>When uploading your videos, make sure they comply with our <a href="/escort-dashboard/help">Video</a> guidelines, especially in terms of the format type and the length of the video.</li>
+                                        <li>When uploading your videos, make sure they comply with our <a href="/escort-dashboard/help" class="custom_links_design">Video</a> guidelines, especially in terms of the format type and the length of the video.</li>
                                         <li>Whilst you can upload up to six videos, please remember you can only display up to three in any Profile.</li>
                                         </ol>
                                     </div>

@@ -103,7 +103,15 @@
                              Yes there is. Training is provided for free. Usually over three sessions totaling ten to
                              twelve hours.
                           </p>
-                     
+                      <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                      </div>
                      </div>
                   </div>
@@ -194,6 +202,15 @@
                          practice to appoint more than 3 Agents to each Location. It is our view that 3 Agents
                          is adequate to service all of the Advertisers needs in any Location.
                        </p>
+                        <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                    </div>
 
                    </div>
@@ -244,7 +261,17 @@
                              <p>
                                  You are paid monthly into your nominated bank account.
                              </p>
+                              <!-- changes to policy -->
+                  <div class="container mt-4 px-0 chagneto-policy">
+                     <hr class="custom_hr">
+                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                              review the most current version.</p>
+                     <p>Escorts4U archives all previous versions of this Policy.</p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
+                  </div>
                          </div>
+                         
                    </div>
                  </div>
              </div>
@@ -362,7 +389,7 @@
                      <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
                               review the most current version.</p>
                      <p>Escorts4U archives all previous versions of this Policy.</p>
-                     <p><b>This policy was last updated 23-05-2025</b></p>
+                     <p><b>This policy was last updated 28-05-2025</b></p>
                   </div>
                  </div>
                    </div>

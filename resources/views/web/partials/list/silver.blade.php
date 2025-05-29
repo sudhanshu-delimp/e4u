@@ -2,7 +2,7 @@
     <div class="manage_listview_margin_siliver_section padding_20_all_side_service_provider_list_view box_shdow_service_provider_list_view silver_listbx">
         <div class="row">
             <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-                <a href="{{ route('profile.description',$escort->id)}}">
+                <a href="{{ route('profile.description',$escort->id)}}?list">
                     <div class="section_wise_level_icon_img">
                     @if($escort->latestActiveBrb)
                     <div class="brb--content">
