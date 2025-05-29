@@ -65,10 +65,12 @@
                                    if you behave inappropriately.
                                </li>
                            </ul>
-                           <p><b>Changes to this Guide</b></p>
-                           <span>
-                               This Guide was last updated on 24-01-2024.
-                           </span>
+                           <div class="container mt-4 px-0 chagneto-policy">
+                                    <hr class="custom_hr">
+                                    <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+                                 
+                                    <p style="border:none;"><b>This policy was last updated 28-05-2025</b></p>
+                                </div>
                        </div>
                    </div>
                </div>
@@ -115,11 +117,12 @@
                                accept payment using the Escorts4U payment gateway. Otherwise, all donations are by
                                cash.</p>
 
-                           <br>
-                           <p><b>Changes to this Guide</b></p>
-                           <span>
-                               This Guide was last updated on 24-01-2024.
-                           </span>
+                               <div class="container mt-4 px-0 chagneto-policy">
+                                    <hr class="custom_hr">
+                                    <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+                                 
+                                    <p style="border:none;"><b>This policy was last updated 28-05-2025</b></p>
+                                </div>
                        </div>
                    </div>
                </div>
@@ -169,12 +172,12 @@
                                In the same way, change the subject if you are asked questions you are not prepared to
                                answer. It is also best to avoid discussing another Escort or Massage Centre as this type
                                of gossip can have unpleasant results</p>
-
-                           <br>
-                           <p><b>Changes to this Guide</b></p>
-                           <span>
-                               This Guide was last updated on 24-01-2024.
-                           </span>
+                               <div class="container mt-4 px-0 chagneto-policy">
+                                    <hr class="custom_hr">
+                                    <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+                                 
+                                    <p style="border:none;"><b>This policy was last updated 28-05-2025</b></p>
+                                </div>
                        </div>
                    </div>
                </div>
@@ -202,12 +205,12 @@
                                looking forward to seeing you again.</p>
                            <p>Remember, if you are <a class="c-red" href="{{ url('register')}}">registered</a> as a Viewer, you can always add the Escort or Masseur
                                to your Legbox. That way you will always find them later on when the time arrives.</p>
-
-                           <br>
-                           <p><b>Changes to this Guide</b></p>
-                           <span>
-                               This Guide was last updated on 24-01-2024.
-                           </span>
+                               <div class="container mt-4 px-0 chagneto-policy">
+                                    <hr class="custom_hr">
+                                    <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+                                 
+                                    <p style="border:none;"><b>This policy was last updated 28-05-2025</b></p>
+                                </div>
                        </div>
                    </div>
                </div>
@@ -235,12 +238,12 @@
                                you address any additional donation with the Escort at the beginning of any extended
                                time.</p>
 
-
-                           <br>
-                           <p><b>Changes to this Guide</b></p>
-                           <span>
-                               This Guide was last updated on 24-01-2024.
-                           </span>
+                               <div class="container mt-4 px-0 chagneto-policy">
+                                    <hr class="custom_hr">
+                                    <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+                                 
+                                    <p style="border:none;"><b>This policy was last updated 28-05-2025</b></p>
+                                </div>
                        </div>
                    </div>
                </div>
@@ -284,11 +287,12 @@
                                </li>
                            </ul>
 
-                           <br>
-                           <p><b>Changes to this Guide</b></p>
-                           <span>
-                               This Guide was last updated on 24-01-2024.
-                           </span>
+                           <div class="container mt-4 px-0 chagneto-policy">
+                                    <hr class="custom_hr">
+                                    <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+                                 
+                                    <p style="border:none;"><b>This policy was last updated 28-05-2025</b></p>
+                                </div>
                        </div>
                    </div>
                </div>
@@ -323,12 +327,12 @@
                                provide a review. Viewers simply log onto to the
                                Website and click the “Add Review” button at the bottom of the Profile Page.</p>
 
-
-                           <br>
-                           <p><b>Changes to this Guide</b></p>
-                           <span>
-                               This Guide was last updated on 24-01-2024.
-                           </span>
+                               <div class="container mt-4 px-0 chagneto-policy">
+                                    <hr class="custom_hr">
+                                    <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+                                 
+                                    <p style="border:none;"><b>This policy was last updated 28-05-2025</b></p>
+                                </div>
                        </div>
                    </div>
                </div>
@@ -381,12 +385,12 @@
                                checked yourself.
                            </p>
 
-
-                           <br>
-                           <p><b>Changes to this Guide</b></p>
-                           <span>
-                               This Guide was last updated on 24-01-2024.
-                           </span>
+                           <div class="container mt-4 px-0 chagneto-policy">
+                                    <hr class="custom_hr">
+                                    <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+                                 
+                                    <p style="border:none;"><b>This policy was last updated 28-05-2025</b></p>
+                                </div>
                        </div>
                    </div>
                </div>
@@ -414,11 +418,9 @@
                                any danger signs, leave immediately.</p>
                                <div class="container mt-4 px-0 chagneto-policy">
                                     <hr class="custom_hr">
-                                    <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                                    <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                                            review the most current version.</p>
-                                    <p>Escorts4U archives all previous versions of this Policy.</p>
-                                    <p><b>This policy was last updated 23-05-2025</b></p>
+                                    <h2 class="primery_color normal_heading">Changes to this Guide</h2>
+                                 
+                                    <p style="border:none;"><b>This policy was last updated 28-05-2025</b></p>
                                 </div>
                        </div>
                    </div>

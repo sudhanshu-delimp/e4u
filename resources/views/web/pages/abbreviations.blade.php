@@ -94,6 +94,15 @@
                             Abbreviations.
                         </p>
                         <p>Dates are expressed as dd-mm-20yy</p>
+
+                        <div class="container mt-4 px-0 chagneto-policy">
+                            <hr class="custom_hr">
+                            <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                            <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                                    review the most current version.</p>
+                            <p>Escorts4U archives all previous versions of this Policy.</p>
+                            <p><b>This policy was last updated 28-05-2025</b></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -352,6 +361,17 @@
                             href="#P">P</a> | <a href="#Q">Q</a> | <a href="#R">R</a> | <a href="#S">S</a> | <a
                             href="#T">T</a> | <a href="#U">U</a> | <a href="#V">V</a> | <a href="#W">W</a> | <a
                             href="#X">X</a> | <a href="#Y">Y</a> | <a href="#Z">Z</a></h6><br>
+
+
+                            
+                        <div class="container mt-4 px-0 chagneto-policy">
+                            <hr class="custom_hr">
+                            <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                            <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                                    review the most current version.</p>
+                            <p>Escorts4U archives all previous versions of this Policy.</p>
+                            <p><b>This policy was last updated 28-05-2025</b></p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -715,6 +735,17 @@
                                 href="#set-T">T</a> | <a href="#set-U">U</a> | <a href="#set-V">V</a> | <a href="#set-W">W</a> | <a
                                 href="#set-X">X</a> | <a href="#set-Y">Y</a> | <a href="#set-Z">Z</a></h6><br>
 
+
+                                
+                        <div class="container mt-4 px-0 chagneto-policy">
+                            <hr class="custom_hr">
+                            <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                            <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                                    review the most current version.</p>
+                            <p>Escorts4U archives all previous versions of this Policy.</p>
+                            <p><b>This policy was last updated 28-05-2025</b></p>
+                        </div>
+
                     </div>
 
                 </div>
@@ -978,6 +1009,16 @@
                             </div>
 
 
+                        </div>
+                        <div class="col-md-12">
+                            <div class="container mt-4 px-0 chagneto-policy">
+                                <hr class="custom_hr">
+                                <h2 class="primery_color normal_heading">Changes to this Policy</h2>
+                                <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
+                                        review the most current version.</p>
+                                <p>Escorts4U archives all previous versions of this Policy.</p>
+                                <p><b>This policy was last updated 28-05-2025</b></p>
+                            </div>
                         </div>
                     </div>
                 </div>

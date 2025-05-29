@@ -76,6 +76,10 @@ Route::get('logged-in-users', function(){
     return view('admin.logged-in-users');
 })->name('admin.logged-in-users');
  
+Route::get('visitors', function(){
+    return view('admin.visitors');
+})->name('admin.visitors');
+ 
  
 Route::get('database',function(){
     return view('admin.database');
@@ -89,6 +93,10 @@ Route::get('accounting-reports',function(){
 Route::get('reporting',function(){
     return view('admin.reporting');
 })->name('admin.reporting');
+
+Route::get('advertiser-reports',function(){
+    return view('admin.advertiser-reports');
+})->name('admin.advertiser-reports');
 
 Route::get('support-tickets',function(){
     return view('admin.support-tickets');

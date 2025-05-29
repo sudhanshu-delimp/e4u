@@ -143,50 +143,52 @@
                     <p>Up time: <span>[214 days & 09 hours 12 minutes]</span></p>
                 </div>
         </div>
-        <div class="col-lg-12">
-
-        <div class="my-account-card">
-        <h2>My Account details </h2>
-        <div class="info-grid">
-            <div class="info-item">
-                <label>Member ID</label>
-                <span>M60178</span>
+        <div class="col-md-12">
+            <div class="my-account-card">
+            <div class="card-head">                  
+                    
+                <h2>My Account details </h2>
+                    <button class="print-btn" onclick="window.print()">🖨️ Print Report</button>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Member ID</label>
+                        <span>M60178</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Member</label>
+                        <span>Lins Massage</span>
+                    </div>
+                    <div class="info-item">
+                        <label>IP Address</label>
+                        <span>123.176.113.164</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Platform</label>
+                        <span>Firefox</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Page</label>
+                        <span>/escort-dashboard</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Listed Profiles (Escort)</label>
+                        <span>08</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Published Masseurs (Massage Centre)</label>
+                        <span>02</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Listed Advertisers (Agent)</label>
+                        <span>01</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Legboxes (Viewer)</label>
+                        <span>04</span>
+                    </div>
+                </div>
             </div>
-            <div class="info-item">
-                <label>Member</label>
-                <span>Lins Massage</span>
-            </div>
-            <div class="info-item">
-                <label>IP Address</label>
-                <span>123.176.113.164</span>
-            </div>
-            <div class="info-item">
-                <label>Platform</label>
-                <span>Firefox</span>
-            </div>
-            <div class="info-item">
-                <label>Page</label>
-                <span>/escort-dashboard</span>
-            </div>
-            <div class="info-item">
-                <label>Listed Profiles (Escort)</label>
-                <span>08</span>
-            </div>
-            <div class="info-item">
-                <label>Published Masseurs (Massage Centre)</label>
-                <span>02</span>
-            </div>
-            <div class="info-item">
-                <label>Listed Advertisers (Agent)</label>
-                <span>01</span>
-            </div>
-            <div class="info-item">
-                <label>Legboxes (Viewer)</label>
-                <span>04</span>
-            </div>
-        </div>
-        <button class="print-btn" onclick="window.print()">🖨️ Print Report</button>
-    </div>
         </div>
     </div>
 </div>
