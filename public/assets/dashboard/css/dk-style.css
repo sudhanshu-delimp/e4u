@@ -4469,3 +4469,16 @@ label#showCal {
     text-align: center;
     padding: 10px;
 }
+select.form-control{padding-right: 5px !important;}
+.dataTables_filter i.fa-search {
+    margin-right: 20px;
+    transform: translateY(10%) translateX(-20px);
+    color: #b8b7b7;
+}
+#listings_filter input, #sailorTable_filter input{
+padding-right: 20px;
+}
+#listings_filter input::placeholder, #sailorTable_filter input::placeholder{
+  color: #bbb9b9;
+  opacity: 1;
+}
