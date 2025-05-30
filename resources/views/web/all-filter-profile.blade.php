@@ -273,6 +273,7 @@
                                                 Service Tags
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
+                                            
                                             <div class="content">
                                                 <div class="accodien_manage_padding_content">
                                                     <div class="display_inline_block mb-1 mr-1">
@@ -376,10 +377,19 @@
                                 </div>
 
                             </div>
+                            @php
+                                $services = request()->input('services', []);
+                            @endphp
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="selected_service_tag">
                                         <ul id="selectedService">
+                                            @foreach($all_services_tag as $key => $service_tag)
+                                                @if(in_array($service_tag->id, $services))
+                                                    @php $prev_services[] = $service_tag->id; @endphp
+                                                    <li class='seleceted_service_text_and_icon' id='hideenclassOne_{{$service_tag->id}}'><p>{{$service_tag->name}}</p><i class='fa fa-times-circle-o akh1' data-sname='{{$service_tag->name}}' data-val="{{$service_tag->id}}" aria-hidden='true' id='id_{{$service_tag->id}}'></i> <input type='hidden' name='services[]' value='{{$service_tag->id}}'></li>
+                                                @endif
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
