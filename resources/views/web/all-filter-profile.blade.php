@@ -1310,8 +1310,6 @@
                 console.log(loginurl2);
 
 
-
-
                 var regurl = "{{ route('register', ':id') }}";
                 //{{-- loginurl = loginurl.replace(':id','legboxId='+Eid) --}}
                 regurl = regurl.replace(':id', 'legboxId=' + Eid)

@@ -29,7 +29,8 @@
                     <span class="add_to_favrate" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span>
                 @endif
             @else
-                <span class="add_to_favrate" data-escortId="{{$escort->id}}"><i class="fa fa-heart-o" aria-hidden="true" title="Removed from Legbox" data-name="{{$escort->name}}"></i></span>
+            <span class="add_to_favrate" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span>
+                {{-- <span class="add_to_favrate" data-escortId="{{$escort->id}}"><i class="fa fa-heart-o" aria-hidden="true" title="Removed from Legbox" data-name="{{$escort->name}}"></i></span> --}}
             @endif
         </div>
     <a  class="card card_box_style six_col_card mb-0 short-card" href="{{ route('profile.description',[$escort->id,$escort->city_id, $escort->membership])}}">
