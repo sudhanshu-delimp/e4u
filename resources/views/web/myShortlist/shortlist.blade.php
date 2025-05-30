@@ -238,7 +238,7 @@
                                 
                                 </div>
 
-                               <!-- Grid view end -->
+                               <!-- Grid view end --> 
                             </div>
                                 </div>
                                 @php
