@@ -234,15 +234,25 @@
        var shouldHide = '{{$type == "past" ? false :true}}';
        var table = $("#sailorTable").DataTable({
            "language": {
-               "zeroRecords": "No record(s) found."
+               "zeroRecords": "No record(s) found.",
+               searchPlaceholder: "Search by Id or profile name..."
            },
            processing: true,
            serverSide: true,
            lengthChange: true,
-
            searchable:false,
-           //searching:false,
            bStateSave: false,
+            drawCallback: function(settings) {
+                    var api = this.api();
+                   // var records = api.data().length;
+                    var length = table.page.info().recordsTotal;
+
+                    if (length <= 10) {
+                        $('.dataTables_paginate').hide();
+                    } else {
+                        $('.dataTables_paginate').show();
+                    }
+                },
 
            ajax: {
                url: "{{ route('escort.list.dataTable', $type) }}",
@@ -253,20 +263,21 @@
 
            },
            columns: [
-               { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'id', name: 'id', searchable: false, orderable:true ,defaultContent: 'NA'},
                { data: 'pro_name', name: 'profile_name', searchable: true, orderable:true ,defaultContent: 'NA'},
                 { data: 'state_name', name: 'state_name', searchable: false, orderable:true ,defaultContent: 'NA'},
                { data: 'name', name: 'name', searchable: true, orderable:true ,defaultContent: 'NA'},
             { data: 'membership', name: 'membership', searchable: false, orderable:true ,defaultContent: 'NA', visible: shouldHide},
                //{ data: 'city_name', name: 'city_name', searchable: false, orderable:true ,defaultContent: 'NA'},
               
-               { data: 'phone', name: 'phone', searchable: true, orderable:true,defaultContent: 'NA' },
+               { data: 'phone', name: 'phone', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'start_date_parsed', name: 'created_at', searchable: false, orderable:false,defaultContent: 'NA' },
                { data: 'enabled', name: 'enabled', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
            ],
            order: [1,'asc'],
        });
+       $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');
 
    } );
 

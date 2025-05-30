@@ -1362,8 +1362,6 @@ span.second {
     padding: 41px 0px;
 }
 
-.pinup_social_icons {}
-
 .smGlobalBtn {
     display: inline-block;
     position: relative;
@@ -5715,6 +5713,9 @@ img.twitter-x-logo {
 .custom--favourite:hover span.custom-heart-text {
     opacity: 1;
     visibility: visible;
+}
+.brb--listing .custom--favourite span.custom-heart-text {
+    width: max-content;
 }
 /* new css start 28 march end */
 

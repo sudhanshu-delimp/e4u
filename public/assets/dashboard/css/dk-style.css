@@ -4469,64 +4469,29 @@ label#showCal {
     text-align: center;
     padding: 10px;
 }
-
-.my-account-card {
-    background-color: #fff;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    max-width: 100%;
-    margin: 50px auto;
-    padding: 24px 32px;
+select.form-control{padding-right: 5px !important;}
+.dataTables_filter i.fa-search {
+    margin-right: 20px;
+    transform: translateY(10%) translateX(-20px);
+    color: #b8b7b7;
 }
-
-.my-account-card h2 {
-    font-size: 20px;
-    color: var(--blue--text);
-    margin-bottom: 16px;
-    font-weight: bold;
+#listings_filter input, #sailorTable_filter input{
+padding-right: 20px;
 }
-
-.my-account-card .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-bottom: 24px;
+#listings_filter input::placeholder, #sailorTable_filter input::placeholder{
+  color: #bbb9b9;
+  opacity: 1;
 }
-
-.my-account-card .info-item {
-    background-color: #f0f3f9;
-    padding: 16px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+select.form-control{padding-right: 5px !important;}
+.dataTables_filter i.fa-search {
+    margin-right: 20px;
+    transform: translateY(10%) translateX(-20px);
+    color: #b8b7b7;
 }
-
-.my-account-card .info-item label {
-    font-size: 13px;
-    color: #0c223d;
+#listings_filter input, #sailorTable_filter input{
+padding-right: 20px;
 }
-
-.my-account-card .info-item span {
-    font-weight: bold;
-    color: #0c223d;
-}
-
-.my-account-card .print-btn {
-    background-color: var(--blue--text);
-    color: white;
-    padding: 12px 24px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    float: right;
-}
-
-.my-account-card .print-btn:hover {
-    background-color: var(--blue--text);
-}
-
-@media (max-width: 500px) {
-    .my-account-card {
-        padding: 16px;
-    }
+#listings_filter input::placeholder, #sailorTable_filter input::placeholder{
+  color: #bbb9b9;
+  opacity: 1;
 }

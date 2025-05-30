@@ -40,6 +40,7 @@ Route::post('delete-escort-bank/{id}',[EscortAccountController::class,'deleteEsc
 Route::get('/', [EscortController::class, 'index'])->name('escort.dashboard');
 Route::get('/list/{type}', [EscortController::class, 'escortList'])->name('escort.list');
 Route::get('/list/data-table/{type?}', [EscortController::class, 'dataTable'])->name('escort.list.dataTable');
+Route::get('/list/data-table-listing/{type?}', [EscortController::class, 'dataTableListing'])->name('escort.list.dataTableListing');
 Route::get('/add-listing', [EscortController::class, 'add_listing'])->name('escort.account.add-listing');
 Route::get('/listings/{type}', [EscortController::class, 'listings'])->name('escort.dashboard.listings');
 Route::post('/listing-checkout', [EscortController::class, 'listing_checkout'])->name('escort.account.listing_checkout');
