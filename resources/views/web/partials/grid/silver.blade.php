@@ -4,7 +4,7 @@
                 <span class="seven_column_content_top_font_size">{{ substr($escort->name,0,10)}}</span>
                 @if(auth()->user())
                 @if(auth()->user()->type == 0)
-                <span class="add_to_favrate custom--favourite @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}}">
+                <span class="add_to_favrate @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}} custom--favourite">
                     @if(!empty($user_type))
                         @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
                             <i class='fa fa-heart' style='color: #ff3c5f;' title='' aria-hidden='true'></i>

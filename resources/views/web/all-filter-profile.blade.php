@@ -1247,12 +1247,17 @@
             });
         });
         $(document).on('click', '.add_to_favrate', function() {
+            
             var name = $(this).attr('data-name');
             var Eid = $(this).attr('data-escortId');
             var Uid = $(this).attr('data-userId');
             var cidcl = $(this).attr('class');
             var cid = cidcl.split(' ');
-            if (cid[1] == 'fill') {
+
+            console.log(cid);
+
+            // if (cid[1] == 'fill') {
+            if (cid.includes('fill')) {
                 $(this).removeClass('fill');
                 $(this).addClass('null');
                 $('#legboxId_' + Eid).html(
@@ -1274,7 +1279,7 @@
                     }
                 });
                 console.log("fill");
-            } else if (cid[1] == 'null') {
+            } else if (cid.includes('null')) {
                 $(this).removeClass('null');
                 $(this).addClass('fill');
                 $('#legboxId_' + Eid).html(
@@ -1297,6 +1302,7 @@
                 });
                 console.log("null");
             } else {
+                console.log('cid else');
                 $('#my_legbox').modal('show');
                 var login_url = "{{ route('viewer.login', ':id') }}";
                 var loginurl = login_url.replace(':id', 'legboxId=' + Eid);
