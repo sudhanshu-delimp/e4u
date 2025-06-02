@@ -1247,7 +1247,6 @@
             });
         });
         $(document).on('click', '.add_to_favrate', function() {
-            
             var name = $(this).attr('data-name');
             var Eid = $(this).attr('data-escortId');
             var Uid = $(this).attr('data-userId');
@@ -1304,6 +1303,13 @@
             } else {
                 console.log('cid else');
                 $('#my_legbox').modal('show');
+                @if(auth()->user() && auth()->user()->type != 0)
+                    $("#Lname").text('Please register yourself as a viewer to access this feature.');
+                    $(".modal-footer").hide();
+                @else
+                    $("#Lname").text('Please log in or Register to access your Legbox');
+                    $(".modal-footer").show();
+                @endif
                 var login_url = "{{ route('viewer.login', ':id') }}";
                 var loginurl = login_url.replace(':id', 'legboxId=' + Eid);
                 var loginurl2 = loginurl.replace(':path', 'path=' + window.location.pathname);
