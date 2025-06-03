@@ -95,14 +95,7 @@
                         </p>
                         <p>Dates are expressed as dd-mm-20yy</p>
 
-                        <div class="container mt-4 px-0 chagneto-policy">
-                            <hr class="custom_hr">
-                            <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                            <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                                    review the most current version.</p>
-                            <p>Escorts4U archives all previous versions of this Policy.</p>
-                            <p><b>This policy was last updated 28-05-2025</b></p>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -363,15 +356,7 @@
                             href="#X">X</a> | <a href="#Y">Y</a> | <a href="#Z">Z</a></h6><br>
 
 
-                            
-                        <div class="container mt-4 px-0 chagneto-policy">
-                            <hr class="custom_hr">
-                            <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                            <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                                    review the most current version.</p>
-                            <p>Escorts4U archives all previous versions of this Policy.</p>
-                            <p><b>This policy was last updated 28-05-2025</b></p>
-                        </div>
+                     
                     </div>
                 </div>
             </div>
@@ -736,15 +721,7 @@
                                 href="#set-X">X</a> | <a href="#set-Y">Y</a> | <a href="#set-Z">Z</a></h6><br>
 
 
-                                
-                        <div class="container mt-4 px-0 chagneto-policy">
-                            <hr class="custom_hr">
-                            <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                            <p style="border:none">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                                    review the most current version.</p>
-                            <p>Escorts4U archives all previous versions of this Policy.</p>
-                            <p><b>This policy was last updated 28-05-2025</b></p>
-                        </div>
+                    
 
                     </div>
 
@@ -1024,21 +1001,39 @@
                 </div>
             </div>
         </div>
+        <div class="set">
+                <a>Changes to this Policy
 
-        <!--                  <div class="set">
-                <a>
-                Products
                 <i class="fa fa-angle-down"></i>
                 </a>
-                <div class="content">
-                   <div class="accodien_manage_padding_content">
-                      <p>Escorts4U has partnered with the Condom Man where you can order products online and they will be delivered to your door. For more information about ordering <span class="text_decoration_for_a"><a href="#" class="termsandconditions_text_color">products</a></span> go to Products. (This service is only available to Perth Escorts).</p>
-                   </div>
-                </div>
+                
+                <div class="content ">
+                        <div class="accodien_manage_padding_content">
+                            <div class="border_top_one_px padding_ten_px_top_btm">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="cms-accordion-content-area">
+                                            <!-- level 1 list -->
+                                            <p>
+                                                We may change or modify these Terms and Conditions in the future. We
+                                                will note the date that revisions were last made at the bottom of this
+                                                page. Any revision will take effect upon its posting. It is your
+                                                responsibility to check the <a href="{{ url('terms-conditions')}}">Terms
+                                                    and Conditions</a> from time to time to review the most current
+                                                version.
+                                            </p>
+                                            <p>
+                                                Escorts4U archives all previous versions of the Terms and Conditions
+                                            </p>
+                                            <p><b>This policy was last updated 03-06-2025</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div> 
-                -->
-    </div>
-    
+            </div> 
 
     </div>
 </section>

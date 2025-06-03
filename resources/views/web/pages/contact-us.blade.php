@@ -167,14 +167,7 @@
                         <div class="accodien_manage_padding_content">
                             <p>We offer an after hours contact by email. Any assistance requested via our after hours
                                 email will be attended to as soon as possible</p>
-                                <div class="container mt-4 px-0 chagneto-policy">
-                     <hr class="custom_hr">
-                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="https://e4udev2.perth-cake1.powerwebhosting.com.au/terms-conditions" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                              review the most current version.</p>
-                     <p>Escorts4U archives all previous versions of this Policy.</p>
-                     <p><b>This policy was last updated 28-05-2025</b></p>
-                  </div>
+                                
                         </div>
                     </div>
                 </div>
@@ -191,14 +184,7 @@
                                 Perth WA 6845</p>
                             <p>T: +61 418 812 228</p>
                             <p><a href="mailto:info@escorts4u.com.au">info@escorts4u.com.au</a></p>
-                            <div class="container mt-4 px-0 chagneto-policy">
-                     <hr class="custom_hr">
-                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="https://e4udev2.perth-cake1.powerwebhosting.com.au/terms-conditions" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                              review the most current version.</p>
-                     <p>Escorts4U archives all previous versions of this Policy.</p>
-                     <p><b>This policy was last updated 28-05-2025</b></p>
-                  </div>
+                        
                         </div>
                     </div>
                 </div>
@@ -223,17 +209,45 @@
                                 If you haven't registered as a
                                 Viewer, and would like to log a Support Ticket, register <a class="c-red"
                                                                                             href="{{url('/register')}}">here</a></p>
-                                                                                            <div class="container mt-4 px-0 chagneto-policy">
-                     <hr class="custom_hr">
-                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="https://e4udev2.perth-cake1.powerwebhosting.com.au/terms-conditions" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                              review the most current version.</p>
-                     <p>Escorts4U archives all previous versions of this Policy.</p>
-                     <p><b>This policy was last updated 28-05-2025</b></p>
-                  </div>
+
                         </div>
                     </div>
                 </div>
+                <div class="set">
+                <a>Changes to this Policy
+
+                <i class="fa fa-angle-down"></i>
+                </a>
+                
+                <div class="content ">
+                        <div class="accodien_manage_padding_content">
+                            <div class="border_top_one_px padding_ten_px_top_btm">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="cms-accordion-content-area">
+                                            <!-- level 1 list -->
+                                            <p>
+                                                We may change or modify these Terms and Conditions in the future. We
+                                                will note the date that revisions were last made at the bottom of this
+                                                page. Any revision will take effect upon its posting. It is your
+                                                responsibility to check the <a href="{{ url('terms-conditions')}}">Terms
+                                                    and Conditions</a> from time to time to review the most current
+                                                version.
+                                            </p>
+                                            <p>
+                                                Escorts4U archives all previous versions of the Terms and Conditions
+                                            </p>
+                                            <p><b>This policy was last updated 03-06-2025</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+
+    </div>
             </div>
         </div>
     </section>

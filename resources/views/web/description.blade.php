@@ -1905,7 +1905,7 @@
             </div>
             <div class="modal-body text-center">
                 <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
-                    <span id="Lname">Please log in or Register to access your Legbox</span>
+                    <span id="Lname">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
                 </h1>
                 <a href="{{ route('viewer.login') }}" type="button" class="btn btn-danger site_btn_primary" id="loginUrl" >Login</a>
                 <a href="{{ route('register') }}" type="button" class="btn btn-danger site_btn_primary" id="regUrl">Register</a>
