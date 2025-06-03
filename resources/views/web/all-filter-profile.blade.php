@@ -710,10 +710,10 @@
                 </div>
                 <div class="modal-body">
                     <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
-                        <span id="Lname">Please log in or Register to access your Legbox</span>
+                        <span id="Lname" class="my_legbox_title">Please log in or Register to access your Legbox</span>
                     </h1>
                 </div>
-                <div class="modal-footer" style="justify-content: center;">
+                <div class="modal-footer my_legbox_footer" style="justify-content: center;">
                     <a href="{{ route('viewer.login') }}" type="button" class="btn main_bg_color site_btn_primary"
                         id="loginUrl">Login</a>
                     <a href="{{ route('register') }}" type="button" class="btn main_bg_color site_btn_primary"
@@ -727,7 +727,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Add To Shortlist</h5>
+                    <h5 class="modal-title popup_modal_title_new " id="exampleModalLabel">Add To Shortlist</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -1121,6 +1121,7 @@
             var Uid = $(this).attr('data-userId');
             var url = "{{ route('web.save.addtocart', ':id') }}";
             url = url.replace(':id', Eid);
+            $('#add_wishlist').find('.popup_modal_title_new').text('Add To Shortlist');
 
             console.log(Uid);
             // if(Uid != "NA") {
@@ -1195,6 +1196,7 @@
             var name = $(this).attr('data-name');
             var Eid = $(this).attr('data-escortId');
             var Uid = $(this).attr('data-userId');
+            $('#add_wishlist').find('.popup_modal_title_new').text('Add To Shortlist');
             console.log(name);
             $.ajax({
                 method: "POST",
@@ -1246,6 +1248,7 @@
                 }
             });
         });
+
         $(document).on('click', '.add_to_favrate', function() {
             var name = $(this).attr('data-name');
             var Eid = $(this).attr('data-escortId');
@@ -1253,18 +1256,23 @@
             var cidcl = $(this).attr('class');
             var cid = cidcl.split(' ');
 
-            console.log(cid);
+            console.log(cid, cid.includes('fill'), Eid, ' he');
 
             // if (cid[1] == 'fill') {
             if (cid.includes('fill')) {
                 $(this).removeClass('fill');
                 $(this).addClass('null');
-                $('#legboxId_' + Eid).html(
-                    "<i class='fa fa-heart' style='color: #ff3c5f;' title='Remove from legbox' aria-hidden='true'></i>"
+                console.log('legboxId_' + Eid,  ' hello', $('#legboxId_' + Eid).html())
+                $('.legboxClass_' + Eid).html(
+                    "<i class='fa fa-heart' style='color: #ff3c5f;' title='Remove from My Legbox' aria-hidden='true'></i><span class='custom-heart-text'>Remove from My Legbox</span>"
                 );
-                var url = "{{ route('user.save.legbox', ':id') }} ";
+                $('#legboxId_' + Eid).html(
+                    "<i class='fa fa-heart' style='color: #ff3c5f;' title='Remove from My Legbox' aria-hidden='true'></i><span class='custom-heart-text'>Remove from My Legbox</span>");
+                
+                var url = "{{ route('user.save.legbox', ':id') }}";
                 url = url.replace(':id', Eid);
                 $('.class_msg').text(name + ' added to your Legbox');
+                $('#add_wishlist').find('.popup_modal_title_new').text('My Legbox');
                 $('#add_wishlist').modal('show');
                 $.ajax({
                     type: "post",
@@ -1281,12 +1289,19 @@
             } else if (cid.includes('null')) {
                 $(this).removeClass('null');
                 $(this).addClass('fill');
+
+                // <i class="fa fa-heart-o" aria-hidden="true"></i>
+                console.log('legboxId_' + Eid,  ' hello null', $('#legboxId_' + Eid).html())
+                $('.legboxClass_' + Eid).html(
+                    "<i class='fa fa-heart-o' title='Add to My Legbox' aria-hidden='true'></i><span class='custom-heart-text'>Add to My Legbox</span>");
                 $('#legboxId_' + Eid).html(
-                    "<i class='fa fa-heart-o' title='Add to legbox' aria-hidden='true'></i>");
+                    "<i class='fa fa-heart-o' title='Add to My Legbox' aria-hidden='true'></i><span class='custom-heart-text'>Add to My Legbox</span>");
+
                 var url = "{{ route('user.delete.legbox', ':id') }} ";
                 url = url.replace(':id', Eid);
                 //$('.class_msg').text(name + ' Remove from Legbox ');
                 $('.class_msg').text(name + ' has been removed from your Legbox ');
+                $('#add_wishlist').find('.popup_modal_title_new').text('My Legbox');
                 $('#add_wishlist').modal('show');
                 $.ajax({
                     type: "post",
@@ -1303,13 +1318,15 @@
             } else {
                 console.log('cid else');
                 $('#my_legbox').modal('show');
+
                 @if(auth()->user() && auth()->user()->type != 0)
-                    $("#Lname").text('Please register yourself as a viewer to access this feature.');
-                    $(".modal-footer").hide();
+                    $(".my_legbox_title").text('Please register yourself as a viewer to access this feature.');
+                    $(".my_legbox_footer").hide();
                 @else
-                    $("#Lname").text('Please log in or Register to access your Legbox');
-                    $(".modal-footer").show();
+                    $(".my_legbox_title").text('Please log in or Register to access your Legbox');
+                    $(".my_legbox_footer").show();
                 @endif
+                
                 var login_url = "{{ route('viewer.login', ':id') }}";
                 var loginurl = login_url.replace(':id', 'legboxId=' + Eid);
                 var loginurl2 = loginurl.replace(':path', 'path=' + window.location.pathname);

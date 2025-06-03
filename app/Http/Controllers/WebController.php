@@ -247,6 +247,10 @@ class WebController extends Controller
             if($radioLocation != 'australia'){
                 $query->where('city_id','=',$str['city_id']);
             }
+            
+            if($str['string'] == ''  && $radioLocation == 'australia'){
+                $query->where('city_id','=',$str['city_id']);
+            }
         }
 
         if(isset($str['interest']) && $str['interest'] != null )
