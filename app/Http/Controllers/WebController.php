@@ -247,6 +247,10 @@ class WebController extends Controller
             if($radioLocation != 'australia'){
                 $query->where('city_id','=',$str['city_id']);
             }
+            
+            if($str['string'] == ''  && $radioLocation == 'australia'){
+                $query->where('city_id','=',$str['city_id']);
+            }
         }
 
         if(isset($str['interest']) && $str['interest'] != null )
@@ -266,9 +270,8 @@ class WebController extends Controller
 
         if(!empty($str['enabled'])) {
             $query->where('enabled', $str['enabled']);
-        } else {
-            
-        }
+        } 
+        
         if($price = $str['price']) {
             $query->whereHas('services', function($q) use($price) {
                 if($price <= 500) {
@@ -285,7 +288,6 @@ class WebController extends Controller
                 $q->whereIn('services.id', $services);
             });
         }
-        
             return $query;
         };
 
@@ -383,8 +385,10 @@ class WebController extends Controller
             ]
         );
 
+        $all_services_tag = $service_one->merge($service_two)->merge($service_three);
+
         //dd($radio_location_filter);
-        return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount','radio_location_filter'));
+        return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount','radio_location_filter','all_services_tag'));
     }
 
     public function getRealTimeGeolocationOfUsers($lat, $lng)
@@ -478,7 +482,7 @@ class WebController extends Controller
         $escorts = $this->escort->findByPlan(50, $params, $user->id);
         $services = $this->services->all();
 
-
+        
         //dd($escorts->items()[1]->where(8));
         return view('web.all-filter-profile', compact('user','services', 'service_one', 'service_two', 'service_three', 'escorts'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
@@ -526,10 +530,11 @@ class WebController extends Controller
 
         $backToListing = session('search_escort_filters_url');
         $radio_location_filter = session('radio_location_filter');
-
+        $all_services_tag = $service_one->merge($service_two)->merge($service_three);
+        //dd($all_services_tag);
         //dd($escorts);
         //dd($escorts->items()[1]->where(8));
-        return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts','backToListing','radio_location_filter'));
+        return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts','backToListing','radio_location_filter','all_services_tag'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
 

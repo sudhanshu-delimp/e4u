@@ -5734,6 +5734,76 @@ img.twitter-x-logo {
 /* new css start 28 march end */
 
 
+/* new review card design */
+
+.review-card {}
+
+.review-card .carousel-custome-item {
+    text-align: left !important;
+}
+
+.review-card .carousel-custome-item h5 {
+    font-weight: 500;
+    color: var(--blue--text);
+}
+
+.review-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.custome-text-date {
+    color: #3f4246 !important;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.review-stars {
+    color: #f43f5e;
+    font-size: 20px;
+}
+
+.review-text {
+    font-size: 0.95rem;
+    color: #333;
+    margin-top: 10px;
+}
+
+.add-review-btn {
+    background-color: #001f3f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 15px;
+}
+
+
+/* Custom class for Bootstrap control buttons */
+
+.carousel-nav-btn-wrapper {
+    gap: 20px;
+}
+
+.carousel-nav-btn {
+    background-color: #001f3f;
+    color: #fff;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+/* end */
+
+
 /* Media Query Start*/
 
 @media (max-width: 1500px) {

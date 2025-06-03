@@ -14,7 +14,7 @@
             </span> --}}
             @if(auth()->user())
                 @if(auth()->user()->type == 0)
-                    <span class="add_to_favrate custom--favourite @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}}">
+                    <span class="add_to_favrate @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif custom--favourite" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}}">
                         @if(!empty($user_type))
                             @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
                                 <i class='fa fa-heart' style='color: #ff3c5f;' title="" aria-hidden='true'></i>
@@ -29,7 +29,7 @@
                     <span class="add_to_favrate" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span>
                 @endif
             @else
-                <span class="add_to_favrate" data-escortId="{{$escort->id}}"><i class="fa fa-heart-o" aria-hidden="true" title="Removed from Legbox" data-name="{{$escort->name}}"></i></span>
+                <span class="add_to_favrate" data-escortId="{{$escort->id}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox" data-name="{{$escort->name}}"></i></span>
             @endif
         </div>
     <a  class="card card_box_style six_col_card mb-0 short-card" href="{{ route('profile.description',[$escort->id,$escort->city_id, $escort->membership])}}">

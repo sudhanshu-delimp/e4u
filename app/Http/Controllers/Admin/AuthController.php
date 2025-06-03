@@ -65,7 +65,7 @@ class AuthController extends Controller
                 return $this->sendFailedLoginResponse($request);
             }
         }
-        if($user->type == 1) {
+        if($user->type == 1 || $user->type == 2) {
             $hasher = app('hash');
             $error = 0;
 //            if (Hash::check($request->password, $user->password)) { //TODO::Enable

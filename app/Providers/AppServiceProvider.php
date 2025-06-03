@@ -15,6 +15,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RepositoryServiceProvider::class);
+         // Include all php files from Helpers directory
+        foreach (glob(app()->path() . '/Helpers/*.php') as $file) {
+            require_once($file);
+        }
     }
 
     /**

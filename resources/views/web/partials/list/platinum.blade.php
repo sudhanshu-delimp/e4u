@@ -4,8 +4,9 @@
             <div class="col-md-12 col-lg-8 col-xl-8 col-sm-12 self-w-73">
                 <div class="row plat-inner mr-0 ml-0">
                     <div class="col-md-4 pl-0">
-                        <a href="{{ route('profile.description',$escort->id)}}?list">
+                        
                             <div class="section_wise_level_icon_img">
+                            <a href="{{ route('profile.description',$escort->id)}}?list">
                             @if($escort->latestActiveBrb)
                             <div class="brb--content">
                                 <div class="brb--wrappr">
@@ -14,11 +15,12 @@
                             </div>
                             @endif
                                 <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}" class="img-fluid height_for_platinum" title="View Profile">
+                            </a>
                             <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/profile/image36.png')}}"></div>
                                 <div class="add_to_fab_list_view_each_sec">
                                     @if(auth()->user())
                                         @if(auth()->user()->type == 0)
-                                        <span class="add_to_favrate custom--favourite @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}}">
+                                        <span class="add_to_favrate custom--favourite @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif legboxClass_{{$escort->id}}" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}}">
                                             @if(!empty($user_type))
                                                 @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
                                                     <i class='fa fa-heart' style='color: #ff3c5f;' aria-hidden='true'></i>
@@ -33,14 +35,14 @@
                                         <span class="add_to_favrate" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
                                         @endif
                                     @else
-                                    <span class="add_to_favrate" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                                    <span class="add_to_favrate"  data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span>
                                     @endif
                                 </div>
                                 <div class="verify_image">
                                     <img src="{{ asset('assets/app/img/verifyimage.png')}}">
                                 </div>
                             </div>
-                        </a>
+                        {{-- </a> --}}
                     </div>
                     <div class="col-md-8 p-0">
                         <div class="d-flex justify-content-between mb-3 flex_directiom_warp list_cruise pr-0">
