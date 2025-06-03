@@ -273,6 +273,7 @@
                                                 Service Tags
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
+                                            
                                             <div class="content">
                                                 <div class="accodien_manage_padding_content">
                                                     <div class="display_inline_block mb-1 mr-1">
@@ -376,10 +377,19 @@
                                 </div>
 
                             </div>
+                            @php
+                                $services = request()->input('services', []);
+                            @endphp
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="selected_service_tag">
                                         <ul id="selectedService">
+                                            @foreach($all_services_tag as $key => $service_tag)
+                                                @if(in_array($service_tag->id, $services))
+                                                    @php $prev_services[] = $service_tag->id; @endphp
+                                                    <li class='seleceted_service_text_and_icon' id='hideenclassOne_{{$service_tag->id}}'><p>{{$service_tag->name}}</p><i class='fa fa-times-circle-o akh1' data-sname='{{$service_tag->name}}' data-val="{{$service_tag->id}}" aria-hidden='true' id='id_{{$service_tag->id}}'></i> <input type='hidden' name='services[]' value='{{$service_tag->id}}'></li>
+                                                @endif
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
@@ -1242,7 +1252,11 @@
             var Uid = $(this).attr('data-userId');
             var cidcl = $(this).attr('class');
             var cid = cidcl.split(' ');
-            if (cid[1] == 'fill') {
+
+            console.log(cid);
+
+            // if (cid[1] == 'fill') {
+            if (cid.includes('fill')) {
                 $(this).removeClass('fill');
                 $(this).addClass('null');
                 $('#legboxId_' + Eid).html(
@@ -1264,7 +1278,7 @@
                     }
                 });
                 console.log("fill");
-            } else if (cid[1] == 'null') {
+            } else if (cid.includes('null')) {
                 $(this).removeClass('null');
                 $(this).addClass('fill');
                 $('#legboxId_' + Eid).html(
@@ -1281,19 +1295,25 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        console.log(data);
+                        console.log(data); 
 
                     }
                 });
                 console.log("null");
             } else {
+                console.log('cid else');
                 $('#my_legbox').modal('show');
+                @if(auth()->user() && auth()->user()->type != 0)
+                    $("#Lname").text('Please register yourself as a viewer to access this feature.');
+                    $(".modal-footer").hide();
+                @else
+                    $("#Lname").text('Please log in or Register to access your Legbox');
+                    $(".modal-footer").show();
+                @endif
                 var login_url = "{{ route('viewer.login', ':id') }}";
                 var loginurl = login_url.replace(':id', 'legboxId=' + Eid);
                 var loginurl2 = loginurl.replace(':path', 'path=' + window.location.pathname);
                 console.log(loginurl2);
-
-
 
 
                 var regurl = "{{ route('register', ':id') }}";

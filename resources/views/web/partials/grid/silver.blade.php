@@ -2,13 +2,14 @@
     <div class="seven_column_content_top d-flex justify-content-between mid_tit wish_span wish_span" style="z-index: 1;width: 87%;">
            <span><img src="{{ asset('assets/img/e4u-verified-shield-dark.png') }}" class="" title="This Escort's Media has been verified by E4U" style="width: 12px;height: 12px;"></span>
                 <span class="seven_column_content_top_font_size">{{ substr($escort->name,0,10)}}</span>
+                
                 @if(auth()->user())
                 @if(auth()->user()->type == 0)
                 <span class="add_to_favrate custom--favourite @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}}">
                     @if(!empty($user_type))
                         @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
                             <i class='fa fa-heart' style='color: #ff3c5f;' title='' aria-hidden='true'></i>
-                            <span class="custom-heart-text">Remove from My Legbox</span>
+                            <span class="custom-heart-text">Remove from My Legbox</span> 
                         @else
                             <i class="fa fa-heart-o" title='' aria-hidden="true"></i>
                             <span class="custom-heart-text">Add to My Legbox</span>
@@ -19,7 +20,7 @@
                 <span class="add_to_favrate" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
                 @endif
             @else
-            <span class="add_to_favrate" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+            <span class="add_to_favrate"  data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span>
             @endif
         </div>
     <a  class="card card_box_style mb-0 short-card" href="{{ route('profile.description',[$escort->id, $escort->city_id, $escort->membership])}}">
