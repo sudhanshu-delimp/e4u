@@ -17,10 +17,10 @@
                     @endif
                 </span>
                 @else
-                <span class="add_to_favrate" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                <span class="add_to_favrate custom--favourite" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i> <span class="custom-heart-text">Add to My Legbox</span></span>
                 @endif
             @else
-            <span class="add_to_favrate"  data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span>
+            <span class="add_to_favrate custom--favourite"  data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" ></i><span class="custom-heart-text">Add to My Legbox</span></span>
             @endif
         </div>
     <a  class="card card_box_style mb-0 short-card" href="{{ route('profile.description',[$escort->id, $escort->city_id, $escort->membership])}}">
