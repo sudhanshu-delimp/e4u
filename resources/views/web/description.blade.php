@@ -112,8 +112,19 @@
         <div class="container profile_pic_holder custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: 100%;">
         <div class="container-fluid back_to_search_btn pt-2" style="text-align: right;">
             <div class="row">
+                @php
+
+                   if (str_contains($backToSearchButton, 'view=')) {
+                        $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToSearchButton);
+                    } else {
+                        // If view param not present, append it properly
+                        $separator = str_contains($backToSearchButton, '?') ? '&' : '?';
+                        $finalUrl = $backToSearchButton . $separator . 'view=' . $viewType;
+                    }
+                    
+                @endphp
                 <div class="col-12">
-                    <a href="{{ $backToSearchButton }}&view={{$viewType}}" class="back--search"> Back to search <span class="previous_icon"><i class="fa fa-chevron-up text-white" aria-hidden="true"></i></span></a>
+                    <a href="{{ $finalUrl }}" class="back--search"> Back to search <span class="previous_icon"><i class="fa fa-chevron-up text-white" aria-hidden="true"></i></span></a>
                 </div>
             </div>
         </div>
@@ -156,18 +167,18 @@
             <ul class="profile_page_social_profiles">
                 @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
                 <li>
-                    <a href="//{{ $escort->user->social_links ? $escort->user->social_links['facebook'] : null }}" target="_blanck">
+                    <a href="//{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
                     <i class="fa fa-facebook" aria-hidden="true"></i></a>
                 </li>
-                <li><a href="//{{ $escort->user->social_links ? $escort->user->social_links['insta'] : null }}" target="_blanck"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                <li><a href="//{{ $escort->user->social_links ? $escort->user->social_links['twitter'] : null }}" target="_blanck"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" style="width:15px"></a></li>
+                <li><a href="//{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="//{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" style="width:15px"></a></li>
                 @else
                 <li>
-                    <a href="#">
+                    <a href="https://www.facebook.com/" target="_blank">
                     <i class="fa fa-facebook" aria-hidden="true"></i></a>
                 </li>
-                <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                <li><a href="" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" style="width:15px"></a></li>
+                <li><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="https://x.com/" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" style="width:15px"></a></li>
                 @endif
             </ul>
         </div>

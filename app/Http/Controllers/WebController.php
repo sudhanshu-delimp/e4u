@@ -482,14 +482,11 @@ class WebController extends Controller
         $escorts = $this->escort->findByPlan(50, $params, $user->id);
         $services = $this->services->all();
 
-        
-        //dd($escorts->items()[1]->where(8));
         return view('web.all-filter-profile', compact('user','services', 'service_one', 'service_two', 'service_three', 'escorts'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
     public function showAddList(Request $request)
     {
-        //dd($request->all());
         $escortId = [];
         if(session('cart')) {
             foreach(session('cart') as $id => $vlaue) {
@@ -531,10 +528,11 @@ class WebController extends Controller
         $backToListing = session('search_escort_filters_url');
         $radio_location_filter = session('radio_location_filter');
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
+        $defaultViewType = 'list';
         //dd($all_services_tag);
         //dd($escorts);
         //dd($escorts->items()[1]->where(8));
-        return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts','backToListing','radio_location_filter','all_services_tag'));
+        return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts','backToListing','radio_location_filter','all_services_tag','defaultViewType'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
 
@@ -1086,6 +1084,7 @@ class WebController extends Controller
 
         //$reviews = Reviews::where('escort_id',$id)->with('review')->get();
 
+        //dd($viewType);
         $user = DB::table('users')->where('id',(int)$escort->user_id)->select('contact_type')->first();
         //dd($user, $escort->user_id);
         return view('web.description',compact('brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three','backToSearchButton','user','viewType'));

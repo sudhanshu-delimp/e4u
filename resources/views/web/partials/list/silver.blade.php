@@ -15,7 +15,7 @@
                                         class="brb-date">{{ date('d-m-Y', strtotime($escort->latestActiveBrb->brb_time)) }}</span>
                                 </div>
                             </div>
-                        @endif
+                        @endif 
                         <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
                             class="img-fluid height_for_siliver" title="View Profile">
                         <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/img_silver.png') }}"></div>
