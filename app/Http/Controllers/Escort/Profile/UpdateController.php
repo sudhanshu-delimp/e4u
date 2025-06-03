@@ -98,13 +98,13 @@ class UpdateController extends AppController
         $user = auth()->user();
         $escortDefault = $this->escort->findDefault($user->id, 1);
 
-       if(!empty($request->name)){
+       if(!empty(trim($request->name))){
             
             $users = $this->user->find($user->id);
             
             $escortNames = $users->escorts_names;
             if($escortNames == NULL || !in_array($request->name, $escortNames)) {
-                $escortNames[] = $request->name;
+                $escortNames[] = trim($request->name);
                 $users->escorts_names = $escortNames;
                 $users->save();
             }
