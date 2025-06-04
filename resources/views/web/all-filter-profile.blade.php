@@ -864,14 +864,14 @@
                 );
 
                 if (view1.includes('=list')) {
-                    let newUrl = view1.replace('=list', '=grid');
+                    let newUrl = view1.replace('=list', '=grid'); 
                     $('.footer_view_type_one').attr('href', newUrl);
                 }
 
                 if (view2.includes('=list')) {
                     let newUrl = view2.replace('=list', '=grid');
                     $('.footer_view_type_two').attr('href', newUrl);
-                }
+                } 
 
                 setTimeout(function() {
                     $('.spinner-border').css('display', 'none');
