@@ -12,17 +12,15 @@ class EscortBrbController extends Controller
         $newBrb = new EscortBrb;
         $newBrb->profile_id = $request->profile_id;
         $newBrb->date_set = date('Y-m-d');
-        //$newBrb->brb_time = date('Y-m-d H:i:s', strtotime($request->brb_date.' '.$request->brb_time));
+        
         $brbtime = date('d-m-Y h:i A', strtotime($request->brb_date.' '.$request->brb_time));
         $newBrb->brb_note = $request->brb_note;
         $escortDetail = getEscortDetail($request->profile_id);
         $profileTimezone = config("escorts.profile.states.$escortDetail[state_id].cities.$escortDetail[city_id].timeZone");
-        //Create Carbon instance (assume it's in UTC or current timezone)
-       // $original = Carbon::createFromFormat('Y-m-d H:i', $request->brb_date.' '.$request->brb_time, 'UTC');
+        
         $localDateTime = Carbon::createFromFormat('Y-m-d H:i', "$request->brb_date $request->brb_time", $profileTimezone);
         $expiresAtUtc = $localDateTime->copy()->setTimezone('UTC');
-        //Convert to the target timezone
-       // $converted = $original->copy()->setTimezone($targetTimezone);
+        
         $newBrb->selected_time = date('Y-m-d H:i', strtotime($request->brb_date.' '.$request->brb_time));
         $newBrb->brb_time = $expiresAtUtc;
         if($newBrb->save()) {
