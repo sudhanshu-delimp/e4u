@@ -17,10 +17,10 @@
                     <span class="add_to_favrate @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif custom--favourite" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}" data-name="{{$escort->name}}">
                         @if(!empty($user_type))
                             @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
-                                <i class='fa fa-heart' style='color: #ff3c5f;' title="" aria-hidden='true'></i>
+                                <i class='fa fa-heart' style='color: #ff3c5f;'  aria-hidden='true'></i>
                                 <span class="custom-heart-text">Remove from My Legbox</span>
                             @else
-                                <i class="fa fa-heart-o" title="" aria-hidden="true"></i>
+                                <i class="fa fa-heart-o"  aria-hidden="true"></i>
                                 <span class="custom-heart-text">Add to My Legbox</span>
                             @endif
                         @endif
