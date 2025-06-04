@@ -43,15 +43,16 @@
       background-color: #0C223D;
       border-color: #0C223D;
     }
-    .input-error {
+        .input-error {
     color: #e5365a;
     font-size: small;
 }
-.parsley-errors-list {
+.parsley-errors-list, .parsley-required {
     list-style: none;
-    color: rgb(248, 0, 0);
+    color: #e5365a !important;
     padding: 0;
     }
+    
     .parsley-errors-list li{
     font-size: 14px;
     line-height: 18px;
@@ -64,7 +65,6 @@
     </style>
 @endsection
 @section('content')
-
 @php
 $errorSuccess = 0;
 $contactMsg = "";
@@ -77,10 +77,6 @@ if (session('error')) {
 }
 
 @endphp
-
-@if(session('success'))
-   
-@endif
     <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
 
         <div class="container">
@@ -96,15 +92,15 @@ if (session('error')) {
                                                                                  href="{{ url('help-for-advertisers')}}">Advertisers</a>,
                     or <a class="c-red" href="{{ url('faqs')}}">FAQs</a> and if you
                     don't find the answer, then contact us by logging a "Support Ticket" (the preferred
-                    method of contact @if(!auth()->user()), but you need to <a class="c-red" href="{{ url('advertiser-login')}}">log on</a> @endif)
-                    otherwise contact us <a class="c-red" href="javascript:void(0)" onClick="openSolution();">here</a>.
+                    method of contact, but you need to <a class="c-red" href="{{ url('advertiser-login')}}">log on</a> )
+                    otherwise contact us <a class="c-red" href="#" onClick="openSolution();">here</a>.
                 </li>
                 <li>A Viewer with a question, first look at our help for <a class="c-red" href="{{url('help-for-viewers')}}">Viewers</a> and if
                     you don't find the
                     answer, then contact us by logging a "Support Ticket" (see below), if you are a
-                    registered Viewer, (the preferred method of contact @if(!auth()->user()), but you need to <a class="c-red" href="viewer-login">log
-                        on</a> @endif) otherwise
-                    contact us <a class="c-red" href="javascript:void(0)" onClick="openSolution();" id="scrollForm">here</a>.
+                    registered Viewer, (the preferred method of contact, but you need to <a class="c-red" href="viewer-login">log
+                        on</a>) otherwise
+                    contact us <a class="c-red" href="#" onClick="openSolution();">here</a>.
                 </li>
                 <li>A law enforcement agency, Court or an attorney, go to our <a class="c-red" href="{{'law-enforcement'}}">Law Enforcement
                         Policy</a> for
@@ -112,44 +108,31 @@ if (session('error')) {
                 </li>
             </ul>
 
-            <p>For anything else, contact us <a class="c-red" href="javascript:void(0)" onClick="openSolution();">here</a>, or by any of
+            <p>For anything else, contact us <a class="c-red" href="#" onClick="openSolution();">here</a>, or by any of
                 the alternative means below. Whichever
                 method of communication you use we will get back to you within the next few days. </p>
 
-            <form id="contactus" name="contactus" style="display: @if ($errors->any()) block; @else none; @endif" action="{{ route('contactus.send')}}" method="post">
-                 @csrf
+            <form id="contect" style="display: none">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="first_name">First Name</label>
-                        <input type="text" name="first_name" id="first_name" value="{{ old('first_name') }}" class="form-control border_for_form" placeholder="First name" required>
-                        @error('first_name')
-                            <div class="input-error-box input-error">{{ $message }}</div>
-                        @enderror
+                        <label for="inputEmail4">First Name</label>
+                        <input type="text" class="form-control border_for_form" placeholder="First name">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="last_name">Last Name</label>
-                        <input type="text"  name="last_name" id="last_name"  value="{{ old('last_name') }}" class="form-control border_for_form" placeholder="Last name" required>
-                         @error('last_name')
-                            <div class="input-error-box input-error">{{ $message }}</div>
-                        @enderror
+                        <label for="inputPassword4">Last Name</label>
+                        <input type="text" class="form-control border_for_form" placeholder="Last name">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control border_for_form"  placeholder="Email" required>
-                     @error('email')
-                            <div class="input-error-box input-error">{{ $message }}</div>
-                        @enderror
+                    <label for="inputAddress">Email</label>
+                    <input type="email" class="form-control border_for_form" id="inputEmail4" placeholder="Email">
                 </div>
                 <div class="form-group">
-                    <label for="message">Comment</label>
-                    <textarea name="message" id="message" class="form-control border_for_form" rows="3" placeholder="Message" required>{{ old('message') }}</textarea>
-                     @error('message')
-                            <div class="input-error-box input-error">{{ $message }}</div>
-                        @enderror
+                    <label for="exampleFormControlTextarea1">Comment</label>
+                    <textarea class="form-control border_for_form" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
                 </div>
-                <button type="submit" id="btn-submit" class="btn btn-primary mb-3">Send Message</button>
-            </form>
+                <button type="submit" id="" class="btn btn-primary mb-3">Send Message</button>
+            </form> -->
 
 
             <div class="accordion-container">
@@ -215,7 +198,7 @@ if (session('error')) {
                     </a>
                     <div class="content">
                         <div class="accodien_manage_padding_content">
-            <p>Our offices are attended between 8:00 am and 6:00 pm WST (Australia). If you are:</p>
+                             <p>Our offices are attended between 8:00 am and 6:00 pm WST (Australia). If you are:</p>
             <ul>
                 <li>Looking to make an appointment with an Advertiser, we are not an agency and do not
                     arrange bookings. Please contact <a class="c-red" href="{{ url('help-for-advertisers')}}">Advertisers</a> directly
@@ -224,15 +207,15 @@ if (session('error')) {
                                                                                  href="{{ url('help-for-advertisers')}}">Advertisers</a>,
                     or <a class="c-red" href="{{ url('faqs')}}">FAQs</a> and if you
                     don't find the answer, then contact us by logging a "Support Ticket" (the preferred
-                    method of contact, but you need to <a class="c-red" href="{{ url('advertiser-login')}}">log on</a> )
-                    otherwise contact us <a class="c-red" href="#" onClick="openSolution();">here</a>.
+                    method of contact @if(!auth()->user()), but you need to <a class="c-red" href="{{ url('advertiser-login')}}">log on</a> @endif)
+                    otherwise contact us <a class="c-red" href="javascript:void(0)" onClick="openSolution();">here</a>.
                 </li>
                 <li>A Viewer with a question, first look at our help for <a class="c-red" href="{{url('help-for-viewers')}}">Viewers</a> and if
                     you don't find the
                     answer, then contact us by logging a "Support Ticket" (see below), if you are a
-                    registered Viewer, (the preferred method of contact, but you need to <a class="c-red" href="viewer-login">log
-                        on</a>) otherwise
-                    contact us <a class="c-red" href="#" onClick="openSolution();">here</a>.
+                    registered Viewer, (the preferred method of contact @if(!auth()->user()), but you need to <a class="c-red" href="viewer-login">log
+                        on</a> @endif) otherwise
+                    contact us <a class="c-red" href="javascript:void(0)" onClick="openSolution();" id="scrollForm">here</a>.
                 </li>
                 <li>A law enforcement agency, Court or an attorney, go to our <a class="c-red" href="{{'law-enforcement'}}">Law Enforcement
                         Policy</a> for
@@ -240,30 +223,43 @@ if (session('error')) {
                 </li>
             </ul>
 
-            <p>For anything else, contact us <a class="c-red" href="#" onClick="openSolution();">here</a>, or by any of
+            <p>For anything else, contact us <a class="c-red" href="javascript:void(0)" onClick="openSolution();">here</a>, or by any of
                 the alternative means below. Whichever
                 method of communication you use we will get back to you within the next few days. </p>
 
-            <form id="contect" style="display: none">
+            <form id="contactus" name="contactus" style="display: @if ($errors->any()) block; @else none; @endif" action="{{ route('contactus.send')}}" method="post">
+                 @csrf
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputEmail4">First Name</label>
-                        <input type="text" class="form-control border_for_form" placeholder="First name">
+                        <label for="first_name">First Name</label>
+                        <input type="text" name="first_name" id="first_name" value="{{ old('first_name') }}" class="form-control border_for_form" placeholder="First name" required>
+                        @error('first_name')
+                            <div class="input-error-box input-error">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputPassword4">Last Name</label>
-                        <input type="text" class="form-control border_for_form" placeholder="Last name">
+                        <label for="last_name">Last Name</label>
+                        <input type="text"  name="last_name" id="last_name"  value="{{ old('last_name') }}" class="form-control border_for_form" placeholder="Last name" required>
+                         @error('last_name')
+                            <div class="input-error-box input-error">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputAddress">Email</label>
-                    <input type="email" class="form-control border_for_form" id="inputEmail4" placeholder="Email">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control border_for_form"  placeholder="Email" required>
+                     @error('email')
+                            <div class="input-error-box input-error">{{ $message }}</div>
+                        @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Comment</label>
-                    <textarea class="form-control border_for_form" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
+                    <label for="message">Comment</label>
+                    <textarea name="message" id="message" class="form-control border_for_form" rows="3" placeholder="Message" required>{{ old('message') }}</textarea>
+                     @error('message')
+                            <div class="input-error-box input-error">{{ $message }}</div>
+                        @enderror
                 </div>
-                <button type="submit" id="" class="btn btn-primary mb-3">Send Message</button>
+                <button type="submit" id="btn-submit" class="btn btn-primary mb-3">Send Message</button>
             </form>
 
                         </div>
@@ -362,7 +358,6 @@ if (session('error')) {
     </div>
             </div>
         </div>
-    </section>
     </section>
     <div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
