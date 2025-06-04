@@ -31,7 +31,6 @@
                         <a class="dropdown-item" href="{{ route('advertiser.login') }}">Advertiser</a>
                         <a class="dropdown-item" href="{{ route('viewer.login') }}">Viewer</a>
                         <a class="dropdown-item" href="{{ route('agent.login') }}">Agent</a>
-                        {{--<a class="dropdown-item" href="#" data-toggle="modal" data-target="#global-login-modal">I am a Viewer</a>--}}
                      </div>
                   </li>
                </ul>
@@ -45,14 +44,20 @@
                <p>Escorts4U helps Advertisers and Users find each other, what happens after that connection is made is up to them. We are not a party to any agreement, or involved in any interaction, between Advertisers and Users.</p>
                <p>Any price indicated in an Advertiser's Profile relates to their time only and nothing else. Any service offered or whatever else that may occur is a mutual decision between consenting adults and is private between them. It is your responsibility to be cognisant of and to comply with the Local Laws.</p><p>Further details may be found in the Terms and Conditions.</p>
             </div>
+            @php
+               $viewType = 'grid';
+               if (request()->get('view') === 'list') {
+                  $viewType = 'list';
+               }
+            @endphp
             <div class="col footer_text_color_white">
                <h4 class="custom-mt">Location </h4>
                <div class="d-flex">
                   <div class="wcustom-50">
                      <ul class="list-group footer_list_style_none">
                         @foreach(config('escorts.profile.cities') as $key => $city)
-                        <li><a href="{{route('find.all', [request()->segment(2),'city'=>$key])}}" class="" id="{{$key}}">{{$city}}</a></li>
-                        @if($loop->iteration == 4) @break  @endif
+                           <li><a href="{{route('find.all', [request()->segment(2),'city'=>$key])}}&view={{$viewType}}" class="footer_view_type_one" id="{{$key}}">{{$city}}</a></li>
+                           @if($loop->iteration == 4) @break  @endif 
                         @endforeach
                         {{--
                         <li><a href="{{ url('all-escorts-list') }}">Brisbane</a></li>
@@ -65,9 +70,9 @@
                   <div class="wcustom-50">
                      <ul class="list-group footer_list_style_none">
                         @foreach(config('escorts.profile.cities') as $key => $city)
-                        @if($loop->iteration > 4)
-                        <li><a href="{{route('find.all', [request()->segment(2),'city'=>$key])}}" class="city_id" id="{{$key}}">{{$city}}</a></li>
-                        @endif
+                           @if($loop->iteration > 4)
+                           <li><a href="{{route('find.all', [request()->segment(2),'city'=>$key])}}&view={{$viewType}}" class="city_id footer_view_type_two" id="{{$key}}">{{$city}}</a></li>
+                           @endif
                         @endforeach
                         {{--
                         <li><a href="{{ url('all-escorts-list') }}">Melbourne</a></li>

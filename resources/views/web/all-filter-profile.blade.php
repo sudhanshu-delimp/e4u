@@ -710,11 +710,7 @@
                 </div>
                 <div class="modal-body">
                     <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
-<<<<<<< HEAD
                         <span id="Lname">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
-=======
-                        <span id="Lname" class="my_legbox_title">Please log in or Register to access your Legbox</span>
->>>>>>> 38ef3dc1ffa0945d02298748bf9506b6e845c886
                     </h1>
                 </div>
                 <div class="modal-footer my_legbox_footer" style="justify-content: center;">
@@ -849,6 +845,9 @@
         //     });
         // });
 
+        let view1 = $('.footer_view_type_one').attr('href');
+        let view2 = $('.footer_view_type_two').attr('href');
+
         $('#grid-modal').on('click', function() {
             //var source = e.relatedTarget;
             $('.preChanges').html('<h3>Escorts Grid View</h3>');
@@ -860,12 +859,23 @@
                     '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
                 );
 
+                if (view1.includes('=list')) {
+                    let newUrl = view1.replace('=list', '=grid'); 
+                    $('.footer_view_type_one').attr('href', newUrl);
+                }
+
+                if (view2.includes('=list')) {
+                    let newUrl = view2.replace('=list', '=grid');
+                    $('.footer_view_type_two').attr('href', newUrl);
+                } 
+
                 setTimeout(function() {
                     $('.spinner-border').css('display', 'none');
                     $('.my-wishlist').css('display', 'none');
                     $('.space_between_row').show();
                     $('#grid-modal').addClass('active');
                     $('#grid-list').removeClass('active');
+
                 }, 1000);
 
             }
@@ -883,6 +893,16 @@
                 $('#grid-template').html(
                     '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
                 );
+
+                if (view1.includes('=grid')) {
+                    let newUrl = view1.replace('=grid', '=list');
+                    $('.footer_view_type_one').attr('href', newUrl);
+                }
+
+                if (view2.includes('=grid')) {
+                    let newUrl = view2.replace('=grid', '=list');
+                    $('.footer_view_type_two').attr('href', newUrl);
+                }
 
                 setTimeout(function() {
                     $('.spinner-border').css('display', 'none');
