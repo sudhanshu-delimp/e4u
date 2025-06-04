@@ -29,7 +29,7 @@
                 transform: rotate(360deg);
             }
         }
-        #contect .form-group label {
+        #contactus .form-group label {
         font-size:16px;
         line-height:unset;
         padding-bottom:0px;
