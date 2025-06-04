@@ -128,7 +128,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ->limit($limit)
             ->with([
                 'Brb' => function ($query) {
-                    $query->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
                 }
             ])
 
@@ -224,6 +224,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->actionAgentEscortProfile = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"> <a class="dropdown-item" href="' . route('profile.description', $item->id) . '"  data-id="' . $item->id . '" target="_blank">View</a> <div class="dropdown-divider"></div><a class="dropdown-item" data-user_id="' . $item->user_id . '" href="profile/' . $item->id . '/' . $item->user_id . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '" target="_blank">Edit</a>   </div></div>';
             //end list advertiser manage profile data
             $item->start_date_parsed = $item->created_at ? Carbon::parse($item->created_at)->format('d M Y H:i A') : null;
+            $profileTimezone = config("escorts.profile.states.$item->state_id.cities.$item->city_id.timeZone");
+            $item->timezone_created_at = $item->created_at ? $item->created_at->copy()->setTimezone($profileTimezone)->format('d M Y h:i A') : null;
             $item->joined = $item->joined ? "<span class='times_circle_icon'><i class='far fa-check-circle'></i>
             </span>" : "<span class='check_circle_icon'><i class='far fa-times-circle'></i></span>";
 
