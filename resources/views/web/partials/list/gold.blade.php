@@ -7,7 +7,6 @@
                     <div class="col-md-4 featured-pic pl-0">
 
                         <div class="section_wise_level_icon_img">
-<<<<<<< HEAD
                             <a href="{{ route('profile.description', [$escort->id,$escort->city_id]) }}?list">
                                 @if ($escort->latestActiveBrb)
                                     <div class="brb--content">
@@ -23,17 +22,6 @@
                                     class="img-fluid height_for_gold" title="View Profile">
                             </a>
                             <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/img_gold.png') }}"></div>
-=======
-                        @if($escort->latestActiveBrb)
-                        <div class="brb--content">
-                            <div class="brb--wrappr">
-                            <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->selected_time))}}</span>
-                            </div>
-                            </div>
-                            @endif
-                            <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}" class="img-fluid height_for_gold" title="View Profile">
-                            <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/img_gold.png')}}"></div>
->>>>>>> 17d86662a31beb44d7e21f3cc7c6a3f7358f7327
                             <div class="add_to_fab_list_view_each_sec">
                                 @if (auth()->user())
                                     @if (auth()->user()->type == 0)
