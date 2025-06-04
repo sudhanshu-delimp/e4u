@@ -710,7 +710,11 @@
                 </div>
                 <div class="modal-body">
                     <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+<<<<<<< HEAD
+                        <span id="Lname">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
+=======
                         <span id="Lname" class="my_legbox_title">Please log in or Register to access your Legbox</span>
+>>>>>>> 38ef3dc1ffa0945d02298748bf9506b6e845c886
                     </h1>
                 </div>
                 <div class="modal-footer my_legbox_footer" style="justify-content: center;">

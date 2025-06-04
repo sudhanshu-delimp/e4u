@@ -99,9 +99,9 @@
 
 <div class="profile_description_banner overlay_parent custom--overlay custom--brb-overlay" style="background: none;">
     <div class="overlay">
-        @if($brb)
+        @if($escort->latestActiveBrb)
             <div class="brb_details">
-                <h1>BRB at {{date('h:i A d-m-Y', strtotime($brb['brb_time']))}}</h1>
+                <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time))}}</h1>
                 <h3>{{$brb['brb_note']}}</h3>
             </div>
         @endif
@@ -1327,7 +1327,7 @@
     </div>
     <!-- tip section end here -->
 
-    
+    {{--- Ye Old wala hai 
     <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
         <div class="profile_card_border profile_page_box_heading">
             <h2 class="custom--review"><img src="/assets/app/img/review-custom.png"> Reviews</h2>
@@ -1453,6 +1453,119 @@
                         </div>
                     </div>
                 </div>
+                 end --}}
+
+                <!---  new review card -->
+                <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
+                    <div class="profile_card_border profile_page_box_heading">
+                        <h2 class="custom--review"><img src="/assets/app/img/review-custom.png"> Reviews</h2>
+                    </div>
+                    <div class="padding_20_tob_btm_side">
+                        <!-- new-review-card -->
+                        <div class="review-card mx-auto position-relative">
+                            <!-- Carousel -->
+                            <div id="reviewCarousel" class="carousel slide carousel-slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item carousel-custome-item active">
+                                        <h5>Sierra-1</h5>
+                                        <ul class="list-inline mb-0">
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star-half"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><b class="">3.5</b></li>
+                                        </ul>
+                                        <p class="custome-text-date">Reviewed [19-05-2025]</p>
+                                        <div class="review-text">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui.
+                                        </div>
+                                    </div>
+
+                                    <div class="carousel-item carousel-custome-item">
+                                        <h5>Sierra-2</h5>
+                                        <ul class="list-inline mb-0">
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><b class="">5</b></li>
+                                        </ul>
+                                        <p class="custome-text-date">Reviewed [19-05-2025]</p>
+                                        <div class="review-text">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui.
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item carousel-custome-item">
+                                        <h5>Sierra-3</h5>
+                                        <ul class="list-inline mb-0">
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
+                                            <li class="list-inline-item testi_icon_color"><b class="">4</b></li>
+                                        </ul>
+                                        <p class="custome-text-date">Reviewed [19-05-2025]</p>
+                                        <div class="review-text">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Custom Nav Buttons -->
+                                <div class="d-flex justify-content-start my-3 carousel-nav-btn-wrapper">
+                                    <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
+                                    <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
+                                </div>
+                            </div>
+                            <!-- Carousel controls -->
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                @if(auth()->user())
+                                                        @if(auth()->user()->type == 0)
+                                                            <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                                Add Reviews
+                                                            </button>
+                                                        @endif
+                                                    @else
+                                                        <button type="button" class="btn add_reviews_btn all_btn_flx">
+                                                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                            <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
+                                                        </button>
+                                                    @endif
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--- if escort has no review then show this section -->
+                    <div class="py-3 row d-none">
+                        <div class="col-md-12">
+                            <p class="testimonial">
+                                <strong>Sierra</strong> has no Reviews. Why don’t you give <strong>Sierra</strong> their first Review?’
+                            </p>
+                        </div>
+                        <div class="col-md-12 mb-4">
+                        @if(auth()->user())
+                                                        @if(auth()->user()->type == 0)
+                                                            <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                                Add Reviews
+                                                            </button>
+                                                        @endif
+                                                    @else
+                                                        <button type="button" class="btn add_reviews_btn all_btn_flx">
+                                                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                            <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
+                                                        </button>
+                                                    @endif
+                        </div>
+                    </div>
+                    <!-- end -->
+                </div> 
 </div>
 <!-- sssssssssssssssss -->
 </div>
@@ -1916,7 +2029,7 @@
             </div>
             <div class="modal-body text-center">
                 <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
-                    <span id="Lname">Please log in or Register to access your Legbox</span>
+                    <span id="Lname">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
                 </h1>
                 <a href="{{ route('viewer.login') }}" type="button" class="btn btn-danger site_btn_primary" id="loginUrl" >Login</a>
                 <a href="{{ route('register') }}" type="button" class="btn btn-danger site_btn_primary" id="regUrl">Register</a>
@@ -1928,6 +2041,15 @@
 @push('scripts')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+let myCarousel = document.querySelector('#reviewCarousel');
+let carousel = new bootstrap.Carousel(myCarousel, {
+  interval: false, // stops auto scroll
+  ride: false
+});
+
+</script>
 <script type="text/javascript">
     $('#like, #dislike').click(function(e) {
         var vote = 0;
