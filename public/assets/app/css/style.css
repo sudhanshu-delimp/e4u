@@ -1345,9 +1345,13 @@ span.second {
     line-height: 16px;
     color: #0c223d;
 }
-.add_reviews_btn:hover, button#legbox_btn:hover, .profile_message_btn_cc:hover {
+
+.add_reviews_btn:hover,
+button#legbox_btn:hover,
+.profile_message_btn_cc:hover {
     color: #ffff;
 }
+
 .profile_hr h4 {
     margin-top: 12px;
     font-family: Poppins;
@@ -1495,6 +1499,7 @@ span.second {
 
 .content p:first-of-type {
     border-top: 1px solid #90a0b7;
+    padding-top: 10px;
 }
 
 .accordion-container .content p:first-of-type {
@@ -2294,8 +2299,6 @@ a#grid-list {
     text-shadow: none;
 }
 
-
-
 .gold_icon_list {
     font-size: 12px;
 }
@@ -2567,7 +2570,6 @@ i.fa {
 
 .gold_list_frame .btn_for_profile_list_view {
     height: 40px;
-    
 }
 
 
@@ -5125,20 +5127,26 @@ textarea.parsley-error {
 #myFrontpop {
     background: #000000d6;
 }
-.custom--decoration span.toggle-btn:hover, .custom--decoration .accodien_manage_padding_content a:hover {
+
+.custom--decoration span.toggle-btn:hover,
+.custom--decoration .accodien_manage_padding_content a:hover {
     text-decoration: underline !important;
 }
+
 h2.custom--review img {
     max-width: 30px;
     line-height: unset;
     height: unset;
 }
+
 .custom-sort-filter {
     color: #ff3c5f !important;
     font-size: 15px !important;
     font-weight: 500 !important;
     margin-left: auto;
 }
+
+
 /* new css start 28 march */
 
 .wcustom-50 {
@@ -5695,9 +5703,11 @@ h2.custom--review img {
 img.twitter-x-logo {
     max-width: 18px;
 }
+
 .peach--text {
     color: #ff3c5f;
 }
+
 .custom--favourite span.custom-heart-text {
     background: #ff3c5f;
     position: absolute;
@@ -5710,14 +5720,88 @@ img.twitter-x-logo {
     opacity: 0;
     visibility: hidden;
 }
+
 .custom--favourite:hover span.custom-heart-text {
     opacity: 1;
     visibility: visible;
 }
+
 .brb--listing .custom--favourite span.custom-heart-text {
     width: max-content;
 }
+
+
 /* new css start 28 march end */
+
+
+/* new review card design */
+
+.review-card {}
+
+.review-card .carousel-custome-item {
+    text-align: left !important;
+}
+
+.review-card .carousel-custome-item h5 {
+    font-weight: 500;
+    color: var(--blue--text);
+}
+
+.review-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.custome-text-date {
+    color: #3f4246 !important;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.review-stars {
+    color: #f43f5e;
+    font-size: 20px;
+}
+
+.review-text {
+    font-size: 0.95rem;
+    color: #333;
+    margin-top: 10px;
+}
+
+.add-review-btn {
+    background-color: #001f3f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 15px;
+}
+
+
+/* Custom class for Bootstrap control buttons */
+
+.carousel-nav-btn-wrapper {
+    gap: 20px;
+}
+
+.carousel-nav-btn {
+    background-color: #001f3f;
+    color: #fff;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+/* end */
 
 
 /* Media Query Start*/

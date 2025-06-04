@@ -85,7 +85,7 @@ if (session('error')) {
 
         <div class="container">
             <h1 class="home_heading_first margin_btm_twenty_px">Contact Us</h1>
-
+<!-- 
             <h2 class="primery_color normal_heading">Some general information</h2>
             <p>Our offices are attended between 8:00 am and 6:00 pm WST (Australia). If you are:</p>
             <ul>
@@ -206,6 +206,69 @@ if (session('error')) {
                       </div>
                    </div>
                 </div> -->
+
+                
+                <div class="set">
+                    <a>
+                    Some general information
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <div class="content">
+                        <div class="accodien_manage_padding_content">
+            <p>Our offices are attended between 8:00 am and 6:00 pm WST (Australia). If you are:</p>
+            <ul>
+                <li>Looking to make an appointment with an Advertiser, we are not an agency and do not
+                    arrange bookings. Please contact <a class="c-red" href="{{ url('help-for-advertisers')}}">Advertisers</a> directly
+                </li>
+                <li>An Advertiser with a question, first look at our help for <a class="c-red"
+                                                                                 href="{{ url('help-for-advertisers')}}">Advertisers</a>,
+                    or <a class="c-red" href="{{ url('faqs')}}">FAQs</a> and if you
+                    don't find the answer, then contact us by logging a "Support Ticket" (the preferred
+                    method of contact, but you need to <a class="c-red" href="{{ url('advertiser-login')}}">log on</a> )
+                    otherwise contact us <a class="c-red" href="#" onClick="openSolution();">here</a>.
+                </li>
+                <li>A Viewer with a question, first look at our help for <a class="c-red" href="{{url('help-for-viewers')}}">Viewers</a> and if
+                    you don't find the
+                    answer, then contact us by logging a "Support Ticket" (see below), if you are a
+                    registered Viewer, (the preferred method of contact, but you need to <a class="c-red" href="viewer-login">log
+                        on</a>) otherwise
+                    contact us <a class="c-red" href="#" onClick="openSolution();">here</a>.
+                </li>
+                <li>A law enforcement agency, Court or an attorney, go to our <a class="c-red" href="{{'law-enforcement'}}">Law Enforcement
+                        Policy</a> for
+                    information regarding legal process.
+                </li>
+            </ul>
+
+            <p>For anything else, contact us <a class="c-red" href="#" onClick="openSolution();">here</a>, or by any of
+                the alternative means below. Whichever
+                method of communication you use we will get back to you within the next few days. </p>
+
+            <form id="contect" style="display: none">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">First Name</label>
+                        <input type="text" class="form-control border_for_form" placeholder="First name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Last Name</label>
+                        <input type="text" class="form-control border_for_form" placeholder="Last name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Email</label>
+                    <input type="email" class="form-control border_for_form" id="inputEmail4" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Comment</label>
+                    <textarea class="form-control border_for_form" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
+                </div>
+                <button type="submit" id="" class="btn btn-primary mb-3">Send Message</button>
+            </form>
+
+                        </div>
+                    </div>
+                </div>
                 <div class="set">
                     <a>
                         After hours contact
@@ -215,14 +278,7 @@ if (session('error')) {
                         <div class="accodien_manage_padding_content">
                             <p>We offer an after hours contact by email. Any assistance requested via our after hours
                                 email will be attended to as soon as possible</p>
-                                <div class="container mt-4 px-0 chagneto-policy">
-                     <hr class="custom_hr">
-                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="https://e4udev2.perth-cake1.powerwebhosting.com.au/terms-conditions" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                              review the most current version.</p>
-                     <p>Escorts4U archives all previous versions of this Policy.</p>
-                     <p><b>This policy was last updated 28-05-2025</b></p>
-                  </div>
+                                
                         </div>
                     </div>
                 </div>
@@ -239,14 +295,7 @@ if (session('error')) {
                                 Perth WA 6845</p>
                             <p>T: +61 418 812 228</p>
                             <p><a href="mailto:info@escorts4u.com.au">info@escorts4u.com.au</a></p>
-                            <div class="container mt-4 px-0 chagneto-policy">
-                     <hr class="custom_hr">
-                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="https://e4udev2.perth-cake1.powerwebhosting.com.au/terms-conditions" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                              review the most current version.</p>
-                     <p>Escorts4U archives all previous versions of this Policy.</p>
-                     <p><b>This policy was last updated 28-05-2025</b></p>
-                  </div>
+                        
                         </div>
                     </div>
                 </div>
@@ -271,17 +320,46 @@ if (session('error')) {
                                 If you haven't registered as a
                                 Viewer, and would like to log a Support Ticket, register <a class="c-red"
                                                                                             href="{{url('/register')}}">here</a></p>
-                                                                                            <div class="container mt-4 px-0 chagneto-policy">
-                     <hr class="custom_hr">
-                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="https://e4udev2.perth-cake1.powerwebhosting.com.au/terms-conditions" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                              review the most current version.</p>
-                     <p>Escorts4U archives all previous versions of this Policy.</p>
-                     <p><b>This policy was last updated 28-05-2025</b></p>
-                  </div>
+
                         </div>
                     </div>
                 </div>
+                <!-- changes policy -->
+                <div class="set">
+                    <a>Changes to this Policy
+
+                    <i class="fa fa-angle-down"></i>
+                    </a>
+                    
+                    <div class="content ">
+                        <div class="accodien_manage_padding_content">
+                            <div class="border_top_one_px padding_ten_px_top_btm">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="cms-accordion-content-area">
+                                            <!-- level 1 list -->
+                                            <p>
+                                                We may change or modify these Terms and Conditions in the future. We
+                                                will note the date that revisions were last made at the bottom of this
+                                                page. Any revision will take effect upon its posting. It is your
+                                                responsibility to check the <a href="{{ url('terms-conditions')}}">Terms
+                                                    and Conditions</a> from time to time to review the most current
+                                                version.
+                                            </p>
+                                            <p>
+                                                Escorts4U archives all previous versions of the Terms and Conditions
+                                            </p>
+                                            <p><b>This policy was last updated 03-06-2025</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+
+    </div>
             </div>
         </div>
     </section>

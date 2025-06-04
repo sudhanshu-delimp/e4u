@@ -182,7 +182,7 @@
                     <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx">
                         <div class="like_img">
                             {{-- {{ dd($escortLike)}} --}}
-                            <i class="{{ $escortLike && $escortLike->like == 1 ? 'fa fa-thumbs-up' : 'fa fa-thumbs-o-up'}}" id="like" title="Add to Legbox" aria-hidden="true"></i>
+                            <i class="{{ $escortLike && $escortLike->like == 1 ? 'fa fa-thumbs-up' : 'fa fa-thumbs-o-up'}}" id="like" title="" aria-hidden="true"></i>
                             <!-- <img class="likeImg" id="like" value='1' src="{{ asset('assets/app/img/like.png') }}"> -->
                         </div>
                         <div class="process_bar_width like_mjo">

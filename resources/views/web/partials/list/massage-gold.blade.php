@@ -5,7 +5,7 @@
                 <div class="row plat-inner  mr-0 ml-0">
                     <div class="col-md-4 featured-pic pl-0">
                         {{-- <a href="{{ route('profile.description',$escort->id)}}"> --}}
-                            <a href="{{ route('center.profile.description',$escort->id)}}">
+                            <a href="{{ route('center.profile.description',[$escort->id,$escort->city_id])}}">
                         <div class="section_wise_level_icon_img">
                             <img src="{{  asset($escort->imagefrontPosition(1)) }}" class="img-fluid height_for_gold" title="View Profile">
                             {{-- <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/img_gold.png')}}"></div> --}}

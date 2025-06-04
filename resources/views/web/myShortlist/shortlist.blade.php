@@ -167,6 +167,19 @@
                             </button>
                         </div>
                     </div>
+                     @php
+                        if($defaultViewType){
+                            $viewType = $defaultViewType;
+                        }
+
+                        if (request()->get('view') === 'list') {
+                            $viewType = 'list';
+                        }
+                        if (request()->get('view') === 'grid') {
+                            $viewType = 'grid';
+                        }
+
+                    @endphp
                     <div class="service_tagss">
                         <div class="row serve-row-one">
                         <div class="col-md-12 custom--service-tag">
@@ -215,7 +228,7 @@
                                 
                                 <div class="col-12 align-items-center">
                                     <div class="grid_list_icon_box display_inline_block grid--btn" data-toggle="modal1" data-target="#" data-url="grid-escort-list">
-                                        <a href="#" class="active" id="grid-modal" data-toggle="tooltip">
+                                        <a href="#" class="{{$viewType == 'grid' ? 'active': ''}}" id="grid-modal" data-toggle="tooltip">
                                             <span>Grid view</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
                                                 <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -226,7 +239,7 @@
                                         </a>
                                     </div>
                                     <div class="grid_list_icon_box display_inline_block list-btn">
-                                        <a href="#" class=" " id="grid-list" data-toggle="tooltip"><!-- <img src="{{ asset('assets/app/img/line.svg')}}"> -->
+                                        <a href="#" class="{{$viewType == 'list' ? 'active': ''}}" id="grid-list" data-toggle="tooltip"><!-- <img src="{{ asset('assets/app/img/line.svg')}}"> -->
                                         <span>List view</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24" viewBox="0 0 27 24" fill="none">
                                                 <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -354,13 +367,10 @@
             </div>
            
         </div>
-        <div class="otherliste" style="display: block;">
-            
-          
-           
-           
+        
+        <div class="otherliste" style="display: {{$viewType == 'grid' ? 'block':'none'}};">
                 
-                <div class="space_between_row" style="display:block">
+                <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block':'none'}}">
                     
                     <div class="row responsive_colums_in_lg_five_col escost_list">
                         @foreach($escorts as $escort)
@@ -373,7 +383,7 @@
                
            
         </div>
-        <div class="grid list-view " style="display: none">
+        <div class="grid list-view " style="display: {{$viewType == 'list' ? 'block':'none'}}">
             
             @foreach($escorts as $escort)
                 <?php $pName[] = explode(" ",$escort->name);?>
@@ -599,7 +609,7 @@
     //         }
     //     });
     // });
-    
+
     $('#grid-modal').on('click', function () {
        //var source = e.relatedTarget;
        $('.preChanges').html('<h3>Escorts Grid View</h3>');
@@ -610,17 +620,33 @@
             $('#grid-template').html('<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>');
         
             setTimeout(function(){ 
-            $('.spinner-border').css('display', 'none');
-            $('.my-wishlist').css('display', 'none');
-            $('.space_between_row').show();
-            $('#grid-modal').addClass('active');
-            $('#grid-list').removeClass('active');
+                $('.spinner-border').css('display', 'none');
+                $('.my-wishlist').css('display', 'none');
+                $('.space_between_row').show();
+                $('#grid-modal').addClass('active');
+                $('#grid-list').removeClass('active');
+                $(".otherliste").show();
             }, 1000);
+
+            
             
         }
     //    
        
     });
+
+    // var grClass = $('#grid-modal').attr('class');
+    // var lsClass = $('#grid-list').attr('class');
+
+    // if(grClass == "active") {
+    //     $(".otherliste").show();
+    //     $('.grid').hide();
+    // }
+    // if(lsClass == "active") {
+    //     $(".otherliste").hide();
+    //     $('.grid').show();
+    // }
+
     $('#grid-list').on('click', function () {
         $('.preChanges').html('<h3>Escorts List View</h3>');
        var grid = $('#grid-list').attr('class');
@@ -632,11 +658,11 @@
             $('#grid-template').html('<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>');
             
             setTimeout(function(){ 
-            $('.spinner-border').css('display', 'none');
-            $('.my-wishlist').css('display', 'none');
-            $('#grid-list').addClass('active');
-            $('#grid-modal').removeClass('active');
-            $('.grid').show();
+                $('.spinner-border').css('display', 'none');
+                $('.my-wishlist').css('display', 'none');
+                $('#grid-list').addClass('active');
+                $('#grid-modal').removeClass('active');
+                $('.grid').show();
             
             }, 1000);
        }
