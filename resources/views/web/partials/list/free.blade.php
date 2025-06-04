@@ -1,11 +1,11 @@
 <div class="col-md-4 col-lg-4 col-sm-12 col-12 mb-4">
     <div class="box_shdow_service_provider_list_view freelist_view_padding">
         <div class="d-flex freelist_view_flex_gap flex_direction_column_in_responsive" >
-            <div><a href="{{ route('profile.description',$escort->id)}}?list">
+            <div><a href="{{ route('profile.description',[$escort->id,$escort->city_id])}}?list">
             @if($escort->latestActiveBrb)
                 <div class="brb--content">
                     <div class="brb--wrappr">
-                        <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->brb_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->brb_time))}}</span>
+                        <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->selected_time))}}</span>
                     </div>
                 </div>
             @endif

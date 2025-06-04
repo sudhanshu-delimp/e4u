@@ -3,7 +3,7 @@
 /**
  * Custom helper functions
  */
-
+use App\Models\Escort;
 if (!function_exists('calculateTatalFee')) {
     /**
      * Calculate the fee
@@ -101,3 +101,14 @@ function getMembershipType($membership)
 
     }
 }
+
+/**
+ * Get escort profile detial
+ */
+if (!function_exists('getEscortDetail')) {
+    function getEscortDetail($id)
+        {
+            $escort = Escort::where('id',$id)->first();
+            return $escort;
+        }
+    }

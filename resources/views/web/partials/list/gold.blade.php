@@ -7,7 +7,7 @@
                     <div class="col-md-4 featured-pic pl-0">
 
                         <div class="section_wise_level_icon_img">
-                            <a href="{{ route('profile.description', $escort->id) }}?list">
+                            <a href="{{ route('profile.description', [$escort->id,$escort->city_id]) }}?list">
                                 @if ($escort->latestActiveBrb)
                                     <div class="brb--content">
                                         <div class="brb--wrappr">
@@ -46,9 +46,10 @@
                                                 class="fa fa-heart-o" aria-hidden="true"></i></span>
                                     @endif
                                 @else
-                                    <span class="add_to_favrate" data-escortId="{{ $escort->id }}"
+                                    {{-- <span class="add_to_favrate" data-escortId="{{ $escort->id }}"
                                         data-name="{{ $escort->name }}"><i class="fa fa-heart-o" aria-hidden="true"
-                                            title="Add to Legbox"></i></span>
+                                            title="Add to Legbox"></i></span> --}}
+                                        <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text">Add to My Legbox</span></span>
                                 @endif
                             </div>
                             <div class="verify_image">

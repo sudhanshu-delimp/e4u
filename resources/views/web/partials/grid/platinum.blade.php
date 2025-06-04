@@ -21,17 +21,17 @@
                 @endif
                 
             @else
-            <span class="add_to_favrate custom--favourite"  data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i> <span class="custom-heart-text">Add to My Legbox</span></span>
+            {{-- <span class="add_to_favrate"  data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span> --}}
+                <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text">Add to My Legbox</span></span>
             @endif
         </div>
-
     <a class="card short-card card_box_style mb-0" href="{{ route('profile.description',[$escort->id,$escort->city_id, $escort->membership])}}">
     <div class="card2 card_box_style1">
         
             @if($escort->latestActiveBrb)
                 <div class="brb--content">
                     <div class="brb--wrappr">
-                        <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->brb_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->brb_time))}}</span>
+                        <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->selected_time))}}</span>
                     </div>
                 </div>
             @endif
@@ -41,7 +41,8 @@
        
         <div class="five_column_bottom_content">
             <div class="d-flex justify-content-between five_column_fonts">
-               <span>{{ $escort->city ? $escort->city->name : "" }} {{ $escort->age ? " - ".$escort->age : "" }}</span>
+               <span>{{ $escort->city ? $escort->city->name : "" }} {{ $escort->age ? " - ".$escort->age : "" }} {{--<i class="fa fa-map-marker" aria-hidden="true"></i> --}}
+            </span>
                 <span class="give_rating_after_get_servive">
                     @for($i=1; $i<= 5; $i++)
                         @if($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)

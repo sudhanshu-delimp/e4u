@@ -324,7 +324,6 @@ return [
 			"7408" => "Sydney",
 			"57601" => "Agra",
 			"131679" => "Delhi",
-
 		],
 		// 'state-cities' => [
 		// 	'3904'=>'South Australia'=>["3919" => "Adelaide"],
@@ -348,12 +347,14 @@ return [
 			"Tasmania" => 7,
 			"Northern Territory" => 8,
 		],
+		
 		'states' => [
 			'4022'=>[
 				"stateName" => 'Uttar Pradesh',
 				'cities'=>[
 					57601 => [
 						'cityName' => 'Agra',
+						'timeZone' => 'Asia/Kolkata',
 					],
 				],
 			],
@@ -362,6 +363,7 @@ return [
 				'cities'=>[
 					131679 => [
 						'cityName' => 'Delhi',
+						'timeZone' => 'Asia/Kolkata',
 					],
 				],
 			],
@@ -370,6 +372,7 @@ return [
 				'cities'=>[
 					4566 => [
 						'cityName' => 'Canberra',
+						'timeZone' => 'Australia/Sydney',
 					],
 				],
 			],
@@ -378,6 +381,7 @@ return [
 				'cities'=>[
 					7408 => [
 						'cityName' => 'Sydney',
+						'timeZone' => 'Australia/Sydney',
 					],
 				],
 			],
@@ -386,6 +390,7 @@ return [
 				'cities'=>[
 					4947 => [
 						'cityName' => 'Darwin',
+						'timeZone' => 'Australia/Darwin',
 					],
 				],
 			],
@@ -394,6 +399,7 @@ return [
 				'cities'=>[
 					4411 => [
 						'cityName' => 'Brisbane',
+						'timeZone' => 'Australia/Brisbane',
 					],
 				],
 			],
@@ -402,6 +408,7 @@ return [
 				'cities'=>[
 					3919 =>[
 						'cityName' => 'Adelaide',
+						'timeZone' => 'Australia/Adelaide',
 					],
 
 				],
@@ -411,11 +418,8 @@ return [
 				'cities'=>[
 					5621 => [
 						'cityName' => 'Hobart',
+						'timeZone' => 'Australia/Hobart',
 					],
-					// 6839 => [
-					// 	'cityName' => 'Perth',
-					// ],
-
 				],
 			],
 			'3903'=>[
@@ -423,6 +427,7 @@ return [
 				'cities'=>[
 					6235 =>[
 						'cityName' => 'Melbourne',
+						'timeZone' => 'Australia/Melbourne',
 					],
 
 				],
@@ -432,6 +437,7 @@ return [
 				 'cities'=>[
 					6839 => [
 						'cityName' => 'Perth',
+						'timeZone' => 'Australia/Perth',
 					],
 
 				],

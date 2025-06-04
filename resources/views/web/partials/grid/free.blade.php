@@ -5,7 +5,7 @@
         @if($escort->latestActiveBrb)
                 <div class="brb--content">
                     <div class="brb--wrappr">
-                        <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->brb_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->brb_time))}}</span>
+                        <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->selected_time))}}</span>
                     </div>
                 </div>
             @endif
@@ -23,7 +23,7 @@
                     <span>Services:</span>
                     <span class="image_height_width_for_col_nine">
                     <img src="{{ asset('assets/app/img/aerodownicon.svg') }}">
-                    <img src="{{ asset('assets/app/img/upaeroicon.svg') }}">
+                    <img src="{{ asset('assets/app/img/upaeroicon.svg') }}"> 
                     </span>
                 </div>
             </div>

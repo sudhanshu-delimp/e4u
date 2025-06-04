@@ -193,15 +193,6 @@
                             <p class="">Any requests, questions or complaints regarding data privacy and protection should be
                                 addressed to the Privacy Officer: <a href="email:privacy@escorts4u.com.au">privacy@escorts4u.com.au</a></p>
 
- <!-- changes to policy -->
- <div class="container mt-4 px-0 chagneto-policy">
-                     <hr class="custom_hr">
-                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                              review the most current version.</p>
-                     <p>Escorts4U archives all previous versions of this Policy.</p>
-                     <p><b>This policy was last updated 28-05-2025</b></p>
-                  </div>
                         </div>
                     </div>
                 </div>
@@ -286,15 +277,7 @@
                                 States of America.</p>
                             <p>Otherwise, personal data will not be released, shared or sold to third parties for marketing
                                 or advertising purposes without the prior permission from the Advertiser or Viewer.</p>
-                                 <!-- changes to policy -->
-                  <div class="container mt-4 px-0 chagneto-policy">
-                     <hr class="custom_hr">
-                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                              review the most current version.</p>
-                     <p>Escorts4U archives all previous versions of this Policy.</p>
-                     <p><b>This policy was last updated 28-05-2025</b></p>
-                  </div>
+                                
                         </div>
                     </div>
                 </div>
@@ -384,16 +367,6 @@
                                 to prevent the scanning of the Users email address through external software. However,
                                 email addresses that are published openly in a Profile are not covered by this security
                                 feature.</p>
-
- <!-- changes to policy -->
- <div class="container mt-4 px-0 chagneto-policy">
-                     <hr class="custom_hr">
-                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                              review the most current version.</p>
-                     <p>Escorts4U archives all previous versions of this Policy.</p>
-                     <p><b>This policy was last updated 28-05-2025</b></p>
-                  </div>
                         </div>
                     </div>
                 </div>
@@ -420,16 +393,8 @@
                                         <p>
                                             Escorts4U archives all previous versions of this Policy.
                                         </p>
-                                        <p><b>This policy was last updated 24-01-2024</b></p>
-                                         <!-- changes to policy -->
-                  <div class="container mt-4 px-0 chagneto-policy">
-                     <hr class="custom_hr">
-                     <h2 class="primery_color normal_heading">Changes to this Policy</h2>
-                     <p class="border-0">We may change or modify this Policy in the future. We will note the date that revisions were last made at the bottom of this page. Any revision will take effect upon its posting. It is your responsibility to check the <a href="{{ url('terms-conditions')}}" style="color:#FF3C5F">Terms and Conditions</a> and this Policy from time to time to
-                              review the most current version.</p>
-                     <p>Escorts4U archives all previous versions of this Policy.</p>
-                     <p><b>This policy was last updated 28-05-2025</b></p>
-                  </div>
+                                        <p><b>This policy was last updated 03-06-2025</b></p>
+                                         
                                     </div>
 
                                 </div>

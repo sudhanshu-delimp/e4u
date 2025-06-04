@@ -6,11 +6,11 @@
                     <div class="col-md-4 pl-0">
                         
                             <div class="section_wise_level_icon_img">
-                            <a href="{{ route('profile.description',$escort->id)}}?list">
+                            <a href="{{ route('profile.description',[$escort->id,$escort->city_id])}}?list">
                             @if($escort->latestActiveBrb)
                             <div class="brb--content">
                                 <div class="brb--wrappr">
-                                    <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->brb_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->brb_time))}}</span>
+                                    <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->selected_time))}}</span>
                                 </div>
                             </div>
                             @endif
@@ -35,7 +35,8 @@
                                         <span class="add_to_favrate" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
                                         @endif
                                     @else
-                                    <span class="add_to_favrate"  data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span>
+                                    {{-- <span class="add_to_favrate"  data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span> --}}
+                                    <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text">Add to My Legbox</span></span>
                                     @endif
                                 </div>
                                 <div class="verify_image">
