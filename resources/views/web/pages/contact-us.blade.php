@@ -50,7 +50,7 @@
 
         <div class="container">
             <h1 class="home_heading_first margin_btm_twenty_px">Contact Us</h1>
-
+<!-- 
             <h2 class="primery_color normal_heading">Some general information</h2>
             <p>Our offices are attended between 8:00 am and 6:00 pm WST (Australia). If you are:</p>
             <ul>
@@ -101,7 +101,7 @@
                     <textarea class="form-control border_for_form" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
                 </div>
                 <button type="submit" id="" class="btn btn-primary mb-3">Send Message</button>
-            </form>
+            </form> -->
 
 
             <div class="accordion-container">
@@ -158,6 +158,69 @@
                       </div>
                    </div>
                 </div> -->
+
+                
+                <div class="set">
+                    <a>
+                    Some general information
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <div class="content">
+                        <div class="accodien_manage_padding_content">
+            <p>Our offices are attended between 8:00 am and 6:00 pm WST (Australia). If you are:</p>
+            <ul>
+                <li>Looking to make an appointment with an Advertiser, we are not an agency and do not
+                    arrange bookings. Please contact <a class="c-red" href="{{ url('help-for-advertisers')}}">Advertisers</a> directly
+                </li>
+                <li>An Advertiser with a question, first look at our help for <a class="c-red"
+                                                                                 href="{{ url('help-for-advertisers')}}">Advertisers</a>,
+                    or <a class="c-red" href="{{ url('faqs')}}">FAQs</a> and if you
+                    don't find the answer, then contact us by logging a "Support Ticket" (the preferred
+                    method of contact, but you need to <a class="c-red" href="{{ url('advertiser-login')}}">log on</a> )
+                    otherwise contact us <a class="c-red" href="#" onClick="openSolution();">here</a>.
+                </li>
+                <li>A Viewer with a question, first look at our help for <a class="c-red" href="{{url('help-for-viewers')}}">Viewers</a> and if
+                    you don't find the
+                    answer, then contact us by logging a "Support Ticket" (see below), if you are a
+                    registered Viewer, (the preferred method of contact, but you need to <a class="c-red" href="viewer-login">log
+                        on</a>) otherwise
+                    contact us <a class="c-red" href="#" onClick="openSolution();">here</a>.
+                </li>
+                <li>A law enforcement agency, Court or an attorney, go to our <a class="c-red" href="{{'law-enforcement'}}">Law Enforcement
+                        Policy</a> for
+                    information regarding legal process.
+                </li>
+            </ul>
+
+            <p>For anything else, contact us <a class="c-red" href="#" onClick="openSolution();">here</a>, or by any of
+                the alternative means below. Whichever
+                method of communication you use we will get back to you within the next few days. </p>
+
+            <form id="contect" style="display: none">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">First Name</label>
+                        <input type="text" class="form-control border_for_form" placeholder="First name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPassword4">Last Name</label>
+                        <input type="text" class="form-control border_for_form" placeholder="Last name">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputAddress">Email</label>
+                    <input type="email" class="form-control border_for_form" id="inputEmail4" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Comment</label>
+                    <textarea class="form-control border_for_form" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
+                </div>
+                <button type="submit" id="" class="btn btn-primary mb-3">Send Message</button>
+            </form>
+
+                        </div>
+                    </div>
+                </div>
                 <div class="set">
                     <a>
                         After hours contact
@@ -213,13 +276,14 @@
                         </div>
                     </div>
                 </div>
+                <!-- changes policy -->
                 <div class="set">
-                <a>Changes to this Policy
+                    <a>Changes to this Policy
 
-                <i class="fa fa-angle-down"></i>
-                </a>
-                
-                <div class="content ">
+                    <i class="fa fa-angle-down"></i>
+                    </a>
+                    
+                    <div class="content ">
                         <div class="accodien_manage_padding_content">
                             <div class="border_top_one_px padding_ten_px_top_btm">
                                 <div class="row">
