@@ -99,9 +99,9 @@
 
 <div class="profile_description_banner overlay_parent custom--overlay custom--brb-overlay" style="background: none;">
     <div class="overlay">
-        @if($brb)
+        @if($escort->latestActiveBrb)
             <div class="brb_details">
-                <h1>BRB at {{date('h:i A d-m-Y', strtotime($brb['brb_time']))}}</h1>
+                <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time))}}</h1>
                 <h3>{{$brb['brb_note']}}</h3>
             </div>
         @endif

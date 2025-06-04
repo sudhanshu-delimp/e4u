@@ -5,21 +5,15 @@
             <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                 
                     <div class="section_wise_level_icon_img">
-                        <a href="{{ route('profile.description', $escort->id) }}?list">
-                        @if ($escort->latestActiveBrb)
-                            <div class="brb--content">
-                                <div class="brb--wrappr">
-                                    <span class="brb-text">BRB</span> at <span
-                                        class="brb-time">{{ date('h:i A', strtotime($escort->latestActiveBrb->brb_time)) }}</span>
-                                    <span
-                                        class="brb-date">{{ date('d-m-Y', strtotime($escort->latestActiveBrb->brb_time)) }}</span>
-                                </div>
-                            </div>
-                        @endif
-                        <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
-                            class="img-fluid height_for_siliver" title="View Profile">
-                        <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/img_silver.png') }}"></div>
-                        </a>
+                    @if($escort->latestActiveBrb)
+                    <div class="brb--content">
+                        <div class="brb--wrappr">
+                            <span class="brb-text">BRB</span> at <span class="brb-time">{{date('h:i A',strtotime($escort->latestActiveBrb->selected_time))}}</span> <span class="brb-date">{{date('d-m-Y',strtotime($escort->latestActiveBrb->selected_time))}}</span>
+                        </div>
+                    </div>
+                    @endif       
+                        <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}" class="img-fluid height_for_siliver" title="View Profile">
+                        <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/img_silver.png')}}"></div>
                         <div class="add_to_fab_list_view_each_sec">
                             @if (auth()->user())
                                 @if (auth()->user()->type == 0)
