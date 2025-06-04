@@ -5,7 +5,7 @@
             <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                 
                     <div class="section_wise_level_icon_img">
-                        <a href="{{ route('profile.description', $escort->id) }}?list">
+                        <a href="{{ route('profile.description', [$escort->id,$escort->city_id]) }}?list">
                         @if ($escort->latestActiveBrb)
                             <div class="brb--content">
                                 <div class="brb--wrappr">

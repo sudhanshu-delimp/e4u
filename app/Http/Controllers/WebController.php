@@ -69,7 +69,6 @@ class WebController extends Controller
 
         $array = config('escorts.profile.genders');
         
-
         $gender_one = array_flip($array);
         if($gender != null) {
             $gen = $gender_one[$gender];
@@ -140,6 +139,8 @@ class WebController extends Controller
             $params['state_id'] = $filterStateExist ? $params['state_id'] : null;
             //$radio_location_filter = true;
         }
+
+        
 
         if(request()->get('limit')) {
             $limit = request()->get('limit');
@@ -291,12 +292,14 @@ class WebController extends Controller
             return $query;
         };
 
+        
         $platinum = $applyFilters(Escort::with('durations')->where('membership', '1'),$str)->get();
         $gold = $applyFilters(Escort::with('durations')->where('membership', '2'),$str)->get();
         $silver = $applyFilters(Escort::with('durations')->where('membership', '3'),$str)->get();
         $free = $applyFilters(Escort::with('durations')->where('membership', '4'),$str)->get();
         
         $merged = $platinum->concat($gold)->concat($silver);
+
 
          $merged = $merged->map(function($item, $key) {
             //dd($item);
@@ -963,6 +966,8 @@ class WebController extends Controller
         if(session('is_shortlisted_profile') == true){
             $filterEscorts = $filterEscorts->sortBy('id')->values();
         }
+
+        //dd($filterEscortsParams,$filterEscorts);
         
         list($next, $previous) = $this->escort->getlinks($id, $city, $membershipId, $filterEscorts);
         $availability = $escort ? $escort->availability : null;
