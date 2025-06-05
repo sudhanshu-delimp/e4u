@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTourLocationsTable extends Migration
+class CreateMassageGalleryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateTourLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tour_locations', function (Blueprint $table) {
+        Schema::create('massage_gallery', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('state_id');
-            $table->foreignId('tour_id')->constrained()->onDelete('cascade'); 
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->bigInteger('massage_media_id');
+            $table->bigInteger('massage_profile_id');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateTourLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tour_locations');
+        Schema::dropIfExists('massage_gallery');
     }
 }
