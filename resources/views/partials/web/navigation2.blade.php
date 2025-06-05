@@ -97,7 +97,7 @@
                             <img src="{{ asset('assets/app/img/profileimg.jpg') }}" class="img-fluid loged_in_profile_img">
                             </a>
                             <div class="dropdown-menu" aria-labelledby="userprofileimg">
-                                <a class="dropdown-item" href="{{ route('dashboard') }}"><img src="{{ asset('assets/app/img/woman-avatar.svg') }}">dashboard</a>
+                                <a class="dropdown-item" href="{{ route('dashboard') }}"><img src="{{ asset('assets/app/img/woman-avatar.svg') }}">dashboard </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
