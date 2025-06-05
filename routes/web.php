@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Cookie;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Mail\sendPlaymateAccountDisableMail;
+use App\Http\Controllers\ContactUsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,6 +49,9 @@ Route::get('support_tickets/dataTable', [SupportTicketsController::class, 'dataT
 Route::get('support_tickets/conversations/{id?}', [SupportTicketsController::class, 'conversations'])->name('support-ticket.conversations');
 Route::put('support_tickets/withdraw/{id}', [SupportTicketsController::class, 'withdraw'])->name('support-ticket.withdraw');
 Route::post('support_tickets/save_message', [SupportTicketsController::class, 'save_message'])->name('support-ticket.saveMessage');
+
+Route::get('contact-us', [ContactUsController::class,'index'])->name('contactus.index');
+Route::post('contact-us-send', [ContactUsController::class,'sendContact'])->name('contactus.send');
 
 
 
@@ -214,7 +218,8 @@ Route::get('/terms-conditions', function() { return view('web.pages.terms-condit
 Route::get('/abbreviations', function() { return view('web.pages.abbreviations'); });
 Route::get('/alerts', function() { return view('web.pages.alerts'); });
 Route::get('/blog', function() { return view('web.pages.blog'); });
-Route::get('/contact-us', function() { return view('web.pages.contact-us'); });
+//Route::get('/contact-us', function() { return view('web.pages.contact-us'); })
+
 Route::get('/etiquette', function() { return view('web.pages.etiquette'); });
 Route::get('/faqs', function() { return view('web.pages.faqs'); });
 Route::get('/feedback', function() { return view('web.pages.feedback'); });

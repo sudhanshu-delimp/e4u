@@ -23,7 +23,7 @@
                     <span>Services:</span>
                     <span class="image_height_width_for_col_nine">
                     <img src="{{ asset('assets/app/img/aerodownicon.svg') }}">
-                    <img src="{{ asset('assets/app/img/upaeroicon.svg') }}">
+                    <img src="{{ asset('assets/app/img/upaeroicon.svg') }}"> 
                     </span>
                 </div>
             </div>

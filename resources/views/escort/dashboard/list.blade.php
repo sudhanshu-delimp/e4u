@@ -271,7 +271,7 @@
                //{ data: 'city_name', name: 'city_name', searchable: false, orderable:true ,defaultContent: 'NA'},
               
                { data: 'phone', name: 'phone', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'start_date_parsed', name: 'created_at', searchable: false, orderable:false,defaultContent: 'NA' },
+               { data: 'timezone_created_at', name: 'created_at', searchable: false, orderable:false,defaultContent: 'NA' },
                { data: 'enabled', name: 'enabled', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
            ],
