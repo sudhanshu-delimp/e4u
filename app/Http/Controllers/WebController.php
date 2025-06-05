@@ -1290,7 +1290,7 @@ class WebController extends Controller
                     $dp = round($dislikeCount/$total * 100);
                 } else {
                     $lp = 0;
-                    $dp = 0;
+                    $dp = 0; 
 
                 }
 
