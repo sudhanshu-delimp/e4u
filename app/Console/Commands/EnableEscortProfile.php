@@ -44,10 +44,22 @@ class EnableEscortProfile extends Command
         $listings = Purchase::where('start_date', $startDate)->get()->toArray();
 
         foreach ($listings as $listing) {
+            $start_date = $listing['start_date'].' 00:00:00';
+            $end_date = $listing['end_date'].' 23:59:59'; 
+            $escort = $listing->escort;
+            
+            $profileTimezone = config("escorts.profile.states.$escort->state_id.cities.$escort->city_id.timeZone");
+            
+            $localStartDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$start_date", $profileTimezone);
+            $utcSartTime = $localStartDateTime->copy()->setTimezone('UTC');
+            $localEndDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$end_date", $profileTimezone);
+            $utcEndTime = $localEndDateTime->copy()->setTimezone('UTC');
             Escort::where('id', $listing['escort_id'])->update(
                 array(
-                    'start_date' => $listing['start_date'] . ' 00:00:00',
-                    'end_date' => $listing['end_date'] . ' 10:00:00',
+                    'start_date' => $start_date,
+                    'end_date' => $end_date,
+                    'utc_start_time' => $utcSartTime,
+                    'utc_end_time' => $utcEndTime,
                     'membership' => $listing['membership'],
                     'enabled' => 1,
                 )
