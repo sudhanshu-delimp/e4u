@@ -440,8 +440,7 @@ button.short-list.btn.btn-primary {
     text-align: center;
     background: #0C223D;
     border-radius: 3px;
-    padding: 12px;
-    color: #FF3C5F;
+    color: var(--peach);
     width: 100%;
     margin-top: -1.1px;
     height: 38px;
@@ -1359,7 +1358,7 @@ button#legbox_btn:hover,
     font-weight: bold;
     font-size: 16px;
     line-height: 6px;
-    color: #ff3c5f;
+    color: var(--peach);
 }
 
 .pinup_social_profile_padiing_top_btm {
@@ -1712,11 +1711,11 @@ button#legbox_btn:hover,
     padding: 7px 11px;
     background: #0c223d;
     border-radius: 4px;
-    color: #ff3c5f;
+    color: var(--peach);
 }
 
 .reset_filter i {
-    color: #ff3c5f;
+    color: var(--peach);
     font-size: 20px;
 }
 
@@ -1726,7 +1725,7 @@ button#legbox_btn:hover,
 }
 
 .helpquation a i {
-    color: #ff3c5f;
+    color: var(--peach);
 }
 
 .service_tags {
@@ -1810,7 +1809,7 @@ button#legbox_btn:hover,
 }
 
 .grid_list_icon_box .active {
-    color: #ff3c5f;
+    color: var(--peach);
 }
 
 
@@ -1934,7 +1933,7 @@ i.fa.fa-heart-o{
 }
 
 .give_rating_after_get_servive i {
-    color: #ff3c5f;
+    color: var(--peach);
 }
 
 .five_column_content_top {
@@ -2870,7 +2869,7 @@ div#myTabContent .right-side-img .right-bott-im1 img {
     font-style: normal;
     font-weight: 500;
     font-size: 36px;
-    color: #FF3C5F;
+    color: var(--peach);
     text-transform: capitalize;
 }
 
@@ -3038,7 +3037,7 @@ a.admin-login:hover {
 }
 
 .reset_filter {
-    color: #ff3c5f !important;
+    color: var(--peach) !important;
 }
 
 .slect__btn_tab select,
@@ -3253,7 +3252,7 @@ i.fa.fa-heart-o {
 }
 
 .table_heading_bgcolor_color {
-    background: #0c223d;
+    background: var(--blue--text);
     color: #fff;
 }
 
@@ -3271,8 +3270,8 @@ i.fa.fa-heart-o {
 }
 
 .if_data_not_available {
-    color: #f26464;
-    background: rgba(245, 91, 93, 0.26);
+    color: var(--peach);
+    background: rgba(255 60 95 / 27%);
     font-family: Inter;
     font-style: normal;
     font-weight: 500;
@@ -3325,7 +3324,7 @@ progress.dislike {
 }
 
 progress.dislike::-webkit-progress-value {
-    background: #ff3c5f;
+    background: var(--peach);
 }
 
 .our-masseurs {
@@ -3340,7 +3339,7 @@ progress.dislike::-webkit-progress-value {
 }
 
 .dislike_mjo progress::-moz-progress-bar {
-    background: #ff3c5f;
+    background: var(--peach);
 }
 
 .display_persantage p {
@@ -3537,11 +3536,11 @@ progress.dislike::-webkit-progress-value {
 
 .carousel .testi_icon_color i {
     font-size: 18px;
-    color: #ff3c5f;
+    color: var(--peach);
 }
 
 .carousel .testi_icon_color b {
-    color: #ff3c5f;
+    color: var(--peach);
 }
 
 .arroww_tip_crousal .carousel-control-prev,
@@ -5140,7 +5139,7 @@ h2.custom--review img {
 }
 
 .custom-sort-filter {
-    color: #ff3c5f !important;
+    color: var(--peach) !important;
     font-size: 15px !important;
     font-weight: 500 !important;
     margin-left: auto;
@@ -5549,7 +5548,7 @@ h2.custom--review img {
 }
 
 .who-tittle {
-    color: #ff3c5f;
+    color: var(--peach);
     padding-bottom: 0;
 }
 
@@ -5558,7 +5557,7 @@ h2.custom--review img {
     padding: 10px;
     max-width: 1200px;
     margin: 0 auto;
-    background: #ff3c5f;
+    background: var(--peach);
 }
 
 .custom--brb-overlay .overlay {
@@ -5648,7 +5647,11 @@ h2.custom--review img {
 }
 
 .custom--service-tag .list-btn:hover {
-    background: #ff3c5f;
+    background: var(--peach);
+}
+
+.custom--service-tag .list-btn:hover a {
+    color: var(--white) !important;
 }
 
 .custom--service-tag .grid_list_icon_box span {
@@ -5804,7 +5807,107 @@ img.twitter-x-logo {
 /* end */
 
 
+/* all-escort-view-profil-btn */
+
+.platinum-escort-list-view-custom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap !important;
+    padding: 15px;
+}
+
+.verify-image-custom {
+    position: absolute;
+    top: 350px !important;
+    right: 0px;
+    bottom: unset !important;
+}
+
+.all-escort-profile-pic img {
+    max-height: 383px !important;
+}
+
+.all-escort-view-profile-box {
+    display: flex;
+    flex-direction: column !important;
+}
+
+.all-escort-view-profile-btn {
+    display: flex;
+    align-items: flex-end !important;
+    justify-content: flex-end;
+}
+
+.all-escort-view-profile-btn a {
+    font-size: 16px !important;
+    padding: 7px 8px;
+    font-weight: 500 !important;
+}
+
+.gold-view-escort-list {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.gold-view-escort-list .gold-type-icon-text {
+    display: flex;
+    align-items: center;
+}
+
+.gold-profile-details-custom {
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.gold-profile-details-custom .free_profile_name_and_color {
+    flex: 3;
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px !important;
+    color: #FF3C5F;
+    text-transform: capitalize;
+}
+
+.gold-profile-details-custom .age {
+    flex: 1;
+}
+
+.gold-profile-details-custom .add_to_short_list_btn_custom {
+    flex: 1;
+}
+
+.add_to_short_list_btn_custom button {
+    height: 50px !important;
+}
+
+
 /* Media Query Start*/
+
+@media (max-width:768px) {
+    .gold-profile-details-custom {
+        margin-top: 20px;
+    }
+    .all-escort-view-profile-box {
+        display: flow;
+        flex-direction: column !important;
+    }
+    .all-escort-view-profile-btn {
+        margin: 10px 0px;
+        display: flow-root;
+    }
+    .verify-image-custom {
+        position: absolute;
+        top: 330px !important;
+        right: 0px;
+        bottom: unset !important;
+    }
+}
 
 @media (max-width: 1500px) {
     .footer_mange_padding .row>div:first-child {
