@@ -52,21 +52,65 @@
                                         <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text">Add to My Legbox</span></span>
                                 @endif
                             </div>
-                            <div class="verify_image verify-image-custom">
+                            <div class="verify_image">
                                 <img src="{{ asset('assets/app/img/verifyimage.png') }}">
                             </div>
                         </div>
 
                     </div>
-                    <div class="col-md-8 p-0 gold-seven all-escort-view-profile-box">
-                        <div class="d-flex justify-content-between mb-4 sm-my-2 gold-profile-details-custom">
+                    <div class="col-md-5 gold-seven">
+                        <div class="d-flex justify-content-between mb-3">
                             <div class="free_profile_name_and_color">{{ $escort->name }}</div>
                             <div class="age" style="margin-top: 5px;display: flex;gap: 8px;">
                                 <span class="margin_and_font_size_color_for_free">AGE:</span><span
                                     class="free_profile_age_color_and_font">{{ $escort->age }}</span>
-                               
+                                <div class="d-inline video_icon">
+                                    <a href="#">
+                                        <img src="{{ asset('assets/app/img/video_play.svg') }}">
+                                    </a>
+                                </div>
                             </div>
-                            <div class="add_to_short_list_btn_custom">
+
+                        </div>
+                        <div class="d-flex justify-content-between mb-3 flex_warp gold_icon_list">
+                            <div class="gender">
+                                <span>Gender:</span>
+                                <span>{{ $escort->gender ? $escort->gender : '' }}</span>
+                            </div>
+                            <div class="perth">
+                                <span>{{ $escort->city ? $escort->city->name : '' }}</span>
+                                <span class="give_rating_after_get_servive">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="free_profile_avilabletoimg_size">
+                                <span>Available:</span>
+                                <span>
+                                    @if ($escort->available_to)
+                                        @foreach ($escort->available_to as $key => $available_to)
+                                            <img
+                                                src="{{ config('escorts.profile.available-to-images')[$available_to] }}">
+                                        @endforeach
+                                    @endif
+                                </span>
+                            </div>
+
+                        </div>
+                        <div class="mt-3">
+                            <p class="list_view_profile_pera_font_size">Lorem ipsum dolor sit amet, consectetur
+                                adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3 padding_zero_in_desktop fifteen_left_right_padding">
+                        <div class="mb-3">
                             @if (Request::path() == 'showList')
                                 <button type="button"
                                     class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn removeshortlist"
@@ -94,43 +138,9 @@
                                 </button>
                             @endif
                         </div>
-                                </div>
-                        <div class="d-flex justify-content-between mb-4 flex_warp list_gender_area  pr-0">
-                            <div class="gender">
-                                <span class="filter-pad">Gender:</span>
-                                <span>{{ $escort->gender ? $escort->gender : '' }}</span>
-                            </div>
-                            <div class="perth">
-                                <span class="filter-pad">{{ $escort->city ? $escort->city->name : '' }}</span>
-                                <span class="give_rating_after_get_servive">
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <div class="free_profile_avilabletoimg_size">
-                                <span class="filter-pad">Available:</span>
-                                <span>
-                                    @if ($escort->available_to)
-                                        @foreach ($escort->available_to as $key => $available_to)
-                                            <img
-                                                src="{{ config('escorts.profile.available-to-images')[$available_to] }}">
-                                        @endforeach
-                                    @endif
-                                </span>
-                            </div>
-                            <div class="d-inline video_icon">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/app/img/video_play.svg') }}">
-                                    </a>
-                                </div>
-
-                        </div>
-                        
-                        <div class="icon-lis-col gold-view-escort-list">
-                                <div class=" manage_gap_text_img-profile gold-type-icon-text p-1">
+                        <div class="icon-lis-col">
+                            <div class="mb-1">
+                                <div class="d-flex manage_gap_text_img-profile mb-2">
                                     <img src="{{ asset('assets/app/img/handwithhart.png') }}">
                                     <div class="div_contain_text">
                                         <div class="profile_message">
@@ -143,7 +153,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" manage_gap_text_img-profile gold-type-icon-text p-1">
+                            </div>
+                            <div class="mb-1">
+                                <div class="d-flex manage_gap_text_img-profile mb-2">
                                     <img src="{{ asset('assets/app/img/areodownimg.png') }}">
                                     <div class="div_contain_text">
                                         <div class="profile_message">
@@ -156,7 +168,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class=" manage_gap_text_img-profile gold-type-icon-text p-1">
+                            </div>
+                            <div>
+                                <div class="d-flex manage_gap_text_img-profile mb-4 pb-2">
                                     <img src="{{ asset('assets/app/img/aeroupimg.png') }}">
                                     <div class="div_contain_text">
                                         <div class="profile_message">
@@ -168,20 +182,12 @@
                                                 /hr</h4>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
+                                <a href="{{ route('profile.description', $escort->id) }}"
+                                    class="btn btn_for_profile_list_view min_width_hundredpresent"
+                                    style="float: right;">View Profile</a>
+                            </div>
                         </div>
-                        <div class="col pl-0 pr-1">
-                            <p class="list_view_profile_pera_font_size">Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco laboris nisi
-                            </p>
-                        </div>
-                        <div class="col pl-0 pr-1 all-escort-view-profile-btn">
-                        <a href="{{ route('profile.description', $escort->id) }}"
-                                    class="btn btn_for_profile_list_view">View Profile</a>
-                        </div>
-
                     </div>
                 </div>
             </div>

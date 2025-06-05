@@ -5,7 +5,7 @@
                 <div class="row plat-inner mr-0 ml-0">
                     <div class="col-md-4 pl-0">
                         
-                            <div class="section_wise_level_icon_img">
+                            <div class="section_wise_level_icon_img all-escort-profile-pic">
                             <a href="{{ route('profile.description',[$escort->id,$escort->city_id])}}?list">
                             @if($escort->latestActiveBrb)
                             <div class="brb--content">
@@ -14,7 +14,7 @@
                                 </div>
                             </div>
                             @endif
-                                <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}" class="img-fluid height_for_platinum" title="View Profile">
+                                <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}" class="img-fluid" title="View Profile">
                             </a>
                             <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/profile/image36.png')}}"></div>
                                 <div class="add_to_fab_list_view_each_sec">
@@ -39,14 +39,14 @@
                                     <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text">Add to My Legbox</span></span>
                                     @endif
                                 </div>
-                                <div class="verify_image">
+                                <div class="verify_image verify-image-custom">
                                     <img src="{{ asset('assets/app/img/verifyimage.png')}}">
                                 </div>
                             </div>
                         {{-- </a> --}}
                     </div>
-                    <div class="col-md-8 p-0">
-                        <div class="d-flex justify-content-between mb-3 flex_directiom_warp list_cruise pr-0">
+                    <div class="col-md-8 p-0 all-escort-view-profile-box">
+                        <div class="mb-3 list_cruise pr-0 platinum-escort-list-view-custom">
                             <div class="list_view_pla_name manage_name_responsive_in_gold">{{$escort->name}}</div>
                             <div class="age" style="margin-top: 13px;">
                                 <span class="margin_and_font_size_color_for_free manage_age_responsive_in_gold">AGE:</span><span class="free_profile_age_color_and_font">{{$escort->age}}</span>
@@ -88,7 +88,7 @@
                                 <i class="fa fa-star" aria-hidden="true"></i>
                                 </span>
                             </div>
-                            <div class="available padding_top_ten_px">
+                            <div class="available">
                                 <span class="filter-pad">Available:</span>
                                 <span>
                                 @if($escort->available_to)
@@ -98,7 +98,7 @@
                                 @endif
                                 </span>
                             </div>
-                            <div class="video_icon padding_top_ten_px">
+                            <div class="video_icon">
                                 <a href="#">
                                 <img src="{{ asset('assets/app/img/video_play.svg') }}">
                                 </a>
@@ -154,6 +154,10 @@
                                 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                                 consequat.
                             </p>
+                            <!-- <a  href="{{ route('profile.description',$escort->id)}}" class="btn btn_for_profile_list_view min_width_hundredpresent" style="float: right;">View Profile</a> -->
+                        </div>
+                        <div class="col pr-1 all-escort-view-profile-btn">
+                            
                             <a  href="{{ route('profile.description',$escort->id)}}" class="btn btn_for_profile_list_view min_width_hundredpresent" style="float: right;">View Profile</a>
                         </div>
                     </div>
