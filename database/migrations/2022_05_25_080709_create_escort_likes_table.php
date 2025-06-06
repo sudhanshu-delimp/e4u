@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTourLocationsTable extends Migration
+class CreateEscortLikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateTourLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tour_locations', function (Blueprint $table) {
+        Schema::create('escort_likes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('state_id');
-            $table->foreignId('tour_id')->constrained()->onDelete('cascade'); 
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->integer('user_id')->nullable();
+            $table->integer('escort_id')->nullable();
+            $table->tinyInteger('like')->nullable()->comment('1=> Like, 0=> Dislike');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateTourLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tour_locations');
+        Schema::dropIfExists('escort_likes');
     }
 }
