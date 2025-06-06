@@ -46,10 +46,10 @@ return [
 		],
 		'contact-me'=>[
 			1=>'Email',
-			2=>'Sms',
+			2=>'Text',
 			//3=>'Text-msg',
 			4=>'Call',
-			5=>'Call or SMS'
+			5=>'Call or Text'
 		],
 		'breast-size'=>[
 			24 => ['A','B','C','D','DD','E','F','G','H'],
