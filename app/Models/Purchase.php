@@ -10,7 +10,7 @@ class Purchase extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['escort_id', 'start_date', 'end_date', 'membership'];
+    protected $fillable = ['escort_id', 'start_date', 'end_date', 'membership', 'utc_start_time', 'utc_end_time', 'status'];
     protected $table = 'purchase';
     public $timestamps = false;
 
