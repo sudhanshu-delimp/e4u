@@ -593,9 +593,10 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            {{-- dd(count($cat1_services_one)>0) --}}
-                                            <div class="row margin_zero_for_table"  style="{{ count($cat1_services_one) == 0 ? 'border: 1px solid black;' : ''}}">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat1_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                            {{-- dd(!empty($cat1_services_one), $cat1_services_one) --}}
+
+                                            <div class="row margin_zero_for_table"  style="{{ empty($cat1_services_one) ? 'border: 1px solid black;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat1_services_one) ? 'padding: 1px;' : ''}}">
                                                     <?php
                                                     $dataExistInTable1 = false;
                                                     $tableData = [
@@ -692,8 +693,8 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table" style="{{ count($cat2_services_one) == 0 ? 'border: 1px solid black;' : ''}}">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat2_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                            <div class="row margin_zero_for_table" style="{{ empty($cat2_services_one) == 0 ? 'border: 1px solid black;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat2_services_one) ? 'padding: 1px;' : ''}}">
                                                     <?php
                                                     $dataExistInTable2 = false;
                                                     $tableData = [
@@ -789,8 +790,8 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table" style="{{ count($cat3_services_one) == 0 ? 'border: 1px solid black;' : ''}}">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat3_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                            <div class="row margin_zero_for_table" style="{{ empty($cat3_services_one) ? 'border: 1px solid black;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat3_services_one) ? 'padding: 1px;' : ''}}">
                                                     <?php
                                                     $dataExistInTable3 = false;
                                                     $tableData = [
