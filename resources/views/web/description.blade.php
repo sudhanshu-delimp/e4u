@@ -6,6 +6,10 @@
     display: inline-block;
     cursor: pointer;
   }
+
+  .let-talk-about{
+    /* border-bottom: 1px solid #192A3E; */
+  }
  
   .tooltip-wrapper .tooltip-text {
     visibility: hidden;
@@ -589,15 +593,21 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none">
+                                            {{-- dd(count($cat1_services_one)>0) --}}
+                                            <div class="row margin_zero_for_table"  style="{{ count($cat1_services_one) == 0 ? 'border: 1px solid black;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat1_services_one) == 0 ? 'padding: 1px;' : ''}}">
                                                     <?php
+                                                    $dataExistInTable1 = false;
                                                     $tableData = [
                                                         1 => '', 2 => '', 3 => ''
                                                     ];
                                                     if(!empty($cat1_services_one)){
                                                         $i = 1;
                                                         foreach($cat1_services_one as $service) {
+                                                            if($service){
+                                                                $dataExistInTable1 = true;
+                                                            }
+                                                            
                                                             $tableData[$i] .= '<tr>
                                                                     <td class="table_border_dash_left">'.$service->name.'</td>
                                                                     <td class="table_border_solid_left">'. ($service->pivot->price ? '$'. number_format($service->pivot->price) : '<span class="if_data_not_available">N/A</span>') .'</td>
@@ -621,7 +631,7 @@
                                                         }
                                                     }
                                                     ?>
-                                                    <table class="table table_border_dash">
+                                                    <table class="table {{$dataExistInTable1 == false ? '': 'table_border_dash' }}  ">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -630,11 +640,15 @@
                                                         </thead>
                                                         <tbody>
                                                         {!! $tableData[1] !!}
+                                                        @if($dataExistInTable1 == false)
+                                                            <td colspan="2" class="let-talk-about"></td>
+                                                        @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none">
-                                                    <table class="table table_border_dash">
+                                                
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat1_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{$dataExistInTable1 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -643,11 +657,14 @@
                                                         </thead>
                                                         <tbody>
                                                         {!! $tableData[2] !!}
+                                                        @if($dataExistInTable1 == false)
+                                                            <td colspan="2" style="padding-top: 15px;">Let's talk about it.</td>
+                                                        @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none">
-                                                    <table class="table table_border_dash">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat1_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{$dataExistInTable1 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -656,6 +673,9 @@
                                                         </thead>
                                                         <tbody>
                                                         {!! $tableData[3] !!}
+                                                        @if($dataExistInTable1 == false)
+                                                            <td colspan="2" class="let-talk-about"></td>
+                                                        @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -672,15 +692,20 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none">
+                                            <div class="row margin_zero_for_table" style="{{ count($cat2_services_one) == 0 ? 'border: 1px solid black;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat2_services_one) == 0 ? 'padding: 1px;' : ''}}">
                                                     <?php
+                                                    $dataExistInTable2 = false;
                                                     $tableData = [
                                                         1 => '', 2 => '', 3 => ''
                                                     ];
                                                     if(!empty($cat2_services_one)){
+                                                        
                                                         $i = 1;
                                                         foreach($cat2_services_one as $service) {
+                                                            if($service){
+                                                                $dataExistInTable2 = true;
+                                                            }
                                                             $tableData[$i] .= '<tr>
                                                                     <td class="table_border_dash_left">'.$service->name.'</td>
                                                                     <td class="table_border_solid_left">'. ($service->pivot->price ? '$'. number_format($service->pivot->price) : '<span class="if_data_not_available">N/A</span>') .'</td>
@@ -704,7 +729,7 @@
                                                         }
                                                     }
                                                     ?>
-                                                    <table class="table table_border_dash">
+                                                    <table class="table {{$dataExistInTable2 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -713,11 +738,14 @@
                                                         </thead>
                                                         <tbody>
                                                             {!! $tableData[1] !!}
+                                                            @if($dataExistInTable2 == false)
+                                                                <td colspan="2" class="let-talk-about"></td>
+                                                            @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none">
-                                                    <table class="table table_border_dash">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat2_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{$dataExistInTable2 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -726,11 +754,14 @@
                                                         </thead>
                                                         <tbody>
                                                             {!! $tableData[2] !!}
+                                                            @if($dataExistInTable2 == false)
+                                                                <td colspan="2" style="padding-top: 15px;">Let's talk about it.</td>
+                                                            @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none">
-                                                    <table class="table table_border_dash">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat2_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{$dataExistInTable2 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -739,6 +770,9 @@
                                                         </thead>
                                                         <tbody>
                                                             {!! $tableData[3] !!}
+                                                            @if($dataExistInTable2 == false)
+                                                                <td colspan="2" class="let-talk-about"></td>
+                                                            @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -755,15 +789,20 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none">
+                                            <div class="row margin_zero_for_table" style="{{ count($cat3_services_one) == 0 ? 'border: 1px solid black;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat3_services_one) == 0 ? 'padding: 1px;' : ''}}">
                                                     <?php
+                                                    $dataExistInTable3 = false;
                                                     $tableData = [
                                                         1 => '', 2 => '', 3 => ''
                                                     ];
                                                     if(!empty($cat3_services_one)){
+                                                        
                                                         $i = 1;
                                                         foreach($cat3_services_one as $service) {
+                                                            if($service){
+                                                                $dataExistInTable3 = true;
+                                                            }
                                                             $tableData[$i] .= '<tr>
                                                                     <td class="table_border_dash_left">'.$service->name.'</td>
                                                                     <td class="table_border_solid_left">'. ($service->pivot->price ? '$'. number_format($service->pivot->price) : '<span class="if_data_not_available">N/A</span>') .'</td>
@@ -787,7 +826,7 @@
                                                         }
                                                     }
                                                     ?>
-                                                    <table class="table table_border_dash">
+                                                    <table class="table  {{$dataExistInTable3 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -796,11 +835,14 @@
                                                         </thead>
                                                         <tbody>
                                                             {!! $tableData[1] !!}
+                                                            @if($dataExistInTable3 == false)
+                                                                <td colspan="2" class="let-talk-about"></td>
+                                                            @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none">
-                                                    <table class="table table_border_dash">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat3_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{$dataExistInTable3 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -809,11 +851,14 @@
                                                         </thead>
                                                         <tbody>
                                                            {!! $tableData[2] !!}
+                                                           @if($dataExistInTable3 == false)
+                                                                <td colspan="2" style="padding-top: 15px;">Let's talk about it.</td>
+                                                            @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none">
-                                                    <table class="table table_border_dash">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat3_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{$dataExistInTable3 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -822,6 +867,9 @@
                                                         </thead>
                                                         <tbody>
                                                             {!! $tableData[3] !!}
+                                                            @if($dataExistInTable3 == false)
+                                                                <td colspan="2" class="let-talk-about"></td>
+                                                            @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -1128,6 +1176,7 @@
                     {{-- @if(!auth()->user()->playmates->isEmpty()) --}}
                     @foreach($escort->user->playmates as $playmate)
                     <div class="col-6">
+                        
                         <a href="{{ route('profile.description',$playmate->id)}}" target="_blank">
                             <div class="d-flex align-items-center five_px_gap_img_text">
                                 <img title="Click to view my Profile" alt="Avatar" class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed" src="{{$playmate->default_image ? asset($playmate->default_image) : asset('assets/app/img/icons-profile.png') }}">
@@ -1248,7 +1297,7 @@
             </a>
             <div class="content">
                 <div class="accodien_manage_padding_content">
-                    {{--{!! $escort->pricing_policy !!} --}}
+                    {{-- $escort->pricing_policy --}}
                     <p>
                         Prices are all inclusive unless an extra is listed in My Serices. For Outcalls, price is rate + taxi to and from my location.
                     </p>
@@ -1400,7 +1449,8 @@
                                 </div>
                             </div>
                             <!-- Carousel controls -->
-                            <div class="row">
+                            
+                            <div class="row " >
                                 <div class="col-md-12 mb-4">
                                     @if(auth()->user())
                                         @if(auth()->user()->type == 0)
@@ -1460,58 +1510,53 @@
                     <div class="profile_card_border profile_page_box_heading">
                         <h2 class="custom--review"><img src="/assets/app/img/review-custom.png"> Reviews</h2>
                     </div>
+                    @php
+                        $reviewAlreadyExist = false;
+                        $reviewExistsMessage = '';
+                        $reviewExistsStarRating = 0;
+                    @endphp
+                    @if(count($reviews) > 0)
                     <div class="padding_20_tob_btm_side">
                         <!-- new-review-card -->
                         <div class="review-card mx-auto position-relative">
                             <!-- Carousel -->
-                            <div id="reviewCarousel" class="carousel slide carousel-slide" data-bs-ride="carousel">
-                                <div class="carousel-inner">
-                                    <div class="carousel-item carousel-custome-item active">
-                                        <h5>Sierra-1</h5>
+                            <div id="reviewCarousel" class="carousel slide carousel-slide " data-bs-ride="carousel">
+                                <div class="carousel-inner">                              
+                                    @foreach($reviews as $key => $review)
+                                    <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
+                                        @php
+                                            if($review->user && auth()->user() && auth()->user()->id == $review->user_id){
+                                                $reviewAlreadyExist = true;
+                                                $reviewExistsMessage = $review->description;
+                                                $reviewExistsStarRating = $review->star_rating;
+                                            }
+                                        @endphp
+                                        <h5>
+                                            @if (!empty($review->user->name))
+                                                {{ Str::title($review->user->name) }}
+                                            @elseif (!empty($review->user->email))
+                                                {{ Str::title(explode('@', $review->user->email)[0]) }}
+                                            @else
+                                                Username
+                                            @endif
+                                        </h5>
                                         <ul class="list-inline mb-0">
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star-half"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><b class="">3.5</b></li>
+                                            @for($i=1; $i<= 5; $i++)
+                                                @if($i <= $review->star_rating)
+                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                                @else
+                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
+                                                @endif
+                                            @endfor
+                                            <li class="list-inline-item testi_icon_color"><b class="">{{$review->star_rating}}</b></li>
                                         </ul>
-                                        <p class="custome-text-date">Reviewed [19-05-2025]</p>
+                                        <p class="custome-text-date">Reviewed [{{$review->created_at->format('d-m-Y')}}]</p>
                                         <div class="review-text">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui.
+                                            {{ $review->description }}
                                         </div>
                                     </div>
-
-                                    <div class="carousel-item carousel-custome-item">
-                                        <h5>Sierra-2</h5>
-                                        <ul class="list-inline mb-0">
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><b class="">5</b></li>
-                                        </ul>
-                                        <p class="custome-text-date">Reviewed [19-05-2025]</p>
-                                        <div class="review-text">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui.
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item carousel-custome-item">
-                                        <h5>Sierra-3</h5>
-                                        <ul class="list-inline mb-0">
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
-                                            <li class="list-inline-item testi_icon_color"><b class="">4</b></li>
-                                        </ul>
-                                        <p class="custome-text-date">Reviewed [19-05-2025]</p>
-                                        <div class="review-text">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui.
-                                        </div>
-                                    </div>
+                                    @endforeach
+                                    
                                 </div>
 
                                 <!-- Custom Nav Buttons -->
@@ -1521,47 +1566,62 @@
                                 </div>
                             </div>
                             <!-- Carousel controls -->
-                            <div class="row">
+                            <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
                                 <div class="col-md-12 mb-4">
                                 @if(auth()->user())
-                                                        @if(auth()->user()->type == 0)
-                                                            <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
-                                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                                                Add Reviews
-                                                            </button>
-                                                        @endif
-                                                    @else
-                                                        <button type="button" class="btn add_reviews_btn all_btn_flx">
-                                                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                                            <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
-                                                        </button>
-                                                    @endif
+                                        @if(auth()->user()->type == 0)
+                                            @if(!$reviewAlreadyExist)
+                                                <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                Add Reviews
+                                            </button>
+                                            @else
+                                                <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                                    Edit Reviews
+                                                </button>
+                                            @endif
+                                            
+                                        @endif
+                                    @else
+                                        <button type="button" class="btn add_reviews_btn all_btn_flx">
+                                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                            <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
+                                        </button>
+                                    @endif
                                 </div>
                             </div>
 
                         </div>
                     </div>
+                    @endif
                     <!--- if escort has no review then show this section -->
-                    <div class="py-3 row d-none">
+                    <div class="py-3 row {{count($reviews) == 0 ? '': 'd-none'}}">
                         <div class="col-md-12">
+                            @php 
+                                $mesageForViewer = true;
+                                if(auth()->user() && auth()->user()->type != 0){
+                                    $mesageForViewer = false;
+                                }
+                            @endphp
                             <p class="testimonial">
-                                <strong>Sierra</strong> has no Reviews. Why don’t you give <strong>Sierra</strong> their first Review?’
+                                <strong>{{ $escort->name}}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $escort->name}}</strong> their first Review?’ @php } @endphp
                             </p>
                         </div>
                         <div class="col-md-12 mb-4">
                         @if(auth()->user())
-                                                        @if(auth()->user()->type == 0)
-                                                            <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
-                                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                                                Add Reviews
-                                                            </button>
-                                                        @endif
-                                                    @else
-                                                        <button type="button" class="btn add_reviews_btn all_btn_flx">
-                                                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                                            <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
-                                                        </button>
-                                                    @endif
+                                @if(auth()->user()->type == 0)
+                                    <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                        Add Reviews
+                                    </button>
+                                @endif
+                            @else
+                                <button type="button" class="btn add_reviews_btn all_btn_flx">
+                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                    <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
+                                </button>
+                            @endif
                         </div>
                     </div>
                     <!-- end -->
@@ -1766,7 +1826,7 @@
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color">
                 <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Add review for {{ $escort->name }}
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">{{$reviewAlreadyExist ? 'Edit' : "Add"}} review for {{ $escort->name }}
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">
@@ -1776,7 +1836,7 @@
             </div>
             <form id="reviewAdvertiser" action="{{ route('review.advertiser',[$escort->id])}}" method="post">
                 @csrf
-{{--                <input type="hidden" value="" name="star_rating">--}}
+                {{--  <input type="hidden" value="" name="star_rating">--}}
                 <div class="modal-body">
                     <p class="mb-1 mt-3"><b>Notes</b></p>
                     <div class="row">
@@ -1792,7 +1852,7 @@
                         <div class="col">
                             <div class="form-group popup_massage_box">
                                 <label for="exampleFormControlTextarea1">Tell us about your experience:</label>
-                                <textarea name="description" class="form-control popup_massage_box" id="review_textarea" rows="3" placeholder="Message (500 characters)"></textarea>
+                                <textarea name="description" class="form-control popup_massage_box" id="review_textarea" rows="3" placeholder="Message (500 characters)">{{$reviewExistsMessage}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -1800,27 +1860,23 @@
                         <p class="mb-0" style="font-size: 20px;">Rating:</p>
                         <div class="rating-stars">
                             <!-- Repeatable SVG stars -->
-                            <svg class="star" data-value="1" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                            </svg>
-                            <svg class="star" data-value="2" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                            </svg>
-                            <svg class="star" data-value="3" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                            </svg>
-                            <svg class="star" data-value="4" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                            </svg>
-                            <svg class="star" data-value="5" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
-                            <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
-                            </svg>
+                            @for($i =1; $i <= 5; $i++)
+                                @if($i<= $reviewExistsStarRating)
+                                        <svg class="star filled" data-value="{{$i}}" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
+                                    </svg>
+                                @else
+                                        <svg class="star" data-value="{{$i}}" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" stroke="#ccc" stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 2l3 6 6 .5-4.5 4 1.5 6-6-3-6 3 1.5-6L3 8.5 9 8z"/>
+                                    </svg>
+                                @endif
+                            @endfor
                         </div>
-                        <input type="hidden" id="userRating" name="rating" value="0">
+                        <input type="hidden" id="userRating" name="rating" value="{{$reviewExistsStarRating}}">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn main_bg_color site_btn_primary rounded">Submit Review</button>
+                    <button type="submit" class="btn main_bg_color site_btn_primary rounded">{{$reviewAlreadyExist ? 'Update' : "Submit"}} Review</button>
                 </div>
             </form>
         </div>
@@ -2114,10 +2170,11 @@ let carousel = new bootstrap.Carousel(myCarousel, {
                 success: function (data) {
                     $('#reviewAdvertiser')[0].reset();
                     $('#add_reviews').modal("hide");
+                    
                     if(!data.error){
                         $.toast({
                             heading: 'Success',
-                            text: 'Record successfully update',
+                            text: 'Record successfully updated',
                             icon: 'success',
                             loader: true,
                             position: 'top-right',      // Change it to false to disable loader
@@ -2312,7 +2369,10 @@ let carousel = new bootstrap.Carousel(myCarousel, {
     interval: false
   });
 
+  
+
   $(document).ready(function () {
+
   $('.rating-stars .star').on('click', function () {
     const rating = $(this).data('value');
     $('#userRating').val(rating);

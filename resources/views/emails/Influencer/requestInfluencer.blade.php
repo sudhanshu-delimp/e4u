@@ -13,7 +13,7 @@
 
           <!-- Header with background and logo -->
           <tr>
-            <td style="background-color:#2b3d50; padding: 20px;">
+            <td style="background-color:#0c223d; padding: 20px;">
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="text-align: left;">
@@ -56,7 +56,7 @@
         </table>
 
         <!-- Footer -->
-        <table width="700" cellpadding="0" cellspacing="0" style="background-color:#2b3d50; padding: 15px 30px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
+        <table width="700" cellpadding="0" cellspacing="0" style="background-color:#0c223d; padding: 15px 30px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
           <tr>
             <td>
               <em>This is an automatically generated email by the Escorts4u Operations Centre.<br>

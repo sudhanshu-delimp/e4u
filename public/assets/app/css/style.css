@@ -5732,8 +5732,21 @@ img.twitter-x-logo {
 .brb--listing .custom--favourite span.custom-heart-text {
     width: max-content;
 }
-
-
+.custom--drop-icons img {
+    width: auto;
+    height: auto;
+    max-width: 28px;
+}
+.custom--drop-icons a.dropdown-item {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+}
+.let-talk {
+    text-align: center;
+    position: relative;
+    top: -8px;
+}
 /* new css start 28 march end */
 
 
