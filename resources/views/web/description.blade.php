@@ -648,7 +648,7 @@
                                                     </table>
                                                 </div>
                                                 
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat1_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat1_services_one) ? 'padding: 1px;' : ''}}">
                                                     <table class="table {{$dataExistInTable1 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
@@ -664,7 +664,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat1_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat1_services_one) ? 'padding: 1px;' : ''}}">
                                                     <table class="table {{$dataExistInTable1 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
@@ -745,7 +745,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat2_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat2_services_one) ? 'padding: 1px;' : ''}}">
                                                     <table class="table {{$dataExistInTable2 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
@@ -761,7 +761,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat2_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat2_services_one) ? 'padding: 1px;' : ''}}">
                                                     <table class="table {{$dataExistInTable2 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
@@ -842,7 +842,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat3_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat3_services_one) ? 'padding: 1px;' : ''}}">
                                                     <table class="table {{$dataExistInTable3 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
@@ -858,7 +858,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ count($cat3_services_one) == 0 ? 'padding: 1px;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat3_services_one) ? 'padding: 1px;' : ''}}">
                                                     <table class="table {{$dataExistInTable3 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
