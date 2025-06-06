@@ -1082,7 +1082,7 @@ class WebController extends Controller
         $brb = new EscortBrb();
         $brb = $brb->where('profile_id', $id)->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc')->first();
         if($brb) {
-            $brb = $brb->toArray();
+            $brb = $brb->toArray(); 
         }
 
         // return view('web.description',compact('escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three'));
