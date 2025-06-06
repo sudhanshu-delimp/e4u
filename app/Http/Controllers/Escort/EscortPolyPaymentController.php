@@ -579,18 +579,35 @@ class EscortPolyPaymentController extends Controller
         ];*/
         $checkout = session()->get('checkout');
         foreach ($checkout as $startDate => $item) {
+            $escortDetail = getEscortDetail($item['escort_id']);
+            $start_date = $item['start_date'].' 00:00:00';
+            $end_date = $item['end_date'].' 23:59:59';
+
+            $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
+
+            $localStartDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$start_date", $profileTimezone);
+
+            $utcSartTime = $localStartDateTime->copy()->setTimezone('UTC');
+
+            $localEndDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$end_date", $profileTimezone);
+            $utcEndTime = $localEndDateTime->copy()->setTimezone('UTC');
+
             $item['plan_type'] = $item['plan'];
             $item['user_type'] = auth()->user()->roleType;
             $item['PaymentAmount'] = $item['amount'];
             //$item['referenceId'] = $item['referenceId'];
             $item['AmountPaid'] = $item['amount'];
+            $item['utc_start_time'] = $utcSartTime;
+            $item['utc_end_time'] = $utcEndTime; 
             //Payment::create($item);  //Moved to polyPaymentUrl()
             Purchase::create($item);
 
-            if ($item['start_date'] <= date('Y-m-d') && $item['end_date'] >= date('Y-m-d')) {
+            if ($item['utc_start_time'] <= Carbon::now('UTC') && $item['utc_end_time'] >= Carbon::now('UTC')) {
                 $escort = $this->escort->find($item['referenceId']);
                 $escort->start_date = $item['start_date'];
                 $escort->end_date = $item['end_date'];
+                $escort->utc_start_time = $utcSartTime;
+                $escort->utc_end_time = $utcEndTime;
                 $escort->membership = $item['plan'];
                 $escort->enabled = 1;
                 $escort->save();

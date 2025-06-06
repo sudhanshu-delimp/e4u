@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTourLocationsTable extends Migration
+class CreateMassuersProfileTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateTourLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tour_locations', function (Blueprint $table) {
+        Schema::create('massuers_profile', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('state_id');
-            $table->foreignId('tour_id')->constrained()->onDelete('cascade'); 
-            $table->date('start_date');
-            $table->date('end_date');
+            
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateTourLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tour_locations');
+        Schema::dropIfExists('massuers_profile');
     }
 }

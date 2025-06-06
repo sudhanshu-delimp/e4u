@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTourLocationsTable extends Migration
+class CreateTourLocationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateTourLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tour_locations', function (Blueprint $table) {
+        Schema::create('tour_location', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('state_id');
-            $table->foreignId('tour_id')->constrained()->onDelete('cascade'); 
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->bigInteger('tour_id')->nullable();
+            $table->bigInteger('profile_id')->nullable();
+            $table->bigInteger('location_id')->nullable();
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateTourLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tour_locations');
+        Schema::dropIfExists('tour_location_');
     }
 }
