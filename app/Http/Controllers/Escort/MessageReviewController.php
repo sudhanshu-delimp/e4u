@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
+use App\Models\Reviews;
 use Illuminate\Http\Request;
 use App\Repositories\Escort\EscortInterface;
 use App\Repositories\Service\ServiceInterface;
@@ -50,12 +51,20 @@ class MessageReviewController extends Controller
                 'star_rating' => $request->rating ? $request->rating : NULL,
                 'user_id' => auth()->user()->id,
                 'escort_id' => $escort_id,
+                'status' => 'pending',
             ];
             $id = null;
-            if($this->reviews->store($data, $id))
-            {
+            $reviewExist = Reviews::where('user_id', auth()->user()->id)->first();
+            if($reviewExist != null){
+                Reviews::where('id',$reviewExist->id)->update($data);
                 $error = false;
+            }else{
+                if($this->reviews->store($data, $id))
+                {
+                    $error = false;
+                }
             }
+            
         } else {
             $data = 'You are not allowed to give review';
         }
