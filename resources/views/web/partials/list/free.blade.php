@@ -17,7 +17,7 @@
                 </div>
                 <div class="d-flex justify-content-between pt-2">
                     <div class="perth">
-                        <p class="mb-0">{{$escort->city ? $escort->city->name : ''}} :</p>
+                        <p class="mb-0"><span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true" style="font-size: 15px;"></i></span> {{$escort->city ? $escort->city->name : ''}} :</p>
                     </div>
                     <div class="parth_icons">
                         <img class="list_view_free_img_height_width" src="{{ asset('assets/app/img/handwithhart.png')}}">
@@ -30,7 +30,7 @@
                     <div class="free_profile_avilabletoimg_size d-flex align-items-center">
                         @if($escort->available_to)
                         @foreach($escort->available_to as $key => $available_to)
-                        <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}">
+                        <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}" title="{{ config('escorts.profile.available-to')[$available_to] }}">
                         @endforeach
                         @endif                           
                     </div>

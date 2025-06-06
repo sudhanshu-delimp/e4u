@@ -63,22 +63,30 @@
                     <div class="age"><span class="margin_and_font_size_color_for_free">AGE:</span><span
                             class="free_profile_age_color_and_font">{{ $escort->age }}</span></div>
                     <div class="give_rating_after_get_servive">
+                        @for($i=1; $i<= 5; $i++)
+                            @if($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
+                                <i class="fa fa-star" aria-hidden="true" ></i>
+                            @else
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            @endif
+                        @endfor
+                        {{-- <i class="fa fa-star" aria-hidden="true"></i>
                         <i class="fa fa-star" aria-hidden="true"></i>
                         <i class="fa fa-star" aria-hidden="true"></i>
                         <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i> --}}
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
                     <div class="parth">
-                        <p>{{ $escort->city ? $escort->city->name : '' }}</p>
+                        <p><span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true" style="font-size: 15px;"></i></span> {{ $escort->city ? $escort->city->name : '' }}</p>
                     </div>
                     <div class="age"><span>Avilable to:</span></div>
                     <div class="free_profile_avilabletoimg_size">
                         @if ($escort->available_to)
                             @foreach ($escort->available_to as $key => $available_to)
-                                <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}">
+                                {{-- <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}"> --}}
+                                <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}" title="{{ config('escorts.profile.available-to')[$available_to] }}">
                             @endforeach
                         @endif
                     </div>
