@@ -15,15 +15,15 @@
                     style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#2b3d50;">
                     <!-- Header with background and logo -->
                     <tr>
-                        <td style="background-color:#2b3d50; padding: 20px;">
+                        <td style="background-color:#0c223d; padding: 20px;">
                             <table width="100%" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td style="text-align: left;">
                                         <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo"
                                             style="height: 50px;">
                                     </td>
-                                    <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                                        Contact Us<br>
+                                    <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
+                                        <h1 style="margin: 0;font-size: 26px;">Contact Us</h1>
                                         
                                     </td>
                                 </tr>
@@ -71,7 +71,7 @@
                 </table>
                 <!-- Footer -->
                 <table width="600" cellpadding="0" cellspacing="0"
-                    style="background-color:#2b3d50; padding: 15px 30px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
+                    style="background-color:#0c223d; padding: 15px 30px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
                     <tr>
                         <td>
                             This is an automatically generated email by the Escorts4u Operations Centre.<br>

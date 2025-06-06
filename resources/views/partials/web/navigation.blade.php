@@ -105,12 +105,12 @@
                             <a class="nav-link" href="#" id="userprofileimg" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ !auth()->user()->avatar_img ? asset('assets/app/img/profileimg.jpg') : asset('avatars/'.auth()->user()->avatar_img) }}" class="img-fluid loged_in_profile_img">
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="userprofileimg">
-                                <a class="dropdown-item" href="{{ route('dashboard') }}"><img src="{{ asset('assets/app/img/woman-avatar.svg') }}">Dashboard</a>
+                            <div class="dropdown-menu custom--drop-icons" aria-labelledby="userprofileimg">
+                                <a class="dropdown-item" href="{{ route('dashboard') }}"><img src="{{ asset('assets/app/img/dashboard.png') }}">Dashboard</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                                    <img src="{{ asset('assets/app/img/woman-avatar.svg') }}">
+                                    <img src="{{ asset('assets/app/img/logout-pink.png') }}">
                                     {{ __('Logout') }}
                                 </a>
                             </div>
