@@ -1303,7 +1303,7 @@
                     </p>
                 </div>
             </div>
-        </div>+
+        </div>
         <div class="set">
             <a class="pb-1 pt-1">
             Disclaimer
