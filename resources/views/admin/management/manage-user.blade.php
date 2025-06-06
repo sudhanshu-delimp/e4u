@@ -13,8 +13,23 @@
                <!-- Begin Page Content -->
                <div class="container-fluid" style="padding: 0px 0px;">
                   <!-- Page Heading -->
-                  <div class="d-flex align-items-center mb-3">
-                     <div class="v-main-heading h3">Log Staff</div>
+                  
+                  
+                  <div class="col-md-12">
+                     <div class="v-main-heading">
+                           <h1>Manage Staff  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span></h1>
+                     </div>
+                     <div class=" my-4">
+                           <div class="card collapse" id="notes">
+                              <div class="card-body">
+                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                 <ol>
+                                       <li>Create and manage Staff here.</li>
+                                       <li>Set the security level for Staff as well as granting access.</li>
+                                 </ol>
+                              </div>
+                           </div>
+                     </div>
                   </div>
                   <div class="row ml-1
                      ">
@@ -118,78 +133,6 @@
                                     </nav>
                                  </div>
                               </div>
-                              <div class="tab-pane fade" id="tab3warning">
-                                 <div class="row pb-3">
-                                    <div class="col-lg-4 col-md-12 col-sm-12">
-                                       <form class="search-form-bg navbar-search">
-                                          <div class="input-group">
-                                             <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                                             <div class="input-group-append">
-                                                <button class="btn-right-icon" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                                </button>
-                                             </div>
-                                          </div>
-                                       </form>
-                                    </div>
-                                 </div>
-                                 <div class="table-responsive-xl">
-                                    <table class="table">
-                                       <thead class="table-bg">
-                                          <tr>
-                                             <th scope="col">ID</th>
-                                             <th scope="col">Name</th>
-                                             <th scope="col">Type</th>
-                                             <th scope="col">Location</th>
-                                             <th scope="col">Email</th>
-                                             <th scope="col">Last Login</th>
-                                             <th scope="col">
-                                                Registered
-                                                <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                   <path d="M13.6139 15.125L10.4473 11.9583H12.8223V4.04167H10.4473L13.6139 0.875L16.7806 4.04167H14.4056V11.9583H16.7806L13.6139 15.125ZM0.947266 13.5417V11.9583H8.86393V13.5417H0.947266ZM0.947266 8.79167V7.20833H6.48893V8.79167H0.947266ZM0.947266 4.04167V2.45833H4.11393V4.04167H0.947266Z" fill="white"></path>
-                                                </svg>
-                                             </th>
-                                             <th scope="col">Type</th>
-                                          </tr>
-                                       </thead>
-                                       <tbody class="table-content">
-                                          <tr class="row-color">
-                                             <td class="theme-color">E20000043</td>
-                                             <td class="theme-color">1</td>
-                                             <td class="theme-color">Ewan Dev </td>
-                                             <td class="theme-color">Australia</td>
-                                             <td class="theme-color">ewan@clerkingservices.com.au</td>
-                                             <td class="theme-color">01-03-2021</td>
-                                             <td class="theme-color">26-05-20 01:04 PM </td>
-                                             <td class="theme-color owner-sec" data-toggle="modal" data-target="#change-security">
-                                                <select class="form-control rounded-0 w-75">
-                                                   <option>Owner</option>
-                                                </select>
-                                             </td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                    <nav aria-label="Page navigation example">
-                                       <ul class="pagination float-right pt-4">
-                                          <li class="page-item">
-                                             <a class="page-link" href="#" aria-label="Previous">
-                                             <span aria-hidden="true">«</span>
-                                             <span class="sr-only">Previous</span>
-                                             </a>
-                                          </li>
-                                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                          <li class="page-item">
-                                             <a class="page-link" href="#" aria-label="Next">
-                                             <span aria-hidden="true">»</span>
-                                             <span class="sr-only">Next</span>
-                                             </a>
-                                          </li>
-                                       </ul>
-                                    </nav>
-                                 </div>
-                              </div>
                               <div class="tab-pane fade" id="tab2warning">
                                  <div class="row pb-3">
                                     <div class="col-lg-4 col-md-12 col-sm-12">
@@ -205,6 +148,7 @@
                                        </form>
                                     </div>
                                  </div>
+                                 
                                  <div class="table-responsive-xl">
                                     <table class="table">
                                        <thead class="table-bg">
@@ -298,6 +242,110 @@
                                     </nav>
                                  </div>
                               </div>
+                              <div class="tab-pane fade" id="tab3warning">
+                                 <div class="row pb-3">
+                                    <div class="col-lg-4 col-md-12 col-sm-12">
+                                       <form class="search-form-bg navbar-search">
+                                          <div class="input-group">
+                                             <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
+                                             <div class="input-group-append">
+                                                <button class="btn-right-icon" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                             </div>
+                                          </div>
+                                       </form>
+                                    </div>
+                                    <div class="col-lg-8 col-md-12 col-sm-12">
+                                       <div class="bothsearch-form" style="gap: 10px;">
+                                          <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#addStaffnew">Add New Staff Member</button>
+                                       </div>
+                                    </div>
+                                 </div>                                    
+                                 <div class="table-responsive-xl">
+                                    <table class="table">
+                                       <thead class="table-bg">
+                                       <tr>
+                                          <th scope="col">
+                                          Staff ID
+                                             
+                                          </th>
+                                          <th scope="col">
+                                          Staff Member
+                                             
+                                          </th>
+                                          <th scope="col">
+                                          Security Level
+                                          </th>
+                                          <th scope="col">
+                                          Position
+                                          </th>
+                                          <th scope="col">
+                                          Mobile
+                                          </th>
+                                          <th scope="col">
+                                          Email
+                                          </th>
+                                          <th scope="col">
+                                          Total
+                                          Logins                                             
+                                          </th>
+                                          <th scope="col">
+                                          Last Login
+                                          </th>
+                                          
+                                          <th scope="col">Action</th>
+                                       </tr>
+                                       </thead>
+                                       <tbody class="table-content">
+                                          <tr class="row-color">
+                                             <td width="10%" class="theme-color">S60001</td>
+                                             <td class="theme-color">Wayne Primrose</td>
+                                             <td class="theme-color">1</td>
+                                             <td class="theme-color">Managing Director</td>
+                                             <td class="theme-color">0438 028 728</td>
+                                             <td class="theme-color">wayne@blackboxtech.com.au </td>
+                                             <td class="theme-color">1,999</td>
+                                             <td class="theme-color">20-05-2025 09:12 am </td>
+                                             <td>
+                                                <div class="dropdown no-arrow ml-3">
+                                                   <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                   <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                   </a>
+                                                   <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                      <a class="dropdown-item" href="#" style="display: flex;align-items: center;justify-content: space-between;">View Account  <i class="fa fa-eye text-dark "></i></a>
+                                                      <div class="dropdown-divider"></div>
+                                                      <a class="dropdown-item" href="#" style="display: flex;align-items: center;justify-content: space-between;">Suspend   <i class="fa fa-times text-dark" style="float: right;"></i></a>
+                                                      <div class="dropdown-divider"></div>
+                                                      <a class="dropdown-item" href="#" style="display: flex;align-items: center;justify-content: space-between;">Edit   <i class="fa fa-pen text-dark" style="float: right;"></i></a>
+                                                   </div>
+                                                </div>
+                                             </td>
+                                          </tr>
+                                       </tbody>
+                                    </table>
+                                    <nav aria-label="Page navigation example">
+                                       <ul class="pagination float-right pt-4">
+                                          <li class="page-item">
+                                             <a class="page-link" href="#" aria-label="Previous">
+                                             <span aria-hidden="true">«</span>
+                                             <span class="sr-only">Previous</span>
+                                             </a>
+                                          </li>
+                                          <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                          <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                          <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                          <li class="page-item">
+                                             <a class="page-link" href="#" aria-label="Next">
+                                             <span aria-hidden="true">»</span>
+                                             <span class="sr-only">Next</span>
+                                             </a>
+                                          </li>
+                                       </ul>
+                                    </nav>
+                                    
+                                 </div>
+                              </div>
                               <div class="tab-pane fade" id="tab4warning">
                                  <div class="row pb-3">
                                     <div class="col-lg-4 col-md-12 col-sm-12">
@@ -384,9 +432,17 @@
                                     </nav>
                                  </div>
                               </div>
+                                 
                            </div>
                         </div>
                      </div>
+                  </div>
+                  <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class="timer_section">
+                           <p>Server time: <span>[10:23:51 am]</span></p>
+                           <p>Refresh time:<span> [seconds]</span></p>
+                           <p>Up time: <span>[214 days & 09 hours 12 minutes]</span></p>
+                        </div>
                   </div>
                </div>
             </div>
@@ -414,6 +470,152 @@
 <a class="scroll-to-top rounded" href="#page-top">
 <i class="fas fa-angle-up"></i>
 </a>
+
+<!-- add new staff member popupform -->
+
+
+<div class="modal fade upload-modal" id="addStaffnew" tabindex="-1" role="dialog" aria-labelledby="addStaffnewLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content basic-modal">
+         <div class="modal-header">
+            <h5 class="modal-title" id="addStaffnew">Add New Staff Member</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form>
+            <div class="row">
+               <!-- Section: Personal Details -->
+               <div class="col-12 my-2">
+                  <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
+               </div>
+
+               <div class="col-6 mb-3">
+                  <input type="text" class="form-control rounded-0" placeholder="Full Name" required  name="staff_f_name">
+               </div>
+               <div class="col-6 mb-3">
+                  <input type="text" class="form-control rounded-0" placeholder="Address" required  name="staff_address">
+               </div>
+               <div class="col-6 mb-3">
+                  <input type="text" class="form-control rounded-0" placeholder="Mobile" required  name="staff_phone">
+               </div>
+               <div class="col-6 mb-3">
+                  <input type="email" class="form-control rounded-0" placeholder="Private Email" required  name="staff_email">
+               </div>
+               <div class="col-6 mb-3">
+                  <select class="form-control rounded-0" required  name="staff_gender">
+                  <option>Select Gender</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                  </select>
+               </div>
+
+               <!-- Next of Kin Section -->
+               <div class="col-12 my-2">
+                  <h6 class="border-bottom pb-1 text-blue-primary">Next of Kin (Emergency Contact)</h6>
+               </div>
+
+               <div class="col-6 mb-3">
+                  <input type="text" required  name="emr_name" class="form-control rounded-0" placeholder="Name">
+               </div>
+               <div class="col-6 mb-3">
+                  <input type="text" required  name="emr_relation" class="form-control rounded-0" placeholder="Relationship">
+               </div>
+               <div class="col-6 mb-3">
+                  <input type="text" required  name="emr_phone" class="form-control rounded-0" placeholder="Mobile">
+               </div>
+               <div class="col-6 mb-3">
+                  <input type="email"  name="emr_email" class="form-control rounded-0" placeholder="Email (optional)">
+               </div>
+
+               <!-- Section: Other Details -->
+               <div class="col-12 my-2">
+                  <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
+               </div>
+
+               <div class="col-6 mb-3">
+                  <input type="text" required  name="position" class="form-control rounded-0" placeholder="Position">
+               </div>
+               <div class="col-6 mb-3">
+                  <select class="form-control rounded-0" required  name="select_city">
+                  <option>Select Location</option>
+                  <option>Delhi</option>
+                  <option>Mumbai</option>
+                  <option>Bangalore</option>
+                  <!-- Add more cities as needed -->
+                  </select>
+               </div>
+               <div class="col-6 mb-3">
+                  <input type="text" required  name="commenced_date" class="form-control rounded-0" placeholder="Commenced Date (DD/MM/YYYY)" onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}">
+
+               </div>
+               <div class="col-6 mb-3">
+                  <select class="form-control rounded-0" required  name="select_level">
+                  <option selected>Security Level - Level 3</option>
+                  <option value="Level-1">Level 1</option>
+                  <option value="Level-2">Level 2</option>
+                  <option value="Level-3" selected>Level 3</option>
+                  <option value="Level-4">Level 4</option>
+                  </select>
+               </div>
+               <div class="col-6 mb-3">
+                  <select class="form-control rounded-0" name="emp_status" required>
+                  <option>Select Employment Status</option>
+                  <option value="Full-Time">Full Time</option>
+                  <option value="Part-Time">Part Time</option>
+                  <option value="Casual">Casual</option>
+                  <option value="Contractor">Contractor</option>
+                  </select>
+               </div>
+               <div class="col-6 mb-3">
+                  <select class="form-control rounded-0" name="agreement" required>
+                  <option>Employment Agreement?</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                  </select>
+               </div>
+
+               <!-- Section: Building Security -->
+               <div class="col-12 my-2">
+                  <h6 class="border-bottom pb-1 text-blue-primary">Building Security</h6>
+               </div>
+
+               <div class="col-4 mb-3">
+                  <select class="form-control rounded-0" required  name="code">
+                  <option>Access Code Provided?</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                  </select>
+               </div>
+               <div class="col-4 mb-3">
+                  <select class="form-control rounded-0" required name="key">
+                  <option>Key Provided?</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                  </select>
+               </div>
+               <div class="col-4 mb-3">
+                  <select class="form-control rounded-0" required  name="car_parking">
+                  <option>Car Park?</option>
+                  <option value="1">Yes</option>
+                  <option value="0">No</option>
+                  </select>
+               </div>
+
+               </div>             
+               <div class="modal-footer p-0 pl-2 pb-4">
+                  <button type="button" class="btn btn-primary mr-3">Save</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</div>
+
+
+ <!-- end -->
 <div class="modal fade upload-modal" id="Competitor" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">

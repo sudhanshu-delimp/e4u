@@ -449,8 +449,6 @@ Route::get('/admin-dashboard/management/logs-staff',function(){
     return view('admin.management.logs-staff');
 })->name('admin.logs-staff');
 
-
-
 Route::get('/admin-dashboard/management/email-management',function(){
     return view('admin.management.email-management');
 })->name('admin.email-management');

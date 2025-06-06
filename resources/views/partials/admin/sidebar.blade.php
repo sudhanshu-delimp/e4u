@@ -834,6 +834,7 @@
                     request()->segment(3) == 'manage-user' ||
                     request()->segment(3) == 'legbox-report' ||
                     request()->segment(3) == 'punterbox-reports' ||
+                    request()->segment(3) == 'manage-staff') ||
                     request()->segment(3) == 'competitor-database') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
@@ -896,8 +897,7 @@
                     <a class="collapse-item" href="{{ route('admin.manage-user') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
-                        <span style="{{ request()->segment(3) == 'manage-user' ? 'color: #e5365a;' : '' }}">User
-                            Management</span></a>
+                        <span style="{{ request()->segment(3) == 'manage-user' ? 'color: #e5365a;' : '' }}">Manage Staff</span></a>
                     <a class="collapse-item" href="#">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
