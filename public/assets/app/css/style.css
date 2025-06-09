@@ -3006,6 +3006,21 @@ a.admin-login:hover {
     padding-bottom: 0;
 }
 
+.custom-profile-search-btn {
+    background: #0c223d;
+    padding: 12px !important;
+    margin-right: 0px;
+    border-radius: 0;
+}
+
+.custom-profile-search-btn i {
+    color: var(--peach) !important;
+}
+
+.custom_search_btn_profile {
+    padding-right: 0 !important;
+}
+
 .search_btn_profile {
     display: flex;
     align-items: center;
@@ -5732,21 +5747,26 @@ img.twitter-x-logo {
 .brb--listing .custom--favourite span.custom-heart-text {
     width: max-content;
 }
+
 .custom--drop-icons img {
     width: auto;
     height: auto;
     max-width: 28px;
 }
+
 .custom--drop-icons a.dropdown-item {
     display: flex;
     gap: 3px;
     align-items: center;
 }
+
 .let-talk {
     text-align: center;
     position: relative;
     top: -8px;
 }
+
+
 /* new css start 28 march end */
 
 

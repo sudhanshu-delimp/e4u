@@ -82,19 +82,7 @@
                                 <span style="color: var(--peach);">Membership Type reshuffles every 2 hours. </span>
                             </div>
                             <div class="col-md-8 ryt_srch_btn">
-                                <div class="display_inline_block ">
-                                    <div
-                                        class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile">
-                                        <button class="input-group-text border-0 remove_bg_color_of_search_btn"
-                                            id="search-addon" type="submit">
-                                            <i class="fa fa-search" aria-hidden="true"></i>
-                                        </button>
-                                        <input type="search" name="name" class="form-control remove_border_btm rounded "
-                                            placeholder="Search by Member ID or Name" aria-label="Search"
-                                            aria-describedby="search-addon" value="{{ request()->get('name') }}">
-                                    </div>
-                                </div>
-                                <div class="display_inline_block">
+                            <div class="display_inline_block">
                                     <div class="d-flex flex-column gap-2" style="width:105px">
                                         <div class="d-flex align-items-start"
                                             @php
@@ -120,6 +108,21 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="display_inline_block ">
+                                    <div
+                                        class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
+                                        
+                                        <input type="search" name="name" class="form-control remove_border_btm rounded "
+                                            placeholder="Search by Member ID or Name" aria-label="Search"
+                                            aria-describedby="search-addon" value="{{ request()->get('name') }}">
+
+                                            <button class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn"
+                                            id="search-addon" type="submit">
+                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                
 
                                 <div class="display_inline_block   item_dis">
                                     <span class="item-head">Display item</span>
