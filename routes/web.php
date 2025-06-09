@@ -18,9 +18,10 @@ use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Mail\sendPlaymateAccountDisableMail;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\BlogsController;
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Web Routes    
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -240,9 +241,13 @@ Route::get('/mobile-read-sim', function() { return view('web.pages.mobile-read-s
 Route::get('/professional-product', function() { return view('web.pages.professional-product'); });
 Route::get('/travel', function() { return view('web.pages.travel'); });
 Route::get('/blogs', function() { return view('web.pages.blogs'); });
+// Route::get('/blogsingle', function() { return view('web.pages.blogs'); });
 Route::get('/visa-migration', function() { return view('web.pages.visa-migration'); });
 Route::get('/cookie-policy', function() { return view('web.pages.cookie-policy'); });
 Route::get('/pin-up', function() { return view('web.pages.pinupme'); });
+
+// Route::post('/blogs',[BlogsController::class, 'index'])->name('blogs.index');
+Route::get('/blogs-single',[BlogsController::class, 'blogsSingle'])->name('blogs.single');
 
 Route::post('/mobile-read-sim',[ConciergeController::class, 'mobileReadSim'])->name('mobile-read-sim');
 Route::post('/mobile-order-sim-payment',[ConciergeController::class, 'mobileOrderSimPayment'])->name('mobile-order-sim-payment');
