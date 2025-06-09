@@ -51,7 +51,7 @@ class MessageReviewController extends Controller
                 'star_rating' => $request->rating ? $request->rating : NULL,
                 'user_id' => auth()->user()->id,
                 'escort_id' => $escort_id,
-                'status' => 'pending',
+                'status' => 'pending', 
             ];
             $id = null;
             $reviewExist = Reviews::where('user_id', auth()->user()->id)->first();

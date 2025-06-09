@@ -15,7 +15,7 @@ class CreateTourLocationsTable extends Migration
     {
         Schema::create('tour_locations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('state_id')->constrained()->onDelete('cascade');
+            $table->foreignId('state_id');
             $table->foreignId('tour_id')->constrained()->onDelete('cascade'); 
             $table->date('start_date');
             $table->date('end_date');

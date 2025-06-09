@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Escort;
+use App\Models\Purchase;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
@@ -40,13 +41,33 @@ class DisableEscortProfile extends Command
 
     public function handle()
     {
-
-        $today = Carbon::now()->format('Y-m-d');
-
-
-        //dd(auth()->user()->created_at);
-        Escort::whereDate('end_date','<',$today)->update(['enabled' => 0]);
-
-        //return $mytime;,'membership'=>null
+        $now = Carbon::now('UTC');
+        $listedPurchases = Purchase::where('status', 'listed')
+            ->where('utc_end_time', '<=', $now)
+            ->get();
+        if($listedPurchases->count() > 0){
+            $this->info('Records are found.');
+            foreach ($listedPurchases as $key=>$purchase) {
+                $purchase->update(['status' => 'expire']);
+                $escort = $purchase->escort;
+                if ($escort) {
+                    $escort->update([
+                        'enabled' => 0,
+                        'membership' => null,
+                        'start_date' => null,
+                        'end_date' => null,
+                        'utc_start_time' => null,
+                        'utc_end_time' => null,
+                    ]);
+                    $this->info("=============== $key ===============");
+                    $this->info("Disabled Escort ID {$escort->id} (related to expired Purchase ID {$purchase->id})");
+                }
+            }
+    
+            $this->info('All expired listed purchases processed.');
+        }
+        else{
+            $this->info('No Record found.');
+        }
     }
 }

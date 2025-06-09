@@ -29,8 +29,8 @@ class Kernel extends ConsoleKernel
     */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('disable_escort')->daily();//Based on the escort profile end date, set enable to 0
-        $schedule->command('enable_escort')->daily();  //Based on the listing, add start-end date to escort profile and enable the profile
+        $schedule->command('disable_escort')->everyMinute();//Based on the escort profile end date, set enable to 0
+        $schedule->command('enable_escort')->everyMinute();  //Based on the listing, add start-end date to escort profile and enable the profile
         $schedule->command('send:playmate_disable')->daily();
         //$schedule->command('resetPassword')->daily();
     }
