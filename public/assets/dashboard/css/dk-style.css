@@ -2611,10 +2611,19 @@ div.myacording-design .card .card-header a.collapsed:after {
 div.myacording-design .card .card-body ol li,
 div.myacording-design .card .card-body ul li,
 div.myacording-design .card .card-body p {
-    margin-bottom: 8px;
+    margin-bottom: 0px;
     font-family: 'Poppins';
     font-weight: normal;
     font-size: 16px;
+}
+
+.accordian_wrapper p {
+    border-top: 0px;
+    font-family: 'Poppins';
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 28px;
+    text-align: justify !important;
 }
 
 form.v-form-design .form-group {
@@ -2907,8 +2916,8 @@ padding-bottom:80px;
 .table th {
     border-top: 0px solid #e3e6f0;
     vertical-align: middle !important;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .list-sec td {
@@ -3711,8 +3720,8 @@ button.short-list.btn.btn-primary {
     background: #0d223d;
     color: #fff;
     margin-bottom: 0 !important;
-    padding: 10px;
-    font-weight: 500 !important;
+    padding: 15px 12px;
+    font-weight: bold !important;
 }
 
 table#myTable\ price-sec {
@@ -4517,4 +4526,8 @@ select.form-control {
 #sailorTable_filter input::placeholder {
     color: #bbb9b9;
     opacity: 1;
+}
+
+.text-underline:hover {
+    text-decoration: underline !important;
 }
