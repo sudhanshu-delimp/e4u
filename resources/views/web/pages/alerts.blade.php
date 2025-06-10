@@ -35,18 +35,19 @@
                 <i class="fa fa-angle-down"></i>
                 </a>
                 <div class="content">
-                    <div class="accodien_manage_padding_content">
-                        <p><strong>Users - E4UChat</strong></p>
-                        <p>We are happy to announce that today we have launched our "E4UChat" feature for Users. You can now have private conversations between each other. Simply log on, go to your Dashboard and launch the service.</p>
-                        <p class="c-red"><b>Note</b>: Conversations are encrytped.</p>
-
-                        <p><strong>Viewer - Favorites Planner</strong></p>
-                        <p>We have today launched the helpful "Favorites Planner" feature for Viewers. You can now view your favorites availablity from your "Planner". Advertisers availablity are listed from a calendar organiser. Simply select your day of interest and your favorites are listed as to when they are available from. A great way to organise your day to visit your favorite Escort.</p>
-                        <p class="c-red"><b>Note</b>: Advertisers are not aware you are viewing their Profiles.</p>
-
-                         <p><strong>Viewer - Notes</strong></p>
-                        <p>We have today launched the long awaited "Notes" feature for Viewers. You can now add your notes to any of your favourite Escorts from within your Account. Simply log on, go to your Favourites and select the "Notes" feature on the Escort's Profile.</p>
-                        <p class="c-red"><b>Note</b>: Advertisers can not see your notes.</p>
+                    <div class="accodien_manage_padding_content custom--alertlist">
+                    
+                        <div>
+                            <p><strong>Viewer - Notes</strong></p>
+                            <p>We have today launched the long awaited "Notes" feature for Viewers. You can now add your notes to any of your favourite Escorts from within your Account. Simply log on, go to your Favourites and select the "Notes" feature on the Escort's Profile.</p>
+                            <p class="c-red"><b>Note</b>: Advertisers can not see your notes.</p>
+                        </div>
+                        <div>
+                            <p><strong>Users - My Playbox</strong></p>
+                            <p>We are excited to announce that My Playbox is now live on the Website. Escorts can now upload their content and earn additional revenue.</p>
+                            <p class="c-red"><b>Note</b>: Viewers can see an Escorts Playbox by simply clicking the 'My Playbox' icon located on each Profile.</p>
+                            <p class=""><b>Published</b>: 26th January 2024.</p>
+                        </div>
                         
                         
                     </div>
