@@ -1201,4 +1201,86 @@ class UpdateController extends AppController
         }
         return [$type, 'attatchment/' . $str];
     }
+
+    public function duplicateProfile(Request $request){
+        $escort_id = $request->escort_id;
+        $escortDefault = $this->escort->find($escort_id);
+        $user = auth()->user();
+        $input = [
+            'name' => $request->name ? $request->name : ($escortDefault->name ?: null),
+            'city_id' => $request->city_id ? $request->city_id : ($escortDefault->city_id ?: null),
+            'phone' => $request->phone ? $request->phone : ($escortDefault->phone ?: null),
+            'address' => $request->address ? $request->address : ($escortDefault->address ?: null),
+            'state_id' => $request->state_id  ? $request->state_id : ($escortDefault->state_id ?: null),
+            'playmate' => $request->playmate  ? $request->playmate : 'N',
+            'start_date' => null,
+            'end_date' => null,
+
+            'profile_name' => $request->profile_name ? $request->profile_name : ($escortDefault->profile_name ?: null),
+            'gender' => $request->gender ? $request->gender : ($escortDefault->GenderType ?: NULL),
+            'nationality_id' => $request->nationality_id ? $request->nationality_id : ($escortDefault->nationality_id ?: NULL),
+            'height' => $request->height ? $request->height : ($escortDefault->height ?: NULL),
+            'eyes' => $request->eyes ? $request->eyes : ($escortDefault->eyes ?: NULL),
+            'orientation' => $request->orientation ? $request->orientation : ($escortDefault->orientation ?: NULL),
+            'age' => $request->age ? $request->age : ($escortDefault->age ?: NULL),
+            'hair_color' => $request->hair_color ? $request->hair_color : ($escortDefault->hair_color ?: NULL),
+            'skin_tone' => $request->skin_tone ? $request->skin_tone : ($escortDefault->skin_tone ?: NULL),
+            'breast' => $request->breast ? $request->breast : ($escortDefault->breast ?: NULL),
+            'endowment' => $request->endowment ? $request->endowment : ($escortDefault->endowment ?: NULL),
+            'thickness' => $request->thickness ? $request->thickness : ($escortDefault->thickness ?: NULL),
+            'circumcised' => $request->circumcised ? $request->circumcised : ($escortDefault->circumcised ?: NULL),
+            'butt' => $request->butt ? $request->butt : ($escortDefault->butt ?: NULL),
+            'preference' => $request->preference ? $request->preference : ($escortDefault->preference ?: NULL),
+            'hormones' => $request->hormones ? $request->hormones : ($escortDefault->hormones ?: NULL),
+            'contact' => $request->contact ? $request->contact : ($escortDefault->contact ?: NULL),
+            'ethnicity' => $request->ethnicity ? $request->ethnicity : ($escortDefault->ethnicity ?: NULL),
+            'body_type' => $request->body_type ? $request->body_type : ($escortDefault->body_type ?: NULL),
+            'hair_style' => $request->hair_style ? $request->hair_style : ($escortDefault->hair_style ?: NULL),
+            'weight' => $request->weight ? $request->weight : ($escortDefault->weight ?: NULL),
+            'dress_size' => $request->dress_size ? $request->dress_size : ($escortDefault->dress_size ?: NULL),
+            'shaved' => $request->shaved ? $request->shaved : ($escortDefault->shaved ?: NULL),
+            'covidreport' => $request->covidreport ? $request->covidreport : ($escortDefault->covidreport ? $escortDefault->getRawOriginal('covidreport') : NULL),
+            'piercing' => $request->piercing ? $request->piercing : ($escortDefault->piercing ?: NULL),
+            'drugs' => $request->drugs ? $request->drugs : ($escortDefault->drugs ?: NULL),
+            'travel' => $request->travel ? $request->travel : ($escortDefault->travel ?: NULL),
+            'tattoos' => $request->tattoos ? $request->tattoos : ($escortDefault->tattoos ?: NULL),
+            'smoke' => $request->smoke ? $request->smoke : ($escortDefault->smoke ?: NULL),
+            'available_to' => $request->available_to ? $request->available_to : ($escortDefault->available_to ?: NULL),
+            'license' => $request->license ? $request->license : ($escortDefault->license ?: NULL),
+            'play_type' => $request->play_type ? $request->play_type : ($escortDefault->play_type ?: NULL),
+            'payment_type' => $request->payment_type ? $request->payment_type : ($escortDefault->payment_type ?: NULL),
+            'language' => $request->language ? $request->language : ($escortDefault->language ?: NULL),
+            'social_links' => $request->social_links ? $request->social_links : ($escortDefault->social_links ?: NULL),
+            'enabled' => 0,
+            'user_id' => $user->id,
+            'default_setting' => 0,
+            'about' => $request->about ? $request->about : ($escortDefault->about ?: null),
+            'about_title' => $request->about_title ? $request->about_title : ($escortDefault->about_title ?: null),
+        ];
+
+        $errors = '';
+        if ($escort = $this->escort->store($input, null)) {
+        $response = [
+            'success' => true,
+            'message' => $escort->id
+        ];
+    }
+    else{
+        $response = [
+            'success' => false,
+            'message' => 'Profile Duplication failed'
+        ];
+    }
+
+        // $response = [
+        //     'success' => true,
+        //     'message' => json_encode($input)
+        // ];
+
+        // $response = [
+        //     'success' => false,
+        //     'message' => 'BRB add failed'
+        // ];
+        return response()->json(compact('response'));
+    }
 }

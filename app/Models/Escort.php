@@ -19,6 +19,20 @@ class Escort extends Model
         'available_to' => 'array',
     ];
 
+    public function getGenderTypeAttribute($value)
+    {
+         switch($this->gender)
+         {
+             case("Female"): return 6;  break;
+             case("Male"): return 1;  break;
+             case("Couples"): return 2;  break;
+             case("Transgender"): return 3;  break;
+             case("Cross Dresser"): return 4;  break;
+             case("Massage Centres"): return 5;  break;
+         }
+
+    }
+
     public function getGenderAttribute($value)
     {
          switch($value)
@@ -32,6 +46,7 @@ class Escort extends Model
          }
 
     }
+
     public function getCovidreportAttribute($value)
     {
          switch($value)

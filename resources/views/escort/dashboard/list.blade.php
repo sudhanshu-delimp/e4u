@@ -224,6 +224,7 @@
    </div>
 </div>
 @include('escort.dashboard.partials.playmates-modal')
+@include('escort.dashboard.partials.duplicate-profile-modal')
 @endsection
 @push('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
@@ -388,6 +389,15 @@
                }
            }
        });
+   });
+
+   $('#duplicate-profile-modal').on('shown.bs.modal', function (e) {
+    var source = e.relatedTarget;
+    let selected_profile_id = $(source).data('id');
+    let selected_profile_state = $(source).data('state');
+        $('#duplicate-profile-modal input[name=escort_id]').val(selected_profile_id);
+        $(`#profile_state_id option`).show(); 
+        $(`#profile_state_id option[value="${selected_profile_state}"]`).hide(); 
    });
 
    $('#play-mates-modal').on('shown.bs.modal', function (e) {
@@ -632,6 +642,45 @@
 
    $("#modal_close").on('click', function(e) {
        $("#brb_form")[0].reset();
+   });
+
+   $("#duplicate_profile_form").on('submit', function (e) {
+       e.preventDefault();
+       var form = $(this);
+       var profileId = $("#profile_id").val();
+       
+       // if (form.parsley().isValid()) {
+           //var url = '/escort-dashboard/escort-brb/add';
+           var url = "{{ route('escort.duplicate.profile') }}";
+           var data = new FormData(form[0]);
+
+           $.ajax({
+               method: 'POST',
+               url: url,
+               data: data,
+               contentType: false,
+               processData: false,
+               headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function(data) {
+                   if (data.response.success) {
+                       Swal.fire({
+                           icon: "success",
+                           text: data.response.message
+                       });
+                       $("#brb_form")[0].reset();
+                       //$('#duplicate-profile-modal').modal('hide');
+                   } else {
+                       Swal.fire({
+                           icon: "error",
+                           text: data.response.message
+                       });
+                   }
+               },
+
+           });
+       // }
    });
 </script>
 @endpush
