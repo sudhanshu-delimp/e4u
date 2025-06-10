@@ -25,14 +25,28 @@
          <div class="container-fluid pl-3 pl-lg-5">
             <!--middle content-->
             <div class="row">
-               <div class="col-md-9">
-                  <!-- Begin Page Content -->
-                  <div class="container-fluid" style="padding: 0px 0px;">
-                     <!-- Page Heading -->
-                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <div class="v-main-heading h3">Pricing summary</div>
+            <div class="col-md-9">
+                  <div class="v-main-heading h3" style="display: inline-block; padding-top: 0;"><h1>Pricing summary</h1></div>
+                     <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+                  </div>
+            </div>
+
+            <div class="row collapse" id="notes">
+                  <div class="col-md-9 mb-5">
+                     <div class="card">
+                        <div class="card-body">
+                              <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                              <ol class="pl-4">
+                              <li>These pricing information pages are a complete summary of all the discounts and
+                                 Fees that are applied in the Website when an Escort or Massage Centre posts a
+                                 Profile, creates a Tour (Escort) or engages us to do provide any Support Services.</li>
+                              <li>Information is also provided about the loyalty program.</li>
+                              </ol>
+                        </div>
                      </div>
                   </div>
+            </div>
+               <div class="col-md-9">
                   <!-- /.container-fluid -->
                   <div class="row">
                      <div class="col-md-12">
@@ -49,87 +63,87 @@
                                  <div class="card-body p-0">
                                     <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                        <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                          <h5 class="price-sec">Profile &amp; Tour Fees</h5>
+                                          <h5 class="price-sec  text-center font-weight-bold">Profile &amp; Tour Fees</h5>
                                           <table id="myTable price-sec" class="table table-striped dataTable no-footer" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                              <thead>
-                                                <tr role="row">
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="
+                                                <tr role="row" style="border-top: 2px solid #e3e6f0;">
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align: center;border-right: 1px solid #e3e6f0; width: 212px; text-align: left;border-right: 1px solid #e3e6f0;" aria-label="
                                                       Profile Name">Days <sup>(1)</sup>
                                                    </th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align: center;border-right: 1px solid #e3e6f0; width: 212px;" aria-label="
                                                       Profile Name
                                                       ">Platinum
                                                    </th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">Gold</th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 206px;" aria-label="Subscription Type">Silver</th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">Free</th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Pin Up<sup>(2)</sup></th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align: center;border-right: 1px solid #e3e6f0; width: 158px;" aria-label="Date Created">Gold</th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align: center;border-right: 1px solid #e3e6f0; width: 206px;" aria-label="Subscription Type">Silver</th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align: center;border-right: 1px solid #e3e6f0; width: 222px;" aria-label="Subscription Status">Free</th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align: center; width: 113px;" aria-label="Status">Pin Up<sup>(2)</sup></th>
                                                 </tr>
                                              </thead>
                                              <tbody>
                                                 <tr role="row">
-                                                   <td>1 day<sup>(3)</sup></td>
-                                                   <td>$ 8.00 </td>
-                                                   <td>$ 6.00 </td>
-                                                   <td>$ 4.00 </td>
-                                                   <td>$ 0.00 </td>
-                                                   <td>N/A</td>
+                                                   <td> 1 day<sup>(3)</sup></td>
+                                                   <td style="text-align:center;"> $ 8.00 </td>
+                                                   <td style="text-align:center;"> $ 6.00 </td>
+                                                   <td style="text-align:center;"> $ 4.00 </td>
+                                                   <td style="text-align:center;"> $ 0.00 </td>
+                                                   <td style="text-align:center;"> N/A</td>
                                                 </tr>
                                                 <tr role="row">
-                                                   <td>3 days </td>
-                                                   <td>$ 24.00 </td>
-                                                   <td>$ 18.00 </td>
-                                                   <td>$ 12.00 </td>
-                                                   <td>$ 0.00 </td>
-                                                   <td>N/A</td>
+                                                   <td> 3 days </td>
+                                                   <td style="text-align:center;"> $ 24.00 </td>
+                                                   <td style="text-align:center;"> $ 18.00 </td>
+                                                   <td style="text-align:center;"> $ 12.00 </td>
+                                                   <td style="text-align:center;"> $ 0.00 </td>
+                                                   <td style="text-align:center;">  N/A </td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td> 7 days </td>
-                                                   <td> $ 52.00 </td>
-                                                   <td> $ 42.00 </td>
-                                                   <td> $ 28.00 </td>
-                                                   <td> $ 0.00 </td>
-                                                   <td> $ 475.00</td>
+                                                   <td style="text-align:center;"> $ 52.00 </td>
+                                                   <td style="text-align:center;"> $ 42.00 </td>
+                                                   <td style="text-align:center;"> $ 28.00 </td>
+                                                   <td style="text-align:center;"> $ 0.00 </td>
+                                                   <td style="text-align:center;"> $ 475.00 </td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td> 10 days </td>
-                                                   <td> $ 80.00 </td>
-                                                   <td> $ 60.00 </td>
-                                                   <td> $ 40.00 </td>
-                                                   <td> $ 0.00 </td>
-                                                   <td> N/A</td>
+                                                   <td style="text-align:center;"> $ 80.00 </td>
+                                                   <td style="text-align:center;"> $ 60.00 </td>
+                                                   <td style="text-align:center;"> $ 40.00 </td>
+                                                   <td style="text-align:center;"> $ 0.00 </td>
+                                                   <td style="text-align:center;"> N/A </td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td> 21 days </td>
-                                                   <td> $ 168.00 </td>
-                                                   <td> $ 126.00 </td>
-                                                   <td> $ 84.00 </td>
-                                                   <td> $ 0.00 </td>
-                                                   <td> N/A </td>
+                                                   <td style="text-align:center;"> $ 168.00 </td>
+                                                   <td style="text-align:center;"> $ 126.00 </td>
+                                                   <td style="text-align:center;"> $ 84.00 </td>
+                                                   <td style="text-align:center;"> $ 0.00 </td>
+                                                   <td style="text-align:center;"> N/A </td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td> 30 days <sup>(4)</sup> </td>
-                                                   <td> $ 235.50 </td>
-                                                   <td> $ 177.30 </td>
-                                                   <td> $ 118.20 </td>
-                                                   <td>  N/A </td>
-                                                   <td> N/A </td>
+                                                   <td style="text-align:center;"> $ 235.50 </td>
+                                                   <td style="text-align:center;"> $ 177.30 </td>
+                                                   <td style="text-align:center;"> $ 118.20 </td>
+                                                   <td style="text-align:center;">  N/A </td>
+                                                   <td style="text-align:center;"> N/A </td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td> 60 days </td>
-                                                   <td> $ 460.50 </td>
-                                                   <td> $ 348.30 </td>
-                                                   <td> $ 232.20 </td>
-                                                   <td> N/A </td>
-                                                   <td> N/A  </td>
+                                                   <td style="text-align:center;"> $ 460.50 </td>
+                                                   <td style="text-align:center;"> $ 348.30 </td>
+                                                   <td style="text-align:center;"> $ 232.20 </td>
+                                                   <td style="text-align:center;"> N/A </td>
+                                                   <td style="text-align:center;"> N/A  </td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td> 90 days </td>
-                                                   <td> $ 685.50 </td>
-                                                   <td> $ 519.30 </td>
-                                                   <td> $ 346.20 </td>
-                                                   <td> N/A </td>
-                                                   <td> N/A </td>
+                                                   <td style="text-align:center;"> $ 685.50 </td>
+                                                   <td style="text-align:center;"> $ 519.30 </td>
+                                                   <td style="text-align:center;"> $ 346.20 </td>
+                                                   <td style="text-align:center;"> N/A </td>
+                                                   <td style="text-align:center;"> N/A </td>
                                                 </tr>
                                              </tbody>
                                           </table>
@@ -161,41 +175,40 @@
                                  <div class="card-body p-0">
                                     <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                        <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                          <h5 class="price-sec">Concierge Services & Support Services</h5>
+                                          <h5 class="price-sec  text-center">Concierge Services & Support Services</h5>
                                           <table id="myTable price-sec" class="table table-striped dataTable no-footer" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                              <thead>
-                                                <tr role="row">
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 206px;" aria-label="Subscription Type">Service Type<sup>(1)</sup></th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">Fee</th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Frequency</th>
+                                                <tr role="row" style="border-top: 2px solid #e3e6f0;">
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 206px; border-right:1px solid #e3e6f0; text-align:left;" aria-label="Subscription Type">Service Type<sup>(1)</sup></th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px; border-right:1px solid #e3e6f0; text-align:center;" aria-label="Subscription Status">Fee</th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px; text-align:center;" aria-label="Status">Frequency</th>
                                                 </tr>
                                              </thead>
                                              <tbody>
                                                 <tr role="row">
-                                                <tr role="row">
                                                    <td>NUM Notification </td>
-                                                   <td>$ 5.00 </td>
-                                                   <td>Per month</td>
+                                                   <td style="text-align:center;">$ 5.00 </td>
+                                                   <td style="text-align:center;">Per month</td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td>Support Services(2) </td>
-                                                   <td>$ 50.00 </td>
-                                                   <td>Per service</td>
+                                                   <td style="text-align:center;">$ 50.00 </td>
+                                                   <td style="text-align:center;">Per service</td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td>Verified Media(3) </td>
-                                                   <td>$ 10.00 </td>
-                                                   <td>Per service, up to 7 photos</td>
+                                                   <td style="text-align:center;">$ 10.00 </td>
+                                                   <td style="text-align:center;">Per service, up to 7 photos</td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td>Mobile SIM </td>
-                                                   <td>$ 85.00 </td>
-                                                   <td>Per month</td>
+                                                   <td style="text-align:center;">$ 85.00 </td>
+                                                   <td style="text-align:center;">Per month</td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td>Email account </td>
-                                                   <td>$ 20.00 </td>
-                                                   <td>Per month</td>
+                                                   <td style="text-align:center;">$ 20.00 </td>
+                                                   <td style="text-align:center;">Per month</td>
                                                 </tr>
                                              </tbody>
                                           </table>
@@ -226,31 +239,30 @@
                                  <div class="card-body p-0">
                                     <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                        <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                          <h5 class="price-sec">Concierge Services & Support Services</h5>
+                                          <h5 class="price-sec  text-center">Concierge Services & Support Services</h5>
                                           <table id="myTable price-sec" class="table table-striped dataTable no-footer" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                              <thead>
-                                                <tr role="row">
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Membership Type<sup>(1)</sup></th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Standard Fee</th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Discounted Fee<sup>(2)</sup></th>
+                                                <tr role="row" style="border-top: 2px solid #e3e6f0;">
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px; text-align:left; border-right:1px solid #e3e6f0;" aria-label="Status">Membership Type<sup>(1)</sup></th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px; text-align:center; border-right:1px solid #e3e6f0;" aria-label="Status">Standard Fee</th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px; text-align:center;" aria-label="Status">Discounted Fee<sup>(2)</sup></th>
                                                 </tr>
                                              </thead>
                                              <tbody>
                                                 <tr role="row">
-                                                <tr role="row">
                                                    <td>Platinum</td>
-                                                   <td>$ 8.00</td>
-                                                   <td>$ 7.50</td>
+                                                   <td style="text-align:center">$ 8.00</td>
+                                                   <td style="text-align:center">$ 7.50</td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td>Gold</td>
-                                                   <td>$ 6.00</td>
-                                                   <td>$ 5.70</td>
+                                                   <td style="text-align:center">$ 6.00</td>
+                                                   <td style="text-align:center">$ 5.70</td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td>Silver </td>
-                                                   <td>$ 4.00</td>
-                                                   <td>$ 3.80</td>
+                                                   <td style="text-align:center">$ 4.00</td>
+                                                   <td style="text-align:center">$ 3.80</td>
                                                 </tr>
                                              </tbody>
                                           </table>
@@ -290,36 +302,36 @@
                            <div class="card">
                               <div class="card-header">
                                  <a class="card-link collapsed" data-toggle="collapse" href="#Advertising" aria-expanded="false">
-                                 Advertising guide
+                                 Advertising
                                  </a>
                               </div>
                               <div id="Advertising" class="collapse" data-parent="#accordion" style="">
                                  <div class="card-body p-0">
                                     <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                        <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                          <h5 class="price-sec">Profile &amp; Tour Fees</h5>
+                                          <h5 class="price-sec  text-center">Profile Fees</h5>
                                           <table id="myTable price-sec" class="table table-striped dataTable no-footer" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                              <thead>
-                                                <tr role="row">
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="
+                                                <tr role="row" style="border-top:2px solid #e3e6f0;">
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align:left; border-right:1px solid #e3e6f0; width: 212px;" aria-label="
                                                       Profile Name">Days <sup>(1)</sup>
                                                    </th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align:center; border-right:1px solid #e3e6f0; width: 212px;" aria-label="
                                                       Profile Name
                                                       ">1
                                                    </th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">21</th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 206px;" aria-label="Subscription Type">22<sup>(2)</sup></th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">30</th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align:center; border-right:1px solid #e3e6f0; width: 158px;" aria-label="Date Created">21</th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align:center; border-right:1px solid #e3e6f0; width: 206px;" aria-label="Subscription Type">22<sup>(2)</sup></th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align:center; width: 222px;" aria-label="Subscription Status">30</th>
                                                 </tr>
                                              </thead>
                                              <tbody>
                                                 <tr role="row">
                                                    <td>Fee</td>
-                                                   <td>$ 30.00</td>
-                                                   <td>$ 630.00</td>
-                                                   <td>$ 658.50</td>
-                                                   <td>$ 801.00</td>
+                                                   <td style="text-align:center;"> $ 30.00</td>
+                                                   <td style="text-align:center;"> $ 630.00</td>
+                                                   <td style="text-align:center;"> $ 658.50</td>
+                                                   <td style="text-align:center;"> $ 801.00</td>
                                                 </tr>
                                              </tbody>
                                           </table>
@@ -351,42 +363,40 @@
                                  <div class="card-body p-0">
                                     <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                        <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                                          <h5 class="price-sec">Concierge Services &amp; Support Services</h5>
+                                          <h5 class="price-sec text-center">Concierge Services &amp; Support Services</h5>
                                           <table id="myTable price-sec" class="table table-striped dataTable no-footer" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                              <thead>
-                                                <tr role="row">
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 206px;" aria-label="Subscription Type">Service Type<sup>(1)</sup></th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">Fee</th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Frequency</th>
+                                                <tr role="row" style="border-top:2px solid #e3e6f0;">
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align:left; border-right:1px solid #e3e6f0;width: 206px;" aria-label="Subscription Type">Service Type<sup>(1)</sup></th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align:center; border-right:1px solid #e3e6f0;width: 222px;" aria-label="Subscription Status">Fee</th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align:center; width: 113px;" aria-label="Status">Frequency</th>
                                                 </tr>
                                              </thead>
                                              <tbody>
                                                 <tr role="row">
-                                                </tr>
-                                                <tr role="row">
                                                    <td>NUM Notification </td>
-                                                   <td>$ 5.00 </td>
-                                                   <td>Per month</td>
+                                                   <td style="text-align:center;">$ 5.00 </td>
+                                                   <td style="text-align:center;">Per month</td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td>Support Services(2) </td>
-                                                   <td>$ 50.00 </td>
-                                                   <td>Per service</td>
+                                                   <td style="text-align:center;">$ 50.00 </td>
+                                                   <td style="text-align:center;">Per service</td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td>Verified Media(3) </td>
-                                                   <td>$ 10.00 </td>
-                                                   <td>Per service, up to 7 photos</td>
+                                                   <td style="text-align:center;">$ 10.00 </td>
+                                                   <td style="text-align:center;">Per service, up to 7 photos</td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td>Mobile SIM </td>
-                                                   <td>$ 85.00 </td>
-                                                   <td>Per month</td>
+                                                   <td style="text-align:center;">$ 85.00 </td>
+                                                   <td style="text-align:center;">Per month</td>
                                                 </tr>
                                                 <tr role="row">
                                                    <td>Email account </td>
-                                                   <td>$ 20.00 </td>
-                                                   <td>Per month</td>
+                                                   <td style="text-align:center;">$ 20.00 </td>
+                                                   <td style="text-align:center;">Per month</td>
                                                 </tr>
                                              </tbody>
                                           </table>

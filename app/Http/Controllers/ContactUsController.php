@@ -44,7 +44,7 @@ class ContactUsController extends AppController
             $mailResp = Mail::to(config('escorts.mobileOrderSimRequest.admin'))->queue(new sendContactUsRequest($body));
 
             if (isset($mailResp)) {
-                return response()->redirectTo('/contact-us')->with('success', __('Your contact us message sent successfully.'));
+                return response()->redirectTo('/contact-us')->with('success', __('Your Contact Us message has been successfully sent. '));
             } else {
                 return response()->redirectTo('/contact-us')->with('error', __('Your contact us message failed to send. Please try later..'));
             }

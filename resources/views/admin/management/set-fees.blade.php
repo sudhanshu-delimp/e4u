@@ -15,13 +15,56 @@
       <div class="container-fluid">
          <!--middle content-->
          <div class="row">
+
+         <div class="col-md-12">
+         <div class="v-main-heading h3">
+             Set Fees & Variables for UAdvertisers
+             <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+         </div>
+          <div class="col-md-12 mt-4">
+              <div class="card collapse" id="notes">
+                  <div class="card-body">
+                      <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                      <ol>
+                          <li>
+                           Fees and Variables can only be determined by the Managing Director (Level 1).
+                          </li>
+                          <li>
+                           There are a range of Fees that apply to Advertisers, namely:
+                           <ol type="a" class="ol_lower_alpha_bracket">
+                                        <li>Advertising Fees</li>
+                                        <li>SConcierge Services</li>
+                                        <li>Support Services</li>
+                                    </ol>
+                          </li>
+                          <li>
+                          There is a loyalty program which applies to Advertisers.
+                          </li>
+                          <li>
+                          There are a range of variables that determine:
+                          <ol type="a" class="ol_lower_alpha_bracket">
+                                        <li>Discounts to Adverting Fees</li>
+                                        <li>Loyalty Program entitlements and discounts</li>
+                                        <li>Agent Commission</li>
+                                    </ol>
+                          </li>
+                          <li>
+                          All amounts are exclusive of GST.
+                          </li>
+                          <li>
+                          Support Services are where E4U staff perform a service requested by the Advertiser, like for example, creating a Profile.
+
+                          </li>
+                      </ol>
+                  </div>
+              </div>
+          </div>
+      </div>
+
             <div class="col-sm-12 col-md-12 col-lg-12 ">
                <!-- Begin Page Content -->
                <div class="container-fluid" style="padding: 0px 0px;">
                   <!-- Page Heading -->
-                  <div class="d-flex align-items-center mb-3">
-                     <div class="v-main-heading h3">Set Pricing - Escort</div>
-                  </div>
                   <div class="row ml-1 mb-3">
                      <div class="panel-heading">
                         <ul class="nav nav-tabs tab-sec pb-2">
