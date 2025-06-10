@@ -209,7 +209,7 @@
 @push('script')
 {{--<script type="text/javascript" src="{{ asset('assets/plugins/parsley/src/extra/validator/comparison.js') }}"></script>--}}
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js?v1.1') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script>
@@ -385,7 +385,7 @@
                 dataType: "json",
                 type: "GET",
                 data: function (params) {
-                    console.log(params);
+                    //console.log(params);
                     var queryParameters = {
                         query: params.term
                     }
@@ -404,6 +404,8 @@
                 }
             }
         });
+
+        $('#select2_country').select2();
 </script>
 <script>
 

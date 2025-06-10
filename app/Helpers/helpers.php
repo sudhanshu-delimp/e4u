@@ -3,7 +3,10 @@
 /**
  * Custom helper functions
  */
+
 use App\Models\Escort;
+use App\Models\Country;
+
 if (!function_exists('calculateTatalFee')) {
     /**
      * Calculate the fee
@@ -87,18 +90,23 @@ if (!function_exists('formatIndianCurrency')) {
  * Get membership type by membership ID
  */
 if (!function_exists('getMembershipType')) {
-function getMembershipType($membership)
+    function getMembershipType($membership)
     {
-        switch($membership)
-        {
-            case(1): return "Platinum";  break;
-            case(2): return "Gold";  break;
-            case(3): return "Silver";  break;
-            case(4): return "Free";  break;
-
+        switch ($membership) {
+            case (1):
+                return "Platinum";
+                break;
+            case (2):
+                return "Gold";
+                break;
+            case (3):
+                return "Silver";
+                break;
+            case (4):
+                return "Free";
+                break;
         }
         return "N/A";
-
     }
 }
 
@@ -107,8 +115,19 @@ function getMembershipType($membership)
  */
 if (!function_exists('getEscortDetail')) {
     function getEscortDetail($id)
+    {
+        $escort = Escort::where('id', $id)->first();
+        return $escort;
+    }
+}
+
+/**
+ * Get country list
+ */
+if (!function_exists('getCountryList')) {
+    function getCountryList()
         {
-            $escort = Escort::where('id',$id)->first();
-            return $escort;
+            return Country::select(['id', 'name', 'status'])->pluck('name', 'id');
+           
         }
     }

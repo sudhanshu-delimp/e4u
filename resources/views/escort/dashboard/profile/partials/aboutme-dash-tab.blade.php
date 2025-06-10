@@ -196,7 +196,7 @@
                                         <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="This is the Location you want the Profile to be saved to, like Western Australia, Victoria etc. Make sure the Profile Name matches up." data-boundary="window">
                                     </label>
                                     <div class="col-sm-6">
-                                        <select class="form-control form-control-sm select_tag_remove_box_sadow" id="state_id" name="state_id" required="required" data-parsley-required-message="-select location-" data-parsley-group="goup_one" data-parsley-errors-container="#locationState-errors">
+                                        <select class="form-control form-control-sm select_tag_remove_box_sadow change_default" id="state_id" name="state_id" required="required" data-parsley-required-message="-select location-" data-parsley-group="goup_one" data-parsley-errors-container="#locationState-errors">
                                             {{-- <required data-parsley-required-message="-select city-" data-parsley-group="goup_one"> --}}
                                             <option value="" selected="">-- Select States--</option>
                                             @foreach(config('escorts.profile.states') as $key => $state)
@@ -552,19 +552,34 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @php
+                                            $countrys = getCountryList();
+                                            @endphp
                                             <div class="col-lg-4 col-md-12 col-sm-12">
                                                 <div class="form-group row tab-about-me-row-padding">
                                                     <label class="col-sm-4 font-weight-500"
                                                            for="exampleFormControlSelect1">Nationality:</label>
                                                     <div class="col-sm-8">
-                                                        <select style="border: 1px solid #d5d7e5 !important;"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow nationality-sec"
+                                                        <!--select style="border: 1px solid #d5d7e5 !important;"
+                                                                class="form-control form-control-sm select_tag_remove_box_sadow nationality-sec change_default"
                                                                 id="select2-dropdown"
                                                                 data-parsley-required-message="Select nationality"
                                                                 name="nationality_id"
                                                                 data-parsley-errors-container="#nationality-errors">
                                                             <option
                                                                 value="{{ old('nationality_id',$escort->nationality_id)}}">{{($escort->nation) ? $escort->nation->name : ''}}</option>
+                                                        </select-->
+
+                                                        <select style="border: 1px solid #d5d7e5 !important;"
+                                                                class="form-control form-control-sm select_tag_remove_box_sadow nationality-sec change_default" id="select2_country" data-parsley-required-message="Select nationality"
+                                                                name="nationality_id"
+                                                                data-parsley-errors-container="#nationality-errors">
+                                                                @if(count($countrys) > 0)
+                                                                @foreach($countrys as $ckey => $cname)
+                                                            <option
+                                                                value="{{ old('nationality_id',$ckey)}}" @if($ckey ==$escort->nationality_id) selected="selected" @endif>{{$cname}}</option>
+                                                                @endforeach
+                                                                @endif
                                                         </select>
                                                         <span id="nationality-errors"></span>
                                                     </div>
@@ -705,7 +720,7 @@
                                                            for="exampleFormControlSelect1">Weight(Kgs):</label>
                                                     <div class="col-sm-8">
                                                         <input data-parsley-type="digits"
-                                                               class="form-control form-control-sm  removebox_shdow"
+                                                               class="form-control form-control-sm  removebox_shdow change_default"
                                                                placeholder="Enter Your Weight"
                                                                value="{{$escort->weight}}" name="weight"
                                                                data-parsley-min="30" data-parsley-max="150"
@@ -1140,15 +1155,15 @@
                         </div>
                         <div class="pt-2 pb-3" data-i="{{$escort->covidreport}}">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input covidreport" type="radio" name="covidreport" id="inlineRadio1" value="1"{{ $escort->getRawOriginal('covidreport') == 1 ? ' checked' : null }}>
+                                <input class="form-check-input covidreport change_default" type="radio" name="covidreport" id="inlineRadio1" value="1"{{ $escort->getRawOriginal('covidreport') == 1 ? ' checked' : null }}>
                                 <label class="form-check-label" for="inlineRadio1">Vaccinated, not up to date</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input covidreport" type="radio" name="covidreport" id="inlineRadio2" value="2"{{ $escort->getRawOriginal('covidreport') == 2 ? ' checked' : null }}>
+                                <input class="form-check-input covidreport change_default" type="radio" name="covidreport" id="inlineRadio2" value="2"{{ $escort->getRawOriginal('covidreport') == 2 ? ' checked' : null }}>
                                 <label class="form-check-label" for="inlineRadio2">Vaccinated, up to date</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input covidreport" type="radio" name="covidreport" id="inlineRadio3" value="3"{{ $escort->getRawOriginal('covidreport') == 3 ? ' checked' : null }}>
+                                <input class="form-check-input covidreport change_default" type="radio" name="covidreport" id="inlineRadio3" value="3"{{ $escort->getRawOriginal('covidreport') == 3 ? ' checked' : null }}>
                                 <label class="form-check-label" for="inlineRadio3">Not Vaccinated</label>
                             </div>
                         </div>
@@ -1543,6 +1558,7 @@
     </div>
 @push('script')
 <script>
+  
     // $('.newbtn').bind("click" , function () {
     //        $('#pic').click();
     //        console.log($(this).attr('id'));
