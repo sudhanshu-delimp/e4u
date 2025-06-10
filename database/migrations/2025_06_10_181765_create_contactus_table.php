@@ -16,6 +16,8 @@ class CreateContactusTable extends Migration
         Schema::create('contactus', function (Blueprint $table) {
             $table->id();
             $table->string('ref_number')->index()->nullable();
+            $table->bigInteger('user_id')->index()->nullable();
+            $table->string('user_type')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('email')->index()->nullable();

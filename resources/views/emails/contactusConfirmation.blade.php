@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Contact Us Request</title>
+    <title>Contact Us Confirmation</title>
 </head>
 
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
@@ -23,7 +23,7 @@
                                             style="height: 50px;">
                                     </td>
                                     <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle;">
-                                        <h1 style="margin: 0;font-size: 22px; color: #ffffff;text-align: right;">Contact Us Request</h1>
+                                        <h1 style="margin: 0;font-size: 22px; color:#ffffff;text-align: right;">Contact Us Confirmation</h1>
                                         <div style="font-weight: 500;">Ref: {{ $body['ref_number'] }}</div>
                                         
                                     </td>
@@ -35,34 +35,16 @@
                     <tr>
                         <td style="padding: 30px;">
                             <!-- Greeting -->
-                            <p style="font-size: 18px; margin: 0 0 15px 0;"><b>Attention Operations</b></p>
+                            <p style="font-size: 18px; margin: 0 0 15px 0;">Dear {{$body['first_name']}},</p>
 
                              <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                A User has logged a request for contact. Details are:
+                                Thank you for your enquiry. Please allow 48 hours for one of our team members to respond to your enquiry.
+                            </p>
+                            <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
+                                If you do not receive any response within 48 hours, please lodge a Support Ticket if you are an E4U Member and quote your reference number {{ $body['ref_number'] }}, or send us a followup email quoting your reference number.
                             </p>
 
-                            <!-- Info Table -->
-                            <table cellpadding="8" cellspacing="0" border="0"
-                                style="width: 100%; font-size: 14px; border-collapse: collapse;">
-                                <tr>
-                                    <td style=" width: 180px; padding-left: 0;">First Name:</td>
-                                    <td>{{ $body['first_name'] }}</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-left: 0;">Second Name:</td>
-                                    <td>{{ $body['last_name'] }}</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-left: 0;">Email:</td>
-                                    <td>{{ $body['email'] }}</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding-left: 0;">Comments (by {{ $body['role_type'] }}):</td>
-                                    <td>{{ $body['message'] }}</td>
-                                </tr>
-                               
-                            </table>
-                            <!-- Closing -->
+                            
                             <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
                                 <b>E4U - Operations centre</b>
