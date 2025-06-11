@@ -5672,17 +5672,16 @@ h2.custom--review img {
 .custom--service-tag .grid_list_icon_box span {
     position: absolute;
     font-size: 12px;
-    width: 100%;
-    top: -23px;
-    min-width: 64px;
-    background: #fff;
+    width: max-content;
+    top: -36px;
     text-align: center;
     left: -3px;
     border-radius: 3px;
-    border: 1px solid #5d6d7e;
     opacity: 0;
     visibility: hidden;
-    color: #0c223d;
+    color: #fff;
+    background: #ff3c5f;
+    padding: 8px;
 }
 
 .custom--service-tag .grid_list_icon_box:hover span {
@@ -5775,6 +5774,52 @@ img.twitter-x-logo {
 }
 .custom--alertlist div p:first-child:not(.custom--alertlist div:first-child p:first-child) {
     border-color: #ddd;
+}
+.custom--gender--area, .custom--available-section {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+.custom--gender--area div {
+    width: calc(100% / 3 - 6px);
+}
+.custom--available-section > div {
+    width: calc(100% / 3 - 6px);
+}
+.custom--available-section .video_icon img {
+    max-width: 30px;
+}
+.custom--available-section {
+    padding-top: 10px;
+}
+.custom--available-section .video_icon, .custom--video-section {
+    position: relative;
+}
+.custom--available-section .video_icon span.custom--tooltip, .custom--video-section span.custom--tooltip {
+    background: #ff3c5f;
+    position: absolute;
+    padding: 10px;
+    color: #fff;
+    pointer-events: none;
+    border-radius: 5px;
+    right: -1rem;
+    width: max-content;
+    top: 1.5rem;
+    z-index: 1;
+    visibility: hidden;
+    opacity: 0;
+    font-size: 11px;
+}
+.custom--available-section .video_icon:hover span.custom--tooltip,
+.custom--video-section:hover span.custom--tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+.silver_listbx .age span,
+.silver_listbx .give_rating_after_get_servive span.filter-pad,
+.silver_listbx span.profile_location_icon,
+.custom-15text {
+    font-size: 15px;
 }
 /* new css start 28 march end */
 

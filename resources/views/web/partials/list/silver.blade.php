@@ -63,6 +63,7 @@
                     <div class="age"><span class="margin_and_font_size_color_for_free">AGE:</span><span
                             class="free_profile_age_color_and_font">{{ $escort->age }}</span></div>
                     <div class="give_rating_after_get_servive">
+                    <span class="filter-pad">Rating:</span>
                         @for($i=1; $i<= 5; $i++)
                             @if($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
                                 <i class="fa fa-star" aria-hidden="true" ></i>
@@ -78,10 +79,10 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <div class="parth">
-                        <p><span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true" style="font-size: 15px;"></i></span> {{ $escort->city ? $escort->city->name : '' }}</p>
+                    <div class="parth custom-15text">
+                        <p><span class="profile_location_icon">Location:</span> {{ $escort->city ? $escort->city->name : '' }}</p>
                     </div>
-                    <div class="age"><span>Avilable to:</span></div>
+                    <div class="age custom-15text"><span>Avilable to:</span></div>
                     <div class="free_profile_avilabletoimg_size">
                         @if ($escort->available_to)
                             @foreach ($escort->available_to as $key => $available_to)
@@ -106,8 +107,10 @@
                                 class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">Add
                             to Shortlist</button>
                     </div>
-                    <div class="video_icon">
-                        <a href="#"><img src="{{ asset('assets/app/img/video_play.svg') }}"></a>
+                    <div class="video_icon custom--video-section">
+                        <a href="#"><img src="{{ asset('assets/app/img/video_play.svg') }}">
+                        <span class="custom--tooltip">Escort has video to view</span>
+                    </a>
                     </div>
                 </div>
                 <div class="mt-1"> 

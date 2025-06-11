@@ -96,44 +96,52 @@
                         </div>
                                 </div>
                         <div class="d-flex justify-content-between mb-4 flex_warp list_gender_area  pr-0">
+                        <div class="custom--gender--area">
                             <div class="gender">
-                                <span class="filter-pad">Gender:</span>
-                                <span>{{ $escort->gender ? $escort->gender : '' }}</span>
-                            </div>
-                            <div class="perth">
-                                <span class="filter-pad"><span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true" style="font-size: 15px;"></i></span> {{ $escort->city ? $escort->city->name : '' }}</span>
-                                <span class="give_rating_after_get_servive">
-                                    @for($i=1; $i<= 5; $i++)
-                                        @if($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
-                                            <i class="fa fa-star" aria-hidden="true" ></i>
-                                        @else
-                                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        @endif
-                                    @endfor
-                                    {{-- <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                    <i class="fa fa-star" aria-hidden="true"></i> --}}
-                                </span>
-                            </div>
-                            <div class="free_profile_avilabletoimg_size">
-                                <span class="filter-pad">Available:</span>
-                                <span>
-                                    @if ($escort->available_to)
-                                        @foreach ($escort->available_to as $key => $available_to)
-                                            {{-- <img
-                                                src="{{ config('escorts.profile.available-to-images')[$available_to] }}"> --}}
-                                                <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}" title="{{ config('escorts.profile.available-to')[$available_to] }}">
-                                        @endforeach
-                                    @endif
-                                </span>
-                            </div>
-                            <div class="d-inline video_icon">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/app/img/video_play.svg') }}">
-                                    </a>
+                                    <span class="filter-pad">Gender:</span>
+                                    <span>{{ $escort->gender ? $escort->gender : '' }}</span>
                                 </div>
+                                <div class="perth">
+                                    <span class="filter-pad">Location:</span> <span> {{ $escort->city ? $escort->city->name : '' }}</span>   
+                                </div>
+                                <div class="perth">
+                                <span class="filter-pad">Rating:</span>
+                                    <span class="give_rating_after_get_servive">
+                                        @for($i=1; $i<= 5; $i++)
+                                            @if($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
+                                                <i class="fa fa-star" aria-hidden="true" ></i>
+                                            @else
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            @endif
+                                        @endfor
+                                        {{-- <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                        <i class="fa fa-star" aria-hidden="true"></i> --}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="custom--available-section">
+                                <div class="free_profile_avilabletoimg_size">
+                                    <span class="filter-pad">Available:</span>
+                                    <span>
+                                        @if ($escort->available_to)
+                                            @foreach ($escort->available_to as $key => $available_to)
+                                                {{-- <img
+                                                    src="{{ config('escorts.profile.available-to-images')[$available_to] }}"> --}}
+                                                    <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}" title="{{ config('escorts.profile.available-to')[$available_to] }}">
+                                            @endforeach
+                                        @endif
+                                    </span>
+                                </div>
+                                <div class="d-inline video_icon">
+                                        <a href="#">
+                                            <img src="{{ asset('assets/app/img/video_play.svg') }}">
+                                            <span class="custom--tooltip">Escort has video to view</span>
+                                        </a>
+                                </div>
+                            </div>
 
                         </div>
                         

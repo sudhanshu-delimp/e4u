@@ -336,7 +336,7 @@
                                             <div class="grid_list_icon_box display_inline_block grid--btn"
                                                 data-toggle="modal1" data-target="#" data-url="grid-escort-list">
                                                 <a href="#" class="{{$viewType == 'grid' ? 'active' : ''}}" id="grid-modal" data-toggle="tooltip">
-                                                    <span>Grid view</span>
+                                                    <span>Grid view </span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                                         viewBox="0 0 30 30" fill="none">
                                                         <path
