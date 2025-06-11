@@ -442,6 +442,10 @@ Route::get('/admin-dashboard/management/competitor-database',function(){
     return view('admin.management.competitor-database');
 })->name('admin.competitor-database');
 
+Route::get('/admin-dashboard/management/memberships',function(){
+    return view('admin.management.memberships');
+})->name('admin.memberships');
+
 Route::get('/admin-dashboard/management/manage-user',function(){
     return view('admin.management.manage-user');
 })->name('admin.manage-user');
