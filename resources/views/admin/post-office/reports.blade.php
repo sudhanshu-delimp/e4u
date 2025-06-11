@@ -63,7 +63,7 @@
                                 </select>
                             </div>
 
-                            <button onclick="previewTemplate()">Preview</button>
+                            <button onclick="previewTemplate()" type="button" data-toggle="modal" data-target="#previewTemplate">Preview</button>
                         </div>
                         <div class="common-section">
                             <div class="form-group">
@@ -130,14 +130,17 @@
                         </div>
                         <h3>Options</h3>
                         <div class="common-section">
-
                             <div class="form-group">
-                                <label for="copyTo">Copy To</label>
-                                <input type="email" id="copyTo" placeholder="someone@example.com" />
+                                <label for="copy">Copy To</label>
+                                <select id="copy" name="copy[]" multiple size="3">
+                                    <option value="wayne@blackboxtech.com.au" selected>wayne@blackboxtech.com.au</option>
+                                    <option value="xyz@blackboxtech.com.au">xyz@blackboxtech.com.au</option>
+                                    <option value="abs@blackboxtech.com.au">abs@blackboxtech.com.au</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="common-section">
 
+                        <div class="common-section">
                             <div class="form-group">
                                 <label>Trial Run Only</label>
                                 <div class="radio-group">
@@ -336,6 +339,91 @@
       </div>
    </div>
 </div>
+<!-- end -->
+
+<!-- custome modal design previeo template -->
+
+<div class="modal fade upload-modal bd-example-modal-lg" id="previewTemplate" tabindex="-1" role="dialog" aria-labelledby="previewTemplateLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
+      <div class="modal-content basic-modal modal-lg">
+         <div class="modal-header">
+            <h5 class="modal-title" id="previewTemplate">Template</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body">
+            
+         <table width="100%" cellpadding="0" cellspacing="0" style=" padding: 20px 0;">
+                    <tr>
+                        <td align="center" style="border:none !important">
+                            <!-- Main container -->
+                            <table cellpadding="0" cellspacing="0" style="background-color:#ffffff; border:1px solid #dddddd; font-family:Arial, sans-serif; color:#0c223d;">
+
+                                <!-- Header with background and logo -->
+                                <tr>
+                                    <td style="background-color:#0c223d; padding: 20px;border:none !important">
+                                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                                            <tr>
+                                                <td style="text-align: left; border:none !important">
+                                                    <img src="http://127.0.0.1:8000/assets/app/img/logo.png" alt="E4U Logo" style="height: 50px;">
+                                                </td>
+                                                <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold; border:none !important">
+                                                    Mobile SIM - Available<br>
+                                                    <span style="font-size: 13px; color: #cccccc;">Member ID: [Member ID]</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+
+                                <!-- Content Padding -->
+                                <tr>
+                                    <td style="padding: 30px;border:none !important">
+
+                                        <!-- Greeting -->
+                                        <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Dear [salutation (> My Account > Edit My Account > About Me > My Name)],</b></p>
+
+                                        <!-- Main Message -->
+                                        <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
+                                            Are you aware of our Mobile SIM service? Simply order your SIM from E4U, and save yourself all the fuss of having to go to a Telco shop.
+                                        </p>
+
+                                        <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
+                                            It is really easy, just logon and go to your Dashboard and click Concierge Services > Mobile and complete the order request. Your SIM will be sent directly to you.</p>
+                                        <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
+                                            [additional text appears here]
+                                        </p>
+
+                                        <!-- Closing -->
+                                        <p style="font-size: 15px; margin-top: 20px;">
+                                            Regards,<br>
+                                            <b>E4U - Operations</b>
+                                        </p>
+
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <!-- Footer -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#2b3d50; padding: 15px 30px; line-height: 20px; font-family:Arial, sans-serif; color:#ffffff; font-size:14px; text-align:center;">
+                                <tr>
+                                    <td style="text-align:center;">
+                                        <em>This is an automatically generated email by the Escorts4u Operations Centre.<br>
+                                          &copy; Copyright 2024 Blackbox Tech Pty Ltd. All rights reserved.</em>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+                </table>
+         </div>
+      </div>
+   </div>
+</div>
+ <!-- end -->
 @include('escort.dashboard.partials.playmates-modal')
 @endsection
 @push('script')

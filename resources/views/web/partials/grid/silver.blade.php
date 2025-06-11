@@ -53,26 +53,41 @@
                     <span>Price:</span>
                     <span>From $ {{$escort->lowest_rate_price}} / hr</span>
                 </div>
-                <div class="d-flex justify-content-between seven_column_fonts">
+                <div class="d-flex justify-content-between seven_column_fonts custom-available-time-icon">
                     <span>Services:</span>
-                   <span class="image_height_width_for_col_six">
-                    <img src="{{ asset('assets/app/img/heart-white.png') }}" title="Massage" style="width: 16px; height:17px; display:{{ $escort->massage_price != null ? '': 'none'}};">
-                    <img src="{{ asset('assets/app/img/aerodownicon.svg') }}" style="display:{{ $escort->incall_price != null ? '': 'none'}};" title="Incalls">
-                    <img src="{{ asset('assets/app/img/upaeroicon.svg') }}" style="display:{{ $escort->outcall_price != null ? '': 'none'}};" title="Outcalls">
+                   <span class="image_height_width_for_col_six position-relative">
+                    <div class="icon-with-tooltip position-relative">
+                        <img src="{{ asset('assets/app/img/heart-white.png') }}"  style="width: 16px; height:17px; display:{{ $escort->massage_price != null ? '': 'none'}};">
+                        <span class="custom-icon-hover-tooltip">Massage</span>  
+                    </div>
+                    
+                    <div class="icon-with-tooltip position-relative">
+                        <img src="{{ asset('assets/app/img/aerodownicon.svg') }}" style="display:{{ $escort->incall_price != null ? '': 'none'}};">
+                        <span class="custom-icon-hover-tooltip">Incalls</span>  
+                    </div>
+                    <div class="icon-with-tooltip position-relative">
+                        <img src="{{ asset('assets/app/img/upaeroicon.svg') }}" style="display:{{ $escort->outcall_price != null ? '': 'none'}};" >
+                        <span class="custom-icon-hover-tooltip">Outcalls</span>  
+                    </div>
                     </span>
                 </div>
                 <div class="d-flex justify-content-between seven_column_fonts">
                     <span>Gender:</span>
                     <span>{{ $escort->gender}}</span>
                 </div>
-                <div class="d-flex justify-content-between seven_column_fonts">
+                <div class="d-flex justify-content-between seven_column_fonts custom-gender-type-icon">
                     <span>Available to:</span>
                     <span class="image_height_width_for_col_seven">
-                    <span>
+                    <span class="d-flex gap-1 position-relative">
                     @if($escort->available_to)
                     @foreach($escort->available_to as $key => $available_to)
-                        <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}" title="{{ config('escorts.profile.available-to')[$available_to] }}">
-                    @endforeach
+                    <div class="icon-with-tooltip position-relative">
+                        <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}">
+                        <span class="custom-icon-hover-tooltip">
+                            {{ config('escorts.profile.available-to')[$available_to] }}
+                        </span>
+                    </div>
+                        @endforeach
                     @endif
                     </span>
                     </span>

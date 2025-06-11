@@ -475,6 +475,11 @@ Route::get('/admin-dashboard/management/post-office',function(){
 })->name('admin.post-office');
 
 
+Route::get('/admin-dashboard/notifications/global',function(){
+    return view('admin.notifications.global');
+})->name('admin.global');
+
+
 
 Route::get('/admin-dashboard/post-office/reports',function(){
     return view('admin.post-office.reports');

@@ -95,15 +95,20 @@
                                 <i class="fa fa-star" aria-hidden="true"></i> --}}
                                 </span>
                             </div>
-                            <div class="available">
+                            <div class="available custom-gender-type-icon">
                                 <span class="filter-pad">Available:</span>
-                                <span>
-                                @if($escort->available_to)
-                                @foreach($escort->available_to as $key => $available_to)
-                                <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}" title="{{ config('escorts.profile.available-to')[$available_to] }}">
-                                @endforeach
-                                @endif
-                                </span>
+                                    <span>
+                                        @if($escort->available_to)
+                                        @foreach($escort->available_to as $key => $available_to)
+                                            <div class="icon-with-tooltip position-relative">
+                                                <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}">
+                                                <span class="custom-icon-hover-tooltip">
+                                                {{ config('escorts.profile.available-to')[$available_to] }}
+                                                </span>
+                                            </div> 
+                                        @endforeach
+                                        @endif
+                                    </span>
                             </div>
                             <div class="video_icon">
                                 <a href="#">
