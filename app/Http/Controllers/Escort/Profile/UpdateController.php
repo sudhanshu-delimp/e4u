@@ -99,7 +99,6 @@ class UpdateController extends AppController
         $error = true;
         $user = auth()->user();
         $escortDefault = $this->escort->findDefault($user->id, 1);
-
         if (!empty(trim($request->name))) {
 
             $users = $this->user->find($user->id);
@@ -164,8 +163,20 @@ class UpdateController extends AppController
         if ($cityId > 0) {
             $input['city_id'] =  $cityId;
         }
+       if (isset($request->language)) {
+           $languageArr = explode(',', $request->language);
+           $input['language'] =  json_encode($languageArr);
+       }
 
+       if (isset($request->available_to)) {
+           $availables = explode(',', $request->available_to);
+           $input['available_to'] =  json_encode($availables);
+       }
 
+       if (isset($request->play_type)) {
+           $playTypes = explode(',', $request->play_type);
+           $input['play_type'] =  json_encode($playTypes);
+       }
         if ($this->escort->update($escortDefault->id, $input)) {
             $error = false;
         }

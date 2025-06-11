@@ -956,7 +956,7 @@
                                         <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Language:</label>
                                         <div class="col-sm-8">
                                             <select
-                                                class=" form-control form-control-sm select_tag_remove_box_sadow"
+                                                class="change_default form-control form-control-sm select_tag_remove_box_sadow"
                                                 id="language">
                                                 <option value="" selected disabled>-Not Set-</option>
                                                 @foreach(config('escorts.profile.languages') as $key => $language)
@@ -969,7 +969,7 @@
                                             <div class='selecated_languages select_lang'>
                                                 <span
                                                     class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!}</span>
-                                                <input class="lang" type="hidden" name="language[]"
+                                                <input class="lang languageInput" type="hidden" name="language[]"
                                                        value="{{$language}}">
                                             </div>
                                         @endforeach @endif
@@ -1036,7 +1036,7 @@
                                                      aria-labelledby="dropdownMenuButton">
                                                     @foreach(config('escorts.profile.available-to') as $key => $available_to)
                                                         <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input available_to"
+                                                            <input type="checkbox" class="change_default form-check-input available_to"
                                                                    id="" name="available_to[]" value='{{ $key}}'
                                                                    @if(!empty($escort->available_to)) @if(in_array($key , $escort->available_to)) checked @endif @endif>
                                                             <label class="form-check-label"
@@ -1087,7 +1087,7 @@
                                                      aria-labelledby="dropdownMenuButton">
                                                     @foreach(config('escorts.profile.play-types') as $key => $play_type)
                                                         <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input playType"
+                                                            <input type="checkbox" class="change_default form-check-input playType"
                                                                    name="play_type[]" value='{{ $key}}'
                                                                    @if(!empty($escort->play_type)) @if(in_array($key , $escort->play_type)) checked
                                                                    @endif @endif data-name="{{$play_type}}">

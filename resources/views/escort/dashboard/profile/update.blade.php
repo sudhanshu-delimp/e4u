@@ -759,7 +759,7 @@
         $(".lang").val('');
         var selectedLanguage = $(this).children("option:selected", this).data("name");
         $("#show_language").append("  <div class='selecated_languages' style='display: inline-block'><span class='languages_choosed_from_drop_down'>"+ selectedLanguage +" </span> </div> ");
-        $("#container_language").append("<input type='hidden' name='language[]' value="+ languageValue +">");
+        $("#container_language").append("<input class='languageInput' type='hidden' name='language[]' value="+ languageValue +">");
         $("#language option[value='"+languageValue+"']").remove();
     });
 
@@ -1469,10 +1469,10 @@
 
         $(".change_default").focus(function () {
             previous = this.value;
-            console.log(previous);
+            //console.log(this.id);
             //var label = jQuery(this).closest(".form-group").find("label").text();
 
-            console.log("label ji"+label);
+            //console.log("label ji"+label);
         }).on('change paste', function() {
             // Do soomething with the previous value after the change
             var Current = $(this).val();
@@ -1484,12 +1484,36 @@
             $('#label').val(label);
             $('#current').val(Current);
             $('#previous').val(previous);
-            console.log("label ji paste previous: "+ label , Current, previous);    
+            //console.log("label ji paste previous: "+ label , Current, previous);    
             
             if (label == 'stageName' && Current === 'new'){
                 
                 return true;
             } 
+
+              if(this.id == 'language') {
+                $('#trigger-element').val('language');
+                let values = $(".languageInput").map(function() {
+                    return $(this).val();
+                }).get();
+                $('#current').val(values);
+            }
+
+            if( $(this).attr('name') == 'available_to[]' ||  $(this).attr('name') == 'available_to') {
+                $('#trigger-element').val('available_to');
+                    let checkedValues = $(".available_to:checked").map(function() {
+                return $(this).val();
+            }).get();
+                $('#current').val(checkedValues);
+            }
+
+            if( $(this).attr('name') == 'play_type[]' ||  $(this).attr('name') == 'play_type') {
+                $('#trigger-element').val('play_type');
+                    let checkedValues = $(".playType:checked").map(function() {
+                return $(this).val();
+            }).get();
+                $('#current').val(checkedValues);
+            }
 
             //$(".Lname").text("current value "+Current+ " previous ="+previous);
             $("#Lname").html("<p>Would you like to update <b>"+label+"</b> in your My Information page for future Profiles?</p>");
@@ -1519,7 +1543,7 @@
 
         $('#save_change').on("click", function (e) {
 
-            console.log('save chnages by jiten');
+            //console.log('save chnages by jiten');
             $('#change_all').removeClass('programmatic');
             if($('#label').val() == 'Gender') {
                 _displayGenderDependentFields($('#current').val());
