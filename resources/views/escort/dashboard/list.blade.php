@@ -280,6 +280,64 @@
        });
        $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');
 
+       $('#profile_state_id').change(function(){
+        var stateId = $(this).val();
+        console.log("id ="+$(this).val());
+        var url = "{{ route('escort.stateByCity',':id') }}";
+        url = url.replace(':id',stateId);
+       //console.log(url);
+        $.ajax({
+                type: "POST",
+                url: url,
+                data:{stateId :stateId},
+                contentType: "application/json",
+                success: function(data) {
+                    var optionString = '';
+                    $.each(data.data, function(index, elem) {
+                        optionString += '<option value='+index+'>'+elem+'</option>';
+                        console.log(elem);
+                    })
+                    $('#profile_city_id').html(optionString);
+                },
+            });
+    });
+
+       $("#duplicate_profile_form").on('submit', function (e) {
+       e.preventDefault();
+       var form = $(this);
+        var url = "{{ route('escort.duplicate.profile') }}";
+        var data = new FormData(form[0]);
+
+           $.ajax({
+               method: 'POST',
+               url: url,
+               data: data,
+               contentType: false,
+               processData: false,
+               headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function(data) {
+                   if (data.response.success) {
+                       Swal.fire({
+                           icon: "success",
+                           text: data.response.message
+                       });
+                       table.draw();
+                       $("#duplicate_profile_form")[0].reset();
+                       $('#duplicate-profile-modal').modal('hide');
+                   } else {
+                       Swal.fire({
+                           icon: "error",
+                           text: data.response.message
+                       });
+                   }
+               },
+
+           });
+       // }
+   });
+
    } );
 
    $.ajaxSetup({
@@ -642,45 +700,6 @@
 
    $("#modal_close").on('click', function(e) {
        $("#brb_form")[0].reset();
-   });
-
-   $("#duplicate_profile_form").on('submit', function (e) {
-       e.preventDefault();
-       var form = $(this);
-       var profileId = $("#profile_id").val();
-       
-       // if (form.parsley().isValid()) {
-           //var url = '/escort-dashboard/escort-brb/add';
-           var url = "{{ route('escort.duplicate.profile') }}";
-           var data = new FormData(form[0]);
-
-           $.ajax({
-               method: 'POST',
-               url: url,
-               data: data,
-               contentType: false,
-               processData: false,
-               headers: {
-                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-               },
-               success: function(data) {
-                   if (data.response.success) {
-                       Swal.fire({
-                           icon: "success",
-                           text: data.response.message
-                       });
-                       $("#brb_form")[0].reset();
-                       //$('#duplicate-profile-modal').modal('hide');
-                   } else {
-                       Swal.fire({
-                           icon: "error",
-                           text: data.response.message
-                       });
-                   }
-               },
-
-           });
-       // }
    });
 </script>
 @endpush

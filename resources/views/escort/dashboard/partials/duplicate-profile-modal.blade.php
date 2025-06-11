@@ -31,7 +31,7 @@
                                             <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="This is the Location you want the Profile to be saved to, like Western Australia, Victoria etc. Make sure the Profile Name matches up." data-boundary="window">
                                         </label>
                                         <div class="col-sm-8">
-                                            <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="profile_state_id" name="state_id" data-parsley-errors-container="#profile-errors" required data-parsley-required-message="Select Profile">
+                                            <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="profile_state_id" name="state_id" data-parsley-errors-container="#locationState-errors" required data-parsley-required-message="-select location-">
                                             <option value="" selected="">-- Select States--</option>
                                             @foreach(config('escorts.profile.states') as $key => $state)
                                                 <option style="font-weight: 500;" value="{{$key}}"> {{$state['stateName']}} </option>
@@ -41,12 +41,22 @@
                                         </div>
                                         <div class="col-sm-1"></div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3" for="">
+                                        City: <span style="color:red">*</span>
+                                        </label>
+                                        <div class="col-sm-8">
+                                        <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="profile_city_id" name="city_id" data-parsley-errors-container="#city-errors" required data-parsley-required-message="Please select city">
+                                            <span id="profile-errors"></span>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer" style="text-align: center; display: block;">
-                        <input type="text" name="escort_id">
+                        <input type="hidden" name="escort_id">
                         <button type="submit" class="btn btn-primary" id="save_brb">Save</button>
                     </div>
                 </div>
