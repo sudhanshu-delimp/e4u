@@ -3,7 +3,10 @@
 /**
  * Custom helper functions
  */
+
 use App\Models\Escort;
+use App\Models\Country;
+
 if (!function_exists('calculateTatalFee')) {
     /**
      * Calculate the fee
@@ -87,18 +90,23 @@ if (!function_exists('formatIndianCurrency')) {
  * Get membership type by membership ID
  */
 if (!function_exists('getMembershipType')) {
-function getMembershipType($membership)
+    function getMembershipType($membership)
     {
-        switch($membership)
-        {
-            case(1): return "Platinum";  break;
-            case(2): return "Gold";  break;
-            case(3): return "Silver";  break;
-            case(4): return "Free";  break;
-
+        switch ($membership) {
+            case (1):
+                return "Platinum";
+                break;
+            case (2):
+                return "Gold";
+                break;
+            case (3):
+                return "Silver";
+                break;
+            case (4):
+                return "Free";
+                break;
         }
         return "N/A";
-
     }
 }
 
@@ -107,8 +115,58 @@ function getMembershipType($membership)
  */
 if (!function_exists('getEscortDetail')) {
     function getEscortDetail($id)
-        {
-            $escort = Escort::where('id',$id)->first();
-            return $escort;
+    {
+        $escort = Escort::where('id', $id)->first();
+        return $escort;
+    }
+}
+
+/**
+ * Get country list
+ */
+if (!function_exists('getCountryList')) {
+    function getCountryList()
+    {
+        return Country::select(['id', 'name', 'status'])->pluck('name', 'id');
+    }
+}
+
+/**
+ * Create a "Random" Strin
+ *
+ * @param string  type of random string.  basic, alpha, alnum, numeric, nozero, unique, md5, encrypt and sha1
+ * @param int number of characters
+ * @return string
+ */
+if (!function_exists('random_string')) {
+    function random_string($type = 'nozero', $len = 8)
+    {
+        switch ($type) {
+            case 'basic':
+                return mt_rand();
+            case 'alnum':
+            case 'numeric':
+            case 'nozero':
+            case 'alpha':
+                switch ($type) {
+                    case 'alpha':
+                        $pool = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                        break;
+                    case 'alnum':
+                        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                        break;
+                    case 'numeric':
+                        $pool = '0123456789';
+                        break;
+                    case 'nozero':
+                        $pool = '123456789';
+                        break;
+                }
+                return substr(str_shuffle(str_repeat($pool, ceil($len / strlen($pool)))), 0, $len);
+            case 'md5':
+                return md5(uniqid(mt_rand()));
+            case 'sha1':
+                return sha1(uniqid(mt_rand(), TRUE));
         }
     }
+}

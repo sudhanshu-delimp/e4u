@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Mail\sendContactUsRequest;
+use App\Mail\SendContactUsRequest;
+use App\Mail\SendContactusConfirmation;
+use App\Models\Contactus;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Exception;
@@ -32,25 +34,50 @@ class ContactUsController extends AppController
         ];
         $attributes = request()->validate($rules);
         try {
+            $contactObj = (new Contactus);
             $input = $request->all();
+            $userId = null;
+            $userType = null;
+            $roleType = "Visitor";
+            $email  = $request->email;
+            if (Auth::user()) {
+                $user =  Auth::user();
+                $userId =  $user->id;
+                $userType =  $user->type;
+                $roleType =  $user->role_type;
+            }
+
+            $refNumber = random_string();
             $body = [
-                'subject' => 'Contact us request',
+                'subject' => 'Contact Us Request',
+                'ref_number' => $refNumber,
+                'user_id' => $userId,
+                'user_type' => $userType,
+                'role_type' => $roleType,
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
-                'email' => $request->email,
+                'email' => $email,
                 'message' => $request->message,
             ];
 
-            $mailResp = Mail::to(config('escorts.mobileOrderSimRequest.admin'))->queue(new sendContactUsRequest($body));
-
-            if (isset($mailResp)) {
-                return response()->redirectTo('/contact-us')->with('success', __('Your contact us message sent successfully.'));
+            $contactObj->ref_number = $refNumber;
+            $contactObj->user_id = $userId;
+            $contactObj->user_type = $userType;
+            $contactObj->first_name = $request->first_name;
+            $contactObj->last_name = $request->last_name;
+            $contactObj->email = $email;
+            $contactObj->comments = $request->message;
+            if ($contactObj->save()) {
+                $mailResp = Mail::to(config('common.contactus_admin_email'))->queue(new SendContactUsRequest($body));
+                $body['subject'] = 'Contact Us Confirmation';
+                $mailResp2 = Mail::to($email)->queue(new SendContactusConfirmation($body));
+                return response()->redirectTo('/contact-us')->with('success', __('Your Contact us request has been successfully sent. '));
             } else {
-                return response()->redirectTo('/contact-us')->with('error', __('Your contact us message failed to send. Please try later..'));
+                return response()->redirectTo('/contact-us')->with('error', __('Your contact us request failed to send. Please try later..'));
             }
         } catch (Exception $e) {
             $message = $e->getMessage() . ', line: ' . $e->getLine();
-            return response()->redirectTo('/contact-us')->with('error',  'Your contact us message failed to send. Please try later..');
+            return response()->redirectTo('/contact-us')->with('error',  'Your contact us request failed to send. Please try later..');
         }
     }
 }

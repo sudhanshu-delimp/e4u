@@ -5766,7 +5766,16 @@ img.twitter-x-logo {
     top: -8px;
 }
 
-
+.custom--alertlist div {
+    display: block;
+    margin-top: 10px;
+}
+.custom--alertlist div:first-child {
+    margin-top: 0;
+}
+.custom--alertlist div p:first-child:not(.custom--alertlist div:first-child p:first-child) {
+    border-color: #ddd;
+}
 /* new css start 28 march end */
 
 

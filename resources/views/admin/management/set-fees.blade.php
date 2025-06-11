@@ -15,13 +15,190 @@
       <div class="container-fluid">
          <!--middle content-->
          <div class="row">
+
+         <div class="col-md-12">
+         <div class="v-main-heading h3">
+             Set Fees & Variables for UAdvertisers
+             <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+         </div>
+          <div class="col-md-12 mt-4">
+              <div class="card collapse" id="notes">
+                  <div class="card-body">
+                      <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                      <ol>
+                          <li>
+                           Fees and Variables can only be determined by the Managing Director (Level 1).
+                          </li>
+                          <li>
+                           There are a range of Fees that apply to Advertisers, namely:
+                           <ol type="a" class="ol_lower_alpha_bracket">
+                                        <li>Advertising Fees</li>
+                                        <li>SConcierge Services</li>
+                                        <li>Support Services</li>
+                                    </ol>
+                          </li>
+                          <li>
+                          There is a loyalty program which applies to Advertisers.
+                          </li>
+                          <li>
+                          There are a range of variables that determine:
+                          <ol type="a" class="ol_lower_alpha_bracket">
+                                        <li>Discounts to Adverting Fees</li>
+                                        <li>Loyalty Program entitlements and discounts</li>
+                                        <li>Agent Commission</li>
+                                    </ol>
+                          </li>
+                          <li>
+                          All amounts are exclusive of GST.
+                          </li>
+                          <li>
+                          Support Services are where E4U staff perform a service requested by the Advertiser, like for example, creating a Profile.
+
+                          </li>
+                      </ol>
+                  </div>
+              </div>
+          </div>
+      </div>
+<!-- Accordian Start -->
+<div class="col-md-12 mt-4">
+   <div id="accordion" class="myacording-design mb-5">
+
+          <div class="card custom-help-contain">
+               <div class="card-header">
+                  <a class="card-link" data-toggle="collapse" href="#additional_advertising">
+                  Set Fees - Advertising 
+                  </a>
+               </div>
+               <div id="additional_advertising" class="collapse" data-parent="#accordion">
+                  <div class="card-body pb-0">
+                
+                  <div class="about_me_heading_in_first_tab fill_profile_headings_global custom--headingbod custom--social-head">
+                     <h2>Advertising</h2>
+                     <span class="custom--help"><b>Help?</b></span>
+                  </div>
+                  <div class="custom-note-section">
+                        <div class="card" style="">
+                        <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3> 
+                        <ol class=" mb-0">
+                           <li>By completing these settings, the information set out under My Available Times will by default appear in your Profile creator.</li>
+                           <li>Leave the time blank if you are unavailable. Select ‘By Appointment’ as an alternative to a particular time period.</li>
+                           <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account" class="custom_links_design">feature</a> (see My Account - Profile & Tour options).</li>
+                        </ol>
+                        </div>
+                        </div>
+                  </div>
+
+                  <div class="responsive--custom--table">
+                     <table class="custom--table--fee">
+                        <thead>
+                           <tr>
+                              <th>Item</th>
+                              <th>Membership Type</th>
+                              <th>Frequency</th>
+                              <th>Rate</th>
+                              <th>Amount</th>
+                              <th>%</th>
+                              <th>Amount</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td>01</td>
+                              <td>Platinum</td>
+                              <td>Fixed</td>
+                              <td>per day</td>
+                              <td>$ 8.00</td>
+                              <td>6.25</td>
+                              <td> 7.50</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+
+                  
+
+
+                  
+                  </div>
+               </div>
+            </div>
+            <div class="card custom-help-contain">
+               <div class="card-header">
+                  <a class="card-link" data-toggle="collapse" href="#additional_concierge">
+                  Set Fees - Concierge Services 
+                  </a>
+               </div>
+               <div id="additional_concierge" class="collapse" data-parent="#accordion">
+                  <div class="card-body pb-0">
+                
+                    bb
+                  </div>
+               </div>
+            </div>
+            <div class="card custom-help-contain">
+               <div class="card-header">
+                  <a class="card-link" data-toggle="collapse" href="#additional_support">
+                  Set Fees - Support Services (E4U Staff) 
+                  </a>
+               </div>
+               <div id="additional_support" class="collapse" data-parent="#accordion">
+                  <div class="card-body pb-0">
+                
+                    cc
+                  </div>
+               </div>
+            </div>
+            <div class="card custom-help-contain">
+               <div class="card-header">
+                  <a class="card-link" data-toggle="collapse" href="#additional_variableloyalty">
+                  Set Variables - Loyalty Program Advertisers
+                  </a>
+               </div>
+               <div id="additional_variableloyalty" class="collapse" data-parent="#accordion">
+                  <div class="card-body pb-0">
+                
+                    dd
+                  </div>
+               </div>
+            </div>
+            <div class="card custom-help-contain">
+               <div class="card-header">
+                  <a class="card-link" data-toggle="collapse" href="#additional_variableagent">
+                  Set Variables - Agent & Operator
+                  </a>
+               </div>
+               <div id="additional_variableagent" class="collapse" data-parent="#accordion">
+                  <div class="card-body pb-0">
+                
+                    dd
+                  </div>
+               </div>
+            </div>
+            <div class="card custom-help-contain">
+               <div class="card-header">
+                  <a class="card-link" data-toggle="collapse" href="#additional_variableplaybox">
+                  Set Commission - Playbox
+                  </a>
+               </div>
+               <div id="additional_variableplaybox" class="collapse" data-parent="#accordion">
+                  <div class="card-body pb-0">
+                
+                    dd
+                  </div>
+               </div>
+            </div>
+
+   </div>
+</div>
+<!-- Accordian End -->
+
+
             <div class="col-sm-12 col-md-12 col-lg-12 ">
                <!-- Begin Page Content -->
                <div class="container-fluid" style="padding: 0px 0px;">
                   <!-- Page Heading -->
-                  <div class="d-flex align-items-center mb-3">
-                     <div class="v-main-heading h3">Set Pricing - Escort</div>
-                  </div>
                   <div class="row ml-1 mb-3">
                      <div class="panel-heading">
                         <ul class="nav nav-tabs tab-sec pb-2">

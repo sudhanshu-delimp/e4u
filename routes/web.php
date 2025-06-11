@@ -474,6 +474,13 @@ Route::get('/admin-dashboard/management/post-office',function(){
     return view('admin.management.post-office');
 })->name('admin.post-office');
 
+
+
+Route::get('/admin-dashboard/post-office/reports',function(){
+    return view('admin.post-office.reports');
+})->name('admin.reports');
+
+
 Route::get('/admin-dashboard/management/punterbox-reports',function(){
     return view('admin.management.punterbox-report');
 })->name('admin.punterbox-reports');

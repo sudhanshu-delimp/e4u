@@ -2626,6 +2626,28 @@ div.myacording-design .card .card-body p {
     text-align: justify !important;
 }
 
+.db_accordian_content h5 {
+    font-weight: 600;
+    color: var(--blue--text);
+    margin-bottom: 15px;
+}
+
+.db_accordian_content p {
+    margin-bottom: 10px !important;
+}
+
+.db_accordian_content p em {
+    font-family: 'Poppins';
+    font-weight: normal;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+}
+
+.db_accordian_content {
+    margin-bottom: 20px;
+}
+
 form.v-form-design .form-group {
     margin-bottom: 25px;
 }
@@ -4579,3 +4601,221 @@ select.form-control {
 	font-size: 14px;
 	color: #000;
 }
+
+/* post office new page style design db */
+
+.modal-dialog-custom {
+    max-width: 800px !important;
+}
+
+.email-content .section-one {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 20px;
+    align-items: center;
+}
+
+.email-content .common-section {
+    margin: 10px 0px;
+}
+
+.email-content .section-one .form-group,
+.email-content .common-section .form-group,
+.email-content .filter-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    align-items: center;
+}
+
+.filter-row,
+.common-section {
+    margin: 10px 0px;
+}
+
+.email-content select {
+    padding: 8px;
+    font-size: 14px;
+}
+
+.email-content label {
+    font-size: 14px;
+    color: #0c223d;
+    font-weight: 600;
+}
+
+.email-content .section-one button {
+    padding: 10px 15px;
+    font-size: 16px;
+    height: 40px;
+    align-self: center;
+    margin-top: -20px;
+}
+
+.email-content h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--blue--text);
+}
+
+.email-content h3 {
+    margin: 20px 0px 25px;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--blue--text);
+}
+
+.email-content input[type="text"],
+.email-content input[type="email"],
+.email-content textarea,
+.email-content select {
+    padding: 10px 12px;
+    font-size: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #fff;
+    color: #111827;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+.email-content input:focus,
+.email-content select:focus,
+.email-content textarea:focus {
+    border-color: #444;
+}
+
+.email-content textarea {
+    resize: vertical;
+}
+
+.email-content .radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.email-content .filter-row {
+    margin-bottom: 15px;
+}
+
+.email-content .buttons {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.email-content button {
+    padding: 12px 20px;
+    border: none;
+    background: #0c223d;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    font-size: 14px;
+}
+
+.email-content button:hover {
+    background: #0c223d;
+}
+
+.email-content button.primary {
+    background: #0c223d;
+}
+
+.email-content button.primary:hover {
+    background: #0c223d;
+}
+
+.email-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.email-content table th,
+td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.email-content table th {
+    background-color: #f0f0f0;
+}
+
+
+/* recipient-container */
+
+.recipient-container {
+    display: none;
+}
+
+.email-content .recipient-container h2 {
+    margin-bottom: 20px;
+    color: #0a2b4c;
+}
+
+.email-content .recipient-container .summary p {
+    margin: 6px 0;
+    font-size: 15px;
+}
+
+.email-content .recipient-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+.email-content .recipient-container th,
+.email-content .recipient-container td {
+    border: 1px solid #dcdcdc;
+    padding: 10px 12px;
+    text-align: left;
+}
+
+.email-content .recipient-container th {
+    background-color: #0c223d;
+    color: #fff;
+}
+
+.email-content .recipient-container .verified {
+    color: green;
+    font-weight: bold;
+}
+
+.email-content .recipient-container .note {
+    font-style: italic;
+    color: #555;
+}
+
+.email-content .recipient-container .highlight {
+    font-weight: bold;
+}
+
+@media (max-width:768px) {
+    .email-content .section-one .form-group,
+    .email-content .common-section .form-group,
+    .email-content .filter-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        align-items: center;
+    }
+    .email-content .section-one button {
+        padding: 10px 15px;
+        font-size: 16px;
+        height: 40px;
+        align-self: center;
+        margin-top: 10px;
+    }
+}
+
+
+/* end */

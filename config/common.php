@@ -1,8 +1,8 @@
 <?php
 
 return [
-	'supportTicket' => [
-	    'statuses' => [
+    'supportTicket' => [
+        'statuses' => [
             '1' => 'Active',
             '2' => 'In-progress',
             '3' => 'Resolved',
@@ -14,5 +14,6 @@ return [
             'High',
             'Low'
         ]
-    ]
+    ],
+    'contactus_admin_email' => env('CONTACTUS_ADMIN_EMAIL', 'admin@e4u.com.au'),
 ];
