@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dev;
 
 use App\Http\Controllers\Controller as BaseController;
 
-class DashboardController extends BaseController
+class RoleController extends BaseController
 {
     public function index()
     {
