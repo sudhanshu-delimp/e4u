@@ -73,9 +73,14 @@ return view('admin.global-monitoring');
  Route::get('/data-table-listing/{type?}', [GlobalMonitoringController::class, 'dataTableListingAjax'])->name('escort.current.list.dataTableListing');
  Route::get('/data-table-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableSingleListingAjax'])->name('escort.current.single-list.dataTableListing');
   
- Route::get('escort-listings', function(){
-    return view('admin.escort-listings');
-})->name('admin.escort-listings');
+//  Route::get('escort-listings', function(){
+//     return view('admin.escort-listings');
+// })->name('admin.escort-listings');
+
+Route::get('escort-listings',[GlobalMonitoringController::class,'escortListing'])->name('admin.escort-listings');
+Route::get('/data-table-escort-listing/{type?}', [GlobalMonitoringController::class, 'dataTableEscortListingAjax'])->name('escort.current.list.escort-dataTableListing');
+Route::get('/data-table-escort-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableEscortSingleListingAjax'])->name('escort.current.single-list.escort-dataTableListing');
+  
  
 Route::get('logged-in-users', function(){
     return view('admin.logged-in-users');

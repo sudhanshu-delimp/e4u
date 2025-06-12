@@ -99,7 +99,7 @@
                     </thead>
                     <tbody class="table-content">
                         <tr class="row-color">
-                            <td colspan="9" class="theme-color text-center">Loading...</td>
+                            <td colspan="10" class="theme-color text-center">Loading...</td>
                             </tr>
                         {{-- <tr class="row-color">
                             <td width="10%" class="theme-color">M60178</td>
@@ -132,7 +132,6 @@
                     <p>Server time: <span class="serverTime">[10:23:51 am]</span></p>
                     <p>Refresh time:<span class="refreshSeconds"> 30</span></p>
                     <p>Up time: <span>[{{$uptimeString}}]</span></p>
-                    {{-- <p>Up time: <span>[214 days & 09 hours 12 minutes]</span></p> --}}
                 </div>
                 <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
                 <nav aria-label="Page navigation example" class="customPagination">
