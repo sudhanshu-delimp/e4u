@@ -82,22 +82,39 @@
                         <p><span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true" style="font-size: 15px;"></i></span> {{ $escort->city ? $escort->city->name : '' }}</p>
                     </div>
                     <div class="age"><span>Avilable to:</span></div>
-                    <div class="free_profile_avilabletoimg_size">
+                    <div class="free_profile_avilabletoimg_size custom-gender-type-icon">
                         @if ($escort->available_to)
                             @foreach ($escort->available_to as $key => $available_to)
                                 {{-- <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}"> --}}
-                                <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}" title="{{ config('escorts.profile.available-to')[$available_to] }}">
+                                
+                                <div class="icon-with-tooltip position-relative">
+                                    <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}">
+                            
+                                    <span class="custom-icon-hover-tooltip">
+                                    {{ config('escorts.profile.available-to')[$available_to] }}
+                                    </span>
+                                    
+                                </div>
                             @endforeach
                         @endif
                     </div>
                 </div>
-                <div class="d-flex justify-content-between">
-                    <div class="parth_icons">
-                        <img class="list_view_free_img_height_width"
-                            src="{{ asset('assets/app/img/handwithhart.png') }}">
-                        <img class="list_view_free_img_height_width" src="{{ asset('assets/app/img/aeroupimg.png') }}">
-                        <img class="list_view_free_img_height_width"
+                <div class="d-flex justify-content-between custom-available-time-icon">
+                    <div class="parth_icons position-relative">
+                        <div class="icon-with-tooltip position-relative">
+                            <img class="list_view_free_img_height_width"
+                                src="{{ asset('assets/app/img/handwithhart.png') }}">
+                            <span class="custom-icon-hover-tooltip">Massage</span>
+                        </div>
+                        <div class="icon-with-tooltip position-relative">
+                            <img class="list_view_free_img_height_width" src="{{ asset('assets/app/img/aeroupimg.png') }}">
+                            <span class="custom-icon-hover-tooltip"> Outcalls</span>
+                        </div>
+                        <div class="icon-with-tooltip position-relative">
+                            <img class="list_view_free_img_height_width"
                             src="{{ asset('assets/app/img/areodownimg.png') }}">
+                            <span class="custom-icon-hover-tooltip">Incalls</span>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <button type="button"

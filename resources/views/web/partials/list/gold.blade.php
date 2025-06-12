@@ -117,15 +117,22 @@
                                     <i class="fa fa-star" aria-hidden="true"></i> --}}
                                 </span>
                             </div>
-                            <div class="free_profile_avilabletoimg_size">
+                            <div class="free_profile_avilabletoimg_size custom-gender-type-icon">
                                 <span class="filter-pad">Available:</span>
                                 <span>
                                     @if ($escort->available_to)
                                         @foreach ($escort->available_to as $key => $available_to)
                                             {{-- <img
                                                 src="{{ config('escorts.profile.available-to-images')[$available_to] }}"> --}}
-                                                <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}" title="{{ config('escorts.profile.available-to')[$available_to] }}">
-                                        @endforeach
+                                                <div class="icon-with-tooltip position-relative">
+                                                    <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}" title="">
+                                            
+                                                    <span class="custom-icon-hover-tooltip">
+                                                    {{ config('escorts.profile.available-to')[$available_to] }}
+                                                    </span>
+                                                    
+                                                </div>
+                                    @endforeach
                                     @endif
                                 </span>
                             </div>

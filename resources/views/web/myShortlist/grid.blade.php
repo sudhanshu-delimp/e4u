@@ -9,17 +9,19 @@
                     @if(!empty($user_type))
                         @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray()))
                             <i class='fa fa-heart' style='color: #ff3c5f;' title="Remove from Legbox" aria-hidden='true'></i>
+                            <span class="custom-heart-text">Remove from My Legbox</span>
                         @else
                             <i class="fa fa-heart-o" title="Add to Legbox" aria-hidden='true'></i>
+                            <span class="custom-heart-text">Add from My Legbox</span>
                         @endif
                     @endif
                 </span>
             @else
-                <span class="add_to_favrate" ><i class="fa fa-heart-o" aria-hidden="true" title="Add to Legbox"></i></span>
+                <span class="add_to_favrate custom--favourite" ><i class="fa fa-heart-o" aria-hidden="true" ></i> <span class="custom-heart-text">Add to My Legbox</span></span>
             @endif
             
         @else
-        <span class="add_to_favrate"  data-escortId="{{$escort->id}}"><i class="fa fa-heart-o" aria-hidden="true" title="Removed from Legbox"></i></span>
+        <span class="add_to_favrate custom--favourite"  data-escortId="{{$escort->id}}"><i class="fa fa-heart-o" aria-hidden="true"></i> <span class="custom-heart-text">Add to My Legbox</span></span>
         @endif
     </div>
     
@@ -45,25 +47,36 @@
                     <span>Price:</span>
                     <span>From $ {{ $escort->services->pluck('pivot')->min('price') }} / hr</span>
                 </div>
-                <div class="d-flex justify-content-between five_column_fonts">
+                <div class="d-flex justify-content-between five_column_fonts custom-available-time-icon">
                     <span>Services:</span>
-                    <span>
-                    <img src="{{ asset('assets/app/img/aerodownicon.svg') }}">
-                    <img src="{{ asset('assets/app/img/upaeroicon.svg') }}">
-                    </span>
+                        <span>
+                            <div class="icon-with-tooltip position-relative">
+                                <img src="{{ asset('assets/app/img/aerodownicon.svg') }}">
+                                <span class="custom-icon-hover-tooltip">Incalls</span>
+                            </div>
+                            <div class="icon-with-tooltip position-relative">
+                                <img src="{{ asset('assets/app/img/upaeroicon.svg') }}">
+                                <span class="custom-icon-hover-tooltip">Outcalls</span>
+                            </div>
+                        </span>
                 </div>
                 <div class="d-flex justify-content-between five_column_fonts">
                     <span>Gender:</span>
                     
                     <span>{{ $escort->gender ? $escort->gender : '' }}</span>
                 </div>
-                <div class="d-flex justify-content-between five_column_fonts">
+                <div class="d-flex justify-content-between five_column_fonts custom-gender-type-icon">
                     <span>Available to:</span>
                     <span>
                     @if($escort->available_to)
                     @foreach($escort->available_to as $key => $available_to)
-                    <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}">
-                    @endforeach
+                        <div class="icon-with-tooltip position-relative">
+                            <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}">                                
+                            <span class="custom-icon-hover-tooltip">
+                            {{ config('escorts.profile.available-to')[$available_to] }}
+                            </span>                            
+                        </div>
+                     @endforeach
                     @endif
                     </span>
                 </div>
