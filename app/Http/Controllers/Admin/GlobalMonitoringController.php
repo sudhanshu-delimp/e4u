@@ -45,24 +45,21 @@ class GlobalMonitoringController extends Controller
         // $dataTableData = $this->dataTableListingAjax('current', true);
 
         //dd($dataTableData, json_encode($dataTableData));
+        $start = app()->bound('serverStartTime') ? app()->make('serverStartTime') : Carbon::now()->subDays(214)->subHours(9)->subMinutes(12); // fallback for demo
 
-         $params  = [
-            'string' => request()->get('name'),
-            'city_id' => request()->get('city'),
-            'premises' => request()->get('premises'),
-            'masseur_types' => request()->get('masseur_types'),
-            'age' => request()->get('age'),
-            'prices' => request()->get('prices'),
-            'massage_services' => request()->get('massage_services'),
-            'other_services' => request()->get('other_services'),
-        ];
+        $now = Carbon::now();
+        $diff = $start->diff($now);
 
-        //list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
-        $escorts = $this->massage_profile->findByMassageCentre(50, $params);
-
+        // Format
+        $uptimeString = sprintf(
+            '%d days & %02d hours %02d minutes',
+            $diff->d + ($diff->m * 30) + ($diff->y * 365), // adjust to total days
+            $diff->h,
+            $diff->i
+        );
        // dd($escorts->items());
 
-        return view('admin.massage-centre-listings', ['type' => 'current']);
+        return view('admin.massage-centre-listings', ['type' => 'current','uptimeString'=>$uptimeString]);
     }
 
     public function dataTableListingAjax($type = NULL, $callbyFunc = false)
