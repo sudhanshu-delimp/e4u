@@ -63,6 +63,7 @@
                     <div class="age"><span class="margin_and_font_size_color_for_free">AGE:</span><span
                             class="free_profile_age_color_and_font">{{ $escort->age }}</span></div>
                     <div class="give_rating_after_get_servive">
+                        <span class="filter-pad">Rating:</span>
                         @for($i=1; $i<= 5; $i++)
                             @if($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
                                 <i class="fa fa-star" aria-hidden="true" ></i>
@@ -70,34 +71,47 @@
                                 <i class="fa fa-star-o" aria-hidden="true"></i>
                             @endif
                         @endfor
-                        {{-- <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i> --}}
+                        
                     </div>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <div class="parth">
-                        <p><span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true" style="font-size: 15px;"></i></span> {{ $escort->city ? $escort->city->name : '' }}</p>
+                    <div class="parth custom-15text">
+                        <p><span class="profile_location_icon">Location: </span> {{ $escort->city ? $escort->city->name : '' }}</p>
                     </div>
-                    <div class="age"><span>Avilable to:</span></div>
-                    <div class="free_profile_avilabletoimg_size">
+                    <div class="age custom-15text"><span>Avilable to:</span></div>
+                    <div class="free_profile_avilabletoimg_size custom-gender-type-icon">
                         @if ($escort->available_to)
                             @foreach ($escort->available_to as $key => $available_to)
                                 {{-- <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}"> --}}
-                                <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}" title="{{ config('escorts.profile.available-to')[$available_to] }}">
+                                
+                                <div class="icon-with-tooltip position-relative">
+                                    <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}">
+                            
+                                    <span class="custom-icon-hover-tooltip">
+                                    {{ config('escorts.profile.available-to')[$available_to] }}
+                                    </span>
+                                    
+                                </div>
                             @endforeach
                         @endif
                     </div>
                 </div>
-                <div class="d-flex justify-content-between">
-                    <div class="parth_icons">
-                        <img class="list_view_free_img_height_width"
-                            src="{{ asset('assets/app/img/handwithhart.png') }}">
-                        <img class="list_view_free_img_height_width" src="{{ asset('assets/app/img/aeroupimg.png') }}">
-                        <img class="list_view_free_img_height_width"
+                <div class="d-flex justify-content-between custom-available-time-icon">
+                    <div class="parth_icons position-relative">
+                        <div class="icon-with-tooltip position-relative">
+                            <img class="list_view_free_img_height_width"
+                                src="{{ asset('assets/app/img/handwithhart.png') }}">
+                            <span class="custom-icon-hover-tooltip">Massage</span>
+                        </div>
+                        <div class="icon-with-tooltip position-relative">
+                            <img class="list_view_free_img_height_width" src="{{ asset('assets/app/img/aeroupimg.png') }}">
+                            <span class="custom-icon-hover-tooltip"> Outcalls</span>
+                        </div>
+                        <div class="icon-with-tooltip position-relative">
+                            <img class="list_view_free_img_height_width"
                             src="{{ asset('assets/app/img/areodownimg.png') }}">
+                            <span class="custom-icon-hover-tooltip">Incalls</span>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <button type="button"
@@ -106,8 +120,9 @@
                                 class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">Add
                             to Shortlist</button>
                     </div>
-                    <div class="video_icon">
-                        <a href="#"><img src="{{ asset('assets/app/img/video_play.svg') }}"></a>
+                    <div class="video_icon custom--video-section">
+                        <a href="#"><img src="{{ asset('assets/app/img/video_play.svg') }}">
+                            <span class="custom--tooltip">Escort has video to view</span></a>
                     </div>
                 </div>
                 <div class="mt-1"> 

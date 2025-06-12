@@ -442,6 +442,10 @@ Route::get('/admin-dashboard/management/competitor-database',function(){
     return view('admin.management.competitor-database');
 })->name('admin.competitor-database');
 
+Route::get('/admin-dashboard/management/memberships',function(){
+    return view('admin.management.memberships');
+})->name('admin.memberships');
+
 Route::get('/admin-dashboard/management/manage-user',function(){
     return view('admin.management.manage-user');
 })->name('admin.manage-user');
@@ -469,6 +473,18 @@ Route::get('/admin-dashboard/management/marketing-templates-e4u',function(){
 Route::get('/admin-dashboard/management/post-office',function(){
     return view('admin.management.post-office');
 })->name('admin.post-office');
+
+
+Route::get('/admin-dashboard/notifications/global',function(){
+    return view('admin.notifications.global');
+})->name('admin.global');
+
+
+
+Route::get('/admin-dashboard/post-office/reports',function(){
+    return view('admin.post-office.reports');
+})->name('admin.reports');
+
 
 Route::get('/admin-dashboard/management/punterbox-reports',function(){
     return view('admin.management.punterbox-report');

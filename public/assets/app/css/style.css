@@ -5672,19 +5672,23 @@ h2.custom--review img {
 .custom--service-tag .grid_list_icon_box span {
     position: absolute;
     font-size: 12px;
-    width: 100%;
-    top: -23px;
-    min-width: 64px;
-    background: #fff;
+    width: max-content;
+    top: -36px;
     text-align: center;
     left: -3px;
-    border-radius: 3px;
-    border: 1px solid #5d6d7e;
     opacity: 0;
     visibility: hidden;
-    color: #0c223d;
+    color: rgb(255, 255, 255);
+    border-radius: 3px;
+    background: rgb(255, 60, 95);
+    padding: 8px;
 }
-
+.gold_list_frame .verify-image-custom {
+    position: absolute;
+    top: unset !important;
+    right: 0px;
+    bottom: 20px !important;
+}
 .custom--service-tag .grid_list_icon_box:hover span {
     opacity: 1;
     visibility: visible;
@@ -5748,6 +5752,36 @@ img.twitter-x-logo {
     width: max-content;
 }
 
+.custom-gender-type-icon .icon-with-tooltip,
+.custom-available-time-icon .icon-with-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-gender-type-icon .custom-icon-hover-tooltip,
+.custom-available-time-icon .custom-icon-hover-tooltip {
+    background: #ff3c5f;
+    position: absolute;
+    top: -30px;
+    right: 0%;
+    transform: translateX(0%);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 999;
+}
+
+.custom-gender-type-icon .icon-with-tooltip:hover .custom-icon-hover-tooltip,
+.custom-available-time-icon .icon-with-tooltip:hover .custom-icon-hover-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
 .custom--drop-icons img {
     width: auto;
     height: auto;
@@ -5766,7 +5800,65 @@ img.twitter-x-logo {
     top: -8px;
 }
 
+.custom--alertlist div {
+    display: block;
+    margin-top: 10px;
+}
 
+.custom--alertlist div:first-child {
+    margin-top: 0;
+}
+
+.custom--alertlist div p:first-child:not(.custom--alertlist div:first-child p:first-child) {
+    border-color: #ddd;
+}
+.custom--gender--area, .custom--available-section {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+.custom--available-section .video_icon, .custom--video-section {
+    position: relative;
+}
+.custom--available-section .video_icon span.custom--tooltip, .custom--video-section span.custom--tooltip {
+    position: absolute;
+    color: rgb(255, 255, 255);
+    pointer-events: none;
+    right: -1rem;
+    width: max-content;
+    top: 1.5rem;
+    z-index: 1;
+    visibility: hidden;
+    opacity: 0;
+    font-size: 11px;
+    background: rgb(255, 60, 95);
+    padding: 10px;
+    border-radius: 5px;
+}
+.custom--available-section .video_icon:hover span.custom--tooltip, .custom--video-section:hover span.custom--tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+.custom--available-section > div {
+    width: calc(33.3333% - 6px);
+}
+.custom--gender--area div {
+    width: calc(33.3333% - 6px);
+}
+.custom--available-section {
+    padding-top: 10px;
+}
+.custom--gender--area, .custom--available-section {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+.gold_list_frame th.payment_accept_text_color * {
+    font-size: 12px;
+}
+.silver_listbx .age span, .silver_listbx .give_rating_after_get_servive span.filter-pad, .silver_listbx span.profile_location_icon, .custom-15text {
+    font-size: 15px;
+}
 /* new css start 28 march end */
 
 
@@ -5921,30 +6013,33 @@ img.twitter-x-logo {
 
 .blog-hero-section {
     background-color: #f9f9f9;
-  }
-  
-  .blog-title {
+}
+
+.blog-title {
     font-size: 32px;
     font-weight: 700;
     line-height: 1.2;
-  }
-  
-  .blog-subtitle {
+}
+
+.blog-subtitle {
     font-size: 18px;
     color: #c0392b;
-  }
-  
-  .blog-featured-image {
+}
+
+.blog-featured-image {
     max-height: 300px;
     object-fit: cover;
     width: 100%;
-  }
+}
 
-  /* General Blog Section Styles */
+
+/* General Blog Section Styles */
+
 .section.blog-wrap {
     padding: 80px 0;
     background-color: #f9f9f9;
 }
+
 .single-blog-item {
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -5996,11 +6091,14 @@ img.twitter-x-logo {
     padding-left: 15px;
     margin: 20px 0;
 }
+
 p.blog-link {
     word-break: break-word;
 }
 
+
 /* Tags & Share Links */
+
 .tag-option ul {
     list-style: none;
     padding: 0;
@@ -6021,7 +6119,9 @@ p.blog-link {
     color: #007bff;
 }
 
+
 /* Post Navigation */
+
 .posts-nav {
     border-radius: 8px;
     border: 1px solid #eee;
@@ -6042,7 +6142,9 @@ p.blog-link {
     font-size: 13px;
 }
 
+
 /* Comments */
+
 .comment-area-box {
     overflow: hidden;
     border-bottom: 1px solid #eee;
@@ -6068,7 +6170,9 @@ p.blog-link {
     font-size: 15px;
 }
 
+
 /* Comment Form */
+
 .contact-form input,
 .contact-form textarea {
     border: 1px solid #ddd;
@@ -6079,7 +6183,7 @@ p.blog-link {
 .contact-form textarea:focus {
     outline: none;
     border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0,123,255,0.3);
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
 }
 
 .contact-form .btn-main {
@@ -6094,27 +6198,25 @@ p.blog-link {
     background-color: #0056b3;
 }
 
+
 /* Responsive Styles */
+
 @media (max-width: 768px) {
     .single-blog-item h2 {
         font-size: 22px;
     }
-
     .posts-nav {
         flex-direction: column;
         text-align: center;
     }
-
     .posts-nav .border {
         display: none;
     }
-
     .comment-area-box img {
         width: 50px;
         height: 50px;
     }
 }
-
 
 .blog-item-content hr {
     border-top: 1px solid #000;
@@ -6140,15 +6242,16 @@ p.pera-note {
     color: #4e73df !important;
     text-decoration: revert;
 }
-  
-  @media (max-width: 768px) {
+
+@media (max-width: 768px) {
     .blog-title {
-      font-size: 24px;
+        font-size: 24px;
     }
     .blog-featured-image {
-      max-height: 180px;
+        max-height: 180px;
     }
-  }  
+}
+
 
 /* Media Query Start*/
 

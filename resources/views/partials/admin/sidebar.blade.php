@@ -701,7 +701,7 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Support"
                 aria-expanded="true" aria-controls="collapseTwo">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/support.png') }}">
-                <span>Support &#10060;</span>
+             <span>Support    <!-- &#10060;--> </span> 
             </a>
             <div id="Support" class=" collapse @if (request()->segment(3) == 'abbreviations' ||
                     request()->segment(3) == 'classification-laws' ||
@@ -739,6 +739,51 @@
                 </div>
             </div>
         </li>
+        <!-- post Office -->
+         
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#PostOffice"
+                aria-expanded="false" aria-controls="PostOffice">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                    src="{{ asset('assets/dashboard/img/menu-icon/post-office.png') }}">
+                <span>Post Office (Send) <!--&#10060;--></span>
+            </a>
+            <div id="PostOffice" class=" collapse  @if (request()->segment(3) == 'reports') show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-0 collapse-inner rounded mb-2">
+                    <a href="{{ route('admin.reports') }}" class="collapse-item">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/email-report.png') }}">
+                        <span
+                            style="{{ request()->segment(3) == 'reports' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Reports</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+         <!-- end -->
+
+
+         
+        <!-- Notification -->
+         
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#notification"
+                aria-expanded="false" aria-controls="notification">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                    src="{{ asset('assets/dashboard/img/menu-icon/global-notification.png') }}">
+                <span>Notification  <!--&#10060;--></span>
+            </a>
+            <div id="notification" class=" collapse  @if (request()->segment(3) == 'global') show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-0 collapse-inner rounded mb-2">
+                    <a href="{{ route('admin.global') }}" class="collapse-item">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/web-notifications.png') }}">
+                        <span
+                            style="{{ request()->segment(3) == 'global' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Global</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+         <!-- end -->
         <li class="nav-item">
             <a class="nav-link" href="{{ route('admin.support-tickets') }}">
                 <a class="nav-link" href="{{ route('admin.support-ticket.list') }}">
