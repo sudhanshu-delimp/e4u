@@ -80,20 +80,20 @@
                             </div>
                             <div class="give_rating_after_get_servive">
                                 <span class="filter-pad"><span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true" style="font-size: 15px;"></i></span> {{$escort->city ? $escort->city->name : ''}}</span>
-                                <span class="give_rating_after_get_servive">
-                                @for($i=1; $i<= 5; $i++)
-                                    @if($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
-                                        <i class="fa fa-star" aria-hidden="true" ></i>
-                                    @else
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    @endif
-                                @endfor
-                                {{-- <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i> --}}
-                                </span>
+                                    <span class="give_rating_after_get_servive">
+                                    @for($i=1; $i<= 5; $i++)
+                                        @if($escort->star_rating && $escort->star_rating > 0 && $i <= $escort->star_rating)
+                                            <i class="fa fa-star" aria-hidden="true" ></i>
+                                        @else
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        @endif
+                                    @endfor
+                                    {{-- <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i> --}}
+                                    </span>
                             </div>
                             <div class="available custom-gender-type-icon">
                                 <span class="filter-pad">Available:</span>

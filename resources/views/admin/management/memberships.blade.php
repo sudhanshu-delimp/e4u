@@ -3,10 +3,42 @@
 <div class="container-fluid">
    <!--middle content-->
    <div class="row">
+      
+      <div class="col-md-12">
+         <div class="v-main-heading h3" style="display: inline-block; padding-top: 0;"><h1> Membership</h1></div>
+            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+     </div>
+     <div class="col-md-12 ">
+         <div class="card collapse  mb-4" id="notes">
+             <div class="card-body">
+                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                 <ol>
+                     <li>This form will be pre-populated with your details according to what you have
+                         entered in <a href="{{ route('escort.profile.information') }}" class="custom_links_design">My Account</a>. You can alter any of the information.</li>
+                     
+                     <li>Payment is based on the monthly Fee for the Email service.</li>
+                     <li>Complete the form to request the Email service. When completing the form please
+                         ensure all of the details are correct and you have selected the correct option for
+                         communications.
+                     </li>
+                 </ol>
+             </div>
+         </div>
+     </div>
     <div class="col-md-12">
-        <div class="total-memberships">
-           Total Memberships: <span>9,258</span>
-        </div>
+      <div class="row my-3">
+         <div class="col-lg-4 col-md-12 col-sm-12">
+             
+         </div>
+         <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
+           
+             <div class="total_listing">
+                 <div><span>Total Memberships: </span></div>
+                 <div><span>9,258</span></div>
+             </div>
+         </div>
+     </div>
+        
         <div class="table-responsive membership--inner">
            <table class="table table-bordered">
               <thead>
