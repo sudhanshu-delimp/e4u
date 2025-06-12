@@ -71,7 +71,7 @@ class ContactUsController extends AppController
                 $mailResp = Mail::to(config('common.contactus_admin_email'))->queue(new SendContactUsRequest($body));
                 $body['subject'] = 'Contact Us Confirmation';
                 $mailResp2 = Mail::to($email)->queue(new SendContactusConfirmation($body));
-                return response()->redirectTo('/contact-us')->with('success', __('Your Contact Us request has been successfully sent. '));
+                return response()->redirectTo('/contact-us')->with('success', __('Your Contact Us request has been successfully sent.'));
             } else {
                 return response()->redirectTo('/contact-us')->with('error', __('Your Contact Us request failed to send. Please try later..'));
             }
