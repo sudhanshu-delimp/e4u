@@ -450,6 +450,10 @@ Route::get('/admin-dashboard/management/statistics/tours',function(){
     return view('admin.management.statistics.tours');
 })->name('admin.tours');
 
+Route::get('/admin-dashboard/management/statistics/profile',function(){
+    return view('admin.management.statistics.profile');
+})->name('admin.profile');
+
 Route::get('/admin-dashboard/management/manage-user',function(){
     return view('admin.management.manage-user');
 })->name('admin.manage-user');

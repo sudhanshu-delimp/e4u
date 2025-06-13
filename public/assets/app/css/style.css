@@ -5669,7 +5669,7 @@ h2.custom--review img {
     color: var(--white) !important;
 }
 
-.custom--service-tag .grid_list_icon_box span {
+.custom--service-tag .grid_list_icon_box span, span.custom-toltip {
     position: absolute;
     font-size: 12px;
     width: max-content;
@@ -5689,9 +5689,13 @@ h2.custom--review img {
     right: 0px;
     bottom: 20px !important;
 }
-.custom--service-tag .grid_list_icon_box:hover span {
+.custom--service-tag .grid_list_icon_box:hover span,
+.toltip-parent:hover span.custom-toltip {
     opacity: 1;
     visibility: visible;
+}
+.toltip-parent {
+    position: relative;
 }
 
 .custom-search-help {
