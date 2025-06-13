@@ -135,7 +135,7 @@
                 <div class="timer_section">
                     <p>Server time: <span class="serverTime">[10:23:51 am]</span></p>
                     <p>Refresh time:<span class="refreshSeconds"> 30</span></p>
-                    <p>Up time: <span>[{{$uptimeString}}]</span></p>
+                    <p>Up time: <span class="uptimeClass">[{{getAppUptime()}}]</span></p>
                 </div>
                 <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
                 <nav aria-label="Page navigation example">
@@ -271,11 +271,12 @@ CKEDITOR.replace('editor1', {
             let countdown = 30;
             setInterval(() => {
                 countdown--;
-                $(".refreshSeconds").text(' '+countdown);
+                $(".refreshSeconds").text(' ['+countdown+']');
 
                 if (countdown <= 0) {
                     $('#escort_listings').DataTable().ajax.reload(null, false);
                     countdown = 30;
+                    
                 }
 
             }, 1000);
@@ -339,7 +340,8 @@ CKEDITOR.replace('editor1', {
                     targets: 9,
                     orderable: false,
                     render: function(data, type, row) {
-                        $(".serverTime").text(row.server_time);
+                        $(".serverTime").text('['+row.server_time+']');
+                        $(".uptimeClass").html('['+row.upTime+']');
                         return `
                             <div class="dropdown no-arrow ml-3">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"

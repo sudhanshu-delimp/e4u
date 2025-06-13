@@ -10,6 +10,7 @@ use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Repositories\Service\ServiceInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Yajra\DataTables\Facades\DataTables;
 
 class GlobalMonitoringController extends Controller
@@ -27,42 +28,33 @@ class GlobalMonitoringController extends Controller
 
     public function massageCenterListing()
     {
-        # All current (published) Listings are displayed in this table
-
-        // $active_escorts = Escort::select(['id', 'user_id', 'name', 'profile_name', 'state_id', 'city_id'])
-        //     ->with([
-        //         'user',
-        //         'state' => function ($query) {
-        //             $query->select(['id', 'name', 'country_id']);
-        //         }
-        //     ])
-        //     ->where('enabled', 1)
-        //     ->whereNotNull('profile_name')
-        //     ->get()
-        //     ->toArray();
-
-        //dd($active_escorts);
-
-        //return view('escort.dashboard.list', compact('escort', 'type', 'active_escorts'));
-        // $dataTableData = $this->dataTableListingAjax('current', true);
-
-        //dd($dataTableData, json_encode($dataTableData));
-        $start = app()->bound('serverStartTime') ? app()->make('serverStartTime') : Carbon::now()->subDays(214)->subHours(9)->subMinutes(12); // fallback for demo
-
-        $now = Carbon::now();
-        $diff = $start->diff($now);
-
-        // Format
-        $uptimeString = sprintf(
-            '%d days & %02d hours %02d minutes',
-            $diff->d + ($diff->m * 30) + ($diff->y * 365), // adjust to total days
-            $diff->h,
-            $diff->i
-        );
-       // dd($escorts->items());
+        $uptimeString = $this->getAppUptime();
 
         return view('admin.massage-centre-listings', ['type' => 'current','uptimeString'=>$uptimeString]);
     }
+
+    public function getAppUptime()
+    {
+        $startTime = Cache::get('app_start_time');
+        $str = '';
+
+        if (!$startTime) {
+            return 'App start time not available.';
+        }
+
+        $start = \Carbon\Carbon::parse($startTime);
+        $now = now();
+
+        $diffInSeconds = $now->diffInSeconds($start);
+
+        $days = floor($diffInSeconds / 86400);
+        $hours = floor(($diffInSeconds % 86400) / 3600);
+        $minutes = floor(($diffInSeconds % 3600) / 60);
+        $str .= $days. ' days & '.$hours .' hours ' .$minutes. ' minutes';
+
+        return $str;
+    }
+
 
     public function dataTableListingAjax($type = NULL, $callbyFunc = false)
     {
@@ -87,7 +79,7 @@ class GlobalMonitoringController extends Controller
          
         //list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
         $escorts = $this->massage_profile->findByMassageCentre(50, $params);
-
+        //dd($escorts);
         //dd($escorts->toArray());
        $dataTableData = [];
         if ($search) {
@@ -106,6 +98,10 @@ class GlobalMonitoringController extends Controller
         if(count($escorts->toArray()) > 0){
             $dataTableData = $escorts->toArray()['data'];
             //$dataTableData['recordTotal'] = count($dataTableData);
+            foreach ($dataTableData as $key => $item) {
+                $dataTableData[$key]['upTime'] = $this->getAppUptime();
+                $dataTableData[$key]['server_time'] = now()->format('h:i:s A');
+            }
         }
 
         $actionButtons = `<div class="dropdown no-arrow ml-3">
@@ -364,6 +360,10 @@ class GlobalMonitoringController extends Controller
         
         if(count($escorts->toArray()) > 0){
             $dataTableData = $escorts->toArray();
+            foreach ($dataTableData as $key => $item) {
+                $dataTableData[$key]['upTime'] = $this->getAppUptime();
+                $dataTableData[$key]['server_time'] = now()->format('h:i:s A');
+            }
         }
 
 
@@ -404,18 +404,7 @@ class GlobalMonitoringController extends Controller
     # Escort listing start here
     public function escortListing()
     {
-        $start = app()->bound('serverStartTime') ? app()->make('serverStartTime') : Carbon::now()->subDays(214)->subHours(9)->subMinutes(12); // fallback for demo
-
-        $now = Carbon::now();
-        $diff = $start->diff($now);
-
-        // Format
-        $uptimeString = sprintf(
-            '%d days & %02d hours %02d minutes',
-            $diff->d + ($diff->m * 30) + ($diff->y * 365), // adjust to total days
-            $diff->h,
-            $diff->i
-        );
+        $uptimeString = $this->getAppUptime();
 
         return view('admin.escort-listings', ['type' => 'current','uptimeString'=>$uptimeString]);
     }
@@ -570,6 +559,7 @@ class GlobalMonitoringController extends Controller
                         // 'fee' => $totalAmount,
                         'left_days' => Carbon::parse($purchase['end_date'])->diffInDays(Carbon::now()),
                         'fee' => $totalAmount,
+                        'upTime' => $this->getAppUptime(),
 
                     ];
                 }
@@ -696,7 +686,7 @@ class GlobalMonitoringController extends Controller
                     'days' => $daysDiff,
                     'left_days' => Carbon::parse($purchase['end_date'])->diffInDays(Carbon::now()),
                     'fee' => $totalAmount,
-
+                    'upTime' => $this->getAppUptime(),
                 ];
             }
         }
