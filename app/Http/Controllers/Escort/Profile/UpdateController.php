@@ -1276,6 +1276,17 @@ class UpdateController extends AppController
             ];
     
             if ($escort = $this->escort->store($input, null)) {
+                if (!empty(trim($request->name)) && !empty(trim($request->update_stage_name))) {
+
+                    $users = $this->user->find($user->id);
+        
+                    $escortNames = $users->escorts_names;
+                    if ($escortNames == NULL || !in_array($request->name, $escortNames)) {
+                        $escortNames[] = trim($request->name);
+                        $users->escorts_names = $escortNames;
+                        $users->save();
+                    }
+                }
             $response = [
                 'success' => true,
                 'message' => 'Profile has been created for the selected location.'
