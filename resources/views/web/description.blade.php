@@ -693,7 +693,7 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table" style="{{ empty($cat2_services_one) == 0 ? 'border: 1px solid black;' : ''}}">
+                                            <div class="row margin_zero_for_table" style="{{ empty($cat2_services_one) ? 'border: 1px solid black;' : ''}}">
                                                 <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat2_services_one) ? 'padding: 1px;' : ''}}">
                                                     <?php
                                                     $dataExistInTable2 = false;
