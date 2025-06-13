@@ -11,6 +11,6 @@ class DashboardController extends BaseController
     {
         $user = User::find(2);
         return response()->json($user);
-        return view('dev.dashboard');
+        //return view('dev.dashboard');
     }
 }

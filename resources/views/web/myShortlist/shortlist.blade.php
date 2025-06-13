@@ -170,10 +170,8 @@
                         </div>
                     </div>
                      @php
-                        if($defaultViewType){
-                            $viewType = $defaultViewType;
-                        }
 
+                        $viewType = 'list';
                         if (request()->get('view') === 'list') {
                             $viewType = 'list';
                         }
@@ -306,8 +304,19 @@
                             <li><h3>My Shortlist</h3></li>
                             {{-- <li><a href="#" data-toggle="modal" data-target="#forhelp" title="Filters explained">Help <i class="fa fa-question-circle-o" aria-hidden="true"></i></a></li> --}}
                             {{-- <li><a href="#" data-toggle="modal" data-target="#forhelp" title="Back To Listings">Back To Listings</a></li> --}}
+                             @php
+                                
+                                if (str_contains($backToListing, 'view=')) {
+                                        $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToListing);
+                                } else {
+                                    // If view param not present, append it properly
+                                    $separator = str_contains($backToListing, '?') ? '&' : '?';
+                                    $finalUrl = $backToListing . $separator . 'view=' . $viewType;
+                                }
+                                    
+                            @endphp
                             <li class="fiter_btns slect__btn_tab"><div class="display_inline_block mb-1 mr-2 ">
-                                <a type="submit" href="{{ $backToListing }}" class="btn reset_filter p-1" data-toggle="tooltip" title="Apply filters - Search">
+                                <a type="submit" href="{{$finalUrl}}" class="btn reset_filter p-1" data-toggle="tooltip" title="Back To Listing">
                                 {{-- <i class="fa fa-back" aria-hidden="true"></i> --}}
                                 <i class="fa fa-arrow-left ml-0" aria-hidden="true" style="padding: 5px;font-size: 16px;"></i>
                                  Back To Listings
