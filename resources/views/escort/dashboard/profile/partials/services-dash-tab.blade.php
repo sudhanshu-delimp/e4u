@@ -163,27 +163,42 @@
                                 <img src="{{asset('assets/app/img/areodownimg.png')}}" data-toggle="tooltip" data-html="true" data-placement="top" title="Outcall rates" data-boundary="window">
                             </div>
                         </div>
-                        @foreach($durations as $duration)
+                        @foreach($durations as $key => $duration)
                         <div class="rate_first_row">
                             <input type="hidden" name="duration_id[]" value="{{ $duration->id}}">
                             <div class="form-group row">
                                 <label class="col-3" for="exampleFormControlSelect1">{{ $duration->name}}:</label>
                                 <div class="col-3">
                                     <div class="service_rate_dolor_symbol form-group">
-                                        <span>$</span> 
-                                        <input type="number" placeholder="0" min="0" data-parsley-excluded="true" class="form-control form-control-sm select_tag_remove_box_sadow" id="massage_price" name="massage_price[]" value="{{ $escort->durationRate($duration->id, 'massage_price') }}" step="10" max=9999 >
+                                        @if ($key == 0)
+                                            <span style="color: #FF3C5F;" class="font-weight-normal">Not Available</span>
+                                        @else
+                                            <span>$</span>
+                                            <input 
+                                                type="number" 
+                                                name="massage_price[]" 
+                                                id="massage_price_{{ $key }}" {{-- UNIQUE ID for each input --}}
+                                                class="form-control form-control-sm select_tag_remove_box_sadow"
+                                                placeholder="0"
+                                                min="0"
+                                                max="9999"
+                                                step="10"
+                                                value="{{ $escort->durationRate($duration->id, 'massage_price') }}"
+                                            >
+                                        @endif
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-3">
+                                    <div class="service_rate_dolor_symbol form-group">
+                                        <span>$</span>
+                                        <input min="0" type="number" class="form-control form-control-sm select_tag_remove_box_sadow" id="incall_price" name="incall_price[]" value="{{ $escort->durationRate($duration->id, 'incall_price') }}" step="10" max=9999 data-parsley-excluded>
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="service_rate_dolor_symbol form-group">
                                         <span>$</span>
-                                        <input min="0" placeholder="0" type="number" class="form-control form-control-sm select_tag_remove_box_sadow" id="incall_price" name="incall_price[]" value="{{ $escort->durationRate($duration->id, 'incall_price') }}" step="10" max=9999 data-parsley-excluded>
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="service_rate_dolor_symbol form-group">
-                                        <span>$</span>
-                                        <input min="0" placeholder="0" type="number" class="form-control form-control-sm select_tag_remove_box_sadow" id="outcall_price" name="outcall_price[]" value="{{ $escort->durationRate($duration->id, 'outcall_price') }}" step="10" max=9999>
+                                        <input min="0" type="number" class="form-control form-control-sm select_tag_remove_box_sadow" id="outcall_price" name="outcall_price[]" value="{{ $escort->durationRate($duration->id, 'outcall_price') }}" step="10" max=9999>
                                     </div>
                                 </div>
                             </div>
