@@ -746,7 +746,7 @@
                 aria-expanded="false" aria-controls="PostOffice">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/post-office.png') }}">
-                <span>Post Office (Send) <!--&#10060;--></span>
+                <span>Post Office (Send) &#10060; </span>
             </a>
             <div id="PostOffice" class=" collapse  @if (request()->segment(3) == 'reports') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -770,15 +770,40 @@
                 aria-expanded="false" aria-controls="notification">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/global-notification.png') }}">
-                <span>Notification  <!--&#10060;--></span>
+                <span>Notifications  <!--&#10060;--></span>
             </a>
-            <div id="notification" class=" collapse  @if (request()->segment(3) == 'global') show @endif;"
+            <div id="notification" class=" collapse  @if (request()->segment(3) == 'global' || request()->segment(3) == 'agents' || request()->segment(3) == 'viewers'|| request()->segment(3) == 'escorts'|| request()->segment(3) == 'centres') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
+                    {{-- global --}}
                     <a href="{{ route('admin.global') }}" class="collapse-item">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/web-notifications.png') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/g-notification.png') }}">
                         <span
                             style="{{ request()->segment(3) == 'global' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Global</span>
+                    </a>
+                    {{-- agents --}}
+                    <a href="{{ route('admin.agents') }}" class="collapse-item">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/agent.png') }}">
+                        <span
+                            style="{{ request()->segment(3) == 'agents' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Agents</span>
+                    </a>
+                    {{-- viewers --}}
+                    <a href="{{ route('admin.viewers') }}" class="collapse-item">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/v-notification.png') }}">
+                        <span
+                            style="{{ request()->segment(3) == 'viewers' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Viewers</span>
+                    </a>
+                    {{-- escorts --}}
+                    <a href="{{ route('admin.escorts') }}" class="collapse-item">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/e-notification.png') }}">
+                        <span
+                            style="{{ request()->segment(3) == 'escorts' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Escorts</span>
+                    </a>
+                    {{-- centres --}}
+                    <a href="{{ route('admin.centres') }}" class="collapse-item">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/c-notification.png') }}">
+                        <span
+                            style="{{ request()->segment(3) == 'centres' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Centres</span>
                     </a>
                 </div>
             </div>
@@ -867,6 +892,7 @@
                         fill="#C2CFE0"></path>
                 </svg>
                 <span>Management  &#10060;</span>
+                
             </a>
 
             <div id="Management" class="collapse @if (request()->segment(3) == 'email-management' ||
@@ -877,12 +903,31 @@
                     request()->segment(2) == 'All-user' ||
                     request()->segment(3) == 'set-fees' ||
                     request()->segment(3) == 'manage-user' ||
+                    request()->segment(3) == 'memberships' ||
                     request()->segment(3) == 'legbox-report' ||
-                    request()->segment(3) == 'punterbox-reports' ||
+                    request()->segment(3) == 'punterbox-reports' ||                    
+                    request()->segment(3) == 'tours' ||
                     request()->segment(3) == 'manage-staff') ||
                     request()->segment(3) == 'competitor-database') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
+
+                     {{-- statistics --}}
+                     <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse" data-target="#statisticsMenu" aria-expanded="false" aria-controls="statisticsMenu">
+                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                        <span>Statistics</span>
+                        
+                    </a>
+                    
+                    <div id="statisticsMenu" class="collapse pl-3" style="margin-left: 10px;">
+                        <a class="collapse-item" href="{{ route('admin.tours') }}">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span  style="{{ request()->segment(3) == 'tours' ? 'color: #e5365a;' : '' }}">Tours</span>
+                        </a>
+                    </div>
+
+
                     {{-- <a class="collapse-item" href="#">
                 <img width="16" height="17" viewBox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png')}}">
                 <span>Dashboard</span></a> --}}
@@ -943,6 +988,13 @@
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                         <span style="{{ request()->segment(3) == 'manage-user' ? 'color: #e5365a;' : '' }}">Manage Staff</span></a>
+                        <a class="collapse-item" href="{{ route('admin.memberships') }}">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span style="{{ request()->segment(3) == 'memberships' ? 'color: #e5365a;' : '' }}">Memberships</span></a>
+
+
+
                     <a class="collapse-item" href="#">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
@@ -957,6 +1009,8 @@
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                         <span>Website Management</span></a>
+                       
+                           
                 </div>
             </div>
         </li>

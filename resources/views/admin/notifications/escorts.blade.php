@@ -27,7 +27,7 @@
                            <div class="card-body">
                               <h3 class="NotesHeader"><b>Notes:</b> </h3>
                               <ol class="pl-4">
-                              <li>You can create a Notification, published at the top of the Website.</li>
+                              <li>You can create a Notification, published at the top of the Escort’s Dashboard.</li>
                               </ol>
                            </div>
                      </div>
@@ -49,7 +49,7 @@
                      </div>
                      <div class="col-lg-8 col-md-12 col-sm-12">
                         <div class="bothsearch-form" style="gap: 10px;">
-                           <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#createNotification" style="color:var(--peach)">Create Notification</button>
+                           <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#createNotification" style="color:var(--peach)">New Notification</button>
                         </div>
                      </div>
                   </div>
@@ -66,9 +66,7 @@
                                           <th scope="col">Ref
                                           </th>
                                           <th scope="col">Start</th>
-                                          <th scope="col">
-                                             Date Created
-                                          </th>
+                                         
                                           <th scope="col">Finish</th>
                                           <th scope="col">Type</th>
                                           <th scope="col">Status</th>
@@ -80,15 +78,9 @@
                                           <td class="theme-color">Maintenance</td>
                                           <td class="theme-color">08-06-2025</td>
                                           <td class="theme-color">09-06-2025</td>
-                                          <td class="theme-color">09-06-2025</td>
                                           <td class="theme-color">Adhoc</td>
                                           <td class="theme-color">Published</td>
-                                          {{-- <td class="theme-color">
-                                             <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitch_1">
-                                                <label class="custom-control-label" for="customSwitch_1"></label>
-                                             </div>
-                                          </td> --}}
+                                         
                                           <td class="theme-color">
                                              <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -100,7 +92,7 @@
                                                    
                                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >View <i class="fa fa-eye"></i></a>
                                                    <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Print <i class="fa fa-fw fa-print" ></i></a>
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Print <i class="fa fa-fw fa-print"></i></a>
                                                    
                                                 </div>
                                              </div>
@@ -181,25 +173,47 @@
                            <option value="">-- Select Type --</option>
                            <option value="adhoc">Adhoc</option>
                            <option value="template">Template</option>
+                           <option value="notice">Notice</option>
                         </select>
                      </div>
                      <div id="manualContent" style="display: none;" class="col-12 mb-3">
-                        <textarea id="content" placeholder="Type your content here..." class="form-control rounded-0"></textarea>
+                        <textarea id="content" placeholder="Add your content here..." class="form-control rounded-0"></textarea>
                      </div>
                
                   <div id="templateSelect" style="display: none;" class="col-12 mb-3">
                         <select id="templateList" class="form-control rounded-0">
                            <option value="">-- Choose a Template --</option>
                            <option selected disabled>Select Template</option>
-                        <option>We will be undertaking website maintenance on Monday evening from 11:00pm until 4:00am WST. The website will remain live and unaffected.</option>
-                        <option>Have you checked out our new service - My Playbox!! Complement your income and start using this free service.</option>
-                        <option>Do you tour? Our Tour creator makes the whole process a quick and easy experience. Check it out!</option>
-                        <option>Would you like to have the best Profile on here but English is not your first language? Request a Support Agent and let them do all the work for you.</option>
-                        <option>Did you know that if you create ‘Credit’ in your account, discounts apply.</option>
-                        <option>Looking for something different to do? Why not become a Support Agent. Enquire with us.</option>
+                        <option value="t1">Check out our Visa services. Go to Concierge and select
+                           - Visa.</option>
+                       <option value="t2">Check out of Mobile SIM service. Go to Concierge and
+                        select - Visa.</option>
+                       <option value="t3">Did you know you can order product online? Go to
+                        Concierge and select - Product.</option>
+                       <option value="t4">Discounts apply when you spend a certain amount with
+                        us. Check out our Loyalty Program.</option>
+                       <option value="t5">Want to save on Fees, become an Influencer.</option>
+                       <option value="t6">Need an email account? We can help you. Simply go to
+                        Concierge and select Email.</option>
+                       <option value="t7">Did you know you can book your flights online with us?
+                        Simply go to Concierge and select Travel.</option>
+                       <option value="t8">Did you know you can book your accommodation online
+                        with us? Simply go to Concierge and select
+                        Accommodation.</option>
                         
                         </select>
                   </div>
+                 
+                     <!-- Notice Section -->
+                     <div id="noticeSection" class="col-12 mb-3" style="display: none;">
+                        <input type="text" id="memberId" class="form-control" placeholder="Member Id e.g. 123456">
+                  </div> 
+                  
+                  <!-- content -->
+                  <div class="col-12 mb-3" id="contentField">
+                     <textarea id="content" class="form-control" placeholder="up to 250 characters..."></textarea>
+   
+                  </div>   
                </div>
             </form>
 
@@ -228,9 +242,20 @@
 </script>
 <script>
    function toggleFields() {
-       const type = document.getElementById("type").value;
-       document.getElementById("manualContent").style.display = type === "adhoc" ? "block" : "none";
-       document.getElementById("templateSelect").style.display = type === "template" ? "block" : "none";
+     const type = document.getElementById("type").value;
+ 
+     document.getElementById("manualContent").style.display = type === "adhoc" ? "block" : "none";
+     document.getElementById("templateSelect").style.display = type === "template" ? "block" : "none";
+     document.getElementById("noticeSection").style.display = type === "notice" ? "block" : "none";
+ 
+     // Hide contentField if template is selected
+     const contentField = document.getElementById("contentField");
+     if (type === "template") {
+       contentField.style.display = "none";
+     } else {
+       contentField.style.display = "flex"; // or "block" based on your layout
+     }
    }
-</script>
+ </script>
+ 
 @endsection
