@@ -618,7 +618,6 @@ class WebController extends Controller
         $escorts = $this->massage_profile->findByMassageCentre(50, $params);
         $services = $this->services->all();
         //$availability = $escorts->availability;
-        //dd($escorts);
         $escortId = [];
         if(session('mc_cart')) {
             foreach(session('mc_cart') as $id => $vlaue) {

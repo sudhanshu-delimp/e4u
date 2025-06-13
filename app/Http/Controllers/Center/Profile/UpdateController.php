@@ -96,7 +96,7 @@ class UpdateController extends Controller
         $service = $this->service;
         $massage_img = $escort->medias;
        
-        //dd($escort->gallary()->wherePivot('position',8)->get());
+        //dd($escort);
        //dd($escort->imagePosition(8));
         return view('center.dashboard.profile.update',compact('escort','service','availability','service_one','service_two','service_three','durations'));
         // {{--return view('center.dashboard.profile.update',compact('escort','service','availability','service_one','service_two','service_three','durations'));--}}
