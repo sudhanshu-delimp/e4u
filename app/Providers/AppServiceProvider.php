@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Cache;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        app()->instance('serverStartTime', now());
+
+        if (!Cache::has('app_start_time')) {
+            Cache::forever('app_start_time', now());
+        }
+        
         Paginator::useBootstrap();
     }
 }

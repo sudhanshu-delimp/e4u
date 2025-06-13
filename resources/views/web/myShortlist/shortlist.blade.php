@@ -79,7 +79,8 @@
                                 </select>
                                 <div class="display_inline_block custom-refreshbuton">
                                 <div class="margin_btn_reset">
-                                    <a type="reset" class="btn reset_filter" href="{{ route('find.all') }}" data-toggle="tooltip" title="Refresh page">
+                                    <a type="reset" class="btn reset_filter toltip-parent" href="{{ route('find.all') }}" data-toggle="tooltip" title="">
+                                    <span class="custom-toltip">Refresh page</span>
                                     <i class="fa fa-repeat" aria-hidden="true"></i>
                                     </a>
                                 </div>
@@ -88,10 +89,11 @@
                             
                             <div class="display_inline_block">
                                 <div class="margin_btn_reset">
-                                    <button type="button" class="btn reset_filter" id="v_wishlist">
+                                    <button type="button" class="btn reset_filter toltip-parent" id="v_wishlist">
                                         {{--  auth()->user() ? route('web.show.shortlist') : --}}
-                                        <a href="{{ route('web.show.showAddList')}}" data-toggle="tooltip" title="View Shortlist"> <i class="fa fa-list" aria-hidden="true"></i>
-                                        <span class="badge badge-pill badge-danger" id="session_count">{{ count((array) session('cart')) }}</span>
+                                        <a href="{{ route('web.show.showAddList')}}" data-toggle="tooltip" title=""> <i class="fa fa-list" aria-hidden="true"></i>
+                                            <span class="custom-toltip">View Shortlist</span>
+                                            <span class="badge badge-pill badge-danger" id="session_count">{{ count((array) session('cart')) }}</span>
                                         </a>
                                     </button>
                                 </div>
@@ -100,7 +102,7 @@
                                 @php
                                     $query = Arr::except(request()->query(), ['ipinfo']);
                                 @endphp
-                                <a type="submit" href="{{route('shortlist.clear-list', $query)}}" class="btn reset_filter clear_shortlist_class " data-toggle="tooltip" title="clear shortlist button">
+                                <a type="submit" href="{{route('shortlist.clear-list', $query)}}" class="btn reset_filter clear_shortlist_class " data-toggle="tooltip" title="">
                                 Clear Shortlist
                                 </a>
                            </div>
@@ -157,21 +159,19 @@
                             </select>
                         </div>
                         <div class="display_inline_block mb-1 mr-2">
-                            <button type="button" class="btn verified_btn_bg_color verified_text_color" data-toggle="tooltip" title="View Verified Photos only">
+                            <button type="button" class="btn verified_btn_bg_color verified_text_color" data-toggle="tooltip" title="">
                             <img src="{{ asset('assets/app/img/protected2.png')}}"> Verified
                             </button>
                         </div>
                         <div class="display_inline_block mb-1 mr-2">
-                            <button type="submit" class="btn reset_filter" data-toggle="tooltip" title="Apply filters - Search">
+                            <button type="submit" class="btn reset_filter" data-toggle="tooltip" title="">
                             Apply Filters
                             </button>
                         </div>
                     </div>
                      @php
-                        if($defaultViewType){
-                            $viewType = $defaultViewType;
-                        }
 
+                        $viewType = 'list';
                         if (request()->get('view') === 'list') {
                             $viewType = 'list';
                         }
@@ -304,8 +304,19 @@
                             <li><h3>My Shortlist</h3></li>
                             {{-- <li><a href="#" data-toggle="modal" data-target="#forhelp" title="Filters explained">Help <i class="fa fa-question-circle-o" aria-hidden="true"></i></a></li> --}}
                             {{-- <li><a href="#" data-toggle="modal" data-target="#forhelp" title="Back To Listings">Back To Listings</a></li> --}}
+                             @php
+                                
+                                if (str_contains($backToListing, 'view=')) {
+                                        $finalUrl = preg_replace('/view=[^&]*/', 'view=' . $viewType, $backToListing);
+                                } else {
+                                    // If view param not present, append it properly
+                                    $separator = str_contains($backToListing, '?') ? '&' : '?';
+                                    $finalUrl = $backToListing . $separator . 'view=' . $viewType;
+                                }
+                                    
+                            @endphp
                             <li class="fiter_btns slect__btn_tab"><div class="display_inline_block mb-1 mr-2 ">
-                                <a type="submit" href="{{ $backToListing }}" class="btn reset_filter p-1" data-toggle="tooltip" title="Apply filters - Search">
+                                <a type="submit" href="{{$finalUrl}}" class="btn reset_filter p-1" data-toggle="tooltip" title="Back To Listing">
                                 {{-- <i class="fa fa-back" aria-hidden="true"></i> --}}
                                 <i class="fa fa-arrow-left ml-0" aria-hidden="true" style="padding: 5px;font-size: 16px;"></i>
                                  Back To Listings

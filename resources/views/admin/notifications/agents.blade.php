@@ -27,7 +27,7 @@
                            <div class="card-body">
                               <h3 class="NotesHeader"><b>Notes:</b> </h3>
                               <ol class="pl-4">
-                              <li>You can create a Notification, published at the top of the Website.</li>
+                              <li>You can create a Notification, published at the top of the Agent’s Dashboard.</li>
                               </ol>
                            </div>
                      </div>
@@ -49,7 +49,7 @@
                      </div>
                      <div class="col-lg-8 col-md-12 col-sm-12">
                         <div class="bothsearch-form" style="gap: 10px;">
-                           <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#createNotification" style="color:var(--peach)">Create Notification</button>
+                           <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#createNotification" style="color:var(--peach)">New Notification</button>
                         </div>
                      </div>
                   </div>
@@ -66,9 +66,7 @@
                                           <th scope="col">Ref
                                           </th>
                                           <th scope="col">Start</th>
-                                          <th scope="col">
-                                             Date Created
-                                          </th>
+                                         
                                           <th scope="col">Finish</th>
                                           <th scope="col">Type</th>
                                           <th scope="col">Status</th>
@@ -80,15 +78,9 @@
                                           <td class="theme-color">Maintenance</td>
                                           <td class="theme-color">08-06-2025</td>
                                           <td class="theme-color">09-06-2025</td>
-                                          <td class="theme-color">09-06-2025</td>
                                           <td class="theme-color">Adhoc</td>
                                           <td class="theme-color">Published</td>
-                                          {{-- <td class="theme-color">
-                                             <div class="custom-control custom-switch">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitch_1">
-                                                <label class="custom-control-label" for="customSwitch_1"></label>
-                                             </div>
-                                          </td> --}}
+                                         
                                           <td class="theme-color">
                                              <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -100,7 +92,7 @@
                                                    
                                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >View <i class="fa fa-eye"></i></a>
                                                    <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Print <i class="fa fa-fw fa-print" ></i></a>
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Print <i class="fa fa-fw fa-print"></i></a>
                                                    
                                                 </div>
                                              </div>
@@ -175,31 +167,52 @@
                   <input type="text" onfocus="(this.type='date')" placeholder="Finish Date" class="form-control rounded-0" />
 
                   </div>
-                  <!-- Type Field (fixed Adhoc Content) -->
+
+                  <!-- Title -->
                      <div class="col-12 mb-3">
-                           <select id="type" onchange="toggleFields()" class="form-control rounded-0">
+                        <select id="type" class="form-control" onchange="toggleFields()">
                            <option value="">-- Select Type --</option>
                            <option value="adhoc">Adhoc</option>
-                           <option value="template">Template</option>
+                           <option value="scheduled">Scheduled</option>
+                           <option value="notice">Notice</option>
                         </select>
                      </div>
-                     <div id="manualContent" style="display: none;" class="col-12 mb-3">
-                        <textarea id="content" placeholder="Type your content here..." class="form-control rounded-0"></textarea>
-                     </div>
-               
-                  <div id="templateSelect" style="display: none;" class="col-12 mb-3">
-                        <select id="templateList" class="form-control rounded-0">
-                           <option value="">-- Choose a Template --</option>
-                           <option selected disabled>Select Template</option>
-                        <option>We will be undertaking website maintenance on Monday evening from 11:00pm until 4:00am WST. The website will remain live and unaffected.</option>
-                        <option>Have you checked out our new service - My Playbox!! Complement your income and start using this free service.</option>
-                        <option>Do you tour? Our Tour creator makes the whole process a quick and easy experience. Check it out!</option>
-                        <option>Would you like to have the best Profile on here but English is not your first language? Request a Support Agent and let them do all the work for you.</option>
-                        <option>Did you know that if you create ‘Credit’ in your account, discounts apply.</option>
-                        <option>Looking for something different to do? Why not become a Support Agent. Enquire with us.</option>
-                        
-                        </select>
+                     <div class="col-12">   
+                        <!-- Adhoc Section -->
+                        <div id="adhocSection" class="section form-group" style="display: none;">
+                              <textarea id="adhocContent" class="form-control" placeholder="Type your content here..."></textarea>
+                        </div>
+
+                        <!-- Scheduled Section -->
+                        <div id="scheduledSection" class="section" style="display: none;">
+                              <div class="form-group">
+                                 <input type="text" id="startDate"  onfocus="(this.type='date')" placeholder="Start Date" class="form-control rounded-0">
+                              </div>
+                              <div class="form-group">
+                                 <input type="text" id="endDate"  onfocus="(this.type='date')" placeholder="End Date" class="form-control rounded-0">
+                              </div>
+                              <div class="form-group">
+                                 <select id="duration" class="form-control">
+                                    <option value="">-- Select Duration --</option>
+                                    <option value="weeks">Weeks</option>
+                                    <option value="months">Months</option>
+                                    <option value="years">Years</option>
+                                    <option value="forever">Forever</option>
+                                 </select>
+                              </div>
+                        </div>
+
+                        <!-- Notice Section -->
+                        <div id="noticeSection" class="section form-group" style="display: none;">
+                              <input type="text" id="memberId" class="form-control" placeholder="Member Id e.g. 123456">
+                        </div> 
                   </div>
+                  <!-- content -->
+                  <div class="col-12 mb-3">
+                     <textarea id="content" class="form-control" placeholder="up to 250 characters..."></textarea>
+   
+                  </div>
+   
                </div>
             </form>
 
@@ -229,8 +242,18 @@
 <script>
    function toggleFields() {
        const type = document.getElementById("type").value;
-       document.getElementById("manualContent").style.display = type === "adhoc" ? "block" : "none";
-       document.getElementById("templateSelect").style.display = type === "template" ? "block" : "none";
+
+       // Hide all sections
+       document.querySelectorAll('.section').forEach(sec => sec.style.display = 'none');
+
+       // Show the selected section
+       if (type === "adhoc") {
+           document.getElementById("adhocSection").style.display = "block";
+       } else if (type === "scheduled") {
+           document.getElementById("scheduledSection").style.display = "block";
+       } else if (type === "notice") {
+           document.getElementById("noticeSection").style.display = "block";
+       }
    }
 </script>
 @endsection
