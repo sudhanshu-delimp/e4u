@@ -1006,7 +1006,6 @@ class UpdateController extends AppController
     {
         $escort = $this->escort->find($id);
         $arr = [];
-        //dd($request->service_id);
         if (!empty($request->service_id)) {
             foreach ($request->service_id as $key => $value) {
                 $arr += [$value => ["price" => $request->price[$key]]];
