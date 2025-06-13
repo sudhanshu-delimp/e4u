@@ -11,7 +11,8 @@ use App\Repositories\Service\ServiceInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Yajra\DataTables\Facades\DataTables;
+// use Yajra\DataTables\Facades\DataTables;
+use DataTables;
 
 class GlobalMonitoringController extends Controller
 {
