@@ -419,7 +419,7 @@
                                 $('#my_services').prop('disabled', false);
                                 $('#my_services').html('Updated');
                             } else {
-                                 Swal.fire({
+                                Swal.fire({
                                     icon: 'error',
                                     title: 'Oops.. sumthing wrong Please try again',
                                     text: data.message
@@ -429,15 +429,50 @@
                             }
                         },
                         error: function(data) {
-                             Swal.fire({
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops.. sumthing wrong Please try again',
+                                text: data.message
+                            });
+                            $('#my_services').prop('disabled', false);
+                            $('#my_services').html('Updated');
+                        }
+                    });
+                });
+
+                $('#storeRate').on('submit', function(e) {
+                    e.preventDefault();
+                    var form = $(this);
+                    var url = form.attr('action');
+                    var data = new FormData($('#storeRate')[0]);
+                    console.log(data);
+                    $('#store_rate').prop('disabled', true);
+                    $('#store_rate').html('<div class="spinner-border"></div>');
+                    $.ajax({
+                        method: form.attr('method'),
+                        url: url,
+                        data: data,
+                        contentType: false,
+                        processData: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(data) {
+                            if (!data.error) {
+                                Swal.fire('Updated', '', 'success');
+                                $('#store_rate').prop('disabled', false);
+                                $('#store_rate').html('Updated');
+                            } else {
+                                Swal.fire({
                                     icon: 'error',
                                     title: 'Oops.. sumthing wrong Please try again',
                                     text: data.message
                                 });
-                            $('#my_services').prop('disabled', false);
-                            $('#my_services').html('Updated');
+                                $('#store_rate').prop('disabled', false);
+                                $('#store_rate').html('Updated');
+                            }
                         }
-                    }); 
+                    });
                 });
 
             }); // end (document).ready
