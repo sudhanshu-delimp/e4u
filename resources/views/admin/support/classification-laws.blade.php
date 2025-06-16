@@ -65,72 +65,72 @@
                                           <table id="myTable price-sec" class="table table-striped dataTable no-footer" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                              <thead>
                                                 <tr role="row" style="border-top: 2px solid #e3e6f0;">
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align: center;border-right: 1px solid #e3e6f0; width: 212px; text-align: left;border-right: 1px solid #e3e6f0;" aria-label="
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align: center; width: 100px; text-align: left;border-right: 1px solid #e3e6f0; font-weight:bold;" aria-label="
                                                       Profile Name">State
                                                    </th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align: center;border-right: 1px solid #e3e6f0; width: 212px;" aria-label="
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align: left;border-right: 1px solid #e3e6f0; font-weight:bold;" aria-label="
                                                       Profile Name
                                                       ">Legislation <sup>(1)</sup>
                                                    </th>
-                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align: center;border-right: 1px solid #e3e6f0; width: 158px;" aria-label="Date Created">Regulations</th>
+                                                   <th class="sorting_disabled" rowspan="1" colspan="1" style=" text-align: center;border-right: 1px solid #e3e6f0; font-weight:bold; width: 120px" aria-label="Date Created">Regulations</th>
                                                   
                                                 </tr>
                                              </thead>
                                              <tbody>
                                                 <tr role="row">
-                                                   <td> Federal</td>
-                                                   <td style="text-align:center;"> Classification (Publications, Films and Computer Games) Act
+                                                   <td style="font-weight:bold; color:#000;"> Federal</td>
+                                                   <td style="text-align:left; color:#ff3c5f; font-weight:bold;"> Classification (Publications, Films and Computer Games) Act
                                                    (Cth) 1995 </td>
-                                                   <td style="text-align:center;"> None </td>
+                                                   <td style="text-align:center;font-weight:bold; color:#000;"> None </td>
                                                 </tr>
                                                 <tr role="row">
-                                                   <td> ACT </td>
-                                                   <td style="text-align:center;"> Classification (Publications, Films and Computer Games)
+                                                   <td style="font-weight:bold; color:#000;"> ACT </td>
+                                                   <td style="text-align:left; color:#ff3c5f; font-weight:bold;"> Classification (Publications, Films and Computer Games)
                                                    (Enforcement) Act 1995 </td>
-                                                   <td style="text-align:center;"> None </td>
+                                                   <td style="text-align:center;font-weight:bold; color:#000;"> None </td>
                                                 </tr>
                                                 <tr role="row">
-                                                   <td> NSW </td>
-                                                   <td style="text-align:center;"> Classification (Publications, Films and Computer Games)
+                                                   <td style="font-weight:bold; color:#000;"> NSW </td>
+                                                   <td style="text-align:left; color:#ff3c5f; font-weight:bold;"> Classification (Publications, Films and Computer Games)
                                                    (Enforcement) Act 1995 </td>
-                                                   <td style="text-align:center;"> None </td>
+                                                   <td style="text-align:center;font-weight:bold; color:#000;"> None </td>
                                                 </tr>
                                                 <tr role="row">
-                                                   <td> NT </td>
-                                                   <td style="text-align:center;"> Classification of Publications, Films and Computer Games Act None </td>
-                                                   <td style="text-align:center;"> None </td>
+                                                   <td style="font-weight:bold; color:#000;"> NT </td>
+                                                   <td style="text-align:left; color:#ff3c5f; font-weight:bold;"> Classification of Publications, Films and Computer Games Act None </td>
+                                                   <td style="text-align:center;font-weight:bold; color:#000;"> None </td>
                                                 </tr>
                                                 <tr role="row">
-                                                   <td>Qld </td>
-                                                   <td style="text-align:center;"> Classification of Computer Games and Images Act 1995
-                                                      <br>Classification of Films Act 1991
-                                                      <br>Classification of Publications Act 1991
+                                                   <td style="font-weight:bold; color:#000;">Qld </td>
+                                                   <td style="text-align:left; color:#ff3c5f; font-weight:bold;"> Classification of Computer Games and Images Act 1995
+                                                      Classification of Films Act 1991
+                                                        Classification of Publications Act 1991
                                                    </td>
-                                                   <td style="text-align:center;"> None </td>
+                                                   <td style="text-align:center;font-weight:bold; color:#000;"> None </td>
                                                 </tr>
                                                 <tr role="row">
-                                                   <td> SA</td>
-                                                   <td style="text-align:center;"> Classification (Publications, Films and Computer Games)
+                                                   <td style="font-weight:bold; color:#000;"> SA</td>
+                                                   <td style="text-align:left; color:#ff3c5f; font-weight:bold;"> Classification (Publications, Films and Computer Games)
                                                    (Enforcement) Act 1995 </td>
-                                                   <td style="text-align:center;"> None </td>
+                                                   <td style="text-align:center;font-weight:bold; color:#000;"> None </td>
                                                 </tr>
                                                 <tr role="row">
-                                                   <td> Tas </td>
-                                                   <td style="text-align:center;"> Classification (Publications, Films and Computer Games)
+                                                   <td style="font-weight:bold; color:#000;"> Tas </td>
+                                                   <td style="text-align:left; color:#ff3c5f; font-weight:bold;"> Classification (Publications, Films and Computer Games)
                                                    (Enforcement) Act 1995 </td>
-                                                   <td style="text-align:center;"> None </td>
+                                                   <td style="text-align:center;font-weight:bold; color:#000;"> None </td>
                                                 </tr>
                                                 <tr role="row">
-                                                   <td> Vic </td>
-                                                   <td style="text-align:center;"> Classification (Publications, Films and Computer Games)
+                                                   <td style="font-weight:bold; color:#000;"> Vic </td>
+                                                   <td style="text-align:left; color:#ff3c5f; font-weight:bold;"> Classification (Publications, Films and Computer Games)
                                                    (Enforcement) Act 1995</td>
-                                                   <td style="text-align:center;"> None </td>
+                                                   <td style="text-align:center;font-weight:bold; color:#000;"> None </td>
                                                 </tr>
                                                 <tr role="row">
-                                                   <td> WA </td>
-                                                   <td style="text-align:center;"> Classification (publications, films and computer games)
+                                                   <td style="font-weight:bold; color:#000;"> WA </td>
+                                                   <td style="text-align:left; color:#ff3c5f; font-weight:bold;"> Classification (publications, films and computer games)
                                                    Enforcement Act 1995</td>
-                                                   <td style="text-align:center;"> None </td>
+                                                   <td style="text-align:center;font-weight:bold; color:#000;"> None </td>
                                                 </tr>
                                              </tbody>
                                           </table>

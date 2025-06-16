@@ -36,6 +36,15 @@
         border-radius: 3px;
         padding: 10px 15px;
     }
+    .custom-tabale-layout #supportTicketsTable_length {
+        float: right;
+    }
+    .custom-tabale-layout #supportTicketsTable_length select {
+        width: 100px;
+    }
+    .custom-tabale-layout #supportTicketsTable_filter input{
+        margin-left: 10px;
+    }
 </style>
 @endsection
 @section('content')
@@ -43,9 +52,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="v-main-heading h3" style="display: inline-block;">My Support Tickets</div>
-{{--            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </h6>--}}
+           <h6 class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </h6>
         </div>
-        {{--<div class="col-md-12 mt-4 collapse" id="profile_and_tour_options">
+        <div class="col-md-12 mt-4 collapse" id="profile_and_tour_options">
             <div class="row">
                 <div class="col-md-12 mb-5">
                     <div class="card" id="notes">
@@ -60,7 +69,7 @@
                     </div>
                 </div>
             </div>
-        </div>--}}
+        </div>
     </div>
     <div id="content">
         <div class="container-fluid">
@@ -68,7 +77,7 @@
         <!-- /.container-fluid --><br>
         <div class="row">
             <div class="col-md-12">
-                <div class="box-body table table-hover">
+                <div class="box-body table table-hover custom-tabale-layout">
                     <table class="table table-hover" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                         <tr>
@@ -80,7 +89,7 @@
                             <th>Subject</th>
 {{--                            <th>Message</th>--}}
                             <th>Date Created</th>
-                            <th>Status</th>
+                            <th>Status</th> 
                             <!--<th>Joined E4U</th>-->
                             <th>Action</th>
                         </tr>
