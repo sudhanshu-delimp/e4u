@@ -294,10 +294,8 @@
                 success: function(data) {
                     var optionString = '';
                     $.each(data.data, function(index, elem) {
-                        optionString += '<option value='+index+'>'+elem+'</option>';
-                        console.log(elem);
-                    })
-                    $('#profile_city_id').html(optionString);
+                        $('#profile_city_id').val(index);
+                    });
                 },
             });
     });
@@ -454,8 +452,12 @@
     let selected_profile_id = $(source).data('id');
     let selected_profile_state = $(source).data('state');
         $('#duplicate-profile-modal input[name=escort_id]').val(selected_profile_id);
-        $(`#profile_state_id option`).show(); 
-        $(`#profile_state_id option[value="${selected_profile_state}"]`).hide(); 
+        $("#stageNameInp").attr('type', 'hidden');
+        $("#stageNameInp").attr('name', '');
+        $(".update_stage_name").addClass('d-none');
+        $("#stageName").removeClass('d-none');
+        // $(`#profile_state_id option`).show(); 
+        // $(`#profile_state_id option[value="${selected_profile_state}"]`).hide(); 
    });
 
    $('#play-mates-modal').on('shown.bs.modal', function (e) {
@@ -701,5 +703,15 @@
    $("#modal_close").on('click', function(e) {
        $("#brb_form")[0].reset();
    });
+
+   function stageNameInput(ele) {
+        if($(ele).val() == 'new') {
+            $(ele).addClass('d-none');
+            $("#stageNameInp").attr('type', 'text');
+            $("#stageNameInp").attr('name', 'name');
+            $(".update_stage_name").removeClass('d-none');
+        }
+        return true;
+    }
 </script>
 @endpush
