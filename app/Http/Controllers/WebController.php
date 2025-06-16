@@ -531,9 +531,18 @@ class WebController extends Controller
         $services = $this->services->all();
 
         $backToListing = session('search_escort_filters_url');
+        
         $radio_location_filter = session('radio_location_filter');
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
         $defaultViewType = 'list';
+
+        $backToListing = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToListing);
+
+        // if(request()->has('list') || request()->get('view_type') == 'list'){
+        //     $backToListing = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToListing);
+        // }else{
+        //     $backToListing = preg_replace('/view_type=(grid|list)/', 'view_type=grid', $backToListing);
+        // }
         //dd($all_services_tag);
         //dd($escorts);
         //dd($escorts->items()[1]->where(8));
