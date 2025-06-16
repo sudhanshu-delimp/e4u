@@ -27,6 +27,29 @@
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-sm-3" for="">
+                                        Stage Name:
+                                        <span style='color:red'>*</span>
+                                        </label>
+                                        <div class="col-sm-8">
+                                                <select onclick="stageNameInput(this)" style="display: block" class=" change_default_select form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
+                                                    <option value="" selected>-Choose Your Stage Name-</option>
+                                                    @if(!empty(auth()->user()->escorts_names))
+                                                        @foreach(auth()->user()->escorts_names as $key => $name)
+                                                            <option value='{{$name}}'>{{ $name}}</option>
+                                                        @endforeach
+                                                    @endif
+                                                    <option value="new">Add a new Stage Name</option>
+                                                </select>
+                                                <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" class="change_default form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
+                                                <div class="form-check form-check-inline update_stage_name d-none">
+                                                        <input class="form-check-input" type="checkbox" id="update_stage_name" name="update_stage_name">
+                                                        <label class="form-check-label" for="update_stage_name">Update in your My Information page for future Profiles</label>
+                                                </div>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3" for="">
                                             Location:
                                             <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="This is the Location you want the Profile to be saved to, like Western Australia, Victoria etc. Make sure the Profile Name matches up." data-boundary="window">
                                         </label>
@@ -41,22 +64,14 @@
                                         </div>
                                         <div class="col-sm-1"></div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label class="col-sm-3" for="">
-                                        City: <span style="color:red">*</span>
-                                        </label>
-                                        <div class="col-sm-8">
-                                        <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="profile_city_id" name="city_id" data-parsley-errors-container="#city-errors" required data-parsley-required-message="Please select city">
-                                            <span id="profile-errors"></span>
-                                        </div>
-                                        <div class="col-sm-1"></div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer" style="text-align: center; display: block;">
                         <input type="hidden" name="escort_id">
+                        <input type="hidden" id="profile_city_id" name="city_id">
                         <button type="submit" class="btn btn-primary" id="save_brb">Save</button>
                     </div>
                 </div>

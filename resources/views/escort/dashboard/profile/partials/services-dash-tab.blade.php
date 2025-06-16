@@ -12,8 +12,8 @@
             <h2>My Services</h2>
         </div>
         <div class="padding_20_all_side pb-0">
-            {{-- <form id="myServices" action="{{ route('escort.store.services',[$escort->id]) }}" method="POST">
-                @CSRF --}}
+            <form id="myServicesForm" name="myServicesForm" action="{{ route('escort.store.services',[$escort->id]) }}" method="POST">
+                @CSRF
                 <div class="pt-2 pb-4">
                     <div class="row">
                         <div class="col-lg-6 col-md-12 col-sm-12 full-width-for-ipad-select">
@@ -134,11 +134,11 @@
                 <div class="row">
                     <div class="col-md-12 text-right">
                         @if(request()->segment(2) == 'profile' && request()->segment(3))
-                        <button id="my_services" type="button" class="save_profile_btn">Update</button>
+                        <button id="my_services" type="submit" class="save_profile_btn">Update</button>
                         @endif
                     </div>
                 </div>
-            {{-- </form> --}}
+            </form>
         </div>
     </div>
     <div class="about_me_drop_down_info profile-sec p-4">
@@ -146,8 +146,8 @@
             <h2>Rates</h2>
         </div>
         <div class="padding_20_all_side pb-0">
-            {{-- <form id='storeRate' action="{{ route('escort.store.rate',[$escort->id]) }}" method="Post">
-                @csrf --}}
+            <form id='storeRate' action="{{ route('escort.store.rate',[$escort->id]) }}" method="Post">
+                @csrf
                 <div class="row">
                     <div class="col-lg-8 col-md-12 col-sm-12 full-width-for-ipad-select horizontal-scroll-rates">
                         <div class="rate_first_row row">
@@ -194,11 +194,11 @@
                 <div class="row">
                     <div class="col-md-12 text-right">
                         @if(request()->segment(2) == 'profile' && request()->segment(3))
-                        <button id="store_rate" type="button" class="save_profile_btn">Update</button>
+                        <button id="store_rate" type="submit" class="save_profile_btn">Update</button>
                         @endif
                     </div>
                 </div>
-            {{-- </form> --}}
+            </form>
         </div>
     </div>
     <div class="tab_btm_btns_preview_and_next">
