@@ -297,6 +297,7 @@ class UpdateController extends AppController
 
         if ($id) {
             $arr = [];
+            if(isset($request->duration_id) ) {
             foreach ($request->duration_id as $key => $value) {
                 $arr  += [
                     $value => [
@@ -306,6 +307,7 @@ class UpdateController extends AppController
                     ],
                 ];
             }
+        }
 
             //dd($arr);
             if ($data_durations  = $escort->durations()->sync($arr)) {
