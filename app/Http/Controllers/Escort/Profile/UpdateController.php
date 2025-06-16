@@ -1218,7 +1218,7 @@ class UpdateController extends AppController
         $escortDefault = $this->escort->find($escort_id);
         $user = auth()->user();
         $error = '';
-        $existWithStageName = Escort::where(['name'=>$escortDefault->name,'city_id'=>$request->city_id])->first();
+        $existWithStageName = Escort::where(['user_id' => $user->id,'name'=>$escortDefault->name,'city_id'=>$request->city_id])->first();
         if(!empty($existWithStageName)){
             $error = 'Profile with same stage name and with same location already exist';
         }
