@@ -35,14 +35,14 @@
                             regarding an Advertiser (usually an Escort) and produce the results to management
                             for a decision.</li>
                             <li>Where the decision is to:</li>
-                            <ul style="list-style-type:lower-alpha;">
+                            <ol  class="ol_lower_alpha_bracket" type="a">
                                 <li>
                                     Cancel the Advertiser’s Membership, place the status on ‘Cancelled’
                                 </li>
                                 <li>
                                     Re-instate the Advertiser’s membership, place the status on ‘Registered’
                                 </li>
-                            </ul>
+                            </ol>
                             <p>then the Console will generate emails to the Member notifying accordingly the
                             outcome.</p>
                         </ol>
@@ -53,36 +53,38 @@
         </div>
         <div class="col-md-12">
             <div class="stats-container">
-                <div class="stat-card">
-                    <div class="stat-top">
-                        <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
-                        <div class="stat-label">Today</div>
+                <div class="stat-card-wrapper">
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
+                            <div class="stat-label">Today</div>
+                        </div>
+                        <div class="stat-number">2</div>
                     </div>
-                    <div class="stat-number">2</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-top">
-                        <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
-                        <div class="stat-label">This Month</div>
+    
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
+                            <div class="stat-label">This Month</div>
+                        </div>
+                        <div class="stat-number">25</div>
                     </div>
-                    <div class="stat-number">25</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-top">
-                        <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
-                        <div class="stat-label">This Year</div>
+    
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="stat-label">This Year</div>
+                        </div>
+                        <div class="stat-number">125</div>
                     </div>
-                    <div class="stat-number">125</div>
-                </div>
-
-                <div class="stat-card">
-                    <div class="stat-top">
-                        <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
-                        <div class="stat-label">All Time</div>
+    
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+                            <div class="stat-label">All Time</div>
+                        </div>
+                        <div class="stat-number">1,258</div>
                     </div>
-                    <div class="stat-number">1,258</div>
                 </div>
             </div> 
         </div>                             
@@ -203,7 +205,7 @@
             <div class="my-account-card">
                 <div class="card-head">                    
                     <h2>My Report Information </h2>
-                    <button class="print-btn" onclick="window.print()">🖨️ Print Report</button>
+                    <button class="print-btns" onclick="window.print()"><i class ="fa fa-print"></i> Print Report</button>
                 </div>
                 <div class="info-grid">
                     <div class="info-item">
