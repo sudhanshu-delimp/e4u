@@ -16,12 +16,10 @@
 
         <div class="container-fluid pl-3 pl-lg-5">
             <!--middle content start here-->
-            <div class="row">
+            <div class="row">   
                 <div class="col-md-12">
-                    <div class="v-main-heading h3">
-                        Mobile SIM
-                        <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-                    </div>
+                    <div class="v-main-heading h3" style="display: inline-block; padding-top: 0;"><h1>   Mobile SIM</h1></div>
+                       <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
                 </div>
                 <div class="col-md-12 ">
                     <div class="card collapse  mb-4" id="notes">
@@ -29,7 +27,7 @@
                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
                             <ol>
                                 <li>This form will be pre-populated with your details according to what you have
-                                    entered in <a href="{{ url('escort.profile.information') }}" class="custom_links_design">My Account</a>.
+                                    entered in <a href="{{ route('escort.profile.information') }}" class="custom_links_design">My Account</a>.
                                     You can alter any of the information.</li>
                                 <li>Payment is based on the period you have selected for the Mobile SIM.</li>
                                 <li>Complete the form to request the Mobile SIM. When completing the form please

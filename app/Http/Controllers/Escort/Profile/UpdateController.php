@@ -297,6 +297,7 @@ class UpdateController extends AppController
 
         if ($id) {
             $arr = [];
+            if(isset($request->duration_id) ) {
             foreach ($request->duration_id as $key => $value) {
                 $arr  += [
                     $value => [
@@ -306,6 +307,7 @@ class UpdateController extends AppController
                     ],
                 ];
             }
+        }
 
             //dd($arr);
             if ($data_durations  = $escort->durations()->sync($arr)) {
@@ -1006,7 +1008,6 @@ class UpdateController extends AppController
     {
         $escort = $this->escort->find($id);
         $arr = [];
-        //dd($request->service_id);
         if (!empty($request->service_id)) {
             foreach ($request->service_id as $key => $value) {
                 $arr += [$value => ["price" => $request->price[$key]]];
@@ -1219,7 +1220,7 @@ class UpdateController extends AppController
         $escortDefault = $this->escort->find($escort_id);
         $user = auth()->user();
         $error = '';
-        $existWithStageName = Escort::where(['name'=>$escortDefault->name,'city_id'=>$request->city_id])->first();
+        $existWithStageName = Escort::where(['user_id' => $user->id,'name'=>$escortDefault->name,'city_id'=>$request->city_id])->first();
         if(!empty($existWithStageName)){
             $error = 'Profile with same stage name and with same location already exist';
         }
@@ -1276,6 +1277,17 @@ class UpdateController extends AppController
             ];
     
             if ($escort = $this->escort->store($input, null)) {
+                if (!empty(trim($request->name)) && !empty(trim($request->update_stage_name))) {
+
+                    $users = $this->user->find($user->id);
+        
+                    $escortNames = $users->escorts_names;
+                    if ($escortNames == NULL || !in_array($request->name, $escortNames)) {
+                        $escortNames[] = trim($request->name);
+                        $users->escorts_names = $escortNames;
+                        $users->save();
+                    }
+                }
             $response = [
                 'success' => true,
                 'message' => 'Profile has been created for the selected location.'

@@ -129,6 +129,7 @@
          </div>
       </div>
    </li>
+   <hr style="border-top: 1px solid #C2CFE0;width: 100%;">
    <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Analytics" aria-expanded="false" aria-controls="collapseTwo">
       <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/chart.png') }}">
@@ -152,6 +153,13 @@
       </div>
    </li>
    
+   <li class="nav-item">
+      <a class="nav-link" href="#" id="Communication">
+          <img width="16" height="17" viewBox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/ccone.png') }}">
+         <span id="Communication" style="{{  $_SERVER['REQUEST_URI'] == '#' ? 'color: #e5365a;' : ''}}">Communication </span>
+      </a>
+   </li>
+
    <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Community"
          aria-expanded="true" aria-controls="collapseTwo">

@@ -6,6 +6,7 @@
 
 use App\Models\Escort;
 use App\Models\Country;
+use Illuminate\Support\Facades\Cache;
 
 if (!function_exists('calculateTatalFee')) {
     /**
@@ -128,6 +129,31 @@ if (!function_exists('getCountryList')) {
     function getCountryList()
     {
         return Country::select(['id', 'name', 'status'])->pluck('name', 'id');
+    }
+}
+
+/**
+ * Get up time without crashing website
+ */
+if (!function_exists('getAppUptime')) {
+ function getAppUptime()
+    {
+        $startTime = Cache::get('app_start_time');
+
+        if (!$startTime) {
+            return 'App start time not available.';
+        }
+
+        $start = \Carbon\Carbon::parse($startTime);
+        $now = now();
+
+        $diffInSeconds = $now->diffInSeconds($start);
+
+        $days = floor($diffInSeconds / 86400);
+        $hours = floor(($diffInSeconds % 86400) / 3600);
+        $minutes = floor(($diffInSeconds % 3600) / 60);
+
+        return "{$days} days & {$hours} hours {$minutes} minutes";
     }
 }
 

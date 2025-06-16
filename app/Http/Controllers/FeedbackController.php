@@ -6,6 +6,10 @@ use App\Models\Option;
 use App\Models\Feedback;
 use Illuminate\Http\Request;
 use App\Http\Requests\FeedbackRequest;
+use App\Mail\SendFeedbackRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Exception;
 
 class FeedbackController extends Controller
 {
@@ -37,22 +41,58 @@ class FeedbackController extends Controller
      */
     public function store(FeedbackRequest $request, $id = null)
     {
+        $feedbackSubjects = config('common.feedback_subject');
         $input = [];
+        $optionId = null;
+        $optionText = "";
+         $userId = null;
+         if (Auth::user()) {
+                $user =  Auth::user();
+                $userId =  $user->id;
+            }
+        if (isset($request->option_id) &&  (int)$request->option_id > 0) {
+            $optionId = $request->option_id;
+            $optionData = Option::where('id', $optionId)->first();
+            if($optionData) {
+                $optionText = $optionData->name;
+            }
+        } else if (isset($request->option_text) && $request->option_text != "") {
+            $optionText = trim($request->option_text);
+            $option = Option::where('name', $optionText)->first();
+            $data =  [
+                'subject_id' => $request->subject_id,
+                'name' => $optionText,
+            ];
+            $optionId = Option::create($data)->id;
+        }
         $input = [
+            'user_id' => $userId,
             'subject_id' => $request->subject_id,
-            'option_id' => $request->option_id,
+            'option_id' => $optionId,
             'comment' => $request->comment,
             'email' => $request->email,
         ];
-        $error=true;
-        if(!empty($input)) {
-            $data = Feedback::create($input);
-            $error=false;
-        }
-        return response()->json(compact('data','error'));
-           // return ! $id ? Option::create($data) : Option::update($id, $input);
-    
 
+        $error = false;
+        if (!empty($input)) {
+            $data = Feedback::create($input);
+            $error = false;
+            $subjectName = isset($feedbackSubjects[$request->subject_id]) ? $feedbackSubjects[$request->subject_id] : "";
+            $body = [
+                'subject' => 'Feedback Request',
+                'subject_name' => $subjectName,
+                'option' =>  $optionText,
+                'email' => $request->email,
+                'comment' => $request->comment,
+            ];
+            if ($data && !empty($subjectName)) {
+                $mailResp = Mail::to(config('common.contactus_admin_email'))->queue(new SendFeedbackRequest($body));
+            } else {
+                $error = true;
+            }
+        }
+        return response()->json(compact('data', 'error'));
+        // return ! $id ? Option::create($data) : Option::update($id, $input);
     }
 
     /**
@@ -63,10 +103,15 @@ class FeedbackController extends Controller
      */
     public function showOption(Request $request)
     {
-        $result = Option::where('subject_id',$request->subject_id)->get();
-
-        return response()->json($result);
-        
+        $result = Option::where('subject_id', $request->subject_id)->get();
+        $error = true;
+        if ($result->count() > 0) {
+            $error = false;
+            $data['result'] = [];
+        }
+        $data['result'] = $result;
+        $data['error'] = $error;
+        return response()->json($data);
     }
 
     /**

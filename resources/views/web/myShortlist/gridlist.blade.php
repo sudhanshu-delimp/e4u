@@ -27,39 +27,47 @@
                             </div>
                         </div>
                         <div class="d-flex justify-content-between mb-4 flex_directiom_warp_but_list_child_not_hundred_present list_gender_area  pr-0">
-                            <div class="gender">
-                                <span class="filter-pad">Gender:</span>
-                                <span>{{$escort->gender ? $escort->gender : ''}}</span>
+                            <div class="custom--gender--area">
+                                <div class="gender">
+                                    <span class="filter-pad">Gender:</span>
+                                    <span>{{$escort->gender ? $escort->gender : ''}}</span>
+                                </div>
+                                <div class="give_rating_after_get_servive">
+                                    <span class="filter-pad"><span class="filter-pad">Location:</span> {{$escort->city ? $escort->city->name : ''}}</span>
+                                </div>
+                                <div class="give_rating_after_get_servive">
+                                    <span class="filter-pad">Rating:</span>
+                                    <span class="give_rating_after_get_servive">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    </span>
+                                </div>
                             </div>
-                            <div class="give_rating_after_get_servive">
-                                <span class="filter-pad">{{$escort->city ? $escort->city->name : ''}}</span>
-                                <span class="give_rating_after_get_servive">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <div class="available padding_top_ten_px custom-gender-type-icon">
-                                <span class="filter-pad">Available:</span>
-                                <span>
-                                    @if($escort->available_to)
-                                    @foreach($escort->available_to as $key => $available_to)
-                                        <div class="icon-with-tooltip position-relative">
-                                            <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}">                                        
-                                            <span class="custom-icon-hover-tooltip">
-                                            {{ config('escorts.profile.available-to')[$available_to] }}
-                                            </span>                                        
-                                        </div>
-                                    @endforeach
-                                    @endif
-                                </span>
-                            </div>
-                            <div class="video_icon padding_top_ten_px">
-                                <a href="#">
-                                <img src="{{ asset('assets/app/img/video_play.svg') }}">
-                                </a>
+                            <div class="custom--available-section">
+                                <div class="available padding_top_ten_px custom-gender-type-icon">
+                                    <span class="filter-pad">Available:</span>
+                                    <span>
+                                        @if($escort->available_to)
+                                        @foreach($escort->available_to as $key => $available_to)
+                                            <div class="icon-with-tooltip position-relative">
+                                                <img src="{{ config('escorts.profile.available-to-images')[$available_to] }}">                                        
+                                                <span class="custom-icon-hover-tooltip">
+                                                {{ config('escorts.profile.available-to')[$available_to] }}
+                                                </span>                                        
+                                            </div>
+                                        @endforeach
+                                        @endif
+                                    </span>
+                                </div>
+                                <div class="video_icon padding_top_ten_px">
+                                    <a href="#">
+                                    <img src="{{ asset('assets/app/img/video_play.svg') }}">
+                                    <span class="custom--tooltip">Escort has video to view</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         <div class="row mb-2 margin_lft_rgt_one_five  pr-0">
