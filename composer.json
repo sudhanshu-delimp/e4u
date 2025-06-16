@@ -18,7 +18,8 @@
         "messagemedia/messages-sdk": "^2.0",
         "nesbot/carbon": "^2.55",
         "php-ffmpeg/php-ffmpeg": "^0.19.0",
-        "spatie/laravel-permission": "^5.4"
+        "spatie/laravel-permission": "^5.4",
+        "yajra/laravel-datatables-oracle": "^9.21"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

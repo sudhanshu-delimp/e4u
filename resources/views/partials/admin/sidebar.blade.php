@@ -955,6 +955,11 @@
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                             <span  style="{{ request()->segment(3) == 'tours' ? 'color: #e5365a;' : '' }}">Tours</span>
                         </a>
+                        <a class="collapse-item" href="{{ route('admin.profile') }}">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span  style="{{ request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Profile</span>
+                        </a>
                     </div>
 
 
@@ -964,6 +969,7 @@
                     {{-- <a class="collapse-item" href="#">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png')}}">
                 <span>Dashboard - Search</span></a> --}}
+
                     <a class="collapse-item" href="#">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">

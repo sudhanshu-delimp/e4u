@@ -135,8 +135,9 @@
                                     <div class="display_inline_block custom-refreshbuton">
                                         <div class="margin_btn_reset">
 
-                                            <a type="reset" class="btn reset_filter" href="{{ route('find.all') }}"
-                                                data-toggle="tooltip" title="Refresh page">
+                                            <a type="reset" class="btn reset_filter toltip-parent" href="{{ route('find.all') }}"
+                                                data-toggle="tooltip" title="">
+                                                <span class="custom-toltip">Refresh page</span>
                                                 <i class="fa fa-repeat" aria-hidden="true"></i>
                                             </a>
                                         </div>
@@ -145,9 +146,11 @@
 
                                 <div class="display_inline_block">
                                     <div class="margin_btn_reset">
-                                        <button type="button" class="btn reset_filter" id="v_wishlist">
+                                        <button type="button" class="btn reset_filter toltip-parent" id="v_wishlist">
                                             <a href="{{ route('web.show.showAddList') }}" data-toggle="tooltip"
-                                                title="View Shortlist"> <i class="fa fa-list" aria-hidden="true"></i>
+                                               
+                                                title=""> <i class="fa fa-list" aria-hidden="true"></i>
+                                                <span class="custom-toltip">View Shortlist</span>
                                                 <span class="badge badge-pill badge-danger"
                                                     id="session_count">{{ count((array) session('cart')) }}</span>
                                             </a>
@@ -159,7 +162,7 @@
                                         $query = Arr::except(request()->query(), ['ipinfo']);
                                     @endphp
                                     <a type="submit" href="{{ route('shortlist.clear-list', $query) }}"
-                                        class="btn reset_filter " data-toggle="tooltip" title="clear shortlist button">
+                                        class="btn reset_filter " data-toggle="tooltip" title="">
                                         Clear Shortlist
                                     </a>
                                 </div>
@@ -249,16 +252,18 @@
                                 @endforeach --}}
                                 </select>
                             </div>
+                            
                             <div class="display_inline_block mb-1 mr-2">
                                 <button type="button" class="btn verified_btn_bg_color verified_text_color"
-                                    data-toggle="tooltip" title="View Verified Photos only">
+                                    data-toggle="tooltip" title="">
                                     <img src="{{ asset('assets/img/e4u-verified-dark.png') }}">
                                 </button>
                             </div>
                             <div class="display_inline_block mb-1 ">
                                 <input type="hidden" name="filter_button_submit" value="1">
+                                <input type="hidden" name="view_type" id="view_type" value='{{isset($viewType) && $viewType == 'list' ? 'list' : 'grid'}}'>
                                 <button type="submit" class="btn reset_filter apply-filter-btn" data-toggle="tooltip"
-                                    title="Apply filters - Search">
+                                    title="">
                                     Apply Filters
                                 </button>
                             </div>
@@ -323,12 +328,6 @@
                                     </div>
                                     <!-- accordien end here -->
                                     <!-- Grid View -->
-                                    @php
-                                        $viewType = 'grid';
-                                        if (request()->get('view') === 'list') {
-                                            $viewType = 'list';
-                                        }
-                                    @endphp
 
                                     <div class="row grid_list_part" id="prosud aa" style="display: block;">
 
@@ -855,6 +854,7 @@
             //var source = e.relatedTarget;
             $('.preChanges').html('<h3>Escorts Grid View</h3>');
             var val = $('#grid-modal').attr('class');
+            $('#view_type').val('grid')
             if (val != "active") {
                 $('.grid').hide();
                 $('.my-wishlist').hide();
@@ -888,6 +888,7 @@
         $('#grid-list').on('click', function() {
             $('.preChanges').html('<h3>Escorts List View</h3>');
             var grid = $('#grid-list').attr('class');
+            $('#view_type').val('list')
             if (grid != "active") {
                 console.log(grid);
                 $('.space_between_row').hide();

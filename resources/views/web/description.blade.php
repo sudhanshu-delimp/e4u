@@ -571,9 +571,13 @@
                     <div class="profile_card_border profile_page_box_heading">
                         <h2>Who Am I?</h2>
                     </div>
+                    @if($viewType != 'list')
                     <div class="padding_20_tob_btm_side who-tittle">
+                        
                         {!! $escort->about_title !!}
+                        
                     </div>
+                    @endif
                     <div class="padding_20_tob_btm_side">
                         {!! $escort->about !!}
                     </div>
@@ -693,7 +697,7 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table" style="{{ empty($cat2_services_one) == 0 ? 'border: 1px solid black;' : ''}}">
+                                            <div class="row margin_zero_for_table" style="{{ empty($cat2_services_one) ? 'border: 1px solid black;' : ''}}">
                                                 <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat2_services_one) ? 'padding: 1px;' : ''}}">
                                                     <?php
                                                     $dataExistInTable2 = false;

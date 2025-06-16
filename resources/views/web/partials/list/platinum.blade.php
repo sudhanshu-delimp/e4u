@@ -169,11 +169,11 @@
                                 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                                 consequat.
                             </p>
-                            <!-- <a  href="{{ route('profile.description',$escort->id)}}" class="btn btn_for_profile_list_view min_width_hundredpresent" style="float: right;">View Profile</a> -->
+                            {{-- <a  href="{{ route('profile.description',$escort->id)}}" class="btn btn_for_profile_list_view min_width_hundredpresent" style="float: right;">View Profile</a> --}}
                         </div>
                         <div class="col pr-1 all-escort-view-profile-btn">
                             
-                            <a  href="{{ route('profile.description',$escort->id)}}" class="btn btn_for_profile_list_view min_width_hundredpresent" style="float: right;">View Profile</a>
+                            <a  href="{{ route('profile.description',$escort->id)}}?list" class="btn btn_for_profile_list_view min_width_hundredpresent" style="float: right;">View Profile</a>
                         </div>
                     </div>
                 </div>

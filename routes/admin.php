@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
+use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\SupportTicketsController;
@@ -64,13 +65,22 @@ Route::get('global-monitoring',function(){
 return view('admin.global-monitoring');
  })->name('admin.global-monitoring');
 
- Route::get('massage-centre-listings', function(){
-     return view('admin.massage-centre-listings');
- })->name('admin.massage-centre-listings');
+//  Route::get('massage-centre-listings', function(){
+//      return view('admin.massage-centre-listings');
+//  })->name('admin.massage-centre-listings');
+
+ Route::get('massage-centre-listings',[GlobalMonitoringController::class,'massageCenterListing'])->name('admin.massage-centre-listings');
+ Route::get('/data-table-listing/{type?}', [GlobalMonitoringController::class, 'dataTableListingAjax'])->name('escort.current.list.dataTableListing');
+ Route::get('/data-table-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableSingleListingAjax'])->name('escort.current.single-list.dataTableListing');
   
- Route::get('escort-listings', function(){
-    return view('admin.escort-listings');
-})->name('admin.escort-listings');
+//  Route::get('escort-listings', function(){
+//     return view('admin.escort-listings');
+// })->name('admin.escort-listings');
+
+Route::get('escort-listings',[GlobalMonitoringController::class,'escortListing'])->name('admin.escort-listings');
+Route::get('/data-table-escort-listing/{type?}', [GlobalMonitoringController::class, 'dataTableEscortListingAjax'])->name('escort.current.list.escort-dataTableListing');
+Route::get('/data-table-escort-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableEscortSingleListingAjax'])->name('escort.current.single-list.escort-dataTableListing');
+  
  
 Route::get('logged-in-users', function(){
     return view('admin.logged-in-users');

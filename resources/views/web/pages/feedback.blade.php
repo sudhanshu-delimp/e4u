@@ -72,27 +72,26 @@
         <p>We value your feedback and appreciate any contribution on how to improve and manage our Website.</p>
         <form id="myfeedback" method="POST" action="{{ route('web.feedback.save') }}">
             @csrf
-
+            @php
+             $feedbackSubjects = config('common.feedback_subject');
+            @endphp
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="fb-subject">Subject <span style="color:red">*</span></label>
                     <select class="form-control border_for_form" id="fb-subject" name="subject_id" required>
                         <option value="" selected disabled>--- Select ---</option>
-                        <option value="Complaint">Complaint</option>
-                        <option value="Complement">Complement</option>
-                        <option value="Improvement suggestion">Improvement suggestion</option>
-                        <option value="New feature suggestion">New feature suggestion</option>
-                        <option value="Report Advertiser">Report Advertiser (include Member ID)</option>
-                        <option value="Request for Information">Request for Information</option>
-                        <option value="Report a bug in the Website">Report a bug in the Website</option>
-                        <option value="Report Scammer">Report Scammer</option>
+                        @foreach($feedbackSubjects as $key => $feedbackname)
+                        <option value="{{$key}}">{{$feedbackname}}</option>
+                        @endforeach
                     </select>
                 </div>
 
                 <div class="form-group col-md-6">
                     <label for="fb-options">Option</label>
                     <!-- This select will be shown/hidden based on subject -->
-                    <select class="form-control border_for_form d-none" id="fb-options" name="option_id"></select>
+                    <select class="form-control border_for_form d-none" id="fb-options" name="option_id">
+                         <option value="" selected disabled>--- Select ---</option>
+                    </select>
                     <!-- Fallback text input -->
                     <input type="text" class="form-control border_for_form d-none" id="fb-option-text" name="option_text" placeholder="Write your option">
                 </div>
@@ -115,7 +114,7 @@
     <textarea class="form-control border_for_form" name="comment" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
 </div>
 
-            <button type="submit" class="btn btn-primary mb-3">Submit Feedback</button>
+            <button type="submit" id="btnSubmit" class="btn btn-primary mb-3">Submit Feedback</button>
         </form>
 
          <!-- changes to this policy -->
@@ -141,7 +140,7 @@
     document.getElementById("skip-value-upper-age")
     ];
     
-    noUiSlider.create(skipSliderage, {
+    /*noUiSlider.create(skipSliderage, {
     start: [0, 30],
     connect: true,
     behaviour: "drag",
@@ -162,10 +161,17 @@
     
     skipSliderage.noUiSlider.on("update", function (values, handle) {
     skipValuesage[handle].innerHTML = values[handle];
-    });
+    });*/
     
 </script>
 <script>
+    const subjectSelect = document.getElementById('fb-subject');
+    const optionSelect = document.getElementById('fb-options');
+    const optionText = document.getElementById('fb-option-text');
+    optionText.classList.remove('d-none');
+    optionSelect.classList.add('d-none');
+
+
    $('#fb-subject').change(function(){
       var subject_id = $(this).val();
       let dropdown = $('#fb-options');
@@ -178,21 +184,21 @@
                data:{subject_id :subject_id },
                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                success: function (data) {
-                  $.each(data, function (key, entry) {
-                     dropdown.append($('<option></option>').attr('value', entry.id).text(entry.name));
-                  })
-               
-                  if(!data.error){
-                     console.log(data);
+                  if(data.error){
+                     optionText.classList.remove('d-none');
+                     optionSelect.classList.add('d-none');
+                     dropdown.append('<option value="" selected disabled>--- Select ---</option>');
                   } else {
-                  console.log(data);
+                     $.each(data.result, function (key, entry) {
+                     dropdown.append($('<option></option>').attr('value', entry.id).text(entry.name));
+                    });
+                      optionSelect.classList.remove('d-none');
+                      optionText.classList.add('d-none');
+                      optionText.value="";
                   }
                }
             });
          }
-     
-      
-     
    })
    $('#myfeedback').on('submit', function(e) {
         e.preventDefault();
@@ -200,8 +206,7 @@
             var form = $(this);
             var url = form.attr('action');
             var data = new FormData($('#myfeedback')[0]);
-            console.log(data);
-    
+            $('#btnSubmit').prop('disabled', true);
             $.ajax({
                 method: form.attr('method'),
                 url:url,
@@ -211,19 +216,21 @@
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function (data) {
                     if(!data.error){
-                        $.toast({
+                       /* $.toast({
                             heading: 'Success',
                             text: 'Record successfully update',
                             icon: 'success',
                             loader: true,
                             position: 'top-right',      // Change it to false to disable loader
                             loaderBg: '#9EC600'  // To change the background
-                        });
+                        });*/
                         $('#myfeedback')[0].reset();
+                        window.location= "{{ route('feedback.thankyou') }}";
                     } else {
+                        $('#btnSubmit').prop('disabled', false);
                         $.toast({
                             heading: 'Error',
-                            text: 'Records Not update',
+                            text: 'Your Feedback request failed to send. Please try later..',
                             icon: 'error',
                             loader: true,
                             position: 'top-right',      // Change it to false to disable loader
@@ -240,17 +247,16 @@
    });
 </script>
 <script>
-    const subjectSelect = document.getElementById('fb-subject');
-    const optionSelect = document.getElementById('fb-options');
-    const optionText = document.getElementById('fb-option-text');
 
     // Define subjects with predefined options
     const subjectOptions = {
+        //6
         "Request for Information": [
             "To become a Support Agent",
             "Concierge Services",
             "My Playbox"
         ],
+        //7
         "Report a bug in the Website": [
             "Public page",
             "Escort listing page",
@@ -263,10 +269,8 @@
     };
 
     // Default state: show text input, hide select
-    optionText.classList.remove('d-none');
-    optionSelect.classList.add('d-none');
-
-    subjectSelect.addEventListener('change', function () {
+   
+    /*subjectSelect.addEventListener('change', function () {
         const selected = this.value;
 
         if (subjectOptions[selected]) {
@@ -287,7 +291,7 @@
             optionSelect.classList.add('d-none');
             optionText.classList.remove('d-none');
         }
-    });
+    });*/
 </script>
 
 @endpush
