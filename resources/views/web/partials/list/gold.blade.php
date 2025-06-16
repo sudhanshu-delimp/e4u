@@ -197,7 +197,7 @@
                             </p>
                         </div>
                         <div class="col pl-0 pr-1 all-escort-view-profile-btn">
-                        <a href="{{ route('profile.description', $escort->id) }}"
+                        <a href="{{ route('profile.description', $escort->id) }}?list"
                                     class="btn btn_for_profile_list_view">View Profile</a>
                         </div>
 

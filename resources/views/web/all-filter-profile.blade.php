@@ -249,6 +249,7 @@
                                 @endforeach --}}
                                 </select>
                             </div>
+                            
                             <div class="display_inline_block mb-1 mr-2">
                                 <button type="button" class="btn verified_btn_bg_color verified_text_color"
                                     data-toggle="tooltip" title="View Verified Photos only">
@@ -257,6 +258,7 @@
                             </div>
                             <div class="display_inline_block mb-1 ">
                                 <input type="hidden" name="filter_button_submit" value="1">
+                                <input type="hidden" name="view_type" id="view_type" value='{{isset($viewType) && $viewType == 'list' ? 'list' : 'grid'}}'>
                                 <button type="submit" class="btn reset_filter apply-filter-btn" data-toggle="tooltip"
                                     title="Apply filters - Search">
                                     Apply Filters
@@ -323,12 +325,6 @@
                                     </div>
                                     <!-- accordien end here -->
                                     <!-- Grid View -->
-                                    @php
-                                        $viewType = 'grid';
-                                        if (request()->get('view') === 'list') {
-                                            $viewType = 'list';
-                                        }
-                                    @endphp
 
                                     <div class="row grid_list_part" id="prosud aa" style="display: block;">
 
@@ -855,6 +851,7 @@
             //var source = e.relatedTarget;
             $('.preChanges').html('<h3>Escorts Grid View</h3>');
             var val = $('#grid-modal').attr('class');
+            $('#view_type').val('grid')
             if (val != "active") {
                 $('.grid').hide();
                 $('.my-wishlist').hide();
@@ -888,6 +885,7 @@
         $('#grid-list').on('click', function() {
             $('.preChanges').html('<h3>Escorts List View</h3>');
             var grid = $('#grid-list').attr('class');
+            $('#view_type').val('list')
             if (grid != "active") {
                 console.log(grid);
                 $('.space_between_row').hide();
