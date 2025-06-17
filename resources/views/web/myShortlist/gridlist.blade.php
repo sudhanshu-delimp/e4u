@@ -111,11 +111,13 @@
                                 </div>
                             </div>
                         </div>
+                        @php
+                            $plainTextAbout = strip_tags($escort->about);
+                            $limitText = Str::limit($plainTextAbout, 200, '...');
+                        @endphp
                         <div class="col">
-                            <p class="list_view_profile_pera_font_size">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat.
+                            <p class="list_view_profile_pera_font_size">
+                                {!! $limitText !!} 
                             </p>
                         </div>
                     </div>
