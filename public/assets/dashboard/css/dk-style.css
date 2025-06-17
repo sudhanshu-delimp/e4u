@@ -5032,6 +5032,124 @@ td {
 
 /* end */
 
+
+/* navbar custom css  */
+
+.topbar-logged-in-user-data p {
+    font-size: 14px;
+    color: var(--blue--text);
+    margin-bottom: 0px;
+}
+
+.form-inline-custom {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+/* end */
+
+
+/* escort dashboard my-custom-box */
+
+.my-custom-box {
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 10px 0px;
+    background-color: #C2CFE0;
+}
+
+.my-custom-box:hover {
+    background-color: #c2cfe052;
+}
+
+.my-custom-box .box-icon {
+    width: 75px;
+    height: 75px;
+    margin: 10px auto 20px;
+}
+
+.my-custom-box .box-icon img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.my-custom-box h2 {
+    font-size: 24px;
+    color: var(--blue--text);
+    font-weight: 500;
+}
+
+.custom-dash-btn a {
+    text-decoration: none;
+    background: var(--blue--text);
+    padding: 15px 50px;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.custom-dash-btn a i {
+    color: #fff;
+    font-size: 20px;
+    padding-left: 15px;
+}
+
+
+/* end */
+
+.level-1,
+.level-2,
+.level-3 {
+    list-style-position: outside;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.level-1 li,
+.level-2 li,
+.level-3 li {
+    margin-bottom: 8px;
+    /* spacing between list items */
+}
+
+
+/* (a), (i) style using CSS only */
+
+.level-2 {
+    list-style-type: lower-alpha;
+}
+
+.level-2>li::marker {
+    content: "(" counter(list-item, lower-alpha) ") ";
+}
+
+.level-3 {
+    list-style-type: lower-roman;
+}
+
+.level-3>li::marker {
+    content: "(" counter(list-item, lower-roman) ") ";
+}
+
+@media (min-width:300px) and (max-width:575px) {
+    .form-inline-custom {
+        display: none;
+    }
+    .topbar-logged-in-user-data p {
+        display: none;
+    }
+}
+
+@media (max-width:1150px) {
+    .topbar-logged-in-user-data p {
+        display: none;
+    }
+}
+
 @media (max-width: 500px) {
     .my-account-card,
     .stats-container {

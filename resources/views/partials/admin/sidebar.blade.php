@@ -607,13 +607,47 @@
                 </div>
             </div>
         </li>
+        {{-- database --}}
         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataBase"
+                aria-expanded="false" aria-controls="collapseTwo">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                src="{{ asset('assets/dashboard/img/menu-icon/database.png') }}">
+                <span>Database &#10060;</span>
+            </a>
+
+            <div id="dataBase" class=" collapse @if (request()->segment(3) == 'database' || request()->segment(3) == 'email-management') || request()->segment(3) == 'sim-management')) show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-0 collapse-inner rounded mb-2">
+                    <a class="nav-link" href="{{ route('admin.database') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/database.png') }}">
+                       
+                        <span style="{{ request()->segment(3) == 'database' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Database</span>
+                    </a>
+
+                    <a class="nav-link collapsed" href="{{ route('email-management') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/add-email-list.png') }}">
+                        <span style="{{ request()->segment(3) == 'email-management' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Email Management</span>
+                    </a>
+
+                    <a class="nav-link collapsed" href="{{ route('sim-management') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/add-sim-list.png') }}">
+                        <span style="{{ request()->segment(3) == 'sim-management' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">SIM Management</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        {{-- end --}}
+           {{--<li class="nav-item">
             <a class="nav-link" href="{{ route('admin.database') }}">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/database.png') }}">
                 <span>Database &#10060;</span>
             </a>
-        {{-- database
+            
+        database
         <div id="collapseTwo" class=" collapse @if (request()->segment(3) == 'escorts') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
                 <a class="collapse-item" href="{{ route('admin.e4u-database.escorts') }}">
