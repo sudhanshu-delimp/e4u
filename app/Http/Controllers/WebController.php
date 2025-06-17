@@ -538,13 +538,43 @@ class WebController extends Controller
 
         $backToListing = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToListing);
 
+        $escorts = $escorts->map(function($item, $key) {
+            # get star rating on the bases on like and unlike
+            $total = EscortLike::where('escort_id',$item->id)->count();
+            if($total > 0) {
+                $likeCount = EscortLike::where('like',1)->where('escort_id',$item->id)->count();
+                $dislikeCount = EscortLike::where('like',0)->where('escort_id',$item->id)->count();
+                $lp = round($likeCount/$total * 100);
+                $dp = round($dislikeCount/$total * 100);
+            } else {
+                $lp = 0;
+                $dp = 0;
+            }
+
+            if ($lp == 100) {
+                $item->star_rating = 5;
+            } elseif ($lp < 100 && $lp > 80) {
+                $item->star_rating = 4;
+            } elseif ($lp <= 80 && $lp > 60) {
+                $item->star_rating = 3;
+            } elseif ($lp <= 60 && $lp > 40) {
+                $item->star_rating = 2;
+            } elseif ($lp <= 40 && $lp > 20) {
+                $item->star_rating = 1;
+            } else {
+                $item->star_rating = 0;
+            }
+            //$item->star_rating = $lp;
+            return $item;
+        })->collect();
+
         // if(request()->has('list') || request()->get('view_type') == 'list'){
         //     $backToListing = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToListing);
         // }else{
         //     $backToListing = preg_replace('/view_type=(grid|list)/', 'view_type=grid', $backToListing);
         // }
         //dd($all_services_tag);
-        //dd($escorts);
+        // dd($escorts);
         //dd($escorts->items()[1]->where(8));
         return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts','backToListing','radio_location_filter','all_services_tag','defaultViewType'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));

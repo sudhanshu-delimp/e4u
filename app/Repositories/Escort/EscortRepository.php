@@ -232,7 +232,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             if($item->enabled=='Inactive'){
                 $item->action .= '<a class="dropdown-item" data-toggle="modal" data-target="#duplicate-profile-modal" href="#" data-id="' . $item->id . '" data-state="' . $item->state_id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '">Duplicate</a>';
             } 
-            $item->action .= ' <div class="dropdown-divider"></div><a class="dropdown-item delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '">Delete </a> <div class="dropdown-divider"></div><a class="dropdown-item" href="' . route('escort.update.profile', $item->id) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '">Edit</a> <div class="dropdown-divider"></div><a class="dropdown-item" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '">view</a><div class="dropdown-divider"></div></div></div>';
+            $item->action .= ' <div class="dropdown-divider"></div><a class="dropdown-item delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '">Delete </a> <div class="dropdown-divider"></div><a class="dropdown-item" href="' . route('escort.update.profile', $item->id) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '">Edit</a> <div class="dropdown-divider"></div><a class="dropdown-item" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '">View</a><div class="dropdown-divider"></div></div></div>';
 
             $itemArray = $item->toArray();
             //$item->custom_profile_name = ($itemArray['profile_name'] ? $itemArray['profile_name'] :"NA");
@@ -443,7 +443,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
         $mytime = Carbon::now()->format('d-m-Y');
 
         $collection = $collection
-            ->where('enabled', 1);
+            ->where('enabled', 1)->with('reviews');
         if (!empty($gen)) {
             $collection = $collection->where('gender', '=', $gen);
             //->orWhere('name','LIKE','%'.$str)
