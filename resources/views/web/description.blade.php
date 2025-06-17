@@ -320,7 +320,7 @@
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
                                     <th class="payment_accept_text_color" scope="col" colspan="4">Payment ($AUS):
-                                        {{ config("escorts.profile.Security.$escort->payment_type")}}
+                                        {{ config("escorts.profile.Payments.$escort->payment_type") }}
                                     </th>
                                 </tr>
                             </thead>

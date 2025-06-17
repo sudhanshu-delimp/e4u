@@ -506,9 +506,17 @@ Route::get('/admin-dashboard/notifications/centres',function(){
     return view('admin.notifications.centres');
 })->name('admin.centres');
 
+Route::get('/admin-dashboard/post-office/send-reports',function(){
+    return view('admin.post-office.send-reports');
+})->name('admin.send-reports');
+
 Route::get('/admin-dashboard/post-office/reports',function(){
     return view('admin.post-office.reports');
 })->name('admin.reports');
+
+Route::get('/admin-dashboard/blog',function(){
+    return view('admin.blog');
+})->name('admin.blog');
 
 
 Route::get('/admin-dashboard/management/punterbox-reports',function(){
