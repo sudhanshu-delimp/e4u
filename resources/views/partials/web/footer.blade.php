@@ -45,9 +45,9 @@
                <p>Any price indicated in an Advertiser's Profile relates to their time only and nothing else. Any service offered or whatever else that may occur is a mutual decision between consenting adults and is private between them. It is your responsibility to be cognisant of and to comply with the Local Laws.</p><p>Further details may be found in the Terms and Conditions.</p>
             </div>
             @php
-               $viewType = 'grid';
-               if (request()->get('view_type') === 'list') {
-                  $viewType = 'list';
+               $viewType = 'list';
+               if (request()->get('view_type') === 'grid') {
+                  $viewType = 'grid';
                }
             @endphp
             <div class="col footer_text_color_white">
