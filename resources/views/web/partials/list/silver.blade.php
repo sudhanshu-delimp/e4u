@@ -125,10 +125,14 @@
                             <span class="custom--tooltip">Escort has video to view</span></a>
                     </div>
                 </div>
+                @php
+                    $plainTextAbout = strip_tags($escort->about);
+                @endphp
                 <div class="mt-1"> 
-                    <p class="list_view_profile_pera_font_size">Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua.
+                    <p class="list_view_profile_pera_font_size">{{ Str::limit($plainTextAbout, 200, '...') }} 
+                                @if(strlen($plainTextAbout) > 200)
+                                    <a href="{{ route('profile.description', $escort->id) }}?list" class="h6 text-danger">Read More</a>
+                                @endif
                     </p>
                 </div>
                 
