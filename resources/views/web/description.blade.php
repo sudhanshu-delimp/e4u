@@ -2392,6 +2392,10 @@ let carousel = new bootstrap.Carousel(myCarousel, {
   });
 });
 
+$(document).on('click', '.modal .close', function () {
+    $('#my_legbox').modal('hide');
+});
+
 
 </script>
 @endpush
