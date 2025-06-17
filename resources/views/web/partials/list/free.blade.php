@@ -37,9 +37,10 @@
                 </div>
                 @php
                     $plainTextAbout = strip_tags($escort->about);
+                    $limitText = Str::limit($plainTextAbout, 200, '...');
                 @endphp
                 <p class="list_view_profile_pera_font_size pt-2">
-                    {{ Str::limit($plainTextAbout, 200, '...') }} 
+                        {!! $limitText !!} 
                             @if(strlen($plainTextAbout) > 200)
                                 <a href="{{ route('profile.description', $escort->id) }}?list" class="h6 text-danger">Read More</a>
                         @endif
