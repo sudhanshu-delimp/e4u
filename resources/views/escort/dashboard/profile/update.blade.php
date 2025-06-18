@@ -953,14 +953,37 @@
                 });
             });
 
+             function checkProfileDynamicMedia(){
+                let dynamic_image = 0;
+                document.querySelectorAll('.upld-img').forEach(img => {
+                    let src = img.getAttribute('src');
+                    let basename = src.substring(src.lastIndexOf('/') + 1);
+                    if(!['img-12.png','img-11.png'].includes(basename)){
+                        dynamic_image++ 
+                    }
+                });
+                return dynamic_image;
+             }
+             
             $("body").on('click', '.nex_sterp_btn', function(e) {
                 // e.preventDefault();
                 var id = $(this).attr('id');
                 $(this).removeClass('active');
                 $(".nav-link").removeClass('active');
                 $("#" + id).addClass('active');
-                if (profile_selected_images.length > 0) {
-                    $("#setAsDefaultForMainAccount").modal('show');
+                console.log("profile_selected_images:",profile_selected_images);
+                
+                switch(id){
+                    case 'profile-tab':{
+                        let dynamic_image = checkProfileDynamicMedia();
+                        if(dynamic_image==0){
+                            Swal.fire('Media', 'Please attach media to this profile from the Media Repository or upload a new file', 'warning');
+                            return false;
+                        }
+                        if (dynamic_image == 0) {
+                           // $("#setAsDefaultForMainAccount").modal('show');
+                        }
+                    } break;
                 }
             });
 
