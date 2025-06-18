@@ -6,10 +6,13 @@
         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
         </button>
-
+        {{-- logged in user data --}}
+        <div class="topbar-logged-in-user-data">
+            <p>Welcome back : <span>{{auth()->user()->name }}</span> <br> Member ID :  <span>{{auth()->user()->member_id }}</span></p>
+        </div>
+        {{-- end --}}
         <!-- Topbar Search -->
-        <form
-            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        {{-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group dk-border-radius">
                 <div class="input-group-append">
                     <button class="btn" type="button">
@@ -20,11 +23,23 @@
                        aria-label="Search" aria-describedby="basic-addon2">
 
             </div>
-        </form>
+        </form> --}}
 
         <!-- Topbar Navbar -->
         <div class="navbar-nav ml-auto">
-
+            {{-- Nav Item - Search visible all screen not only xs --}}
+                <form class="form-inline navbar-search form-inline-custom">
+                    <div class="input-group dk-border-radius">
+                        <div class="input-group-append">
+                            <button class="btn" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control border-0 small" placeholder="Enter keywords..."
+                               aria-label="Search" aria-describedby="basic-addon2">
+        
+                    </div>
+                </form>
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
             <li class="nav-item dropdown no-arrow d-sm-none">
                 <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"

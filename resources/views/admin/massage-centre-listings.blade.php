@@ -36,10 +36,11 @@
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
-                            <li>New features launched in the Website</li>
+                            <li>All current (published) Listings are displayed in this table.</li>
                             <li>You have limited Action access according to your security level.</li>
                             <li>Prefixes:</li>
-                            <p>1. ACT 2. NSW 3. Vic 4. Qld 5. SA 6. W A 7. Tas 8. NT</p>
+                            <p>1. ACT  &nbsp;&nbsp;2. NSW  &nbsp;&nbsp;3. Vic  &nbsp;&nbsp;4. Qld  &nbsp;&nbsp;5. SA  &nbsp;&nbsp;6. WA  &nbsp;&nbsp;7. Tas  &nbsp;&nbsp;8. NT</p>
+                            
                         </ol>
 
                     </div>
@@ -71,8 +72,8 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="table" id="listings">
+            <div class="massage_table_class">
+                <table class="table table-bordered" id="listings" style="width:100%;">
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">
@@ -250,7 +251,7 @@
             let countdown = 30;
             setInterval(() => {
                 countdown--;
-                $(".refreshSeconds").text('['+countdown+']');
+                $(".refreshSeconds").text(' '+countdown);
 
                 if (countdown <= 0) {
                     $('#listings').DataTable().ajax.reload(null, false);
@@ -322,8 +323,8 @@
                     targets: 9,
                     orderable: false,
                     render: function(data, type, row) {
-                        $(".serverTime").text('['+row.server_time+']');
-                        $(".uptimeClass").html('['+row.upTime+']');
+                        $(".serverTime").text(row.server_time);
+                        $(".uptimeClass").html(row.upTime);
                         return `
                             <div class="dropdown no-arrow ml-3">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -378,65 +379,25 @@
             });
         });
 
-        // $(document).on('click', '.custom-page-link', function (e) {
-        //     e.preventDefault();
-        //     const page = $(this).data('page');
-            
-        //     $('#listings').DataTable().ajax.url("{{ route('escort.current.list.dataTableListing', 'current') }}?page=" + page).load();
-        //     $('#listings').DataTable().page(page - 1).draw('page');
-            
-        // });
+        $(document).ready(function () {
+            function checkAndApplyResponsive() {
+                if ($(window).width() < 1500) {
+                    if (!$('.massage_table_class').hasClass('table-responsive')) {
+                        $('.massage_table_class').addClass('table-responsive');
+                    }
+                } else {
+                    $('.massage_table_class').removeClass('table-responsive');
+                }
+            }
 
-        // function buildCustomPagination(total, perPage, currentPage) {
-        //     const totalPages = Math.ceil(total / perPage);
-        //     let html = '<ul class="pagination float-right pt-4">';
+            // Initial check
+            checkAndApplyResponsive();
 
-        //     // Previous button
-        //     if (currentPage > 1) {
-        //         html += `<li class="page-item">
-        //                     <a class="page-link custom-page-link" href="#" data-page="${currentPage - 1}" aria-label="Previous">
-        //                         <span aria-hidden="true">«</span>
-        //                         <span class="sr-only">Previous</span>
-        //                     </a>
-        //                 </li>`;
-        //     } else {
-        //         html += `<li class="page-item disabled">
-        //                     <span class="page-link" aria-label="Previous">
-        //                         <span aria-hidden="true">«</span>
-        //                         <span class="sr-only">Previous</span>
-        //                     </span>
-        //                 </li>`;
-        //     }
-
-        //     // Page numbers
-        //     for (let i = 1; i <= totalPages; i++) {
-        //         html += `<li class="page-item ${i === currentPage ? 'active' : ''}">
-        //                     <a class="page-link custom-page-link" href="#" data-page="${i}">${i}</a>
-        //                 </li>`;
-        //     }
-
-        //     // Next button
-        //     if (currentPage < totalPages) {
-        //         html += `<li class="page-item">
-        //                     <a class="page-link custom-page-link" href="#" data-page="${currentPage + 1}" aria-label="Next">
-        //                         <span aria-hidden="true">»</span>
-        //                         <span class="sr-only">Next</span>
-        //                     </a>
-        //                 </li>`;
-        //     } else {
-        //         html += `<li class="page-item disabled">
-        //                     <span class="page-link" aria-label="Next">
-        //                         <span aria-hidden="true">»</span>
-        //                         <span class="sr-only">Next</span>
-        //                     </span>
-        //                 </li>`;
-        //     }
-
-        //     html += '</ul>';
-
-        //     $(".customPagination").html(html);
-        // }
-
+            // Recheck on window resize
+            $(window).resize(function () {
+                checkAndApplyResponsive();
+            });
+        });
        
 
     </script>

@@ -443,7 +443,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
         $mytime = Carbon::now()->format('d-m-Y');
 
         $collection = $collection
-            ->where('enabled', 1);
+            ->where('enabled', 1)->with('reviews');
         if (!empty($gen)) {
             $collection = $collection->where('gender', '=', $gen);
             //->orWhere('name','LIKE','%'.$str)

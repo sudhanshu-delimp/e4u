@@ -45,9 +45,9 @@
                <p>Any price indicated in an Advertiser's Profile relates to their time only and nothing else. Any service offered or whatever else that may occur is a mutual decision between consenting adults and is private between them. It is your responsibility to be cognisant of and to comply with the Local Laws.</p><p>Further details may be found in the Terms and Conditions.</p>
             </div>
             @php
-               $viewType = 'grid';
-               if (request()->get('view') === 'list') {
-                  $viewType = 'list';
+               $viewType = 'list';
+               if (request()->get('view_type') === 'grid') {
+                  $viewType = 'grid';
                }
             @endphp
             <div class="col footer_text_color_white">
@@ -56,7 +56,7 @@
                   <div class="wcustom-50">
                      <ul class="list-group footer_list_style_none">
                         @foreach(config('escorts.profile.cities') as $key => $city)
-                           <li><a href="{{route('find.all', [request()->segment(2),'city'=>$key])}}&view={{$viewType}}" class="footer_view_type_one" id="{{$key}}">{{$city}}</a></li>
+                           <li><a href="{{route('find.all', [request()->segment(2),'city'=>$key])}}&view_type={{$viewType}}" class="footer_view_type_one" id="{{$key}}">{{$city}}</a></li>
                            @if($loop->iteration == 4) @break  @endif 
                         @endforeach
                         {{--
@@ -71,7 +71,7 @@
                      <ul class="list-group footer_list_style_none">
                         @foreach(config('escorts.profile.cities') as $key => $city)
                            @if($loop->iteration > 4)
-                           <li><a href="{{route('find.all', [request()->segment(2),'city'=>$key])}}&view={{$viewType}}" class="city_id footer_view_type_two" id="{{$key}}">{{$city}}</a></li>
+                           <li><a href="{{route('find.all', [request()->segment(2),'city'=>$key])}}&view_type={{$viewType}}" class="city_id footer_view_type_two" id="{{$key}}">{{$city}}</a></li>
                            @endif
                         @endforeach
                         {{--

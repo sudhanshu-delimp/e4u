@@ -41,14 +41,6 @@
                             <span style="color:#FF3349">Membership Type reshuffles every 2 hours. </span>
                         </div>
                         <div class="col-md-8 ryt_srch_btn">
-                            <div class="display_inline_block ">
-                                <div class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile">
-                                    <button class="input-group-text border-0 remove_bg_color_of_search_btn" id="search-addon" type="submit">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                    <input type="search" name="name" class="form-control remove_border_btm rounded " placeholder="Search by Member ID or Name" aria-label="Search" aria-describedby="search-addon" value="{{ request()->get('name') }}">
-                                </div>
-                            </div>
                             <div class="display_inline_block">
                                 <div class="d-flex flex-column gap-2" style="width:105px">
                                     <div class="d-flex align-items-start"
@@ -69,6 +61,46 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="display_inline_block ">
+                                {{-- old-code <div class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile">
+                                    <button class="input-group-text border-0 remove_bg_color_of_search_btn" id="search-addon" type="submit">
+                                    <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                    <input type="search" name="name" class="form-control remove_border_btm rounded " placeholder="Search by Member ID or Name" aria-label="Search" aria-describedby="search-addon" value="{{ request()->get('name') }}">
+                                </div> --}}
+                                <div
+                                    class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
+                                    
+                                    <input type="search" name="name" class="form-control remove_border_btm rounded "
+                                        placeholder="Search by Member ID or Name" aria-label="Search"
+                                        aria-describedby="search-addon" value="{{ request()->get('name') }}">
+
+                                        <button class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn"
+                                        id="search-addon" type="submit">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            {{-- old-code <div class="display_inline_block">
+                                <div class="d-flex flex-column gap-2" style="width:105px">
+                                    <div class="d-flex align-items-start"
+                                        style=" padding-top: 2px;" title="Undertake a search within your Location only">
+                                        <input type="radio" name="locationByRadio" {{ $radio_location_filter != null ? 'checked':'' }} id="yourLocation">
+                                        <label for="yourLocation"
+                                            style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
+                                            Your Location
+                                        </label>
+                                    </div>
+
+                                    <div class="d-flex align-items-start" title="Undertake a search Australia wide">
+                                        <input type="radio" name="locationByRadio" id="australia" {{ $radio_location_filter == null ? 'checked' : ''}}>
+                                        <label for="australia"
+                                            style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
+                                            Australia
+                                        </label>
+                                    </div>
+                                </div>
+                            </div> --}}
                             <div class="display_inline_block   item_dis">
                                 <span class="item-head">Display item</span>
                                 <select class="custome_form_control_border_radus padding_five_px" name="limit">

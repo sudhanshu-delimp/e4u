@@ -370,6 +370,16 @@ Route::get('admin-dashboard/alerts/new', function(){
         return view('admin.alerts.new');
     })->name('new');
 
+    
+Route::get('admin-dashboard/database/email-management',function(){
+    return view('admin.database.email-management');
+})->name('email-management');
+  
+Route::get('admin-dashboard/database/sim-management',function(){
+    return view('admin.database.sim-management');
+})->name('sim-management');
+
+
 Route::get('/admin-dashboard/support/pricing',function(){
     return view('admin.support.pricing');
 })->name('pricing');

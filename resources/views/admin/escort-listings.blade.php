@@ -70,8 +70,8 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="table" id="escort_listings">
+            <div class="massage_table_class">
+                <table class="table" id="escort_listings" style="width:100%;">
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">
@@ -137,7 +137,7 @@
                     <p>Refresh time:<span class="refreshSeconds"> 30</span></p>
                     <p>Up time: <span class="uptimeClass">[{{getAppUptime()}}]</span></p>
                 </div>
-                <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
+                <div class="customPaginationContainer mt-4 d-flex justify-content-between "></div>
                 <nav aria-label="Page navigation example">
                     {{-- <ul class="pagination float-right pt-4">
                         <li class="page-item">
@@ -271,7 +271,7 @@ CKEDITOR.replace('editor1', {
             let countdown = 30;
             setInterval(() => {
                 countdown--;
-                $(".refreshSeconds").text(' ['+countdown+']');
+                $(".refreshSeconds").text(' '+countdown);
 
                 if (countdown <= 0) {
                     $('#escort_listings').DataTable().ajax.reload(null, false);
@@ -340,8 +340,8 @@ CKEDITOR.replace('editor1', {
                     targets: 9,
                     orderable: false,
                     render: function(data, type, row) {
-                        $(".serverTime").text('['+row.server_time+']');
-                        $(".uptimeClass").html('['+row.upTime+']');
+                        $(".serverTime").text(row.server_time);
+                        $(".uptimeClass").html(row.upTime);
                         return `
                             <div class="dropdown no-arrow ml-3">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -393,6 +393,26 @@ CKEDITOR.replace('editor1', {
                     console.error('Failed to fetch data');
                     $('#view-listing .modal-body').html('<p class="text-danger">Error loading data...</p>');
                 }
+            });
+        });
+
+        $(document).ready(function () {
+            function checkAndApplyResponsive() {
+                if ($(window).width() < 1500) {
+                    if (!$('.massage_table_class').hasClass('table-responsive')) {
+                        $('.massage_table_class').addClass('table-responsive');
+                    }
+                } else {
+                    $('.massage_table_class').removeClass('table-responsive');
+                }
+            }
+
+            // Initial check
+            checkAndApplyResponsive();
+
+            // Recheck on window resize
+            $(window).resize(function () {
+                checkAndApplyResponsive();
             });
         });
 

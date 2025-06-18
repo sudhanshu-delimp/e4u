@@ -1,11 +1,11 @@
 @extends('layouts.escort')
 @section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js?v1.1') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
+    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js?v1.1') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <style type="text/css">
         .parsley-errors-list {
             list-style: none;
@@ -168,8 +168,8 @@
                                     </div>
                                 @else
                                     <form id="my_escort_profile"
-                                        action="{{ route('escort.setting.profile', request()->segment(3)) }}"
-                                        method="post" enctype="multipart/form-data">
+                                        action="{{ route('escort.setting.profile', request()->segment(3)) }}" method="post"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <input type="hidden" name="user_startDate" id="user_startDate"
                                             value="{{ date('Y-m-d', strtotime(auth()->user()->created_at)) }}">
@@ -299,9 +299,12 @@
             $('#select2_country').select2();
         </script>
         <script>
-            $('#read_more').parsley({
+            @if(request()->segment(2) == 'profile' && request()->segment(3))
+            //$('#read_more').parsley({});
+            $('#LocationInformation').parsley({
 
             });
+            @endif
             $('#myability').parsley({
 
             });
@@ -440,7 +443,7 @@
                     var form = $(this);
                     var url = form.attr('action');
                     var data = new FormData($('#storeRate')[0]);
-                    console.log(data);
+
                     $('#store_rate').prop('disabled', true);
                     $('#store_rate').html('<div class="spinner-border"></div>');
                     $.ajax({
@@ -468,6 +471,246 @@
                             }
                         }
                     });
+                });
+
+                $('#read_more').on('submit', function(e) {
+                    e.preventDefault();
+                    var form = $(this);
+                    //if (form.parsley().isValid()) {
+                    var url = form.attr('action');
+                    var data = new FormData($('#read_more')[0]);
+                    $('#read-more').prop('disabled', true);
+                    $('#read-more').html('<div class="spinner-border"></div>');
+                    $.ajax({
+                        method: form.attr('method'),
+                        url: url,
+                        data: data,
+                        contentType: false,
+                        processData: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(data) {
+                            if (!data.error) {
+                                Swal.fire('Updated', '', 'success');
+                                $('#read-more').prop('disabled', false);
+                                $('#read-more').html('Updated');
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops.. sumthing wrong Please try again',
+                                    text: data.message
+                                });
+                                $('#read-more').prop('disabled', false);
+                                $('#read-more').html('Updated');
+                            }
+                        }
+                    });
+                    //}
+                });
+
+                $('#update_about_me').on('submit', function(e) {
+                    e.preventDefault();
+                    var form = $(this);
+
+                    if (form.parsley().isValid()) {
+
+                        $('#aboutMeBtn').prop('disabled', true);
+                        $('#aboutMeBtn').html('<div class="spinner-border"></div>');
+                        var url = form.attr('action');
+                        var data = new FormData($('#update_about_me')[0]);
+                        data.append('_token', $('input[name="_token"]').val());
+
+                        $.ajax({
+                            method: form.attr('method'),
+                            url: url,
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(data) {
+                                console.log(data);
+                                if (!data.error) {
+                                    Swal.fire('Updated', '', 'success');
+                                    $('#aboutMeBtn').prop('disabled', false);
+                                    $('#aboutMeBtn').html('Updated');
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops.. sumthing wrong Please try again',
+                                        text: data.message
+                                    });
+                                    $('#aboutMeBtn').prop('disabled', false);
+                                    $('#aboutMeBtn').html('Updated');
+                                }
+                            }
+                        });
+                    }
+                });
+
+                $('#update_abut_who_am_i').on('submit', function(e) {
+                    e.preventDefault();
+                    var form = $(this);
+                        $('#update_who_am_i').prop('disabled', true);
+                        $('#update_who_am_i').html('<div class="spinner-border"></div>');
+                        var url = form.attr('action');
+                        var data = new FormData($('#update_abut_who_am_i')[0]);
+                        //data.append('_token', $('input[name="_token"]').val());
+                       // let about = editor.getData();
+                        //data.append('about',about);
+                        //let about_title = $("[name=about_title]").val();
+                        //data.append('about_title',about_title);
+
+                        $.ajax({
+                            method: form.attr('method'),
+                            url: url,
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(data) {
+                                console.log(data);
+                                if (!data.error) {
+                                    Swal.fire('Updated', '', 'success');
+                                    $('#update_who_am_i').prop('disabled', false);
+                                    $('#update_who_am_i').html('Updated');
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops.. sumthing wrong Please try again',
+                                        text: data.message
+                                    });
+                                    $('#update_who_am_i').prop('disabled', false);
+                                    $('#update_who_am_i').html('Updated');
+                                }
+                            }
+                        });
+                });
+
+
+                $('#myability').on('submit', function(e) {
+                    e.preventDefault();
+
+                    var form = $(this);
+
+                    if (form.parsley().isValid()) {
+
+                        $('#my_abilities').prop('disabled', true);
+                        $('#my_abilities').html('<div class="spinner-border"></div>');
+                        var url = form.attr('action');
+                        var data = new FormData($('#myability')[0]);
+                        console.log(data);
+
+                        $.ajax({
+                            method: form.attr('method'),
+                            url: url,
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(data) {
+                                if (!data.error) {
+                                    Swal.fire('Updated', '', 'success');
+                                    $('#my_abilities').prop('disabled', false);
+                                    $('#my_abilities').html('Save');
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops.. sumthing wrong Please try again',
+                                        text: data.message
+                                    });
+                                    $('#my_abilities').prop('disabled', false);
+                                    $('#my_abilities').html('Save');
+                                }
+                            }
+                        });
+                    }
+                });
+
+                $('#LocationInformation').on('submit', function(e) {
+                    e.preventDefault();
+
+                    var form = $(this);
+
+                    if (form.parsley().isValid()) {
+                        $('#location-info').prop('disabled', true);
+                        $('#location-info').html('<div class="spinner-border"></div>');
+                        var url = form.attr('action');
+                        var data = new FormData($('#LocationInformation')[0]);
+                        console.log(data);
+
+                        $.ajax({
+                            method: form.attr('method'),
+                            url: url,
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(data) {
+                                if (!data.error) {
+                                    Swal.fire('Updated', '', 'success');
+                                    $('#location-info').prop('disabled', false);
+                                    $('#location-info').html('Save');
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops.. sumthing wrong Please try again',
+                                        text: data.message
+                                    });
+                                    $('#location-info').prop('disabled', false);
+                                    $('#location-info').html('Save');
+                                }
+                            }
+                        });
+                    }
+                });
+                /** Media upload */
+                $('#myProfileMediaForm').on('submit', function(e) {
+                    e.preventDefault();
+
+                    var form = $(this);
+
+                    if (form.parsley().isValid()) {
+                        $('#mediaProfileBtn').prop('disabled', true);
+                        $('#mediaProfileBtn').html('<div class="spinner-border"></div>');
+                        var url = form.attr('action');
+                        var data = new FormData($('#myProfileMediaForm')[0]);
+                        console.log(data);
+
+                        $.ajax({
+                            method: form.attr('method'),
+                            url: url,
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(data) {
+                                if (!data.error) {
+                                    Swal.fire('Updated', '', 'success');
+                                    $('#mediaProfileBtn').prop('disabled', false);
+                                    $('#mediaProfileBtn').html('Save');
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops.. sumthing wrong Please try again',
+                                        text: data.message
+                                    });
+                                    $('#mediaProfileBtn').prop('disabled', false);
+                                    $('#mediaProfileBtn').html('Save');
+                                }
+                            }
+                        });
+                    }
                 });
 
             }); // end (document).ready

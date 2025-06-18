@@ -339,34 +339,7 @@ class GlobalMonitoringController extends Controller
 
     public function dataTableSingleListingAjax($id)
     {
-         $params  = [
-            'string' => request()->get('name'),
-            'city_id' => request()->get('city'),
-            'premises' => request()->get('premises'),
-            'masseur_types' => request()->get('masseur_types'),
-            'age' => request()->get('age'),
-            'prices' => request()->get('prices'),
-            'massage_services' => request()->get('massage_services'),
-            'other_services' => request()->get('other_services'),
-        ];
-
-         
-        //list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
-        //$escorts = $this->massage_profile->findByMassageCentre(50, $params);
-
         $escorts = MassageProfile::where('id', $id)->with('user')->first();
-
-        //dd($escorts->toArray());
-        $dataTableData = [];
-        
-        if(count($escorts->toArray()) > 0){
-            $dataTableData = $escorts->toArray();
-            foreach ($dataTableData as $key => $item) {
-                $dataTableData[$key]['upTime'] = $this->getAppUptime();
-                $dataTableData[$key]['server_time'] = now()->format('h:i:s A');
-            }
-        }
-
 
         $dataTableData = [];
 
@@ -374,8 +347,10 @@ class GlobalMonitoringController extends Controller
                 $escort = $escorts->toArray();
                 $dataTableData = [
                     'id' => $escort['id'],
+                    'upTime' => $this->getAppUptime(),
+                    'server_time' => now()->format('h:i:s A'),
                     'member_id' => $escort['user']['member_id'],
-                    'member' => '-',
+                    'member' => $escort['name'],
                     'city' =>
                     config(
                         "escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName",
