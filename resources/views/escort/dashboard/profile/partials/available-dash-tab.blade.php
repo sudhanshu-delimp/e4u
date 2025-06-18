@@ -1,14 +1,15 @@
 <div class="tab-pane fade pt-2" id="available" role="tabpanel" aria-labelledby="contact-tab">
     <div class="about_me_drop_down_info profile-sec">
-        {{--
+        
         <div class="fill_profile_headings_global">
             <h2>My Availability</h2>
         </div>
-        --}}
+    
         <div class="padding_20_all_side my-availability-mon container">
-            {{-- <form class="my-availability-mon-sun" id="myability" action="{{ route('escort.store.availability', [$escort->id])}}" method="Post">
-                @csrf --}}
-
+             @if(request()->segment(2) == 'profile' && request()->segment(3))
+            <form class="my-availability-mon-sun" id="myability" action="{{ route('escort.store.availability', [$escort->id])}}" method="Post">
+                @csrf
+            @endif
 
 
             @php
@@ -128,7 +129,20 @@
                     </div>
                 </div>
             @endforeach
-            <div class="tab_btm_btns_preview_and_next">
+
+            @if(request()->segment(2) == 'profile' && request()->segment(3))
+                <div class="row pt-3">
+                    <div class="col-md-12 text-right" style="padding-right: 1.8rem;">
+                       
+                        <button id="my_abilities" type="submit" class="save_profile_btn who_am_i">Update</button>
+                        
+                    </div>
+                </div>
+                </form>
+            @endif
+        </div>
+    </div>
+     <div class="tab_btm_btns_preview_and_next">
                 <div class="row pt-3 pb-3">
                     <div class="col-lg-4 col-md-4 col-sm-4 col-12 a_text_white_hover previous_bt_center_in_sm">
                         <a class="nex_sterp_btn btn_width_hundred" id="profile-tab" data-toggle="tab" href="#services"
@@ -139,10 +153,12 @@
                         class="col-lg-8 col-md-8 col-sm-8 col-12 text-right a_text_white_hover previous_bt_center_in_sm">
                         <a href="{{ route('profile.description', $escort->id ? $escort->id : '') }}"
                             class="save_profile_btn">Preview</a>
+                              @if (request()->segment(2) == 'create-profile')
                         <button id="show_draft-2" name="save" type="submit" class="nex_sterp_btn"
                             {{-- style="display:none" --}}>
                             Save Profile
                         </button>
+                        @endif
                         {{--                <button id="show_draft-3" name="save and pay"  type="submit" class="nex_sterp_btn" --}}{{-- style="display:none" --}}{{-- >Save and Pay</button> --}}
                         {{-- <a href="#pricing" class="nex_sterp_btn hideDraft" id="pricing-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Next Step
                 <i class="fas fa-arrow-right"></i>
@@ -151,4 +167,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+</div>    
+
+
