@@ -298,7 +298,8 @@ CKEDITOR.replace('editor1', {
                 url: "{{ route('escort.current.list.escort-dataTableListing', 'current') }}", 
                 type: "GET",
                 dataSrc: function(json) {
-                    var totalRows = json.data.length; 
+                    // var totalRows = json.data.length; 
+                    var totalRows = json.recordsTotal || json.recordsFiltered; 
                     $(".totalListing").text(totalRows);
                     console.log(json, json.per_page, json.current_page);
                     //buildCustomPagination(json.recordsTotal, 3, 1);

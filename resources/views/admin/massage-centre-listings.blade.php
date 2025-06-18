@@ -281,7 +281,7 @@
                     console.log(json.data);
                     //$(".customePaginationShow").html($("#listings_info").html()+$("#listings_paginate").html());
                     // buildCustomPagination(json.recordsTotal);
-                    var totalRows = json.data.length; 
+                    var totalRows = json.recordsTotal || json.recordsFiltered; 
                     $(".totalListing").text(totalRows);
                     console.log(json, json.per_page, json.current_page);
                     //buildCustomPagination(json.recordsTotal, 3, 1);
