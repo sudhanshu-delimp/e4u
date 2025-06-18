@@ -370,6 +370,16 @@ Route::get('admin-dashboard/alerts/new', function(){
         return view('admin.alerts.new');
     })->name('new');
 
+    
+Route::get('admin-dashboard/database/email-management',function(){
+    return view('admin.database.email-management');
+})->name('email-management');
+  
+Route::get('admin-dashboard/database/sim-management',function(){
+    return view('admin.database.sim-management');
+})->name('sim-management');
+
+
 Route::get('/admin-dashboard/support/pricing',function(){
     return view('admin.support.pricing');
 })->name('pricing');
@@ -453,6 +463,14 @@ Route::get('/admin-dashboard/management/statistics/tours',function(){
 Route::get('/admin-dashboard/management/statistics/profile',function(){
     return view('admin.management.statistics.profile');
 })->name('admin.profile');
+
+Route::get('/admin-dashboard/management/statistics/num',function(){
+    return view('admin.management.statistics.num');
+})->name('admin.num');
+
+Route::get('/admin-dashboard/management/statistics/listings',function(){
+    return view('admin.management.statistics.listings');
+})->name('admin.listings');
 
 Route::get('/admin-dashboard/management/manage-user',function(){
     return view('admin.management.manage-user');

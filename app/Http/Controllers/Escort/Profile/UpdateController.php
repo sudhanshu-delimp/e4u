@@ -75,8 +75,8 @@ class UpdateController extends AppController
                 'address' => $request->address ?: $escort->address,
                 'covidreport' => $request->covidreport ?: $escort->getRawOriginal('covidreport'),
                 'phone' => $request->phone ?: $escort->phone,
-                'about' => $request->about ?: $escort->about,
-                'about_title' => $request->about_title ?: $escort->about_title,
+                //'about' => $request->about ?: $escort->about,
+                //'about_title' => $request->about_title ?: $escort->about_title,
             ];
             if ($this->escort->update($id, $input)) {
                 $error = false;
@@ -128,7 +128,7 @@ class UpdateController extends AppController
         }
 
         $input = [
-            //            'gender'=> $request->gender ?: $escortDefault->gender,
+            //gender'=> $request->gender ?: $escortDefault->gender,
             'orientation' => $request->orientation ?: $escortDefault->getRawOriginal('orientation'),
             'ethnicity' => $request->ethnicity ?: $escortDefault->getRawOriginal('ethnicity'),
             'body_type' => $request->body_type ?: $escortDefault->getRawOriginal('body_type'),
@@ -178,6 +178,13 @@ class UpdateController extends AppController
            $playTypes = explode(',', $request->play_type);
            $input['play_type'] =  json_encode($playTypes);
        }
+
+       if (isset($request->gender)) {
+           $input['gender'] =  $request->gender;
+
+       }
+      // echo $escortDefault->id;die;
+      // echo "<pre/>";print_r($input);die;
         if ($this->escort->update($escortDefault->id, $input)) {
             $error = false;
         }
@@ -453,6 +460,98 @@ class UpdateController extends AppController
             return redirect()->route('escort.list')->with('error', $errors);
         }
     }
+
+
+    /***
+     * UpdatedBy::Bikash Chhualsingh
+     * UpdateDate: 12-June-2023
+     */
+    public function saveProfileMedia(UpdateRequestAboutAll $request, $id = null)
+    {
+        $user = auth()->user();
+         $media_arr = [];
+         $errors="";
+         $error= true;
+        $successFlashMsg = $id ? 'Profile updated successfully' : 'Profile created successfully';
+        $galleryStorageFull = false;
+         $noOfFilesInGallery = $this->media->get_user_row(auth()->user()->id, [8, 10])->count();
+         //echo $noOfFilesInGallery;die;
+      
+            if ($noOfFilesInGallery  <= 30) {
+                $error= false;
+                if ($request->hasFile('img')) {
+                    foreach ($request->file('img') as $position => $image) {
+                        $mime = $image->getMimeType();
+                        if (strstr($mime, "video/")) {
+                            $prefix = 'videos/';
+                            $type = 1;  //0=>image; 1=>video
+                        } else {
+                            $prefix = 'images/';
+                            $type = 0;
+                        }
+                        list($width, $height) = getimagesize($image);
+                        //list($type, $prefix) = $this->getPrefix($image);
+                        $encryptedFileName = $this->_generateUniqueFilename(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME));
+                        $file_path = $prefix . $user->id . '/' . Str::slug($encryptedFileName) . '.' . $image->getClientOriginalExtension();
+                        //dd($file_path);
+                        Storage::disk('escorts')->put($file_path, file_get_contents($image));
+
+                        if (!$media = $this->media->findByPath('escorts/' . $file_path)) {
+                            $data = [
+                                'escort_id' => $id,
+                                'user_id' => $user->id,
+                                'type' => $type,
+                                'position' => $position,
+                                'path' => 'escorts/' . $file_path,
+                            ];
+                            // $media = $this->media->updateOrCreate($data,$user->id,$position);
+                            $noOfFilesInGallery++;
+                            $media = $this->media->create($data);
+                            $media_arr[$position]  = [
+                                'escort_id' => $id,
+                                'escort_media_id' => $media['id'],
+                                'position' => $position,
+                                'created_at' => date('Y-m-d H:i:s'),
+                                // 'position' => $media['position'],
+                            ];
+                        } else {
+                            $media_arr[$position]  = [
+                                'escort_id' => $id,
+                                'escort_media_id' => $media->id,
+                                'position' => $position,
+                                'created_at' => date('Y-m-d H:i:s')
+                            ];
+                        }
+                    }
+                }
+            } else {
+                $errors .= "\nOpss... You have already 30 Images uploaded";
+            }
+            //********FILE UPLOAD AREA CLOSE**********//
+
+
+            $escortImages = EscortGallery::where('escort_id', $id)->get();
+            foreach ($escortImages as $escortImage) {
+                if (isset($media_arr[$escortImage->position])) {
+                    $escortImage->escort_media_id = $media_arr[$escortImage->position]['escort_media_id'];
+                    $escortImage->updated_at = date('Y-m-d H:i:s');
+                    $escortImage->save();
+                    unset($media_arr[$escortImage->position]);
+                }
+            }
+            foreach ($media_arr as $newRecord) {
+                $gallery = new EscortGallery;
+                $gallery->escort_id = $id;
+                $gallery->escort_media_id = $newRecord['escort_media_id'];
+                $gallery->position = $newRecord['position'];
+                $gallery->created_at = date('Y-m-d H:i:s');
+                $gallery->save();
+            }
+
+             return response()->json(compact('error'));
+           
+    }
+
 
 
     public function updateBasicProfile($id = null)
@@ -890,7 +989,7 @@ class UpdateController extends AppController
             'height' => $request->height,
             'eyes' => $request->eyes,
             'orientation' => $request->orientation,
-            'age' => $request->age,
+            'age' => (int)$request->age,
             'hair_color' => $request->hair_color,
             'skin_tone' => $request->skin_tone,
             'breast' => $request->breast,
@@ -902,7 +1001,14 @@ class UpdateController extends AppController
             'dress_size' => $request->dress_size,
             'profile_name' => $request->profile_name,
             'membership' => $request->membership,
-            'covidreport' => $request->covidreport,
+            'shaved' => $request->shaved,
+            'endowment' => $request->endowment,
+            'thickness' => $request->thickness,
+            'circumcised' => $request->circumcised ,
+            'butt' => $request->butt,
+            'preference' => $request->preference ,
+            'hormones' => $request->hormones,
+            //'covidreport' => $request->covidreport,
         ];
         $user = auth()->user();
         $escort = $this->escort->findDefault($user->id, 1);
@@ -971,6 +1077,10 @@ class UpdateController extends AppController
         $input = [
             'about' => $request->about,
         ];
+
+        if(isset($request->about_title)) {
+             $input['about_title'] = $request->about_title;
+        }
 
 
         $error = true;
@@ -1052,93 +1162,24 @@ class UpdateController extends AppController
     public function storeAvailability(StoreAvailabilityRequest $request, $escortId)
     {
         $data = [];
-        if (!empty($request->mon_hh_from)) {
-            $data  += [
-                "monday_from" => $this->parseTime($request->mon_hh_from, $request->mon_mm_from, $request->mon_time_from),
-                "monday_to" => $this->parseTime($request->mon_hh_to, $request->mon_mm_to, $request->mon_time_to),
-                "escort_id" => $escortId,
-            ];
-        } else {
-            $data  += [
-                "monday_from" => null,
-                "monday_to" => null,
-            ];
+        $shortDays = config('escorts.days.short_form');
+        foreach ($shortDays as $day => $shortDay) {
+            if(!empty($request->{$shortDay."_from"})) {
+                $data  += [
+                    $day."_from" => date('H:i:s', strtotime($request->{$shortDay."_from"}.$request->{$shortDay."_time_from"})),
+                    $day."_to" => date('H:i:s', strtotime($request->{$shortDay."_to"}.$request->{$shortDay."_time_to"}))
+                ];
+            } else {
+                $data  += [
+                    $day."_from" => null,
+                    $day."_to" => null,
+                ];
+            }
         }
-        if (!empty($request->tue_hh_from)) {
+        if(!empty($request->availability_time))
+        {
             $data  += [
-                "tuesday_from" => $this->parseTime($request->tue_hh_from, $request->tue_mm_from, $request->tue_time_from),
-                "tuesday_to" => $this->parseTime($request->tue_hh_to, $request->tue_mm_to, $request->tue_time_to),
-                "escort_id" => $escortId,
-            ];
-        } else {
-            $data  += [
-                "tuesday_from" => null,
-                "tuesday_to" => null,
-            ];
-        }
-        if (!empty($request->wed_hh_from)) {
-            $data  += [
-                "wednesday_from" => $this->parseTime($request->wed_hh_from, $request->wed_mm_from, $request->wed_time_from),
-                "wednesday_to" => $this->parseTime($request->wed_hh_to, $request->wed_mm_to, $request->mon_time_to),
-                "escort_id" => $escortId,
-            ];
-        } else {
-            $data  += [
-                "wednesday_from" => null,
-                "wednesday_to" => null,
-            ];
-        }
-        if (!empty($request->thu_hh_from)) {
-            $data  += [
-                "thursday_from" => $this->parseTime($request->thu_hh_from, $request->thu_mm_from, $request->thu_time_from),
-                "thursday_to" => $this->parseTime($request->thu_hh_to, $request->thu_mm_to, $request->thu_time_to),
-                "escort_id" => $escortId,
-            ];
-        } else {
-            $data  += [
-                "thursday_from" => null,
-                "thursday_to" => null,
-            ];
-        }
-        if (!empty($request->fri_hh_from)) {
-            $data  += [
-                "friday_from" => $this->parseTime($request->fri_hh_from, $request->fri_mm_from, $request->fri_time_from),
-                "friday_to" => $this->parseTime($request->fri_hh_to, $request->fri_mm_to, $request->fri_time_to),
-                "escort_id" => $escortId,
-            ];
-        } else {
-            $data  += [
-                "friday_from" => null,
-                "friday_to" => null,
-            ];
-        }
-        if (!empty($request->sat_hh_from)) {
-            $data  += [
-                "saturday_from" => $this->parseTime($request->sat_hh_from, $request->sat_mm_from, $request->sat_time_from),
-                "saturday_to" => $this->parseTime($request->sat_hh_to, $request->sat_mm_to, $request->sat_time_to),
-                "escort_id" => $escortId,
-            ];
-        } else {
-            $data  += [
-                "saturday_from" => null,
-                "saturday_to" => null,
-            ];
-        }
-        if (!empty($request->sun_hh_from)) {
-            $data  += [
-                "sunday_from" => $this->parseTime($request->sun_hh_from, $request->sun_mm_from, $request->sun_time_from),
-                "sunday_to" => $this->parseTime($request->sun_hh_to, $request->sun_mm_to, $request->sun_time_to),
-                "escort_id" => $escortId,
-            ];
-        } else {
-            $data  += [
-                "sunday_from" => null,
-                "sunday_to" => null,
-            ];
-        }
-        if (!empty($request->availability_time)) {
-            $data  += [
-                "availability_time" => $request->availability_time,
+                "availability_time" =>$request->availability_time,
             ];
         }
 

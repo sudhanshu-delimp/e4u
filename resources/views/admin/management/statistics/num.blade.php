@@ -14,7 +14,7 @@
    <div class="row">
       
       <div class="col-md-12">
-         <div class="v-main-heading h3" style="display: inline-block; padding-top: 0;"><h1> Profiles</h1></div>
+         <div class="v-main-heading h3" style="display: inline-block; padding-top: 0;"><h1> NUM</h1></div>
             <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
      </div>
      <div class="col-md-12 ">
@@ -22,7 +22,7 @@
              <div class="card-body">
                  <h3 class="NotesHeader"><b>Notes:</b> </h3>
                  <ol>
-                     <li>Values are determined by the number of days into the financial year.</li>
+                     <li>Year to year values are determined by the number of days into the financial year.</li>
                      <li>Total Last Year compared to Current Year.</li>
                      <li>Total Tours includes Current Year expressed as a percentage deviation.</li>
                      <li>Base equals the total Tours as at the 30th June, for the given period.</li>
@@ -36,8 +36,8 @@
             <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
               
                 <div class="total_listing">
-                    <div><span>Current Profiles : </span></div>
-                    <div><span>3,148</span></div>
+                    <div><span>Total Reports : </span></div>
+                    <div><span>4,211</span></div>
                 </div>
             </div>
         </div>
@@ -62,9 +62,9 @@
 
                <thead style="background-color: #0c223d; color: white; text-align: center;">
                   <tr style="border: 1px solid white;">
-                     <th colspan="8" style="border: 1px solid white;">Year to Year Growth <br>(Days: 158)</th>
-                     <th colspan="3" style="border: 1px solid white;">Total Tours <br> (Last FY)</th>
-                     <th colspan="3" style="border: 1px solid white;">Historical Tours <br> (End of last FY)</th>
+                     <th colspan="8" style="border: 1px solid white;">Year to Year Variation <br>(Days: 158)</th>
+                     <th colspan="3" style="border: 1px solid white;">Total Reports <br> (Last FY)</th>
+                     <th colspan="3" style="border: 1px solid white;">Historical Reports <br> (End of last FY)</th>
                   </tr>
                   <tr style="border: 1px solid white;">
                      <th colspan="5" style="border: 1px solid white;">Current</th>
