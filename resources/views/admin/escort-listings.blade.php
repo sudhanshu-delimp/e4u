@@ -134,7 +134,7 @@
                 </table>
                 <div class="timer_section">
                     <p>Server time: <span class="serverTime">10:23:51 am</span></p>
-                    <p>Refresh time:<span class="refreshSeconds"> 30</span></p>
+                    <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
                     <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
                 </div>
                 <div class="customPaginationContainer mt-4 d-flex justify-content-between "></div>
