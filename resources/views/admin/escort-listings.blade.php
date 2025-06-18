@@ -40,7 +40,7 @@
                             <li>All current (published) Listings are displayed in this table.</li>
                             <li>You have limited Action access according to your security level.</li>
                             <li>Prefixes:</li>
-                            <p>1. ACT 2. NSW 3. Vic 4. Qld 5. SA 6. W A 7. Tas 8. NT</p>
+                            <p>1. ACT &nbsp;&nbsp;2. NSW &nbsp;&nbsp;3. Vic &nbsp;&nbsp;4. Qld &nbsp;&nbsp;5. SA &nbsp;&nbsp;6. W A &nbsp;&nbsp;7. Tas &nbsp;&nbsp;8. NT</p>
                         </ol>
 
                     </div>
@@ -133,9 +133,9 @@
                     </tbody>
                 </table>
                 <div class="timer_section">
-                    <p>Server time: <span class="serverTime">[10:23:51 am]</span></p>
+                    <p>Server time: <span class="serverTime">10:23:51 am</span></p>
                     <p>Refresh time:<span class="refreshSeconds"> 30</span></p>
-                    <p>Up time: <span class="uptimeClass">[{{getAppUptime()}}]</span></p>
+                    <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
                 </div>
                 <div class="customPaginationContainer mt-4 d-flex justify-content-between "></div>
                 <nav aria-label="Page navigation example">
@@ -268,14 +268,14 @@ CKEDITOR.replace('editor1', {
     <script type="text/javascript">
         $(document).ready(function(e) {
             ajaxReload();
-            let countdown = 30;
+            let countdown = 15;
             setInterval(() => {
                 countdown--;
                 $(".refreshSeconds").text(' '+countdown);
 
                 if (countdown <= 0) {
                     $('#escort_listings').DataTable().ajax.reload(null, false);
-                    countdown = 30;
+                    countdown = 15;
                     
                 }
 

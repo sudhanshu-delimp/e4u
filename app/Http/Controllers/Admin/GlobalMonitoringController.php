@@ -101,7 +101,7 @@ class GlobalMonitoringController extends Controller
             //$dataTableData['recordTotal'] = count($dataTableData);
             foreach ($dataTableData as $key => $item) {
                 $dataTableData[$key]['upTime'] = $this->getAppUptime();
-                $dataTableData[$key]['server_time'] = now()->format('h:i:s A');
+                $dataTableData[$key]['server_time'] = Carbon::now('Australia/Perth')->format('h:i:s A');
             }
         }
 
@@ -129,14 +129,35 @@ class GlobalMonitoringController extends Controller
             ->addColumn('masseurs', fn($row) => $masseurs)
             ->addColumn('start_date', fn($row) =>  date('d-m-Y', strtotime($row['start_date'])))
             ->addColumn('end_date', fn($row) => date('d-m-Y', strtotime($row['end_date'])))
-            ->addColumn('days', fn($row) => Carbon::parse(
-                            $row['end_date'],
-                        )->diffInDays(Carbon::parse($row['start_date'])) ) 
-            ->addColumn('left_days', function ($row) {
-                $endDate = Carbon::parse($row['end_date']);
-                $now = Carbon::now();
+            ->addColumn('days', function($row){
 
-                return $now->gt($endDate) ? 0 : $now->diffInDays($endDate);
+                $startDate = Carbon::parse(date('d-m-Y', strtotime($row['start_date'])))->startOfDay();
+                $endDate = Carbon::parse(date('d-m-Y', strtotime($row['end_date'])))->startOfDay();
+
+                if ($startDate && $endDate) {
+                    // If end_date is after or equal to start_date, calculate days (inclusive)
+                    if ($endDate->gte($startDate)) {
+                        return $startDate->diffInDays($endDate) + 1 ;
+                    }
+                }
+
+                return  0; // Invalid date range
+                
+            })
+            ->addColumn('left_days', function ($row) {
+                $startDate = Carbon::parse(date('d-m-Y', strtotime($row['start_date'])))->startOfDay();
+                $endDate = Carbon::parse(date('d-m-Y', strtotime($row['end_date'])))->startOfDay();
+                $now = Carbon::now()->startOfDay();
+                $left = $endDate->diffInDays($now) + 1;                
+
+                if($startDate > $now){
+                    return '-';
+                }else if($endDate < $now){
+                   return '0';
+                }else{
+                    return $left ;
+                }
+                
             })
             ->addColumn('action', fn($row) => $actionButtons)
             ->rawColumns(['action']) // if you're returning HTML
@@ -345,10 +366,32 @@ class GlobalMonitoringController extends Controller
 
         if ($escorts) {
                 $escort = $escorts->toArray();
+
+                $startDate = Carbon::parse(date('d-m-Y', strtotime($escort['start_date'])))->startOfDay();
+                $endDate = Carbon::parse(date('d-m-Y', strtotime($escort['end_date'])))->startOfDay();
+                $now = Carbon::now()->startOfDay();
+                $left = $endDate->diffInDays($now) + 1;   
+                $days = 0;
+
+                if($startDate > $now){
+                    $left = '-';
+                }
+                
+                if($endDate < $now){
+                   $left = 0;
+                }
+
+                if ($startDate && $endDate) {
+                    // If end_date is after or equal to start_date, calculate days (inclusive)
+                    if ($endDate->gte($startDate)) {
+                        $days = $startDate->diffInDays($endDate) + 1 ;
+                    }
+                }
+
                 $dataTableData = [
                     'id' => $escort['id'],
                     'upTime' => $this->getAppUptime(),
-                    'server_time' => now()->format('h:i:s A'),
+                    'server_time' => Carbon::now('Australia/Perth')->format('h:i:s A'),
                     'member_id' => $escort['user']['member_id'],
                     'member' => $escort['name'],
                     'city' =>
@@ -363,12 +406,8 @@ class GlobalMonitoringController extends Controller
                         strtotime($escort['start_date']),
                     ),
                     'end_date' => date('d-m-Y', strtotime($escort['end_date'])),
-                    'days' => Carbon::parse(
-                            $escort['end_date'],
-                        )->diffInDays(Carbon::parse($escort['start_date'])),
-                    'left_days' => Carbon::now()->gt(Carbon::parse($escort['end_date']))
-                        ? 0
-                        : Carbon::now()->diffInDays(Carbon::parse($escort['end_date'])),
+                    'days' => $days,
+                    'left_days' => $left,
 
                 ];
         }
@@ -484,29 +523,52 @@ class GlobalMonitoringController extends Controller
                             '"
                                             class="brb_icon">BRB</sup></span>';
                     }
-                    if (!empty($purchase['start_date'])) {
-                        $daysDiff = Carbon::parse(
-                            $purchase['end_date'],
-                        )->diffInDays(Carbon::parse($purchase['start_date']));
-                        if ($purchase['start_date'] == $purchase['end_date']) {
-                            $daysDiff = 1;
-                        }
-                        [$discount, $rate] = calculateTatalFee(
-                            $purchase['membership'],
-                            $daysDiff,
-                        );
-                        $totalAmount = $rate;
-                        $totalAmount -= $discount;
-                        $totalAmount = formatIndianCurrency($totalAmount);
-                    }
+                    // if (!empty($purchase['start_date'])) {
+                    //     $daysDiff = Carbon::parse(
+                    //         $purchase['end_date'],
+                    //     )->diffInDays(Carbon::parse($purchase['start_date']));
+                    //     if ($purchase['start_date'] == $purchase['end_date']) {
+                    //         $daysDiff = 1;
+                    //     }
+                    //     [$discount, $rate] = calculateTatalFee(
+                    //         $purchase['membership'],
+                    //         $daysDiff,
+                    //     );
+                    //     $totalAmount = $rate;
+                    //     $totalAmount -= $discount;
+                    //     $totalAmount = formatIndianCurrency($totalAmount);
+                    // }
                     //dd($escort['user']['member_id']);
                     $memberId = isset($escort['user']['member_id']) ? $escort['user']['member_id'] : '';
+
+                    # date calucaltion 
+                    $startDate = Carbon::parse(date('d-m-Y', strtotime($purchase['start_date'])))->startOfDay();
+                    $endDate = Carbon::parse(date('d-m-Y', strtotime($purchase['end_date'])))->startOfDay();
+                    $now = Carbon::now()->startOfDay();
+                    $left = $endDate->diffInDays($now) + 1;   
+                    $days = 0;
+
+                    if($startDate > $now){
+                        $left = '-';
+                    }
+                    
+                    if($endDate < $now){
+                        $left = 0;
+                    }
+
+                    if ($startDate && $endDate) {
+                        // If end_date is after or equal to start_date, calculate days (inclusive)
+                        if ($endDate->gte($startDate)) {
+                            $days = $startDate->diffInDays($endDate) + 1 ;
+                        }
+                    }
+
                     $dataTableData[] = [
                         //'sl_no' => $i++,
 
                         'id' => $escort['id'],
                         'total_record' => intval($recordTotal),
-                        'server_time' => now()->format('h:i:s A'),
+                        'server_time' => Carbon::now('Australia/Perth')->format('h:i:s A'),
                         'member_id' => $memberId,
                         'member' => $escort['name'],
                         //  'city' => config(
@@ -530,10 +592,10 @@ class GlobalMonitoringController extends Controller
                             strtotime($purchase['start_date']),
                         ),
                         'end_date' => date('d-m-Y', strtotime($purchase['end_date'])),
-                        'days' => $daysDiff,
+                        'days' => $days,
                         // 'membership' => $purchase['membership'] ? getMembershipType($purchase['membership']) : "NA",
                         // 'fee' => $totalAmount,
-                        'left_days' => Carbon::parse($purchase['end_date'])->diffInDays(Carbon::now()),
+                        'left_days' => $left,
                         'fee' => $totalAmount,
                         'upTime' => $this->getAppUptime(),
 
@@ -571,7 +633,7 @@ class GlobalMonitoringController extends Controller
             ->addColumn('start_date', fn($row) => $row['start_date'])
             ->addColumn('end_date', fn($row) => $row['end_date'])
             ->addColumn('days', fn($row) => $row['days'])
-            ->addColumn('left_days', fn($row) => Carbon::parse($row['end_date'])->diffInDays(Carbon::now()))
+            ->addColumn('left_days', fn($row) => $row['left_days'])
             ->addColumn('action', fn($row) => $actionButtons)
             ->rawColumns(['action']) // if you're returning HTML
             ->make(true);
@@ -627,21 +689,45 @@ class GlobalMonitoringController extends Controller
                         '"
                                             class="brb_icon">BRB</sup></span>';
                 }
-                if (!empty($purchase['start_date'])) {
-                    $daysDiff = Carbon::parse(
-                        $purchase['end_date'],
-                    )->diffInDays(Carbon::parse($purchase['start_date']));
-                    if ($purchase['start_date'] == $purchase['end_date']) {
-                        $daysDiff = 1;
-                    }
-                    [$discount, $rate] = calculateTatalFee(
-                        $purchase['membership'],
-                        $daysDiff,
-                    );
-                    $totalAmount = $rate;
-                    $totalAmount -= $discount;
-                    $totalAmount = formatIndianCurrency($totalAmount);
+                // if (!empty($purchase['start_date'])) {
+                //     $daysDiff = Carbon::parse(
+                //         $purchase['end_date'],
+                //     )->diffInDays(Carbon::parse($purchase['start_date']));
+                //     if ($purchase['start_date'] == $purchase['end_date']) {
+                //         $daysDiff = 1;
+                //     }
+                //     [$discount, $rate] = calculateTatalFee(
+                //         $purchase['membership'],
+                //         $daysDiff,
+                //     );
+                //     $totalAmount = $rate;
+                //     $totalAmount -= $discount;
+                //     $totalAmount = formatIndianCurrency($totalAmount);
+                // }
+
+                # date calucaltion 
+                $startDate = Carbon::parse(date('d-m-Y', strtotime($purchase['start_date'])))->startOfDay();
+                $endDate = Carbon::parse(date('d-m-Y', strtotime($purchase['end_date'])))->startOfDay();
+                $now = Carbon::now()->startOfDay();
+                $left = $endDate->diffInDays($now) + 1;   
+                $days = 0;
+
+                if($startDate > $now){
+                    $left = '-';
                 }
+                
+                if($endDate < $now){
+                $left = 0;
+                }
+
+                if ($startDate && $endDate) {
+                    // If end_date is after or equal to start_date, calculate days (inclusive)
+                    if ($endDate->gte($startDate)) {
+                        $days = $startDate->diffInDays($endDate) + 1 ;
+                    }
+                }
+
+
                 $memberId = isset($escort['user']['member_id']) ? $escort['user']['member_id'] : '';
                 $dataTableData = [
                     'id' => $escort['id'],
@@ -659,8 +745,8 @@ class GlobalMonitoringController extends Controller
                         strtotime($purchase['start_date']),
                     ),
                     'end_date' => date('d-m-Y', strtotime($purchase['end_date'])),
-                    'days' => $daysDiff,
-                    'left_days' => Carbon::parse($purchase['end_date'])->diffInDays(Carbon::now()),
+                    'days' => $days,
+                    'left_days' => $left,
                     'fee' => $totalAmount,
                     'upTime' => $this->getAppUptime(),
                 ];
