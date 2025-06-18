@@ -4801,6 +4801,362 @@ td {
     font-weight: bold;
 }
 
+
+/* my account card */
+
+.notes-section {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    margin-bottom: 40px;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.notes-section .manage-table {
+    margin-top: 40px;
+}
+
+.notes-section .notes-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.notes-section .lines {
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+    height: 35px;
+}
+
+.notes-section .manage-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.notes-section .manage-table table td {
+    border: 1px solid black;
+    padding: 25px 10px;
+    vertical-align: top;
+    font-weight: bold;
+}
+
+.stats-container .stat-card-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.stats-container {
+    background-color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    max-width: 100%;
+    margin: 50px auto;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.stat-card-wrapper .stat-card .stat-top .stat-icon {
+    background-color: var(--blue--text);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    margin-bottom: 20px;
+}
+
+.stat-card-wrapper .stat-card .stat-top .stat-label,
+.stat-card-wrapper .stat-card .stat-number {
+    font-weight: bold;
+    color: var(--blue--text);
+}
+
+.stat-card-wrapper .stat-card .stat-top .stat-icon i {
+    color: var(--peach);
+}
+
+.stats-container .stat-card {
+    background-color: #eff0f6;
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 6px;
+}
+
+.my-account-card {
+    background-color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    max-width: 100%;
+    margin: 50px auto;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.my-account-card .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0px;
+    flex-wrap: wrap;
+}
+
+.my-account-card h2 {
+    font-size: 20px;
+    color: #0d1b3f;
+    margin-bottom: 16px;
+}
+
+.my-account-card .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.my-account-card .info-item {
+    background-color: #eff0f6;
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.my-account-card .info-item label {
+    font-size: 13px;
+    color: var(--blue--text);
+}
+
+.my-account-card .info-item span {
+    font-weight: bold;
+    color: var(--blue--text);
+}
+
+.my-account-card .card-head .print-btns {
+    background-color: var(--blue--text);
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.my-account-card .card-head .print-btns i {
+    color: var(--white);
+    padding-right: 10px;
+}
+
+.my-account-card .print-btn:hover {
+    background-color: #0c223d;
+}
+
+
+/* blog page design css */
+
+.upload-wrapper {
+    width: 130px;
+    height: 130px;
+    position: relative;
+    cursor: pointer;
+}
+
+.upload-img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #ff3c5f;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.blog-img-admin {
+    width: 75px;
+    border-radius: 5px !important;
+}
+
+.upload-box {
+    border: 2px dashed #cfd8dc;
+    border-radius: 5px;
+    background-color: #f9fbfd;
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+.upload-box:hover {
+    background-color: #f1f6fb;
+}
+
+#drop-area.dragover {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+}
+
+#preview img {
+    max-width: 250px;
+    margin-top: 10px;
+    border-radius: 8px;
+}
+
+
+/* end */
+
+
+/* tours-accordions */
+
+.tours-accordions .card {
+    margin: 15px 0px;
+}
+
+.tours-accordions .card {}
+
+.tours-accordions .card .card-header {
+    border-radius: 0;
+    margin-bottom: 0px !important;
+    background-color: #fff !important;
+}
+
+.tours-accordions .card-header h5 {
+    font-size: 16px;
+    color: var(--blue--text);
+    font-weight: 600;
+    padding: 10px;
+}
+
+.tours-accordions table td {
+    color: #000;
+}
+
+
+/* end */
+
+
+/* navbar custom css  */
+
+.topbar-logged-in-user-data p {
+    font-size: 14px;
+    color: var(--blue--text);
+    margin-bottom: 0px;
+}
+
+.form-inline-custom {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+/* end */
+
+
+/* escort dashboard my-custom-box */
+
+.my-custom-box {
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin: 10px 0px;
+    background-color: #C2CFE0;
+}
+
+.my-custom-box:hover {
+    background-color: #c2cfe052;
+}
+
+.my-custom-box .box-icon {
+    width: 75px;
+    height: 75px;
+    margin: 10px auto 20px;
+}
+
+.my-custom-box .box-icon img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.my-custom-box h2 {
+    font-size: 24px;
+    color: var(--blue--text);
+    font-weight: 500;
+}
+
+.custom-dash-btn a {
+    text-decoration: none;
+    background: var(--blue--text);
+    padding: 15px 50px;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.custom-dash-btn a i {
+    color: #fff;
+    font-size: 20px;
+    padding-left: 15px;
+}
+
+
+/* end */
+
+.level-1,
+.level-2,
+.level-3 {
+    list-style-position: outside;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.level-1 li,
+.level-2 li,
+.level-3 li {
+    margin-bottom: 8px;
+    /* spacing between list items */
+}
+
+
+/* (a), (i) style using CSS only */
+
+.level-2 {
+    list-style-type: lower-alpha;
+}
+
+.level-2>li::marker {
+    content: "(" counter(list-item, lower-alpha) ") ";
+}
+
+.level-3 {
+    list-style-type: lower-roman;
+}
+
+.level-3>li::marker {
+    content: "(" counter(list-item, lower-roman) ") ";
+}
+
+@media (min-width:300px) and (max-width:575px) {
+    .form-inline-custom {
+        display: none;
+    }
+    .topbar-logged-in-user-data p {
+        display: none;
+    }
+}
+
+@media (max-width:1150px) {
+    .topbar-logged-in-user-data p {
+        display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    .my-account-card,
+    .stats-container {
+        padding: 10px;
+    }
+}
+
 @media (max-width:768px) {
     .email-content .section-one .form-group,
     .email-content .common-section .form-group,

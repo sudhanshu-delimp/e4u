@@ -72,30 +72,6 @@
             </div>
         </div>
     </li>
-
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pachive"
-           aria-expanded="true" aria-controls="collapseTwo">
-            <img src="{{ asset('assets/dashboard/img/menu-icon/pachive.png')}}">
-            <span>Profiles</span>
-        </a>
-        <div id="pachive" class="collapse  @if(request()->segment(2) == 'create-profile' || (request()->segment(2) == 'list' && (request()->segment(3) == 'current' || request()->segment(3) == 'past')) || request()->segment(2) == 'profile') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="py-0 collapse-inner rounded mb-2">
-                <a class="collapse-item" href="{{ route('escort.profile') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png')}}">
-                    <span style="{{request()->segment(2) == 'create-profile' ? 'color: #e5365a;' : ''}}">New</span>
-                </a>
-                <a class="collapse-item" href="{{ route('escort.list', 'current') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
-                    <span style="{{request()->segment(2) == 'list' && request()->segment(3) == 'listed'  ? 'color: #e5365a;' : ''}}">Listed</span>
-                </a>
-                <a class="collapse-item" href="{{ route('escort.list', 'past') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
-                    <span style="{{request()->segment(2) == 'list' && request()->segment(3) == 'archive'  ? 'color: #e5365a;' : ''}}">Archive</span>
-                </a>
-            </div>
-        </div>
-    </li>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#listing"
            aria-expanded="true" aria-controls="collapseTwo">
@@ -117,32 +93,6 @@
                 <a class="collapse-item" href="{{ route('escort.dashboard.listings', 'past')}}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
                     <span style="{{(request()->segment(2) == 'listings' && request()->segment(3) == 'archive')  ? 'color: #e5365a;' : ''}}">Past</span>
-                </a>
-
-            </div>
-        </div>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tours"
-           aria-expanded="true" aria-controls="collapseTwo">
-            <img src="{{ asset('assets/dashboard/img/menu-icon/pachive.png')}}">
-            <span>Tours</span>
-        </a>
-        <div id="tours" class="collapse  @if(request()->segment(2) == 'create-tour' || request()->segment(2) == 'list-tour') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="py-0 collapse-inner rounded mb-2">
-                <a class="collapse-item" href="{{url('escort-dashboard/create-tour')}}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/plush.png')}}">
-                    <span style="{{request()->segment(2) == 'create-tour' ? 'color: #e5365a;' : ''}}">New</span>
-                </a>
-
-                <a class="collapse-item" href="{{url('escort-dashboard/list-tour/current')}}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/eddit.png')}}">
-                    <span style="{{(request()->segment(2) == 'list-tour' && request()->segment(3) == 'current') ? 'color: #e5365a;' : ''}}">Current</span>
-                </a>
-
-                <a class="collapse-item" href="{{url('escort-dashboard/list-tour/past')}}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/eddit.png')}}">
-                    <span style="{{(request()->segment(2) == 'list-tour' && request()->segment(3) == 'past') ? 'color: #e5365a;' : ''}}">Past</span>
                 </a>
 
             </div>
@@ -174,6 +124,59 @@
             </div>
         </div>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pachive"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <img src="{{ asset('assets/dashboard/img/menu-icon/pachive.png')}}">
+            <span>Profiles</span>
+        </a>
+        <div id="pachive" class="collapse  @if(request()->segment(2) == 'create-profile' || (request()->segment(2) == 'list' && (request()->segment(3) == 'current' || request()->segment(3) == 'past')) || request()->segment(2) == 'profile') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="py-0 collapse-inner rounded mb-2">
+                <a class="collapse-item" href="{{ route('escort.profile') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png')}}">
+                    <span style="{{request()->segment(2) == 'create-profile' ? 'color: #e5365a;' : ''}}">New</span>
+                </a>
+                <a class="collapse-item" href="{{ route('escort.list', 'current') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
+                    <span style="{{request()->segment(2) == 'list' && request()->segment(3) == 'listed'  ? 'color: #e5365a;' : ''}}">Listed</span>
+                </a>
+                <a class="collapse-item" href="{{ route('escort.list', 'past') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
+                    <span style="{{request()->segment(2) == 'list' && request()->segment(3) == 'archive'  ? 'color: #e5365a;' : ''}}">Archive</span>
+                </a>
+            </div>
+        </div>
+    </li>
+    
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tours"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <img src="{{ asset('assets/dashboard/img/menu-icon/pachive.png')}}">
+            <span>Tours</span>
+        </a>
+        <div id="tours" class="collapse  @if(request()->segment(2) == 'create-tour' || request()->segment(2) == 'list-tour') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="py-0 collapse-inner rounded mb-2">
+                <a class="collapse-item" href="{{url('escort-dashboard/create-tour')}}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/plush.png')}}">
+                    <span style="{{request()->segment(2) == 'create-tour' ? 'color: #e5365a;' : ''}}">New</span>
+                </a>
+
+                <a class="collapse-item" href="{{url('escort-dashboard/list-tour/current')}}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/eddit.png')}}">
+                    <span style="{{(request()->segment(2) == 'list-tour' && request()->segment(3) == 'current') ? 'color: #e5365a;' : ''}}">Current</span>
+                </a>
+
+                <a class="collapse-item" href="{{url('escort-dashboard/list-tour/past')}}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/eddit.png')}}">
+                    <span style="{{(request()->segment(2) == 'list-tour' && request()->segment(3) == 'past') ? 'color: #e5365a;' : ''}}">Past</span>
+                </a>
+
+            </div>
+        </div>
+    </li>
+
+    
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pmedia"
            aria-expanded="true" aria-controls="collapseTwo">

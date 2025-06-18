@@ -83,30 +83,30 @@
                             </div>
                             <div class="col-md-8 ryt_srch_btn">
                             <div class="display_inline_block">
-                                    <div class="d-flex flex-column gap-2" style="width:105px">
-                                        <div class="d-flex align-items-start"
-                                            @php
-                                                $myLocation = false;
-                                                if(request()->filled('lat')){
-                                                    $myLocation = true; 
-                                                }
-                                            @endphp
-                                            style=" padding-top: 2px;" title="Undertake a search within your Location only">
-                                            <input type="radio" name="locationByRadio" {{ ($radio_location_filter != null || $myLocation) ? 'checked':'' }} value="your_location" id="yourLocation">
-                                            <label for="yourLocation"
-                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
-                                                Your Location
-                                            </label>
-                                        </div>
-
-                                        <div class="d-flex align-items-start" title="Undertake a search Australia wide">
-                                            <input type="radio" name="locationByRadio" value="australia" id="australia" {{ ($radio_location_filter == null && $myLocation == false ) ? 'checked' : ''}}>
-                                            <label for="australia"
-                                                style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
-                                                Australia
-                                            </label>
-                                        </div>
+                                <div class="d-flex flex-column gap-2" style="width:105px">
+                                    <div class="d-flex align-items-start"
+                                        @php
+                                            $myLocation = false;
+                                            if(request()->filled('lat')){
+                                                $myLocation = true; 
+                                            }
+                                        @endphp
+                                        style=" padding-top: 2px;" title="Undertake a search within your Location only">
+                                        <input type="radio" name="locationByRadio" {{ ($radio_location_filter != null || $myLocation) ? 'checked':'' }} value="your_location" id="yourLocation">
+                                        <label for="yourLocation"
+                                            style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
+                                            Your Location
+                                        </label>
                                     </div>
+
+                                    <div class="d-flex align-items-start" title="Undertake a search Australia wide">
+                                        <input type="radio" name="locationByRadio" value="australia" id="australia" {{ ($radio_location_filter == null && $myLocation == false ) ? 'checked' : ''}}>
+                                        <label for="australia"
+                                            style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
+                                            Australia
+                                        </label>
+                                    </div>
+                                </div>
                                 </div>
                                 <div class="display_inline_block ">
                                     <div
@@ -252,6 +252,7 @@
                                 @endforeach --}}
                                 </select>
                             </div>
+                            
                             <div class="display_inline_block mb-1 mr-2">
                                 <button type="button" class="btn verified_btn_bg_color verified_text_color"
                                     data-toggle="tooltip" title="">
@@ -260,6 +261,7 @@
                             </div>
                             <div class="display_inline_block mb-1 ">
                                 <input type="hidden" name="filter_button_submit" value="1">
+                                <input type="hidden" name="view_type" id="view_type" value='{{isset($viewType) && $viewType == 'list' ? 'list' : 'grid'}}'>
                                 <button type="submit" class="btn reset_filter apply-filter-btn" data-toggle="tooltip"
                                     title="">
                                     Apply Filters
@@ -326,12 +328,6 @@
                                     </div>
                                     <!-- accordien end here -->
                                     <!-- Grid View -->
-                                    @php
-                                        $viewType = 'grid';
-                                        if (request()->get('view') === 'list') {
-                                            $viewType = 'list';
-                                        }
-                                    @endphp
 
                                     <div class="row grid_list_part" id="prosud aa" style="display: block;">
 
@@ -858,6 +854,7 @@
             //var source = e.relatedTarget;
             $('.preChanges').html('<h3>Escorts Grid View</h3>');
             var val = $('#grid-modal').attr('class');
+            $('#view_type').val('grid')
             if (val != "active") {
                 $('.grid').hide();
                 $('.my-wishlist').hide();
@@ -891,6 +888,7 @@
         $('#grid-list').on('click', function() {
             $('.preChanges').html('<h3>Escorts List View</h3>');
             var grid = $('#grid-list').attr('class');
+            $('#view_type').val('list')
             if (grid != "active") {
                 console.log(grid);
                 $('.space_between_row').hide();

@@ -119,6 +119,7 @@ class WebController extends Controller
             'state_id' => request()->get('state-id') ? request()->get('state-id') : ($userLocation ? $userLocation['state'] : null) ,
             //'limit'=> request()->get('limit'),
             'interest'=> $paramData['interest'] ,
+            'view_type'=> request()->get('view_type')
         ];
 
         $radio_location_filter = session('radio_location_filter');
@@ -139,8 +140,6 @@ class WebController extends Controller
             $params['state_id'] = $filterStateExist ? $params['state_id'] : null;
             //$radio_location_filter = true;
         }
-
-        
 
         if(request()->get('limit')) {
             $limit = request()->get('limit');
@@ -389,9 +388,12 @@ class WebController extends Controller
         );
 
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
+        $viewType = 'grid';
+        if(request()->get('view_type') == 'list'){
+            $viewType = 'list';
+        }
 
-        //dd($radio_location_filter);
-        return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount','radio_location_filter','all_services_tag'));
+        return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount','radio_location_filter','all_services_tag','viewType'));
     }
 
     public function getRealTimeGeolocationOfUsers($lat, $lng)
@@ -529,11 +531,50 @@ class WebController extends Controller
         $services = $this->services->all();
 
         $backToListing = session('search_escort_filters_url');
+        
         $radio_location_filter = session('radio_location_filter');
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
         $defaultViewType = 'list';
+
+        $backToListing = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToListing);
+
+        $escorts = $escorts->map(function($item, $key) {
+            # get star rating on the bases on like and unlike
+            $total = EscortLike::where('escort_id',$item->id)->count();
+            if($total > 0) {
+                $likeCount = EscortLike::where('like',1)->where('escort_id',$item->id)->count();
+                $dislikeCount = EscortLike::where('like',0)->where('escort_id',$item->id)->count();
+                $lp = round($likeCount/$total * 100);
+                $dp = round($dislikeCount/$total * 100);
+            } else {
+                $lp = 0;
+                $dp = 0;
+            }
+
+            if ($lp == 100) {
+                $item->star_rating = 5;
+            } elseif ($lp < 100 && $lp > 80) {
+                $item->star_rating = 4;
+            } elseif ($lp <= 80 && $lp > 60) {
+                $item->star_rating = 3;
+            } elseif ($lp <= 60 && $lp > 40) {
+                $item->star_rating = 2;
+            } elseif ($lp <= 40 && $lp > 20) {
+                $item->star_rating = 1;
+            } else {
+                $item->star_rating = 0;
+            }
+            //$item->star_rating = $lp;
+            return $item;
+        })->collect();
+
+        // if(request()->has('list') || request()->get('view_type') == 'list'){
+        //     $backToListing = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToListing);
+        // }else{
+        //     $backToListing = preg_replace('/view_type=(grid|list)/', 'view_type=grid', $backToListing);
+        // }
         //dd($all_services_tag);
-        //dd($escorts);
+        // dd($escorts);
         //dd($escorts->items()[1]->where(8));
         return view('web.myShortlist.shortlist', compact('user_type','user','services', 'service_one', 'service_two', 'service_three', 'escorts','backToListing','radio_location_filter','all_services_tag','defaultViewType'));
         //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
@@ -935,7 +976,8 @@ class WebController extends Controller
                 'services' => request()->get('services'),
                 'enabled' => request()->get('enabled', 1),
                 'state_id' => request()->get('state-id') ? request()->get('state-id') : Session::get('session_state_id'),
-                'limit'=> request()->get('limit')
+                'limit'=> request()->get('limit'),
+                'view_type'=> request()->get('view_type')
             ];
         }
 
@@ -960,6 +1002,8 @@ class WebController extends Controller
             $backToSearchButton = session('search_shorlisting_escort_filters_url');
         }
 
+        //dd($backToSearchButton);
+
         $filterEscorts = $this->escort->findByPlan($limit, $filterEscortsParams, $user_id = null, $escortId, $userId = null , 'profile_details');
 
         if(session('is_shortlisted_profile') == true){
@@ -972,12 +1016,27 @@ class WebController extends Controller
         $availability = $escort ? $escort->availability : null;
 
         /*new functionality*/
-
-        if(request()->has('list')){
+        if(request()->has('list') || request()->get('view_type') == 'list'){
             $viewType = 'list';
             $next = $next. '?'.$viewType;
             $previous = $previous. '?'.$viewType;
+
+            $backToSearchButton = preg_replace('/view_type=(grid|list)/', 'view_type=list', $backToSearchButton);
+        }else{
+            $viewType = 'grid';
+            $next = $next. '?'.$viewType;
+            $previous = $previous. '?'.$viewType;
+
+            $backToSearchButton = preg_replace('/view_type=(grid|list)/', 'view_type=grid', $backToSearchButton);
         }
+
+        // dd($backToSearchButton);
+
+        // if($filterEscortsParams['view_type'] == 'list'){
+        //     $viewType = 'list';
+        //     $next = $next. '?'.$viewType;
+        //     $previous = $previous. '?'.$viewType;
+        // }
 
         $services1 = $this->servicesById($id, 1);
 

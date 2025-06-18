@@ -320,7 +320,7 @@
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
                                     <th class="payment_accept_text_color" scope="col" colspan="4">Payment ($AUS):
-                                        {{ config("escorts.profile.Security.$escort->payment_type")}}
+                                        {{ config("escorts.profile.Payments.$escort->payment_type") }}
                                     </th>
                                 </tr>
                             </thead>
@@ -571,13 +571,11 @@
                     <div class="profile_card_border profile_page_box_heading">
                         <h2>Who Am I?</h2>
                     </div>
-                    @if($viewType != 'list')
                     <div class="padding_20_tob_btm_side who-tittle">
                         
                         {!! $escort->about_title !!}
                         
                     </div>
-                    @endif
                     <div class="padding_20_tob_btm_side">
                         {!! $escort->about !!}
                     </div>
@@ -2392,6 +2390,10 @@ let carousel = new bootstrap.Carousel(myCarousel, {
       }
     });
   });
+});
+
+$(document).on('click', '.modal .close', function () {
+    $('#my_legbox').modal('hide');
 });
 
 

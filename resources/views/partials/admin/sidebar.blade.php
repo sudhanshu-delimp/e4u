@@ -486,6 +486,14 @@
                 </div>
             </div>
         </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.blog') }}">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                    src="{{ asset('assets/dashboard/img/menu-icon/blog.png') }}">
+                <span>Blog &#10060;</span>
+            </a>
+        </li>
         {{--<li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('new') }}">
         <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/alert.png') }}">
@@ -599,13 +607,47 @@
                 </div>
             </div>
         </li>
+        {{-- database --}}
         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#dataBase"
+                aria-expanded="false" aria-controls="collapseTwo">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                src="{{ asset('assets/dashboard/img/menu-icon/database.png') }}">
+                <span>Database &#10060;</span>
+            </a>
+
+            <div id="dataBase" class=" collapse @if (request()->segment(3) == 'database' || request()->segment(3) == 'email-management') || request()->segment(3) == 'sim-management')) show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-0 collapse-inner rounded mb-2">
+                    <a class="nav-link" href="{{ route('admin.database') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/database.png') }}">
+                       
+                        <span style="{{ request()->segment(3) == 'database' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Database</span>
+                    </a>
+
+                    <a class="nav-link collapsed" href="{{ route('email-management') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/add-email-list.png') }}">
+                        <span style="{{ request()->segment(3) == 'email-management' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Email Management</span>
+                    </a>
+
+                    <a class="nav-link collapsed" href="{{ route('sim-management') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/add-sim-list.png') }}">
+                        <span style="{{ request()->segment(3) == 'sim-management' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">SIM Management</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        {{-- end --}}
+           {{--<li class="nav-item">
             <a class="nav-link" href="{{ route('admin.database') }}">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/database.png') }}">
                 <span>Database &#10060;</span>
             </a>
-        {{-- database
+            
+        database
         <div id="collapseTwo" class=" collapse @if (request()->segment(3) == 'escorts') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
                 <a class="collapse-item" href="{{ route('admin.e4u-database.escorts') }}">
@@ -739,16 +781,38 @@
                 </div>
             </div>
         </li>
-        <!-- post Office -->
+        <!-- post Office Send -->
          
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#PostOffice"
-                aria-expanded="false" aria-controls="PostOffice">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#PostOfficesend"
+                aria-expanded="false" aria-controls="PostOfficesend">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/post-office.png') }}">
                 <span>Post Office (Send) &#10060; </span>
             </a>
-            <div id="PostOffice" class=" collapse  @if (request()->segment(3) == 'reports') show @endif;"
+            <div id="PostOfficesend" class=" collapse  @if (request()->segment(3) == 'send-reports') show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-0 collapse-inner rounded mb-2">
+                    <a href="{{ route('admin.send-reports') }}" class="collapse-item">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/email-report.png') }}">
+                        <span
+                            style="{{ request()->segment(3) == 'send-reports' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Reports</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+         <!-- end -->
+
+          <!-- post Office Reports -->
+         
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#PostOfficeReports"
+                aria-expanded="false" aria-controls="PostOfficeReports">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                    src="{{ asset('assets/dashboard/img/menu-icon/post-office.png') }}">
+                <span>Post Office (Reports) &#10060; </span>
+            </a>
+            <div id="PostOfficeReports" class=" collapse  @if (request()->segment(3) == 'reports') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
                     <a href="{{ route('admin.reports') }}" class="collapse-item">

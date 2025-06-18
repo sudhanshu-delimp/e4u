@@ -370,6 +370,16 @@ Route::get('admin-dashboard/alerts/new', function(){
         return view('admin.alerts.new');
     })->name('new');
 
+    
+Route::get('admin-dashboard/database/email-management',function(){
+    return view('admin.database.email-management');
+})->name('email-management');
+  
+Route::get('admin-dashboard/database/sim-management',function(){
+    return view('admin.database.sim-management');
+})->name('sim-management');
+
+
 Route::get('/admin-dashboard/support/pricing',function(){
     return view('admin.support.pricing');
 })->name('pricing');
@@ -506,9 +516,17 @@ Route::get('/admin-dashboard/notifications/centres',function(){
     return view('admin.notifications.centres');
 })->name('admin.centres');
 
+Route::get('/admin-dashboard/post-office/send-reports',function(){
+    return view('admin.post-office.send-reports');
+})->name('admin.send-reports');
+
 Route::get('/admin-dashboard/post-office/reports',function(){
     return view('admin.post-office.reports');
 })->name('admin.reports');
+
+Route::get('/admin-dashboard/blog',function(){
+    return view('admin.blog');
+})->name('admin.blog');
 
 
 Route::get('/admin-dashboard/management/punterbox-reports',function(){
