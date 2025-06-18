@@ -101,7 +101,7 @@ class GlobalMonitoringController extends Controller
             //$dataTableData['recordTotal'] = count($dataTableData);
             foreach ($dataTableData as $key => $item) {
                 $dataTableData[$key]['upTime'] = $this->getAppUptime();
-                $dataTableData[$key]['server_time'] = Carbon::now('Australia/Perth')->format('h:i:s A');
+                $dataTableData[$key]['server_time'] = Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A');
             }
         }
 
@@ -391,7 +391,7 @@ class GlobalMonitoringController extends Controller
                 $dataTableData = [
                     'id' => $escort['id'],
                     'upTime' => $this->getAppUptime(),
-                    'server_time' => Carbon::now('Australia/Perth')->format('h:i:s A'),
+                    'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
                     'member_id' => $escort['user']['member_id'],
                     'member' => $escort['name'],
                     'city' =>
@@ -568,7 +568,7 @@ class GlobalMonitoringController extends Controller
 
                         'id' => $escort['id'],
                         'total_record' => intval($recordTotal),
-                        'server_time' => Carbon::now('Australia/Perth')->format('h:i:s A'),
+                        'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
                         'member_id' => $memberId,
                         'member' => $escort['name'],
                         //  'city' => config(
