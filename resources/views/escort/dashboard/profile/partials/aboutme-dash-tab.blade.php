@@ -1454,7 +1454,7 @@
                                 <input class="form-check-input covidreport change_default" type="radio" name="covidreport" id="inlineRadio1" required
            data-parsley-group="goup_one"
            data-parsley-required-message="Please select a COVID vaccination status"
-           data-parsley-errors-container="#covidreport-errors" value="1"{{ $escort->getRawOriginal('covidreport') == 1 ? ' checked' : null }} >
+           data-parsley-errors-container="#covidreport-errors" value="1" {{ $escort->getRawOriginal('covidreport') == 1 ? ' checked' : null }} >
                                 <label class="form-check-label" for="inlineRadio1">Vaccinated, not up to date</label>
                             </div>
                             <div class="form-check form-check-inline">
