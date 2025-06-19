@@ -7,9 +7,9 @@
         </div>
         <div class="row">
             {{-- box start --}}
-            <div class="col-lg-3">
+            <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="">
+                    <a href="{{ route('escort.dashboard.escorts-statistics') }}">
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/boxicon/icon_escort-statistics.svg') }}" alt="Escorts Statistics">
                         </div>
@@ -22,11 +22,11 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-3">
+            <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="">
+                    <a href="{{ route('escort.dashboard.my-playmates') }}">
                         <div class="box-icon">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates.svg') }}" alt="Escorts Statistics">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates.svg') }}" alt=" My Playmates">
                         </div>
                         <h2>
                            My Playmates
@@ -37,11 +37,11 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-3">
+            <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="">
+                    <a href="{{ route('escort.dashboard.my-spend') }}">
                         <div class="box-icon">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-spend.svg') }}" alt="Escorts Statistics">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-spend.svg') }}" alt="My Spend">
                         </div>
                         <h2>
                             My Spend
@@ -52,11 +52,11 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-3">
+            <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="">
+                    <a href="{{ route('escort.dashboard.my-statistics') }}">
                         <div class="box-icon">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.svg') }}" alt="Escorts Statistics">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.svg') }}" alt="My Statistics">
                         </div>
                         <h2>
                             My Statistics
@@ -67,11 +67,11 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-3">
+            <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="">
+                    <a href="{{ route('escort.dashboard.task-list') }}">
                         <div class="box-icon">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_tasklist.svg') }}" alt="Escorts Statistics">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_tasklist.svg') }}" alt="Task List">
                         </div>
                         <h2>
                             Task List
@@ -82,11 +82,11 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-3">
+            <div class="col-lg-3 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="">
+                    <a href="{{ route('escort.dashboard.tour-schedule') }}">
                         <div class="box-icon">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_tour-schedule.svg') }}" alt="Escorts Statistics">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_tour-schedule.svg') }}" alt="Tour Schedule">
                         </div>
                         <h2>
                             Tour Schedule
@@ -100,7 +100,7 @@
         <div class="row my-3">
             <div class="col-lg-12">
                 <div class="d-flex align-items-center justify-content-end custom-dash-btn">
-                    <a href="">Customise Dashboard <i class="fas fa-cog "></i>
+                    <a href="{{ route('escort.dashboard.customise-dashboard') }}">Customise Dashboard <i class="fas fa-cog "></i>
                     </a>
                 </div>
             </div>

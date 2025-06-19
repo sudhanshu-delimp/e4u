@@ -32,12 +32,13 @@
     <!--middle content start here-->
     <div class="row">
         <div class="col-md-12">
-            <div class="v-main-heading h3">Upload your avatar</div>
+            <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Upload your avatar</h1></div>
+            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
         </div>
         <div class="col-md-12 mt-4" id="profile_and_tour_options">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="card border-0">
+                    <div class="card collapse" id="notes" style="">
                         <div class="card-body">
                             <h2 class="primery_color normal_heading"><b>Notes:</b></h2>
                             <ol>

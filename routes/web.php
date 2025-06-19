@@ -302,6 +302,36 @@ Route::get('/user-dashboard/communication',function(){
     return view('user.dashboard.communication.advertiser');
 })->name('user.advertiser');
 
+Route::get('/escort-dashboard/customise-dashboard',function(){
+    return view('escort.dashboard.customise-dashboard');
+})->name('escort.dashboard.customise-dashboard');
+
+Route::get('/escort-dashboard/escorts-statistics',function(){
+    return view('escort.dashboard.escorts-statistics');
+})->name('escort.dashboard.escorts-statistics');
+
+
+Route::get('/escort-dashboard/my-playmates',function(){
+    return view('escort.dashboard.my-playmates');
+})->name('escort.dashboard.my-playmates');
+
+Route::get('/escort-dashboard/my-statistics',function(){
+    return view('escort.dashboard.my-statistics');
+})->name('escort.dashboard.my-statistics');
+
+Route::get('/escort-dashboard/task-list',function(){
+    return view('escort.dashboard.task-list');
+})->name('escort.dashboard.task-list');
+
+Route::get('/escort-dashboard/my-spend',function(){
+    return view('escort.dashboard.my-spend');
+})->name('escort.dashboard.my-spend');
+
+Route::get('/escort-dashboard/tour-schedule',function(){
+    return view('escort.dashboard.tour-schedule');
+})->name('escort.dashboard.tour-schedule');
+
+
 Route::get('/escort-dashboard/help',function(){
     return view('escort.dashboard.Community.help');
 })->name('escort.dashboard.Community.help');

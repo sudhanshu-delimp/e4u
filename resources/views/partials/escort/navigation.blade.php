@@ -93,7 +93,7 @@
                             </a>
                         @endforeach
                     @else
-                        <div>No new notification</div>
+                        <div class="text-center">No new notification</div>
                     @endif
                     <a class="dropdown-item text-center small text-gray-500" href="{{route('support-ticket.list')}}">Support Tickets</a>
                 </div>
@@ -120,7 +120,7 @@
                             </div>
                         </div>
                         <div>
-                            <div class="small text-gray-500">December 12, 2019</div>
+                            <div class="small text-gray-500">12-06-2025</div>
                             <span class="font-weight-bold">A new monthly report is ready to download!</span>
                         </div>
                     </a>
@@ -131,7 +131,7 @@
                             </div>
                         </div>
                         <div>
-                            <div class="small text-gray-500">December 7, 2019</div>
+                            <div class="small text-gray-500">02-05-2025</div>
                             $290.29 has been deposited into your account!
                         </div>
                     </a>
@@ -142,8 +142,30 @@
                             </div>
                         </div>
                         <div>
-                            <div class="small text-gray-500">December 2, 2019</div>
+                            <div class="small text-gray-500">17-04-2025</div>
                             Spending Alert: We've noticed unusually high spending for your account.
+                        </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-dark">
+                                <i class="fas fas fa-comments text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">18-02-2025</div>
+                            A message has been sent from an Advertiser
+                        </div>
+                    </a>
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div class="mr-3">
+                            <div class="icon-circle bg-info">
+                                <i class="fas fa-user text-white"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="small text-gray-500">15-01-2025</div>
+                            Profile has been posted.
                         </div>
                     </a>
                     <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>

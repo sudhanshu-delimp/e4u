@@ -17,13 +17,28 @@
             <div class="container-fluid">
                 <!--middle content-->
                 <div class="row">
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <!-- Begin Page Content -->
                         <div class="container-fluid" style="padding: 0px 0px;">
                             <!-- Page Heading -->
+                            
+        
                             <div class="col-md-12">
-                    <div class="v-main-heading h3 mb-0">My Profile</div>
-                </div>
+                                <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">My Profiles</h1></div>
+                                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+                            </div>
+                            <div class="col-md-12 my-4">
+                                <div class="card collapse" id="notes" style="">
+                                    <div class="card-body">
+                                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                                        <p></p>
+                                        <ol>
+                                            
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             {{-- <div class="row">
                                 <div class="col-md-4">
                                     <form class="search-form-bg navbar-search">
