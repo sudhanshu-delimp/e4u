@@ -36,7 +36,7 @@
                             </div>
                             </div>
                         </div>
-            <div class="padding_20_all_side pb-0">
+            <div class="padding_20_all_side pb-0 custom-removemargin">
                 <!--New Row from here-->
                 <div class="row">
                     {{--
@@ -129,8 +129,8 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1" style="font-size: 18px;
-                                margin-top: 11px;">Statistics</label>
+                            <label class="col-sm-3 font-weight-500 custom--stathead" for="exampleFormControlSelect1" style="font-size: 18px;
+                                margin-top: 11px;"><h2>Statistics</h2></label>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
@@ -349,8 +349,8 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1" style="font-size: 18px;
-                                margin-top: 11px;">Read More</label>
+                            <label class="col-sm-3 font-weight-500 custom--stathead" for="exampleFormControlSelect1" style="font-size: 18px;
+                                margin-top: 11px;"><h2>Read More</h2></label>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
@@ -525,7 +525,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1" style="font-size: 18px;">Covid 19</label>
+                            <label class="col-sm-3 font-weight-500 custom--stathead" for="exampleFormControlSelect1" style="font-size: 18px;"><h2>Covid 19</h2></label>
                         </div>
                     </div>
                 </div>
@@ -551,11 +551,11 @@
                 <div class="row">
                     <div class="col-lg-12 stage">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500 small-icon" for="exampleFormControlSelect1" style="font-size: 18px;">
-                            Create Stage Names
+                            <label class="col-sm-3 font-weight-500 small-icon custom--stathead  custom--stathead--flex" for="exampleFormControlSelect1" style="font-size: 18px;">
+                            <h2>Create Stage Names</h2>
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="You can create as many as you like. Select your Stage Name from the drop down list that will appear in the Profile creator." data-boundary="window">
                             </label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-12">
                                 <input type="text" class="form-control form-control-sm {{-- js-example-tokenizer--}}" id="st_name" placeholder="Enter stage name">
                                     {{-- <option value="">-Not Set-</option> --}}
 

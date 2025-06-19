@@ -7,7 +7,7 @@
    <!--middle content end here-->
    <div class="row">
       <div class="col-md-12">
-         <div class="v-main-heading h3">Abbreviations, Icons & Lingo</div>
+         <div class="v-main-heading h3">Abbreviations, Icons & Lingo </div>
       </div>
       <div class="col-md-12 mt-4 mb-5">
          <div id="accordion" class="myacording-design">

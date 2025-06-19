@@ -8,7 +8,7 @@
   }
 
   .let-talk-about{
-    /* border-bottom: 1px solid #192A3E; */
+    border: none;
   }
  
   .tooltip-wrapper .tooltip-text {
@@ -661,7 +661,7 @@
                                                         <tbody>
                                                         {!! $tableData[2] !!}
                                                         @if($dataExistInTable1 == false)
-                                                            <td colspan="2" style="padding-top: 15px;">Let's talk about it.</td>
+                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
                                                         @endif
                                                         </tbody>
                                                     </table>
@@ -758,7 +758,7 @@
                                                         <tbody>
                                                             {!! $tableData[2] !!}
                                                             @if($dataExistInTable2 == false)
-                                                                <td colspan="2" style="padding-top: 15px;">Let's talk about it.</td>
+                                                                <td colspan="2" class="let-talk-about" style="padding-top: 15px;">Let's talk about it.</td>
                                                             @endif
                                                         </tbody>
                                                     </table>
@@ -855,7 +855,7 @@
                                                         <tbody>
                                                            {!! $tableData[2] !!}
                                                            @if($dataExistInTable3 == false)
-                                                                <td colspan="2" style="padding-top: 15px;">Let's talk about it.</td>
+                                                                <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
                                                             @endif
                                                         </tbody>
                                                     </table>
@@ -1167,13 +1167,12 @@
         </div>
     </div>
 
-    @if($escort->user->available_playmate)
     <div class="box_shadow manage_padding_margin_bg_color">
         <div class="profile_card_border profile_description_contect">
             <h2><img src="{{ asset('assets/app/img/bedroom.svg') }}"> Playmates</h2>
         </div>
         <div class="padding_20_tob_btm_side reduse_pad">
-            @if(!is_null($escort->user->playmates) && $escort->user->playmates->count() > 0)
+            @if($escort->user->available_playmate && !is_null($escort->user->playmates) && $escort->user->playmates->count() > 0)
                 <p class="profile_description_contect_pera">Message me to arrange a play date.</p>
                 <div class="row play_grid">
                     {{-- @if(!auth()->user()->playmates->isEmpty()) --}}
@@ -1194,7 +1193,6 @@
             @endif
         </div>
     </div>
-    @endif
     <!-- jkjkgjkhf -->
     <div class="box_shadow manage_padding_margin_bg_color">
         <div class="profile_card_border profile_description_contect">

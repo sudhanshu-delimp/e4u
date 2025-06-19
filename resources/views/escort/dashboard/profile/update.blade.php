@@ -971,7 +971,6 @@
                 $(this).removeClass('active');
                 $(".nav-link").removeClass('active');
                 $("#" + id).addClass('active');
-                console.log("profile_selected_images:",profile_selected_images);
                 
                 switch(id){
                     case 'profile-tab':{

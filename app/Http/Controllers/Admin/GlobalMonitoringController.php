@@ -362,6 +362,9 @@ class GlobalMonitoringController extends Controller
     {
         $escorts = MassageProfile::where('id', $id)->with('user')->first();
 
+        // center-profile/7
+        $profileurl = route('center.profile.description',$id);
+
         $dataTableData = [];
 
         if ($escorts) {
@@ -389,6 +392,7 @@ class GlobalMonitoringController extends Controller
                 }
 
                 $dataTableData = [
+                    'profileurl' => $profileurl,
                     'id' => $escort['id'],
                     'upTime' => $this->getAppUptime(),
                     'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
@@ -565,7 +569,6 @@ class GlobalMonitoringController extends Controller
 
                     $dataTableData[] = [
                         //'sl_no' => $i++,
-
                         'id' => $escort['id'],
                         'total_record' => intval($recordTotal),
                         'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
@@ -730,6 +733,7 @@ class GlobalMonitoringController extends Controller
 
                 $memberId = isset($escort['user']['member_id']) ? $escort['user']['member_id'] : '';
                 $dataTableData = [
+                    'profileurl' => route('profile.description',$escort['id']),
                     'id' => $escort['id'],
                     'member_id' => $memberId,
                     'member' => $escort['name'],

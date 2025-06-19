@@ -47,7 +47,31 @@
 @section('content')
 <section class="padding_top_eight_px padding_bottom_eight_px custom--decoration">
     <div class="container">
-        <h1 class="home_heading_first margin_btm_twenty_px">Abbreviations, Icons & Lingo </h1>
+      <div class="">
+         <div class="v-main-heading h3 custom-flex">
+            <h1 class="home_heading_first margin_btm_twenty_px">Abbreviations
+               <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+              </h1>
+         </div>
+          <div class="col-md-12 mt-4">
+              <div class="card collapse" id="notes">
+                  <div class="card-body">
+                      <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                      <ol>
+                          <li>
+                           These community information pages are a complete summary of all the terms and
+                           icons use in the Website.
+                          </li>
+                          <li>
+                           Industry terms are also included to assist with Service Tags.
+                          </li>
+                          
+                      </ol>
+                  </div>
+              </div>
+          </div>
+      </div>
+        
         <div class="accordion-container">
             <div class="set">
                 <a>

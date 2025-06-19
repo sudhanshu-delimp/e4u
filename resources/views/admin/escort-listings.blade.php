@@ -90,9 +90,9 @@
                             </th>
                             <th scope="col">Type</th>
                             <th scope="col">Listed</th>
-                            <th scope="col">De-listed</th>
+                            <th scope="col">De-list</th>
                             <th scope="col">Days</th>
-                            <th scope="col">Left</th>
+                            <th scope="col">Remaining</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -175,7 +175,29 @@
 <!--right side bar end-->
 </div>
 
-<div class="modal fade upload-modal" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="view-listingLabel"
+
+<!-- See Email Report popup -->
+
+
+<div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
+      <div class="modal-content basic-modal modal-lg">
+         <div class="modal-header">
+            <h5 class="modal-title" id="emailReport">Listing</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body" id="escortPopupModalBody">
+            <iframe src="" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>
+
+         </div>
+      </div>
+   </div>
+</div>
+<!-- end -->
+
+{{-- <div class="modal fade upload-modal" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="view-listingLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content basic-modal">
@@ -193,7 +215,8 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <div id="listingModalContent">
-                            <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+                                <iframe src="" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>
+                            {{-- <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
                                 <tbody>
                                     <tr>
                                     <td style="border: 1px solid #ccc; padding: 8px;"><strong>Member ID</strong></td>
@@ -232,7 +255,7 @@
                                     <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_day_left">15</td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </table> 
 
                             </div>
                         </div>
@@ -244,7 +267,7 @@
             </div> -->
         </div>
     </div>
-</div>
+</div> --}}
 <script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
 <script>
 CKEDITOR.replace('editor1', {
@@ -378,15 +401,20 @@ CKEDITOR.replace('editor1', {
                     console.log('response');
                     console.log(response);
                     // populate modal with response data
-                    $(".pop_member_id").text(response.member_id);
-                    $(".pop_member").text(response.member);
-                    $(".pop_listing").text(response.listing);
-                    $(".pop_profile_name").text(response.profile_name);
-                    $(".pop_masseurs").text(response.type);
-                    $(".pop_listed_date").text(response.start_date);
-                    $(".pop_de_listed").text(response.end_date);
-                    $(".pop_day").text(response.days);
-                    $(".pop_day_left").text(response.left_days);
+                    // $(".pop_member_id").text(response.member_id);
+                    // $(".pop_member").text(response.member);
+                    // $(".pop_listing").text(response.listing);
+                    // $(".pop_profile_name").text(response.profile_name);
+                    // $(".pop_masseurs").text(response.type);
+                    // $(".pop_listed_date").text(response.start_date);
+                    // $(".pop_de_listed").text(response.end_date);
+                    // $(".pop_day").text(response.days);
+                    // $(".pop_day_left").text(response.left_days);
+
+                    console.log('heys ');
+                    console.log(response.profileurl);
+
+                    $("#escortPopupModalBodyIframe").attr('src', response.profileurl)
 
                     //$('#view-listing .modal-body').html(response); // assuming modal has a .modal-body
                 },

@@ -33,7 +33,7 @@
                             <div class="container-fluid" style="padding: 0px 0px;">
                                 <!-- Page Heading -->
                                 <div class="d-sm-flex align-items-center justify-content-between">
-                                    <div class="v-main-heading h3">Help & Tips
+                                    <div class="v-main-heading h3">Help & Tips 
                                         <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes">
                                             <b>Help?</b></h6>
                                     </div>
