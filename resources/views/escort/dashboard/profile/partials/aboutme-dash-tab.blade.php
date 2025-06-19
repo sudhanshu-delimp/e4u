@@ -1451,7 +1451,10 @@
                         </div>
                         <div class="pt-2 pb-3" data-i="{{$escort->covidreport}}">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input covidreport change_default" type="radio" name="covidreport" id="inlineRadio1" value="1"{{ $escort->getRawOriginal('covidreport') == 1 ? ' checked' : null }}>
+                                <input class="form-check-input covidreport change_default" type="radio" name="covidreport" id="inlineRadio1" required
+           data-parsley-group="goup_one"
+           data-parsley-required-message="Please select a COVID vaccination status"
+           data-parsley-errors-container="#covidreport-errors" value="1"{{ $escort->getRawOriginal('covidreport') == 1 ? ' checked' : null }} >
                                 <label class="form-check-label" for="inlineRadio1">Vaccinated, not up to date</label>
                             </div>
                             <div class="form-check form-check-inline">
@@ -1462,6 +1465,9 @@
                                 <input class="form-check-input covidreport change_default" type="radio" name="covidreport" id="inlineRadio3" value="3"{{ $escort->getRawOriginal('covidreport') == 3 ? ' checked' : null }}>
                                 <label class="form-check-label" for="inlineRadio3">Not Vaccinated</label>
                             </div>
+                        </div>
+                        <div class="col-sm-4">
+                                        <span id="covidreport-errors"></span>
                         </div>
                         {{--<div class="add_banner_or_image_bg pt-2 mb-4" @if(!in_array($escort->covidreport, [1,2])) style="display: none" @endif id="covid-file-block">--}}
                         {{--
