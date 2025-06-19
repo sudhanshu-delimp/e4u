@@ -96,6 +96,48 @@
          </div>
       </div>
    </li>
+   
+   <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Commision" aria-expanded="false" aria-controls="collapseTwo">
+         <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/commision.png') }}">
+
+         <span>Commission</span>
+      </a>
+      <div id="Commision" class="collapse @if(request()->segment(3) == 'statements' || request()->segment(3) == 'summary') show @endif;" data-parent="#accordionSidebar" class="collapse" style="">
+
+         <div class="py-0 collapse-inner rounded mb-2">
+         <a class="collapse-item" href="{{ route('Commision.statements') }}">
+         <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+         <span style="{{request()->segment(3) == 'statements' ? 'color: #e5365a;' : ''}}">Statements</span>
+         </a>
+         <a class="collapse-item" href="{{ route('Commision.summary') }}">
+         <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+         <span style="{{request()->segment(3) == 'summary' ? 'color: #e5365a;' : ''}}">Summary</span>
+         </a>
+         </div>
+      </div>
+   </li>
+   <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#marketing" aria-expanded="false" aria-controls="collapseTwo">
+         <img src="{{ asset('assets/app/img/folded-booklet.png')}}">
+         <span>Marketing</span>
+      </a>
+            <div id="marketing" class=" collapse  @if(request()->segment(3) == 'create-information-package' || request()->segment(3) == 'create-prospect') show @endif;" aria-labelledby="headingten" data-parent="#accordionSidebar" style="">
+         <div class="py-0 collapse-inner rounded mb-2">
+            <a class="collapse-item" href="{{ route('marketing.create-information-package') }}">
+            <img src="{{ asset('assets/app/img/helptips.png')}}">
+         <span style="{{request()->segment(3) == 'create-information-package' ? 'color: #e5365a;' : ''}}">Create Information Package</span>
+            </a>
+            <a class="collapse-item" href="{{ route('marketing.agencreate-prospect') }}">
+            <img src="{{ asset('assets/app/img/create.png')}}">
+            <span style="{{request()->segment(3) == 'create-prospect' ? 'color: #e5365a;' : ''}}">Prospect List</span>
+            </a>
+
+         </div>
+      </div>
+   </li>
+   {{--  --}}
+   <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px;"></li>
 
    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Analytics" aria-expanded="false" aria-controls="collapseTwo">
@@ -121,26 +163,30 @@
             </div>
         </div>
     </li>
-<li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Commision" aria-expanded="false" aria-controls="collapseTwo">
-            <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/commision.png') }}">
-
-             <span>Commission</span>
-        </a>
-        <div id="Commision" class="collapse @if(request()->segment(3) == 'statements' || request()->segment(3) == 'summary') show @endif;" data-parent="#accordionSidebar" class="collapse" style="">
-
-            <div class="py-0 collapse-inner rounded mb-2">
-            <a class="collapse-item" href="{{ route('Commision.statements') }}">
-            <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-            <span style="{{request()->segment(3) == 'statements' ? 'color: #e5365a;' : ''}}">Statements</span>
-            </a>
-            <a class="collapse-item" href="{{ route('Commision.summary') }}">
-            <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-            <span style="{{request()->segment(3) == 'summary' ? 'color: #e5365a;' : ''}}">Summary</span>
-            </a>
-            </div>
-        </div>
-    </li>
+    <li class="nav-item">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Communication" aria-expanded="false" aria-controls="collapseTwo">
+             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/ccone.png') }}">
+ 
+              <span>Communication</span>
+         </a>
+         {{-- <div id="Communication" class="collapse @if(request()->segment(2) == 'advertiser-profiles' || request()->segment(2) == 'advertiser-social-media' || request()->segment(2) == 'prospets-memberships') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+ 
+             <div class="py-0 collapse-inner rounded mb-2">
+             <a class="collapse-item" href="{{ route('agent.advertiser-profiles') }}">
+             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{asset('assets/app/img/user.png') }}">
+             <span style="{{request()->segment(2) == 'advertiser-profiles' ? 'color: #e5365a;' : ''}}">Advertiser Profiles</span>
+             </a>
+             <a class="collapse-item" href="{{ route('agent.advertiser-social-media') }}">
+             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/at.png') }}">
+             <span style="{{request()->segment(2) == 'advertiser-social-media' ? 'color: #e5365a;' : ''}}">Advertiser Social Media</span>
+             </a>
+             <a class="collapse-item" href="{{ route('agent.prospets-memberships') }}">
+             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{asset('assets/app/img/membership.png') }}">
+             <span style="{{request()->segment(2) == 'prospets-memberships' ? 'color: #e5365a;' : ''}}">Prospets & Memberships</span>
+             </a>
+             </div>
+         </div> --}}
+     </li>
    <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Community"
          aria-expanded="true" aria-controls="collapseTwo">
@@ -169,25 +215,7 @@
          </div>
       </div>
    </li>
-  <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#marketing" aria-expanded="false" aria-controls="collapseTwo">
-         <img src="{{ asset('assets/app/img/folded-booklet.png')}}">
-         <span>Marketing</span>
-      </a>
-            <div id="marketing" class=" collapse  @if(request()->segment(3) == 'create-information-package' || request()->segment(3) == 'create-prospect') show @endif;" aria-labelledby="headingten" data-parent="#accordionSidebar" style="">
-         <div class="py-0 collapse-inner rounded mb-2">
-            <a class="collapse-item" href="{{ route('marketing.create-information-package') }}">
-            <img src="{{ asset('assets/app/img/helptips.png')}}">
-         <span style="{{request()->segment(3) == 'create-information-package' ? 'color: #e5365a;' : ''}}">Create Information Package</span>
-            </a>
-            <a class="collapse-item" href="{{ route('marketing.agencreate-prospect') }}">
-            <img src="{{ asset('assets/app/img/create.png')}}">
-            <span style="{{request()->segment(3) == 'create-prospect' ? 'color: #e5365a;' : ''}}">Prospect List</span>
-            </a>
-
-         </div>
-      </div>
-   </li>
+  
    <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tickets" aria-expanded="true" aria-controls="collapseten">
       <img src="{{ asset('assets/app/img/ticket.png')}}">

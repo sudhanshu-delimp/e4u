@@ -57,7 +57,9 @@ Route::post('/update-account', [CenterController::class, 'update'])->name('cente
 Route::get('/profile-info/create-profile', function()
 	{
 		return view('center.profile-info.create-profile');
-	})->name('center.profile-info.create-profile');
+	})->name('center.create-profile');
+
+    
 ///////////////profile
 Route::get('create-profile/{id?}',[CreateController::class,'index'])->name('center.profile');
 Route::get('update-profile/{id?}',[UpdateController::class,'updateBasicProfile'])->name('center.profile.basic.update');
@@ -94,10 +96,79 @@ Route::post('settings-socials-link',[CenterProfileInformationController::class,'
 //////////////end settings
 /////////////end
 
+// add Listings Route
+Route::get('listing/add-listing', function()
+{
+	return view('center.dashboard.listing.add-listing');
+})->name('center.add-listing');
+
+
+Route::get('listing/current', function()
+{
+	return view('center.dashboard.listing.current');
+})->name('center.current');
+
+
+Route::get('listing/past', function()
+{
+	return view('center.dashboard.listing.past');
+})->name('center.past');
+
+
+// add Masseurs Profle Route
+Route::get('profile-masseurs/add-profile', function()
+{
+	return view('center.dashboard.profile-masseurs.add-profile');
+})->name('center.add-profile');
+
+
+Route::get('profile-masseurs/current-profile', function()
+{
+	return view('center.dashboard.profile-masseurs.current');
+})->name('center.current-profile');
+
+
+Route::get('profile-masseurs/past-profile', function()
+{
+	return view('center.dashboard.profile-masseurs.past');
+})->name('center.past-profile');
+
+
+// add Media Masseurs Route
+Route::get('media-masseurs/masseurs-photos', function()
+{
+	return view('center.dashboard.media-masseurs.photos');
+})->name('center.masseurs-photos');
+
+Route::get('media-masseurs/masseurs-videos', function()
+{
+	return view('center.dashboard.media-masseurs.videos');
+})->name('center.masseurs-videos');
+
+
+
+// add Media center Route
+Route::get('media-centre/photos', function()
+{
+	return view('center.dashboard.media-centre.photos');
+})->name('center.photos');
+Route::get('media-centre/videos', function()
+{
+	return view('center.dashboard.media-centre.videos');
+})->name('center.videos');
+
+
 Route::get('/profile-info/edit-profile', function()
 {
 	return view('center.profile-info.edit-profile');
 })->name('center.profile-info.edit-profile');
+
+
+Route::get('/notifications-and-features', function()
+{
+	return view('center.my-account.notifications-and-features');
+})->name('centre.notifications-and-features');
+
 
 Route::get('view-archives',function(){
     return view('center.dashboard.archives.view-archives');
@@ -176,6 +247,7 @@ Route::get('professional-products',function(){
 Route::get('travel',function(){
     return view('center.dashboard.Concierge.travel');
 })->name('center.travel');
+
 
 Route::get('visa',function(){
     return view('center.dashboard.Concierge.visa');
