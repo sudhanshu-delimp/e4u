@@ -29,7 +29,7 @@
             <a class="nav-link" href="{{ route('admin.global-monitoring') }}">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/globe.png') }}">
-                <span>Global Monitoring &#10060;</span>
+                <span>Global Monitoring</span>
             </a>
         </li>
         <li class="nav-item">
@@ -419,7 +419,7 @@
                 aria-expanded="false" aria-controls="collapseTwo">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
-                <span>Global Monitoring &#10060;</span>
+                <span>Global Monitoring</span>
             </a>
             <div id="Monitoring" class="collapse @if (request()->is('*global-monitoring*') ||
                     request()->is('*logged-in-users*') ||
