@@ -792,6 +792,7 @@ is really easy to manage your Profiles and post them.</p>
 Centre Profile allows you to post up to 8 Masseur Profiles (see <a href="#" class="termsandconditions_text_color text-decoration-none">Help for Massage Centres</a>).
 </p>
 <p><b>Q: How are Profiles ordered?</b></p>
+
 <p>Profiles within each Membership Types are randomised every 2 hours and customised
 to each individual Advertiser according to their Profile Information. The search bar in
 the Website is very powerful and enables Viewers to search Advertisers by:</p>
