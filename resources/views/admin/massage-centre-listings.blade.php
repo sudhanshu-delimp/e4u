@@ -130,9 +130,9 @@
                 </table>
                 
                 <div class="timer_section">
-                    <p>Server time: <span class="serverTime">[10:23:51 am]</span></p>
-                    <p>Refresh time:<span class="refreshSeconds"> 30</span></p>
-                    <p>Up time: <span class="uptimeClass">[{{getAppUptime()}}]</span></p>
+                    <p>Server time: <span class="serverTime">10:23:51 am</span></p>
+                    <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
+                    <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
                 </div>
                 <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
                 <nav aria-label="Page navigation example" class="customPagination">
@@ -248,14 +248,14 @@
     <script type="text/javascript">
         $(document).ready(function(e) {
             ajaxReload();
-            let countdown = 30;
+            let countdown = 15;
             setInterval(() => {
                 countdown--;
                 $(".refreshSeconds").text(' '+countdown);
 
                 if (countdown <= 0) {
                     $('#listings').DataTable().ajax.reload(null, false);
-                    countdown = 30;
+                    countdown = 15;
                 }
 
             }, 1000);
@@ -281,7 +281,7 @@
                     console.log(json.data);
                     //$(".customePaginationShow").html($("#listings_info").html()+$("#listings_paginate").html());
                     // buildCustomPagination(json.recordsTotal);
-                    var totalRows = json.data.length; 
+                    var totalRows = json.recordsTotal || json.recordsFiltered; 
                     $(".totalListing").text(totalRows);
                     console.log(json, json.per_page, json.current_page);
                     //buildCustomPagination(json.recordsTotal, 3, 1);

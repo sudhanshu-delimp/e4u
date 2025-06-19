@@ -994,6 +994,16 @@
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                             <span  style="{{ request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Profile</span>
                         </a>
+                        <a class="collapse-item" href="{{ route('admin.num') }}">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span  style="{{ request()->segment(3) == 'num' ? 'color: #e5365a;' : '' }}">Num</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('admin.listings') }}">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span  style="{{ request()->segment(3) == 'listings' ? 'color: #e5365a;' : '' }}">Listings</span>
+                        </a>
                     </div>
 
 

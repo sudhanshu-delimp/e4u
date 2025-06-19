@@ -67,6 +67,7 @@ return [
     |
     */
     'timezone' => env('TIMEZONE', 'UTC'),
+    'escort_server_timezone' => env('ESCORT_SERVER_TIMEZONE', 'Australia/Perth'),
 
     /*
     |--------------------------------------------------------------------------

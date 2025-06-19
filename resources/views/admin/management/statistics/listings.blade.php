@@ -14,7 +14,7 @@
    <div class="row">
       
       <div class="col-md-12">
-         <div class="v-main-heading h3" style="display: inline-block; padding-top: 0;"><h1> Profiles</h1></div>
+         <div class="v-main-heading h3" style="display: inline-block; padding-top: 0;"><h1> Listings</h1></div>
             <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
      </div>
      <div class="col-md-12 ">
@@ -36,8 +36,8 @@
             <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
               
                 <div class="total_listing">
-                    <div><span>Current Profiles : </span></div>
-                    <div><span>3,148</span></div>
+                    <div><span>Current Listings: </span></div>
+                    <div><span>4,736</span></div>
                 </div>
             </div>
         </div>
@@ -63,8 +63,8 @@
                <thead style="background-color: #0c223d; color: white; text-align: center;">
                   <tr style="border: 1px solid white;">
                      <th colspan="8" style="border: 1px solid white;">Year to Year Growth <br>(Days: 158)</th>
-                     <th colspan="3" style="border: 1px solid white;">Total Tours <br> (Last FY)</th>
-                     <th colspan="3" style="border: 1px solid white;">Historical Tours <br> (End of last FY)</th>
+                     <th colspan="3" style="border: 1px solid white;">Total Listings <br> (Last FY)</th>
+                     <th colspan="3" style="border: 1px solid white;">Historical Listings <br> (End of last FY)</th>
                   </tr>
                   <tr style="border: 1px solid white;">
                      <th colspan="5" style="border: 1px solid white;">Current</th>

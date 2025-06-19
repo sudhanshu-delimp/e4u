@@ -494,6 +494,14 @@ Route::get('/admin-dashboard/management/statistics/profile',function(){
     return view('admin.management.statistics.profile');
 })->name('admin.profile');
 
+Route::get('/admin-dashboard/management/statistics/num',function(){
+    return view('admin.management.statistics.num');
+})->name('admin.num');
+
+Route::get('/admin-dashboard/management/statistics/listings',function(){
+    return view('admin.management.statistics.listings');
+})->name('admin.listings');
+
 Route::get('/admin-dashboard/management/manage-user',function(){
     return view('admin.management.manage-user');
 })->name('admin.manage-user');
