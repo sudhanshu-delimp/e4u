@@ -1458,11 +1458,11 @@
                                 <label class="form-check-label" for="inlineRadio1">Vaccinated, not up to date</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input covidreport change_default" type="radio" name="covidreport" id="inlineRadio2" value="2"{{ $escort->getRawOriginal('covidreport') == 2 ? ' checked' : null }}>
+                                <input class="form-check-input covidreport change_default" type="radio" name="covidreport" id="inlineRadio2" value="2" {{ $escort->getRawOriginal('covidreport') == 2 ? ' checked' : null }}>
                                 <label class="form-check-label" for="inlineRadio2">Vaccinated, up to date</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input covidreport change_default" type="radio" name="covidreport" id="inlineRadio3" value="3"{{ $escort->getRawOriginal('covidreport') == 3 ? ' checked' : null }}>
+                                <input class="form-check-input covidreport change_default" type="radio" name="covidreport" id="inlineRadio3" value="3" {{ $escort->getRawOriginal('covidreport') == 3 ? ' checked' : null }}>
                                 <label class="form-check-label" for="inlineRadio3">Not Vaccinated</label>
                             </div>
                         </div>
@@ -1795,15 +1795,20 @@
         }
     });
 
+    
     // UPDATE BUTTONS
+    var parsleyRadio = $('[name="covidreport"]').eq(0).parsley();
     $("body").on("click","#updateVaccineStatus",function(){
-        if($("[name=covidreport]").is(':checked')) {
+        if(parsleyRadio.isValid()){
+            const selected = $('[name="covidreport"]:checked').val();
             update_escort($(this), {
-                'covidreport' : $("[name=covidreport]:checked").val()
+                covidreport: selected
             });
         }
-        /*$('.comman_msg').html("Updated");
-        $("#comman_modal").modal('show');*/
+        else{
+            parsleyRadio.validate();
+        }
+        
     });
     /*$("body").on("click","#update_who_am_i",function(){
         let about = editor.getData();
