@@ -8,7 +8,7 @@
   }
 
   .let-talk-about{
-    /* border-bottom: 1px solid #192A3E; */
+    border: none;
   }
  
   .tooltip-wrapper .tooltip-text {
@@ -661,7 +661,7 @@
                                                         <tbody>
                                                         {!! $tableData[2] !!}
                                                         @if($dataExistInTable1 == false)
-                                                            <td colspan="2" style="padding-top: 15px;">Let's talk about it.</td>
+                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
                                                         @endif
                                                         </tbody>
                                                     </table>
@@ -758,7 +758,7 @@
                                                         <tbody>
                                                             {!! $tableData[2] !!}
                                                             @if($dataExistInTable2 == false)
-                                                                <td colspan="2" style="padding-top: 15px;">Let's talk about it.</td>
+                                                                <td colspan="2" class="let-talk-about" style="padding-top: 15px;">Let's talk about it.</td>
                                                             @endif
                                                         </tbody>
                                                     </table>
@@ -855,7 +855,7 @@
                                                         <tbody>
                                                            {!! $tableData[2] !!}
                                                            @if($dataExistInTable3 == false)
-                                                                <td colspan="2" style="padding-top: 15px;">Let's talk about it.</td>
+                                                                <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
                                                             @endif
                                                         </tbody>
                                                     </table>
