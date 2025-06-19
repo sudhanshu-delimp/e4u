@@ -6,7 +6,7 @@
     <div class="container-fluid pl-lg-4">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="v-main-heading h3 mb-2 pt-4">Dashboard - Escorts Statistics</div>
+            <div class="v-main-heading h3 mb-2 pt-4"><h1 class="p-0">Dashboard - Escorts Statistics</h1></div>
             <div class="back-to-dashboard">
                 <a href="{{ url()->previous() ?? route('dashboard.home') }}">
                     <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
@@ -171,7 +171,7 @@
                         <small class="text-muted">This will delete them from your Playmate list in My Account > My Information > My Playmates, as well as from any current Profiles.</small></p>
                   </div>
                   <div class="modal-footer pr-3 mx-auto">
-                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                     <button type="button" class="btn btn-secondary bg-dangers" data-dismiss="modal">Cancel</button>
                      <button type="submit" class="btn btn-primary">Confirm Remove</button>
                   </div>
                </div>

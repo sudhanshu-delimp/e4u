@@ -25,14 +25,26 @@
          <div class="container-fluid pl-3 pl-lg-5">
             <!--middle content-->
             <div class="row">
-               <div class="col-md-9">
+               
+               <div class="col-md-12">
+                     <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Help for Massage Centres</h1></div>
+                     <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+               </div>
+               <div class="col-md-12 my-4">
+                     <div class="card collapse" id="notes" style="">
+                        <div class="card-body">
+                           <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                           <p></p>
+                           <ol>
+                                 
+                           </ol>
+                        </div>
+                     </div>
+               </div>
+               <div class="col-md-12">
                   <!-- Begin Page Content -->
                   <div class="container-fluid" style="padding: 0px 0px;">
-                     <!-- Page Heading -->
-                     <div class="d-sm-flex align-items-center justify-content-between">
-                        <div class="v-main-heading h3">Help for Massage Centres</div>
-                     </div>
-                  </div>
+                     
                   <!-- /.container-fluid --><br>
                   <div class="row pb-5">
                      <div class="col-md-12">

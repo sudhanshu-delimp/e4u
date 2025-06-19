@@ -157,6 +157,11 @@ Route::get('media-centre/videos', function()
 	return view('center.dashboard.media-centre.videos');
 })->name('center.videos');
 
+// add Media center Route
+Route::get('bookkeeping', function()
+{
+	return view('center.dashboard.bookkeeping');
+})->name('center.bookkeeping');
 
 Route::get('/profile-info/edit-profile', function()
 {
@@ -261,8 +266,18 @@ Route::get('social-media',function(){
     return view('center.dashboard.Annalytics.social-media');
 })->name('social-media');
 
+Route::get('agency-request',function(){
+    return view('center.dashboard.communication.agency-request');
+})->name('agency-request');
+
+
+Route::get('legbox-notification',function(){
+    return view('center.dashboard.communication.legbox-notification');
+})->name('legbox-notification');
+
+
 Route::get('viewer-notes',function(){
-    return view('center.dashboard.Communication.viewer-notes');
+    return view('center.dashboard.communication.viewer-notes');
 })->name('viewer-notes');
 
 Route::get('reccomendations',function(){

@@ -223,23 +223,11 @@
     </li>
     {{-- Bookkeeping --}}
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Bookkeeping" aria-expanded="false" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="{{ route('center.bookkeeping') }}">
             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/bookshelf.png')}}">
 
              <span>Bookkeeping</span>
         </a>
-        {{-- <div id="Bookkeeping" class="collapse @if(request()->segment(2) == 'profiles-tours' || request()->segment(2) == 'social-media' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="py-0 collapse-inner rounded mb-2">
-            <a class="collapse-item" href="{{ route('profiles-tours')}}">
-            <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/bed.png')}}">
-            <span style="{{request()->segment(2) == 'profiles-tours' ? 'color: #e5365a;' : ''}}">Profiles &amp; Tours</span>
-            </a>
-            <a class="collapse-item" href="{{ route('social-media')}}">
-            <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/at.png')}}">
-            <span style="{{request()->segment(2) == 'social-media' ? 'color: #e5365a;' : ''}}">Social Media</span>
-            </a>
-            </div>
-        </div> --}}
     </li>
     {{-- Communication --}}
     <li class="nav-item">
@@ -247,15 +235,15 @@
              <img src="{{ asset('assets/dashboard/img/menu-icon/ccone.png')}}">
              <span>Communication</span>
         </a>
-        <div id="communication" class="collapse @if(request()->segment(2) == 'viewer-notes' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="communication" class="collapse @if(request()->segment(2) == 'agency-request' || request()->segment(2) == 'legbox-notification' || request()->segment(2) == 'viewer-notes' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-            <a class="collapse-item" href="#">
+            <a class="collapse-item" href="{{ route('agency-request')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/comtwo.png')}}">
-                <span style="">Agency Request</span>
+                <span style="{{request()->segment(2) == 'agency-request' ? 'color: #e5365a;' : ''}}">Agency Request</span>
             </a>
-             <a class="collapse-item" href="#">
+             <a class="collapse-item" href="{{ route('legbox-notification')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png')}}">
-                <span style="">Legbox notification</span>
+                <span style="{{request()->segment(2) == 'legbox-notification' ? 'color: #e5365a;' : ''}}">Legbox notification</span>
             </a>
 
             <a class="collapse-item" href="{{ route('viewer-notes')}}">

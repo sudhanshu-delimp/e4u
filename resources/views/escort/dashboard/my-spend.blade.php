@@ -20,14 +20,14 @@
     <div class="container-fluid pl-lg-4">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="v-main-heading h3 mb-2 pt-4">Dashboard - My Spend</div>
+            <div class="v-main-heading h3 mb-2 pt-4"><h1 class="p-0">Dashboard - My Spend</h1></div>
             <div class="back-to-dashboard">
                 <a href="{{ url()->previous() ?? route('dashboard.home') }}">
                     <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
                 </a>
             </div>
         </div>
-        <div class="row mt-5">
+        <div class="row my-3">
             {{-- my spen box --}}
             <div class="col-lg-3">
                 <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
@@ -40,13 +40,9 @@
                         </div>
             
                         <!-- Chart Icon or Image -->
-                        <div>
-                            <img src="{{ asset('assets/app/img/account-multiple-4.png') }}" class="img-fluid" alt="chart">
+                        <div class="spend-icons">
+                            <i class="fas fa-calendar-week"></i>
                         </div>
-                        <!-- Chart Canvas -->
-                        {{-- <div>
-                            <canvas id="miniChart1"></canvas>
-                        </div> --}}
             
                     </div>
                 </div>
@@ -66,8 +62,48 @@
                         </div>
             
                         <!-- Chart Icon or Image -->
+                        <div class="spend-icons">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+            {{-- end --}}
+            {{-- my spen box --}}
+            <div class="col-lg-3">
+                <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        
+                        <!-- Text Section -->
                         <div>
-                            <img src="{{ asset('assets/app/img/account-multiple-4.png') }}" class="img-fluid" alt="chart">
+                            <p class="mb-1 label-text">Year to date</p>
+                            <h4 class="mb-0 amount-text font-weight-bold">$580.00</h4>
+                        </div>
+            
+                        <!-- Chart Icon or Image -->
+                        <div class="spend-icons">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+            {{-- end --}}
+            {{-- my spen box --}}
+            <div class="col-lg-3">
+                <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        
+                        <!-- Text Section -->
+                        <div>
+                            <p class="mb-1 label-text">Same period last year</p>
+                            <h4 class="mb-0 amount-text font-weight-bold">$1280.00</h4>
+                        </div>
+            
+                        <!-- Chart Icon or Image -->
+                        <div class="spend-icons">
+                            <i class="fas fa-calendar-minus"></i>
                         </div>
             
                     </div>
@@ -75,7 +111,115 @@
             </div>
             {{-- end --}}
         </div>
-        <div class="row my-5">  
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 class="font-weight-bold" style="color: var(--blue--text);">Other Services
+                </h4>
+            </div>
+             {{-- my spen box --}}
+             <div class="col-lg-3">
+                <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        
+                        <!-- Text Section -->
+                        <div>
+                            <p class="mb-1 label-text">Email account</p>
+                            <h4 class="mb-0 amount-text font-weight-bold">100</h4>
+                        </div>
+            
+                        <!-- Chart Icon or Image -->
+                        <div class="spend-icons">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+            {{-- end --}}
+
+            
+            {{-- my spen box --}}
+            <div class="col-lg-3">
+                <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        
+                        <!-- Text Section -->
+                        <div>
+                            <p class="mb-1 label-text">Mobile SIM	</p>
+                            <h4 class="mb-0 amount-text font-weight-bold">10</h4>
+                        </div>
+            
+                        <!-- Chart Icon or Image -->
+                        <div class="spend-icons">
+                            <i class="fas fa-sim-card"></i>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+            {{-- end --}}
+            {{-- my spen box --}}
+            <div class="col-lg-3">
+                <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        
+                        <!-- Text Section -->
+                        <div>
+                            <p class="mb-1 label-text">Product</p>
+                            <h4 class="mb-0 amount-text font-weight-bold">120</h4>
+                        </div>
+            
+                        <!-- Chart Icon or Image -->
+                        <div class="spend-icons">
+                            <i class="fas fa-box"></i>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+            {{-- end --}}
+            {{-- my spen box --}}
+            <div class="col-lg-3">
+                <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        
+                        <!-- Text Section -->
+                        <div>
+                            <p class="mb-1 label-text">Support (E4U)</p>
+                            <h4 class="mb-0 amount-text font-weight-bold">$1280.00</h4>
+                        </div>
+            
+                        <!-- Chart Icon or Image -->
+                        <div class="spend-icons">
+                            <i class="fas fa-tools"></i>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+            {{-- end --}}
+            {{-- my spen box --}}
+            <div class="col-lg-3">
+                <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        
+                        <!-- Text Section -->
+                        <div>
+                            <p class="mb-1 label-text font-weight-bold">Year to date total	</p>
+                            <h4 class="mb-0 amount-text font-weight-bold">$1280.00</h4>
+                        </div>
+            
+                        <!-- Chart Icon or Image -->
+                        <div class="spend-icons">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+            {{-- end --}}
+        </div>
+        <div class="row my-5 d-none">  
             <!-- Advertising Table -->
             <div class="col-md-6 mb-4">
               <div class="table-responsive">
@@ -169,6 +313,7 @@
             </div>
         
         </div>
+    </div>
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>

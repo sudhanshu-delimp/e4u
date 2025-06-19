@@ -1,9 +1,26 @@
 @extends('layouts.escort')
+
+@section('style')
+<style>
+    .table thead {
+  background-color: var(--blue--text);
+  color: #fff;
+}
+.icon-col {
+  font-size: 18px;
+  text-align: left;
+  color: var(--blue--text);
+}
+h5 {
+  color: var(--blue--text);
+}
+</style>
+@endsection
 @section('content')
     <div class="container-fluid pl-lg-4">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="v-main-heading h3 mb-2 pt-4">Dashboard - My Statistics</div>
+            <div class="v-main-heading h3 mb-2 pt-4"><h1 class="p-0">Dashboard - My Statistics</h1></div>
             <div class="back-to-dashboard">
                 <a href="{{ url()->previous() ?? route('dashboard.home') }}">
                     <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
@@ -11,36 +28,139 @@
             </div>
         </div>
         <div class="row">
-           <div class="col-lg-12">
-            <p>Coming Soon...</p>
-           </div>
+            <!-- Card Start -->
+            <div class="col-md-3 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label">Profile Views Today</div>
+                        <div class="statistics-value">25</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/view-profile.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-3 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label">Media Views Today
+                        </div>
+                        <div class="statistics-value">125</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/media-view.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-3 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label">Recommendations This Week
+                        </div>
+                        <div class="statistics-value">32</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-3 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label">Reviews Posted This Week
+                        </div>
+                        <div class="statistics-value">125</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-3 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label">Profiles currently posted
+                        </div>
+                        <div class="statistics-value">125</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-3 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label">My Playbox subscriptions
+                        </div>
+                        <div class="statistics-value">125</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/likes.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
         </div>
-@endsection
-@section('style')
-    <style>
-        .toggle-task-form {
-            font-size: 16px;
-            /* color: #007bff; */
-            display: inline-block;
-            margin: 20px 0px;
-        }
-
-        .agent-tour .card {
-            padding: 5px 12px !important;
-        }
-
-        .upload-modal .btn {
-            padding: 7px 20px 7px 20px !important;
-            background: #087132;
-        }
-        .page-item:hover .fa {
-            color: white !important;
-        }
-
-        .page-item:hover .page-link {
-            color: white;
-        }
-    </style>
+        <div class="row mt-5 d-none">  
+            <!-- Advertising Table -->
+            <div class="col-md-12 mb-4">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr><th colspan="3" class="text-center">My Statistics</th></tr>
+                    {{-- <tr>
+                      <th>Icon</th>
+                      <th>Description</th>
+                      <th class="text-center">Value</th>
+                    </tr> --}}
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="icon-col"><i class="fas fa-hourglass-start"></i></td>
+                      <td>Profiles currently posted</td>
+                      <td class="text-center">25</td>
+                    </tr>
+                    <tr>
+                      <td class="icon-col"><i class="fas fa-chart-bar"></i></td>
+                      <td>Profile views toady</td>
+                      <td class="text-center">25</td>
+                    </tr>
+                    <tr>
+                      <td class="icon-col"><i class="far fa-calendar-alt"></i></td>
+                      <td>Media views today</td>
+                      <td class="text-center">125</td>
+                    </tr>
+                    <tr>
+                      <td class="icon-col"><i class="fas fa-calendar-week"></i></td>
+                      <td>Recommendations this week</td>
+                      <td class="text-center">32</td>
+                    </tr>
+                    <tr>
+                      <td class="icon-col"><i class="fas fa-chart-line"></i></td>
+                      <td>Reviews posted this week</td>
+                      <td class="text-center">125</td>
+                    </tr>
+                    <tr>
+                      <td class="icon-col"><i class="fas fa-chart-bar"></i></td>
+                      <td>My Playbox subscriptions</td>
+                      <td class="text-center">25</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>

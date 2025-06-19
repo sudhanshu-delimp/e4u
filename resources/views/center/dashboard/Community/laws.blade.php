@@ -24,89 +24,103 @@
       <div id="content">
          <div class="container-fluid pl-3 pl-lg-5">
             <!--middle content-->
-            <div class="row">
+            <div class="row">               
                <div class="col-md-12">
-                <div class="v-main-heading h3">Local Laws</div>
-            </div>
-            <div class="col-md-12 mt-4">
-                  <div class="row">
-                     <div class="col-md-12">
-                        <table class="table color-black">
-                           <tbody>
-                              <tr>
-                                 <td class="font-weight-bold" style="width: 10%;">State
-                                 </td>
-                                 <td class="font-weight-bold">Legislation<sup>(1)</sup></td>
-                                 <td class="font-weight-bold">Regulations</td>
-                                 <td class="font-weight-bold">Comments</td>
-                              </tr>
-                              <tr>
-                                 <td>Federal</td>
-                                 <td><a class="theme-text-color" target="_blank" href="http://www6.austlii.edu.au/cgi-bin/viewdoc/au/legis/cth/consol_act/cca1995115/sch1.html">Criminal Code Act 1995</a></td>
-                                 <td>None</td>
-                                 <td>Divisions 270 &amp; 271</td>
-                              </tr>
-                              <tr>
-                                 <td>ACT</td>
-                                 <td><a class="theme-text-color" target="_blank" href="http://www.legislation.act.gov.au/a/1992-64/default.asp">Sex Work Act 1992</a></td>
-                                 <td><a class="theme-text-color" target="_blank" href="http://www.legislation.act.gov.au/sl/1993-19/default.asp">Prostitution Regulation 1993</a></td>
-                                 <td>Regulations repealed 9th August 2018</td>
-                              </tr>
-                              <tr>
-                                 <td>NSW</td>
-                                 <td>As at 1st January 2021, there is no Prostitution legislation in place in the State of New South Wales.</td>
-                                 <td>None</td>
-                                 <td>None</td>
-                              </tr>
-                              <tr>
-                                 <td>NT</td>
-                                 <td><a class="theme-text-color" target="_blank" href="http://www.austlii.edu.au/au/legis/nt/consol_act/pra317/">Prostitution Regulation Act</a></td>
-                                 <td><a class="theme-text-color" target="_blank" href="http://www.austlii.edu.au/au/legis/nt/consol_reg/pr314/">Prostitution Regulations</a></td>
-                                 <td>None</td>
-                              </tr>
-                              <tr>
-                                 <td>QLD</td>
-                                 <td><a class="theme-text-color" target="_blank" href="https://www.legislation.qld.gov.au/view/html/inforce/current/act-1999-073">Prostitution Act 1999</a></td>
-                                 <td><a class="theme-text-color" target="_blank" href="https://www.legislation.qld.gov.au/view/html/inforce/current/sl-2014-0192">Prostitution Regulation 2000</a></td>
-                                 <td>Massage Centres must have their business telephone number registered with the Prostitution Licensing Authority and display their number in their Profile</td>
-                              </tr>
-                              <tr>
-                                 <td>SA:</td>
-                                 <td><a class="theme-text-color" target="_blank" href="http://www.austlii.edu.au/au/legis/sa/consol_act/clca1935262/">Criminal Law Consolidation Act 1935</a> and <a class="theme-text-color" target="_blank" href="http://www.austlii.edu.au/au/legis/sa/consol_act/soa1953189/index.html">Summary Offences Act 1953</a></td>
-                                 <td>None</td>
-                                 <td>None</td>
-                              </tr>
-                              <tr>
-                                 <td>TAS</td>
-                                 <td><a class="theme-text-color" target="_blank" href="http://www.austlii.edu.au/au/legis/tas/consol_act/sioa2005253/">Sex Industry Offences Act 2005</a></td>
-                                 <td>None</td>
-                                 <td>None</td>
-                              </tr>
-                              <tr>
-                                 <td>VIC</td>
-                                 <td><a class="theme-text-color" target="_blank" href="http://www.legislation.vic.gov.au/Domino/Web_Notes/LDMS/LTObject_Store/ltobjst8.nsf/DDE300B846EED9C7CA257616000A3571/818BBA0CE3EA0706CA257BC60007035D/$FILE/94-102aa080%20authorised.pdf">Sex Work Act 1994</a></td>
-                                 <td><a class="theme-text-color" target="_blank" href="http://www.legislation.vic.gov.au/Domino/Web_Notes/LDMS/LTObject_Store/LTObjSt7.nsf/DDE300B846EED9C7CA257616000A3571/11D809EA9BF85B86CA257B200017205D/$FILE/06-64sra012%20authorised.pdf">Sex Work Regulations 2006</a></td>
-                                 <td>You must display your SWA in your Profile</td>
-                              </tr>
-                              <tr>
-                                 <td>WA:</td>
-                                 <td><a class="theme-text-color" target="_blank" href="http://www.austlii.edu.au/au/legis/wa/consol_act/pa2000205/">Prostitution Act 2000</a></td>
-                                 <td>None</td>
-                                 <td>None</td>
-                              </tr>
-                           </tbody>
-                        </table>
-                        <p class="pt-5"><strong>NOTE:</strong> 1. Local Laws published in the relevant jurisdiction as at 1st December 2018.</p>
+                     <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Local Laws</h1></div>
+                     <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+               </div>
+               <div class="col-md-12 my-4">
+                     <div class="card collapse" id="notes" style="">
+                        <div class="card-body">
+                           <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                           <p></p>
+                           <ol>
+                                 
+                           </ol>
+                        </div>
+                     </div>
+               </div>
+               <div class="col-md-12 mt-4">
+                     <div class="row">
+                        <div class="col-md-12">
+                           <table class="table color-black">
+                              <tbody>
+                                 <tr>
+                                    <td class="font-weight-bold" style="width: 10%;">State
+                                    </td>
+                                    <td class="font-weight-bold">Legislation<sup>(1)</sup></td>
+                                    <td class="font-weight-bold">Regulations</td>
+                                    <td class="font-weight-bold">Comments</td>
+                                 </tr>
+                                 <tr>
+                                    <td>Federal</td>
+                                    <td><a class="theme-text-color" target="_blank" href="http://www6.austlii.edu.au/cgi-bin/viewdoc/au/legis/cth/consol_act/cca1995115/sch1.html">Criminal Code Act 1995</a></td>
+                                    <td>None</td>
+                                    <td>Divisions 270 &amp; 271</td>
+                                 </tr>
+                                 <tr>
+                                    <td>ACT</td>
+                                    <td><a class="theme-text-color" target="_blank" href="http://www.legislation.act.gov.au/a/1992-64/default.asp">Sex Work Act 1992</a></td>
+                                    <td><a class="theme-text-color" target="_blank" href="http://www.legislation.act.gov.au/sl/1993-19/default.asp">Prostitution Regulation 1993</a></td>
+                                    <td>Regulations repealed 9th August 2018</td>
+                                 </tr>
+                                 <tr>
+                                    <td>NSW</td>
+                                    <td>As at 1st January 2021, there is no Prostitution legislation in place in the State of New South Wales.</td>
+                                    <td>None</td>
+                                    <td>None</td>
+                                 </tr>
+                                 <tr>
+                                    <td>NT</td>
+                                    <td><a class="theme-text-color" target="_blank" href="http://www.austlii.edu.au/au/legis/nt/consol_act/pra317/">Prostitution Regulation Act</a></td>
+                                    <td><a class="theme-text-color" target="_blank" href="http://www.austlii.edu.au/au/legis/nt/consol_reg/pr314/">Prostitution Regulations</a></td>
+                                    <td>None</td>
+                                 </tr>
+                                 <tr>
+                                    <td>QLD</td>
+                                    <td><a class="theme-text-color" target="_blank" href="https://www.legislation.qld.gov.au/view/html/inforce/current/act-1999-073">Prostitution Act 1999</a></td>
+                                    <td><a class="theme-text-color" target="_blank" href="https://www.legislation.qld.gov.au/view/html/inforce/current/sl-2014-0192">Prostitution Regulation 2000</a></td>
+                                    <td>Massage Centres must have their business telephone number registered with the Prostitution Licensing Authority and display their number in their Profile</td>
+                                 </tr>
+                                 <tr>
+                                    <td>SA:</td>
+                                    <td><a class="theme-text-color" target="_blank" href="http://www.austlii.edu.au/au/legis/sa/consol_act/clca1935262/">Criminal Law Consolidation Act 1935</a> and <a class="theme-text-color" target="_blank" href="http://www.austlii.edu.au/au/legis/sa/consol_act/soa1953189/index.html">Summary Offences Act 1953</a></td>
+                                    <td>None</td>
+                                    <td>None</td>
+                                 </tr>
+                                 <tr>
+                                    <td>TAS</td>
+                                    <td><a class="theme-text-color" target="_blank" href="http://www.austlii.edu.au/au/legis/tas/consol_act/sioa2005253/">Sex Industry Offences Act 2005</a></td>
+                                    <td>None</td>
+                                    <td>None</td>
+                                 </tr>
+                                 <tr>
+                                    <td>VIC</td>
+                                    <td><a class="theme-text-color" target="_blank" href="http://www.legislation.vic.gov.au/Domino/Web_Notes/LDMS/LTObject_Store/ltobjst8.nsf/DDE300B846EED9C7CA257616000A3571/818BBA0CE3EA0706CA257BC60007035D/$FILE/94-102aa080%20authorised.pdf">Sex Work Act 1994</a></td>
+                                    <td><a class="theme-text-color" target="_blank" href="http://www.legislation.vic.gov.au/Domino/Web_Notes/LDMS/LTObject_Store/LTObjSt7.nsf/DDE300B846EED9C7CA257616000A3571/11D809EA9BF85B86CA257B200017205D/$FILE/06-64sra012%20authorised.pdf">Sex Work Regulations 2006</a></td>
+                                    <td>You must display your SWA in your Profile</td>
+                                 </tr>
+                                 <tr>
+                                    <td>WA:</td>
+                                    <td><a class="theme-text-color" target="_blank" href="http://www.austlii.edu.au/au/legis/wa/consol_act/pa2000205/">Prostitution Act 2000</a></td>
+                                    <td>None</td>
+                                    <td>None</td>
+                                 </tr>
+                              </tbody>
+                           </table>
+                           <p class="pt-5"><strong>NOTE:</strong> 1. Local Laws published in the relevant jurisdiction as at 1st December 2018.</p>
+                        </div>
                      </div>
                   </div>
+                  </div>
+                  <!--middle content end here-->
+                  <!--right side bar start from here-->
                </div>
-               </div>
-               <!--middle content end here-->
-               <!--right side bar start from here-->
             </div>
          </div>
       </div>
    </div>
+</div>
 @include('escort.dashboard.partials.playmates-modal')
 @endsection
 @push('script')

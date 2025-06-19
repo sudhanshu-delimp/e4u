@@ -23,10 +23,12 @@
                                     <div class="card-body">
                                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                         <ol class="pl-4">
-                                        <li>You can select a payment option by clicking the card, or simply insert the amount you want to pay.</li>
-                                        <li>SMS 2FA applies for this feature.</li>
+                                        <li>You can select a payment option by clicking the card, or simply insert the amount you
+                                            want to pay.</li>
+                                        <li>SMS 2FA applies to this feature.</li>
                                         <li>You can enable the Auto Recharge feature here as well.</li>
-                                        <li>You can view how much credit you have available in the summary below. When creating a Listing or Tour, your available credit will be displayed on the payment page.</li>
+                                        <li>You can view how much credit you have available in the summary below. When
+                                            creating a Listing or Tour, your available credit will be displayed on the payment page.</li>
                                         </ol>
                                     </div>
                                 </div>

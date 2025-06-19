@@ -191,15 +191,20 @@ class AuthController extends Controller
         $this->guard()->logout();
 
         $request->session()->invalidate();
-
+       
         $request->session()->regenerateToken();
         session()->put('cart', $cart);
         if ($response = $this->loggedOut($request)) {
+           
             return $response;
         }
 
+        // return $request->wantsJson()
+        //     ? new JsonResponse([], 204)
+        //     : redirect()->route('admin.index');
         return $request->wantsJson()
             ? new JsonResponse([], 204)
-            : redirect()->route('admin.index');
+            : redirect()->route('home');
+
     }
 }

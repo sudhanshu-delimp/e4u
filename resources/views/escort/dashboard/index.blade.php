@@ -7,7 +7,7 @@
         </div>
         <div class="row">
             {{-- box start --}}
-            <div class="col-lg-3 box-wrapper">
+            <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('escort.dashboard.escorts-statistics') }}">
                         <div class="box-icon">
@@ -22,7 +22,7 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-3 box-wrapper">
+            <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('escort.dashboard.my-playmates') }}">
                         <div class="box-icon">
@@ -37,7 +37,7 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-3 box-wrapper">
+            <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('escort.dashboard.my-spend') }}">
                         <div class="box-icon">
@@ -52,7 +52,7 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-3 box-wrapper">
+            <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('escort.dashboard.my-statistics') }}">
                         <div class="box-icon">
@@ -67,7 +67,7 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-3 box-wrapper">
+            <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('escort.dashboard.task-list') }}">
                         <div class="box-icon">
@@ -82,14 +82,14 @@
             </div>
             {{-- end --}}
             {{-- box start --}}
-            <div class="col-lg-3 box-wrapper">
+            <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('escort.dashboard.tour-schedule') }}">
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/boxicon/icon_tour-schedule.svg') }}" alt="Tour Schedule">
                         </div>
                         <h2>
-                            Tour Schedule
+                            My Tour Schedule
                         </h2>
                     </a>
 

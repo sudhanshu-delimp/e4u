@@ -250,7 +250,7 @@
                 <a class="collapse-item" href="{{url('escort-dashboard/credit-my-account')}}">
                     <img width="16" height="17" viewBox="0 0 16 17" fill="none"
                          src="{{asset('assets/dashboard/img/menu-icon/credit-card-plus.png') }}">
-                    </img><span style="{{request()->segment(2) == 'credit-my-account' ? 'color: #e5365a;' : ''}}">Add Credit to my account</span>
+                    </img><span style="{{request()->segment(2) == 'credit-my-account' ? 'color: #e5365a;' : ''}}">Add Credit</span>
                 </a>
                 
                 <a class="collapse-item" href="{{url('escort-dashboard/revenue-manager')}}">

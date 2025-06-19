@@ -36,9 +36,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="v-main-heading h3" style="display: inline-block;">My Support Tickets</div>
-{{--            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </h6>--}}
+           <h6 class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </h6>
         </div>
-        {{--<div class="col-md-12 mt-4 collapse" id="profile_and_tour_options">
+        <div class="col-md-12 mt-4 collapse" id="profile_and_tour_options">
             <div class="row">
                 <div class="col-md-12 mb-5">
                     <div class="card" id="notes">
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </div>
-        </div>--}}
+        </div>
     </div>
     <div id="content">
         <div class="container-fluid">
