@@ -367,7 +367,13 @@
                                     <td>{{$cDay}}</td>
                                     <td>
                                         @if(!empty($availability->availability_time[$day]))
-                                            {{ $availability->availability_time[$day]; }}
+                                            @if($availability->availability_time[$day] == 'til_ate')
+                                            Til Late
+                                            @else
+                                                {{ $availability->availability_time[$day]; }} 
+                                            @endif
+                                            
+
                                         @elseif(!empty($availability->{$day.'_from'}) && !empty($availability->{$day.'_to'}))
                                             {{ ($availability) ? Carbon\Carbon::parse($availability->{$day.'_from'})->format('h:i A'): '' }} - {{ ($availability) ? Carbon\Carbon::parse($availability->{$day.'_to'})->format('h:i A') : ''}}
                                         @else
