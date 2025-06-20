@@ -63,6 +63,123 @@ class WebController extends Controller
         return response()->json(['status' => true, 'location' => $url]);
     }
 
+    public function applyFilterOnEscort($query,$str,$gender, $age, $location)
+    {
+        // $applyFilters = function ($query,$str) use ($gender, $age, $location) {
+            $age = explode('-',$str['age']);
+            if(!empty($str['age'])) {
+                $age_min = $age[0];
+                $age_max = $age[1];
+            }
+
+            $query->where('enabled', 1);
+            if(!empty($gen))
+            {
+                $query->where('gender','=',$gen);
+            }
+
+            if(!empty($escort_id)) {
+                $query->whereIn('id', $escort_id);
+            }
+
+            
+            if(!empty($str['duration_price']))
+            {
+
+                $duration_price = $str['duration_price'];
+
+                $query->where( function($q) use ($duration_price){
+                    $q->whereHas('durations', function($q) use ($duration_price){
+
+                        //$q->with('pivot');
+                        if($duration_price == "incall_price"){
+                            $q->Where('incall_price', '!=',null);
+
+                        }
+                        if($duration_price == "outcall_price"){
+                            $q->Where('outcall_price', '!=',null);
+
+                        }
+                        if($duration_price == "massage_price"){
+                            $q->Where('massage_price', '!=',null);
+
+                        }
+
+
+                    });
+                });
+            }
+            
+            if(!empty($str['string']))
+            {
+                $uid = $str['string'];
+                $query->where(function($q) use ($uid){
+                    $q->orWhere('name','like', '%'.$uid.'%');
+                    $q->orWhere( function($q) use ($uid){
+                        $q->whereHas('user', function($q) use ($uid){
+                            $q->where('member_id', $uid);
+                        });
+                    });
+                });
+
+            }
+
+            // if(!empty($str['state_id']))
+            // {
+            //     $query->where('state_id',$str['state_id']);
+            // } 
+            
+            if(!empty($str['city_id']))
+            {
+                $radioLocation = request()->get('locationByRadio');  // australia
+                if($radioLocation != 'australia'){
+                    $query->where('city_id','=',$str['city_id']);
+                }
+                
+                if($str['string'] == ''  && $radioLocation == 'australia'){
+                    $query->where('city_id','=',$str['city_id']);
+                }
+            }
+
+            if(isset($str['interest']) && $str['interest'] != null )
+            {
+                $query->whereIn('gender', json_decode($str['interest']));
+            }
+        
+            if($str['gender'] != null)
+            {
+                $query->where('gender','=',$str['gender']);
+            }
+
+            if(!empty($str['age']) )
+            {
+                $query->whereBetween('age',[$age_min, $age_max]);
+            }
+
+            if(!empty($str['enabled'])) {
+                $query->where('enabled', $str['enabled']);
+            } 
+            
+            if($price = $str['price']) {
+                $query->whereHas('services', function($q) use($price) {
+                    if($price <= 500) {
+                        $q->where('price','<=', $price);
+                    } else {
+                        $q->where('price','>', 500);
+                    }
+                });
+            }
+
+            if($services = $str['services'])
+            {
+                $query->whereHas('services', function($q) use($services) {
+                    $q->whereIn('services.id', $services);
+                });
+            }
+            return $query;
+        // };
+    }
+
     public function allEscortList(Request $request, $gender = null)
     {
         $user = 1;
@@ -177,129 +294,16 @@ class WebController extends Controller
         $page     = request()->get('page', 1);
         $perPage  = $limit;
         //$perPage  = 4;
-        $applyFilters = function ($query,$str) use ($gender, $age, $location) {
-        $age = explode('-',$str['age']);
-        if(!empty($str['age'])) {
-            $age_min = $age[0];
-            $age_max = $age[1];
-        }
-
-        $query->where('enabled', 1);
-        if(!empty($gen))
-        {
-            $query->where('gender','=',$gen);
-        }
-
-        if(!empty($escort_id)) {
-            $query->whereIn('id', $escort_id);
-        }
 
         
-        if(!empty($str['duration_price']))
-        {
-
-            $duration_price = $str['duration_price'];
-
-            $query->where( function($q) use ($duration_price){
-                $q->whereHas('durations', function($q) use ($duration_price){
-
-                    //$q->with('pivot');
-                    if($duration_price == "incall_price"){
-                        $q->Where('incall_price', '!=',null);
-
-                    }
-                    if($duration_price == "outcall_price"){
-                        $q->Where('outcall_price', '!=',null);
-
-                    }
-                    if($duration_price == "massage_price"){
-                        $q->Where('massage_price', '!=',null);
-
-                    }
-
-
-                });
-            });
-        }
-        
-        if(!empty($str['string']))
-        {
-            $uid = $str['string'];
-            $query->where(function($q) use ($uid){
-                $q->orWhere('name','like', '%'.$uid.'%');
-                $q->orWhere( function($q) use ($uid){
-                    $q->whereHas('user', function($q) use ($uid){
-                        $q->where('member_id', $uid);
-                    });
-                });
-            });
-
-        }
-
-        // if(!empty($str['state_id']))
-        // {
-        //     $query->where('state_id',$str['state_id']);
-        // } 
-        
-        if(!empty($str['city_id']))
-        {
-            $radioLocation = request()->get('locationByRadio');  // australia
-            if($radioLocation != 'australia'){
-                $query->where('city_id','=',$str['city_id']);
-            }
-            
-            if($str['string'] == ''  && $radioLocation == 'australia'){
-                $query->where('city_id','=',$str['city_id']);
-            }
-        }
-
-        if(isset($str['interest']) && $str['interest'] != null )
-        {
-            $query->whereIn('gender', json_decode($str['interest']));
-        }
-       
-        if($str['gender'] != null)
-        {
-            $query->where('gender','=',$str['gender']);
-        }
-
-        if(!empty($str['age']) )
-        {
-            $query->whereBetween('age',[$age_min, $age_max]);
-        }
-
-        if(!empty($str['enabled'])) {
-            $query->where('enabled', $str['enabled']);
-        } 
-        
-        if($price = $str['price']) {
-            $query->whereHas('services', function($q) use($price) {
-                if($price <= 500) {
-                    $q->where('price','<=', $price);
-                } else {
-                    $q->where('price','>', 500);
-                }
-            });
-        }
-
-        if($services = $str['services'])
-        {
-            $query->whereHas('services', function($q) use($services) {
-                $q->whereIn('services.id', $services);
-            });
-        }
-            return $query;
-        };
-
-        
-        $platinum = $applyFilters(Escort::with('durations')->where('membership', '1'),$str)->get();
-        $gold = $applyFilters(Escort::with('durations')->where('membership', '2'),$str)->get();
-        $silver = $applyFilters(Escort::with('durations')->where('membership', '3'),$str)->get();
-        $free = $applyFilters(Escort::with('durations')->where('membership', '4'),$str)->get();
+        $platinum = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '1'),$str,$gender, $age, $location)->get();
+        $gold = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '2'),$str,$gender, $age, $location)->get();
+        $silver = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '3'),$str,$gender, $age, $location)->get();
+        $free = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '4'),$str,$gender, $age, $location)->get();
         
         $merged = $platinum->concat($gold)->concat($silver);
 
-
+        //dd($merged);
          $merged = $merged->map(function($item, $key) {
             //dd($item);
             # Add services with duration if exists
@@ -438,36 +442,6 @@ class WebController extends Controller
         }
         
     }
-    // public function getRealTimeGeolocationOfUsers()
-    // {
-    //     try {
-    //         // $ip = $_SERVER['REMOTE_ADDR']; // Get user's IP address
-    //         $ip = 'https://e4udev2.perth-cake1.powerwebhosting.com.au/'; // Get user's IP address
-    //         $accessKey = 'your_api_key'; // Optional if using paid service or high limits
-
-    //         // Use the IPInfo API (no key required for basic usage)
-    //         $response = file_get_contents("http://ipinfo.io/{$ip}/json");
-    //         $location = json_decode($response, true);
-
-    //         $parms =[
-    //             'ip'=>$location['ip'],
-    //             'city'=>$location['city'],
-    //             'state'=>$location['region'],
-    //             'country'=>$location['country'],
-    //         ];
-
-    //         return $parms;
-    //     } catch (\Exception $e) {
-    //         //throw $th;
-    //         $parms =[
-    //             'city'=>null,
-    //             'state'=>null
-    //         ];
-
-    //         return $parms;
-    //     }
-        
-    // }
 
     public function shortList()
     {
@@ -977,7 +951,7 @@ class WebController extends Controller
                 'enabled' => request()->get('enabled', 1),
                 'state_id' => request()->get('state-id') ? request()->get('state-id') : Session::get('session_state_id'),
                 'limit'=> request()->get('limit'),
-                'view_type'=> request()->get('view_type')
+                'view_type'=> request()->get('view_type'),
             ];
         }
 
@@ -1002,15 +976,20 @@ class WebController extends Controller
             $backToSearchButton = session('search_shorlisting_escort_filters_url');
         }
 
-        //dd($backToSearchButton);
+        // $filterEscorts = $this->escort->findByPlan($limit, $filterEscortsParams, $user_id = null, $escortId, $userId = null , 'profile_details');
 
-        $filterEscorts = $this->escort->findByPlan($limit, $filterEscortsParams, $user_id = null, $escortId, $userId = null , 'profile_details');
+        $location = request()->get('location');
+
+        $platinum = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '1'),$filterEscortsParams,$filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
+        $gold = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '2'),$filterEscortsParams,$filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
+        $silver = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '3'),$filterEscortsParams,$filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
+        $free = $this->applyFilterOnEscort(Escort::with('durations')->where('membership', '4'),$filterEscortsParams,$filterEscortsParams['gender'], $filterEscortsParams['age'], $location)->get();
+        
+        $filterEscorts = $platinum->concat($gold)->concat($silver);
 
         if(session('is_shortlisted_profile') == true){
             $filterEscorts = $filterEscorts->sortBy('id')->values();
         }
-
-        //dd($filterEscortsParams,$filterEscorts);
         
         list($next, $previous) = $this->escort->getlinks($id, $city, $membershipId, $filterEscorts);
         $availability = $escort ? $escort->availability : null;
