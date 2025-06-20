@@ -73,7 +73,7 @@
 
 </style>
 
-@if(str_contains(url()->full(), '?no-next-page='))
+@if(str_contains(url()->full(), '?no-next-page') || str_contains(url()->full(), '?no-next-page='))
     <style>
         .nextDisableButtonCss {
             background: gray;
@@ -87,7 +87,7 @@
     </style>
 @endif
 
-@if(str_contains(url()->full(), '?no-prev-page='))
+@if(str_contains(url()->full(), '?no-prev-page') || str_contains(url()->full(), '?no-prev-page='))
     <style>
         .previousDisableButtonCss {
             background: gray;
