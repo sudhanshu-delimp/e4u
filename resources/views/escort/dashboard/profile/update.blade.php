@@ -169,7 +169,7 @@
                                 @else
                                     <form id="my_escort_profile"
                                         action="{{ route('escort.setting.profile', request()->segment(3)) }}" method="post"
-                                        enctype="multipart/form-data">
+                                        enctype="multipart/form-data" data-parsley-validate>
                                         @csrf
                                         <input type="hidden" name="user_startDate" id="user_startDate"
                                             value="{{ date('Y-m-d', strtotime(auth()->user()->created_at)) }}">
@@ -1205,7 +1205,7 @@
                 $("#upload-sec-banner").modal('hide');
 
             });
-
+            
             $(document).ready(function() {
                 $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
                     var ckeditorGroup = $('#my_escort_profile').parsley().validate({
@@ -1219,6 +1219,7 @@
                         $('#home-tab').addClass('active');
                         e.preventDefault();
                     }
+                    
                     if ($('#my_escort_profile').parsley({
                             excluded: "input[type=number], input[type=hidden]"
                         }).validate({
