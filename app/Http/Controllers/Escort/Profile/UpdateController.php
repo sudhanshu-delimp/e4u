@@ -8,6 +8,7 @@ use App\Models\Duration;
 use App\Models\Poli_transaction;
 use App\Models\EscortGallery;
 use App\Models\Escort;
+use App\Models\Availability;
 use App\Repositories\Escort\EscortInterface;
 use App\Repositories\Escort\AvailabilityInterface;
 use App\Repositories\Service\ServiceInterface;
@@ -1330,6 +1331,54 @@ class UpdateController extends AppController
                         $users->save();
                     }
                 }
+                /**
+                 * Copy Escort Profile Images..
+                 */
+                $escortImages = EscortGallery::where('escort_id', $escort_id)->get();
+                foreach ($escortImages as $image) {
+                    $gallery = new EscortGallery;
+                    $gallery->escort_id = $escort->id;
+                    $gallery->escort_media_id = $image['escort_media_id'];
+                    $gallery->position = $image['position'];
+                    $gallery->created_at = date('Y-m-d H:i:s');
+                    $gallery->save();
+                }
+                /**
+                 * Copy Escort Profile Availability...
+                 */
+                $sourceEscort = Escort::with('availability')->find($escort_id);
+                if ($sourceEscort && $sourceEscort->availability) {
+                    $newAvailability = $sourceEscort->availability->replicate();
+                    $escort->availability()->save($newAvailability);
+                }
+
+                /**
+                 * Copy Escort Profile Services...
+                 */
+                
+                $sourceEscort = Escort::with('services')->find($escort_id);
+                $service_arr = [];
+                foreach ($sourceEscort->services as $service) {
+                    $service_arr[$service->id] = [
+                        'price' => $service->pivot->price ?? null
+                    ];
+                }
+                $escort->services()->sync($service_arr);
+                /**
+                 * Copy Escort Rates...
+                 */
+                $sourceEscort = Escort::with('durations')->find($escort_id);
+                $duration_arr = [];
+                foreach ($sourceEscort->durations as $duration) {
+                    $duration_arr[$duration->id] = [
+                        'massage_price' => $duration->pivot->massage_price ?? null,
+                        'incall_price' => $duration->pivot->incall_price ?? null,
+                        'outcall_price' => $duration->pivot->outcall_price ?? null
+                    ];
+                }
+                $escort->durations()->sync($duration_arr);
+                
+
             $response = [
                 'success' => true,
                 'message' => 'Profile has been created for the selected location.'
@@ -1349,5 +1398,15 @@ class UpdateController extends AppController
             ];
         }
         return response()->json(compact('response'));
+    }
+
+    public function checkProfileName(Request $request){
+        $user = auth()->user();
+        //$profile_name = $request->query('profile_name');
+        //$profile_name = $request->profile_name;
+        $profile_name =  $request->input('profile_name');
+        $user_id = $user->id;
+        $exists = Escort::where(['profile_name'=>$profile_name,'user_id'=>$user_id])->exists();
+        return response()->json(!$exists);
     }
 }
