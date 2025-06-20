@@ -1,22 +1,4 @@
 @extends('layouts.escort')
-@section('content')
-    <div class="container-fluid pl-lg-4">
-        <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="v-main-heading h3 mb-2 pt-4"><h1 class="p-0">
-                Dashboard - Task List</h1></div>
-            <div class="back-to-dashboard">
-                <a href="{{ url()->previous() ?? route('dashboard.home') }}">
-                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
-                </a>
-            </div>
-        </div>
-        <div class="row">
-           <div class="col-lg-12">
-            <p>Coming Soon...</p>
-           </div>
-        </div>
-@endsection
 @section('style')
     <style>
         .toggle-task-form {
@@ -25,14 +7,19 @@
             display: inline-block;
             margin: 20px 0px;
         }
+        .task-1{
+            width: clamp(50%, 8vw, 100%) !important;
 
+        }
+        @media (max-width:1024px){
+            
+            .task-1{
+                width: clamp(50%, 40vw, 100%) !important;
+
+            }
+        }
         .agent-tour .card {
             padding: 5px 12px !important;
-        }
-
-        .upload-modal .btn {
-            padding: 7px 20px 7px 20px !important;
-            background: #087132;
         }
         .page-item:hover .fa {
             color: white !important;
@@ -41,7 +28,198 @@
         .page-item:hover .page-link {
             color: white;
         }
+        .btn-primary {
+            border-color: unset !important;
+        }
     </style>
+@endsection
+@section('content')
+    <div class="container-fluid pl-lg-4">
+        
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">Dashboard - Task List</h1>
+                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+            </div>
+            <div class="back-to-dashboard">
+                <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                </a>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12 my-2">
+                <div class="card collapse" id="notes" style="">
+                   <div class="card-body">
+                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                      <p></p>
+                      <ol>
+                            
+                      </ol>
+                   </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12 p-0">
+                <!-- Card Body -->
+                <div class="card-body task-sec">
+                    <div class="mb-2 row">
+                        <div class="col-md-12 d-flex align-items-center gap-10 flex-wrap">
+                            <button type="submit" id="new_task" name="submit"
+                                class="btn btn-sm btn-primary shadow-none create-tour-sec">New Task</button>
+                            <button type="submit" id="edit_task" name="submit"
+                                class="btn btn-sm btn-primary shadow-none create-tour-sec">Edit Task</button>
+                            <button type="submit" id="complete_task" name="submit"
+                                class="btn btn-sm btn-primary shadow-none create-tour-sec">Complete Task</button>
+                            <button type="submit" id="view_task" name="submit"
+                                class="btn btn-sm btn-primary shadow-none create-tour-sec">View Task</button>
+                            <button type="submit" id="open_task" name="submit"
+                                class="btn btn-sm btn-primary shadow-none create-tour-sec">Open Task</button>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="text-center small d-flex justify-content-start align-items-center mt-1 w-100 task-sec gap-10 flex-wrap">
+                                <span class="mr-2 text-uppercase font-weight-bold">Importance:</span>
+                                <span class="d-flex justify-content-start gap-5 align-items-center">High <i class="fas fa-circle text-high mr-2"></i></span>
+                                <span class="d-flex justify-content-start gap-5 align-items-center">Medium  <i class="fas fa-circle text-medium mr-2"></i></span>
+                               
+                                <span class="d-flex justify-content-start gap-5 align-items-center">Low <i class="fas fa-circle text-low"></i></span>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <div class="d-flex align-items-center mt-4 justify-content-between">
+                        <label class="font-weight-bold mb-0">Task</label>
+                        <div class="text-center ">
+                            <label class="font-weight-bold mb-0" style="margin-left: 220px;">Status</label>
+                        </div>
+                        <div class="text-center">
+                            <label class="font-weight-bold mb-0" style="margin-right: 35px">Action</label>
+                        </div>
+                    </div> --}}
+                    {{-- $tasks --}}
+                    <div class="card-body pl-0 Dash-table task_table">
+                        <div class="table-full-width table-responsive">
+                            <table class="table table-bordered " >
+                                <thead style="background-color: #0C223D; color: #ffffff;">
+                                    <tr>
+                                        <th colspan="2">Task</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="taskList">
+                                    
+                                    {{-- @foreach ($tasks as $task)
+
+                                        @php
+                                            
+                                            $taskBadgeColor = '#f6c23e ';
+                                            if($task->status === 'inprogress'){
+                                                $taskBadgeColor = '#4e73df ';
+                                            }
+
+                                            if($task->status === 'completed'){
+                                                $taskBadgeColor = '#1cc88a';
+                                            }
+
+                                            $priorityColor = 'text-high';
+                                            if($task->priority === 'medium'){
+                                                $priorityColor = 'text-medium';
+                                            }
+                                            if($task->priority === 'low'){
+                                                $priorityColor = 'text-low';
+                                            }
+                                            $checkboxId = 'task_checkbox_' . $task->id;
+                                        @endphp
+                                        <tr>
+                                            <td class="border-0 pl-0 pr-0">
+                                                <div class="form-check m-0 p-0">
+                                                    <label class="form-check-label" for="{{ $checkboxId }}">
+                                                        <input class="form-check-input" id="{{ $checkboxId }}" type="checkbox" value="">
+                                                        <span class="form-check-sign"></span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td class="border-0 pl-0 task-color">
+                                                <label for="{{ $checkboxId }}" class="mb-0 cursor-pointer">
+                                                <i
+                                                    class="fas fa-circle {{$priorityColor}} taski mr-2"></i>{{Str::title($task->title)}}
+                                                </label></td>
+                                            <td class="td-actions text-left border-0 ">
+                                                <span class="badge badge-danger-lighten task-1" style="background: {{$taskBadgeColor}}; padding:5px 10px; max-width:120px; width:100%;">{{Str::title($task->status)}}</span>
+                                            </td>
+                                            <td class="theme-color  pr-0 bg-white" style="border: none;">
+                                                <div class="dropdown no-arrow">
+                                                    <a class="dropdown-toggle" href="#" role="button"
+                                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i
+                                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                    </a>
+                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                        aria-labelledby="dropdownMenuLink" style="">
+                                                        <a class="dropdown-item" href="#" data-toggle="modal"
+                                                            data-target="#new-ban">Delete</a>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach --}}
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-center mt-4 custome_paginator">
+                            {{-- {!! $tasks->links() !!} --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    <!-- open tour section button -->
+    <div class="modal fade upload-modal" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModallabel"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="task_title">New Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0 agent-tour">
+                    <form method="post" id="task_form" action="#">
+                        {{ csrf_field() }}
+                        <div class="row" id="task_form_html">
+                            <h4 id="task_desc">Are you sure you want to mark this Appointment as completed?</h4>
+                        </div>
+
+                        <div class="row" id="task_form_button">
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1" class="ml-2 showDateLabel"
+                                        style="display: none;">Date Created: {{ \Carbon\Carbon::now()->format('d-m-Y') }}.
+                                    </label>
+                                    <button type="submit" class="btn btn-primary shadow-none float-right ml-2 "
+                                        id="save_button">Yes</button>
+                                    <button type="button"
+                                        class="btn btn-primary shadow-none float-right ml-2  bg-danger"
+                                        data-dismiss="modal" aria-label="Close" id="cancel_button">No</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
@@ -189,7 +367,7 @@
             for (selectedTask; selectedTask <= checkboxInputs.length; selectedTask++) {
                 editNewTaskHtml += `
                     <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
-                        <div class=" col-md-12 card shadow-sm border-0 rounded-3">
+                        <div class=" col-md-12 card shadow-sm  rounded-3">
                             <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10" style="background:#C2CFE0; ">
                                 <h6 class="mb-0 text-dark">Task Summary</h6> <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>                            
                             </div>
@@ -411,7 +589,7 @@
             for (selectedTask; selectedTask <= checkboxInputs.length; selectedTask++) {
                 viewTaskHtml += `
                     <div class="task-form-wrapper mx-auto my-2 col-md-11" style="cursor:pointer;">
-                        <div class=" col-md-12 card shadow-sm border-0 rounded-3">
+                        <div class=" col-md-12 card shadow-sm  rounded-3">
                             <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10" style="background:#C2CFE0; ">
                                 <h6 class="mb-0 text-dark">Task Summary</h6> <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>                            
                             </div>
@@ -453,7 +631,7 @@
                                 </div>
                                 <div class="form-group">
                                     <button type="submit"
-                                        class="edit_button btn btn-success shadow-none float-right ml-2 border-0" >Edit</button>
+                                        class="edit_button btn btn-success shadow-none float-right ml-2 " >Edit</button>
                                 </div>
                             </div>
                         </div>
@@ -471,7 +649,7 @@
         function openTask(openData) {
 
             let openHtml = `<div class="col-md-11 mx-auto my-3">
-                <div class="card shadow-sm border-0 rounded-3">
+                <div class="card shadow-sm  rounded-3">
                     <div class="card-header text-white" style="background:#C2CFE0;">
                         <h5 class="mb-0 text-dark" >Task Summary</h5>
                     </div>
@@ -594,7 +772,7 @@
                     let taskId = task.id;
 
                     html += `<tr>
-                        <td class="border-0 pl-0 pr-0">
+                        <td class=" pr-0">
                             <div class="form-check m-0 p-0">
                                 <label class="form-check-label" for="`+checkboxId+`">
                                     <input class="form-check-input" name="task_ids" data-id="`+taskId+`" id="`+checkboxId+`" type="checkbox" value="">
@@ -602,15 +780,15 @@
                                 </label>
                             </div>
                         </td>
-                        <td class="border-0 pl-0 task-color">
+                        <td class=" task-color">
                             <label for="`+checkboxId+`" class="mb-0 cursor-pointer">
                             <i
                                 class="fas fa-circle `+priorityColor+` taski mr-2"></i>`+task.title+`
                             </label></td>
-                        <td class="td-actions text-left border-0 ">
+                        <td class="td-actions text-center ">
                             <span class="badge badge-danger-lighten task-1" style="background: `+taskBadgeColor+`; padding:5px 10px; max-width:120px; width:100%;">`+task.status+`</span>
                         </td>
-                        <td class="theme-color  pr-0 bg-white" style="border: none;">
+                        <td class="theme-color text-center bg-white ">
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button"
                                     id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -620,7 +798,7 @@
                                 </a>
                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                         <a class="dropdown-item" href="#" data-toggle="modal"
                                         data-target="#new-ban">Delete</a>
                                     
                                 </div>

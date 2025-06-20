@@ -5348,6 +5348,37 @@ td {
     padding-top: unset;
 }
 
+.gap-10 {
+    gap: 10px;
+}
+
+.gap-5 {
+    gap: 5px;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: var(--blue--text) !important;
+    border-color: var(--blue--text) !important;
+    outline: none
+}
+
+.page-link:focus {
+    box-shadow: unset;
+}
+
+.page-link:hover {
+    background-color: var(--peach) !important;
+    border-color: var(--peach) !important;
+}
+
+.my-spend-box-wrapper {
+    background-color: #c2cfe052;
+    padding: 20px;
+    border-radius: 5px;
+}
+
 
 /* end */
 

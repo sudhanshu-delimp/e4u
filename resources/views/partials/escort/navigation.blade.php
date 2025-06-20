@@ -1,6 +1,6 @@
 <div{{-- style="position: fixed; width: 75%; z-index: 9999;"--}}>
     <!-- Topbar -->
-    <nav class="sticky-top navbar navbar-expand navbar-light bg-white topbar mb-4 shadow">
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm">
 
         <!-- Sidebar Toggle (Topbar) -->
         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
