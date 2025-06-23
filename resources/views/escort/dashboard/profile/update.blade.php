@@ -630,17 +630,20 @@
                     }
                 });
 
-                $('#LocationInformation').on('submit', function(e) {
+                
+
+                $('#LocationInformation').on('submit', function (e) {
                     e.preventDefault();
 
-                    var form = $(this);
+                    const form = $(this);
+                    const parsleyForm = form.parsley();
 
-                    if (form.parsley().isValid()) {
+                    parsleyForm.whenValidate().then(function () {
                         $('#location-info').prop('disabled', true);
                         $('#location-info').html('<div class="spinner-border"></div>');
-                        var url = form.attr('action');
-                        var data = new FormData($('#LocationInformation')[0]);
-                        console.log(data);
+
+                        const url = form.attr('action');
+                        const data = new FormData(form[0]);
 
                         $.ajax({
                             method: form.attr('method'),
@@ -651,24 +654,27 @@
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
-                            success: function(data) {
+                            success: function (data) {
+                                $('#location-info').prop('disabled', false);
+                                $('#location-info').html('Save');
+
                                 if (!data.error) {
                                     Swal.fire('Updated', '', 'success');
-                                    $('#location-info').prop('disabled', false);
-                                    $('#location-info').html('Save');
                                 } else {
                                     Swal.fire({
                                         icon: 'error',
-                                        title: 'Oops.. sumthing wrong Please try again',
+                                        title: 'Oops.. something went wrong. Please try again.',
                                         text: data.message
                                     });
-                                    $('#location-info').prop('disabled', false);
-                                    $('#location-info').html('Save');
                                 }
                             }
                         });
-                    }
+
+                    }, function () {
+                        console.log('Form validation failed');
+                    });
                 });
+
                 /** Media upload */
                 $('#myProfileMediaForm').on('submit', function(e) {
                     e.preventDefault();
