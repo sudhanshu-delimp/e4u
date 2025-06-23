@@ -4,16 +4,34 @@
 @endsection
 @section('content')
     <div class="container-fluid pl-lg-4">
+        
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="v-main-heading h3 mb-2 pt-4"><h1 class="p-0">Dashboard - Escorts Statistics</h1></div>
+            <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">Dashboard - Escorts Statistics</h1>
+                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+            </div>
             <div class="back-to-dashboard">
                 <a href="{{ url()->previous() ?? route('dashboard.home') }}">
                     <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
                 </a>
             </div>
         </div>
-        <div class="row my-5">  
+        
+        <div class="row">
+            <div class="col-md-12 my-2">
+                <div class="card collapse" id="notes" style="">
+                   <div class="card-body">
+                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                      <p></p>
+                      <ol>
+                            
+                      </ol>
+                   </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Heading -->
+        <div class="row mt-2">  
             <!-- Followers Online (Legbox) -->
             <div class="col-md-6 mb-4">
               <div class="table-responsive">
@@ -24,12 +42,12 @@
                   <tbody>
                     <tr>
                       <td class="icon-col"><i class="fas fa-map-marker-alt"></i></td>
-                      <td>In my location</td>
+                      <td>In my Location</td>
                       <td class="text-center">15</td>
                     </tr>
                     <tr>
                       <td class="icon-col"><i class="fas fa-globe"></i></td>
-                      <td>Outside my location</td>
+                      <td>Outside my Location</td>
                       <td class="text-center">15</td>
                     </tr>
                   </tbody>
@@ -76,7 +94,7 @@
                     <tr>
                       <td><i class="far fa-clock"></i></td>
                       <td>Last login</td>
-                      <td class="text-center">11/3/22 | 12:32:02 PM</td>
+                      <td class="text-center">20-06-2025 | 12:32:02 PM</td>
                     </tr>
                     <tr>
                       <td><i class="fas fa-map"></i></td>
@@ -93,90 +111,7 @@
                 </table>
               </div>
             </div>
-          
-            <!-- My Playmates -->
-            <div class="col-md-6 mb-4">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead style="background-color: #0C223D; color: #ffffff;">
-                    <tr><th colspan="3" class="text-center">My Playmates</th></tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><i class="fas fa-user-friends"></i></td>
-                      <td>Total</td>
-                      <td class="text-center">5</td>
-                    </tr>
-                    <tr>
-                      <td><i class="far fa-image"></i></td>
-                     
-                      <td class="text-center" colspan="2">
-                        <div class="d-flex align-items-center">
-                            <!-- Example Avatars -->
-                            <div class="playmate-avatar" data-toggle="modal" data-target="#removePlaymateModal">
-                                <img
-                                src="{{ asset('assets/app/img/ellipse-1.png') }}"
-                                class="img-fluid rounded-circle"
-                                alt=" ">
-                            </div>
-                            <div class="playmate-avatar" data-toggle="modal" data-target="#removePlaymateModal">
-                                <img
-                                src="{{ asset('assets/app/img/ellipse-2.png') }}"
-                                class="img-fluid rounded-circle"
-                                alt=" ">
-                            </div>
-                            <div class="playmate-avatar" data-toggle="modal" data-target="#removePlaymateModal">
-                                <img
-                                src="{{ asset('assets/app/img/ellipse-3.png') }}"
-                                class="img-fluid rounded-circle"
-                                alt=" ">
-                            </div>
-                            <div class="playmate-avatar" data-toggle="modal" data-target="#removePlaymateModal">
-                                <img
-                                src="{{ asset('assets/app/img/ellipse-4.png') }}"
-                                class="img-fluid rounded-circle"
-                                alt=" ">
-                            </div>
-                            <div class="playmate-avatar" data-toggle="modal" data-target="#removePlaymateModal">
-                                <img
-                                src="{{ asset('assets/app/img/ellipse-5.png') }}"
-                                class="img-fluid rounded-circle"
-                                alt=" ">
-                            </div>
-                          </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
           </div>
-          <!-- playmates Modal -->
-
-          <div class="modal fade upload-modal" id="removePlaymateModal" tabindex="-1" role="dialog" aria-labelledby="removePlaymateModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-               <div class="modal-content basic-modal">
-                  <div class="modal-header">
-                     <h5 class="modal-title" id="removePlaymateModalLabel">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates.png') }}" style="width:45px; padding-right:10px;"> Remove this Playmate?
-                     </h5>
-                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                           <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                        </span>
-                     </button>
-                  </div>
-                  <div class="modal-body text-center">
-                     <p class="mb-0"> Are you sure you want to remove this playmate?<br>
-                        <small class="text-muted">This will delete them from your Playmate list in My Account > My Information > My Playmates, as well as from any current Profiles.</small></p>
-                  </div>
-                  <div class="modal-footer pr-3 mx-auto">
-                     <button type="button" class="btn btn-secondary bg-dangers" data-dismiss="modal">Cancel</button>
-                     <button type="submit" class="btn btn-primary">Confirm Remove</button>
-                  </div>
-               </div>
-            </div>
-         </div>
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>

@@ -3,18 +3,303 @@
     <div class="container-fluid pl-lg-4">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="v-main-heading h3 mb-2 pt-4"><h1 class="p-0">Dashboard - My Playmates</h1></div>
+            <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">Dashboard - My Playmates</h1>
+                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+            </div>
             <div class="back-to-dashboard">
                 <a href="{{ url()->previous() ?? route('dashboard.home') }}">
                     <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
                 </a>
             </div>
         </div>
+        
         <div class="row">
-           <div class="col-lg-12">
-            <p>Coming Soon...</p>
-           </div>
+            <div class="col-md-12 my-2">
+                <div class="card collapse" id="notes" style="">
+                   <div class="card-body">
+                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                      <p></p>
+                      <ol>
+                            <li>Your Playmates are listed here which you can view and manage.</li>
+                            <li>To remove a Playmate from your Playmate list, simply click the 'Remove' link in Action.
+                                Please note that when you remove a Playmate, they are also removed from all of your
+                                Profiles where the Playmate is currently attached to.</li>
+                            <li>You can also view your Profiles that a Playmate is attached to by clicking the 'List' link
+                                in Action.</li>
+                      </ol>
+                   </div>
+                </div>
+            </div>
         </div>
+        <div class="row my-2">
+           
+          
+            <!-- My Playmates -->
+            <div class="col-md-12 mb-4">
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead style="background-color: #0C223D; color: #ffffff;">
+                      <tr>
+                        <th class="text-left">Playmates</th>
+                        <th class="text-left">Current Location</th>
+                        <th class="text-center">Member ID</th>
+                        <th class="text-center">Profiles</th>
+                        <th class="text-center">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="playmate-avatar">
+                                    <img
+                                    src="{{ asset('assets/app/img/ellipse-1.png') }}"
+                                    class="img-fluid rounded-circle"
+                                    alt=" ">
+                                </div>
+                                <div class="playmate-avatar">
+                                    <img
+                                    src="{{ asset('assets/app/img/ellipse-2.png') }}"
+                                    class="img-fluid rounded-circle"
+                                    alt=" ">
+                                </div>
+                                <div class="playmate-avatar">
+                                    <img
+                                    src="{{ asset('assets/app/img/ellipse-3.png') }}"
+                                    class="img-fluid rounded-circle"
+                                    alt=" ">
+                                </div>
+                            </div>
+                        </td>
+                        <td>Western Australia</td>
+                        <td class="text-center">E60123</td>
+                        <td class="text-center">3</td>
+                        
+                        <td class="theme-color text-center bg-white">
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button"
+                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i
+                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink" style="">
+                                        <a class="dropdown-item" href="#" data-toggle="modal"
+                                        data-target="#listPlaymateModal">List</a>
+                                    
+                                        <div class="dropdown-divider"></div>
+                                        
+                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                    data-target="#removePlaymateModal">Remove</a>
+                                </div>
+                            </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="playmate-avatar">
+                                    <img
+                                    src="{{ asset('assets/app/img/ellipse-4.png') }}"
+                                    class="img-fluid rounded-circle"
+                                    alt=" ">
+                                </div>
+                                <div class="playmate-avatar">
+                                    <img
+                                    src="{{ asset('assets/app/img/ellipse-5.png') }}"
+                                    class="img-fluid rounded-circle"
+                                    alt=" ">
+                                </div>
+                            </div>
+                        </td>
+                        <td>Queensland</td>
+                        <td class="text-center">E40123</td>
+                        <td class="text-center">2</td>
+                        
+                        <td class="theme-color text-center bg-white">
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button"
+                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i
+                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                    aria-labelledby="dropdownMenuLink" style="">
+                                        <a class="dropdown-item" href="#" data-toggle="modal"
+                                        data-target="#listPlaymateModal">List</a>
+                                    
+                                        <div class="dropdown-divider"></div>
+                                        
+                                    <a class="dropdown-item" href="#" data-toggle="modal"
+                                    data-target="#removePlaymateModal">Remove</a>
+                                </div>
+                            </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" class="text-right font-weight-bold"></td>
+                        <td class="text-center font-weight-bold "> total</td>
+                        <td class="text-center font-weight-bold"> 5</td>
+                        <td class="text-center font-weight-bold"> </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+        </div>
+        
+         <!-- List Playmates Modal (Static Data) -->
+<div class="modal fade upload-modal" id="listPlaymateModal" tabindex="-1" role="dialog" aria-labelledby="listPlaymateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content basic-modal">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h5 class="modal-title" id="removePlaymateModalLabel">
+                <a href="{{route('home')}}"><img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates.png') }}" style="width:45px; padding-right:10px;"><span class="text-white">Bunny</span></a>
+                
+             </h5>
+          
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+            </span>
+          </button>
+        </div>
+  
+        <!-- Modal Body with Static Table -->
+        <div class="modal-body">
+          <table class="table table-bordered table-striped text-center">
+            <thead style="background-color: #0C223D; color: #ffffff;">
+              <tr>
+                <th class="text-left">Select</th>
+                <th class="text-left">Profile ID</th>
+                <th class="text-left">Profile Name</th>
+                <th class="text-left">Member ID</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>[P001]</td>
+                <td>Perth01</td>
+                <td>E60123</td>
+                <td class="theme-color text-center bg-white">
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button"
+                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i
+                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink" style="">
+                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                data-target="">View</a>
+                            
+                                <div class="dropdown-divider"></div>
+                                
+                            <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="">Remove</a>
+                        </div>
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>[P002]</td>
+                <td>Perth02</td>
+                <td>E40123</td>
+                <td class="theme-color text-center bg-white">
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button"
+                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i
+                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink" style="">
+                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                data-target="">View</a>
+                            
+                                <div class="dropdown-divider"></div>
+                                
+                            <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="">Remove</a>
+                        </div>
+                    </div>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox"></td>
+                <td>[P003]</td>
+                <td>Perth03</td>
+                <td>E30123</td>
+                <td class="theme-color text-center bg-white">
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button"
+                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i
+                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink" style="">
+                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                data-target="">View</a>
+                            
+                                <div class="dropdown-divider"></div>
+                                
+                            <a class="dropdown-item" href="#" data-toggle="modal"
+                            data-target="">Remove</a>
+                        </div>
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <!-- Modal Footer -->
+        <div class="modal-footer justify-content-end">
+          <button type="button" class="btn btn-danger">Remove</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+         
+        
+          <!-- Remove playmates Modal -->
+
+          <div class="modal fade upload-modal" id="removePlaymateModal" tabindex="-1" role="dialog" aria-labelledby="removePlaymateModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+               <div class="modal-content basic-modal">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="removePlaymateModalLabel">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates.png') }}" style="width:45px; padding-right:10px;"> Remove this Playmate?
+                     </h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                           <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                     </button>
+                  </div>
+                  <div class="modal-body text-center">
+                     <p class="mb-0"> Are you sure you want to remove this Playmate?
+                       </p>
+                  </div>
+                  <div class="modal-footer pr-3 mx-auto">
+                     <button type="button" class="btn btn-secondary bg-dangers" data-dismiss="modal">Cancel</button>
+                     <button type="submit" class="btn btn-primary">Confirm Remove</button>
+                  </div>
+               </div>
+            </div>
+         </div>
 @endsection
 @section('style')
     <style>
@@ -29,10 +314,6 @@
             padding: 5px 12px !important;
         }
 
-        .upload-modal .btn {
-            padding: 7px 20px 7px 20px !important;
-            background: #087132;
-        }
         .page-item:hover .fa {
             color: white !important;
         }

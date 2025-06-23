@@ -3,8 +3,30 @@
     <div class="container-fluid pl-lg-4">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="v-main-heading h3 mb-2 pt-4">Customise Dashboard</div>
+            <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">Customise Dashboard</h1>
+                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+            </div>
+            <div class="back-to-dashboard">
+                <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                </a>
+            </div>
         </div>
+        
+        <div class="row">
+            <div class="col-md-12 my-2">
+                <div class="card collapse" id="notes" style="">
+                   <div class="card-body">
+                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                      <p></p>
+                      <ol>
+                            
+                      </ol>
+                   </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Heading -->
         <div class="row">
             {{-- box start --}}
             <div class="col-lg-3">

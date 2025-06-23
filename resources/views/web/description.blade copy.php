@@ -73,7 +73,7 @@
 
 </style>
 
-@if(str_contains(url()->full(), '?no-next-page') || str_contains(url()->full(), '?no-next-page='))
+@if(str_contains(url()->full(), '?no-next-page='))
     <style>
         .nextDisableButtonCss {
             background: gray;
@@ -87,7 +87,7 @@
     </style>
 @endif
 
-@if(str_contains(url()->full(), '?no-prev-page') || str_contains(url()->full(), '?no-prev-page='))
+@if(str_contains(url()->full(), '?no-prev-page='))
     <style>
         .previousDisableButtonCss {
             background: gray;
@@ -367,13 +367,7 @@
                                     <td>{{$cDay}}</td>
                                     <td>
                                         @if(!empty($availability->availability_time[$day]))
-                                            @if($availability->availability_time[$day] == 'til_ate')
-                                            Til Late
-                                            @else
-                                                {{ $availability->availability_time[$day]; }} 
-                                            @endif
-                                            
-
+                                            {{ $availability->availability_time[$day]; }}
                                         @elseif(!empty($availability->{$day.'_from'}) && !empty($availability->{$day.'_to'}))
                                             {{ ($availability) ? Carbon\Carbon::parse($availability->{$day.'_from'})->format('h:i A'): '' }} - {{ ($availability) ? Carbon\Carbon::parse($availability->{$day.'_to'})->format('h:i A') : ''}}
                                         @else

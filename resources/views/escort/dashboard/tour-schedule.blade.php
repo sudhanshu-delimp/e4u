@@ -34,17 +34,34 @@
     </style>
 @endsection
 @section('content')
-    <div class="container-fluid pl-lg-4">
+    <div class="container-fluid pl-lg-4">        
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="v-main-heading h3 mb-2 pt-4"><h1 class="p-0">Dashboard - My Tours Schedule</h1></div>
+            <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">Dashboard - My Tours Schedule</h1>
+                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+            </div>
             <div class="back-to-dashboard">
                 <a href="{{ url()->previous() ?? route('dashboard.home') }}">
                     <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
                 </a>
             </div>
         </div>
-        <div class="row my-5">
+        
+        <div class="row">
+            <div class="col-md-12 my-2">
+                <div class="card collapse" id="notes" style="">
+                   <div class="card-body">
+                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                      <p></p>
+                      <ol>
+                            
+                      </ol>
+                   </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page Heading -->
+        <div class="row mt-2">
             <div class="col-lg-12 mb-4">
                 <div class="table-responsive">
                     <table class="table table-bordered ">
@@ -61,82 +78,6 @@
                         </thead>
                         
                         <tbody>
-                            <tr>
-                                <td class=" task-color bg-white"><i
-                                        class="fas fa-circle text-primary taski mr-2"></i>Perth</td>
-                                <td class=" task-color text-center bg-white">10</td>
-                                <td class=" task-color text-center bg-white">01-01-2022</td>
-                                <td class=" task-color text-center bg-white">10-01-2022</td>
-                                <td class="theme-color text-center bg-white">
-                                    <span class="badge badge-danger-lighten task-1">Completed</span>
-                                </td>
-                                <td class="theme-color text-center pr-0 bg-white">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button"
-                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i
-                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban">View</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-2">Edit</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-3">Cancel</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-4">Completed</a>
-
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#tour_summary">Tour Summary</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="">
-                                <td class=" task-color bg-white"><i
-                                        class="fas fa-circle text-medium taski mr-2"></i>Adelaide</td>
-                                <td class=" task-color text-center bg-white">10</td>
-                                <td class=" task-color text-center bg-white">01-01-2022</td>
-                                <td class=" task-color text-center bg-white">10-01-2022</td>
-                                <td class="theme-color text-center bg-white">
-                                    <span class="badge badge-danger-lighten task-1">Completed</span>
-                                </td>
-                                <td class="theme-color text-center pr-0 bg-white">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button"
-                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i
-                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban">View</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-2">Edit</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-3">Cancel</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-4">Completed</a>
-
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#tour_summary">Tour Summary</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
                             <tr class="">
                                 <td class=" task-color bg-white"><i
                                         class="fas fa-circle text-high taski mr-2"></i>Melbourne</td>
@@ -147,7 +88,7 @@
                                     <span
                                         class="badge badge-danger-lighten task-1 bg-warning w-75">Current</span>
                                 </td>
-                                <td class="theme-color text-center pr-0 bg-white">
+                                <td class="theme-color text-center bg-white">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button"
                                             id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -166,10 +107,10 @@
                                             <a class="dropdown-item" href="#" data-toggle="modal"
                                                 data-target="#new-ban-3">Cancel</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
+                                            {{-- <a class="dropdown-item" href="#" data-toggle="modal"
                                                 data-target="#new-ban-4">Completed</a>
 
-                                                <div class="dropdown-divider"></div>
+                                                <div class="dropdown-divider"></div> --}}
                                                 <a class="dropdown-item" href="#" data-toggle="modal"
                                                 data-target="#tour_summary">Tour Summary</a>
                                         </div>
@@ -186,7 +127,7 @@
                                     <span
                                         class="badge badge-danger-lighten task-1 bg-danger w-75">Pending</span>
                                 </td>
-                                <td class="theme-color text-center pr-0 bg-white">
+                                <td class="theme-color text-center bg-white">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button"
                                             id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -205,10 +146,87 @@
                                             <a class="dropdown-item" href="#" data-toggle="modal"
                                                 data-target="#new-ban-3">Cancel</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
+                                            {{-- <a class="dropdown-item" href="#" data-toggle="modal"
                                                 data-target="#new-ban-4">Completed</a>
 
-                                                <div class="dropdown-divider"></div>
+                                                <div class="dropdown-divider"></div> --}}
+                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#tour_summary">Tour Summary</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td class=" task-color bg-white"><i
+                                        class="fas fa-circle text-primary taski mr-2"></i>Perth</td>
+                                <td class=" task-color text-center bg-white">10</td>
+                                <td class=" task-color text-center bg-white">01-01-2022</td>
+                                <td class=" task-color text-center bg-white">10-01-2022</td>
+                                <td class="theme-color text-center bg-white">
+                                    <span class="badge badge-danger-lighten task-1">Completed</span>
+                                </td>
+                                <td class="theme-color text-center bg-white">
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button"
+                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i
+                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink" style="">
+                                            <a class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#new-ban">View</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#new-ban-2">Edit</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#new-ban-3">Cancel</a>
+                                            <div class="dropdown-divider"></div>
+                                            {{-- <a class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#new-ban-4">Completed</a>
+
+                                                <div class="dropdown-divider"></div> --}}
+                                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#tour_summary">Tour Summary</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="">
+                                <td class=" task-color bg-white"><i
+                                        class="fas fa-circle text-medium taski mr-2"></i>Adelaide</td>
+                                <td class=" task-color text-center bg-white">10</td>
+                                <td class=" task-color text-center bg-white">01-01-2022</td>
+                                <td class=" task-color text-center bg-white">10-01-2022</td>
+                                <td class="theme-color text-center bg-white">
+                                    <span class="badge badge-danger-lighten task-1">Completed</span>
+                                </td>
+                                <td class="theme-color text-center bg-white">
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button"
+                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i
+                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink" style="">
+                                            <a class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#new-ban">View</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#new-ban-2">Edit</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#new-ban-3">Cancel</a>
+                                            <div class="dropdown-divider"></div>
+                                            {{-- <a class="dropdown-item" href="#" data-toggle="modal"
+                                                data-target="#new-ban-4">Completed</a>
+
+                                                <div class="dropdown-divider"></div> --}}
                                                 <a class="dropdown-item" href="#" data-toggle="modal"
                                                 data-target="#tour_summary">Tour Summary</a>
                                         </div>
@@ -374,7 +392,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12 my-3 d-flex align-items-center justify-content-between">
-                                <div class="">Date sent: <span>{{ now()->format('d M Y') }}</span></div>
+                                <div class="">Date : <span>{{ now()->format('d M Y') }}</span></div>
 
                                 <div class="form-group mb-0">
                                     <button type="button"
@@ -498,7 +516,7 @@
                             <tr>
                                 <td colspan="6">
                                     
-                                <div class="">Date sent: <span>{{ now()->format('d M Y') }}</span></div>
+                                <div class="">Date : <span>{{ now()->format('d M Y') }}</span></div>
                                 </td>
                             </tr>
                     </table>

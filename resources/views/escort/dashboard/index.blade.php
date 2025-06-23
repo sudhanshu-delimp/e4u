@@ -2,8 +2,22 @@
 @section('content')
     <div class="container-fluid pl-lg-4">
         <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="v-main-heading h3 mb-2 pt-4">Dashboard</div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Dashboard</h1></div>
+                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+          </div>
+          <div class="col-md-12 my-4">
+                <div class="card collapse" id="notes" style="">
+                   <div class="card-body">
+                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                      <p></p>
+                      <ol>
+                            
+                      </ol>
+                   </div>
+                </div>
+          </div>
         </div>
         <div class="row">
             {{-- box start --}}
@@ -105,7 +119,9 @@
                 </div>
             </div>
         </div>
-        <div class="row agent-dash">
+        {{-- display none d-none --}}
+
+        <div class="row agent-dash d-none" >
             <div class="col-lg-8 pr-2">
                 <div class="sec-one">
                     <h2 class="h5 mt-2 mb-4 text-gray-800 font-weight-bold">My Statistics</h2>
@@ -221,7 +237,8 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-3 mb-5">
+        {{-- display none d-none --}}
+        <div class="row mt-3 mb-5 d-none">
             <!-- Area Chart -->
             <div class="col-xl-8 col-lg-7 pr-2">
                 <div class="card shadow mb-3">
