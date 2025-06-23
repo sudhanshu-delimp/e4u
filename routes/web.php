@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ManagePeopleStaffController;
 use App\Http\Controllers\Admin\TaskController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\Auth\RegisterController;
@@ -502,9 +503,7 @@ Route::get('/admin-dashboard/management/statistics/listings',function(){
     return view('admin.management.statistics.listings');
 })->name('admin.listings');
 
-Route::get('/admin-dashboard/management/manage-user',function(){
-    return view('admin.management.manage-user');
-})->name('admin.manage-user');
+Route::get('/admin-dashboard/management/manage-staff',[ManagePeopleStaffController::class, 'index'])->name('admin.manage-user');
 
 Route::get('/admin-dashboard/management/legbox-report',function(){
     return view('admin.management.legbox-report');

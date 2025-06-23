@@ -70,7 +70,7 @@
                                     </div>
                                  </div>
                                  <div class="table-responsive-xl">
-                                    <table class="table">
+                                    <table class="table" style="margin-bottom:0px;">
                                        <thead class="table-bg">
                                           <tr>
                                              <th scope="col">ID</th>
@@ -112,7 +112,7 @@
                                           </tr>
                                        </tbody>
                                     </table>
-                                    <nav aria-label="Page navigation example">
+                                    {{-- <nav aria-label="Page navigation example">
                                        <ul class="pagination float-right pt-4">
                                           <li class="page-item">
                                              <a class="page-link" href="#" aria-label="Previous">
@@ -130,7 +130,7 @@
                                              </a>
                                           </li>
                                        </ul>
-                                    </nav>
+                                    </nav> --}}
                                  </div>
                               </div>
                               <div class="tab-pane fade" id="tab2warning">
@@ -439,9 +439,9 @@
                   </div>
                   <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="timer_section">
-                           <p>Server time: <span>[10:23:51 am]</span></p>
-                           <p>Refresh time:<span> [seconds]</span></p>
-                           <p>Up time: <span>[214 days & 09 hours 12 minutes]</span></p>
+                           <p>Server time: <span class="serverTime">{{ getServertime() }}</span></p>
+                           <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
+                           <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
                         </div>
                   </div>
                </div>
@@ -891,3 +891,31 @@
    </div>
 </div>
 @endsection
+@push('script')
+   <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}
+    "></script>
+   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+   $(document).ready(function(e) {
+            // ajaxReload();
+            let countdown = 15;
+            setInterval(() => {
+                countdown--;
+                $(".refreshSeconds").text(' '+countdown);
+
+                if (countdown <= 0) {
+                    $('#listings').DataTable().ajax.reload(null, false);
+                    countdown = 15;
+                }
+
+            }, 1000);
+
+            $('#customSearch').on('keyup', function() {
+                $('#listings').DataTable().search(this.value).draw();
+            });
+        })
+</script>
+   
+@endpush
