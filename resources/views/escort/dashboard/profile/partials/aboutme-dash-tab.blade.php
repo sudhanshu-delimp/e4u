@@ -145,7 +145,7 @@
                                         <span style='color:red'>*</span>
                                     </label>
                                     <div class="col-sm-6">
-                                        <input type="text" value="{{ $escort->profile_name}}" title="(your use only)"  name="profile_name" class="form-control form-control-sm select_tag_remove_box_sadow" id="profile_name" required="required" data-parsley-required-message="Enter profile name" data-parsley-group="goup_one" placeholder="Enter your Profile Name (your internal reference)" data-parsley-errors-container="#profile_name-errors">
+                                        <input type="text" placeholder="Enter your Profile Name (your internal reference)" value="{{ $escort->profile_name}}" title="(your use only)"  name="profile_name" class="form-control form-control-sm select_tag_remove_box_sadow" id="profile_name" required data-parsley-required-message="Enter profile name" data-parsley-remote="{{ route('escort.checkProfileName') }}" data-parsley-remote-message="This profile name already exists" data-parsley-group="goup_one" data-parsley-errors-container="#profile_name-errors">
                                     </div>
                                     <div class="col-sm-4">
                                         <span id="profile_name-errors"></span>

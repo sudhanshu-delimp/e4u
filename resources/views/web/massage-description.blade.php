@@ -170,7 +170,7 @@
                         </tbody>
                         <thead class="table_heading_bgcolor_color">
                             <tr>
-                                <th class="payment_accept_text_color" scope="col" colspan="4">Payment ($AUS): {{ config("escorts.profile.Security.$escort->security")}}</th>
+                                <th class="payment_accept_text_color" scope="col" colspan="4">Payment  ($AUS): {{ config("escorts.profile.Security.$escort->security")}}</th>
                             </tr>
                         </thead>
                     </table>
