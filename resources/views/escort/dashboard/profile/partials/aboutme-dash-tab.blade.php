@@ -73,7 +73,7 @@
                         <div class="">
 
                              @if(request()->segment(2) == 'profile' && request()->segment(3))
-                            <form id="LocationInformation" action="{{ route('escort.update_escort', $escort->id) }}" method="Post">
+                            <form id="LocationInformation" action="{{ route('escort.update_escort', $escort->id) }}" method="Post" data-parsley-validate>
                                 @csrf
                             @endif
 
@@ -89,7 +89,7 @@
                                          required
                                          data-parsley-group="group_one" 
                                          data-parsley-required-message="Enter profile name."
-                                         data-parsley-remote="{{ route('escort.checkProfileName') }}"
+                                         data-parsley-remote="{{ (request()->segment(2) == 'profile')?route('escort.checkProfileName', ['escort_id' => $escort->id]):route('escort.checkProfileName')}}"
                                          data-parsley-remote-message="This profile name already exists." 
                                          data-parsley-trigger="blur"
                                          data-parsley-errors-container="#profile_name-errors">

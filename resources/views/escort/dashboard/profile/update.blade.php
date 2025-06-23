@@ -300,9 +300,7 @@
         <script>
             @if(request()->segment(2) == 'profile' && request()->segment(3))
             //$('#read_more').parsley({});
-            $('#LocationInformation').parsley({
-
-            });
+            $('#LocationInformation').parsley({});
             @endif
             $('#myability').parsley({
 
