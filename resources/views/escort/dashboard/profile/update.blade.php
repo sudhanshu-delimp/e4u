@@ -254,7 +254,6 @@
         <div class="alert alert-info">{{ Session::get('message') }}</div>
     @endif
 @endsection
-@push('script')
     @push('script')
         <script>
             $('#select2-dropdown').select2({
@@ -1206,26 +1205,27 @@
 
             });
             
-            $(document).ready(function() {
-                $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-                    var ckeditorGroup = $('#my_escort_profile').parsley().validate({
+           
+
+            $(document).ready(function () {
+                const parsleyForm = $('#my_escort_profile').parsley({
+                    excluded: "input[type=number], input[type=hidden]"
+                });
+                let allowTabChange = false;
+
+                $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+                    if (allowTabChange) {
+                        allowTabChange = false;
+                        return;
+                    }
+                    e.preventDefault();
+                    const targetTab = $(e.target);
+                    var ckeditorGroup = parsleyForm.validate({
                         group: 'ckeditor'
                     });
-                    if ($('#my_escort_profile').parsley().validate({
-                            group: 'ckeditor'
-                        }) == false) {
-                        e.target
-
-                        $('#home-tab').addClass('active');
-                        e.preventDefault();
-                    }
-                    
-                    if ($('#my_escort_profile').parsley({
-                            excluded: "input[type=number], input[type=hidden]"
-                        }).validate({
-                            group: 'goup_one'
-                        })) {
-                        e.target
+                    parsleyForm.whenValidate({ group: 'group_one' }).then(function () {
+                        allowTabChange = true;
+                        targetTab.tab('show');
                         if (e.target.id == "profile-tab" && ckeditorGroup != false) {
                             $('.define_process_bar_color').attr('style', 'width :80%'); //.percent
                             $('#percent').html('80%');
@@ -1361,13 +1361,9 @@
                             $('.define_process_bar_color').attr('style', 'width :25%'); //.percent
                             $('#percent').html('25%');
                         }
-
-                    } else {
-                        $('#home-tab').addClass("active");
-                        $("#profile-tab").removeClass('active');
-                        e.preventDefault();
-
-                    }
+                    }, function () {
+                        console.log('Validation failed');
+                    });
                 });
             });
 

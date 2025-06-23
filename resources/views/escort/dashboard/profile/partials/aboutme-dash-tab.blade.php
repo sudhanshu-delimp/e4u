@@ -62,62 +62,6 @@
             </div>
         </div>
     </div>
-<div class="about_me_drop_down_info profile-sec">
-{{--            <div class="row tab-input- pl-2 pt-4">--}}
-{{--                <div class="col-lg-3 col-md-12 col-sm-12">--}}
-{{--                    <div class="form-group row tab-about-me-row-padding">--}}
-{{--                        <label class="col-sm-5 font-weight-400" for="exampleFormControlSelect1">--}}
-{{--                            Profile Name:</label>--}}
-{{--                        <div class="col-sm-7">--}}
-{{--                            <input type="text" placeholder="Melbourne" value="{{ $escort->profile_name}}" name="profile_name"--}}
-{{--                                   class="form-control form-control-sm select_tag_remove_box_sadow" id="profile_name"--}}
-{{--                                   required="" data-parsley-required-message="Enter profile name" data-parsley-group="goup_one">--}}
-{{--        --}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="col-lg-3 col-md-12 col-sm-12">--}}
-{{--                    <div class="form-group row tab-about-me-row-padding saveDraft">--}}
-{{--                        <label class="col-sm-5 font-weight-400" for="exampleFormControlSelect1">Profile start date:</label>--}}
-{{--                        <div class="col-sm-7 pl-0">--}}
-{{--                            <input type="date" name="start_date"--}}
-{{--                                   class="form-control form-control-sm select_tag_remove_box_sadow"--}}
-{{--                                   value="{{ $escort->start_date ? date('Y-m-d',strtotime($escort->start_date)) : ''}}"--}}
-{{--                                   id="start_date" onkeydown="return false" required=""--}}
-{{--                                   data-parsley-required-message="-select date-" data-parsley-group="goup_one">--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="col-lg-3 col-md-12 col-sm-12">--}}
-{{--                    <div class="form-group row tab-about-me-row-padding saveDraft">--}}
-{{--                        <label class="col-sm-5 font-weight-400" for="exampleFormControlSelect1">Profile end date:</label>--}}
-{{--                        <div class="col-sm-7 pl-0">--}}
-{{--                            <input type="date" name="end_date" class="form-control form-control-sm select_tag_remove_box_sadow"--}}
-{{--                                   value="{{ $escort->end_date ? date('Y-m-d',strtotime($escort->end_date)) : ''}}"--}}
-{{--                                   id="end_date" onkeydown="return false" required=""--}}
-{{--                                   data-parsley-required-message="-select date-" data-parsley-group="goup_one">--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="col-lg-3 col-md-12 col-sm-12">--}}
-{{--                    <div class="form-group row tab-about-me-row-padding saveDraft">--}}
-{{--                        <label class="col-sm-5 font-weight-400" for="exampleFormControlSelect1">Membership Type:</label>--}}
-{{--                        <div class="col-sm-7">--}}
-{{--                            <select name="membership" id="membership" required--}}
-{{--                                    data-parsley-required-message="-select membership-" data-parsley-group="goup_one"--}}
-{{--                                    style="width: 100%;">--}}
-{{--                                --}}{{-- <option value="" selected="">-Not Set-</option> --}}
-{{--                                <option value="1" {{($escort->membership == 1) ? 'selected' : ''}}>Platinum</option>--}}
-{{--                                <option value="2" {{($escort->membership == 2) ? 'selected' : ''}}>Gold</option>--}}
-{{--                                <option value="3" {{($escort->membership == 3) ? 'selected' : ''}}>Silver</option>--}}
-{{--                                <option value="4" {{($escort->membership == 4) ? 'selected' : ''}}>Free</option>--}}
-{{--                            </select>--}}
-{{--        --}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-        </div>
 
         <div class="about_me_drop_down_info profile-sec">
             <div class="row">
@@ -127,10 +71,6 @@
                             <h2>Location Information</h2>
                         </div>
                         <div class="">
-                            {{--<div class="col-lg-8 pl-1">
-                                <div class="about-me-box-one-name stage_name pt-3" style={{ $escort->name ? '' : "color:#9A9B9C;" }} title="Todo:: This is where we display stage name while editing profile, I think we should add an input for stage name while creating (can't a stage name is editable)">
-                                {{$escort->name ? $escort->name  : 'Stage Name'}}
-                            </div>--}}
 
                              @if(request()->segment(2) == 'profile' && request()->segment(3))
                             <form id="LocationInformation" action="{{ route('escort.update_escort', $escort->id) }}" method="Post">
@@ -145,7 +85,14 @@
                                         <span style='color:red'>*</span>
                                     </label>
                                     <div class="col-sm-6">
-                                        <input type="text" placeholder="Enter your Profile Name (your internal reference)" value="{{ $escort->profile_name}}" title="(your use only)"  name="profile_name" class="form-control form-control-sm select_tag_remove_box_sadow" id="profile_name" required data-parsley-required-message="Enter profile name" data-parsley-remote="{{ route('escort.checkProfileName') }}" data-parsley-remote-message="This profile name already exists" data-parsley-group="goup_one" data-parsley-errors-container="#profile_name-errors">
+                                        <input type="text" placeholder="Enter your Profile Name (your internal reference)" value="{{ $escort->profile_name}}" title="(your use only)"  name="profile_name" class="form-control form-control-sm select_tag_remove_box_sadow" id="profile_name"
+                                         required
+                                         data-parsley-group="group_one" 
+                                         data-parsley-required-message="Enter profile name."
+                                         data-parsley-remote="{{ route('escort.checkProfileName') }}"
+                                         data-parsley-remote-message="This profile name already exists." 
+                                         data-parsley-trigger="blur"
+                                         data-parsley-errors-container="#profile_name-errors">
                                     </div>
                                     <div class="col-sm-4">
                                         <span id="profile_name-errors"></span>
@@ -159,7 +106,7 @@
                                             $routeIsNewprofile = Str::contains(request()->path(), 'create-profile');
                                         @endphp
                                         @if( !empty($user->profile_creator) && in_array(1,$user->profile_creator) && $routeIsNewprofile)
-                                            <select onclick="stageNameInput(this)" class=" form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
+                                            <select onclick="stageNameInput(this)" class=" form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="group_one" data-parsley-errors-container="#stageName-errors">
                                                 <option value="" selected>-Choose Your Stage Name-</option>
                                                 {{-- <option value="" selected disabled>-Not Set-</option> --}}
                                                 @if(!empty(auth()->user()->escorts_names))
@@ -169,11 +116,11 @@
                                                 @endif
                                                 <option value="new">Add a new Stage Name</option>
                                             </select>
-                                            <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" class="change_default form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
+                                            <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" class="change_default form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="group_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
                                         @else
 
                                             @if($profile_type && !$routeIsNewprofile)
-                                                <select onclick="stageNameInput(this)" style="display: block" class=" change_default_select form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="goup_one" data-parsley-errors-container="#stageName-errors">
+                                                <select onclick="stageNameInput(this)" style="display: block" class=" change_default_select form-control form-control-sm select_tag_remove_box_sadow" title="(for public display)" id="stageName" name="name" required="required" data-parsley-required-message="Select stage name" data-parsley-group="group_one" data-parsley-errors-container="#stageName-errors">
                                                     <option value="" selected>-Choose Your Stage Name-</option>
                                                     {{-- <option value="" selected disabled>-Not Set-</option> --}}
                                                     @if(!empty(auth()->user()->escorts_names))
@@ -183,11 +130,11 @@
                                                     @endif
                                                     <option value="new">Add a new Stage Name</option>
                                                 </select>
-                                                <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" value="{{$escort->name ? $escort->name : '' }}-edit" class="change_default form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
+                                                <input type="hidden" id="stageNameInp" required="required" name="" title="(for public display)" value="{{$escort->name ? $escort->name : '' }}-edit" class="change_default form-control form-control-sm select_tag_remove_box_sadow" data-parsley-required-message="Enter stage name" data-parsley-group="group_one" placeholder="Choose your Stage Name (for public display)"  data-parsley-errors-container="#stageName-errors">
                                             @endif
 
                                             
-                                            {{-- <input type="text" id="stageName" required="required" name="name" title="(for public display)" class="change_default stageNameOnBlank form-control form-control-sm select_tag_remove_box_sadow" value="{{$escort->name ? $escort->name : '' }}" data-parsley-required-message="Enter stage name" data-parsley-group="goup_one" placeholder="Choose your Stage Name (for public display)" data-parsley-errors-container="#stageName-errors"> --}}
+                                            {{-- <input type="text" id="stageName" required="required" name="name" title="(for public display)" class="change_default stageNameOnBlank form-control form-control-sm select_tag_remove_box_sadow" value="{{$escort->name ? $escort->name : '' }}" data-parsley-required-message="Enter stage name" data-parsley-group="group_one" placeholder="Choose your Stage Name (for public display)" data-parsley-errors-container="#stageName-errors"> --}}
                                         @endif
                                     </div>
                                     <div class="col-sm-4">
@@ -200,8 +147,8 @@
                                         <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="This is the Location you want the Profile to be saved to, like Western Australia, Victoria etc. Make sure the Profile Name matches up." data-boundary="window">
                                     </label>
                                     <div class="col-sm-6">
-                                        <select class="form-control form-control-sm select_tag_remove_box_sadow change_default" id="state_id" name="state_id" required="required" data-parsley-required-message="-select location-" data-parsley-group="goup_one" data-parsley-errors-container="#locationState-errors">
-                                            {{-- <required data-parsley-required-message="-select city-" data-parsley-group="goup_one"> --}}
+                                        <select class="form-control form-control-sm select_tag_remove_box_sadow change_default" id="state_id" name="state_id" required="required" data-parsley-required-message="-select location-" data-parsley-group="group_one" data-parsley-errors-container="#locationState-errors">
+                                            {{-- <required data-parsley-required-message="-select city-" data-parsley-group="group_one"> --}}
                                             <option value="" selected="">-- Select States--</option>
                                             @foreach(config('escorts.profile.states') as $key => $state)
                                                 <option style="font-weight: 500;" value="{{$key}}"
@@ -221,8 +168,8 @@
                                 <div class="form-group row tab-about-me-row-padding">
                                     <label class="col-sm-2 font-weight-500" for="profile_name">City: <span style='color:red'>*</span></label>
                                     <div class="col-sm-6">
-                                        <select class="form-control form-control-sm select_tag_remove_box_sadow" id="city_id" name="city_id" required="required" data-parsley-required-message="-select city-" data-parsley-group="goup_one" data-parsley-errors-container="#locationName-errors">
-                                            {{-- <required data-parsley-required-message="-select city-" data-parsley-group="goup_one"> --}}
+                                        <select class="form-control form-control-sm select_tag_remove_box_sadow" id="city_id" name="city_id" required="required" data-parsley-required-message="-select city-" data-parsley-group="group_one" data-parsley-errors-container="#locationName-errors">
+                                            {{-- <required data-parsley-required-message="-select city-" data-parsley-group="group_one"> --}}
                                             {{-- <option value="" selected="">-- Select cites--</option> --}}
                                             @if($escort->city_id)
                                                 <option id="{{$escort->city_id}}" value="{{$escort->city_id}}" selected>{{$escort->city->name}}</option>
@@ -256,7 +203,7 @@
                                 <div class="form-group row tab-about-me-row-padding">
                                     <label class="col-sm-2 font-weight-500" for="phone">Mobile: <span style='color:red'>*</span></label>
                                     <div class="col-sm-6">
-                                        <input type="text" id="phone" required name="phone" class="form-control form-control-sm select_tag_remove_box_sadow mt-2" value="{{$escort->phone ? $escort->phone : auth()->user()->phone  }}" placeholder="Mobile Number"  data-parsley-required-message="Enter mobile number" data-parsley-group="goup_one"  data-parsley-errors-container="#mobile-errors">
+                                        <input type="text" id="phone" required name="phone" class="form-control form-control-sm select_tag_remove_box_sadow mt-2" value="{{$escort->phone ? $escort->phone : auth()->user()->phone  }}" placeholder="Mobile Number"  data-parsley-required-message="Enter mobile number" data-parsley-group="group_one"  data-parsley-errors-container="#mobile-errors">
                                     </div>
                                     <div class="col-sm-4">
                                         <span id="phone-errors"></span>
@@ -795,7 +742,7 @@
                                                         <select
                                                             class="change_default form-control form-control-sm select_tag_remove_box_sadow"
                                                             id="Gender" name="gender" required
-                                                            data-parsley-group="goup_one">
+                                                            data-parsley-group="group_one">
 
                                                             <option value='' selected>-Not Set-</option>
                                                             @foreach(config('escorts.profile.genders') as $key => $gender)
@@ -882,7 +829,7 @@
                                                                class="change_default form-control form-control-sm select_tag_remove_box_sadow"
                                                                id="age" required="" name="age" value="{{$escort->age}}"
                                                                data-parsley-min="18" data-parsley-max="70"
-                                                               data-parsley-group="goup_one">
+                                                               data-parsley-group="group_one">
                                                     </div>
                                                 </div>
                                             </div>
@@ -1365,7 +1312,7 @@
                                             <input type="text" value="{{ $escort->license}}" name="license"
                                                    class="form-control form-control-sm select_tag_remove_box_sadow change_default"
                                                    id="SWA License" @if(auth()->user()->state_id == 3903) required
-                                                   data-parsley-group="goup_one" @endif>
+                                                   data-parsley-group="group_one" @endif>
                                         </div>
                                     </div>
                                 </div>
@@ -1452,7 +1399,7 @@
                         <div class="pt-2 pb-3" data-i="{{$escort->covidreport}}">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input covidreport change_default" type="radio" name="covidreport" id="inlineRadio1" required
-           data-parsley-group="goup_one"
+           data-parsley-group="group_one"
            data-parsley-required-message="Please select a COVID vaccination status"
            data-parsley-errors-container="#covidreport-errors" value="1" {{ $escort->getRawOriginal('covidreport') == 1 ? ' checked' : null }} >
                                 <label class="form-check-label" for="inlineRadio1">Vaccinated, not up to date</label>

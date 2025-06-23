@@ -1402,11 +1402,9 @@ class UpdateController extends AppController
 
     public function checkProfileName(Request $request){
         $user = auth()->user();
-        //$profile_name = $request->query('profile_name');
-        //$profile_name = $request->profile_name;
         $profile_name =  $request->input('profile_name');
         $user_id = $user->id;
         $exists = Escort::where(['profile_name'=>$profile_name,'user_id'=>$user_id])->exists();
-        return response()->json(!$exists);
+        return  $exists ? response()->json(false, 422):response()->json(true, 200);
     }
 }
