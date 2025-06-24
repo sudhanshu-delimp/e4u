@@ -111,6 +111,8 @@
                                 <div class="display_inline_block ">
                                     <div
                                         class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile custom_search_btn_profile">
+
+                                        <input type="hidden" name="search_by_radio" id="search_by_radio" value="0">
                                         
                                         <input type="search" name="name" class="form-control remove_border_btm rounded "
                                             placeholder="Search by Member ID or Name" aria-label="Search"
@@ -127,10 +129,10 @@
                                 <div class="display_inline_block   item_dis">
                                     <span class="item-head">Display item</span>
                                     <select class="custome_form_control_border_radus padding_five_px" name="limit">
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="75">75</option>
-                                        <option value="100">100</option>
+                                        <option value="25" {{request()->get('limit') == 25 ? 'selected' : ''}}>25</option>
+                                        <option value="50" {{request()->get('limit') == 50 ? 'selected' : ''}}>50</option>
+                                        <option value="75" {{request()->get('limit') == 75 ? 'selected' : ''}}>75</option>
+                                        <option value="100" {{request()->get('limit') == 100 ? 'selected' : ''}}>100</option>
                                     </select>
                                     <div class="display_inline_block custom-refreshbuton">
                                         <div class="margin_btn_reset">
@@ -1374,6 +1376,20 @@
             console.log(cid[1] + "-" + Eid);
             console.log(cidcl);
 
+        });
+
+        $(document).ready(function() {
+            // When this specific button is clicked
+            $('.custom-profile-search-btn').on('click', function () {
+                $('#search_by_radio').val(1); // Set value to 1 when this button is used
+            });
+
+            // Optional: Reset to 0 if any other button submits the form
+            $('form').on('submit', function (e) {
+                if (!$(document.activeElement).hasClass('custom-profile-search-btn')) {
+                    $('#search_by_radio').val(0);
+                }
+            });
         });
 
         $(document).ready(function () {

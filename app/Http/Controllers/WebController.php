@@ -65,6 +65,39 @@ class WebController extends Controller
 
     public function applyFilterOnEscort($query,$str,$gender, $age, $location)
     {
+
+        # Search escort by search button on the bases on radio button with search icon
+        if($str['search_by_radio'] == '1' || $str['search_by_radio'] == 1)
+        {
+
+            if(!empty($str['string']))
+            {
+                $uid = $str['string'];
+                $query->where(function($q) use ($uid){
+                    $q->orWhere('name','like', '%'.$uid.'%');
+                    $q->orWhere( function($q) use ($uid){
+                        $q->whereHas('user', function($q) use ($uid){
+                            $q->where('member_id', $uid);
+                        });
+                    });
+                });
+
+                if(!empty($str['city_id']))
+                {
+                    $radioLocation = $str['locationByRadio'];  // australia
+                    if($radioLocation != 'australia'){
+                        $query->where('city_id','=',$str['city_id']);
+                    }
+                    
+                    if($str['string'] == ''  && $radioLocation == 'australia'){
+                        $query->where('city_id','=',$str['city_id']);
+                    }
+                }
+                return $query;
+            }
+        }
+
+
         // $applyFilters = function ($query,$str) use ($gender, $age, $location) {
             $age = explode('-',$str['age']);
             if(!empty($str['age'])) {
@@ -110,19 +143,19 @@ class WebController extends Controller
                 });
             }
             
-            if(!empty($str['string']))
-            {
-                $uid = $str['string'];
-                $query->where(function($q) use ($uid){
-                    $q->orWhere('name','like', '%'.$uid.'%');
-                    $q->orWhere( function($q) use ($uid){
-                        $q->whereHas('user', function($q) use ($uid){
-                            $q->where('member_id', $uid);
-                        });
-                    });
-                });
+            // if(!empty($str['string']))
+            // {
+            //     $uid = $str['string'];
+            //     $query->where(function($q) use ($uid){
+            //         $q->orWhere('name','like', '%'.$uid.'%');
+            //         $q->orWhere( function($q) use ($uid){
+            //             $q->whereHas('user', function($q) use ($uid){
+            //                 $q->where('member_id', $uid);
+            //             });
+            //         });
+            //     });
 
-            }
+            // }
 
             // if(!empty($str['state_id']))
             // {
@@ -131,14 +164,7 @@ class WebController extends Controller
             
             if(!empty($str['city_id']))
             {
-                $radioLocation = request()->get('locationByRadio');  // australia
-                if($radioLocation != 'australia'){
-                    $query->where('city_id','=',$str['city_id']);
-                }
-                
-                if($str['string'] == ''  && $radioLocation == 'australia'){
-                    $query->where('city_id','=',$str['city_id']);
-                }
+                $query->where('city_id','=',$str['city_id']);
             }
 
             if(isset($str['interest']) && $str['interest'] != null )
@@ -234,12 +260,15 @@ class WebController extends Controller
             'services' => request()->get('services'),
             'enabled' => request()->get('enabled', 1),
             'state_id' => request()->get('state-id') ? request()->get('state-id') : ($userLocation ? $userLocation['state'] : null) ,
-            //'limit'=> request()->get('limit'),
+            'limit'=> request()->get('limit') ? request()->get('limit') : 25,
             'interest'=> $paramData['interest'] ,
-            'view_type'=> request()->get('view_type')
+            'view_type'=> request()->get('view_type'),
+            'search_by_radio'=> request()->get('search_by_radio') ,
+            'locationByRadio'=> request()->get('locationByRadio') ,
         ];
 
         $radio_location_filter = session('radio_location_filter');
+        $limit = $str['limit'];
 
         if($request->get('filter_button_submit') == '1' ){
             $params['city_id'] = $str['city_id'] = request()->get('city'); // city_id = 6839
@@ -256,12 +285,6 @@ class WebController extends Controller
             $filterStateExist = City::where('id',$params['city_id'])->where('state_id',$params['state_id'])->exists();
             $params['state_id'] = $filterStateExist ? $params['state_id'] : null;
             //$radio_location_filter = true;
-        }
-
-        if(request()->get('limit')) {
-            $limit = request()->get('limit');
-        } else {
-            $limit = 25;
         }
 
         $services = $this->services->all();
