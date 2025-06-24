@@ -498,6 +498,10 @@ Route::get('/admin-dashboard/management/statistics/num',function(){
     return view('admin.management.statistics.num');
 })->name('admin.num');
 
+Route::get('/admin-dashboard/reports/credit',function(){
+    return view('admin.reports.credit');
+})->name('admin.credit');
+
 Route::get('/admin-dashboard/management/statistics/listings',function(){
     return view('admin.management.statistics.listings');
 })->name('admin.listings');

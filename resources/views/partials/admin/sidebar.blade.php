@@ -532,6 +532,24 @@
             </div>
         </li>
         <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#creditreport"
+                aria-expanded="false" aria-controls="collapseTwo">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                    src="{{ asset('assets/dashboard/img/menu-icon/publication.png') }}">
+                <span>Reports &#10060;</span>
+            </a>
+            <div id="creditreport" class="collapse @if (request()->is('**')) show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-0 collapse-inner rounded mb-2">
+                    <a class="collapse-item" href="{{ route('admin.credit') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                        src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                        <span  style="{{ request()->segment(3) == 'credit' ? 'color: #e5365a;' : '' }}">Credit</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Analytics"
                 aria-expanded="false" aria-controls="collapseTwo">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"

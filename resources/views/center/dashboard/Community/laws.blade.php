@@ -29,13 +29,15 @@
                      <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Local Laws</h1></div>
                      <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
                </div>
-               <div class="col-md-12 my-4">
+               <div class="col-md-12 my-4" style="margin-top: 0 !important;">
                      <div class="card collapse" id="notes" style="">
                         <div class="card-body">
                            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                            <p></p>
                            <ol>
-                                 
+                               <li>The following table is a list of all of the legislation that applies to your Location.</li> 
+                               <li>To view the law, click the link and the legislation will open in a new tab for you to
+                                 browse.</li> 
                            </ol>
                         </div>
                      </div>
@@ -43,9 +45,9 @@
                <div class="col-md-12 mt-4">
                      <div class="row">
                         <div class="col-md-12">
-                           <table class="table color-black">
+                           <table class="table color-black custom-law-table">
                               <tbody>
-                                 <tr>
+                                 <tr class="thead">
                                     <td class="font-weight-bold" style="width: 10%;">State
                                     </td>
                                     <td class="font-weight-bold">Legislation<sup>(1)</sup></td>
@@ -108,7 +110,13 @@
                                  </tr>
                               </tbody>
                            </table>
-                           <p class="pt-5"><strong>NOTE:</strong> 1. Local Laws published in the relevant jurisdiction as at 1st December 2018.</p>
+                           <p class=""><strong>NOTE:</strong> 1. Local Laws published in the relevant jurisdiction as at 1st December 2018.</p>
+                           <div class="mt-2">
+                              <h3 style="font-size: 22px;">Changes to this Guide</h3>
+                              <span>
+                                  This Guide was last updated 16-06-2025.
+                              </span>
+                          </div>
                         </div>
                      </div>
                   </div>

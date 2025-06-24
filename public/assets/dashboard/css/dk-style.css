@@ -107,15 +107,14 @@ p {
     padding: 10px 21px 10px 20px;
     font-size: 1rem;
     line-height: 1.5;
-    background: #2C3E50;
+    background: #0c223d;
     color: #fff;
     border-radius: 0.35rem;
 }
-
-.save_profile_btn:hover {
-    opacity: 0.9;
+.custom-law-table tr.thead td {
+    background: #0c223d;
+    color: #fff;
 }
-
 .nex_sterp_btn {
     border: 1px solid transparent;
     padding: 10px 21px 10px 20px;
@@ -3431,8 +3430,18 @@ input:checked+.slider:before {
 .register-img img {
     width: 100%;
 }
-
-
+.custom--content-abb .accodien_manage_padding_content, 
+.custom--content-abb .cms-accordion-content-area {
+    padding: 10px 0;
+}
+.custom--content-abb .accodien_manage_padding_content p {
+    padding: 2px 0;
+}
+.custom--content-abb a:hover,
+.custom--content-abb span.toggle-btn:hover {
+    text-decoration: underline !important;
+    color: #FF3C5F;
+}
 /*accordion style end here*/
 
 /* Rounded sliders */
