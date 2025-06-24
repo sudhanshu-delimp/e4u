@@ -217,15 +217,17 @@ Route::get('register-for-pin-up',function(){
 Route::get('pricing',function(){
     return view('center.dashboard.Community.pricing');
 })->name('center.dashboard.Community.pricing');
+
 Route::get('submitticket',function(){
     return view('center.dashboard.supportticket.submitticket');
 })->name('center.dashboard.supportticket.submitticket');
 
 Route::get('Community',function(){
     return view('center.dashboard.Community.abbreviations');
-})->name('center.dashboard.Community.abbreviations');
+})->name('center.abbreviations');
 
 Route::get('help',function(){
+    //dd('hey');
     return view('center.dashboard.Community.help');
 })->name('center.dashboard.Community.help');
 
