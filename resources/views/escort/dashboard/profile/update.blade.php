@@ -254,7 +254,6 @@
         <div class="alert alert-info">{{ Session::get('message') }}</div>
     @endif
 @endsection
-@push('script')
     @push('script')
         <script>
             $('#select2-dropdown').select2({
@@ -301,9 +300,7 @@
         <script>
             @if(request()->segment(2) == 'profile' && request()->segment(3))
             //$('#read_more').parsley({});
-            $('#LocationInformation').parsley({
-
-            });
+            $('#LocationInformation').parsley({});
             @endif
             $('#myability').parsley({
 
@@ -633,17 +630,20 @@
                     }
                 });
 
-                $('#LocationInformation').on('submit', function(e) {
+                
+
+                $('#LocationInformation').on('submit', function (e) {
                     e.preventDefault();
 
-                    var form = $(this);
+                    const form = $(this);
+                    const parsleyForm = form.parsley();
 
-                    if (form.parsley().isValid()) {
+                    parsleyForm.whenValidate().then(function () {
                         $('#location-info').prop('disabled', true);
                         $('#location-info').html('<div class="spinner-border"></div>');
-                        var url = form.attr('action');
-                        var data = new FormData($('#LocationInformation')[0]);
-                        console.log(data);
+
+                        const url = form.attr('action');
+                        const data = new FormData(form[0]);
 
                         $.ajax({
                             method: form.attr('method'),
@@ -654,24 +654,27 @@
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
-                            success: function(data) {
+                            success: function (data) {
+                                $('#location-info').prop('disabled', false);
+                                $('#location-info').html('Save');
+
                                 if (!data.error) {
                                     Swal.fire('Updated', '', 'success');
-                                    $('#location-info').prop('disabled', false);
-                                    $('#location-info').html('Save');
                                 } else {
                                     Swal.fire({
                                         icon: 'error',
-                                        title: 'Oops.. sumthing wrong Please try again',
+                                        title: 'Oops.. something went wrong. Please try again.',
                                         text: data.message
                                     });
-                                    $('#location-info').prop('disabled', false);
-                                    $('#location-info').html('Save');
                                 }
                             }
                         });
-                    }
+
+                    }, function () {
+                        console.log('Form validation failed');
+                    });
                 });
+
                 /** Media upload */
                 $('#myProfileMediaForm').on('submit', function(e) {
                     e.preventDefault();
@@ -1206,26 +1209,27 @@
 
             });
             
-            $(document).ready(function() {
-                $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-                    var ckeditorGroup = $('#my_escort_profile').parsley().validate({
+           
+
+            $(document).ready(function () {
+                const parsleyForm = $('#my_escort_profile').parsley({
+                    excluded: "input[type=number], input[type=hidden]"
+                });
+                let allowTabChange = false;
+
+                $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+                    if (allowTabChange) {
+                        allowTabChange = false;
+                        return;
+                    }
+                    e.preventDefault();
+                    const targetTab = $(e.target);
+                    var ckeditorGroup = parsleyForm.validate({
                         group: 'ckeditor'
                     });
-                    if ($('#my_escort_profile').parsley().validate({
-                            group: 'ckeditor'
-                        }) == false) {
-                        e.target
-
-                        $('#home-tab').addClass('active');
-                        e.preventDefault();
-                    }
-                    
-                    if ($('#my_escort_profile').parsley({
-                            excluded: "input[type=number], input[type=hidden]"
-                        }).validate({
-                            group: 'goup_one'
-                        })) {
-                        e.target
+                    parsleyForm.whenValidate({ group: 'group_one' }).then(function () {
+                        allowTabChange = true;
+                        targetTab.tab('show');
                         if (e.target.id == "profile-tab" && ckeditorGroup != false) {
                             $('.define_process_bar_color').attr('style', 'width :80%'); //.percent
                             $('#percent').html('80%');
@@ -1361,13 +1365,9 @@
                             $('.define_process_bar_color').attr('style', 'width :25%'); //.percent
                             $('#percent').html('25%');
                         }
-
-                    } else {
-                        $('#home-tab').addClass("active");
-                        $("#profile-tab").removeClass('active');
-                        e.preventDefault();
-
-                    }
+                    }, function () {
+                        console.log('Validation failed');
+                    });
                 });
             });
 
