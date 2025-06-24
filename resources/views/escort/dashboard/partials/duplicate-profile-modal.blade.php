@@ -1,6 +1,6 @@
 <div class="modal fade upload-modal" id="duplicate-profile-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <form id="duplicate_profile_form">
+        <form id="duplicate_profile_form" data-parsley-validate>
             <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -20,7 +20,15 @@
                                         <span style='color:red'>*</span>
                                         </label>
                                         <div class="col-sm-8">
-                                            <input type="text" required class="form-control form-control-sm removebox_shdow" name="profile_name" data-parsley-type="" data-parsley-type-message="">
+                                            <input type="text" required class="form-control form-control-sm removebox_shdow" name="profile_name"
+                                            required
+                                            data-parsley-group="group_one" 
+                                            data-parsley-required-message="Enter profile name."
+                                            data-parsley-remote="{{route('escort.checkProfileName')}}"
+                                            data-parsley-remote-message="This profile name already exists." 
+                                            data-parsley-trigger="blur"
+                                            data-parsley-errors-container="#profile_name-errors"
+                                         >
                                             <span id="profile-errors"></span>
                                         </div>
                                         <div class="col-sm-1"></div>
