@@ -301,8 +301,10 @@
     });
 
        $("#duplicate_profile_form").on('submit', function (e) {
-       e.preventDefault();
-       var form = $(this);
+        e.preventDefault();
+        var form = $(this);
+        var parsleyForm = form.parsley();
+        parsleyForm.whenValidate().then(function () {
         var url = "{{ route('escort.duplicate.profile') }}";
         var data = new FormData(form[0]);
 
@@ -315,12 +317,16 @@
                headers: {
                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                },
+               beforeSend:function(){
+                form.find('button[type=submit]').prop('disabled', true).html('<div class="spinner-border"></div>');
+               },
                success: function(data) {
                    if (data.response.success) {
                        Swal.fire({
                            icon: "success",
                            text: data.response.message
                        });
+                        form.find('button[type=submit]').prop('disabled', false).html('Save');
                        table.draw();
                        $("#duplicate_profile_form")[0].reset();
                        $('#duplicate-profile-modal').modal('hide');
@@ -333,7 +339,9 @@
                },
 
            });
-       // }
+        }, function () {
+            console.log('Form validation failed');
+        });
    });
 
    } );
