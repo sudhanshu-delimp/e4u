@@ -6173,7 +6173,9 @@ p.blog-link {
     color: #444;
     font-size: 15px;
 }
-
+.custom-day-table tbody {
+    text-transform: capitalize;
+}
 
 /* Comment Form */
 

@@ -47,7 +47,7 @@
 @section('content')
 <section class="padding_top_eight_px padding_bottom_eight_px custom--decoration">
     <div class="container">
-        <h1 class="home_heading_first margin_btm_twenty_px">Abbreviations, Icons & Lingo </h1>
+        <h1 class="home_heading_first margin_btm_twenty_px">Abbreviations, Icons & Lingo  </h1>
         <div class="accordion-container">
             <div class="set">
                 <a>
