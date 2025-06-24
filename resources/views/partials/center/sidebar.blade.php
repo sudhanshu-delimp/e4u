@@ -253,6 +253,7 @@
             </div>
         </div>
     </li>
+    {{-- dd(route('center.dashboard.Community.help')) --}}
     {{-- Community --}}
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Community"
@@ -264,10 +265,11 @@
 
         <div id="Community" class="collapse @if(request()->segment(2) == 'Community' || request()->segment(2) == 'help' || request()->segment(2) == 'laws' || request()->segment(2) == 'pricing' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-            <a class="collapse-item" href="{{ route('center.dashboard.Community.abbreviations') }}">
+            <a class="collapse-item" href="{{ route('center.abbreviations') }}">
                 <img src="{{ asset('assets/app/img/Abrieviations.png')}}">
                 <span style="{{request()->segment(2) == 'Community' ? 'color: #e5365a;' : ''}}">Abbreviations</span>
             </a>
+            
              <a class="collapse-item" href="{{ route('center.dashboard.Community.help') }}">
                 <img src="{{ asset('assets/app/img/helptips.png')}}">
                 <span style="{{request()->segment(2) == 'help' ? 'color: #e5365a;' : ''}}">Help & Tips</span>

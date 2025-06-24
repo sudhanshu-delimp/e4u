@@ -1,4 +1,4 @@
-@extends('layouts.web')
+@extends('layouts.center')
 @section('style')
 
 <style>

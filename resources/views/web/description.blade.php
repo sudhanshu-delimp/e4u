@@ -343,7 +343,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table_striped">
+                        <table class="table table_striped custom-day-table">
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
                                     <th scope="col">Day</th>
