@@ -1064,10 +1064,29 @@
                         <span style="{{ request()->segment(3) == 'set-fees' ? 'color: #e5365a;' : '' }}">Set Fees &
                             Variables - Users</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.manage-user') }}">
+                    {{-- <a class="collapse-item" href="{{ route('admin.manage-user') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
-                        <span style="{{ request()->segment(3) == 'manage-user' ? 'color: #e5365a;' : '' }}">Manage Staff</span></a>
+                        <span style="{{ request()->segment(3) == 'manage-user' ? 'color: #e5365a;' : '' }}">Manage People</span>
+                    </a> --}}
+                    <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse" data-target="#managepeople" aria-expanded="false" aria-controls="statisticsMenu">
+                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                        <span >Manage People</span>
+                        
+                    </a>
+                    
+                    <div id="managepeople" class="collapse pl-3" style="margin-left: 10px;">
+                        <a class="collapse-item" href="{{ route('admin.manage-user') }}">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span  style="{{ request()->segment(3) == 'manage-user' ? 'color: #e5365a;' : '' }}">Staff</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('admin.manage-user') }}">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span  style="{{ request()->segment(3) == 'manage-user' ? 'color: #e5365a;' : '' }}">Agent</span>
+                        </a>
+                    </div>
                         <a class="collapse-item" href="{{ route('admin.memberships') }}">
                             <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                 src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
