@@ -368,6 +368,17 @@ Route::get('/agent-dashboard/notifications-features',function(){
     return view('agent.dashboard.notifications-features');
 })->name('notifications-features');
 
+
+
+Route::get('/user-dashboard/viewer-statistics',function(){
+    return view('user.dashboard.viewer-statistics');
+})->name('user.viewer-statistics');
+
+Route::get('/user-dashboard/my-statistics',function(){
+    return view('user.dashboard.my-statistics');
+})->name('user.my-statistics');
+
+
 Route::get('/user-dashboard/guide',function(){
     return view('user.dashboard.Community.guide');
 })->name('user.guide');

@@ -24,7 +24,8 @@
                       <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                       <p></p>
                       <ol>
-                            
+                            <li>To add Credit, go to Bookkeeping and select Add Credit. [Add Credit is a link to that page]</li>
+                            <li>You can change your Password settings here. You will be notified by your preferred method when your Password is due to expire.</li>
                       </ol>
                    </div>
                 </div>
@@ -33,7 +34,7 @@
         <!-- Page Heading -->
         <div class="row mt-2">  
             <!-- Followers Online (Legbox) -->
-            <div class="col-md-6 mb-4">
+            <div class="col-md-4 mb-4">
               <div class="table-responsive">
                 <table class="table table-bordered">
                   <thead style="background-color: #0C223D; color: #ffffff;">
@@ -56,7 +57,7 @@
             </div>
           
             <!-- Finance -->
-            <div class="col-md-6 mb-4">
+            <div class="col-md-4 mb-4">
               <div class="table-responsive">
                 <table class="table table-bordered">
                   <thead style="background-color: #0C223D; color: #ffffff;">
@@ -64,12 +65,12 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td><i class="fas fa-credit-card"></i></td>
+                      <td class="icon-col"><i class="fas fa-credit-card"></i></td>
                       <td>Credit</td>
                       <td class="text-center">$ 500.00</td>
                     </tr>
                     <tr>
-                      <td><i class="fas fa-gift"></i></td>
+                      <td class="icon-col"><i class="fas fa-gift"></i></td>
                       <td>Loyalty days</td>
                       <td class="text-center">2</td>
                     </tr>
@@ -79,7 +80,7 @@
             </div>
           
             <!-- Logs & Status -->
-            <div class="col-md-6 mb-4">
+            <div class="col-md-4 mb-4">
               <div class="table-responsive">
                 <table class="table table-bordered">
                   <thead style="background-color: #0C223D; color: #ffffff;">
@@ -87,23 +88,23 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td><i class="fas fa-sign-in-alt"></i></td>
+                      <td class="icon-col"><i class="fas fa-sign-in-alt"></i></td>
                       <td>Login count</td>
                       <td class="text-center">526</td>
                     </tr>
                     <tr>
-                      <td><i class="far fa-clock"></i></td>
+                      <td class="icon-col"><i class="far fa-clock"></i></td>
                       <td>Last login</td>
                       <td class="text-center">20-06-2025 | 12:32:02 PM</td>
                     </tr>
                     <tr>
-                      <td><i class="fas fa-map"></i></td>
+                      <td class="icon-col"><i class="fas fa-map"></i></td>
                       <td>Home State</td>
                       <td class="text-center">Western Australia
                     </td>
                     </tr>
                     <tr>
-                      <td><i class="fas fa-key"></i></td>
+                      <td class="icon-col"><i class="fas fa-key"></i></td>
                       <td>Password expiry</td>
                       <td class="text-center">Never</td>
                     </tr>
@@ -111,7 +112,8 @@
                 </table>
               </div>
             </div>
-          </div>
+        </div>
+    </div>    
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
