@@ -126,6 +126,7 @@ Route::get('pin-up-data', [PinUpsController::class, 'profile_and_week_data'])->n
 
 
 Route::post('escort-brb/add', [EscortBrbController::class, 'add'])->name('escort.brb.add');
+Route::post('escort-suspend/profile', [EscortBrbController::class, 'suspendProfile'])->name('escort.profile.suspend');
 Route::post('escort-brb/inactive/{id}', [EscortBrbController::class, 'inactive'])->name('escort.brb.inactive');
 
 ////////////pagis

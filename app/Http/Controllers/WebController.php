@@ -67,7 +67,7 @@ class WebController extends Controller
     {
 
         # Search escort by search button on the bases on radio button with search icon
-        if($str['search_by_radio'] == '1' || $str['search_by_radio'] == 1)
+        if(isset($str['search_by_radio']) && ($str['search_by_radio'] == '1' || $str['search_by_radio'] == 1))
         {
 
             if(!empty($str['string']))
