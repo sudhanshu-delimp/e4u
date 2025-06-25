@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Escort;
 use App\Http\Controllers\Controller;
 use App\Models\Purchase;
 use App\Repositories\Escort\EscortInterface;
+use Illuminate\Support\Facades\DB;
 
 
 use App\Http\Requests\StoreAvatarMediaRequest;
@@ -60,10 +61,21 @@ class EscortController extends Controller
 
     function add_listing()
     {
-        $escorts = Escort::where('user_id', auth()->user()->id)->where('profile_name', '!=', NULL)->get();
+        $today = Carbon::today()->toDateString();        
+        $excludedEscortIds = DB::table('purchase')
+            ->select('escort_id')
+            ->groupBy('escort_id')
+            ->havingRaw('MAX(end_date) >= ?', [$today])
+            ->pluck('escort_id');
+
+        $escorts = Escort::whereNotIn('id', $excludedEscortIds)
+            ->whereNotNull('profile_name')
+            ->where('user_id', auth()->id())
+            ->get();
         if (empty($escorts->toArray())) {
             return redirect()->route('escort.profile')->with('info', 'Create at-least one profile');
         }
+
         return view('escort.dashboard.add_listing', compact('escorts'));
     }
 
