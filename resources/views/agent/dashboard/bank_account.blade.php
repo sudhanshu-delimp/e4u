@@ -522,7 +522,7 @@
                             console.log("sdfjsdhfsjd",data);
                             table.draw();
                             $('#delete_bank').modal('hide');
-                            $("#header_msg").html("Delete profile");
+                            $("#header_msg").html("Delete Profile");
                             $('.comman_msg').html("Deleted ");
                             $("#comman_modal").modal('show'); 
                            
@@ -531,7 +531,7 @@
                             table.draw();
                             $('#delete_bank').modal('hide');
                             $('.comman_msg').html("Primary Account can not be deleted. ");
-                            $("#header_msg").html("Delete profile");
+                            $("#header_msg").html("Delete Profile");
                             $("#comman_modal").modal('show'); 
                            
                         }

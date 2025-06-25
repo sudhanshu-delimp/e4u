@@ -579,13 +579,15 @@ p {
 
 .dk-tab .nav-item a {
     color: #fff;
-    background: #2c3e50b3;
+    /*background: #2c3e50b3;*/
+     background: #1313d7;
     border-radius: 3px;
     font-size: 14px;
 }
 
 .nav-item a.active {
-    background: #0C223D !important;
+    /*background: #0C223D !important;*/
+    background: #ff3c5f !important;
 }
 
 .tab-content-bg {
