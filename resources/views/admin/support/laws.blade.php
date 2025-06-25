@@ -27,7 +27,7 @@
             <div class="row">
                <div class="col-md-12">
                     <div class="v-main-heading h3">
-                        Local Laws
+                        Local Laws 
                         <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
                     </div>
                    <div class="card collapse  mb-4" id="notes">
