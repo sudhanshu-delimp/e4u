@@ -198,7 +198,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content custome_modal_max_width">
          <div class="modal-header main_bg_color border-0">
-            <span style="color:white">Delete profile</span>
+            <span style="color:white">Delete Profile</span>
             {{--
             <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5>
             --}}
@@ -232,6 +232,7 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
    $(document).ready( function () {
+    
        var shouldHide = '{{$type == "past" ? false :true}}';
        var table = $("#sailorTable").DataTable({
            "language": {
@@ -657,6 +658,7 @@
     }
   });
  $('#brb_form').parsley({});
+ 
 
    $("#brb_form").on('submit', function (e) {
        e.preventDefault();
