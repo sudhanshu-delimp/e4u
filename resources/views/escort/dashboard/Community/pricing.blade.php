@@ -145,11 +145,11 @@
                                                                     <li>to a single transaction; and</li>
                                                                     <li>from day 22.</li>
                                                                 </ol>
+                                                                <li>Pin Up is a set weekly Fee.</li>
                                                                 <li>Pay by the day available.</li>
                                                                 <li>After 21 days for Free Membership, then Profile is suspended and Escort
                                                                     asked what Membership Type to go to, eg Platinum. If you have an Agent
                                                                     appointed, the Agent will also receive the notification.</li>
-                                                                <li>Pin Up is a set weekly Fee.</li>
                                                             </ol>
                                                         </div>
                                                     </div>
