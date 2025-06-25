@@ -2,7 +2,137 @@
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pt-5">
     <!--middle content start here-->
+    
     <div class="row">
+        <div class="col-md-12">
+            <div class="v-main-heading h3 p-0" style="display: inline-block;"><h1 class="pt-0 m-0">Viewer Dashbaord</h1></div>
+            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+      </div>
+      <div class="col-md-12 my-4">
+            <div class="card collapse" id="notes" style="">
+               <div class="card-body">
+                  <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                  <p></p>
+                  <ol>
+                        
+                  </ol>
+               </div>
+            </div>
+      </div>
+    </div>
+    <div class="row">
+        {{-- box start --}}
+        <div class="col-lg-4 box-wrapper">
+            <div class="my-custom-box shadow-sm">
+                <a href="#">
+                    <div class="box-icon">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_favorites.svg') }}" alt="Favorites Online">
+                    </div>
+                    <h2>
+                        Favorites Online
+                    </h2>
+                </a>
+
+            </div>
+        </div>
+        {{-- end --}}
+        {{-- box start --}}
+        <div class="col-lg-4 box-wrapper">
+            <div class="my-custom-box shadow-sm">
+                <a href="#">
+                    <div class="box-icon">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_mylegbox.svg') }}" alt=" My Legbox">
+                    </div>
+                    <h2>
+                       My Legbox
+                    </h2>
+                </a>
+
+            </div>
+        </div>
+        {{-- end --}}
+        {{-- box start --}}
+        <div class="col-lg-4 box-wrapper">
+            <div class="my-custom-box shadow-sm">
+                <a href="#">
+                    <div class="box-icon">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_punterbox.svg') }}" alt="Punterbox">
+                    </div>
+                    <h2>
+                        Punterbox
+                    </h2>
+                </a>
+
+            </div>
+        </div>
+        {{-- end --}}
+        {{-- box start --}}
+        <div class="col-lg-4 box-wrapper">
+            <div class="my-custom-box shadow-sm">
+                <a href="{{ route('user.viewer-statistics') }}">
+                    <div class="box-icon">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.svg') }}" alt="Viewer Statistics">
+                    </div>
+                    <h2>
+                        Viewer Statistics
+                    </h2>
+                </a>
+
+            </div>
+        </div>
+        {{-- end --}}
+        {{-- box start --}}
+        <div class="col-lg-4 box-wrapper">
+            <div class="my-custom-box shadow-sm">
+                <a href="{{ route('user.my-statistics') }}">
+                    <div class="box-icon">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.svg') }}" alt="Viewer Statistics">
+                    </div>
+                    <h2>
+                        My Statistics
+                    </h2>
+                </a>
+
+            </div>
+        </div>
+        {{-- end --}}
+        {{-- box start --}}
+        <div class="col-lg-4 box-wrapper">
+            <div class="my-custom-box shadow-sm">
+                <a href="#">
+                    <div class="box-icon">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_tasklist.svg') }}" alt="Task List">
+                    </div>
+                    <h2>
+                        Task List
+                    </h2>
+                </a>
+
+            </div>
+        </div>
+        {{-- end --}}
+        {{-- box start --}}
+        <div class="col-lg-4 box-wrapper">
+            <div class="my-custom-box shadow-sm">
+                <a href="#">
+                    <div class="box-icon">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.svg') }}" alt="Logs & Statistics">
+                    </div>
+                    <h2>
+                        Logs & Statistics
+                    </h2>
+                </a>
+
+            </div>
+        </div>
+        {{-- end --}}
+    </div>
+
+
+
+
+    {{-- old code --}}
+    <div class="row mt-5 d-none">
         <div class="col-md-9">
             <div class="v-main-heading h3 pt-0 pb-2">Viewer Dashbaord</div>
             <div class="alert alert-info bg-white border-0 shadow" style="border-left: #FFB648 solid 9px !important;">

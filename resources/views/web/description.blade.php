@@ -368,7 +368,7 @@
                                     <td>
                                         @if(!empty($availability->availability_time[$day]))
                                             @if($availability->availability_time[$day] == 'til_ate')
-                                            Til Late
+                                            ... Til Late
                                             @else
                                                 {{ $availability->availability_time[$day]; }} 
                                             @endif

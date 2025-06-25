@@ -107,15 +107,14 @@ p {
     padding: 10px 21px 10px 20px;
     font-size: 1rem;
     line-height: 1.5;
-    background: #2C3E50;
+    background: #0c223d;
     color: #fff;
     border-radius: 0.35rem;
 }
-
-.save_profile_btn:hover {
-    opacity: 0.9;
+.custom-law-table tr.thead td {
+    background: #0c223d;
+    color: #fff;
 }
-
 .nex_sterp_btn {
     border: 1px solid transparent;
     padding: 10px 21px 10px 20px;
@@ -3101,7 +3100,7 @@ input[type=radio] {
 
 .archive-dropdown a,
 i {
-    color: #2e2f37;
+    color: var(--blue--text);
 }
 
 table.dataTable {
@@ -3431,8 +3430,18 @@ input:checked+.slider:before {
 .register-img img {
     width: 100%;
 }
-
-
+.custom--content-abb .accodien_manage_padding_content, 
+.custom--content-abb .cms-accordion-content-area {
+    padding: 10px 0;
+}
+.custom--content-abb .accodien_manage_padding_content p {
+    padding: 2px 0;
+}
+.custom--content-abb a:hover,
+.custom--content-abb span.toggle-btn:hover {
+    text-decoration: underline !important;
+    color: #FF3C5F;
+}
 /*accordion style end here*/
 
 /* Rounded sliders */
@@ -5258,6 +5267,7 @@ td {
     transition: 0.3s;
     min-height: 170px;
     margin: 10px 0px;
+    color: var(--blue--text);
 }
 
 .card-label input[type="checkbox"]:checked+.selectable-card {
@@ -5265,16 +5275,20 @@ td {
     background-color: #c2cfe052;
 }
 
-.card-title-row {
+.selectable-card .card-title-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap-reverse;
+    gap: 10px;
 }
 
-.card-title {
+.selectable-card .card-title-row .card-title {
     font-weight: 600;
     font-size: 16px;
     color: var(--blue--text);
+    padding: 0px;
+    margin-bottom: 0px;
 }
 
 .card-title-row .card-image img {
@@ -5290,7 +5304,7 @@ td {
 .card-desc {
     font-size: 14px;
     color: var(--blue--text);
-    margin-top: 0px;
+    margin-top: 10px;
 }
 
 
@@ -5302,6 +5316,7 @@ td {
     margin: 10px 0px;
     background-color: #fff;
     border: 1px solid #0c223d40;
+    color: var(--blue--text);
 }
 
 .my-spend-box:hover {
@@ -5338,10 +5353,11 @@ td {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--blue--text) !important;
 }
 
 .my-spend-box .spend-icons i {
-    columns: var(--blue--text);
+    color: var(--blue--text) !important;
 }
 
 .playmate-avatar img {
@@ -5363,6 +5379,7 @@ td {
     margin: 10px 0px;
     background-color: #fff;
     border: 1px solid #0c223d40;
+    color: var(--blue--text) !important;
 }
 
 .statistics-text .statistics-label {
@@ -5374,7 +5391,7 @@ td {
 .statistics-text .statistics-value {
     font-size: 25px;
     font-weight: 700;
-    color: var(--blue--text);
+    color: var(--blue--text) !important;
 }
 
 .statistics-icon {
@@ -5385,6 +5402,7 @@ td {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--blue--text) !important;
 }
 
 .statistics-icon img {
@@ -5495,6 +5513,10 @@ td {
     background-color: #c2cfe052;
     padding: 20px;
     border-radius: 5px;
+}
+
+.icon-col i {
+    color: var(--blue--text) !important;
 }
 
 

@@ -38,7 +38,8 @@
                       <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                       <p></p>
                       <ol>
-                            
+                            <li>This page is a summary of all the Fees you have spent on the Services.</li>
+                            <li>To assist you in keeping an idea of your spend with E4U, we have provided information on your spend with E4U for the same time last year.</li>
                       </ol>
                    </div>
                 </div>
@@ -81,7 +82,7 @@
                                         <!-- Text Section -->
                                         <div>
                                             <p class="mb-1 label-text font-weight-bold">Same period last year</p>
-                                            <h4 class="mb-0 amount-text font-weight-bold">$1280.00</h4>
+                                            <h4 class="mb-0 amount-text font-weight-bold">$1,280.00</h4>
                                         </div>
                             
                                         <!-- Chart Icon or Image -->
@@ -130,7 +131,7 @@
                                         <!-- Text Section -->
                                         <div>
                                             <p class="mb-1 label-text font-weight-bold">Same period last year</p>
-                                            <h4 class="mb-0 amount-text font-weight-bold">$1280.00</h4>
+                                            <h4 class="mb-0 amount-text font-weight-bold">$1,280.00</h4>
                                         </div>
                             
                                         <!-- Chart Icon or Image -->
@@ -180,7 +181,7 @@
                                             <!-- Text Section -->
                                             <div>
                                                 <p class="mb-1 label-text font-weight-bold">Same period last year</p>
-                                                <h4 class="mb-0 amount-text font-weight-bold">$1280.00</h4>
+                                                <h4 class="mb-0 amount-text font-weight-bold">$1,280.00</h4>
                                             </div>
                                 
                                             <!-- Chart Icon or Image -->
@@ -279,7 +280,7 @@
                                     <!-- Text Section -->
                                     <div>
                                         <p class="mb-1 label-text">Support (E4U)</p>
-                                        <h4 class="mb-0 amount-text font-weight-bold">$1280.00</h4>
+                                        <h4 class="mb-0 amount-text font-weight-bold">$1,280.00</h4>
                                     </div>
                         
                                     <!-- Chart Icon or Image -->
@@ -299,7 +300,7 @@
                                     <!-- Text Section -->
                                     <div>
                                         <p class="mb-1 label-text font-weight-bold">Year to date total	</p>
-                                        <h4 class="mb-0 amount-text font-weight-bold">$1280.00</h4>
+                                        <h4 class="mb-0 amount-text font-weight-bold">$1,280.00</h4>
                                     </div>
                         
                                     <!-- Chart Icon or Image -->
