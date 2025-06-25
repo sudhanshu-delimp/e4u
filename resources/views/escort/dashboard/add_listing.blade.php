@@ -40,11 +40,13 @@
                     </div>
                     <div class="col-sm-12 listing_area">
                         <div class="row tab-input- pl-2 pt-4 eachListing">
-                            <div class="col-lg-2 col-md-12 col-sm-12">
-                                <div class="form-group row tab-about-me-row-padding saveDraft">
-                                    <span class="removeCross" style="position: absolute; left: -25px;" title="click to remove"><img src="{{ asset('assets/app/img/cross.png')}}"></span>
-                                    <label class="font-weight-400" for="exampleFormControlSelect1">Choose Profile:</label>
-                                    {{-- <div class="col-sm-7 pl-0">
+                            <div class="col-lg-3 col-md-12 col-sm-12">
+                                <div class="form-group row tab-about-me-row-padding saveDraft row">
+                                   <div class="col-sm-5 pr-2">
+                                        <span class="removeCross" style="position: absolute; left: -25px;" title="click to remove"><img src="{{ asset('assets/app/img/cross.png')}}"></span>
+                                        <label class="font-weight-400" for="exampleFormControlSelect1">Choose Profile:</label>
+                                   </div>
+                                    <div class="col-sm-7 pl-0">
                                         <select name="data[0][escort_id]" class="custom-select mr-sm-2"
                                                 id="escort_profile" required>
                                             <option value="">Select One</option>
@@ -52,7 +54,7 @@
                                                 <option value="{{$escort->id}}">{{$escort->name}} ({{$escort->profile_name}})</option>
                                             @endforeach
                                         </select>
-                                    </div> --}}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-12 col-sm-12">
@@ -78,7 +80,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="col-lg-3 col-md-12 col-sm-12">
                                 <div class="form-group row tab-about-me-row-padding saveDraft">
                                     <label class="col-sm-5 font-weight-400" for="exampleFormControlSelect1">Membership Type:</label>
                                     <div class="col-sm-7">
