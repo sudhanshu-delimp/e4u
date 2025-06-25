@@ -102,30 +102,6 @@
                         <tr class="row-color">
                             <td colspan="10" class="theme-color text-center">Loading...</td>
                             </tr>
-                        {{-- <tr class="row-color">
-                            <td width="10%" class="theme-color">M60178</td>
-                            <td class="theme-color">Lins Massage</td>
-                            <td class="theme-color">Perth</td>
-                            <td class="theme-color">Perth 01</td>
-                            <td class="theme-color">4</td>
-                            <td class="theme-color">23-05-2025</td>
-                            <td class="theme-color">17-06-2025</td>
-                            <td class="theme-color">14</td>
-                            <td class="theme-color">15</td>
-                            <td>
-                                <div class="dropdown no-arrow ml-3">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink" style="">
-                                        <a class="dropdown-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#view-listing" href="#">View Listing <i class="fa fa-eye text-dark"
-                                                style="color: var(--peach);" ></i></a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr> --}}
                     </tbody>
                 </table>
                 
@@ -136,24 +112,6 @@
                 </div>
                 <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
                 <nav aria-label="Page navigation example" class="customPagination">
-                    {{-- <ul class="pagination float-right pt-4">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">«</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">»</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul> --}}
-                    
                 </nav>
             </div>
         </div>

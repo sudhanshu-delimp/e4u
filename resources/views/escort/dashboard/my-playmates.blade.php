@@ -57,18 +57,6 @@
                                     class="img-fluid rounded-circle"
                                     alt=" ">
                                 </div>
-                                <div class="playmate-avatar">
-                                    <img
-                                    src="{{ asset('assets/app/img/ellipse-2.png') }}"
-                                    class="img-fluid rounded-circle"
-                                    alt=" ">
-                                </div>
-                                <div class="playmate-avatar">
-                                    <img
-                                    src="{{ asset('assets/app/img/ellipse-3.png') }}"
-                                    class="img-fluid rounded-circle"
-                                    alt=" ">
-                                </div>
                             </div>
                         </td>
                         <td>Western Australia</td>
@@ -99,12 +87,7 @@
                       <tr>
                         <td>
                             <div class="d-flex align-items-center">
-                                <div class="playmate-avatar">
-                                    <img
-                                    src="{{ asset('assets/app/img/ellipse-4.png') }}"
-                                    class="img-fluid rounded-circle"
-                                    alt=" ">
-                                </div>
+                               
                                 <div class="playmate-avatar">
                                     <img
                                     src="{{ asset('assets/app/img/ellipse-5.png') }}"
@@ -139,11 +122,12 @@
                         </td>
                       </tr>
                       <tr>
-                        <td colspan="2" class="text-right font-weight-bold"></td>
-                        <td class="text-center font-weight-bold "> total</td>
-                        <td class="text-center font-weight-bold"> 5</td>
-                        <td class="text-center font-weight-bold"> </td>
+                        <td style="border:none;" colspan="2"></td>
+                        <td class="text-right" style="font-weight: bold;">Total:</td>
+                        <td style="text-align: center; font-weight: bold;">5</td>
+                        <td style="border:none;"></td>
                     </tr>
+                    
                     </tbody>
                   </table>
                 </div>

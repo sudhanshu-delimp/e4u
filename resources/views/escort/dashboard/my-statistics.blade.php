@@ -114,7 +114,7 @@ h5 {
                 <div class="col-md-3 mb-3">
                     <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                         <div class="statistics-text">
-                            <div class="statistics-label">Profiles currently posted
+                            <div class="statistics-label">Profiles Currently Posted
                             </div>
                             <div class="statistics-value">125</div>
                         </div>
@@ -129,7 +129,7 @@ h5 {
                 <div class="col-md-3 mb-3">
                     <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                         <div class="statistics-text">
-                            <div class="statistics-label">My Playbox subscriptions
+                            <div class="statistics-label">My Playbox Subscriptions
                             </div>
                             <div class="statistics-value">125</div>
                         </div>

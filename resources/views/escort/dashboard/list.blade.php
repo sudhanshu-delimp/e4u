@@ -29,6 +29,14 @@
     line-height: 18px;
     margin-top: 6px;
     }
+    /* .suspension-note-list {
+        list-style-position: outside; 
+        padding-left: 20px;
+    } */
+
+    .suspension-note-list li {
+        text-indent: 4px; /* Adds space after number */
+    }
 </style>
 
 @endsection
@@ -106,6 +114,7 @@
                @if($type != 'past')
                <div>
                    <button style="padding: 10px;" class="btn btn-info" data-toggle="modal" data-target="#add_brb">Add BRB</button>
+                   <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal" data-target="#suspend_profile">Suspend Profile</button>
                </div>
                @endif
               <table class="table table-hover" id="sailorTable">
@@ -193,6 +202,84 @@
         </form>
     </div>
 </div>
+
+<!-- suspend profile modal start here -->
+<div class="modal fade upload-modal" id="suspend_profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form id="brb_form">
+            <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="">Suspend Profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><img id="modal_close" src="{{ asset('assets/app/img/cross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="container p-0">
+                                    <div class="form-group row">
+                                        <label class="col-sm-3" for=""> Profile:</label>
+                                        <div class="col-sm-8">
+                                            <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="profile_id" name="profile_id" data-parsley-errors-container="#profile-errors" required data-parsley-required-message="Select Profile">
+                                                <option value="">Select Profile</option>
+                                                @foreach($active_escorts as $profile)
+                                                    <option value="{{$profile['id']}}" profile_name="{{$profile['profile_name']}}">{{$profile['id']}} - {{$profile['name']}} @if(isset($profile['state']['name']))- {{$profile['state']['name']}}@endif</option>
+                                                @endforeach
+                                            </select>
+                                            <span id="profile-errors"></span>
+                                        </div>
+                                        <div class="col-sm-1"></div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3" for=""> Suspension Period:</label>
+                                        <div class="col-sm-9 row">
+                                            <div class="col-sm-5">
+                                                <input type="date" required min="{{date('Y-m-d')}}" class="form-control form-control-sm removebox_shdow" name="brb_date" data-parsley-type="" data-parsley-type-message="">
+                                                <span id="brb-time-errors"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <span>to:</span>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <input type="date" required min="{{date('Y-m-d')}}" class="form-control form-control-sm removebox_shdow" name="brb_date" data-parsley-type="" data-parsley-type-message="">
+                                                <span id="brb-time-errors"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="">Credit:</label>
+                                        <div class="col-sm-8">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
+                                                <input type="number" class="form-control"  step="0.01" min="0"  name="credit_price" id="credit_price" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-1 col-form-label" for="">Notes:</label>
+                                        <div class="col-sm-11">
+                                            <ol class="col-form-label suspension-note-list">
+                                                <li> Any Fees paid but which are unused will be credited back to your Account.</li>
+                                                <li> Once your Profile is suspended, it cannot be reinstated for the suspended period.</li>
+                                                <li> For short term suspensions, consider using the BRB feature.</li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: center; display: block;">
+                        <button type="submit" class="btn btn-primary" id="save_brb">Save</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- end suspend profile modal -->
 
 <div class="modal programmatic" id="delete_profile" style="display: none">
    <div class="modal-dialog modal-dialog-centered" role="document">
@@ -301,8 +388,10 @@
     });
 
        $("#duplicate_profile_form").on('submit', function (e) {
-       e.preventDefault();
-       var form = $(this);
+        e.preventDefault();
+        var form = $(this);
+        var parsleyForm = form.parsley();
+        parsleyForm.whenValidate().then(function () {
         var url = "{{ route('escort.duplicate.profile') }}";
         var data = new FormData(form[0]);
 
@@ -315,12 +404,16 @@
                headers: {
                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                },
+               beforeSend:function(){
+                form.find('button[type=submit]').prop('disabled', true).html('<div class="spinner-border"></div>');
+               },
                success: function(data) {
                    if (data.response.success) {
                        Swal.fire({
                            icon: "success",
                            text: data.response.message
                        });
+                        form.find('button[type=submit]').prop('disabled', false).html('Save');
                        table.draw();
                        $("#duplicate_profile_form")[0].reset();
                        $('#duplicate-profile-modal').modal('hide');
@@ -333,7 +426,9 @@
                },
 
            });
-       // }
+        }, function () {
+            console.log('Form validation failed');
+        });
    });
 
    } );

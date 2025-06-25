@@ -8,7 +8,8 @@
         </button>
         {{-- logged in user data --}}
         <div class="topbar-logged-in-user-data">
-            <p>Welcome back : <span>{{auth()->user()->name }}</span> <br> Member ID :  <span>{{auth()->user()->member_id }}</span></p>
+            <p>Welcome back : <span>{{auth()->user()->name }}</span> <br> Home State :  <span>{{auth()->user()->home_state  }} </span>  &nbsp;|&nbsp;  Membership ID :  <span>{{auth()->user()->member_id }}</span> </p>
+           
         </div>
         {{-- end --}}
         <!-- Topbar Search -->
@@ -63,7 +64,7 @@
                     </form>
                 </div>
             </li>
-            <!-- Nav Item - Alerts -->
+            <!-- Nav Item - support tickets -->
             <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="ticketNotificationDropdown" role="button"
                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="Support tickets">
@@ -87,7 +88,7 @@
                                     </div>
                                 </div>
                                 <div>
-        {{--                            <div class="small text-gray-500">December 12, 2019</div>--}}
+                                        {{-- <div class="small text-gray-500">December 12, 2019</div>--}}
                                         <span class="font-weight-bold">{{$ticket->subject}}</span>
                                 </div>
                             </a>

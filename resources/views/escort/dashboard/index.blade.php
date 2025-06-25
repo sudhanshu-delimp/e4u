@@ -13,7 +13,10 @@
                       <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                       <p></p>
                       <ol>
-                            
+                           <li>Click the card to view information.</li> 
+                           <li>
+                            Some features can be changed here as well as from the relevant subject page. Where you make a change, the relevant subject page will be updated.
+                           </li>
                       </ol>
                    </div>
                 </div>

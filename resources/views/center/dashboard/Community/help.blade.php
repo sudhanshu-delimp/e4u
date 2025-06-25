@@ -1,4 +1,4 @@
-@extends('layouts.escort')
+@extends('layouts.center')
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
     <style type="text/css">

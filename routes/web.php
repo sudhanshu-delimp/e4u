@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ManagePeopleStaffController;
 use App\Http\Controllers\Admin\TaskController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\Auth\RegisterController;
@@ -368,6 +369,17 @@ Route::get('/agent-dashboard/notifications-features',function(){
     return view('agent.dashboard.notifications-features');
 })->name('notifications-features');
 
+
+
+Route::get('/user-dashboard/viewer-statistics',function(){
+    return view('user.dashboard.viewer-statistics');
+})->name('user.viewer-statistics');
+
+Route::get('/user-dashboard/my-statistics',function(){
+    return view('user.dashboard.my-statistics');
+})->name('user.my-statistics');
+
+
 Route::get('/user-dashboard/guide',function(){
     return view('user.dashboard.Community.guide');
 })->name('user.guide');
@@ -498,13 +510,15 @@ Route::get('/admin-dashboard/management/statistics/num',function(){
     return view('admin.management.statistics.num');
 })->name('admin.num');
 
+Route::get('/admin-dashboard/reports/credit',function(){
+    return view('admin.reports.credit');
+})->name('admin.credit');
+
 Route::get('/admin-dashboard/management/statistics/listings',function(){
     return view('admin.management.statistics.listings');
 })->name('admin.listings');
 
-Route::get('/admin-dashboard/management/manage-user',function(){
-    return view('admin.management.manage-user');
-})->name('admin.manage-user');
+Route::get('/admin-dashboard/management/manage-staff',[ManagePeopleStaffController::class, 'index'])->name('admin.manage-user');
 
 Route::get('/admin-dashboard/management/legbox-report',function(){
     return view('admin.management.legbox-report');

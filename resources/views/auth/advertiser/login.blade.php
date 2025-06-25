@@ -332,6 +332,7 @@
                             e.preventDefault();
                             var form = $(this);
                             console.log(ph);
+                            console.log('asi');
                             // var url = form.attr('action');
                             var url = "{{ route('web.checkOTP')}}";
                             var data = new FormData($('#SendOtp')[0]);
@@ -366,6 +367,7 @@
                                 },
                                 error: function(data) {
 
+                                    console.log("error: a", data);
                                     console.log("error: a", data.responseJSON.errors);
                                     var errorsHtml = '';
                                     $.each(data.responseJSON.errors, function(key, value) {

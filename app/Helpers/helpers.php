@@ -7,6 +7,7 @@
 use App\Models\Escort;
 use App\Models\Country;
 use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
 
 if (!function_exists('calculateTatalFee')) {
     /**
@@ -139,6 +140,7 @@ if (!function_exists('getAppUptime')) {
  function getAppUptime()
     {
         $startTime = Cache::get('app_start_time');
+        $str = '';
 
         if (!$startTime) {
             return 'App start time not available.';
@@ -152,8 +154,18 @@ if (!function_exists('getAppUptime')) {
         $days = floor($diffInSeconds / 86400);
         $hours = floor(($diffInSeconds % 86400) / 3600);
         $minutes = floor(($diffInSeconds % 3600) / 60);
+        $str .= $days. ' days & '.$hours .' hours ' .$minutes. ' minutes';
 
-        return "{$days} days & {$hours} hours {$minutes} minutes";
+        return $str;
+    }
+}
+
+if (!function_exists('getServertime')) {
+ function getServertime()
+    {
+        $serverTimeZone = Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A');
+
+        return $serverTimeZone;
     }
 }
 

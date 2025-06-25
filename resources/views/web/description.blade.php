@@ -343,7 +343,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table_striped">
+                        <table class="table table_striped custom-day-table">
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
                                     <th scope="col">Day</th>
@@ -368,7 +368,7 @@
                                     <td>
                                         @if(!empty($availability->availability_time[$day]))
                                             @if($availability->availability_time[$day] == 'til_ate')
-                                            Til Late
+                                            ... Til Late
                                             @else
                                                 {{ $availability->availability_time[$day]; }} 
                                             @endif

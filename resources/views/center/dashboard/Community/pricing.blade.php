@@ -1,4 +1,4 @@
-@extends('layouts.escort')
+@extends('layouts.center')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <style type="text/css">
@@ -250,16 +250,11 @@
                                                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                                             <ol class="mb-0" type="1">
                                                                 <li>
-                                                                    These Support Fees apply where E4U provides Support Services to the
-                                                                    Escort upon completing a request on your behalf to putting into place the
-                                                                    particular requested Service, such as a Concierge Service. This is a
-                                                                    separate Fee to the fixed Fee that may apply to the actual Service being
-                                                                    applied.
+                                                                    These Support Fees relate to E4U providing Support Services to the Massage Centre for completing a request on behalf of the Massage Centre to provide a Concierge Service.
                                                                 </li>
-                                                                <li>The Support Fee will be billed to the Escort’s nominated Card.</li>
-                                                                <li>Where a Concierge Service has a recurring Fee, that Fee will be billed to
-                                                                    the Escort's nominated Card by a single transaction for the term of the
-                                                                    Concierge Service.</li>
+                                                                <li>The Support Fee will be billed to the Massage Centre's nominated Card.</li>
+                                                                <li>Where a Concierge Service has a recurring Fee, that Fee will be billed to the Massage
+                                                                    Centre's nominated Card by a single transaction for the term of the Concierge Service.</li>
                                                             </ol>
                                                         </div>
                                                     </div>
@@ -277,7 +272,7 @@
                                                             </tr>
                                                             <tr role="row" class="custom--row">
                                                                 <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
-                                                                    Service Type
+                                                                    Service Type <sup>(1)</sup>
                                                                 </th>
                                                                 <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">
                                                                     Fee
@@ -378,22 +373,12 @@
                                                                 <td>$ 20.00</td>
                                                             </tr>
                                                             <tr role="row">
-                                                                <td>Create Tour</td>
-                                                                <td>per Service</td>
-                                                                <td>$ 50.00</td>
-                                                            </tr>
-                                                            <tr role="row">
-                                                                <td>Edit Tour</td>
+                                                                <td>Upload Media (for verification)</td>
                                                                 <td>per Service</td>
                                                                 <td>$ 20.00</td>
                                                             </tr>
                                                             <tr role="row">
-                                                                <td>Upload Media (for verification) post initial setup</td>
-                                                                <td>per Service</td>
-                                                                <td>$ 20.00</td>
-                                                            </tr>
-                                                            <tr role="row">
-                                                                <td>Complete Media Verification (excluding Platinum)</td>
+                                                                <td>Complete Media Verification</td>
                                                                 <td>per Service</td>
                                                                 <td>$ 10.00</td>
                                                             </tr>
@@ -403,10 +388,11 @@
                                                                 <td>$ 30.00</td>
                                                             </tr>
                                                             <tr role="row">
-                                                                <td>Organise Profiles and Media</td>
+                                                                <td>Organise Profiles and Media in Archives </td>
                                                                 <td>per Service</td>
                                                                 <td>$ 50.00</td>
                                                             </tr>
+                                                            
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -417,11 +403,10 @@
                                                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                                             <ol class="mb-0" type="1">
                                                                 <li>
-                                                                    These Support Fees relate to E4U providing Support Services to the
-                                                                    Escort for completing a request on behalf of the Escort to provide the
-                                                                    Support Service.
+                                                                    These Support Fees relate to E4U providing Support Services to the Massage Centre for completing a request on behalf of the Massage Centre to provide a Support
+Service.
                                                                 </li>
-                                                                <li>The Support Fee will be billed to the Escort’s nominated Card.</li>
+                                                                <li>The Support Fee will be billed to the Massage Centre's nominated Card.</li>
                                                             </ol>
                                                         </div>
                                                     </div>
