@@ -65,19 +65,19 @@
         <div class="row">
             <div class="col-lg-12 p-0">
                 <!-- Card Body -->
-                <div class="card-body">
+                <div class="card-body task-sec">
                     <div class="mb-2 row">
                         <div class="col-md-12 d-flex align-items-center justify-content-between flex-wrap gap-10">
                             <button type="submit" id="new_task" name="submit"
                                 class="btn btn-sm btn-primary shadow-none create-tour-sec">New Task</button>
-                            {{-- <button type="submit" id="edit_task" name="submit"
+                            <button type="submit" id="edit_task" name="submit"
                                 class="btn btn-sm btn-primary shadow-none create-tour-sec">Edit Task</button>
-                                <button type="submit" id="complete_task" name="submit"
+                            <button type="submit" id="complete_task" name="submit"
                                 class="btn btn-sm btn-primary shadow-none create-tour-sec">Complete Task</button>
                             <button type="submit" id="view_task" name="submit"
                                 class="btn btn-sm btn-primary shadow-none create-tour-sec">View Task</button>
                             <button type="submit" id="open_task" name="submit"
-                                class="btn btn-sm btn-primary shadow-none create-tour-sec">Open Task</button> --}}
+                                class="btn btn-sm btn-primary shadow-none create-tour-sec">Open Task</button>
                             <div class="text-center small d-flex justify-content-end align-items-center gap-10 flex-wrap">
                                 <span class="mr-2 text-uppercase font-weight-bold">Importance:</span>
                                 <span class="d-flex justify-content-start gap-5 align-items-center">High <i class="fas fa-circle text-high mr-2"></i></span>
@@ -98,12 +98,12 @@
                         </div>
                     </div> --}}
                     {{-- $tasks --}}
-                    <div class="card-body p-0 Dash-table task_table">
+                    <div class="card-body pl-0 Dash-table task_table">
                         <div class="table-full-width table-responsive">
                             <table class="table table-bordered " >
                                 <thead style="background-color: #0C223D; color: #ffffff;">
                                     <tr>
-                                        <th>Task</th>
+                                        <th colspan="2">Task</th>
                                         <th class="text-center">Status</th>
                                         <th class="text-center">Action</th>
                                     </tr>
@@ -171,7 +171,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="d-flex justify-content-end mt-4 custome_paginator">
+                        <div class="d-flex justify-content-center mt-4 custome_paginator">
                             {{-- {!! $tasks->links() !!} --}}
                         </div>
                     </div>
@@ -770,15 +770,14 @@
                     let taskId = task.id;
 
                     html += `<tr>
-                    <!-- ye check box hai main comment kar rakha hai-->
-                         <!-- <td class=" pr-0">
+                        <td class=" pr-0">
                             <div class="form-check m-0 p-0">
                                 <label class="form-check-label" for="`+checkboxId+`">
                                     <input class="form-check-input" name="task_ids" data-id="`+taskId+`" id="`+checkboxId+`" type="checkbox" value="">
                                     <span class="form-check-sign"></span>
                                 </label>
                             </div>
-                        </td>-->
+                        </td>
                         <td class=" task-color">
                             <label for="`+checkboxId+`" class="mb-0 cursor-pointer">
                             <i
@@ -797,21 +796,8 @@
                                 </a>
                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink" style="">
-
                                          <a class="dropdown-item" href="#" data-toggle="modal"
                                         data-target="#new-ban">Delete</a>
-
-                                        <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item" href="#" id="edit_task">Edit Task</a>
-                                        
-                                        <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item" href="#" id="complete_task">Complete Task</a>
-                                        
-                                        <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item" href="#" id="view_task">View</a>
-                                        
-                                        <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item" href="#" id="open_task">Task Summary</a>
                                     
                                 </div>
                             </div>

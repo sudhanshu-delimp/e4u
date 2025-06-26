@@ -26,7 +26,7 @@
             <div class="my-custom-box shadow-sm">
                 <a href="#">
                     <div class="box-icon">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_favorites.svg') }}" alt="Favorites Online">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_favorites.png') }}" alt="Favorites Online">
                     </div>
                     <h2>
                         Favorites Online
@@ -41,7 +41,7 @@
             <div class="my-custom-box shadow-sm">
                 <a href="#">
                     <div class="box-icon">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_mylegbox.svg') }}" alt=" My Legbox">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_mylegbox.png') }}" alt=" My Legbox">
                     </div>
                     <h2>
                        My Legbox
@@ -56,7 +56,7 @@
             <div class="my-custom-box shadow-sm">
                 <a href="#">
                     <div class="box-icon">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_punterbox.svg') }}" alt="Punterbox">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_punterbox.png') }}" alt="Punterbox">
                     </div>
                     <h2>
                         Punterbox
@@ -71,7 +71,7 @@
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('user.viewer-statistics') }}">
                     <div class="box-icon">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.svg') }}" alt="Viewer Statistics">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.png') }}" alt="Viewer Statistics">
                     </div>
                     <h2>
                         Viewer Statistics
@@ -86,7 +86,7 @@
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('user.my-statistics') }}">
                     <div class="box-icon">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.svg') }}" alt="Viewer Statistics">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.png') }}" alt="Viewer Statistics">
                     </div>
                     <h2>
                         My Statistics
@@ -101,7 +101,7 @@
             <div class="my-custom-box shadow-sm">
                 <a href="#">
                     <div class="box-icon">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_tasklist.svg') }}" alt="Task List">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_tasklist.png') }}" alt="Task List">
                     </div>
                     <h2>
                         Task List
@@ -116,7 +116,7 @@
             <div class="my-custom-box shadow-sm">
                 <a href="#">
                     <div class="box-icon">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.svg') }}" alt="Logs & Statistics">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt="Logs & Statistics">
                     </div>
                     <h2>
                         Logs & Statistics
