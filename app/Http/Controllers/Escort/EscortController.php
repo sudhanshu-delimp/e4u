@@ -84,10 +84,16 @@ class EscortController extends Controller
     function listing_checkout(Request $request)
     {
         //        $escort_id = $request->escort_id;
+       // dd($request->input('escort_id'));
+        // $escort_id = $request->input('escort_id');
+        // $start_date = $request->input('start_date');
+        // $end_date = $request->input('end_date');
+        // $membership = $request->input('membership');
         $data = $request->data;
+        dd($request->data);
         $checkoutData = [];
         $escort_ids = [];
-        foreach ($data as $idx => $listing) {
+        foreach ($escort_id as $idx => $listing) {
 
 
             $index = date('Ymd', strtotime($listing['start_date'])) . rand(100, 999);
