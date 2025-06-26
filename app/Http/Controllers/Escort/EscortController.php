@@ -83,31 +83,32 @@ class EscortController extends Controller
     // function listing_checkout(UpdateEscortRequest $request) {
     function listing_checkout(Request $request)
     {
-        //        $escort_id = $request->escort_id;
-       // dd($request->input('escort_id'));
-        // $escort_id = $request->input('escort_id');
-        // $start_date = $request->input('start_date');
-        // $end_date = $request->input('end_date');
-        // $membership = $request->input('membership');
-        $data = $request->data;
-        dd($request->data);
+        $escort_ids = $request->input('escort_id');
+        $start_dates = $request->input('start_date');
+        $end_dates = $request->input('end_date');
+        $memberships = $request->input('membership');
+
+        $data = array_map(function ($escort_id, $start_date, $end_date, $membership) {
+            return [
+                'escort_id' => $escort_id,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'membership' => $membership,
+            ];
+        }, $escort_ids, $start_dates, $end_dates, $memberships);
         $checkoutData = [];
-        $escort_ids = [];
-        foreach ($escort_id as $idx => $listing) {
-
-
-            $index = date('Ymd', strtotime($listing['start_date'])) . rand(100, 999);
-            // dump($data, $idx, $listing, $index);
-            //            $data[$idx]['escort_id'] = $escort_id;
-            $escort_ids[] = $listing['escort_id'];
-            $checkoutData[$index] = $data[$idx];
+        foreach ($escort_ids as $key => $escort_id) {
+            $index = date('Ymd', strtotime($start_dates[$key])) . rand(100, 999);
+            $checkoutData[$index] = [
+                'escort_id'=>$escort_id,
+                'start_date'=>$start_dates[$key],
+                'end_date'=>$end_dates[$key],
+                'membership'=>$memberships[$key]
+            ];
         }
         $escorts = Escort::whereIn('id', $escort_ids)->pluck('name', 'id')->toArray();
         //save here in session to retrieve later
         session()->put('checkout', $checkoutData);
-        //        $checkoutData = json_encode($checkoutData);
-
-
         return view('escort.dashboard.checkoutPage', compact('data', 'escorts'));
     }
 
