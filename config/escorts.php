@@ -657,6 +657,15 @@ return [
             "saturday" => "sat",
             "sunday" => "sun"
         ],
+		'long_form' => [
+            "mon" => "monday",
+            "tue" => "tuesday",
+            "wed" => "wednesday",
+            "thur" => "thursday",
+            "fri" => "friday",
+            "sat" => "saturday",
+            "sun" => "sunday"
+        ],
         'capitalize' => [
             "monday" => "Monday",
             "tuesday" => "Tuesday",

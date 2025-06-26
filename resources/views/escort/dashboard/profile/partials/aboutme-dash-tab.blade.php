@@ -1723,13 +1723,13 @@
 
 
 
-    $("body").on("click","#save_change",function(){
+    /*$("body").on("click","#save_change",function(){
         let field = $("#trigger-element").val();
         let value = $("#current").val();
         update_escort_default($(this), {
             [field] : value
         });
-    });
+    });*/
 
     $("body").on("keyup change",".stageNameOnBlank",function(){
         let $this = $(this);

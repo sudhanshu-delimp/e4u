@@ -215,7 +215,6 @@
 @push('scripts')
 <script>
     let stateId = $.cookie('session-state-id');
-    console.log('hey sds');
 
     {{-- @if(auth()->user()) --}}
         navigator.geolocation.getCurrentPosition(async function(position) {
@@ -226,7 +225,13 @@
             let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
             // let newUrl = currentHref + '?state-id=' + stateId;
             document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
+
         });
+
+        
+
+        
+
         console.log('hey else');
         // if (stateId) {
         //     let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
