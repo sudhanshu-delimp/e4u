@@ -664,11 +664,30 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('email-service-request') }}">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/package-variant-closed.png') }}">
-                <span>Concierge Services &#10060;</span>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Concierge" aria-expanded="false" aria-controls="collapseTwo">
+            <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/package-variant-closed.png')}}">
+            <span>Concierge</span>
             </a>
+            <div id="Concierge" class="collapse @if(request()->segment(3) == 'email-service-request' || request()->segment(3) == 'mobile-sim-request' || request()->segment(3) == 'product-request' || request()->segment(3) == 'visa-migration-request') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-0 collapse-inner rounded mb-2">
+                    <a class="collapse-item" href="{{ route('email-service-request')}}">
+                    <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/at.png')}}">
+                    <span style="{{request()->segment(3) == 'email-service-request' ? 'color: #e5365a;' : ''}}">Email Service Request</span>
+                    </a>
+                    <a class="collapse-item" href="{{ route('mobile-sim-request')}}">
+                    <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/cellphone-text.png')}}">
+                    <span style="{{request()->segment(3) == 'mobile-sim-request' ? 'color: #e5365a;' : ''}}">Mobile SIM Request</span>
+                    </a>
+                    <a class="collapse-item" href="{{ route('product-request')}}">
+                    <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png')}}">
+                    <span style="{{request()->segment(3) == 'product-request' ? 'color: #e5365a;' : ''}}">Product Request</span>
+                    </a>
+                    <a class="collapse-item" href="{{ route('visa-migration-request')}}">
+                    <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/Migration.png')}}">
+                    <span style="{{request()->segment(3) == 'visa-migration-request' ? 'color: #e5365a;' : ''}}">Visa Migration Request</span>
+                    </a>
+                </div>
+            </div>
         </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#logs"
