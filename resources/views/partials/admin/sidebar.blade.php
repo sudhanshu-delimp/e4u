@@ -381,7 +381,7 @@
                 aria-expanded="false" aria-controls="collapseTwo">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
-                <span>Global Monitoring &#10060;</span>
+                <span>Global Monitoring </span>
             </a>
             <div id="Monitoring" class="collapse @if (request()->is('*global-monitoring*') ||
                     request()->is('*logged-in-users*') ||
@@ -390,12 +390,18 @@
                     request()->is('*visitors*')) show @endif"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="collapse-item" href="{{ route('admin.global-monitoring') }}">
+                    {{-- <a class="collapse-item" href="{{ route('admin.global-monitoring') }}">
 
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/globe.png') }}">
                         <span style="{{ request()->is('*global-monitoring*') ? 'color: #e5365a;' : '' }}">Global
                             Monitoring</span>
+                    </a> --}}
+                    <a class="collapse-item" href="{{ route('admin.escort-listings') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png') }}">
+                        <span style="{{ request()->is('*escort-listings*') ? 'color: #e5365a;' : '' }}">Escort
+                            Listings</span>
                     </a>
                     <a class="collapse-item" href="{{ route('admin.logged-in-users') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
@@ -403,12 +409,7 @@
                         <span style="{{ request()->is('*logged-in-users*') ? 'color: #e5365a;' : '' }}">Logged in
                             Users</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.escort-listings') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png') }}">
-                        <span style="{{ request()->is('*escort-listings*') ? 'color: #e5365a;' : '' }}">Escort
-                            Listings</span>
-                    </a>
+                    
                     <a class="collapse-item" href="{{ route('admin.massage-centre-listings') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png') }}">

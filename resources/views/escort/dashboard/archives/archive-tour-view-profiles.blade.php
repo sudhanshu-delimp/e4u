@@ -223,30 +223,34 @@
 
    });
 
-   $(document).ready( function () {
-      var table = $('#sailorTable').DataTable({
-         serverSide: true,
-         processing: true,
-         ajax: {
-            url: "{{ route('escort.tour.dataTable', $type) }}",
-            data: function (d) {
+   $(document).ready(function () {
+   var table = $('#sailorTable').DataTable({
+      serverSide: true,
+      processing: true,
+      ajax: {
+         url: "{{ route('escort.tour.dataTable', $type) }}",
+         data: function (d) {
             d.search = d.search.value;
             d.length = d.length;
             d.start = d.start;
             d.sort_by = d.columns[d.order[0].column].data;
             d.sort_dir = d.order[0].dir;
-            }
-         },
-         columns: [
-            { data: 'id', name: 'ID' },
-            { data: 'name', name: 'Tour Name' },
-            { data: 'start_date', name: 'Start Date' },
-            { data: 'end_date', name: 'End Date' },
-            { data: 'days', name: 'Days' },
-            { data: 'action', name: 'Action', orderable: false, searchable: false },
-         ]
-      });
+         }
+      },
+      columns: [
+         { data: 'id', name: 'ID' },
+         { data: 'name', name: 'Tour Name' },
+         { data: 'start_date', name: 'Start Date' },
+         { data: 'end_date', name: 'End Date' },
+         { data: 'days', name: 'Days' },
+         { data: 'action', name: 'Action', orderable: false, searchable: false },
+      ]
    });
+
+   // Add placeholder to search input
+   $('#sailorTable_filter input').attr('placeholder', 'Search by ID or Tour Name');
+});
+
 
    $.ajaxSetup({
        headers: {
