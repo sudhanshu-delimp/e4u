@@ -35,7 +35,7 @@
 <div class="d-flex flex-column container-fluid pl-3 pl-lg-5">
     <div class="row">
         <div class="col-md-12">
-            <div class="v-main-heading h3" style="display: inline-block;">My Support Tickets</div>
+            <div class="v-main-heading h3" style="display: inline-block;">My Support Tickets </div>
 {{--            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </h6>--}}
         </div>
         {{--<div class="col-md-12 mt-4 collapse" id="profile_and_tour_options">
@@ -142,7 +142,7 @@
            lengthChange: true,
 
            searchable:false,
-           searching:false,
+           searching:true,
            bStateSave: false,
 
            ajax: {
