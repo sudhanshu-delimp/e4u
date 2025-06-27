@@ -278,7 +278,7 @@
              <img src="{{ asset('assets/dashboard/img/menu-icon/ccone.png')}}">
              <span>Communication</span>
         </a>
-        <div id="communication" class="collapse @if(request()->segment(2) == 'escort-agency-request' || request()->segment(2) == 'send-notofications' || request()->segment(2) == 'viewer-notes' || request()->segment(2) == 'viewer-messaging') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="communication" class="collapse @if(request()->segment(2) == 'escort-agency-request' || request()->segment(2) == 'send-notofications' || request()->segment(2) == 'my-legbox-viewers' || request()->segment(2) == 'viewers-messages'  || request()->segment(2) == 'agent-messages' || request()->segment(2) == 'viewer-notes' || request()->segment(2) == 'viewer-messaging') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
             <a class="collapse-item" href="{{url('escort-dashboard/escort-agency-request')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/comtwo.png')}}">
@@ -288,6 +288,18 @@
                 <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png')}}">
                 <span style="{{request()->segment(2) == 'send-notofications' ? 'color: #e5365a;' : ''}}">Legbox notifications</span>
             </a>
+            <a class="collapse-item" href="{{ route('escort.dashboard.my-legbox-viewers')}}">
+               <img src="{{ asset('assets/dashboard/img/menu-icon/legbox.png')}}">
+               <span style="{{request()->segment(2) == 'my-legbox-viewers' ? 'color: #e5365a;' : ''}}">Legbox Viewer</span>
+           </a>
+           <a class="collapse-item" href="{{ route('escort.dashboard.agent-messages')}}">
+              <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png')}}">
+              <span style="{{request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : ''}}">Agent Messages</span>
+          </a>
+          <a class="collapse-item" href="{{ route('escort.dashboard.viewers-messages')}}">
+             <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png')}}">
+             <span style="{{request()->segment(2) == 'viewers-messages' ? 'color: #e5365a;' : ''}}">Viewer Messages</span>
+         </a>
 
             {{--<a class="collapse-item" href="{{url('escort-dashboard/viewer-notes')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/ccfour.png')}}">

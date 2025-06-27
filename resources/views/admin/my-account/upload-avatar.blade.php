@@ -31,29 +31,31 @@
 <div class="container-fluid pl-3 pl-lg-5">
     <!--middle content start here-->
     <div class="row">
+        
+        
         <div class="col-md-12">
-            <div class="v-main-heading h3">Upload your avatar</div>
-        </div>
-        <div class="col-md-12 mt-4" id="profile_and_tour_options">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card border-0">
-                        <div class="card-body">
-                            <h2 class="primery_color normal_heading"><b>Notes:</b></h2>
-                            <ol>
-                                <li>You don't have to have an avatar, it is entirely up to you</li>
-                                <li>Your avatar will not be displayed publicly</li>
-                                <li>You can remove or change your avatar anytime</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
+            <div class="v-main-heading">
+                  <h1>Upload your avatar <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span></h1>
             </div>
+            <div class="my-4">
+                  <div class="card collapse" id="notes">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>You don't have to have an avatar, it is entirely up to you</li>
+                            <li>Your avatar will not be displayed publicly</li>
+                            <li>You can remove or change your avatar anytime</li>
+                        </ol>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="col-md-12" id="profile_and_tour_options">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card border-0">
                         <div class="card-body">
-                            <h2 class="primery_color normal_heading">File types</h2>
+                            <h2 class="primery_color normal_heading font-weight-bold">File types</h2>
                             <p>When selecting your avatar, please be mindful of the following:</p>
                             <ul>
                                 <li>Yes you can use a photo, but we do not recommend it</li>
@@ -62,7 +64,7 @@
                             </ul>
                             <div class="row">
                                 <div class="col-lg-4 mt-4">
-                                    <h2 class="primery_color normal_heading">Upload your avatar</h2>
+                                    <h2 class="primery_color normal_heading font-weight-bold">Upload your avatar</h2>
                                     <form id="my_avatar" action="{{ route('admin.save.avatar',auth()->user()->id)}}" method="POST" enctype="multipart/form-data">
                                         <div class="file-upload">
                                             <div class="image-upload-wrap">
@@ -84,7 +86,7 @@
                                 </div>
                                 <div class="col-lg-4 mt-4 current-avatar">
                                     
-                                    <h2 class="primery_color normal_heading">Current Avatar</h2><!-- <i class="fab fa-twitter delete_avatar"></i> -->
+                                    <h2 class="primery_color normal_heading font-weight-bold">Current Avatar</h2><!-- <i class="fab fa-twitter delete_avatar"></i> -->
                                     @if(auth()->user()->avatar_img)
                                     <button type="button" class="avatar close delete_avatar" aria-label="Close">
                                         <span aria-hidden="true">×</span>
@@ -366,70 +368,71 @@
     // }
     
     function removeUpload() {
-    $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-    $('.file-upload-content').hide();
-    $('.image-upload-wrap').show();
-    }
-    $('.image-upload-wrap').bind('dragover', function () {
-        $('.image-upload-wrap').addClass('image-dropping');
-    });
-    $('.image-upload-wrap').bind('dragleave', function () {
-        $('.image-upload-wrap').removeClass('image-dropping');
-    });
+        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
+        }
+        $('.image-upload-wrap').bind('dragover', function () {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function () {
+            $('.image-upload-wrap').removeClass('image-dropping');
+        });
 
-    $(".gambar").attr("src");
-    var $uploadCrop,
-    tempFilename,
-    rawImg,
-    imageId;
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('.upload-demo').addClass('ready');
-                $('#cropImagePop').modal('show');
-                rawImg = e.target.result;
-                
+        $(".gambar").attr("src");
+        var $uploadCrop,
+        tempFilename,
+        rawImg,
+        imageId;
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('.upload-demo').addClass('ready');
+                    $('#cropImagePop').modal('show');
+                    rawImg = e.target.result;
+                    
+                }
+                reader.readAsDataURL(input.files[0]);
             }
-            reader.readAsDataURL(input.files[0]);
+            else {
+                removeUpload();
+            }
         }
-        else {
-            removeUpload();
-        }
-    }
     
 
-    $uploadCrop = $('#upload-demo').croppie({
-        viewport: {
-            width: 150,
-            height: 200,
-        },
-        enforceBoundary: false,
-        enableExif: true
-    });
-
-    $('#cropImagePop').on('shown.bs.modal', function(){
-        // alert('Shown pop');
-        $uploadCrop.croppie('bind', {
-            url: rawImg
-        }).then(function(){
-            console.log( '1jQuery bind complete');
+        $uploadCrop = $('#upload-demo').croppie({
+            viewport: {
+                width: 150,
+                height: 200,
+            },
+            enforceBoundary: false,
+            enableExif: true
         });
-    });
 
-    $('#cropImageBtn').on('click', function (ev) {
-        $uploadCrop.croppie('result', {
-            type: 'base64',
-            format: 'jpeg',
-            size: {width: 150, height: 200}
-        }).then(function (resp) { 
-            $('.file-upload-content').show();
-            $('#item-img-output').attr('src', resp);
-            //$('.file-upload-image').attr('src', e.target.result);
-           
-            $('#cropImagePop').modal('hide');
+        $('#cropImagePop').on('shown.bs.modal', function(){
+            // alert('Shown pop');
+            $uploadCrop.croppie('bind', {
+                url: rawImg
+            }).then(function(){
+                console.log( '1jQuery bind complete');
+            });
         });
-    });
+
+        $('#cropImageBtn').on('click', function (ev) {
+            $uploadCrop.croppie('result', {
+                type: 'base64',
+                format: 'jpeg',
+                size: {width: 150, height: 200}
+            }).then(function (resp) { 
+                $('.file-upload-content').show();
+                $('#item-img-output').attr('src', resp);
+                //$('.file-upload-image').attr('src', e.target.result);
+            
+                $('#cropImagePop').modal('hide');
+            });
+        });
+
     $("#my_avatar").on('submit',function(e){
         e.preventDefault();
         
@@ -503,6 +506,7 @@
                 });
        
     });
+
     $("#close").click(function()
     {
         $("#my_account_modal").hide();

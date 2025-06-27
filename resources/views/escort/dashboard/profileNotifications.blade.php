@@ -14,23 +14,30 @@
 <div class="container-fluid pl-3 pl-lg-5">
     <!--middle content start here-->
         <div class="row">
+            
             <div class="col-md-12">
-                <div class="v-main-heading h3" style="display: inline-block;">Notifications & Features</div>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-            </div>
-            <div class="col-md-12 mt-4" id="profile_and_tour_options">
-                <div class="card collapse  mb-4" id="notes">
-                    <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol>
-                            <li>Use this feature to enable and disable your notification and feature
-                                preferences.</li>
-                            <li>Please note that for a Viewer or Agent to receive your Notifications, the
-                                Viewer or Agent has to have enabled the corresponding feature in their preference settings.</li>
-                        </ol>
+                <div class="v-main-heading">
+                        <h1>Notifications & Features <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span></h1>
+                </div>
+                <div class="my-4">
+                    <div class="card collapse" id="notes">
+                        <div class="card-body">
+                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                            <ol>
+                                <li>Use this feature to enable and disable your notification and feature
+                                    preferences.</li>
+                                <li>Please note that for a Viewer or Agent to receive your Notifications, the
+                                    Viewer or Agent has to have enabled the corresponding feature in their preference settings.</li>
+                            </ol>
+                        </div>
                     </div>
                 </div>
-
+            </div>
+            <div class="col-lg-12 my-3">
+                <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
+            </div>
+            <div class="col-md-12 mt-4" id="profile_and_tour_options">
+               
                 <form class="v-form-design" id="profile_notification_options" action="{{ route('escort.notification.update')}}" method="POST">
                     <div class="row">
                     <div class="col-md-12">
@@ -152,6 +159,7 @@
             });
         }
     });
+    
     $('#city').select2({
         allowClear: true,
         placeholder :'Select City',
@@ -320,38 +328,82 @@
 
     });
 
+
+    function showGlobalAlert(message, type = 'success') {
+        const alertBox = $('#globalAlert');
+        alertBox
+            .removeClass('d-none alert-success alert-danger')
+            .addClass(type === 'success' ? 'alert-success' : 'alert-danger')
+            .html(message);
+
+        setTimeout(() => {
+            alertBox.addClass('d-none');
+        }, 10000); // Hide after 4 seconds
+    }
     $('#profile_notification_options').on('submit', function(e) {
-      e.preventDefault();
-         $("#modal-title").text('Notifications & Features');
+        e.preventDefault();
+        $("#modal-title").text('Notifications & Features');
+
         var form = $(this);
         var url = form.attr('action');
         var data = new FormData(form[0]);
+
         $.ajax({
-          method: form.attr('method'),
-          url: url,
-          data: data,
-          contentType: false,
-          processData: false,
-          headers: {
+            method: form.attr('method'),
+            url: url,
+            data: data,
+            contentType: false,
+            processData: false,
+            headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          success: function(data) {
+            },
+            success: function(data) {
             if (!data.error) {
-              $('.comman_msg').html("Saved");
-              //$("#my_account_modal").modal('show');
-              //$("#my_account_modal").show();
-              $("#comman_modal").modal('show');
-
+                showGlobalAlert("Notification settings saved successfully.", "success");
             } else {
-              $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-              $("#comman_modal").show();
-
+                showGlobalAlert("Something went wrong. Please try again.", "danger");
             }
-          },
-
+            },
+            error: function(xhr) {
+            showGlobalAlert("❌ Server error occurred.", "danger");
+            console.error("AJAX error: ", xhr.responseText);
+            }
         });
-
     });
+
+    // old
+    // $('#profile_notification_options').on('submit', function(e) {
+    //   e.preventDefault();
+    //      $("#modal-title").text('Notifications & Features');
+    //     var form = $(this);
+    //     var url = form.attr('action');
+    //     var data = new FormData(form[0]);
+    //     $.ajax({
+    //       method: form.attr('method'),
+    //       url: url,
+    //       data: data,
+    //       contentType: false,
+    //       processData: false,
+    //       headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //       },
+    //       success: function(data) {
+    //         if (!data.error) {
+    //           $('.comman_msg').html("Saved");
+    //           //$("#my_account_modal").modal('show');
+    //           //$("#my_account_modal").show();
+    //           $("#comman_modal").modal('show');
+
+    //         } else {
+    //           $('.comman_msg').html("Oops.. sumthing wrong Please try again");
+    //           $("#comman_modal").show();
+
+    //         }
+    //       },
+
+    //     });
+
+    // });
 </script>
 
 @endpush

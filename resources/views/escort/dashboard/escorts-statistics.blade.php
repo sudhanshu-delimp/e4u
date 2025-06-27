@@ -185,31 +185,31 @@
     
      {{--reset password expiry date confirmations popup modal  --}}
      <div class="modal fade upload-modal" id="resetPasswordSaved" tabindex="-1" role="dialog" aria-labelledby="resetPasswordSavedlabel"
-     aria-hidden="true" data-backdrop="static">
-     <div class="modal-dialog modal-dialog-centered" role="document">
-         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    <img src="{{ asset('assets/dashboard/img/reset-password.png')}}" style="width:45px; padding-right:10px;">
-                    <span class="text-white">Password Expiry</span>                        
-                 </h5>
-              
-                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                            class="img-fluid img_resize_in_smscreen"></span>
-                </button>
-            </div>
-             <div class="modal-body">
-                <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
-                <span id="comman_str"></span>
-                <span class="comman_msg">Saved</span>
-                </h1>
-            </div>
-             <div class="modal-footer" style="justify-content: center;">
-                <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-            </div>
-         </div>
-     </div>
+      aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title">
+                      <img src="{{ asset('assets/dashboard/img/reset-password.png')}}" style="width:45px; padding-right:10px;">
+                      <span class="text-white">Password Expiry</span>                        
+                  </h5>
+                
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                              class="img-fluid img_resize_in_smscreen"></span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                  <span id="comman_str"></span>
+                  <span class="comman_msg">Saved</span>
+                  </h1>
+              </div>
+              <div class="modal-footer" style="justify-content: center;">
+                  <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
+              </div>
+          </div>
+      </div>
  </div>  
  {{-- end --}}
 @endsection

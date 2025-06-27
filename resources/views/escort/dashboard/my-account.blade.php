@@ -121,11 +121,10 @@
     <!--middle content end here-->
     <div class="row">
         <div class="col-md-12">
-            <div class="v-main-heading h3">
-                Edit My Account
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+            <div class="v-main-heading">
+                <h1> Edit My Account <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span></h1>
             </div>
-            <div class="col-md-12 mt-4">
+            <div class="my-4">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -140,7 +139,7 @@
                                 are not sure about any of the settings, get in touch with our
                                 <a href="{{ url('contact-us')}}" class="custom_links_design">Help Centre</a>
                                 or your <a href="{{ url('escort-dashboard/escort-agency-request')}}" class="custom_links_design">Agent</a> if you have appointed one.
-{{--                                Agent [link to request an Agent is appointed]--}}
+                                {{-- Agent [link to request an Agent is appointed]--}}
                             </li>
                             <li>There is some general information also available to you inside each of the
                                 My Account groups.</li>
@@ -148,9 +147,11 @@
                     </div>
                 </div>
             </div>
-        </div>
-        </div>
-
+       </div>
+       <div class="col-md-12 mt-3">
+        <div id="commanAlert" class="alert d-none rounded" role="alert"></div>
+      </div>
+      
         <div class="col-md-12 mt-4 mb-5">
             <div id="accordion" class="myacording-design">
                 <div class="card">
@@ -234,7 +235,7 @@
                                                     @endif --}}
                                                     {{-- <input type="text" class="form-control" placeholder="JaneDoe@domain.com.au" name="email" aria-describedby="emailHelp" value="{{$escort->email}}"> --}}
                                                     <input type="email" class="form-control" name="email" placeholder="JaneDoe@domain.com.au" aria-describedby="emailHelp" value="{{ $escort->email }}">
-{{--                                                    <label type="text" class="form-control form-back" placeholder="JaneDoe@domain.com.au" name="email" aria-describedby="emailHelp" >{{$escort->email}}</label>--}}
+                                                    {{--<label type="text" class="form-control form-back" placeholder="JaneDoe@domain.com.au" name="email" aria-describedby="emailHelp" >{{$escort->email}}</label>--}}
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -429,77 +430,144 @@
 
     });
 
+    function showAlert(message, type = 'success') {
+        const alertBox = $('#commanAlert');
+        alertBox
+            .removeClass('d-none alert-success alert-danger')
+            .addClass(type === 'success' ? 'alert-success' : 'alert-danger')
+            .html(message);
 
+        setTimeout(() => {
+            alertBox.addClass('d-none');
+        }, 10000);
+    }
 
-    $('#userProfile').on('submit', function(e) {
-      e.preventDefault();
+        $('#userProfile').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            $("#modal-title").text('About Me');
 
-      var form = $(this);
-      $("#modal-title").text('About Me');
-      if (form.parsley().isValid()) {
+            if (form.parsley().isValid()) {
+                var url = form.attr('action');
+                var data = new FormData(form[0]);
 
-        var url = form.attr('action');
-        var data = new FormData(form[0]);
-        // var data = $(this).serializeArray();
-        $.ajax({
-          method: form.attr('method'),
-          url: url,
-          data: data,
-          contentType: false,
-          processData: false,
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          success: function(data) {
-            if (!data.error) {
-              $('.comman_msg').html("Saved");
-              //$("#my_account_modal").modal('show');
-              //$("#my_account_modal").show();
-              $("#comman_modal").modal('show');
-
-            } else {
-              $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-              $("#comman_modal").show();
-
+                $.ajax({
+                method: form.attr('method'),
+                url: url,
+                data: data,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if (!data.error) {
+                    showAlert("Your details have been updated successfully.", "success");
+                    } else {
+                    showAlert("Oops... something went wrong. Please try again.", "danger");
+                    }
+                }
+                });
             }
-          },
-
-        });
-      }
-    });
-    $('#profile_tour_options').on('submit', function(e) {
-      e.preventDefault();
-
-        var form = $(this);
-        var url = form.attr('action');
-        var data = new FormData(form[0]);
-         $("#modal-title").text('Profile and Tour options');
-        $.ajax({
-          method: form.attr('method'),
-          url: url,
-          data: data,
-          contentType: false,
-          processData: false,
-          headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          success: function(data) {
-            if (!data.error) {
-              $('.comman_msg').html("Saved");
-              //$("#my_account_modal").modal('show');
-              //$("#my_account_modal").show();
-              $("#comman_modal").modal('show');
-
-            } else {
-              $('.comman_msg').html("Oops.. sumthing wrong Please try again");
-              $("#comman_modal").show();
-
-            }
-          },
-
         });
 
-    });
+        $('#profile_tour_options').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr('action');
+            var data = new FormData(form[0]);
+            $("#modal-title").text('Profile and Tour options');
+
+            $.ajax({
+                method: form.attr('method'),
+                url: url,
+                data: data,
+                contentType: false,
+                processData: false,
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                if (!data.error) {
+                    showAlert("The profile and tour options have been updated successfully.", "success");
+                } else {
+                    showAlert("Oops... something went wrong. Please try again.", "danger");
+                }
+                }
+            });
+        });
+
+    // old
+    // $('#userProfile').on('submit', function(e) {
+    //   e.preventDefault();
+
+    //   var form = $(this);
+    //   $("#modal-title").text('About Me');
+    //   if (form.parsley().isValid()) {
+
+    //     var url = form.attr('action');
+    //     var data = new FormData(form[0]);
+    //     // var data = $(this).serializeArray();
+    //     $.ajax({
+    //       method: form.attr('method'),
+    //       url: url,
+    //       data: data,
+    //       contentType: false,
+    //       processData: false,
+    //       headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //       },
+    //       success: function(data) {
+    //         if (!data.error) {
+    //           $('.comman_msg').html("Saved");
+    //           //$("#my_account_modal").modal('show');
+    //           //$("#my_account_modal").show();
+    //           $("#comman_modal").modal('show');
+
+    //         } else {
+    //           $('.comman_msg').html("Oops.. sumthing wrong Please try again");
+    //           $("#comman_modal").show();
+
+    //         }
+    //       },
+
+    //     });
+    //   }
+    // });
+    // $('#profile_tour_options').on('submit', function(e) {
+    //   e.preventDefault();
+
+    //     var form = $(this);
+    //     var url = form.attr('action');
+    //     var data = new FormData(form[0]);
+    //      $("#modal-title").text('Profile and Tour options');
+    //     $.ajax({
+    //       method: form.attr('method'),
+    //       url: url,
+    //       data: data,
+    //       contentType: false,
+    //       processData: false,
+    //       headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //       },
+    //       success: function(data) {
+    //         if (!data.error) {
+    //           $('.comman_msg').html("Saved");
+    //           //$("#my_account_modal").modal('show');
+    //           //$("#my_account_modal").show();
+    //           $("#comman_modal").modal('show');
+
+    //         } else {
+    //           $('.comman_msg').html("Oops.. sumthing wrong Please try again");
+    //           $("#comman_modal").show();
+
+    //         }
+    //       },
+
+    //     });
+
+    // });
+
     $("#close").click(function()
       {
           $("#my_account_modal").hide();

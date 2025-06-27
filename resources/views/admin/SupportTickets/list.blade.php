@@ -45,6 +45,12 @@
     .custom-tabale-layout #supportTicketsTable_filter input{
         margin-left: 10px;
     }
+    .dataTables_paginate{
+        float: right;
+    }
+    #supportTicketsTable_info{
+        float: left;
+    }
 </style>
 @endsection
 @section('content')

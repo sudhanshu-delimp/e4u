@@ -597,7 +597,7 @@ p {
 .dk-tab .nav-item a {
     color: #fff;
     /*background: #2c3e50b3;*/
-     background: #1313d7;
+    background: #1313d7;
     border-radius: 3px;
     font-size: 14px;
 }
@@ -2547,6 +2547,7 @@ span.removeCross {
 .removeCross img {
     transition: 0.1s;
 }
+
 .value--input {
     display: flex;
     gap: 10px;
@@ -2560,7 +2561,7 @@ span.removeCross {
     gap: clamp(15px, 2.2vw, 40px);
 }
 
-.add--credit .card{
+.add--credit .card {
     background: #f2f2f2;
 }
 
@@ -4672,6 +4673,8 @@ label#showCal {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .timer_section p {

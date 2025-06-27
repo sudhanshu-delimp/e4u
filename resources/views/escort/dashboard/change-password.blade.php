@@ -16,60 +16,59 @@
     <div class="container-fluid  pl-3 pl-lg-5 change-pass-sec">
         <!--middle content start here-->
         {{-- <div class="row">
-    <div class="col-sm-9 col-md-9 col-lg-9 ">
-      <div class="about_me_drop_down_info box_shadow_fill_profile">
-        <div class="about_me_heading_in_first_tab fill_profile_headings_global">
-          <h2>Update Account</h2>
-        </div>
-        <div class="padding_20_all_side">
-          <form id="userProfile" action="{{ route('escort.update.password')}}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Enter New Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Make sure you select something unique" name="password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-                  <div class="termsandconditions_text_color">
-                    <!-- error sms here -->
-                    @error('password')
-                    <strong>{{ $message }}</strong>
-                    @enderror
-                  </div>
+            <div class="col-sm-9 col-md-9 col-lg-9 ">
+            <div class="about_me_drop_down_info box_shadow_fill_profile">
+                <div class="about_me_heading_in_first_tab fill_profile_headings_global">
+                <h2>Update Account</h2>
                 </div>
-                <div class="form-group">
-                  <label for="conformPassword">{{ __('Confirm Password') }}</label>
-                  <input type="password" class="form-control" id="conformPassword" placeholder="Confirm Password" name="password_confirmation" data-parsley-equalto="#exampleInputPassword1" data-parsley-equalto-message="Conform password should be the same password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.conform_password')">
-                  <div class="termsandconditions_text_color">
-                    <!-- error sms here -->
-                  </div>
+                <div class="padding_20_all_side">
+                <form id="userProfile" action="{{ route('escort.update.password')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                        <label for="exampleInputPassword1">Enter New Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Make sure you select something unique" name="password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
+                        <div class="termsandconditions_text_color">
+                            <!-- error sms here -->
+                            @error('password')
+                            <strong>{{ $message }}</strong>
+                            @enderror
+                        </div>
+                        </div>
+                        <div class="form-group">
+                        <label for="conformPassword">{{ __('Confirm Password') }}</label>
+                        <input type="password" class="form-control" id="conformPassword" placeholder="Confirm Password" name="password_confirmation" data-parsley-equalto="#exampleInputPassword1" data-parsley-equalto-message="Conform password should be the same password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.conform_password')">
+                        <div class="termsandconditions_text_color">
+                            <!-- error sms here -->
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+
+
+                    <div class="row">
+                    <div class="col-md-12 text-right"><button type="submit" class="save_profile_btn" id="escort-form-submit-btn">Save</button></div>
+                    </div>
+                </form>
                 </div>
-              </div>
             </div>
 
 
-            <div class="row">
-              <div class="col-md-12 text-right"><button type="submit" class="save_profile_btn" id="escort-form-submit-btn">Save</button></div>
             </div>
-          </form>
-        </div>
-      </div>
-
-
-    </div>
-  </div> --}}
+        </div> --}}
 
 
 
         <div class="row">
             <div class="col-md-12">
-                <div class="v-main-heading h3">
-                    Change password
-                    <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b></h6>
+                <div class="v-main-heading">
+                        <h1>Change password <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span></h1>
                 </div>
-                <div class="col-md-12 mt-4 mb-4">
+                <div class="my-4">
                     <div class="card collapse" id="notes">
                         <div class="card-body">
-                            <h3 class="NotesHeader"><b>Notes:</b></h3>
+                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
                             <ol>
                                 <li>Use this feature to change your Password and to set up your Password
                                     preferences.
@@ -82,6 +81,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-md-12 mt-3">
+                <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
             </div>
             <div class="col-md-12 mb-5">
                 <form class="v-form-design" id="userProfile" action="{{ route('escort.update.password') }}" method="POST">
@@ -226,6 +228,104 @@
         $('#userProfile').parsley({
 
         });
+        function showGlobalAlert(message, type = 'success') {
+            const alertBox = $('#globalAlert');
+            alertBox
+                .removeClass('d-none alert-success alert-danger')
+                .addClass(type === 'success' ? 'alert-success' : 'alert-danger')
+                .html(message);
+
+            setTimeout(() => {
+                alertBox.addClass('d-none');
+            }, 4000); // hide after 4 seconds
+        }
+
+        $('#userProfile').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            $("#modal-title").text('Change Password');
+
+            if (form.parsley().isValid()) {
+                var url = form.attr('action');
+                var data = new FormData(form[0]);
+
+                $.ajax({
+                method: form.attr('method'),
+                url: url,
+                data: data,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if (data.error === true) {
+                    showGlobalAlert("Password changed successfully.", "success");
+                    form[0].reset();
+                    $('#formerror').html('');
+                    } else {
+                    $('#formerror').html(`
+                        <ul class="parsley-errors-list filled">
+                        <li class="parsley-required">Invalid current Password</li>
+                        </ul>
+                    `);
+                    }
+                },
+                error: function(data) {
+                    let errorsHtml = '<ul>';
+                    $.each(data.responseJSON.errors, function(key, value) {
+                    errorsHtml += '<li>' + value + '</li>';
+                    });
+                    errorsHtml += '</ul>';
+                    showGlobalAlert(errorsHtml, "danger");
+                }
+                });
+            }
+        });
+
+        $('#passwordExpiry').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            $("#modal-title").text('Password Expiry');
+
+            if (form.parsley().isValid()) {
+                var url = form.attr('action');
+                var data = new FormData(form[0]);
+
+                $.ajax({
+                method: form.attr('method'),
+                url: url,
+                data: data,
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    if (data.error === true) {
+                    showGlobalAlert("Password expiry updated successfully.", "success");
+                    $('#formerror').html('');
+                    } else {
+                    $('#formerror').html(`
+                        <ul class="parsley-errors-list filled">
+                        <li class="parsley-required">Invalid current Password</li>
+                        </ul>
+                    `);
+                    }
+                },
+                error: function(data) {
+                    let errorsHtml = '<ul>';
+                    $.each(data.responseJSON.errors, function(key, value) {
+                    errorsHtml += '<li>' + value + '</li>';
+                    });
+                    errorsHtml += '</ul>';
+                    showGlobalAlert(errorsHtml, "danger");
+                }
+                });
+            }
+        });
+
+            // old
         // $(document).ready(function(){
         //     $("#passwordN").click(function(){
         //       $('#formerror').hide();
@@ -233,125 +333,125 @@
         // })
 
 
-        $('#userProfile').on('submit', function(e) {
-            e.preventDefault();
-            var form = $(this);
-            if (form.parsley().isValid()) {
+        // $('#userProfile').on('submit', function(e) {
+        //     e.preventDefault();
+        //     var form = $(this);
+        //     if (form.parsley().isValid()) {
 
-                var url = form.attr('action');
-                var data = new FormData(form[0]);
-                $.ajax({
-                    method: form.attr('method'),
-                    url: url,
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        $("#modal-title").text('Change Password');
-                        if (data.error == true) {
-                            var msg = "Saved";
-                            $('.comman_msg').text(msg);
-                            //$("#my_account_modal").show();
-                            $("#comman_modal").modal('show');
-                            //location.reload();
-                             $(form)[0].reset();
+        //         var url = form.attr('action');
+        //         var data = new FormData(form[0]);
+        //         $.ajax({
+        //             method: form.attr('method'),
+        //             url: url,
+        //             data: data,
+        //             contentType: false,
+        //             processData: false,
+        //             headers: {
+        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //             },
+        //             success: function(data) {
+        //                 $("#modal-title").text('Change Password');
+        //                 if (data.error == true) {
+        //                     var msg = "Saved";
+        //                     $('.comman_msg').text(msg);
+        //                     //$("#my_account_modal").show();
+        //                     $("#comman_modal").modal('show');
+        //                     //location.reload();
+        //                      $(form)[0].reset();
 
-                        } else {
-                            // $('.comman_msg').html("Please enter your correct current password");
-                            // $("#comman_modal").modal('show');
+        //                 } else {
+        //                     // $('.comman_msg').html("Please enter your correct current password");
+        //                     // $("#comman_modal").modal('show');
 
-                            errorsHtml = '<ul class="parsley-errors-list filled">';
-                            errorsHtml +=
-                            '<li class="parsley-required">Invalid current Password</li>'; //showing only the first error.
+        //                     errorsHtml = '<ul class="parsley-errors-list filled">';
+        //                     errorsHtml +=
+        //                     '<li class="parsley-required">Invalid current Password</li>'; //showing only the first error.
 
-                            errorsHtml += '</ul></di>';
-                            $('#formerror').html(errorsHtml);
+        //                     errorsHtml += '</ul></di>';
+        //                     $('#formerror').html(errorsHtml);
 
-                        }
-                    },
-                    error: function(data) {
+        //                 }
+        //             },
+        //             error: function(data) {
 
-                        console.log("error: ", data.responseJSON.errors);
-
-
-                        $.each(data.responseJSON.errors, function(key, value) {
-                            errorsHtml = '<div class="alert alert-danger"><ul>';
-                            errorsHtml += '<li>' + value +
-                            '</li>'; //showing only the first error.
-                        });
-
-                        errorsHtml += '</ul></di>';
-                        $('#formerror').html(errorsHtml);
-                    }
-
-                });
-            }
-        });
-        $('#passwordExpiry').on('submit', function(e) {
-            e.preventDefault();
-
-            var form = $(this);
-            $("#modal-title").text('');
-            if (form.parsley().isValid()) {
-
-                var url = form.attr('action');
-                var data = new FormData(form[0]);
-                $.ajax({
-                    method: form.attr('method'),
-                    url: url,
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                       $("#modal-title").text('Password Expiry');
-                        if (data.error == true) {
-                            var msg = "Saved";
-                            $('.comman_msg').text(msg);
-                            //$("#my_account_modal").show();
-                            $("#comman_modal").modal('show');
-                           // location.reload();
-
-                        } else {
-                            // $('.comman_msg').html("Please enter your correct current password");
-                            //             $("#comman_modal").modal('show');
-
-                            errorsHtml = '<ul class="parsley-errors-list filled">';
-                            errorsHtml +=
-                            '<li class="parsley-required">Invalid current Password</li>'; //showing only the first error.
+        //                 console.log("error: ", data.responseJSON.errors);
 
 
-                            errorsHtml += '</ul></di>';
-                            $('#formerror').html(errorsHtml);
+        //                 $.each(data.responseJSON.errors, function(key, value) {
+        //                     errorsHtml = '<div class="alert alert-danger"><ul>';
+        //                     errorsHtml += '<li>' + value +
+        //                     '</li>'; //showing only the first error.
+        //                 });
 
-                        }
-                    },
-                    error: function(data) {
+        //                 errorsHtml += '</ul></di>';
+        //                 $('#formerror').html(errorsHtml);
+        //             }
 
-                        console.log("error: ", data.responseJSON.errors);
+        //         });
+        //     }
+        // });
+        // $('#passwordExpiry').on('submit', function(e) {
+        //     e.preventDefault();
+
+        //     var form = $(this);
+        //     $("#modal-title").text('');
+        //     if (form.parsley().isValid()) {
+
+        //         var url = form.attr('action');
+        //         var data = new FormData(form[0]);
+        //         $.ajax({
+        //             method: form.attr('method'),
+        //             url: url,
+        //             data: data,
+        //             contentType: false,
+        //             processData: false,
+        //             headers: {
+        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //             },
+        //             success: function(data) {
+        //                $("#modal-title").text('Password Expiry');
+        //                 if (data.error == true) {
+        //                     var msg = "Saved";
+        //                     $('.comman_msg').text(msg);
+        //                     //$("#my_account_modal").show();
+        //                     $("#comman_modal").modal('show');
+        //                    // location.reload();
+
+        //                 } else {
+        //                     // $('.comman_msg').html("Please enter your correct current password");
+        //                     //             $("#comman_modal").modal('show');
+
+        //                     errorsHtml = '<ul class="parsley-errors-list filled">';
+        //                     errorsHtml +=
+        //                     '<li class="parsley-required">Invalid current Password</li>'; //showing only the first error.
 
 
-                        $.each(data.responseJSON.errors, function(key, value) {
-                            errorsHtml = '<div class="alert alert-danger"><ul>';
-                            errorsHtml += '<li>' + value +
-                            '</li>'; //showing only the first error.
-                        });
+        //                     errorsHtml += '</ul></di>';
+        //                     $('#formerror').html(errorsHtml);
 
-                        errorsHtml += '</ul></di>';
-                        $('#formerror').html(errorsHtml);
-                    }
+        //                 }
+        //             },
+        //             error: function(data) {
 
-                });
-            }
-        });
+        //                 console.log("error: ", data.responseJSON.errors);
 
-        $('#comman_modal').on('hidden.bs.modal', function() {
-            $("#modal-title").text('');
-        });
+
+        //                 $.each(data.responseJSON.errors, function(key, value) {
+        //                     errorsHtml = '<div class="alert alert-danger"><ul>';
+        //                     errorsHtml += '<li>' + value +
+        //                     '</li>'; //showing only the first error.
+        //                 });
+
+        //                 errorsHtml += '</ul></di>';
+        //                 $('#formerror').html(errorsHtml);
+        //             }
+
+        //         });
+        //     }
+        // });
+
+        // $('#comman_modal').on('hidden.bs.modal', function() {
+        //     $("#modal-title").text('');
+        // });
     </script>
 @endpush
