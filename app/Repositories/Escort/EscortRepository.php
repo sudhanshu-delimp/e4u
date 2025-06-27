@@ -182,7 +182,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
             $result = $this->modifyEscorts($result, $start);
             //$count =  $result->count();
-            $count =  $this->model->where('user_id', $user_id)->where($conditions)->where('default_setting', '!=', 1)->count();
+      
+            $count =  $this->model->where('user_id', $user_id)->where($conditions)->where('default_setting', '!=', 1)->where('profile_name', '!=', null)->count();
         }
 
         return [$result, $count];

@@ -113,8 +113,8 @@
            <div class="box-body table table-hover">
                @if($type != 'past')
                <div>
-                   <button style="padding: 10px;" class="btn btn-info" data-toggle="modal" data-target="#add_brb">Add BRB</button>
-                   <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal" data-target="#suspend_profile">Suspend Profile</button>
+                   <button style="padding: 10px;" class="btn btn-info" data-toggle="modal" data-target="#add_brb" id="btn_add_brb">Add BRB</button>
+                   <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal" data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
                </div>
                @endif
               <table class="table table-hover" id="sailorTable">
@@ -322,7 +322,8 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
    $(document).ready( function () {
-    
+        $('#btn_suspend_profile').hide();
+        $('#btn_add_brb').hide();
        var shouldHide = '{{$type == "past" ? false :true}}';
        var table = $("#sailorTable").DataTable({
            "language": {
@@ -338,6 +339,13 @@
                     var api = this.api();
                    // var records = api.data().length;
                     var length = table.page.info().recordsTotal;
+                    if(length == 0) {
+                        $('#btn_suspend_profile').hide();
+                        $('#btn_add_brb').hide();
+                    } else {
+                        $('#btn_suspend_profile').show();
+                        $('#btn_add_brb').show();
+                    }
 
                     if (length <= 10) {
                         $('.dataTables_paginate').hide();
