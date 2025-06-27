@@ -37,6 +37,7 @@
     .suspension-note-list li {
         text-indent: 4px; /* Adds space after number */
     }
+    #btn_suspend_profile, #btn_add_brb {display:none;}
 </style>
 
 @endsection
@@ -321,9 +322,7 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
-   $(document).ready( function () {
-        $('#btn_suspend_profile').hide();
-        $('#btn_add_brb').hide();
+   $(document).ready( function () { 
        var shouldHide = '{{$type == "past" ? false :true}}';
        var table = $("#sailorTable").DataTable({
            "language": {
