@@ -277,6 +277,9 @@ Route::get('legbox-notification',function(){
     return view('center.dashboard.communication.legbox-notification');
 })->name('legbox-notification');
 
+Route::get('legbox-viewers',function(){
+    return view('center.dashboard.communication.legbox-viewers');
+})->name('legbox-viewers');
 
 Route::get('viewer-notes',function(){
     return view('center.dashboard.communication.viewer-notes');

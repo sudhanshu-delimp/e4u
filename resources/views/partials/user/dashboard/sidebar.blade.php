@@ -125,7 +125,7 @@
                             fill="#C2CFE0" />
                     </svg>
                     <span class="pl-3"
-                        style="{{ request()->segment(3) == 'my-legbox-notes' ? 'color: #e5365a;' : '' }}">Notes</span>
+                        style="{{ request()->segment(3) == 'my-legbox-notes' ? 'color: #e5365a;' : '' }}">Legbox</span>
                 </a>
             </div>
         </div>
