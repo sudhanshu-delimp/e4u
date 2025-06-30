@@ -136,12 +136,12 @@
                                     </select>
                                     <div class="display_inline_block custom-refreshbuton">
                                         <div class="margin_btn_reset">
-
-                                            <a type="reset" class="btn reset_filter toltip-parent" href="{{ route('find.all') }}"
-                                                data-toggle="tooltip" title="">
-                                                <span class="custom-toltip">Refresh page</span>
+                                            <input type="hidden" name="apply_pagination_rule" id="apply_pagination_rule" value="0">
+                                            <button type="submit" class="btn reset_filter toltip-parent apply_pagination_button"
+                                                data-toggle="tooltip" title="" id="">
+                                                <span class="custom-toltip">Apply Change</span>
                                                 <i class="fa fa-repeat" aria-hidden="true"></i>
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -1388,6 +1388,20 @@
             $('form').on('submit', function (e) {
                 if (!$(document.activeElement).hasClass('custom-profile-search-btn')) {
                     $('#search_by_radio').val(0);
+                }
+            });
+        });
+
+        $(document).ready(function() {
+            // When this specific button is clicked
+            $('.apply_pagination_button').on('click', function () {
+                $('#apply_pagination_rule').val(1); // Set value to 1 when this button is used
+            });
+
+            // Optional: Reset to 0 if any other button submits the form
+            $('form').on('submit', function (e) {
+                if (!$(document.activeElement).hasClass('apply_pagination_button')) {
+                    $('#apply_pagination_rule').val(0);
                 }
             });
         });
