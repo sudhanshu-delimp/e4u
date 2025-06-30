@@ -158,7 +158,7 @@
                 responsive: true,
                 language: {
                     search: "<label>Search:</label> _INPUT_",
-                    searchPlaceholder: "Search by ID or Profile Name...",
+                    searchPlaceholder: "Search by ID or Profile Name",
                     lengthMenu: "Show _MENU_ entries",
                     zeroRecords: "No matching records found",
                     info: "Showing _START_ to _END_ of _TOTAL_ entries",
