@@ -80,12 +80,12 @@ class GlobalMonitoringController extends Controller
          
         //list($service_one, $service_two, $service_three) = $this->services->findByCategory([1,2,3]);
         $escorts = $this->massage_profile->findByMassageCentre(50, $params);
-        //dd($escorts);
-        //dd($escorts->toArray());
+        
+        $escorts = collect($escorts->items())->where('end_date','>=', Carbon::now()->startOfDay());
+
        $dataTableData = [];
         if ($search) {
-            $esc = collect($escorts->items());
-            $dataTableData = $esc->filter(function ($item) use ($search) {
+            $dataTableData = $escorts->filter(function ($item) use ($search) {
                 // Match profile_name
                 $matchesProfile = stripos($item->profile_name, $search) !== false;
 
@@ -97,8 +97,7 @@ class GlobalMonitoringController extends Controller
         }
         
         if(count($escorts->toArray()) > 0){
-            $dataTableData = $escorts->toArray()['data'];
-            //$dataTableData['recordTotal'] = count($dataTableData);
+            $dataTableData = $escorts->toArray();
             foreach ($dataTableData as $key => $item) {
                 $dataTableData[$key]['upTime'] = $this->getAppUptime();
                 $dataTableData[$key]['server_time'] = Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A');
