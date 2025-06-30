@@ -47,9 +47,9 @@
                                     <li class="mb-2" id="hideenclassOne_{{ $value->id }}">
                                         <div class='my_service_anal hideenclassOne{{ $value->id }}'>
                                             <span class="dollar-sign">{{ $value->name }}</span>
-                                            <input type='number' class='dollar-before input_border' name='price[]'
+                                            <input type='number' class='dollar-before input_border change_default' name='price[]'
                                                 placeholder='0' value="{{ $value->pivot->price }}" min=0 step="10"
-                                                max=9999>
+                                                max=9999 service_id="{{ $value->id }}">
                                             <input type='hidden' name='service_id[]'
                                                 value="{{ $value->pivot->service_id }}" placeholder='test test '>
                                             <span id="span_id" data-id="{{ $value->id }}">
@@ -96,9 +96,9 @@
                                     <li class="mb-2" id="hideenclassTwo_{{ $value->id }}">
                                         <div class='my_service_anal hideenclassTwo{{ $value->id }}'>
                                             <span class="dollar-sign">{{ $value->name }}</span>
-                                            <input type='number' class='dollar-before input_border' name='price[]'
+                                            <input type='number' class='dollar-before input_border change_default' name='price[]'
                                                 placeholder='0' value="{{ $value->pivot->price }}" min=0 step="10"
-                                                max=9999>
+                                                max=9999 service_id="{{ $value->id }}">
                                             <input type='hidden' name='service_id[]'
                                                 value="{{ $value->pivot->service_id }}" placeholder=''>
                                             <span>
@@ -144,9 +144,9 @@
                                     <li class="mb-2" id="hideenclassThree_{{ $value->id }}">
                                         <div class='my_service_anal hideenclassThree{{ $value->id }}'>
                                             <span class="dollar-sign">{{ $value->name }}</span>
-                                            <input type='number' class='dollar-before input_border' name='price[]'
+                                            <input type='number' class='dollar-before input_border change_default' name='price[]'
                                                 placeholder='0' value="{{ $value->pivot->price }}" min=0
-                                                step="10" max=9999>
+                                                step="10" max=9999 service_id="{{ $value->id }}">
                                             <input type='hidden' name='service_id[]'
                                                 value="{{ $value->pivot->service_id }}" placeholder=''>
                                             <span>
@@ -210,8 +210,8 @@
                                         <span>$</span>
                                         <input type="number" placeholder="0" min="0"
                                             data-parsley-excluded="true"
-                                            class="form-control form-control-sm select_tag_remove_box_sadow"
-                                            id="massage_price" name="massage_price[]"
+                                            class="form-control form-control-sm select_tag_remove_box_sadow change_default"
+                                            id="massage_price_{{ $duration->id }}" duration_id="{{ $duration->id }}" name="massage_price[]"
                                             value="{{ $escort->durationRate($duration->id, 'massage_price') }}"
                                             step="10" max=9999>
                                     </div>
@@ -220,20 +220,20 @@
                                     <div class="service_rate_dolor_symbol form-group">
                                         <span>$</span>
                                         <input min="0" placeholder="0" type="number"
-                                            class="form-control form-control-sm select_tag_remove_box_sadow"
-                                            id="incall_price" name="incall_price[]"
+                                            class="form-control form-control-sm select_tag_remove_box_sadow change_default"
+                                            id="incall_price_{{ $duration->id }}" name="incall_price[]"
                                             value="{{ $escort->durationRate($duration->id, 'incall_price') }}"
-                                            step="10" max=9999 data-parsley-excluded>
+                                            step="10" max=9999 data-parsley-excluded duration_id="{{ $duration->id }}">
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="service_rate_dolor_symbol form-group">
                                         <span>$</span>
                                         <input min="0" placeholder="0" type="number"
-                                            class="form-control form-control-sm select_tag_remove_box_sadow"
-                                            id="outcall_price" name="outcall_price[]"
+                                            class="form-control form-control-sm select_tag_remove_box_sadow change_default"
+                                            id="outcall_price_{{ $duration->id }}" name="outcall_price[]"
                                             value="{{ $escort->durationRate($duration->id, 'outcall_price') }}"
-                                            step="10" max=9999>
+                                            step="10" max=9999 duration_id="{{ $duration->id }}">
                                     </div>
                                 </div>
                             </div>

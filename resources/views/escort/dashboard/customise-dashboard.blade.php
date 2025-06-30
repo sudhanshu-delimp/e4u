@@ -37,7 +37,7 @@
                     <div class="card-title-row">
                         <div class="card-title">My Legbox Viewers</div>
                         <div class="card-image">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_mylegbox.svg') }}" alt="Escorts Statistics">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_mylegbox.png') }}" alt="Escorts Statistics">
                         </div>
                     </div>
                     <div class="card-desc">View a complete summary of your Legbox Viewers.</div>
@@ -53,7 +53,7 @@
                     <div class="card-title-row">
                         <div class="card-title">My Playbox Summary</div>
                         <div class="card-image">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_myplaybox.svg') }}" alt="Escorts Statistics">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_myplaybox.png') }}" alt="Escorts Statistics">
                         </div>
                     </div>
                     <div class="card-desc">View a complete financial and analytical summary of your
@@ -70,7 +70,7 @@
                     <div class="card-title-row">
                         <div class="card-title">Manage Media</div>
                         <div class="card-image">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_manage-media.svg') }}" alt="Escorts Statistics">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_manage-media.png') }}" alt="Escorts Statistics">
                         </div>
                     </div>
                     <div class="card-desc">Manage all of your photos and video content from here.</div>
@@ -86,7 +86,7 @@
                     <div class="card-title-row">
                         <div class="card-title">Support Tickets</div>
                         <div class="card-image">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_support-tickets.svg') }}" alt="Escorts Statistics">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_support-tickets.png') }}" alt="Escorts Statistics">
                         </div>
                     </div>
                     <div class="card-desc">View your Support Tickets.</div>

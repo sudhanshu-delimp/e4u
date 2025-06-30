@@ -7,6 +7,21 @@
     --blue--text--default: #2B3D50;
 }
 
+
+/* img.my-svg-icons {
+    filter: invert(14%) sepia(19%) saturate(1577%) hue-rotate(173deg) brightness(91%) contrast(98%);
+} */
+
+.bg-first {
+    background-color: var(--blue--text) !important;
+    color: var(--white);
+}
+
+.bg-second {
+    background-color: var(--peach) !important;
+    color: var(--white);
+}
+
 .removebox_shdow:focus {
     outline: 0;
     box-shadow: none;
@@ -111,10 +126,12 @@ p {
     color: #fff;
     border-radius: 0.35rem;
 }
+
 .custom-law-table tr.thead td {
     background: #0c223d;
     color: #fff;
 }
+
 .nex_sterp_btn {
     border: 1px solid transparent;
     padding: 10px 21px 10px 20px;
@@ -579,13 +596,15 @@ p {
 
 .dk-tab .nav-item a {
     color: #fff;
-    background: #2c3e50b3;
+    /*background: #2c3e50b3;*/
+    background: #4168dd;
     border-radius: 3px;
     font-size: 14px;
 }
 
 .nav-item a.active {
-    background: #0C223D !important;
+    /*background: #0C223D !important;*/
+    background: #ff3c5f !important;
 }
 
 .tab-content-bg {
@@ -2528,6 +2547,7 @@ span.removeCross {
 .removeCross img {
     transition: 0.1s;
 }
+
 .value--input {
     display: flex;
     gap: 10px;
@@ -2541,7 +2561,7 @@ span.removeCross {
     gap: clamp(15px, 2.2vw, 40px);
 }
 
-.add--credit .card{
+.add--credit .card {
     background: #f2f2f2;
 }
 
@@ -3470,22 +3490,27 @@ input:checked+.slider:before {
 .register-img img {
     width: 100%;
 }
-.custom--content-abb .accodien_manage_padding_content, 
+
+.custom--content-abb .accodien_manage_padding_content,
 .custom--content-abb .cms-accordion-content-area {
     padding: 10px 0;
 }
+
 .custom--content-abb .accodien_manage_padding_content p {
     padding: 2px 0;
 }
+
 .custom--content-abb a:hover,
 .custom--content-abb span.toggle-btn:hover {
     text-decoration: underline !important;
     color: #FF3C5F;
 }
+
+
 /*accordion style end here*/
 
-/* Rounded sliders */
 
+/* Rounded sliders */
 
 .slider.round {
     border-radius: 34px;
@@ -4648,6 +4673,8 @@ label#showCal {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .timer_section p {

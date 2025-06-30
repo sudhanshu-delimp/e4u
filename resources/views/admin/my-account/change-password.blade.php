@@ -25,7 +25,23 @@
 
   <div class="row">
     <div class="col-md-12">
-      <div class="v-main-heading h3">Change password</div>
+      <div class="v-main-heading">
+            <h1>Change password <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span></h1>
+      </div>
+      <div class="my-4">
+            <div class="card collapse" id="notes">
+              <div class="card-body">
+                  <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                  <ol>
+                    
+                  </ol>
+              </div>
+            </div>
+      </div>
+    </div>
+    <!-- ALERT MESSAGE -->
+    <div class="col-md-12 my-3">
+        <div id="profileAlert" class="alert d-none rounded" role="alert"></div>
     </div>
     <div class="col-md-12 mb-5">
       <form class="v-form-design" id="userProfile" action="{{ route('admin.update.password')}}" method="POST" novalidate="">
@@ -108,17 +124,17 @@
 
   });
 
-
-
   $('#userProfile').on('submit', function(e) {
     e.preventDefault();
 
     var form = $(this);
+    var alertBox = $('#profileAlert');
 
     if (form.parsley().isValid()) {
 
       var url = form.attr('action');
       var data = new FormData(form[0]);
+
       $.ajax({
         method: form.attr('method'),
         url: url,
@@ -130,33 +146,84 @@
         },
         success: function(data) {
           console.log(data);
+
           if (data.error == true) {
-            $.toast({
-              heading: 'Success',
-              text: 'Details successfully saved',
-              icon: 'success',
-              loader: true,
-                            position: 'top-right', // Change it to false to disable loader
-                            loaderBg: '#9EC600' // To change the background
-                          });
-                          location.reload();
+            // Success
+            alertBox
+              .removeClass('d-none alert-danger')
+              .addClass('alert-success')
+              .html("Details successfully saved.");
+
+            // Optionally reload after a short delay
+            setTimeout(function() {
+              alertBox.addClass('d-none');
+              location.reload(); // Or remove if you want to stay on page
+            }, 4000);
 
           } else {
-            $.toast({
-              heading: 'Error',
-              text: 'Records Not update',
-              icon: 'error',
-              loader: true,
-                            position: 'top-right', // Change it to false to disable loader
-                            loaderBg: '#9EC600' // To change the background
-                          });
+            // Error
+            alertBox
+              .removeClass('d-none alert-success')
+              .addClass('alert-danger')
+              .html("Records not updated. Please try again.");
 
+            setTimeout(function() {
+              alertBox.addClass('d-none');
+            }, 10000);
           }
-        },
-
+        }
       });
     }
   });
+
+
+  // $('#userProfile').on('submit', function(e) {
+  //   e.preventDefault();
+
+  //   var form = $(this);
+
+  //   if (form.parsley().isValid()) {
+
+  //     var url = form.attr('action');
+  //     var data = new FormData(form[0]);
+  //     $.ajax({
+  //       method: form.attr('method'),
+  //       url: url,
+  //       data: data,
+  //       contentType: false,
+  //       processData: false,
+  //       headers: {
+  //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  //       },
+  //       success: function(data) {
+  //         console.log(data);
+  //         if (data.error == true) {
+  //           $.toast({
+  //             heading: 'Success',
+  //             text: 'Details successfully saved',
+  //             icon: 'success',
+  //             loader: true,
+  //                           position: 'top-right', // Change it to false to disable loader
+  //                           loaderBg: '#9EC600' // To change the background
+  //                         });
+  //                         location.reload();
+
+  //         } else {
+  //           $.toast({
+  //             heading: 'Error',
+  //             text: 'Records Not update',
+  //             icon: 'error',
+  //             loader: true,
+  //                           position: 'top-right', // Change it to false to disable loader
+  //                           loaderBg: '#9EC600' // To change the background
+  //                         });
+
+  //         }
+  //       },
+
+  //     });
+  //   }
+  // });
 
 
 

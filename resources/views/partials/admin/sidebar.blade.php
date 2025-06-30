@@ -381,7 +381,7 @@
                 aria-expanded="false" aria-controls="collapseTwo">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
-                <span>Global Monitoring &#10060;</span>
+                <span>Global Monitoring </span>
             </a>
             <div id="Monitoring" class="collapse @if (request()->is('*global-monitoring*') ||
                     request()->is('*logged-in-users*') ||
@@ -390,12 +390,18 @@
                     request()->is('*visitors*')) show @endif"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="collapse-item" href="{{ route('admin.global-monitoring') }}">
+                    {{-- <a class="collapse-item" href="{{ route('admin.global-monitoring') }}">
 
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/globe.png') }}">
                         <span style="{{ request()->is('*global-monitoring*') ? 'color: #e5365a;' : '' }}">Global
                             Monitoring</span>
+                    </a> --}}
+                    <a class="collapse-item" href="{{ route('admin.escort-listings') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png') }}">
+                        <span style="{{ request()->is('*escort-listings*') ? 'color: #e5365a;' : '' }}">Escort
+                            Listings</span>
                     </a>
                     <a class="collapse-item" href="{{ route('admin.logged-in-users') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
@@ -403,12 +409,7 @@
                         <span style="{{ request()->is('*logged-in-users*') ? 'color: #e5365a;' : '' }}">Logged in
                             Users</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.escort-listings') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png') }}">
-                        <span style="{{ request()->is('*escort-listings*') ? 'color: #e5365a;' : '' }}">Escort
-                            Listings</span>
-                    </a>
+                    
                     <a class="collapse-item" href="{{ route('admin.massage-centre-listings') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png') }}">
@@ -425,7 +426,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('admin.blog') }}">
                 <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64px" height="64px" viewBox="0 0 512 512" xml:space="preserve" fill="#000000">
 
                     <g id="SVGRepo_bgCarrier" stroke-width="0"/>
@@ -435,7 +436,7 @@
                     <g id="SVGRepo_iconCarrier"> <style type="text/css">  .st0{fill:#ffffffcc;}  </style> <g> <path class="st0" d="M421.073,221.719c-0.578,11.719-9.469,26.188-23.797,40.094v183.25c-0.016,4.719-1.875,8.719-5.016,11.844 c-3.156,3.063-7.25,4.875-12.063,4.906H81.558c-4.781-0.031-8.891-1.844-12.047-4.906c-3.141-3.125-4.984-7.125-5-11.844V152.219 c0.016-4.703,1.859-8.719,5-11.844c3.156-3.063,7.266-4.875,12.047-4.906h158.609c12.828-16.844,27.781-34.094,44.719-49.906 c0.078-0.094,0.141-0.188,0.219-0.281H81.558c-18.75-0.016-35.984,7.531-48.25,19.594c-12.328,12.063-20.016,28.938-20,47.344 v292.844c-0.016,18.406,7.672,35.313,20,47.344C45.573,504.469,62.808,512,81.558,512h298.641c18.781,0,36.016-7.531,48.281-19.594 c12.297-12.031,20-28.938,19.984-47.344V203.469c0,0-0.125-0.156-0.328-0.313C440.37,209.813,431.323,216.156,421.073,221.719z"/> <path class="st0" d="M498.058,0c0,0-15.688,23.438-118.156,58.109C275.417,93.469,211.104,237.313,211.104,237.313 c-15.484,29.469-76.688,151.906-76.688,151.906c-16.859,31.625,14.031,50.313,32.156,17.656 c34.734-62.688,57.156-119.969,109.969-121.594c77.047-2.375,129.734-69.656,113.156-66.531c-21.813,9.5-69.906,0.719-41.578-3.656 c68-5.453,109.906-56.563,96.25-60.031c-24.109,9.281-46.594,0.469-51-2.188C513.386,138.281,498.058,0,498.058,0z"/> </g> </g>
                     
                     </svg>
-            <span>Blog &#10060;</span>
+                <span>Blog &#10060;</span>
             </a>
             </li>
 
@@ -443,7 +444,7 @@
                 <a class="nav-link" href="{{ route('admin.database') }}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/database.png') }}">
-                    <span>Database </span>
+                    <span>Database &#10060;</span>
                 </a>
             </li>
             <!-- Notification -->
@@ -453,7 +454,7 @@
                 aria-expanded="false" aria-controls="notification">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/global-notification.png') }}">
-                <span>Notifications  <!----></span>
+                <span>Notifications  &#10060;<!----></span>
             </a>
             <div id="notification" class=" collapse  @if (request()->segment(3) == 'global' || request()->segment(3) == 'agents' || request()->segment(3) == 'viewers'|| request()->segment(3) == 'escorts'|| request()->segment(3) == 'centres') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -728,6 +729,27 @@
                 </div>
             </div>
         </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Reports"
+                aria-expanded="false" aria-controls="collapseTwo">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                    src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
+                <span>Reports </span>
+            </a>
+            <div id="Reports" class="collapse @if (request()->is('*reports*') || request()->is('**')) show @endif;"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-0 collapse-inner rounded mb-2">
+                    <a class="nav-link collapsed" href="{{ route('admin.credit') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
+                        <span style="{{ request()->is('*reports*') ? 'color: #e5365a;' : '' }}">Credits</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+
+
+
 {{-- 
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Website"
@@ -905,10 +927,33 @@
                         <span style="{{ request()->segment(3) == 'set-fees' ? 'color: #e5365a;' : '' }}">Set Fees &
                             Variables - Users</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.manage-user') }}">
+                    {{-- <a class="collapse-item" href="{{ route('admin.manage-user') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                         <span style="{{ request()->segment(3) == 'manage-user' ? 'color: #e5365a;' : '' }}">Manage Staff</span></a>
+ --}}
+
+                        {{-- Manage People --}}
+                     <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse" data-target="#managePeopleMenu" aria-expanded="false" aria-controls="managePeopleMenu">
+                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                        <span>Manage People</span>
+                        
+                    </a>
+                    
+                    <div id="managePeopleMenu" class="collapse pl-3" style="margin-left: 10px;">
+                        <a class="collapse-item" href="{{ route('admin.staff') }}">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span  style="{{ request()->segment(3) == 'tours' ? 'color: #e5365a;' : '' }}">Staff</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('admin.agent') }}">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span  style="{{ request()->segment(3) == 'agent' ? 'color: #e5365a;' : '' }}">Agent</span>
+                        </a>
+                    </div>
+
+
                         <a class="collapse-item" href="{{ route('admin.memberships') }}">
                             <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                 src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">

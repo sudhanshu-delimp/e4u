@@ -37,6 +37,7 @@
     .suspension-note-list li {
         text-indent: 4px; /* Adds space after number */
     }
+    #btn_suspend_profile, #btn_add_brb {display:none;}
 </style>
 
 @endsection
@@ -113,8 +114,8 @@
            <div class="box-body table table-hover">
                @if($type != 'past')
                <div>
-                   <button style="padding: 10px;" class="btn btn-info" data-toggle="modal" data-target="#add_brb">Add BRB</button>
-                   <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal" data-target="#suspend_profile">Suspend Profile</button>
+                   <button style="padding: 10px;" class="btn btn-info" data-toggle="modal" data-target="#add_brb" id="btn_add_brb">Add BRB</button>
+                   <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal" data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
                </div>
                @endif
               <table class="table table-hover" id="sailorTable">
@@ -206,7 +207,7 @@
 <!-- suspend profile modal start here -->
 <div class="modal fade upload-modal" id="suspend_profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <form id="brb_form">
+        <form id="suspend_form">
             <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -235,28 +236,31 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3" for=""> Suspension Period:</label>
                                         <div class="col-sm-9 row">
+                                            @php
+                                                $minDate = \Carbon\Carbon::now()->addDay()->format('Y-m-d');
+                                            @endphp
                                             <div class="col-sm-5">
-                                                <input type="date" required min="{{date('Y-m-d')}}" class="form-control form-control-sm removebox_shdow" name="brb_date" data-parsley-type="" data-parsley-type-message="">
+                                                <input type="date" required min="{{$minDate}}" class="form-control form-control-sm removebox_shdow" value="{{$minDate}}" name="start_date" data-parsley-type="" data-parsley-type-message="">
                                                 <span id="brb-time-errors"></span>
                                             </div>
                                             <div class="col-sm-1">
                                                 <span>to:</span>
                                             </div>
                                             <div class="col-sm-5">
-                                                <input type="date" required min="{{date('Y-m-d')}}" class="form-control form-control-sm removebox_shdow" name="brb_date" data-parsley-type="" data-parsley-type-message="">
+                                                <input type="date" required min="{{$minDate}}" class="form-control form-control-sm removebox_shdow" name="end_date" data-parsley-type="" value="{{$minDate}}" data-parsley-type-message="">
                                                 <span id="brb-time-errors"></span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    {{-- <div class="form-group row">
                                         <label class="col-sm-3 col-form-label" for="">Credit:</label>
                                         <div class="col-sm-8">
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
-                                                <input type="number" class="form-control"  step="0.01" min="0"  name="credit_price" id="credit_price" required>
+                                                <input type="number" class="form-control"  step="0.01" min="0"  name="credit_price" value="0.0" id="credit_price" required>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group row">
                                         <label class="col-sm-1 col-form-label" for="">Notes:</label>
                                         <div class="col-sm-11">
@@ -285,7 +289,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content custome_modal_max_width">
          <div class="modal-header main_bg_color border-0">
-            <span style="color:white">Delete profile</span>
+            <span style="color:white">Delete Profile</span>
             {{--
             <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5>
             --}}
@@ -318,7 +322,7 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
-   $(document).ready( function () {
+   $(document).ready( function () { 
        var shouldHide = '{{$type == "past" ? false :true}}';
        var table = $("#sailorTable").DataTable({
            "language": {
@@ -334,6 +338,13 @@
                     var api = this.api();
                    // var records = api.data().length;
                     var length = table.page.info().recordsTotal;
+                    if(length == 0) {
+                        $('#btn_suspend_profile').hide();
+                        $('#btn_add_brb').hide();
+                    } else {
+                        $('#btn_suspend_profile').show();
+                        $('#btn_add_brb').show();
+                    }
 
                     if (length <= 10) {
                         $('.dataTables_paginate').hide();
@@ -752,6 +763,7 @@
     }
   });
  $('#brb_form').parsley({});
+ 
 
    $("#brb_form").on('submit', function (e) {
        e.preventDefault();
@@ -797,6 +809,49 @@
 
    $("#modal_close").on('click', function(e) {
        $("#brb_form")[0].reset();
+       $("#suspend_form")[0].reset();
+   });
+
+   $("#suspend_form").on('submit', function (e) {
+       e.preventDefault();
+       var form = $(this);
+       var profileId = $("#profile_id").val();
+       
+       // if (form.parsley().isValid()) {
+           //var url = '/escort-dashboard/escort-brb/add';
+           var url = "{{ route('escort.profile.suspend') }}";
+           var data = new FormData(form[0]);
+           var selectedProfileName = $('#profile_id option:selected').attr('profile_name');
+
+           $.ajax({
+               method: 'POST',
+               url: url,
+               data: data,
+               contentType: false,
+               processData: false,
+               headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function(data) {
+                   if (data.response.success) {
+                       Swal.fire({
+                           icon: "success",
+                           text: data.response.message
+                       });
+                       $("#brb_form")[0].reset();
+                       $('#add_brb').modal('hide');
+                       var txy = selectedProfileName + ' <sup title="Brb at '+data.response.brbtime+'" class="brb_icon">BRB</sup>';
+                       $("#brb_"+profileId).html(txy);
+                   } else {
+                       Swal.fire({
+                           icon: "error",
+                           text: data.response.message
+                       });
+                   }
+               },
+
+           });
+       // }
    });
 
    function stageNameInput(ele) {

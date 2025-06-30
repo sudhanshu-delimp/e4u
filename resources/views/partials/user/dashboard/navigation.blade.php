@@ -10,7 +10,7 @@
                         {{-- <div class="pr-5">
                             <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
                         </div> --}}
-                        <p>Welcome back : <span>{{auth()->user()->name }}</span> <br> Home State :  <span>{{auth()->user()->home_state  }} </span>  &nbsp;|&nbsp;  Membership ID :  <span>{{auth()->user()->member_id }}</span> </p>
+                        <p style="font-weight: 700 !important;">Welcome back : <span>{{auth()->user()->name }}</span> <br> Home State :  <span>{{auth()->user()->home_state  }} </span>  &nbsp;|&nbsp;  Membership ID :  <span>{{auth()->user()->member_id }}</span> </p>
                     
                     </div>
                     {{-- end --}}

@@ -304,78 +304,46 @@
                   <!-- middle Content -->
                   <tr class="collapse-row group-4">
                      <td></td>
-                     <td>Female</td>
+                     <td>Escorts</td>
                      <td>152</td>
-                     <td>1,762</td>
+                     <td colspan="2">1,762</td>
                      <td>1,914</td>
                      <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
                      <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
                      <td><span class="text-danger">↓ 56.8%</span></td>
                      <td>9,410</td>
-                     
                   </tr>
                   <tr class="collapse-row group-4">
                      <td></td>
-                     <td>Male</td>
+                     <td>Centres</td>
                      <td>152</td>
-                     <td>1,762</td>
+                     <td colspan="2">1,762</td>
                      <td>1,914</td>
                      <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
                      <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
                      <td><span class="text-danger">↓ 56.8%</span></td>
                      <td>9,410</td>
-                     
                   </tr>
-                  <tr class="collapse-row group-4">
-                     <td></td>
-                     <td>Trans</td>
-                     <td>152</td>
-                     <td>1,762</td>
-                     <td>1,914</td>
-                     <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
-                     <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
-                     <td><span class="text-danger">↓ 56.8%</span></td>
-                     <td>9,410</td>
-                     
-                  </tr>
-                  <tr class="collapse-row group-4">
-                     <td></td>
-                     <td>Couple</td>
-                     <td>152</td>
-                     <td>1,762</td>
-                     <td>1,914</td>
-                     <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
-                     <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
-                     <td><span class="text-danger">↓ 56.8%</span></td>
-                     <td>9,410</td>
-                     
-                  </tr>
-                  <tr class="collapse-row group-4 table-primary font-weight-bold">
+                  <!-- total -->
+                  <tr class="collapse-row group-3 table-primary font-weight-bold">
                      <td></td>
                      <td>Total</td>
-                     <td>340</td>
-                     <td>1,258</td>
-                     <td>3,524</td>
-                     <td>3,701</td>
-                     <td>3,574</td>
-                     <td><span class="text-success">↑ 254</span></td>
+                     <td>152</td>
+                     <td colspan="2">1,762</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>8,856</td>
-                     <td><span class="text-danger">↓ 5,028</span></td>
-                     <td>18,820</td>
-                     
+                     <td>4,428</td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
                   </tr>
                   <!-- end 4 -->
 
@@ -400,78 +368,46 @@
                   <!-- middle Content -->
                   <tr class="collapse-row group-5">
                      <td></td>
-                     <td>Female</td>
+                     <td>Escorts</td>
                      <td>152</td>
-                     <td>1,762</td>
+                     <td colspan="2">1,762</td>
                      <td>1,914</td>
                      <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
                      <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
                      <td><span class="text-danger">↓ 56.8%</span></td>
                      <td>9,410</td>
-                     
                   </tr>
                   <tr class="collapse-row group-5">
                      <td></td>
-                     <td>Male</td>
+                     <td>Centres</td>
                      <td>152</td>
-                     <td>1,762</td>
+                     <td colspan="2">1,762</td>
                      <td>1,914</td>
                      <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
                      <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
                      <td><span class="text-danger">↓ 56.8%</span></td>
                      <td>9,410</td>
-                     
                   </tr>
-                  <tr class="collapse-row group-5">
-                     <td></td>
-                     <td>Trans</td>
-                     <td>152</td>
-                     <td>1,762</td>
-                     <td>1,914</td>
-                     <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
-                     <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
-                     <td><span class="text-danger">↓ 56.8%</span></td>
-                     <td>9,410</td>
-                     
-                  </tr>
-                  <tr class="collapse-row group-5">
-                     <td></td>
-                     <td>Couple</td>
-                     <td>152</td>
-                     <td>1,762</td>
-                     <td>1,914</td>
-                     <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
-                     <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
-                     <td><span class="text-danger">↓ 56.8%</span></td>
-                     <td>9,410</td>
-                     
-                  </tr>
+                  <!-- total -->
                   <tr class="collapse-row group-5 table-primary font-weight-bold">
                      <td></td>
                      <td>Total</td>
-                     <td>340</td>
-                     <td>1,258</td>
-                     <td>3,524</td>
-                     <td>3,701</td>
-                     <td>3,574</td>
-                     <td><span class="text-success">↑ 254</span></td>
+                     <td>152</td>
+                     <td colspan="2">1,762</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>8,856</td>
-                     <td><span class="text-danger">↓ 5,028</span></td>
-                     <td>18,820</td>
-                     
+                     <td>4,428</td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
                   </tr>
                   <!-- end 5 -->
 
@@ -496,78 +432,46 @@
                   <!-- middle Content -->
                   <tr class="collapse-row group-6">
                      <td></td>
-                     <td>Female</td>
+                     <td>Escorts</td>
                      <td>152</td>
-                     <td>1,762</td>
+                     <td colspan="2">1,762</td>
                      <td>1,914</td>
                      <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
                      <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
                      <td><span class="text-danger">↓ 56.8%</span></td>
                      <td>9,410</td>
-                     
                   </tr>
                   <tr class="collapse-row group-6">
                      <td></td>
-                     <td>Male</td>
+                     <td>Centres</td>
                      <td>152</td>
-                     <td>1,762</td>
+                     <td colspan="2">1,762</td>
                      <td>1,914</td>
                      <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
                      <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
                      <td><span class="text-danger">↓ 56.8%</span></td>
                      <td>9,410</td>
-                     
                   </tr>
-                  <tr class="collapse-row group-6">
-                     <td></td>
-                     <td>Trans</td>
-                     <td>152</td>
-                     <td>1,762</td>
-                     <td>1,914</td>
-                     <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
-                     <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
-                     <td><span class="text-danger">↓ 56.8%</span></td>
-                     <td>9,410</td>
-                     
-                  </tr>
-                  <tr class="collapse-row group-6">
-                     <td></td>
-                     <td>Couple</td>
-                     <td>152</td>
-                     <td>1,762</td>
-                     <td>1,914</td>
-                     <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
-                     <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
-                     <td><span class="text-danger">↓ 56.8%</span></td>
-                     <td>9,410</td>
-                     
-                  </tr>
+                  <!-- total -->
                   <tr class="collapse-row group-6 table-primary font-weight-bold">
                      <td></td>
                      <td>Total</td>
-                     <td>340</td>
-                     <td>1,258</td>
-                     <td>3,524</td>
-                     <td>3,701</td>
-                     <td>3,574</td>
-                     <td><span class="text-success">↑ 254</span></td>
+                     <td>152</td>
+                     <td colspan="2">1,762</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>8,856</td>
-                     <td><span class="text-danger">↓ 5,028</span></td>
-                     <td>18,820</td>
-                     
+                     <td>4,428</td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
                   </tr>
                   <!-- end 6 -->
 
@@ -593,78 +497,46 @@
                   <!-- middle Content -->
                   <tr class="collapse-row group-7">
                      <td></td>
-                     <td>Female</td>
+                     <td>Escorts</td>
                      <td>152</td>
-                     <td>1,762</td>
+                     <td colspan="2">1,762</td>
                      <td>1,914</td>
                      <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
                      <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
                      <td><span class="text-danger">↓ 56.8%</span></td>
                      <td>9,410</td>
-                     
                   </tr>
                   <tr class="collapse-row group-7">
                      <td></td>
-                     <td>Male</td>
+                     <td>Centres</td>
                      <td>152</td>
-                     <td>1,762</td>
+                     <td colspan="2">1,762</td>
                      <td>1,914</td>
                      <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
                      <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
                      <td><span class="text-danger">↓ 56.8%</span></td>
                      <td>9,410</td>
-                     
                   </tr>
-                  <tr class="collapse-row group-7">
-                     <td></td>
-                     <td>Trans</td>
-                     <td>152</td>
-                     <td>1,762</td>
-                     <td>1,914</td>
-                     <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
-                     <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
-                     <td><span class="text-danger">↓ 56.8%</span></td>
-                     <td>9,410</td>
-                     
-                  </tr>
-                  <tr class="collapse-row group-7">
-                     <td></td>
-                     <td>Couple</td>
-                     <td>152</td>
-                     <td>1,762</td>
-                     <td>1,914</td>
-                     <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
-                     <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
-                     <td><span class="text-danger">↓ 56.8%</span></td>
-                     <td>9,410</td>
-                     
-                  </tr>
+                  <!-- total -->
                   <tr class="collapse-row group-7 table-primary font-weight-bold">
                      <td></td>
                      <td>Total</td>
-                     <td>340</td>
-                     <td>1,258</td>
-                     <td>3,524</td>
-                     <td>3,701</td>
-                     <td>3,574</td>
-                     <td><span class="text-success">↑ 254</span></td>
+                     <td>152</td>
+                     <td colspan="2">1,762</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>8,856</td>
-                     <td><span class="text-danger">↓ 5,028</span></td>
-                     <td>18,820</td>
-                     
+                     <td>4,428</td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
                   </tr>
                   <!-- end 7 -->
 
@@ -690,78 +562,46 @@
                   <!-- middle Content -->
                   <tr class="collapse-row group-8">
                      <td></td>
-                     <td>Female</td>
+                     <td>Escorts</td>
                      <td>152</td>
-                     <td>1,762</td>
+                     <td colspan="2">1,762</td>
                      <td>1,914</td>
                      <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
                      <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
                      <td><span class="text-danger">↓ 56.8%</span></td>
                      <td>9,410</td>
-                     
                   </tr>
                   <tr class="collapse-row group-8">
                      <td></td>
-                     <td>Male</td>
+                     <td>Centres</td>
                      <td>152</td>
-                     <td>1,762</td>
+                     <td colspan="2">1,762</td>
                      <td>1,914</td>
                      <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
                      <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
                      <td><span class="text-danger">↓ 56.8%</span></td>
                      <td>9,410</td>
-                     
                   </tr>
-                  <tr class="collapse-row group-8">
-                     <td></td>
-                     <td>Trans</td>
-                     <td>152</td>
-                     <td>1,762</td>
-                     <td>1,914</td>
-                     <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
-                     <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
-                     <td><span class="text-danger">↓ 56.8%</span></td>
-                     <td>9,410</td>
-                     
-                  </tr>
-                  <tr class="collapse-row group-8">
-                     <td></td>
-                     <td>Couple</td>
-                     <td>152</td>
-                     <td>1,762</td>
-                     <td>1,914</td>
-                     <td>1,787</td>
-                     <td><span class="text-success">↑ 127</span></td>
-                     <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>4,428</td>
-                     <td><span class="text-danger">↓ 2,514</span></td>
-                     <td><span class="text-danger">↓ 56.8%</span></td>
-                     <td>9,410</td>
-                     
-                  </tr>
+                  <!-- total -->
                   <tr class="collapse-row group-8 table-primary font-weight-bold">
                      <td></td>
                      <td>Total</td>
-                     <td>340</td>
-                     <td>1,258</td>
-                     <td>3,524</td>
-                     <td>3,701</td>
-                     <td>3,574</td>
-                     <td><span class="text-success">↑ 254</span></td>
+                     <td>152</td>
+                     <td colspan="2">1,762</td>
+                     <td>1,914</td>
+                     <td>1,787</td>
+                     <td colspan="2"><span class="text-success">↑ 127</span></td>
                      <td><span class="text-success">↑ 7.1%</span></td>
-                     <td>8,856</td>
-                     <td><span class="text-danger">↓ 5,028</span></td>
-                     <td>18,820</td>
-                     
+                     <td>4,428</td>
+                     <td colspan="2"><span class="text-danger">↓ 2,514</span></td>
+                     <td><span class="text-danger">↓ 56.8%</span></td>
+                     <td>9,410</td>
                   </tr>
                   <!-- end 8 -->
 

@@ -17,22 +17,25 @@
             <!--middle content end here-->
             <div class="row">
                 <div class="col-md-12">
-                    <div class="v-main-heading h3">My Account</div>
-                </div>
-                <div class="col-md-12 mt-4" id="profile_and_tour_options">
-                    <div class="row">
-                        <div class="col-md-12 mb-2">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                    <ol>
-                                        <li>Your Advertiser's Profile Information will pre-populate any Massage Profile you create</li>
-                                        <li>Select your preferred method of contact by a Viewer for your Massage Profiles</li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="v-main-heading">
+                          <h1>My Account  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span></h1>
                     </div>
+                    <div class="my-4">
+                          <div class="card collapse" id="notes">
+                            <div class="card-body">
+                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                <ol>
+                                  <li>Your Advertiser's Profile Information will pre-populate any Massage Profile you create</li>
+                                  <li>Select your preferred method of contact by a Viewer for your Massage Profiles</li>
+                                </ol>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                
+                <!-- ALERT MESSAGE -->
+                <div class="col-md-12 my-3">
+                  <div id="formAlert" class="alert d-none rounded" role="alert"></div>
                 </div>
                 <div class="col-md-12 mt-4 mb-5">
                     <div id="accordion" class="myacording-design">
@@ -151,7 +154,7 @@
                                 </div>
                             </div>
                         </div> --}}
-                    </div>
+                      </div>
                 </div>
             </div>
         </div>
@@ -185,18 +188,17 @@
     $('#userProfile').parsley({
     
     });
-    
-    
-    
+    // new
     $('#userProfile').on('submit', function(e) {
       e.preventDefault();
-    
+
       var form = $(this);
-    
+
       if (form.parsley().isValid()) {
-    
+
         var url = form.attr('action');
         var data = new FormData(form[0]);
+
         $.ajax({
           method: form.attr('method'),
           url: url,
@@ -207,21 +209,65 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           success: function(data) {
+            var alertBox = $('#formAlert');
+
             if (!data.error) {
-              $('.Lname').html("Saved");
-              //$("#my_account_modal").modal('show');
-              $("#my_account_modal").show();
-              //
+              alertBox
+                .removeClass('d-none alert-danger')
+                .addClass('alert-success')
+                .html('Preference updated successfully.');
             } else {
-              $('.Lname').html("Oops.. sumthing wrong Please try again");
-              $("#my_account_modal").show();
-    
+              alertBox
+                .removeClass('d-none alert-success')
+                .addClass('alert-danger')
+                .html('Oops... something went wrong. Please try again.');
             }
+
+            // Optional: Auto-hide after 4 seconds
+            setTimeout(function() {
+              alertBox.addClass('d-none');
+            }, 10000);
           },
-    
         });
       }
     });
+    // end
+
+    // old 
+    // $('#userProfile').on('submit', function(e) {
+    //   e.preventDefault();
+    
+    //   var form = $(this);
+    
+    //   if (form.parsley().isValid()) {
+    
+    //     var url = form.attr('action');
+    //     var data = new FormData(form[0]);
+    //     $.ajax({
+    //       method: form.attr('method'),
+    //       url: url,
+    //       data: data,
+    //       contentType: false,
+    //       processData: false,
+    //       headers: {
+    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //       },
+    //       success: function(data) {
+    //         if (!data.error) {
+    //           $('.Lname').html("Saved");
+    //           //$("#my_account_modal").modal('show');
+    //           $("#my_account_modal").show();
+    //           //
+    //         } else {
+    //           $('.Lname').html("Oops.. sumthing wrong Please try again");
+    //           $("#my_account_modal").show();
+    
+    //         }
+    //       },
+    
+    //     });
+    //   }
+    // });
     $("#close").click(function()
       {
           $("#my_account_modal").hide();

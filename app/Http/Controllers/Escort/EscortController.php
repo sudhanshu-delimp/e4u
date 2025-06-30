@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Escort;
 use App\Http\Controllers\Controller;
 use App\Models\Purchase;
 use App\Repositories\Escort\EscortInterface;
+use Illuminate\Support\Facades\DB;
 
 
 use App\Http\Requests\StoreAvatarMediaRequest;
@@ -60,10 +61,21 @@ class EscortController extends Controller
 
     function add_listing()
     {
-        $escorts = Escort::where('user_id', auth()->user()->id)->where('profile_name', '!=', NULL)->get();
+        $today = Carbon::today()->toDateString();        
+        $excludedEscortIds = DB::table('purchase')
+            ->select('escort_id')
+            ->groupBy('escort_id')
+            ->havingRaw('MAX(end_date) >= ?', [$today])
+            ->pluck('escort_id');
+
+        $escorts = Escort::whereNotIn('id', $excludedEscortIds)
+            ->whereNotNull('profile_name')
+            ->where('user_id', auth()->id())
+            ->get();
         if (empty($escorts->toArray())) {
             return redirect()->route('escort.profile')->with('info', 'Create at-least one profile');
         }
+
         return view('escort.dashboard.add_listing', compact('escorts'));
     }
 
@@ -71,25 +83,32 @@ class EscortController extends Controller
     // function listing_checkout(UpdateEscortRequest $request) {
     function listing_checkout(Request $request)
     {
-        //        $escort_id = $request->escort_id;
-        $data = $request->data;
+        $escort_ids = $request->input('escort_id');
+        $start_dates = $request->input('start_date');
+        $end_dates = $request->input('end_date');
+        $memberships = $request->input('membership');
+
+        $data = array_map(function ($escort_id, $start_date, $end_date, $membership) {
+            return [
+                'escort_id' => $escort_id,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'membership' => $membership,
+            ];
+        }, $escort_ids, $start_dates, $end_dates, $memberships);
         $checkoutData = [];
-        $escort_ids = [];
-        foreach ($data as $idx => $listing) {
-
-
-            $index = date('Ymd', strtotime($listing['start_date'])) . rand(100, 999);
-            // dump($data, $idx, $listing, $index);
-            //            $data[$idx]['escort_id'] = $escort_id;
-            $escort_ids[] = $listing['escort_id'];
-            $checkoutData[$index] = $data[$idx];
+        foreach ($escort_ids as $key => $escort_id) {
+            $index = date('Ymd', strtotime($start_dates[$key])) . rand(100, 999);
+            $checkoutData[$index] = [
+                'escort_id'=>$escort_id,
+                'start_date'=>$start_dates[$key],
+                'end_date'=>$end_dates[$key],
+                'membership'=>$memberships[$key]
+            ];
         }
         $escorts = Escort::whereIn('id', $escort_ids)->pluck('name', 'id')->toArray();
         //save here in session to retrieve later
         session()->put('checkout', $checkoutData);
-        //        $checkoutData = json_encode($checkoutData);
-
-
         return view('escort.dashboard.checkoutPage', compact('data', 'escorts'));
     }
 
@@ -160,6 +179,8 @@ class EscortController extends Controller
             "recordsFiltered" => intval($count),
             "data"            => $result
         );
+
+        //dd($data);
 
         return response()->json($data);
     }

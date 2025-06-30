@@ -316,6 +316,22 @@ Route::get('/escort-dashboard/my-playmates',function(){
     return view('escort.dashboard.my-playmates');
 })->name('escort.dashboard.my-playmates');
 
+Route::get('/escort-dashboard/my-playbox',function(){
+    return view('escort.dashboard.my-playbox');
+})->name('escort.dashboard.my-playbox');
+
+Route::get('/escort-dashboard/my-legbox-viewers',function(){
+    return view('escort.dashboard.my-legbox-viewers');
+})->name('escort.dashboard.my-legbox-viewers');
+
+Route::get('/escort-dashboard/agent-messages',function(){
+    return view('escort.dashboard.agent-messages');
+})->name('escort.dashboard.agent-messages');
+
+Route::get('/escort-dashboard/viewers-messages',function(){
+    return view('escort.dashboard.viewers-messages');
+})->name('escort.dashboard.viewers-messages');
+
 Route::get('/escort-dashboard/my-statistics',function(){
     return view('escort.dashboard.my-statistics');
 })->name('escort.dashboard.my-statistics');
@@ -378,6 +394,10 @@ Route::get('/user-dashboard/viewer-statistics',function(){
 Route::get('/user-dashboard/my-statistics',function(){
     return view('user.dashboard.my-statistics');
 })->name('user.my-statistics');
+
+Route::get('/user-dashboard/task-list',function(){
+    return view('user.dashboard.task-list');
+})->name('user.task-list');
 
 
 Route::get('/user-dashboard/guide',function(){
@@ -527,6 +547,14 @@ Route::get('/admin-dashboard/management/legbox-report',function(){
 Route::get('/admin-dashboard/management/logs-staff',function(){
     return view('admin.management.logs-staff');
 })->name('admin.logs-staff');
+
+Route::get('/admin-dashboard/management/staff',function(){
+    return view('admin.management.staff');
+})->name('admin.staff');
+
+Route::get('/admin-dashboard/management/agent',function(){
+    return view('admin.management.agent');
+})->name('admin.agent');
 
 Route::get('/admin-dashboard/management/email-management',function(){
     return view('admin.management.email-management');

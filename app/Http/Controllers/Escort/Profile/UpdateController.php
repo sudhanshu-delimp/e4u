@@ -112,21 +112,23 @@ class UpdateController extends AppController
                 $users->save();
             }
         }
-         $cityId = 0;
-         $cnt = 0;
+        $cityId = 0;
+        $cnt = 0;
         if (isset($request->state_id)) {
             $stateId = $request->state_id;
-           
+
             $cities = config("escorts.profile.states.$stateId.cities");
             if (is_array($cities) && count($cities) > 0) {
                 foreach ($cities as $key => $state) {
-                    if($cnt == 0) {
-                      $cityId =   $key;
+                    if ($cnt == 0) {
+                        $cityId =   $key;
                     }
                     $cnt++;
                 }
             }
         }
+
+        $escortObj = (new Escort);
 
         $input = [
             //gender'=> $request->gender ?: $escortDefault->gender,
@@ -162,30 +164,147 @@ class UpdateController extends AppController
             'covidreport' => $request->covidreport ?: $escortDefault->getRawOriginal('covidreport'),
             'nationality_id' => $request->nationality_id ?: $escortDefault->getRawOriginal('nationality_id'),
         ];
+        $escortId = $escortDefault->id;
         if ($cityId > 0) {
             $input['city_id'] =  $cityId;
         }
-       if (isset($request->language)) {
-           $languageArr = explode(',', $request->language);
-           $input['language'] =  json_encode($languageArr);
-       }
+        if (isset($request->language)) {
+            $languageArr = explode(',', $request->language);
+            $input['language'] =  json_encode($languageArr);
+        }
 
-       if (isset($request->available_to)) {
-           $availables = explode(',', $request->available_to);
-           $input['available_to'] =  json_encode($availables);
-       }
+        if (isset($request->available_to)) {
+            $availables = explode(',', $request->available_to);
+            $input['available_to'] =  json_encode($availables);
+        }
 
-       if (isset($request->play_type)) {
-           $playTypes = explode(',', $request->play_type);
-           $input['play_type'] =  json_encode($playTypes);
-       }
+        if (isset($request->play_type)) {
+            $playTypes = explode(',', $request->play_type);
+            $input['play_type'] =  json_encode($playTypes);
+        }
 
-       if (isset($request->gender)) {
-           $input['gender'] =  $request->gender;
+        if (isset($request->gender)) {
+            $input['gender'] =  $request->gender;
+        }
+        $rateField = "";
+        $rateValue = 0;
+        $durationId = 0;
+        if (isset($request->massage_price[0])) {
+            $rateField = 'massage_price';
+            $rateValue = (int)$request->massage_price[0];
+            $durationId =  $request->custom_id;
+        } else if (isset($request->incall_price[0])) {
+            $rateField = 'incall_price';
+            $rateValue = (int)$request->incall_price[0];
+            $durationId =  $request->custom_id;
+        } else if (isset($request->outcall_price[0])) {
+            $rateField = 'outcall_price';
+            $rateValue = (int)$request->outcall_price[0];
+            $durationId =  $request->custom_id;
+        }
+        if (!empty($rateField) && $durationId > 0) {
+            $arr = [];
+            $escort = $this->escort->find($escortId);
+            $durationData = $escort->durations()->where('escort_id', $escortId)->get();
+            if ($durationData->count() == 0) {
+                $durations = $this->duration->all();
+                foreach ($durations as $key => $value) {
+                    $arr  += [
+                        $value->id => [
+                            "escort_id" => $escortId,
+                            "massage_price" => ($rateField == 'massage_price' && $value->id == $durationId) ? $rateValue : 0,
+                            "incall_price" => ($rateField == 'incall_price' &&  $value->id == $durationId) ? $rateValue : 0,
+                            "outcall_price" => ($rateField == 'outcall_price' && $value->id == $durationId) ? $rateValue : 0
+                        ],
+                    ];
+                }
+                if ($data_durations  = $escort->durations()->sync($arr)) {
+                    $error = 1;
+                }
+            } else {
+                $arr  = [
+                    $durationId => [
+                        "escort_id" => $escortId,
+                        $rateField => $rateValue,
+                    ],
+                ];
 
-       }
-      // echo $escortDefault->id;die;
-      // echo "<pre/>";print_r($input);die;
+                $escort->durations()->updateExistingPivot($durationId, [$rateField => $rateValue]);
+            }
+        }
+
+        if (isset($request->price[0])) {
+            $serviceValue = (int)$request->price[0];
+            $serviceId =  (int)$request->custom_id;
+            if ($serviceId > 0) {
+                $escort = Escort::with('services')->find($escortId);
+                $escort->services()->syncWithoutDetaching([
+                    $serviceId => ['price' => $serviceValue]
+                ]);
+            }
+        }
+        $weekday = "";
+        $dateTime = "";
+        $longDays = config('escorts.days.long_form');
+        if (isset($request->day_key_from)) {
+            $dateTime = $request->day_key_from;
+            $dayKey = $request->custom_id;
+            $weekday = isset($longDays[$dayKey]) ? $longDays[$dayKey] . "_from" : "";
+        }
+        if (isset($request->day_key_to)) {
+            $dateTime = $request->day_key_to;
+            $dayKey = $request->custom_id;
+            $weekday = isset($longDays[$dayKey]) ? $longDays[$dayKey] . "_to" : "";
+        }
+
+        if (!empty($weekday) && !empty($dateTime)) {
+            $time = date('H:i:s', strtotime($dateTime));
+            //echo $time. " ".$dateTime. " " .  $weekday;die;
+            $availability = Availability::where('escort_id', $escortId)->first();
+            if ($availability) {
+                $availabilityTime = $availability->availability_time;
+                unset($availabilityTime[$longDays[$dayKey]]);
+                $availability->{$weekday} = $time;
+                $availability->availability_time = $availabilityTime;
+                $availability->save();
+            } else {
+                $availability = (new  Availability);
+                $availability->escort_id = $escortId;
+                $availability->{$weekday} = $time;
+                $availability->save();
+            }
+            $error = false;
+        }
+
+        if (isset($request->availability_time)) {
+            $availabilityValue = $request->availability_time;
+            $dayKey = $request->custom_id;
+            $weekday = isset($longDays[$dayKey]) ? $longDays[$dayKey] : "";
+            if (!empty($weekday) && !empty($dayKey)) {
+
+                $availability = Availability::where('escort_id', $escortId)->first();
+                if ($availability) {
+                    $availabilityTime = $availability->availability_time;
+                    $availabilityTime[$weekday] = $availabilityValue;
+
+                    $availability->{$weekday . "_from"} = null;
+                    $availability->{$weekday . "_to"} = null;
+                    $availability->availability_time = $availabilityTime;
+                    $availability->save();
+                } else {
+                    $availability = (new  Availability);
+                    $availability->escort_id = $escortId;
+                    $availability->{$weekday . "_from"} = null;
+                    $availability->{$weekday . "_to"} = null;
+                    $availability->availability_time = [$weekday => $availabilityValue];
+                    $availability->save();
+                }
+                $error = false;
+            }
+        }
+
+        //echo $escortDefault->id;die;
+        // echo "<pre/>";print_r($input);die;
         if ($this->escort->update($escortDefault->id, $input)) {
             $error = false;
         }
@@ -305,17 +424,17 @@ class UpdateController extends AppController
 
         if ($id) {
             $arr = [];
-            if(isset($request->duration_id) ) {
-            foreach ($request->duration_id as $key => $value) {
-                $arr  += [
-                    $value => [
-                        "massage_price" => $request->massage_price[$key],
-                        "incall_price" => $request->incall_price[$key],
-                        "outcall_price" => $request->outcall_price[$key]
-                    ],
-                ];
+            if (isset($request->duration_id)) {
+                foreach ($request->duration_id as $key => $value) {
+                    $arr  += [
+                        $value => [
+                            "massage_price" => $request->massage_price[$key],
+                            "incall_price" => $request->incall_price[$key],
+                            "outcall_price" => $request->outcall_price[$key]
+                        ],
+                    ];
+                }
             }
-        }
 
             //dd($arr);
             if ($data_durations  = $escort->durations()->sync($arr)) {
@@ -470,87 +589,86 @@ class UpdateController extends AppController
     public function saveProfileMedia(UpdateRequestAboutAll $request, $id = null)
     {
         $user = auth()->user();
-         $media_arr = [];
-         $errors="";
-         $error= true;
+        $media_arr = [];
+        $errors = "";
+        $error = true;
         $successFlashMsg = $id ? 'Profile updated successfully' : 'Profile created successfully';
         $galleryStorageFull = false;
-         $noOfFilesInGallery = $this->media->get_user_row(auth()->user()->id, [8, 10])->count();
-         //echo $noOfFilesInGallery;die;
-      
-            if ($noOfFilesInGallery  <= 30) {
-                $error= false;
-                if ($request->hasFile('img')) {
-                    foreach ($request->file('img') as $position => $image) {
-                        $mime = $image->getMimeType();
-                        if (strstr($mime, "video/")) {
-                            $prefix = 'videos/';
-                            $type = 1;  //0=>image; 1=>video
-                        } else {
-                            $prefix = 'images/';
-                            $type = 0;
-                        }
-                        list($width, $height) = getimagesize($image);
-                        //list($type, $prefix) = $this->getPrefix($image);
-                        $encryptedFileName = $this->_generateUniqueFilename(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME));
-                        $file_path = $prefix . $user->id . '/' . Str::slug($encryptedFileName) . '.' . $image->getClientOriginalExtension();
-                        //dd($file_path);
-                        Storage::disk('escorts')->put($file_path, file_get_contents($image));
+        $noOfFilesInGallery = $this->media->get_user_row(auth()->user()->id, [8, 10])->count();
+        //echo $noOfFilesInGallery;die;
 
-                        if (!$media = $this->media->findByPath('escorts/' . $file_path)) {
-                            $data = [
-                                'escort_id' => $id,
-                                'user_id' => $user->id,
-                                'type' => $type,
-                                'position' => $position,
-                                'path' => 'escorts/' . $file_path,
-                            ];
-                            // $media = $this->media->updateOrCreate($data,$user->id,$position);
-                            $noOfFilesInGallery++;
-                            $media = $this->media->create($data);
-                            $media_arr[$position]  = [
-                                'escort_id' => $id,
-                                'escort_media_id' => $media['id'],
-                                'position' => $position,
-                                'created_at' => date('Y-m-d H:i:s'),
-                                // 'position' => $media['position'],
-                            ];
-                        } else {
-                            $media_arr[$position]  = [
-                                'escort_id' => $id,
-                                'escort_media_id' => $media->id,
-                                'position' => $position,
-                                'created_at' => date('Y-m-d H:i:s')
-                            ];
-                        }
+        if ($noOfFilesInGallery  <= 30) {
+            $error = false;
+            if ($request->hasFile('img')) {
+                foreach ($request->file('img') as $position => $image) {
+                    $mime = $image->getMimeType();
+                    if (strstr($mime, "video/")) {
+                        $prefix = 'videos/';
+                        $type = 1;  //0=>image; 1=>video
+                    } else {
+                        $prefix = 'images/';
+                        $type = 0;
+                    }
+                    list($width, $height) = getimagesize($image);
+                    //list($type, $prefix) = $this->getPrefix($image);
+                    $encryptedFileName = $this->_generateUniqueFilename(pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME));
+                    $file_path = $prefix . $user->id . '/' . Str::slug($encryptedFileName) . '.' . $image->getClientOriginalExtension();
+                    //dd($file_path);
+                    Storage::disk('escorts')->put($file_path, file_get_contents($image));
+
+                    if (!$media = $this->media->findByPath('escorts/' . $file_path)) {
+                        $data = [
+                            'escort_id' => $id,
+                            'user_id' => $user->id,
+                            'type' => $type,
+                            'position' => $position,
+                            'path' => 'escorts/' . $file_path,
+                        ];
+                        // $media = $this->media->updateOrCreate($data,$user->id,$position);
+                        $noOfFilesInGallery++;
+                        $media = $this->media->create($data);
+                        $media_arr[$position]  = [
+                            'escort_id' => $id,
+                            'escort_media_id' => $media['id'],
+                            'position' => $position,
+                            'created_at' => date('Y-m-d H:i:s'),
+                            // 'position' => $media['position'],
+                        ];
+                    } else {
+                        $media_arr[$position]  = [
+                            'escort_id' => $id,
+                            'escort_media_id' => $media->id,
+                            'position' => $position,
+                            'created_at' => date('Y-m-d H:i:s')
+                        ];
                     }
                 }
-            } else {
-                $errors .= "\nOpss... You have already 30 Images uploaded";
             }
-            //********FILE UPLOAD AREA CLOSE**********//
+        } else {
+            $errors .= "\nOpss... You have already 30 Images uploaded";
+        }
+        //********FILE UPLOAD AREA CLOSE**********//
 
 
-            $escortImages = EscortGallery::where('escort_id', $id)->get();
-            foreach ($escortImages as $escortImage) {
-                if (isset($media_arr[$escortImage->position])) {
-                    $escortImage->escort_media_id = $media_arr[$escortImage->position]['escort_media_id'];
-                    $escortImage->updated_at = date('Y-m-d H:i:s');
-                    $escortImage->save();
-                    unset($media_arr[$escortImage->position]);
-                }
+        $escortImages = EscortGallery::where('escort_id', $id)->get();
+        foreach ($escortImages as $escortImage) {
+            if (isset($media_arr[$escortImage->position])) {
+                $escortImage->escort_media_id = $media_arr[$escortImage->position]['escort_media_id'];
+                $escortImage->updated_at = date('Y-m-d H:i:s');
+                $escortImage->save();
+                unset($media_arr[$escortImage->position]);
             }
-            foreach ($media_arr as $newRecord) {
-                $gallery = new EscortGallery;
-                $gallery->escort_id = $id;
-                $gallery->escort_media_id = $newRecord['escort_media_id'];
-                $gallery->position = $newRecord['position'];
-                $gallery->created_at = date('Y-m-d H:i:s');
-                $gallery->save();
-            }
+        }
+        foreach ($media_arr as $newRecord) {
+            $gallery = new EscortGallery;
+            $gallery->escort_id = $id;
+            $gallery->escort_media_id = $newRecord['escort_media_id'];
+            $gallery->position = $newRecord['position'];
+            $gallery->created_at = date('Y-m-d H:i:s');
+            $gallery->save();
+        }
 
-             return response()->json(compact('error'));
-           
+        return response()->json(compact('error'));
     }
 
 
@@ -1005,9 +1123,9 @@ class UpdateController extends AppController
             'shaved' => $request->shaved,
             'endowment' => $request->endowment,
             'thickness' => $request->thickness,
-            'circumcised' => $request->circumcised ,
+            'circumcised' => $request->circumcised,
             'butt' => $request->butt,
-            'preference' => $request->preference ,
+            'preference' => $request->preference,
             'hormones' => $request->hormones,
             //'covidreport' => $request->covidreport,
         ];
@@ -1079,8 +1197,8 @@ class UpdateController extends AppController
             'about' => $request->about,
         ];
 
-        if(isset($request->about_title)) {
-             $input['about_title'] = $request->about_title;
+        if (isset($request->about_title)) {
+            $input['about_title'] = $request->about_title;
         }
 
 
@@ -1165,22 +1283,21 @@ class UpdateController extends AppController
         $data = [];
         $shortDays = config('escorts.days.short_form');
         foreach ($shortDays as $day => $shortDay) {
-            if(!empty($request->{$shortDay."_from"})) {
+            if (!empty($request->{$shortDay . "_from"})) {
                 $data  += [
-                    $day."_from" => date('H:i:s', strtotime($request->{$shortDay."_from"}.$request->{$shortDay."_time_from"})),
-                    $day."_to" => date('H:i:s', strtotime($request->{$shortDay."_to"}.$request->{$shortDay."_time_to"}))
+                    $day . "_from" => date('H:i:s', strtotime($request->{$shortDay . "_from"} . $request->{$shortDay . "_time_from"})),
+                    $day . "_to" => date('H:i:s', strtotime($request->{$shortDay . "_to"} . $request->{$shortDay . "_time_to"}))
                 ];
             } else {
                 $data  += [
-                    $day."_from" => null,
-                    $day."_to" => null,
+                    $day . "_from" => null,
+                    $day . "_to" => null,
                 ];
             }
         }
-        if(!empty($request->availability_time))
-        {
+        if (!empty($request->availability_time)) {
             $data  += [
-                "availability_time" =>$request->availability_time,
+                "availability_time" => $request->availability_time,
             ];
         }
 
@@ -1257,17 +1374,25 @@ class UpdateController extends AppController
         return [$type, 'attatchment/' . $str];
     }
 
-    public function duplicateProfile(Request $request){
+    public function duplicateProfile(Request $request)
+    {
         $escort_id = $request->escort_id;
         $escortDefault = $this->escort->find($escort_id);
         $user = auth()->user();
-        $stage_name = $request->name ? $request->name : ($escortDefault->name ?: null);
+        $stage_name = $request->duplicate_profile ? $request->name : ($escortDefault->name ?: null);
         $error = '';
-        $existWithStageName = Escort::where(['user_id' => $user->id,'name'=>$stage_name,'city_id'=>$request->city_id])->first();
-        if(!empty($existWithStageName)){
+        if(isset($request->duplicate_profile) && $request->duplicate_profile == "duplicate"){
+          $existWithStageName = Escort::where(['user_id' => $user->id, 'profile_name' => $request->profile_name])->first();
+          if (!empty($existWithStageName)) {
+            $error = 'Profilename already exist';
+        }
+        } else {
+        $existWithStageName = Escort::where(['user_id' => $user->id, 'name' => $stage_name, 'city_id' => $request->city_id])->first();
+        if (!empty($existWithStageName)) {
             $error = 'Profile with same stage name and with same location already exist';
         }
-        if(empty($error)){
+    }
+        if (empty($error)) {
             $input = [
                 'name' => $stage_name,
                 'city_id' => $request->city_id ? $request->city_id : ($escortDefault->city_id ?: null),
@@ -1318,12 +1443,12 @@ class UpdateController extends AppController
                 'about' => $request->about ? $request->about : ($escortDefault->about ?: null),
                 'about_title' => $request->about_title ? $request->about_title : ($escortDefault->about_title ?: null),
             ];
-    
+
             if ($escort = $this->escort->store($input, null)) {
                 if (!empty(trim($request->name)) && !empty(trim($request->update_stage_name))) {
 
                     $users = $this->user->find($user->id);
-        
+
                     $escortNames = $users->escorts_names;
                     if ($escortNames == NULL || !in_array($request->name, $escortNames)) {
                         $escortNames[] = trim($request->name);
@@ -1355,7 +1480,7 @@ class UpdateController extends AppController
                 /**
                  * Copy Escort Profile Services...
                  */
-                
+
                 $sourceEscort = Escort::with('services')->find($escort_id);
                 $service_arr = [];
                 foreach ($sourceEscort->services as $service) {
@@ -1377,21 +1502,19 @@ class UpdateController extends AppController
                     ];
                 }
                 $escort->durations()->sync($duration_arr);
-                
 
-            $response = [
-                'success' => true,
-                'message' => 'Profile has been created for the selected location.'
-            ];
-        }
-        else{
-            $response = [
-                'success' => false,
-                'message' => 'Profile Duplication failed.'
-            ];
-        }
-        }
-        else{
+
+                $response = [
+                    'success' => true,
+                    'message' => 'Profile has been created for the selected location.'
+                ];
+            } else {
+                $response = [
+                    'success' => false,
+                    'message' => 'Profile Duplication failed.'
+                ];
+            }
+        } else {
             $response = [
                 'success' => false,
                 'message' => $error
@@ -1400,7 +1523,8 @@ class UpdateController extends AppController
         return response()->json(compact('response'));
     }
 
-    public function checkProfileName(Request $request){
+    public function checkProfileName(Request $request)
+    {
         $user = auth()->user();
         $user_id = $user->id;
         $profile_name =  $request->input('profile_name');
@@ -1413,6 +1537,6 @@ class UpdateController extends AppController
         }
 
         $exists = $query->exists();
-        return  $exists ? response()->json(false, 422):response()->json(true, 200);
+        return  $exists ? response()->json(false, 422) : response()->json(true, 200);
     }
 }
