@@ -162,6 +162,34 @@ p {
     padding: 0px 0px 0px 9px;
 }
 
+.btn-success-modal {
+    background-color: var(--blue--text);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+}
+
+.align-item-custom {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.btn-success-modal:hover,
+.btn-cancel-modal:hover {
+    opacity: .9;
+}
+
+.btn-cancel-modal {
+    background-color: var(--peach);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+}
+
 .btn-right-icon {
     padding: 0px 15px 0px 9px;
     border: none;
@@ -4055,8 +4083,8 @@ table#myTable\ price-sec {
 #ListTable_length,
 #sailorTable_length {
     width: 30%;
-    top: 40px;
-    position: relative;
+    /* top: 40px;
+    position: relative; */
 }
 
 div.dataTables_wrapper div.dataTables_length select {
@@ -4714,7 +4742,7 @@ select.form-control {
 
 #listings_filter input,
 #sailorTable_filter input {
-    padding-right: 20px;
+    /* padding-right: 20px; */
 }
 
 #listings_filter input::placeholder,
@@ -4735,8 +4763,50 @@ select.form-control {
 
 #listings_filter input,
 #sailorTable_filter input {
-    padding-right: 20px;
+    /* padding-right: 20px; */
 }
+/* data table start */
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_length {
+    float: left;
+    padding: 0 !important;
+}
+.dataTables_wrapper .dataTables_paginate,
+.dataTables_wrapper .dataTables_filter {
+    float: right;
+}
+.dataTables_wrapper .dataTables_filter {
+    width: 60%;
+    margin-left: auto;
+}
+.dataTables_wrapper .dataTables_filter label {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.dataTables_wrapper .dataTables_filter label input {
+    width: 34% !important;
+}
+.dataTables_wrapper table#sailorTable,
+div#listings_wrapper .custom--common-table {
+    margin-top: 1rem !important;
+}
+.dataTables_wrapper .dataTables_paginate a {
+    min-height: 20px;
+    display: block;
+    line-height: 20px;
+    padding: 5px 10px;
+    margin: 0;
+}
+.dataTables_wrapper .dataTables_paginate {
+    display: flex;
+    gap: 5px;
+}
+.custom-table-responsive div#listings_length {
+    position: unset;
+    float: left;
+}
+/* data table end */
 
 #listings_filter input::placeholder,
 #sailorTable_filter input::placeholder {
@@ -5588,6 +5658,45 @@ td {
 
 
 /* end */
+
+.custom-tooltip-container {
+    position: relative;
+}
+
+.custom-tooltip-container .tooltip-text {
+    position: absolute;
+    background-color: var(--peach);
+    color: var(--white);
+    padding: 10px;
+    top: -15%;
+    right: 95%;
+    margin-right: 10px;
+    z-index: 2;
+    white-space: nowrap;
+    display: none;
+    border-radius: 4px;
+    font-size: 12px;
+    transition: 0.2s ease;
+}
+
+
+/* Tooltip arrow */
+
+.custom-tooltip-container .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    /* points toward the element */
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent transparent var(--peach);
+}
+
+.custom-tooltip-container:hover .tooltip-text {
+    display: block;
+}
 
 @media (min-width:300px) and (max-width:575px) {
     .form-inline-custom {

@@ -165,7 +165,7 @@ Route::post('/update-profile/{id}', [UserController::class, 'update'])->name('us
 Route::get('/update-available-playmate', [UserController::class, 'updateAvailablePlaymate'])->name('user.update.playmate');
 
 
-Route::get('/my-legbox-list', [UserController::class, 'myLegboxList'])->name('user.legbox.list');
+Route::get('/my-legbox/escort-list', [UserController::class, 'myLegboxList'])->name('user.legbox.escort-list');
 Route::get('/massage-legbox-list', [UserController::class, 'massageLegboxList'])->name('user.massage.legbox.list');
 Route::post('/save-my-legbox/{id}', [UserController::class, 'saveMyLegbox'])->name('user.save.legbox');
 Route::post('/delete-my-legbox/{id}', [UserController::class, 'deleteMyLegbox'])->name('user.delete.legbox');

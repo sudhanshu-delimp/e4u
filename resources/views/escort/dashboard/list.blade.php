@@ -252,12 +252,21 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="">Credit:</label>
+                                        <div class="col-sm-8">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
+                                                <span class="form-control" style="background-color: #e9ecef; border: 1px solid #ced4da;">0.00</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                     {{-- <div class="form-group row">
                                         <label class="col-sm-3 col-form-label" for="">Credit:</label>
                                         <div class="col-sm-8">
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
-                                                <input type="number" class="form-control"  step="0.01" min="0"  name="credit_price" value="0.0" id="credit_price" required>
+                                                <input type="number" readonly class="form-control"  step="0.01" min="0"  name="credit_price" value="0.0" id="credit_price" required>
                                             </div>
                                         </div>
                                     </div> --}}

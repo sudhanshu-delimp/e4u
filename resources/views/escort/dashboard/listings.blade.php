@@ -99,8 +99,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="table-responsive pl-1 pt-3 list-sec">
-                            <table id="listings" class="table table-striped" width="100%">
+                        <div class="table-responsive custom-table-responsive pl-1 pt-3 list-sec">
+                            <table id="listings" class="table table-striped custom--common-table" width="100%">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -211,14 +211,14 @@
                 pageLength: 10,
                 "language": {
                     "zeroRecords": "No record(s) found.",
-                    searchPlaceholder: "Search by Id or profile name ..."
+                    searchPlaceholder: "Search by ID or Profile Name"
                 },
                 drawCallback: function(settings) {
                     var api = this.api();
                     //var records = api.data().length;
                     var length = table.page.info().recordsTotal;
                     if (length <= 10) {
-                       $('.dataTables_paginate').hide();
+                       $('.dataTables_paginate').show();
                     } else {
                        $('.dataTables_paginate').show();
                     }
@@ -275,7 +275,7 @@
                     }
                 ]
             });
-            $('#listings_filter label').append('<i class="fa fa-search "></i>');
+            // $('#listings_filter label').append('<i class="fa fa-search "></i>');
         })
     </script>
 @endpush

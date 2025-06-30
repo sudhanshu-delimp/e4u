@@ -408,8 +408,8 @@
 ?>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ugly" aria-expanded="true" aria-controls="collapseten">
-            <img src="{{ asset('assets/dashboard/img/menu-icon/Vector.png')}}">
-            <span >Ugly Mugs</span>
+            <img src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png')}}">
+            <span >NUM</span>
         </a>
         <div id="ugly" class=" collapse  @if(request()->segment(2) == 'report' || request()->segment(2) == 'lookup' || request()->segment(2) == 'request-notification' ) show @endif;" aria-labelledby="headingten" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">

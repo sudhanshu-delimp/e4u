@@ -60,7 +60,7 @@
                 </div>
                 <div class="table-responsive">
                     <table id="viewerTable" class="table table-bordered" width="100%">
-                        <thead style="background-color: #0C223D; color: #ffffff;">
+                        <thead class="bg-first">
                         <tr>
                             <th class="text-left">Viewer ID</th>
                             <th class="text-left">Home State</th>
@@ -158,7 +158,7 @@
                 responsive: true,
                 language: {
                     search: "<label>Search:</label> _INPUT_",
-                    searchPlaceholder: "Search by ID or Profile Name...",
+                    searchPlaceholder: "Search by ID or Profile Name",
                     lengthMenu: "Show _MENU_ entries",
                     zeroRecords: "No matching records found",
                     info: "Showing _START_ to _END_ of _TOTAL_ entries",
