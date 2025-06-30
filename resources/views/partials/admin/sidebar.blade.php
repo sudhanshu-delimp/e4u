@@ -521,7 +521,7 @@
                     src="{{ asset('assets/dashboard/img/menu-icon/post-office.png') }}">
                 <span>Post Office &#10060;</span>
             </a>
-            <div id="PostOffice" class=" collapse  @if (request()->segment(3) == 'newpost') show @endif;"
+            {{-- <div id="PostOffice" class=" collapse  @if (request()->segment(3) == 'newpost') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
                     <a href="#" class="collapse-item">
@@ -554,7 +554,7 @@
                             style="{{ request()->segment(3) == 'newpost' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">New</span>
                     </a>
                 </div>
-            </div>
+            </div> --}}
             <div id="PostOffice" class=" collapse  @if (request()->segment(3) == 'reports' || request()->segment(3) == 'send-reports') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
