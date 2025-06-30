@@ -162,6 +162,34 @@ p {
     padding: 0px 0px 0px 9px;
 }
 
+.btn-success-modal {
+    background-color: var(--blue--text);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+}
+
+.align-item-custom {
+    display: flex !important;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.btn-success-modal:hover,
+.btn-cancel-modal:hover {
+    opacity: .9;
+}
+
+.btn-cancel-modal {
+    background-color: var(--peach);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+}
+
 .btn-right-icon {
     padding: 0px 15px 0px 9px;
     border: none;
@@ -5588,6 +5616,45 @@ td {
 
 
 /* end */
+
+.custom-tooltip-container {
+    position: relative;
+}
+
+.custom-tooltip-container .tooltip-text {
+    position: absolute;
+    background-color: var(--peach);
+    color: var(--white);
+    padding: 10px;
+    top: -15%;
+    right: 95%;
+    margin-right: 10px;
+    z-index: 2;
+    white-space: nowrap;
+    display: none;
+    border-radius: 4px;
+    font-size: 12px;
+    transition: 0.2s ease;
+}
+
+
+/* Tooltip arrow */
+
+.custom-tooltip-container .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    /* points toward the element */
+    transform: translateY(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent transparent var(--peach);
+}
+
+.custom-tooltip-container:hover .tooltip-text {
+    display: block;
+}
 
 @media (min-width:300px) and (max-width:575px) {
     .form-inline-custom {

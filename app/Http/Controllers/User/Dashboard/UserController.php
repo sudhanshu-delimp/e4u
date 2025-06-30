@@ -36,7 +36,7 @@ class UserController extends Controller
             $user_type = auth()->user();
         }
       //dd($user_type->myLegBox->pluck('id')->toArray());
-        return view('user.dashboard.legbox.list',compact('user_type'));
+        return view('user.dashboard.legbox.escort-list',compact('user_type'));
     }
     public function massageLegboxList()
     {

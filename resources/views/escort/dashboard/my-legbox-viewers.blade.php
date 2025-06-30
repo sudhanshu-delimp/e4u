@@ -60,7 +60,7 @@
                 </div>
                 <div class="table-responsive">
                     <table id="viewerTable" class="table table-bordered" width="100%">
-                        <thead style="background-color: #0C223D; color: #ffffff;">
+                        <thead class="bg-first">
                         <tr>
                             <th class="text-left">Viewer ID</th>
                             <th class="text-left">Home State</th>
