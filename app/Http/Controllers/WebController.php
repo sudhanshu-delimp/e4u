@@ -1046,7 +1046,47 @@ class WebController extends Controller
         $cat1_services_two = null;
         $cat1_services_three = null;
 
-
+       
+        $categoryOneServices = $escort->services()->where('category_id', 1)->get();
+        $categoryTwoServices = $escort->services()->where('category_id', 2)->get();
+        $categoryThreeServices = $escort->services()->where('category_id', 3)->get();
+        if(!empty($categoryOneServices->toArray())){
+            $chunks = array_chunk($categoryOneServices->toArray(), ceil(count($categoryOneServices) / 3));
+            $maxLength = max(array_map('count', $chunks));
+            foreach ($chunks as &$chunk) {
+                $chunk = array_pad($chunk, $maxLength, ['name' => '', 'pivot' => ['price'=>'']]); // or ['name' => '', 'price' => '']
+            }
+            unset($chunk); 
+            $categoryOneServices = $chunks;
+        }
+        else{
+            $categoryOneServices = [];
+        }    
+        if(!empty($categoryTwoServices->toArray())){
+            $chunks = array_chunk($categoryTwoServices->toArray(), ceil(count($categoryTwoServices) / 3));
+            $maxLength = max(array_map('count', $chunks));
+            foreach ($chunks as &$chunk) {
+                $chunk = array_pad($chunk, $maxLength, ['name' => '', 'pivot' => ['price'=>'']]); // or ['name' => '', 'price' => '']
+            }
+            unset($chunk); 
+            $categoryTwoServices = $chunks;
+        }
+        else{
+            $categoryTwoServices = [];
+        }
+        if(!empty($categoryThreeServices->toArray())){
+            $chunks = array_chunk($categoryThreeServices->toArray(), ceil(count($categoryThreeServices) / 3));
+            $maxLength = max(array_map('count', $chunks));
+            foreach ($chunks as &$chunk) {
+                $chunk = array_pad($chunk, $maxLength, ['name' => '', 'pivot' => ['price'=>'']]); // or ['name' => '', 'price' => '']
+            }
+            unset($chunk); 
+            $categoryThreeServices = $chunks;
+        }
+        else{
+            $categoryThreeServices = [];
+        }
+        
         if(isset($services1[0])) {
             $cat1_services_one = $services1[0];
         }
@@ -1151,7 +1191,7 @@ class WebController extends Controller
         //dd($viewType);
         $user = DB::table('users')->where('id',(int)$escort->user_id)->select('contact_type')->first();
         //dd($user, $escort->user_id);
-        return view('web.description',compact('brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three','backToSearchButton','user','viewType','reviews'));
+        return view('web.description',compact('categoryOneServices','categoryTwoServices','categoryThreeServices','brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','backToSearchButton','user','viewType','reviews'));
     }
     public function centerProfileDescription($id)
     {

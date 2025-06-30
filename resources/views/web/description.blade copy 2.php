@@ -601,10 +601,46 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table"  style="{{ empty($categoryOneServices) ? 'border: 1px solid black;' : ''}}">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryOneServices) ? 'padding: 1px;' : ''}}">
-                                                    
-                                                    <table class="table {{empty($categoryOneServices[0]) ? '': 'table_border_dash' }}  ">
+                                            {{-- dd(!empty($cat1_services_one), $cat1_services_one) --}}
+
+                                            <div class="row margin_zero_for_table"  style="{{ empty($cat1_services_one) ? 'border: 1px solid black;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat1_services_one) ? 'padding: 1px;' : ''}}">
+                                                    <?php
+                                                    $dataExistInTable1 = false;
+                                                    $tableData = [
+                                                        1 => '', 2 => '', 3 => ''
+                                                    ];
+                                                    if(!empty($cat1_services_one)){
+                                                        $i = 1;
+                                                        foreach($cat1_services_one as $service) {
+                                                            if($service){
+                                                                $dataExistInTable1 = true;
+                                                            }
+                                                            
+                                                            $tableData[$i] .= '<tr>
+                                                                    <td class="table_border_dash_left">'.$service->name.'</td>
+                                                                    <td class="table_border_solid_left">'. ($service->pivot->price ? '$'. number_format($service->pivot->price) : '<span class="if_data_not_available">N/A</span>') .'</td>
+                                                                </tr>';
+                                                            ($i == 3) ? $i=1 : $i++;
+                                                        }
+                                                        if($i == 2) {
+                                                            $tableData[$i] .= '<tr>
+                                                                    <td class="table_border_dash_left">&nbsp;</td>
+                                                                    <td class="table_border_solid_left">&nbsp;</td>
+                                                                </tr>';
+                                                            $tableData[3] .= '<tr>
+                                                                    <td class="table_border_dash_left">&nbsp;</td>
+                                                                    <td class="table_border_solid_left">&nbsp;</td>
+                                                                </tr>';
+                                                        } elseif($i == 3) {
+                                                            $tableData[3] .= '<tr>
+                                                                    <td class="table_border_dash_left">&nbsp;</td>
+                                                                    <td class="table_border_solid_left">&nbsp;</td>
+                                                                </tr>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <table class="table {{$dataExistInTable1 == false ? '': 'table_border_dash' }}  ">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -612,22 +648,16 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @if(!empty($categoryOneServices[0]))
-                                                                @foreach($categoryOneServices[0] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{{$service['name']}}</td>
-                                                                        <td class="table_border_solid_left">${{!empty($service['pivot'])?number_format($service['pivot']['price']):''}}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                                <td colspan="2" class="let-talk-about"></td>
-                                                            @endif
+                                                        {!! $tableData[1] !!}
+                                                        @if($dataExistInTable1 == false)
+                                                            <td colspan="2" class="let-talk-about"></td>
+                                                        @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
                                                 
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryOneServices[1]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryOneServices[1]) ? '': 'table_border_dash' }}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat1_services_one) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{$dataExistInTable1 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -635,21 +665,15 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @if(!empty($categoryOneServices[1]))
-                                                                @foreach($categoryOneServices[1] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{{$service['name']}}</td>
-                                                                        <td class="table_border_solid_left">${{!empty($service['pivot'])?number_format($service['pivot']['price']):''}}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
+                                                        {!! $tableData[2] !!}
+                                                        @if($dataExistInTable1 == false)
                                                             <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
-                                                            @endif
+                                                        @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryOneServices[2]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryOneServices[2]) ? '': 'table_border_dash' }}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat1_services_one) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{$dataExistInTable1 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -657,16 +681,10 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @if(!empty($categoryOneServices[2]))
-                                                                @foreach($categoryOneServices[2] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{{$service['name']}}</td>
-                                                                        <td class="table_border_solid_left">${{!empty($service['pivot'])?number_format($service['pivot']['price']):''}}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                                <td colspan="2" class="let-talk-about"></td>
-                                                            @endif
+                                                        {!! $tableData[3] !!}
+                                                        @if($dataExistInTable1 == false)
+                                                            <td colspan="2" class="let-talk-about"></td>
+                                                        @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -683,9 +701,44 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table" style="{{ empty($categoryTwoServices) ? 'border: 1px solid black;' : ''}}">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryTwoServices) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryTwoServices[0]) ? '': 'table_border_dash' }}">
+                                            <div class="row margin_zero_for_table" style="{{ empty($cat2_services_one) ? 'border: 1px solid black;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat2_services_one) ? 'padding: 1px;' : ''}}">
+                                                    <?php
+                                                    $dataExistInTable2 = false;
+                                                    $tableData = [
+                                                        1 => '', 2 => '', 3 => ''
+                                                    ];
+                                                    if(!empty($cat2_services_one)){
+                                                        
+                                                        $i = 1;
+                                                        foreach($cat2_services_one as $service) {
+                                                            if($service){
+                                                                $dataExistInTable2 = true;
+                                                            }
+                                                            $tableData[$i] .= '<tr>
+                                                                    <td class="table_border_dash_left">'.$service->name.'</td>
+                                                                    <td class="table_border_solid_left">'. ($service->pivot->price ? '$'. number_format($service->pivot->price) : '<span class="if_data_not_available">N/A</span>') .'</td>
+                                                                </tr>';
+                                                            ($i == 3) ? $i=1 : $i++;
+                                                        }
+                                                        if($i == 2) {
+                                                            $tableData[$i] .= '<tr>
+                                                                    <td class="table_border_dash_left">&nbsp;</td>
+                                                                    <td class="table_border_solid_left">&nbsp;</td>
+                                                                </tr>';
+                                                            $tableData[3] .= '<tr>
+                                                                    <td class="table_border_dash_left">&nbsp;</td>
+                                                                    <td class="table_border_solid_left">&nbsp;</td>
+                                                                </tr>';
+                                                        } elseif($i == 3) {
+                                                            $tableData[3] .= '<tr>
+                                                                    <td class="table_border_dash_left">&nbsp;</td>
+                                                                    <td class="table_border_solid_left">&nbsp;</td>
+                                                                </tr>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <table class="table {{$dataExistInTable2 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -693,21 +746,15 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @if(!empty($categoryTwoServices[0]))
-                                                                @foreach($categoryTwoServices[0] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{{$service['name']}}</td>
-                                                                        <td class="table_border_solid_left">${{!empty($service['pivot'])?number_format($service['pivot']['price']):''}}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
+                                                            {!! $tableData[1] !!}
+                                                            @if($dataExistInTable2 == false)
                                                                 <td colspan="2" class="let-talk-about"></td>
                                                             @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryTwoServices[1]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryTwoServices[1]) ? '': 'table_border_dash' }}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat2_services_one) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{$dataExistInTable2 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -715,21 +762,15 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @if(!empty($categoryTwoServices[1]))
-                                                                @foreach($categoryTwoServices[1] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{{$service['name']}}</td>
-                                                                        <td class="table_border_solid_left">${{!empty($service['pivot'])?number_format($service['pivot']['price']):''}}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
+                                                            {!! $tableData[2] !!}
+                                                            @if($dataExistInTable2 == false)
+                                                                <td colspan="2" class="let-talk-about" style="padding-top: 15px;">Let's talk about it.</td>
                                                             @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryTwoServices[2]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryTwoServices[2]) ? '': 'table_border_dash' }}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat2_services_one) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{$dataExistInTable2 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -737,14 +778,8 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @if(!empty($categoryTwoServices[2]))
-                                                                @foreach($categoryTwoServices[2] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{{$service['name']}}</td>
-                                                                        <td class="table_border_solid_left">${{!empty($service['pivot'])?number_format($service['pivot']['price']):''}}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
+                                                            {!! $tableData[3] !!}
+                                                            @if($dataExistInTable2 == false)
                                                                 <td colspan="2" class="let-talk-about"></td>
                                                             @endif
                                                         </tbody>
@@ -763,9 +798,44 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table" style="{{ empty($categoryThreeServices) ? 'border: 1px solid black;' : ''}}">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryThreeServices) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table  {{ empty($categoryThreeServices[0]) ? '': 'table_border_dash' }}">
+                                            <div class="row margin_zero_for_table" style="{{ empty($cat3_services_one) ? 'border: 1px solid black;' : ''}}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat3_services_one) ? 'padding: 1px;' : ''}}">
+                                                    <?php
+                                                    $dataExistInTable3 = false;
+                                                    $tableData = [
+                                                        1 => '', 2 => '', 3 => ''
+                                                    ];
+                                                    if(!empty($cat3_services_one)){
+                                                        
+                                                        $i = 1;
+                                                        foreach($cat3_services_one as $service) {
+                                                            if($service){
+                                                                $dataExistInTable3 = true;
+                                                            }
+                                                            $tableData[$i] .= '<tr>
+                                                                    <td class="table_border_dash_left">'.$service->name.'</td>
+                                                                    <td class="table_border_solid_left">'. ($service->pivot->price ? '$'. number_format($service->pivot->price) : '<span class="if_data_not_available">N/A</span>') .'</td>
+                                                                </tr>';
+                                                            ($i == 3) ? $i=1 : $i++;
+                                                        }
+                                                        if($i == 2) {
+                                                            $tableData[$i] .= '<tr>
+                                                                    <td class="table_border_dash_left">&nbsp;</td>
+                                                                    <td class="table_border_solid_left">&nbsp;</td>
+                                                                </tr>';
+                                                            $tableData[3] .= '<tr>
+                                                                    <td class="table_border_dash_left">&nbsp;</td>
+                                                                    <td class="table_border_solid_left">&nbsp;</td>
+                                                                </tr>';
+                                                        } elseif($i == 3) {
+                                                            $tableData[3] .= '<tr>
+                                                                    <td class="table_border_dash_left">&nbsp;</td>
+                                                                    <td class="table_border_solid_left">&nbsp;</td>
+                                                                </tr>';
+                                                        }
+                                                    }
+                                                    ?>
+                                                    <table class="table  {{$dataExistInTable3 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -773,21 +843,15 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            @if(!empty($categoryThreeServices[0]))
-                                                                @foreach($categoryThreeServices[0] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{{$service['name']}}</td>
-                                                                        <td class="table_border_solid_left">${{!empty($service['pivot'])?number_format($service['pivot']['price']):''}}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
+                                                            {!! $tableData[1] !!}
+                                                            @if($dataExistInTable3 == false)
                                                                 <td colspan="2" class="let-talk-about"></td>
                                                             @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryThreeServices[1]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryThreeServices[1]) ? '': 'table_border_dash' }}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat3_services_one) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{$dataExistInTable3 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -795,21 +859,15 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @if(!empty($categoryThreeServices[1]))
-                                                                @foreach($categoryThreeServices[1] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{{$service['name']}}</td>
-                                                                        <td class="table_border_solid_left">${{!empty($service['pivot'])?number_format($service['pivot']['price']):''}}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
-                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
+                                                           {!! $tableData[2] !!}
+                                                           @if($dataExistInTable3 == false)
+                                                                <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
                                                             @endif
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryThreeServices[2]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{ empty($categoryThreeServices[2]) ? '': 'table_border_dash' }}">
+                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($cat3_services_one) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{$dataExistInTable3 == false ? '': 'table_border_dash' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -817,14 +875,8 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                        @if(!empty($categoryThreeServices[2]))
-                                                                @foreach($categoryThreeServices[2] as $service)
-                                                                    <tr>
-                                                                        <td class="table_border_dash_left">{{$service['name']}}</td>
-                                                                        <td class="table_border_solid_left">{{!empty($service['pivot']['price'])?'$'.number_format($service['pivot']['price']):''}}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            @else
+                                                            {!! $tableData[3] !!}
+                                                            @if($dataExistInTable3 == false)
                                                                 <td colspan="2" class="let-talk-about"></td>
                                                             @endif
                                                         </tbody>
