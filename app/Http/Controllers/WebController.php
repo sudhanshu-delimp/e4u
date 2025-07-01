@@ -1051,36 +1051,21 @@ class WebController extends Controller
         $categoryTwoServices = $escort->services()->where('category_id', 2)->get();
         $categoryThreeServices = $escort->services()->where('category_id', 3)->get();
         if(!empty($categoryOneServices->toArray())){
-            $chunks = array_chunk($categoryOneServices->toArray(), ceil(count($categoryOneServices) / 3));
-            $maxLength = max(array_map('count', $chunks));
-            foreach ($chunks as &$chunk) {
-                $chunk = array_pad($chunk, $maxLength, ['name' => '', 'pivot' => ['price'=>'']]); // or ['name' => '', 'price' => '']
-            }
-            unset($chunk); 
+            $chunks = $this->getServiceChunks($categoryOneServices->toArray());
             $categoryOneServices = $chunks;
         }
         else{
             $categoryOneServices = [];
         }    
         if(!empty($categoryTwoServices->toArray())){
-            $chunks = array_chunk($categoryTwoServices->toArray(), ceil(count($categoryTwoServices) / 3));
-            $maxLength = max(array_map('count', $chunks));
-            foreach ($chunks as &$chunk) {
-                $chunk = array_pad($chunk, $maxLength, ['name' => '', 'pivot' => ['price'=>'']]); // or ['name' => '', 'price' => '']
-            }
-            unset($chunk); 
+            $chunks = $this->getServiceChunks($categoryTwoServices->toArray());
             $categoryTwoServices = $chunks;
         }
         else{
             $categoryTwoServices = [];
         }
         if(!empty($categoryThreeServices->toArray())){
-            $chunks = array_chunk($categoryThreeServices->toArray(), ceil(count($categoryThreeServices) / 3));
-            $maxLength = max(array_map('count', $chunks));
-            foreach ($chunks as &$chunk) {
-                $chunk = array_pad($chunk, $maxLength, ['name' => '', 'pivot' => ['price'=>'']]); // or ['name' => '', 'price' => '']
-            }
-            unset($chunk); 
+            $chunks = $this->getServiceChunks($categoryThreeServices->toArray());
             $categoryThreeServices = $chunks;
         }
         else{
@@ -1193,6 +1178,21 @@ class WebController extends Controller
         //dd($user, $escort->user_id);
         return view('web.description',compact('categoryOneServices','categoryTwoServices','categoryThreeServices','brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','backToSearchButton','user','viewType','reviews'));
     }
+
+    public function getServiceChunks($array=[],$chunkLenth=3){
+        $chunkSize = ceil(count($array) / $chunkLenth);
+        $chunks = array_chunk($array, $chunkSize);
+        while (count($chunks) < 3) {
+            $chunks[] = [];
+        }
+        $maxLength = max(array_map('count', $chunks));
+        foreach ($chunks as &$chunk) {
+            $chunk = array_pad($chunk, $maxLength, ['name' => '&nbsp;', 'pivot' => ['price' => '']]);
+        }
+        unset($chunk);
+        return $chunks;
+    }
+    
     public function centerProfileDescription($id)
     {
 
