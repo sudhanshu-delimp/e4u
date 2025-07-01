@@ -4802,9 +4802,16 @@ div#listings_wrapper .custom--common-table {
     display: flex;
     gap: 5px;
 }
-.custom-table-responsive div#listings_length {
-    position: unset;
+.custom-table-responsive div#listings_length,
+.dataTables_wrapper .dataTables_length {
+    position: unset !important;
     float: left;
+}
+.remove--icon:after {
+    opacity: 0 !important;
+}
+.custom-responsive .dataTables_length label {
+    margin: 0 !important;
 }
 /* data table end */
 
@@ -5444,7 +5451,10 @@ td {
     margin-top: 10px;
 }
 
-
+.custom--newtable thead,
+.custom--newtable tbody {
+    font-size: 14px;
+}
 /* my spend box */
 
 .my-spend-box {
