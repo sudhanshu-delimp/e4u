@@ -105,8 +105,8 @@
     <div class="overlay">
         @if($escort->latestActiveBrb)
             <div class="brb_details">
-                <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time))}}</h1>
-                <h3>{{$brb['brb_note']}}</h3>
+                <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time) )}}</h1>
+                <h3>{{isset($brb['brb_note']) ? $brb['brb_note'] : ''}}</h3>
             </div>
         @endif
     </div>
