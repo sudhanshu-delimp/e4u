@@ -1,24 +1,6 @@
 @extends('layouts.userDashboard')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
-<style>
-   
-   .table td{
-        vertical-align: middle;        
-        padding: 12px !important;
-    }
-    #myTable_length{
-        float: left;
-        padding: 10px 0px;
-    }
-    #myTable_filter{
-        float:right;
-        padding: 10px 0px;
-    }
-    #myTable_filter input[type='search']{
-        width:280px !important;
-    }
-</style>
 @stop
 @section('content')
 <!-- Content Wrapper -->
@@ -38,7 +20,7 @@
                      <li>The My Legbox feature is a list only of your favourite Escorts. Please note, the
                         Notifications feature is enabled, according to your settings, by default. You can enable
                         or disable Notifications exclusively with an Escort. Go to Action.</li>
-                     <li>Use the <a href="{{ route('user.list') }}" class="custom_links_design">Notebox</a> feature to record your experience with an Escort you have added to
+                     <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a> feature to record your experience with an Escort you have added to
                         My Legbox.</li>
                  </ol>
               </div>
@@ -49,14 +31,14 @@
    <div class="row my-2">
        <!-- My Legbox -->
        <div class="col-md-12 mb-4">
-           <div class="mb-2 d-flex align-items-center justify-content-end flex-wrap gap-10">           
+           <div class="mb-3 d-flex align-items-center justify-content-end flex-wrap gap-10">           
                <div class="total_listing">
                    <div><span>Total Escorts Legbox: : </span></div>
                    <div><span>01</span></div>
                </div>
            </div>
            <div class="table-responsive">
-               <table id="myTable" class="table table-bordered display" width="100%">
+               <table id="escortCenterListTable" class="table table-bordered display" width="100%">
                    <thead class="bg-first">
                    <tr>
                        <th class="text-left">Escorts  ID</th>
@@ -90,11 +72,11 @@
                        <td class="text-center">Text</td>
                        <td class="text-center">0438 028 728</td>
                        <td class="text-center">
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                            <label class="custom-control-label" for="customSwitch1"></label>
-                          </div>
-                      </div></td>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                <label class="custom-control-label" for="customSwitch1"></label>
+                            </div>
+                        </td>
                        
                        <td class="theme-color text-center bg-white">
                            <div class="dropdown no-arrow">
@@ -321,10 +303,10 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
    $(document).ready(function() {
-       $('#myTable').DataTable({
+       $('#escortCenterListTable').DataTable({
            responsive: true,
            language: {
-               search: "<label>Search:</label> _INPUT_",
+               search: "Search: _INPUT_",
                searchPlaceholder: "Search by ID or Profile Name...",
                lengthMenu: "Show _MENU_ entries",
                zeroRecords: "No matching records found",

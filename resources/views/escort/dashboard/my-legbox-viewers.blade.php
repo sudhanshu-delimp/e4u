@@ -22,7 +22,7 @@
     <div class="container-fluid pl-lg-4">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">Legbox Viewers</h1>
+            <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">Dashboard - My Legbox Viewers</h1>
                 <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
             </div>
         </div>        
@@ -55,7 +55,7 @@
                 
                     <div class="total_listing">
                         <div><span>Total Viewers Legbox : </span></div>
-                        <div><span>01</span></div>
+                        <div><span>02</span></div>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -74,7 +74,7 @@
                                 Communication</th>
                             <th class="text-center">My Playbox
                                 Subscription</th>
-                            <th class="text-center">lock
+                            <th class="text-center">Block
                                 Viewer</th>
                             <th class="text-center">Action</th>
                         </tr>
@@ -84,12 +84,19 @@
                             
                             <td class="text-center">V60587</td>
                             <td class="text-center">Western Australia</td>
-                            <td class="text-center">[Yes or No] </td>
-                            <td class="text-center">[Yes] </td>
-                            <td class="text-center">[Text] </td>
+                            <td class="text-center">Yes or No </td>
+                            <td class="text-center">Yes</td>
+                            <td class="text-center">Text</td>
                             <td>0438 028 728</td>
-                            <td class="text-center">[Yes]</td>
-                            <td class="text-center">[Slider]</td>
+                            <td class="text-center">Yes</td>
+                            <td class="text-center">
+
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                    <label class="custom-control-label" for="customSwitch1"></label>
+                                </div>
+
+                            </td>
                             
                             <td class="theme-color text-center bg-white">
                                 <div class="dropdown no-arrow">
@@ -101,11 +108,11 @@
                                     </a>
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item" href="#" >Disable Contact</a>
+                                            <a class="dropdown-item align-item-custom" href="#"> <i class="fa fa-phone-slash"></i> Disable Contact</a>
                                         
                                             <div class="dropdown-divider"></div>
                                             
-                                        <a class="dropdown-item" href="#" >Disable Notifications</a>
+                                        <a class="dropdown-item align-item-custom" href="#"> <i class="fa fa-bell-slash" aria-hidden="true"></i> Disable Notifications</a>
                                     </div>
                                 </div>
                             </td>
@@ -114,12 +121,17 @@
                             
                             <td class="text-center">V30789</td>
                             <td class="text-center">Victoria</td>
-                            <td class="text-center">[Yes or No] </td>
-                            <td class="text-center">[Yes] </td>
-                            <td class="text-center">[Text] </td>
+                            <td class="text-center">Yes or No</td>
+                            <td class="text-center">Yes</td>
+                            <td class="text-center">Text</td>
                             <td>viewer@gmail.com </td>
-                            <td class="text-center">[Yes]</td>
-                            <td class="text-center">[Slider]</td>
+                            <td class="text-center">Yes</td>
+                            <td class="text-center">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="customSwitch2">
+                                    <label class="custom-control-label" for="customSwitch2"></label>
+                                </div>
+                            </td>
                             
                             <td class="theme-color text-center bg-white">
                                 <div class="dropdown no-arrow">
@@ -131,11 +143,11 @@
                                     </a>
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item" href="#" >Disable Contact</a>
+                                            <a class="dropdown-item align-item-custom" href="#"> <i class="fa fa-phone-slash"></i> Disable Contact</a>
                                         
                                             <div class="dropdown-divider"></div>
                                             
-                                        <a class="dropdown-item" href="#" >Disable Notifications</a>
+                                        <a class="dropdown-item align-item-custom" href="#"> <i class="fa fa-bell-slash" aria-hidden="true"></i> Disable Notifications</a>
                                     </div>
                                 </div>
                             </td>
@@ -157,7 +169,7 @@
             $('#viewerTable').DataTable({
                 responsive: true,
                 language: {
-                    search: "<label>Search:</label> _INPUT_",
+                    search: "_INPUT_",
                     searchPlaceholder: "Search by ID or Profile Name",
                     lengthMenu: "Show _MENU_ entries",
                     zeroRecords: "No matching records found",

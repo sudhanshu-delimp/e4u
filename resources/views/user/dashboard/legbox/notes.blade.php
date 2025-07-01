@@ -39,7 +39,7 @@
                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                      <ul>
                         <li>This list includes only your favourite Massage Centres.</li>
-                        <li>Use the Notebox to record your experience. <a href="#">Add Notebox</a></li>
+                        <li>Use the Notebox to record your experience. <a href="{{ route('user.new') }}" class="custom_links_design">Add Notebox</a></li>
                         <li>Notifications do not apply to Massage Centres.</li>
                       </ul>
                   </div>
@@ -52,12 +52,12 @@
                <div class="mb-3 d-flex align-items-center justify-content-end flex-wrap gap-10">
                   <div class="total_listing">
                      <div><span>Total Viewers Legbox : </span></div>
-                     <div><span>01</span></div>
+                     <div><span>03</span></div>
                   </div>
                </div>
-               <div class="table-responsive list-sec">
-                  <table class="table table-bordered table-hover mb-0">
-                     <thead>
+               <div class="table-responsive">
+                  <table id="noteTable" class="table table-bordered display" width="100%">
+                     <thead class="bg-first">
                        <tr>
                          <th>ID</th>
                          <th>Location</th>
@@ -175,9 +175,32 @@
 <a class="scroll-to-top rounded" href="#page-top">
 <i class="fas fa-angle-up"></i>
 </a>
+@endsection
+@push('script')
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script>
+   $(document).ready(function() {
+       $('#noteTable').DataTable({
+           responsive: true,
+           language: {
+               search: "Search: _INPUT_",
+               searchPlaceholder: "Search by ID or Profile Name...",
+               lengthMenu: "Show _MENU_ entries",
+               zeroRecords: "No matching records found",
+               info: "Showing _START_ to _END_ of _TOTAL_ entries",
+               infoEmpty: "No entries available",
+               infoFiltered: "(filtered from _MAX_ total entries)"
+           },
+           paging: true
+       });
+   });
+ </script>
+   
 <script>
    $(function () {
      $('[data-toggle="tooltip"]').tooltip()
    })
  </script>
-@endsection
+@endpush
