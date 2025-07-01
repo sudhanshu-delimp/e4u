@@ -14,7 +14,7 @@
         padding: 10px 0px;
     }
     #viewerTable_filter input[type='search']{
-        width:280px !important;
+        width:55% !important;
     }
 </style>
 @endsection
@@ -58,11 +58,11 @@
                         <div><span>01</span></div>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table id="viewerTable" class="table table-bordered" width="100%">
+                <div class="table-responsive custom-responsive">
+                    <table id="viewerTable" class="table table-bordered custom--newtable" width="100%">
                         <thead class="bg-first">
                         <tr>
-                            <th class="text-left">Viewer ID</th>
+                            <th class="text-left">Viewer ID </th>
                             <th class="text-left">Home State</th>
                             <th class="text-center">Notifications
                                 Enabled</th>
@@ -76,7 +76,7 @@
                                 Subscription</th>
                             <th class="text-center">lock
                                 Viewer</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center remove--icon">Action</th>
                         </tr>
                         </thead>
                         <tbody>
