@@ -90,7 +90,7 @@
                 src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyLegbox-light.png') }}">
             <span>My Legbox</span>
         </a>
-        <div id="collapseTwo" class=" collapse  @if (request()->segment(2) == 'my-legbox-list' ||
+        <div id="collapseTwo" class=" collapse  @if (request()->segment(2) == 'escort-list' ||
                 request()->segment(2) == 'massage-legbox-list' ||
                 request()->segment(3) == 'my-legbox-notes') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -119,7 +119,7 @@
                 </a> --}}
                 <a class="collapse-item" href="{{ route('user.legbox.escort-list') }}">
                   <img src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png')}}">
-                  <span style="{{request()->segment(2) == 'my-legbox-list' ? 'color: #e5365a;' : ''}} ">Escort List</span>
+                  <span style="{{request()->segment(2) == 'escort-list' ? 'color: #e5365a;' : ''}} ">Escort List</span>
                </a>
                <a class="collapse-item" href="{{ route('user.massage.legbox.list') }}">
                   <img src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png')}}">

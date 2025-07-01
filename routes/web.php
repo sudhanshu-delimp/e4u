@@ -165,7 +165,7 @@ Route::post('/update-profile/{id}', [UserController::class, 'update'])->name('us
 Route::get('/update-available-playmate', [UserController::class, 'updateAvailablePlaymate'])->name('user.update.playmate');
 
 
-Route::get('/my-legbox/escort-list', [UserController::class, 'myLegboxList'])->name('user.legbox.escort-list');
+Route::get('/escort-list', [UserController::class, 'myLegboxList'])->name('user.legbox.escort-list');
 Route::get('/massage-legbox-list', [UserController::class, 'massageLegboxList'])->name('user.massage.legbox.list');
 Route::post('/save-my-legbox/{id}', [UserController::class, 'saveMyLegbox'])->name('user.save.legbox');
 Route::post('/delete-my-legbox/{id}', [UserController::class, 'deleteMyLegbox'])->name('user.delete.legbox');
@@ -390,6 +390,11 @@ Route::get('/agent-dashboard/notifications-features',function(){
 Route::get('/user-dashboard/viewer-statistics',function(){
     return view('user.dashboard.viewer-statistics');
 })->name('user.viewer-statistics');
+
+
+Route::get('/user-dashboard/my-legbox',function(){
+    return view('user.dashboard.my-legbox');
+})->name('user.my-legbox');
 
 Route::get('/user-dashboard/my-statistics',function(){
     return view('user.dashboard.my-statistics');
