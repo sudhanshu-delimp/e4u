@@ -1169,7 +1169,7 @@ class WebController extends Controller
         $brb = new EscortBrb();
         // $brb = $brb->where('profile_id', $id)->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc')->first();
         $brb = EscortBrb::where('profile_id', $id)
-        ->where('brb_time', '>=', now())
+        ->where('brb_time', '>=', date('Y-m-d H:i:s'))
         ->where('active', 'Y')
         ->orderBy('brb_time', 'desc')
         ->first();
