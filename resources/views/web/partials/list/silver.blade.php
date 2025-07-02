@@ -5,7 +5,7 @@
             <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                 
                     <div class="section_wise_level_icon_img">
-                        <a href="{{ route('profile.description', [$escort->id,$escort->city_id]) }}?list">
+                        <a href="{{ route('profile.description', [$escort->id,$escort->city_id]) }}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}">
                         @if ($escort->latestActiveBrb)
                             <div class="brb--content">
                                 <div class="brb--wrappr">
@@ -132,7 +132,7 @@
                 <div class="mt-1"> 
                     <p class="list_view_profile_pera_font_size">{!! $limitText !!} 
                                 @if(strlen($plainTextAbout) > 200)
-                                    <a href="{{ route('profile.description', $escort->id) }}?list" class="h6 text-danger">Read More</a>
+                                    <a href="{{ route('profile.description', $escort->id) }}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}" class="h6 text-danger">Read More</a>
                                 @endif
                     </p>
                 </div>

@@ -1,7 +1,7 @@
 <div class="col-md-4 col-lg-4 col-sm-12 col-12 mb-4">
     <div class="box_shdow_service_provider_list_view freelist_view_padding">
         <div class="d-flex freelist_view_flex_gap flex_direction_column_in_responsive" >
-            <div><a href="{{ route('profile.description',[$escort->id,$escort->city_id])}}?list">
+            <div><a href="{{ route('profile.description',[$escort->id,$escort->city_id])}}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}">
             @if($escort->latestActiveBrb)
                 <div class="brb--content">
                     <div class="brb--wrappr">
