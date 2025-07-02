@@ -9,37 +9,33 @@
    <!-- Main Content -->
    <div id="content">
       <div class="container-fluid pl-3 pl-lg-5">
+         {{-- Page Heading   --}}
+        <div class="row">
+         <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+             <h1 class="h1">Send Notifications</h1>
+             <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+         </div>
+         <div class="col-md-12 my-2">
+             <div class="card collapse" id="notes" style="">
+             <div class="card-body">
+                 <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                 <ol>
+                  <li>Use this feature for displaying a list of your Viewers who have flagged you in their Legbox.</li>
+                  <li>You can send a notification to a Viewer or all of the Viewers.  Simply select and click the ‘Send Notification’ button and the Viewer will be notified of your impending visit to their Location according to their preferred method.</li>
+                  <li>You can also search for a Viewer if you can't find them in your list.  The search criteria is by name only (always remember the Viewer may be using an alias).</li>
+                  <li>Use the 'Block Viewer' feature to restrict a Viewer from communicating with you or from seeing any of your Profiles (the Viewer must be logged in for this feature to have effect).</li>
+              
+                 </ol>
+             </div>
+             </div>
+         </div>
+     </div>
+     {{-- end --}}
          <!--middle content-->
-         <div class="row">
+         <div class="row mt-5">
             <div class="col-sm-8 col-md-8 col-lg-8 ">
                <!-- Begin Page Content -->
                <div class="container-fluid" style="padding: 0px 0px;">
-                  <!-- Page Heading -->
-                  <div class="d-flex align-items-center  mb-4">
-                     <div class="v-main-heading h3" style="display: inline-block;">Send Notifications</div>
-                      <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-                  </div>
-                  
-               <div class="row collapse" id="notes">
-                    <div class="col-md-12 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                              <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                              <ol>
-                                  <li>Use this feature for displaying a list of your Viewers who have flagged you in their Legbox.</li>
-                                  <li>You can send a notification to a Viewer or all of the Viewers.  Simply select and click the ‘Send Notification’ button and the Viewer will be notified of your impending visit to their Location according to their preferred method.</li>
-                                  <li>You can also search for a Viewer if you can't find them in your list.  The search criteria is by name only (always remember the Viewer may be using an alias).</li>
-                                  <li>Use the 'Block Viewer' feature to restrict a Viewer from communicating with you or from seeing any of your Profiles (the Viewer must be logged in for this feature to have effect).</li>
-                              </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                  
-                  
-                  
-                  
-                  
                   <div class="row">
                      <div class="col-lg-4 col-md-12 col-sm-12">
                         <form class="search-form-bg navbar-search">

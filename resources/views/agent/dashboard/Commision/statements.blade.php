@@ -5,12 +5,53 @@
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5">
    <!--middle content end here-->
+  
    <div class="row">
-      <div class="col-md-12 pl-0">
-         <div class="v-main-heading h3">Commission Statement</div>
+       {{-- Page Heading   --}}
+      <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+         <h1 class="h1">Commission Statement</h1>
+         <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
       </div>
+      <div class="col-md-12 my-2">
+         <div class="card collapse" id="notes" style="">
+            <div class="card-body">
+               <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+               <ol>
+                  <li>
+                     The following definitions are from the Agent Agreement and apply for the purpose of calculating Commission:
+                     <ul class="pt-2 mt-1 list-new" style="">
+                        <li><b>Billing Period</b> means each billing period as provided for in clause 5.4 (monthly ending on the 27th on each month).</li>
+                        <li class="d-flex"> <span><b>Commission</b> means the total sum of commission, if any, which are earned by an Agent in a Billing Period in relation to all Users and calculated in accordance with clause 5 and the Commission Details (Second Schedule).</span></li>
+                        <li><b>Commission Report</b> means the summary of business activity of Users which have appointed the Agent.</li>
+                     </ul>
+                  </li>
+                  <li class="mb-0">
+                     Commission will be paid to you within three (3) Business Days of the Commission Report having been provided to you, provided you have:
+                     <ul class="pt-2 mt-1 list-new">
+                        <li>Confirmed the correctness of the Commission Report within the 3 days; and</li>
+                        <li>There are no amendments you have requested;</li>
+                        <li class="d-flex">Where any amendments are made to the Commission Report, and the amendments are agreed to within three (3) Business days, then the amended Commission value will be paid within three (3) Business Days of the Commission Report; otherwise
+                        </li>
+                        <li class="d-flex">the amended Commission Report will be paid within seven (7) Business
+                           Days of the amended Commission Report having been agreed to by the
+                           Agent and E4U.
+                        </li>
+                     </ul>
+                  </li>
+                  <li class="mb-0">All Commission paid to you under the Agent Agreement will be paid into your
+                     nominated Bank Account. Commission is inclusive of GST.
+                  </li>
+                  <li class="mb-0">Any queries regarding Commission must be raised by logging a <a href="http://localhost/e4u/public/agent-dashboard/submitticket" class="termsandconditions_text_color custom_links_design">Support Ticket</a> with
+                     E4U.
+                  </li>
+               </ol>
+            </div>
+         </div>
+      </div>
+   </div>
+   {{-- end --}}
       <div class="col-md-12 mt-4">
-         <div class="row">
+         {{-- <div class="row">
             <div class="col-md-9 pl-0">
                <div id="accordion" class="myacording-design">
                   <div class="card">
@@ -26,8 +67,7 @@
                               <ol class="pl-3 mb-0">
                                  <li>
                                     The following definitions are from the Agent Agreement and apply for the purpose of calculating Commission:
-                                    <ul class="pt-2 mt-1 list-new" style="
-">
+                                    <ul class="pt-2 mt-1 list-new" style="">
                                        <li><b>Billing Period</b> means each billing period as provided for in clause 5.4 (monthly ending on the 27th on each month).</li>
                                        <li class="d-flex"> <span><b>Commission</b> means the total sum of commission, if any, which are earned by an Agent in a Billing Period in relation to all Users and calculated in accordance with clause 5 and the Commission Details (Second Schedule).</span></li>
                                        <li><b>Commission Report</b> means the summary of business activity of Users which have appointed the Agent.</li>
@@ -59,7 +99,7 @@
                   </div>
                </div>
             </div>
-         </div>
+         </div> --}}
          <div class="row pt-2 pb-2">
             <div class="col-md-6 mb-2 pl-0">
                <div class="card Summary">

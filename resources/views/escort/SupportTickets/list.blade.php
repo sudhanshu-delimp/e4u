@@ -32,29 +32,29 @@
 </style>
 @endsection
 @section('content')
-<div class="d-flex flex-column container-fluid pl-3 pl-lg-5">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading h3" style="display: inline-block;">My Support Tickets </div>
-{{--            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </h6>--}}
-        </div>
-        {{--<div class="col-md-12 mt-4 collapse" id="profile_and_tour_options">
-            <div class="row">
-                <div class="col-md-12 mb-5">
-                    <div class="card" id="notes">
-                        <div class="card-body">
-                          <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                          <ol>
-                              <li>Use this feature to review and make changes to your Profiles.</li>
+<div class="container-fluid pl-3 pl-lg-5">
+   <!--middle content start here-->
+{{-- Page Heading   --}}
+<div class="row">
+    <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+        <h1 class="h1">My Support Tickets </h1>
+        <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+    </div>
+    <div class="col-md-12 my-2">
+        <div class="card collapse" id="notes" style="">
+        <div class="card-body">
+            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+            <ol>
+                {{-- <li>Use this feature to review and make changes to your Profiles.</li>
                               <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action function, you will be able to View, Edit or Delete the Profile.</li>
                               <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming">View Listings</a></li>
-                          </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>--}}
+                           --}}
+            </ol>
+        </div>
+        </div>
     </div>
+</div>
+{{-- end --}}
     <div id="content">
         <div class="container-fluid">
         </div>

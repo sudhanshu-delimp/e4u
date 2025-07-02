@@ -10,16 +10,18 @@
 <div class="container-fluid pl-3 pl-lg-5">
    <!--middle content end here-->
    <div class="row">
-      <div class="col-md-12">
-         <div class="v-main-heading h3">Commission Summary</div>
+      <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12 p-0">
+         <h1 class="h1">Commission Summary</h1>
+         <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
       </div>
-      <div class="col-md-8 pl-0">
-         <div class="card mb-3">
-            <div class="card-body pb-0">
-               <p class="mb-1"><b>Notes</b> </p>
-               <ol class="pl-4">
+      <div class="col-md-12 my-2 p-0">
+         <div class="card collapse" id="notes" style="">
+            <div class="card-body">
+               <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+               <ol>
                   <li style="font-size: 15px;">You can apply filters within the Commission Summary to suit your query or report type</li>
                   <li style="font-size: 15px;" class="mb-0">All Commission paid to you under the Agent Agreement will be paid into your nominated Bank Account. Commission is inclusive of GST.</li>
+               
                </ol>
             </div>
          </div>

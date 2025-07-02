@@ -286,6 +286,9 @@ Route::get('pricing',function(){
 Route::get('/user-dashboard/submitticket', function(){
 	return view('user.dashboard.supportticket.submitticket');
 });
+Route::get('/user-dashboard/view-and-reply-ticket', function(){
+	return view('user.dashboard.supportticket.view-and-reply-ticket');
+})->name('user.view-and-reply-ticket');
 
 Route::get('agent-dashboard/submitticket', function(){
 	return view('agent.dashboard.supportticket.submitticket');
@@ -395,6 +398,18 @@ Route::get('/user-dashboard/viewer-statistics',function(){
 Route::get('/user-dashboard/my-legbox',function(){
     return view('user.dashboard.my-legbox');
 })->name('user.my-legbox');
+
+Route::get('/user-dashboard/favorites-online',function(){
+    return view('user.dashboard.favorites-online');
+})->name('user.favorites-online');
+
+Route::get('/user-dashboard/punterbox',function(){
+    return view('user.dashboard.punterbox');
+})->name('user.punterbox');
+
+Route::get('/user-dashboard/logs-and-statistics',function(){
+    return view('user.dashboard.logs-and-statistics');
+})->name('user.logs-and-statistics');
 
 Route::get('/user-dashboard/my-statistics',function(){
     return view('user.dashboard.my-statistics');

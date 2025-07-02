@@ -21,10 +21,22 @@
                 <div class="col-sm-12 col-md-12 col-lg-12 ">
                     <!-- Begin Page Content -->
                     <div class="container-fluid" style="padding: 0px 0px;">
-                        <!-- Page Heading -->
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="v-main-heading h3">Reporting</div>
+                        {{-- Page Heading   --}}
+                        <div class="row">
+                            <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+                                <h1 class="h1">Reporting</h1>
+                                <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+                            </div>
+                            <div class="col-md-12 my-2">
+                                <div class="card collapse" id="notes" style="">
+                                <div class="card-body">
+                                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                                    <ol></ol>
+                                </div>
+                                </div>
+                            </div>
                         </div>
+                        {{-- end --}}
                         <div class="row ml-1 mb-3">
                             <div class="panel-heading">
                                 <ul class="nav nav-tabs tab-sec" style="width: 68%;">

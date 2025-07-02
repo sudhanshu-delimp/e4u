@@ -2632,6 +2632,19 @@ span.removeCross {
     text-transform: capitalize;
 }
 
+.h1 {
+    font-family: Poppins;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 42px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-bottom: 20px;
+    color: var(--blue--text);
+    text-transform: capitalize;
+}
+
 .h2 {
     font-family: Poppins;
     font-size: 30px;
@@ -4823,17 +4836,22 @@ div#listings_wrapper .custom--common-table {
     display: flex;
     gap: 5px;
 }
+
 .custom-table-responsive div#listings_length,
 .dataTables_wrapper .dataTables_length {
     position: unset !important;
     float: left;
 }
+
 .remove--icon:after {
     opacity: 0 !important;
 }
+
 .custom-responsive .dataTables_length label {
     margin: 0 !important;
 }
+
+
 /* data table end */
 
 #listings_filter input::placeholder,
@@ -5476,6 +5494,8 @@ td {
 .custom--newtable tbody {
     font-size: 14px;
 }
+
+
 /* my spend box */
 
 .my-spend-box {
