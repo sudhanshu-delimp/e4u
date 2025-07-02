@@ -1168,8 +1168,9 @@ class WebController extends Controller
 
         $brb = new EscortBrb();
         // $brb = $brb->where('profile_id', $id)->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc')->first();
+        $perthNow = Carbon::now(config('app.escort_server_timezone'))->format('Y-m-d H:i:s');
         $brb = EscortBrb::where('profile_id', $id)
-        ->where('brb_time', '>=', date('Y-m-d H:i:s'))
+        ->where('brb_time', '>=', $perthNow)
         ->where('active', 'Y')
         ->orderBy('brb_time', 'desc')
         ->first();
