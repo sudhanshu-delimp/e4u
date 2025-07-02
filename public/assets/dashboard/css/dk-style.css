@@ -3131,8 +3131,9 @@ img.img-thumbnail.defult-image-3 {
     text-align: center;
     color: #fff;
 }
-
-.photo-header .nav-tabs .nav-link.active,
+.photo-header .nav-tabs .nav-link.active{
+    color: #fff;
+}
 div#exampleModal .nav-tabs .nav-item.show .nav-link {
     color: #FF3C5F;
 }
@@ -4322,6 +4323,7 @@ ul.tab-sec {
 
 .modal-header {
     align-items: baseline;
+    padding: 0 10px !important;
 }
 
 #table-sec input {
