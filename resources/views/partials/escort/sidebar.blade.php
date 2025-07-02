@@ -423,7 +423,7 @@
                     <span style="{{ request()->segment(2) == 'lookup' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : ''}}">Lookup</span>
                 </a>
 
-                <a class="collapse-item" {{--href="{{ route('/')--}} }}">
+                <a class="collapse-item" {{--href="{{ route('/') }}"--}}>
                     <img src="{{ asset('assets/app/img/icons-bug.png')}}">
                     <span style="{{ request()->segment(2) == 'remove_request' ? 'color: #e5365a;' : ''}}">Remove Request</span>
                 </a>

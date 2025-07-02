@@ -19,14 +19,28 @@
                {{ session('success') }}
             </div> 
          @endif
+         <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">My Legbox - Massage List</h1>
+                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col-md-12 my-2">
+                <div class="card collapse" id="notes" style="">
+                   <div class="card-body">
+                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                      <ol>
+                          
+                      </ol>
+                   </div>
+                </div>
+            </div>
+        </div>
          <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-9 ">
                <!-- Begin Page Content -->
                <div class="container-fluid" style="padding: 0px 0px;">
-                  <!-- Page Heading -->
-                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                     <h2 class="h4 mb-0 text-gray-800 font-weight-500">Massage Center Legbox</h2>
-                  </div>
+                  
                   <div class="row">
                      <div class="col-md-12">
                         <div class="table-responsive list-sec" id="sailorTableArea">
@@ -43,9 +57,7 @@
                                     entries
                                  </label>
                               </div> --}}
-                              <div id="myTable_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="myTable"></label></div>
-                              <div id="myTable_processing" class="dataTables_processing" style="display: none;">Processing...</div>
-                              <table id="massagelistTable" class="table table-striped dataTable no-footer" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                              <table id="massageCenterlistTable"class="table table-bordered display" width="100%" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                  <thead>
                                     <tr role="row">
                                        <th class="sorting_asc" tabindex="0" aria-controls="myTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="
@@ -174,20 +186,20 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
-   $('#massagelistTable').DataTable({
+   $('#massageCenterlistTable').DataTable({
      
       "language": {
          "zeroRecords": "No record(s) found."
       },
-      bLengthChange: false,
+      bLengthChange: true,
       processing: true,
       serverSide: true,
-      //blengthChange: false,
+      blengthChange: true,
       order: [0,'asc'],
-      searchable:false,
-      //searching:false,
-      searching : false, 
-      bStateSave: false,
+      searchable:true,
+      searching:true,
+      searching : true, 
+      bStateSave: true,
 
       ajax: {
          url: "{{ route('user.legbox.massagedataTable') }}",

@@ -4,17 +4,16 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5">
-   <!--middle content end here-->
-   <div class="row">
-      <div class="col-md-12">
-         <div class="v-main-heading h3">Create Prospect</div>
-      </div>
-      <div class="col-md-12 mt-4">
+   <!--middle content end here-->{{-- Page Heading   --}}
          <div class="row">
-            <div class="col-md-9 mb-2">
-               <div class="card">
+            <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+               <h1 class="h1">Create Prospect</h1>
+               <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+            </div>
+            <div class="col-md-12 my-2">
+               <div class="card collapse" id="notes" style="">
                   <div class="card-body">
-                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                      <ol>
                         <li>You must create the Prospective Member here before you can create an
                            Information Package for a Prospective Member.
@@ -28,8 +27,9 @@
                </div>
             </div>
          </div>
-      </div>
-      <div class="col-md-10 mt-5">
+         {{-- end --}}
+   <div class="row">
+      <div class="col-md-12 mt-5">
          <div class="row">
             <div class="col-lg-4 col-md-12 col-sm-12">
                <form class="search-form-bg navbar-search">

@@ -15,25 +15,28 @@
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5">
     <!--middle content start here-->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="v-main-heading h3">Notifications & Features</div>
-            </div>
-            <div class="col-md-12 mt-4" id="profile_and_tour_options">
-                <div class="row">
-                    <div class="col-md-12 mb-5">
-                        <div class="card">
-                            <div class="card-body">
-                              <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                              <ul>
-                                  <li>Enable and disable your notification and feature preferences.</li>
-                                  <li>For a Viewer or Escort Agency to receive your Notifications, the Viewer or Escort Agency has to have enabled the feature.</li>
-                              </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Page Heading -->
+   <div class="d-sm-flex align-items-center justify-content-between mb-2">
+    <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">Notifications & Features</h1>
+        <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+    </div>
+ </div>
 
+<div class="row">
+    <div class="col-md-12 my-2">
+        <div class="card collapse" id="notes" style="">
+          <div class="card-body">
+              <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+              <ol>
+                <li>Enable and disable your notification and feature preferences.</li>
+                <li>For a Viewer or Escort Agency to receive your Notifications, the Viewer or Escort Agency has to have enabled the feature.</li>
+            </ol>
+          </div>
+        </div>
+    </div>
+</div>
+        <div class="row">
+           
                 <form class="v-form-design">
                 <div class="row">
                   <div class="col-md-12">
@@ -267,7 +270,7 @@
         {
             $.post({
                     type: 'POST',
-                    url: "{{ route('escort.playmate') }}",
+                    url: "{{ route('escort.dashboard.my-playmates') }}",
                     data: {
                         available_playmate: id,
                         
@@ -284,7 +287,7 @@
         {
             $.post({
                     type: 'POST',
-                    url: "{{ route('escort.playmate') }}",
+                    url: "{{ route('escort.dashboard.my-playmates') }}",
                     data: {
                         available_playmate: null,
                         

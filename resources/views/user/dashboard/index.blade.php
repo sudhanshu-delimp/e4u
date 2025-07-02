@@ -24,7 +24,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="#">
+                <a href="{{ route('user.favorites-online') }}">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/icon_favorites.png') }}" alt="Favorites Online">
                     </div>
@@ -39,7 +39,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="#">
+                <a href="{{ route('user.my-legbox') }}">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/icon_mylegbox.png') }}" alt=" My Legbox">
                     </div>
@@ -54,7 +54,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="#">
+                <a href="{{ route('user.punterbox') }}">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/icon_punterbox.png') }}" alt="Punterbox">
                     </div>
@@ -114,7 +114,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="#">
+                <a href="{{ route('user.logs-and-statistics') }}">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt="Logs & Statistics">
                     </div>

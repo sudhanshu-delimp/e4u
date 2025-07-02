@@ -2628,7 +2628,31 @@ span.removeCross {
     text-align: left;
     margin-bottom: 20px;
     padding-top: 60px;
-    color: #0C223D;
+    color: var(--blue--text);
+    text-transform: capitalize;
+}
+
+.h1 {
+    font-family: Poppins;
+    font-size: 42px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 42px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-bottom: 20px;
+    color: var(--blue--text);
+    text-transform: capitalize;
+}
+
+.h2 {
+    font-family: Poppins;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--blue--text);
     text-transform: capitalize;
 }
 
@@ -4767,32 +4791,41 @@ select.form-control {
 #sailorTable_filter input {
     /* padding-right: 20px; */
 }
+
+
 /* data table start */
+
 .dataTables_wrapper .dataTables_info,
 .dataTables_wrapper .dataTables_length {
     float: left;
     padding: 0 !important;
 }
+
 .dataTables_wrapper .dataTables_paginate,
 .dataTables_wrapper .dataTables_filter {
     float: right;
 }
+
 .dataTables_wrapper .dataTables_filter {
     width: 60%;
     margin-left: auto;
 }
+
 .dataTables_wrapper .dataTables_filter label {
     width: 100%;
     display: flex;
     justify-content: flex-end;
 }
+
 .dataTables_wrapper .dataTables_filter label input {
     width: 34% !important;
 }
+
 .dataTables_wrapper table#sailorTable,
 div#listings_wrapper .custom--common-table {
     margin-top: 1rem !important;
 }
+
 .dataTables_wrapper .dataTables_paginate a {
     min-height: 20px;
     display: block;
@@ -4800,14 +4833,27 @@ div#listings_wrapper .custom--common-table {
     padding: 5px 10px;
     margin: 0;
 }
+
 .dataTables_wrapper .dataTables_paginate {
     display: flex;
     gap: 5px;
 }
-.custom-table-responsive div#listings_length {
-    position: unset;
+
+.custom-table-responsive div#listings_length,
+.dataTables_wrapper .dataTables_length {
+    position: unset !important;
     float: left;
 }
+
+.remove--icon:after {
+    opacity: 0 !important;
+}
+
+.custom-responsive .dataTables_length label {
+    margin: 0 !important;
+}
+
+
 /* data table end */
 
 #listings_filter input::placeholder,
@@ -5444,6 +5490,11 @@ td {
     font-size: 14px;
     color: var(--blue--text);
     margin-top: 10px;
+}
+
+.custom--newtable thead,
+.custom--newtable tbody {
+    font-size: 14px;
 }
 
 

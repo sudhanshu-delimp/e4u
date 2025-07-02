@@ -32,29 +32,29 @@
 </style>
 @endsection
 @section('content')
-<div class="d-flex flex-column container-fluid pl-3 pl-lg-5">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading h3" style="display: inline-block;">My Support Tickets </div>
-{{--            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </h6>--}}
-        </div>
-        {{--<div class="col-md-12 mt-4 collapse" id="profile_and_tour_options">
-            <div class="row">
-                <div class="col-md-12 mb-5">
-                    <div class="card" id="notes">
-                        <div class="card-body">
-                          <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                          <ol>
-                              <li>Use this feature to review and make changes to your Profiles.</li>
+<div class="container-fluid pl-3 pl-lg-5">
+   <!--middle content start here-->
+{{-- Page Heading   --}}
+<div class="row">
+    <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+        <h1 class="h1">My Support Tickets </h1>
+        <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+    </div>
+    <div class="col-md-12 my-2">
+        <div class="card collapse" id="notes" style="">
+        <div class="card-body">
+            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+            <ol>
+                {{-- <li>Use this feature to review and make changes to your Profiles.</li>
                               <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action function, you will be able to View, Edit or Delete the Profile.</li>
                               <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming">View Listings</a></li>
-                          </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>--}}
+                           --}}
+            </ol>
+        </div>
+        </div>
     </div>
+</div>
+{{-- end --}}
     <div id="content">
         <div class="container-fluid">
         </div>
@@ -65,7 +65,7 @@
                     <table class="table table-hover" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                         <tr>
-                            <th>Ticket ID</th>
+                            <th>Ticket ID </th>
                             <th>Department</th>
                             <th>Priority</th>
                             <th>Service Type</th>
@@ -132,96 +132,98 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-   $(document).ready( function () {
-       var table = $("#supportTicketsTable").DataTable({
-           "language": {
-               "zeroRecords": "No record(s) found."
-           },
-           processing: true,
-           serverSide: true,
-           lengthChange: true,
+    $(document).ready(function () {
+    var table = $("#supportTicketsTable").DataTable({
+        "language": {
+            "zeroRecords": "No record(s) found."
+        },
+        processing: true,
+        serverSide: true,
+        lengthChange: true,
+        searchable: false,
+        searching: true,
+        bStateSave: false,
 
-           searchable:false,
-           searching:true,
-           bStateSave: false,
+        ajax: {
+            url: "{{ route('support-ticket.dataTable') }}",
+            data: function (d) {
+                d.type = 'player';
+            }
+        },
+        columns: [
+            { data: 'id', name: 'id', searchable: true, orderable: true, defaultContent: 'NA' },
+            { data: 'department', name: 'department', searchable: true, orderable: true, defaultContent: 'NA' },
+            { data: 'priority', name: 'priority', searchable: true, orderable: true, defaultContent: 'NA' },
+            { data: 'service_type', name: 'service_type', searchable: false, orderable: true, defaultContent: 'NA' },
+            { data: 'subject', name: 'start_date', searchable: true, orderable: true, defaultContent: 'NA' },
+            { data: 'message', name: 'enabled', searchable: false, orderable: true, defaultContent: 'NA' },
+            { data: 'created_on', name: 'date_created', searchable: false, orderable: true, defaultContent: 'NA' },
+            { data: 'status_mod', name: 'status', searchable: false, orderable: true, defaultContent: 'NA' },
+            { data: 'action', name: 'edit', searchable: false, orderable: false, defaultContent: 'NA' },
+        ],
+        order: [6, 'desc']
+    });
 
-           ajax: {
-               url: "{{ route('support-ticket.dataTable') }}",
-               data: function (d) {
-                   d.type = 'player';
-               }
-           },
-           columns: [
-               { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'service_type', name: 'service_type', searchable: false, orderable:true ,defaultContent: 'NA'},
-               { data: 'subject', name: 'start_date', searchable: true, orderable:true,defaultContent: 'NA' },
-               { data: 'message', name: 'enabled', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'created_on', name: 'date_created', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'status_mod', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
-           ],
-           order: [6, 'desc'],
-       });
+    // ✅ Add placeholder to search input
+    $('#supportTicketsTable').on('init.dt', function () {
+        $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by ID or Profile Name');
+    });
 
+    // 🟠 Cancel Ticket
+    $(document).on('click', ".cancelTicket", function () {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, withdraw it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var ticketId = $(this).data('id');
+                var cancelTicketBtn = $(this);
+                $.ajax({
+                    method: "PUT",
+                    dataType: "json",
+                    url: "{{ route('support-ticket.withdraw', ':id') }}".replace(':id', ticketId),
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                    success: function (data) {
+                        if (data.status == "success") {
+                            cancelTicketBtn.closest('tr').find('.status').data('status-id', 4).html('Withdrawn');
+                            cancelTicketBtn.closest('tr').find('.cancelTicket').remove();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Withdrawn',
+                                text: 'Your ticket withdrawn successfully.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        } else {
+                            Swal.fire(
+                                'Oops!',
+                                data.message,
+                                'error'
+                            );
+                        }
+                    }
+                });
+            }
+        });
+    });
 
-       $(document).on('click', ".cancelTicket", function() {
-           Swal.fire({
-               title: 'Are you sure?',
-               text: "You won't be able to revert this!",
-               icon: 'warning',
-               showCancelButton: true,
-               confirmButtonColor: '#3085d6',
-               cancelButtonColor: '#d33',
-               confirmButtonText: 'Yes, withdraw it!'
-           }).then((result) => {
-               if (result.isConfirmed) {
-                   var ticketId = $(this).data('id');
-                   var cancelTicketBtn = $(this);
-                   $.ajax({
-                       method: "PUT",
-                       dataType: "json",
-                       url: "{{ route('support-ticket.withdraw', ':id') }}".replace(':id',ticketId),
-                       headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                       success: function (data) {
-                           if(data.status == "success") {
-                               console.log($(this));
-                               cancelTicketBtn.closest('tr').find('.status').data('status-id', 4).html('Withdrawn');
-                               cancelTicketBtn.closest('tr').find('.cancelTicket').remove();
-                               Swal.fire({
-                                   icon: 'success',
-                                   title: 'Withdrawn',
-                                   text: 'Your ticket withdrawn successfully.',
-                                   showConfirmButton: false,
-                                   timer: 1500
-                               });
-                           } else {
-                               Swal.fire(
-                                   'Oops!',
-                                   data.message,
-                                   'error'
-                               );
-                           }
-                       }
-                   });
-               }
-           });
-       });
+    // 🟠 View Ticket
+    $(document).on('click', ".view_ticket", function () {
+        var ticketId = $(this).data("id");
+        _load_conversations(ticketId);
+    });
 
-
-       $(document).on('click', ".view_ticket", function() {
-           // ticketId = $(this).closest('tr').find('td:first').html();
-           ticketId = $(this).data("id");
-           _load_conversations(ticketId);
-       });
-
-
-       @if(request()->segment(3) && is_numeric(request()->segment(3)))
-            $("#conversation_modal").modal('show');
-           _load_conversations({{request()->segment(3)}});
-       @endif
-   });
+    // 🟠 Auto Open Ticket if ID in URL
+    @if(request()->segment(3) && is_numeric(request()->segment(3)))
+        $("#conversation_modal").modal('show');
+        _load_conversations({{ request()->segment(3) }});
+    @endif
+});
 
 
    function _load_conversations(tId) {

@@ -27,28 +27,35 @@
                </ol>
             </nav>
             @endif
-            <div class="align-items-center justify-content-between mb-4">
-               <div class="h3 mb-0 text-gray-800" style="display: inline-block;">{{ucfirst($type)}} Tours</div>
+            {{-- <div class="align-items-center justify-content-between mb-4">
+               <div class="h3 mb-0 text-gray-800" style="display: inline-block;">{{ucfirst($type)}}dfv Tours</div>
                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
 
-                {{--               <h1>{!! Session::has('msg') ? Session::get("msg") : '' !!}</h1>--}}
+               <h1>{!! Session::has('msg') ? Session::get("msg") : '' !!}</h1>
+            </div> --}}
+             {{-- Page Heading   --}}
+            <div class="row">
+               <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+                  <h1 class="h1">{{ucfirst($type)}} Tours</h1>
+                  <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+               </div>
+               <div class="col-md-12 my-2">
+                  <div class="card collapse" id="notes" style="">
+                     <div class="card-body">
+                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <ol>
+                           <li>Use this feature to edit your Tour.</li>
+                     <li>You can change any Profile's start or finish date, Membership Type and remove a Profile from the Tour.</li>
+                     <li>Any changes to the Tour will automatically adjust your Fee to reflect the changes, including any refund. Refunds will be added to your Account as a Credit to be used for future listings and Tours.</li>
+                  
+                        </ol>
+                     </div>
+                  </div>
+               </div>
             </div>
+            {{-- end --}}
          </div>
       </div>
-		<div class="row collapse" id="notes">
-			<div class="col-md-12 mb-5">
-				<div class="card">
-					<div class="card-body">
-					  <h3 class="NotesHeader"><b>Notes:</b> </h3>
-					  <ol>
-						  <li>Use this feature to edit your Tour.</li>
-						  <li>You can change any Profile's start or finish date, Membership Type and remove a Profile from the Tour.</li>
-						  <li>Any changes to the Tour will automatically adjust your Fee to reflect the changes, including any refund. Refunds will be added to your Account as a Credit to be used for future listings and Tours.</li>
-					  </ol>
-					</div>
-				</div>
-			</div>
-		</div>
       <div class="row">
          {{--
          <div class="col-md-4 pl-3">

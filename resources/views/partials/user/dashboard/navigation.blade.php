@@ -6,7 +6,7 @@
                         <i class="fa fa-bars"></i>
                     </button>
                     {{-- logged in user data --}}
-                    <div class="topbar-logged-in-user-data">
+                    <div class="topbar-logged-in-user-data d-flex">
                         {{-- <div class="pr-5">
                             <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
                         </div> --}}

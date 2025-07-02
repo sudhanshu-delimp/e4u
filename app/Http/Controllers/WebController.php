@@ -1048,7 +1048,32 @@ class WebController extends Controller
         $cat1_services_two = null;
         $cat1_services_three = null;
 
-
+       
+        $categoryOneServices = $escort->services()->where('category_id', 1)->get();
+        $categoryTwoServices = $escort->services()->where('category_id', 2)->get();
+        $categoryThreeServices = $escort->services()->where('category_id', 3)->get();
+        if(!empty($categoryOneServices->toArray())){
+            $chunks = $this->getServiceChunks($categoryOneServices->toArray());
+            $categoryOneServices = $chunks;
+        }
+        else{
+            $categoryOneServices = [];
+        }    
+        if(!empty($categoryTwoServices->toArray())){
+            $chunks = $this->getServiceChunks($categoryTwoServices->toArray());
+            $categoryTwoServices = $chunks;
+        }
+        else{
+            $categoryTwoServices = [];
+        }
+        if(!empty($categoryThreeServices->toArray())){
+            $chunks = $this->getServiceChunks($categoryThreeServices->toArray());
+            $categoryThreeServices = $chunks;
+        }
+        else{
+            $categoryThreeServices = [];
+        }
+        
         if(isset($services1[0])) {
             $cat1_services_one = $services1[0];
         }
@@ -1142,7 +1167,16 @@ class WebController extends Controller
         // dd($lp, $dp); lp-67 dp-33
 
         $brb = new EscortBrb();
-        $brb = $brb->where('profile_id', $id)->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc')->first();
+        // $brb = $brb->where('profile_id', $id)->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc')->first();
+        $perthNow = Carbon::now(config('app.escort_server_timezone'))->format('Y-m-d H:i:s');
+        $brb = EscortBrb::where('profile_id', $id)
+        ->where('brb_time', '>=', $perthNow)
+        ->where('active', 'Y')
+        ->orderBy('brb_time', 'desc')
+        ->first();
+
+        $brbTest = EscortBrb::where('profile_id',$id)->first();
+        dd($brbTest,$brb);
         if($brb) {
             $brb = $brb->toArray(); 
         }
@@ -1153,8 +1187,23 @@ class WebController extends Controller
         //dd($viewType);
         $user = DB::table('users')->where('id',(int)$escort->user_id)->select('contact_type')->first();
         //dd($user, $escort->user_id);
-        return view('web.description',compact('brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three','backToSearchButton','user','viewType','reviews'));
+        return view('web.description',compact('categoryOneServices','categoryTwoServices','categoryThreeServices','brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','backToSearchButton','user','viewType','reviews'));
     }
+
+    public function getServiceChunks($array=[],$chunkLenth=3){
+        $chunkSize = ceil(count($array) / $chunkLenth);
+        $chunks = array_chunk($array, $chunkSize);
+        while (count($chunks) < 3) {
+            $chunks[] = [];
+        }
+        $maxLength = max(array_map('count', $chunks));
+        foreach ($chunks as &$chunk) {
+            $chunk = array_pad($chunk, $maxLength, ['name' => '&nbsp;', 'pivot' => ['price' => '']]);
+        }
+        unset($chunk);
+        return $chunks;
+    }
+    
     public function centerProfileDescription($id)
     {
 

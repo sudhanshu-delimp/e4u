@@ -63,7 +63,7 @@
                         features</span>
                 </a>
 
-                <a class="collapse-item" href="#">
+                <a class="collapse-item" href="{{ route('user.profile.notifications') }}">
                     <img width="16" height="17" viewBox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
 
@@ -90,7 +90,7 @@
                 src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyLegbox-light.png') }}">
             <span>My Legbox</span>
         </a>
-        <div id="collapseTwo" class=" collapse  @if (request()->segment(2) == 'my-legbox-list' ||
+        <div id="collapseTwo" class=" collapse  @if (request()->segment(2) == 'escort-list' ||
                 request()->segment(2) == 'massage-legbox-list' ||
                 request()->segment(3) == 'my-legbox-notes') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -119,7 +119,7 @@
                 </a> --}}
                 <a class="collapse-item" href="{{ route('user.legbox.escort-list') }}">
                   <img src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png')}}">
-                  <span style="{{request()->segment(2) == 'my-legbox-list' ? 'color: #e5365a;' : ''}} ">Escort List</span>
+                  <span style="{{request()->segment(2) == 'escort-list' ? 'color: #e5365a;' : ''}} ">Escort List</span>
                </a>
                <a class="collapse-item" href="{{ route('user.massage.legbox.list') }}">
                   <img src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png')}}">
@@ -289,7 +289,7 @@
             <img src="{{ asset('assets/app/img/ticket.png') }}">
             <span>Support tickets</span>
         </a>
-        <div id="tickets" class=" collapse  @if (request()->segment(2) == 'submitticket' || request()->segment(3) == 'profile' || request()->segment(3) == 'list') show @endif;"
+        <div id="tickets" class=" collapse  @if (request()->segment(2) == 'submitticket' || request()->segment(3) == 'profile' || request()->segment(2) == 'view-and-reply-ticket') show @endif;"
             aria-labelledby="headingten" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
                 <a class="collapse-item show" href="{{ url('user-dashboard/submitticket') }}">
@@ -299,9 +299,10 @@
                         ticket</span>
                 </a>
 
-                <a class="collapse-item" href="#">
+                <a class="collapse-item" href="{{ route('user.view-and-reply-ticket') }}">
                     <img src="{{ asset('assets/app/img/view-48.png') }}">
-                    <span style="">View & reply tickets</span>
+                    <span
+                        style="{{ request()->segment(2) == 'view-and-reply-ticket' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">View & reply tickets</span>
                 </a>
 
             </div>

@@ -117,6 +117,7 @@
                    <button style="padding: 10px;" class="btn btn-info" data-toggle="modal" data-target="#add_brb" id="btn_add_brb">Add BRB</button>
                    <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal" data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
                </div>
+               <br>
                @endif
               <table class="table table-hover" id="sailorTable">
                  <thead id="table-sec" class="table-bg">
@@ -336,7 +337,7 @@
        var table = $("#sailorTable").DataTable({
            "language": {
                "zeroRecords": "No record(s) found.",
-               searchPlaceholder: "Search by Id or profile name..."
+               searchPlaceholder: "Search by ID or Profile Name"
            },
            processing: true,
            serverSide: true,
@@ -356,7 +357,7 @@
                     }
 
                     if (length <= 10) {
-                        $('.dataTables_paginate').hide();
+                        $('.dataTables_paginate').show();
                     } else {
                         $('.dataTables_paginate').show();
                     }
@@ -385,7 +386,7 @@
            ],
            order: [1,'asc'],
        });
-       $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');
+    //    $('#sailorTable_filter label').append('<i class="fa fa-search "></i>');
 
        $('#profile_state_id').change(function(){
         var stateId = $(this).val();

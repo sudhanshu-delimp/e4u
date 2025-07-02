@@ -257,6 +257,10 @@
 @endsection
 @push('script')
     <script>
+        $(document).on('keypress', 'form input', function(event) {
+            return event.keyCode !== 13;
+        });
+        
         $('#select2-dropdown').select2({
             createTag: function(params) {
                 var term = $.trim(params.term);
