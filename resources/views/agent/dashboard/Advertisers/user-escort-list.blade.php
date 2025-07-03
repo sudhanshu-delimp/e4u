@@ -33,6 +33,10 @@
                   <div class="card-body">
                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                      <ol>
+                        
+                  <li style="font-size: 15px;">You can access all of your Advertisers here.  The report 'Earnings' column is Commission paid to you by E4U according to the Advertiser's spend.</li>
+                  <li style="font-size: 15px;" class="mb-0">Click the 'Action' button and select from the range of options available to you including Messaging to an Advertiser.</li>
+               
                      </ol>
                   </div>
                </div>
@@ -40,41 +44,12 @@
          </div>
          {{-- end --}}
             <div class="row mt-2">
-               <div class="col-sm-10 col-md-10 col-lg-10">
+               <div class="col-sm-12 col-md-12 col-lg-12">
                   <!-- Begin Page Content -->
-                  <div class="container-fluid" style="padding: 0px 0px;">
-                     <div class="row">
-                        <div class="col-lg-4 col-md-12 col-sm-12">
-                           <form class="search-form-bg navbar-search">
-                              <div class="input-group">
-                                 <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                                 <div class="input-group-append">
-                                    <button class="btn-right-icon" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                 </div>
-                              </div>
-                           </form>
-                        </div>
-                        <div class="col-lg-8 col-md-12 col-sm-12">
-                           <div class="bothsearch-form">
-                              <button type="button" class="btn btn-primary create-tour-sec dctour" onclick="window.print();return false;">Print Report</button>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
                   <!-- /.container-fluid --><br>
                   <div class="row">
                      <div class="col-md-12">
-                        <div class="card mb-3">
-            <div class="card-body pb-0">
-               <p class="mb-1"><b>Notes</b> </p>
-               <ol class="pl-4">
-                  <li style="font-size: 15px;">You can access all of your Advertisers here.  The report 'Earnings' column is Commission paid to you by E4U according to the Advertiser's spend.</li>
-                  <li style="font-size: 15px;" class="mb-0">Click the 'Action' button and select from the range of options available to you including Messaging to an Advertiser.</li>
-               </ol>
-            </div>
-         </div>
+                        <div class="d-flex justify-content-end"><button type="button" class="btn btn-primary create-tour-sec dctour" onclick="window.print();return false;">Print Report</button></div>
                         <div class="panel with-nav-tabs panel-warning">
                            <div class="panel-body">
                               <div class="tab-content">
@@ -249,66 +224,66 @@
 </div>
 
 <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered" role="document">
-   <div class="modal-content basic-modal">
-      <div class="modal-header">
-         <h5 class="modal-title" id="exampleModal2">Edit Tour</h5>
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-         </button>
-      </div>
-      <div class="modal-body pb-0 agent-tour">
-         <div class="form-group">
-            <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Tour Name">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content basic-modal">
+         <div class="modal-header">
+            <h5 class="modal-title" id="exampleModal2">Edit Tour</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
          </div>
-         <div id="accordion" class="myacording-design">
-            <div class="card">
-               <div class="card-header"> <a class="card-link collapsed" data-toggle="collapse" href="#new_tour" aria-expanded="false">Western Australia</a> </div>
-               <div class="collapse show" data-parent="#accordion" id="new_tour">
-                  <div class="card-body border-0 p-0 mt-4">
-                     <div class="form-group">
-                        <select class="custom-select">
-                           <option selected="">Select Location</option>
-                           <option>Adelaide</option>
-                           <option>Brisbane</option>
-                           <option>Canberra</option>
-                           <option>Darwin</option>
-                           <option>Hobart</option>
-                           <option>Melbourne</option>
-                           <option>Perth</option>
-                           <option>Sydney</option>
-                        </select>
-                     </div>
-                     <div class="row">
-                        <div class="col">
-                           <input placeholder="Start Date" class="form-control" type="text" onfocus="(this.type='date')" id="date">
-                        </div>
-                        <div class="col">
-                           <input placeholder="End Date" class="form-control" type="text" onfocus="(this.type='date')" id="date">
-                        </div>
-                     </div>
-                     <div class="row mt-3">
-                        <div class="col-3 pr-0">
-                           <label class="pt-1">Assign Profile</label>
-                        </div>
-                        <div class="col-9 pl-0">
+         <div class="modal-body pb-0 agent-tour">
+            <div class="form-group">
+               <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Tour Name">
+            </div>
+            <div id="accordion" class="myacording-design">
+               <div class="card">
+                  <div class="card-header"> <a class="card-link collapsed" data-toggle="collapse" href="#new_tour" aria-expanded="false">Western Australia</a> </div>
+                  <div class="collapse show" data-parent="#accordion" id="new_tour">
+                     <div class="card-body border-0 p-0 mt-4">
+                        <div class="form-group">
                            <select class="custom-select">
-                           <option selected="">Select Profile</option>
-                           <option>Adelaide</option>
-                           <option>Brisbane</option>
-                        </select>
+                              <option selected="">Select Location</option>
+                              <option>Adelaide</option>
+                              <option>Brisbane</option>
+                              <option>Canberra</option>
+                              <option>Darwin</option>
+                              <option>Hobart</option>
+                              <option>Melbourne</option>
+                              <option>Perth</option>
+                              <option>Sydney</option>
+                           </select>
+                        </div>
+                        <div class="row">
+                           <div class="col">
+                              <input placeholder="Start Date" class="form-control" type="text" onfocus="(this.type='date')" id="date">
+                           </div>
+                           <div class="col">
+                              <input placeholder="End Date" class="form-control" type="text" onfocus="(this.type='date')" id="date">
+                           </div>
+                        </div>
+                        <div class="row mt-3">
+                           <div class="col-3 pr-0">
+                              <label class="pt-1">Assign Profile</label>
+                           </div>
+                           <div class="col-9 pl-0">
+                              <select class="custom-select">
+                              <option selected="">Select Profile</option>
+                              <option>Adelaide</option>
+                              <option>Brisbane</option>
+                           </select>
+                           </div>
                         </div>
                      </div>
                   </div>
+                  
                </div>
-               
             </div>
-         </div>
 
-         <button type="button" class="btn btn-primary create-tour-sec w-100 addLocation mb-3" data-count="1">Add Location <i class="fa fa-fw fa-plus text-white"></i> </button>
+            <button type="button" class="btn btn-primary create-tour-sec w-100 addLocation mb-3" data-count="1">Add Location <i class="fa fa-fw fa-plus text-white"></i> </button>
+         </div>
       </div>
    </div>
-</div>
 </div>
 {{-- edit tour model --}}
 <div class="modal fade upload-modal" id="tourModalShow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
