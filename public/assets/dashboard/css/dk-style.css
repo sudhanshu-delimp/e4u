@@ -5621,6 +5621,7 @@ td {
 
 .level-2 {
     list-style-type: lower-alpha;
+    padding-left: 30px !important;
 }
 
 .level-2>li::marker {

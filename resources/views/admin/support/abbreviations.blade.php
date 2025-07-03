@@ -17,7 +17,7 @@
                <div class="card">
                   <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol class="pl-4">
+                        <ol>
                         <li>These abbreviation information pages are a complete summary of all the terms and
                         icons used in the Website.</li>
                         <li>Industry terms are also included to assist with Service Tags.</li>

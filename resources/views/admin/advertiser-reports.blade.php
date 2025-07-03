@@ -35,7 +35,7 @@
                             regarding an Advertiser (usually an Escort) and produce the results to management
                             for a decision.</li>
                             <li>Where the decision is to:</li>
-                            <ol  class="ol_lower_alpha_bracket" type="a">
+                            <ol  class="level-2">
                                 <li>
                                     Cancel the Advertiser’s Membership, place the status on ‘Cancelled’
                                 </li>

@@ -23,43 +23,22 @@
               <div class="card-body">
                  <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                  <ol>
+                    <li>
+                        All Commission paid to you under the Agent Agreement will be paid into your nominated Bank Account.
+                    </li>
+                    <li>
+                        You can add new your Bank Account details by clicking the 'Add New' button. SMS 2FA authentification is applied for any changes to your Bank Account details.
+                    </li>
+                    <li>Any queries regarding payments to your Bank Account can be raised by logging a <a href="{{ route('submitticket') }}" class="termsandconditions_text_color custom_links_design">Support Ticket</a> with E4U.
+                    </li>
                  </ol>
               </div>
            </div>
         </div>
      {{-- end --}}
         <div class="col-md-12 mt-4">
-            <div class="row">
-                <div class="col-md-9 pl-0">
-                    <div id="accordion" class="myacording-design">
-                        <div class="card">
-                            <div class="card-header">
-                                <a class="card-link collapsed" data-toggle="collapse" href="#Abbreviations" aria-expanded="false">
-                                Notes
-                                </a>
-                            </div>
-                            <div id="Abbreviations" class="collapse" data-parent="#accordion" style="">
-                                <div class="card-body pb-0">
-                                    <div class="accodien_manage_padding_content">
-                                        <ol class="pl-3 mb-0">
-                                            <li>
-                                                All Commission paid to you under the Agent Agreement will be paid into your nominated Bank Account.
-                                            </li>
-                                            <li class="mb-0">
-                                                You can add new your Bank Account details by clicking the 'Add New' button. SMS 2FA authentification is applied for any changes to your Bank Account details.
-                                            </li>
-                                            <li class="mb-0">Any queries regarding payments to your Bank Account can be raised by logging a <a href="{{ route('submitticket') }}" class="termsandconditions_text_color custom_links_design">Support Ticket</a> with E4U.
-                                            </li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row pt-2 pb-2">
-                <div class="col-md-6 mb-2 pl-0">
+                <div class="col-md-9 mb-2 pl-0">
                     <div class="card Summary">
                         <div class="card-body pb-0">
                             <p><b>Agent Details</b> </p>

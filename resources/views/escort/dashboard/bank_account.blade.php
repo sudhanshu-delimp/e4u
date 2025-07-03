@@ -19,19 +19,19 @@
         </div>
 
         <div class="row collapse" id="notes">
-                            <div class="col-md-12 mb-5">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                        <ol class="pl-4">
-                                            <li>Use this feature for displaying your Bank Account details for an Electronic Funds Transfer (<b>EFT</b>). By using this feature for an EFT payment, you remove the risk of having your bank account app open.</li>
-                                        <li>You can set up, update and add additional bank accounts by clicking the 'Add New' button. SMS 2FA is applied for any changes to Close your Bank Account details, including the initial setup.</li>
-                                        <li>To display your Bank Account details, enter your PIN number. </li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="col-md-12 mb-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>Use this feature for displaying your Bank Account details for an Electronic Funds Transfer (<b>EFT</b>). By using this feature for an EFT payment, you remove the risk of having your bank account app open.</li>
+                        <li>You can set up, update and add additional bank accounts by clicking the 'Add New' button. SMS 2FA is applied for any changes to Close your Bank Account details, including the initial setup.</li>
+                        <li>To display your Bank Account details, enter your PIN number. </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         
         
