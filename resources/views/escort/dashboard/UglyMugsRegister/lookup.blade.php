@@ -98,9 +98,9 @@
             serverSide: true,
             lengthChange: true,
 
-            searchable:false,
-            // searching:false,
-            bStateSave: false,
+            searchable:true,
+            searching:true,
+            bStateSave: true,
 
             ajax: {
                 url: "{{ route('escort.mug.dataTable') }}",

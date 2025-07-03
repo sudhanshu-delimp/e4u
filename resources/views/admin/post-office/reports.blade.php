@@ -36,7 +36,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                <ol class="pl-4">
+                                <ol>
                                 <li>Select the Report for the required Communication.</li>
                                 <li>Select Preview to view the Report, or Print to print out the Report.</li>
                                 </ol>

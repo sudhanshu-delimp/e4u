@@ -31,7 +31,7 @@
                            </li>
                            <li>
                               There are a range of Fees that apply to Advertisers, namely:
-                              <ol type="a" class="ol_lower_alpha_bracket">
+                              <ol class="level-2">
                                           <li>Advertising Fees</li>
                                           <li>Concierge Services</li>
                                           <li>Support Services</li>
@@ -42,7 +42,7 @@
                            </li>
                            <li>
                            There are a range of variables that determine:
-                           <ol type="a" class="ol_lower_alpha_bracket">
+                           <ol class="level-2">
                                           <li>Discounts to Adverting Fees</li>
                                           <li>Loyalty Program entitlements and discounts</li>
                                           <li>Agent Commission</li>

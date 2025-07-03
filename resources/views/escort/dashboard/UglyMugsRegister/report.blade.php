@@ -18,51 +18,53 @@
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5">
    <!--middle content start here-->
+   
+   {{-- Page Heading   --}}
    <div class="row">
-      <div class="col-md-12">
-         <div class="v-main-heading h3" style="display: inline-block;">Report a Mug</div>
-          <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+      <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+          <h1 class="h1">Report a Mug</h1>
+          <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
       </div>
+      <div class="col-md-12 my-2">
+          <div class="card collapse" id="notes" style="">
+          <div class="card-body">
+              <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+              <ol>
+                  <li>
+                     The National Ugly Mugs register (<b>NUM</b>) is a free service to all Advertisers. You can
+                     use the NUM service at any time.
+                  </li>
+                  <li>
+                        If you have enabled, under your <a href="{{route('escort.profile.notifications')}}" class="termsandconditions_text_color custom_links_design">Account</a> settings, to be notified when a new listing
+                        is added to the NUM, you are charged a monthly Fee.
+                  </li>
+                  <li>
+                        Complete the form to add an incident to the NUM. When completing the form
+                        please ensure all of the details are correct and you have selected the correct option
+                        to describe the incident.
+                  </li>
+                  <li>The NUM is a closed publication for Advertisers only. Each entry contains personal
+                        reports, provided by the Advertiser, of incidents involving problem clients. The
+                        NUM makes these reports available to help other Advertisers avoid problem clients,
+                        and as an extension of the "word of mouth" warnings given by Advertisers between
+                        each other.</li>
+                  <li>
+                        Escorts4U makes no claims:
+                        <ol type="a" class="ol_lower_alpha_bracket">
+                           <li>as to the accuracy or legitimacy of the allegations; and</li>
+                           <li>nor do we investigate the authenticity of the reports (provided in confidence by
+                              Advertisers)</li>
+                        </ol>
+                  </li>
+                  <li>The NUM is not to be used to make a complaint about another Advertiser.</li>
+              </ol>
+          </div>
+          </div>
+      </div>
+  </div>
+  {{-- end --}}
+   <div class="row">
       <div class="col-md-12 mt-4 mb-5">
-         <div class="row collapse" id="notes">
-            <div class="col-md-12 mb-4">
-               <div class="card">
-                  <div class="card-body">
-                     <p><b>Notes:</b> </p>
-                      <ol>
-                          <li>
-                              The National Ugly Mugs register (<b>NUM</b>) is a free service to all Advertisers. You can
-                              use the NUM service at any time.
-                          </li>
-                          <li>
-                              If you have enabled, under your <a href="{{route('escort.profile.notifications')}}" class="termsandconditions_text_color custom_links_design">Account</a> settings, to be notified when a new listing
-                              is added to the NUM, you are charged a monthly Fee.
-                          </li>
-                          <li>
-                              Complete the form to add an incident to the NUM. When completing the form
-                              please ensure all of the details are correct and you have selected the correct option
-                              to describe the incident.
-                          </li>
-                          <li>The NUM is a closed publication for Advertisers only. Each entry contains personal
-                              reports, provided by the Advertiser, of incidents involving problem clients. The
-                              NUM makes these reports available to help other Advertisers avoid problem clients,
-                              and as an extension of the "word of mouth" warnings given by Advertisers between
-                              each other.</li>
-                          <li>
-                              Escorts4U makes no claims:
-                              <ol type="a" class="ol_lower_alpha_bracket"
-                              >
-                                  <li>as to the accuracy or legitimacy of the allegations; and</li>
-                                  <li>nor do we investigate the authenticity of the reports (provided in confidence by
-                                      Advertisers)</li>
-   </ol>
-                          </li>
-                          <li>The NUM is not to be used to make a complaint about another Advertiser.</li>
-                      </ol>
-                  </div>
-               </div>
-            </div>
-         </div>
          <form id="ugly_mug_registration" class=" ">
             <div class="row">
                <div class="col-md-7">
