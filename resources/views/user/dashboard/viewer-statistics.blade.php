@@ -30,7 +30,6 @@
         <div class="card collapse" id="notes" style="">
            <div class="card-body">
               <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-              <p></p>
               <ol>
                     
               </ol>

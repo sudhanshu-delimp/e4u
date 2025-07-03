@@ -41,7 +41,7 @@
                             <div class="card-body">
                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
                                 <p>Upon registration you will be:</p>
-                                <ol class="pl-4">
+                                <ol class="">
                                     <li>Added to the Home Page Pin Up list for your nominated Location.</li>
                                     <li>Notified when your turn comes up; and</li>
                                     <li>Have a W-Alert sent to you for your confirmation that you still wish to proceed.</li>

@@ -36,7 +36,7 @@
                      <div class="card">
                         <div class="card-body">
                               <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                              <ol class="pl-4">
+                              <ol>
                               <li>These pricing information pages are a complete summary of all the discounts and
                                  Fees that are applied in the Website when an Escort or Massage Centre posts a
                                  Profile, creates a Tour (Escort) or engages us to do provide any Support Services.</li>

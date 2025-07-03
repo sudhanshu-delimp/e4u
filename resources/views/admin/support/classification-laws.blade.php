@@ -36,7 +36,7 @@
                      <div class="card">
                         <div class="card-body">
                               <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                              <ol class="pl-4">
+                              <ol>
                               <li>The following table is a list of all the legislation that applies to the various Locations.</li>
                               <li>To view the law, click the link and the legislation will open in a new tab for you to
                               browse.</li>

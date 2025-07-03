@@ -25,13 +25,15 @@
                 <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <p>1. You can create an Alert, published in the Footer, for:</p> 
-                        <ol>
-                            <li>New features launched in the Website</li>
-                            <li>Scammer Alerts; and</li>
-                            <li>Website updates</li>
+                        <ol class="level-1">
+                           <li>You can create an Alert, published in the Footer, for:</li>
+                           <ol class="level-2 ">
+                              <li>New features launched in the Website</li>
+                              <li>Scammer Alerts; and</li>
+                              <li>Website updates</li>
+                          </ol>
+                          <li>Public notices are published on the Home page.</li>
                         </ol>
-                        <p>2. Public notices are published on the Home page.</p> 
                     </div>
                 </div>
             </div>
