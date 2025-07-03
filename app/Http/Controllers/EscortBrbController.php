@@ -39,45 +39,6 @@ class EscortBrbController extends Controller
         return response()->json(compact('response'));
     }
 
-    function suspendProfile(Request $request) {
-        //$suspendProfile = new EscortBrb;
-        // $newBrb->profile_id = $request->profile_id;
-        // $newBrb->date_set = date('Y-m-d');
-        
-        // $brbtime = date('d-m-Y h:i A', strtotime($request->brb_date.' '.$request->brb_time));
-        // $newBrb->brb_note = $request->brb_note;
-        // $escortDetail = getEscortDetail($request->profile_id);
-        // $profileTimezone = config("escorts.profile.states.$escortDetail[state_id].cities.$escortDetail[city_id].timeZone");
-        
-        // $localDateTime = Carbon::createFromFormat('Y-m-d H:i', "$request->brb_date $request->brb_time", $profileTimezone);
-        // $expiresAtUtc = $localDateTime->copy()->setTimezone('UTC');
-        
-        // $newBrb->selected_time = date('Y-m-d H:i', strtotime($request->brb_date.' '.$request->brb_time));
-        // $newBrb->brb_time = $expiresAtUtc;
-
-        // if($suspendProfile->save()) {
-        //     $response = [
-        //         'success' => true,
-        //         'suspend' => $suspendProfile,
-        //         'message' => 'BRB has been added to your Profile.'
-        //     ];
-        // } else {
-        //     $response = [
-        //         'success' => false,
-        //         'suspend' => '',
-        //         'message' => 'BRB add failed'
-        //     ];
-        // }
-
-        $response = [
-            'success' => false,
-            'suspendedProfile' => '',
-            'message' => 'Profile ID '.$request->profile_id.' has been suspended'
-        ];
-
-        return response()->json(compact('response'));
-    }
-
     function inactive($id) {
         $newBrb = new EscortBrb;
         $newBrb = $newBrb::find($id);

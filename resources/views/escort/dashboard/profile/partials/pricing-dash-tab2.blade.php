@@ -16,7 +16,7 @@
         </div>
     </div>
     @php
-    $membership = [1 => "Platinum", 2=>"Gold", 3=>"Silver", 4=>"Free"];
+    $membership = [1 => "Platinum", 2=>"Gold", 3=>"Silver", 4=>"Free"]; 
     function calculateFee($plan, $days) {
         $dis_rate = 0;
         if($plan == 1 ) {

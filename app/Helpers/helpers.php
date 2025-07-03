@@ -208,3 +208,65 @@ if (!function_exists('random_string')) {
         }
     }
 }
+
+if (!function_exists('calculateFee')) {
+    
+    function calculateFee($plan, $days) 
+    {
+        # Note : The rates:  Platinum $8, Gold $6, Silver $4 and Massage Centre $30
+        # calculateFee($listing['membership'], $daysDiff);
+
+        $planInfo = [1 => "Platinum", 2=>"Gold", 3=>"Silver", 4=>"Free",5=>"massage"];
+
+        $dis_rate = 0;
+        if($plan == 1 ) {
+            $actual_rate = 8;
+            if($days <= 21) {
+                $rate = 8;
+            } else {
+                $rate = 7.5;
+                $dis_rate = 0.5;
+            }
+
+        } else if($plan == 2) {
+            $actual_rate = 6;
+            if($days <= 21) {
+                $rate = 6;
+            } else {
+                $rate = 5.7;
+                $dis_rate = 0.3;
+            }
+        } else if($plan == 3) {
+            $actual_rate = 4;
+            if($days <= 21) {
+                $rate = 4;
+            } else {
+                $rate = 3.8;
+                $dis_rate = 0.2;
+            }
+        } else if($plan == 5) {
+            $actual_rate = 30;
+            $rate = 0;
+            $dis_rate = 0;
+
+        } else {
+            $actual_rate = 0;
+            $rate = 0;
+            $dis_rate = 0;
+        }
+
+        if($days !== null && $days <= 21) {
+            //$rate = $days*30/days;
+            $total_rate = $days*$rate;
+            $total_dis = 0;
+
+        } else {
+            $days_21 = 21*$actual_rate;
+            $above_day = $days - 21;
+            $total_rate = ($above_day*$rate + $days_21);
+            $total_dis = $above_day*$dis_rate;
+        }
+
+        return [$total_dis, $total_rate];
+    }
+}

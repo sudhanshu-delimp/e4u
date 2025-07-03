@@ -223,11 +223,13 @@
                                 <div class="container p-0">
                                     <div class="form-group row">
                                         <label class="col-sm-3" for=""> Profile:</label>
+                                        <input type="hidden" name="hiddenSuspendPlanId" id="hiddenSuspendPlanId">
                                         <div class="col-sm-8">
-                                            <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="profile_id" name="profile_id" data-parsley-errors-container="#profile-errors" required data-parsley-required-message="Select Profile">
+                                            {{-- dd($active_escorts) --}}
+                                            <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="suspendProfileId" name="suspend_profile_id" data-parsley-errors-container="#profile-errors" required data-parsley-required-message="Select Profile">
                                                 <option value="">Select Profile</option>
                                                 @foreach($active_escorts as $profile)
-                                                    <option value="{{$profile['id']}}" profile_name="{{$profile['profile_name']}}">{{$profile['id']}} - {{$profile['name']}} @if(isset($profile['state']['name']))- {{$profile['state']['name']}}@endif</option>
+                                                    <option data-membership="{{$profile['membership']}}" value="{{$profile['id']}}" profile_name="{{$profile['profile_name']}}">{{$profile['id']}} - {{$profile['name']}} @if(isset($profile['state']['name']))- {{$profile['state']['name']}}@endif</option>
                                                 @endforeach
                                             </select>
                                             <span id="profile-errors"></span>
@@ -241,14 +243,14 @@
                                                 $minDate = \Carbon\Carbon::now()->addDay()->format('Y-m-d');
                                             @endphp
                                             <div class="col-sm-5">
-                                                <input type="date" required min="{{$minDate}}" class="form-control form-control-sm removebox_shdow" value="{{$minDate}}" name="start_date" data-parsley-type="" data-parsley-type-message="">
+                                                <input type="date" id="suspendStartDate" required min="{{$minDate}}" class="form-control form-control-sm removebox_shdow" value="{{$minDate}}" name="start_date" data-parsley-type="" data-parsley-type-message="">
                                                 <span id="brb-time-errors"></span>
                                             </div>
                                             <div class="col-sm-1">
                                                 <span>to:</span>
                                             </div>
                                             <div class="col-sm-5">
-                                                <input type="date" required min="{{$minDate}}" class="form-control form-control-sm removebox_shdow" name="end_date" data-parsley-type="" value="{{$minDate}}" data-parsley-type-message="">
+                                                <input type="date" id="suspendEndDate" required min="{{$minDate}}" max="" class="form-control form-control-sm removebox_shdow" name="end_date" data-parsley-type="" value="{{$minDate}}" data-parsley-type-message="">
                                                 <span id="brb-time-errors"></span>
                                             </div>
                                         </div>
@@ -258,7 +260,7 @@
                                         <div class="col-sm-8">
                                             <div class="input-group input-group-sm">
                                                 <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
-                                                <span class="form-control" style="background-color: #e9ecef; border: 1px solid #ced4da;">0.00</span>
+                                                <span class="form-control" id='creditCalculationLive' style="background-color: #e9ecef; border: 1px solid #ced4da;">0.00</span>
                                             </div>
                                         </div>
                                     </div>
@@ -822,6 +824,68 @@
        $("#suspend_form")[0].reset();
    });
 
+   $(document).ready(function () {
+        $('#suspendStartDate, #suspendEndDate').on('change', function () {
+            let startDate = $('#suspendStartDate').val();
+            let endDate = $('#suspendEndDate').val();
+
+            calculateCredit(startDate, endDate);
+        });
+
+        function calculateCredit(startDate, endDate)
+        {
+             if (startDate && endDate) {
+                let start = new Date(startDate);
+                let end = new Date(endDate);
+
+                // Set time to start of day for both
+                start.setHours(0, 0, 0, 0);
+                end.setHours(0, 0, 0, 0);
+
+                // Calculate the difference in days (inclusive)
+                let diffTime = end - start;
+                let diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                let planId = $('#hiddenSuspendPlanId').val();
+
+                // if (diffDays >= 1) {
+                    
+                //     console.log("Total days (inclusive):", diffDays);
+                    
+                //     // You can show this in a span or update a hidden field if needed
+                // } else {
+                //     console.log("Invalid date range");
+                // }
+
+                $.ajax({
+                    url: '{{ route("suspend.calculate.credit.live") }}',
+                    method: 'POST',
+                    data: {
+                        plan_id: planId,
+                        days: diffDays,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        console.log('response')
+                        console.log(response)
+                        $('#creditCalculationLive').text(response.total_rate);
+                    }
+                });
+            } 
+        }
+
+        $('#suspendProfileId').on('change', function () {
+            // var selectedPlanId = $(this).data('membership'); // Get selected profile ID
+            var selectedPlanId = $(this).find(':selected').data('membership');
+            // console.log('Selected Membership:', membership);
+            console.log("plan range " + selectedPlanId);
+            $('#hiddenSuspendPlanId').val(selectedPlanId); // Set to hidden input
+            let startDate = $('#suspendStartDate').val();
+            let endDate = $('#suspendEndDate').val();
+
+            calculateCredit(startDate, endDate);
+        });
+    });
+
    $("#suspend_form").on('submit', function (e) {
        e.preventDefault();
        var form = $(this);
@@ -848,10 +912,10 @@
                            icon: "success",
                            text: data.response.message
                        });
-                       $("#brb_form")[0].reset();
-                       $('#add_brb').modal('hide');
-                       var txy = selectedProfileName + ' <sup title="Brb at '+data.response.brbtime+'" class="brb_icon">BRB</sup>';
-                       $("#brb_"+profileId).html(txy);
+                    //    $("#brb_form")[0].reset();
+                    //    $('#add_brb').modal('hide');
+                    //    var txy = selectedProfileName + ' <sup title="Brb at '+data.response.brbtime+'" class="brb_icon">BRB</sup>';
+                    //    $("#brb_"+profileId).html(txy);
                    } else {
                        Swal.fire({
                            icon: "error",
