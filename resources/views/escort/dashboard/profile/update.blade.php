@@ -966,10 +966,10 @@
 
         function checkProfileDynamicMedia() {
             let dynamic_image = 0;
-            document.querySelectorAll('.upld-img').forEach(img => {
+            document.querySelectorAll('.profile-gallery').forEach(img => {
                 let src = img.getAttribute('src');
                 let basename = src.substring(src.lastIndexOf('/') + 1);
-                if (!['img-12.png', 'img-11.png'].includes(basename)) {
+                if (!['img-12.png', 'img-11.png', 'img-13.png'].includes(basename)) {
                     dynamic_image++
                 }
             });
@@ -986,14 +986,11 @@
             switch (id) {
                 case 'profile-tab': {
                     let dynamic_image = checkProfileDynamicMedia();
-                    if (dynamic_image == 0) {
+                    if (dynamic_image < 8) {
                         Swal.fire('Media',
-                            'Please attach media to this profile from the Media Repository or upload a new file',
+                            'Please attach media to this profile from the Media Repository or upload a new file (All are mendatory)',
                             'warning');
                         return false;
-                    }
-                    if (dynamic_image == 0) {
-                        // $("#setAsDefaultForMainAccount").modal('show');
                     }
                 }
                 break;

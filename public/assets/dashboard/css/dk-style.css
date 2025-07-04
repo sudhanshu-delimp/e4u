@@ -5498,8 +5498,27 @@ td {
 .custom--newtable tbody {
     font-size: 14px;
 }
-
-
+.dataTables_paginate span {
+    display: flex;
+    gap: 2px;
+}
+.custom-linup-btn {
+    background: #0c223d;
+    color: #fff;
+}
+.custom-pin-button {
+    text-align: center;
+}
+.custom-pin-button button {
+    background: #0c223d;
+    border: none;
+    color: #fff;
+    display: inline-block;
+    padding: 10px 30px;
+}
+.custom-linup-btn:hover {
+    color: #fff;
+}
 /* my spend box */
 
 .my-spend-box {
