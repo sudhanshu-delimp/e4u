@@ -14,23 +14,42 @@
             </div>
             <div class="col-md-6">
 
+                <div class="row go-to-index">
+                    <div class="col-md-6 ml-auto d-block">
+                        <div class="mycont custom-cross-back pl-5">
+                            <a href="{{ route('home') }}"><img src="{{ asset('assets/app/img/newcross.png') }}" class="" alt="cross"></a>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="pin-up-content pl-5">
-                    <h1 class="home_heading_first mb-0">Jane Doe <span>20yrs old</span></h1>
+                    <h1 class="home_heading_first mb-0 pin-head-custom">Jane Doe <span><div class="pin-age">Age: <span>20</span></div></span></h1>
                     <div class="row v-path">
                         <div class="col-md-4">
                             <h3 class="mb-0">Perth</h3>
                         </div>
                         <div class="col-md-8 align-self-center">
-                            <ul class="d-flex list-unstyled pl-0 mb-0 justify-content-end mr-5 pr-4 meet-with">
+                            <ul class="d-flex list-unstyled pl-0 mb-0 justify-content-end mr-5 pr-4 meet-with custom-meet-pin">
                                 <li>Meet with:</li>
-                                <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-female" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-transgender-alt" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><img src="{{ asset('assets/app/img/video_play.svg') }}"></a></li>
+                                <li><a href="#"><img src="{{ asset('assets/app/img/woman-avatar-big.png') }}" class="" alt="logo">
+                                    <span class="custom-icon-hover-tooltip">Female</span>
+                                </a></li>
+                                <li><a href="#"><img src="{{ asset('assets/app/img/male-user.png') }}" class="" alt="logo">
+                                    <span class="custom-icon-hover-tooltip">Male</span>
+                                </a></li>
+                                <li><a href="#"><img src="{{ asset('assets/app/img/transgender-big.png') }}" class="" alt="logo">
+                                    <span class="custom-icon-hover-tooltip">Transgender</span>
+                                </a></li>
+                                <li><a href="#"><img src="{{ asset('assets/app/img/couple.png') }}" class="" alt="logo">
+                                    <span class="custom-icon-hover-tooltip">Couples</span>
+                                </a></li>
+                                <li><a href="#"><img src="{{ asset('assets/app/img/video_play.svg') }}" class="" alt="logo">
+                                    <span class="custom-icon-hover-tooltip">Video To View</span>
+                                </a></li>
                             </ul>
                         </div>
                     </div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pulvinar sit mauris arcu diam velit viverra. Amet, massa pellentesque condimentum egestas proin pellentesque. In maecenas ultrices eu lacus. Aliquam nisl eu fames libero in rutrum vitae. Cras nisi, sit ac consectetur facilisi ultricies.</p>
+                    <p class="pin-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pulvinar sit mauris arcu diam velit viverra. Amet, massa pellentesque condimentum egestas proin pellentesque. In maecenas ultrices eu lacus. Aliquam nisl eu fames libero in rutrum vitae. Cras nisi, sit ac consectetur facilisi ultricies. <a href="#">Read More</a></p>
                     <div class="row">
                         <div class="col-md-6 col-lg-4">
                             <div class="media align-items-center">
@@ -60,14 +79,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row social-and-view">
+                    <div class="row social-and-view custom-pin-social-row">
                         <div class="col-md-6 align-self-center">
-                            <ul class="d-flex list-unstyled pl-0 mb-0 v-social-ic">
+                            <ul class="d-flex list-unstyled pl-0 mb-0 custom--socialpin">
                                 <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                 <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                <li><a href="#"><img src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo"></a></li>
                             </ul>
                         </div>
+                        <div class="custom-playbox"><a href="#"><img src="{{ asset('assets/app/img/Icon_MyPlaybox-light.png') }}" class="playbox-logo" alt="logo">
+                            <span class="custom-icon-hover-tooltip">Playbox</span>
+                        </a></div>
                         <div class="col-md-6 align-self-center">
                             <a href="{{ route('profile.description',21)}}" class="btn">View Profile</a>
                         </div>
@@ -97,13 +119,7 @@
                 </div> -->
             </div>
         </div>
-        <div class="row go-to-index">
-            <div class="col-md-6 ml-auto d-block">
-                <div class="mycont pl-5">
-                    <a href="{{ route('home') }}"><img src="{{ asset('assets/app/img/left-arrow.png') }}" alt="John Doe" class="mr-3"> Back</a>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </section>
 

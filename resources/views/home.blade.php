@@ -13,7 +13,7 @@
             <div class="col-md-5">
                 <div href="#" class="tip mb-2">
                     <img style="box-shadow: 2px 3px 2px #bdbdbdbd;" class="img-fluid" src="{{ asset('assets/app/img/home/home-demo.png') }}">
-                    <div class="trikon_style manage_toolkit_font"><img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"> <a href="{{ url('/pin-up') }}">I am your Pin-Up Click here</a></div>
+                    <div class="trikon_style manage_toolkit_font"><a href="{{ url('/pin-up') }}">I am your Pin Up click here.</a></div>
                 </div>
             </div>
             <div class="col-md-7">
