@@ -196,12 +196,12 @@
                         <div class="col pl-0 pr-1">
                             <p class="list_view_profile_pera_font_size">{!! $limitText !!}  
                                 @if(strlen($plainTextAbout) > 200)
-                                    <a href="{{ route('profile.description', $escort->id) }}?list" class="h6 text-danger">Read More</a>
+                                    <a href="{{ route('profile.description', $escort->id) }}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}" class="h6 text-danger">Read More</a>
                             @endif
                             </p>
                         </div>
                         <div class="col pl-0 pr-1 all-escort-view-profile-btn">
-                        <a href="{{ route('profile.description', $escort->id) }}?list"
+                        <a href="{{ route('profile.description', $escort->id) }}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}"
                                     class="btn btn_for_profile_list_view">View Profile</a>
                         </div>
 

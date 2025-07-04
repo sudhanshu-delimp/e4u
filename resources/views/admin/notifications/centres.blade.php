@@ -26,7 +26,7 @@
                      <div class="card">
                            <div class="card-body">
                               <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                              <ol class="pl-4">
+                              <ol >
                               <li>You can create a Notification, published at the top of the Massage Centre’s
                                  Dashboard.</li>
                               </ol>

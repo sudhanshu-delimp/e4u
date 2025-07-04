@@ -33,7 +33,7 @@
                 <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text">Add to My Legbox</span></span>
             @endif
         </div>
-    <a  class="card card_box_style six_col_card mb-0 short-card" href="{{ route('profile.description',[$escort->id,$escort->city_id, $escort->membership])}}">
+    <a  class="card card_box_style six_col_card mb-0 short-card" href="{{ route('profile.description',[$escort->id,$escort->city_id, $escort->membership])}}?brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}">
         <div class="card2 card_box_style1 six_col_card1">
         @if($escort->latestActiveBrb)
         <div class="brb--content">

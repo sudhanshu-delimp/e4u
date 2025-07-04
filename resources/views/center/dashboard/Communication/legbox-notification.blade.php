@@ -26,10 +26,10 @@
           <div class="card collapse" id="notes" style="">
              <div class="card-body">
                 <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                <ul>
+                <ol>
                     <li>You can create a Notification shown at the top of Viewer Dashboards (who flagged you in Legbox).</li>
                     <li>Only Viewers who tagged you in their Legbox can view your Notification.</li>
-                  </ul>
+                  </ol>
              </div>
           </div>
        </div>

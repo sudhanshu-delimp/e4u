@@ -80,6 +80,9 @@ class RegisterController extends Controller
             'type' => $data['type'],
             'password' => Hash::make($data['password']),
             'enabled' => 1,
+            'viewer_contact_type' => ["2"],
+            'tour_permissition_type' => ["1","2"],
+            'profile_creator' => ["1","2"]
         ]);
     }
 

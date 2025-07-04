@@ -57,7 +57,7 @@
                 </a>
                 <a class="collapse-item" href="{{ route('change-features') }}">
                     <img width="16" height="17" viewBox="0 0 16 17" fill="none"
-                        src="{{ asset('assets/dashboard/img/menu-icon/account-network.png') }}">
+                        src="{{ asset('assets/dashboard/img/menu-icon/change-feature.png') }}">
 
                     <span style="{{ request()->segment(2) == 'change-features' ? 'color: #e5365a;' : '' }}">Change
                         features</span>

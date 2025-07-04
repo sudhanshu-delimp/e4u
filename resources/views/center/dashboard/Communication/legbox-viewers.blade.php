@@ -66,12 +66,12 @@
          <div class="card collapse" id="notes" style="">
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-               <ul>
+               <ol>
                   <li>Registered Viewers who have flagged you in their Legbox are listed here.</li>
                   <li>Status includes Contact, Method, and Viewer Communication.</li>
                   <li>You can override contact preferences.</li>
                   <li>Blocking a viewer hides your profile from them.</li>
-               </ul>
+               </ol>
             </div>
          </div>
       </div>

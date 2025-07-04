@@ -30,10 +30,10 @@
                               <li>An email request is to be actioned within 24 hours of receipt.</li>
                               <li>An email notification has also been sent to <a href="mailto:admin@e4u.com.au">admin@e4u.com.au</a>.</li>
                               <li>When establishing the Email account, ensure:
-                                <ul>
+                                <ol class="level-2">
                                   <li>The Member and Email details are entered in the Email Register before completing this page.</li>
                                   <li>Activate account.</li>
-                                </ul>
+                                </ol>
                               </li>
                             </ol>
                          </div>

@@ -5607,7 +5607,7 @@ td {
 .level-2,
 .level-3 {
     list-style-position: outside;
-    padding-left: 20px;
+    /* padding-left: 20px; */
     margin-top: 10px;
 }
 
@@ -5623,6 +5623,7 @@ td {
 
 .level-2 {
     list-style-type: lower-alpha;
+    padding-left: 30px !important;
 }
 
 .level-2>li::marker {

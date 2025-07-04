@@ -36,7 +36,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                <ol class="pl-4">
+                                <ol>
                                 <li>The Post Office is a repository of all template emails deployed in the Website, be it
                                 auto-generated or manual generated.</li>
                                 <li>Select the template you wish to use and then click the Preview button to view the

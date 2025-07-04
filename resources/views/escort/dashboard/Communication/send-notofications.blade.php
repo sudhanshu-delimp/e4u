@@ -33,23 +33,11 @@
      {{-- end --}}
          <!--middle content-->
          <div class="row mt-5">
-            <div class="col-sm-8 col-md-8 col-lg-8 ">
+            <div class="col-sm-12 col-md-12 col-lg-12 ">
                <!-- Begin Page Content -->
                <div class="container-fluid" style="padding: 0px 0px;">
                   <div class="row">
-                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <form class="search-form-bg navbar-search">
-                           <div class="input-group">
-                              <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                              <div class="input-group-append">
-                                 <button class="btn-right-icon" type="button">
-                                 <i class="fas fa-search fa-sm"></i>
-                                 </button>
-                              </div>
-                           </div>
-                        </form>
-                     </div>
-                     <div class="col-lg-8 col-md-8 col-sm-8">
+                     <div class="col-lg-12">
                         <div class="bothsearch-form" style="gap: 10px;">
                            <button type="button" class="btn btn-primary create-tour-sec" data-toggle="modal" data-target="#new-ban">Send Notification</button>
                         </div>
@@ -61,7 +49,7 @@
                <div class="row">
                   <div class="col-md-12">
                      <div class="table-responsive-xl">
-                        <table class="table">
+                        <table id="sendNotificationTable" class="table table-bordered display" width="100%">
                            <thead class="table-bg">
                               <tr>
                                  <th scope="col">
@@ -185,4 +173,23 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script>
+   $(document).ready(function() {
+       $('#sendNotificationTable').DataTable({
+           responsive: true,
+           language: {
+               search: "Search: _INPUT_",
+               searchPlaceholder: "Search by ID or Profile Name...",
+               lengthMenu: "Show _MENU_ entries",
+               zeroRecords: "No matching records found",
+               info: "Showing _START_ to _END_ of _TOTAL_ entries",
+               infoEmpty: "No entries available",
+               infoFiltered: "(filtered from _MAX_ total entries)"
+           },
+           paging: true
+       });
+   });
+ </script>
+   
 @endpush
