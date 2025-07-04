@@ -49,79 +49,6 @@
            
             <div class="col-md-12 mt-4" id="profile_and_tour_options">
 
-                {{-- <form class="v-form-design" method="POST" action="{{ route('set-viewer-prefrence') }}">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="email">Features (enabled by default)</label><br>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" value=" ">
-                                    <label class="form-check-label" for="Method_Message">Flag your favourite Escorts and
-                                        view your "Favorites" list</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value=" ">
-                                    <label class="form-check-label" for="Method_Text">Write Reviews</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value=" ">
-                                    <label class="form-check-label" for="Method_Email">Recieve Alert Notifications</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value=" ">
-                                    <label class="form-check-label" for="Method_Email">Participate in direct chatting with
-                                        Escorts</label>
-                                </div>
-                                <div class="pt-1"><i>These features are provided by default unless you disable them</i>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Alert notifications</label><br>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="Method_Message" value="option1">
-                                    <label class="form-check-label" for="Method_Message">Email</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
-                                    <label class="form-check-label" for="Method_Text">Text</label>
-                                </div>
-                                <div class="pt-1"><i>If you have enabled this feature, indicate you preferred method of
-                                        notification
-
-                                    </i></div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email">What are your interests?</label><br>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="Method_Message" value="option1">
-                                    <label class="form-check-label" for="Method_Message">Female</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
-                                    <label class="form-check-label" for="Method_Text">Male</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
-                                    <label class="form-check-label" for="Method_Text">Trans</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
-                                    <label class="form-check-label" for="Method_Text">BDSM</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
-                                    <label class="form-check-label" for="Method_Text">Cross dresser</label>
-                                </div>
-                                <div class="pt-1"><i>By selecting a particular interest, we can refine your Escorts View
-                                        page
-                                    </i></div>
-                            </div>
-                        </div>
-                    </div>
-                    <input type="submit" value="save" class="btn btn-primary shadow-none" name="submit">
-                </form> --}}
-
                 <form class="v-form-design" method="POST" action="{{ route('set-viewer-preference') }}">
                     @csrf
                     <div class="row">
@@ -194,15 +121,6 @@
                                   <input class="form-check-input" {{ in_array('4', $interests) ? 'checked' : ''}} id="inetrest_cross" type="checkbox" name="interests[]" value="4">
                                   <label class="form-check-label" for="inetrest_cross">Cross dresser</label>
                               </div>
-                                {{-- <div class="form-group mt-4 col-md-6">
-                                    <label>Preferred City</label>
-                                    <select class="form-control" name="city">
-                                      <option value="">Select City</option>
-                                      @foreach (config('escorts.profile.cities') as $key=>$city)
-                                        <option value="{{$key}}" {{ ($preference && $preference->city == $key ) ? 'selected' : ''  }}>{{Str::title($city)}}</option>
-                                      @endforeach
-                                    </select>
-                                </div> --}}
                                
                             </div>
 

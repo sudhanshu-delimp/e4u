@@ -411,31 +411,47 @@
             <img src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png')}}">
             <span >NUM</span>
         </a>
-        <div id="ugly" class=" collapse  @if(request()->segment(2) == 'report' || request()->segment(2) == 'lookup' || request()->segment(2) == 'request-notification' ) show @endif;" aria-labelledby="headingten" data-parent="#accordionSidebar">
-            <div class="py-0 collapse-inner rounded mb-2">
-                <a id="myAnchor" class="collapse-item show" href="{{ route('escort.report') }}">
-                    <img src="{{ asset('assets/app/img/icons-bug.png')}}">
-                    <span style="{{ request()->segment(2) == 'report' ? 'color: #e5365a;' : ''}}">Report</span>
-                </a>
+            <div id="ugly" class=" collapse  @if(request()->segment(2) == 'numdashboard' || request()->segment(2) == 'add-report' || request()->segment(2) == 'my-reports' || request()->segment(2) == 'request-notification' ) show @endif;" aria-labelledby="headingten" data-parent="#accordionSidebar">
+                <div class="py-0 collapse-inner rounded mb-2">
 
-                <a class="collapse-item" href="{{ route('escort.lookup') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/icons.png')}}">
-                    <span style="{{ request()->segment(2) == 'lookup' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : ''}}">Lookup</span>
-                </a>
+                    <a id="myAnchor" class="collapse-item show" href="{{ route('escort.numdashboard') }}">
+                        <img src="{{ asset('assets/img/dashboard-24.png')}}">
+                        <span style="{{ request()->segment(2) == 'numdashboard' ? 'color: #e5365a;' : ''}}">dashboard</span>
+                    </a>
 
-                <a class="collapse-item" {{--href="{{ route('/') }}"--}}>
-                    <img src="{{ asset('assets/app/img/icons-bug.png')}}">
-                    <span style="{{ request()->segment(2) == 'remove_request' ? 'color: #e5365a;' : ''}}">Remove Request</span>
-                </a>
+                    <a id="myAnchor" class="collapse-item show" href="{{ route('escort.add-report') }}">
+                        <img src="{{ asset('assets/img/report-24.png')}}">
+                        <span style="{{ request()->segment(2) == 'add-report' ? 'color: #e5365a;' : ''}}">Add Report</span>
+                    </a>
 
-                <a class="collapse-item" href="{{ route('escort.request-notification') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/alert.png')}}">
-                    <span style="{{ request()->segment(2) == 'request-notification' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : ''}}">Alert Tool</span>
-                </a>
+                    <a id="myAnchor" class="collapse-item show" href="{{ route('escort.my-reports') }}">
+                        <img src="{{ asset('assets/img/8report-24.png')}}">
+                        <span style="{{ request()->segment(2) == 'my-reports' ? 'color: #e5365a;' : ''}}">My Reports</span>
+                    </a>
 
+                    {{-- <a id="myAnchor" class="collapse-item show" href="{{ route('escort.report') }}">
+                        <img src="{{ asset('assets/app/img/icons-bug.png')}}">
+                        <span style="{{ request()->segment(2) == 'report' ? 'color: #e5365a;' : ''}}">Report</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('escort.lookup') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/icons.png')}}">
+                        <span style="{{ request()->segment(2) == 'lookup' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : ''}}">Lookup</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('escort.lookup') }}">
+                        <img src="{{ asset('assets/app/img/icons-bug.png')}}">
+                        <span style="{{ request()->segment(2) == 'remove_request' ? 'color: #e5365a;' : ''}}">Remove Request</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('escort.request-notification') }}">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/alert.png')}}">
+                        <span style="{{ request()->segment(2) == 'request-notification' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : ''}}">Alert Tool</span>
+                    </a> --}}
+
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
     <!-- Divider -->
 
     <!-- Nav Item - Pages Collapse Menu -->
