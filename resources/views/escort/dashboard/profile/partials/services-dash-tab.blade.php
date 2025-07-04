@@ -207,6 +207,12 @@
                                 <label class="col-3" for="exampleFormControlSelect1">{{ $duration->name }}:</label>
                                 @if($duration->name == 'Blow & Go')
     <div class="col-3">
+    <input type="hidden" placeholder="0" min="0"
+                data-parsley-excluded="true"
+                class="form-control form-control-sm select_tag_remove_box_sadow change_default"
+                id="massage_price_{{ $duration->id }}" duration_id="{{ $duration->id }}" name="massage_price[]"
+                value="0"
+                step="10" max=9999>
         <div class="form-group" style="color: #ff3c5f;font-size: 14px;">Not available</div>
     </div>
 @else
