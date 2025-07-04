@@ -89,7 +89,10 @@ Route::get('logged-in-users', function(){
 Route::get('visitors', function(){
     return view('admin.visitors');
 })->name('admin.visitors');
- 
+
+Route::get('pinup-listings', function(){
+    return view('admin.pin-up-listings');
+})->name('admin.pin-up-listings');
  
 Route::get('database',function(){
     return view('admin.database');
