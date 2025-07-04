@@ -43,97 +43,78 @@
                </div>
             </div>
          </div>
-         <div class="card" style="max-width: 800px;">
-            <div class="card-header bg-primary text-white" style="background: #0c223d !important;">
-              Search Offender
+         <div class="card mt-4">
+            <div class="card-header table-bg text-white">
+               Search Report by Mobile Number
             </div>
             <div class="card-body">
-              <div class="form-group">
-                <label for="searchMobile" class="font-weight-bold">Mobile Number</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" id="searchMobile" placeholder="e.g. 0400 123 456" maxlength="10" pattern="\d*" style="height: 45px;border-right: 0;">
-                  <div class="input-group-append">
-                    <button class="save_profile_btn" type="button">Search</button>
-                  </div>
-                </div>
-                <small class="form-text text-muted">Enter 10-digit mobile number to search offender details.</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-   </div>
-   <!--middle content end here-->
-</div>
-{{--<div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Find a Viewer</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-            </button>
-         </div>
-         <div class="modal-body">
-            <div class="row pl-3">
-               <div class="col-md-6">
-                  <div class="form-group mb-2 pt-2">
-                     <label for="staticEmail2"><b>Search</b></label>
-                  </div>
-                  <div class="form-group mb-2">
-                     <input type="text" name="name" required="" data-parsley-required-message=" Please enter Tour Name" class="form-control mb-2" id=" " placeholder=" " value="" data-parsley-errors-container="#Tname">
-                     <i>Find a Viewer with their Username, ID or Mobile number</i>
+               <div class="container-fluid" style="padding: 0px 0px;">
+                  <div class="row">
+                     <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="form-group mb-0">
+                           <label for="searchMobile">Search by Mobile Number (no spaces)</label>
+                           <form class="search-form-bg navbar-search" style="width: 305px;">
+                              <div class="input-group">
+                                 <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
+                                 <div class="input-group-append">
+                                    <button class="btn-right-icon" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                 </div>
+                              </div>
+                           </form>
+                        </div>
+                     </div>
                   </div>
                </div>
-               <div class="col-md-6">
-                  <div class="card-body pt-2" style="
-                     ">
-                     <p class="mb-0"><b>Selected User </b></p>
-                     <table id="myTable" class="table table-striped dataTable no-footer border-0" width="100%" role="grid" aria-describedby="myTable_info" style="">
-                        <tbody>
-                           <tr role="row" class="border-0 bg-transparent
-                              ">
-                              <td class="border-0 pb-0 pl-0 text-black">ID:</td>
-                              <td class="border-0 pb-0 text-black">261</td>
-                           </tr>
-                           <tr role="row" class="border-0 bg-transparent
-                              ">
-                              <td class="border-0 pb-0 pl-0 text-black">Name:</td>
-                              <td class="border-0 pb-0 text-black">Juli</td>
-                           </tr>
-                           <tr role="row" class="border-0 bg-transparent
-                              ">
-                              <td class="border-0 pb-0 pl-0 text-black">Mobile:</td>
-                              <td class="border-0 pb-0 text-black">0987654321</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-               </div>
-               <div class="col-md-12">
-                  <table style="width: 100%;background: #0C223D;color: #fff;">
-                     <tbody>
+               <!-- Reports Table -->
+               <div class="table-responsive">
+                  <table class="table table-bordered table-hover mt-3" id="resultsTable">
+                     <thead class="table-bg">
                         <tr>
-                           <th class="p-2">ID</th>
-                           <th class="p-2">Name</th>
-                           <th class="p-2">Mobile</th>
+                           <th>REF</th>
+                           <th>Status</th>
+                           <th>Mobile</th>
+                           <th>Incident Type</th>
+                           <th>Incident Date</th>
+                           <th>Location</th>
+                           <th>Action</th>
                         </tr>
+                     </thead>
+                     <tbody class="table-content">
+                        <!-- Example static row -->
                         <tr>
-                           <td class="p-2">Magazzini</td>
-                           <td class="p-2">Giovanni</td>
-                           <td class="p-2">Italy</td>
+                           <td>#12345</td>
+                           <td>Pending</td>
+                           <td>9876543210</td>
+                           <td>Time Waster</td>
+                           <td>2025-07-01</td>
+                           <td>Sydney</td>
+                           <td>
+                              <div class="dropdown no-arrow">
+                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                 </a>
+                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                    <a class="dropdown-item align-item-custom" href="#"> <i class="fa fa-edit"></i> Edit</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item align-item-custom" href="#"> <i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                                 </div>
+                              </div>
+                           </td>
                         </tr>
+                        <!-- JS will inject filtered rows here -->
                      </tbody>
                   </table>
                </div>
             </div>
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Continue</button>
-         </div>
+          </div>
+          
       </div>
    </div>
-</div>--}}
+   <!--middle content end here-->
+</div>
+
 @endsection
 @push('script')
 <!-- file upload plugin start here -->
@@ -141,45 +122,18 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 
 <script>
-    $('#ugly_mug_registration').parsley({});
-
-    $("#ugly_mug_registration").on('submit', function(e){
-        e.preventDefault();
-
-        var form = $(this);
-        if (form.parsley().isValid()) {
-            $("#submit").hide();
-            $(".spinner-border").attr('hidden', false);
-            var url = "{{route('escort.mug.register')}}";
-            var data = new FormData(form[0]);
-            $.ajax({
-                method: 'POST',
-                url: url,
-                dataType: "json",
-                data: data,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    if (data.status) {
-                        swal.fire(
-                            'Ugly mug registration',
-                            'Mug registered successfully',
-                            'success'
-                        );
-                        form[0].reset();
-                    } else {
-                        swal.fire(
-                            'Ugly mug registration',
-                            'Oops.. something wrong Please try again',
-                            'error'
-                        );
-                    }
-                    $(".spinner-border").attr('hidden', true);
-                    $("#submit").show();
-                },
-
-            });
-        }
-    });
-</script>
+   function filterResults() {
+     const input = document.getElementById("searchMobile").value.trim();
+     const rows = document.querySelectorAll("#resultsTable tbody tr");
+   
+     rows.forEach(row => {
+       const mobile = row.cells[2].innerText;
+       if (mobile.includes(input)) {
+         row.style.display = "";
+       } else {
+         row.style.display = "none";
+       }
+     });
+   }
+   </script>
 @endpush

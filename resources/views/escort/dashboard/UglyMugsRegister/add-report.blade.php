@@ -52,38 +52,87 @@
               Submit Client Report
             </div>
             <div class="card-body">
-              <form>
+              <form class="needs-validation" action="#" method="POST" enctype="multipart/form-data" novalidate="">
+                <!-- Incident Date -->
                 <div class="form-group">
-                  <label for="clientMobile">Client's Mobile Number</label>
-                  <input type="text" class="form-control" id="clientMobile" placeholder="0400123456">
+                   <label for="incident_date">Incident Date <span class="text-danger">*</span></label>
+                   <input type="date" class="form-control" id="incident_date" name="incident_date" required="">
                 </div>
-          
+                <!-- Incident State -->
                 <div class="form-group">
-                  <label for="incidentNature">Incident Nature</label>
-                  <select class="form-control" id="incidentNature">
-                    <option>Time waster</option>
-                    <option>Con man</option>
-                    <option>Dangerous</option>
-                    <option>Assault</option>
-                  </select>
+                   <label for="incident_state">Incident State <span class="text-danger">*</span></label>
+                   <select class="form-control custom-select" id="incident_state" name="incident_state" required="">
+                      <option value="" selected="" disabled="">Please Choose</option>
+                      <option value="act">ACT</option>
+                      <option value="nsw">NSW</option>
+                      <option value="nt">NT</option>
+                      <option value="qld">QLD</option>
+                      <option value="sa">SA</option>
+                      <option value="tas">Tas</option>
+                      <option value="vic">VIC</option>
+                      <option value="wa">WA</option>
+                   </select>
                 </div>
-          
+                <!-- Incident Location -->
                 <div class="form-group">
-                  <label for="rating">Rating</label>
-                  <select class="form-control" id="rating">
-                    <option>Low</option>
-                    <option>Medium</option>
-                    <option>High</option>
-                  </select>
+                   <label for="incident_location">Incident Location <span class="text-danger">*</span></label>
+                   <input type="text" class="form-control" id="incident_location" name="incident_location" required="">
+                   <small class="form-text text-muted">Which city were you in</small>
                 </div>
-          
+                <!-- Offender's Name -->
                 <div class="form-group">
-                  <label for="incidentDetails">Incident Details</label>
-                  <textarea class="form-control" id="incidentDetails" rows="5" placeholder="Describe the incident..."></textarea>
+                   <label for="offenders_name">Offender's Name</label>
+                   <input type="text" class="form-control" id="offenders_name" name="offenders_name">
+                   <small class="form-text text-muted">If known</small>
                 </div>
-          
-                <button type="submit" class="save_profile_btn">Submit Report</button>
-              </form>
+                <!-- Offender's Mobile -->
+                <div class="form-group">
+                   <label for="offenders_mobile">Offender's Mobile <span class="text-danger">*</span></label>
+                   <input type="text" class="form-control" id="offenders_mobile" name="offenders_mobile" pattern="\d{10}" maxlength="10" required="" placeholder="1234567890">
+                   <small class="form-text text-muted">No spaces or any other characters - just numbers</small>
+                </div>
+                <!-- Offender's Email -->
+                <div class="form-group">
+                   <label for="offenders_email">Offender's Email</label>
+                   <input type="email" class="form-control" id="offenders_email" name="offenders_email">
+                   <small class="form-text text-muted">If known</small>
+                </div>
+                <!-- Incident Nature -->
+                <div class="form-group">
+                   <label for="incident_nature">Incident Nature <span class="text-danger">*</span></label>
+                   <select class="form-control custom-select" id="incident_nature" name="incident_nature" required="">
+                      <option value="" disabled="" selected="">Please Choose</option>
+                      <option value="Time Waster">Time Waster</option>
+                      <option value="Con man">Con man</option>
+                      <option value="Dangerous">Dangerous</option>
+                      <option value="Assault">Assault</option>
+                   </select>
+                </div>
+                <!-- What Happened -->
+                <div class="form-group">
+                   <label for="what_happened">What Happened <span class="text-danger">*</span></label>
+                   <textarea class="form-control" id="what_happened" name="what_happened" rows="4" required=""></textarea>
+                </div>
+                <!-- Rating -->
+                <div class="form-group">
+                   <label>Rating <span class="text-danger">*</span></label><br>
+                   <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="rating" id="rating1" value="1" required="">
+                      <label class="form-check-label" for="rating1">Do not approach</label>
+                   </div>
+                   <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="rating" id="rating2" value="2" required="">
+                      <label class="form-check-label" for="rating2">Exercise caution</label>
+                   </div>
+                   <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="rating" id="rating3" value="3" required="">
+                      <label class="form-check-label" for="rating3">Safe</label>
+                   </div>
+                </div>
+                <!-- Submit Button -->
+                <button type="submit" class="save_profile_btn">Add Report</button>
+                <p class="mt-3">Your report will remain <em>Pending</em> until approved by our Operations team.</p>
+             </form>
             </div>
           </div>
           
