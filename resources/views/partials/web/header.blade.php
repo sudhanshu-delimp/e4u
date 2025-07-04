@@ -65,6 +65,6 @@
     </head>
 <body>
 
-<a id="back-to-top-2" href="#" class="btn btn-light btn-lg back-to-top" style="display: none;" role="button"><img src="{{ asset('assets/img/Vector(23).svg') }}"></a><br/>
+<a id="back-to-top-2" href="#" class="btn btn-light btn-lg back-to-top" style="display: none;" role="button"><img src="{{ asset('assets/img/Vector(23).svg') }}"></a>
 <a id="back-to-bottom-2" href="#" class="btn btn-light btn-lg back-to-bottom" style="display: none;" role="button"><img src="{{ asset('assets/img/Vector(23).svg') }}" ></a>
 <section class="mx-auto max_width_for_content">

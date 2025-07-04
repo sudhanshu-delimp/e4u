@@ -3155,9 +3155,11 @@ img.img-thumbnail.defult-image-3 {
     text-align: center;
     color: #fff;
 }
-.photo-header .nav-tabs .nav-link.active{
+
+.photo-header .nav-tabs .nav-link.active {
     color: #fff;
 }
+
 div#exampleModal .nav-tabs .nav-item.show .nav-link {
     color: #FF3C5F;
 }
@@ -5750,6 +5752,96 @@ td {
 
 .custom-tooltip-container:hover .tooltip-text {
     display: block;
+}
+
+
+/* add punterbox report */
+
+.add-punterbox-report {
+    color: var(--blue--text);
+}
+
+.add-punterbox-report .form-control,
+.add-punterbox-report .form-control:focus,
+.add-punterbox-report .custom-select {
+    border-radius: 0;
+    border-color: #ccc;
+    box-shadow: none;
+}
+
+.add-punterbox-report label {
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.add-punterbox-report .form-check label {
+    margin-top: 5px;
+}
+
+.add-punterbox-report .required::after {
+    content: " *";
+    color: var(--peach);
+}
+
+.add-punterbox-report small {
+    color: #6c757d;
+}
+
+.add-punterbox-report .form-check-label {
+    font-weight: 500;
+}
+
+.search-label {
+    color: #ff3c5f;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.add-punterbox-report .form-control {
+    border-radius: 0;
+    height: 45px;
+    border-color: #ccc;
+}
+
+.add-punterbox-report .btn-search {
+    background-color: var(--blue--text);
+    color: #fff;
+    border-radius: 0;
+    height: 45px;
+    padding: 0 20px;
+    border: none;
+}
+
+.add-punterbox-report .btn-search:hover {
+    background-color: #e73353;
+}
+
+.my-punter-report {
+    text-align: center;
+    display: flex;
+    align-items: start;
+    justify-content: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 50px 0;
+}
+
+.my-punter-report-box {
+    width: 200px;
+    padding: 25px;
+    border: 1px solid var(--blue--text--default);
+}
+
+.my-punter-report-box h4 {
+    font-size: 18px;
+    color: var(--blue--text);
+    font-weight: 600;
+}
+
+.my-punter-report-box span {
+    font-size: 18px;
+    color: var(--peach);
+    font-weight: 600;
 }
 
 @media (min-width:300px) and (max-width:575px) {
