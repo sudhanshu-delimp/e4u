@@ -272,8 +272,10 @@
                     <i class="fas fa-arrow-left"></i>&nbsp;Previous Step</a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right a_text_white_hover previous_bt_center_in_sm">
-                <a href="{{ route('profile.description', $escort->id ? $escort->id : '') }}"
-                    class="save_profile_btn">Preview</a>
+                
+                    @if(request()->segment(2) == 'profile')
+                    <a data-toggle="modal" data-id="{{$escort->id}}" data-target="#view-listing"  class="save_profile_btn preview-profile" href="#">Preview</a>
+                        @endif
                 <a href="#available" class="nex_sterp_btn" id="contact-tab" data-toggle="tab" role="tab"
                     aria-controls="contact" aria-selected="false">Next Step
                     <i class="fas fa-arrow-right"></i>

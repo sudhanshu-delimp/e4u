@@ -153,8 +153,10 @@
                     </div>
                     <div
                         class="col-lg-8 col-md-8 col-sm-8 col-12 text-right a_text_white_hover previous_bt_center_in_sm">
-                        <a href="{{ route('profile.description', $escort->id ? $escort->id : '') }}"
-                            class="save_profile_btn">Preview</a>
+                        @if(request()->segment(2) == 'profile')
+                        <a data-toggle="modal" data-id="{{$escort->id}}" data-target="#view-listing"  class="save_profile_btn preview-profile" href="#">Preview</a>
+                        @endif
+                        
                               @if (request()->segment(2) == 'create-profile')
                         <button id="show_draft-2" name="save" type="submit" class="nex_sterp_btn"
                             {{-- style="display:none" --}}>
