@@ -234,6 +234,22 @@
         </div>
     </div>
 
+    <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
+      <div class="modal-content basic-modal modal-lg">
+         <div class="modal-header">
+            <h5 class="modal-title" id="emailReport">Listing</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body" id="escortPopupModalBody">
+            <iframe src="{{ route('profile.description',$escort->id ? $escort->id : '' )}}" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>
+
+         </div>
+      </div>
+   </div>
+</div>
     {{-- <div class="modal programmatic" id="change_all" style="display: none">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-0">
@@ -259,6 +275,12 @@
     <script>
         $(document).on('keypress', 'form input', function(event) {
             return event.keyCode !== 13;
+        });
+
+        $('.preview-profile').on('click', function() {
+            $('#escortPopupModalBodyIframe').attr('src', function(i, old) {
+                return old;
+            });
         });
         
         $('#select2-dropdown').select2({

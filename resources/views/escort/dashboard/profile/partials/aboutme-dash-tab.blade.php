@@ -1480,7 +1480,9 @@
     <div class="tab_btm_btns_preview_and_next pb-2">
         <div class="row pt-3 pb-2">
             <div class="col-md-12 text-right mb-2 a_text_white_hover">
-                <a href="{{ route('profile.description',$escort->id ? $escort->id : '' )}}" class="save_profile_btn" target="_blank">Preview</a>
+                @if(request()->segment(2) == 'profile')
+                <a data-toggle="modal"  data-id="{{$escort->id}}" data-target="#view-listing"  class="save_profile_btn preview-profile" href="#">Preview</a>
+                @endif
                 <a href="#services" class="nex_sterp_btn " id="profile-tab" data-toggle="tab" href="#services" role="tab" aria-controls="profile" aria-selected="false">Next Step
                 <i class="fas fa-arrow-right"></i>
                 </a>
