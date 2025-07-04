@@ -52,6 +52,7 @@
                                 <label class="col-3" for="exampleFormControlSelect1">{{ $duration->name}}:</label>
                                 @if($duration->name == 'Blow & Go')
     <div class="col-3">
+    <input min="0" placeholder="0" type="hidden" id="massage_price" name="massage_price[]" value="0">
         <div class="form-group" style="color: #ff3c5f;font-size: 14px;">Not available</div>
     </div>
 @else
