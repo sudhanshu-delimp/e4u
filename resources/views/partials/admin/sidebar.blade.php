@@ -780,13 +780,18 @@
                     src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
                 <span>Reports </span>
             </a>
-            <div id="Reports" class="collapse @if (request()->is('*reports*') || request()->is('**')) show @endif;"
+            <div id="Reports" class="collapse @if (request()->is('*credit*') || request()->is('*agent-requests*') || request()->is('**')) show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
+                    <a class="nav-link collapsed" href="{{ route('admin.agent-requests') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
+                        <span style="{{ request()->is('*agent-requests*') ? 'color: #e5365a;' : '' }}">Agent Requests</span>
+                    </a>
                     <a class="nav-link collapsed" href="{{ route('admin.credit') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
-                        <span style="{{ request()->is('*reports*') ? 'color: #e5365a;' : '' }}">Credits</span>
+                        <span style="{{ request()->is('*credit*') ? 'color: #e5365a;' : '' }}">Credits</span>
                     </a>
                 </div>
             </div>

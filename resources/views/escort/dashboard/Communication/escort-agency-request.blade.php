@@ -29,9 +29,14 @@
                               <ol>
                                   <li>This form will be pre-populated with your details according to what you have selected in your <a href="notifications-features" class="custom_links_design">Notifications & Features</a> settings.
                               Use this form to request an Agent for assistance.</li>
-                                  <li>Select the Agent you wish to appoint from the list of available Agents (Step 1).</li>
-                                  <li>Complete the form to request the selected Agent for assistance. When completing the form please ensure all of the details are correct and you have selected the correct option for communications (Step 2).</li>
-                                  <li>Once you have submitted the Agent Request you will receive a confirmation email.  The Agent will be in touch with you usually within 24 hours.</li>
+                                  {{-- <li>Select the Agent you wish to appoint from the list of available Agents (Step 1).</li> --}}
+                                  <li>Complete the form to request a Support Agent for assistance. When completing the form
+                                    please ensure all of the details are correct and you have selected the correct option for
+                                    communications. Once a Support Agent is appointed, they will remain your Support
+                                    Agent for you to <a href="agent-messages" class="custom_links_design"> communicate </a>with and address any of your
+                                    concerns.</li>
+                                  <li>Once the Agent has accepted your request for support, you will receive a confirmation
+                                    email.</li>
                               </ol>
                             </div>
                         </div>
@@ -39,63 +44,89 @@
                 </div>
 
                 <form class=" ">
-                <div class="row">
-                  <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
 
-                      <div class="form-group w-50">
-            <label for="email"><b>First Name</b> </label>
-            <input id="name" placeholder="First Name" name="name" type="text" class="form-control" required="">
+                            <div class="form-group w-50">
+                                <label for="email"><b>First Name</b> </label>
+                                <input id="name" placeholder="First Name" name="name" type="text" class="form-control" required="">
+                            </div>
+                            <div class="form-group w-50">
+                                <label for="email"><b>Last Name</b> </label>
+                                <input id="name" placeholder="Last Name" name="name" type="text" class="form-control" required="">
 
-        </div>
-        <div class="form-group w-50">
-            <label for="email"><b>Last Name</b> </label>
-            <input id="name" placeholder="Last Name" name="name" type="text" class="form-control" required="">
+                            </div>
 
-        </div>
+                            <div class="form-group w-50">
+                                <label for="email"><b>Email</b></label>
+                                <input id="name" placeholder="Email Address" name="name" type="text" class="form-control" required="">
 
-        <div class="form-group w-50">
-            <label for="email"><b>Email</b></label>
-            <input id="name" placeholder="Email" name="name" type="text" class="form-control" required="">
+                            </div>
 
-        </div>
+                            <div class="form-group w-50">
+                                <label for="email"><b>Mobile Number</b> </label>
+                                <input id="name" placeholder="Mobile Number" name="name" type="text" class="form-control" required="">
+                            </div>
 
-        <div class="form-group w-50">
-            <label for="email"><b>Mobile</b> </label>
-            <input id="name" placeholder="Mobile" name="name" type="text" class="form-control" required="">
-        </div>
+                            {{-- <div class="form-group custom-radio mb-0">
+                                <label for="email"><b>Contact preference</b> </label><br>
+                                <input type="radio" id="html" name="fav_language" value="HTML">
+                                <label class="m-0" for="html">Show me Agent list</label><br><input type="radio" id="css" name="fav_language" value="CSS">
+                                <label for="css">Have Agent contact me (select method below)</label><br>
+                            </div> --}}
 
-        <div class="form-group custom-radio mb-0">
-            <label for="email"><b>Contact preference</b> </label><br>
-  <input type="radio" id="html" name="fav_language" value="HTML">
-  <label class="m-0" for="html">Show me Agent list</label><br><input type="radio" id="css" name="fav_language" value="CSS">
-  <label for="css">Have Agent contact me (select method below)</label><br>
-
-</div>
-                    <div class="form-group">
-                      <label for="email"><b>Agent</b></label><br>
-                      <div class="form-check m-0">
-                        <input class="form-check-input" type="checkbox" id="Method_Message" value="option1">
-                        <label class="form-check-label" for="Method_Message">Contact me by email</label>
-                      </div>
-                      <div class="form-check m-0">
-                        <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
-                        <label class="form-check-label" for="Method_Text">Contact me by mobile</label>
-                      </div>
+                            <div class="form-group">
+                                <label for="email"><b>Agent</b></label><br>
+                                <div class="form-check m-0">
+                                    <input class="form-check-input" type="checkbox" id="Method_Message" value="option1">
+                                    <label class="form-check-label" for="Method_Message">Contact me by email</label>
+                                </div>
+                                <div class="form-check m-0">
+                                    <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
+                                    <label class="form-check-label" for="Method_Text">Contact me by mobile</label>
+                                </div>
+                            </div>
+                            <div class="form-group w-50">
+                                <label for="exampleFormControlTextarea1">
+                                    <b>Comments</b> (please provide any additional information to assist us)
+                                </label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Up to 300 characters"></textarea>
+                            </div>
+                        </div>
                     </div>
-                                        <div class="form-group w-50">
-                     <label for="exampleFormControlTextarea1"><b>Comments (Please provide any additional information that we need to know)
-</b></label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                  </div>
-                </div>
-                <input type="submit" value="save" class="new-btn-sec btn btn-primary shadow-none" name="submit">
-              </form>
+                    <input type="submit" value="Submit Request" class="new-btn-sec btn btn-primary shadow-none" name="submit">
+                </form>
             </div>
         </div>
     <!--middle content end here-->
 </div>
 
+{{-- <button data-toggle="modal" data-target="#confirmationPopup">test</button> --}}
+<div class="modal fade upload-modal" id="confirmationPopup" tabindex="-1" role="dialog" aria-labelledby="confirmationPopup" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="confirmationPopup">Agent Request Submitted</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+             </button>
+          </div>
+          <div class="modal-body pb-0">
+                <div class="row">
+                   <div class="col-12 mb-3">
+                        <p>Your Request for a Support Agent has been submitted. A Support Agent will be in touch
+                            with you according to your preferred method.</p>
+                            <p>If a Support Agent has not contacted you within 24 hours, please raise a Support Ticket
+                                quoting the following reference: [Reference number from pool].</p>
+                   </div>
+                </div>
+          </div>
+          <div class="modal-footer text-center justify-content-center">             
+             <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
+          </div>
+       </div>
+    </div>
+ </div>
 @endsection
 @push('script')
 <!-- file upload plugin start here -->

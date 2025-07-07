@@ -564,6 +564,10 @@ Route::get('/admin-dashboard/reports/credit',function(){
     return view('admin.reports.credit');
 })->name('admin.credit');
 
+Route::get('/admin-dashboard/reports/agent-requests',function(){
+    return view('admin.reports.agent-requests');
+})->name('admin.agent-requests');
+
 Route::get('/admin-dashboard/management/statistics/listings',function(){
     return view('admin.management.statistics.listings');
 })->name('admin.listings');
