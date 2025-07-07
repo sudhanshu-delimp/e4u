@@ -224,11 +224,13 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3" for=""> Profile:</label>
                                         <input type="hidden" name="hiddenSuspendPlanId" id="hiddenSuspendPlanId">
+                                        <input type="hidden" id="hiddenSuspendProfileId">
+                                        <input type="hidden" id="hiddenDiffDays" name="diffDays">
                                         <div class="col-sm-8">
                                             {{-- dd($active_escorts) --}}
                                             <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp" id="suspendProfileId" name="suspend_profile_id" data-parsley-errors-container="#profile-errors" required data-parsley-required-message="Select Profile">
                                                 <option value="">Select Profile</option>
-                                                @foreach($active_escorts as $profile)
+                                                @foreach($suspended_escorts as $profile)
                                                     <option data-membership="{{$profile['membership']}}" value="{{$profile['id']}}" profile_name="{{$profile['profile_name']}}">{{$profile['id']}} - {{$profile['name']}} @if(isset($profile['state']['name']))- {{$profile['state']['name']}}@endif</option>
                                                 @endforeach
                                             </select>
@@ -846,15 +848,8 @@
                 let diffTime = end - start;
                 let diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
                 let planId = $('#hiddenSuspendPlanId').val();
-
-                // if (diffDays >= 1) {
-                    
-                //     console.log("Total days (inclusive):", diffDays);
-                    
-                //     // You can show this in a span or update a hidden field if needed
-                // } else {
-                //     console.log("Invalid date range");
-                // }
+                var profileId = $('#hiddenSuspendProfileId').val();
+                $('#hiddenDiffDays').val(diffDays);
 
                 $.ajax({
                     url: '{{ route("suspend.calculate.credit.live") }}',
@@ -862,12 +857,17 @@
                     data: {
                         plan_id: planId,
                         days: diffDays,
+                        profile_id: profileId,
                         _token: '{{ csrf_token() }}'
                     },
                     success: function (response) {
                         console.log('response')
                         console.log(response)
                         $('#creditCalculationLive').text(response.total_rate);
+                        $('#suspendEndDate').attr('max',response.end_date);
+                        $('#suspendStartDate').attr('max',response.start_date);
+
+                        console.log($('#suspendEndDate').attr('max'),$('#suspendStartDate').attr('max'), ' jite');
                     }
                 });
             } 
@@ -876,9 +876,13 @@
         $('#suspendProfileId').on('change', function () {
             // var selectedPlanId = $(this).data('membership'); // Get selected profile ID
             var selectedPlanId = $(this).find(':selected').data('membership');
-            // console.log('Selected Membership:', membership);
-            console.log("plan range " + selectedPlanId);
+            var profileId = $(this).val();
+
+            console.log("plan range " + selectedPlanId , profileId);
+
+            $('#hiddenSuspendProfileId').val(profileId); // Set to hidden input
             $('#hiddenSuspendPlanId').val(selectedPlanId); // Set to hidden input
+
             let startDate = $('#suspendStartDate').val();
             let endDate = $('#suspendEndDate').val();
 
@@ -887,45 +891,41 @@
     });
 
    $("#suspend_form").on('submit', function (e) {
-       e.preventDefault();
-       var form = $(this);
-       var profileId = $("#profile_id").val();
-       
-       // if (form.parsley().isValid()) {
-           //var url = '/escort-dashboard/escort-brb/add';
-           var url = "{{ route('escort.profile.suspend') }}";
-           var data = new FormData(form[0]);
-           var selectedProfileName = $('#profile_id option:selected').attr('profile_name');
+        e.preventDefault();
+        var form = $(this);
+        var url = "{{ route('escort.profile.suspend') }}";
+        var data = new FormData(form[0]);
 
-           $.ajax({
-               method: 'POST',
-               url: url,
-               data: data,
-               contentType: false,
-               processData: false,
-               headers: {
-                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-               },
-               success: function(data) {
-                   if (data.response.success) {
-                       Swal.fire({
-                           icon: "success",
-                           text: data.response.message
-                       });
-                    //    $("#brb_form")[0].reset();
-                    //    $('#add_brb').modal('hide');
-                    //    var txy = selectedProfileName + ' <sup title="Brb at '+data.response.brbtime+'" class="brb_icon">BRB</sup>';
-                    //    $("#brb_"+profileId).html(txy);
-                   } else {
-                       Swal.fire({
-                           icon: "error",
-                           text: data.response.message
-                       });
-                   }
-               },
+        $.ajax({
+            method: 'POST',
+            url: url,
+            data: data,
+            contentType: false,
+            processData: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(data) {
+                if (data.response.success) {
+                    Swal.fire({
+                        icon: "success",
+                        text: data.response.message
+                    });
 
-           });
-       // }
+                    // set suspend icon to profile 
+                    $('#suspend_profile').modal('hide');
+                    let selectedProfileName = $("#brb_"+data.response.profile_id).text();
+                    var txy = selectedProfileName + '<sup title="Suspended at '+data.response.suspended_at+'" class="brb_icon" style="background-color: #d2730a;" >SUS</sup>';
+                    $("#brb_"+data.response.profile_id).html(txy);
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        text: data.response.message
+                    });
+                }
+            },
+
+        });
    });
 
    function stageNameInput(ele) {

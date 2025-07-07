@@ -17,7 +17,7 @@
     </div>
     @php
     $membership = [1 => "Platinum", 2=>"Gold", 3=>"Silver", 4=>"Free"]; 
-    function calculateFee($plan, $days) {
+    function calculateChargeFee($plan, $days) {
         $dis_rate = 0;
         if($plan == 1 ) {
             $actual_rate = 8;
@@ -91,7 +91,7 @@
                             @php
                             if(!empty(($listing['start_date'])))
                                 $daysDiff = Carbon\Carbon::parse($listing['end_date'])->diffInDays(Carbon\Carbon::parse($listing['start_date']));
-                                list($discount, $rate) = calculateFee($listing['membership'], $daysDiff);
+                                list($discount, $rate) = calculateChargeFee($listing['membership'], $daysDiff);
                                 $totalAmount += $rate;
                                 $totalAmount -= $discount;
                             @endphp

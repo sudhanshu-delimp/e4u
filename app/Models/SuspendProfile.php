@@ -11,6 +11,7 @@ class SuspendProfile extends Model
 
     protected $fillable = [
         'escort_profile_id',
+        'user_id',
         'start_date',
         'end_date',
         'credit',

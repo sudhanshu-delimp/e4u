@@ -16,6 +16,7 @@ class CreateSuspendProfilesTable extends Migration
         Schema::create('suspend_profiles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('escort_profile_id');
+            $table->unsignedBigInteger('user_id');
             $table->date('start_date');
             $table->date('end_date');
             $table->decimal('credit', 10, 2);

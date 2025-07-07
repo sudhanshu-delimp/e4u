@@ -20,6 +20,7 @@ use App\Models\MassageLike;
 use App\Models\EscortBrb;
 use App\Models\Reviews;
 use App\Models\State;
+use App\Models\SuspendProfile;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use App\Repositories\MassageProfile\MassageProfileInterface;
@@ -65,11 +66,15 @@ class WebController extends Controller
 
     public function applyFilterOnEscort($query,$str,$gender, $age, $location)
     {
+        # Get non suspended escort profile only
+        $suspendProfileIds = SuspendProfile::whereDate('start_date', '<=', Carbon::now(config('app.timezone')))->whereDate('end_date', '>=', Carbon::now(config('app.timezone')))->where('status', true)->pluck('escort_profile_id')->unique();
+        $query = $query
+                ->with('suspendProfile')
+                ->whereNotIn('id', $suspendProfileIds);
 
         # Search escort by search button on the bases on radio button with search icon
         if(isset($str['search_by_radio']) && ($str['search_by_radio'] == '1' || $str['search_by_radio'] == 1))
         {
-
             if(!empty($str['string']))
             {
                 $uid = $str['string'];
