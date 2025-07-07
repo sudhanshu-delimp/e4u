@@ -188,7 +188,11 @@
                            </div>
                            <div class="ms-3 name">
                               <h5 class="primery_color normal_heading mb-0" data-toggle="modal" data-target="#Agent_Name"><a class="collapse-item" href="#"><b>Carla Brasil</b></a></h5>
-                              <h6 class="text-muted mb-0 small">Member ID: E03152 <span class="ml-5 pl-3">Date: 19/08/2022</span></h6>
+                              <h6 class="text-muted mb-0 small">
+                                 Member ID : E03152
+                                 <span class="px-3">Request Date : 19/08/2022</span>
+                                 <span>Ref : E98065</span>
+                              </h6>
                            </div>
                         </div>
                      </div>
@@ -207,7 +211,7 @@
                      <div class="row">
                         <div class="col-md-12 list-sec pt-1">
                            <h6><b>Comments:</b> </h6>
-                           <h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam egestas erat diam mauris, purus auctor nibh tincidunt. Imperdiet lectus in ut phasellus id vulputate vestibulum purus. Nibh sapien arcu, urna lobortis commodo. Nunc consequat dui imperdiet vitae.</h6>
+                           <h6 class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam egestas erat diam mauris, purus auctor nibh tincidunt. Imperdiet lectus in ut phasellus id vulputate vestibulum purus. Nibh sapien arcu, urna lobortis commodo. Nunc consequat dui imperdiet vitae.</h6>
                         </div>
                      </div>
                   </div>

@@ -268,10 +268,14 @@ Route::get('social-media',function(){
     return view('center.dashboard.Annalytics.social-media');
 })->name('social-media');
 
-Route::get('agency-request',function(){
-    return view('center.dashboard.Communication.agency-request');
-})->name('agency-request');
+Route::get('agent-request',function(){
+    return view('center.dashboard.Communication.agent-request');
+})->name('agent-request');
 
+
+Route::get('agent-messages',function(){
+    return view('center.dashboard.Communication.agent-messages');
+})->name('agent-messages');
 
 Route::get('legbox-notification',function(){
     return view('center.dashboard.Communication.legbox-notification');
