@@ -32,11 +32,109 @@
     </div>
     {{-- end --}}
     {{-- start content --}}
-    <div class="row">
-        <div class="col-md-12">
-            <h3><b>Coming Soon...</b></h3>
-        </div>
+     {{-- third row --}}
+     <div class="col-lg-12">                
+        <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">                  
+            <div class="col-lg-12">
+                <h4 class="font-weight-bold" style="color: var(--blue--text);">Profile Statistics
+                </h4>
+            </div>
+            <!-- Card Start -->
+            <div class="col-md-3 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label">Profile Views Today
+                        </div>
+                        <div class="statistics-value">125</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/view-profile.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End --> 
+            
+            <!-- Card Start -->
+            <div class="col-md-3 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label">Profile Views This Week
+                        </div>
+                        <div class="statistics-value">35</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/view-profile-time.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-3 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label"> Year to Date
+                        </div>
+                        <div class="statistics-value">125</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            {{-- blank card--}}
+            <div class="col-md-3">
+                
+            </div>
+            {{-- end --}}
+            
+            <!-- Card Start -->
+            <div class="col-md-3 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label">Playbox Views Today
+                        </div>
+                        <div class="statistics-value">125</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/likes.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End --> 
+            
+            <!-- Card Start -->
+            <div class="col-md-3 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label">Playbox Views This Week
+                        </div>
+                        <div class="statistics-value">35</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/likes.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-3 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label"> Year to Date
+                        </div>
+                        <div class="statistics-value">125</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+        </div> 
     </div>
+    {{-- end --}}
+
     {{-- end content --}}
 {{-- middle content end here --}}
 </div>

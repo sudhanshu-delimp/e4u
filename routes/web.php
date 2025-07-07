@@ -424,10 +424,6 @@ Route::get('/user-dashboard/guide',function(){
     return view('user.dashboard.Community.guide');
 })->name('user.guide');
 
-Route::get('/user-dashboard/punterbox/lookup',function(){
-    return view('user.dashboard.punterbox.lookup');
-})->name('user.lookup');
-
 Route::get('/user-dashboard/notebox/new',function(){
     return view('user.dashboard.notebox.new');
 })->name('user.new');
@@ -436,9 +432,23 @@ Route::get('/user-dashboard/notebox/list',function(){
     return view('user.dashboard.notebox.list');
 })->name('user.list');
 
-Route::get('/user-dashboard/punterbox/report',function(){
-    return view('user.dashboard.punterbox.report');
-})->name('user.report');
+
+
+Route::get('/user-dashboard/punterbox/dashboard',function(){
+    return view('user.dashboard.punterbox.dashboard');
+})->name('user.punterbox.dashboard');
+
+Route::get('/user-dashboard/punterbox/add-report',function(){
+    return view('user.dashboard.punterbox.add-report');
+})->name('user.add-report');
+
+Route::get('/user-dashboard/punterbox/my-report',function(){
+    return view('user.dashboard.punterbox.my-report');
+})->name('user.my-report');
+
+Route::get('/user-dashboard/punterbox/code-of-conduct',function(){
+    return view('user.dashboard.punterbox.code-of-conduct');
+})->name('user.code-of-conduct');
 
 Route::get('/upload-avatar',function(){
     return view('user.upload-avatar');

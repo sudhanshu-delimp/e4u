@@ -422,6 +422,11 @@
                             src="{{ asset('assets/dashboard/img/menu-icon/visitors.png') }}">
                         <span style="{{ request()->is('*visitors*') ? 'color: #e5365a;' : '' }}">Visitors</span>
                     </a>
+                    <a class="collapse-item" href="{{ route('admin.pin-up-listings') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/visitors.png') }}">
+                        <span style="{{ request()->is('*pinup-listings*') ? 'color: #e5365a;' : '' }}">Pin Up Listings</span>
+                    </a>
                 </div>
             </div>
         </li>

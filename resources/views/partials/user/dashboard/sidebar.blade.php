@@ -169,19 +169,21 @@
                 src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}">
             <span>Punterbox</span>
         </a>
-        <div id="ugly" class=" collapse  @if (request()->segment(3) == 'report' || request()->segment(3) == 'lookup') show @endif;"
+        <div id="ugly" class=" collapse  @if (request()->segment(3) == 'my-report' || request()->segment(3) == 'dashboard' || request()->segment(3) == 'add-report') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-                <a class="collapse-item show" href="{{ route('user.report') }}">
-                    <img src="{{ asset('assets/app/img/icons-bug.png') }}">
-                    <span class="pl-3"
-                        style="{{ request()->segment(3) == 'report' ? 'color: #e5365a;' : '' }}">Make Report</span>
+               
+                <a class="collapse-item show" href="{{ route('user.add-report') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/add-report.png') }}">
+                    <span style="{{ request()->segment(3) == 'add-report' ? 'color: #e5365a;' : '' }}">Add Report</span>
                 </a>
-
-                <a class="collapse-item" href="{{ route('user.lookup') }}">
-                    <img src="{{ asset('assets/app/img/icons-list.png') }}">
-                    <span class="pl-3"
-                        style="{{ request()->segment(3) == 'lookup' ? 'color: #e5365a;' : '' }}">Look Up</span>
+                <a class="collapse-item show" href="{{ route('user.punterbox.dashboard') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/my-dashboard.png') }}">
+                    <span style="{{ request()->segment(3) == 'dashboard' ? 'color: #e5365a;' : '' }}">Dashboard</span>
+                </a>
+                <a class="collapse-item" href="{{ route('user.my-report') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/my-report.png') }}">
+                    <span style="{{ request()->segment(3) == 'my-report' ? 'color: #e5365a;' : '' }}">My Report</span>
                 </a>
 
             </div>
