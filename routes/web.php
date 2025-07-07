@@ -226,7 +226,7 @@ Route::get('/etiquette', function() { return view('web.pages.etiquette'); });
 Route::get('/faqs', function() { return view('web.pages.faqs'); });
 Route::get('/feedback', function() { return view('web.pages.feedback'); });
 Route::get('/thankyou', function() { return view('web.pages.thankyou'); })->name('feedback.thankyou');
-Route::get('/help-for-advertisers', function() { return view('web.pages.help-for-advertisers'); });
+Route::get('/help-for-escorts', function() { return view('web.pages.help-for-advertisers'); });
 Route::get('/help-for-agents', function() { return view('web.pages.help-for-agents'); });
 Route::get('/help-for-massage-centres', function() { return view('web.pages.help-for-massage-centres'); });
 Route::get('/help-for-viewers', function() { return view('web.pages.help-for-viewers'); });
@@ -424,10 +424,6 @@ Route::get('/user-dashboard/guide',function(){
     return view('user.dashboard.Community.guide');
 })->name('user.guide');
 
-Route::get('/user-dashboard/punterbox/lookup',function(){
-    return view('user.dashboard.punterbox.lookup');
-})->name('user.lookup');
-
 Route::get('/user-dashboard/notebox/new',function(){
     return view('user.dashboard.notebox.new');
 })->name('user.new');
@@ -436,9 +432,23 @@ Route::get('/user-dashboard/notebox/list',function(){
     return view('user.dashboard.notebox.list');
 })->name('user.list');
 
-Route::get('/user-dashboard/punterbox/report',function(){
-    return view('user.dashboard.punterbox.report');
-})->name('user.report');
+
+
+Route::get('/user-dashboard/punterbox/dashboard',function(){
+    return view('user.dashboard.punterbox.dashboard');
+})->name('user.punterbox.dashboard');
+
+Route::get('/user-dashboard/punterbox/add-report',function(){
+    return view('user.dashboard.punterbox.add-report');
+})->name('user.add-report');
+
+Route::get('/user-dashboard/punterbox/my-report',function(){
+    return view('user.dashboard.punterbox.my-report');
+})->name('user.my-report');
+
+Route::get('/user-dashboard/punterbox/code-of-conduct',function(){
+    return view('user.dashboard.punterbox.code-of-conduct');
+})->name('user.code-of-conduct');
 
 Route::get('/upload-avatar',function(){
     return view('user.upload-avatar');
@@ -553,6 +563,10 @@ Route::get('/admin-dashboard/management/statistics/num',function(){
 Route::get('/admin-dashboard/reports/credit',function(){
     return view('admin.reports.credit');
 })->name('admin.credit');
+
+Route::get('/admin-dashboard/reports/agent-requests',function(){
+    return view('admin.reports.agent-requests');
+})->name('admin.agent-requests');
 
 Route::get('/admin-dashboard/management/statistics/listings',function(){
     return view('admin.management.statistics.listings');

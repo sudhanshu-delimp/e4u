@@ -313,6 +313,18 @@ Route::get('report',function(){
 Route::post('ugly-mug-register',[MugsController::class,'create'])->name('escort.mug.register');
 Route::get('ugly-mug/dataTable', [MugsController::class, 'dataTable'])->name('escort.mug.dataTable');
 
+Route::get('add-report',function(){
+    return view('escort.dashboard.UglyMugsRegister.add-report');
+})->name('escort.add-report');
+
+Route::get('my-reports',function(){
+    return view('escort.dashboard.UglyMugsRegister.my-reports');
+})->name('escort.my-reports');
+
+Route::get('numdashboard',function(){
+    return view('escort.dashboard.UglyMugsRegister.numdashboard');
+})->name('escort.numdashboard');
+
 Route::get('lookup',function(){
     return view('escort.dashboard.UglyMugsRegister.lookup');
 })->name('escort.lookup');

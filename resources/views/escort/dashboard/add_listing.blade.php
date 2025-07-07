@@ -113,32 +113,4 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="{{ asset('js/escort/add_listing.js') }}"></script>
-<!-- <script type="text/javascript">
-
-    var listing_count = 1;
-    var listing_area_html = '';
-    $(document).ready(function(e) {
-        listing_area_html = $(".listing_area").html();
-        $(document).on('click', '.removeCross', function(e) {
-            if($(document).find('.eachListing').length > 1) {
-                $(this).closest('.eachListing').remove();
-            } else {
-                alert('At-least one listing required');
-            }
-        });
-    });
-    $('#add_listing').on('click', function(e) {
-        e.preventDefault();
-        create_listing_html();
-    });
-    function create_listing_html() {
-        var html = listing_area_html;
-        html = html.replace('data[0][start_date]', 'data['+listing_count+'][start_date]');
-        html = html.replace('data[0][end_date]', 'data['+listing_count+'][end_date]');
-        html = html.replace('data[0][membership]', 'data['+listing_count+'][membership]');
-        html = html.replace('data[0][escort_id]', 'data['+listing_count+'][escort_id]');
-        $(".listing_area").append(html);
-        listing_count++;
-    }
-</script> -->
 @endpush

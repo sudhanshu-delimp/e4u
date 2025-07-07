@@ -1438,7 +1438,7 @@
                     <div class="py-3 row d-none">
                         <div class="col-md-12">
                             <p class="testimonial">
-                                <strong>Sierra</strong> has no Reviews. Why don’t you give <strong>Sierra</strong> their first Review?’ 
+                                Sierra has no Reviews. Why don’t you give <strong>Sierra</strong> their first Review?’ 
                             </p>
                         </div>
                         <div class="col-md-12 mb-4">

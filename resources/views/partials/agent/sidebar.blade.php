@@ -63,17 +63,19 @@
          </svg>
          <span>My Advertisers</span>
       </a>
-      <div id="Escorts" class="collapse @if(request()->segment(3) == 'agency-requests' || request()->segment(2) == 'user-escorts-list' || request()->segment(2) == 'pricingsummaries') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div id="Escorts" class="collapse @if(request()->segment(3) == 'new-requests' || request()->segment(3) == 'history-requests' || request()->segment(2) == 'user-escorts-list' || request()->segment(2) == 'pricingsummaries') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
          <div class="py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{ route('agent.agency-requests')}}">
-               <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                     d="M17.7 10.0707L16.7 11.0707L14.65 9.0207L15.65 8.0207C15.86 7.8107 16.21 7.8107 16.42 8.0207L17.7 9.3007C17.91 9.5107 17.91 9.8607 17.7 10.0707ZM8 15.6607L14.06 9.6007L16.11 11.6507L10.06 17.7207H8V15.6607ZM8 10.7207C3.58 10.7207 0 12.5107 0 14.7207V16.7207H6V14.8307L10 10.8307C9.34 10.7507 8.67 10.7207 8 10.7207ZM8 0.720703C6.93913 0.720703 5.92172 1.14213 5.17157 1.89228C4.42143 2.64242 4 3.65984 4 4.7207C4 5.78157 4.42143 6.79899 5.17157 7.54913C5.92172 8.29928 6.93913 8.7207 8 8.7207C9.06087 8.7207 10.0783 8.29928 10.8284 7.54913C11.5786 6.79899 12 5.78157 12 4.7207C12 3.65984 11.5786 2.64242 10.8284 1.89228C10.0783 1.14213 9.06087 0.720703 8 0.720703Z"
-                     fill="#C2CFE0" />
-               </svg>
-               <span class="ml-3" style="{{request()->segment(3) == 'agency-requests' ? 'color: #e5365a;' : ''}}">Agency Requests</span>
+            <a class="collapse-item" href="{{ route('agent.new-requests')}}">
+               <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/request.png') }}">
+               <span style="{{request()->segment(3) == 'new-requests' ? 'color: #e5365a;' : ''}}">New Requests</span>
             </a>
+            
+
+            <a class="collapse-item" href="{{ route('agent.history-requests') }}">
+               <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/history.png') }}">
+               <span  style="{{request()->segment(3) == 'history-requests' ? 'color: #e5365a;' : ''}}">History Requests</span>
+            </a>
+
             <a class="collapse-item" href="{{ route('agent.manage.escorts.list') }}">
                <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
@@ -92,7 +94,6 @@
                </svg>
                <span class="pl-3" style="{{request()->segment(2) == 'pricingsummaries' ? 'color: #e5365a;' : ''}}">Pricing Summaries</span>
             </a>
-
          </div>
       </div>
    </li>

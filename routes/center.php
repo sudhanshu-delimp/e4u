@@ -269,20 +269,20 @@ Route::get('social-media',function(){
 })->name('social-media');
 
 Route::get('agency-request',function(){
-    return view('center.dashboard.communication.agency-request');
+    return view('center.dashboard.Communication.agency-request');
 })->name('agency-request');
 
 
 Route::get('legbox-notification',function(){
-    return view('center.dashboard.communication.legbox-notification');
+    return view('center.dashboard.Communication.legbox-notification');
 })->name('legbox-notification');
 
 Route::get('legbox-viewers',function(){
-    return view('center.dashboard.communication.legbox-viewers');
+    return view('center.dashboard.Communication.legbox-viewers');
 })->name('legbox-viewers');
 
 Route::get('viewer-notes',function(){
-    return view('center.dashboard.communication.viewer-notes');
+    return view('center.dashboard.Communication.viewer-notes');
 })->name('viewer-notes');
 
 Route::get('reccomendations',function(){

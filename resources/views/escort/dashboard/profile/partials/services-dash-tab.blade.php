@@ -205,17 +205,30 @@
                             <input type="hidden" name="duration_id[]" value="{{ $duration->id }}">
                             <div class="form-group row">
                                 <label class="col-3" for="exampleFormControlSelect1">{{ $duration->name }}:</label>
-                                <div class="col-3">
-                                    <div class="service_rate_dolor_symbol form-group">
-                                        <span>$</span>
-                                        <input type="number" placeholder="0" min="0"
-                                            data-parsley-excluded="true"
-                                            class="form-control form-control-sm select_tag_remove_box_sadow change_default"
-                                            id="massage_price_{{ $duration->id }}" duration_id="{{ $duration->id }}" name="massage_price[]"
-                                            value="{{ $escort->durationRate($duration->id, 'massage_price') }}"
-                                            step="10" max=9999>
-                                    </div>
-                                </div>
+                                @if($duration->name == 'Blow & Go')
+    <div class="col-3">
+    <input type="hidden" placeholder="0" min="0"
+                data-parsley-excluded="true"
+                class="form-control form-control-sm select_tag_remove_box_sadow change_default"
+                id="massage_price_{{ $duration->id }}" duration_id="{{ $duration->id }}" name="massage_price[]"
+                value="0"
+                step="10" max=9999>
+        <div class="form-group" style="color: #ff3c5f;font-size: 14px;">Not available</div>
+    </div>
+@else
+    <div class="col-3">
+        <div class="service_rate_dolor_symbol form-group">
+            <span>$</span>
+            <input type="number" placeholder="0" min="0"
+                data-parsley-excluded="true"
+                class="form-control form-control-sm select_tag_remove_box_sadow change_default"
+                id="massage_price_{{ $duration->id }}" duration_id="{{ $duration->id }}" name="massage_price[]"
+                value="{{ $escort->durationRate($duration->id, 'massage_price') }}"
+                step="10" max=9999>
+        </div>
+    </div>
+@endif
+
                                 <div class="col-3">
                                     <div class="service_rate_dolor_symbol form-group">
                                         <span>$</span>
@@ -259,8 +272,10 @@
                     <i class="fas fa-arrow-left"></i>&nbsp;Previous Step</a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right a_text_white_hover previous_bt_center_in_sm">
-                <a href="{{ route('profile.description', $escort->id ? $escort->id : '') }}"
-                    class="save_profile_btn">Preview</a>
+                
+                    @if(request()->segment(2) == 'profile')
+                    <a data-toggle="modal" data-id="{{$escort->id}}" data-target="#view-listing"  class="save_profile_btn preview-profile" href="#">Preview</a>
+                        @endif
                 <a href="#available" class="nex_sterp_btn" id="contact-tab" data-toggle="tab" role="tab"
                     aria-controls="contact" aria-selected="false">Next Step
                     <i class="fas fa-arrow-right"></i>

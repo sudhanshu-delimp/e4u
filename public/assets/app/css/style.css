@@ -463,12 +463,17 @@ button.short-list.btn.btn-primary:hover {
 
 .pin-up-content .home_heading_first span {
     font-size: 24px;
-    line-height: 72px;
+    line-height: 60px;
     letter-spacing: -0.015em;
     color: #FF3C5F;
     margin-left: 52px;
 }
-
+.pin-head-custom {
+    margin-bottom: 1rem !important;
+}
+.custom-meet-pin i {
+    color: #ff3c5f;
+}
 .pin-up-content .v-path h3 {
     font-family: Poppins;
     font-size: 24px;
@@ -560,24 +565,49 @@ button.short-list.btn.btn-primary:hover {
 
 .pin-up-content .social-and-view a.btn {
     font-family: Poppins;
-    font-size: 18px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 600;
-    line-height: 27px;
+    line-height: 24px;
     letter-spacing: 0.01em;
     text-align: center;
     color: #FFFFFF;
-    width: 100%;
-    max-width: 273px;
-    background: #2C3E50;
+    background: #0c223d;
     box-shadow: 0px 4px 10px rgb(16 156 241 / 24%);
     border-radius: 4px;
-    height: 55px;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: max-content;
+    margin-left: auto;
 }
-
+p.pin-description a {
+    font-size: 16px !important;
+    color: #ff3c5f;
+    font-weight: 500;
+}
+p.pin-description a:hover {
+    text-decoration: underline;
+}
+.custom--socialpin li a {
+    background: #0C223D;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.custom--socialpin li a i {
+    color: #ff3c5f;
+    font-size: 20px;
+}
+.custom--socialpin {
+    gap: 15px;
+}
+li.video--icon {
+    margin-left: 2rem;
+}
 .pin-up-content .v-locat p {
     font-size: 20px;
     font-weight: 500;
@@ -1546,7 +1576,58 @@ button#legbox_btn:hover,
     width: 100%;
 }
 
-
+.custom-cross-back img {
+    max-width: 20px;
+}
+.custom-cross-back {
+    text-align: right;
+}
+.pin-head-custom {
+    display: flex;
+}
+.pin-age span {
+    margin: 0 !important;
+    color: #151515 !important;
+}
+.custom-pin-social-row > div {
+    flex: unset;
+    max-width: calc(100% / 3);
+    width: calc(100% / 3);
+    text-align: center;
+}
+img.playbox-logo {
+    max-width: 50px;
+    margin: 0 auto;
+}
+.custom-pin-social-row {
+    align-items: center;
+}
+.custom--socialpin li {
+    margin: 0;
+}
+.custom-cross-back a {
+    font-size: 27px !important;
+    transform: scale(1.5);
+    cursor: pointer;
+    display: inline-flex;
+    color: #ff3c5f !important;
+    text-decoration: none !important;
+}
+.custom-meet-pin img {
+    max-width: 22px;
+}
+.custom-meet-pin li.video--icon img {
+    max-width: 45px !important;
+}
+.point_of_diff_peragrapg, .reg_now_pera {
+    text-align: justify;
+}
+.custom-meet-pin li {
+    padding: 0 !important;
+}
+.custom-meet-pin {
+    gap: 10px;
+}
 /*accordion style end here*/
 
 
@@ -5821,10 +5902,13 @@ img.twitter-x-logo {
     display: flex;
     gap: 10px;
 }
-.custom--available-section .video_icon, .custom--video-section {
+.custom--available-section .video_icon, .custom--video-section, .video--icon {
     position: relative;
 }
-.custom--available-section .video_icon span.custom--tooltip, .custom--video-section span.custom--tooltip {
+.custom--available-section .video_icon span.custom--tooltip, .custom--video-section span.custom--tooltip,
+.custom-meet-pin span.custom-icon-hover-tooltip, .custom-playbox span.custom-icon-hover-tooltip,
+.video--icon span.custom-icon-hover-tooltip
+ {
     position: absolute;
     color: rgb(255, 255, 255);
     pointer-events: none;
@@ -5839,9 +5923,33 @@ img.twitter-x-logo {
     padding: 10px;
     border-radius: 5px;
 }
-.custom--available-section .video_icon:hover span.custom--tooltip, .custom--video-section:hover span.custom--tooltip {
+.custom-meet-pin li a, .custom-playbox a {
+    position: relative;
+}
+.custom-meet-pin span.custom-icon-hover-tooltip {
+    right: unset;
+    left: 0;
+    top: 1.8rem !important;
+    line-height: unset;
+}
+.custom--available-section .video_icon:hover span.custom--tooltip, .custom--video-section:hover span.custom--tooltip,
+.custom-meet-pin li a:hover .custom-icon-hover-tooltip, .custom-playbox:hover span.custom-icon-hover-tooltip,
+.video--icon:hover span.custom-icon-hover-tooltip {
     visibility: visible;
     opacity: 1;
+}
+.pin-head-custom .custom-video-wraper {
+    margin-left: auto;
+}
+.custom-video-wraper {
+    padding-right: 35px;
+}
+.video--icon span.custom-icon-hover-tooltip {
+    line-height: 2.5;
+    top: 3rem;
+}
+.custom-playbox span.custom-icon-hover-tooltip {
+    top: 2.3rem !important;
 }
 .custom--available-section > div {
     width: calc(33.3333% - 6px);

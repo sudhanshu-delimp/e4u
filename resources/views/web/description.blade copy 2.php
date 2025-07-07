@@ -1490,7 +1490,7 @@
                     <div class="py-3 row d-none">
                         <div class="col-md-12">
                             <p class="testimonial">
-                                <strong>Sierra</strong> has no Reviews. Why don’t you give <strong>Sierra</strong> their first Review?’ 
+                               Sierra has no Reviews. Why don’t you give Sierra their first Review?’ 
                             </p>
                         </div>
                         <div class="col-md-12 mb-4">
@@ -1612,7 +1612,7 @@
                                 }
                             @endphp
                             <p class="testimonial">
-                                <strong>{{ $escort->name}}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $escort->name}}</strong> their first Review?’ @php } @endphp
+                                {{ $escort->name}} has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give {{ $escort->name}} their first Review?’ @php } @endphp
                             </p>
                         </div>
                         <div class="col-md-12 mb-4">
