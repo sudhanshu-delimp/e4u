@@ -123,7 +123,7 @@
                   <div class="">
                      <ul class="list-group footer_list_style_none">
                         <li><a href="{{ url('feedback')}}">Feedback</a></li>
-                        <li><a href="{{ url('help-for-advertisers')}} ">Help for Advertisers</a></li>
+                        <li><a href="{{ url('help-for-escorts')}} ">Help for Escorts</a></li>
                         <li><a href="{{ url('help-for-agents')}} ">Help for Agents</a></li>
                         <li><a href="{{ url('help-for-massage-centres')}} ">Help for Massage Centres</a></li>
                         <li><a href="{{ url('help-for-viewers')}} ">Help for Viewers</a></li>

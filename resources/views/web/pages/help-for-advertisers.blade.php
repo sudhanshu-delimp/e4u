@@ -70,7 +70,7 @@
         <div class="container">
 
 
-            <h1 class="home_heading_first margin_btm_twenty_px">Help for Advertisers</h1>
+            <h1 class="home_heading_first margin_btm_twenty_px">Help for Escorts</h1>
 
             <div class="accordion-container">
                 <div class="set">
