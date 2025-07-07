@@ -116,6 +116,9 @@
                <div>
                    <button style="padding: 10px;" class="btn btn-info" data-toggle="modal" data-target="#add_brb" id="btn_add_brb">Add BRB</button>
                    <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal" data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
+                   <button style="padding: 10px; display:inline-block;" class="btn btn-dark"
+                                    data-toggle="modal" data-target="#pinup_profile" id="btn_pinup_profile">List Pin
+                                    Up</button>
                </div>
                <br>
                @endif
@@ -298,6 +301,130 @@
     </div>
 </div>
 <!-- end suspend profile modal -->
+
+<!-- List Pin Up profile modal start here -->
+    <div class="modal fade upload-modal" id="pinup_profile" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
+        aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <form id="pinup_profile_form">
+                <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="">Register for Pin Up</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"><img id="modal_close"
+                                        src="{{ asset('assets/app/img/cross.png') }}"
+                                        class="img-fluid img_resize_in_smscreen"></span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="container p-0">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3" for=""> Profile:</label>
+                                            <div class="col-sm-8">
+                                                <select
+                                                    class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
+                                                    id="profile_id" name="profile_id"
+                                                    data-parsley-errors-container="#profile-errors" required
+                                                    data-parsley-required-message="Select Profile">
+                                                    <option value="">Select Profile</option>
+                                                    @foreach ($active_escorts as $profile)
+                                                        <option value="{{ $profile['id'] }}"
+                                                            profile_name="{{ $profile['profile_name'] }}">
+                                                            {{ $profile['id'] }} - {{ $profile['name'] }} @if (isset($profile['state']['name']))
+                                                                - {{ $profile['state']['name'] }}
+                                                            @endif
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                <span id="profile-errors"></span>
+                                            </div>
+                                            <div class="col-sm-1"></div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3" for=""> Next available:</label>
+                                            <div class="col-sm-9 row">
+                                                @php
+                                                    $minDate = \Carbon\Carbon::now()->addDay()->format('Y-m-d');
+                                                @endphp
+                                                <div class="col-sm-5">
+                                                    <input type="date" required min="{{ $minDate }}"
+                                                        class="form-control form-control-sm removebox_shdow"
+                                                        value="{{ $minDate }}" name="start_date"
+                                                        data-parsley-type="" data-parsley-type-message="">
+                                                    <span id="brb-time-errors"></span>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <span>to:</span>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <input type="date" required min="{{ $minDate }}"
+                                                        class="form-control form-control-sm removebox_shdow"
+                                                        name="end_date" data-parsley-type="" value="{{ $minDate }}"
+                                                        data-parsley-type-message="">
+                                                    <span id="brb-time-errors"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="">Proceed:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group input-group-sm" style="gap:10px;">
+                                                    <div>
+                                                        <input type="radio" id="yes" name="proceed" value="yes">
+                                                        <label for="yes">Yes</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="radio" id="no" name="proceed" value="no">
+                                                        <label for="no">No</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row custom-pin-button">
+                                            
+                                            <div class="col-sm-12 text-center">
+                                                <button type="submit" class="btn btn-primary" id="proceed_to_payment">Proceed to Payment</button>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="">Credit:</label>
+                                        <div class="col-sm-8">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
+                                                <input type="number" readonly class="form-control"  step="0.01" min="0"  name="credit_price" value="0.0" id="credit_price" required>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                        <div class="form-group row">
+                                            <label class="col-sm-1 col-form-label" for="">Notes:</label>
+                                            <div class="col-sm-11">
+                                                <ol class="col-form-label suspension-note-list">
+                                                    <li> You must have a Current Listing to register as a Pin Up.</li>
+                                                    <li> If the date period you have selected is not available, and your Current Listing period
+                                                        exceeds the requested period, you will be added to the pool.</li>
+                                                    <li> If a position becomes available from the pool, you will be automatically listed. If
+                                                        your Listed Profile has been Suspended or Cancelled, the Pin Up listing will also
+                                                        cancel.</li>
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="modal-footer" style="text-align: center; display: block;">
+                            <button type="submit" class="btn btn-primary" id="save_brb">Save</button>
+                        </div> --}}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- end List Pin Up profile modal -->
 
 <div class="modal programmatic" id="delete_profile" style="display: none">
    <div class="modal-dialog modal-dialog-centered" role="document">
