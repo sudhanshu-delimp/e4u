@@ -10,6 +10,7 @@ use App\Http\Controllers\Escort\PlaymateController;
 use App\Http\Controllers\Escort\PinUpsController;
 use App\Http\Controllers\Escort\EscortAccountController;
 use App\Http\Controllers\Escort\EscortGalleryController;
+use App\Http\Controllers\Escort\EscortSuspendProfileController;
 use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
 use App\Http\Controllers\SupportTicketsController;
@@ -59,6 +60,10 @@ Route::get('profile/{id}',[UpdateController::class,'updateProfile'])->name('esco
 Route::post('delete-profile/{id}',[UpdateController::class,'deleteProfile'])->name('escort.delete.profile');
 Route::post('save-member-type/{id}',[UpdateController::class,'saveMembership'])->name('escort.save.memberType');
 
+
+// suspend profile
+Route::post('/escort-suspend/profile-credit', [EscortSuspendProfileController::class, 'suspendProfileCredit'])->name('suspend.calculate.credit.live');
+Route::post('escort-suspend/profile', [EscortSuspendProfileController::class, 'suspendProfile'])->name('escort.profile.suspend');
 
 
 Route::get('view-archive/{id?}',[CreateController::class,'archives'])->name('escort.archives');
@@ -126,7 +131,7 @@ Route::get('pin-up-data', [PinUpsController::class, 'profile_and_week_data'])->n
 
 
 Route::post('escort-brb/add', [EscortBrbController::class, 'add'])->name('escort.brb.add');
-Route::post('escort-suspend/profile', [EscortBrbController::class, 'suspendProfile'])->name('escort.profile.suspend');
+
 Route::post('escort-brb/inactive/{id}', [EscortBrbController::class, 'inactive'])->name('escort.brb.inactive');
 
 ////////////pagis

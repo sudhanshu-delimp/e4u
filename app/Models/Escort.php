@@ -89,6 +89,10 @@ class Escort extends Model
     {
         return $this->hasMany('App\Models\EscortBrb', 'profile_id');
     }
+    public function suspendProfile()
+    {
+        return $this->hasMany(SuspendProfile::class, 'escort_profile_id');
+    }
     
     public function latestActiveBrb(): HasOne
     {

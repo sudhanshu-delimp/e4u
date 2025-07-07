@@ -141,7 +141,7 @@ class EscortController extends Controller
     {
         $escort = auth()->user()->escort;
 
-        $active_escorts = Escort::select(['id', 'name', 'profile_name', 'state_id', 'city_id'])
+        $active_escorts = Escort::select(['id', 'name', 'profile_name', 'state_id', 'city_id','membership','start_date','end_date'])
             ->with('state', function ($query) {
                 $query->select(['id', 'name', 'country_id']);
             })
@@ -149,7 +149,19 @@ class EscortController extends Controller
             ->whereNotNull('profile_name')
             ->get()->toArray();
 
-        return view('escort.dashboard.list', compact('escort', 'type', 'active_escorts'));
+        $suspended_escorts = Escort::select(['id', 'name', 'profile_name', 'state_id', 'city_id','membership','start_date','end_date'])
+            ->where('enabled', 1)
+            ->where('user_id', auth()->user()->id)
+            ->whereNotNull('profile_name')
+            ->whereHas('purchase', function ($query) {
+                $query->where('end_date', '>=', Carbon::now());
+            })
+            ->with(['purchase' => function ($query) {
+                $query->where('end_date', '>=', Carbon::now());
+            }])
+            ->get();
+
+        return view('escort.dashboard.list', compact('escort', 'type', 'active_escorts','suspended_escorts'));
     }
 
     public function dataTable($type = NULL)
@@ -180,7 +192,7 @@ class EscortController extends Controller
             "data"            => $result
         );
 
-        //dd($data);
+        // dd($data);
 
         return response()->json($data);
     }
