@@ -603,7 +603,10 @@ p.pin-description a:hover {
     font-size: 20px;
 }
 .custom--socialpin {
-    gap: 5px;
+    gap: 15px;
+}
+li.video--icon {
+    margin-left: 2rem;
 }
 .pin-up-content .v-locat p {
     font-size: 20px;
@@ -1611,7 +1614,13 @@ img.playbox-logo {
     text-decoration: none !important;
 }
 .custom-meet-pin img {
-    max-width: 28px;
+    max-width: 22px;
+}
+.custom-meet-pin li.video--icon img {
+    max-width: 45px !important;
+}
+.point_of_diff_peragrapg, .reg_now_pera {
+    text-align: justify;
 }
 .custom-meet-pin li {
     padding: 0 !important;
@@ -5893,11 +5902,13 @@ img.twitter-x-logo {
     display: flex;
     gap: 10px;
 }
-.custom--available-section .video_icon, .custom--video-section {
+.custom--available-section .video_icon, .custom--video-section, .video--icon {
     position: relative;
 }
 .custom--available-section .video_icon span.custom--tooltip, .custom--video-section span.custom--tooltip,
-.custom-meet-pin span.custom-icon-hover-tooltip, .custom-playbox span.custom-icon-hover-tooltip {
+.custom-meet-pin span.custom-icon-hover-tooltip, .custom-playbox span.custom-icon-hover-tooltip,
+.video--icon span.custom-icon-hover-tooltip
+ {
     position: absolute;
     color: rgb(255, 255, 255);
     pointer-events: none;
@@ -5922,9 +5933,20 @@ img.twitter-x-logo {
     line-height: unset;
 }
 .custom--available-section .video_icon:hover span.custom--tooltip, .custom--video-section:hover span.custom--tooltip,
-.custom-meet-pin li a:hover .custom-icon-hover-tooltip, .custom-playbox:hover span.custom-icon-hover-tooltip {
+.custom-meet-pin li a:hover .custom-icon-hover-tooltip, .custom-playbox:hover span.custom-icon-hover-tooltip,
+.video--icon:hover span.custom-icon-hover-tooltip {
     visibility: visible;
     opacity: 1;
+}
+.pin-head-custom .custom-video-wraper {
+    margin-left: auto;
+}
+.custom-video-wraper {
+    padding-right: 35px;
+}
+.video--icon span.custom-icon-hover-tooltip {
+    line-height: 2.5;
+    top: 3rem;
 }
 .custom-playbox span.custom-icon-hover-tooltip {
     top: 2.3rem !important;

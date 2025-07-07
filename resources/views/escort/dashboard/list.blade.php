@@ -48,7 +48,8 @@
         }
 
         #btn_suspend_profile,
-        #btn_add_brb {
+        #btn_add_brb, 
+        #btn_pinup_profile {
             display: none;
         }
     </style>
@@ -134,8 +135,8 @@
                                     data-target="#add_brb" id="btn_add_brb">Add BRB</button>
                                 <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                     data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
-                                <button style="padding: 10px; display:inline-block;" class="btn custom-linup-btn"
-                                    data-toggle="modal" data-target="#pinup_profile" id="btn_suspend_profile">List Pin
+                                <button style="padding: 10px;" class="btn btn-dark"
+                                    data-toggle="modal" data-target="#pinup_profile" id="btn_pinup_profile">List Pin
                                     Up</button>
                             </div>
                             <br>
@@ -263,15 +264,20 @@
                                     <div class="container p-0">
                                         <div class="form-group row">
                                             <label class="col-sm-3" for=""> Profile:</label>
+                                            <input type="hidden" name="hiddenSuspendPlanId" id="hiddenSuspendPlanId">
+                                            <input type="hidden" id="hiddenSuspendProfileId">
+                                            <input type="hidden" id="hiddenDiffDays" name="diffDays">
                                             <div class="col-sm-8">
+                                                {{-- dd($active_escorts) --}}
                                                 <select
                                                     class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
-                                                    id="profile_id" name="profile_id"
+                                                    id="suspendProfileId" name="suspend_profile_id"
                                                     data-parsley-errors-container="#profile-errors" required
                                                     data-parsley-required-message="Select Profile">
                                                     <option value="">Select Profile</option>
-                                                    @foreach ($active_escorts as $profile)
-                                                        <option value="{{ $profile['id'] }}"
+                                                    @foreach ($suspended_escorts as $profile)
+                                                        <option data-membership="{{ $profile['membership'] }}"
+                                                            value="{{ $profile['id'] }}"
                                                             profile_name="{{ $profile['profile_name'] }}">
                                                             {{ $profile['id'] }} - {{ $profile['name'] }} @if (isset($profile['state']['name']))
                                                                 - {{ $profile['state']['name'] }}
@@ -290,7 +296,8 @@
                                                     $minDate = \Carbon\Carbon::now()->addDay()->format('Y-m-d');
                                                 @endphp
                                                 <div class="col-sm-5">
-                                                    <input type="date" required min="{{ $minDate }}"
+                                                    <input type="date" id="suspendStartDate" required
+                                                        min="{{ $minDate }}"
                                                         class="form-control form-control-sm removebox_shdow"
                                                         value="{{ $minDate }}" name="start_date"
                                                         data-parsley-type="" data-parsley-type-message="">
@@ -300,7 +307,8 @@
                                                     <span>to:</span>
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <input type="date" required min="{{ $minDate }}"
+                                                    <input type="date" id="suspendEndDate" required
+                                                        min="{{ $minDate }}" max=""
                                                         class="form-control form-control-sm removebox_shdow"
                                                         name="end_date" data-parsley-type="" value="{{ $minDate }}"
                                                         data-parsley-type-message="">
@@ -314,7 +322,7 @@
                                                 <div class="input-group input-group-sm">
                                                     <span class="input-group-text"
                                                         style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
-                                                    <span class="form-control"
+                                                    <span class="form-control" id='creditCalculationLive'
                                                         style="background-color: #e9ecef; border: 1px solid #ced4da;">0.00</span>
                                                 </div>
                                             </div>
@@ -359,7 +367,7 @@
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
         aria-modal="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <form id="suspend_form">
+            <form id="pinup_profile_form">
                 <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -426,20 +434,23 @@
                                             <div class="col-sm-8">
                                                 <div class="input-group input-group-sm" style="gap:10px;">
                                                     <div>
-                                                        <input type="radio" id="yes" name="proceed" value="yes">
+                                                        <input type="radio" id="yes" name="proceed"
+                                                            value="yes">
                                                         <label for="yes">Yes</label>
                                                     </div>
                                                     <div>
-                                                        <input type="radio" id="no" name="proceed" value="no">
+                                                        <input type="radio" id="no" name="proceed"
+                                                            value="no">
                                                         <label for="no">No</label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group row custom-pin-button">
-                                            
-                                            <div class="col-sm-12">
-                                                <button>Proceed to Payment</button>
+
+                                            <div class="col-sm-12 text-center">
+                                                <button type="submit" class="btn btn-primary"
+                                                    id="proceed_to_payment">Proceed to Payment</button>
                                             </div>
                                         </div>
                                         {{-- <div class="form-group row">
@@ -456,10 +467,13 @@
                                             <div class="col-sm-11">
                                                 <ol class="col-form-label suspension-note-list">
                                                     <li> You must have a Current Listing to register as a Pin Up.</li>
-                                                    <li> If the date period you have selected is not available, and your Current Listing period
+                                                    <li> If the date period you have selected is not available, and your
+                                                        Current Listing period
                                                         exceeds the requested period, you will be added to the pool.</li>
-                                                    <li> If a position becomes available from the pool, you will be automatically listed. If
-                                                        your Listed Profile has been Suspended or Cancelled, the Pin Up listing will also
+                                                    <li> If a position becomes available from the pool, you will be
+                                                        automatically listed. If
+                                                        your Listed Profile has been Suspended or Cancelled, the Pin Up
+                                                        listing will also
                                                         cancel.</li>
                                                 </ol>
                                             </div>
@@ -538,9 +552,11 @@
                     if (length == 0) {
                         $('#btn_suspend_profile').hide();
                         $('#btn_add_brb').hide();
+                        $('#btn_pinup_profile').hide();
                     } else {
                         $('#btn_suspend_profile').show();
                         $('#btn_add_brb').show();
+                        $('#btn_pinup_profile').show();
                     }
 
                     if (length <= 10) {
@@ -1078,16 +1094,75 @@
             $("#suspend_form")[0].reset();
         });
 
+        $(document).ready(function() {
+            $('#suspendStartDate, #suspendEndDate').on('change', function() {
+                let startDate = $('#suspendStartDate').val();
+                let endDate = $('#suspendEndDate').val();
+
+                calculateCredit(startDate, endDate);
+            });
+
+            function calculateCredit(startDate, endDate) {
+                if (startDate && endDate) {
+                    let start = new Date(startDate);
+                    let end = new Date(endDate);
+
+                    // Set time to start of day for both
+                    start.setHours(0, 0, 0, 0);
+                    end.setHours(0, 0, 0, 0);
+
+                    // Calculate the difference in days (inclusive)
+                    let diffTime = end - start;
+                    let diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                    let planId = $('#hiddenSuspendPlanId').val();
+                    var profileId = $('#hiddenSuspendProfileId').val();
+                    $('#hiddenDiffDays').val(diffDays);
+
+                    $.ajax({
+                        url: '{{ route('suspend.calculate.credit.live') }}',
+                        method: 'POST',
+                        data: {
+                            plan_id: planId,
+                            days: diffDays,
+                            profile_id: profileId,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            console.log('response')
+                            console.log(response)
+                            $('#creditCalculationLive').text(response.total_rate);
+                            $('#suspendEndDate').attr('max', response.end_date);
+                            $('#suspendStartDate').attr('max', response.start_date);
+
+                            console.log($('#suspendEndDate').attr('max'), $('#suspendStartDate').attr(
+                                'max'), ' jite');
+                        }
+                    });
+                }
+            }
+
+            $('#suspendProfileId').on('change', function() {
+                // var selectedPlanId = $(this).data('membership'); // Get selected profile ID
+                var selectedPlanId = $(this).find(':selected').data('membership');
+                var profileId = $(this).val();
+
+                console.log("plan range " + selectedPlanId, profileId);
+
+                $('#hiddenSuspendProfileId').val(profileId); // Set to hidden input
+                $('#hiddenSuspendPlanId').val(selectedPlanId); // Set to hidden input
+
+                let startDate = $('#suspendStartDate').val();
+                let endDate = $('#suspendEndDate').val();
+
+                calculateCredit(startDate, endDate);
+            });
+        });
+
         $("#suspend_form").on('submit', function(e) {
             e.preventDefault();
             var form = $(this);
-            var profileId = $("#profile_id").val();
-
-            // if (form.parsley().isValid()) {
-            //var url = '/escort-dashboard/escort-brb/add';
             var url = "{{ route('escort.profile.suspend') }}";
             var data = new FormData(form[0]);
-            var selectedProfileName = $('#profile_id option:selected').attr('profile_name');
 
             $.ajax({
                 method: 'POST',
@@ -1104,11 +1179,14 @@
                             icon: "success",
                             text: data.response.message
                         });
-                        $("#brb_form")[0].reset();
-                        $('#add_brb').modal('hide');
-                        var txy = selectedProfileName + ' <sup title="Brb at ' + data.response.brbtime +
-                            '" class="brb_icon">BRB</sup>';
-                        $("#brb_" + profileId).html(txy);
+
+                        // set suspend icon to profile 
+                        $('#suspend_profile').modal('hide');
+                        let selectedProfileName = $("#brb_" + data.response.profile_id).text();
+                        var txy = selectedProfileName + '<sup title="Suspended at ' + data.response
+                            .suspended_at +
+                            '" class="brb_icon" style="background-color: #d2730a;" >SUS</sup>';
+                        $("#brb_" + data.response.profile_id).html(txy);
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -1118,7 +1196,6 @@
                 },
 
             });
-            // }
         });
 
         function stageNameInput(ele) {

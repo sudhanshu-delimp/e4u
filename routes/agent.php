@@ -99,9 +99,13 @@ use App\Http\Controllers\Escort\Profile\UpdateController;
     return view('agent.dashboard.Annalytics.prospets-memberships');
 })->name('agent.prospets-memberships');
 
-    Route::get('Advertisers/agency-requests',function(){
-    return view('agent.dashboard.Advertisers.agency-requests');
-})->name('agent.agency-requests');
+    Route::get('Advertisers/new-requests',function(){
+    return view('agent.dashboard.Advertisers.new-requests');
+})->name('agent.new-requests');
+
+Route::get('Advertisers/history-requests',function(){
+    return view('agent.dashboard.Advertisers.history-requests');
+})->name('agent.history-requests');
 
     Route::get('Marketing/create-prospect',function(){
     return view('agent.dashboard.Marketing.create-prospect');

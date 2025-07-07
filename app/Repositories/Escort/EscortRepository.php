@@ -129,11 +129,18 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ->with([
                 'Brb' => function ($query) {
                     $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                },
+                'suspendProfile' => function ($query) {
+                    $today = Carbon::today();
+                    $query->whereDate('start_date', '<=', $today)
+                        ->whereDate('end_date', '>=', $today)
+                        ->where('status', true);
                 }
             ])
 
             //->whereNotNull('profile_name')
             ->orderBy($order, $dir);
+
         if ($search) {
             $query = $query->where($conditions)
                 ->where('user_id', $user_id)
@@ -199,10 +206,11 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
         //        $result = $result->toArray();
         foreach ($result as $key => $item) {
-
+            // dd($item->suspendProfile, $item->profile_name);
             $s = explode('/', $_SERVER['REQUEST_URI']);
             $item->sn = ($start + $i);
             $item->name = $item->name ? $item->name : "NA";
+
             $item->pro_name = $item->profile_name ? '<span id="brb_' . $item->id . '" >' . $item->profile_name . '</span>' : "NA";
             $item->city_name = $item->city ? $item->city->name : null;
             $item->state_name = $item->state ? $item->state->name : null;
@@ -237,7 +245,23 @@ class EscortRepository extends BaseRepository implements EscortInterface
 
             $itemArray = $item->toArray();
             //$item->custom_profile_name = ($itemArray['profile_name'] ? $itemArray['profile_name'] :"NA");
-            if ($itemArray['brb']) {
+
+            if (!empty($itemArray['suspend_profile']) && isset($itemArray['suspend_profile'][0])) {
+                $suspend = $itemArray['suspend_profile'][0];
+
+                $startDate = Carbon::parse($suspend['start_date'])->setTimezone(config('app.escort_server_timezone'));
+                $endDate = Carbon::parse($suspend['end_date'])->setTimezone(config('app.escort_server_timezone'));
+                $createdAt = Carbon::parse($suspend['created_at'])->setTimezone(config('app.escort_server_timezone'));
+
+                if (Carbon::now(config('app.escort_server_timezone'))->greaterThanOrEqualTo($startDate) && Carbon::now(config('app.escort_server_timezone'))->lessThanOrEqualTo($endDate)) {
+                    $item->pro_name = '<span id="brb_' . $item->id . '">' .
+                        $item->profile_name .
+                        " <sup title='Suspended on " . $createdAt->format('d-m-Y h:i A') .
+                        "' class='brb_icon' style='background-color: #d2730a;'>SUS</sup></span>";
+                }
+            }
+
+            if ($itemArray['brb'] && empty($itemArray['suspend_profile'])) {
                 $item->pro_name = '<span id="brb_' . $item->id . '">' . $item->profile_name . " <sup title='Brb at " . date('d-m-Y h:i A', strtotime($itemArray['brb'][0]['brb_time'])) . "' class='brb_icon'>BRB</sup></span>";
                 $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"> <a class="dropdown-item" href="' . route('profile.description', $item->id) . '?brb='.$itemArray['brb'][0]['id'].'" data-id="' . $item->id . '">view</a> <div class="dropdown-divider"></div><a class="dropdown-item" href="' . route('escort.update.profile', $item->id) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '">Edit</a> <div class="dropdown-divider"></div><a class="dropdown-item brb-inactivate" href="' . route('escort.brb.inactive', $itemArray['brb'][0]['id']) . '" data-id="' . $itemArray['brb'][0]['id'] . '" data-category="' . ($itemArray['brb'][0]['id']) . '">Cancel BRB</a> <div class="dropdown-divider"></div><a class="dropdown-item delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '">Delete </a> <div class="dropdown-divider"></div></div></div>';
             }
