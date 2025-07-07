@@ -48,7 +48,8 @@
         }
 
         #btn_suspend_profile,
-        #btn_add_brb {
+        #btn_add_brb, 
+        #btn_pinup_profile {
             display: none;
         }
     </style>
@@ -134,7 +135,7 @@
                                     data-target="#add_brb" id="btn_add_brb">Add BRB</button>
                                 <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                     data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
-                                <button style="padding: 10px; display:inline-block;" class="btn btn-dark"
+                                <button style="padding: 10px;" class="btn btn-dark"
                                     data-toggle="modal" data-target="#pinup_profile" id="btn_pinup_profile">List Pin
                                     Up</button>
                             </div>
@@ -551,9 +552,11 @@
                     if (length == 0) {
                         $('#btn_suspend_profile').hide();
                         $('#btn_add_brb').hide();
+                        $('#btn_pinup_profile').hide();
                     } else {
                         $('#btn_suspend_profile').show();
                         $('#btn_add_brb').show();
+                        $('#btn_pinup_profile').show();
                     }
 
                     if (length <= 10) {
