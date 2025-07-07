@@ -1,5 +1,5 @@
     @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
-    :root {
+     :root {
         --blue--text: #0C223D;
         --white: #ffffff;
         --black-body: #212529;
@@ -4266,6 +4266,16 @@ padding-bottom:80px;
     
     #new-ban select.form-control {
         color: #323C47;
+    }
+    
+    .rotate-27 {
+        transform: rotate(-27deg);
+    }
+    
+    .btn-history {
+        font-size: 20px;
+        width: 40px;
+        height: 40px;
     }
     
     #new-ban textarea::placeholder {
