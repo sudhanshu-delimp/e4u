@@ -29,7 +29,8 @@
                                 <div class="pin-age">Age: <span>20</span></div>
                             </span>
                             <div class="custom-video-wraper">
-                                <div class="video--icon"><a href="#"><img
+                                <div class="video--icon">
+                                    <a href="#"><img
                                             src="/assets/app/img/video_play.svg" class=""
                                             alt="logo">
                                         <span class="custom-icon-hover-tooltip">Video To View</span>
@@ -158,12 +159,8 @@
                     <p class="text-white text-uppercase normal_heading">It is all about the companionship</p>
                 </div>
                 <div class="welcome_msg_peraone">
-                    <p class="text-white">Welcome to the preferred website where private Escorts and erotic Massage Centres
-                        advertise their companionship and services to Viewers who are looking for company.</p>
-                    <p class="text-white">Advertisers set out a detailed and informative Profile or Tour where they propose
-                        their time and companionship, enabling Viewers to make direct contact. A Massage Centre has its own
-                        unique Profile designed to bring detailed Profile information about their business premises,
-                        Masseurs and their services directly to you.</p>
+                    <p class="text-white">Welcome to the preferred website where Private Escorts and erotic Massage Centres advertise their companionship and services to Viewers who are looking for company.</p>
+                    <p class="text-white">Advertisers set out a detailed and informative Profile or Tour where they propose their time and companionship, enabling Viewers to make direct contact. A Massage Centre has its own unique Profile designed to bring detailed Profile information about their business premises, Masseurs and their services directly to you.</p>
                 </div>
                 <div class="welcome_msg_peratwo">
                     <p class="welcome_text_color">Absolutely no banner advertising, third party marketing or spam!</p>
@@ -173,15 +170,14 @@
     </section>
     <div class="container">
         <div class="row justify-content-center text-center">
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="padding_ninty_top_ninty_px">
                     <div class="text-center">
                         <div class="site_second_heading">
                             <h2 class="text-uppercase our">Our services to you</h2>
                         </div>
                         <div class="our_service_peragraph">
-                            <p>In addition to providing advertising services, we also assist with industry information for
-                                Advertisers and Viewers, located in the footer, together with our Concierge Services.</p>
+                            <p>In addition to providing advertising services, we also assist with industry information for Advertisers and Viewers, located in the footer, together with our My Playbox and Concierge Services.</p>
                         </div>
                     </div>
                 </div>
@@ -223,17 +219,13 @@
                 <div class="point_of_diff">
                     <h3 class="text-white">What is our point of difference?</h3>
                     <div class="point_of_diff_peragrapg">
-                        <p class="text-white">It became apparent to us after talking with Advertisers and Viewers that
-                            there were a number of concerns about the quality and integrity of the services and offerings
-                            websites brought to private escorts and massage centres. Those discussions helped bring about
-                            this Website, ensuring also that it complies with the Local Laws. Features such as verified
-                            photos, reviews, guides, concierge services, notes and Alerts are designed to make your
-                            experience a pleasant one. We also offer a loyalty program.</p>
+                        <p class="text-white">It became apparent to us after talking with Advertisers and Viewers that there were a number of concerns about the quality and integrity of the services and offerings websites brought to Private escorts and massage centres.</p>
+                        <p class="text-white">Those discussions helped bring about this Website, ensuring also that it complies with the Local Laws. Features such as verified photos, reviews, guides, concierge services, notes and Alerts are designed to make your experience a pleasant one.</p>
+                        <p class="text-white"> We also offer a loyalty program.</p>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <section class="one-stop-bg">
@@ -243,7 +235,7 @@
                     <div class="one_stop_shop">
                         <div class="text-center">
                             <div class="site_second_heading pb-4 ">
-                                <h2 class="text-uppercase color-white">E4U – YOUR ONE-STOP SHOP!</h2>
+                                <h2 class="text-uppercase color-white">E4U: YOUR ONE-STOP SHOP!</h2>
                             </div>
                         </div>
                     </div>
@@ -254,7 +246,7 @@
                     <div class="shop-box">
                         <div class="text-center">
                             <div class="shops_border lign-items-center">
-                                <img src="{{ asset('assets/app/img/home/live-booking.png') }}">
+                                <a href="{{ url('accommodation')}}" class="termsandconditions_text_color"><img src="{{ asset('assets/app/img/home/live-booking.png') }}"></a>
                                 <p>Live booking services for accommodation and travel </p>
                             </div>
                         </div>
@@ -262,7 +254,7 @@
                     <div class="shop-box">
                         <div class="text-center">
                             <div class="shops_border my-auto">
-                                <img src="{{ asset('assets/app/img/home/product-delivery.png') }}">
+                                <a href="{{ url('professional-product')}}" class="termsandconditions_text_color"><img src="{{ asset('assets/app/img/home/product-delivery.png') }}"></a>
                                 <p>Product delivery</p>
                             </div>
                         </div>
@@ -270,7 +262,7 @@
                     <div class="shop-box">
                         <div class="text-center">
                             <div class="shops_border">
-                                <img src="{{ asset('assets/app/img/home/telecommunication.png') }}">
+                                <a href="{{ url('mobile-read-sim')}}" class="termsandconditions_text_color"><img src="{{ asset('assets/app/img/home/telecommunication.png') }}"></a>
                                 <p>Telecommunication services - Mobile SIM & Email account</p>
                             </div>
                         </div>
@@ -278,8 +270,8 @@
                     <div class="shop-box">
                         <div class="text-center">
                             <div class="shops_border">
-                                <img src="{{ asset('assets/app/img/home/visa1.png') }}">
-                                <p>Visa and migration advice</p>
+                                <a href="{{ url('visa-migration')}}" class="termsandconditions_text_color"><img src="{{ asset('assets/app/img/home/visa1.png') }}"></a>
+                                <p>Visa & education advice</p>
                             </div>
                         </div>
                     </div>
@@ -295,7 +287,6 @@
             </div>
         </div>
     </section>
-
     <section class="home_reg_bg">
         <div class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly">
             <div class="container">
@@ -313,18 +304,14 @@
                             <h2 class="primery-color" style="line-height: 30px;">REGISTER NOW!</h2>
                         </div>
                         <div class="reg_now_pera">
-                            <p class="primery-color  pt-3">There are no fees when your create an Account. Fees only apply
-                                when you post a Profile or Tour where you are charged according to the number of days and
-                                the Membership type you select. See also <a href = "help-for-advertisers"
-                                    class="termsandconditions_text_color">Help for Advertisers</a></p>
-                        </div></br>
+                            <p class="primery-color  pt-3">There are no fees when your create an Account. Fees only apply when you post a Profile or Tour where you are charged according to the number of days and the Membership Type you select (Book by the day!). See also <a href = "help-for-escorts" class="termsandconditions_text_color" >Help for Escorts</a></p>
+                            <p>Massage Centres are also looked after with a uniquely designed Profile just for them.  List up to eight Masseurs on the one Profile.</p>
+                        </div>
+                        </br>
                         <div class="padding">
-                            <a class="btn btn_advertiser" style="border: 1px solid;"
-                                href="{{ route('advertiser.register') }}" role="button">I am an Advertiser</a>
-                            <a class="btn btn_viewer" style="border: 1px solid;" href="{{ route('register') }}"
-                                role="button">I am a Viewer</a>
-                            <a class="btn  btn_viewer" style="color:red;border: 1px solid;"
-                                href="{{ route('agent.register') }}" role="button">I am an Agent</a>
+                            <a class="btn btn_advertiser"  style="border: 1px solid;" href="{{ route('advertiser.register') }}" role="button">I am an Advertiser</a>
+                            <a class="btn btn_viewer" style="border: 1px solid;" href="{{ route('register') }}" role="button">I am a Viewer</a>
+                            <a class="btn  btn_viewer" style="color:red;border: 1px solid;" href="{{ route('agent.register')}}" role="button">I am an Agent</a>
                         </div>
                     </div>
                 </div>

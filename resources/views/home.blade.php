@@ -48,7 +48,7 @@
                 <p class="text-white text-uppercase normal_heading">It is all about the companionship</p>
             </div>
             <div class="welcome_msg_peraone">
-                <p class="text-white">Welcome to the preferred website where private Escorts and erotic Massage Centres advertise their companionship and services to Viewers who are looking for company.</p>
+                <p class="text-white">Welcome to the preferred website where Private Escorts and erotic Massage Centres advertise their companionship and services to Viewers who are looking for company.</p>
                 <p class="text-white">Advertisers set out a detailed and informative Profile or Tour where they propose their time and companionship, enabling Viewers to make direct contact. A Massage Centre has its own unique Profile designed to bring detailed Profile information about their business premises, Masseurs and their services directly to you.</p>
             </div>
             <div class="welcome_msg_peratwo">
@@ -108,7 +108,7 @@
             <div class="point_of_diff">
                 <h3 class="text-white">What is our point of difference?</h3>
                 <div class="point_of_diff_peragrapg">
-                    <p class="text-white">It became apparent to us after talking with Advertisers and Viewers that there were a number of concerns about the quality and integrity of the services and offerings websites brought to private escorts and massage centres.</p>
+                    <p class="text-white">It became apparent to us after talking with Advertisers and Viewers that there were a number of concerns about the quality and integrity of the services and offerings websites brought to Private escorts and massage centres.</p>
                     <p class="text-white">Those discussions helped bring about this Website, ensuring also that it complies with the Local Laws. Features such as verified photos, reviews, guides, concierge services, notes and Alerts are designed to make your experience a pleasant one.</p>
                     <p class="text-white"> We also offer a loyalty program.</p>
                 </div>
