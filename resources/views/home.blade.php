@@ -59,7 +59,7 @@
 </section>
 <div class="container">
     <div class="row justify-content-center text-center">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="padding_ninty_top_ninty_px">
                 <div class="text-center">
                     <div class="site_second_heading">
