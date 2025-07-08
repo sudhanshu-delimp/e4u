@@ -21,6 +21,12 @@
 #escort_listings{
     margin-bottom: 0px !important;
 }
+    .brb_icon {
+        color: white;
+        background-color: #e5365a;
+        border-radius: 15%;
+        padding: 0 5px;
+    }
 </style>
 @endsection
 @section('content')

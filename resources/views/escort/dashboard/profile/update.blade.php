@@ -208,7 +208,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
-                    {{-- <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5> --}}
+                    <h5 class="modal-title" id="exampleModalLabel" style="color:white">Update My Information</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -998,19 +998,50 @@
             return dynamic_image;
         }
 
+        function checkRates(){
+            const selectors = [
+            'input[name="massage_price[]"]',
+            'input[name="incall_price[]"]',
+            'input[name="outcall_price[]"]'
+            ];
+
+            let isValid = false;
+            const allInputs = selectors.flatMap(selector => 
+            Array.from(document.querySelectorAll(selector))
+            );
+
+            for (const input of allInputs) {
+            const val = parseFloat(input.value);
+            console.log(val);
+            if (!isNaN(val) && val > 0) {
+                isValid = true;
+                break;
+            }
+            }
+            return isValid;
+        }
+
         $("body").on('click', '.nex_sterp_btn', function(e) {
             // e.preventDefault();
             var id = $(this).attr('id');
             $(this).removeClass('active');
             $(".nav-link").removeClass('active');
             $("#" + id).addClass('active');
-
             switch (id) {
                 case 'profile-tab': {
                     let dynamic_image = checkProfileDynamicMedia();
                     if (dynamic_image < 8) {
                         Swal.fire('Media',
                             'Please attach media to this profile from the Media Repository or upload a new file (All are mendatory)',
+                            'warning');
+                        return false;
+                    }
+                } break;
+                case 'contact-tab': {
+                     let exist = checkRates();
+                    if (!exist) {
+                        Swal.fire('Rates',
+                            'At least one rate field must be greater than 0.',
                             'warning');
                         return false;
                     }
@@ -1321,12 +1352,34 @@
         });
 
 
+        window.Parsley.addValidator('atLeastOneNumber', {
+            requirementType: 'string',
+            validateString: function(_, parsleyInstance) {
+            // List your three fields here (use IDs, classes, or name attrs)
+            const vals = [
+                parseFloat(document.querySelector('input[name="massage_price[]"]').value) || 0,
+                parseFloat(document.querySelector('input[name="incall_price[]"]').value) || 0,
+                parseFloat(document.querySelector('input[name="outcall_price[]"]').value) || 0
+            ];
+            // Pass if any value > 0
+            return vals.some(v => v > 0);
+            },
+            messages: {
+            en: 'Please enter a value above zero in at least one field.'
+            }
+        });
+
 
         $(document).ready(function() {
             const parsleyForm = $('#my_escort_profile').parsley({
                 excluded: "input[type=number], input[type=hidden]"
             });
             let allowTabChange = false;
+            const tabGroupMap = {
+            'profile-tab': 'group_one',
+            'contact-tab': 'group_two',
+            'pricing-tab': 'group_three',
+            };
 
             $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
                 if (allowTabChange) {
@@ -1334,150 +1387,170 @@
                     return;
                 }
                 e.preventDefault();
-                const targetTab = $(e.target);
+
+                const tabId     = e.target.id;               // e.g. 'profile-tab'
+                const nextGroup = tabGroupMap[tabId];        // e.g. 'group_one'
+                const $target   = $(e.target)
+
+                //const targetTab = $(e.target);
+                console.log("e target id: ", e.target.id);
                 var ckeditorGroup = parsleyForm.validate({
                     group: 'ckeditor'
                 });
+
+                if (!nextGroup) {
+                    allowTabChange = true;
+                    return $target.tab('show');
+                }
                 parsleyForm.whenValidate({
-                    group: 'group_one'
+                    group: nextGroup
                 }).then(function() {
                     allowTabChange = true;
-                    targetTab.tab('show');
-                    if (e.target.id == "profile-tab" && ckeditorGroup != false) {
-                        $('.define_process_bar_color').attr('style', 'width :80%'); //.percent
-                        $('#percent').html('80%');
-                    } else if (e.target.id == "contact-tab" && ckeditorGroup != false) {
-                        if ($(".draft").is(':checked')) {
-                            $(".hideDraft").hide();
-                            $("#show_draft").show();
+                    $target.tab('show');
+                    // if (e.target.id == "profile-tab" && ckeditorGroup != false) {
+                    //     $('.define_process_bar_color').attr('style', 'width :80%'); //.percent
+                    //     $('#percent').html('80%');
+                    // } else if (e.target.id == "contact-tab" && ckeditorGroup != false) {
+                    //     const field = $('input[data-parsley-at-least-one-number]').parsley();
+                    //     console.log(field);
+                        
+                    //     if (field.validate()) {
+                    //         alert("ok");
+                    //     } else {
+                    //         allowTabChange = false;
+                    //         return;
+                    //     }
+                    //     if ($(".draft").is(':checked')) {
+                    //         $(".hideDraft").hide();
+                    //         $("#show_draft").show();
 
-                        } else {
-                            $(".hideDraft").show();
-                            $("#show_draft").hide();
-                        }
-                        $('.define_process_bar_color').attr('style', 'width :100%'); //.percent
-                        $('#percent').html('100%');
-                    } else if (e.target.id == "massuers-tab" && ckeditorGroup != false) {
+                    //     } else {
+                    //         $(".hideDraft").show();
+                    //         $("#show_draft").hide();
+                    //     }
+                    //     $('.define_process_bar_color').attr('style', 'width :100%'); //.percent
+                    //     $('#percent').html('100%');
+                    // } else if (e.target.id == "massuers-tab" && ckeditorGroup != false) {
 
-                    } else if (e.target.id == "pricing-tab" && ckeditorGroup != false) {
+                    // } else if (e.target.id == "pricing-tab" && ckeditorGroup != false) {
 
-                        $('.define_process_bar_color').attr('style', 'width :100%'); //.percent
-                        $('#percent').html('100%');
+                    //     $('.define_process_bar_color').attr('style', 'width :100%'); //.percent
+                    //     $('#percent').html('100%');
 
-                        var name = $("#profile_name").val();
-                        $('#pro_name_tab').html(name);
+                    //     var name = $("#profile_name").val();
+                    //     $('#pro_name_tab').html(name);
 
-                        var user_createdat = new Date($("#user_startDate").val());
-                        var end = new Date($("#end_date").val());
-                        var start = new Date($("#start_date").val());
-                        var ss = start.setDate(start.getDate());
-                        var first_date = moment(ss).format('YYYY-MM-DD');
+                    //     var user_createdat = new Date($("#user_startDate").val());
+                    //     var end = new Date($("#end_date").val());
+                    //     var start = new Date($("#start_date").val());
+                    //     var ss = start.setDate(start.getDate());
+                    //     var first_date = moment(ss).format('YYYY-MM-DD');
 
-                        var user_diff = end.getTime() - user_createdat.getTime();
-                        var diff = end.getTime() - start.getTime();
-                        var days = diff / (1000 * 3600 * 24);
-                        var user_diff_days = user_diff / (1000 * 3600 * 24);
-                        var plan = $("#membership").val();
-                        $('#start_date_tab').html(first_date);
-                        if (plan == 1) {
-                            var actual_rate = 8;
-                            if (days <= 21) {
-                                var rate = 8;
-                            } else {
-                                var rate = 7.5;
-                                var dis_rate = 0.5;
-                            }
-                            var plan_name = "Platinum";
-                        } else if (plan == 2) {
-                            var actual_rate = 6;
-                            if (days <= 21) {
-                                var rate = 6;
-                            } else {
-                                var rate = 5.7;
-                                var dis_rate = 0.3;
-                            }
-                            var plan_name = "Gold";
-                        } else if (plan == 3) {
-                            var actual_rate = 4;
-                            if (days <= 21) {
-                                var rate = 4;
-                            } else {
-                                var rate = 3.8;
-                                var dis_rate = 0.2;
-                            }
-                            var plan_name = "Silver";
-                        } else {
+                    //     var user_diff = end.getTime() - user_createdat.getTime();
+                    //     var diff = end.getTime() - start.getTime();
+                    //     var days = diff / (1000 * 3600 * 24);
+                    //     var user_diff_days = user_diff / (1000 * 3600 * 24);
+                    //     var plan = $("#membership").val();
+                    //     $('#start_date_tab').html(first_date);
+                    //     if (plan == 1) {
+                    //         var actual_rate = 8;
+                    //         if (days <= 21) {
+                    //             var rate = 8;
+                    //         } else {
+                    //             var rate = 7.5;
+                    //             var dis_rate = 0.5;
+                    //         }
+                    //         var plan_name = "Platinum";
+                    //     } else if (plan == 2) {
+                    //         var actual_rate = 6;
+                    //         if (days <= 21) {
+                    //             var rate = 6;
+                    //         } else {
+                    //             var rate = 5.7;
+                    //             var dis_rate = 0.3;
+                    //         }
+                    //         var plan_name = "Gold";
+                    //     } else if (plan == 3) {
+                    //         var actual_rate = 4;
+                    //         if (days <= 21) {
+                    //             var rate = 4;
+                    //         } else {
+                    //             var rate = 3.8;
+                    //             var dis_rate = 0.2;
+                    //         }
+                    //         var plan_name = "Silver";
+                    //     } else {
 
-                            var actual_rate = 0;
-                            var rate = 0;
-                            var dis_rate = 0;
-                            var plan_name = "Free";
-                            var payDays = days - 14;
-                            var userPayDays = user_diff_days - 14;
-                            days = userPayDays;
-                            if (userPayDays < 1) {
-                                var actual_rate = 0;
-                                var rate = 0;
-                                var dis_rate = 0;
-                            } else if (userPayDays <= 21 && userPayDays >= 1) {
-                                var rate = 4;
-                            } else {
-                                var rate = 3.8;
-                                var dis_rate = 0.2;
-                            }
-                        }
-                        $('#plan').html(plan_name);
-                        if (days > 1) {
-                            $('#duration_tab').html(days + " Days");
-                        } else {
-                            $('#duration_tab').html(days + " Day");
-                        }
+                    //         var actual_rate = 0;
+                    //         var rate = 0;
+                    //         var dis_rate = 0;
+                    //         var plan_name = "Free";
+                    //         var payDays = days - 14;
+                    //         var userPayDays = user_diff_days - 14;
+                    //         days = userPayDays;
+                    //         if (userPayDays < 1) {
+                    //             var actual_rate = 0;
+                    //             var rate = 0;
+                    //             var dis_rate = 0;
+                    //         } else if (userPayDays <= 21 && userPayDays >= 1) {
+                    //             var rate = 4;
+                    //         } else {
+                    //             var rate = 3.8;
+                    //             var dis_rate = 0.2;
+                    //         }
+                    //     }
+                    //     $('#plan').html(plan_name);
+                    //     if (days > 1) {
+                    //         $('#duration_tab').html(days + " Days");
+                    //     } else {
+                    //         $('#duration_tab').html(days + " Day");
+                    //     }
 
-                        if (days !== null && days <= 21) {
-                            var total_rate = days * rate;
-                            var dis = 0;
-                            $('#rate_tab').html("$ " + rate.toFixed(2));
-                        } else {
-                            var days_21 = 21 * actual_rate;
-                            var above_day = days - 21;
+                    //     if (days !== null && days <= 21) {
+                    //         var total_rate = days * rate;
+                    //         var dis = 0;
+                    //         $('#rate_tab').html("$ " + rate.toFixed(2));
+                    //     } else {
+                    //         var days_21 = 21 * actual_rate;
+                    //         var above_day = days - 21;
 
-                            var total_rate = (above_day * rate + days_21);
+                    //         var total_rate = (above_day * rate + days_21);
 
-                            var dis = above_day * dis_rate;
+                    //         var dis = above_day * dis_rate;
 
-                            $('#rate_tab').html("$ " + rate.toFixed(2));
-                        }
+                    //         $('#rate_tab').html("$ " + rate.toFixed(2));
+                    //     }
 
-                        $('#dis_tab').html("$ " + dis.toFixed(2));
-                        var draft = $(".draft").val();
-                        if (draft == 1) {
-                            $('#total_rate').html("$ 0.00");
-                        } else {
-                            $('#total_rate').html("$ " + total_rate.toFixed(2));
-                        }
-                        $('#fee_tab').html("$ " + actual_rate.toFixed(2));
+                    //     $('#dis_tab').html("$ " + dis.toFixed(2));
+                    //     var draft = $(".draft").val();
+                    //     if (draft == 1) {
+                    //         $('#total_rate').html("$ 0.00");
+                    //     } else {
+                    //         $('#total_rate').html("$ " + total_rate.toFixed(2));
+                    //     }
+                    //     $('#fee_tab').html("$ " + actual_rate.toFixed(2));
 
-                        $("#poli_payment").click(function(e) {
-                            $('#poli_payment').prop('disabled', true);
-                            $('#poli_payment').html('<div class="spinner-border"></div>');
-                            var escortId = $('#profile_id').val();
-                            var url = "{{ route('escort.poli.paymentUrl', ':id') }}";
-                            url = url.replace(':id', escortId);
+                    //     $("#poli_payment").click(function(e) {
+                    //         $('#poli_payment').prop('disabled', true);
+                    //         $('#poli_payment').html('<div class="spinner-border"></div>');
+                    //         var escortId = $('#profile_id').val();
+                    //         var url = "{{ route('escort.poli.paymentUrl', ':id') }}";
+                    //         url = url.replace(':id', escortId);
 
-                            $('<form/>', {
-                                action: url,
-                                method: 'POST'
-                            }).append($('<input>', {
-                                type: 'hidden',
-                                name: '_token',
-                                value: '{{ csrf_token() }}'
-                            }), ).appendTo('body').submit();
+                    //         $('<form/>', {
+                    //             action: url,
+                    //             method: 'POST'
+                    //         }).append($('<input>', {
+                    //             type: 'hidden',
+                    //             name: '_token',
+                    //             value: '{{ csrf_token() }}'
+                    //         }), ).appendTo('body').submit();
 
-                        })
-                    } else {
-                        $('.define_process_bar_color').attr('style', 'width :25%'); //.percent
-                        $('#percent').html('25%');
-                    }
+                    //     })
+                    // } else {
+                    //     $('.define_process_bar_color').attr('style', 'width :25%'); //.percent
+                    //     $('#percent').html('25%');
+                    // }
                 }, function() {
                     console.log('Validation failed');
                 });
