@@ -429,7 +429,6 @@ class GlobalMonitoringController extends Controller
 
     public function dataTableEscortListingAjax($type = NULL)
     {
-
         $search = request()->get('search')['value'];
         // $user_id = auth()->user()->id;
         $ascDesc = 'DESC';
@@ -452,6 +451,12 @@ class GlobalMonitoringController extends Controller
                 $query->where('brb_time', '>', date('Y-m-d H:i:s'))
                     ->where('active', 'Y')
                     ->orderBy('brb_time', 'desc');
+            },
+            'suspendProfile' => function ($query) {
+                $today = Carbon::now(config('app.timezone'));
+                $query->whereDate('start_date', '<=', $today)
+                    ->whereDate('end_date', '>=', $today)
+                    ->where('status', true);
             }
         ])
             ->whereHas('purchase')
@@ -566,6 +571,13 @@ class GlobalMonitoringController extends Controller
                         }
                     }
 
+                    if(count($escort['suspend_profile']) > 0){
+                        $suspensionBadge = "<sup title='Suspended on " . Carbon::parse($escort['suspend_profile'][0]['created_at'])->setTimezone(config('app.escort_server_timezone'))->format('d-m-Y h:i A') .
+                        "' class='brb_icon' style='background-color: #d2730a;'>SUS</sup></span>";
+                    }else{
+                        $suspensionBadge = '';
+                    }
+
                     $dataTableData[] = [
                         //'sl_no' => $i++,
                         'id' => $escort['id'],
@@ -580,7 +592,7 @@ class GlobalMonitoringController extends Controller
                         config(
                             "escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName",
                         ),
-                        'profile_name' => $escort['profile_name'] ? $brb : 'NA',
+                        'profile_name' => $escort['profile_name'] ? $brb. $suspensionBadge : 'NA',
                         //'city' =>
                         // config(
                         //     "escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName",
@@ -638,6 +650,7 @@ class GlobalMonitoringController extends Controller
             ->addColumn('left_days', fn($row) => $row['left_days'])
             ->addColumn('action', fn($row) => $actionButtons)
             ->rawColumns(['action']) // if you're returning HTML
+            ->rawColumns(['profile_name'])
             ->make(true);
     }
     
