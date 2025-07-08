@@ -4867,8 +4867,8 @@ padding-bottom:80px;
         font-size: 14px;
         color: #000;
     }
-    .custom-serve-date {
-        min-width: 65px !important;
+    .custom-availabletab {
+        max-width: 100% !important;
     }
     /* post office new page style design db */
     
