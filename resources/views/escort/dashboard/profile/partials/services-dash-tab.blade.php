@@ -176,6 +176,17 @@
     <div class="about_me_drop_down_info profile-sec p-4">
         <div class="about_me_heading_in_first_tab fill_profile_headings_global">
             <h2>Rates</h2>
+            @php  
+            $existDefaultRate = $escort->durations()
+            ->get()
+            ->filter(function ($duration) {
+                return $duration->pivot->massage_price > 0 ||
+                       $duration->pivot->incall_price > 0 ||
+                       $duration->pivot->outcall_price > 0;
+            })
+            ->values()
+            ->toArray();
+            @endphp
         </div>
         <div class="padding_20_all_side pb-0">
             @if (request()->segment(2) == 'profile' && request()->segment(3))
@@ -208,7 +219,7 @@
                                 @if($duration->name == 'Blow & Go')
     <div class="col-3">
     <input type="hidden" placeholder="0" min="0"
-                class="form-control form-control-sm select_tag_remove_box_sadow @if(request()->segment(2) == 'profile')change_default @endif"
+                class="form-control form-control-sm select_tag_remove_box_sadow @if(request()->segment(2) == 'profile' || count($existDefaultRate) > 0) change_default @endif"
                 id="massage_price_{{ $duration->id }}" duration_id="{{ $duration->id }}" name="massage_price[]"
                 value="0"
                 step="10" max=9999 >
@@ -219,7 +230,7 @@
         <div class="service_rate_dolor_symbol form-group">
             <span>$</span>
             <input type="number" placeholder="0" min="0"
-                class="form-control form-control-sm select_tag_remove_box_sadow @if(request()->segment(2) == 'profile')change_default @endif"
+                class="form-control form-control-sm select_tag_remove_box_sadow @if(request()->segment(2) == 'profile' || count($existDefaultRate) > 0) change_default @endif"
                 id="massage_price_{{ $duration->id }}" duration_id="{{ $duration->id }}" name="massage_price[]"
                 value="{{ $escort->durationRate($duration->id, 'massage_price') }}"
                 step="10" max=9999 >
@@ -231,7 +242,7 @@
                                     <div class="service_rate_dolor_symbol form-group">
                                         <span>$</span>
                                         <input min="0" placeholder="0" type="number"
-                                            class="form-control form-control-sm select_tag_remove_box_sadow @if(request()->segment(2) == 'profile')change_default @endif"
+                                            class="form-control form-control-sm select_tag_remove_box_sadow @if(request()->segment(2) == 'profile'  || count($existDefaultRate) > 0) change_default @endif"
                                             id="incall_price_{{ $duration->id }}" name="incall_price[]"
                                             value="{{ $escort->durationRate($duration->id, 'incall_price') }}"
                                             step="10" max=9999  duration_id="{{ $duration->id }}" >
@@ -241,7 +252,7 @@
                                     <div class="service_rate_dolor_symbol form-group">
                                         <span>$</span>
                                         <input min="0" placeholder="0" type="number"
-                                            class="form-control form-control-sm select_tag_remove_box_sadow @if(request()->segment(2) == 'profile')change_default @endif"
+                                            class="form-control form-control-sm select_tag_remove_box_sadow @if(request()->segment(2) == 'profile' || count($existDefaultRate) > 0 ) change_default @endif"
                                             id="outcall_price_{{ $duration->id }}" name="outcall_price[]"
                                             value="{{ $escort->durationRate($duration->id, 'outcall_price') }}"
                                             step="10" max=9999 duration_id="{{ $duration->id }}" >
