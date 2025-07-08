@@ -208,11 +208,10 @@
                                 @if($duration->name == 'Blow & Go')
     <div class="col-3">
     <input type="hidden" placeholder="0" min="0"
-                data-parsley-excluded="true"
-                class="form-control form-control-sm select_tag_remove_box_sadow change_default"
+                class="form-control form-control-sm select_tag_remove_box_sadow @if(request()->segment(2) == 'profile')change_default @endif"
                 id="massage_price_{{ $duration->id }}" duration_id="{{ $duration->id }}" name="massage_price[]"
                 value="0"
-                step="10" max=9999>
+                step="10" max=9999 >
         <div class="form-group" style="color: #ff3c5f;font-size: 14px;">Not available</div>
     </div>
 @else
@@ -220,11 +219,10 @@
         <div class="service_rate_dolor_symbol form-group">
             <span>$</span>
             <input type="number" placeholder="0" min="0"
-                data-parsley-excluded="true"
-                class="form-control form-control-sm select_tag_remove_box_sadow change_default"
+                class="form-control form-control-sm select_tag_remove_box_sadow @if(request()->segment(2) == 'profile')change_default @endif"
                 id="massage_price_{{ $duration->id }}" duration_id="{{ $duration->id }}" name="massage_price[]"
                 value="{{ $escort->durationRate($duration->id, 'massage_price') }}"
-                step="10" max=9999>
+                step="10" max=9999 >
         </div>
     </div>
 @endif
@@ -233,20 +231,20 @@
                                     <div class="service_rate_dolor_symbol form-group">
                                         <span>$</span>
                                         <input min="0" placeholder="0" type="number"
-                                            class="form-control form-control-sm select_tag_remove_box_sadow change_default"
+                                            class="form-control form-control-sm select_tag_remove_box_sadow @if(request()->segment(2) == 'profile')change_default @endif"
                                             id="incall_price_{{ $duration->id }}" name="incall_price[]"
                                             value="{{ $escort->durationRate($duration->id, 'incall_price') }}"
-                                            step="10" max=9999 data-parsley-excluded duration_id="{{ $duration->id }}">
+                                            step="10" max=9999  duration_id="{{ $duration->id }}" >
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="service_rate_dolor_symbol form-group">
                                         <span>$</span>
                                         <input min="0" placeholder="0" type="number"
-                                            class="form-control form-control-sm select_tag_remove_box_sadow change_default"
+                                            class="form-control form-control-sm select_tag_remove_box_sadow @if(request()->segment(2) == 'profile')change_default @endif"
                                             id="outcall_price_{{ $duration->id }}" name="outcall_price[]"
                                             value="{{ $escort->durationRate($duration->id, 'outcall_price') }}"
-                                            step="10" max=9999 duration_id="{{ $duration->id }}">
+                                            step="10" max=9999 duration_id="{{ $duration->id }}" >
                                     </div>
                                 </div>
                             </div>
