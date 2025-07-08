@@ -115,7 +115,7 @@ label.cabinet input.file{
                                 Additional Upload Information
                                 </a>
                             </div>
-                            <div id="File_name" class="collapse show" data-parent="#accordion" style="">
+                            <div id="File_name" class="collapse hide" data-parent="#accordion" style="">
                                 <div class="card-body">
                                     <p style="font-size: 20px;"><b>File name</b> </p>
                                     <p>Only use letters, numbers, underscores, and hyphens in file names.</p>
@@ -397,7 +397,7 @@ label.cabinet input.file{
                         $('.comman_msg').text(msg);
                         //$("#my_account_modal").show();
                         $("#comman_modal").modal('show');
-                        //location.reload();
+                        location.reload();
                         console.log("ok");
                     }
                 });
