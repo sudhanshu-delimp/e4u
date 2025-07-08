@@ -4870,6 +4870,10 @@ padding-bottom:80px;
     .custom-serve-date {
         min-width: 65px !important;
     }
+    .custom-availabletab {
+        max-width: 100% !important;
+    }
+
     /* post office new page style design db */
     
     .modal-dialog-custom {
