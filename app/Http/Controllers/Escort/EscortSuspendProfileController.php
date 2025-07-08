@@ -27,8 +27,8 @@ class EscortSuspendProfileController extends Controller
 
         // Return the result
         return response()->json([
-            'total_dis' => $total_dis,
-            'total_rate' => $total_rate,
+            'total_dis' => number_format((float)$total_dis, 2, '.', ''),
+            'total_rate' => number_format((float)$total_rate, 2, '.', ''),
         ]);
     }
 
