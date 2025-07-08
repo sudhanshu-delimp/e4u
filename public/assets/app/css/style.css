@@ -4932,7 +4932,9 @@ table {
     bottom: 0;
     min-height: calc(100% - (0.5rem * 2));
 }
-
+p.testimonial strong {
+    font-weight: 400;
+}
 div#onloadpopup .modal-dialog-centered.modal-dialog-bottom-right {
     max-width: 100% !important;
     width: 100%;
