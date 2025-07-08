@@ -2,7 +2,7 @@
     <div class="about_me_drop_down_info profile-sec">
         
         <div class="fill_profile_headings_global">
-            <h2>My Availability</h2>
+            <h2>My Availability </h2>
         </div>
     
         <div class="padding_20_all_side my-availability-mon container">
@@ -28,7 +28,7 @@
                             <div class="col-lg-5 col-md-5">
                                 <div class="service_rate_dolor_symbol form-group" @disabled(true)>
                                     <select
-                                        class="form-control form-control-sm select_tag_remove_box_sadow {{ $day }} p-0 change_default"
+                                        class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date {{ $day }} p-0 change_default"
                                         name="{{ $shortDays[$day] }}_from" id="{{ $shortDays[$day] }}from"
                                         data-parsley-gt="#{{ $shortDays[$day] }}_to" day_key_from="{{ $shortDays[$day] }}">
                                         <option value="" selected>H:M</option>
@@ -60,7 +60,7 @@
                             <div class="col-lg-5 col-md-5">
                                 <div class="service_rate_dolor_symbol form-group">
                                     <select
-                                        class="form-control form-control-sm select_tag_remove_box_sadow {{ $day }} p-0 change_default"
+                                        class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date {{ $day }} p-0 change_default"
                                         name="{{ $shortDays[$day] }}_to" id="{{ $shortDays[$day] }}_to" day_key_to="{{ $shortDays[$day] }}">
                                         <option value="" selected>H:M</option>
                                         @for ($i = 1; $i <= 12; $i++)
