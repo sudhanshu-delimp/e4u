@@ -21,16 +21,25 @@
     </div>
  </div>
 
+
+
 <div class="row">
     <div class="col-md-12 my-2">
         <div class="card collapse" id="notes" style="">
           <div class="card-body">
               <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-              <ol></ol>
+              <ol>
+                <li>Use this feature to complete all of your personal details - who you are, contact information how Users communicate with you.</li>
+                <li>Make sure you take the time to complete everything, it will help you manage your Account much better, especially with communication. If you are not sure about any of the settings, get in touch with our Help Centre. (Link to new Support Ticket).</li>
+                <li>There is some general information also available to you inside each of the My Account groups.</li>
+            </ol>
           </div>
         </div>
     </div>
 </div>
+
+
+
 <!-- Page Heading -->
     <div class="row">
         <div class="col-md-12 mt-2 mb-5">

@@ -51,7 +51,7 @@
                                  <h6 class="mb-1"><b>Member ID :</b>  <span style="color: #333;">E03152</span></h6>
                                  <h6 class="mb-1"><b>Name :</b> <span style="color: #333;">Carla Brasil</span></h6>
                                  <br>
-                                 <h6 class="text-success">Date Accepted: <span>19/08/2022</span></h6>
+                                 <h6 class="text-success font-weight-bold">Date Accepted : <span>19/08/2022</span></h6>
                                </div>
                          
                                <!-- Right Section: View Button -->
@@ -70,7 +70,7 @@
                      <div class="col-lg-4">
                         {{-- new --}}
                         <div class="card mb-4 shadow-sm border-0">
-                           <div class="card-body p-4" style="background: #f5eedc;">
+                           <div class="card-body p-4" style="background: #fff9eb;">
                               <div class="d-flex align-items-end justify-content-between">
                                
                                  <!-- Left Section: Member Info -->
@@ -78,7 +78,7 @@
                                    <h6 class="mb-1"><b>Member ID :</b>  <span style="color: #333;">E03152</span></h6>
                                    <h6 class="mb-1"><b>Name :</b> <span style="color: #333;">Carla Brasil</span></h6>
                                    <br>
-                                   <h6 class="text-warning">Date Forfeited: <span>19/08/2022</span></h6>
+                                   <h6 class="text-warning font-weight-bold">Date Forfeited : <span>19/08/2022</span></h6>
                                  </div>
                            
                                  <!-- Right Section: View Button -->
@@ -105,7 +105,7 @@
                                    <h6 class="mb-1"><b>Member ID :</b>  <span style="color: #333;">E03152</span></h6>
                                    <h6 class="mb-1"><b>Name :</b> <span style="color: #333;">Carla Brasil</span></h6>
                                    <br>
-                                   <h6 class="text-danger">Date Accepted: <span>19/08/2022</span></h6>
+                                   <h6 class="text-danger font-weight-bold">Date Rejected : <span>19/08/2022</span></h6>
                                  </div>
                            
                                  <!-- Right Section: View Button -->
@@ -151,7 +151,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="Agent_Name">Agent Request History</h5>
+            <h5 class="modal-title" id="Agent_Name">History Request </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -169,28 +169,35 @@
                               <h5 class="primery_color normal_heading mb-0" data-toggle="modal" data-target="#Agent_Name"><a class="collapse-item" href="#"><b>Carla Brasil</b></a></h5>
                               <h6 class="text-muted mb-0 small">
                                  Member ID : E03152
-                                 <span class="px-3">Request Date : 19/08/2022</span>
-                                 <span>Ref : E98065</span>
+                                 <span class="px-3">Ref : E98065</span>
+                                 <span >Request Date : 19/08/2022</span>
+                                 
                               </h6>
                            </div>
                         </div>
                      </div>
                   </div>
-                  <div class="card-body row pt-4">
+                  <div class="card-body pt-4">
                      <div class="row">
                         <div class="col-md-6 list-sec pt-3">
-                           <h6><b>Email:</b> <span>jhoannamae@e4u.com</span></h6>
-                           <h6><b>Mobile:</b> <span class="ml-2">0123456789</span></h6>
+                           <h6><b>Mobile :</b> <span class="ml-2">0123456789</span></h6>
+                           <h6><b>Email :</b> <span>jhoannamae@e4u.com</span></h6>
+                          
                         </div>
                         <div class="col-md-6 list-sec pt-3">
-                           <h6><b>Home State:</b> <span class="ml-2">SA</span></h6>
-                           <h6><b>Contact Method:</b> <span class="ml-2">By Mobile</span></h6>
+                           <h6><b>Home State :</b> <span class="ml-2">SA</span></h6>
+                           <h6><b>Contact Method :</b> <span class="ml-2">By Mobile</span></h6>
                         </div>
                      </div>
                      <div class="row">
                         <div class="col-md-12 list-sec pt-1">
                            <h6><b>Comments:</b> </h6>
                            <h6 class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam egestas erat diam mauris, purus auctor nibh tincidunt. Imperdiet lectus in ut phasellus id vulputate vestibulum purus. Nibh sapien arcu, urna lobortis commodo. Nunc consequat dui imperdiet vitae.</h6>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-lg-12">
+                           <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
                         </div>
                      </div>
                   </div>

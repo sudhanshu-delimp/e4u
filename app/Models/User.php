@@ -399,4 +399,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Escort::class, 'add_to_list', 'user_id', 'escort_id');
     }
 
+
+    
+
 }
