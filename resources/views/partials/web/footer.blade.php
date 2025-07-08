@@ -42,7 +42,7 @@
                <h4>Advertising Statement</h4>
                <p>The primary purpose of this Website is to permit adults to advertise their companionship to other adults.</p>
                <p>Escorts4U helps Advertisers and Users find each other, what happens after that connection is made is up to them. We are not a party to any agreement, or involved in any interaction, between Advertisers and Users.</p>
-               <p>Any price indicated in an Advertiser's Profile relates to their time only and nothing else. Any service offered or whatever else that may occur is a mutual decision between consenting adults and is private between them. It is your responsibility to be cognisant of and to comply with the Local Laws.</p><p>Further details may be found in the Terms and Conditions.</p>
+               <p>Any price indicated in an Advertiser's Profile relates to their time only and nothing else. Any service offered or whatever else that may occur is a mutual decision between consenting adults and is Private between them. It is your responsibility to be cognisant of and to comply with the Local Laws.</p><p>Further details may be found in the Terms and Conditions.</p>
             </div>
             @php
                $viewType = 'grid';
@@ -424,7 +424,7 @@
          <div class="popup-content">
             <div class="popup--header">
                <h2>Privacy Preference Center</h2>
-               <a id="close-popup" class="close-btn">×</a>
+               <a id="close-popup" class="close-btn"><img src="/assets/app/img/newcross.png" class="" alt="cross"></a>
             </div>
          <div class="popup--content--area">
             <p>When you visit any website, it may store or retrieve information on your browser, mostly in

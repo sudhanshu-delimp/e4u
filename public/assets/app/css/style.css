@@ -5565,6 +5565,9 @@ h2.custom--review img {
     width: max-content;
     cursor: pointer;
 }
+.custom--cookie--popup .close-btn img {
+    max-width: 19px;
+}
 
 .custom--cookie--popup .popup-content {
     background: white;
