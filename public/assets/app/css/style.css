@@ -2330,7 +2330,7 @@ a#grid-list {
     padding: 2rem 0;
 }
 
-.container {
+.custom--contain {
     max-width: 1400px;
     width: 100%;
 }
