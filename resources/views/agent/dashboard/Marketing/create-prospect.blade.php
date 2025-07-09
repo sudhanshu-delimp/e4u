@@ -3,33 +3,45 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid">
    <!--middle content end here-->{{-- Page Heading   --}}
-         <div class="row">
-            <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
-               <h1 class="h1">Create Prospect</h1>
-               <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
-            </div>
-            <div class="col-md-12 my-2">
-               <div class="card collapse" id="notes" style="">
-                  <div class="card-body">
-                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                     <ol>
-                        <li>You must create the Prospective Member here before you can create an
-                           Information Package for a Prospective Member.
-                        </li>
-                        <li>All Prospective Members remain in the list even after the Prospective Member
-                           becomes a Member.
-                        </li>
-                        <li>Click the 'View' button under Action to view a summary of the Prospective Member.</li>
-                     </ol>
-                  </div>
-               </div>
+   <div class="row">
+      <div class="custom-heading-wrapper col-lg-12">
+         <h1 class="h1">Create Prospect</h1>
+         <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+      </div>
+      <div class="col-md-12 mb-4">
+         <div class="card collapse" id="notes" style="">
+            <div class="card-body">
+               <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+               <ol>
+                  <li>You must create the Prospective Member here before you can create an
+                     Information Package for a Prospective Member.
+                  </li>
+                  <li>All Prospective Members remain in the list even after the Prospective Member
+                     becomes a Member.
+                  </li>
+                  <li>Click the 'View' button under Action to view a summary of the Prospective Member.</li>
+                  <p>
+                     <span>MC = Massage Centre
+                     </span>
+                     <span class="px-3">E = Escort</span>
+                     <span>AR = Agent Request
+                          
+                     </span>
+                     <span class="px-3">C = Cold call</span>
+                     <span>R = Referral</span>
+                     <span class="px-3">PM = Prospective Member</span>
+                     <span> M = Member</span>
+                  </p>
+               </ol>
             </div>
          </div>
-         {{-- end --}}
+      </div>
+   </div>
+   {{-- end --}}
    <div class="row">
-      <div class="col-md-12 mt-5">
+      <div class="col-md-12">
          <div class="row">
             <div class="col-lg-4 col-md-12 col-sm-12">
                <form class="search-form-bg navbar-search">
@@ -223,7 +235,7 @@
             </div>
          </div>
       </div>
-            <div class="col-md-12 mt-4">
+      {{-- <div class="col-md-12 mt-4">
          <div class="row">
             <div class="col-md-6 mb-2">
                <div class="card">
@@ -241,7 +253,7 @@
                </div>
             </div>
          </div>
-      </div>
+      </div> --}}
    </div>
 </div>
 

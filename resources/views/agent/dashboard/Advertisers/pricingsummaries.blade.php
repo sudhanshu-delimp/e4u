@@ -24,10 +24,10 @@
 <div id="wrapper">
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            <div class="container-fluid pl-3 pl-lg-5 custom--accordfee">
+            <div class="container-fluid custom--accordfee">
                 <!--middle content-->
                 <div class="row">
-                    <div class="col-md-9 p-0">
+                    <div class="col-md-9">
                         <!-- Begin Page Content -->
                         <div class="container-fluid" style="padding: 0px 0px;">
                             <!-- Page Heading -->
