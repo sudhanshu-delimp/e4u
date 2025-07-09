@@ -2,8 +2,10 @@
 @section('content')
 <div class="container-fluid">
    <!-- Page Heading -->
-   <div class="custom-heading-wrapper">
-      <h1 class="h1">Dashboard</h1>
+   <div class="row">
+      <div class="custom-heading-wrapper col-md-12">
+         <h1 class="h1">Dashboard</h1>
+      </div>
    </div>
    <div class="row agent-dash">
       <div class="col-lg-8 pr-2">
