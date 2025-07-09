@@ -31,7 +31,7 @@
                         <!-- Begin Page Content -->
                         <div class="container-fluid" style="padding: 0px 0px;">
                             <!-- Page Heading -->
-                            <div class="d-flex align-items-center justify-content-start custom-main-heading">
+                            <div class="custom-heading-wrapper">
                                 <h1 class="h1"> Pricing summary</h1>
                                  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                             </div>
