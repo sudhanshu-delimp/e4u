@@ -304,8 +304,8 @@
                             <h2 class="primery-color" style="line-height: 30px;">REGISTER NOW!</h2>
                         </div>
                         <div class="reg_now_pera">
-                            <p class="primery-color  pt-3">There are no fees when your create an Account. Fees only apply when you post a Profile or Tour where you are charged according to the number of days and the Membership Type you select (Book by the day!). See also <a href = "help-for-escorts" class="termsandconditions_text_color" >Help for Escorts</a></p>
-                            <p class="primery-color" >Massage Centres are also looked after with a uniquely designed Profile just for them.  List up to eight Masseurs on the one Profile.</p>
+                            <p class="  pt-3">There are no fees when your create an Account. Fees only apply when you post a Profile or Tour where you are charged according to the number of days and the Membership Type you select (Book by the day!). See also <a href = "help-for-escorts" class="termsandconditions_text_color" >Help for Escorts</a></p>
+                            <p class="" >Massage Centres are also looked after with a uniquely designed Profile just for them.  List up to eight Masseurs on the one Profile.</p>
                         </div>
                         </br>
                         <div class="padding">
