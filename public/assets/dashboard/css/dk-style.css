@@ -2514,6 +2514,14 @@
         color: #334D6E;
     }
     
+    .custom-heading-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 60px 0px 40px;
+        flex-wrap: wrap;
+    }
+    
     .v-main-heading h1 {
         font-family: Poppins;
         font-size: 42px;
@@ -4867,13 +4875,14 @@ padding-bottom:80px;
         font-size: 14px;
         color: #000;
     }
+    
     .custom-serve-date {
         min-width: 65px !important;
     }
+    
     .custom-availabletab {
         max-width: 100% !important;
     }
-
     /* post office new page style design db */
     
     .modal-dialog-custom {
