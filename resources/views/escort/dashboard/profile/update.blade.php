@@ -45,7 +45,7 @@
     </script>
 @endsection
 @section('content')
-    <div class="d-flex flex-column container-fluid pl-3 pl-lg-5">
+    <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="row">
             <div class="col-md-12">
                 @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
@@ -82,7 +82,7 @@
             </div>
         </div>
         <div id="content">
-            <div class="container-fluid">
+            <div class="container-fluid p-0">
                 <!--middle content-->
                 <div class="row">
                     <div class="col-md-12">

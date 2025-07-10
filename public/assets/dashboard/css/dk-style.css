@@ -65,6 +65,10 @@
         max-width: 20rem;
         width: 89%;
     }
+
+    span.menu-active {
+        color: #FF3C5F;
+    }
     
     .sidebar .nav-item .collapse .collapse-inner .collapse-item,
     .sidebar .nav-item .collapse .collapse-inner .collapse-item,
@@ -138,8 +142,11 @@
         background: #FF3C5F;
         color: #fff;
         border-radius: 0.35rem;
+        transition: 0.5s;
     }
-    
+    .nex_sterp_btn:disabled {
+        background: #ff3c5f94;
+    }
     .nex_sterp_btn i {
         color: #fff;
     }
@@ -862,6 +869,11 @@
     
     .myacording-design .card-header a {
         color: #0c223d;
+    }
+
+    .myacording-design {
+        width: 100%;
+        max-width: 900px;
     }
     /* New css 11march 2025 end */
     /*first tab about me section*/
@@ -2537,7 +2549,7 @@
         letter-spacing: 0em;
         text-align: left;
         margin-bottom: 20px;
-        padding-top: 60px;
+        padding-top: 50px;
         color: var(--blue--text);
         text-transform: capitalize;
     }

@@ -13,53 +13,8 @@
 </style> --}}
 @endsection
 @section('content')
-    <div class="container-fluid  pl-3 pl-lg-5 change-pass-sec">
-        <!--middle content start here-->
-        {{-- <div class="row">
-            <div class="col-sm-9 col-md-9 col-lg-9 ">
-            <div class="about_me_drop_down_info box_shadow_fill_profile">
-                <div class="about_me_heading_in_first_tab fill_profile_headings_global">
-                <h2>Update Account</h2>
-                </div>
-                <div class="padding_20_all_side">
-                <form id="userProfile" action="{{ route('escort.update.password')}}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                        <label for="exampleInputPassword1">Enter New Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Make sure you select something unique" name="password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-                        <div class="termsandconditions_text_color">
-                            <!-- error sms here -->
-                            @error('password')
-                            <strong>{{ $message }}</strong>
-                            @enderror
-                        </div>
-                        </div>
-                        <div class="form-group">
-                        <label for="conformPassword">{{ __('Confirm Password') }}</label>
-                        <input type="password" class="form-control" id="conformPassword" placeholder="Confirm Password" name="password_confirmation" data-parsley-equalto="#exampleInputPassword1" data-parsley-equalto-message="Conform password should be the same password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.conform_password')">
-                        <div class="termsandconditions_text_color">
-                            <!-- error sms here -->
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-
-
-                    <div class="row">
-                    <div class="col-md-12 text-right"><button type="submit" class="save_profile_btn" id="escort-form-submit-btn">Save</button></div>
-                    </div>
-                </form>
-                </div>
-            </div>
-
-
-            </div>
-        </div> --}}
-
-
-
+    <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5 change-pass-sec">
+       
         <div class="row">
             <div class="col-md-12">
                 <div class="v-main-heading">

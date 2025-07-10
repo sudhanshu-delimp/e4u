@@ -44,7 +44,7 @@
     </style>
 @endsection
 @section('content')
-    <div class="container-fluid pl-3 pl-lg-5">
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="v-main-heading h3" style="display: inline-block;">{{ ucfirst($type) }} Listings</div>

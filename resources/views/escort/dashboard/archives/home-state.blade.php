@@ -25,7 +25,7 @@
                 <div class="col-md-10">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="v-main-heading h3" style="display: inline-block; padding-top: 0;">Location </div>
+                            <div class="v-main-heading h3" style="display: inline-block;">Location </div>
                             <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
                         </div>
                     </div>
