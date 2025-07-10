@@ -1,27 +1,25 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Admin\ManagePeopleStaffController;
+use App\Http\Controllers\Admin\TaskController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\Auth\RegisterController;
+use App\Http\Controllers\User\Dashboard\UserController;
+use App\Http\Controllers\Center\CenterController;
+use App\Http\Controllers\Agent\AgentRegisterController;
+use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
+use Illuminate\Http\Request;
+use App\Http\Controllers\User\Auth\LoginController;
+use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
+use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
+use App\Http\Controllers\Escort\ConciergeController;
+use App\Http\Controllers\Escort\EscortController;
 use Illuminate\Support\Facades\Cookie;
-use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\SupportTicketsController;
+use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Mail\sendPlaymateAccountDisableMail;
 use App\Http\Controllers\ContactUsController;
-use App\Http\Controllers\Admin\TaskController;
-use App\Http\Controllers\Center\CenterController;
-use App\Http\Controllers\Escort\EscortController;
-use App\Http\Controllers\SupportTicketsController;
-use App\Http\Controllers\User\Auth\LoginController;
-use App\Http\Controllers\Escort\ConciergeController;
-use App\Http\Controllers\User\Auth\RegisterController;
-use App\Http\Controllers\Agent\AgentRegisterController;
-use App\Http\Controllers\User\Dashboard\UserController;
-use App\Http\Controllers\Viewer\ViewerPrefrenceController;
-use App\Http\Controllers\Admin\ManagePeopleStaffController;
-use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
-use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
-use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
-use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
+use App\Http\Controllers\BlogsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes    
@@ -35,164 +33,11 @@ use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegiste
 
 //Route::get('/', [RegisterController::class,'home'])->name('home');
 
-
-############## Guest Url ####################
-Route::middleware('guest')->group(function () {
-    
-    Route::get('/login', function () { return redirect('/');})->name('login');
-    Route::get('/advertiser-login', [AdvertiserLoginController::class,'index'])->name('advertiser.login');
-    Route::get('/viewer-login', [AdvertiserLoginController::class,'indexViewer'])->name('viewer.login');
-    Route::get('/agent-login', [AdvertiserLoginController::class,'indexAgent'])->name('agent.login');
-    Route::get('/register', [GuestRegisterController::class, 'showRegistrationForm'])->name('register');
-    Route::post('/register', [RegisterController::class,'register']);
-    
-});
-############## End Put All Guest Url Here ####################
-
-
-
-Route::middleware('auth')->group(function () {
-
-        ################ All Authencated User Url #################################
-        Route::prefix('user-dashboard')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('user.dashboard');
-        // Route::get('/edit-profile', [UserController::class, 'edit'])->name('user.edit');
-        Route::get('/update-account', [UserController::class, 'edit'])->name('user.account.edit');
-        Route::post('/update-account', [UserController::class, 'update'])->name('user.account.update');
-        Route::get('/upload-my-avatar', [UserController::class, 'uploadAvatar'])->name('user.profile.avatar');
-        Route::get('/change-password', [UserController::class, 'editPassword'])->name('user.change.password');
-        Route::post('/change-password', [UserController::class, 'updatePassword'])->name('user.update.password');
-        Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('user.update.password.expiry');
-        Route::get('/notifications-features', [UserController::class, 'notificationsFeatures'])->name('user.profile.notifications');
-        Route::post('upload-avatar/{id}',[UserController::class,'storeMyAvatar'])->name('user.save.avatar');
-        Route::post('remove-avatar',[UserController::class,'removeMyAvatar'])->name('user.avatar.remove');
-        Route::post('/update-profile/{id}', [UserController::class, 'update'])->name('user.update.profile');
-        Route::get('/update-available-playmate', [UserController::class, 'updateAvailablePlaymate'])->name('user.update.playmate');
-
-
-        Route::get('/escort-list', [UserController::class, 'myLegboxList'])->name('user.legbox.escort-list');
-        Route::get('/massagehttp://e4u.local/user-dashboard/view-and-reply-ticket-legbox-list', [UserController::class, 'massageLegboxList'])->name('user.massage.legbox.list');
-        Route::post('/save-my-legbox/{id}', [UserController::class, 'saveMyLegbox'])->name('user.save.legbox');
-        Route::post('/delete-my-legbox/{id}', [UserController::class, 'deleteMyLegbox'])->name('user.delete.legbox');
-        //massage legbox
-        Route::post('/save-my-massage-legbox/{id}', [UserController::class, 'saveMyMassageLegbox'])->name('user.save.massage.legbox');
-        Route::post('/delete-my-massage-legbox/{id}', [UserController::class, 'deleteMyMassageLegbox'])->name('user.delete.massage.legbox');
-
-        Route::get('/delete-legbox/{id}', [UserController::class, 'deleteLegbox'])->name('user.console.delete.legbox');
-        Route::get('/legbox-listing', [UserController::class, 'legboxDataTable'])->name('user.legbox.dataTable');
-        Route::get('/massage-legbox-listing', [UserController::class, 'legboxMassageDataTable'])->name('user.legbox.massagedataTable');
-
-
-        # Dashboard escort tasks
-        Route::get('/task-fetch',[TaskController::class,'fetchTask'])->name('dashboard.ajax-fetch-task');
-        Route::post('/task-add',[TaskController::class,'addTask'])->name('dashboard.ajax-add-task');
-        Route::post('/task-edit',[TaskController::class,'editTask'])->name('dashboard.ajax-edit-task');
-        Route::post('/task-update',[TaskController::class,'updateTask'])->name('dashboard.ajax-update-task');
-        Route::post('/task-status',[TaskController::class,'statusTask'])->name('dashboard.ajax-change-status');
-        Route::post('/task-open',[TaskController::class,'openTask'])->name('dashboard.ajax-open-task');
-        Route::post('/task-delete',[TaskController::class,'destroy'])->name('dashboard.ajax-delete-task');
-
-        Route::get('/my-legbox-notes',function(){
-            return view('user.dashboard.legbox.notes');
-        })->name('user.notes');
-
-        Route::get('/submitticket', function(){
-            return view('user.dashboard.supportticket.submitticket');
-        });
-        Route::get('/view-and-reply-ticket', function(){
-            return view('user.dashboard.supportticket.view-and-reply-ticket');
-        })->name('user.view-and-reply-ticket');
-
-        Route::get('/abbreviations',function(){
-            return view('user.dashboard.Community.abbreviations');
-        })->name('user.abbreviations');
-
-        Route::get('/communication',function(){
-            return view('user.dashboard.communication.advertiser');
-        })->name('user.advertiser');
-
-        Route::get('/laws',function(){
-            return view('user.dashboard.Community.laws');
-        })->name('user.laws');
-
-        Route::get('/Community',function(){
-            return view('user.dashboard.Community.help');
-        })->name('user.help');
-
-
-        Route::get('/viewer-statistics',function(){
-            return view('user.dashboard.viewer-statistics');
-        })->name('user.viewer-statistics');
-
-
-        Route::get('/my-legbox',function(){
-            return view('user.dashboard.my-legbox');
-        })->name('user.my-legbox');
-
-        Route::get('/favorites-online',function(){
-            return view('user.dashboard.favorites-online');
-        })->name('user.favorites-online');
-
-        Route::get('/punterbox',function(){
-            return view('user.dashboard.punterbox');
-        })->name('user.punterbox');
-
-        Route::get('/logs-and-statistics',function(){
-            return view('user.dashboard.logs-and-statistics');
-        })->name('user.logs-and-statistics');
-
-        Route::get('/my-statistics',function(){
-            return view('user.dashboard.my-statistics');
-        })->name('user.my-statistics');
-
-        Route::get('/task-list',function(){
-            return view('user.dashboard.task-list');
-        })->name('user.task-list');
-
-
-        Route::get('/guide',function(){
-            return view('user.dashboard.Community.guide');
-        })->name('user.guide');
-
-        Route::get('/notebox/new',function(){
-            return view('user.dashboard.notebox.new');
-        })->name('user.new');
-
-        Route::get('/notebox/list',function(){
-            return view('user.dashboard.notebox.list');
-        })->name('user.list');
-
-        Route::get('/punterbox/dashboard',function(){
-            return view('user.dashboard.punterbox.dashboard');
-        })->name('user.punterbox.dashboard');
-
-        Route::get('/punterbox/add-report',function(){
-            return view('user.dashboard.punterbox.add-report');
-        })->name('user.add-report');
-
-        Route::get('/punterbox/my-report',function(){
-            return view('user.dashboard.punterbox.my-report');
-        })->name('user.my-report');
-
-        Route::get('/punterbox/code-of-conduct',function(){
-            return view('user.dashboard.punterbox.code-of-conduct');
-        })->name('user.code-of-conduct');
-
-        Route::get('/change-features',[ViewerPrefrenceController::class, 'getViewerPrefrence'])->name('change-features');
-        Route::post('/viewer-prefrence',[ViewerPrefrenceController::class, 'setViewerPrefrence'])->name('set-viewer-preference');
-        Route::post('/logout', [LoginController::class,'logout'])->name('logout');
-        });
-        ################ End All Authencated User Url #################################
-
-});
-
-
-
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('state-name', [App\Http\Controllers\HomeController::class, 'getGioLocation'])->name('web.state.name');
-
 //Route::post('/ip-state', [HomeController::class,'ipTrack'])->name('home.ip.track')->middleware(['ipinfo']);
-// Auth::routes();
+
+Auth::routes();
 
 
 Route::get('/mail', function () {
@@ -213,7 +58,11 @@ Route::post('contact-us-send', [ContactUsController::class,'sendContact'])->name
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/login', [LoginController::class,'login'])->name('login')->middleware(['ipinfo']);
+
+Route::post('/register', [RegisterController::class,'register']);//->name('register.create');
+Route::post('/logout', [LoginController::class,'logout'])->name('logout');
+
+Route::post('/login', [LoginController::class,'login'])->name('login')->middleware(['ipinfo']);//function(){ echo "hlksdjflksdjf";});//
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'intendedRedirect'])->name('dashboard');
 
 Route::get('country-list',[App\Http\Controllers\CountryController::class,'countryList'])->name('country.list');
@@ -236,18 +85,18 @@ Route::get('/advertiser-register', [AdvertiserRegisterController::class,'index']
 Route::post('/advertiser-register', [AdvertiserRegisterController::class,'register']);
 Route::post('/check-otp', [AdvertiserLoginController::class,'checkOTP'])->name('web.checkOTP');
 
-
+Route::get('/advertiser-login', [AdvertiserLoginController::class,'index'])->name('advertiser.login');
 
 Route::get('/advertiser-forgot', [AdvertiserLoginController::class,'forgotpassword'])->name('advertiser.forgot');
 
-
+Route::get('/agent-login', [AdvertiserLoginController::class,'indexAgent'])->name('agent.login');
 // Route::get('/agent-forgot', [AdvertiserLoginController::class,'forgotpassword'])->name('agent.forgot');
 
 // Route::get('/forgotAgent', function(){
 // 	return view('agent.forgot');
 // })->name('agent.forgot');
 
-
+Route::get('/viewer-login', [AdvertiserLoginController::class,'indexViewer'])->name('viewer.login');
 Route::get('/viewer-forgot/{token?}', [AdvertiserLoginController::class,'viewerForgotPassword'])->name('viewer.forgot');
 Route::get('/agent-forgot/{token?}', [AdvertiserLoginController::class,'agentForgotPassword'])->name('agent.forgot');
 Route::get('/admin-forgot/{token?}', [AdvertiserLoginController::class,'adminForgotPassword'])->name('admin.forgot');
@@ -293,25 +142,72 @@ Route::get('admin-dashboard/e4u-database/escorts', function()
 	{
 		return view('admin.e4u-database.escorts');
 	})->name('admin.e4u-database.escorts');
-
-
-
-
+//  end shortlist
 /********** escort profile description **********/
 Route::get('/escort-profile/{id}/{city?}/{membershipId?}', [App\Http\Controllers\WebController::class,'profileDescription'])->name('profile.description');
 Route::get('/center-profile/{id}', [App\Http\Controllers\WebController::class,'centerProfileDescription'])->name('center.profile.description');
 Route::post('/store-message/{id}', [App\Http\Controllers\Escort\MessageReviewController::class,'saveMessage'])->name('store.message');
 Route::post('/review-advertiser/{id}', [App\Http\Controllers\Escort\MessageReviewController::class,'SaveReviewAdvertiser'])->name('review.advertiser');
 /*************User *********************/
+Route::group(['prefix' => 'user-dashboard'], function() {
+Route::get('/', [UserController::class, 'index'])->name('user.dashboard');
+// Route::get('/edit-profile', [UserController::class, 'edit'])->name('user.edit');
+Route::get('/update-account', [UserController::class, 'edit'])->name('user.account.edit');
+Route::post('/update-account', [UserController::class, 'update'])->name('user.account.update');
+Route::get('/upload-my-avatar', [UserController::class, 'uploadAvatar'])->name('user.profile.avatar');
+Route::get('/change-password', [UserController::class, 'editPassword'])->name('user.change.password');
+Route::post('/change-password', [UserController::class, 'updatePassword'])->name('user.update.password');
+Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('user.update.password.expiry');
+Route::get('/notifications-features', [UserController::class, 'notificationsFeatures'])->name('user.profile.notifications');
+Route::post('upload-avatar/{id}',[UserController::class,'storeMyAvatar'])->name('user.save.avatar');
+Route::post('remove-avatar',[UserController::class,'removeMyAvatar'])->name('user.avatar.remove');
+Route::post('/update-profile/{id}', [UserController::class, 'update'])->name('user.update.profile');
+Route::get('/update-available-playmate', [UserController::class, 'updateAvailablePlaymate'])->name('user.update.playmate');
 
+
+Route::get('/escort-list', [UserController::class, 'myLegboxList'])->name('user.legbox.escort-list');
+Route::get('/massage-legbox-list', [UserController::class, 'massageLegboxList'])->name('user.massage.legbox.list');
+Route::post('/save-my-legbox/{id}', [UserController::class, 'saveMyLegbox'])->name('user.save.legbox');
+Route::post('/delete-my-legbox/{id}', [UserController::class, 'deleteMyLegbox'])->name('user.delete.legbox');
+//massage legbox
+Route::post('/save-my-massage-legbox/{id}', [UserController::class, 'saveMyMassageLegbox'])->name('user.save.massage.legbox');
+Route::post('/delete-my-massage-legbox/{id}', [UserController::class, 'deleteMyMassageLegbox'])->name('user.delete.massage.legbox');
+
+Route::get('/delete-legbox/{id}', [UserController::class, 'deleteLegbox'])->name('user.console.delete.legbox');
+Route::get('/legbox-listing', [UserController::class, 'legboxDataTable'])->name('user.legbox.dataTable');
+Route::get('/massage-legbox-listing', [UserController::class, 'legboxMassageDataTable'])->name('user.legbox.massagedataTable');
+// function(){
+//  	return view('user.dashboard.legbox.list');
+// });
+
+# Dashboard escort tasks
+Route::get('/task-fetch',[TaskController::class,'fetchTask'])->name('dashboard.ajax-fetch-task');
+Route::post('/task-add',[TaskController::class,'addTask'])->name('dashboard.ajax-add-task');
+Route::post('/task-edit',[TaskController::class,'editTask'])->name('dashboard.ajax-edit-task');
+Route::post('/task-update',[TaskController::class,'updateTask'])->name('dashboard.ajax-update-task');
+Route::post('/task-status',[TaskController::class,'statusTask'])->name('dashboard.ajax-change-status');
+Route::post('/task-open',[TaskController::class,'openTask'])->name('dashboard.ajax-open-task');
+Route::post('/task-delete',[TaskController::class,'destroy'])->name('dashboard.ajax-delete-task');
+
+Route::get('/user-dashboard/my-legbox-notes',function(){
+    return view('user.dashboard.legbox.notes');
+})->name('user.notes');
+
+});
 
 Route::get('/page/{slug}', [App\Http\Controllers\WebController::class,'showFooterLink'])->name('page.show');
-Route::get('/acceptable-usage-policy', function() { return view('web.pages.acceptable-use-policy');  });
 
 //Route::get('/acceptable-usage-policy',[App\Http\Controllers\WebController::class,'usagePolicy']);
+Route::get('/acceptable-usage-policy', function() { return view('web.pages.acceptable-use-policy');  });
+// 	function() {
+// 	$value = Cookie::queue('name', 'value', 10);
+// 	 //$request->cookie('agreementmmm');
+// 	dd($value);
+// 	//$value = '';
+// 	return view('web.pages.acceptable-use-policy',compact('value'));
+
+// });
 //Route::get('/acceptable-use-policy', function() { return view('web.pages.policynew'); });
-
-
 Route::get('/acceptable-usages-policy', function() { return view('web.pages.acceptable-usages-policy'); });
 Route::get('/copyright-statement', function() { return view('web.pages.copyright-statement'); });
 Route::get('/covid-19-statement', function() {  return view('web.pages.covid-19-statement'); });
@@ -378,7 +274,6 @@ Route::post('/add-to-massage-shortlist/{id}', [App\Http\Controllers\WebControlle
 Route::post('/massage-shortlist', [App\Http\Controllers\WebController::class,'saveMcShortList'])->name('web.save.mc.shortlist');
 Route::post('/remove-massage-shortlist', [App\Http\Controllers\WebController::class,'removeToMcCart'])->name('web.remove.mcMyShortListCart');
 Route::get('/massage-show-list', [App\Http\Controllers\WebController::class,'mcMyShortList'])->name('web.massage-show-list');
-
 // Route::get('/massage-show-list', function()
 // 	{
 // 		return view('web.massage-show-list');
@@ -388,7 +283,12 @@ Route::get('pricing',function(){
     return view('user.dashboard.Community.pricing');
 })->name('user.dashboard.Community.pricing');
 
-
+Route::get('/user-dashboard/submitticket', function(){
+	return view('user.dashboard.supportticket.submitticket');
+});
+Route::get('/user-dashboard/view-and-reply-ticket', function(){
+	return view('user.dashboard.supportticket.view-and-reply-ticket');
+})->name('user.view-and-reply-ticket');
 
 Route::get('agent-dashboard/submitticket', function(){
 	return view('agent.dashboard.supportticket.submitticket');
@@ -398,7 +298,13 @@ Route::get('/agent-dashboard/abbreviations',function(){
     return view('agent.dashboard.Community.abbreviations');
 })->name('agent.abbreviations');
 
+Route::get('/user-dashboard/abbreviations',function(){
+    return view('user.dashboard.Community.abbreviations');
+})->name('user.abbreviations');
 
+Route::get('/user-dashboard/communication',function(){
+    return view('user.dashboard.communication.advertiser');
+})->name('user.advertiser');
 
 Route::get('/escort-dashboard/customise-dashboard',function(){
     return view('escort.dashboard.customise-dashboard');
@@ -454,7 +360,13 @@ Route::get('/escort-dashboard/laws',function(){
     return view('escort.dashboard.Community.laws');
 })->name('escort.dashboard.Community.laws');
 
+Route::get('/user-dashboard/laws',function(){
+    return view('user.dashboard.Community.laws');
+})->name('user.laws');
 
+Route::get('/user-dashboard/Community',function(){
+    return view('user.dashboard.Community.help');
+})->name('user.help');
 
 Route::get('/agent-dashboard/help',function(){
     return view('agent.dashboard.Community.help');
@@ -478,11 +390,73 @@ Route::get('/agent-dashboard/notifications-features',function(){
 
 
 
+Route::get('/user-dashboard/viewer-statistics',function(){
+    return view('user.dashboard.viewer-statistics');
+})->name('user.viewer-statistics');
+
+
+Route::get('/user-dashboard/my-legbox',function(){
+    return view('user.dashboard.my-legbox');
+})->name('user.my-legbox');
+
+Route::get('/user-dashboard/favorites-online',function(){
+    return view('user.dashboard.favorites-online');
+})->name('user.favorites-online');
+
+Route::get('/user-dashboard/punterbox',function(){
+    return view('user.dashboard.punterbox');
+})->name('user.punterbox');
+
+Route::get('/user-dashboard/logs-and-statistics',function(){
+    return view('user.dashboard.logs-and-statistics');
+})->name('user.logs-and-statistics');
+
+Route::get('/user-dashboard/my-statistics',function(){
+    return view('user.dashboard.my-statistics');
+})->name('user.my-statistics');
+
+Route::get('/user-dashboard/task-list',function(){
+    return view('user.dashboard.task-list');
+})->name('user.task-list');
+
+
+Route::get('/user-dashboard/guide',function(){
+    return view('user.dashboard.Community.guide');
+})->name('user.guide');
+
+Route::get('/user-dashboard/notebox/new',function(){
+    return view('user.dashboard.notebox.new');
+})->name('user.new');
+
+Route::get('/user-dashboard/notebox/list',function(){
+    return view('user.dashboard.notebox.list');
+})->name('user.list');
+
+
+
+Route::get('/user-dashboard/punterbox/dashboard',function(){
+    return view('user.dashboard.punterbox.dashboard');
+})->name('user.punterbox.dashboard');
+
+Route::get('/user-dashboard/punterbox/add-report',function(){
+    return view('user.dashboard.punterbox.add-report');
+})->name('user.add-report');
+
+Route::get('/user-dashboard/punterbox/my-report',function(){
+    return view('user.dashboard.punterbox.my-report');
+})->name('user.my-report');
+
+Route::get('/user-dashboard/punterbox/code-of-conduct',function(){
+    return view('user.dashboard.punterbox.code-of-conduct');
+})->name('user.code-of-conduct');
 
 Route::get('/upload-avatar',function(){
     return view('user.upload-avatar');
 })->name('upload.avatar');
 
+Route::get('/user-dashboard/change-features',[ViewerPrefrenceController::class, 'getViewerPrefrence'])->name('change-features');
+
+Route::post('/user-dashboard/viewer-prefrence',[ViewerPrefrenceController::class, 'setViewerPrefrence'])->name('set-viewer-preference');
 
 Route::get('admin-dashboard/alerts/new', function(){
         return view('admin.alerts.new');

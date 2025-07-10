@@ -70,8 +70,8 @@
                             <th>Priority</th>
                             <th>Service Type</th>
                             <th>Subject</th>
-                            <th>Message</th>
                             <th>Date Created</th>
+                            <th>Document</th>
                             <th>Status</th>
                             <!--<th>Joined E4U</th>-->
                             <th>Action</th>
@@ -114,6 +114,7 @@
                 <div class="modal-footer" style="border-top: 1px solid;">
                     <form id="sendMessage">
                         <textarea class="messageBox" name="message" id="message" rows="4" cols="50" required></textarea>
+                        <input type="hidden" name="ticketId"  id="ticketId" value=""> 
                         <button class="btn btn-info" id="submit_message">Send</button>
                     </form>
                 </div>
@@ -133,40 +134,47 @@
         }
     });
     $(document).ready(function () {
+
     var table = $("#supportTicketsTable").DataTable({
-        "language": {
-            "zeroRecords": "No record(s) found."
+        language: {
+            zeroRecords: "No record(s) found."
         },
         processing: true,
         serverSide: true,
         lengthChange: true,
-        searchable: false,
         searching: true,
         bStateSave: false,
 
         ajax: {
             url: "{{ route('support-ticket.dataTable') }}",
+            type: 'GET',
             data: function (d) {
                 d.type = 'player';
+                // You can add additional filters here if needed
             }
         },
+
         columns: [
-            { data: 'id', name: 'id', searchable: true, orderable: true, defaultContent: 'NA' },
-            { data: 'department', name: 'department', searchable: true, orderable: true, defaultContent: 'NA' },
-            { data: 'priority', name: 'priority', searchable: true, orderable: true, defaultContent: 'NA' },
-            { data: 'service_type', name: 'service_type', searchable: false, orderable: true, defaultContent: 'NA' },
-            { data: 'subject', name: 'start_date', searchable: true, orderable: true, defaultContent: 'NA' },
-            { data: 'message', name: 'enabled', searchable: false, orderable: true, defaultContent: 'NA' },
-            { data: 'created_on', name: 'date_created', searchable: false, orderable: true, defaultContent: 'NA' },
-            { data: 'status_mod', name: 'status', searchable: false, orderable: true, defaultContent: 'NA' },
-            { data: 'action', name: 'edit', searchable: false, orderable: false, defaultContent: 'NA' },
+            { data: 'ref_number', name: 'ref_number', orderable: true, defaultContent: 'NA' },
+            { data: 'department', name: 'department', orderable: true, defaultContent: 'NA' },
+            { data: 'priority', name: 'priority', orderable: true, defaultContent: 'NA' },
+            { data: 'service_type', name: 'service_type', orderable: true, defaultContent: 'NA' },
+            { data: 'subject', name: 'subject', orderable: true, defaultContent: 'NA' },
+            { data: 'created_on', name: 'created_on', orderable: true, defaultContent: 'NA' },
+            { data: 'file', name: 'file', orderable: true, defaultContent: 'NA' },
+            { data: 'status_mod', name: 'status_mod', orderable: true, defaultContent: 'NA' },
+            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
         ],
-        order: [6, 'desc']
+
+        order: [[6, 'desc']], // Default sort by created_on descending
+
+        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+        pageLength: 10,
     });
 
     // ✅ Add placeholder to search input
     $('#supportTicketsTable').on('init.dt', function () {
-        $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by ID or Profile Name');
+        $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search Ticket');
     });
 
     // 🟠 Cancel Ticket
@@ -236,7 +244,7 @@
                if(data.status_id == 3 || data.status_id == 4) {
                    $("#sendMessage").parent().hide();
                }
-               var modalHeading = "<b>"+data.subject+'</b> - '+ data.created_on +'<br>';
+               var modalHeading = "<b>"+data.subject+'</b> - '+ date_time_format(data.created_on) +'<br>';
                // "<span>"+data.user.name+'</span> ( '+ data.user.member_id +')';
                $("#ticket_name").html(modalHeading);
                var html = '<div class="col-sm-6 conversation"> </div>' +
@@ -245,7 +253,7 @@
                    '    <div class="userMessage">' +
                    '       <p>'+data.message+'</p>'+
                    '   </div>'+
-                   '       <span class="message_time">'+data.created_on+'</span>'+
+                   '       <span class="message_time">'+date_time_format(data.created_on)+'</span>'+
                    '</div>';
                $(data.conversations).each(function( index, conversation ) {
                    if(conversation.admin_id) {
@@ -254,7 +262,7 @@
                            '    <div class="adminMessage">' +
                            '       <p>'+conversation.message+'</p>'+
                            '   </div>'+
-                           '       <span class="message_time">'+conversation.date_time+'</span>'+
+                           '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
                            '</div>'+
                            // '<div class="col-sm-6 conversation"> </div>' +
                            '<div class="col-sm-6 conversation"> </div>';
@@ -265,11 +273,12 @@
                            '    <div class="userMessage">' +
                            '       <p>'+conversation.message+'</p>'+
                            '   </div>'+
-                           '       <span class="message_time">'+conversation.date_time+'</span>'+
+                           '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
                            '</div>';
                    }
                });
                $("#conv-main").html(html);
+                $("#ticketId").val(tId);
            }
        })
    }
@@ -281,8 +290,8 @@
             method: "POST",
             dataType: "json",
             data: {
-                ticketId: ticketId,
-                message: message
+                message: message,
+                ticketId: $("#ticketId").val(),
             },
             url: "{{ route('support-ticket.saveMessage') }}",
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},

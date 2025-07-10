@@ -35,7 +35,7 @@
                     <?php
 
                     ?>
-                    <select class="form-control" name="priority">
+                    <select class="form-control" name="priority" >
                         @foreach(config('common.supportTicket.priorities') as $priority)
                             <option value="{{$priority}}">{{$priority}}</option>
                         @endforeach
@@ -43,7 +43,7 @@
                 </div>
                 <div class="form-group">
                     <label for="sel1"><b>Service type</b></label>
-                    <select class="form-control" name="service_type">
+                    <select class="form-control" name="service_type" required>
                         <option id="placeholder" selected="" disabled="" value="">Choose Service</option>
                         @foreach(config("$prefix.supportTicket.services") as $service)
                             <option value="{{$service}}">{{$service}}</option>
@@ -52,11 +52,11 @@
                 </div>
                 <div class="form-group">
                     <label for="sel1"><b>Subject</b></label>
-                    <input type="text" class="form-control" placeholder=" " name="subject" value="" />
+                    <input type="text" class="form-control" placeholder=" " name="subject"   required/>
                 </div>
                 <div class="form-group">
                     <label for="sel1"><b>Message</b></label>
-                    <textarea class="form-control" rows="5" id="comment" name="message"></textarea>
+                    <textarea class="form-control" rows="5" id="comment" name="message" required></textarea>
                 </div>
 
                 <div class="form-group">
@@ -71,10 +71,19 @@
                 </div>
 
 
-                <input type="submit" name="submit" class="btn btn-primary create-tour-sec dctour mt-3"
+                <input type="submit" name="submit" id="submitTicketBtn" class="btn btn-primary create-tour-sec dctour mt-3"
                        value="Submit ticket">
             </form>
         </div>
     </div>
     <!--middle content end here-->
 </div>
+<script>
+$(document).ready(function() {
+   $('#supportTicket').on('submit', function() {
+        $('#submitTicketBtn')
+            .prop('disabled', true)
+            .val('Sending please wait...');
+    });
+});
+</script>
