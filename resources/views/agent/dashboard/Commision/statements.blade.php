@@ -3,16 +3,16 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid">
    <!--middle content end here-->
   
    <div class="row">
        {{-- Page Heading   --}}
-      <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+      <div class="custom-heading-wrapper col-lg-12">
          <h1 class="h1">Commission Statement</h1>
          <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
       </div>
-      <div class="col-md-12 my-2">
+      <div class="col-md-12 mb-4">
          <div class="card collapse" id="notes" style="">
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
@@ -50,7 +50,99 @@
       </div>
    </div>
    {{-- end --}}
-      <div class="col-md-12 mt-4">
+  <div class="row">
+      <div class="col-md-6">
+         <div class="card Summary mb-4">
+            <div class="card-body pb-0">
+               <p><b>Agent Details</b> </p>
+               <ul class="mb-2">
+                  <li class="text-capitalize"><b style="color: #5D6D7E;">Name:</b>Well Done Accounts</li>
+                  <li><b style="color: #5D6D7E;">Contact:</b>Ava Lopez</li>
+                  <li><b style="color: #5D6D7E;">ABN:</b>83 517 839 569</li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-12">
+         
+         <div class="table-responsive-xl">
+            <table class="table">
+               <thead class="table-bg">
+                  <tr>
+                     <th scope="col">Date</th>
+                     <th scope="col">Billing Period</th>
+                     <th scope="col">Agent ID</th>
+                     <th scope="col">Territory</th>
+                     <th scope="col">Commission</th>
+                     <th scope="col">Status</th>
+                     <th scope="col">Action</th>
+                  </tr>
+               </thead>
+               <tbody class="table-content">
+                  <tr class="row-color">
+                     <td class="theme-color">28-06-22</td>
+                     <td class="theme-color">28-05-22 to 27-06-22</td>
+                     <td class="theme-color">A600025</td>
+                     <td class="theme-color">WA</td>
+                     <td class="theme-color">$ 5,678.50</td>
+                     <td class="theme-color">Approved</td>
+                     <td class="theme-color">
+                        <div class="dropdown no-arrow">
+                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                           </a>
+                           <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#">Approve</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#commission-report">View Report</a>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+                  <tr class="row-color">
+                     <td class="theme-color">28-06-22</td>
+                     <td class="theme-color">28-05-22 to 27-06-22</td>
+                     <td class="theme-color">A600025</td>
+                     <td class="theme-color">WA</td>
+                     <td class="theme-color">$ 5,678.50</td>
+                     <td class="theme-color">Pending</td>
+                     <td class="theme-color">
+                        <div class="dropdown no-arrow">
+                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                           </a>
+                           <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#">Approve</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#commission-report">View Report</a>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+            <nav aria-label="Page navigation example">
+               <ul class="pagination float-right pt-4">
+                  <li class="page-item">
+                     <a class="page-link" href="#" aria-label="Previous">
+                     <span aria-hidden="true">«</span>
+                     <span class="sr-only">Previous</span>
+                     </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                     <a class="page-link" href="#" aria-label="Next">
+                     <span aria-hidden="true">»</span>
+                     <span class="sr-only">Next</span>
+                     </a>
+                  </li>
+               </ul>
+            </nav>
+         </div>
+      </div>
+      <div class="col-md-12">
          {{-- <div class="row">
             <div class="col-md-9 pl-0">
                <div id="accordion" class="myacording-design">
@@ -100,102 +192,9 @@
                </div>
             </div>
          </div> --}}
-         <div class="row pt-2 pb-2">
-            <div class="col-md-6 mb-2 pl-0">
-               <div class="card Summary">
-                  <div class="card-body pb-0">
-                     <p><b>Agent Details</b> </p>
-                     <ul class="mb-2">
-                        <li class="text-capitalize"><b style="color: #5D6D7E;">Name:</b>Well Done Accounts</li>
-                        <li><b style="color: #5D6D7E;">Contact:</b>Ava Lopez</li>
-                        <li><b style="color: #5D6D7E;">ABN:</b>83 517 839 569</li>
-                     </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="row">
-            <div class="col-md-9 pl-0 mt-2">
-               <div class="table-responsive-xl">
-                  <table class="table">
-                     <thead class="table-bg">
-                        <tr>
-                           <th scope="col">Date</th>
-                           <th scope="col">Billing Period</th>
-                           <th scope="col">Agent ID</th>
-                           <th scope="col">Territory</th>
-                           <th scope="col">Commission</th>
-                           <th scope="col">Status</th>
-                           <th scope="col">Action</th>
-                        </tr>
-                     </thead>
-                     <tbody class="table-content">
-                        <tr class="row-color">
-                           <td class="theme-color">28-06-22</td>
-                           <td class="theme-color">28-05-22 to 27-06-22</td>
-                           <td class="theme-color">A600025</td>
-                           <td class="theme-color">WA</td>
-                           <td class="theme-color">$ 5,678.50</td>
-                           <td class="theme-color">Approved</td>
-                           <td class="theme-color">
-                              <div class="dropdown no-arrow">
-                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                 </a>
-                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#">Approve</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#commission-report">View Report</a>
-                                 </div>
-                              </div>
-                           </td>
-                        </tr>
-                        <tr class="row-color">
-                           <td class="theme-color">28-06-22</td>
-                           <td class="theme-color">28-05-22 to 27-06-22</td>
-                           <td class="theme-color">A600025</td>
-                           <td class="theme-color">WA</td>
-                           <td class="theme-color">$ 5,678.50</td>
-                           <td class="theme-color">Pending</td>
-                           <td class="theme-color">
-                              <div class="dropdown no-arrow">
-                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                 </a>
-                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#">Approve</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#commission-report">View Report</a>
-                                 </div>
-                              </div>
-                           </td>
-                        </tr>
-                     </tbody>
-                  </table>
-                  <nav aria-label="Page navigation example">
-                     <ul class="pagination float-right pt-4">
-                        <li class="page-item">
-                           <a class="page-link" href="#" aria-label="Previous">
-                           <span aria-hidden="true">«</span>
-                           <span class="sr-only">Previous</span>
-                           </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                           <a class="page-link" href="#" aria-label="Next">
-                           <span aria-hidden="true">»</span>
-                           <span class="sr-only">Next</span>
-                           </a>
-                        </li>
-                     </ul>
-                  </nav>
-               </div>
-            </div>
-         </div>
       </div>
    </div>
+  </div>
 </div>
 <div class="modal fade upload-modal" id="commission-report" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 886px !important;">

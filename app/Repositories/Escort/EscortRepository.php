@@ -131,7 +131,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                     $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
                 },
                 'suspendProfile' => function ($query) {
-                    $today = Carbon::today();
+                    $today = Carbon::now(config('app.timezone'));
                     $query->whereDate('start_date', '<=', $today)
                         ->whereDate('end_date', '>=', $today)
                         ->where('status', true);
@@ -249,15 +249,21 @@ class EscortRepository extends BaseRepository implements EscortInterface
             if (!empty($itemArray['suspend_profile']) && isset($itemArray['suspend_profile'][0])) {
                 $suspend = $itemArray['suspend_profile'][0];
 
-                $startDate = Carbon::parse($suspend['start_date'])->setTimezone(config('app.escort_server_timezone'));
-                $endDate = Carbon::parse($suspend['end_date'])->setTimezone(config('app.escort_server_timezone'));
-                $createdAt = Carbon::parse($suspend['created_at'])->setTimezone(config('app.escort_server_timezone'));
+                # get timezone of escort
+                $escortTimezone = config('app.escort_server_timezone');
+                if($item && $item->state_id && $item->city_id){
+                    $escortTimezone = config('escorts.profile.states')[$item->state_id]['cities'][$item->city_id]['timeZone'];
+                }
 
-                if (Carbon::now(config('app.escort_server_timezone'))->greaterThanOrEqualTo($startDate) && Carbon::now(config('app.escort_server_timezone'))->lessThanOrEqualTo($endDate)) {
+                $startDate = Carbon::parse($suspend['start_date'])->setTimezone($escortTimezone);
+                $endDate = Carbon::parse($suspend['end_date'])->setTimezone($escortTimezone);
+                $createdAt = Carbon::parse($suspend['created_at'])->setTimezone($escortTimezone);
+
+                if (Carbon::now($escortTimezone)->greaterThanOrEqualTo($startDate) && Carbon::now($escortTimezone)->lessThanOrEqualTo($endDate)) {
                     $item->pro_name = '<span id="brb_' . $item->id . '">' .
                         $item->profile_name .
                         " <sup title='Suspended on " . $createdAt->format('d-m-Y h:i A') .
-                        "' class='brb_icon' style='background-color: #d2730a;'>SUS</sup></span>";
+                        "' class='brb_icon' style='background-color: #2653d4;'>SUS</sup></span>";
                 }
             }
 

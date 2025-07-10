@@ -104,7 +104,8 @@ class Escort extends Model
 
     public function likes()
     {
-        return $this->belongsTo('App\Models\EscortLike', 'escort_id');
+        return $this->hasMany(EscortLike::class, 'escort_id');
+        //return $this->belongsTo('App\Models\EscortLike', 'escort_id');
     }
 
     public function payments()

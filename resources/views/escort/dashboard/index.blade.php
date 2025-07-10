@@ -1,6 +1,6 @@
 @extends('layouts.escort')
 @section('content')
-    <div class="container-fluid pl-lg-4">
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <!-- Page Heading -->
         <div class="row">
             <div class="col-md-12">

@@ -1641,11 +1641,11 @@
 <!-- model end here 1-->
 <!-- Report advertiser model start here 2-->
 <div class="modal fade ss" id="sendcarlat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color">
                 <img src="{{ asset('assets/app/img/alert.png') }}" class="img_resize_in_smscreen pr-3">
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Report  {{$escort->name}} to our team.
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Report  {{$escort->name}} to our team
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">
@@ -1661,9 +1661,9 @@
                         <div class="col">
                             <ol>
                                 <li>Only report if you had direct contact with the Escort.</li>
-                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended.
-                                Only genuine reports will be considered.</li>
-                                <li>The Advertisers Membership Number will automatically attach to this report.</li>
+                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended.</li>
+                                <li>The Advertiser’s Membership Number will automatically attach to this report.</li>
+                                <li>You will receive a notification when this report has been resolved.</li>
                             </ol>
                         </div>
                     </div>
@@ -1671,7 +1671,7 @@
                         <div class="col">
                             <div class="form-group popup_massage_box">
                                 <label for="exampleFormControlTextarea1">What is wrong:</label>
-                                <textarea name="description" class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="3" placeholder="Message (500 characters)"></textarea>
+                                <textarea name="description" class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="3" placeholder="Message (250 characters)"></textarea>
                             </div>
                         </div>
                     </div>

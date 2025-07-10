@@ -9,16 +9,16 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid">
     <!--middle content end here-->
     
     <div class="row">
         {{-- Page Heading   --}}
-        <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+        <div class="custom-heading-wrapper col-lg-12">
            <h1 class="h1">Bank Account</h1>
            <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
         </div>
-        <div class="col-md-12 my-2">
+        <div class="col-md-12 mb-4">
            <div class="card collapse" id="notes" style="">
               <div class="card-body">
                  <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
@@ -36,9 +36,9 @@
            </div>
         </div>
      {{-- end --}}
-        <div class="col-md-12 mt-4">
+        <div class="col-md-12">
             <div class="row pt-2 pb-2">
-                <div class="col-md-9 mb-2 pl-0">
+                <div class="col-md-12 mb-2">
                     <div class="card Summary">
                         <div class="card-body pb-0">
                             <p><b>Agent Details</b> </p>
@@ -52,14 +52,14 @@
                 </div>
             </div>
             <div class="row mb-2">
-                <div class="col-lg-9 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="bothsearch-form">
                         <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New</button>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-9 pl-0 mt-2">
+                <div class="col-md-12 mt-2">
                     <div id="table-sec" class="table-responsive-xl">
                         <table class="table" id="myTable">
                             <thead class="table-bg">

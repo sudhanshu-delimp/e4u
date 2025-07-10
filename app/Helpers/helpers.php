@@ -270,3 +270,23 @@ if (!function_exists('calculateFee')) {
         return [$total_dis, $total_rate];
     }
 }
+
+if (!function_exists('getRatingLabel')) {
+    
+    function getRatingLabel($percentage)
+    {
+        if ($percentage >= 90) {
+            return 'Excellent';
+        } elseif ($percentage >= 75) {
+            return 'Very Good';
+        } elseif ($percentage >= 60) {
+            return 'Good';
+        } elseif ($percentage >= 40) {
+            return 'Average';
+        } elseif ($percentage >= 20) {
+            return 'Poor';
+        } else {
+            return 'Very Poor';
+        }
+    }
+}
