@@ -114,6 +114,7 @@
                 <div class="modal-footer" style="border-top: 1px solid;">
                     <form id="sendMessage">
                         <textarea class="messageBox" name="message" id="message" rows="4" cols="50" required></textarea>
+                        <input type="hidden" name="ticketId"  id="ticketId" value=""> 
                         <button class="btn btn-info" id="submit_message">Send</button>
                     </form>
                 </div>
@@ -243,7 +244,7 @@
                if(data.status_id == 3 || data.status_id == 4) {
                    $("#sendMessage").parent().hide();
                }
-               var modalHeading = "<b>"+data.subject+'</b> - '+ data.created_on +'<br>';
+               var modalHeading = "<b>"+data.subject+'</b> - '+ date_time_format(data.created_on) +'<br>';
                // "<span>"+data.user.name+'</span> ( '+ data.user.member_id +')';
                $("#ticket_name").html(modalHeading);
                var html = '<div class="col-sm-6 conversation"> </div>' +
@@ -252,7 +253,7 @@
                    '    <div class="userMessage">' +
                    '       <p>'+data.message+'</p>'+
                    '   </div>'+
-                   '       <span class="message_time">'+data.created_on+'</span>'+
+                   '       <span class="message_time">'+date_time_format(data.created_on)+'</span>'+
                    '</div>';
                $(data.conversations).each(function( index, conversation ) {
                    if(conversation.admin_id) {
@@ -261,7 +262,7 @@
                            '    <div class="adminMessage">' +
                            '       <p>'+conversation.message+'</p>'+
                            '   </div>'+
-                           '       <span class="message_time">'+conversation.date_time+'</span>'+
+                           '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
                            '</div>'+
                            // '<div class="col-sm-6 conversation"> </div>' +
                            '<div class="col-sm-6 conversation"> </div>';
@@ -272,11 +273,12 @@
                            '    <div class="userMessage">' +
                            '       <p>'+conversation.message+'</p>'+
                            '   </div>'+
-                           '       <span class="message_time">'+conversation.date_time+'</span>'+
+                           '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
                            '</div>';
                    }
                });
                $("#conv-main").html(html);
+                $("#ticketId").val(tId);
            }
        })
    }
@@ -288,8 +290,8 @@
             method: "POST",
             dataType: "json",
             data: {
-                ticketId: ticketId,
-                message: message
+                message: message,
+                ticketId: $("#ticketId").val(),
             },
             url: "{{ route('support-ticket.saveMessage') }}",
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
