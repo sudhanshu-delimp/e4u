@@ -70,8 +70,8 @@
                             <th>Priority</th>
                             <th>Service Type</th>
                             <th>Subject</th>
-                            <th>Message</th>
                             <th>Date Created</th>
+                            <th>Document</th>
                             <th>Status</th>
                             <!--<th>Joined E4U</th>-->
                             <th>Action</th>
@@ -133,35 +133,42 @@
         }
     });
     $(document).ready(function () {
+
     var table = $("#supportTicketsTable").DataTable({
-        "language": {
-            "zeroRecords": "No record(s) found."
+        language: {
+            zeroRecords: "No record(s) found."
         },
         processing: true,
         serverSide: true,
         lengthChange: true,
-        searchable: false,
         searching: true,
         bStateSave: false,
 
         ajax: {
             url: "{{ route('support-ticket.dataTable') }}",
+            type: 'GET',
             data: function (d) {
                 d.type = 'player';
+                // You can add additional filters here if needed
             }
         },
+
         columns: [
-            { data: 'id', name: 'id', searchable: true, orderable: true, defaultContent: 'NA' },
-            { data: 'department', name: 'department', searchable: true, orderable: true, defaultContent: 'NA' },
-            { data: 'priority', name: 'priority', searchable: true, orderable: true, defaultContent: 'NA' },
-            { data: 'service_type', name: 'service_type', searchable: false, orderable: true, defaultContent: 'NA' },
-            { data: 'subject', name: 'start_date', searchable: true, orderable: true, defaultContent: 'NA' },
-            { data: 'message', name: 'enabled', searchable: false, orderable: true, defaultContent: 'NA' },
-            { data: 'created_on', name: 'date_created', searchable: false, orderable: true, defaultContent: 'NA' },
-            { data: 'status_mod', name: 'status', searchable: false, orderable: true, defaultContent: 'NA' },
-            { data: 'action', name: 'edit', searchable: false, orderable: false, defaultContent: 'NA' },
+            { data: 'ref_number', name: 'ref_number', orderable: true, defaultContent: 'NA' },
+            { data: 'department', name: 'department', orderable: true, defaultContent: 'NA' },
+            { data: 'priority', name: 'priority', orderable: true, defaultContent: 'NA' },
+            { data: 'service_type', name: 'service_type', orderable: true, defaultContent: 'NA' },
+            { data: 'subject', name: 'subject', orderable: true, defaultContent: 'NA' },
+            { data: 'created_on', name: 'created_on', orderable: true, defaultContent: 'NA' },
+            { data: 'file', name: 'file', orderable: true, defaultContent: 'NA' },
+            { data: 'status_mod', name: 'status_mod', orderable: true, defaultContent: 'NA' },
+            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
         ],
-        order: [6, 'desc']
+
+        order: [[6, 'desc']], // Default sort by created_on descending
+
+        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+        pageLength: 10,
     });
 
     // ✅ Add placeholder to search input
