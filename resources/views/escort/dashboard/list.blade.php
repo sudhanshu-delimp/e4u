@@ -111,7 +111,7 @@
                             <thead id="table-sec" class="table-bg">
                                 <tr>
                                     <th>ID</th>
-                                    <th>Profile Name</th>
+                                    <th style="width:150px;">Profile Name</th>
                                     <th>Location</th>
                                     <th>Stage Name</th>
                                     <th>Membership</th>
@@ -284,8 +284,8 @@
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-3 col-form-label" for="">Credit:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group input-group-sm">
+                                            <div class="col-sm-4">
+                                                <div class="input-group input-group-sm" style="padding-right: 25px;">
                                                     <span class="input-group-text"
                                                         style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
                                                     <span class="form-control" id='creditCalculationLive'

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
+use App\Models\Escort;
 
 class UserController extends Controller
 {
@@ -36,8 +37,22 @@ class UserController extends Controller
         if(auth()->user() && auth()->user()->type == 0) {
             $user_type = auth()->user();
         }
+
+        $escorts =  collect();
+        if($user_type){
+            $myLegbboxIds = MyLegbox::where('user_id',auth()->user()->id)->pluck('escort_id');
+            $escorts = Escort::whereIn('id',$myLegbboxIds)->with(['city','state','likes',
+                'suspendProfile' => function ($query) {
+                    $today = Carbon::now(config('app.timezone'));
+                    $query->whereDate('start_date', '<=', $today)
+                        ->whereDate('end_date', '>=', $today)
+                        ->where('status', true);
+                }
+            ])->where('enabled',1)->get(); // city_id
+        }
+
       //dd($user_type->myLegBox->pluck('id')->toArray());
-        return view('user.dashboard.legbox.escort-list',compact('user_type'));
+        return view('user.dashboard.legbox.escort-list',compact('user_type','escorts'));
     }
     public function massageLegboxList()
     {
