@@ -333,9 +333,13 @@ Route::get('request-notification',function(){
     return view('escort.dashboard.UglyMugsRegister.request-notification');
 })->name('escort.request-notification');
 
-// Route::get('home-state',function(){
-//     return view('escort.dashboard.archives.home-state');
-// })->name('escort.home-state');
+Route::get('num-tips',function(){
+    return view('escort.dashboard.UglyMugsRegister.num-tips');
+})->name('escort.num-tips');
+
+Route::get('code-of-conduct',function(){
+    return view('escort.dashboard.UglyMugsRegister.code-of-conduct');
+})->name('escort.code-of-conduct');
 
 Route::get('home-state/',[EscortController::class, 'homeState'])->name('escort.home-state');
 Route::post('add-playmate/{id}',[ProfileInformationController::class, 'savePlaymate'])->name('escort.add.playmate');

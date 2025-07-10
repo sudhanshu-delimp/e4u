@@ -1,17 +1,18 @@
-<div class="container-fluid pl-3 pl-lg-5 register-pin-up mb-5 ">
+<div class="container-fluid register-pin-up mb-5 ">
     <!--middle content start here-->
     <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading h3" style="display: inline-block;">Submit ticket</div>
-            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b></h6>
+        <div class="custom-heading-wrapper col-md-12">
+            <h1 class="h1">Submit ticket</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b></span>
         </div>
-        <div class="col-md-12 mt-4 pl-4 mycont">
+        <div class="col-md-12 mb-4 mycont">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <ol>
                         <li>To help us assist you better, when describing your problem or enquiry, please try to provide as much information as
-                            possible.</li>
+                            possible.
+                        </li>
                         <li>Upload any documents or images you have.</li>
                         <li>Allow us a couple of days to respond.</li>
                     </ol>

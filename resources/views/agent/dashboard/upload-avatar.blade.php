@@ -28,11 +28,11 @@
 <div id="content-wrapper" class="d-flex flex-column">
    <!-- Main Content -->
    <div id="content">
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid">
     <!--middle content start here-->
     {{-- Page Heading   --}}
     <div class="row">
-        <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+        <div class="custom-heading-wrapper col-lg-12">
            <h1 class="h1">Upload your avatar</h1>
            <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
         </div>
@@ -41,6 +41,9 @@
               <div class="card-body">
                  <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                  <ol>
+                    <li>You don't have to have an avatar, it is entirely up to you</li>
+                    <li>Your avatar will not be displayed publicly</li>
+                    <li>You can remove or change your avatar anytime</li>
                  </ol>
               </div>
            </div>
@@ -48,21 +51,8 @@
      </div>
      {{-- end --}}
     <div class="row">
-        <div class="col-md-12 mt-4" id="profile_and_tour_options">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card border-0">
-                        <div class="card-body">
-                            <h2 class="primery_color normal_heading"><b>Notes:</b></h2>
-                            <ol>
-                                <li>You don't have to have an avatar, it is entirely up to you</li>
-                                <li>Your avatar will not be displayed publicly</li>
-                                <li>You can remove or change your avatar anytime</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-12" id="profile_and_tour_options">
+            
             <div class="row">
                 <div class="col-md-12">
                     <div class="card border-0">

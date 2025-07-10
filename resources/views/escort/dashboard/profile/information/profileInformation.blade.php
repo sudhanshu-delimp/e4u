@@ -142,7 +142,7 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <div class="row">
       <div class="col-md-12">
          <div class="v-main-heading h3">
@@ -171,7 +171,7 @@
           </div>
       </div>
       <div class="col-md-12 mt-4">
-         <div id="accordion" class="myacording-design mb-5">
+         <div id="accordion" class="myacording-design mb-5" style="max-width: 100%;">
             <div class="card custom-help-contain">
                <div class="card-header">
                   <a class="card-link" data-toggle="collapse" href="#additional_information">

@@ -8,178 +8,193 @@
    list-style: none;
    color: rgb(248, 0, 0)
    }
-    .parsley-type {
-        color: #e5365a;
-        text-transform: capitalize;
-        font-size: small;
+   .details-row {
+        background-color: #f9f9f9;
     }
+    .details-row th {
+        color: var(--blue--text);
+        font-weight: bold;
+    }
+    /* Icon default style */
+.toggle-details i {
+  color: #333;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+/* Optional: Improve tooltip look slightly */
+.tooltip-inner {
+  background-color: #000 !important;
+  color: #fff;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 0px !important;
+  font-weight: 500 !important;
+  font-size: 14px;
+}
+
+.tooltip.bs-tooltip-top .arrow::before {
+  border-top-color: #000 !important;
+}
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content start here-->
-   <div class="row">
-      <div class="col-md-12">
-         <div class="v-main-heading h3" style="display: inline-block;">NUM Dashboard</div>
-          <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-      </div>
-      <div class="col-md-12 mt-4 mb-5">
-         <div class="row collapse" id="notes">
-            <div class="col-md-12 mb-4">
-               <div class="card">
-                  <div class="card-body">
-                     <p><b>Notes:</b> </p>
-                     <ul>
-                        <li>The National Ugly Mugs register (NUM) is a free service to all Escorts. You can use the NUM service at any time. Your details, when you undertake a search, are kept confidential.</li>
-                        <li>You can only search for an offender by their mobile number. Search your next booking by their mobile number itself, e.g. <code>0400123456</code>. Do not include any prefixes like +61 or spaces.</li>
-                        <li>E4U makes no claims:
-                          <ul>
-                            <li>as to the accuracy or legitimacy of the allegations contained in a Report;</li>
-                            <li>nor do we investigate the authenticity of the Reports (provided in confidence by Escorts).</li>
-                          </ul>
-                        </li>
-                      </ul>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="card" style="max-width: 800px;">
-            <div class="card-header bg-primary text-white" style="background: #0c223d !important;">
-              Search Offender
-            </div>
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-start gap-10 mt-5">
+      <h1 class="h1">NUM - Dashboard</h1>
+          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+   </div>
+
+  <div class="row">
+      <div class="col-md-12 my-2">
+          <div class="card collapse" id="notes" style="">
             <div class="card-body">
-              <div class="form-group">
-                <label for="searchMobile" class="font-weight-bold">Mobile Number</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" id="searchMobile" placeholder="e.g. 0400 123 456" maxlength="10" pattern="\d*" style="height: 45px;border-right: 0;">
-                  <div class="input-group-append">
-                    <button class="save_profile_btn" type="button">Search</button>
-                  </div>
-                </div>
-                <small class="form-text text-muted">Enter 10-digit mobile number to search offender details.</small>
-              </div>
+                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                <ol>
+                  <li>The National Ugly Mugs register (NUM) is a free service to all Escorts. You can use
+                     the NUM service at any time. Your details, when you undertake a search, are kept
+                     confidential.</li>
+                  <li>You can only search for an offender by their mobile number. Search your next booking
+                     by their mobile number itself, e.g. 0400123456. Do not include any prefixes, e.g. +61
+                     or spaces.</li>
+                  <li>E4U makes no claims:</li>
+                  <ol class="level-2"><li>as to the accuracy or legitimacy of the allegations contained in a Report; and</li>
+                  <li>nor do we investigate the authenticity of the Reports (provided in confidence
+                     by Escorts)</li>
+                  </ol>
+                </ol>
             </div>
           </div>
-        </div>
       </div>
-   </div>
-   <!--middle content end here-->
-</div>
-{{--<div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Find a Viewer</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-            </button>
-         </div>
-         <div class="modal-body">
-            <div class="row pl-3">
-               <div class="col-md-6">
-                  <div class="form-group mb-2 pt-2">
-                     <label for="staticEmail2"><b>Search</b></label>
-                  </div>
-                  <div class="form-group mb-2">
-                     <input type="text" name="name" required="" data-parsley-required-message=" Please enter Tour Name" class="form-control mb-2" id=" " placeholder=" " value="" data-parsley-errors-container="#Tname">
-                     <i>Find a Viewer with their Username, ID or Mobile number</i>
-                  </div>
-               </div>
-               <div class="col-md-6">
-                  <div class="card-body pt-2" style="
-                     ">
-                     <p class="mb-0"><b>Selected User </b></p>
-                     <table id="myTable" class="table table-striped dataTable no-footer border-0" width="100%" role="grid" aria-describedby="myTable_info" style="">
-                        <tbody>
-                           <tr role="row" class="border-0 bg-transparent
-                              ">
-                              <td class="border-0 pb-0 pl-0 text-black">ID:</td>
-                              <td class="border-0 pb-0 text-black">261</td>
-                           </tr>
-                           <tr role="row" class="border-0 bg-transparent
-                              ">
-                              <td class="border-0 pb-0 pl-0 text-black">Name:</td>
-                              <td class="border-0 pb-0 text-black">Juli</td>
-                           </tr>
-                           <tr role="row" class="border-0 bg-transparent
-                              ">
-                              <td class="border-0 pb-0 pl-0 text-black">Mobile:</td>
-                              <td class="border-0 pb-0 text-black">0987654321</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-               </div>
-               <div class="col-md-12">
-                  <table style="width: 100%;background: #0C223D;color: #fff;">
-                     <tbody>
-                        <tr>
-                           <th class="p-2">ID</th>
-                           <th class="p-2">Name</th>
-                           <th class="p-2">Mobile</th>
-                        </tr>
-                        <tr>
-                           <td class="p-2">Magazzini</td>
-                           <td class="p-2">Giovanni</td>
-                           <td class="p-2">Italy</td>
-                        </tr>
-                     </tbody>
-                  </table>
+  </div>
+  <!-- Page Heading -->
+   
+  <div class="row">
+   <div class="col-lg-6 col-sm-12">
+      <div class="add-punterbox-report">
+         <form action="">
+            <label class="search-label">Search by mobile number (no spaces)</label>
+            <div class="input-group mb-3">
+               <input type="text" class="form-control" placeholder="Search..." aria-label="Search by mobile" aria-describedby="button-search">
+               <div class="input-group-append">
+                  <button class="btn btn-search" type="button" id="button-search">Search</button>
                </div>
             </div>
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Continue</button>
-         </div>
-      </div>
+         </form>
+       </div>
    </div>
-</div>--}}
+   <div class="col-md-12">
+      
+      <div class="table-responsive">
+         <table id="myReportTable" class="table display" width="100%">
+           <thead class="bg-first">
+             <tr>
+               <th>REF</th>
+               <th>Status</th>
+               <th>Mobile</th>
+               <th>Incident Type</th>
+               <th>Incident Date</th>
+               <th>Location</th>
+               <th class="text-center">Action</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr>
+               <td>#30</td>
+               <td>Active</td>
+               <td>0450954036</td>
+               <td>Fake</td>
+               <td>14-05-2025</td>
+               <td>WA - Perth</td>
+               <td class="text-center">
+                 <a href="javascript:void(0);" class="toggle-details">
+                   <i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="View"></i>
+                 </a>
+               </td>
+             </tr>
+       
+             <!-- Hidden expandable row -->
+             <tr class="details-row d-none">
+               <td colspan="7">
+                 <div>
+                   <table class="table mb-0">
+                     <tbody>
+                       <tr>
+                         <th>Our Ref:</th>
+                         <td class="border-0">#30</td>
+                         <th>Report Date:</th>
+                         <td class="border-0">14-05-2025</td>
+                       </tr>
+                       <tr>
+                         <th>Incident date:</th>
+                         <td class="border-0">14-05-2025</td>
+                         <th>Location:</th>
+                         <td class="border-0">WA - Perth</td>
+                       </tr>
+                       <tr>
+                         <th>Escort's name:</th>
+                         <td class="border-0">Unknown</td>
+                         <th>Escort's email:</th>
+                         <td class="border-0">N/A</td>
+                       </tr>
+                       <tr>
+                         <th>Incident Type:</th>
+                         <td class="border-0">Fake</td>
+                         <th>Rating:</th>
+                         <td class="border-0">Do not book</td>
+                       </tr>
+                       <tr>
+                         <th>Platform:</th>
+                         <td class="border-0">Locanto</td>
+                         <th>Profile Link:</th>
+                         <td class="border-0">N/A</td>
+                       </tr>
+                       <tr>
+                         <th>Summary of Incident:</th>
+                         <td colspan="3" class="border-0">Suspicious activity, fake pics, aggressive behavior.</td>
+                       </tr>
+                     </tbody>
+                   </table>
+                 </div>
+               </td>
+             </tr>
+             
+       
+           </tbody>
+         </table>
+       </div>
+   </div>
+</div>
+   <!--middle content end here-->
+</div>
 @endsection
 @push('script')
 <!-- file upload plugin start here -->
 <!-- file upload plugin end here -->
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<!-- jQuery Toggle Script -->
 <script>
-    $('#ugly_mug_registration').parsley({});
-
-    $("#ugly_mug_registration").on('submit', function(e){
-        e.preventDefault();
-
-        var form = $(this);
-        if (form.parsley().isValid()) {
-            $("#submit").hide();
-            $(".spinner-border").attr('hidden', false);
-            var url = "{{route('escort.mug.register')}}";
-            var data = new FormData(form[0]);
-            $.ajax({
-                method: 'POST',
-                url: url,
-                dataType: "json",
-                data: data,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    if (data.status) {
-                        swal.fire(
-                            'Ugly mug registration',
-                            'Mug registered successfully',
-                            'success'
-                        );
-                        form[0].reset();
-                    } else {
-                        swal.fire(
-                            'Ugly mug registration',
-                            'Oops.. something wrong Please try again',
-                            'error'
-                        );
-                    }
-                    $(".spinner-border").attr('hidden', true);
-                    $("#submit").show();
-                },
-
-            });
-        }
-    });
+   $(document).ready(function () {
+     $('.toggle-details').on('click', function () {
+       const $this = $(this);
+       const $row = $this.closest('tr');
+       const $nextRow = $row.next('.details-row');
+       
+       // Close all others
+       $('.details-row').not($nextRow).addClass('d-none');
+ 
+       // Toggle current
+       $nextRow.toggleClass('d-none');
+     });
+   });
+ </script>
+<script>
+   $(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
 </script>
 @endpush

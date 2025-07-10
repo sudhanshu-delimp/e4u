@@ -65,6 +65,10 @@
         max-width: 20rem;
         width: 89%;
     }
+
+    span.menu-active {
+        color: #FF3C5F;
+    }
     
     .sidebar .nav-item .collapse .collapse-inner .collapse-item,
     .sidebar .nav-item .collapse .collapse-inner .collapse-item,
@@ -138,8 +142,11 @@
         background: #FF3C5F;
         color: #fff;
         border-radius: 0.35rem;
+        transition: 0.5s;
     }
-    
+    .nex_sterp_btn:disabled {
+        background: #ff3c5f94;
+    }
     .nex_sterp_btn i {
         color: #fff;
     }
@@ -862,6 +869,11 @@
     
     .myacording-design .card-header a {
         color: #0c223d;
+    }
+
+    .myacording-design {
+        width: 100%;
+        max-width: 900px;
     }
     /* New css 11march 2025 end */
     /*first tab about me section*/
@@ -2514,6 +2526,14 @@
         color: #334D6E;
     }
     
+    .custom-heading-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 60px 0px 40px;
+        flex-wrap: wrap;
+    }
+    
     .v-main-heading h1 {
         font-family: Poppins;
         font-size: 42px;
@@ -2537,7 +2557,7 @@
         letter-spacing: 0em;
         text-align: left;
         margin-bottom: 20px;
-        padding-top: 60px;
+        padding-top: 50px;
         color: var(--blue--text);
         text-transform: capitalize;
     }
@@ -4139,7 +4159,7 @@ padding-bottom:80px;
         font-weight: 500;
         letter-spacing: 0.01em;
         padding: 10px;
-        background: #2C3E50;
+        background: var(--blue--text);
         border-radius: 3px;
         color: #fff;
     }
@@ -4453,9 +4473,10 @@ padding-bottom:80px;
     }
     
     .Summary li {
-        gap: 20px;
+        gap: 10px;
         display: flex;
         font-size: 14px;
+        flex-wrap: wrap;
     }
     
     .Summary .form-control {
@@ -4867,8 +4888,13 @@ padding-bottom:80px;
         font-size: 14px;
         color: #000;
     }
+    
     .custom-serve-date {
         min-width: 65px !important;
+    }
+    
+    .custom-availabletab {
+        max-width: 100% !important;
     }
     /* post office new page style design db */
     
@@ -5287,6 +5313,10 @@ padding-bottom:80px;
     }
     /* end */
     /* navbar custom css  */
+    
+    .custom-nav-search {
+        padding-left: 8px;
+    }
     
     .topbar-logged-in-user-data p {
         font-size: 14px;

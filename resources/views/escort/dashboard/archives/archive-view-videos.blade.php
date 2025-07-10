@@ -27,16 +27,16 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <div class="col-md-12">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 p-0">
                 
                 <div class="row mb-4">
                     <div class="col-md-10">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="v-main-heading h3" style="display: inline-block; padding-top: 0;">Videos</div>
+                                <div class="v-main-heading h3" style="display: inline-block;">Videos</div>
                                 <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
                             </div>
                         </div>
@@ -58,9 +58,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2" style="padding-left: 7rem;">
+                    <div class="col-md-12">
+    
+                        <div style="float: inline-end;">
+                                                <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Videos</button>
+                                            </div>
+                        </div>
+                    {{-- <div class="col-md-2" style="padding-left: 7rem;">
                         <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Videos</button>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@
             <!--middle content-->
             <div class="row">
             <div class="col-md-9">
-                  <div class="v-main-heading h3" style="display: inline-block; padding-top: 0;"><h1>Classification Laws</h1></div>
+                  <div class="v-main-heading h3" style="display: inline-block;"><h1>Classification Laws</h1></div>
                      <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
                   </div>
             </div>
