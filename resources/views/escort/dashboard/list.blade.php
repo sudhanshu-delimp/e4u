@@ -38,9 +38,9 @@
         }
 
         /* .suspension-note-list {
-            list-style-position: outside;
-            padding-left: 20px;
-        } */
+                list-style-position: outside;
+                padding-left: 20px;
+            } */
 
         .suspension-note-list li {
             text-indent: 4px;
@@ -48,9 +48,14 @@
         }
 
         #btn_suspend_profile,
-        #btn_add_brb, 
+        #btn_add_brb,
         #btn_pinup_profile {
             display: none;
+        }
+
+        button#btn_add_brb:hover {
+            background: #0c223dcf;
+            border: 1px solid #0c223dcf;
         }
     </style>
 @endsection
@@ -71,7 +76,8 @@
                                 <ol>
                                     <li>Use this feature to review and make changes to your Profiles.</li>
                                     <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action
-                                        function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit or
+                                        function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit
+                                        or
                                         View the Profile.</li>
                                     <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming"
                                             class="custom_links_design">View Listings</a></li>
@@ -91,12 +97,12 @@
                     <div class="box-body table table-hover">
                         @if ($type != 'past')
                             <div>
-                                <button style="padding: 10px;" class="btn btn-info" data-toggle="modal"
+                                <button style="padding: 10px;" class="btn btn-info custom-btn-info" data-toggle="modal"
                                     data-target="#add_brb" id="btn_add_brb">Add BRB</button>
                                 <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                     data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
-                                <button style="padding: 10px;" class="btn btn-dark"
-                                    data-toggle="modal" data-target="#pinup_profile" id="btn_pinup_profile">List Pin
+                                <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
+                                    data-target="#pinup_profile" id="btn_pinup_profile">List Pin
                                     Up</button>
                             </div>
                             <br>
@@ -300,11 +306,15 @@
                                             <label class="col-sm-1 col-form-label" for="">Notes:</label>
                                             <div class="col-sm-11">
                                                 <ol class="col-form-label suspension-note-list">
-                                                    <li> Any Fees paid but which are unused will be credited back to your
-                                                        Account.</li>
+                                                    <li> Use this feature to review and
+                                                        make changes to your Profiles. Any changes you make to a Profile
+                                                        will be applied to the
+                                                        Profile once the changes are saved.</li>
                                                     <li> Once your Profile is suspended, it cannot be reinstated for the
                                                         suspended period.</li>
-                                                    <li> For short term suspensions, consider using the BRB feature.</li>
+                                                    <li> To suspend a Profile listing,
+                                                        click the button. You will be credited with the Fees according to
+                                                        the suspension period.</li>
                                                 </ol>
                                             </div>
                                         </div>
@@ -827,7 +837,7 @@
         $('#play-mates-modal').on('hidden.bs.modal', function() {
             $('#playmate-template').html(
                 '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
-                );
+            );
             $('#playmate-modal-name').html('');
             $('#playmate-modal-location').html('');
         });

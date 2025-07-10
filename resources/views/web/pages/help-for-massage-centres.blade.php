@@ -27,7 +27,7 @@
     <div class="container">
  
        
-       <h1 class="home_heading_first margin_btm_twenty_px">Help for Massage Centres aa</h1>
+       <h1 class="home_heading_first margin_btm_twenty_px">Help for Massage Centres</h1>
           <div class="accordion-container">
                <div class="set">
                   <a>

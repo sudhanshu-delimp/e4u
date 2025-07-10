@@ -1,5 +1,5 @@
     @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
-    :root {
+     :root {
         --blue--text: #0C223D;
         --white: #ffffff;
         --black-body: #212529;
@@ -2526,6 +2526,14 @@
         color: #334D6E;
     }
     
+    .custom-heading-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 60px 0px 40px;
+        flex-wrap: wrap;
+    }
+    
     .v-main-heading h1 {
         font-family: Poppins;
         font-size: 42px;
@@ -4151,7 +4159,7 @@ padding-bottom:80px;
         font-weight: 500;
         letter-spacing: 0.01em;
         padding: 10px;
-        background: #2C3E50;
+        background: var(--blue--text);
         border-radius: 3px;
         color: #fff;
     }
@@ -4278,6 +4286,16 @@ padding-bottom:80px;
     
     #new-ban select.form-control {
         color: #323C47;
+    }
+    
+    .rotate-27 {
+        transform: rotate(-27deg);
+    }
+    
+    .btn-history {
+        font-size: 20px;
+        width: 40px;
+        height: 40px;
     }
     
     #new-ban textarea::placeholder {
@@ -4455,9 +4473,10 @@ padding-bottom:80px;
     }
     
     .Summary li {
-        gap: 20px;
+        gap: 10px;
         display: flex;
         font-size: 14px;
+        flex-wrap: wrap;
     }
     
     .Summary .form-control {
@@ -4868,6 +4887,14 @@ padding-bottom:80px;
     .membership--inner td {
         font-size: 14px;
         color: #000;
+    }
+    
+    .custom-serve-date {
+        min-width: 65px !important;
+    }
+    
+    .custom-availabletab {
+        max-width: 100% !important;
     }
     /* post office new page style design db */
     
@@ -5286,6 +5313,10 @@ padding-bottom:80px;
     }
     /* end */
     /* navbar custom css  */
+    
+    .custom-nav-search {
+        padding-left: 8px;
+    }
     
     .topbar-logged-in-user-data p {
         font-size: 14px;

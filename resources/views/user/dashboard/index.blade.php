@@ -71,7 +71,7 @@
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('user.viewer-statistics') }}">
                     <div class="box-icon">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.png') }}" alt="Viewer Statistics">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/viewer-statistics.png') }}" alt="Viewer Statistics">
                     </div>
                     <h2>
                         Viewer Statistics

@@ -131,7 +131,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                     $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
                 },
                 'suspendProfile' => function ($query) {
-                    $today = Carbon::today();
+                    $today = Carbon::now(config('app.timezone'));
                     $query->whereDate('start_date', '<=', $today)
                         ->whereDate('end_date', '>=', $today)
                         ->where('status', true);

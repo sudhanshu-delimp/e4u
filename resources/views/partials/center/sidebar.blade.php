@@ -235,11 +235,11 @@
              <img src="{{ asset('assets/dashboard/img/menu-icon/ccone.png')}}">
              <span>Communication</span>
         </a>
-        <div id="communication" class="collapse @if(request()->segment(2) == 'agency-request' || request()->segment(2) == 'legbox-notification' || request()->segment(2) == 'viewer-notes' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="communication" class="collapse @if(request()->segment(2) == 'agent-request' || request()->segment(2) == 'agent-messages' || request()->segment(2) == 'legbox-notification' || request()->segment(2) == 'viewer-notes' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-            <a class="collapse-item" href="{{ route('agency-request')}}">
+            <a class="collapse-item" href="{{ route('agent-request')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/comtwo.png')}}">
-                <span style="{{request()->segment(2) == 'agency-request' ? 'color: #e5365a;' : ''}}">Agency Request</span>
+                <span style="{{request()->segment(2) == 'agent-request' ? 'color: #e5365a;' : ''}}">Agent Request</span>
             </a>
              <a class="collapse-item" href="{{ route('legbox-notification')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png')}}">
@@ -249,6 +249,10 @@
             <a class="collapse-item" href="{{ route('viewer-notes')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/ccfour.png')}}">
             <span style="{{request()->segment(2) == 'viewer-notes' ? 'color: #e5365a;' : ''}}">Viewer Messaging</span>
+            </a>
+            <a class="collapse-item" href="{{ route('agent-messages')}}">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/ccfour.png')}}">
+            <span style="{{request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : ''}}">Agent Messages</span>
             </a>
 
             <a class="collapse-item" href="{{ route('legbox-viewers')}}">

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\User\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\User\UserInterface;
-use App\Http\Requests\StoreAvatarMediaRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Models\MyLegbox;
-use App\Models\MyMassageLegbox;
 use Auth;
 use Carbon\Carbon;
+use App\Models\MyLegbox;
+use Illuminate\Http\Request;
+use App\Models\MyMassageLegbox;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use App\Repositories\User\UserInterface;
+use App\Http\Requests\StoreAvatarMediaRequest;
 
 class UserController extends Controller
 {
@@ -302,7 +303,9 @@ class UserController extends Controller
     public function storeMyAvatar(StoreAvatarMediaRequest $request,$id)
     {
         //$attachment = $request->file('avatar_img');
-        $extension = explode('/', mime_content_type($request->src))[1];
+        $avatar = $request->file('avatar_img');
+        $extension = $avatar->getClientOriginalExtension();
+        //$extension = explode('/', mime_content_type($request->src))[1];
         $data = $request->src;
 
         list($type, $data)  = explode(';', $data);
@@ -313,6 +316,7 @@ class UserController extends Controller
         $avatarName          = time(). '-' .$avatar_owner .'.'.$extension;
         $avatar_uri          = file_put_contents(public_path() . '/avatars/' . $avatarName, $data);
 
+    
         //dd($avatar_uri);
         $user = $this->user->find($id);
         $user->avatar_img = $avatarName;

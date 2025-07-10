@@ -29,11 +29,9 @@
                         <!-- Begin Page Content -->
                         <div class="container-fluid" style="padding: 0px 0px;">
                             <!-- Page Heading -->
-                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                                <div class="v-main-heading h3">
-                                    Pricing summary
-                                    <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-                                </div>
+                            <div class="d-flex align-items-center justify-content-start">
+                                   <h1 class="h1"> Pricing summary</h1>
+                                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                             </div>
                             <div class="card collapse  mb-4" id="notes">
                                 <div class="card-body">
@@ -63,7 +61,7 @@
                                                 <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                                     <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
 
-{{--                                                        <h5 class="price-sec">Profile &amp; Tour Fees</h5>--}}
+                                            {{-- <h5 class="price-sec">Profile &amp; Tour Fees</h5>--}}
                                                         <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                             <thead class="text-center">
                                                                 <tr role="row" style="border-bottom: 2px solid white;">
@@ -141,15 +139,13 @@
                                                                 <li>
                                                                     Discount only applies:
                                                                 </li>
-                                                                <ol type="a" class="custom--substyle">
+                                                                <ol class="level-2">
                                                                     <li>to a single transaction; and</li>
                                                                     <li>from day 22.</li>
                                                                 </ol>
                                                                 <li>Pin Up is a set weekly Fee.</li>
                                                                 <li>Pay by the day available.</li>
-                                                                <li>After 21 days for Free Membership, then Profile is suspended and Escort
-                                                                    asked what Membership Type to go to, eg Platinum. If you have an Agent
-                                                                    appointed, the Agent will also receive the notification.</li>
+                                                                <li>After 21 days for Free Membership, then Profile is suspended and Escort asked what Membership Type to go to, eg Platinum. If you have an Agent appointed, the Agent will also receive the notification.</li>
                                                             </ol>
                                                         </div>
                                                     </div>
@@ -159,44 +155,83 @@
                                                     <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
 
                                                         {{--                                                        <h5 class="price-sec">Profile &amp; Tour Fees</h5>--}}
-                                                        <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
+                                                        <table id="reckoner" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                             <thead class="text-center">
-                                                            <tr role="row">
-                                                                <th class="sorting_disabled" rowspan="1" colspan="5" style="width: 212px;" aria-label="Fees">
-                                                                    <p><b>Profile / Tour Ready Reckoner</b></p>
-                                                                </th>
-                                                            </tr>
-                                                            <tr role="row" class="custom--row">
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
-                                                                    Start Date
-                                                                </th>
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
-                                                                    End Date
-                                                                </th>
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">
-                                                                    Membership Type
-                                                                </th>
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">Locations</th>
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Fee</th>
-                                                            </tr>
+                                                                <tr role="row">
+                                                                    <th class="sorting_disabled" rowspan="1" colspan="5" style="width: 212px;" aria-label="Fees">
+                                                                        <p><b>Profile / Tour Ready Reckoner</b></p>
+                                                                    </th>
+                                                                    <th>
+                                                                        <button type="button" class="border-0 px-5 py-3 bg-second font-weight-bold" id="add-new-row">Add</button>
+                                                                    </th>
+                                                                </tr>
+                                                                <tr role="row" class="custom--row text-left">
+                                                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
+                                                                    Location
+                                                                    </th>
+                                                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
+                                                                        Start Date
+                                                                    </th>
+                                                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
+                                                                        End Date
+                                                                    </th>
+                                                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">
+                                                                        Membership Type
+                                                                    </th>
+                                                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">Number of
+                                                                        Profiles</th>
+                                                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Fee</th>
+                                                                </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr role="row">
-                                                                <td><input name="start" id="start_date" type="date"></td>
-                                                                <td><input name="end" id="end_date" type="date"></td>
-                                                                <td><select><option></option></select></td>
-                                                                <td><select><option></option></select></td>
-                                                                <td></td>
-                                                            </tr>
+                                                                <tr role="row">
+                                                                    <td><select style="border: 0;width:100%">
+                                                                            <option value="WA">WA</option>
+                                                                            <option value="SA">SA</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td><input name="start" id="start_date" type="date" style="border: 0;width:100%"></td>
+                                                                    <td><input name="end" id="end_date" type="date" style="border: 0;width:100%"></td>
+                                                                    <td><select style="border: 0;width:100%">
+                                                                            <option value="Platinum">Platinum</option>
+                                                                            <option value="Gold">Gold</option>
+                                                                            <option value="Silver">Silver</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td><select style="border: 0;width:100%">
+                                                                            <option value="1">1</option>
+                                                                            <option value="2" selected>2</option>
+                                                                            <option value="3">3</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td class="d-flex align-items-center">
+                                                                        <label class="mb-0">$</label><input name="fee" id="fee" type="text" style="border: 0;width:100%" value="80.00">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="custom-last-row">
+                                                                    <td class="border-0"></td>
+                                                                    <td class="border-0"></td>
+                                                                    <td class="border-0"></td>
+                                                                    <td class="border-0"></td>
+                                                                    <td  class="font-weight-bold text-right">Total Fees:</td>
+                                                                    <td class="font-weight-bold text-left"><span>$</span>146.00</td>
+                                                                </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                 </div>
                                                 <div class="mt-5">
-                                                    <h3>Changes to this Guide</h3>
-                                                    <span>
-                                                        This Guide was last updated on 02-2024.
-                                                    </span>
+                                                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                                    <ol class="mb-0" type="1">
+                                                        <li>
+                                                            Use the ready reckoner to calculate the Fee for a Profile or Tour.
+                                                        </li>
+                                                        <li>When calculating the Fees, use a single line per Membership Type.</li>
+                                                        <li>You can add as many additional Membership Types, and Profiles per Location, as
+                                                            you like.</li>
+                                                        <li>The Fee is inclusive of any discounts that would apply to a single transaction in
+                                                            excess of 21 days.</li>
+                                                    </ol>
                                                 </div>
                                             </div>
                                         </div>
@@ -214,7 +249,7 @@
                                             <div class="card-body p-0">
                                                 <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                                     <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-{{--                                                        <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
+                                                                        {{--                                                        <h5 class="price-sec">Concierge Services & Support Services</h5>--}}
                                                         <table id="myTable price-sec" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                             <thead class="text-center">
                                                             <tr role="row">
@@ -381,13 +416,13 @@
                                                                 </th>
                                                             </tr>
                                                             <tr role="row" class="custom--row">
-                                                                <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
+                                                                <th class="sorting_disabled text-left" rowspan="1" colspan="1" style="width: 150px;" aria-label="Profile Name">
                                                                     Fee
                                                                 </th>
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Profile Name">
+                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 200px;" aria-label="Profile Name">
                                                                     Frequency
                                                                 </th>
-                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 100px;" aria-label="Date Created">
+                                                                <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 10px;" aria-label="Date Created">
                                                                     Fee
                                                                 </th>
                                                             </tr>
@@ -432,6 +467,27 @@
                                                                 <td>Organise Profiles and Media</td>
                                                                 <td>per Service</td>
                                                                 <td>$ 50.00</td>
+                                                            </tr>
+                                                            <tr role="row">
+                                                                <td>Organise a Concierge service</td>
+                                                                <td>Complete a Concierge Services request, assist with the delivery
+                                                                    if applicable.</td>
+                                                                <td>$ 75.00</td>
+                                                            </tr>
+                                                            <tr role="row">
+                                                                <td>Establishing an
+                                                                    Escort's Playbox</td>
+                                                                <td>Upload Content <sup>(3)</sup> to the Escort's Playbox, ensuring compliance,
+                                                                    create the Playbox profile, including setting the pricing
+                                                                    schedule.</td>
+                                                                <td>$ 100.00</td>
+                                                            </tr>
+                                                            <tr role="row">
+                                                                <td>Updating Escort's
+                                                                    Playbox</td>
+                                                                <td>Remove Content and / or upload new Content and post to the
+                                                                    Escort's Playbox. Undertake any maintenance issues.</td>
+                                                                <td>$ 75.00</td>
                                                             </tr>
                                                             </tbody>
                                                         </table>
@@ -506,5 +562,37 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-
+<script>
+    $(document).ready(function(){
+        $('#add-new-row').on('click', function(){
+            var newRow = `
+             <tr role="row">
+                <td><select style="border: 0;width:100%">
+                        <option value="WA">WA</option>
+                        <option value="SA" selected>SA</option>
+                    </select>
+                </td>
+                <td><input name="start" id="start_date" type="date" style="border: 0;width:100%"></td>
+                <td><input name="end" id="end_date" type="date" style="border: 0;width:100%"></td>
+                <td><select style="border: 0;width:100%">
+                        <option value="Platinum">Platinum</option>
+                        <option value="Gold" selected>Gold</option>
+                        <option value="Silver">Silver</option>
+                    </select>
+                </td>
+                <td><select style="border: 0;width:100%">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </td>
+                <td class="d-flex align-items-center">
+                    <label class="mb-0">$</label><input name="fee" id="fee" type="text" style="border: 0;width:100%" value="80.00">
+                </td>
+            </tr>
+            `;
+            $('#reckoner tbody tr.custom-last-row').before(newRow);
+        });
+    });
+</script>
 @endpush

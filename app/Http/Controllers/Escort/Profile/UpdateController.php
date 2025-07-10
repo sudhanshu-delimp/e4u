@@ -440,8 +440,22 @@ class UpdateController extends AppController
             if ($data_durations  = $escort->durations()->sync($arr)) {
                 $error = 1;
             }
-            $data = [];
 
+            $existDefaultRate = $escortDefault->durations()
+            ->get()
+            ->filter(function ($duration) {
+                return $duration->pivot->massage_price > 0 ||
+                       $duration->pivot->incall_price > 0 ||
+                       $duration->pivot->outcall_price > 0;
+            })
+            ->values()
+            ->toArray();
+
+            if(empty($existDefaultRate)){
+                $escortDefault->durations()->sync($arr);
+            }
+
+            $data = [];
             $shortDays = config('escorts.days.short_form');
             foreach ($shortDays as $day => $shortDay) {
                 if (!empty($request->{$shortDay . "_from"})) {

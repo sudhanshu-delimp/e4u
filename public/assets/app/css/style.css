@@ -2330,8 +2330,8 @@ a#grid-list {
     padding: 2rem 0;
 }
 
-.container {
-    max-width: 1200px;
+.custom--contain {
+    max-width: 1400px;
     width: 100%;
 }
 
@@ -4932,7 +4932,9 @@ table {
     bottom: 0;
     min-height: calc(100% - (0.5rem * 2));
 }
-
+p.testimonial strong {
+    font-weight: 400;
+}
 div#onloadpopup .modal-dialog-centered.modal-dialog-bottom-right {
     max-width: 100% !important;
     width: 100%;
@@ -5564,6 +5566,9 @@ h2.custom--review img {
     color: #ff3c5f !important;
     width: max-content;
     cursor: pointer;
+}
+.custom--cookie--popup .close-btn img {
+    max-width: 19px;
 }
 
 .custom--cookie--popup .popup-content {
