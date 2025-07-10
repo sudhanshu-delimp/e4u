@@ -22,6 +22,8 @@ use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
+use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes    
@@ -417,9 +419,7 @@ Route::get('/escort-dashboard/my-playbox',function(){
     return view('escort.dashboard.my-playbox');
 })->name('escort.dashboard.my-playbox');
 
-Route::get('/escort-dashboard/my-legbox-viewers',function(){
-    return view('escort.dashboard.my-legbox-viewers');
-})->name('escort.dashboard.my-legbox-viewers');
+Route::get('/escort-dashboard/my-legbox-viewers',[EscortMyLegboxViewerController::class,'index'])->name('escort.dashboard.my-legbox-viewers');
 
 Route::get('/escort-dashboard/agent-messages',function(){
     return view('escort.dashboard.agent-messages');

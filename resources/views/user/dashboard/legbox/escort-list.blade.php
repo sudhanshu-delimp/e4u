@@ -42,7 +42,7 @@
            <div class="mb-3 d-flex align-items-center justify-content-end flex-wrap gap-10">           
                <div class="total_listing">
                    <div><span>Total Escorts Legbox: : </span></div>
-                   <div><span>01</span></div>
+                   <div><span>{{count($escorts)}}</span></div>
                </div>
            </div>
            <div class="table-responsive">
@@ -73,7 +73,11 @@
                         @foreach ($escorts as $escort)
                             <tr>
                                 @php
-                                    $suspendedBadge = isset($escort->suspendProfile[0]->id);
+                                    $suspendedBadge = isset($escort->suspendProfile[0]->created_at);
+                                    // if($suspendedBadge){
+                                    //     $escortTimeZone = Carbon::parse($escort->suspendProfile[0]->created_at, getEscortTimezone($escort));
+                                    // }
+
                                     $escortLikes = isset($escort->likes[0]->id);
                                     $percentage = 0;
 
@@ -93,8 +97,6 @@
                                         if ($totalLikes > 0) {
                                             $percentage = round(($likeCount / $totalLikes) * 100, 2);
                                         }
-
-                                        //dd($percentage);
                                     }
                                 @endphp
                                 <td class="text-center">{{$escort->id}}</td>
@@ -103,7 +105,7 @@
                                     
                                      @if($suspendedBadge)
                                         <sup 
-                                            title="Suspended on {{ \Carbon\Carbon::parse($escort->suspendProfile[0]->created_at, config('app.escort_server_timezone'))->format('d-m-Y h:i A') }}" 
+                                            title="Suspended on {{ \Carbon\Carbon::parse($escort->suspendProfile[0]->created_at, getEscortTimezone($escort))->format('d-m-Y h:i A') }}" 
                                             class="brb_icon" 
                                             style="background-color: #d2730a;">
                                             SUS
@@ -117,8 +119,44 @@
                                 <td class="text-center">{{ getRatingLabel($percentage) }}</td>
                                 <td>Yes or No</td>
                                 <td class="text-center">Yes</td>
-                                <td class="text-center">Text</td>
-                                <td class="text-center">0438 028 728</td>
+                                <td class="text-center">
+                                    @php
+                                        $defaultContact = 'Text';
+                                        $escortCommunication = '';
+                                        $contactEnabled = "No";
+                                        $contactType = isset($escort->user->contact_type) ? $escort->user->contact_type : [];
+                                    @endphp
+                                    @if(in_array(3,$contactType))
+                                        <span>Email</span><br>
+                                        @php 
+                                            $escortCommunication = $escortCommunication.'<span>'.$escort->user->email.'</span><br>';
+                                            $contactEnabled = "Yes";
+                                        @endphp
+                                    @endif
+                                    @if(in_array(4,$contactType))
+                                        <span>Call</span><br>
+                                        @php 
+                                            $escortCommunication = $escortCommunication.'<span>'.$escort->phone.'</span><br>';
+                                            $contactEnabled = "Yes";
+                                        @endphp
+                                    @endif
+                                    @if(in_array(2,$contactType))
+                                        <span>Text</span><br>
+                                        @php 
+                                            $escortCommunication = $escortCommunication.'<span>-</span><br>';
+                                            $contactEnabled = "Yes";
+                                        @endphp
+                                    @endif
+                                    @if(!(in_array(2,$contactType) || in_array(3,$contactType) || in_array(4,$contactType)))
+                                        <span>Text</span><br>
+                                        @php 
+                                            $escortCommunication = $escortCommunication.'<span>-</span><br>';
+                                        @endphp
+                                    @endif
+
+
+                                </td>
+                                <td class="text-center">{!!Str::lower($escortCommunication)!!}</td>
                                 <td class="text-center">
                                         <div class="custom-control custom-switch">
                                             <input type="checkbox" class="custom-control-input" id="customSwitch1">
