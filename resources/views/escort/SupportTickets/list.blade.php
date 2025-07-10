@@ -174,7 +174,7 @@
 
     // ✅ Add placeholder to search input
     $('#supportTicketsTable').on('init.dt', function () {
-        $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by ID or Profile Name');
+        $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search Ticket');
     });
 
     // 🟠 Cancel Ticket
