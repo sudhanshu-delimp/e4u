@@ -597,6 +597,9 @@
 
             $('#update_abut_who_am_i').on('submit', function(e) {
                 e.preventDefault();
+                if(!validateWhoAmIContent()){
+                    return false;
+                }
                 var form = $(this);
                 $('#update_who_am_i').prop('disabled', true);
                 $('#update_who_am_i').html('<div class="spinner-border"></div>');
@@ -639,7 +642,10 @@
 
             $('#myability').on('submit', function(e) {
                 e.preventDefault();
-
+                let checkAvailability = validateAvailability();
+                if(checkAvailability){
+                    return false;
+                }
                 var form = $(this);
 
                 if (form.parsley().isValid()) {
@@ -1054,6 +1060,75 @@
             return isValid;
         }
 
+        function validateAvailability() {
+            const dayMap = {
+            monday: 'mon',
+            tuesday: 'tue',
+            wednesday: 'wed',
+            thursday: 'thur',
+            friday: 'fri',
+            saturday: 'sat',
+            sunday: 'sun'
+            };
+
+            let hasError = false;
+            let errorDays = [];
+
+            Object.entries(dayMap).forEach(([fullDay, shortKey]) => {
+            const fromTime = document.querySelector(`[name="${shortKey}_from"]`)?.value || '';
+            const fromAMPM = document.querySelector(`[name="${shortKey}_time_from"]`)?.value || '';
+            const radioSelected = document.querySelector(`input[name="availability_time[${fullDay}]"]:checked`);
+
+            if ((fromTime === '' || fromAMPM === '') && !radioSelected) {
+                hasError = true;
+                errorDays.push(fullDay.charAt(0).toUpperCase() + fullDay.slice(1));
+            }
+            });
+
+            if (hasError) {
+                Swal.fire('My Availability',
+                            `Please fill time or select an availability option for the following days:\n ${errorDays.join(', ')}`,
+                            'warning');
+            }
+
+            return hasError;
+        }
+
+        function validateWhoAmIContent() {
+            const editorId = 'editor1';
+            // Check if CKEditor instance exists
+            if (CKEDITOR.instances[editorId]) {
+                console.log("CKEditor instance found, updating...");
+                CKEDITOR.instances[editorId].updateElement(); // Push content to textarea
+            } else {
+                console.warn("CKEditor instance NOT found for #editor1");
+            }
+
+            // Debug: Show the updated textarea value
+            const content = document.getElementById(editorId).value.trim();
+            console.log('Textarea value after update:', content);
+            showManualRequiredError(editorId);
+            return (!content) ? false : true;
+        }
+
+        function showManualRequiredError(editorId) {
+            const textarea = document.getElementById(editorId);
+            const message = textarea.getAttribute('data-parsley-required-message') || 'This field is required.';
+            const errorContainerSelector = textarea.getAttribute('data-parsley-errors-container');
+            const errorContainer = document.querySelector(errorContainerSelector);
+
+            const value = textarea.value.trim();
+
+            if (!value && errorContainer) {
+                errorContainer.innerHTML = `<ul class="parsley-errors-list filled"><li class="parsley-required">${message}</li></ul>`;
+            } else {
+                errorContainer.innerHTML = ''; // clear any previous error
+            }
+        }
+
+
+
+
         $("body").on('click', '.nex_sterp_btn', function(e) {
             // e.preventDefault();
             var id = $(this).attr('id');
@@ -1067,6 +1142,10 @@
                         Swal.fire('Media',
                             'Please attach media to this profile from the Media Repository or upload a new file (All are mendatory)',
                             'warning');
+                        return false;
+                    }
+
+                    if(!validateWhoAmIContent()){
                         return false;
                     }
                 } break;
@@ -1086,8 +1165,16 @@
                             'warning');
                         return false;
                     }
+                } break;
+                case 'show_draft-2':{
+                    let checkAvailability = validateAvailability();
+                    if(checkAvailability){
+                        return false;
+                    }
+                } break;
+                default:{
+                   
                 }
-                break;
             }
         });
 
@@ -1439,12 +1526,8 @@
                 const nextGroup = tabGroupMap[tabId];        // e.g. 'group_one'
                 const $target   = $(e.target)
 
-                //const targetTab = $(e.target);
                 console.log("e target id: ", e.target.id);
-                var ckeditorGroup = parsleyForm.validate({
-                    group: 'ckeditor'
-                });
-
+                
                 if (!nextGroup) {
                     allowTabChange = true;
                     return $target.tab('show');
@@ -1452,152 +1535,147 @@
                 parsleyForm.whenValidate({
                     group: nextGroup
                 }).then(function() {
-                    allowTabChange = true;
-                    $target.tab('show');
-                    // if (e.target.id == "profile-tab" && ckeditorGroup != false) {
-                    //     $('.define_process_bar_color').attr('style', 'width :80%'); //.percent
-                    //     $('#percent').html('80%');
-                    // } else if (e.target.id == "contact-tab" && ckeditorGroup != false) {
-                    //     const field = $('input[data-parsley-at-least-one-number]').parsley();
-                    //     console.log(field);
-                        
-                    //     if (field.validate()) {
-                    //         alert("ok");
-                    //     } else {
-                    //         allowTabChange = false;
-                    //         return;
-                    //     }
-                    //     if ($(".draft").is(':checked')) {
-                    //         $(".hideDraft").hide();
-                    //         $("#show_draft").show();
+                    if(validateWhoAmIContent()){
+                        allowTabChange = true;
+                        $target.tab('show');
+                    }
+                    else{
+                        return false;
+                    }
+                    if (e.target.id == "profile-tab") {
+                        $('.define_process_bar_color').attr('style', 'width :80%'); //.percent
+                        $('#percent').html('80%');
+                    } else if (e.target.id == "contact-tab") {
+                        if ($(".draft").is(':checked')) {
+                            $(".hideDraft").hide();
+                            $("#show_draft").show();
+                        } else {
+                            $(".hideDraft").show();
+                            $("#show_draft").hide();
+                        }
+                        $('.define_process_bar_color').attr('style', 'width :100%'); //.percent
+                        $('#percent').html('100%');
+                    } else if (e.target.id == "massuers-tab") {
 
-                    //     } else {
-                    //         $(".hideDraft").show();
-                    //         $("#show_draft").hide();
-                    //     }
-                    //     $('.define_process_bar_color').attr('style', 'width :100%'); //.percent
-                    //     $('#percent').html('100%');
-                    // } else if (e.target.id == "massuers-tab" && ckeditorGroup != false) {
+                    } else if (e.target.id == "pricing-tab") {
 
-                    // } else if (e.target.id == "pricing-tab" && ckeditorGroup != false) {
+                        $('.define_process_bar_color').attr('style', 'width :100%'); //.percent
+                        $('#percent').html('100%');
 
-                    //     $('.define_process_bar_color').attr('style', 'width :100%'); //.percent
-                    //     $('#percent').html('100%');
+                        var name = $("#profile_name").val();
+                        $('#pro_name_tab').html(name);
 
-                    //     var name = $("#profile_name").val();
-                    //     $('#pro_name_tab').html(name);
+                        var user_createdat = new Date($("#user_startDate").val());
+                        var end = new Date($("#end_date").val());
+                        var start = new Date($("#start_date").val());
+                        var ss = start.setDate(start.getDate());
+                        var first_date = moment(ss).format('YYYY-MM-DD');
 
-                    //     var user_createdat = new Date($("#user_startDate").val());
-                    //     var end = new Date($("#end_date").val());
-                    //     var start = new Date($("#start_date").val());
-                    //     var ss = start.setDate(start.getDate());
-                    //     var first_date = moment(ss).format('YYYY-MM-DD');
+                        var user_diff = end.getTime() - user_createdat.getTime();
+                        var diff = end.getTime() - start.getTime();
+                        var days = diff / (1000 * 3600 * 24);
+                        var user_diff_days = user_diff / (1000 * 3600 * 24);
+                        var plan = $("#membership").val();
+                        $('#start_date_tab').html(first_date);
+                        if (plan == 1) {
+                            var actual_rate = 8;
+                            if (days <= 21) {
+                                var rate = 8;
+                            } else {
+                                var rate = 7.5;
+                                var dis_rate = 0.5;
+                            }
+                            var plan_name = "Platinum";
+                        } else if (plan == 2) {
+                            var actual_rate = 6;
+                            if (days <= 21) {
+                                var rate = 6;
+                            } else {
+                                var rate = 5.7;
+                                var dis_rate = 0.3;
+                            }
+                            var plan_name = "Gold";
+                        } else if (plan == 3) {
+                            var actual_rate = 4;
+                            if (days <= 21) {
+                                var rate = 4;
+                            } else {
+                                var rate = 3.8;
+                                var dis_rate = 0.2;
+                            }
+                            var plan_name = "Silver";
+                        } else {
 
-                    //     var user_diff = end.getTime() - user_createdat.getTime();
-                    //     var diff = end.getTime() - start.getTime();
-                    //     var days = diff / (1000 * 3600 * 24);
-                    //     var user_diff_days = user_diff / (1000 * 3600 * 24);
-                    //     var plan = $("#membership").val();
-                    //     $('#start_date_tab').html(first_date);
-                    //     if (plan == 1) {
-                    //         var actual_rate = 8;
-                    //         if (days <= 21) {
-                    //             var rate = 8;
-                    //         } else {
-                    //             var rate = 7.5;
-                    //             var dis_rate = 0.5;
-                    //         }
-                    //         var plan_name = "Platinum";
-                    //     } else if (plan == 2) {
-                    //         var actual_rate = 6;
-                    //         if (days <= 21) {
-                    //             var rate = 6;
-                    //         } else {
-                    //             var rate = 5.7;
-                    //             var dis_rate = 0.3;
-                    //         }
-                    //         var plan_name = "Gold";
-                    //     } else if (plan == 3) {
-                    //         var actual_rate = 4;
-                    //         if (days <= 21) {
-                    //             var rate = 4;
-                    //         } else {
-                    //             var rate = 3.8;
-                    //             var dis_rate = 0.2;
-                    //         }
-                    //         var plan_name = "Silver";
-                    //     } else {
+                            var actual_rate = 0;
+                            var rate = 0;
+                            var dis_rate = 0;
+                            var plan_name = "Free";
+                            var payDays = days - 14;
+                            var userPayDays = user_diff_days - 14;
+                            days = userPayDays;
+                            if (userPayDays < 1) {
+                                var actual_rate = 0;
+                                var rate = 0;
+                                var dis_rate = 0;
+                            } else if (userPayDays <= 21 && userPayDays >= 1) {
+                                var rate = 4;
+                            } else {
+                                var rate = 3.8;
+                                var dis_rate = 0.2;
+                            }
+                        }
+                        $('#plan').html(plan_name);
+                        if (days > 1) {
+                            $('#duration_tab').html(days + " Days");
+                        } else {
+                            $('#duration_tab').html(days + " Day");
+                        }
 
-                    //         var actual_rate = 0;
-                    //         var rate = 0;
-                    //         var dis_rate = 0;
-                    //         var plan_name = "Free";
-                    //         var payDays = days - 14;
-                    //         var userPayDays = user_diff_days - 14;
-                    //         days = userPayDays;
-                    //         if (userPayDays < 1) {
-                    //             var actual_rate = 0;
-                    //             var rate = 0;
-                    //             var dis_rate = 0;
-                    //         } else if (userPayDays <= 21 && userPayDays >= 1) {
-                    //             var rate = 4;
-                    //         } else {
-                    //             var rate = 3.8;
-                    //             var dis_rate = 0.2;
-                    //         }
-                    //     }
-                    //     $('#plan').html(plan_name);
-                    //     if (days > 1) {
-                    //         $('#duration_tab').html(days + " Days");
-                    //     } else {
-                    //         $('#duration_tab').html(days + " Day");
-                    //     }
+                        if (days !== null && days <= 21) {
+                            var total_rate = days * rate;
+                            var dis = 0;
+                            $('#rate_tab').html("$ " + rate.toFixed(2));
+                        } else {
+                            var days_21 = 21 * actual_rate;
+                            var above_day = days - 21;
 
-                    //     if (days !== null && days <= 21) {
-                    //         var total_rate = days * rate;
-                    //         var dis = 0;
-                    //         $('#rate_tab').html("$ " + rate.toFixed(2));
-                    //     } else {
-                    //         var days_21 = 21 * actual_rate;
-                    //         var above_day = days - 21;
+                            var total_rate = (above_day * rate + days_21);
 
-                    //         var total_rate = (above_day * rate + days_21);
+                            var dis = above_day * dis_rate;
 
-                    //         var dis = above_day * dis_rate;
+                            $('#rate_tab').html("$ " + rate.toFixed(2));
+                        }
 
-                    //         $('#rate_tab').html("$ " + rate.toFixed(2));
-                    //     }
+                        $('#dis_tab').html("$ " + dis.toFixed(2));
+                        var draft = $(".draft").val();
+                        if (draft == 1) {
+                            $('#total_rate').html("$ 0.00");
+                        } else {
+                            $('#total_rate').html("$ " + total_rate.toFixed(2));
+                        }
+                        $('#fee_tab').html("$ " + actual_rate.toFixed(2));
 
-                    //     $('#dis_tab').html("$ " + dis.toFixed(2));
-                    //     var draft = $(".draft").val();
-                    //     if (draft == 1) {
-                    //         $('#total_rate').html("$ 0.00");
-                    //     } else {
-                    //         $('#total_rate').html("$ " + total_rate.toFixed(2));
-                    //     }
-                    //     $('#fee_tab').html("$ " + actual_rate.toFixed(2));
+                        $("#poli_payment").click(function(e) {
+                            $('#poli_payment').prop('disabled', true);
+                            $('#poli_payment').html('<div class="spinner-border"></div>');
+                            var escortId = $('#profile_id').val();
+                            var url = "{{ route('escort.poli.paymentUrl', ':id') }}";
+                            url = url.replace(':id', escortId);
 
-                    //     $("#poli_payment").click(function(e) {
-                    //         $('#poli_payment').prop('disabled', true);
-                    //         $('#poli_payment').html('<div class="spinner-border"></div>');
-                    //         var escortId = $('#profile_id').val();
-                    //         var url = "{{ route('escort.poli.paymentUrl', ':id') }}";
-                    //         url = url.replace(':id', escortId);
+                            $('<form/>', {
+                                action: url,
+                                method: 'POST'
+                            }).append($('<input>', {
+                                type: 'hidden',
+                                name: '_token',
+                                value: '{{ csrf_token() }}'
+                            }), ).appendTo('body').submit();
 
-                    //         $('<form/>', {
-                    //             action: url,
-                    //             method: 'POST'
-                    //         }).append($('<input>', {
-                    //             type: 'hidden',
-                    //             name: '_token',
-                    //             value: '{{ csrf_token() }}'
-                    //         }), ).appendTo('body').submit();
-
-                    //     })
-                    // } else {
-                    //     $('.define_process_bar_color').attr('style', 'width :25%'); //.percent
-                    //     $('#percent').html('25%');
-                    // }
+                        })
+                    } else {
+                        $('.define_process_bar_color').attr('style', 'width :25%'); //.percent
+                        $('#percent').html('25%');
+                    }
                 }, function() {
                     console.log('Validation failed');
                 });
@@ -1710,26 +1788,27 @@
                 'Underline,Subscript,Superscript,PasteText,PasteFromWord,Scayt,Anchor,Unlink,Image,Table,HorizontalRule,SpecialChar,Maximize,About,RemoveFormat,Strike';
         };
         let editor = CKEDITOR.replace(textarea);
-        editor.on('instanceReady', function() {
-            $.each(CKEDITOR.instances, function(instance) {
-                CKEDITOR.instances[instance].on("change", function(e) {
-                    var desc = CKEDITOR.instances['editor1'].getData();
-                    for (instance in CKEDITOR.instances) {
-                        CKEDITOR.instances[instance].updateElement();
+        // editor.on('instanceReady', function() {
+        //     $.each(CKEDITOR.instances, function(instance) {
+        //         CKEDITOR.instances[instance].on("change", function(e) {
+        //             var desc = CKEDITOR.instances['editor1'].getData();
+        //             for (instance in CKEDITOR.instances) {
+        //                 CKEDITOR.instances[instance].updateElement();
 
-                        let validateee = $('#my_escort_profile').parsley().validate({
-                            group: 'ckeditor'
-                        });
-                        if (validateee != true) {
-                            $(".who_am_i").attr('id', "who_am_i");
-                        }
-                        if (validateee == true) {
-                            $(".who_am_i").attr('id', "update_who_am_i");
-                        }
-                    }
-                });
-            });
-        });
+        //                 let validateee = $('#my_escort_profile').parsley().validate({
+        //                     group: 'ckeditor'
+        //                 });
+        //                 if (validateee != true) {
+        //                     $(".who_am_i").attr('id', "who_am_i");
+        //                 }
+        //                 if (validateee == true) {
+        //                     $(".who_am_i").attr('id', "update_who_am_i");
+        //                 }
+        //             }
+        //         });
+        //     });
+        // });
+        
         let deleteKey = 46;
         let backspaceKey = 8;
         let leftArrowKey = 37;

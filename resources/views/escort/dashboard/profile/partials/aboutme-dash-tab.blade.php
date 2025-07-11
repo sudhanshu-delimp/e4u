@@ -1457,11 +1457,19 @@
             <form id="update_abut_who_am_i" action="{{ route('escort.about',[$escort->id])}}" method="POST">
                 @csrf
             @endif
-             <input type="text" name="about_title" value="{{$escort->about_title ? $escort->about_title : null }}" class="whoiamtitle mb-3" placeholder="Enter Your Title Here">
+             <input type="text" name="about_title" value="{{$escort->about_title ? $escort->about_title : null }}" class="whoiamtitle mb-3" placeholder="Enter Your Title Here" required
+                                         data-parsley-group="group_one" 
+                                         data-parsley-required-message="Enter title">
                 <div class="row">
                     <div class="col-12">
-                        <textarea id="editor1" name="about" data-parsley-maxlength="2500" data-parsley-maxlength-message="You can't enter more than 2500 characters." data-parsley-group="ckeditor">@if(!empty($escort->about)) {{ $escort->about}} @endif</textarea>
+                        <textarea id="editor1" name="about" data-parsley-maxlength="2500" data-parsley-maxlength-message="You can't enter more than 2500 characters." required
+                                         data-parsley-group="group_one" 
+                                         data-parsley-required-message="Enter content."
+                                         data-parsley-errors-container="#editor1-errors">@if(!empty($escort->about)) {{ $escort->about}} @endif</textarea>
                         <span class="theme-text-color text-capitalize">max limit 2500 characters</span>
+                    </div>
+                    <div class="col-sm-4">
+                            <span id="editor1-errors"></span>
                     </div>
 
                 </div>
