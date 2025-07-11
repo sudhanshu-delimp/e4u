@@ -59,6 +59,7 @@
         <link rel="stylesheet" href="{{ asset('node_modules/summernote/dist/summernote.css') }}">
         <script type="text/javascript" src="{{ asset('node_modules/summernote/dist/summernote.js') }}"></script>
         <script type="text/javascript" src="{{ asset('node_modules/summernote-accordion/summernote-accordion.js') }}"></script>
+        
         <script type="text/javascript">
             $(function() {
               $('#editor1').summernote({
@@ -78,6 +79,8 @@
             });
             });
           </script> --}}
+
+          <script src="{{ asset('assets/js/common.js') }}"></script>
        
         @stack('script')
 </body>

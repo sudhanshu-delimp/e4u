@@ -77,7 +77,8 @@ class SupportTicketsController extends AppController
                         ->orWhere('subject', 'like', "%{$search}%")
                         ->orWhere('message', 'like', "%{$search}%")
                         ->orWhere('created_on', 'like', "%{$search}%")
-                        ->orWhere('status', 'like', "%{$search}%");
+                        ->orWhere('status', 'like', "%{$search}%")
+                        ->orWhere('ref_number', 'like', "%{$search}%");
                 });
             }
 

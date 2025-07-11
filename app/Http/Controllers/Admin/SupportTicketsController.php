@@ -2,15 +2,20 @@
 namespace App\Http\Controllers\Admin;
 
 //use Illuminate\Http\Request;
-use App\Http\Controllers\AppController;
-use App\Http\Requests\Escort\SupportTicketsRequest;
-use App\Models\TicketConversations;
+use Exception;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use App\Repositories\SupportTickets\SupportTicketsInterface;
-use App\Models\SupportTickets;
 use Illuminate\Http\Request;
+use App\Models\SupportTickets;
+use App\Models\TicketConversations;
+use Illuminate\Support\Facades\Log;
+use App\Mail\sendSupportReplyToUser;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\AppController;
+use Illuminate\Support\Facades\Storage;
+use App\Mail\sendSupportTicketConfirmationToUser;
+use App\Http\Requests\Escort\SupportTicketsRequest;
+use App\Repositories\SupportTickets\SupportTicketsInterface;
 
 class SupportTicketsController extends AppController
 {
@@ -56,26 +61,48 @@ class SupportTicketsController extends AppController
 
     private function paginatedList($start, $limit, $order_key, $dir)
     {
-        $tickets = SupportTickets::where('user_id', '>', 0);
-        switch ($order_key) {
-            case 1:
-                $tickets->orderBy('department', $dir);
-                break;
-            case 2:
-                $tickets->orderBy('priority', $dir);
-                break;
-            case 3:
-                $tickets->orderBy('service_type', $dir);
-                break;
-        }
-        if($order_key == 6) {
-            $tickets->orderBy('created_on', $dir)->orderBy('status', 'ASC');
-        } elseif($order_key == 7) {
-            $tickets->orderBy('status', $dir)->orderBy('created_on', 'DESC');
-        } else {
-            $tickets->orderBy('created_on', 'DESC');
-            $tickets->orderBy('status', 'ASC');
-        }
+        
+        
+        $tickets = SupportTickets::with('user')->where('user_id', '>', 0);
+        $search = request()->input('search.value');
+
+            if (!empty($search)) {
+                $tickets->where(function ($query) use ($search) {
+                    $query->where('id', 'like', "%{$search}%")
+                        ->orWhere('department', 'like', "%{$search}%")
+                        ->orWhere('priority', 'like', "%{$search}%")
+                        ->orWhere('service_type', 'like', "%{$search}%")
+                        ->orWhere('subject', 'like', "%{$search}%")
+                        ->orWhere('message', 'like', "%{$search}%")
+                        ->orWhere('created_on', 'like', "%{$search}%")
+                        ->orWhere('status', 'like', "%{$search}%")
+                        ->orWhere('ref_number', 'like', "%{$search}%");
+                });
+            }
+
+            switch ($order_key) {
+                case 1:
+                    $tickets->orderBy('department', $dir);
+                    break;
+                case 2:
+                    $tickets->orderBy('priority', $dir);
+                    break;
+                case 3:
+                    $tickets->orderBy('service_type', $dir);
+                    break;
+                case 6:
+                    $tickets->orderBy('created_on', $dir)->orderBy('status', 'ASC');
+                    break;
+                case 7:
+                    $tickets->orderBy('status', $dir)->orderBy('created_on', 'DESC');
+                    break;
+                    
+                default:
+                    $tickets->orderBy('created_on', 'DESC')->orderBy('status', 'ASC');
+                    break;
+            }
+
+      
 
         $totalTickets = $tickets->count();
         $tickets = $tickets
@@ -116,30 +143,65 @@ class SupportTicketsController extends AppController
             // }
             // $item->status_mod2 .= '     </ul>
             //                         </div>';
-            $item->action = '<div class="dropdown no-arrow archive-dropdown">
+
+            	
+            $dropdown = "";
+            $dropdown = '<div class="dropdown no-arrow archive-dropdown">
                                 <a class="dropdown-toggle" href="" role="button" class="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                                    <a class="dropdown-item editTour view_ticket d-flex align-items-center justify-content-between" id="cdTour" href="#">Active
-                                        <i class="fa fa-circle"></i>                                        
-                                    </a>
-                                    <a class="dropdown-item editTour view_ticket d-flex align-items-center justify-content-between" id="cdTour" href="#">In-progress
-                                        <i class="fa fa-spinner"></i>
-                                    </a>
-                                    <a class="dropdown-item editTour view_ticket d-flex align-items-center justify-content-between" id="cdTour" href="#">Resolved
-                                        <i class="fa fa-check"></i>
-                                    </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';
+                                   
+                                if($item->status!='Active')
 
-                                    <a class="dropdown-item editTour view_ticket d-flex align-items-center justify-content-between" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#conversation_modal">History
+                                  {
+                                     $dropdown .= '<a 
+                                        class="dropdown-item editTour change-status-btn d-flex align-items-center justify-content-between" 
+                                        href="#"
+                                        data-id="'.$item->id.'" 
+                                        data-status="1">
+                                        Active
+                                        <i class="fa fa-circle"></i>   
+                                        </a>';
+                                  }
+
+
+                                    if($item->status!='In-progress')
+
+                                     {
+                                        $dropdown .=  '<a 
+                                        class="dropdown-item editTour change-status-btn d-flex align-items-center justify-content-between" 
+                                        href="#"
+                                        data-id="'.$item->id.'" 
+                                        data-status="2">
+                                        In-progress
+                                        <i class="fa fa-spinner"></i>
+                                        </a>';
+                                     }
+
+
+                                    if($item->status!='Resolved')
+                                    {
+                                        $dropdown .=  '<a  
+                                        class="dropdown-item editTour change-status-btn d-flex align-items-center justify-content-between" 
+                                        href="#"
+                                        data-id="'.$item->id.'" 
+                                        data-status="3">
+                                        Resolved
+                                        <i class="fa fa-check"></i>
+                                        </a>';
+                                    }
+
+
+                                    $dropdown .= '<a class="dropdown-item editTour view_ticket d-flex align-items-center justify-content-between" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#conversation_modal">History
                                         <i class="fa fa-comments text-default"></i>
-                                    </a>
-                                </div>
-                            </div>';
+                                        </a>';
+                                $dropdown .='</div></div>';
+                                $item->action = $dropdown;
             $i++;
         }
 
-        
-
+       
+       
         return [$tickets, $totalTickets];
     }
 //     private function paginatedList($start, $limit, $order_key, $dir)
@@ -222,8 +284,11 @@ class SupportTicketsController extends AppController
 //     }
 
     function conversations($ticket_id) {
-        $ticket = SupportTickets::where('id', $ticket_id)->with('conversations')->with('User')->first()->toArray();
+        $ticket = SupportTickets::where('id', $ticket_id)->with('conversations')->with('User')->first();
+        $ticket->status_id = $ticket->getRawOriginal('status');
+        $ticket = $ticket->toArray();
         return response()->json($ticket);
+        
     }
 
 
@@ -269,6 +334,26 @@ class SupportTicketsController extends AppController
             $st = SupportTickets::find($request->ticketId);
             $st->unread = 1;
             $st->save();
+
+            ################# Send Email To User #####################
+                $userData = [
+                    
+                    'user_id' => $st->user->id,
+                    'ref_number'=> $st->ref_number,
+                    'department' => $st->department,
+                    'priority' => $st->priority,
+                    'service_type' => $st->service_type,
+                    'subject' => $st->subject,
+                    'message' => $request->message,
+                    'name' => isset($st->user->name) ? $st->user->name : "",
+                    'email' => isset($st->user->email) ? $st->user->email : "",
+                    'member_id' => isset($st->user->member_id) ? $st->user->member_id : "",
+                ];
+
+            $this->sendSupportReplyToUser($userData);
+
+            ################## End Send Email To User ################
+
             return response()->json(['status' => 'success']);
         } else {
             return response()->json(['status' => 'error']);
@@ -282,18 +367,40 @@ class SupportTicketsController extends AppController
             'status' => 'error',
             'message' => ''
         ];
-        if($ticket) {
-            if($ticket->status != "3" || $ticket->status != 4) { //Resolved or withdrawn
+        if($ticket) 
+        {
+            if($ticket->status != "3" || $ticket->status != 4) 
+            { 
                 $ticket->status = $status_id;
                 $ticket->save();
                 $response['status'] = 'success';
                 $response['message'] = config('common.supportTicket.statuses')[$status_id];
-            } else {
+            } 
+            else {
                 $response['message'] = "Currently can't change the ticket status";
             }
         } else {
             $response['message'] = "Ticket not found";
         }
         return response()->json($response);
+    }
+
+
+    public function sendSupportReplyToUser($userData)
+    {
+        try 
+        {
+           if(isset($userData['email']) && $userData['email']!="")
+           {
+            Mail::to($userData['email'])->queue(new sendSupportReplyToUser($userData));
+            return true;
+           }
+
+           return false;
+        } 
+        catch (Exception $e) {
+            Log::info($e->getMessage());
+            return false;
+        } 
     }
 }
