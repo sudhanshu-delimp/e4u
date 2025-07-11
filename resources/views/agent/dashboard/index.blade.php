@@ -1,9 +1,11 @@
 @extends('layouts.agent')
 @section('content')
-<div class="container-fluid pl-lg-4">
+<div class="container-fluid">
    <!-- Page Heading -->
-   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <div class="v-main-heading h3 mb-2 pt-4">Dashboard</div>
+   <div class="row">
+      <div class="custom-heading-wrapper col-md-12">
+         <h1 class="h1">Dashboard</h1>
+      </div>
    </div>
    <div class="row agent-dash">
       <div class="col-lg-8 pr-2">

@@ -120,7 +120,6 @@ class CreateController extends Controller
             $escort = $this->escort->make();
             // $escort = $user->escorts->first();
         }
-
         // if(!$escort = $user->escorts->where('user_id', $user->id)->where('completed', 1)->first()) {
 
         //     $data = [

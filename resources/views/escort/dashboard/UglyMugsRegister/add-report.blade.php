@@ -16,7 +16,7 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content start here-->
    <div class="row">
       <div class="col-md-12">
@@ -29,65 +29,136 @@
                <div class="card">
                   <div class="card-body">
                      <p><b>Notes:</b> </p>
-                     <ul>
-                        <li>The NUM register (NUM) is a free service to all Escorts.</li>
-                        <li>Complete the form to add an incident. Ensure all details are correct and compliant with the <a href="#" class="text-danger">Code of Conduct</a>.</li>
-                        <li>The NUM is a closed publication for Escorts only, based on real incident reports.</li>
-                        <li><strong>Incident Nature filter meanings:</strong>
-                          <ul>
-                            <li><strong>Time waster</strong>: client who didn’t turn up or keeps postponing.</li>
-                            <li><strong>Con man</strong>: client didn’t pay after the appointment.</li>
-                            <li><strong>Dangerous</strong>: aggressive or drug-using client.</li>
-                            <li><strong>Assault</strong>: client who assaulted you.</li>
-                          </ul>
+                     <ol>
+                        <li>
+                          The NUM register (NUM) is a free service to all Escorts. You can use the NUM service
+                          at any time.
                         </li>
-                      </ul>
+                        <li>
+                          Complete the form to add an incident to the NUM. When completing the form please
+                          ensure all of the details are correct and you have selected the correct option under
+                          <strong>Incident Nature</strong> to describe the incident as well as for Rating. Please ensure your report
+                          complies with the <strong><a href="{{ route('escort.code-of-conduct') }}" class="custom_links_design">Code of Conduct</a></strong>.
+                        </li>
+                        <li>
+                          The NUM is a closed publication for Escorts only. Each entry contains personal reports,
+                          provided by Escorts, of incidents involving problem clients. The NUM makes these
+                          reports available to help other Escorts avoid problem clients, and as an extension of
+                          the “word of mouth” warnings given by Escorts between each other.
+                        </li>
+                        <li>
+                          Incident Nature filter meanings:
+                          <ol class="level-2">
+                            <li><strong>Time waster:</strong> A client who did not turn up at an agreed time, or keeps
+                            putting off the appointment, promising to come at a later time but never turns up.</li>
+                            <li><strong>Con man:</strong> A client that did not pay you for the agreed time for your
+                            companionship.</li>
+                            <li><strong>Dangerous:</strong> A client who is aggressive toward you, usually language based,
+                            or undertakes dangerous behaviour such as using drugs in your presence.</li>
+                            <li><strong>Assault:</strong> A client who has assaulted you.</li>
+                            </ol>
+                        </li>
+                        <li>
+                          E4U makes no claims:
+                          <ol class="level-2">
+                            <li>as to the accuracy or legitimacy of the allegations; and</li>
+                            <li>nor do we investigate the authenticity of the Reports (provided in confidence by Escorts).</li>
+                          </ol>
+                        </li>
+                      </ol>                      
                   </div>
                </div>
             </div>
          </div>
          <!-- Report Form -->
-         <div class="card mt-4" style="max-width: 800px;">
-            <div class="card-header text-white" style="background: #0c223d !important;">
-              Submit Client Report
-            </div>
-            <div class="card-body">
-              <form>
-                <div class="form-group">
-                  <label for="clientMobile">Client's Mobile Number</label>
-                  <input type="text" class="form-control" id="clientMobile" placeholder="0400123456">
-                </div>
-          
-                <div class="form-group">
-                  <label for="incidentNature">Incident Nature</label>
-                  <select class="form-control" id="incidentNature">
-                    <option>Time waster</option>
-                    <option>Con man</option>
-                    <option>Dangerous</option>
-                    <option>Assault</option>
-                  </select>
-                </div>
-          
-                <div class="form-group">
-                  <label for="rating">Rating</label>
-                  <select class="form-control" id="rating">
-                    <option>Low</option>
-                    <option>Medium</option>
-                    <option>High</option>
-                  </select>
-                </div>
-          
-                <div class="form-group">
-                  <label for="incidentDetails">Incident Details</label>
-                  <textarea class="form-control" id="incidentDetails" rows="5" placeholder="Describe the incident..."></textarea>
-                </div>
-          
-                <button type="submit" class="save_profile_btn">Submit Report</button>
+         <div class="row">
+            <div class="col-md-9 add-punterbox-report">
+               <form>
+                  <div class="form-group">
+                      <label class="required">Incident Date</label>
+                      <input type="date" class="form-control">
+                  </div>
+                  <div class="form-group">
+                      <label class="required">Incident State</label>
+                      <select class="custom-select">
+                              <option selected>Please Choose</option>
+                              <option value="act">ACT</option>
+                              <option value="nsw">NSW</option>
+                              <option value="nt">NT</option>
+                              <option value="qld">QLD</option>
+                              <option value="sa">SA</option>
+                              <option value="tas">Tas</option>
+                              <option value="vic">VIC</option>
+                              <option value="wa">WA</option>
+                          </select>
+                  </div>
+      
+                  <div class="form-group">
+                      <label class="required">Incident Location</label>
+                      <input type="text" class="form-control" placeholder="Which city were you in">
+                  </div>
+      
+                  <div class="form-group">
+                      <label>Escort's Name</label>
+                      <input type="text" class="form-control" placeholder="If known">
+                  </div>
+      
+                  <div class="form-group">
+                      <label class="required">Escort's Mobile</label>
+                      <input type="text" class="form-control" placeholder="No spaces or any other characters - just numbers">
+                  </div>
+      
+                  <div class="form-group">
+                      <label>Escort's Email</label>
+                      <input type="email" class="form-control" placeholder="If known">
+                  </div>
+      
+                  <div class="form-group">
+                      <label class="required">Incident Nature</label>
+                      <select class="custom-select">
+                        <option selected>Please Choose</option>
+                        <option>Fraud</option>
+                        <option>No Show</option>
+                        <option>Violence</option>
+                     </select>
+                  </div>
+      
+                  <div class="form-group">
+                      <label>Platform</label>
+                      <input type="text" class="form-control" placeholder="If known">
+                  </div>
+      
+                  <div class="form-group">
+                      <label>Profile Link</label>
+                      <input type="text" class="form-control" placeholder="Link or Membership ID or Ref">
+                  </div>
+      
+                  <div class="form-group">
+                      <label class="required">What Happened</label>
+                      <textarea class="form-control" rows="4"></textarea>
+                  </div>
+      
+                  <div class="form-group">
+                      <label class="required d-block">Rating</label>
+                      <div class="form-check d-flex align-items-center">
+                          <input class="form-check-input" type="radio" name="rating" id="rate1">
+                          <label class="form-check-label" for="rate1">Do not book</label>
+                      </div>
+                      <div class="form-check d-flex align-items-center">
+                          <input class="form-check-input" type="radio" name="rating" id="rate2">
+                          <label class="form-check-label" for="rate2">Exercise caution</label>
+                      </div>
+                      <div class="form-check d-flex align-items-center">
+                          <input class="form-check-input" type="radio" name="rating" id="rate3">
+                          <label class="form-check-label" for="rate3">Safe</label>
+                      </div>
+                  </div>
+      
+                  <button type="submit" class="save_profile_btn">Add Report</button>
+                  <small class="d-block mt-2">Your report will remain <em>Pending</em> until approved by our Operations team.</small>
               </form>
             </div>
-          </div>
-          
-      </div>
+         </div>
    </div>
    <!--middle content end here-->
 </div>

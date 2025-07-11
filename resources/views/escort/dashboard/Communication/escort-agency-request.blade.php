@@ -13,14 +13,14 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!--middle content start here-->
         <div class="row">
             <div class="col-md-12">
                 <div class="v-main-heading h3" style="display: inline-block;">Agent Request</div>
                 <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
             </div>
-            <div class="col-md-12 mt-4 mb-5">
+            <div class="col-md-12 mt-5 mb-5">
                 <div class="row collapse" id="notes">
                     <div class="col-md-12 mb-4">
                         <div class="card">

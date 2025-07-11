@@ -7,14 +7,14 @@
    .table td, .table th {
    padding: 0.4rem;}
 </style>
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid">
    <!--middle content end here-->
    <div class="row">
-      <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12 p-0">
+      <div class="custom-heading-wrapper col-lg-12">
          <h1 class="h1">Commission Summary</h1>
          <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
       </div>
-      <div class="col-md-12 my-2 p-0">
+      <div class="col-md-12 mb-4">
          <div class="card collapse" id="notes" style="">
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
@@ -26,34 +26,28 @@
             </div>
          </div>
       </div>
-      <div class="col-md-12">
-         <div class="row pt-2 pb-2">
-            <div class="col-md-6 mb-2 pl-0">
-               <div class="card Summary">
-                  <div class="card-body pb-0">
-                     <p><b>Agent Details</b> </p>
-                     <ul class="mb-2">
-                        <li class="text-capitalize"><b style="color: #5D6D7E;">Name:</b>Well Done Accounts</li>
-                        <li><b style="color: #5D6D7E;">Contact:</b>Ava Lopez</li>
-                        <li><b style="color: #5D6D7E;">ABN:</b>83 517 839 569</li>
-                     </ul>
-                  </div>
-               </div>
+      <div class="col-md-6">
+         <div class="card Summary">
+            <div class="card-body pb-0">
+               <p><b>Agent Details</b> </p>
+               <ul class="mb-2">
+                  <li class="text-capitalize"><b style="color: #5D6D7E;">Name:</b>Well Done Accounts</li>
+                  <li><b style="color: #5D6D7E;">Contact:</b>Ava Lopez</li>
+                  <li><b style="color: #5D6D7E;">ABN:</b>83 517 839 569</li>
+               </ul>
             </div>
          </div>
       </div>
-      <div class="col-md-12 pl-0">
-         <div class="row ml-0 mt-4">
-            <ul class="nav nav-tabs tab-sec">
-               <li class="active"><a href="#one" data-toggle="tab" class="active">Commission Summary (YoY)</a></li>
-               <li><a href="#two" data-toggle="tab" class="">Commission Summary (Advertiser)</a></li>
-            </ul>
-         </div>
+      <div class="col-md-12 mt-4">
+         <ul class="nav nav-tabs tab-sec">
+            <li class="active"><a href="#one" data-toggle="tab" class="active">Commission Summary (YoY)</a></li>
+            <li><a href="#two" data-toggle="tab" class="">Commission Summary (Advertiser)</a></li>
+         </ul>
       </div>
-      <div class="col-md-12 pt-4">
+      <div class="col-md-12 mt-4">
          <div class="w-100">
             <div class="row">
-               <div class="col-sm-12 pl-0">
+               <div class="col-sm-12">
                   <div class="card mb-4 border-0">
                      <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade active show" id="one" role="tabpanel" aria-labelledby="one-tab">

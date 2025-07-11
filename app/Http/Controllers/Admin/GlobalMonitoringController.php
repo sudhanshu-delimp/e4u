@@ -572,7 +572,13 @@ class GlobalMonitoringController extends Controller
                     }
 
                     if(count($escort['suspend_profile']) > 0){
-                        $suspensionBadge = "<sup title='Suspended on " . Carbon::parse($escort['suspend_profile'][0]['created_at'])->setTimezone(config('app.escort_server_timezone'))->format('d-m-Y h:i A') .
+                        # get timezone of escort
+                        $escortTimezone = config('app.escort_server_timezone');
+                        if($escort && $escort['state_id'] && $escort['city_id']){
+                            $escortTimezone = config('escorts.profile.states')[$escort['state_id']]['cities'][$escort['city_id']]['timeZone'];
+                        }
+
+                        $suspensionBadge = "<sup title='Suspended on " . Carbon::parse($escort['suspend_profile'][0]['created_at'])->setTimezone($escortTimezone)->format('d-m-Y h:i A') .
                         "' class='brb_icon' style='background-color: #d2730a;'>SUS</sup></span>";
                     }else{
                         $suspensionBadge = '';

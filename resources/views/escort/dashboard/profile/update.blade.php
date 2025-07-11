@@ -45,7 +45,12 @@
     </script>
 @endsection
 @section('content')
-    <div class="d-flex flex-column container-fluid pl-3 pl-lg-5">
+    @php  
+    $existDefaultRate = $escort->services()->exists();
+    $existAvailability = $escort->availability()->exists();
+    $editMode = request()->segment(2) == 'profile' ? true:false;
+    @endphp
+    <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="row">
             <div class="col-md-12">
                 @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
@@ -82,7 +87,7 @@
             </div>
         </div>
         <div id="content">
-            <div class="container-fluid">
+            <div class="container-fluid p-0">
                 <!--middle content-->
                 <div class="row">
                     <div class="col-md-12">
@@ -419,6 +424,15 @@
             /** Save My service form data when open in edit mode */
             jQuery('#myServicesForm').on('submit', function(e) {
                 e.preventDefault();
+                let existService = checkServicePrice();
+                if(!existService){
+                    if (!existService) {
+                        Swal.fire('My Services',
+                            'You must complete all selected service value to proceed.',
+                            'warning');
+                        return false;
+                    }
+                }
                 var form = $(this);
                 var url = form.attr('action');
                 var data = new FormData($('#myServicesForm')[0]);
@@ -464,6 +478,13 @@
 
             $('#storeRate').on('submit', function(e) {
                 e.preventDefault();
+                let existRates = checkRates();
+                if (!existRates) {
+                    Swal.fire('Rates',
+                    'You must complete at least one rate value to proceed.',
+                    'warning');
+                    return false;
+                }
                 var form = $(this);
                 var url = form.attr('action');
                 var data = new FormData($('#storeRate')[0]);
@@ -749,14 +770,12 @@
         $('#service_id_one').on('change', function() {
             var selectedIdOne = $('#service_id_one').val();
             var getNameOne = $(this).children(":selected").attr("id");
+            let changeClass = "{{$existDefaultRate?'change_default2':''}}";
             if (selectedIdOne) {
-                $("#selected_service_one").append(" <li id='hideenclassOne_" + selectedIdOne +
-                    "'><div class='my_service_anal' ><span class='dollar-sign'>" + getNameOne +
-                    "</span><input type='number' class='dollar-before input_border change_default2' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id=" +
-                    selectedIdOne + "><input type='hidden' name='service_id[]' value=" +
-                    selectedIdOne + " placeholder=''><span><i class='fas fa-times-circle akh1' data-sname='" +
-                    getNameOne + "' data-val=" + selectedIdOne + "  id='id_" + selectedIdOne + "' value=" +
-                    selectedIdOne + " ></i></span></div></li> ");
+                let appendTag = `<li id='hideenclassOne_${selectedIdOne}'><div class="my_service_anal"><span class='dollar-sign'>${getNameOne}</span>`;
+                appendTag += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedIdOne}"><input type='hidden' name='service_id[]' value="${selectedIdOne}" placeholder=''><span><i class='fas fa-times-circle akh1' data-sname='${getNameOne}' data-val="${selectedIdOne}"  id='id_${selectedIdOne}' value="${selectedIdOne}" >`;
+                appendTag += `</i></span></div></li>`;
+                $("#selected_service_one").append(` ${appendTag} `);
                 $("#service_id_one option[value=" + selectedIdOne + "]").attr('disabled', 'disabled');
                 $("#service_id_one option[value=" + selectedIdOne + "]").remove();
 
@@ -766,15 +785,12 @@
         $('#service_id_two').on('change', function() {
             var selectedIdTwo = $('#service_id_two').val();
             var getNameTwo = $(this).children(":selected").attr("id");
+            let changeClass = "{{$existDefaultRate?'change_default2':''}}";
             if (selectedIdTwo) {
-                $("#selected_service_two").append(" <li id='hideenclassTwo_" + selectedIdTwo +
-                    "'><div class='my_service_anal hideenclassTwo" + selectedIdTwo +
-                    "'><span class='dollar-sign'>" + getNameTwo +
-                    "</span><input type='number' class='dollar-before input_border change_default2' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id=" +
-                    selectedIdTwo + "><input type='hidden' name='service_id[]' value=" +
-                    selectedIdTwo + " placeholder=''><span><i class='fas fa-times-circle akh2'  data-sname='" +
-                    getNameTwo + "' data-val=" + selectedIdTwo + "  id='id_" + selectedIdTwo + "' value=" +
-                    selectedIdTwo + " ></i></span></div></li> ");
+                let appendTag = `<li id='hideenclassTwo_${selectedIdTwo}'><div class="my_service_anal"><span class='dollar-sign'>${getNameTwo}</span>`;
+                appendTag += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedIdTwo}"><input type='hidden' name='service_id[]' value="${selectedIdTwo}" placeholder=''><span><i class='fas fa-times-circle akh2' data-sname='${getNameTwo}' data-val="${selectedIdTwo}"  id='id_${selectedIdTwo}' value="${selectedIdTwo}" >`;
+                appendTag += `</i></span></div></li>`;
+                $("#selected_service_two").append(` ${appendTag} `);
                 $("#service_id_two option[value=" + selectedIdTwo + "]").attr('disabled', 'disabled');
                 $("#service_id_two option[value=" + selectedIdTwo + "]").remove();
             }
@@ -783,16 +799,12 @@
         $('#service_id_three').on('change', function() {
             var selectedIdThree = $('#service_id_three').val();
             var getNameThree = $(this).children(":selected").attr("id");
+            let changeClass = "{{$existDefaultRate?'change_default2':''}}";
             if (selectedIdThree) {
-                $("#selected_service_three").append(" <li id='hideenclassThree_" + selectedIdThree +
-                    "'><div class='my_service_anal hideenclassThree" + selectedIdThree +
-                    "'><span class='dollar-sign'>" + getNameThree +
-                    "</span><input type='number' class='dollar-before  input_border change_default2' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id=" +
-                    selectedIdThree + "><input type='hidden' name='service_id[]' value=" +
-                    selectedIdThree +
-                    " placeholder=''><span><i class='fas fa-times-circle akh3'  data-sname='" + getNameThree +
-                    "' data-val=" + selectedIdThree + "  id='id_" + selectedIdThree + "' value=" +
-                    selectedIdThree + " ></i></span></div></li> ");
+                let appendTag = `<li id='hideenclassThree_${selectedIdThree}'><div class="my_service_anal"><span class='dollar-sign'>${getNameThree}</span>`;
+                appendTag += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedIdThree}"><input type='hidden' name='service_id[]' value="${selectedIdThree}" placeholder=''><span><i class='fas fa-times-circle akh3' data-sname='${getNameThree}' data-val="${selectedIdThree}"  id='id_${selectedIdThree}' value="${selectedIdThree}" >`;
+                appendTag += `</i></span></div></li>`;
+                $("#selected_service_three").append(` ${appendTag} `);
                 $("#service_id_three option[value=" + selectedIdThree + "]").attr('disabled', 'disabled');
                 $("#service_id_three option[value=" + selectedIdThree + "]").remove();
             }
@@ -1021,6 +1033,27 @@
             return isValid;
         }
 
+        function checkServicePrice(){
+            const selectors = [
+            'input[name="price[]"]'
+            ];
+
+            let isValid = true;
+            const allInputs = selectors.flatMap(selector => 
+                Array.from(document.querySelectorAll(selector))
+            );
+
+            for (const input of allInputs) {
+                const val = parseFloat(input.value);
+                if (isNaN(val) || val <= 0) {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            return isValid;
+        }
+
         $("body").on('click', '.nex_sterp_btn', function(e) {
             // e.preventDefault();
             var id = $(this).attr('id');
@@ -1038,10 +1071,18 @@
                     }
                 } break;
                 case 'contact-tab': {
-                     let exist = checkRates();
-                    if (!exist) {
+                     let existRates = checkRates();
+                     let existService = checkServicePrice();
+                     let editMode = '{{$editMode}}';
+                     if (!existService && !editMode) {
+                        Swal.fire('My Services',
+                            'You must complete all selected service value to proceed.',
+                            'warning');
+                        return false;
+                    }
+                    if (!existRates && !editMode) {
                         Swal.fire('Rates',
-                            'At least one rate field must be greater than 0.',
+                            'You must complete at least one rate value to proceed.',
                             'warning');
                         return false;
                     }
@@ -1207,6 +1248,10 @@
             $(document).on('change',
                 'input.monday, input.tuesday, input.wednesday, input.thursday, input.friday, input.saturday, input.sunday',
                 function() {
+                    let shouldRun = "{{($editMode || $existAvailability)?true:false}}";
+                    if(!shouldRun){
+                        return false;
+                    }
                     var p_element = $(this).attr('id');
                     var weekName = $(this).attr('availability_time_key');
                     if ($('#' + p_element).is(":checked")) {

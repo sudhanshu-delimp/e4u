@@ -11,7 +11,7 @@
     </style>
 @endsection
 @section('content')
-    <div class="container-fluid pl-3 pl-lg-5">
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <h1>Checkout</h1>
         <form id="" action="{{ route('mobile-order-sim-payment') }}" method="post"
             enctype="multipart/form-data">

@@ -1,6 +1,14 @@
 @extends('layouts.userDashboard')
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
+<style type="text/css">
+        .brb_icon {
+            color: white;
+            background-color: #e5365a;
+            border-radius: 15%;
+            padding: 0 5px;
+        }
+</style>
 @stop
 @section('content')
 <!-- Content Wrapper -->
@@ -42,6 +50,7 @@
                    <thead class="bg-first">
                    <tr>
                        <th class="text-left">Escorts  ID</th>
+                       <th class="text-left" >Profile Name</th>
                        <th class="text-left">Location</th>
                        <th class="text-left">State Name</th>
                        <th class="text-left">Gender</th>
@@ -60,9 +69,110 @@
                    </tr>
                    </thead>
                    <tbody>
-                   <tr>
+
+                        @foreach ($escorts as $escort)
+                            <tr>
+                                @php
+                                    $suspendedBadge = isset($escort->suspendProfile[0]->id);
+                                    $escortLikes = isset($escort->likes[0]->id);
+                                    $percentage = 0;
+
+                                    if ($escortLikes) {
+                                        $dislikeCount = 0;
+                                        $totalLikes = count($escort->likes);
+
+                                        foreach ($escort->likes as $like) {
+                                            if ($like->like == 0) {
+                                                $dislikeCount++;
+                                            }
+                                        }
+
+                                        $likeCount = $totalLikes - $dislikeCount;
+
+                                        // Calculate percentage of likes
+                                        if ($totalLikes > 0) {
+                                            $percentage = round(($likeCount / $totalLikes) * 100, 2);
+                                        }
+
+                                        //dd($percentage);
+                                    }
+                                @endphp
+                                <td class="text-center">{{$escort->id}}</td>
+                                <td class="text-center">
+                                    <span>{{isset($escort->name) ? Str::title($escort->name) : '-'}}</span> 
+                                    
+                                     @if($suspendedBadge)
+                                        <sup 
+                                            title="Suspended on {{ \Carbon\Carbon::parse($escort->suspendProfile[0]->created_at, config('app.escort_server_timezone'))->format('d-m-Y h:i A') }}" 
+                                            class="brb_icon" 
+                                            style="background-color: #d2730a;">
+                                            SUS
+                                        </sup>
+                                    @endif
+                                    
+                                </td>
+                                <td class="text-center">{{isset($escort->city->name) ? $escort->city->name : '-'}}</td>
+                                <td class="text-center">{{isset($escort->state->name) ? $escort->state->name : '-'}} </td>
+                                <td class="text-center">{{$escort->gender}}</td>
+                                <td class="text-center">{{ getRatingLabel($percentage) }}</td>
+                                <td>Yes or No</td>
+                                <td class="text-center">Yes</td>
+                                <td class="text-center">Text</td>
+                                <td class="text-center">0438 028 728</td>
+                                <td class="text-center">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                            <label class="custom-control-label" for="customSwitch1"></label>
+                                        </div>
+                                    </td>
+                                
+                                <td class="theme-color text-center bg-white">
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button"
+                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i
+                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                
+                                                <div class="custom-tooltip-container">
+                                                    <a class="dropdown-item align-item-custom" href="#"> <i class="fa fa-phone-slash"></i> Disable Contact</a>
+                                                    <span class="tooltip-text">Viewer can’t contact this escort again </span>
+                                                    <div class="dropdown-divider"></div>
+                                                </div>
+                                                <div class="custom-tooltip-container">
+                                                    <a class="dropdown-item align-item-custom" href="#"> <i class="fa fa-bell-slash" aria-hidden="true"></i>
+                                                        Disable Notifications</a>
+                                                        <span class="tooltip-text">Viewer will not get notifications from this escort</span>
+                                                    <div class="dropdown-divider"></div>
+                                                </div>
+                                                <div class="custom-tooltip-container">
+                                                <a class="dropdown-item align-item-custom" href="#" title="" data-toggle="modal" data-target="#rateEscortModal"> <i class="fa fa-star" aria-hidden="true"></i>
+                                                    Rate</a>
+                                                    <span class="tooltip-text">Rate this Escort</span>
+                                                <div class="dropdown-divider"></div>
+                                                </div>
+                                                <div class="custom-tooltip-container">    
+                                                <a class="dropdown-item align-item-custom" href="#" data-toggle="modal" data-target="#removeEscort"> <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    Remove</a>
+                                                    <span class="tooltip-text">Viewer can’t contact this escort again </span>
+                                                <div class="dropdown-divider"></div>
+                                                </div>
+                                                <div class="custom-tooltip-container">
+                                                <a class="dropdown-item align-item-custom" href="#" data-toggle="modal" data-target="#escortProfileMissingModal"> <i class="fa fa-eye" aria-hidden="true"></i>
+                                                    View</a>
+                                                    <span class="tooltip-text">View the Escort’s Profile</span>
+                                                </div>
+                                            </div>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                        
-                       <td class="text-center">E60587</td>
+                       {{-- <td class="text-center">E60587</td>
                        <td class="text-center">Western Australia</td>
                        <td class="text-center">Joanne </td>
                        <td class="text-center">F </td>
@@ -120,8 +230,8 @@
                                 </div>
 
                            </div>
-                       </td>
-                   </tr>
+                       </td> --}}
+                   
                    
                    </tbody>
              </table>
@@ -314,7 +424,7 @@
                infoEmpty: "No entries available",
                infoFiltered: "(filtered from _MAX_ total entries)"
            },
-           paging: true
+           paging: true,
        });
    });
  </script>

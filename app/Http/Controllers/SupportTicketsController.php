@@ -2,15 +2,19 @@
 namespace App\Http\Controllers;
 
 //use Illuminate\Http\Request;
-use App\Http\Controllers\AppController;
-use App\Http\Requests\Escort\SupportTicketsRequest;
-use App\Models\TicketConversations;
+use Exception;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use App\Repositories\SupportTickets\SupportTicketsInterface;
-use App\Models\SupportTickets;
 use Illuminate\Http\Request;
+use App\Models\SupportTickets;
+use App\Models\TicketConversations;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendSupportTicketToAdmin;
+use App\Http\Controllers\AppController;
+use Illuminate\Support\Facades\Storage;
+use App\Mail\sendSupportTicketConfirmationToUser;
+use App\Http\Requests\Escort\SupportTicketsRequest;
+use App\Repositories\SupportTickets\SupportTicketsInterface;
 
 class SupportTicketsController extends AppController
 {
@@ -37,6 +41,7 @@ class SupportTicketsController extends AppController
             ->withPrefix($prefix);
     }
 
+    
     public function dataTable()
     {
         list($result, $count) = $this->paginatedList(
@@ -58,58 +63,76 @@ class SupportTicketsController extends AppController
 
     private function paginatedList($start, $limit, $order_key, $dir)
     {
-        $tickets = SupportTickets::where('user_id', auth()->user()->id);
-        switch ($order_key) {
-            case 1:
-                $tickets->orderBy('department', $dir);
-                break;
-            case 2:
-                $tickets->orderBy('priority', $dir);
-                break;
-            case 3:
-                $tickets->orderBy('service_type', $dir);
-                break;
-        }
-        if($order_key == 6) {
-            $tickets->orderBy('created_on', $dir)->orderBy('status', 'ASC');
-        } elseif($order_key == 7) {
-            $tickets->orderBy('status', $dir)->orderBy('created_on', 'DESC');
-        } else {
-            $tickets->orderBy('created_on', 'DESC');
-            $tickets->orderBy('status', 'ASC');
-        }
+            
+        
+            $tickets = SupportTickets::where('user_id', auth()->user()->id);
+            $search = request()->input('search.value');
 
-        $totalTickets = $tickets->count();
-        $tickets = $tickets
-            ->offset($start)
-            ->limit($limit)->get();
-
-        $i = 1;
-        foreach($tickets as $key => $item) {
-            $s = explode('/',$_SERVER['REQUEST_URI']);
-            $item->sn = ($start+$i);
-            $item->created_on = Carbon::parse($item->created_on)->format('d-m-Y');
-            $item->status_mod = "<span class='status' data-status-id='".$item->getRawOriginal('status')."'>$item->status</span>";
-            $item->action = '<div class="dropdown no-arrow archive-dropdown">
-                                <a class="dropdown-toggle" href="" role="button" class="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                                    <a class="dropdown-item view_ticket" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#conversation_modal">History
-                                        <i class="fa fa-fw fa-comments " style="float: right;"></i>
-                                    </a>';
-            if(!in_array($item->getRawOriginal('status'), [3,4])) {
-                $item->action .= '<a class="dropdown-item cancelTicket" href="#" data-id=' . $item->id . '>Withdraw
-                                        <i class="fa fa-fw fa-ban " style="float: right;"></i>
-                                    </a>';
+            if (!empty($search)) {
+                $tickets->where(function ($query) use ($search) {
+                    $query->where('id', 'like', "%{$search}%")
+                        ->orWhere('department', 'like', "%{$search}%")
+                        ->orWhere('priority', 'like', "%{$search}%")
+                        ->orWhere('service_type', 'like', "%{$search}%")
+                        ->orWhere('subject', 'like', "%{$search}%")
+                        ->orWhere('message', 'like', "%{$search}%")
+                        ->orWhere('created_on', 'like', "%{$search}%")
+                        ->orWhere('status', 'like', "%{$search}%");
+                });
             }
-            $item->action .=  '</div>
-                            </div>';
 
-            $i++;
-        }
+            switch ($order_key) {
+                case 1:
+                    $tickets->orderBy('department', $dir);
+                    break;
+                case 2:
+                    $tickets->orderBy('priority', $dir);
+                    break;
+                case 3:
+                    $tickets->orderBy('service_type', $dir);
+                    break;
+                case 6:
+                    $tickets->orderBy('created_on', $dir)->orderBy('status', 'ASC');
+                    break;
+                case 7:
+                    $tickets->orderBy('status', $dir)->orderBy('created_on', 'DESC');
+                    break;
+                default:
+                    $tickets->orderBy('created_on', 'DESC')->orderBy('status', 'ASC');
+                    break;
+            }
 
-        return [$tickets, $totalTickets];
+            $totalTickets = $tickets->count();
+
+            $tickets = $tickets->offset($start)
+                            ->limit($limit)
+                            ->get();
+
+            $i = 1;
+            foreach ($tickets as $item) {
+                $item->sn = ($start + $i);
+                $item->file = ($item->file!="") ? '<a download="true" href = "'.asset('support_tickets/'.$item->file).'">Download</a>' : "NA";
+                $item->created_on = \Carbon\Carbon::parse($item->created_on)->format('d-m-Y');
+                $item->status_mod = "<span class='status' data-status-id='".$item->getRawOriginal('status')."'>$item->status</span>";
+                $item->action = '<div class="dropdown no-arrow archive-dropdown">
+                                    <a class="dropdown-toggle" href="" role="button" class="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
+
+                $item->action .= '<a class="dropdown-item view_ticket" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#conversation_modal">History
+                                    <i class="fa fa-fw fa-comments" style="float: right;"></i></a>';
+                if (!in_array($item->getRawOriginal('status'), [3, 4])) {
+                    $item->action .= '<a class="dropdown-item cancelTicket" href="#" data-id=' . $item->id . '>Withdraw
+                                        <i class="fa fa-fw fa-ban" style="float: right;"></i></a>';
+                }
+                $item->action .= '</div></div>';
+
+                $i++;
+            }
+
+            return [$tickets, $totalTickets];
     }
+
 
     function conversations($ticket_id) {
         $ticket = SupportTickets::where('user_id', auth()->user()->id)
@@ -125,8 +148,12 @@ class SupportTicketsController extends AppController
 
     public function submit_ticket(SupportTicketsRequest $request)
     {
+     
+        $refNumber = random_string();
+        $red_url = (isset($request->user_type) && $request->user_type == 'viewer') ? 'user.view-and-reply-ticket' : 'support-ticket.list';
         $input = [
             'user_id' => auth()->user()->id,
+            'ref_number'=> $refNumber,
             'department' => $request->department,
             'priority' => $request->priority,
             'service_type' => $request->service_type,
@@ -139,23 +166,51 @@ class SupportTicketsController extends AppController
         if($request->hasFile('file')) {
             $file = $request->file('file');
 //            $mime = $file->getMimeType();
-            $encryptedFileName = $this->_generateUniqueFilename(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+            $extension = $file->getClientOriginalExtension();
+            $encryptedFileName = $this->_generateUniqueFilename(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $extension;
             $input['file'] = $encryptedFileName;
         }
 
-//        if($this->SupportTickets->store($input)) {
-        if(SupportTickets::insert($input)) {
-            if($encryptedFileName)
-                Storage::disk('support_tickets')->put($encryptedFileName, file_get_contents($file));
 
-            return redirect()->route("support-ticket.list")->with('success', 'Ticket created successfully');
-        } else {
-            return redirect()->route("support-ticket.list")->with('error', 'Error while creating the ticket');
+        
+
+        if(SupportTickets::insert($input)) 
+        {
+            
+            if($encryptedFileName)
+            {
+                Storage::disk('support_tickets')->put($encryptedFileName, file_get_contents($file));
+                $input['file_path'] = $encryptedFileName; 
+            }
+            
+
+            ################### Send Email User And Admin #######################
+            
+            $input['name'] = auth()->user()->name;
+            $input['member_id'] = auth()->user()->member_id;
+            $body = $input;
+            try 
+            {
+                Mail::to(config('common.contactus_admin_email'))->queue(new SendSupportTicketToAdmin($body));
+                Mail::to(auth()->user()->email)->queue(new sendSupportTicketConfirmationToUser($body));
+            } 
+            catch (Exception $e) {
+                
+            }
+            ################### End Send Email User And Admin #######################
+            return redirect()->route($red_url)->with('success', 'Ticket created successfully');
+        } 
+        else 
+        {
+            return redirect()->route($red_url)->with('error', 'Error while creating the ticket');
         }
+
+
     }
 
 
     function save_message(Request $request) {
+        
         $input = [
             'user_id' => auth()->user()->id,
             'support_ticket_id' => $request->ticketId,

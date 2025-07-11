@@ -60,7 +60,7 @@
     </style>
 @endsection
 @section('content')
-    <div class="d-flex flex-column container-fluid pl-3 pl-lg-5">
+    <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="row">
             <div class="col-md-12">
                 <div class="v-main-heading h3" style="display: inline-block;">{{ $type == 'past' ? 'Archive' : 'Listed' }}
@@ -90,46 +90,6 @@
         </div>
         <div id="content">
             <div class="container-fluid">
-                {{--
-        <div class="row">
-           <div class="col-md-3">
-              <nav class="date-border navbar navbar-expand navbar-light">
-                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                          role="button" data-toggle="dropdown" aria-haspopup="true"
-                          aria-expanded="false">
-                       Status
-                       </a>
-                       <div class="dropdown-menu dropdown-menu-right animated--grow-in"
-                          aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="#">Done</a>
-                          <a class="dropdown-item" href="#">Remain</a>
-                       </div>
-                    </li>
-                 </ul>
-              </nav>
-           </div>
-           <div class="col-md-2">
-           </div>
-           <div class="col-md-3">
-           </div>
-           <div class="col-md-4">
-              <form class="search-form-bg navbar-search" style="float: right;">
-                 <div class="input-group">
-                    <input type="text" class="search-form-bg-i form-control border-0 small"
-                       placeholder="Search " aria-label="Search"
-                       aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                       <button class="btn-right-icon" type="button">
-                       <i class="fas fa-search fa-sm"></i>
-                       </button>
-                    </div>
-                 </div>
-              </form>
-           </div>
-        </div>
-        --}}
             </div>
             <!-- /.container-fluid --><br>
             <div class="row">
@@ -151,7 +111,7 @@
                             <thead id="table-sec" class="table-bg">
                                 <tr>
                                     <th>ID</th>
-                                    <th>Profile Name</th>
+                                    <th style="width:150px;">Profile Name</th>
                                     <th>Location</th>
                                     <th>Stage Name</th>
                                     <th>Membership</th>
@@ -324,8 +284,8 @@
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-3 col-form-label" for="">Credit:</label>
-                                            <div class="col-sm-8">
-                                                <div class="input-group input-group-sm">
+                                            <div class="col-sm-4">
+                                                <div class="input-group input-group-sm" style="padding-right: 25px;">
                                                     <span class="input-group-text"
                                                         style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
                                                     <span class="form-control" id='creditCalculationLive'

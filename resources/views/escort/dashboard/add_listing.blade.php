@@ -11,7 +11,7 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <div class="row">
         <div class="col-md-12">
             <div class="v-main-heading h3" style="display: inline-block;">Add New Listing</div>
@@ -47,7 +47,7 @@
                                         <label class="font-weight-400" for="exampleFormControlSelect1">Choose Profile:</label>
                                    </div>
                                     <div class="col-sm-7 pl-0">
-                                        <select name="escort_id[]" class="custom-select mr-sm-2"
+                                        <select name="escort_id[]" class="form-control form-control-sm mr-sm-2"
                                                 id="escort_profile" required>
                                             <option value="">Select One</option>
                                             @foreach($escorts as $escort)

@@ -8,6 +8,7 @@ use App\Models\Purchase;
 use App\Models\SuspendProfile;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EscortSuspendProfileController extends Controller
 {
@@ -47,19 +48,26 @@ class EscortSuspendProfileController extends Controller
             ];
         }
 
+        # get timezone of escort
+        $escortTimezone = config('app.escort_server_timezone');
+        if($escortProfile && $escortProfile->state_id && $escortProfile->city_id){
+            $escortTimezone = config('escorts.profile.states')[$escortProfile->state_id]['cities'][$escortProfile->city_id]['timeZone'];
+        }
+
         $startDate = isset($escortProfile->purchase[0]->start_date) 
-            ? Carbon::parse($escortProfile->purchase[0]->start_date, config('app.escort_server_timezone')) 
-            : Carbon::now(config('app.escort_server_timezone'));
+            ? Carbon::parse($escortProfile->purchase[0]->start_date, $escortTimezone) 
+            : Carbon::now($escortTimezone);
 
         $endDate = isset($escortProfile->purchase[0]->end_date) 
-            ? Carbon::parse($escortProfile->purchase[0]->end_date, config('app.escort_server_timezone')) 
-            : Carbon::now(config('app.escort_server_timezone'));
+            ? Carbon::parse($escortProfile->purchase[0]->end_date, $escortTimezone) 
+            : Carbon::now($escortTimezone);
 
         
 
-        $requestStartDate = Carbon::parse($request->start_date, config('app.escort_server_timezone'));
-        $requestEndDate = Carbon::parse($request->end_date, config('app.escort_server_timezone'));
+        $requestStartDate = Carbon::parse($request->start_date, $escortTimezone);
+        $requestEndDate = Carbon::parse($request->end_date, $escortTimezone);
 
+        # Compare timezone
         if (!($requestStartDate->greaterThanOrEqualTo($startDate) && $requestEndDate->lessThanOrEqualTo($endDate))) {
             $response = [
                 'success' => false,
@@ -70,13 +78,13 @@ class EscortSuspendProfileController extends Controller
         }
 
         # If suspended periods already exists then add future date
-        $existSuspendedDate = SuspendProfile::where('escort_profile_id', $request->suspend_profile_id)->where('status', true)->orderBy('id','desc')->first();
+        $existSuspendedDate = SuspendProfile::where('escort_profile_id', $request->suspend_profile_id)->where('status', true)->orderBy('end_date','desc')->first();
 
-        if($existSuspendedDate && !($requestStartDate > Carbon::parse($existSuspendedDate->end_date,config('app.escort_server_timezone')) && $requestEndDate > Carbon::parse($existSuspendedDate->end_date,config('app.escort_server_timezone')))){
+        if($existSuspendedDate && !($requestStartDate > Carbon::parse($existSuspendedDate->end_date, $escortTimezone) && $requestEndDate > Carbon::parse($existSuspendedDate->end_date, $escortTimezone))){
             $response = [
                 'success' => false,
                 'suspend' => '',
-                'message' => 'You have already suspended this profile in past. please select future date after '.Carbon::parse(($existSuspendedDate->end_date),config('app.escort_server_timezone'))->format('d-m-Y'),
+                'message' => 'You have already suspended this profile in past. please select future date after '.Carbon::parse(($existSuspendedDate->end_date), $escortTimezone)->format('d-m-Y'),
             ];
             return response()->json(compact('response'));
         }
@@ -92,8 +100,12 @@ class EscortSuspendProfileController extends Controller
             [
                 'escort_profile_id' => $request->suspend_profile_id,
                 'user_id'=> auth()->user()->id,
-                'start_date' => Carbon::parse($request->start_date, config('app.timezone')),
-                'end_date' => Carbon::parse($request->end_date, config('app.timezone')),
+                'start_date' => Carbon::parse($request->start_date)
+                    ->startOfDay()
+                    ->setTimezone(config('app.timezone')),
+                'end_date' => Carbon::parse($request->end_date)
+                  ->endOfDay()
+                  ->setTimezone(config('app.timezone')),
                 'credit' => $credit,
                 'note' => null,
             ]
@@ -104,7 +116,7 @@ class EscortSuspendProfileController extends Controller
                 'success' => true,
                 'suspend' => $suspendProfile,
                 'message' => 'Profile ID '.$request->suspend_profile_id.' has been suspended for '.$diffDays. ' days.',
-                'suspended_at' => Carbon::parse($suspendProfile->created_at)->setTimezone(config('app.escort_server_timezone'))->format('d-m-Y h:i A'),
+                'suspended_at' => Carbon::parse($suspendProfile->created_at)->setTimezone($escortTimezone)->format('d-m-Y h:i A'),
                 'profile_id'=>$request->suspend_profile_id,
             ];
         } else {

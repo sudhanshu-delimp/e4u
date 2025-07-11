@@ -3,15 +3,15 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid">
    <!--middle content end here-->
    {{-- Page Heading   --}}
    <div class="row">
-      <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+      <div class="custom-heading-wrapper col-lg-12">
          <h1 class="h1">History Requests</h1>
          <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
       </div>
-      <div class="col-md-12 my-2">
+      <div class="col-md-12 mb-4">
          <div class="card collapse" id="notes" style="">
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
@@ -27,7 +27,7 @@
    </div>
    {{-- end --}}
    <div class="row">
-      <div class="col-md-12 pt-4">
+      <div class="col-md-12 pt-2">
          <div class="w-100">
             <div class="row">
                
