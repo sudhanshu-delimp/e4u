@@ -168,23 +168,31 @@
                     </li>
                 </ul>
             </div>
-            <ul class="profile_page_social_profiles">
-                @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
-                <li>
-                    <a href="//{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
-                    <i class="fa fa-facebook" aria-hidden="true"></i></a>
-                </li>
-                <li><a href="//{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                <li><a href="//{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" style="width:15px"></a></li>
-                @else
-                <li>
-                    <a href="https://www.facebook.com/" target="_blank">
-                    <i class="fa fa-facebook" aria-hidden="true"></i></a>
-                </li>
-                <li><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                <li><a href="https://x.com/" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" style="width:15px"></a></li>
-                @endif
-            </ul>
+            <div class="d-flex align-items-center justify-content-start gap-10">
+               
+
+<div class="my-play-box-profile-icon">
+    <a href="{{ url('playbox') }}" target="_blank">
+        <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
+    </a>
+    <div class="custom-tooltip">I don't have any Playbox.</div>
+</div>
+                <ul class="profile_page_social_profiles">
+                    @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
+                    <li class="selected-from-profile">
+                        <a href="{{ ($escort->user->social_links && $escort->user->social_links['facebook'] != '') ? $escort->user->social_links['facebook'] : 'https://www.facebook.com/' }}" target="_blank">
+                        <i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    </li>
+                    <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['insta'] != '') ? $escort->user->social_links['insta'] : 'https://www.instagram.com/' }}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                    <li class="selected-from-profile"><a href="{{ ($escort->user->social_links && $escort->user->social_links['twitter'] != '') ? $escort->user->social_links['twitter'] : 'https://x.com/' }}" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" style="width:15px"></a></li>
+                    @else
+                    
+                    
+                    <li class="by-default"><a href="https://x.com/Escorts46919U/" target="_blank"><img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo" style="width:15px"></a></li>
+                    @endif
+                </ul>
+
+            </div>
         </div>
     </div>
     <div class="container-fluid px-0 next-preview-fixed">
@@ -1128,16 +1136,20 @@
         <div class="padding_20_tob_btm_side reduse_pad">
             @if($escort->user->available_playmate && !is_null($escort->user->playmates) && $escort->user->playmates->count() > 0)
                 <p class="profile_description_contect_pera">Message me to arrange a play date.</p>
-                <div class="row play_grid">
+                <div class="d-flex align-items-center justify-content-start gap-10 flex-wrap">
                     {{-- @if(!auth()->user()->playmates->isEmpty()) --}}
                     @foreach($escort->user->playmates as $playmate)
-                    <div class="col-6">
+                    <div>
                         
                         <a href="{{ route('profile.description',$playmate->id)}}" target="_blank">
-                            <div class="d-flex align-items-center five_px_gap_img_text">
-                                <img title="Click to view my Profile" alt="Avatar" class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed" src="{{$playmate->default_image ? asset($playmate->default_image) : asset('assets/app/img/icons-profile.png') }}">
-                                <p class="suggase_profile_name">{{ $playmate->name }}</p>
+                            <div class="playmates-pro-container">
+                                <img  alt="playmates Avatar" class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed custom-small-round-fixed" src="{{$playmate->default_image ? asset($playmate->default_image) : asset('assets/app/img/icons-profile.png') }}">
+                                <div class="custom-tooltip">
+                                    Hi, my name is {{ $playmate->name }}. <br>
+                                    Click to view my Profile.
+                                </div>
                             </div>
+                           
                         </a>
                     </div>
                     @endforeach
@@ -1591,50 +1603,42 @@
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color">
                 <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="img_resize_in_smscreen">
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Send {{ $escort->name}} a message</h5>
+                
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Message Me </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
             </div>
             <div class="modal-body pb-0 teop-text">
+                    <h6 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                                <span id="Lname">To message {{ $escort->name}} please go to your Dashboard and select
+                                    Communications > Messages.</span>
+                            </h6>
+                    <hr style="background-color: #0C223D">
                 <p class="mb-1 mt-3"><b>Notes</b></p>
                 <ol class="mb-0">
-                    <li>The Escort needs to have this feature enabled in order to receive it.</li>
-                    <li>You will receive a notification when this message is responded to.</li>
+                    <li>Make sure you have enabled Messaging in your settings. If you have added {{ $escort->name}} to your
+                        Legbox, they will appear in your Message list. Otherwise, you can search by Member ID.</li>
+                    <li>To message {{ $escort->name}}, they will also need to have Messaging enabled.</li>
                 </ol>
             </div>
-            <form id="messageMe" action="{{ route('store.message',[$escort->id]) }}" method="post">
-                @csrf
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" name="email" placeholder="Email address">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="email">Mobile</label>
-                                <input type="text" placeholder="Mobile number" maxlength="10" step="100"
-                                    data-parsley-validation-threshold="1" data-parsley-trigger="keyup"
-                                    data-parsley-type="number" class="form-control" name="phone" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group popup_massage_box">
-                                <label for="exampleFormControlTextarea1">Message</label>
-                                <textarea class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="3" name="message"></textarea>
-                            </div>
-                        </div>
-                    </div>
+            <div class="modal-footer text-center justify-content-center">
+                <button type="submit" class="btn main_bg_color site_btn_primary rounded">Go to Message</button>
+            </div>
+
+            <!-- if viewer not login -->
+            <div class="modal-body pb-0 teop-text" style="display: none">
+                <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
+                    <span id="Lname">Message Me is only available to Viewers.
+                        Please log in or Register to access Message Me.</span>
+                </h6>
+                <div class="modal-footer text-center justify-content-center" >
+                <a href="{{ route('viewer.login') }}" type="button" class="btn btn-danger site_btn_primary" id="loginUrl" >Login</a>
+                <a href="{{ route('register') }}" type="button" class="btn btn-danger site_btn_primary" id="regUrl">Register</a>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn main_bg_color site_btn_primary">Send Message</button>
-                </div>
-            </form>
+            </div>
+            <!--- end -->
+
         </div>
     </div>
 </div>
@@ -2027,6 +2031,7 @@
 {{--        </div>--}}
 {{--    </div>--}}
 {{--</div>--}}
+
 <div class="modal" id="my_legbox" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custome_modal_max_width rounded-0">
@@ -2048,6 +2053,40 @@
         </div>
     </div>
 </div>
+
+{{-- Message Me --}}
+    <div class="modal fade upload-modal" id="messageMe" tabindex="-1" role="dialog" aria-labelledby="messageMe"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageMe">Message Me</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0 agent-tour">
+                    <form method="post" action="#">
+                        <h4 class="text-center">Are you sure you want to mark this Appointment as completed?</h4>
+                        <div class="row">
+                            <div class="col-md-12 my-3 text-center">
+                                <div class="form-group">  
+                                    <button type="button"
+                                    class="btn btn-primary shadow-none ml-2  bg-danger"
+                                    data-dismiss="modal" aria-label="Close">No</button>
+                                    <button type="submit"
+                                        class="btn btn-primary shadow-none ml-2 ">Yes</button>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- end --}}
 @endsection
 @push('scripts')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
