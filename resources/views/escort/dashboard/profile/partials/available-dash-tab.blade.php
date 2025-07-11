@@ -27,7 +27,7 @@
                         {{-- end  --}}
                         <div class="service_rate_dolor_symbol form-group mb-0" @disabled(true)>
                             <select
-                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date {{ $day }} p-0 change_default"
+                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date {{ $day }} p-0 {{($editMode || $existAvailability)?'change_default':''}}"
                                 name="{{ $shortDays[$day] }}_from" id="{{ $shortDays[$day] }}from"
                                 data-parsley-gt="#{{ $shortDays[$day] }}_to" day_key_from="{{ $shortDays[$day] }}">
                                 <option value="" selected>H:M</option>
@@ -41,7 +41,7 @@
                                 @endfor
                             </select>
                             <select
-                                class="form-control form-control-sm select_tag_remove_box_sadow {{ $day }} p-0 change_default"
+                                class="form-control form-control-sm select_tag_remove_box_sadow {{ $day }} p-0 {{($editMode || $existAvailability)?'change_default':''}}"
                                 id="{{$shortDays[$day] }}fromtime" name="{{ $shortDays[$day] }}_time_from" day_key_from="{{ $shortDays[$day] }}">
                                 <option value="" selected>--</option>
                                 <option value="AM"
@@ -59,7 +59,7 @@
                         {{-- end --}}
                         <div class="service_rate_dolor_symbol form-group mb-0">
                             <select
-                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date {{ $day }} p-0 change_default"
+                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date {{ $day }} p-0 {{($editMode || $existAvailability)?'change_default':''}}"
                                 name="{{ $shortDays[$day] }}_to" id="{{ $shortDays[$day] }}_to" day_key_to="{{ $shortDays[$day] }}">
                                 <option value="" selected>H:M</option>
                                 @for ($i = 1; $i <= 12; $i++)
@@ -72,7 +72,7 @@
                                 @endfor
                             </select>
                             <select
-                                class="form-control form-control-sm select_tag_remove_box_sadow {{ $day }} p-0 change_default"
+                                class="form-control form-control-sm select_tag_remove_box_sadow {{ $day }} p-0 {{($editMode || $existAvailability)?'change_default':''}}"
                                 id="{{$shortDays[$day] }}_time_to" name="{{ $shortDays[$day] }}_time_to" day_key_to="{{ $shortDays[$day] }}">
                                 <option value="" selected>--</option>
                                 <option value="AM"
