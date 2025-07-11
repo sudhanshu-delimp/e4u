@@ -18,7 +18,7 @@
             @endphp
             @foreach ($days as $day => $cDay)
                 {{-- new view --}}
-                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
                         <div style="width:100px;">
                             <label class="col-0" for="exampleFormControlSelect1">{{ $cDay }}:
                             </label>
@@ -94,15 +94,6 @@
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input {{ $day }}" type="radio"
-                                    name="availability_time[{{ $day }}]" id="{{ $day }}_unavailable"
-                                    value="unavailable" data-parsley-multiple="covidreport"
-                                    @if (!empty($escort->availability->availability_time[$day])) {{ $escort->availability->availability_time[$day] == 'unavailable' ? 'checked' : '' }} @endif 
-                                    availability_time_key="{{$shortDays[$day]}}">
-                                <label class="form-check-label"
-                                    for="{{ $day }}_unavailable">Unavailable</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input {{ $day }}" type="radio"
                                     name="availability_time[{{ $day }}]" id="{{ $day }}_appointment"
                                     value="By Appointment" data-parsley-multiple="covidreport"
                                     @if (!empty($escort->availability->availability_time[$day])) {{ $escort->availability->availability_time[$day] == 'By Appointment' ? 'checked' : '' }} @endif
@@ -118,6 +109,15 @@
                                     @if (!empty($escort->availability->availability_time[$day])) {{ $escort->availability->availability_time[$day] == 'Available 24 hours' ? 'checked' : '' }} @endif>
                                 <label class="form-check-label" for="{{ $day }}_avail_24_hours">Available 24
                                     hours</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input {{ $day }}" type="radio"
+                                    name="availability_time[{{ $day }}]" id="{{ $day }}_unavailable"
+                                    value="unavailable" data-parsley-multiple="covidreport"
+                                    @if (!empty($escort->availability->availability_time[$day])) {{ $escort->availability->availability_time[$day] == 'unavailable' ? 'checked' : '' }} @endif 
+                                    availability_time_key="{{$shortDays[$day]}}">
+                                <label class="form-check-label"
+                                    for="{{ $day }}_unavailable">Unavailable</label>
                             </div>
                         </div>
                         {{-- end --}}
