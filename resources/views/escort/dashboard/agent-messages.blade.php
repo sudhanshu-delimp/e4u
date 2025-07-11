@@ -24,6 +24,8 @@
             </div>
         </div>
     </div>
+
+
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
