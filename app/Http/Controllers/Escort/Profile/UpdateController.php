@@ -436,11 +436,14 @@ class UpdateController extends AppController
                 }
             }
 
-            //dd($arr);
+            
             if ($data_durations  = $escort->durations()->sync($arr)) {
                 $error = 1;
             }
 
+            /**
+             * Start:- Store Rates to My Information , if does not eixst there
+             */
             $existDefaultRate = $escortDefault->durations()
             ->get()
             ->filter(function ($duration) {
@@ -454,6 +457,10 @@ class UpdateController extends AppController
             if(empty($existDefaultRate)){
                 $escortDefault->durations()->sync($arr);
             }
+
+            /**
+             * End:- Store Rates to My Information , if does not eixst there
+             */
 
             $data = [];
             $shortDays = config('escorts.days.short_form');
@@ -485,6 +492,20 @@ class UpdateController extends AppController
             if ($data_massage_availability = $this->availability->store($data, $availability ? $availability->id : null)) {
                 $my_data['new_availability'] = 1;
             }
+
+            /**
+             * Start:- Store Availability to My Information , if does not eixst there
+             */
+            $existDefaultAvailability = $escortDefault->availability()->exists();
+            if(empty($existDefaultAvailability)){
+                $data["escort_id"] = $escortDefault->id;
+                $defaultAvailability = $escortDefault->availability;
+                $this->availability->store($data, $defaultAvailability ? $defaultAvailability->id : null);
+            }
+
+            /**
+             * End:- Store Availability to My Information , if does not eixst there
+             */
             $service_arr = [];
 
             if (!empty($request->service_id)) {
@@ -498,6 +519,17 @@ class UpdateController extends AppController
                 $my_data['new_services'] = 1;
             }
 
+            /**
+             * Start:- Store Service Tags to My Information , if does not eixst there
+            */
+            $existDefaultService = $escortDefault->services()->exists();
+            if(empty($existDefaultService)){
+                $escortDefault->services()->sync($service_arr);
+            }
+
+            /**
+             * End:- Store Service Tags to My Information , if does not eixst there
+             */
 
 
             //********FILE UPLOAD AREA**********//
