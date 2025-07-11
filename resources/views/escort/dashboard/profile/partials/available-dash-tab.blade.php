@@ -18,7 +18,7 @@
             @endphp
             @foreach ($days as $day => $cDay)
                 {{-- new view --}}
-                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
                         <div style="width:100px;">
                             <label class="col-0" for="exampleFormControlSelect1">{{ $cDay }}:
                             </label>
