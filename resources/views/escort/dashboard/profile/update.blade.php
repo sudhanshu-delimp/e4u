@@ -1189,8 +1189,10 @@
                         }).get();
                         $('#current').val(checkedValues);
                     }
-                    $("#Lname").html("<p>Would you like to update <b>" + label +
-                        "</b> in your My Information page for future Profiles?</p>");
+                    
+                    let popupMessage = `<p>Would you like to update ${label ? `<b>${label}</b> in your` : 'your'} 'My Information' page for future Profiles?</p>`;
+
+                    $("#Lname").html(popupMessage);
 
                     if ($(this).attr('name') != 'license' || ($(this).attr('name') == 'license' &&
                             Current != '')) {
@@ -1212,8 +1214,8 @@
                 $('#previous').val(previous);
                 if ($(this).attr('name') == 'price[]') {
                     $('#trigger-element2').val($(this).attr('service_id'));
-                    $("#Lname").html("<p>Would you like to update <b>" + label +
-                        "</b> in your My Information page for future Profiles?</p>");
+                    let popupMessage = `<p>Would you like to update ${label ? `<b>${label}</b> in your` : 'your'} 'My Information' page for future Profiles?</p>`;
+                    $("#Lname").html(popupMessage);
 
                     if ($(this).attr('name') != 'license' || ($(this).attr('name') == 'license' &&
                             Current != '')) {
@@ -1271,8 +1273,8 @@
                         $('#previous').val(previous);
                         if (weekName != "") {
                             $('#trigger-element2').val(weekName);
-                            $("#Lname").html("<p>Would you like to update <b>" + label +
-                                "</b> in your My Information page for future Profiles?</p>");
+                            let popupMessage = `<p>Would you like to update ${label ? `<b>${label}</b> in your` : 'your'} 'My Information' page for future Profiles?</p>`;
+                            $("#Lname").html(popupMessage);
                             $('#change_all').modal('show');
                             previous = this.value;
                         }
