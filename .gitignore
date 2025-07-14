@@ -12,12 +12,7 @@ public/storage
 public/hot
 public/support_tickets
 
-public/support_tickets/12ce26e54b01c179397e3a069..
-public/support_tickets/38344a0d343e17729a4980782..
-public/support_tickets/3bd66576c0802f3f669fb0d52..
-public/support_tickets/5ab8f3b327423d2b3de550f10..
-public/support_tickets/ca737aaef4ce03e60fe442344..
-public/support_tickets/f1861a3126abf9ee710952204.
+
 
 # Laravel 5 & Lumen specific with changed public path
 public_html/storage
