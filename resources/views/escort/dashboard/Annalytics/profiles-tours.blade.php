@@ -14,8 +14,7 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-{{--middle content start here--}}
-    {{-- Page Heading   --}}
+
     <div class="row">
         <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
             <h1 class="h1">Profiles & Tours</h1>
@@ -30,11 +29,9 @@
             </div>
         </div>
     </div>
-    {{-- end --}}
-    {{-- start content --}}
-     {{-- third row --}}
+    
      <div class="col-lg-12">                
-        <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">                  
+        <div class="row p-4 rounded" style="background-color: #c2cfe052;">                  
             <div class="col-lg-12">
                 <h4 class="font-weight-bold" style="color: var(--blue--text);">Profile Statistics
                 </h4>

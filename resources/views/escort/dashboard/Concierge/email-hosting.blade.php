@@ -17,33 +17,35 @@
         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content start here-->
             <div class="row">
-                <div class="col-md-12">
-                    <div class="v-main-heading h3" style="display: inline-block;"><h1> Email Account</h1></div>
-                       <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+                <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+                    <h1 class="h1">Email Account</h1>
+                    <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
                 </div>
-                <div class="col-md-12 ">
-                    <div class="card collapse  mb-4" id="notes">
-                        <div class="card-body">
-                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                            <ol>
-                                <li>This form will be pre-populated with your details according to what you have
-                                    entered in <a href="{{ route('escort.profile.information') }}" class="custom_links_design">My Account</a>. You can alter any of the information.</li>
-                                
-                                <li>Payment is based on the monthly Fee for the Email service.</li>
-                                <li>Complete the form to request the Email service. When completing the form please
-                                    ensure all of the details are correct and you have selected the correct option for
-                                    communications.
-                                </li>
-                            </ol>
-                        </div>
+                <div class="col-md-12 my-4">
+                    <div class="card collapse" id="notes" style="">
+                    <div class="card-body">
+                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <ol class="ol_lower_alpha_bracket pl-5">
+                            <li>This form will be pre-populated with your details according to what you have
+                                entered in <a href="{{ route('escort.profile.information') }}" class="custom_links_design">My Account</a>. You can alter any of the information.</li>
+                            
+                            <li>will be established within 24 hours of this request;</li>
+                            <li>has been activated; and</li>
+                            <li>can be accessed through a browser or by installing the Email account of your device.</li>
+                        </ol>
+                    </div>
                     </div>
                 </div>
-                <div class="col-md-12 mt-4 mb-5">
+            </div>
+
+            <div class="row">
+               
+                <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h2 class="pb-2 pt-2"><b>Partnership</b> </h2>
+                                    <h2 class="pb-2"><b>Partnership</b> </h2>
                                     <p>Escorts4U has partnered with a leading email services supplier to be able to provide email
                                         services under the domain name @e4u.com.au.</p>
                                 </div>
@@ -71,7 +73,7 @@
                                 </div>
 
                                 <b>Your details:</b>
-                                <div class="ml-4 mt-2">
+                                <div class="mt-2">
                                     <div class="form-group w-50">
                                         <label for="email"><b>First Name</b><span class="text-danger">*</span> </label>
                                         <input id="name" value="{{ old('first_name') }}" placeholder="First Name"
@@ -166,21 +168,7 @@
                                         Place Order
                                     </button>
                                 </div>
-                                <div class="notes ml-4 mt-5">
-                                    <h3 class="NotesHeader"><b>Notes:</b></h3>
-                                    <p>1 Your Email service:</p>
-                                       
-                                            <ol class="ol_lower_alpha_bracket pl-5">
-                                                <li>This form will be pre-populated with your details according to what you have
-                                                    entered in <a href="{{ route('escort.profile.information') }}" class="custom_links_design">My Account</a>. You can alter any of the information.</li>
-                                                
-                                                <li>will be established within 24 hours of this request;</li>
-                                                <li>has been activated; and</li>
-                                                <li>can be accessed through a browser or by installing the Email account of your device.</li>
-                                            </ol>
-                                   
-                                    <p>2. Click <a href="#" class="custom_links_design">here</a> to read the Email service Terms & Conditions.</p>
-                                </div>
+                               
                             </div>
                         </div>
                     </form>

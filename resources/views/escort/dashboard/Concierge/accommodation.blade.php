@@ -21,11 +21,11 @@
                     <h1 class="h1">Accommodation</h1>
                     <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
                 </div>
-                <div class="col-md-12 my-2">
+                <div class="col-md-12 my-4">
                     <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                        <ol></ol>
+                        <ol></ol>  
                     </div>
                     </div>
                 </div>
@@ -33,8 +33,8 @@
             {{-- end --}}
             <div class="row">
                <div class="col-md-12">
-                        <div class="pt-2">
-                        <h3 class="pb-2 pt-2">Partnership</h3>
+                        <div>
+                        <h2><b>Partnership</b></h2>
                         Escorts4U has partnered with a leading online accommodation booking provider <b>(Partner)</b> to provide
                         practical and convenient advice and assistance for all of your accommodation needs and requirements
                         throughout Australia.

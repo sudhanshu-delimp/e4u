@@ -4,14 +4,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
-{{--
-<style type="text/css">
-   .parsley-errors-list {
-   list-style: none;
-   color: rgb(248, 0, 0)
-   }
-</style>
---}}
+
 @endsection
 @section('content')
 <div class="container-fluid">
@@ -27,19 +20,13 @@
                </ol>
             </nav>
             @endif
-            {{-- <div class="align-items-center justify-content-between mb-4">
-               <div class="h3 mb-0 text-gray-800" style="display: inline-block;">{{ucfirst($type)}}dfv Tours</div>
-               <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-
-               <h1>{!! Session::has('msg') ? Session::get("msg") : '' !!}</h1>
-            </div> --}}
-             {{-- Page Heading   --}}
+           
             <div class="row">
                <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
                   <h1 class="h1">{{ucfirst($type)}} Tours</h1>
                   <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
                </div>
-               <div class="col-md-12 my-2">
+               <div class="col-md-12 my-4">
                   <div class="card collapse" id="notes" style="">
                      <div class="card-body">
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
@@ -57,38 +44,12 @@
          </div>
       </div>
       <div class="row">
-         {{--
-         <div class="col-md-4 pl-3">
-            <form class="search-form-bg navbar-search">
-               <div class="input-group">
-                  <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                  <div class="input-group-append">
-                     <button class="btn-right-icon" type="button">
-                     <i class="fas fa-search fa-sm"></i>
-                     </button>
-                  </div>
-               </div>
-            </form>
-         </div>
-         --}}
+        
          <div class="col-md-5">
          </div>
          <div class="col-md-4">
          </div>
-         {{-- @if(request()->segment(2) != "edit-tour")
-            @if(!empty(auth()->user()->tour_permissition_type) && in_array(1,auth()->user()->tour_permissition_type))
-            <div class="col-md-3" style="padding-left: 7rem;">
-               <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal"> Create New Tour</button>
-            </div>
-            @else
-
-            <div class="col-md-3" style="padding-left: 7rem;">
-               <button type="button" class="btn btn-primary create-tour-sec dctour" id="showNotification"> Create New Tour</button>
-            </div>
-            @endif
-         @endif --}}
-
-
+         
          <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-centered" role="document">
                <div class="modal-content">
@@ -109,12 +70,7 @@
                               </div>
                            </div>
                            <span id="Tname"></span>
-                           <!--  <div class="form-group mb-2">
-                              <label for="staticEmail2">Tour Name</label>
-                              </div>
-                              <div class="form-group mx-sm-3 mb-2">
-                              <input type="text" name="name" required data-parsley-required-message=" Please enter Tour Name" class="form-control" id=" " placeholder=" " value=""> </div> -->
-                           <div id="accordion" class="myacording-design mb-0 pt-3 cv">
+                              <div id="accordion" class="myacording-design mb-0 pt-3 cv">
                               @include('escort.dashboard.archives.partials.tourModal')
 
                            </div>
@@ -187,7 +143,7 @@
                         <span id="msg"> Access Denied </span>
                      </div>
                      <div class="modal-footer border-0 pt-5" style="justify-content: flex-start;">
-                        {{-- <button type="submit" class="btn btn-secondary create-tour-sec permission">Ok</button> --}}
+                       
                         <button type="button" class="btn btn-primary create-tour-sec nopermission" data-dismiss="modal" aria-label="Close">close</button>
                      </div>
 
@@ -415,11 +371,7 @@
                console.log("end date "+result);
                var ss = result.setDate(result.getDate() + 1);
                var first_date = moment(ss).format('YYYY-MM-DD');
-               //$("#end_date_"+count).val(first_date);
-               //     $("#start_date_"+count).attr({
-               //    "min" : first_date,
-               //     "value" : first_date,         // values (or variables) here
-               //     });
+              
                console.log(first_date);
            });
 
@@ -456,8 +408,7 @@
        });
 
        $("body").on('change','#2start_date_'+count,function(){
-       // $('#start_date_'+count).on('change', function()
-       // {
+       
            console.log(count);
            $("#end_date_"+count).show();
            var val = $(this).val();
@@ -466,26 +417,12 @@
            var ss = result.setDate(result.getDate() + 1);
            var first_date = moment(ss).format('YYYY-MM-DD');
            $("#end_date_"+count).val(first_date);
-               // $("#end_date_"+count).attr({
-               // "min" : first_date,
-               // "value" : first_date,         // values (or variables) here
-               // });
+              
                console.log(first_date);
                console.log(val);
 
        });
-      //  $('body').on('click','.akhReset',function(){
-      //      var id = $(this).attr('id');
-      //      var today = new Date();
-      //      var start_date = moment(today).format('YYYY-MM-DD');
-      //      var startdate = moment();
-      //      $("#"+id).val(startdate);
-      //      $("#"+id).attr({
-      //      "min" : start_date,          // values (or variables) here
-      //      });
-      //      console.log(id);
-
-      //  });
+   
    });
 
 
@@ -503,8 +440,7 @@
        e.preventDefault();
        console.log("hiii");
        var form = $(this);
-         // form.parsley().validate();
-         // if(form.parsley().isValid()) {
+        
            var url = form.attr('action');
            var data = new FormData($('#myTour')[0]);
            console.log(url);
@@ -538,15 +474,7 @@
                                 console.log("url = "+url);
 
                                 $('<form/>', { action: url, method: 'POST' }).append($('<input>', {type: 'hidden', name: '_token', value: '{{csrf_token()}}'}),).appendTo('body').submit();
-                           // $.toast({
-                           //     heading: 'Success',
-                           //     text: 'Record successfully update',
-                           //     icon: 'success',
-                           //     loader: true,
-                           //     position: 'top-right',      // Change it to false to disable loader
-                           //     loaderBg: '#9EC600'  // To change the background
-                           // });
-                           //location.reload();
+                          
                        } else {
                            $.toast({
                                heading: 'Error',
@@ -572,13 +500,7 @@
 
            console.log("");
            $('#exampleModal').modal('show');
-
-
-           // $('#exampleModal').on('hidden.bs.modal', function(e){
-           //     $(this).find('#myTour')[0].reset();
-           // });
            var url = "{{ route('escort.tour.edit',':id')}}";
-           //url.replace(':id', id);
            url = url.replace(':id',id);
 
            console.log(url);
@@ -604,8 +526,7 @@
 
    $('body').on('hidden.bs.modal','#exampleModal', function () {
 
-       // console.log("dsfsdfsdfsdfs s fsd");
-       // console.log($('#myTour')[0].reset());
+     
        location.reload();
    });
 
@@ -701,19 +622,11 @@
                 var result = new Date(selectedDate);
                 var ss = result.setDate(result.getDate() + 1);
                 var first_date = moment(ss).format('YYYY-MM-DD');
-                //$("#endDate_"+getCountValue[1]).val('');
                 $("#endDate_"+getCountValue[1]).attr({
                 "min" : first_date,
-                "value" : first_date,         // values (or variables) here
+                "value" : first_date,
                 });
             }
-
-                // $("#end_date").attr({
-                // "min" : first_date,
-                // "value" : first_date,         // values (or variables) here
-                // });
-                //$('#start_date_tab').html(val);
-
                 console.log(first_date);
                 console.log(val);
 

@@ -57,6 +57,10 @@
             background: #0c223dcf;
             border: 1px solid #0c223dcf;
         }
+        .add--list {
+        display: flex;
+        justify-content: space-between;
+}
     </style>
 @endsection
 @section('content')
@@ -97,13 +101,19 @@
                     <div class="box-body table table-hover">
                         @if ($type != 'past')
                             <div>
+                                <div class="add--list">
+                                <div class="">
                                 <button style="padding: 10px;" class="btn btn-info custom-btn-info" data-toggle="modal"
                                     data-target="#add_brb" id="btn_add_brb">Add BRB</button>
                                 <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                     data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
+                                </div>
+                                <div class="">
                                 <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
                                     data-target="#pinup_profile" id="btn_pinup_profile">List Pin
                                     Up</button>
+                                </div>
+                                </div>
                             </div>
                             <br>
                         @endif

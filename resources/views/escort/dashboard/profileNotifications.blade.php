@@ -36,7 +36,7 @@
             <div class="col-lg-12 my-3">
                 <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
             </div>
-            <div class="col-md-12 mt-4" id="profile_and_tour_options">
+            <div class="col-md-12" id="profile_and_tour_options">
                
                 <form class="v-form-design" id="profile_notification_options" action="{{ route('escort.notification.update')}}" method="POST">
                     <div class="row">

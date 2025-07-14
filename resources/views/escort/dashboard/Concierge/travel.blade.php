@@ -23,7 +23,7 @@
                     <h1 class="h1">Travel</h1>
                     <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
                 </div>
-                <div class="col-md-12 my-2">
+                <div class="col-md-12 my-4">
                     <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
@@ -36,14 +36,14 @@
             <!--middle content-->
             <div class="row">
                <div class="col-md-12">
-                   <div class="pt-2">
-                       <h2>Partnership</h2>
+                   <div>
+                       <h2><b>Partnership</b></h2>
                        Escorts4U has partnered with a leading online flight booking provider <b>(Partner)</b> to provide
                        practical and convenient advice and assistance for all of your travel requirements
                        throughout Australia.
                    </div>
                    <div class="pt-4">
-                       <h2>Launch of the Travel service</h2>
+                       <h2><b>Launch of the Travel service</b></h2>
                        Escorts4U will be launching its Travel service in version 2.0 of the Website. The service
                        will enable you to:
                        <ul>

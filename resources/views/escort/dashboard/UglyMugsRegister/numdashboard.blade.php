@@ -42,40 +42,41 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content start here-->
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-start gap-10 mt-5">
-      <h1 class="h1">NUM - Dashboard</h1>
-          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-   </div>
 
-  <div class="row">
-      <div class="col-md-12 my-2">
+    <div class="row">
+      <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+          <h1 class="h1">NUM - Dashboard</h1>
+          <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+      </div>
+      <div class="col-md-12 my-4">
           <div class="card collapse" id="notes" style="">
-            <div class="card-body">
-                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                <ol>
-                  <li>The National Ugly Mugs register (NUM) is a free service to all Escorts. You can use
-                     the NUM service at any time. Your details, when you undertake a search, are kept
-                     confidential.</li>
-                  <li>You can only search for an offender by their mobile number. Search your next booking
-                     by their mobile number itself, e.g. 0400123456. Do not include any prefixes, e.g. +61
-                     or spaces.</li>
-                  <li>E4U makes no claims:</li>
-                  <ol class="level-2"><li>as to the accuracy or legitimacy of the allegations contained in a Report; and</li>
-                  <li>nor do we investigate the authenticity of the Reports (provided in confidence
-                     by Escorts)</li>
-                  </ol>
+          <div class="card-body">
+              <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+              <ol>
+                <li>The National Ugly Mugs register (NUM) is a free service to all Escorts. You can use
+                   the NUM service at any time. Your details, when you undertake a search, are kept
+                   confidential.</li>
+                <li>You can only search for an offender by their mobile number. Search your next booking
+                   by their mobile number itself, e.g. 0400123456. Do not include any prefixes, e.g. +61
+                   or spaces.</li>
+                <li>E4U makes no claims:</li>
+                <ol class="level-2"><li>as to the accuracy or legitimacy of the allegations contained in a Report; and</li>
+                <li>nor do we investigate the authenticity of the Reports (provided in confidence
+                   by Escorts)</li>
                 </ol>
-            </div>
+              </ol>
+          </div>
           </div>
       </div>
   </div>
+
   <!-- Page Heading -->
    
   <div class="row">
    <div class="col-lg-6 col-sm-12">
       <div class="add-punterbox-report">
          <form action="">
-            <label class="search-label">Search by mobile number (no spaces)</label>
+            <label class="search-label mt-0">Search by mobile number (no spaces)</label>
             <div class="input-group mb-3">
                <input type="text" class="form-control" placeholder="Search..." aria-label="Search by mobile" aria-describedby="button-search">
                <div class="input-group-append">

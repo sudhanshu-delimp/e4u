@@ -24,30 +24,35 @@
       <div id="content">
          <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content-->
+
             <div class="row">
-               <div class="col-md-12">
-                    <div class="v-main-heading h3">
-                        Local Laws
-                        <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+                <div class="col-md-12">
+                    <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Local Laws</h1></div>
+                    <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+              </div>
+              <div class="col-md-12 my-4">
+                    <div class="card collapse" id="notes" style="">
+                        <div class="card-body">
+                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                            <ol>
+                                <li>The following table is a list of all of the legislation that applies to your Location.</li>
+                                <li>To view the law, click the link and the legislation will open in a new tab for you to
+                                    browse.</li>
+                            </ol>
+                        </div>
                     </div>
-                   <div class="card collapse  mb-4" id="notes">
-                       <div class="card-body">
-                           <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                           <ol>
-                               <li>The following table is a list of all of the legislation that applies to your Location.</li>
-                               <li>To view the law, click the link and the legislation will open in a new tab for you to
-                                   browse.</li>
-                           </ol>
-                       </div>
-                   </div>
-                </div>
-                <div class="col-md-12 mt-4">
+              </div>
+            </div>
+
+            <div class="row">
+               
+                <div class="col-md-12">
                   <div class="row">
                      <div class="col-md-12">
 {{--                         <div class="card">--}}
                              <div id="about_me" class="collapse show" data-parent="#accordion" style="">
 {{--                                 <div class="card-body p-0">--}}
-                                     <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
+                                     <div class="table-responsive pl-2 list-sec" id="sailorTableArea">
                                              <table id="myTable price-sec" class="table dataTable" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                  <thead class="text-center">
                                                  <tr role="row">
