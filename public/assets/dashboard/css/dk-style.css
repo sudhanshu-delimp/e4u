@@ -65,7 +65,7 @@
         max-width: 20rem;
         width: 89%;
     }
-
+    
     span.menu-active {
         color: #FF3C5F;
     }
@@ -144,9 +144,11 @@
         border-radius: 0.35rem;
         transition: 0.5s;
     }
+    
     .nex_sterp_btn:disabled {
         background: #ff3c5f94;
     }
+    
     .nex_sterp_btn i {
         color: #fff;
     }
@@ -174,9 +176,11 @@
         border-radius: 5px;
         border: none;
     }
-    .my-custom-modal-body{
-        overflow-y: scroll !important; 
-}
+    
+    .my-custom-modal-body {
+        overflow-y: scroll !important;
+    }
+    
     .align-item-custom {
         display: flex !important;
         align-items: center;
@@ -872,7 +876,7 @@
     .myacording-design .card-header a {
         color: #0c223d;
     }
-
+    
     .myacording-design {
         width: 100%;
         max-width: 900px;
@@ -5800,7 +5804,7 @@ padding-bottom:80px;
         justify-content: flex-start;
         gap: 20px;
         flex-wrap: wrap;
-        margin: 50px 0;
+        margin-bottom: 50px;
     }
     
     .my-punter-report-box {
