@@ -5316,10 +5316,6 @@ padding-bottom:80px;
     /* end */
     /* navbar custom css  */
     
-    .custom-nav-search {
-        padding-left: 8px;
-    }
-    
     .topbar-logged-in-user-data p {
         font-size: 14px;
         color: var(--blue--text);
@@ -5800,7 +5796,7 @@ padding-bottom:80px;
         justify-content: flex-start;
         gap: 20px;
         flex-wrap: wrap;
-        margin: 50px 0;
+        margin-bottom: 50px;
     }
     
     .my-punter-report-box {

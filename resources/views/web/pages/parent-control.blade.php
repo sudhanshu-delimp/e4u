@@ -24,7 +24,7 @@
 @section('content')
 <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
    <div class="container">
-      <h1 class="home_heading_first">Parent Control </h1>
+      <h1 class="home_heading_first margin_btm_twenty_px page-title">Parent Control </h1>
        <p>
          Blackbox Tech Pty Ltd <b>(Blackbox)</b> operates the Website as a Restricted to Adults <b>(RTA)</b>
          compliant website, Blackbox understands the importance of providing parents and guardians
@@ -37,7 +37,7 @@
          We value the well-being of minors and hope that this guide can help you implement effective
          parental controls.
        </p>
-      <h2>
+      <h2 class="primery_color normal_heading">
          Who can legally access the website?
       </h2>
       <p>It is strictly prohibited for individuals who are under the age of 18 (or the Age of Majority
@@ -53,7 +53,7 @@
          viewing of sexually explicit content.
       </p>
 
-      <h2>How can a parent/legal guardian restrict access to the Website?</h2>
+      <h2 class="primery_color normal_heading">How can a parent/legal guardian restrict access to the Website?</h2>
       <p>Use “SafeSearch’’. You can use these to make sure there are no 18+ websites in search
          results:</p>
       <ul>
@@ -86,7 +86,7 @@
       </ul>
       <p>Additional parental control measures help ensure that your child's access to adult websites
          is restricted and that they have a safe online experience.</p>
-      <h2>Disclaimer</h2>
+      <h2 class="primery_color normal_heading">Disclaimer</h2>
       <p>This guide and all accompanying methods and services are intended for informational
          purposes only. Blackbox assumes no responsibility for any consequences that may arise
          from the methods suggested within this guide.</p>

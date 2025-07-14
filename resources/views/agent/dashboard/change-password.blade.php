@@ -9,7 +9,7 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid change-pass-sec">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 change-pass-sec">
    <!--middle content start here-->
       {{-- Page Heading   --}}
       <div class="row">

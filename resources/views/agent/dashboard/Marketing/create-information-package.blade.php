@@ -8,7 +8,7 @@
    border: 1px solid #d1d3e2 !important;
    }
 </style>
-<div class="container-fluid">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content end here-->
    {{-- Page Heading   --}}
    <div class="row">

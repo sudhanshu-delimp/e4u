@@ -20,7 +20,7 @@
    <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
          <!--profile content-->
-         <div class="container-fluid">
+         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <div class="row">
                 <div class="col-sm-10 col-md-10 col-lg-10">
                     <div class="container-fluid" style="padding:0">
