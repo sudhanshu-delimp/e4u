@@ -73,7 +73,7 @@ Route::middleware('auth')->group(function () {
 
 
         Route::get('/escort-list', [UserController::class, 'myLegboxList'])->name('user.legbox.escort-list');
-        Route::get('/massagehttp://e4u.local/user-dashboard/view-and-reply-ticket-legbox-list', [UserController::class, 'massageLegboxList'])->name('user.massage.legbox.list');
+        Route::get('/massage', [UserController::class, 'massageLegboxList'])->name('user.massage.legbox.list');
         Route::post('/save-my-legbox/{id}', [UserController::class, 'saveMyLegbox'])->name('user.save.legbox');
         Route::post('/delete-my-legbox/{id}', [UserController::class, 'deleteMyLegbox'])->name('user.delete.legbox');
         //massage legbox

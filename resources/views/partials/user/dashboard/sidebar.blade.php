@@ -91,8 +91,8 @@
             <span>My Legbox</span>
         </a>
         <div id="collapseTwo" class=" collapse  @if (request()->segment(2) == 'escort-list' ||
-                request()->segment(2) == 'massage-legbox-list' ||
-                request()->segment(3) == 'my-legbox-notes') show @endif;"
+                request()->segment(2) == 'massage' ||
+                request()->segment(2) == 'my-legbox-notes') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
                 {{-- <a class="collapse-item" href="{{ route('user.legbox.escort-list') }}">
@@ -123,7 +123,7 @@
                </a>
                <a class="collapse-item" href="{{ route('user.massage.legbox.list') }}">
                   <img src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png')}}">
-                  <span style="{{request()->segment(2) == 'massage-legbox-list' ? 'color: #e5365a;' : ''}} ">Massage List</span>
+                  <span style="{{request()->segment(2) == 'massage' ? 'color: #e5365a;' : ''}} ">Massage List</span>
                </a>
                 <a class="collapse-item" href="{{ route('user.notes') }}">
                     <svg width="19" height="22" viewBox="0 0 19 22" fill="none"
@@ -133,7 +133,7 @@
                             fill="#C2CFE0" />
                     </svg>
                     <span class="pl-3"
-                        style="{{ request()->segment(3) == 'my-legbox-notes' ? 'color: #e5365a;' : '' }}">Legbox</span>
+                        style="{{ request()->segment(2) == 'my-legbox-notes' ? 'color: #e5365a;' : '' }}">Legbox</span>
                 </a>
             </div>
         </div>

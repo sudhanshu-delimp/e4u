@@ -18,7 +18,7 @@
             @endphp
             @foreach ($days as $day => $cDay)
                 {{-- new view --}}
-                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
                         <div style="width:100px;">
                             <label class="col-0" for="exampleFormControlSelect1">{{ $cDay }}:
                             </label>
@@ -27,7 +27,7 @@
                         {{-- end  --}}
                         <div class="service_rate_dolor_symbol form-group mb-0" @disabled(true)>
                             <select
-                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date {{ $day }} p-0 change_default"
+                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date {{ $day }} p-0 {{($editMode || $existAvailability)?'change_default':''}}"
                                 name="{{ $shortDays[$day] }}_from" id="{{ $shortDays[$day] }}from"
                                 data-parsley-gt="#{{ $shortDays[$day] }}_to" day_key_from="{{ $shortDays[$day] }}">
                                 <option value="" selected>H:M</option>
@@ -41,7 +41,7 @@
                                 @endfor
                             </select>
                             <select
-                                class="form-control form-control-sm select_tag_remove_box_sadow {{ $day }} p-0 change_default"
+                                class="form-control form-control-sm select_tag_remove_box_sadow {{ $day }} p-0 {{($editMode || $existAvailability)?'change_default':''}}"
                                 id="{{$shortDays[$day] }}fromtime" name="{{ $shortDays[$day] }}_time_from" day_key_from="{{ $shortDays[$day] }}">
                                 <option value="" selected>--</option>
                                 <option value="AM"
@@ -59,7 +59,7 @@
                         {{-- end --}}
                         <div class="service_rate_dolor_symbol form-group mb-0">
                             <select
-                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date {{ $day }} p-0 change_default"
+                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date {{ $day }} p-0 {{($editMode || $existAvailability)?'change_default':''}}"
                                 name="{{ $shortDays[$day] }}_to" id="{{ $shortDays[$day] }}_to" day_key_to="{{ $shortDays[$day] }}">
                                 <option value="" selected>H:M</option>
                                 @for ($i = 1; $i <= 12; $i++)
@@ -72,7 +72,7 @@
                                 @endfor
                             </select>
                             <select
-                                class="form-control form-control-sm select_tag_remove_box_sadow {{ $day }} p-0 change_default"
+                                class="form-control form-control-sm select_tag_remove_box_sadow {{ $day }} p-0 {{($editMode || $existAvailability)?'change_default':''}}"
                                 id="{{$shortDays[$day] }}_time_to" name="{{ $shortDays[$day] }}_time_to" day_key_to="{{ $shortDays[$day] }}">
                                 <option value="" selected>--</option>
                                 <option value="AM"
@@ -94,15 +94,6 @@
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input {{ $day }}" type="radio"
-                                    name="availability_time[{{ $day }}]" id="{{ $day }}_unavailable"
-                                    value="unavailable" data-parsley-multiple="covidreport"
-                                    @if (!empty($escort->availability->availability_time[$day])) {{ $escort->availability->availability_time[$day] == 'unavailable' ? 'checked' : '' }} @endif 
-                                    availability_time_key="{{$shortDays[$day]}}">
-                                <label class="form-check-label"
-                                    for="{{ $day }}_unavailable">Unavailable</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input {{ $day }}" type="radio"
                                     name="availability_time[{{ $day }}]" id="{{ $day }}_appointment"
                                     value="By Appointment" data-parsley-multiple="covidreport"
                                     @if (!empty($escort->availability->availability_time[$day])) {{ $escort->availability->availability_time[$day] == 'By Appointment' ? 'checked' : '' }} @endif
@@ -118,6 +109,15 @@
                                     @if (!empty($escort->availability->availability_time[$day])) {{ $escort->availability->availability_time[$day] == 'Available 24 hours' ? 'checked' : '' }} @endif>
                                 <label class="form-check-label" for="{{ $day }}_avail_24_hours">Available 24
                                     hours</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input {{ $day }}" type="radio"
+                                    name="availability_time[{{ $day }}]" id="{{ $day }}_unavailable"
+                                    value="unavailable" data-parsley-multiple="covidreport"
+                                    @if (!empty($escort->availability->availability_time[$day])) {{ $escort->availability->availability_time[$day] == 'unavailable' ? 'checked' : '' }} @endif 
+                                    availability_time_key="{{$shortDays[$day]}}">
+                                <label class="form-check-label"
+                                    for="{{ $day }}_unavailable">Unavailable</label>
                             </div>
                         </div>
                         {{-- end --}}
@@ -127,121 +127,6 @@
                         </div>
                     </div>
                 {{-- end --}}
-
-                {{-- old view --}}
-                {{--  <div class="">
-                    <div class="row parent-row col-sm-12 mb-4 mb-xl-2">
-                        <div class="col-xl-1 col-lg-12">
-                            <label class="col-0" for="exampleFormControlSelect1">{{ $cDay }}:
-                            </label>
-                            <input type="hidden" value="{{ $day }}">
-                        </div>
-                            <div class="row col-xl-4 col-lg-5 col-md-12 ml-xl-4">
-                            <div class="col-lg-5 col-md-5">
-                                <div class="service_rate_dolor_symbol form-group" @disabled(true)>
-                                    <select
-                                        class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date {{ $day }} p-0 change_default"
-                                        name="{{ $shortDays[$day] }}_from" id="{{ $shortDays[$day] }}from"
-                                        data-parsley-gt="#{{ $shortDays[$day] }}_to" day_key_from="{{ $shortDays[$day] }}">
-                                        <option value="" selected>H:M</option>
-                                        @for ($i = 1; $i <= 12; $i++)
-                                            <option value="{{ $i . ':00' }}"
-                                                {{ sprintf('%02d', $i) . ':00' == $escort->availabilityCheck($day, 'from') ? 'selected' : '' }}>
-                                                {{ sprintf('%02d', $i) }}:00</option>
-                                            <option value="{{ $i . ':30' }}"
-                                                {{ sprintf('%02d', $i) . ':30' == $escort->availabilityCheck($day, 'from') ? 'selected' : '' }}>
-                                                {{ sprintf('%02d', $i) }}:30</option>
-                                        @endfor
-                                    </select>
-                                    <select
-                                        class="form-control form-control-sm select_tag_remove_box_sadow {{ $day }} p-0 change_default"
-                                        id="{{$shortDays[$day] }}fromtime" name="{{ $shortDays[$day] }}_time_from" day_key_from="{{ $shortDays[$day] }}">
-                                        <option value="" selected>--</option>
-                                        <option value="AM"
-                                            {{ 'AM' == $escort->availabilityCheckAMorPM($day, 'from') ? 'selected' : '' }}>
-                                            AM</option>
-                                        <option value="PM"
-                                            {{ 'PM' == $escort->availabilityCheckAMorPM($day, 'from') ? 'selected' : '' }}>
-                                            PM</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-1 p-md-0" style="text-align: center;">
-                                <span class="text-muted font-13">To</span>
-                            </div>
-                            <div class="col-lg-5 col-md-5">
-                                <div class="service_rate_dolor_symbol form-group">
-                                    <select
-                                        class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date {{ $day }} p-0 change_default"
-                                        name="{{ $shortDays[$day] }}_to" id="{{ $shortDays[$day] }}_to" day_key_to="{{ $shortDays[$day] }}">
-                                        <option value="" selected>H:M</option>
-                                        @for ($i = 1; $i <= 12; $i++)
-                                            <option value="{{ $i . ':00' }}"
-                                                {{ sprintf('%02d', $i) . ':00' == $escort->availabilityCheck($day, 'to') ? 'selected' : '' }}>
-                                                {{ sprintf('%02d', $i) }}:00</option>
-                                            <option value="{{ $i . ':30' }}"
-                                                {{ sprintf('%02d', $i) . ':30' == $escort->availabilityCheck($day, 'to') ? 'selected' : '' }}>
-                                                {{ sprintf('%02d', $i) }}:30</option>
-                                        @endfor
-                                    </select>
-                                    <select
-                                        class="form-control form-control-sm select_tag_remove_box_sadow {{ $day }} p-0 change_default"
-                                        id="{{$shortDays[$day] }}_time_to" name="{{ $shortDays[$day] }}_time_to" day_key_to="{{ $shortDays[$day] }}">
-                                        <option value="" selected>--</option>
-                                        <option value="AM"
-                                            {{ 'AM' == $escort->availabilityToA($day, 'to') ? 'selected' : '' }}>AM
-                                        </option>
-                                        <option value="PM"
-                                            {{ 'PM' == $escort->availabilityToA($day, 'to') ? 'selected' : '' }}>PM
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row col-xl-6 col-lg-5">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input {{ $day }}" type="radio"
-                                    name="availability_time[{{ $day }}]" id="{{ $day }}_til_ate"
-                                    value="til_ate" data-parsley-multiple="covidreport"
-                                    @if (!empty($escort->availability->availability_time[$day])) {{ $escort->availability->availability_time[$day] == 'til_ate' ? 'checked' : '' }} @endif availability_time_key="{{$shortDays[$day]}}">
-                                <label class="form-check-label" for="{{ $day }}_til_ate">... Til late</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input {{ $day }}" type="radio"
-                                    name="availability_time[{{ $day }}]" id="{{ $day }}_unavailable"
-                                    value="unavailable" data-parsley-multiple="covidreport"
-                                    @if (!empty($escort->availability->availability_time[$day])) {{ $escort->availability->availability_time[$day] == 'unavailable' ? 'checked' : '' }} @endif 
-                                    availability_time_key="{{$shortDays[$day]}}">
-                                <label class="form-check-label"
-                                    for="{{ $day }}_unavailable">Unavailable</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input {{ $day }}" type="radio"
-                                    name="availability_time[{{ $day }}]" id="{{ $day }}_appointment"
-                                    value="By Appointment" data-parsley-multiple="covidreport"
-                                    @if (!empty($escort->availability->availability_time[$day])) {{ $escort->availability->availability_time[$day] == 'By Appointment' ? 'checked' : '' }} @endif
-                                    availability_time_key="{{$shortDays[$day]}}">
-                                <label class="form-check-label" for="{{ $day }}_appointment">By
-                                    Appointment</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input {{ $day }}" type="radio"
-                                    name="availability_time[{{ $day }}]"
-                                    id="{{ $day }}_avail_24_hours" value="Available 24 hours"
-                                    data-parsley-multiple="covidreport"
-                                    @if (!empty($escort->availability->availability_time[$day])) {{ $escort->availability->availability_time[$day] == 'Available 24 hours' ? 'checked' : '' }} @endif>
-                                <label class="form-check-label" for="{{ $day }}_avail_24_hours">Available 24
-                                    hours</label>
-                            </div>
-                        </div>
-                        <div class="col-lg-1">
-                            <div class="resetdays-icon">
-                                <input type="button" value="Reset" class="resetdays" data-day="{{ $day }}"
-                                    id="reset{{ $cDay }}">
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
             @endforeach
 
             @if(request()->segment(2) == 'profile' && request()->segment(3))

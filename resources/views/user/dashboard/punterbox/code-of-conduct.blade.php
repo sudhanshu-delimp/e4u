@@ -11,20 +11,19 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content start here-->
    <!-- Page Heading -->
-   <div class="d-sm-flex align-items-center justify-content-between mt-5">
-         <h1 class="h1">Code of Conduct</h1>
-      <div class="back-to-dashboard">
-         <a href="{{ url()->previous() ?? route('user.add-report') }}">
-             <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
-         </a>
-     </div>
-   </div>
-  <!-- Page Heading -->
-   <div class="row my-5">
-      <div class="col-md-10 ">
+   <div class="row">
+      <div class="custom-heading-wrapper justify-content-between  col-md-12 mb-5">
+         <h1 class="h1 mb-0">Code of Conduct</h1>
+         <div class="back-to-dashboard">
+            <a href="{{ url()->previous() ?? route('user.add-report') }}">
+               <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+            </a>
+         </div>
+      </div>
+      <div class="col-md-12 ">
          <h2 class="h2">Ethical reporting</h2>
          <p>Viewers are required to maintain a high standard of ethics when reporting their experience
             whilst applying the following standards (Standards):</p>

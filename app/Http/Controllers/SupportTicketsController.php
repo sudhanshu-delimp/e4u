@@ -77,7 +77,8 @@ class SupportTicketsController extends AppController
                         ->orWhere('subject', 'like', "%{$search}%")
                         ->orWhere('message', 'like', "%{$search}%")
                         ->orWhere('created_on', 'like', "%{$search}%")
-                        ->orWhere('status', 'like', "%{$search}%");
+                        ->orWhere('status', 'like', "%{$search}%")
+                        ->orWhere('ref_number', 'like', "%{$search}%");
                 });
             }
 
@@ -111,7 +112,7 @@ class SupportTicketsController extends AppController
             $i = 1;
             foreach ($tickets as $item) {
                 $item->sn = ($start + $i);
-                $item->file = ($item->file!="") ? '<a download="true" href = "'.asset('support_tickets/'.$item->file).'">Download</a>' : "NA";
+                $item->file = ($item->file!="") ? '<a download="true" href = "'.asset('support_tickets/'.$item->file).'">Download</a>' : "No Documents";
                 $item->created_on = \Carbon\Carbon::parse($item->created_on)->format('d-m-Y');
                 $item->status_mod = "<span class='status' data-status-id='".$item->getRawOriginal('status')."'>$item->status</span>";
                 $item->action = '<div class="dropdown no-arrow archive-dropdown">

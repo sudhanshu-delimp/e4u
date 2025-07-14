@@ -178,7 +178,7 @@
             { data: 'service_type', name: 'service_type', orderable: true, defaultContent: 'NA' },
             { data: 'subject', name: 'subject', orderable: true, defaultContent: 'NA' },
             { data: 'created_on', name: 'created_on', orderable: true, defaultContent: 'NA' },
-            { data: 'file', name: 'file', orderable: true, defaultContent: 'NA' },
+            { data: 'file', name: 'file', orderable: true, defaultContent: 'No Documents' },
             { data: 'status_mod', name: 'status_mod', orderable: true, defaultContent: 'NA' },
             { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
         ],
