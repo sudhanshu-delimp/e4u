@@ -13,3 +13,19 @@
 
         return formatted = date.toLocaleString('en-US', options);
     }
+
+
+
+    function swal_waiting_popup(data)
+    {
+
+        Swal.fire({
+            title: (data.title) ? data.title : 'Processing...',
+            text: (data.message) ? data.message : 'Please wait.',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+    }

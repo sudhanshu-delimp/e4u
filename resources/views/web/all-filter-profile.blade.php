@@ -714,7 +714,15 @@
                 </div>
                 <div class="modal-body">
                     <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         <span id="Lname " class="my_legbox_title">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
+=======
+                        <span id="Lname" class="my_legbox_title">Please log in or Register to access your Legbox</span>
+>>>>>>> Stashed changes
+=======
+                        <span id="Lname" class="my_legbox_title">Please log in or Register to access your Legbox</span>
+>>>>>>> Stashed changes
                     </h1>
                 </div>
                 <div class="modal-footer my_legbox_footer" style="justify-content: center;">
@@ -1350,10 +1358,24 @@
                 
 
                 @if(auth()->user() && auth()->user()->type != 0)
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     $(".my_legbox_title").text('My Legbox is only available to Viewers.');
                     $(".my_legbox_footer").hide();
                 @else
                     $(".my_legbox_title").text('My Legbox is only available to Viewers. Please log in or Register to access your Legbox.');
+=======
+                    $(".my_legbox_title").text('Please register yourself as a viewer to access this feature.');
+                    $(".my_legbox_footer").hide();
+                @else
+                    $(".my_legbox_title").text('Please log in or Register to access your Legbox');
+>>>>>>> Stashed changes
+=======
+                    $(".my_legbox_title").text('Please register yourself as a viewer to access this feature.');
+                    $(".my_legbox_footer").hide();
+                @else
+                    $(".my_legbox_title").text('Please log in or Register to access your Legbox');
+>>>>>>> Stashed changes
                     $(".my_legbox_footer").show();
                 @endif
                 $('#my_legbox').modal('show');

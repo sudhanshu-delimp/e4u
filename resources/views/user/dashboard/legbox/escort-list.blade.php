@@ -74,9 +74,6 @@
                             <tr>
                                 @php
                                     $suspendedBadge = isset($escort->suspendProfile[0]->created_at);
-                                    // if($suspendedBadge){
-                                    //     $escortTimeZone = Carbon::parse($escort->suspendProfile[0]->created_at, getEscortTimezone($escort));
-                                    // }
 
                                     $escortLikes = isset($escort->likes[0]->id);
                                     $percentage = 0;

@@ -87,6 +87,7 @@
                     <table class="table table-hover" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                         <tr>
+                            <th> ID</th>
                             <th>Ticket ID</th>
                             <th>Member ID</th>
                             <th>Department</th>
@@ -127,7 +128,7 @@
                                                       class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body my-custom-modal-body" >
                     <div class="row">
                         <div class="col-sm-12 conv-main" id="conv-main">
 
@@ -155,6 +156,8 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+
    $(document).ready( function () {
        var table = $("#supportTicketsTable").DataTable({
            "language": {
@@ -176,6 +179,7 @@
            },
            columns: [
                { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'ref_number', name: 'ref_number', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'member_id', name: 'member_id', searchable: true, orderable:false ,defaultContent: 'NA'},
                { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
@@ -183,7 +187,7 @@
                { data: 'subject', name: 'start_date', searchable: true, orderable:true,defaultContent: 'NA' },
                // { data: 'message', name: 'enabled', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'created_on', name: 'date_created', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'status_mod2', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
            ],
            order: [6, 'desc'],
@@ -191,15 +195,23 @@
 
 
        $(document).on('click', ".view_ticket", function() {
+        
            ticketId = $(this).closest('tr').find('td:first').html();
            $("#conv-main").html('');
+           $("#sendMessage").parent().show()
            $.ajax({
                method: "GET",
                url: "{{ route('admin.support-ticket.conversations') }}" + '/' + ticketId,
                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                success: function (data) {
-                   var modalHeading = "<b>"+data.subject+'</b> - '+ data.created_on +'<br>'+
+                     console.log(data.status_id);
+                    if(data.status_id == 3 || data.status_id == 4) {
+                    $("#sendMessage").parent().hide();
+                    }
+
+                   var modalHeading = "<b>"+data.subject+'</b> - '+ date_time_format(data.created_on )+'<br>'+
                    "<span>"+data.user.name+'</span> ( '+ data.user.member_id +')';
+                   
                    $("#ticket_name").html(modalHeading);
                    var html =
                        // '<div class="col-sm-6 conversation"> </div>' +
@@ -207,7 +219,7 @@
                                '    <div class="userMessage">' +
                                 '       <p>'+data.message+'</p>'+
                                 '   </div>'+
-                       '       <span class="message_time">'+data.created_on+'</span>'+
+                       '       <span class="message_time">'+date_time_format(data.created_on)+'</span>'+
                                 '</div>'+
                        '<div class="col-sm-6 conversation"> </div>';
                    $(data.conversations).each(function( index, conversation ) {
@@ -218,7 +230,7 @@
                                '    <div class="adminMessage">' +
                                '       <p>'+conversation.message+'</p>'+
                                '   </div>'+
-                               '       <span class="message_time">'+conversation.date_time+'</span>'+
+                               '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
                                '</div>';
                        } else {
                            html +=
@@ -227,7 +239,7 @@
                                '    <div class="userMessage">' +
                                '       <p>'+conversation.message+'</p>'+
                                '   </div>'+
-                               '       <span class="message_time">'+conversation.date_time+'</span>'+
+                               '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
                                '</div>'+
                                '<div class="col-sm-6 conversation"> </div>';
                        }
@@ -241,6 +253,14 @@
     $("#submit_message").on('click', function (e) {
         e.preventDefault();
         var message = $("#message").val();
+
+        let data = {
+            'title' : 'Please wait...',
+            'message' : 'your reply is sending.',
+        }
+
+        swal_waiting_popup(data);
+
         $.ajax({
             method: "POST",
             dataType: "json",
@@ -260,6 +280,7 @@
                     $("#conversation_modal").modal('hide');
                     $("#sendMessage")[0].reset();
                 } else {
+                    Swal.close();
                     Swal.fire(
                         'Oops!',
                         'Error while saving the message',
@@ -291,25 +312,35 @@
 
            })
        });*/
-    function change_status(element, status_id) {
-        var ticketId = $(element).closest('.change_status').data('ticket-id');
+
+
+    $(document).on('click', '.change-status-btn', function(e) {
+    e.preventDefault();
+    if (confirm('Are you sure you want to change the status?')) {
+        let id = $(this).data('id');
+        let status = $(this).data('status');
+        change_status(id, status);
+    }
+    });
+
+    function change_status(id, status_id) {
         $.ajax({
             method: "PUT",
             dataType: "json",
-            url: "{{ route('support-ticket.status.update', [':id', ':status_id']) }}".replace(':id',ticketId).replace(':status_id',status_id),
+            url: "{{ route('support-ticket.status.update', [':id', ':status_id']) }}".replace(':id',id).replace(':status_id',status_id),
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             success: function (data) {
-                if(data.status == "success") {
-                    $(element).closest(".change_status").find("button.dropdown-toggle").removeClass('dropdown-toggle');
-                    $(element).closest(".change_status").find("button.dropdown-toggle").html(data.message);
-                    $(element).closest(".change_status").find("ul").remove();
-                } else {
-                    Swal.fire(
-                        'Oops!',
-                        data.message,
-                        'error'
-                    );
-                }
+            if(data.status == "success") 
+            {
+                Swal.fire('Ticket Status!', data.message, 'success');
+                setTimeout(function() {
+                location.reload();
+                }, 3000);
+            } 
+            else 
+            {
+            Swal.fire('Oops!', data.message, 'error');
+            }
             }
         });
         return false;
