@@ -84,20 +84,21 @@ class EscortMyLegboxViewerController extends Controller
 
              return DataTables::of($escorts)
                 ->addColumn('escort_id', function ($escort) {
-                    $suspendedBadge = isset($escort->suspendProfile[0]->created_at);
-                    $suspendedText = $suspendedBadge
-                        ? '<sup title="Suspended on ' . \Carbon\Carbon::parse($escort->suspendProfile[0]->created_at)->format('d-m-Y h:i A') . '" class="brb_icon" style="background-color: #d2730a;">SUS</sup>'
-                        : '';
-                    return $escort->id . ' ' . $suspendedText;
+                    return $escort->id;
                 })
-
-                // ->addColumn('location', fn($escort) => $escort->city->name ?? '-')
                 ->addColumn('location', function($escort){
                     $state = City::where('state_id',$escort->state_id)->first();
                     $stateCode = $state->state_code ?? '-';
                     return $stateCode;
                 })
-                // ->addColumn('state_name', fn($escort) => $escort->state->name ?? '-')
+                ->addColumn('name', function($escort){ 
+                    $suspendedBadge = isset($escort->suspendProfile[0]->created_at);
+                    $suspendedText = $suspendedBadge
+                        ? '<sup title="Suspended on ' . \Carbon\Carbon::parse($escort->suspendProfile[0]->created_at)->format('d-m-Y h:i A') . '" class="brb_icon" style="background-color: #d2730a;">SUS</sup>'
+                        : '';
+                    return $escort->name ?? '-' . ' ' . $suspendedText;
+                    
+                 })
                 ->addColumn('gender', fn($escort) => Str::substr($escort->gender, 0, 1))
 
                 ->addColumn('rating_label', function ($escort) {

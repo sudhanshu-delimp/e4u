@@ -66,7 +66,7 @@
                             <tr>
                                 <th class="text-left">Escorts ID</th>
                                 <th class="text-left">Location</th>
-                                {{-- <th class="text-left">State Name</th> --}}
+                                <th class="text-left">Stage Name</th>
                                 <th class="text-left">Gender</th>
                                 <th class="text-left">Rating</th>
                                 <th class="text-center">Notifications
@@ -83,7 +83,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($escorts as $escort)
+                            {{-- @foreach ($escorts as $escort)
                                 <tr>
                                     @php
                                         $suspendedBadge = isset($escort->suspendProfile[0]->created_at);
@@ -119,7 +119,7 @@
                                             </sup>
                                         @endif
                                     </td>
-                                    {{-- <td class="text-center">
+                                    <td class="text-center">
                                         <span>{{isset($escort->name) ? Str::title($escort->name) : '-'}}</span> 
                                         
                                         @if($suspendedBadge)
@@ -131,7 +131,7 @@
                                             </sup>
                                         @endif
                                         
-                                    </td> --}}
+                                    </td>
                                     <td class="text-center">{{isset($escort->city->name) ? $escort->city->name : '-'}}</td>
                                     <td class="text-center">{{isset($escort->state->name) ? $escort->state->name : '-'}} </td>
                                     <td class="text-center">{{Str::substr($escort->gender, 0, 1)}}</td>
@@ -227,7 +227,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @endforeach --}}
                             {{-- <tr>
 
                                 <td class="text-center">E60587</td>
@@ -573,12 +573,14 @@
                 url: "{{ route('user.my-legbox-escort-list') }}",
                 data: function(data) {
                     // d.type = 'player';
+                        // console.log('data');
+                        // console.log(data);
                 }
             },
             columns: [
                 { data: 'escort_id', name: 'escort_id' },                         // 0
-                { data: 'location', name: 'location' },                           // 1
-                // { data: 'state_name', name: 'state_name' },                       // 2
+                { data: 'location', name: 'location' },                        // 2
+                { data: 'name', name: 'name' },                        // 2
                 { data: 'gender', name: 'gender' },                               // 3
                 { data: 'rating_label', name: 'rating_label' },                   // 4
                 { data: 'is_notification_enabled', name: 'is_notification_enabled' }, // 5
