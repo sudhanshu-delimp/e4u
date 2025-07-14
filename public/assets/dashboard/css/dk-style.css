@@ -174,7 +174,9 @@
         border-radius: 5px;
         border: none;
     }
-    
+    .my-custom-modal-body{
+        overflow-y: scroll !important; 
+}
     .align-item-custom {
         display: flex !important;
         align-items: center;

@@ -128,7 +128,7 @@
                                                       class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body my-custom-modal-body" >
                     <div class="row">
                         <div class="col-sm-12 conv-main" id="conv-main">
 
