@@ -13,83 +13,78 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!--middle content start here-->
     <!-- Page Heading -->
-   <div class="d-sm-flex align-items-center justify-content-between mb-2">
-    <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">Notifications & Features</h1>
-        <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
-    </div>
- </div>
-
-<div class="row">
-    <div class="col-md-12 my-2">
-        <div class="card collapse" id="notes" style="">
-          <div class="card-body">
-              <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-              <ol>
-                <li>Enable and disable your notification and feature preferences.</li>
-                <li>For a Viewer or Escort Agency to receive your Notifications, the Viewer or Escort Agency has to have enabled the feature.</li>
-            </ol>
-          </div>
+    <div class="row">
+        <div class="custom-heading-wrapper col-md-12"><h1 class="h1">Notifications & Features</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
-    </div>
-</div>
-        <div class="row">
-           
-                <form class="v-form-design">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label for="email">Features <!-- (enabled by default) --></label><br>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Method_Message" value="option1" checked>
-                        <label class="form-check-label" for="Method_Message">Viewer notifications, forward V-Alerts</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="Method_Text" value="option1" checked>
-                        <label class="form-check-label" for="Method_Text">Allow Viewers to ask you a question</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="Method_Email" value="option1" checked>
-                        <label class="form-check-label" for="Method_Email">Allow Viewers to send you a text message</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input akhplaymate" name="playmate" type="checkbox" id="Method_Email" value="1" {{auth()->user()->available_playmate == 1 ? 'checked' : ''}} >
-                        <label class="form-check-label " for="Method_Email">I’m available as a playmate</label>
-                      </div>
-                      <div class="pt-1"><i>Some features are enabled by default unless you disable them.</i></div>
-                    </div>
-                    <div class="form-group">
-                      <label for="email">Escort Agency</label><br>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="Method_Message" value="option1">
-                        <label class="form-check-label" for="Method_Message">Receive communications</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
-                        <label class="form-check-label" for="Method_Text">Send communications</label>
-                      </div>
-                      <div class="pt-1"><i>Enable communications between you and your Escort Agency (if applicable).</i></div>
-                    </div>
-                    <div class="form-group">
-                      <label for="email">Alert notifications</label><br>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="Method_Message" value="option1">
-                        <label class="form-check-label" for="Method_Message">Email (A-Alert)</label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
-                        <label class="form-check-label" for="Method_Text">Text</label>
-                      </div>
-                      <div class="pt-1"><i>How Escorts4U will communicate with you.</i></div>
-                    </div>
-                  </div>
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes" style="">
+                <div class="card-body">
+                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                    <ol>
+                        <li>Enable and disable your notification and feature preferences.</li>
+                        <li>For a Viewer or Escort Agency to receive your Notifications, the Viewer or Escort Agency has to have enabled the feature.</li>
+                    </ol>
                 </div>
-                <input type="submit" value="save" class="btn btn-primary shadow-none float-right" name="submit">
-              </form>
             </div>
         </div>
+    </div>
+    <div class="row">
+        
+    <form class="v-form-design">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="email">Features <!-- (enabled by default) --></label><br>
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="Method_Message" value="option1" checked>
+                <label class="form-check-label" for="Method_Message">Viewer notifications, forward V-Alerts</label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Method_Text" value="option1" checked>
+                <label class="form-check-label" for="Method_Text">Allow Viewers to ask you a question</label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Method_Email" value="option1" checked>
+                <label class="form-check-label" for="Method_Email">Allow Viewers to send you a text message</label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input akhplaymate" name="playmate" type="checkbox" id="Method_Email" value="1" {{auth()->user()->available_playmate == 1 ? 'checked' : ''}} >
+                <label class="form-check-label " for="Method_Email">I’m available as a playmate</label>
+                </div>
+                <div class="pt-1"><i>Some features are enabled by default unless you disable them.</i></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Escort Agency</label><br>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Method_Message" value="option1">
+                <label class="form-check-label" for="Method_Message">Receive communications</label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
+                <label class="form-check-label" for="Method_Text">Send communications</label>
+                </div>
+                <div class="pt-1"><i>Enable communications between you and your Escort Agency (if applicable).</i></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Alert notifications</label><br>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Method_Message" value="option1">
+                <label class="form-check-label" for="Method_Message">Email (A-Alert)</label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
+                <label class="form-check-label" for="Method_Text">Text</label>
+                </div>
+                <div class="pt-1"><i>How Escorts4U will communicate with you.</i></div>
+            </div>
+            <input type="submit" value="save" class="btn btn-primary shadow-none" name="submit">
+        </div>
+        
+    </form>
+    </div>
     <!--middle content end here-->
 </div>
 

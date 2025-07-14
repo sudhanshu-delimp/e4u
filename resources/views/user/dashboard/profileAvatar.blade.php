@@ -32,32 +32,31 @@ label.cabinet input.file{
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!--middle content start here-->
     
-        <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-2">
-            <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">Upload your avatar</h1>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
-            </div>
+    <!-- Page Heading -->
+        
+    <div class="row">
+        <div class="custom-heading-wrapper col-md-12">
+                <h1 class="h1">Upload your avatar</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
-
-        <div class="row">
-            <div class="col-md-12 my-2">
-                <div class="card collapse" id="notes" style="">
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes" style="">
                 <div class="card-body">
                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                     <ol>
                         <li>You don't have to have an avatar, it is entirely up to you</li>
-                                <li>Your avatar will not be displayed publicly</li>
-                                <li>You can remove or change your avatar anytime</li>
+                        <li>Your avatar will not be displayed publicly</li>
+                        <li>You can remove or change your avatar anytime</li>
                     </ol>
-                </div>
                 </div>
             </div>
         </div>
+    </div>
     <div class="row">
-        <div class="col-md-12 mt-4" id="profile_and_tour_options">
+        <div class="col-md-12" id="profile_and_tour_options">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card border-0">
@@ -105,8 +104,6 @@ label.cabinet input.file{
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row mt-4">
                 <div class="col-md-12 mt-4">
                     <div id="accordion" class="myacording-design mb-5">
                         <div class="card">

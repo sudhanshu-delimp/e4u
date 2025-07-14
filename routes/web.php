@@ -71,7 +71,7 @@ Route::middleware('auth')->group(function () {
 
 
         Route::get('/escort-list', [UserController::class, 'myLegboxList'])->name('user.legbox.escort-list');
-        Route::get('/massagehttp://e4u.local/user-dashboard/view-and-reply-ticket-legbox-list', [UserController::class, 'massageLegboxList'])->name('user.massage.legbox.list');
+        Route::get('/massage', [UserController::class, 'massageLegboxList'])->name('user.massage.legbox.list');
         Route::post('/save-my-legbox/{id}', [UserController::class, 'saveMyLegbox'])->name('user.save.legbox');
         Route::post('/delete-my-legbox/{id}', [UserController::class, 'deleteMyLegbox'])->name('user.delete.legbox');
         //massage legbox
@@ -328,6 +328,7 @@ Route::get('/blog', function() { return view('web.pages.blog'); });
 
 Route::get('/etiquette', function() { return view('web.pages.etiquette'); });
 Route::get('/faqs', function() { return view('web.pages.faqs'); });
+Route::get('/parent-control', function() { return view('web.pages.parent-control'); });
 Route::get('/feedback', function() { return view('web.pages.feedback'); });
 Route::get('/thankyou', function() { return view('web.pages.thankyou'); })->name('feedback.thankyou');
 Route::get('/help-for-escorts', function() { return view('web.pages.help-for-advertisers'); });

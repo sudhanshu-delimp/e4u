@@ -6,29 +6,6 @@
     display: inline-block;
     margin-bottom: 15px;
 }
-.adminMessage, .userMessage {
-        padding: 10px;
-        border-radius: 10px;
-    }
-.userMessage {
-        background-color: lightgray;
-    }
-    .adminMessage {
-        background-color: #ff3c5fc9;
-        color: white;
-    }
-    .message_time {
-        font-size: 10px;
-        position: absolute;
-        right: 5%;
-        /*bottom: 0;*/
-    }
-    .modal-body {
-        min-height: 200px;
-    }
-    .messageBox {
-        border-radius: 10px;
-    }
     .change_status button {
         color: #000;
         font-size: 13px;
@@ -36,8 +13,9 @@
         border-radius: 3px;
         padding: 10px 15px;
     }
+    
     .custom-tabale-layout #supportTicketsTable_length {
-        float: right;
+        float: left;
     }
     .custom-tabale-layout #supportTicketsTable_length select {
         width: 100px;
@@ -87,6 +65,7 @@
                     <table class="table table-hover" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                         <tr>
+                            <th> ID</th>
                             <th>Ticket ID</th>
                             <th>Member ID</th>
                             <th>Department</th>
@@ -113,11 +92,11 @@
 
 
 
-<div class="modal fade upload-modal" id="conversation_modal" tabindex="-1" role="dialog"
+<div class="modal fade upload-modal center" id="conversation_modal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable"
          role="document"> {{--NOTE:: use  modal-dialog-scrollable instead of modal-dialog to make body scrollable only--}}
-        <div class="modal-content" style="width: 900px;position: absolute;">
+        <div class="modal-content" style="width: 900px;position: absolute; top:50px;">
             {{-- {{ route('escort.upload.gallery') }} --}}
             <div class="modal-content border-0">
                 <div class="modal-header">
@@ -127,17 +106,19 @@
                                                       class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body my-custom-modal-body" >
                     <div class="row">
                         <div class="col-sm-12 conv-main" id="conv-main">
 
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" style="border-top: 1px solid;">
+                <div class="modal-footer justify-content-start bg-first">
                     <form id="sendMessage">
-                        <textarea class="messageBox" name="message" id="message" rows="4" cols="50" required></textarea>
-                        <button class="btn btn-info" id="submit_message">Send</button>
+                       <div class="reply-message-box">
+                        <textarea class="messageBox" name="message" id="message" rows="2" cols="90" required></textarea>
+                        <button class="btn btn-info send-btn" id="submit_message">Send</button>
+                       </div>
                     </form>
                 </div>
             </div>
@@ -148,6 +129,7 @@
 @endsection
 @push('script')
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
 <script>
     var ticketId = 0;
     $.ajaxSetup({
@@ -155,10 +137,13 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+
    $(document).ready( function () {
        var table = $("#supportTicketsTable").DataTable({
            "language": {
-               "zeroRecords": "No record(s) found."
+               "zeroRecords": "No record(s) found.",
+               "searchPlaceholder": "Search by Ticket ID or Member ID...",
            },
            processing: true,
            serverSide: true,
@@ -176,6 +161,7 @@
            },
            columns: [
                { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'ref_number', name: 'ref_number', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'member_id', name: 'member_id', searchable: true, orderable:false ,defaultContent: 'NA'},
                { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
@@ -183,7 +169,7 @@
                { data: 'subject', name: 'start_date', searchable: true, orderable:true,defaultContent: 'NA' },
                // { data: 'message', name: 'enabled', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'created_on', name: 'date_created', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'status_mod2', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
            ],
            order: [6, 'desc'],
@@ -191,15 +177,23 @@
 
 
        $(document).on('click', ".view_ticket", function() {
+        
            ticketId = $(this).closest('tr').find('td:first').html();
            $("#conv-main").html('');
+           $("#sendMessage").parent().show()
            $.ajax({
                method: "GET",
                url: "{{ route('admin.support-ticket.conversations') }}" + '/' + ticketId,
                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                success: function (data) {
-                   var modalHeading = "<b>"+data.subject+'</b> - '+ data.created_on +'<br>'+
+                     console.log(data.status_id);
+                    if(data.status_id == 3 || data.status_id == 4) {
+                    $("#sendMessage").parent().hide();
+                    }
+
+                   var modalHeading = "<b>"+data.subject+'</b> - '+ date_time_format(data.created_on )+'<br>'+
                    "<span>"+data.user.name+'</span> ( '+ data.user.member_id +')';
+                   
                    $("#ticket_name").html(modalHeading);
                    var html =
                        // '<div class="col-sm-6 conversation"> </div>' +
@@ -207,7 +201,7 @@
                                '    <div class="userMessage">' +
                                 '       <p>'+data.message+'</p>'+
                                 '   </div>'+
-                       '       <span class="message_time">'+data.created_on+'</span>'+
+                       '       <span class="message_time">'+date_time_format(data.created_on)+'</span>'+
                                 '</div>'+
                        '<div class="col-sm-6 conversation"> </div>';
                    $(data.conversations).each(function( index, conversation ) {
@@ -218,7 +212,7 @@
                                '    <div class="adminMessage">' +
                                '       <p>'+conversation.message+'</p>'+
                                '   </div>'+
-                               '       <span class="message_time">'+conversation.date_time+'</span>'+
+                               '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
                                '</div>';
                        } else {
                            html +=
@@ -227,7 +221,7 @@
                                '    <div class="userMessage">' +
                                '       <p>'+conversation.message+'</p>'+
                                '   </div>'+
-                               '       <span class="message_time">'+conversation.date_time+'</span>'+
+                               '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
                                '</div>'+
                                '<div class="col-sm-6 conversation"> </div>';
                        }
@@ -241,6 +235,14 @@
     $("#submit_message").on('click', function (e) {
         e.preventDefault();
         var message = $("#message").val();
+
+        let data = {
+            'title' : 'Please wait...',
+            'message' : 'your reply is sending.',
+        }
+
+        swal_waiting_popup(data);
+
         $.ajax({
             method: "POST",
             dataType: "json",
@@ -260,6 +262,7 @@
                     $("#conversation_modal").modal('hide');
                     $("#sendMessage")[0].reset();
                 } else {
+                    Swal.close();
                     Swal.fire(
                         'Oops!',
                         'Error while saving the message',
@@ -291,25 +294,35 @@
 
            })
        });*/
-    function change_status(element, status_id) {
-        var ticketId = $(element).closest('.change_status').data('ticket-id');
+
+
+    $(document).on('click', '.change-status-btn', function(e) {
+    e.preventDefault();
+    if (confirm('Are you sure you want to change the status?')) {
+        let id = $(this).data('id');
+        let status = $(this).data('status');
+        change_status(id, status);
+    }
+    });
+
+    function change_status(id, status_id) {
         $.ajax({
             method: "PUT",
             dataType: "json",
-            url: "{{ route('support-ticket.status.update', [':id', ':status_id']) }}".replace(':id',ticketId).replace(':status_id',status_id),
+            url: "{{ route('support-ticket.status.update', [':id', ':status_id']) }}".replace(':id',id).replace(':status_id',status_id),
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             success: function (data) {
-                if(data.status == "success") {
-                    $(element).closest(".change_status").find("button.dropdown-toggle").removeClass('dropdown-toggle');
-                    $(element).closest(".change_status").find("button.dropdown-toggle").html(data.message);
-                    $(element).closest(".change_status").find("ul").remove();
-                } else {
-                    Swal.fire(
-                        'Oops!',
-                        data.message,
-                        'error'
-                    );
-                }
+            if(data.status == "success") 
+            {
+                Swal.fire('Ticket Status!', data.message, 'success');
+                setTimeout(function() {
+                location.reload();
+                }, 3000);
+            } 
+            else 
+            {
+            Swal.fire('Oops!', data.message, 'error');
+            }
             }
         });
         return false;
