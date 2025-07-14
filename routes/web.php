@@ -127,9 +127,11 @@ Route::middleware('auth')->group(function () {
         })->name('user.viewer-statistics');
 
 
-        Route::get('/my-legbox',function(){
-            return view('user.dashboard.my-legbox');
-        })->name('user.my-legbox');
+        Route::get('/my-legbox',[EscortMyLegboxViewerController::class,'dashboard'])->name('user.my-legbox');
+        Route::get('/my-legbox-ajax',[EscortMyLegboxViewerController::class,'dashboardEscortListAjax'])->name('user.my-legbox-escort-list');
+        // Route::get('/my-legbox',function(){
+        //     return view('user.dashboard.my-legbox');
+        // })->name('user.my-legbox');
 
         Route::get('/favorites-online',function(){
             return view('user.dashboard.favorites-online');
