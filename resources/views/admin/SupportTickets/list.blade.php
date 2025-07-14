@@ -6,29 +6,6 @@
     display: inline-block;
     margin-bottom: 15px;
 }
-.adminMessage, .userMessage {
-        padding: 10px;
-        border-radius: 10px;
-    }
-.userMessage {
-        background-color: lightgray;
-    }
-    .adminMessage {
-        background-color: #ff3c5fc9;
-        color: white;
-    }
-    .message_time {
-        font-size: 10px;
-        position: absolute;
-        right: 5%;
-        /*bottom: 0;*/
-    }
-    .modal-body {
-        min-height: 200px;
-    }
-    .messageBox {
-        border-radius: 10px;
-    }
     .change_status button {
         color: #000;
         font-size: 13px;
@@ -36,8 +13,9 @@
         border-radius: 3px;
         padding: 10px 15px;
     }
+    
     .custom-tabale-layout #supportTicketsTable_length {
-        float: right;
+        float: left;
     }
     .custom-tabale-layout #supportTicketsTable_length select {
         width: 100px;
@@ -114,11 +92,11 @@
 
 
 
-<div class="modal fade upload-modal" id="conversation_modal" tabindex="-1" role="dialog"
+<div class="modal fade upload-modal center" id="conversation_modal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable"
          role="document"> {{--NOTE:: use  modal-dialog-scrollable instead of modal-dialog to make body scrollable only--}}
-        <div class="modal-content" style="width: 900px;position: absolute;">
+        <div class="modal-content" style="width: 900px;position: absolute; top:50px;">
             {{-- {{ route('escort.upload.gallery') }} --}}
             <div class="modal-content border-0">
                 <div class="modal-header">
@@ -135,10 +113,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" style="border-top: 1px solid;">
+                <div class="modal-footer justify-content-start bg-first">
                     <form id="sendMessage">
-                        <textarea class="messageBox" name="message" id="message" rows="4" cols="50" required></textarea>
-                        <button class="btn btn-info" id="submit_message">Send</button>
+                       <div class="reply-message-box">
+                        <textarea class="messageBox" name="message" id="message" rows="2" cols="90" required></textarea>
+                        <button class="btn btn-info send-btn" id="submit_message">Send</button>
+                       </div>
                     </form>
                 </div>
             </div>
@@ -149,6 +129,7 @@
 @endsection
 @push('script')
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
 <script>
     var ticketId = 0;
     $.ajaxSetup({
@@ -161,7 +142,8 @@
    $(document).ready( function () {
        var table = $("#supportTicketsTable").DataTable({
            "language": {
-               "zeroRecords": "No record(s) found."
+               "zeroRecords": "No record(s) found.",
+               "searchPlaceholder": "Search by Ticket ID or Member ID...",
            },
            processing: true,
            serverSide: true,
