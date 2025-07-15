@@ -22,97 +22,94 @@
 <div id="wrapper">
    <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
-         <div class="container-fluid pl-3 pl-lg-5">
+         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content-->
             <div class="row">
-                <div class="col-md-12">
-                    <div class="v-main-heading h3" style="display: inline-block;"><h1>Post Office - Reports</h1></div>
-                        <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-                    </div>
-                </div>
-
-                <div class="row collapse" id="notes">
-                    <div class="col-md-12 mb-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                <ol>
-                                <li>Select the Report for the required Communication.</li>
-                                <li>Select Preview to view the Report, or Print to print out the Report.</li>
-                                </ol>
-                            </div>
+               <div class="custom-heading-wrapper col-md-12">
+                   <h1 class="h1">Post Office - Reports</h1>
+                  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+               </div>
+               <div class="col-md-12 mb-4">
+                  <div class="card collapse" id="notes">
+                     <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                        <li>Select the Report for the required Communication.</li>
+                        <li>Select Preview to view the Report, or Print to print out the Report.</li>
+                        </ol>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row">    
+               <div class="col-md-12 ">
+                  <div class="panel with-nav-tabs panel-warning">
+                     <div class="panel-body">
+                        <div class="tab-content">
+                           <div class="tab-pane fade in active show" id="tab1warning">
+                              <div class="table-responsive-xl">
+                                 <table class="table">
+                                    <thead class="table-bg">
+                                       <tr>
+                                          <th scope="col">Ref
+                                          </th>
+                                          <th scope="col">Date & Time</th>
+                                          <th scope="col">
+                                             Subject
+                                          </th>
+                                          <th scope="col">
+                                             Action
+                                          </th>
+                                       </tr>
+                                    </thead>
+                                    <tbody class="table-content">
+                                       <tr class="row-color">
+                                          <td class="theme-color">123</td>
+                                          <td class="theme-color">2025-06-09 8:36:54</td>
+                                          <td class="theme-color">National Ugly Mugs Feature [header tile in email]</td>
+                                          <td class="theme-color">
+                                             <div class="dropdown no-arrow">
+                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                </a>
+                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   
+                                                   
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#PostOffice" >View <i class="fa fa-eye"></i></a>
+                                                   <div class="dropdown-divider"></div>
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Print <i class="fa fa-fw fa-print" ></i></a>
+                                                   
+                                                </div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                                 <nav aria-label="Page navigation example">
+                                    <ul class="pagination float-right pt-4">
+                                       <li class="page-item">
+                                          <a class="page-link" href="#" aria-label="Previous">
+                                          <span aria-hidden="true">«</span>
+                                          <span class="sr-only">Previous</span>
+                                          </a>
+                                       </li>
+                                       <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                       <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                       <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                       <li class="page-item">
+                                          <a class="page-link" href="#" aria-label="Next">
+                                          <span aria-hidden="true">»</span>
+                                          <span class="sr-only">Next</span>
+                                          </a>
+                                       </li>
+                                    </ul>
+                                 </nav>
+                              </div>
+                           </div>
                         </div>
-                    </div>
-                </div>
-                
-               <div class="col-md-12 pl-0">
-                <div class="panel with-nav-tabs panel-warning">
-                   <div class="panel-body">
-                      <div class="tab-content">
-                         <div class="tab-pane fade in active show" id="tab1warning">
-                            <div class="table-responsive-xl">
-                               <table class="table">
-                                  <thead class="table-bg">
-                                     <tr>
-                                        <th scope="col">Ref
-                                        </th>
-                                        <th scope="col">Date & Time</th>
-                                        <th scope="col">
-                                            Subject
-                                        </th>
-                                        <th scope="col">
-                                            Action
-                                        </th>
-                                     </tr>
-                                  </thead>
-                                  <tbody class="table-content">
-                                     <tr class="row-color">
-                                        <td class="theme-color">123</td>
-                                        <td class="theme-color">2025-06-09 8:36:54</td>
-                                        <td class="theme-color">National Ugly Mugs Feature [header tile in email]</td>
-                                        <td class="theme-color">
-                                           <div class="dropdown no-arrow">
-                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                              </a>
-                                              <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                 
-                                                 
-                                                 <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#PostOffice" >View <i class="fa fa-eye"></i></a>
-                                                 <div class="dropdown-divider"></div>
-                                                 <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Print <i class="fa fa-fw fa-print" ></i></a>
-                                                 
-                                              </div>
-                                           </div>
-                                        </td>
-                                     </tr>
-                                  </tbody>
-                               </table>
-                               <nav aria-label="Page navigation example">
-                                  <ul class="pagination float-right pt-4">
-                                     <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">«</span>
-                                        <span class="sr-only">Previous</span>
-                                        </a>
-                                     </li>
-                                     <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                     <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                     <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                     <li class="page-item">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                        <span aria-hidden="true">»</span>
-                                        <span class="sr-only">Next</span>
-                                        </a>
-                                     </li>
-                                  </ul>
-                               </nav>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </div>
+                     </div>
+                  </div>
+               </div>
             </div>
          </div>
       </div>
