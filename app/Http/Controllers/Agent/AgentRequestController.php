@@ -48,16 +48,16 @@ class AgentRequestController extends Controller
             $query = AgentModel::with('user','user.state')->where('status','0');
             $search = $request->query('search');
              if (!empty($search)) {
-                $query->where('id', 'like', "%{$search}%")
-                        ->orWhere('ref_number', 'like', "%{$search}%")
-                        ->orWhere('first_name', 'like', "%{$search}%")
-                        ->orWhere('mobile_number', 'like', "%{$search}%")
-                        ->orWhere('email', 'like', "%{$search}%");
-        
+                $query->where(function ($q) use ($search) {
+                    $q->where('ref_number', 'like', "%{$search}%")
+                    ->orWhereHas('user', function ($u) use ($search) {
+                    $u->where('member_id', 'like', "%{$search}%");
+                     });
+                });
             }
             $lists = $query->orderBy('id', 'desc')->paginate(3);
             if ($request->ajax()) {
-                return view('agent.agent-requests-list', compact('lists'))->render();
+                return view('agent.dashboard.Advertisers.agent-requests-list', compact('lists'))->render();
             }
 
             return view('agent.dashboard.Advertisers.new-requests', compact('lists'));   
@@ -82,6 +82,30 @@ class AgentRequestController extends Controller
         {
             return response()->json(['success' => false]); 
         }
+
+    }
+
+
+
+    public function historyRequests(Request $request)
+    {
+
+         $query = AgentModel::with('user','user.state')->where('status','1')->orWhere('status','2');
+            $search = $request->query('search');
+             if (!empty($search)) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('ref_number', 'like', "%{$search}%")
+                    ->orWhereHas('user', function ($u) use ($search) {
+                    $u->where('member_id', 'like', "%{$search}%");
+                     });
+                });
+            }
+            $lists = $query->orderBy('id', 'desc')->paginate(3);
+            if ($request->ajax()) {
+                return view('agent.dashboard.Advertisers.history-requests-list', compact('lists'))->render();
+            }
+
+            return view('agent.dashboard.Advertisers.history-requests', compact('lists')); 
 
     }
 }

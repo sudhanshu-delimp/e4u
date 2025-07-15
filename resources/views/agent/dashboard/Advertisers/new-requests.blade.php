@@ -35,7 +35,7 @@
       <div class="col-lg-12">
          <div class="custom-search-form">
             <form>
-               <label for="search">Search : </label> <input type="search" id="search" name="search" placeholder="Search Request">
+               <label for="search">Search : </label> <input type="search" id="search" name="search" placeholder="Search by Member ID">
             </form>
          </div>
       </div>
@@ -44,7 +44,7 @@
 
    <div class="col-md-12 pt-4">
       <div id="data-container">
-         @include('agent.agent-requests-list')
+         @include('agent.dashboard.Advertisers.agent-requests-list')
       </div>
    </div>
 </div>

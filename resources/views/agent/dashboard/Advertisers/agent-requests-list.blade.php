@@ -52,7 +52,7 @@
                             <div class="row">
                                 <div class="col-md-12 list-sec pt-1">
                                     <h6><b>Comments:</b> </h6>
-                                    <h6 class="text-justify">
+                                    <h6 class="text-justify">agent.dashboard.Advertisers.agent-requests-list
                                         {{$list->comments}}
                                     </h6>
                                 </div>

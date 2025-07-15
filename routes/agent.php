@@ -92,8 +92,11 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
      Route::get('Advertisers/new-requests', [AgentRequestController::class, 'newRequest'])->name('agent.new-requests');
      Route::post('process-request', [AgentRequestController::class, 'processRequest'])->name('agent.process-request');
 
-     
+     Route::get('Advertisers/history-requests', [AgentRequestController::class, 'historyRequests'])->name('agent.history-requests');
 
+//     Route::get('Advertisers/history-requests',function(){
+//     return view('agent.dashboard.Advertisers.history-requests');
+// })->name('agent.history-requests');
      
 
     Route::get('advertiser-profiles',function(){
@@ -108,11 +111,6 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
     return view('agent.dashboard.Annalytics.prospets-memberships');
 })->name('agent.prospets-memberships');
 
- 
-
-Route::get('Advertisers/history-requests',function(){
-    return view('agent.dashboard.Advertisers.history-requests');
-})->name('agent.history-requests');
 
     Route::get('Marketing/create-prospect',function(){
     return view('agent.dashboard.Marketing.create-prospect');
