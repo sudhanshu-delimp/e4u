@@ -34,12 +34,12 @@
    height: 36px;
    width: 100%;
    padding: 0px 10px 0px 30px;
-   background: white url({{asset('avatars/Vector-24.svg')}}) 8px 8px no-repeat;
    border-radius: 3px;
    border: 1.8px solid #d1d3e2;
    font-size: 13px;
    font-weight: 400;
    color: #d1d3e2;
+   background: white url({{asset('avatars/Vector-24.svg')}}) 8px 8px no-repeat;
    }
    .at-sec input:focus {
    outline: none;
@@ -93,8 +93,8 @@
    text-decoration: none;
    color: #fff;
    text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
-   border-color: #192A3E;
-   background-color: #192A3E;
+   border-color: #0C223D;
+   background-color: #0C223D;
    }
    .active-play .at-lable {
    display: block;
@@ -110,7 +110,7 @@
    .active-play li {
    padding: 10px;
    border-radius: 3px;
-   background: #192A3E !important;
+   background: #0C223D;
    }
    .active-play a {
    color: #fff;

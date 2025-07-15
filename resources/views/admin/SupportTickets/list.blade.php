@@ -113,10 +113,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-start bg-first">
+                <div class="reply-wrapper p-3">
                     <form id="sendMessage">
                        <div class="reply-message-box">
-                        <textarea class="messageBox" name="message" id="message" rows="2" cols="90" required></textarea>
+                        <textarea class="messageBox" name="message" id="message" rows="2" required></textarea>
                         <button class="btn btn-info send-btn" id="submit_message">Send</button>
                        </div>
                     </form>
