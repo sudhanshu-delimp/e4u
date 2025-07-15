@@ -119,7 +119,7 @@
     background-color: #5d6d7e;
     color: #fff;
     text-align: center;
-    padding: 0px 4px 0px 4px;
+    padding: 0px 4px 0px 4px !important;
     font-size: 20px;
     border-radius: 2px;
     right: -5px;

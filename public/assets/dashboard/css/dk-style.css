@@ -1147,6 +1147,7 @@
     
     .manage_tag_style ul li {
         display: inline-block;
+        margin: 10px 10px 10px 0px;
     }
     
     .input_border {
@@ -3596,7 +3597,7 @@ padding-bottom:80px;
     }
     
     .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
-        background: #192A3E !important;
+        background: var(--blue--text) !important;
     }
     
     .select2-results__option--selectable {
