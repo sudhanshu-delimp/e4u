@@ -1357,25 +1357,11 @@
                 console.log('cid else');
                 
 
-                @if(auth()->user() && auth()->user()->type != 0)
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+               @if(auth()->user() && auth()->user()->type != 0)
                     $(".my_legbox_title").text('My Legbox is only available to Viewers.');
                     $(".my_legbox_footer").hide();
                 @else
                     $(".my_legbox_title").text('My Legbox is only available to Viewers. Please log in or Register to access your Legbox.');
-=======
-                    $(".my_legbox_title").text('Please register yourself as a viewer to access this feature.');
-                    $(".my_legbox_footer").hide();
-                @else
-                    $(".my_legbox_title").text('Please log in or Register to access your Legbox');
->>>>>>> Stashed changes
-=======
-                    $(".my_legbox_title").text('Please register yourself as a viewer to access this feature.');
-                    $(".my_legbox_footer").hide();
-                @else
-                    $(".my_legbox_title").text('Please log in or Register to access your Legbox');
->>>>>>> Stashed changes
                     $(".my_legbox_footer").show();
                 @endif
                 $('#my_legbox').modal('show');
