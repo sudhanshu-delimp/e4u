@@ -73,7 +73,7 @@
                         <li>Use mobile number/email to do a number check.</li>
                         <li>Talk to the client before booking, avoid just texts.</li>
                         <li>Do not accept bookings from blocked/withheld numbers.</li>
-                        <li>Use virtual assistant services like <a href="http://www.agencymanagement.com.au" target="_blank">Agency Management</a>.</li>
+                        <li>Use virtual assistant services like <a href="http://www.agencymanagement.com.au" target="_blank" class="custom_links_design">Agency Management</a>.</li>
                         <li>Google and social media search can be helpful.</li>
                         <li>Deposits can help avoid timewasters.</li>
                      </ol>
@@ -90,7 +90,7 @@
                   <div class="card-body pb-0">
                      <ol class="mb-0">
                         <li>Use Google, phone ID apps.</li>
-                        <li>Check on <a href="http://www.nationaluglymugs.com.au" target="_blank">NUM</a>.</li>
+                        <li>Check on <a href="http://www.nationaluglymugs.com.au" target="_blank" class="custom_links_design">NUM</a>.</li>
                         <li>Maintain a personal list of bad clients.</li>
                         <li>Use WhatsApp to see client’s picture.</li>
                         <li>Cross-check from at least 2 sources.</li>

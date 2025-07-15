@@ -65,7 +65,7 @@
         max-width: 20rem;
         width: 89%;
     }
-
+    
     span.menu-active {
         color: #FF3C5F;
     }
@@ -144,9 +144,11 @@
         border-radius: 0.35rem;
         transition: 0.5s;
     }
+    
     .nex_sterp_btn:disabled {
         background: #ff3c5f94;
     }
+    
     .nex_sterp_btn i {
         color: #fff;
     }
@@ -174,9 +176,7 @@
         border-radius: 5px;
         border: none;
     }
-    .my-custom-modal-body{
-        overflow-y: scroll !important; 
-}
+    
     .align-item-custom {
         display: flex !important;
         align-items: center;
@@ -872,7 +872,7 @@
     .myacording-design .card-header a {
         color: #0c223d;
     }
-
+    
     .myacording-design {
         width: 100%;
         max-width: 900px;
@@ -5316,10 +5316,6 @@ padding-bottom:80px;
     /* end */
     /* navbar custom css  */
     
-    .custom-nav-search {
-        padding-left: 8px;
-    }
-    
     .topbar-logged-in-user-data p {
         font-size: 14px;
         color: var(--blue--text);
@@ -5800,7 +5796,7 @@ padding-bottom:80px;
         justify-content: flex-start;
         gap: 20px;
         flex-wrap: wrap;
-        margin: 50px 0;
+        margin-bottom: 50px;
     }
     
     .my-punter-report-box {
@@ -5819,6 +5815,64 @@ padding-bottom:80px;
         font-size: 18px;
         color: var(--peach);
         font-weight: 600;
+    }
+    /*  */
+    
+    .my-custom-modal-body {
+        overflow-y: scroll;
+        height: 350px !important;
+    }
+    
+    .my-custom-modal-body .userMessage {
+        background-color: lightgray;
+        padding: 12px 15px;
+        border-radius: 15px;
+        position: relative;
+        font-size: 14px;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        /* white-space: pre-wrap;   */
+    }
+    
+    .my-custom-modal-body .adminMessage {
+        background-color: #ff3c5fc9;
+        color: white;
+        padding: 12px 15px;
+        border-radius: 15px;
+        position: relative;
+        font-size: 14px;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        margin-top: 10px;
+    }
+    
+    .my-custom-modal-body .adminMessage p {
+        margin: 5px 0px !important;
+    }
+    
+    .my-custom-modal-body .message_time {
+        font-size: 10px;
+        position: absolute;
+        color: #7a7a7a;
+        right: 5%;
+        /*bottom: 0;*/
+    }
+    
+    .reply-message-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+    }
+    
+    .reply-message-box .messageBox {
+        border-radius: 5px;
+    }
+    
+    .reply-message-box .send-btn {
+        padding: 14px 25px 14px 25px;
+        background: var(--peach);
+        border: none;
     }
     
     @media (min-width:300px) and (max-width:575px) {
