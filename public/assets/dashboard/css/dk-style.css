@@ -3022,7 +3022,18 @@ padding-bottom:80px;
         border: 0;
         text-transform: capitalize;
     }
-    
+    .help--filter li.nav-item {
+        padding: 0;
+    }
+    .help--filter a.nav-link.active {
+        color: #fff;
+    }
+    .help--filter .nav-tabs {
+        gap: 15px;
+    }
+    .help--filter a.nav-link {
+        color: #0c223d;
+    }
     .left-photo-sec {
         padding-left: 25px;
     }

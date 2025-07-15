@@ -29,62 +29,97 @@
                 <form method="" action="">
                     <div class="row">
                         <div class="col-md-4">
-                            <h5 class="normal_heading mb-0">Search Filters</h5>
+                            <div class="custom-search-help mb-2 ">
+                                <h5 class="normal_heading mb-0">Search Filters</h5>
+                                <div class="display_inline_block helpquation">
+                                    <a href="#" data-toggle="modal" data-target="#forhelp" title="Filters explained">
+                                        Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
                             <span style="color:#FF3349">Listings reshuffle every two hours. </span>
                         </div>
                         <div class="col-md-8 ryt_srch_btn">
-                            <div class="display_inline_block pad_ryt">
-                                <div class="input-group custome_form_control managefilter_search_btn_style rounded  search_btn_profile">
-                                    <button class="input-group-text border-0 remove_bg_color_of_search_btn" id="search-addon" type="submit">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                    </button>
-                                    <input type="search" name="name" class="form-control remove_border_btm rounded " placeholder="Search by Member ID or Business Name" aria-label="Search" aria-describedby="search-addon" value="{{ request()->get('name') }}">
-                                </div>
-                            </div>
-                            <div class="display_inline_block  mr-1 item_dis">
-                                <span class="item-head">Display item</span>
-                                <select class="custome_form_control_border_radus padding_five_px">
-                                    <option value="">25</option>
-                                    <option value="14">50</option>
-                                    <option value="15">75</option>
-                                    <option value="16">100</option>
-                                </select>
-                            </div>
                             <div class="display_inline_block">
-                                <div class="margin_btn_reset">
-                                    <a href="{{ route('find.massage.centre') }}" class="btn reset_filter" data-toggle="tooltip" title="Refresh page" type="reset"><i class="fa fa-repeat" aria-hidden="true"></i></a>
-                                </div>
-                                <!-- <div class="tooltip bs-tooltip-top" role="tooltip">
-                                    <div class="arrow"></div>
-                                    <div class="tooltip-inner">Refresh page
-                                    
+                                <div class="d-flex flex-column gap-2" style="width:105px;">
+                                    <div class="d-flex align-items-start" style="padding-top: 2px;" title="Undertake a search within your Location only">
+                                        <input type="radio" name="locationByRadio" checked="checked" value="your_location" id="yourLocation">
+                                        <label for="yourLocation" style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
+                                            Your Location
+                                        </label>
                                     </div>
-                                    </div> -->
+                            
+                                    <div class="d-flex align-items-start" title="Undertake a search Australia wide">
+                                        <input type="radio" name="locationByRadio" value="australia" id="australia">
+                                        <label for="australia" style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
+                                            Australia
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
+                            
+                            <div class="display_inline_block">
+                                <div class="input-group custome_form_control managefilter_search_btn_style rounded search_btn_profile custom_search_btn_profile">
+                                    
+                                    <!-- Hidden input to hold selected search type -->
+                                    <input type="hidden" name="search_by_radio" id="search_by_radio" value="0">
+                                    
+                                    <!-- Search input -->
+                                    <input type="search" name="name" class="form-control remove_border_btm rounded" placeholder="Search by Member ID or Name" aria-label="Search" aria-describedby="search-addon" value="">
+                                    
+                                    <!-- Search button -->
+                                    <button class="input-group-text border-0 remove_bg_color_of_search_btn custom-profile-search-btn" id="search-addon" type="submit">
+                                        <i class="fa fa-search" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="display_inline_block   item_dis">
+                                <span class="item-head">Display item</span>
+                                <select class="custome_form_control_border_radus padding_five_px" name="limit">
+                                   <option value="25">25</option>
+                                   <option value="50">50</option>
+                                   <option value="75">75</option>
+                                   <option value="100">100</option>
+                                </select>
+                                <div class="display_inline_block custom-refreshbuton">
+                                   <div class="margin_btn_reset">
+                                      <input type="hidden" name="apply_pagination_rule" id="apply_pagination_rule" value="0">
+                                      <button type="submit" class="btn reset_filter toltip-parent apply_pagination_button" data-toggle="tooltip" title="" id="">
+                                      <span class="custom-toltip">Apply Change</span>
+                                      <i class="fa fa-repeat" aria-hidden="true"></i>
+                                      </button>
+                                   </div>
+                                </div>
+                             </div>
+                             <div class="display_inline_block">
+                                <div class="margin_btn_reset">
+                                    <button type="button" class="btn reset_filter toltip-parent" id="v_wishlist">
+                                        <a href="{{ route('find.massage.centre') }}" data-toggle="tooltip" title=""> <i class="fa fa-list" aria-hidden="true"></i>
+                                            <span class="custom-toltip">View Shortlist</span>
+                                            <span class="badge badge-pill badge-danger" id="session_count">0</span>
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="display_inline_block mb-1">
+                                <a type="submit" href="{{ route('web.massage-show-list')}}" class="btn reset_filter " data-toggle="tooltip" title="">
+                                Clear Shortlist
+                                </a>
+                             </div>
                             {{-- <div class="display_inline_block pad_ryt">
                                 <div class="margin_btn_reset">
-                                    <button type="button" class="btn reset_filter" data-toggle="tooltip" title="View Shortlist">
-                                    <a href="{{ route('web.massage-show-list') }}" data-toggle="tooltip" title="View Shortlist">
-                                    <i class="fa fa-list" aria-hidden="true"></i>
-                                </a>
-                                    </button>
-                                </div>
-                            </div> --}}
-                            <div class="display_inline_block pad_ryt">
-                                <div class="margin_btn_reset">
                                     <button type="button" class="btn reset_filter" id="v_wishlist">
-                                        {{--  auth()->user() ? route('web.show.shortlist') : --}}
                                         <a href="{{ route('web.massage-show-list')}}" data-toggle="tooltip" title="View Shortlist"> <i class="fa fa-list" aria-hidden="true"></i>
                                         <span class="badge badge-pill badge-danger" id="session_count">{{ count((array) session('mc_cart')) }}</span>
                                         </a>
                                     </button>
                                 </div>
-                            </div>
-                            <div class="display_inline_block helpquation">
+                            </div> --}}
+                            {{-- <div class="display_inline_block helpquation">
                                 <a href="#" data-toggle="modal" data-target="#forhelp" data-toggle="tooltip" title="Filters explained">
                                 Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="fiter_btns slect__btn_tab">
@@ -182,14 +217,7 @@
                         </svg>
                     </a>
                 </div>
-                <div class="grid_list_icon_box display_inline_block my-shortlist">
-                    <ul class="mb-0 mt-1 pt-1">
-                        <li>
-                            <h3 class="preChanges">massage centre grid view</h3>
-                        </li>
-                        <li><a href="#" data-toggle="modal" data-target="#forhelp" data-toggle="tooltip" title="Filters explained">Help <i class="fa fa-question-circle-o" aria-hidden="true"></i></a></li>
-                    </ul>
-                </div>
+                   
             </div>
         </div>
         {{-- <div class="modal defult-modal" id="forhelp"> --}}
@@ -202,21 +230,56 @@
                             <img src="{{ asset('assets/app/img/newcross.png')}}" class=" ">
                             </button>
                             <h3>Help</h3>
-                            <div class="modal-sec">
-                                <p>
-                                    Your Geolocation will automatically determine your Location and list
-                                    Profiles according to that Location. You can:
-                                </p>
-                                <ol class="pl-3">
-                                    <li>&nbsp;Filter the search criteria by selecting your preferred filter and then
-                                        selecting the ‘Refresh’ &nbsp;button.
-                                    </li>
-                                    <li>&nbsp;Change your Location by selecting your preferred city.</li>
-                                    <li>&nbsp;Change the number of listings displayed by changing the ‘Displayed
-                                        &nbsp;item’ filter to your preferred value.
-                                    </li>
-                                </ol>
-                            </div>
+                            <div class="modal-sec help--filter">
+                                <ul class="nav nav-tabs" role="tablist">
+                                   <li class="nav-item">
+                                      <a class="nav-link active show" data-toggle="tab" href="#tabs-1" role="tab" aria-selected="true">Search Filters</a>
+                                   </li>
+                                   <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab" aria-selected="false">Search Field</a>
+                                   </li>
+                                   <li class="nav-item">
+                                      <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab" aria-selected="false">Shortlist</a>
+                                   </li>
+                                   <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab" aria-selected="false">Service Tags</a>
+                                 </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content">
+                                   <div class="tab-pane p-3 active show" id="tabs-1" role="tabpanel">
+                                      <p>Your Geolocation will automatically determine your Location and list Profiles according to that
+                                        Location. You can:</p>
+                                        <ol>
+                                            <li>Filter the search criteria by selecting your preferred filter and then selecting the refresh button ‘Apply Filters’.</li>
+                                            <li>Change your Location by selecting your preferred city.</li>
+                                            <li>Change the number of listings displayed by changing the ‘Displayed item’ filter to your
+                                                preferred value.</li>
+                                        </ol>
+                                   </div>
+                                   <div class="tab-pane p-3" id="tabs-2" role="tabpanel">
+                                      <ol><li>You can undertake a search for an Escort [for Escort page] Massage Centre [for Massage
+                                        Centre page] within your Location, which is the default, or Australia wide by selecting ‘Australia’.</li>
+                                        <li>Searching by Member ID is the most efficient manner. </li>
+                                    </ol>
+                                   </div>
+                                   <div class="tab-pane p-3" id="tabs-3" role="tabpanel">
+                                      <p>The Shortlist feature will only remain current for the session. You can:</p>
+                                      <ol>
+                                        <li>Add or remove Profiles by clicking the Short List button displayed on the Profile.</li>
+                                        <li>To view your Shortlist, click the List tally that is located in the Search Filters panel.</li>
+                                        <li>To clear the Shortlist, click the ‘Clear Shortlist’ button in the Search Filters panel.</li>
+                                    </ol>
+                                   </div>
+                                   <div class="tab-pane p-3" id="tabs-4" role="tabpanel">
+                                    <ol>
+                                        <li>Your selected Service Tags will be listed below the Service Tag selection list in the panel.</li>
+                                        <li>You can remove any Service Tag you selected by clicking the ‘X’ located on the tag, or all of
+                                            the Service Tags you selected by clicking the ‘Clear Tags’ link in the panel.</li>
+                                    </ol>
+                                 </div>
+                                </div>
+                             </div>
                         </div>
                     </div>
                 </div>
