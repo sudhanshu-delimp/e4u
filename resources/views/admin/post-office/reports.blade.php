@@ -75,7 +75,7 @@
                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                                    
                                                    
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#PostOffice" >View <i class="fa fa-eye"></i></a>
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#postOffivereport" >View <i class="fa fa-eye"></i></a>
                                                    <div class="dropdown-divider"></div>
                                                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Print <i class="fa fa-fw fa-print" ></i></a>
                                                    
@@ -120,11 +120,11 @@
 <!-- Popup Post Office Report: [date & time] -->
 
 
-<div class="modal fade upload-modal bd-example-modal-lg" id="PostOffice" tabindex="-1" role="dialog" aria-labelledby="PostOfficeLabel" aria-hidden="true">
+<div class="modal fade upload-modal bd-example-modal-lg" id="postOffivereport" tabindex="-1" role="dialog" aria-labelledby="postOffivereportLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
       <div class="modal-content basic-modal modal-lg">
          <div class="modal-header">
-            <h5 class="modal-title" id="PostOffice">Post Office Report</h5>
+            <h5 class="modal-title" id="postOffivereport">Post Office Report</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
