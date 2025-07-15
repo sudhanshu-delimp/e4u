@@ -35,7 +35,7 @@
       <div class="col-lg-12">
          <div class="custom-search-form">
             <form>
-               <label for="search">Search : </label> <input type="search" id="search" name="search" placeholder="Search by Member ID">
+               <label for="search">Search : </label> <input type="search" id="search" name="search" placeholder="Search Request">
             </form>
          </div>
       </div>
@@ -43,74 +43,24 @@
 
 
    <div class="col-md-12 pt-4">
-
       <div id="data-container">
          @include('agent.agent-requests-list')
       </div>
-
-   </div>
-
-</div>
-</div>
-{{-- Request Accepted Popup --}}
-<div class="modal fade upload-modal" id="requestAccepted" tabindex="-1" role="dialog" aria-labelledby="requestAccepted" aria-hidden="true" data-backdrop="static">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="requestAccepted">Request Accepted</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-            </button>
-         </div>
-         <div class="modal-body pb-0">
-            <div class="row">
-               <div class="col-12 mb-3">
-                  <p>The invitation by [Carla Brasil] is confirmed and they have been notified of your acceptance.</p>
-                  <p>Please ensure you make contact with [Name] within 24 hours in accordance with the
-                     preferred method of contact.</p>
-               </div>
-            </div>
-         </div>
-         <div class="modal-footer text-center justify-content-center">
-            <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
-         </div>
-      </div>
    </div>
 </div>
-{{-- end --}}
-
-{{-- Request Rejected Popup --}}
-<div class="modal fade upload-modal" id="requestRejected" tabindex="-1" role="dialog" aria-labelledby="requestRejected" aria-hidden="true" data-backdrop="static">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="requestRejected">Request Rejected</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-            </button>
-         </div>
-         <div class="modal-body pb-0">
-            <div class="row">
-               <div class="col-12 mb-3">
-                  <p>Your rejection of the invitation by [Name] to become their Support Agent is confirmed and
-                     they have been notified.</p>
-               </div>
-            </div>
-         </div>
-         <div class="modal-footer text-center justify-content-center">
-            <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
-         </div>
-      </div>
-   </div>
 </div>
-{{-- end --}}
+
+
+
+
 @endsection
 @push('script')
 
-
 <script>
-   $(document).ready(function() {
-      function fetchData(page = 1, search = '') {
+
+   function fetchData(page = 1, search = '') {
+
+        console.log('I am called');
          $.ajax({
             url: "{{ route('agent.new-requests') }}" + "?page=" + page + "&search=" + search,
             type: "GET",
@@ -126,7 +76,7 @@
          });
       }
 
-
+   $(document).ready(function() {
       let debounce;
       $('#search').on('keyup', function() {
          clearTimeout(debounce);
@@ -143,6 +93,65 @@
          fetchData(page, search);
       });
    });
-</script>
 
+
+   // ########### Accept Request #################
+   $(document).on("click",".accept", async function() {
+      let data = {'action': 'accept'}
+      let id  = $(this).attr('id');
+      if (await isConfirm(data)) {
+            ajaxRequest({
+               url: "{{ route('agent.process-request') }}",
+               data: {
+                  id: id,
+                  request_type: data.action
+               },
+               success: function(response) {
+                  if (response.success) {
+                   fetchData(1, '', function() {
+                     $('#requestAccepted-' + id).modal('show');
+                  });
+                  
+                  }
+                  else
+                  {
+                   Swal.fire('Error', 'Error occured whiile accepting request.', 'error');
+                  }
+               },
+               error: function(xhr) {
+                  Swal.fire('Error', 'Error occured whiile making request.', 'error');
+               }
+            });
+      }
+   })
+
+   // ########### Reject  Request #################
+   $(document).on("click",".reject", async function() {
+      let data = {'action': 'reject'}
+      let id  = $(this).attr('id');
+      if (await isConfirm(data)) {
+            ajaxRequest({
+               url: "{{ route('agent.process-request') }}",
+               data: {
+                  id: id,
+                  request_type: data.action
+               },
+               success: function(response) {
+                  if (response.success) {
+                  fetchData(1, '', function() {
+                     $('#requestRejected-' + id).modal('show');
+                  });
+                  }
+                  else
+                  {
+                   Swal.fire('Error', 'Error occured whiile rejecting request.', 'error');
+                  }
+               },
+               error: function(xhr) {
+                  Swal.fire('Error', 'Error occured whiile making request.', 'error');
+               }
+            });
+      }
+   })
+</script>
 @endpush

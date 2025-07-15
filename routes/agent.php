@@ -90,9 +90,9 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
 
 
      Route::get('Advertisers/new-requests', [AgentRequestController::class, 'newRequest'])->name('agent.new-requests');
+     Route::post('process-request', [AgentRequestController::class, 'processRequest'])->name('agent.process-request');
 
-     Route::get('/Advertisers/new-requests', [AgentRequestController::class, 'newRequest'])
-    ->name('agent.new-requests');
+     
 
      
 

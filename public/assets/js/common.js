@@ -31,23 +31,38 @@
     }
 
 
-    // function is_confirm()
-    // {
-    //     Swal.fire({
-    //     title: "Are you sure?",
-    //     //text: "You won't be able to revert this!",
-    //     icon: "warning",
-    //     showCancelButton: true,
-    //     confirmButtonColor: "#3085d6",
-    //     cancelButtonColor: "#d33",
-    //     confirmButtonText: "Yes, delete it!"
-    //     }).then((result) => {
-    //     if (result.isConfirmed) {
-    //         Swal.fire({
-    //         title: "Deleted!",
-    //         text: "Your file has been deleted.",
-    //         icon: "success"
-    //         });
-    //     }
-    //     });
-    // }
+   async function isConfirm(data={}) {
+      const result = await Swal.fire({
+        title: "Are you sure?",
+        text: (data.text ? data.text : ''),
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, "+(data.action ? data.action : 'do')+" it!"
+    });
+
+    if (result.isConfirmed) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+function ajaxRequest({
+    url,
+    method = 'POST',
+    data = {},
+    success = function(response) { console.log('Success:', response); },
+    error = function(xhr, status, error) { console.error('Error:', error); }
+}) 
+{
+    $.ajax({ 
+        url: url,
+        type: method,
+        data: data,
+        success: success,
+        error: error
+    });
+}

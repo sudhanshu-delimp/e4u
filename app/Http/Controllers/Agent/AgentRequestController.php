@@ -45,10 +45,9 @@ class AgentRequestController extends Controller
 
     public function newRequest(Request $request)
     {
-            $query = AgentModel::with('user','user.state');
+            $query = AgentModel::with('user','user.state')->where('status','0');
             $search = $request->query('search');
              if (!empty($search)) {
-               
                 $query->where('id', 'like', "%{$search}%")
                         ->orWhere('ref_number', 'like', "%{$search}%")
                         ->orWhere('first_name', 'like', "%{$search}%")
@@ -56,17 +55,33 @@ class AgentRequestController extends Controller
                         ->orWhere('email', 'like', "%{$search}%");
         
             }
-           
-            $lists = $query->orderBy('id', 'desc')->paginate(10);
-
-           
-
-
+            $lists = $query->orderBy('id', 'desc')->paginate(3);
             if ($request->ajax()) {
                 return view('agent.agent-requests-list', compact('lists'))->render();
             }
 
-            return view('agent.dashboard.Advertisers.new-requests', compact('lists'));
-            
+            return view('agent.dashboard.Advertisers.new-requests', compact('lists'));   
+    }
+
+    public function processRequest(Request $request)
+    {
+       
+        if((isset($request->id)) && (isset($request->request_type)))
+        {
+            if($request->request_type=='accept')
+            $status = '1';
+
+            if($request->request_type=='reject')
+            $status = '2';
+
+            AgentModel::where('id', $request->id)->update(['status'=>$status]);
+            return response()->json(['success' => true]);
+
+        }
+        else
+        {
+            return response()->json(['success' => false]); 
+        }
+
     }
 }
