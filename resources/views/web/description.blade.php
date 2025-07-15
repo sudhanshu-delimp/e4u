@@ -1094,7 +1094,7 @@
     <!-- video crousal end -->
     <div class="row pt-2 eqal-bx">
         <div class="col-5">
-            <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#mysendmessage">
+            <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" {{(auth()->user() && auth()->user()->type==0)?'':'disabled'}} data-target="#mysendmessage">
             <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Me</button>
         </div>
         <div class="col-7 text-right">
@@ -1609,10 +1609,11 @@
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
             </div>
+            @if(auth()->check())
             <div class="modal-body pb-0 teop-text">
                     <h6 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
                                 <span id="Lname">To message {{ $escort->name}} please go to your Dashboard and select
-                                    Communications > Messages.</span>
+                                    Communications > Messages. </span>
                             </h6>
                     <hr style="background-color: #0C223D">
                 <p class="mb-1 mt-3"><b>Notes</b></p>
@@ -1623,11 +1624,11 @@
                 </ol>
             </div>
             <div class="modal-footer text-center justify-content-center">
-                <button type="submit" class="btn main_bg_color site_btn_primary rounded">Go to Message</button>
+                <a href="{{ route('user.advertiser') }}" type="button" class="btn main_bg_color site_btn_primary rounded" id="loginUrl" >Go to Message</a>                
             </div>
-
+            @else
             <!-- if viewer not login -->
-            <div class="modal-body pb-0 teop-text" style="display: none">
+            <div class="modal-body pb-0 teop-text" >
                 <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
                     <span id="Lname">Message Me is only available to Viewers.
                         Please log in or Register to access Message Me.</span>
@@ -1637,6 +1638,7 @@
                 <a href="{{ route('register') }}" type="button" class="btn btn-danger site_btn_primary" id="regUrl">Register</a>
                 </div>
             </div>
+            @endif
             <!--- end -->
 
         </div>
