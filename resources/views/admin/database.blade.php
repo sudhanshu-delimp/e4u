@@ -15,31 +15,29 @@
 <div id="content-wrapper" class="d-flex flex-column">
     <!-- Main Content -->
     <div id="content">
-        <div class="container-fluid">
+        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content-->
             <div class="row">
                 
                     {{-- Page Heading   --}}
-                    <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+                    <div class="custom-heading-wrapper col-lg-12">
                         <h1 class="h1">Database</h1>
                         <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
                     </div>
-                    <div class="col-md-12 my-2">
+                    <div class="col-md-12 mb-4">
                         <div class="card collapse" id="notes" style="">
-                        <div class="card-body">
-                            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                            <ol>
-                                
-                            </ol>
-                        </div>
+                            <div class="card-body">
+                                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                                <ol>                                    
+                                </ol>
+                            </div>
                         </div>
                     </div>
                 {{-- end --}}
                 <div class="col-sm-12 col-md-12 col-lg-12 mt-4">
                     <!-- Begin Page Content -->
-                    <div class="container-fluid" style="padding: 0px 0px;">
                         
-                        <div class="row ml-1 mb-3">
+                        <div class="mb-3">
                             <div class="panel-heading">
                                 <ul class="nav nav-tabs tab-sec pb-2">
                                     <li class="active"><a href="#tab1warning" data-toggle="tab" class="active">Manage New Profile</a></li>
@@ -51,7 +49,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="col-lg-4 col-md-12 col-sm-12 mb-2">
                                 <form class="search-form-bg navbar-search">
                                     <div class="input-group">
                                         <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
@@ -64,8 +62,6 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
-                    <!-- /.container-fluid --><br>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="panel with-nav-tabs panel-warning">

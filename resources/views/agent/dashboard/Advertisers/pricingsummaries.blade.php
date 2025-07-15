@@ -24,14 +24,15 @@
 <div id="wrapper">
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-            <div class="container-fluid custom--accordfee">
+            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 custom--accordfee">
                 <!--middle content-->
                 <div class="row">
-                    <div class="col-md-9">
-                        <div class="custom-heading-wrapper col-md-12">
-                            <h1 class="h1"> Pricing summary</h1>
-                             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-                        </div>
+                    <div class="custom-heading-wrapper col-md-12">
+                        <h1 class="h1"> Pricing summary</h1>
+                            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+
+                    </div>
+                    <div class="col-md-12">                                
                         <div class="card collapse  mb-4" id="notes">
                             <div class="card-body">
                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -52,6 +53,8 @@
                                 </ol>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-9">
                         <div id="accordion" class="myacording-design">
                             <div class="card">
                                 <div class="card-header">
@@ -245,12 +248,12 @@
                             <div class="card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse"
-                                       href="#other_fees_concierge_services" aria-expanded="false">
-                                       Recommended Support Fees - Concierge Services
+                                    href="#other_fees_concierge_services" aria-expanded="false">
+                                    Recommended Support Fees - Concierge Services
                                     </a>
                                 </div>
                                 <div id="other_fees_concierge_services" class="collapse"
-                                     data-parent="#accordion" style="">
+                                    data-parent="#accordion" style="">
                                     <div class="card-body p-0">
                                         <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
@@ -510,8 +513,8 @@
                             <div class="card">
                                 <div class="card-header">
                                     <a class="card-link collapsed" data-toggle="collapse" href="#LoyaltyProgram"
-                                       aria-expanded="false">
-                                       Loyalty Program Advertisers
+                                    aria-expanded="false">
+                                    Loyalty Program Advertisers
                                     </a>
                                 </div>
                                 <div id="LoyaltyProgram" class="collapse" data-parent="#accordion" style="">
@@ -585,8 +588,8 @@
                             </div>
                         </div>
                     </div>
-                    <!--middle content end here-->
-                    <!--right side bar start from here-->
+                <!--middle content end here-->
+                <!--right side bar start from here-->
                 </div>
             </div>
         </div>

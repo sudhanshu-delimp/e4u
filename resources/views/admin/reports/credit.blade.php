@@ -631,9 +631,9 @@
 
      <div class="col-md-12">
         <div class="timer_section">
-                <p>Server time: <span>[10:23:51 am]</span></p>
-                <p>Refresh time:<span> [seconds]</span></p>
-                <p>Up time: <span>[214 days & 09 hours 12 minutes]</span></p>
+               <p>Server time: <span class="serverTime">10:23:51 am</span></p>
+               <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
+               <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
             </div>
        </div>
    </div>
@@ -644,7 +644,7 @@
 @endsection
 @section('script')
 <script>
-  $(document).ready(function() {
+      $(document).ready(function() {
             let isHidden = false;
 
             $('#hideAlltr').on('click', function() {
@@ -662,7 +662,20 @@
                     isHidden = false;
                 }
             });
-        });
+
+            let countdown = 15;
+            setInterval(() => {
+                countdown--;
+                $(".refreshSeconds").text(' '+countdown);
+
+                if (countdown <= 0) {
+                    //$('#escort_listings').DataTable().ajax.reload(null, false);
+                    countdown = 15;
+                    
+                }
+
+            }, 1000);
+      });
 
         $(document).ready(function() {
             $('.collapse-row').hide(); // 🔒 Hide all groups initially
