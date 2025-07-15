@@ -15,7 +15,7 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!--middle content-->
     <div class="row">
         <div class="col-md-12">

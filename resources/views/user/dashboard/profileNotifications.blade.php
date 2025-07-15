@@ -36,18 +36,44 @@
         
     <form class="v-form-design">
         <div class="col-md-12">
-            <div class="form-group">
+            <div class="form-group notification_checkbox_div">
+                <label for="email">Features</label><br>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="viewer_notification" value="viewer_notification" checked>
+                    <label class="form-check-label">Viewer notifications, forward V-Alerts</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="viewer_ask_question" value="viewer_ask_question" checked>
+                    <label class="form-check-label">Allow Viewers to ask you a question</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="viewer_send_text" value="viewer_send_text" checked>
+                    <label class="form-check-label">Allow Viewers to send you a text message</label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" name="available_playmate" type="checkbox" value="1" {{ auth()->user()->available_playmate == 1 ? 'checked' : '' }}>
+                    <label class="form-check-label">I’m available as a playmate</label>
+                </div>
+
+                <div class="pt-1"><i>Some features are enabled by default unless you disable them.</i></div>
+            </div>
+
+            {{-- <div class="form-group">
                 <label for="email">Features <!-- (enabled by default) --></label><br>
                 <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="Method_Message" value="option1" checked>
+                <input class="form-check-input" type="checkbox" id="Method_Message" value="viewer_notification" checked>
                 <label class="form-check-label" for="Method_Message">Viewer notifications, forward V-Alerts</label>
                 </div>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Method_Text" value="option1" checked>
+                <input class="form-check-input" type="checkbox" id="Method_Text" value="viewer_ask_question" checked>
                 <label class="form-check-label" for="Method_Text">Allow Viewers to ask you a question</label>
                 </div>
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Method_Email" value="option1" checked>
+                <input class="form-check-input" type="checkbox" id="Method_Email" value="viewer_send_text" checked>
                 <label class="form-check-label" for="Method_Email">Allow Viewers to send you a text message</label>
                 </div>
                 <div class="form-check">
@@ -55,7 +81,7 @@
                 <label class="form-check-label " for="Method_Email">I’m available as a playmate</label>
                 </div>
                 <div class="pt-1"><i>Some features are enabled by default unless you disable them.</i></div>
-            </div>
+            </div> --}}
             <div class="form-group">
                 <label for="email">Escort Agency</label><br>
                 <div class="form-check">

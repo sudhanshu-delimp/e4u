@@ -1,5 +1,5 @@
 <!-- Topbar -->
-                <nav class="sticky-top navbar navbar-expand navbar-light bg-white topbar mb-4 shadow">
+                <nav class="sticky-top navbar navbar-expand navbar-light bg-white topbar mb-4 shadow pl-3 pl-lg-5 pr-3 pr-lg-5">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -115,7 +115,7 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            <a class="nav-link dropdown-toggle pr-0" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
                                 <img src="{{ !auth()->user()->avatar_img ? asset('assets/dashboard/img/undraw_profile.svg') : asset('avatars/'.auth()->user()->avatar_img) }}" class="img-profile rounded-circle avatarName">

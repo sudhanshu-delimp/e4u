@@ -41,7 +41,7 @@ class UserController extends Controller
         $escorts =  collect();
         if($user_type){
             $myLegbboxIds = MyLegbox::where('user_id',auth()->user()->id)->pluck('escort_id');
-            $escorts = Escort::whereIn('id',$myLegbboxIds)->with(['city','state','likes',
+            $escorts = Escort::whereIn('id',$myLegbboxIds)->with(['city','state','likes','user',
                 'suspendProfile' => function ($query) {
                     $today = Carbon::now(config('app.timezone'));
                     $query->whereDate('start_date', '<=', $today)

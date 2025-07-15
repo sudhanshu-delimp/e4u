@@ -30,12 +30,12 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!--middle content-->
     <div class="row">
         <div class="col-md-12">
             <div class="v-main-heading">
-                <h1> Escort Listings <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                <h1> Escort Listings<span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                         style="font-size:16px"><b>Help?</b> </span></h1>
             </div>
             <div class=" my-4">

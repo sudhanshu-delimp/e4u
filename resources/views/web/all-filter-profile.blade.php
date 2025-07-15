@@ -1353,7 +1353,7 @@
                 console.log('cid else');
                 
 
-                @if(auth()->user() && auth()->user()->type != 0)
+               @if(auth()->user() && auth()->user()->type != 0)
                     $(".my_legbox_title").text('My Legbox is only available to Viewers.');
                     $(".my_legbox_footer").hide();
                 @else

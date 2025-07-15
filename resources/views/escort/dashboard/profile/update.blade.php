@@ -424,15 +424,15 @@
             /** Save My service form data when open in edit mode */
             jQuery('#myServicesForm').on('submit', function(e) {
                 e.preventDefault();
-                let existService = checkServicePrice();
-                if(!existService){
-                    if (!existService) {
-                        Swal.fire('My Services',
-                            'You must complete all selected service value to proceed.',
-                            'warning');
-                        return false;
-                    }
-                }
+                //let existService = checkServicePrice();
+                // if(!existService){
+                //     if (!existService) {
+                //         Swal.fire('My Services',
+                //             'You must complete all selected service value to proceed.',
+                //             'warning');
+                //         return false;
+                //     }
+                // }
                 var form = $(this);
                 var url = form.attr('action');
                 var data = new FormData($('#myServicesForm')[0]);
@@ -1151,14 +1151,14 @@
                 } break;
                 case 'contact-tab': {
                      let existRates = checkRates();
-                     let existService = checkServicePrice();
+                     //let existService = checkServicePrice();
                      let editMode = '{{$editMode}}';
-                     if (!existService && !editMode) {
-                        Swal.fire('My Services',
-                            'You must complete all selected service value to proceed.',
-                            'warning');
-                        return false;
-                    }
+                    //  if (!existService && !editMode) {
+                    //     Swal.fire('My Services',
+                    //         'You must complete all selected service value to proceed.',
+                    //         'warning');
+                    //     return false;
+                    // }
                     if (!existRates && !editMode) {
                         Swal.fire('Rates',
                             'You must complete at least one rate value to proceed.',
