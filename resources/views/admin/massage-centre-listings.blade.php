@@ -353,10 +353,10 @@
                                 </a>
                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink">
-                                    <a class="dropdown-item d-flex justify-content-between align-items-center view-listing" 
+                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center view-listing" 
                                     data-toggle="modal" data-target="#view-listing" data-id="`+row.id+`" href="#">
-                                        View Listing 
-                                        <i class="fa fa-eye text-dark" style="color: var(--peach);"></i>
+                                        <i class="fa fa-eye"></i> View Listing 
+                                        
                                     </a>
                                 </div>
                             </div>

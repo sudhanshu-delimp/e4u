@@ -96,11 +96,11 @@
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                            </a>
                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                              <a class="dropdown-item" href="#" >Published <i class="fa fa-check text-dark" style="float: right;"></i></a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" > <i class="fa fa-check"></i> Published </a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">Withdrawn  <i class="fa fa-times text-dark" style="float: right;"></i></a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#">  <i class="fa fa-times"></i> Withdrawn </a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">view  <i class="fa fa-eye text-dark" style="float: right;"></i></a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-eye"></i> view  </a>
                            </div>
                         </div>
                      </td>

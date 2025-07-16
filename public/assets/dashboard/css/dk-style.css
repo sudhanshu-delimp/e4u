@@ -615,7 +615,7 @@
     /*card css end*/
     /* Meassage chat start */
     
-    :root {
+     :root {
         --site-blue: #0c223d;
         --white: #ffffff;
     }
@@ -6422,6 +6422,16 @@ padding-bottom:80px;
         border: none;
         white-space: nowrap;
         /* keeps button text in one line */
+    }
+    /* .swal2-styled.swal2-confirm */
+    
+    .swal2-styled.swal2-confirm {
+        background-color: var(--blue--text) !important;
+        box-shadow: none;
+    }
+    
+    .swal2-styled.swal2-confirm:focus {
+        box-shadow: unset !important;
     }
     
     @media (min-width:300px) and (max-width:575px) {

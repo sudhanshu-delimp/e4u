@@ -87,12 +87,12 @@
                                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                 </a>
                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#updateBlog">Edit  <i class="fa fa-fw fa-pen"></i></a>
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#updateBlog"> <i class="fa fa-fw fa-pen"></i> Edit  </a>
                                                    <div class="dropdown-divider"></div>
                                                    
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Suspend  <i class="fa fa-ban"></i></a>
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" > <i class="fa fa-ban"></i> Suspend  </a>
                                                    <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Archive  <i class="fa fa-fw fa-archive" ></i></a>
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" > <i class="fa fa-fw fa-archive" ></i> Archive  </a>
                                                    
                                                 </div>
                                              </div>

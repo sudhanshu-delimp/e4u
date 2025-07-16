@@ -4,7 +4,7 @@
 <style type="text/css">
 .conversation {
     display: inline-block;
-    margin-bottom: 15px;
+    margin: 10px 0px;
 }
 .adminMessage, .userMessage {
         padding: 10px;
