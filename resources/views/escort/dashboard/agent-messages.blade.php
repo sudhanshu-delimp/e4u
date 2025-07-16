@@ -557,4 +557,42 @@
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script>
+        jQuery(document).ready(function() {
+
+            // Toggle actions
+            jQuery('.cross-search').click(function(e) {
+                jQuery('li.search-wrapper').removeClass('search--actived');
+                e.stopPropagation();
+            });
+
+            jQuery('.search-item').click(function(e) {
+                jQuery(this).parent().toggleClass('search--actived');
+                e.stopPropagation();
+            });
+
+            jQuery('.media-option-btn').click(function(e) {
+                jQuery(this).parent().toggleClass('mediaoption-actived');
+                e.stopPropagation();
+            });
+
+            jQuery('.trace-filter .filter-fill').click(function(e) {
+                jQuery(this).toggleClass('filter-activated');
+                e.stopPropagation();
+            });
+
+            // Click outside to remove active classes
+            jQuery(document).click(function(e) {
+                // Agar click kisi specified element ke andar nahi hua
+                if (!jQuery(e.target).closest(
+                        '.search-wrapper, .search-item, .media-option-btn, .trace-filter .filter-fill')
+                    .length) {
+                    jQuery('.search-wrapper').removeClass('search--actived');
+                    jQuery('.media-option-btn').parent().removeClass('mediaoption-actived');
+                    jQuery('.trace-filter .filter-fill').removeClass('filter-activated');
+                }
+            });
+
+        });
+    </script>
 @endsection
