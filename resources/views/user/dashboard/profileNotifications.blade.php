@@ -41,7 +41,7 @@
 
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" name="viewer_notification" value="viewer_notification" checked>
-                    <label class="form-check-label">Viewer notifications, forward V-Alerts</label>
+                    <label class="form-check-label">Viewer notifications, forward V-Alerts test</label>
                 </div>
 
                 <div class="form-check">
@@ -143,6 +143,9 @@
 
             var url = form.attr('action');
             var data = new FormData(form[0]);
+            console.log('data');
+            console.log(data);
+
             $.ajax({
                 method: form.attr('method'),
                 url: url,

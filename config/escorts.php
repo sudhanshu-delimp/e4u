@@ -346,6 +346,8 @@ return [
 			"Western Australia" => 6,
 			"Tasmania" => 7,
 			"Northern Territory" => 8,
+			"Uttar Pradesh" => 9,
+			"Delhi" => 10,
 		],
 		
 		'states' => [
