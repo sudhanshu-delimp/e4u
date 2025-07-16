@@ -22,32 +22,29 @@
 <div id="wrapper">
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
-<div class="container-fluid">
-         <!--middle content-->
-         {{-- Page Heading   --}}
-         <div class="row">
-            <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
-                <h1 class="h1">Post Office</h1>
-                <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
-            </div>
-            <div class="col-md-12 my-2">
-                <div class="card collapse" id="notes" style="">
-                <div class="card-body">
-                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                    <ol></ol>
+            <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+                <div class="row">
+                    <div class="custom-heading-wrapper col-md-12">
+                         <h1 class="h1">Post Office</h1>
+                        <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <div class="card collapse" id="notes" style="">
+                        <div class="card-body">
+                            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                            <ol></ol>
+                        </div>
+                        </div>
+                    </div>
                 </div>
+                {{-- end --}}
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3><b>Coming Soon...</b></h3>
+                    </div>
                 </div>
+                {{-- end --}}
             </div>
-        </div>
-        {{-- end --}}
-<div class="row">
-        <div class="col-md-12">
-            <h3><b>Coming Soon...</b></h3>
-        </div>
-        
-    </div>
-         <!--right side bar end-->
-      </div>
         </div>
     </div>
 </div>

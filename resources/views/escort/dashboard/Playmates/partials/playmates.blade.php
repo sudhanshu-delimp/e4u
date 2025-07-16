@@ -104,8 +104,8 @@
         text-decoration: none;
         color: #fff;
         text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
-        border-color: #192A3E;
-        background-color: #192A3E;
+        border-color: #0C223D;
+        background-color: #0C223D;
     }
 
     .active-play .at-lable {
@@ -124,7 +124,7 @@
     .active-play li {
         padding: 10px;
         border-radius: 3px;
-        background: #192A3E !important;
+        background: #0C223D !important;
     }
 
     .active-play a {

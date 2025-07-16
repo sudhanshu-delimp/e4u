@@ -20,7 +20,7 @@
             <div class="row">
                 
                     {{-- Page Heading   --}}
-                    <div class="custom-heading-wrapper col-lg-12">
+                    <div class="custom-heading-wrapper col-md-12">
                         <h1 class="h1">Database</h1>
                         <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
                     </div>

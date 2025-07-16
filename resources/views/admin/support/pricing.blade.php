@@ -22,32 +22,28 @@
 <div id="wrapper">
    <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
-         <div class="container-fluid pl-3 pl-lg-5">
-            <!--middle content-->
+         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <div class="row">
-            <div class="col-md-9">
-                  <div class="v-main-heading h3" style="display: inline-block;"><h1>Pricing summary</h1></div>
-                     <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-                  </div>
-            </div>
-
-            <div class="row collapse" id="notes">
-                  <div class="col-md-9 mb-5">
-                     <div class="card">
-                        <div class="card-body">
-                              <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                              <ol>
-                              <li>These pricing information pages are a complete summary of all the discounts and
-                                 Fees that are applied in the Website when an Escort or Massage Centre posts a
-                                 Profile, creates a Tour (Escort) or engages us to do provide any Support Services.</li>
-                              <li>Information is also provided about the loyalty program.</li>
-                              </ol>
+               <div class="custom-heading-wrapper col-md-12">
+                  <h1 class="h1">Pricing summary</h1>
+                  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+               </div>
+               <div class="col-md-12 mb-4">
+                  <div class="card collapse" id="notes">
+                     <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                        <li>These pricing information pages are a complete summary of all the discounts and
+                           Fees that are applied in the Website when an Escort or Massage Centre posts a
+                              Profile, creates a Tour (Escort) or engages us to do provide any Support Services.</li>
+                           <li>Information is also provided about the loyalty program.</li>
+                           </ol>
                         </div>
                      </div>
                   </div>
             </div>
+            <div class="row">
                <div class="col-md-9">
-                  <!-- /.container-fluid -->
                   <div class="row">
                      <div class="col-md-12">
                         <h2 class="primery_color normal_heading"><b>Escorts</b></h2>
@@ -437,8 +433,6 @@
                      </div>
                   </div>
                </div>
-               <!--middle content end here-->
-               <!--right side bar start from here-->
             </div>
          </div>
       </div>
