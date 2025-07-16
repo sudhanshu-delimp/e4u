@@ -74,7 +74,20 @@ class AgentRequestController extends Controller
 
     public function newRequest(Request $request)
     {
-            $query = AdvertiserAgentRequest::with('user','user.state')->where('status','0');
+            
+            $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_users', function ($q) {
+                $q->where('status', 0)
+                ->where('receiver_agent_id', auth()->id());
+            })
+            ->with([
+                'user',
+                'user.state',
+                'advertiser_agent_request_users' => function ($q) {
+                    $q->where('status', 0)
+                    ->where('receiver_agent_id', auth()->id());
+                },
+            ]);
+            
             $search = $request->query('search');
              if (!empty($search)) {
                 $query->where(function ($q) use ($search) {
@@ -85,6 +98,7 @@ class AgentRequestController extends Controller
                 });
             }
             $lists = $query->orderBy('id', 'desc')->paginate(3);
+            ///dd(json_decode(json_encode($lists),true));
             if ($request->ajax()) {
                 return view('agent.dashboard.Advertisers.agent-requests-list', compact('lists'))->render();
             }
