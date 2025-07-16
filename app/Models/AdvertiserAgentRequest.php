@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AgentRequest extends Model
+class AdvertiserAgentRequest extends Model
 {
     use HasFactory;
 
+    protected $table = "advertiser_agent_requests";
     protected $guarded = ['id'];
     protected $fillable = [
         'user_id',
+        'state_id',
         'contact_by_email',
         'contact_by_mobile',
         'first_name',
@@ -28,5 +30,17 @@ class AgentRequest extends Model
         return $this->belongsTo('App\Models\User', 'user_id');
     }
 
-    
+
+   public function request_status()
+   {
+      return $this->belongsTo('App\Models\AdvertiserAgentRequestUser', 'id','advertiser_agent_requests_id');
+   }
+
+
+    public function advertiser_agent_request_users()
+    {
+        return $this->hasOne(AdvertiserAgentRequestUser::class, 'advertiser_agent_requests_id');
+    }
+
+
 }
