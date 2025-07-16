@@ -12,15 +12,13 @@
 <div id="content-wrapper" class="d-flex flex-column">
    <!-- Main Content -->
    <div id="content">
-      <div class="container-fluid">
-         <!--middle content-->
-         {{-- Page Heading   --}}
+      <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
          <div class="row">
-            <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
-                <h1 class="h1">Public Pages</h1>
-                <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+            <div class="custom-heading-wrapper col-md-12">
+                  <h1 class="h1">Public Pages</h1>
+                  <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
             </div>
-            <div class="col-md-12 my-2">
+            <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                 <div class="card-body">
                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
@@ -30,29 +28,16 @@
             </div>
         </div>
         {{-- end --}}
-<div class="row">
-        <div class="col-md-12">
-            <h3><b>Coming Soon...</b></h3>
-        </div>
-        
-    </div>
-         <!--right side bar end-->
+         <div class="row">
+            <div class="col-md-12">
+               <h3><b>Coming Soon...</b></h3>
+            </div>
+         </div>
       </div>
    </div>
    <!-- End of Main Content -->
-   <!-- Footer -->
-   <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-         <div class="copyright text-center my-auto">
-            <span> </span>
-         </div>
-      </div>
-   </footer>
-   <!-- End of Footer -->
 </div>
 <!-- End of Content Wrapper -->
-</div>
-<!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
 <i class="fas fa-angle-up"></i>

@@ -83,7 +83,7 @@
             </div>
         </div>
     </li>
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo"
             aria-expanded="true">
             <img class="mr-2 pl-1 cstm--icon"
@@ -94,7 +94,7 @@
                 request()->segment(2) == 'massage' ||
                 request()->segment(2) == 'my-legbox-notes') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="py-0 collapse-inner rounded mb-2">
+            <div class="py-0 collapse-inner rounded mb-2"> --}}
                 {{-- <a class="collapse-item" href="{{ route('user.legbox.escort-list') }}">
                     <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -117,7 +117,7 @@
                         style="{{ request()->segment(2) == 'massage-legbox-list' ? 'color: #e5365a;' : '' }} ">Massage
                         List</span>
                 </a> --}}
-                <a class="collapse-item" href="{{ route('user.legbox.escort-list') }}">
+                {{-- <a class="collapse-item" href="{{ route('user.legbox.escort-list') }}">
                   <img src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png')}}">
                   <span style="{{request()->segment(2) == 'escort-list' ? 'color: #e5365a;' : ''}} ">Escort List</span>
                </a>
@@ -137,7 +137,7 @@
                 </a>
             </div>
         </div>
-    </li>
+    </li> --}}
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#notebox"
             aria-expanded="false" aria-controls="notebox">

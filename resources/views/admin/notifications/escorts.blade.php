@@ -14,26 +14,25 @@
 <div id="wrapper">
    <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
-         <div class="container-fluid pl-3 pl-lg-5">
+         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <div class="row">
-               <div class="col-md-12">
-                  <div class="v-main-heading h3" style="display: inline-block;"><h1>Notifications</h1></div>
-                     <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-                  </div>
+               <div class="custom-heading-wrapper col-md-12">
+                  <h1 class="h1">Escort Notifications</h1>
+                  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>                  
                </div>
-               <div class="row collapse" id="notes">
-                  <div class="col-md-12 mb-5">
-                     <div class="card">
-                           <div class="card-body">
-                              <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                              <ol>
-                              <li>You can create a Notification, published at the top of the Escort’s Dashboard.</li>
-                              </ol>
-                           </div>
+               <div class="col-md-12 mb-4">
+                  <div class="card collapse" id="notes">
+                     <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                           <li>You can create a Notification, published at the top of the Escort’s Dashboard.</li>
+                        </ol>
                      </div>
                   </div>
                </div>
-               <div class="col-md-12 pl-0">
+            </div> 
+            <div class="row">
+               <div class="col-md-12">
                   <div class="row pb-3">
                      <div class="col-lg-4 col-md-6 col-sm-6">
                         <form class="search-form-bg navbar-search">
@@ -54,7 +53,7 @@
                      </div>
                   </div>
                </div>
-               <div class="col-md-12 pl-0">
+               <div class="col-md-12">
                   <div class="panel with-nav-tabs panel-warning">
                      <div class="panel-body">
                         <div class="tab-content">
@@ -126,7 +125,7 @@
                   </div>
                </div>
             </div>
-        
+         </div>
          <!--right side bar end-->
       </div>
    </div>

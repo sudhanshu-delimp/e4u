@@ -12,48 +12,47 @@
 <div id="content-wrapper" class="d-flex flex-column">
    <!-- Main Content -->
    <div id="content">
-      <div class="container-fluid">
-         <!--middle content-->
+      <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
          <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12 ">
-               <!-- Begin Page Content -->
-               <div class="container-fluid" style="padding: 0px 0px;">
-                  <!-- Page Heading -->
-                  <div class="d-flex align-items-center mb-3">
-                     <div class="v-main-heading h3">Email Requests <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span></div>
-                  </div>
-                  <div class=" my-4">
-                     <div class="card collapse" id="notes">
-                         <div class="card-body">
-                             <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                             <ol>
-                              <li>An email request is to be actioned within 24 hours of receipt.</li>
-                              <li>An email notification has also been sent to <a href="mailto:admin@e4u.com.au">admin@e4u.com.au</a>.</li>
-                              <li>When establishing the Email account, ensure:
-                                <ol class="level-2">
-                                  <li>The Member and Email details are entered in the Email Register before completing this page.</li>
-                                  <li>Activate account.</li>
-                                </ol>
-                              </li>
-                            </ol>
-                         </div>
+            <div class="custom-heading-wrapper col-md-12">
+               <h1 class="h1">Email Requests</h1>
+                  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
+            </div>
+            <div class="col-md-12 mb-4">
+               <div class="card collapse" id="notes">
+                     <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                        <li>An email request is to be actioned within 24 hours of receipt.</li>
+                        <li>An email notification has also been sent to <a href="mailto:admin@e4u.com.au">admin@e4u.com.au</a>.</li>
+                        <li>When establishing the Email account, ensure:
+                           <ol class="level-2">
+                              <li>The Member and Email details are entered in the Email Register before completing this page.</li>
+                              <li>Activate account.</li>
+                           </ol>
+                        </li>
+                        </ol>
                      </div>
-                 </div>
-                 <div class="row mb-4">
-                  <div class="col-lg-4 col-md-12 col-sm-12">
-                     <form class="search-form-bg navbar-search">
-                        <div class="input-group">
-                           <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                           <div class="input-group-append">
-                              <button class="btn-right-icon" type="button">
-                              <i class="fas fa-search fa-sm"></i>
-                              </button>
-                           </div>
-                        </div>
-                     </form>
-                  </div>
                </div>
-                 <div class="table-responsive">
+            </div>
+         </div>   
+         <div class="row mb-3">
+            <div class="col-lg-4 col-md-12 col-sm-12">
+               <form class="search-form-bg navbar-search">
+                  <div class="input-group">
+                     <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
+                     <div class="input-group-append">
+                        <button class="btn-right-icon" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                        </button>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+          <div class="row">
+            <div class="col-md-12">
+               <div class="table-responsive">
                   <table class="table table-bordered table-striped">
                      <thead class="table-bg">
                         <tr>
@@ -133,33 +132,14 @@
                         </tr>
                      </tbody>
                   </table>
-               </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <!--middle content end here-->
-            <!--right side bar start from here-->
-         </div>
-         <!--right side bar end-->
+               </div>   
+            </div>   
+         </div>                 
       </div>
    </div>
    <!-- End of Main Content -->
-   <!-- Footer -->
-   <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-         <div class="copyright text-center my-auto">
-            <span> </span>
-         </div>
-      </div>
-   </footer>
-   <!-- End of Footer -->
 </div>
 <!-- End of Content Wrapper -->
-</div>
-<!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
 <i class="fas fa-angle-up"></i>

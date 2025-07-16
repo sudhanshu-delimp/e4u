@@ -22,6 +22,8 @@ use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
+use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes    
@@ -125,9 +127,11 @@ Route::middleware('auth')->group(function () {
         })->name('user.viewer-statistics');
 
 
-        Route::get('/my-legbox',function(){
-            return view('user.dashboard.my-legbox');
-        })->name('user.my-legbox');
+        Route::get('/my-legbox',[EscortMyLegboxViewerController::class,'dashboard'])->name('user.my-legbox');
+        Route::get('/my-legbox-ajax',[EscortMyLegboxViewerController::class,'dashboardEscortListAjax'])->name('user.my-legbox-escort-list');
+        // Route::get('/my-legbox',function(){
+        //     return view('user.dashboard.my-legbox');
+        // })->name('user.my-legbox');
 
         Route::get('/favorites-online',function(){
             return view('user.dashboard.favorites-online');
@@ -418,9 +422,7 @@ Route::get('/escort-dashboard/my-playbox',function(){
     return view('escort.dashboard.my-playbox');
 })->name('escort.dashboard.my-playbox');
 
-Route::get('/escort-dashboard/my-legbox-viewers',function(){
-    return view('escort.dashboard.my-legbox-viewers');
-})->name('escort.dashboard.my-legbox-viewers');
+Route::get('/escort-dashboard/my-legbox-viewers',[EscortMyLegboxViewerController::class,'index'])->name('escort.dashboard.my-legbox-viewers');
 
 Route::get('/escort-dashboard/agent-messages',function(){
     return view('escort.dashboard.agent-messages');

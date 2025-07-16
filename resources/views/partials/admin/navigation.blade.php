@@ -1,5 +1,5 @@
 <!-- Topbar -->
-                <nav class="sticky-top navbar navbar-expand navbar-light bg-white topbar mb-4 shadow">
+                <nav class="sticky-top navbar navbar-expand navbar-light bg-white topbar mb-4 shadow pl-3 pl-lg-5 pr-3 pr-lg-5">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -8,7 +8,7 @@
 
                     <!-- Topbar Search -->
                     <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        class="d-none d-sm-inline-block form-inline mr-auto  my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group dk-border-radius">
                             <div class="input-group-append">
                                 <button class="btn" type="button">
@@ -105,7 +105,7 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            <a class="nav-link pr-0 dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
                                 

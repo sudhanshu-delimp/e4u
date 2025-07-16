@@ -475,11 +475,13 @@ class EscortController extends Controller
     }
     public function notificationUpdate(UpdateEscortRequest $request)
     {
-        //dd($request->all());
+        dd($request->all());
+        $notification_features = json_encode($request->notification_features);
         $data = [];
         $data = [
             'alert_notifications' => $request->alert_notifications,
             'agent_communications' => $request->agent_communications,
+            'notification_features' => $notification_features,
         ];
 
         $error = true;
