@@ -118,13 +118,13 @@ class SupportTicketsController extends AppController
                 $item->action = '<div class="dropdown no-arrow archive-dropdown">
                                     <a class="dropdown-toggle" href="" role="button" class="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">';
+                                    ';
 
-                $item->action .= '<a class="dropdown-item view_ticket" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#conversation_modal">History
-                                    <i class="fa fa-fw fa-comments" style="float: right;"></i></a>';
+                $item->action .= '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view_ticket" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#conversation_modal"> <i class="fa fa-comments"></i> History
+                                    </a>  <div class="dropdown-divider"></div>';
                 if (!in_array($item->getRawOriginal('status'), [3, 4])) {
-                    $item->action .= '<a class="dropdown-item cancelTicket" href="#" data-id=' . $item->id . '>Withdraw
-                                        <i class="fa fa-fw fa-ban" style="float: right;"></i></a>';
+                    $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 cancelTicket" href="#" data-id=' . $item->id . '> <i class="fa fa-ban"></i> Withdraw
+                                        </a>';
                 }
                 $item->action .= '</div></div>';
 

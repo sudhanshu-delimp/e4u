@@ -99,12 +99,12 @@ class TourRepository extends BaseRepository implements TourInterface
                 //<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item editTour" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#exampleModal22">Edit <i class="fa fa-fw fa-pen " style="float: right;"></i></a> <a class="dropdown-item deleteTour" href="#" id="openDeleteTour" data-id='.$item->id.' data-toggle="modal" data-target="#deleteModal22">Delete <i class="fa fa-fw fa-trash" style="float: right;"></i> </a></div>';
                $item->action = '<div class="dropdown no-arrow archive-dropdown">
                     <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item editTour" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#exampleModal22">Edit <i class="fa fa-fw fa-pen " style="float: right;"></i></a> </div>';
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 editTour" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#exampleModal22"> <i class="fa fa-fw fa-pen"></i> Edit </a> </div>';
            } else {
 
                 $item->action = '<div class="dropdown no-arrow archive-dropdown">
                 <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item" id="TourPermission" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#exampleModal22">Edit <i class="fa fa-fw fa-pen " style="float: right;"></i></a> <a class="dropdown-item deleteTour" href="#" id="openDeleteTour" data-id='.$item->id.' data-toggle="modal" data-target="#deleteModal22">Delete <i class="fa fa-fw fa-trash" style="float: right;"></i> </a></div>';
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item  d-flex align-items-center justify-content-start gap-10" id="TourPermission" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#exampleModal22"> <i class="fa fa-fw fa-pen"></i> Edit </a> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 deleteTour" href="#" id="openDeleteTour" data-id='.$item->id.' data-toggle="modal" data-target="#deleteModal22"><i class="fa fa-fw fa-trash"></i> Delete  </a></div>';
            }
 
             ////////// agentmanage tour list profile_name
@@ -112,7 +112,7 @@ class TourRepository extends BaseRepository implements TourInterface
 
             $item->agentManage = '<div class="dropdown no-arrow archive-dropdown">
                 <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item editTour" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#exampleModal22">Edit <i class="fa fa-fw fa-pen " style="float: right;"></i></a> <a class="dropdown-item deleteTour" href="#" id="openDeleteTour" data-id='.$item->id.' data-toggle="modal" data-target="#deleteModal22">Delete <i class="fa fa-fw fa-trash" style="float: right;"></i> </a></div>';
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 editTour" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#exampleModal22"> <i class="fa fa-fw fa-pen"></i> Edit </a> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 deleteTour" href="#" id="openDeleteTour" data-id='.$item->id.' data-toggle="modal" data-target="#deleteModal22"><i class="fa fa-fw fa-trash"></i> Delete  </a></div>';
 
 
             ///////end

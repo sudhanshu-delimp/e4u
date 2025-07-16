@@ -63,7 +63,7 @@
             <div class="row">
                 <div class="col-md-12 pl-0 mt-2">
                     <div id="table-sec" class="table-responsive-xl">
-                        <table class="table" id="myTable">
+                        <table class="table" id="bankAccountTable">
                             <thead class="table-bg">
                                 <tr>
                                     <th scope="col">Bank</th>
@@ -330,7 +330,7 @@
 
    $(function(){
 
-    var table = $('#myTable').DataTable({
+    var table = $('#bankAccountTable').DataTable({
         "language": {
          search: "_INPUT_",
         searchPlaceholder: "Search",
@@ -502,7 +502,7 @@
    $("body").on('click','#save_change',function(e){
            console.log("url==",$("#previous").val());
            var url = $("#previous").val();
-           var table = $("#myTable").DataTable();
+           var table = $("#bankAccountTable").DataTable();
            $.ajax({
                    method: "POST",
                    url:url,

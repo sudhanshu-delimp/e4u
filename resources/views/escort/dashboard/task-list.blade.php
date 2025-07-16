@@ -37,9 +37,10 @@
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         
         <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">Dashboard - Task List</h1>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <div class="custom-heading-wrapper">
+                <h1 class="h1">Dashboard - Task List</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
             <div class="back-to-dashboard">
                 <a href="{{ url()->previous() ?? route('dashboard.home') }}">
@@ -49,7 +50,7 @@
         </div>
         
         <div class="row">
-            <div class="col-md-12 my-2">
+            <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                    <div class="card-body">
                       <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
@@ -808,19 +809,19 @@
                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink" style="">
 
-                                         <a class="dropdown-item" href="#" href="#" id="add_task">New Task</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" href="#" id="add_task"> <i class="fa fa-plus-circle"></i> New Task</a>
 
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item" href="#" id="edit_task">Edit Task</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" id="edit_task"> <i class="fa fa-pen"></i> Edit Task</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item" href="#" id="complete_task">Complete Task</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" id="complete_task"> <i class="fa fa-check-circle"></i> Complete Task</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item" href="#" id="view_task">View</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" id="view_task"><i class="fa fa-eye"></i> View</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item" href="#" id="open_task">Task Summary</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" id="open_task"><i class="fa fa-list"></i> Task Summary</a>
                                     
                                 </div>
                             </div>
