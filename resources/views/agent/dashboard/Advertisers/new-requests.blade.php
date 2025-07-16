@@ -102,6 +102,7 @@
       if (await isConfirm(data)) {
             ajaxRequest({
                url: "{{ route('agent.process-request') }}",
+               method : 'POST',
                data: {
                   id: id,
                   request_type: data.action
@@ -132,6 +133,7 @@
       if (await isConfirm(data)) {
             ajaxRequest({
                url: "{{ route('agent.process-request') }}",
+               method : 'POST',
                data: {
                   id: id,
                   request_type: data.action

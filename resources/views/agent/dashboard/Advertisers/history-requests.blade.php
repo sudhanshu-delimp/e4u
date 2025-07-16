@@ -131,7 +131,6 @@
          url: "{{ route('agent.history-requests') }}" + "?page=" + page + "&search=" + search,
          type: "GET",
          beforeSend: function() {
-            // Optional: add loader here
          },
          success: function(data) {
             $('#data-container').html(data);
