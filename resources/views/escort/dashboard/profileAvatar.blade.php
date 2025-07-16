@@ -62,7 +62,8 @@ label.cabinet input.file{
                             <p>When selecting your avatar, please be mindful of the following:</p>
                             <ul>
                                 <li>Yes you can use a photo, but we do not recommend it</li>
-                                <li>Acceptable formats include; .jpg, .gif or .png .pdf, .psd, .tff, and .doc files are not compatible</li>
+                                <li>Acceptable formats include; .jpg, .gif or .png </li>
+                                <li>.pdf, .psd, .tff, and .doc files are not compatible</li>
                             </ul>
                             <div class="row">
                                 <div class="col-lg-4 mt-4">

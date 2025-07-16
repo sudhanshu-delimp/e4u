@@ -100,13 +100,13 @@
                                                    </a>
                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
 
-                                                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#replyticket">Create Profile</a>
+                                                      <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#replyticket"> <i class="fa fa-plus-circle"></i> Create Profile</a>
                                                       <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#viewticket">Edit Profile</a>
+                                                      <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#viewticket"> <i class="fa fa-pen"></i> Edit Profile</a>
                                                       <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#viewticket">Create Tour</a>
+                                                      <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#viewticket"> <i class="fa fa-plus-circle"></i> Create Tour</a>
                                                       <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#viewticket">Edit Tour</a>
+                                                      <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#viewticket"> <i class="fa fa-pen"></i> Edit Tour</a>
                                                    </div>
                                                 </div>
                                              </td>
