@@ -1,21 +1,22 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Agent\AgentController;
-use App\Http\Controllers\Agent\EscortController;
-use App\Http\Controllers\Agent\AgentTourPaymentController;
-use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Escort\TourController;
-use App\Http\Controllers\Escort\EscortController as DataTableController;
+use App\Http\Controllers\Agent\EscortController;
+use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Agent\AgentAccountController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Escort\EscortGalleryController;
-use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
-use App\Http\Controllers\MyAdvertiser\ListAdvertiserController;
-
-use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
+use App\Http\Controllers\Agent\AgentTourPaymentController;
+
+use App\Http\Controllers\Escort\EscortPolyPaymentController;
+use App\Http\Controllers\MyAdvertiser\ListAdvertiserController;
+use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
+use App\Http\Controllers\Escort\EscortController as DataTableController;
 
     Route::get('/', [AgentController::class, 'index'])->name('agent.dashboard');
     Route::get('/user-escorts-list', [AgentController::class, 'userEscortList'])->name('agent.manage.escorts.list');
@@ -87,6 +88,17 @@ use App\Http\Controllers\Escort\Profile\UpdateController;
     Route::post('add-playmate', [EscortController::class, 'addPlaymate'])->name('agent.playmates.add');
     Route::post('remove-playmate', [EscortController::class, 'removePlaymate'])->name('agent.playmates.remove');
 
+
+     Route::get('Advertisers/new-requests', [AgentRequestController::class, 'newRequest'])->name('agent.new-requests');
+     Route::post('process-request', [AgentRequestController::class, 'processRequest'])->name('agent.process-request');
+
+     Route::get('Advertisers/history-requests', [AgentRequestController::class, 'historyRequests'])->name('agent.history-requests');
+
+//     Route::get('Advertisers/history-requests',function(){
+//     return view('agent.dashboard.Advertisers.history-requests');
+// })->name('agent.history-requests');
+     
+
     Route::get('advertiser-profiles',function(){
     return view('agent.dashboard.Annalytics.advertiser-profiles');
 })->name('agent.advertiser-profiles');
@@ -99,13 +111,6 @@ use App\Http\Controllers\Escort\Profile\UpdateController;
     return view('agent.dashboard.Annalytics.prospets-memberships');
 })->name('agent.prospets-memberships');
 
-    Route::get('Advertisers/new-requests',function(){
-    return view('agent.dashboard.Advertisers.new-requests');
-})->name('agent.new-requests');
-
-Route::get('Advertisers/history-requests',function(){
-    return view('agent.dashboard.Advertisers.history-requests');
-})->name('agent.history-requests');
 
     Route::get('Marketing/create-prospect',function(){
     return view('agent.dashboard.Marketing.create-prospect');
