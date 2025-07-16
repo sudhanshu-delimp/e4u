@@ -58,6 +58,7 @@
 
 <script>
 
+
    function fetchData(page = 1, search = '') {
 
         console.log('I am called');

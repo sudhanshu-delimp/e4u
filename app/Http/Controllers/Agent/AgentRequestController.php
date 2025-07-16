@@ -109,17 +109,27 @@ class AgentRequestController extends Controller
     public function processRequest(Request $request)
     {
        
+        return response()->json(['success' => true]);
+        
         if((isset($request->id)) && (isset($request->request_type)))
         {
+
+           
+            if($this->is_already_accepted($request->id))
+            return response()->json(['success' => false]); 
+
+
             if($request->request_type=='accept')
             $status = '1';
 
             if($request->request_type=='reject')
             $status = '2';
 
-            AdvertiserAgentRequest::where('id', $request->id)->update(['status'=>$status]);
+            if($this->changeRequestStatus($request->id,$status))
             return response()->json(['success' => true]);
-
+            else
+            return response()->json(['success' => false]); 
+        
         }
         else
         {
@@ -132,6 +142,8 @@ class AgentRequestController extends Controller
 
     public function historyRequests(Request $request)
     {
+
+        
 
          $query = AdvertiserAgentRequest::with('user','user.state')->where('status','1')->orWhere('status','2');
             $search = $request->query('search');
@@ -151,4 +163,45 @@ class AgentRequestController extends Controller
             return view('agent.dashboard.Advertisers.history-requests', compact('lists')); 
 
     }
+
+
+    public function is_already_accepted($request_id)
+    {
+
+        $is_already_accepted = AdvertiserAgentRequestUser::where('advertiser_agent_requests_id', $request_id)
+        ->where('status', '1')
+        ->first();
+
+        if ($is_already_accepted)
+            return true;
+        else
+            return false;
+
+    }
+
+
+    public function changeRequestStatus($request_id,$status)
+    {
+       try 
+       {
+        ########## First Update My Column ###################
+        AdvertiserAgentRequestUser::
+        where('advertiser_agent_requests_id', $request_id)
+        ->where('receiver_agent_id', '=', auth()->id())
+        ->update(['status'=>$status]);
+
+        ##########  Update Other Agent Status  ###################
+        AdvertiserAgentRequestUser::
+            where('advertiser_agent_requests_id', $request_id)
+            ->where('receiver_agent_id','!=', auth()->id())
+            ->where('status','!=',2)
+            ->update(['status'=>3]); 
+            return true; 
+        } catch (Exception $e) {
+          Log::info($e->getMessage());  
+          return false;
+        } 
+
+      }
+
 }
