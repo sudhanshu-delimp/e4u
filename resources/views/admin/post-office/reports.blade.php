@@ -75,9 +75,9 @@
                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                                    
                                                    
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#postOffivereport" >View <i class="fa fa-eye"></i></a>
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#postOffivereport" > <i class="fa fa-eye"></i> View </a>
                                                    <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Print <i class="fa fa-fw fa-print" ></i></a>
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" > <i class="fa fa-fw fa-print" ></i> Print </a>
                                                    
                                                 </div>
                                              </div>

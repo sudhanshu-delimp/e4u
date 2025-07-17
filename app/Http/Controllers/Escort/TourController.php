@@ -175,7 +175,7 @@ class TourController extends Controller
             'days' => $days,
             'action' => '<div class="dropdown no-arrow archive-dropdown">
             <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item" id="cdTour" href="'.route('escort.store.tour', $tour->id).'">Edit <i class="fa fa-fw fa-pen " style="float: right;"></i></a> </div></div>'
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style=""> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" id="cdTour" href="'.route('escort.store.tour', $tour->id).'"> <i class="fa fa-fw fa-pen " ></i> Edit </a> </div></div>'
         ];
     });
 

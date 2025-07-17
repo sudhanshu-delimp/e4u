@@ -26,7 +26,7 @@
    <div class="container">
       <h1 class="home_heading_first margin_btm_twenty_px page-title">Parent Control </h1>
        <p>
-         Blackbox Tech Pty Ltd <b>(Blackbox)</b> operates the Website as a Restricted to Adults <b>(RTA)</b>
+         Blackbox Tech Pty Ltd (<b>Blackbox</b>) operates the Website as a Restricted to Adults (<b>RTA</b>)
          compliant website, Blackbox understands the importance of providing parents and guardians
          with the necessary information to control and to restrict their children’s access to any adult
          advertising website and streaming service. A range of measures have been incorporated into

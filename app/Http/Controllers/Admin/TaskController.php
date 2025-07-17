@@ -55,18 +55,20 @@ class TaskController extends Controller
         return response()->json(['success' => true, 'task' => $task,'task_name' => 'add_task']);
     }
 
-    public function editTask($id)
+    public function editTask(Request $request)
     {
-
+        //dd($request->all());
+        $task = Task::findOrFail($request->id);
+        return response()->json(['success' => true, 'task' => $task,'task_name' => 'edit_task']);
     }
 
-    public function updateTask(Request $request,$id)
+    public function updateTask(Request $request)
     {
-        $task = Task::findOrFail($id);
+        $task = Task::findOrFail($request->task_id);
 
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'priority' => 'required',
+            'task_priority' => 'required',
             'description' => 'nullable',
             'status' => 'required',
         ]);
@@ -75,14 +77,25 @@ class TaskController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $task->update($request->all());
+        $task->update([
+            'title'=>$request->title,
+            'task_priority'=>$request->task_priority,
+            'description'=>$request->description,
+            'status'=>$request->status,
+        ]);
 
         return response()->json(['success' => true, 'task' => $task,'task_name' => 'update_task']);
     }
 
     public function statusTask(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
+        $task = Task::findOrFail($request->change_task_id);
+        $task->update([
+            'status'=>'completed',
+        ]);
+        // dd($request->all());
+        return response()->json(['success' => true, 'task' => $task,'task_name' => 'complete_task']);
     }
 
     public function openTask(Request $request)

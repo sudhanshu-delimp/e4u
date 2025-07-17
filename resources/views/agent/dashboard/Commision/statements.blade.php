@@ -92,9 +92,9 @@
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                            </a>
                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#">Approve</a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#"><i class="fa fa-check-circle"></i> Approve</a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#commission-report">View Report</a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#commission-report"> <i class="fa fa-eye"></i> View Report</a>
                            </div>
                         </div>
                      </td>
@@ -112,9 +112,9 @@
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                            </a>
                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#">Approve</a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#"> <i class="fa fa-check-circle"></i> Approve</a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#" data-toggle="modal" data-target="#commission-report">View Report</a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#commission-report"> <i class="fa fa-eye"></i> View Report</a>
                            </div>
                         </div>
                      </td>

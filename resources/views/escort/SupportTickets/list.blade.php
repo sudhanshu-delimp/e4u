@@ -4,31 +4,8 @@
 <style type="text/css">
 .conversation {
     display: inline-block;
-    margin-bottom: 15px;
+    margin: 10px 0px;
 }
-.adminMessage, .userMessage {
-        padding: 10px;
-        border-radius: 10px;
-    }
-.userMessage {
-        background-color: lightgray;
-    }
-    .adminMessage {
-        background-color: #ff3c5fc9;
-        color: white;
-    }
-    .message_time {
-        font-size: 10px;
-        position: absolute;
-        right: 5%;
-        /*bottom: 0;*/
-    }
-    .modal-body {
-        min-height: 200px;
-    }
-    .messageBox {
-        border-radius: 10px;
-    }
 </style>
 @endsection
 @section('content')
@@ -94,7 +71,7 @@
      aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable"
          role="document"> {{--NOTE:: use  modal-dialog-scrollable instead of modal-dialog to make body scrollable only--}}
-        <div class="modal-content" style="width: 900px;position: absolute;">
+        <div class="modal-content" style="width: 900px;position: absolute; top:50px;">
             {{-- {{ route('escort.upload.gallery') }} --}}
             <div class="modal-content border-0">
                 <div class="modal-header">
@@ -104,18 +81,27 @@
                                                       class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body my-custom-modal-body">
                     <div class="row">
                         <div class="col-sm-12 conv-main" id="conv-main">
 
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" style="border-top: 1px solid;">
+                {{-- <div class="modal-footer" style="border-top: 1px solid;">
                     <form id="sendMessage">
                         <textarea class="messageBox" name="message" id="message" rows="4" cols="50" required></textarea>
                         <input type="hidden" name="ticketId"  id="ticketId" value=""> 
                         <button class="btn btn-info" id="submit_message">Send</button>
+                    </form>
+                </div> --}}
+                <div class="reply-wrapper p-3">
+                    <form id="sendMessage">
+                       <div class="reply-message-box">
+                        <textarea class="messageBox" name="message" id="message" rows="2" required></textarea>
+                        <input type="hidden" name="ticketId"  id="ticketId" value="">
+                        <button class="btn btn-info send-btn" id="submit_message">Send</button>
+                       </div>
                     </form>
                 </div>
             </div>
