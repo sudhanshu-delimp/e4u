@@ -4,13 +4,13 @@
     @php
     $status = 'Forfeited';
     $listBG = '#fff9eb;';
-    if($list->status=='1')
+    if($list->advertiser_agent_request_users->status=='1')
     {
          $listBG = '#dcf7ea;';
          $status = 'Accepted';
     }
    
-    if($list->status=='2')
+    if($list->advertiser_agent_request_users->status=='2')
     {
         $listBG = '#f8d2d2;';
         $status = 'Rejected';
@@ -25,6 +25,7 @@
 
                     <div>
                         <h6 class="mb-1"><b>Member ID :</b> <span style="color: #333;">{{$list->user->member_id}}</span></h6>
+                        <h6 class="mb-1"><b>Ref ID :</b> <span style="color: #333;">{{$list->ref_number}}</span></h6>
                         <h6 class="mb-1"><b>Name :</b> <span style="color: #333;"> {{$list->first_name.' '.$list->last_name  }}</span></h6>
                         <br>
                         <h6 class="text-warning font-weight-bold">Date  {{$status}} : <span>{{date('d/m/Y',strtotime($list->created_at))}}</span></h6>

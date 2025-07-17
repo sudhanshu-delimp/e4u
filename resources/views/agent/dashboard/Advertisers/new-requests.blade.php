@@ -50,7 +50,7 @@
 </div>
 </div>
 
-
+<div id="popupContainer"></div>
 
 
 @endsection
@@ -58,17 +58,15 @@
 
 <script>
 
+
    function fetchData(page = 1, search = '') {
 
-        console.log('I am called');
          $.ajax({
             url: "{{ route('agent.new-requests') }}" + "?page=" + page + "&search=" + search,
             type: "GET",
-            beforeSend: function() {
-               // Optional: add loader here
-            },
             success: function(data) {
                $('#data-container').html(data);
+               return true;
             },
             error: function() {
                alert('Something went wrong.');
@@ -97,6 +95,7 @@
 
    // ########### Accept Request #################
    $(document).on("click",".accept", async function() {
+      $('#popupContainer').html('');
       let data = {'action': 'accept'}
       let id  = $(this).attr('id');
       if (await isConfirm(data)) {
@@ -109,10 +108,10 @@
                },
                success: function(response) {
                   if (response.success) {
-                   fetchData(1, '', function() {
-                     $('#requestAccepted-' + id).modal('show');
-                  });
-                  
+                  let popupHTML = $('#accept-popup-template-'+id).html();
+                  $('#popupContainer').html(popupHTML);
+                  fetchData(1, '');
+                  $('#requestAccepted-' + id).modal('show');
                   }
                   else
                   {
@@ -130,6 +129,7 @@
    $(document).on("click",".reject", async function() {
       let data = {'action': 'reject'}
       let id  = $(this).attr('id');
+      $('#popupContainer').html('');
       if (await isConfirm(data)) {
             ajaxRequest({
                url: "{{ route('agent.process-request') }}",
@@ -140,9 +140,10 @@
                },
                success: function(response) {
                   if (response.success) {
-                  fetchData(1, '', function() {
-                     $('#requestRejected-' + id).modal('show');
-                  });
+                  let popupHTML = $('#reject-popup-template-'+id).html();
+                  $('#popupContainer').html(popupHTML);
+                  fetchData(1, '');
+                  $('#requestRejected-' + id).modal('show');
                   }
                   else
                   {
