@@ -48,57 +48,27 @@
                                 <label for="email">Features</label><br>
 
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="notification_feature[]" value="viewer_notification" checked>
-                                    <label class="form-check-label">Viewer notifications, forward V-Alerts</label>
+                                    <input class="form-check-input" type="checkbox" id="notification_feature1" name="notification_feature[]" value="viewer_notification" @if (!empty(auth()->user()->notification_features)) {{ in_array('viewer_notification', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
+                                    <label class="form-check-label" for="notification_feature1">Viewer notifications, forward V-Alerts</label>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="notification_feature[]" value="viewer_ask_question" checked>
-                                    <label class="form-check-label">Allow Viewers to ask you a question</label>
+                                    <input class="form-check-input" type="checkbox" id="notification_feature2" name="notification_feature[]" value="viewer_ask_question" @if (!empty(auth()->user()->notification_features)) {{ in_array('viewer_ask_question', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
+                                    <label class="form-check-label" for="notification_feature2">Allow Viewers to ask you a question</label>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="notification_feature[]" value="viewer_send_text" checked>
-                                    <label class="form-check-label">Allow Viewers to send you a text message</label>
+                                    <input class="form-check-input" id="notification_feature3" type="checkbox" name="notification_feature[]" value="viewer_send_text" @if (!empty(auth()->user()->notification_features)) {{ in_array('viewer_send_text', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
+                                    <label class="form-check-label" for="notification_feature3">Allow Viewers to send you a text message</label>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" name="notification_feature[]" value="available_playmate" type="checkbox" {{ auth()->user()->available_playmate == 1 ? 'checked' : '' }}>
-                                    <label class="form-check-label">I’m available as a playmate</label>
+                                    <input class="form-check-input" id="notification_feature4" name="notification_feature[]" value="available_playmate" type="checkbox" @if (!empty(auth()->user()->notification_features)) {{ in_array('available_playmate', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
+                                    <label class="form-check-label" for="notification_feature4">I’m available as a playmate</label>
                                 </div>
 
                                 <div class="pt-1"><i>Some features are enabled by default unless you disable them.</i></div>
                             </div>
-                            {{-- <div class="form-group">
-                                <label for="email">Features <!-- (enabled by default) --></label><br>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="Method_Message" value="option1"
-                                        checked>
-                                    <label class="form-check-label" for="Method_Message">Viewer notifications, forward
-                                        V-Alerts</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="Method_Text" value="option1"
-                                        checked>
-                                    <label class="form-check-label" for="Method_Text">Allow Viewers to ask you a
-                                        question</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="Method_Email" value="option1"
-                                        checked>
-                                    <label class="form-check-label" for="Method_Email">Allow Viewers to send you a text
-                                        message</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input akhplaymate" name="playmate" type="checkbox"
-                                        id="method_Email_dummy" value="1"
-                                        {{ auth()->user()->available_playmate == 1 ? 'checked' : '' }}>
-                                    <label class="form-check-label " for="method_Email_dummy">I'm available as a
-                                        playmate</label>
-                                </div>
-                                <div class="pt-1"><i>Some features are enabled by default unless you disable them.</i>
-                                </div>
-                            </div> --}}
                             <div class="form-group">
                                 <label for="email">Agent</label><br>
                                 <div class="form-check">
