@@ -779,7 +779,7 @@
             let changeClass = "{{$existDefaultRate?'change_default2':''}}";
             if (selectedIdOne) {
                 let appendTag = `<li id='hideenclassOne_${selectedIdOne}'><div class="my_service_anal"><span class='dollar-sign'>${getNameOne}</span>`;
-                appendTag += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedIdOne}"><input type='hidden' name='service_id[]' value="${selectedIdOne}" placeholder=''><span><i class='fas fa-times-circle akh1' data-sname='${getNameOne}' data-val="${selectedIdOne}"  id='id_${selectedIdOne}' value="${selectedIdOne}" >`;
+                appendTag += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedIdOne}"><input type='hidden' name='service_id[]' value="${selectedIdOne}" placeholder=''><span><i class='fas fa-times akh1' data-sname='${getNameOne}' data-val="${selectedIdOne}"  id='id_${selectedIdOne}' value="${selectedIdOne}" >`;
                 appendTag += `</i></span></div></li>`;
                 $("#selected_service_one").append(` ${appendTag} `);
                 $("#service_id_one option[value=" + selectedIdOne + "]").attr('disabled', 'disabled');
@@ -794,7 +794,7 @@
             let changeClass = "{{$existDefaultRate?'change_default2':''}}";
             if (selectedIdTwo) {
                 let appendTag = `<li id='hideenclassTwo_${selectedIdTwo}'><div class="my_service_anal"><span class='dollar-sign'>${getNameTwo}</span>`;
-                appendTag += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedIdTwo}"><input type='hidden' name='service_id[]' value="${selectedIdTwo}" placeholder=''><span><i class='fas fa-times-circle akh2' data-sname='${getNameTwo}' data-val="${selectedIdTwo}"  id='id_${selectedIdTwo}' value="${selectedIdTwo}" >`;
+                appendTag += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedIdTwo}"><input type='hidden' name='service_id[]' value="${selectedIdTwo}" placeholder=''><span><i class='fas fa-times akh2' data-sname='${getNameTwo}' data-val="${selectedIdTwo}"  id='id_${selectedIdTwo}' value="${selectedIdTwo}" >`;
                 appendTag += `</i></span></div></li>`;
                 $("#selected_service_two").append(` ${appendTag} `);
                 $("#service_id_two option[value=" + selectedIdTwo + "]").attr('disabled', 'disabled');
@@ -808,7 +808,7 @@
             let changeClass = "{{$existDefaultRate?'change_default2':''}}";
             if (selectedIdThree) {
                 let appendTag = `<li id='hideenclassThree_${selectedIdThree}'><div class="my_service_anal"><span class='dollar-sign'>${getNameThree}</span>`;
-                appendTag += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedIdThree}"><input type='hidden' name='service_id[]' value="${selectedIdThree}" placeholder=''><span><i class='fas fa-times-circle akh3' data-sname='${getNameThree}' data-val="${selectedIdThree}"  id='id_${selectedIdThree}' value="${selectedIdThree}" >`;
+                appendTag += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedIdThree}"><input type='hidden' name='service_id[]' value="${selectedIdThree}" placeholder=''><span><i class='fas fa-times akh3' data-sname='${getNameThree}' data-val="${selectedIdThree}"  id='id_${selectedIdThree}' value="${selectedIdThree}" >`;
                 appendTag += `</i></span></div></li>`;
                 $("#selected_service_three").append(` ${appendTag} `);
                 $("#service_id_three option[value=" + selectedIdThree + "]").attr('disabled', 'disabled');

@@ -31,11 +31,7 @@ class AdvertiserAgentRequest extends Model
     }
 
 
-   public function request_status()
-   {
-      return $this->belongsTo('App\Models\AdvertiserAgentRequestUser', 'id','advertiser_agent_requests_id');
-   }
-
+  
 
     public function advertiser_agent_request_users()
     {
