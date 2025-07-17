@@ -79,7 +79,7 @@ class TaskController extends Controller
 
         $task->update([
             'title'=>$request->title,
-            'task_priority'=>$request->task_priority,
+            'priority'=>$request->task_priority,
             'description'=>$request->description,
             'status'=>$request->status,
         ]);
