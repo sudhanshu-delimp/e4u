@@ -6077,6 +6077,44 @@ padding-bottom:80px;
         color: var(--blue--text);
     }
     
+    .my-spend-box .spend {
+        background: var(--peach);
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: #fff;
+    }
+    
+    .my-spend-box .esc-name {
+        color: #747474;
+        font-size: 14px;
+    }
+    
+    .my-spend-box .chart-img {
+        width: 75px;
+    }
+    
+    .my-spend-box .chart-img img {
+        width: 100%;
+    }
+    
+    .my-spend-box .commission {
+        background: var(--blue--text);
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: #fff;
+    }
+    
+    .my-spend-box .spend h4,
+    .my-spend-box .commission h4 {
+        font-size: 14px;
+        color: #fff;
+    }
+    
+    .my-spend-box .user-type-text {
+        font-size: 18px;
+        color: var(--blue--text);
+    }
+    
     .my-spend-box:hover {
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     }

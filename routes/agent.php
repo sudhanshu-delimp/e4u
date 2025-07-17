@@ -132,6 +132,34 @@ Route::get('agent-messages',function(){
     return view('agent.dashboard.Commision.summary');
 })->name('Commision.summary');
 
+
+Route::get('my-income',function(){
+    return view('agent.dashboard.my-income');
+})->name('agent.my-income');
+
+Route::get('my-statistics',function(){
+    return view('agent.dashboard.my-statistics');
+})->name('agent.my-statistics');
+
+Route::get('advertisers',function(){
+    return view('agent.dashboard.advertisers');
+})->name('agent.advertisers');
+
+Route::get('logs-and-statistics',function(){
+    return view('agent.dashboard.logs-and-statistics');
+})->name('agent.logs-and-statistics');
+
+Route::get('my-appointments',function(){
+    return view('agent.dashboard.my-appointments');
+})->name('agent.my-appointments');
+
+Route::get('task-list',function(){
+    return view('agent.dashboard.task-list');
+})->name('agent.task-list');
+
+
+
+
 Route::get('pricingsummaries',[PricingsummariesController::class ,'showPricingsummary'])->name('pricingsummaries');
 Route::get('pricingsummaries-datatable',[PricingsummariesController::class ,'PricingDataTable'])->name('agent.myPricing.dataTable');
 Route::post('update-pricing-detail',[PricingsummariesController::class ,'storePricingDetail'])->name('agent.save.pricing.details');
