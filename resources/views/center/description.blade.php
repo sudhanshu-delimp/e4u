@@ -1,6 +1,6 @@
 @extends('layouts.web')
 @section('content')
-<div class="profile_description_banner">
+<div class="profile_description_banner aa">
     <div class="container-fluid back_to_search_btn pt-2">
         <a href="#"><img src="{{ asset('assets/app/img/leftsymbole.svg') }}"> Back to search</a>
     </div>

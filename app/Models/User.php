@@ -57,6 +57,7 @@ class User extends Authenticatable
         'alert_notifications' => 'array',
         'profile_creator' => 'array',
         'agent_communications' => 'array',
+        'notification_features' => 'array',
     ];
 
     /**
