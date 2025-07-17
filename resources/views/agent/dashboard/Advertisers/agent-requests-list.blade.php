@@ -11,7 +11,11 @@
                             <a class="card-link collapsed" data-toggle="collapse" href="#req{{$list->id}}" aria-expanded="false">
                                 <div class="d-flex align-items-center stat-detls">
                                     <div class="avatar avatar-xl pr-3 mt-1">
-                                        <img src="{{asset('assets/img/agn-img.png') }}" alt="Face 1">
+
+                                     <img src="{{ !$list->user->avatar_img ? asset('assets/dashboard/img/undraw_profile.svg') : asset('avatars/'.$list->user->avatar_img) }}" alt="Face 1">
+
+
+                                       
                                     </div>
                                     <div class="ms-3 name">
                                         <h5 class="primery_color normal_heading mb-0">
