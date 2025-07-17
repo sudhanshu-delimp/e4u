@@ -4,7 +4,7 @@
     <!-- <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
         <img src="{{ asset('assets/app/img/logo.svg') }} " alt="">
         </a> -->
-    @if (auth()->user()->type == 2)
+    @if (auth()->user() && auth()->user()->type == 2)
         <a class="sidebar-brand text-left pb-3" href="{{ route('home') }}">
             <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3" alt="">
         </a>
@@ -359,7 +359,7 @@
             </div>
         </li>
     @endif
-    @if (auth()->user()->type == 1)
+    @if (auth()->user() && auth()->user()->type == 1)
         <a class="sidebar-brand text-left" href="{{ route('home') }}">
             <img src="{{ asset('assets/app/img/logo.svg') }}" class="mb-3" alt=""><br>
             <span style="color:#FF3C5F;" class="font-weight-normal">Operational Console-Admin</span>

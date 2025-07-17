@@ -54,7 +54,7 @@
                                             <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->pivot->price}}" min=0 step=10 max=200>
                                             <input type='hidden' name='service_id[]' value="{{$value->pivot->service_id}}" placeholder='test test '>
                                             <span id="span_id" data-id="{{$value->id}}">
-                                            <i class='fas fa-times-circle akh1' id="id_{{$value->id}}" value="{{$value->pivot->service_id}}" data-sname="{{$value->name}}" data-val="{{$value->pivot->service_id}}"></i>
+                                            <i class='fas fa-times akh1' id="id_{{$value->id}}" value="{{$value->pivot->service_id}}" data-sname="{{$value->name}}" data-val="{{$value->pivot->service_id}}"></i>
                                             </span>
                                         </div>
                                     </li>
@@ -97,7 +97,7 @@
                                             <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->pivot->price}}" min=0 step=10 max=200>
                                             <input type='hidden' name='service_id[]' value="{{$value->pivot->service_id}}" placeholder=''>
                                             <span>
-                                            <i class='fas fa-times-circle akh2' id="idTwo_{{$value->id }}" value="{{$value->pivot->service_id}}"  data-sname="{{$value->name}}" data-val="{{$value->pivot->service_id}}"></i>
+                                            <i class='fas fa-times akh2' id="idTwo_{{$value->id }}" value="{{$value->pivot->service_id}}"  data-sname="{{$value->name}}" data-val="{{$value->pivot->service_id}}"></i>
                                             </span>
                                         </div>
                                     </li>
@@ -139,7 +139,7 @@
                                             <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->pivot->price}}" min=0 step=10 max=200>
                                             <input type='hidden' name='service_id[]' value="{{$value->pivot->service_id}}" placeholder=''>
                                             <span>
-                                            <i class='fas fa-times-circle akh3' id="idThree_{{$value->id}}" value="{{$value->pivot->service_id}}"  data-sname="{{$value->name}}" data-val="{{$value->pivot->service_id}}"></i>
+                                            <i class='fas fa-times akh3' id="idThree_{{$value->id}}" value="{{$value->pivot->service_id}}"  data-sname="{{$value->name}}" data-val="{{$value->pivot->service_id}}"></i>
                                             </span>
                                         </div>
                                     </li>
