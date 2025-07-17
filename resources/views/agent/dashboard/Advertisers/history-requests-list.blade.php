@@ -4,13 +4,13 @@
     @php
     $status = 'Forfeited';
     $listBG = '#fff9eb;';
-    if($list->status=='1')
+    if($list->advertiser_agent_request_users->status=='1')
     {
          $listBG = '#dcf7ea;';
          $status = 'Accepted';
     }
    
-    if($list->status=='2')
+    if($list->advertiser_agent_request_users->status=='2')
     {
         $listBG = '#f8d2d2;';
         $status = 'Rejected';

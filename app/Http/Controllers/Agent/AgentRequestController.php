@@ -108,24 +108,28 @@ class AgentRequestController extends Controller
 
     public function processRequest(Request $request)
     {
-       
-        return response()->json(['success' => true]);
-        
         if((isset($request->id)) && (isset($request->request_type)))
         {
 
-           
             if($this->is_already_accepted($request->id))
             return response()->json(['success' => false]); 
 
 
             if($request->request_type=='accept')
-            $status = '1';
+            {   
+               $status = '1'; 
+               $response = $this->changeRequestStatus($request->id,$status); 
+            }
+            
 
             if($request->request_type=='reject')
-            $status = '2';
+            {
+                 $status = '2';
+                 $response = $this->changeRequestStatus($request->id,$status);
+            }
+           
 
-            if($this->changeRequestStatus($request->id,$status))
+            if($response)
             return response()->json(['success' => true]);
             else
             return response()->json(['success' => false]); 
@@ -143,9 +147,19 @@ class AgentRequestController extends Controller
     public function historyRequests(Request $request)
     {
 
-        
-
-         $query = AdvertiserAgentRequest::with('user','user.state')->where('status','1')->orWhere('status','2');
+        $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_users', function ($q) {
+                $q->where('status', '!=', 0)
+                ->where('receiver_agent_id', auth()->id());
+            })
+            ->with([
+                'user',
+                'user.state',
+                'advertiser_agent_request_users' => function ($q) {
+                    $q->where('status', '!=', 0)
+                    ->where('receiver_agent_id', auth()->id());
+                },
+            ]);
+            
             $search = $request->query('search');
              if (!empty($search)) {
                 $query->where(function ($q) use ($search) {
@@ -155,7 +169,12 @@ class AgentRequestController extends Controller
                      });
                 });
             }
+
+
             $lists = $query->orderBy('id', 'desc')->paginate(3);
+
+            //dd(json_decode(json_encode($lists),true));
+
             if ($request->ajax()) {
                 return view('agent.dashboard.Advertisers.history-requests-list', compact('lists'))->render();
             }
@@ -191,6 +210,7 @@ class AgentRequestController extends Controller
         ->update(['status'=>$status]);
 
         ##########  Update Other Agent Status  ###################
+        if($status=='1')
         AdvertiserAgentRequestUser::
             where('advertiser_agent_requests_id', $request_id)
             ->where('receiver_agent_id','!=', auth()->id())
