@@ -847,10 +847,12 @@
             function renderTasks(tasks) {
                
                 let html = '';
-                var taskBadgeColor = '#9d1d08 ';
-                var priorityColor = 'text-high';
+                
 
                 $.each(tasks, function (index, task) {
+
+                    var taskBadgeColor = '#9d1d08 ';
+                    var priorityColor = 'text-high';
 
                     if(task.status == 'inprogress'){
                         taskBadgeColor = '#4e73df ';
