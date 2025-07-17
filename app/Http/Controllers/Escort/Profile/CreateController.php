@@ -110,6 +110,7 @@ class CreateController extends Controller
     public function index($id = null)
     {
         $user = auth()->user();
+        
         // $escort = $this->escort->make();
         if(!empty($user->profile_creator) && in_array(2,$user->profile_creator)) {
             if(!$escort = $this->escort->findDefault($user->id,1)) {
@@ -120,6 +121,7 @@ class CreateController extends Controller
             $escort = $this->escort->make();
             // $escort = $user->escorts->first();
         }
+        $defaultServiceIds = $escort->services()->pluck('service_id')->toArray();
         // if(!$escort = $user->escorts->where('user_id', $user->id)->where('completed', 1)->first()) {
 
         //     $data = [
@@ -141,8 +143,8 @@ class CreateController extends Controller
 //        $defaultImages = $this->media->findDefaultMedia($user->id,0);
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [8]);
         $path = $this->media->findByVideoposition(auth()->user()->id,1)['path'];
-
-        return view('escort.dashboard.profile.update',compact('media', 'path','escort','service','availability','service_one','service_two','service_three','durations','user'));
+        
+        return view('escort.dashboard.profile.update',compact('defaultServiceIds','media', 'path','escort','service','availability','service_one','service_two','service_three','durations','user'));
     }
     public function agentIndex($id = null)
     {
