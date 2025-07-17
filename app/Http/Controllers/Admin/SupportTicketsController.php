@@ -155,13 +155,13 @@ class SupportTicketsController extends AppController
 
                                   {
                                      $dropdown .= '<a 
-                                        class="dropdown-item editTour change-status-btn d-flex align-items-center justify-content-between" 
+                                        class="dropdown-item editTour change-status-btn d-flex align-items-center justify-content-start gap-10" 
                                         href="#"
                                         data-id="'.$item->id.'" 
                                         data-status="1">
-                                        Active
-                                        <i class="fa fa-circle"></i>   
-                                        </a>';
+                                        <i class="fa fa-circle"></i>  
+                                        Active 
+                                        </a> <div class="dropdown-divider"></div>';
                                   }
 
 
@@ -169,31 +169,30 @@ class SupportTicketsController extends AppController
 
                                      {
                                         $dropdown .=  '<a 
-                                        class="dropdown-item editTour change-status-btn d-flex align-items-center justify-content-between" 
+                                        class="dropdown-item editTour change-status-btn d-flex align-items-center justify-content-start gap-10" 
                                         href="#"
                                         data-id="'.$item->id.'" 
-                                        data-status="2">
-                                        In-progress
-                                        <i class="fa fa-spinner"></i>
-                                        </a>';
+                                        data-status="2"> 
+                                        <i class="fa fa-spinner"></i> In-progress
+                                        </a> <div class="dropdown-divider"></div>';
                                      }
 
 
                                     if($item->status!='Resolved')
                                     {
                                         $dropdown .=  '<a  
-                                        class="dropdown-item editTour change-status-btn d-flex align-items-center justify-content-between" 
+                                        class="dropdown-item editTour change-status-btn d-flex align-items-center justify-content-start gap-10" 
                                         href="#"
                                         data-id="'.$item->id.'" 
                                         data-status="3">
-                                        Resolved
-                                        <i class="fa fa-check"></i>
-                                        </a>';
+                                       
+                                        <i class="fa fa-check"></i>  Resolved
+                                        </a> <div class="dropdown-divider"></div>';
                                     }
 
 
-                                    $dropdown .= '<a class="dropdown-item editTour view_ticket d-flex align-items-center justify-content-between" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#conversation_modal">History
-                                        <i class="fa fa-comments text-default"></i>
+                                    $dropdown .= '<a class="dropdown-item editTour view_ticket d-flex align-items-center justify-content-start gap-10" id="cdTour" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#conversation_modal"> <i class="fa fa-comments text-default"></i> History
+                                        
                                         </a>';
                                 $dropdown .='</div></div>';
                                 $item->action = $dropdown;

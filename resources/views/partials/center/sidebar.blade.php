@@ -246,13 +246,13 @@
                 <span style="{{request()->segment(2) == 'legbox-notification' ? 'color: #e5365a;' : ''}}">Legbox notification</span>
             </a>
 
-            <a class="collapse-item" href="{{ route('viewer-notes')}}">
+            {{-- <a class="collapse-item" href="{{ route('viewer-notes')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/ccfour.png')}}">
             <span style="{{request()->segment(2) == 'viewer-notes' ? 'color: #e5365a;' : ''}}">Viewer Messaging</span>
-            </a>
+            </a> --}}
             <a class="collapse-item" href="{{ route('agent-messages')}}">
-                <img src="{{ asset('assets/dashboard/img/menu-icon/ccfour.png')}}">
-            <span style="{{request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : ''}}">Agent Messages</span>
+                <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png')}}">
+            <span style="{{request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : ''}}">Messages</span>
             </a>
 
             <a class="collapse-item" href="{{ route('legbox-viewers')}}">

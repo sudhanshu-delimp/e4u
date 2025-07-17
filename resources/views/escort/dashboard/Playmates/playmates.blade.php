@@ -109,17 +109,6 @@
    display: flex;
    gap: 10px;
    }
-   .results span {
-   background-color: #5d6d7e;
-   color: #fff;
-   text-align: center;
-   padding: 2px 4px 2px 4px;
-   font-size: 20px;
-   border-radius: 2px;
-   right: -5px;
-   position: relative;
-   height: 25px;
-   }
 </style>
 @endsection
 @section('content')

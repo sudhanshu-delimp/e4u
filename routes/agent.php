@@ -116,6 +116,10 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
     return view('agent.dashboard.Marketing.create-prospect');
 })->name('marketing.agencreate-prospect');
 
+Route::get('agent-messages',function(){
+    return view('agent.dashboard.agent-messages');
+})->name('agent.agent-messages');
+
     Route::get('Marketing/create-information-package',function(){
     return view('agent.dashboard.Marketing.create-information-package');
 })->name('marketing.create-information-package');

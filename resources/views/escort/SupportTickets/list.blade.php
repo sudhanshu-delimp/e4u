@@ -88,14 +88,7 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="modal-footer" style="border-top: 1px solid;">
-                    <form id="sendMessage">
-                        <textarea class="messageBox" name="message" id="message" rows="4" cols="50" required></textarea>
-                        <input type="hidden" name="ticketId"  id="ticketId" value=""> 
-                        <button class="btn btn-info" id="submit_message">Send</button>
-                    </form>
-                </div> --}}
-                <div class="reply-wrapper p-3">
+                <div class="reply-wrapper p-3 ">
                     <form id="sendMessage">
                        <div class="reply-message-box">
                         <textarea class="messageBox" name="message" id="message" rows="2" required></textarea>

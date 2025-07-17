@@ -168,7 +168,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="d-flex align-items-center justify-content-start gap-10">
+<div class="d-flex align-items-center justify-content-start gap-10">
                
 
 <div class="my-play-box-profile-icon">
@@ -194,7 +194,7 @@
 
             </div>
         </div>
-    </div>
+</div>
     <div class="container-fluid px-0 next-preview-fixed">
         <div class="d-flex d-flex justify-content-between">
             <div class="previous_btn_profile next_previous_btn_pogision preview-dk previousDisableButtonCss">
