@@ -744,9 +744,10 @@
             let selectedValue = $(this).val();
             let selectedText = $(this).find('option:selected').text();
             let changeClass = "{{$existDefaultService?'change_default2':''}}";
+            let profileName = $('input[name="profile_name"]').val();
             if(selectedValue){
                 $(this).find('option:selected').hide();
-                let string = `<li id='hideenclass${index}_${selectedValue}'><div class="my_service_anal"><span class='dollar-sign'>${selectedText}</span> <span class="d_profile_name">${selectedText}</span>`;
+                let string = `<li id='hideenclass${index}_${selectedValue}'><div class="my_service_anal"><span class='dollar-sign'>${selectedText}</span> <span class="d_profile_name">Status: ${profileName}</span>`;
                 string += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' value='0' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedValue}"><input type='hidden' name='service_id[]' value="${selectedValue}" placeholder=''><span> <small class="mytool-tip">Remove</small><i class='fas fa-times akh1' data-sname='${selectedText}' data-val="${selectedValue}"  id='id_${selectedValue}' value="${selectedValue}" >`;
                 string += `</i></span></div></li>`;
                 tagContainer.append(` ${string} `);
@@ -1820,6 +1821,7 @@
             let custom_id = $("#trigger-element2").val();
             let value = $("#current").val();
             $(`.my_service_anal input[name="service_id[]"][value=${custom_id}]`).next().find('i').addClass('js_defaultProfileService');
+            $(`.my_service_anal input[name="service_id[]"][value=${custom_id}]`).parent().find('.d_profile_name').text('Status: Default');
             update_escort_default($(this), {
                 [field]: value,
                 custom_id: custom_id

@@ -44,10 +44,10 @@
                         <div class="manage_tag_style">
                             <ul id="selected_service_one">
                                 @foreach ($escort->services()->where('category_id', 1)->get() as $value)
-                                    <li class="mb-2" id="hideenclassOne_{{ $value->id }}">
+                                    <li class='mb-2 {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"js_defaultProfileService":""}}' id="hideenclassOne_{{ $value->id }}">
                                         <div class='my_service_anal hideenclassOne{{ $value->id }}'>
                                             <span class="dollar-sign">{{ $value->name }}</span>
-                                            <span class="d_profile_name">{{ $value->name }}</span>
+                                            <span class='d_profile_name'>{{'Status:'}} {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"Default":$escort->profile_name}}</span>
                                             <input type='number' class='dollar-before input_border change_default' name='price[]'
                                                 placeholder='0' value="{{ $value->pivot->price }}" min=0 step="10"
                                                 max=9999 service_id="{{ $value->id }}">
@@ -93,10 +93,10 @@
                         <div class="manage_tag_style">
                             <ul id="selected_service_two">
                                 @foreach ($escort->services()->where('category_id', 2)->get() as $key => $value)
-                                    <li class="mb-2" id="hideenclassTwo_{{ $value->id }}">
+                                    <li class='mb-2 {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"js_defaultProfileService":""}}' id="hideenclassTwo_{{ $value->id }}">
                                         <div class='my_service_anal hideenclassTwo{{ $value->id }}'>
                                             <span class="dollar-sign">{{ $value->name }}</span>
-                                            <span class="d_profile_name">{{ $value->name }}</span>
+                                            <span class='d_profile_name'>{{'Status:'}} {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"Default":$escort->profile_name}}</span>
                                             <input type='number' class='dollar-before input_border change_default' name='price[]'
                                                 placeholder='0' value="{{ $value->pivot->price }}" min=0 step="10"
                                                 max=9999 service_id="{{ $value->id }}">
@@ -141,10 +141,10 @@
                         <div class="manage_tag_style">
                             <ul id="selected_service_three">
                                 @foreach ($escort->services()->where('category_id', 3)->get() as $key => $value)
-                                    <li class="mb-2" id="hideenclassThree_{{ $value->id }}">
+                                    <li class='mb-2 {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"js_defaultProfileService":""}}' id="hideenclassThree_{{ $value->id }}">
                                         <div class='my_service_anal hideenclassThree{{ $value->id }}'>
                                             <span class="dollar-sign">{{ $value->name }}</span>
-                                            <span class="d_profile_name">{{ $value->name }}</span>
+                                            <span class='d_profile_name'>{{'Status:'}} {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"Default":$escort->profile_name}}</span>
                                             <input type='number' class='dollar-before input_border change_default' name='price[]'
                                                 placeholder='0' value="{{ $value->pivot->price }}" min=0
                                                 step="10" max=9999 service_id="{{ $value->id }}">
@@ -157,6 +157,7 @@
                                                     data-sname="{{ $value->name }}"
                                                     data-val="{{ $value->pivot->service_id }}"></i>
                                             </span>
+                                            
                                         </div>
                                     </li>
                                 @endforeach
