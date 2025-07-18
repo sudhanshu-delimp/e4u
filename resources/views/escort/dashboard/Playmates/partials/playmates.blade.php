@@ -240,13 +240,14 @@
                     <ul class="results  mt-2 activePlaymate">
                         @if(!is_null(auth()->user()->playmates))
                             @foreach(auth()->user()->playmates as $playmate)
-                                <li id="rmlist_{{$playmate->id}}"><a
+                                <li id="rmlist_{{$playmate->id}}" class="d_my_tooltip"><a
                                         href="{{ route('profile.description',$playmate->id)}}" target="_blank">
                                         <img
                                             src="{{ $playmate->DefaultImage ? asset($playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
                                             class="img-profile rounded-circle playmats-img">{{$playmate->user->member_id . ' - ' .$playmate->name}}
                                     </a>
                                     <span class="playmates_rmid" value="{{$playmate->id}}">×</span>
+                                    <small class="mytool-tip">Remove</small>
                                 </li>
                             @endforeach
                         @endif

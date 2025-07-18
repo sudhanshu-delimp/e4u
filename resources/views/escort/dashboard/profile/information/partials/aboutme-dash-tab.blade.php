@@ -569,6 +569,7 @@
                                                 <li style="font-size: 14px; background:#0C223D !important;"> <a href="#">{{ $name}}</a>
                                                     <div class="close ml-2 text-white stage-close" aria-label="Close">
                                                         <span aria-hidden="true" class='delete_stname' id='{{$name}}'>×</span>
+                                                        <small class='mytool-tip'>Remove</small>
                                                     </div>
                                                     <input type='hidden' name='name[]' value="{{ $name }}">
                                                 </li>
