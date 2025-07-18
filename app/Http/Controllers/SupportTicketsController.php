@@ -136,9 +136,18 @@ class SupportTicketsController extends AppController
 
 
     function conversations($ticket_id) {
-        $ticket = SupportTickets::where('user_id', auth()->user()->id)
-                    ->where('id', $ticket_id)->with('conversations')
-                    ->with('User')->first();
+
+        $ticket = SupportTickets::with([
+            'conversations',
+            'conversations.user_from_admin',
+            'conversations.user_from_user',
+            'user'
+        ])
+        ->where('user_id', auth()->id())
+        ->where('id', $ticket_id)
+        ->first();
+
+
         $ticket->unread = 0;
         $ticket->save();
         $ticket->status_id = $ticket->getRawOriginal('status');
@@ -149,7 +158,7 @@ class SupportTicketsController extends AppController
 
     public function submit_ticket(SupportTicketsRequest $request)
     {
-     
+       
         $refNumber = random_string();
         $red_url = (isset($request->user_type) && $request->user_type == 'viewer') ? 'user.view-and-reply-ticket' : 'support-ticket.list';
         $input = [
@@ -164,6 +173,7 @@ class SupportTicketsController extends AppController
             'status' => 1
         ];
         $encryptedFileName = '';
+        $is_file_attached = "";
         if($request->hasFile('file')) {
             $file = $request->file('file');
 //            $mime = $file->getMimeType();
@@ -182,6 +192,7 @@ class SupportTicketsController extends AppController
             {
                 Storage::disk('support_tickets')->put($encryptedFileName, file_get_contents($file));
                 $input['file_path'] = $encryptedFileName; 
+                $is_file_attached = $encryptedFileName;
             }
             
 
@@ -199,7 +210,18 @@ class SupportTicketsController extends AppController
                 
             }
             ################### End Send Email User And Admin #######################
-            return redirect()->route($red_url)->with('success', 'Ticket created successfully');
+            if($is_file_attached!="")
+            {
+
+                 $message = 'Your ticket is submitted successfully along with attached document.';
+            }
+            else
+            {
+                $message = 'Your ticket is submitted successfully.';
+            }
+           
+
+            return redirect()->route($red_url)->with('success', $message);
         } 
         else 
         {

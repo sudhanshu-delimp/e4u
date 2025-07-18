@@ -34,7 +34,7 @@
             @if($lists->isNotEmpty())
                <div class="col-lg-12">
                   <div class="custom-search-form">
-                     <form>
+                     <form id="searchForm">
                         <label for="search">Search : </label> <input type="search" id="search" name="search" placeholder="Search by Member ID">
                      </form>
                   </div>
@@ -158,5 +158,11 @@
          fetchData(page, search);
       });
    });
+
+document.getElementById('searchForm').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+    }
+});
 </script>
 @endpush

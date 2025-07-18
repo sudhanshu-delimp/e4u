@@ -13,16 +13,17 @@ use App\Http\Controllers\Escort\EscortController;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\Escort\ConciergeController;
+use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\Agent\AgentRegisterController;
 use App\Http\Controllers\User\Dashboard\UserController;
 use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Http\Controllers\Admin\ManagePeopleStaffController;
+use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
 use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
-use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -593,9 +594,7 @@ Route::get('/admin-dashboard/reports/credit',function(){
     return view('admin.reports.credit');
 })->name('admin.credit');
 
-Route::get('/admin-dashboard/reports/agent-requests',function(){
-    return view('admin.reports.agent-requests');
-})->name('admin.agent-requests');
+
 
 Route::get('/admin-dashboard/management/statistics/listings',function(){
     return view('admin.management.statistics.listings');
@@ -675,6 +674,15 @@ Route::get('/admin-dashboard/blog',function(){
 Route::get('/admin-dashboard/management/punterbox-reports',function(){
     return view('admin.management.punterbox-report');
 })->name('admin.punterbox-reports');
+
+
+
+Route::get('/admin-dashboard/reports/agent-requests', [AgentRequestController::class, 'allAgentRequests'])->name('admin.agent-requests');
+
+// Route::get('/admin-dashboard/reports/agent-requests',function(){
+//     return view('admin.reports.agent-requests');
+// })->name('admin.agent-requests');
+
 
 // Route::get('/admin-dashboard/global-monitoring',function(){
 //     return view('admin.global-monitoring');

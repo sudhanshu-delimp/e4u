@@ -264,7 +264,7 @@
                    '    <div class="userMessage">' +
                    '       <p>'+data.message+'</p>'+
                    '   </div>'+
-                   '       <span class="message_time">'+date_time_format(data.created_on)+'</span>'+
+                  '       <span class="message_time"> Member ID: '+data.user.member_id+',  '+date_time_format(data.created_on)+'</span>'+
                    '</div>';
 
                
@@ -275,7 +275,7 @@
                            '    <div class="adminMessage">' +
                            '       <p>'+conversation.message+'</p>'+
                            '   </div>'+
-                           '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
+                          '       <span class="message_time"> Member ID: '+conversation.user_from_admin.member_id+',   '+date_time_format(conversation.date_time)+'</span>'+
                            '</div>'+
                            // '<div class="col-sm-6 conversation"> </div>' +
                            '<div class="col-sm-6 conversation"> </div>';
@@ -286,7 +286,7 @@
                            '    <div class="userMessage">' +
                            '       <p>'+conversation.message+'</p>'+
                            '   </div>'+
-                           '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
+                          '       <span class="message_time">Member ID: '+conversation.user_from_user.member_id+',   '+date_time_format(conversation.date_time)+'</span>'+
                            '</div>';
                    }
                });

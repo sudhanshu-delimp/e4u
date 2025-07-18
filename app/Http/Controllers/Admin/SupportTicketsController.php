@@ -283,7 +283,17 @@ class SupportTicketsController extends AppController
 //     }
 
     function conversations($ticket_id) {
-        $ticket = SupportTickets::where('id', $ticket_id)->with('conversations')->with('User')->first();
+       
+          $ticket = SupportTickets::with([
+            'conversations',
+            'conversations.user_from_admin',
+            'conversations.user_from_user',
+            'user'
+        ])
+        ->where('id', $ticket_id)
+        ->first();
+       
+        //$ticket = SupportTickets::where('id', $ticket_id)->with('conversations')->with('User')->first();
         $ticket->status_id = $ticket->getRawOriginal('status');
         $ticket = $ticket->toArray();
         return response()->json($ticket);

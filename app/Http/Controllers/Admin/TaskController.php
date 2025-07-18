@@ -16,12 +16,17 @@ class TaskController extends Controller
     public function fetchTask(Request $request)
     {
         $data = Task::orderByRaw("CASE 
-            WHEN status = 'open' THEN 0 
-            WHEN status = 'inprogress' THEN 1 
+            WHEN status = 'inprogress' THEN 0 
+            WHEN status = 'open' THEN 1 
+            ELSE 2 
+        END")
+        ->orderByRaw("CASE 
+            WHEN priority = 'high' THEN 0 
+            WHEN priority = 'medium' THEN 1 
             ELSE 2 
         END")
         ->orderByDesc('id') // then by newest
-        ->paginate(7);
+        ->paginate(10);
 
         return response()->json([
             'status' => true,

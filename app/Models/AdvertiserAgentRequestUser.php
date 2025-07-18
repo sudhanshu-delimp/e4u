@@ -17,4 +17,12 @@ class AdvertiserAgentRequestUser extends Model
         'status',
     
     ];
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'receiver_agent_id','id');
+        
+    }
+
 }

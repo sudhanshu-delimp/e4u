@@ -75,14 +75,14 @@ class AgentRequestController extends Controller
     public function newRequest(Request $request)
     {
             
-            $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_users', function ($q) {
+            $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_user', function ($q) {
                 $q->where('status', 0)
                 ->where('receiver_agent_id', auth()->id());
             })
             ->with([
                 'user',
                 'user.state',
-                'advertiser_agent_request_users' => function ($q) {
+                'advertiser_agent_request_user' => function ($q) {
                     $q->where('status', 0)
                     ->where('receiver_agent_id', auth()->id());
                 },
@@ -147,14 +147,14 @@ class AgentRequestController extends Controller
     public function historyRequests(Request $request)
     {
 
-        $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_users', function ($q) {
+        $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_user', function ($q) {
                 $q->where('status', '!=', 0)
                 ->where('receiver_agent_id', auth()->id());
             })
             ->with([
                 'user',
                 'user.state',
-                'advertiser_agent_request_users' => function ($q) {
+                'advertiser_agent_request_user' => function ($q) {
                     $q->where('status', '!=', 0)
                     ->where('receiver_agent_id', auth()->id());
                 },
@@ -222,6 +222,40 @@ class AgentRequestController extends Controller
           return false;
         } 
 
+      }
+
+
+
+      public function allAgentRequests(Request $request)
+      {
+
+        $query = AdvertiserAgentRequest::whereHas('agent_request_users', function ($q) {
+                $q->where('id', '>', 0);
+            })
+            ->with([
+                'user:id,name,member_id,phone,state_id',
+                'user.state',
+                'agent_request_users.user:id,name,member_id,phone,state_id' ,
+                'agent_request_users' => function ($q) {
+                   $q->where('id', '>', 0);
+                },
+            ]);
+            
+            $search = $request->query('search');
+             if (!empty($search)) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('ref_number', 'like', "%{$search}%")
+                    ->orWhereHas('user', function ($u) use ($search) {
+                    $u->where('member_id', 'like', "%{$search}%");
+                     });
+                });
+            }
+
+            $lists = $query->orderBy('id', 'desc')->paginate(3);
+            //dd(json_decode(json_encode($lists),true));
+
+            
+            return view('admin.reports.agent-requests', compact('lists')); 
       }
 
 }
