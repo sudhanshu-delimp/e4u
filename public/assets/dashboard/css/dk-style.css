@@ -1731,7 +1731,7 @@ tr.custom--row th:not(tr.custom--row th:last-child) {
 } */
 
 .my_service_anal {
-    padding: 10px;
+    padding: 10px 10px 22px;
     background: var(--blue--text);
     border-radius: 5px;
     color: white;
@@ -1762,7 +1762,7 @@ tr.custom--row th:not(tr.custom--row th:last-child) {
 
 .my_service_anal .d_profile_name {
     position: absolute;
-    top: 30px;
+    top: 44px;
     font-size: 10px;
     color: #ededed;
 }
