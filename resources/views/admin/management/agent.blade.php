@@ -113,11 +113,11 @@
                                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                    </a>
                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                      <a class="dropdown-item view-account-btn" href="#" style="display: flex;align-items: center;justify-content: space-between;" data-id="S60001">View Account  <i class="fa fa-eye text-dark "></i></a>
+                                                      <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-id="S60001">  <i class="fa fa-eye "></i> View Account</a>
                                                       <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item" href="#" style="display: flex;align-items: center;justify-content: space-between;">Suspend   <i class="fa fa-ban text-dark"></i></a>
+                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Suspend</a>
                                                       <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item" href="#" style="display: flex;align-items: center;justify-content: space-between;" data-target="#edit_agent_data" data-toggle="modal">Edit  <i class="fa fa-pen text-dark"></i></a>
+                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-target="#edit_agent_data" data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>
                                                    </div>
                                                 </div>
                                              </td>

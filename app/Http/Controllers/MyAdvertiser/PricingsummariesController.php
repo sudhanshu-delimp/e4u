@@ -39,6 +39,8 @@ class PricingsummariesController extends Controller
             // auth()->user()->id,
         );
 
+        //dd($pricing);
+
         $data = array(
             "draw"            => intval(request()->input('draw')),
             "recordsTotal"    => intval($count),
