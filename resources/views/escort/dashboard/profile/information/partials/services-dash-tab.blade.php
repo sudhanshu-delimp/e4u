@@ -51,9 +51,11 @@
                                     <li class="mb-2" id="hideenclassOne_{{$value->id}}">
                                         <div class='my_service_anal hideenclassOne{{$value->id}}'>
                                             <span class="dollar-sign">{{$value->name}}</span>
+                                            <span class="d_profile_name">{{ $value->name }}</span>
                                             <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->pivot->price}}" min=0 step=10 max=200>
                                             <input type='hidden' name='service_id[]' value="{{$value->pivot->service_id}}" placeholder='test test '>
                                             <span id="span_id" data-id="{{$value->id}}">
+                                                <small class="mytool-tip">Remove</small>
                                             <i class='fas fa-times akh1' id="id_{{$value->id}}" value="{{$value->pivot->service_id}}" data-sname="{{$value->name}}" data-val="{{$value->pivot->service_id}}"></i>
                                             </span>
                                         </div>
@@ -94,9 +96,11 @@
                                     <li class="mb-2" id="hideenclassTwo_{{$value->id}}">
                                         <div class='my_service_anal hideenclassTwo{{$value->id}}'>
                                             <span class="dollar-sign">{{$value->name}}</span>
+                                            <span class="d_profile_name">{{ $value->name }}</span>
                                             <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->pivot->price}}" min=0 step=10 max=200>
                                             <input type='hidden' name='service_id[]' value="{{$value->pivot->service_id}}" placeholder=''>
                                             <span>
+                                                <small class="mytool-tip">Remove</small>
                                             <i class='fas fa-times akh2' id="idTwo_{{$value->id }}" value="{{$value->pivot->service_id}}"  data-sname="{{$value->name}}" data-val="{{$value->pivot->service_id}}"></i>
                                             </span>
                                         </div>
@@ -136,9 +140,12 @@
                                     <li class="mb-2" id="hideenclassThree_{{$value->id}}">
                                         <div class='my_service_anal hideenclassThree{{$value->id}}'>
                                             <span class="dollar-sign">{{$value->name}}</span>
+                                            <span class="d_profile_name">{{ $value->name }}</span>
                                             <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->pivot->price}}" min=0 step=10 max=200>
                                             <input type='hidden' name='service_id[]' value="{{$value->pivot->service_id}}" placeholder=''>
+                                           
                                             <span>
+                                                <small class="mytool-tip">Remove</small>
                                             <i class='fas fa-times akh3' id="idThree_{{$value->id}}" value="{{$value->pivot->service_id}}"  data-sname="{{$value->name}}" data-val="{{$value->pivot->service_id}}"></i>
                                             </span>
                                         </div>

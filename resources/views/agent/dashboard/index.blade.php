@@ -5,9 +5,151 @@
    <div class="row">
       <div class="custom-heading-wrapper col-md-12">
          <h1 class="h1">Dashboard</h1>
+         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+      </div>
+      <div class="col-md-12 mb-4">
+         <div class="card collapse" id="notes" style="">
+            <div class="card-body">
+               <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+               <ol>
+                  <li>Click the card to view information.</li> 
+                  <li>For an expanded summary of card items, refer to the side bar menu under the relevant
+                     section.</li>
+               </ol>
+            </div>
+         </div>
       </div>
    </div>
-   <div class="row agent-dash">
+
+   
+   <div class="row mb-4">
+      {{-- box start --}}
+      <div class="col-lg-4 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ route('agent.my-income') }}">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-income.png') }}" alt="My Income">
+                  </div>
+                  <h2>
+                      My Income
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- end --}}
+      {{-- box start --}}
+      <div class="col-lg-4 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ route('agent.my-statistics') }}">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-statistics.png') }}" alt=" My Statistics">
+                  </div>
+                  <h2>
+                     My Statistics
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- end --}}
+      {{-- box start --}}
+      <div class="col-lg-4 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ route('agent.task-list') }}">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/task-list.png') }}" alt="Task List">
+                  </div>
+                  <h2>
+                     Task List
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- end --}}
+      {{-- box start --}}
+      <div class="col-lg-4 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ route('agent.my-appointments') }}">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-appointments.png') }}" alt="My Appointments">
+                  </div>
+                  <h2>
+                     My Appointments
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- end --}}
+      {{-- box start --}}
+      <div class="col-lg-4 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ route('agent.manage.escorts.list') }}">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-advertisers.png') }}" alt="My Advertiser">
+                  </div>
+                  <h2>
+                     My Advertiser
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- end --}}
+      {{-- box start --}}
+      <div class="col-lg-4 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ route('agent.advertisers') }}">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-advertisers.png') }}" alt="Advertisers ">
+                  </div>
+                  <h2>
+                     Advertisers (Summary) 
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- end --}}
+      {{-- box start --}}
+      <div class="col-lg-4 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ route('agent.logs-and-statistics') }}">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/logs-and-statistics.png') }}" alt="Logs & Statistics">
+                  </div>
+                  <h2>
+                     Logs & Statistics
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- end --}}
+
+      {{-- box start --}}
+      <div class="col-lg-4 box-wrapper">
+         <div class="my-custom-box shadow-sm">
+             <a href="{{ route('marketing.agencreate-prospect') }}">
+                 <div class="box-icon">
+                     <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt="Logs & Statistics">
+                 </div>
+                 <h2>
+                  Database (Centres)
+                 </h2>
+             </a>
+
+         </div>
+     </div>
+     {{-- end --}}
+  </div>
+
+
+
+
+   <div class="row agent-dash d-none">
       <div class="col-lg-8 pr-2">
          <div class="sec-one">
             <h2 class="h5 mt-2 mb-4 text-gray-800 font-weight-bold">My Statistics</h2>
@@ -119,7 +261,7 @@
          </div>
       </div>
    </div>
-   <div class="row mt-3 mb-5">
+   <div class="row mt-3 mb-5 d-none">
       <!-- Area Chart -->
       <div class="col-xl-8 col-lg-7 pr-2">
          <div class="card shadow mb-3">
