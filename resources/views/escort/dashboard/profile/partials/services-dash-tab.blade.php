@@ -13,7 +13,7 @@
         <div class="fill_profile_headings_global">
             <h2>My Services</h2>
         </div>
-        <div class="padding_20_all_side pb-0">
+        <div class="padding_20_all_side pb-0 js_profile_services">
             @if (request()->segment(2) == 'profile' && request()->segment(3))
                 <form id="myServicesForm" name="myServicesForm"
                     action="{{ route('escort.store.services', [$escort->id]) }}" method="POST">
@@ -26,7 +26,7 @@
                             <label class="font-weight-500 col-sm-5" for="exampleFormControlSelect1">Fun Stuff - On
                                 Viewer</label>
                             <div class="col-sm-7">
-                                <select class="form-control form-control-sm select_tag_remove_box_sadow"
+                                <select class="form-control form-control-sm select_tag_remove_box_sadow js_profile_service_tags"
                                     id="service_id_one">
                                     <option value="" selected disable>--Select--</option>
                                     @foreach ($service_one as $key => $name)
@@ -53,7 +53,7 @@
                                             <input type='hidden' name='service_id[]'
                                                 value="{{ $value->pivot->service_id }}" placeholder='test test '>
                                             <span id="span_id" data-id="{{ $value->id }}">
-                                                <i class='fas fa-times akh1' id="id_{{ $value->id }}"
+                                                <i class='fas fa-times-circle akh1 {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"js_defaultProfileService":""}}' id="id_{{ $value->id }}"
                                                     value="{{ $value->pivot->service_id }}"
                                                     data-sname="{{ $value->name }}"
                                                     data-val="{{ $value->pivot->service_id }}"></i>
@@ -74,7 +74,7 @@
                             <label class="font-weight-500 col-sm-5" for="exampleFormControlSelect1">Kinky Stuff - On
                                 Viewer</label>
                             <div class="col-sm-7">
-                                <select class="form-control form-control-sm select_tag_remove_box_sadow"
+                                <select class="form-control form-control-sm select_tag_remove_box_sadow js_profile_service_tags"
                                     id="service_id_two">
                                     <option value="" selected disable>--Select--</option>
                                     @foreach ($service_two as $key => $name)
@@ -89,8 +89,6 @@
                 <div class="row">
                     <div class="col">
                         <div class="manage_tag_style">
-                            <ul id="my_service_anal_two" style="display:none">
-                            </ul>
                             <ul id="selected_service_two">
                                 @foreach ($escort->services()->where('category_id', 2)->get() as $key => $value)
                                     <li class="mb-2" id="hideenclassTwo_{{ $value->id }}">
@@ -102,7 +100,7 @@
                                             <input type='hidden' name='service_id[]'
                                                 value="{{ $value->pivot->service_id }}" placeholder=''>
                                             <span>
-                                                <i class='fas fa-times akh2' id="idTwo_{{ $value->id }}"
+                                                <i class='fas fa-times-circle akh2 {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"js_defaultProfileService":""}}' id="idTwo_{{ $value->id }}"
                                                     value="{{ $value->pivot->service_id }}"
                                                     data-sname="{{ $value->name }}"
                                                     data-val="{{ $value->pivot->service_id }}"></i>
@@ -122,7 +120,7 @@
                             <label class="font-weight-500 col-sm-5" for="exampleFormControlSelect1">Fun Stuff - On
                                 Me</label>
                             <div class="col-sm-7">
-                                <select class="form-control form-control-sm select_tag_remove_box_sadow"
+                                <select class="form-control form-control-sm select_tag_remove_box_sadow js_profile_service_tags"
                                     id="service_id_three">
                                     <option value="" selected disable>--Select--</option>
                                     @foreach ($service_three as $key => $name)
@@ -137,8 +135,6 @@
                 <div class="row">
                     <div class="col">
                         <div class="manage_tag_style">
-                            <ul id="my_service_anal_three" style="display:none">
-                            </ul>
                             <ul id="selected_service_three">
                                 @foreach ($escort->services()->where('category_id', 3)->get() as $key => $value)
                                     <li class="mb-2" id="hideenclassThree_{{ $value->id }}">
@@ -150,7 +146,7 @@
                                             <input type='hidden' name='service_id[]'
                                                 value="{{ $value->pivot->service_id }}" placeholder=''>
                                             <span>
-                                                <i class='fas fa-times akh3' id="idThree_{{ $value->id }}"
+                                                <i class='fas fa-times-circle akh3 {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"js_defaultProfileService":""}}' id="idThree_{{ $value->id }}"
                                                     value="{{ $value->pivot->service_id }}"
                                                     data-sname="{{ $value->name }}"
                                                     data-val="{{ $value->pivot->service_id }}"></i>
