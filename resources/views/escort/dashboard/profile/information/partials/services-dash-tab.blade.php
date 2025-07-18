@@ -51,7 +51,6 @@
                                     <li class="mb-2" id="hideenclassOne_{{$value->id}}">
                                         <div class='my_service_anal hideenclassOne{{$value->id}}'>
                                             <span class="dollar-sign">{{$value->name}}</span>
-                                            <span class="d_profile_name">{{ $value->name }}</span>
                                             <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->pivot->price}}" min=0 step=10 max=200>
                                             <input type='hidden' name='service_id[]' value="{{$value->pivot->service_id}}" placeholder='test test '>
                                             <span id="span_id" data-id="{{$value->id}}">
@@ -96,7 +95,6 @@
                                     <li class="mb-2" id="hideenclassTwo_{{$value->id}}">
                                         <div class='my_service_anal hideenclassTwo{{$value->id}}'>
                                             <span class="dollar-sign">{{$value->name}}</span>
-                                            <span class="d_profile_name">{{ $value->name }}</span>
                                             <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->pivot->price}}" min=0 step=10 max=200>
                                             <input type='hidden' name='service_id[]' value="{{$value->pivot->service_id}}" placeholder=''>
                                             <span>
@@ -140,7 +138,7 @@
                                     <li class="mb-2" id="hideenclassThree_{{$value->id}}">
                                         <div class='my_service_anal hideenclassThree{{$value->id}}'>
                                             <span class="dollar-sign">{{$value->name}}</span>
-                                            <span class="d_profile_name">{{ $value->name }}</span>
+                                           
                                             <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' value="{{$value->pivot->price}}" min=0 step=10 max=200>
                                             <input type='hidden' name='service_id[]' value="{{$value->pivot->service_id}}" placeholder=''>
                                            
