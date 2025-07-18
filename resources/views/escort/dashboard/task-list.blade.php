@@ -281,9 +281,11 @@
                 let buttonId = $(this).attr('id');
                 let taskId = $(this).data('id');
                 let taskName = $(this).text();
+                let taskTitle = $(this).parents('tr').find('.task_title_class').text();
 
                 console.log('hell', buttonId);
                 console.log('taskId ', taskId);
+                console.log('taskTitle ', taskTitle);
 
 
                 if (buttonId == 'new_task') {
@@ -296,7 +298,7 @@
                     $('#task_title').text(taskName);
                     viewTask(taskId);
                 } else if (buttonId == 'complete_task') {
-                    $('#task_title').text(taskName);
+                    $('#task_title').text(taskTitle);
                     completeTask(taskId);
                 } else if (buttonId == 'open_task') {
                     $('#task_title').text(taskName);
@@ -536,27 +538,10 @@
             });
         }
 
-        function completeTask(taskId) {
-            // let completeHtml =
-            //     `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
-            // var checkboxInputs = $(".task_table input[type='checkbox']:checked");
-
-            // if (checkboxInputs.length === 0) {
-            //     $("#task_form_html").html(completeHtml);
-            //     $("#save_button").hide();
-            //     $("#cancel_button").text('Cancel');
-            //     return false;
-            // }
-
+        function completeTask(taskId) 
+        {
             let selectedTask = 1;
             let completedTaskIds = [];
-
-            // for (selectedTask; selectedTask <= checkboxInputs.length; selectedTask++) {
-                // let taskId = $(this).data('id');
-                // if (taskId) {
-                //     completedTaskIds.push(taskId);
-                // }
-            // }
 
             let formData = {
                 'task_id': taskId,
@@ -575,88 +560,12 @@
             console.log(actionStatusUrl);
             $('#task_form').attr('action', actionStatusUrl)
             $("#change_task_id").val(taskId);
-            //callAjax(formData, actionStatusUrl);
-
-
-            // let formData = new FormData();
-            // formData.append('task_ids', JSON.stringify(completedTaskIds)); //
-
-            // completeHtml =
-            //     `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc">Are you sure you want to mark all selected tasks as completed?</h4></div>`;
-
-            // $("#task_form_html").html(completeHtml);
-            // let actionUrl = "{{route('dashboard.ajax-change-status')}}";
-            // $("#save_button").text('Yes');
-            // $("#save_button").show();
-            // $("#cancel_button").text('Cancel');
-
-            // callAjax(formData, actionUrl);
         }
 
-        function viewTask(taskId) {
-            // let completeHtml =
-            //     `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
-            // var checkboxInputs = $(".task_table input[type='checkbox']:checked");
-
-            // if (checkboxInputs.length === 0) {
-            //     $("#task_form_html").html(completeHtml);
-            //     $("#save_button").hide();
-            //     $("#cancel_button").text('Cancel');
-            //     return false; 
-            // }
-
-            // console.log(checkboxInputs.length, ' jite');
+        function viewTask(taskId) 
+        {           
             let selectedTask = 1;
             let viewTaskHtml = ``;
-            // for (selectedTask; selectedTask <= checkboxInputs.length; selectedTask++) {
-                // viewTaskHtml += `
-                //     <div class="task-form-wrapper mx-auto my-2 col-md-11" style="cursor:pointer;">
-                //         <div class=" col-md-12 card shadow-sm  rounded-3">
-                //             <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10" style="background:#C2CFE0; ">
-                //                 <h6 class="mb-0 text-dark">Task Summary</h6> <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>                            
-                //             </div>
-                //             <div class="task-form-body p-2" style="display: block;">
-                //                 <!-- Your original form HTML -->
-                //                 <div class="form-group">
-                //                     <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
-                //                     <input id="title" placeholder="Enter Title..." name="title" type="text" class="form-control" required>
-                //                 </div>
-
-                //                 <div class="pt-2 pb-3">
-                //                     <label><b>Importance</b><span class="text-danger">*</span></label><br>
-                //                     <div class="form-check form-check-inline">
-                //                         <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio1" value="high">
-                //                         <label class="form-check-label" for="inlineRadio1">High</label>
-                //                     </div>
-                //                     <div class="form-check form-check-inline">
-                //                         <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio2" value="medium" checked>
-                //                         <label class="form-check-label" for="inlineRadio2">Medium</label>
-                //                     </div>
-                //                     <div class="form-check form-check-inline">
-                //                         <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio3" value="low">
-                //                         <label class="form-check-label" for="inlineRadio3">Low</label>
-                //                     </div>
-                //                 </div>
-
-                //                 <div class="form-group">
-                //                     <label for="status"><b>Status</b><span class="text-danger">*</span></label>
-                //                     <select class="custom-select" name="status" id="status">
-                //                         <option value="open">Open</option>
-                //                         <option value="inprogress">In Progress</option>
-                //                         <option value="completed">Completed</option>
-                //                     </select>
-                //                 </div>
-
-                //                 <div class="form-group">
-                //                     <label for="exampleFormControlTextarea1"><b>Description</b></label>
-                //                     <textarea class="form-control" name="description" rows="5" placeholder="Up to 300 characters"></textarea>
-                //                 </div>
-                //             </div>
-                //         </div>
-                        
-                //     </div>
-                // `;
-            // }
 
             viewTaskHtml += `
                 <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
@@ -883,12 +792,12 @@
                             </div>
                         </td>-->
                         <td class=" task-color">
-                            <label for="`+checkboxId+`" class="mb-0 cursor-pointer">
+                            <label for="`+checkboxId+`" class="mb-0 cursor-pointer ">
                             <i
-                                class="fas fa-circle `+priorityColor+` taski mr-2"></i>`+task.title+`
+                                class="fas fa-circle `+priorityColor+` taski mr-2 "></i><span class="task_title_class">`+task.title.charAt(0).toUpperCase()+task.title.slice(1).toLowerCase()+`</span>
                             </label></td>
                         <td class="td-actions text-center ">
-                            <span class="badge badge-danger-lighten task-1" style="background: `+taskBadgeColor+`; padding:5px 10px; max-width:120px; width:100%;">`+task.status.toUpperCase()+`</span>
+                            <span class="badge badge-danger-lighten task-1" style="background: `+taskBadgeColor+`; padding:5px 10px; max-width:120px; width:100%;">`+task.status.charAt(0).toUpperCase() + task.status.slice(1).toLowerCase()+`</span>
                         </td>
                         <td class="theme-color text-center bg-white ">
                             <div class="dropdown no-arrow">
@@ -903,10 +812,10 @@
                                          <a class="dropdown-item create-tour-sec-dropdown" href="#" id="edit_task" data-id=`+taskId+`>Edit Task</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item create-tour-sec-dropdown" href="#" id="complete_task" data-id=`+taskId+`>Complete Task</a>
+                                         <a class="dropdown-item create-tour-sec-dropdown" href="#" id="complete_task" data-id=`+taskId+`>Completed Task</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item create-tour-sec-dropdown" href="#" id="view_task" data-id=`+taskId+`>View</a>
+                                         <a class="dropdown-item create-tour-sec-dropdown" href="#" id="view_task" data-id=`+taskId+`>View Task</a>
                                     
                                 </div>
                             </div>

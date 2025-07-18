@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Escort;
 use App\Models\MyLegbox;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +18,76 @@ class EscortMyLegboxViewerController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $escortIds = MyLegbox::where('user_id', $user->id)->pluck('escort_id');
-        $escorts = Escort::whereIn('id', $escortIds)->where('enabled', 1)->get();
-        return view('escort.dashboard.my-legbox-viewers', ['escorts' => $escorts]);
+        $escortIds = Escort::where('user_id', $user->id)->where('enabled', 1)->pluck('id');
+        $legboxEscortUserIds = MyLegbox::whereIn('escort_id', $escortIds)->pluck('user_id')->unique();
+        $viewers = User::whereIn('id',$legboxEscortUserIds)->get();
+
+        return view('escort.dashboard.my-legbox-viewers', ['viewers' => $viewers]);
+    }
+
+     public function dataTableListingAjax()
+    {
+        $user = Auth::user();
+        $escortIds = Escort::where('user_id', $user->id)->where('enabled', 1)->pluck('id');
+        $legboxEscortUserIds = MyLegbox::whereIn('escort_id', $escortIds)->pluck('user_id')->unique();
+        $viewers = User::whereIn('id',$legboxEscortUserIds)->get();
+
+        $actionButtons = `<div class="dropdown no-arrow ml-3">
+                                    <input type="hidden" class="tortalRecords" value="` . count($viewers) . `">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                    </a>
+                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        aria-labelledby="dropdownMenuLink" style="">
+                                        <a class="dropdown-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#view-listing" href="#">View Listing <i class="fa fa-eye text-dark"
+                                                style="color: var(--peach);" ></i></a>
+                                    </div>
+                                </div>`;
+
+        return DataTables::of($viewers)
+            ->addColumn('viewer_id', fn($row) => $row->member_id)
+            ->addColumn('home_state', fn($row) => $row->state_id )
+            ->addColumn('home_state', fn($row) => config(
+                            "escorts.profile.states.$row->state_id.cities.$row->city_id.cityName",
+                        ) ?? '-')
+            ->addColumn('profile_name', fn($row) => $row['profile_name'] )
+            ->addColumn('masseurs', fn($row) => $masseurs)
+            ->addColumn('start_date', fn($row) =>  date('d-m-Y', strtotime($row['start_date'])))
+            ->addColumn('end_date', fn($row) => date('d-m-Y', strtotime($row['end_date'])))
+            ->addColumn('days', function($row){
+
+                $startDate = Carbon::parse(date('d-m-Y', strtotime($row['start_date'])))->startOfDay();
+                $endDate = Carbon::parse(date('d-m-Y', strtotime($row['end_date'])))->startOfDay();
+
+                if ($startDate && $endDate) {
+                    // If end_date is after or equal to start_date, calculate days (inclusive)
+                    if ($endDate->gte($startDate)) {
+                        return $startDate->diffInDays($endDate) + 1 ;
+                    }
+                }
+
+                return  0; // Invalid date range
+                
+            })
+            ->addColumn('left_days', function ($row) {
+                $startDate = Carbon::parse(date('d-m-Y', strtotime($row['start_date'])))->startOfDay();
+                $endDate = Carbon::parse(date('d-m-Y', strtotime($row['end_date'])))->startOfDay();
+                $now = Carbon::now()->startOfDay();
+                $left = $endDate->diffInDays($now) + 1;                
+
+                if($startDate > $now){
+                    return '-';
+                }else if($endDate < $now){
+                   return '0';
+                }else{
+                    return $left ;
+                }
+                
+            })
+            ->addColumn('action', fn($row) => $actionButtons)
+            ->rawColumns(['action']) // if you're returning HTML
+            ->make(true);
     }
 
     public function dashboard()
