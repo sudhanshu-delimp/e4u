@@ -171,7 +171,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Concierge_Services">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -188,7 +188,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Concierge_Services">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -205,7 +205,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Concierge_Services">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -222,7 +222,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Concierge_Services">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -239,7 +239,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Concierge_Services">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -305,7 +305,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Support_Services">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -322,7 +322,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Support_Services">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -339,7 +339,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Support_Services">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -356,7 +356,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Support_Services">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -373,7 +373,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Support_Services">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -390,7 +390,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Support_Services">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -407,7 +407,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Support_Services">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -424,7 +424,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Support_Services">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -491,7 +491,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Edit_Competitor">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -510,7 +510,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Edit_Competitor">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -568,7 +568,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Agent_Operator">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Agent_Operator"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -585,7 +585,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Agent_Operator">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Agent_Operator"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -602,7 +602,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#Agent_Operator">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Agent_Operator"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -667,7 +667,7 @@
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#playbox">Edit <i class="fa fa-fw fa-pen "></i></a>
+                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#playbox"><i class="fa fa-fw fa-pen "></i> Edit </a>
                                            
                                        </div>
                                    </div>
@@ -981,8 +981,8 @@ $(document).ready(function(){
          "sSearch": '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>',
 
          oPaginate: {
-         sNext: '<span aria-hidden="true">»</span>',
-         sPrevious: '<span aria-hidden="true">«</span>',
+         sNext: '<span aria-hidden="true">Next</span>',
+         sPrevious: '<span aria-hidden="true">Previous</span>',
          sFirst: '<span aria-hidden="true">»</span>',
          sLast: '<span aria-hidden="true">»</span>'
          }

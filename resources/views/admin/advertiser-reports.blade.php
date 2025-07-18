@@ -153,23 +153,23 @@
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink">
                                     
-                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
-                                        Current 
-                                        <i class="fa fa-hourglass-half text-dark" ></i>
+                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">
+                                       
+                                        <i class="fa fa-hourglass-half text-dark" ></i> Current 
                                     </a>
 
                                     <div class="dropdown-divider"></div>
 
-                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#"  data-toggle="modal" data-target="#confirm-popup">
-                                        Resolved 
-                                        <i class="fa fa-check-circle text-dark"></i>
+                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"  data-toggle="modal" data-target="#confirm-popup">
+                                        
+                                        <i class="fa fa-check-circle text-dark"></i>Resolved 
                                     </a>
 
                                     <div class="dropdown-divider"></div>
 
-                                    <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
-                                        View 
-                                        <i class="fa fa-eye text-dark"></i>
+                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">
+                                       
+                                        <i class="fa fa-eye text-dark"></i> View 
                                     </a>
                                     </div>
 
