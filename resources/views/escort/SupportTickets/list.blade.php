@@ -49,7 +49,7 @@
                             <th>Subject</th>
                             <th>Date Created</th>
                             <th>Document</th>
-                            <th>Status</th>
+                            <th width="900px">Status</th>
                             <!--<th>Joined E4U</th>-->
                             <th>Action</th>
                         </tr>
