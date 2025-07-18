@@ -10,7 +10,7 @@ function date_time_format(dateString) {
         hour12: true
     };
 
-    return formatted = date.toLocaleString('en-US', options);
+    return formatted = date.toLocaleString('en-GB', options);
 }
 
 

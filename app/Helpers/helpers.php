@@ -304,3 +304,14 @@ if (!function_exists('getEscortTimezone')) {
         return $escortTimezone;
     }
 }
+
+if (!function_exists('app_date_time_format')) {
+
+     function app_date_time_format($datetime)
+     {
+        return \Carbon\Carbon::parse($datetime)->format('d M Y, h:i A');
+            
+     }
+     
+}
+

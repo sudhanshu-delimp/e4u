@@ -63,13 +63,13 @@
                     <table class="table table-hover" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                         <tr>
-                            <th>Ticket ID</th>
+                            <th>Ticket ID </th>
                             <th>Department</th>
                             <th>Priority</th>
                             <th>Service Type</th>
                             <th>Subject</th>
-                            <th>Message</th>
                             <th>Date Created</th>
+                            <th>Document</th>
                             <th>Status</th>
                             <!--<th>Joined E4U</th>-->
                             <th>Action</th>
@@ -120,6 +120,7 @@
                     <form id="sendMessage">
                        <div class="reply-message-box">
                         <textarea class="messageBox" name="message" id="message" rows="2" required></textarea>
+                        <input type="hidden" name="ticketId"  id="ticketId" value="">
                         <button class="btn btn-info send-btn" id="submit_message">Send</button>
                        </div>
                     </form>
@@ -140,82 +141,99 @@
         }
     });
    $(document).ready( function () {
+
        var table = $("#supportTicketsTable").DataTable({
-           "language": {
-               "zeroRecords": "No record(s) found."
-           },
-           processing: true,
-           serverSide: true,
-           lengthChange: true,
+        language: {
+            zeroRecords: "No record(s) found."
+        },
+        processing: true,
+        serverSide: true,
+        lengthChange: true,
+        searching: true,
+        bStateSave: false,
 
-           searchable:false,
-           //searching:false,
-           bStateSave: false,
+        ajax: {
+            url: "{{ route('support-ticket.dataTable') }}",
+            type: 'GET',
+            data: function (d) {
+                d.type = 'player';
+                // You can add additional filters here if needed
+            }
+        },
 
-           ajax: {
-               url: "{{ route('support-ticket.dataTable') }}",
-               data: function (d) {
-                   d.type = 'player';
-               }
-           },
-           columns: [
-               { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'service_type', name: 'service_type', searchable: false, orderable:true ,defaultContent: 'NA'},
-               { data: 'subject', name: 'start_date', searchable: true, orderable:true,defaultContent: 'NA' },
-               { data: 'message', name: 'enabled', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'created_on', name: 'date_created', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'status_mod', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
-           ],
-           order: [6, 'desc'],
-       });
+        columns: [
+            { data: 'ref_number', name: 'ref_number', orderable: true, defaultContent: 'NA' },
+            { data: 'department', name: 'department', orderable: true, defaultContent: 'NA' },
+            { data: 'priority', name: 'priority', orderable: true, defaultContent: 'NA' },
+            { data: 'service_type', name: 'service_type', orderable: true, defaultContent: 'NA' },
+            { data: 'subject', name: 'subject', orderable: true, defaultContent: 'NA' },
+            { data: 'created_on', name: 'created_on', orderable: true, defaultContent: 'NA' },
+            { data: 'file', name: 'file', orderable: true, defaultContent: 'No Documents' },
+            { data: 'status_mod', name: 'status_mod', orderable: true, defaultContent: 'NA' },
+            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
+        ],
 
+        order: [[6, 'desc']], // Default sort by created_on descending
 
-       $(document).on('click', ".view_ticket", function() {
-           ticketId = $(this).closest('tr').find('td:first').html();
-           $.ajax({
-               method: "GET",
-               url: "{{ route('support-ticket.conversations') }}" + '/' + ticketId,
-               headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-               success: function (data) {
-                   $("#ticket_name").html(data.subject);
-                   var html = '<div class="col-sm-6 conversation"> </div>' +
-                               // '<div class="col-sm-6 conversation"> </div>' +
-                               '<div class="col-sm-6 conversation">' +
-                               '    <div class="userMessage">' +
-                                '       <p>'+data.message+'</p>'+
-                                '   </div>'+
-                       '       <span class="message_time">'+data.created_on+'</span>'+
-                                '</div>';
-                   $(data.conversations).each(function( index, conversation ) {
-                       if(conversation.admin_id) {
-                           html +=
-                               '<div class="col-sm-6 conversation">' +
-                               '    <div class="adminMessage">' +
-                               '       <p>'+conversation.message+'</p>'+
-                               '   </div>'+
-                               '       <span class="message_time">'+conversation.date_time+'</span>'+
-                               '</div>'+
-                               // '<div class="col-sm-6 conversation"> </div>' +
-                               '<div class="col-sm-6 conversation"> </div>';
-                       } else {
-                           html += '<div class="col-sm-6 conversation"> </div>' +
-                               // '<div class="col-sm-6 conversation"> </div>' +
-                               '<div class="col-sm-6 conversation">' +
-                               '    <div class="userMessage">' +
-                               '       <p>'+conversation.message+'</p>'+
-                               '   </div>'+
-                               '       <span class="message_time">'+conversation.date_time+'</span>'+
-                               '</div>';
-                       }
-                   });
-                   $("#conv-main").html(html);
-               }
-           })
-       });
+        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+        pageLength: 10,
+    });
+
+     $(document).on('click', ".view_ticket", function () {
+        var ticketId = $(this).data("id");
+        _load_conversations(ticketId);
+    });
+      
    });
+
+   function _load_conversations(tId) {
+       $("#conv-main").html('');
+       $.ajax({
+           method: "GET",
+           url: "{{ route('support-ticket.conversations') }}" + '/' + tId,
+           headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+           success: function (data) {
+               if(data.status_id == 3 || data.status_id == 4) {
+                   $("#sendMessage").parent().hide();
+               }
+               var modalHeading = "<b>"+data.subject+'</b> - '+ date_time_format(data.created_on) +'<br>';
+               // "<span>"+data.user.name+'</span> ( '+ data.user.member_id +')';
+               $("#ticket_name").html(modalHeading);
+               var html = '<div class="col-sm-6 conversation"> </div>' +
+                   // '<div class="col-sm-6 conversation"> </div>' +
+                   '<div class="col-sm-6 conversation">' +
+                   '    <div class="userMessage">' +
+                   '       <p>'+data.message+'</p>'+
+                   '   </div>'+
+                   '       <span class="message_time"> Member ID: '+data.user.member_id+',  '+date_time_format(data.created_on)+'</span>'+
+                   '</div>';
+               $(data.conversations).each(function( index, conversation ) {
+                   if(conversation.admin_id) {
+                       html +=
+                           '<div class="col-sm-6 conversation">' +
+                           '    <div class="adminMessage">' +
+                           '       <p>'+conversation.message+'</p>'+
+                           '   </div>'+
+                           '       <span class="message_time"> Member ID: '+conversation.user_from_admin.member_id+',   '+date_time_format(conversation.date_time)+'</span>'+
+                           '</div>'+
+                           // '<div class="col-sm-6 conversation"> </div>' +
+                           '<div class="col-sm-6 conversation"> </div>';
+                   } else {
+                       html += '<div class="col-sm-6 conversation"> </div>' +
+                           // '<div class="col-sm-6 conversation"> </div>' +
+                           '<div class="col-sm-6 conversation">' +
+                           '    <div class="userMessage">' +
+                           '       <p>'+conversation.message+'</p>'+
+                           '   </div>'+
+                           '       <span class="message_time">Member ID: '+conversation.user_from_user.member_id+',   '+date_time_format(conversation.date_time)+'</span>'+
+                           '</div>';
+                   }
+               });
+               $("#conv-main").html(html);
+                $("#ticketId").val(tId);
+           }
+       })
+   }
 
     $("#submit_message").on('click', function (e) {
         e.preventDefault();
@@ -224,7 +242,7 @@
             method: "POST",
             dataType: "json",
             data: {
-                ticketId: ticketId,
+                ticketId: $("#ticketId").val(),
                 message: message
             },
             url: "{{ route('support-ticket.saveMessage') }}",
@@ -270,5 +288,14 @@
 
            })
        });*/
+
+       
+</script>
+<script>
+@foreach(['success', 'warning', 'info', 'error'] as $alert)
+@if (Session::has($alert))
+swal.fire('', '{{Session::get($alert)}}', '{{$alert}}');
+@endif
+@endforeach
 </script>
 @endpush

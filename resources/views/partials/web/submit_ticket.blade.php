@@ -79,6 +79,8 @@
     <!--middle content end here-->
 </div>
 <script>
+
+    
 $(document).ready(function() {
    $('#supportTicket').on('submit', function() {
         $('#submitTicketBtn')

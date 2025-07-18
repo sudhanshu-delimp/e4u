@@ -16,4 +16,15 @@ class TicketConversations extends Model
     {
         return $this->belongsTo('App\Models\SupportTickets', 'support_ticket_id');
     }
+
+
+        public function user_from_admin()
+        {
+            return $this->belongsTo(User::class, 'admin_id');
+        }
+
+        public function user_from_user()
+        {
+            return $this->belongsTo(User::class, 'user_id');
+        }
 }
