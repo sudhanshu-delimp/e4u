@@ -287,12 +287,8 @@
            </a>
            <a class="collapse-item" href="{{ route('escort.dashboard.agent-messages')}}">
               <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png')}}">
-              <span style="{{request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : ''}}">Agent Messages</span>
+              <span style="{{request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : ''}}">Messages</span>
           </a>
-          <a class="collapse-item" href="{{ route('escort.dashboard.viewers-messages')}}">
-             <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png')}}">
-             <span style="{{request()->segment(2) == 'viewers-messages' ? 'color: #e5365a;' : ''}}">Viewer Messages</span>
-         </a>
 
             {{--<a class="collapse-item" href="{{url('escort-dashboard/viewer-notes')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/ccfour.png')}}">

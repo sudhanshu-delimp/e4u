@@ -12,120 +12,46 @@
 <div id="content-wrapper" class="d-flex flex-column">
    <!-- Main Content -->
    <div id="content">
-      <div class="container-fluid">
-         <!--middle content-->
-         {{-- Page Heading   --}}
+      <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
          <div class="row">
-            <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
-                <h1 class="h1">Console Report</h1>
-                <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+            <div class="custom-heading-wrapper col-md-12">
+               <h1 class="h1">Console Report</h1>
+               <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
             </div>
-            <div class="col-md-12 my-2">
+            <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
-                <div class="card-body">
-                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                    <ol></ol>
-                </div>
+                  <div class="card-body">
+                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                     <ol></ol>
+                  </div>
                 </div>
             </div>
-        </div>
-        {{-- end --}}
-         <div class="row mt-5">
-            <div class="col-sm-12 col-md-12 col-lg-12 ">
-               <!-- Begin Page Content -->
-               <div class="container-fluid" style="padding: 0px 0px;">
-                
-                  {{-- 
-                  <div class="row">
-                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <form class="search-form-bg navbar-search">
-                           <div class="input-group">
-                              <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                              <div class="input-group-append">
-                                 <button class="btn-right-icon" type="button">
-                                 <i class="fas fa-search fa-sm"></i>
-                                 </button>
-                              </div>
-                           </div>
-                        </form>
-                     </div>
-                  </div>
-                  --}}
-               </div>
-               <!-- /.container-fluid --><br>
-               <div class="row">
-                  <div class="col-md-8">
-                     <div id="table-sec" class="table-responsive-xl pt-1">
-                        <table class="table" id="consoleDatatable">
-                           <thead class="table-bg">
-                              <tr>
-                                 <th scope="col">Member ID</th>
-                                 <th scope="col">Name</th>
-                                 <th scope="col">Type</th>
-                                 <th scope="col">Location</th>
-                                 <th scope="col">Action</th>
-                              </tr>
-                           </thead>
-                           {{-- 
-                           <tbody class="table-content">
-                              <tr class="row-color">
-                                 <td class="theme-color">S60001</td>
-                                 <td class="theme-color">Wayne Primrose</td>
-                                 <td class="theme-color">S</td>
-                                 <td class="theme-color">Western Australia</td>
-                                 <td class="theme-color"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></td>
-                              </tr>
-                              <tr class="row-color">
-                                 <td class="theme-color">S60001</td>
-                                 <td class="theme-color">Wayne Primrose</td>
-                                 <td class="theme-color">S</td>
-                                 <td class="theme-color">Western Australia</td>
-                                 <td class="theme-color"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></td>
-                              </tr>
-                              <tr class="row-color">
-                                 <td class="theme-color">S60001</td>
-                                 <td class="theme-color">Wayne Primrose</td>
-                                 <td class="theme-color">S</td>
-                                 <td class="theme-color">Western Australia</td>
-                                 <td class="theme-color"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></td>
-                              </tr>
-                           </tbody>
-                           --}}
-                        </table>
-                        {{-- 
-                        <nav aria-label="Page navigation example">
-                           <ul class="pagination float-right pt-4">
-                              <li class="page-item">
-                                 <a class="page-link" href="#" aria-label="Previous">
-                                 <span aria-hidden="true">«</span>
-                                 <span class="sr-only">Previous</span>
-                                 </a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#">1</a></li>
-                              <li class="page-item"><a class="page-link" href="#">2</a></li>
-                              <li class="page-item"><a class="page-link" href="#">3</a></li>
-                              <li class="page-item">
-                                 <a class="page-link" href="#" aria-label="Next">
-                                 <span aria-hidden="true">»</span>
-                                 <span class="sr-only">Next</span>
-                                 </a>
-                              </li>
-                           </ul>
-                        </nav>
-                        --}}
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <!--middle content end here-->
-            <!--right side bar start from here-->
          </div>
-         <!--right side bar end-->
+        {{-- end --}}
+         <div class="row">
+            <div class="col-md-12">
+               <div  class="table-responsive-xl">
+                  <table class="table" id="consoleDatatable">
+                     <thead class="table-bg">
+                        <tr>
+                           <th scope="col">Member ID</th>
+                           <th scope="col">Name</th>
+                           <th scope="col">Type</th>
+                           <th scope="col">Location</th>
+                           <th scope="col">Action</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+
+                     </tbody>
+                  </table>
+                 
+               </div>
+            </div>
+         </div>
       </div>
    </div>
    <!-- End of Main Content -->
-   <!-- Footer -->
-   <!-- End of Footer -->
 </div>
 <!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
@@ -139,12 +65,12 @@
    $("#consoleDatatable").DataTable({
        "language": {
          search: "_INPUT_",
-        searchPlaceholder: "Search",
-        "sSearch": '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>',
+        searchPlaceholder: "Search by Member Id or Name",
+        "sSearch": 'Search ',
    
         oPaginate: {
-       sNext: '<span aria-hidden="true">»</span>',
-       sPrevious: '<span aria-hidden="true">«</span>',
+       sNext: '<span aria-hidden="true">Next</span>',
+       sPrevious: '<span aria-hidden="true">Previous</span>',
        sFirst: '<span aria-hidden="true">»</span>',
        sLast: '<span aria-hidden="true">»</span>'
     }
@@ -152,14 +78,14 @@
        },
        
       info: false,
-      bLengthChange: false,
+      bLengthChange: true,
       processing: true,
       serverSide: true,
       //lengthChange: true,
       order: [0,'asc'],
       searchable:false,
       //searching:false,
-      bStateSave: false,
+      bStateSave: true,
    
       ajax: {
          url: "{{ route('admin.Analytics.consolesDataTable') }}",

@@ -100,7 +100,7 @@ class UserRepository extends BaseRepository implements UserInterface
             $item->status = $item->enabled ==1 ? "E" : 'D';
 
             //$item->time = Carbon::parse($item->created_at)->format('d M Y');
-            $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"> <a class="dropdown-item" href="#" data-id="'.$item->id.'">Edit</a><a class="dropdown-item" href="#" data-id="'.$item->id.'">Print Report </a> ';
+            $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="'.$item->id.'"> <i class="fa-pen fa"></i> Edit</a> <div class="dropdown-divider"></div> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="'.$item->id.'"> <i class="fa fa-print"></i> Print Report </a> ';
         }
 
         return $result;
@@ -117,7 +117,7 @@ class UserRepository extends BaseRepository implements UserInterface
             $item->status = $item->enabled ==1 ? "E" : 'D';
 
             //$item->time = Carbon::parse($item->created_at)->format('d M Y');
-            $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"> <a class="dropdown-item" href="/admin-dashboard/change-security-level/'.$item->id.'" data-id="'.$item->id.'">Change-security-level <img src="../assets/app/img/pencil.png" style="float: right;"></a> ';
+            $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="/admin-dashboard/change-security-level/'.$item->id.'" data-id="'.$item->id.'"> <i class="fa fa-pen"></i> Change-security-level</a> ';
         }
 
         return $result;
@@ -224,7 +224,7 @@ class UserRepository extends BaseRepository implements UserInterface
             //$item->email = $item->email ? $item->email : null;
             $item->vaccine = "Vaccinated, up to date";
             //$item->time = Carbon::parse($item->created_at)->format('d M Y');
-            $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"> <a class="dropdown-item" href="/escort-profile/'.$item->id.'" data-id="'.$item->id.'">Edit Escort Profile <img src="../assets/app/img/pencil.png" style="float: right;"></a> <div class="dropdown-divider"></div><a class="dropdown-item delete-center" href="delete-profile/'.$item->id.'" data-id="'.$item->id.'">Delete <img src="../assets/app/img/delete.png" style="float: right;"></a> <div class="dropdown-divider"></div></div></div>';
+            $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="/escort-profile/'.$item->id.'" data-id="'.$item->id.'"> <i class="fa fa-pen "></i> Edit Escort Profile </a> <div class="dropdown-divider"></div><a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete-center" href="delete-profile/'.$item->id.'" data-id="'.$item->id.'"> <i class="fa fa-trash "></i> Delete</a> <div class="dropdown-divider"></div></div></div>';
         }
 
         return $result;

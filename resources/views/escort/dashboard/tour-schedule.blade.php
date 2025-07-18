@@ -36,9 +36,10 @@
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">        
         <!-- Page Heading -->
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">Dashboard - My Tours Schedule</h1>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <div class="custom-heading-wrapper">
+                <h1 class="h1">Dashboard - My Tours Schedule</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
             <div class="back-to-dashboard">
                 <a href="{{ url()->previous() ?? route('dashboard.home') }}">
@@ -48,7 +49,7 @@
         </div>
         
         <div class="row">
-            <div class="col-md-12 my-2">
+            <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
                    <div class="card-body">
                       <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
@@ -100,19 +101,15 @@
                                         </a>
                                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item" href="{{ url('escort-dashboard/list-tour/current') }}">View</a>
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-eye"></i> View</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item"href="{{ url('escort-dashboard/list-tour/current') }}">Edit</a>
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 "href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-pen"></i> Edit</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-3">Cancel</a>
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
+                                                data-target="#new-ban-3"> <i class="fa fa-times"></i> Cancel</a>
                                             <div class="dropdown-divider"></div>
-                                            {{-- <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-4">Completed</a>
-
-                                                <div class="dropdown-divider"></div> --}}
-                                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#tour_summary">Tour Summary</a>
+                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
+                                                data-target="#tour_summary"> <i class="fa fa-list"></i> Tour Summary</a>
                                         </div>
                                     </div>
                                 </td>
@@ -137,19 +134,15 @@
                                         </a>
                                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item" href="{{ url('escort-dashboard/list-tour/current') }}">View</a>
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-eye"></i> View</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item"href="{{ url('escort-dashboard/list-tour/current') }}">Edit</a>
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 "href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-pen"></i> Edit</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-3">Cancel</a>
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
+                                                data-target="#new-ban-3"> <i class="fa fa-times"></i> Cancel</a>
                                             <div class="dropdown-divider"></div>
-                                            {{-- <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-4">Completed</a>
-
-                                                <div class="dropdown-divider"></div> --}}
-                                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#tour_summary">Tour Summary</a>
+                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
+                                                data-target="#tour_summary"> <i class="fa fa-list"></i> Tour Summary</a>
                                         </div>
                                     </div>
                                 </td>
@@ -174,19 +167,15 @@
                                         </a>
                                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item" href="{{ url('escort-dashboard/list-tour/past') }}">View</a>
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-eye"></i> View</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item disabled" >Edit</a>
+                                            <a class="dropdown-item disabled d-flex align-items-center justify-content-start gap-10 "href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-pen"></i> Edit</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-3">Cancel</a>
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
+                                                data-target="#new-ban-3"> <i class="fa fa-times"></i> Cancel</a>
                                             <div class="dropdown-divider"></div>
-                                            {{-- <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-4">Completed</a>
-
-                                                <div class="dropdown-divider"></div> --}}
-                                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#tour_summary">Tour Summary</a>
+                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
+                                                data-target="#tour_summary"> <i class="fa fa-list"></i> Tour Summary</a>
                                         </div>
                                     </div>
                                 </td>
@@ -209,21 +198,17 @@
                                                 class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
                                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item" href="{{ url('escort-dashboard/list-tour/past') }}">View</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item disabled">Edit</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-3">Cancel</a>
-                                            <div class="dropdown-divider"></div>
-                                            {{-- <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#new-ban-4">Completed</a>
-
-                                                <div class="dropdown-divider"></div> --}}
-                                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                                data-target="#tour_summary">Tour Summary</a>
-                                        </div>
+                                        aria-labelledby="dropdownMenuLink" style="">
+                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-eye"></i> View</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item disabled d-flex align-items-center justify-content-start gap-10 "href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-pen"></i> Edit</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
+                                            data-target="#new-ban-3"> <i class="fa fa-times"></i> Cancel</a>
+                                        <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
+                                            data-target="#tour_summary"> <i class="fa fa-list"></i> Tour Summary</a>
+                                    </div>
                                     </div>
                                 </td>
                             </tr>

@@ -241,7 +241,7 @@
         var $this = $(this);
         var table = $('#myTable').DataTable();
         $('#logoutModal').modal('show');
-        $('.htext').html("Delete");
+        $('.htext').html("Delete ");
         $('.bodytext').html("Are you sure Do you want to delete ?");
         $('.btnok').html("Ok");
         //$('.btnok').attr("type","button");

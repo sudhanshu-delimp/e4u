@@ -34,7 +34,7 @@
               
                 <div class="total_listing">
                     <div><span>Total Appointments : </span></div>
-                    <div><span>568</span></div>
+                    <div><span>{{$lists->total()}}</span></div>
                 </div>
             </div>
         </div>
@@ -55,22 +55,59 @@
                    </tr>
                 </thead>
                 <tbody>
+                @if($lists->isNotEmpty())
+                @foreach($lists as $index => $list)
+                    
                     <tr>
-                        <td>123</td>
-                        <td>26-07-2025</td>
-                        <td>M40161</td>
-                        <td>1438 028 733</td>
-                        <td>Qld</td>
-                        <td>A125 <br>
-                            A138 <br>
-                            A158</td>
-                        <td>1438 028 745 <br>
-                            1438 028 772 <br>
-                            1438 028 790</td>
+                        <td>{{$list->ref_number}}</td>
+                        <td>{{date('d-m-Y',strtotime($list->created_at))}}</td>
+                        <td>{{$list->user->phone}}</td>
+                        <td>{{$list->user->member_id}}</td>
+                        <td>{{isset($list->user->state->country_code) ? $list->user->state->country_code : 'NA'}}</td>
+                        <td> 
+                             @if(isset($list->agent_request_users ) && count($list->agent_request_users)>0)
+                             @foreach ($list->agent_request_users as $index => $agent_user)
+                             {{isset($agent_user->user->member_id) ? $agent_user->user->member_id: 'NA' }} <br>
+                             @endforeach
+                             @endif
+
                         <td>
-                            <span class="open-badge">Open</span> <br> <span class="open-badge">Open</span> <br> <span class="open-badge">Open</span>
+
+                             @if(isset($list->agent_request_users ) && count($list->agent_request_users)>0)
+                             @foreach ($list->agent_request_users as $index => $agent_user)
+                             {{isset($agent_user->user->phone) ? $agent_user->user->phone: 'NA' }} <br>
+                             @endforeach
+                             @endif
+
                         </td>
-                        <td>27-07-2025</td>
+                        <td>
+                           
+                            @if(isset($list->agent_request_users ) && count($list->agent_request_users)>0)
+                             @foreach ($list->agent_request_users as $index => $agent_user)
+                                @if($agent_user->status==0)
+                                <span class="open-badge">Open</span> <br> 
+                                @elseif($agent_user->status==1)
+                                <span class="accepted-badge">Accepted</span> <br> 
+                                @elseif($agent_user->status==2)
+                                <span class="declined-badge">Rejected</span> <br> 
+                                @elseif($agent_user->status==3)
+                                <span class="forfeited-badge">Forfeited</span> <br>
+                                @endif
+                             @endforeach
+                             @endif
+                            
+                        </td>
+                        <td>
+                            @if(isset($list->agent_request_users ) && count($list->agent_request_users)>0)
+                             @foreach ($list->agent_request_users as $index => $agent_user)
+                              @if($agent_user->status==1)
+                               {{date('d-m-Y',strtotime($agent_user->created_at))}}
+                                @break
+                              @endif
+                             @endforeach
+                             @endif            
+
+                        </td>
                         <td class="theme-color text-center bg-white">
                             <div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -86,36 +123,13 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>124</td>
-                        <td>22-07-2025</td>
-                        <td>E20153</td>
-                        <td>1438 028 775</td>
-                        <td>NSW</td>
-                        <td>A125 <br>
-                            A138 <br>
-                            A158</td>
-                        <td>1438 028 745 <br>
-                            1438 028 772 <br>
-                            1438 028 790</td>
-                        <td>
-                            <span class="declined-badge">Declined</span> <br> <span class="accepted-badge">Accepted</span> <br> <span class="forfeited-badge">Forfeited</span></td>
-                        <td>23-07-2025</td>
-                        <td class="theme-color text-center bg-white">
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item align-item-custom" href="#" data-target="#confirmationPopup" data-toggle="modal"> <i class="fa fa-bell"></i> Follow Up</a>
+                       @endforeach
+                        @else
+                        <tr>
+                        <td colspan="10">No List Found</td>
+                        </tr>
+                        @endif
 
-                                    <div class="dropdown-divider"></div>
-
-                                    <a class="dropdown-item align-item-custom" href="#" data-target="#viewAgentdetails" data-toggle="modal"> <i class="fa fa-eye" aria-hidden="true" ></i> View</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
@@ -132,7 +146,8 @@
           <div class="modal-header">
              <h5 class="modal-title" id="viewAgentdetails">Agent Request</h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+             <span aria-hidden="true">
+                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
              </button>
           </div>
           <div class="modal-body pb-0">

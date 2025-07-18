@@ -1311,8 +1311,7 @@
                                         <div class="col-sm-8">
                                             <input type="text" value="{{ $escort->license}}" name="license"
                                                    class="form-control form-control-sm select_tag_remove_box_sadow change_default"
-                                                   id="SWA License" @if(auth()->user()->state_id == 3903) required
-                                                   data-parsley-group="group_one" @endif>
+                                                   id="SWA License" >
                                         </div>
                                     </div>
                                 </div>

@@ -22,33 +22,30 @@
 <div id="wrapper">
    <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
-         <div class="container-fluid pl-3 pl-lg-5">
+        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content-->
             <div class="row">
-                <div class="col-md-12">
-                    <div class="v-main-heading h3" style="display: inline-block;"><h1>New Communication</h1></div>
-                        <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-                    </div>
+                <div class="custom-heading-wrapper col-md-12">
+                    <h1 class="h1">New Communication</h1>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                 </div>
-
-                <div class="row collapse" id="notes">
-                    <div class="col-md-12 mb-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                <ol>
-                                <li>The Post Office is a repository of all template emails deployed in the Website, be it
-                                auto-generated or manual generated.</li>
-                                <li>Select the template you wish to use and then click the Preview button to view the
-                                template in full before you deploy it, ensuring you have selected the correct template.</li>
-                                <li>You can preview the recipients to check you have the correct Members before emailing
-                                the recipients.</li>
-                                </ol>
-                            </div>
+                <div class="col-md-12 mb-4">
+                    <div class="card collapse" id="notes">
+                        <div class="card-body">
+                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                            <ol>
+                            <li>The Post Office is a repository of all template emails deployed in the Website, be it
+                            auto-generated or manual generated.</li>
+                            <li>Select the template you wish to use and then click the Preview button to view the
+                            template in full before you deploy it, ensuring you have selected the correct template.</li>
+                            <li>You can preview the recipients to check you have the correct Members before emailing
+                            the recipients.</li>
+                            </ol>
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div class="row">
                 <div class="col-md-12">                    
                     <div class="email-content">
                         <h2>Email Content</h2>
@@ -274,7 +271,7 @@
                     </div>  
                 </div>
             </div>
-         </div>
+        </div>
       </div>
    </div>
 </div>

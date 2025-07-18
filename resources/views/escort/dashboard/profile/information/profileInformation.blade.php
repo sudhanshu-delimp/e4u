@@ -34,12 +34,12 @@
    height: 36px;
    width: 100%;
    padding: 0px 10px 0px 30px;
-   background: white url({{asset('avatars/Vector-24.svg')}}) 8px 8px no-repeat;
    border-radius: 3px;
    border: 1.8px solid #d1d3e2;
    font-size: 13px;
    font-weight: 400;
    color: #d1d3e2;
+   background: white url({{asset('avatars/Vector-24.svg')}}) 8px 8px no-repeat;
    }
    .at-sec input:focus {
    outline: none;
@@ -93,8 +93,8 @@
    text-decoration: none;
    color: #fff;
    text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
-   border-color: #192A3E;
-   background-color: #192A3E;
+   border-color: #0C223D;
+   background-color: #0C223D;
    }
    .active-play .at-lable {
    display: block;
@@ -110,22 +110,11 @@
    .active-play li {
    padding: 10px;
    border-radius: 3px;
-   background: #192A3E !important;
+   background: #0C223D;
    }
    .active-play a {
    color: #fff;
    }
-   .results span {
-    background-color: #5d6d7e;
-    color: #fff;
-    text-align: center;
-    padding: 0px 4px 0px 4px;
-    font-size: 20px;
-    border-radius: 2px;
-    right: -5px;
-    position: relative;
-    height: 25px;
-}
 
 .custom-x-link{        
     background: #0c223d;
@@ -517,7 +506,7 @@
        var selectedIdOne = $('#service_id_one').val();
        var getNameOne = $(this).children(":selected").attr("id");
        if(selectedIdOne){
-           $("#selected_service_one").append(" <li id='hideenclassOne_"+ selectedIdOne+"'><div class='my_service_anal' ><span class='dollar-sign'>"+getNameOne+"</span><input type='number' class='dollar-before input_border' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step=10 max=9999><input type='hidden' name='service_id[]' value="+ selectedIdOne +" placeholder=''><span><i class='fas fa-times-circle akh1' data-sname='"+getNameOne+"' data-val="+ selectedIdOne+"  id='id_"+ selectedIdOne+"' value="+selectedIdOne+"></i></span></div></li> ");
+           $("#selected_service_one").append(" <li id='hideenclassOne_"+ selectedIdOne+"'><div class='my_service_anal' ><span class='dollar-sign'>"+getNameOne+"</span><input type='number' class='dollar-before input_border' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step=10 max=9999><input type='hidden' name='service_id[]' value="+ selectedIdOne +" placeholder=''><span> <small class='mytool-tip'>Remove</small> <i class='fas fa-times akh1' data-sname='"+getNameOne+"' data-val="+ selectedIdOne+"  id='id_"+ selectedIdOne+"' value="+selectedIdOne+"></i></span></div></li> ");
            $("#service_id_one option[value="+ selectedIdOne +"]").attr('disabled','disabled');
            $("#service_id_one option[value="+ selectedIdOne +"]").remove();
            console.log('change='+selectedIdOne);
@@ -527,7 +516,7 @@
 //        var selectedIdOne = $('#service_id_one').val();
 //        var getNameOne = $(this).children(":selected").attr("id");
 //        if(selectedIdOne){
-//            $("#selected_service_one").append(" <li id='hideenclassOne_"+ selectedIdOne+"'><div class='my_service_anal' ><span class='dollar-sign'>"+getNameOne+"</span><input type='number' class='dollar-before input_border' name='price[]' placeholder='' min='0' oninput='this.value = Math.abs(this.value)' step=10 max=9999><input type='hidden' name='service_id[]' value="+ selectedIdOne +" placeholder=''><span><i class='fas fa-times-circle akh1' data-sname='"+getNameOne+"' data-val="+ selectedIdOne+"  id='id_"+ selectedIdOne+"' value="+selectedIdOne+"></i></span></div></li> ");
+//            $("#selected_service_one").append(" <li id='hideenclassOne_"+ selectedIdOne+"'><div class='my_service_anal' ><span class='dollar-sign'>"+getNameOne+"</span><input type='number' class='dollar-before input_border' name='price[]' placeholder='' min='0' oninput='this.value = Math.abs(this.value)' step=10 max=9999><input type='hidden' name='service_id[]' value="+ selectedIdOne +" placeholder=''><span><i class='fas fa-times akh1' data-sname='"+getNameOne+"' data-val="+ selectedIdOne+"  id='id_"+ selectedIdOne+"' value="+selectedIdOne+"></i></span></div></li> ");
 //            $("#service_id_one option[value="+ selectedIdOne +"]").attr('disabled','disabled');
 //            $("#service_id_one option[value="+ selectedIdOne +"]").remove();
 //            console.log('change='+selectedIdOne);
@@ -538,7 +527,7 @@
        var selectedIdTwo = $('#service_id_two').val();
        var getNameTwo = $(this).children(":selected").attr("id");
        if(selectedIdTwo){
-           $("#selected_service_two").append(" <li id='hideenclassTwo_"+selectedIdTwo+"'><div class='my_service_anal hideenclassTwo"+selectedIdTwo+"'><span class='dollar-sign'>"+getNameTwo+"</span><input type='number' class='dollar-before input_border' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step=10 max=9999><input type='hidden' name='service_id[]' value="+ selectedIdTwo +" placeholder=''><span><i class='fas fa-times-circle akh2'  data-sname='"+getNameTwo+"' data-val="+ selectedIdTwo+"  id='id_"+ selectedIdTwo+"' value="+selectedIdTwo+"></i></span></div></li> ");
+           $("#selected_service_two").append(" <li id='hideenclassTwo_"+selectedIdTwo+"'><div class='my_service_anal hideenclassTwo"+selectedIdTwo+"'><span class='dollar-sign'>"+getNameTwo+"</span> <input type='number' class='dollar-before input_border' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step=10 max=9999><input type='hidden' name='service_id[]' value="+ selectedIdTwo +" placeholder=''><span> <small class='mytool-tip'>Remove</small> <i class='fas fa-times akh2'  data-sname='"+getNameTwo+"' data-val="+ selectedIdTwo+"  id='id_"+ selectedIdTwo+"' value="+selectedIdTwo+"></i></span></div></li> ");
            $("#service_id_two option[value="+ selectedIdTwo +"]").attr('disabled','disabled');
            $("#service_id_two option[value="+ selectedIdTwo +"]").remove();
            console.log('change='+selectedIdTwo);
@@ -549,7 +538,7 @@
        var selectedIdThree = $('#service_id_three').val();
        var getNameThree = $(this).children(":selected").attr("id");
        if(selectedIdThree){
-           $("#selected_service_three").append(" <li id='hideenclassThree_"+ selectedIdThree+"'><div class='my_service_anal hideenclassThree"+selectedIdThree+"'><span class='dollar-sign'>"+getNameThree+"</span><input type='number' class='dollar-before  input_border' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step=10 max=9999><input type='hidden' name='service_id[]' value="+ selectedIdThree +" placeholder=''><span><i class='fas fa-times-circle akh3'  data-sname='"+getNameThree+"' data-val="+ selectedIdThree+"  id='id_"+ selectedIdThree+"' value="+selectedIdThree+"></i></span></div></li> ");
+           $("#selected_service_three").append(" <li id='hideenclassThree_"+ selectedIdThree+"'><div class='my_service_anal hideenclassThree"+selectedIdThree+"'><span class='dollar-sign'>"+getNameThree+"</span><input type='number' class='dollar-before  input_border' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step=10 max=9999><input type='hidden' name='service_id[]' value="+ selectedIdThree +" placeholder=''><span> <small class='mytool-tip'>Remove</small> <i class='fas fa-times akh3'  data-sname='"+getNameThree+"' data-val="+ selectedIdThree+"  id='id_"+ selectedIdThree+"' value="+selectedIdThree+"></i></span></div></li> ");
            $("#service_id_three option[value="+ selectedIdThree +"]").attr('disabled','disabled');
            $("#service_id_three option[value="+ selectedIdThree +"]").remove();
            console.log('change='+selectedIdThree);
@@ -1086,7 +1075,7 @@
             //$("#st_name").val([]).trigger();
             // console.log(e.params);
 
-            $(this).parent().find(".results").append($("<li style='font-size: 14px;'><a href='#'>"+data.text +"</a><button type='button' class=' close ml-2 text-white stage-close' aria-label='Close'><span class='delete_stname' id='"+data.id+"' aria-hidden='true'>×</span></button></li><input type='hidden' name='name[]' value='"+data.id+"'>"))
+            $(this).parent().find(".results").append($("<li style='font-size: 14px;'><a href='#'>"+data.text +"</a><button type='button' class=' close ml-2 text-white stage-close' aria-label='Close'> <span class='delete_stname' id='"+data.id+"' aria-hidden='true'>×</span> <small class='mytool-tip'>Remove</small></button></li><input type='hidden' name='name[]' value='"+data.id+"'>"))
         });
 
       $('body').on('click', '.clickInput', function() {

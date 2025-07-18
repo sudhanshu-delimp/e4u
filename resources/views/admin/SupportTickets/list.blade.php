@@ -4,7 +4,7 @@
 <style type="text/css">
 .conversation {
     display: inline-block;
-    margin-bottom: 15px;
+    margin: 10px 0px;
 }
     .change_status button {
         color: #000;
@@ -32,65 +32,53 @@
 </style>
 @endsection
 @section('content')
-<div class="d-flex flex-column container-fluid pl-3 pl-lg-5">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading h3" style="display: inline-block;">My Support Tickets</div>
-           <h6 class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </h6>
-        </div>
-        <div class="col-md-12 mt-4 collapse" id="profile_and_tour_options">
-            <div class="row">
-                <div class="col-md-12 mb-5">
-                    <div class="card" id="notes">
-                        <div class="card-body">
-                          <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                          <ol>
-                              <li>Use this feature to review and make changes to your Profiles.</li>
-                              <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action function, you will be able to View, Edit or Delete the Profile.</li>
-                              <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming" class="custom_links_design">View Listings</a></li>
-                          </ol>
-                        </div>
+
+<div id="content">
+    <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+        <div class="row">
+            <div class="custom-heading-wrapper col-md-12">
+                <h1 class="h1">My Support Tickets</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+            </div>
+            <div class="col-md-12 mb-4" id="profile_and_tour_options">
+                <div class="card collapse" id="notes">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>Use this feature to review and make changes to your Profiles.</li>
+                            <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action function, you will be able to View, Edit or Delete the Profile.</li>
+                            <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming" class="custom_links_design">View Listings</a></li>
+                        </ol>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="content">
-        <div class="container-fluid">
-        </div>
-        <!-- /.container-fluid --><br>
         <div class="row">
             <div class="col-md-12">
                 <div class="box-body table table-hover custom-tabale-layout">
                     <table class="table table-hover" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
-                        <tr>
-                            <th> ID</th>
-                            <th>Ticket ID</th>
-                            <th>Member ID</th>
-                            <th>Department</th>
-                            <th>Priority</th>
-                            <th>Service Type</th>
-                            <th>Subject</th>
-{{--                            <th>Message</th>--}}
-                            <th>Date Created</th>
-                            <th>Status</th> 
-                            <!--<th>Joined E4U</th>-->
-                            <th>Action</th>
-                        </tr>
+                            <tr>
+                                <th> ID</th>
+                                <th>Ticket ID</th>
+                                <th>Member ID</th>
+                                <th>Department</th>
+                                <th>Priority</th>
+                                <th>Service Type</th>
+                                <th>Subject</th>
+                                {{-- <th>Message</th>--}}
+                                <th>Date Created</th>
+                                <th>Status</th> 
+                                <!--<th>Joined E4U</th>-->
+                                <th>Action</th>
+                            </tr>
                         </thead>
                     </table>
-                    <div>
-                    </div>
-                </div>
+                <div>
             </div>
         </div>
     </div>
-  <!--middle content end here-->
-  <!--right side bar start from here-->
 </div>
-
-
 
 <div class="modal fade upload-modal center" id="conversation_modal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
@@ -113,10 +101,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer justify-content-start bg-first">
+                <div class="reply-wrapper p-3">
                     <form id="sendMessage">
                        <div class="reply-message-box">
-                        <textarea class="messageBox" name="message" id="message" rows="2" cols="90" required></textarea>
+                        <textarea class="messageBox" name="message" id="message" rows="2" required></textarea>
                         <button class="btn btn-info send-btn" id="submit_message">Send</button>
                        </div>
                     </form>
@@ -201,7 +189,8 @@
                                '    <div class="userMessage">' +
                                 '       <p>'+data.message+'</p>'+
                                 '   </div>'+
-                       '       <span class="message_time">'+date_time_format(data.created_on)+'</span>'+
+                       '       <span class="message_time"> Member ID: '+data.user.member_id+',  '+date_time_format(data.created_on)+'</span>'+
+                       
                                 '</div>'+
                        '<div class="col-sm-6 conversation"> </div>';
                    $(data.conversations).each(function( index, conversation ) {
@@ -212,7 +201,7 @@
                                '    <div class="adminMessage">' +
                                '       <p>'+conversation.message+'</p>'+
                                '   </div>'+
-                               '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
+                               '       <span class="message_time"> Member ID: '+conversation.user_from_admin.member_id+',   '+date_time_format(conversation.date_time)+'</span>'+
                                '</div>';
                        } else {
                            html +=
@@ -221,7 +210,7 @@
                                '    <div class="userMessage">' +
                                '       <p>'+conversation.message+'</p>'+
                                '   </div>'+
-                               '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
+                                '       <span class="message_time">Member ID: '+conversation.user_from_user.member_id+',   '+date_time_format(conversation.date_time)+'</span>'+
                                '</div>'+
                                '<div class="col-sm-6 conversation"> </div>';
                        }

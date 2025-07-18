@@ -104,8 +104,8 @@
         text-decoration: none;
         color: #fff;
         text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
-        border-color: #192A3E;
-        background-color: #192A3E;
+        border-color: #0C223D;
+        background-color: #0C223D;
     }
 
     .active-play .at-lable {
@@ -124,7 +124,7 @@
     .active-play li {
         padding: 10px;
         border-radius: 3px;
-        background: #192A3E !important;
+        background: #0C223D !important;
     }
 
     .active-play a {
@@ -133,17 +133,6 @@
         gap: 10px;
     }
 
-    .results span {
-        background-color: #5d6d7e;
-        color: #fff;
-        text-align: center;
-        padding: 2px 4px 2px 4px;
-        font-size: 20px;
-        border-radius: 2px;
-        right: -5px;
-        position: relative;
-        height: 25px;
-    }
 </style>
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <div class="row">
@@ -251,13 +240,14 @@
                     <ul class="results  mt-2 activePlaymate">
                         @if(!is_null(auth()->user()->playmates))
                             @foreach(auth()->user()->playmates as $playmate)
-                                <li id="rmlist_{{$playmate->id}}"><a
+                                <li id="rmlist_{{$playmate->id}}" class="d_my_tooltip"><a
                                         href="{{ route('profile.description',$playmate->id)}}" target="_blank">
                                         <img
                                             src="{{ $playmate->DefaultImage ? asset($playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
                                             class="img-profile rounded-circle playmats-img">{{$playmate->user->member_id . ' - ' .$playmate->name}}
                                     </a>
                                     <span class="playmates_rmid" value="{{$playmate->id}}">×</span>
+                                    <small class="mytool-tip">Remove</small>
                                 </li>
                             @endforeach
                         @endif
@@ -599,7 +589,7 @@
         console.log("list_" + id + "</br>path =" + path);
         var url = "{{ route('profile.description',':id')}}";
         url = url.replace(':id', id);
-        $(".activePlaymate").append("<li id='rmlist_" + id + "'><a href='" + url + "' target='_blank'><img src='" + path + "' class='img-profile rounded-circle playmats-img'>" + member_id + " -&nbsp;" + name + "</a><span class='playmates_rmid' value=" + id + ">×</span></li>");
+        $(".activePlaymate").append("<li id='rmlist_" + id + "' class='d_my_tooltip'><a href='" + url + "' target='_blank'><img src='" + path + "' class='img-profile rounded-circle playmats-img'>" + member_id + " -&nbsp;" + name + "</a><span class='playmates_rmid' value=" + id + ">×</span> <small class='mytool-tip'>Remove</small></li>");
 
 
         $("#list_" + id).remove();

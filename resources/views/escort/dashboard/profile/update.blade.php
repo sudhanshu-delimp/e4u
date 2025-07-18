@@ -46,7 +46,7 @@
 @endsection
 @section('content')
     @php  
-    $existDefaultRate = $escort->services()->exists();
+    $existDefaultService = $escort->services()->exists();
     $existAvailability = $escort->availability()->exists();
     $editMode = request()->segment(2) == 'profile' ? true:false;
     @endphp
@@ -255,22 +255,6 @@
       </div>
    </div>
 </div>
-    {{-- <div class="modal programmatic" id="change_all" style="display: none">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-0">
-                <div class="modal-body text-center">
-                <input type="hidden" id="current" name="current">
-                <input type="hidden" id="previous" name="previous">
-                <input type="hidden" id="label" name="label">
-                <input type="hidden" id="trigger-element">
-                <h3 class="mb-4 mt-5"><span id="Lname"></span> </h3>
-                <h3 class="mb-4 mt-5"><span id="log"></span> </h3>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" value="close" id="close_change">Close</button>
-                <button type="button" class="btn btn-success" id="save_change">save</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
     @if (Session::has('message'))
         <div class="alert alert-info">{{ Session::get('message') }}</div>
@@ -393,34 +377,6 @@
                 $("#language option[value='" + languageValue + "']").remove();
             });
 
-            $('body').on('click', '.akh1', function() {
-                var id = $(this).attr('id');
-                var val = $(this).data('val');
-                var name = $(this).data('sname');
-                $('#hideenclassOne_' + val).remove();
-
-                $("#service_id_one").append("<option id='" + name + "' value='" + val + "'>" + name +
-                    "</option>");
-
-            });
-            $('body').on('click', '.akh2', function() {
-                var id = $(this).attr('id');
-                var val = $(this).data('val');
-                var name = $(this).data('sname');
-                $('#hideenclassTwo_' + val).remove();
-
-                $("#service_id_two").append("<option id='" + name + "' value='" + val + "'>" + name +
-                    "</option>");
-            });
-            $('body').on('click', '.akh3', function() {
-                var id = $(this).attr('id');
-                var val = $(this).data('val');
-                var name = $(this).data('sname');
-                $('#hideenclassThree_' + val).remove();
-
-                $("#service_id_three").append("<option id='" + name + "' value='" + val + "'>" + name +
-                    "</option>");
-            });
             /** Save My service form data when open in edit mode */
             jQuery('#myServicesForm').on('submit', function(e) {
                 e.preventDefault();
@@ -772,50 +728,73 @@
 
         }); // end (document).ready
 
+        if($('.js_profile_services input[name="service_id[]"]').length > 0){
+            $('.js_profile_services input[name="service_id[]"]').each((index, element)=>{
+                let value = $(element).val();
+                let tagContainer = $(element).parents('li');
+                let selectElement = tagContainer.parents('.row').slice(0, 1).prev().find('select');
+                selectElement.find(`option[value=${value}]`).hide();
+            });
+        }
 
-        $('#service_id_one').on('change', function() {
-            var selectedIdOne = $('#service_id_one').val();
-            var getNameOne = $(this).children(":selected").attr("id");
-            let changeClass = "{{$existDefaultRate?'change_default2':''}}";
-            if (selectedIdOne) {
-                let appendTag = `<li id='hideenclassOne_${selectedIdOne}'><div class="my_service_anal"><span class='dollar-sign'>${getNameOne}</span>`;
-                appendTag += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedIdOne}"><input type='hidden' name='service_id[]' value="${selectedIdOne}" placeholder=''><span><i class='fas fa-times-circle akh1' data-sname='${getNameOne}' data-val="${selectedIdOne}"  id='id_${selectedIdOne}' value="${selectedIdOne}" >`;
-                appendTag += `</i></span></div></li>`;
-                $("#selected_service_one").append(` ${appendTag} `);
-                $("#service_id_one option[value=" + selectedIdOne + "]").attr('disabled', 'disabled');
-                $("#service_id_one option[value=" + selectedIdOne + "]").remove();
-
+        $(document).on('change','.js_profile_service_tags', function(){
+            let obj = $(this);
+            let index = $('.js_profile_service_tags').index(this);
+            let tagContainer =  obj.parents('.row').slice(0, 2).next().find('ul');
+            let selectedValue = $(this).val();
+            let selectedText = $(this).find('option:selected').text();
+            let changeClass = "{{$existDefaultService?'change_default2':''}}";
+            if(selectedValue){
+                $(this).find('option:selected').hide();
+                let string = `<li id='hideenclass${index}_${selectedValue}'><div class="my_service_anal"><span class='dollar-sign'>${selectedText}</span> <span class="d_profile_name">${selectedText}</span>`;
+                string += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' value='0' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedValue}"><input type='hidden' name='service_id[]' value="${selectedValue}" placeholder=''><span> <small class="mytool-tip">Remove</small><i class='fas fa-times akh1' data-sname='${selectedText}' data-val="${selectedValue}"  id='id_${selectedValue}' value="${selectedValue}" >`;
+                string += `</i></span></div></li>`;
+                tagContainer.append(` ${string} `);
+                if (changeClass === 'change_default2') {
+                    $(`#hideenclass${index}_${selectedValue} .change_default2`).trigger('change');
+                }
             }
+            obj.val('');
         });
-
-        $('#service_id_two').on('change', function() {
-            var selectedIdTwo = $('#service_id_two').val();
-            var getNameTwo = $(this).children(":selected").attr("id");
-            let changeClass = "{{$existDefaultRate?'change_default2':''}}";
-            if (selectedIdTwo) {
-                let appendTag = `<li id='hideenclassTwo_${selectedIdTwo}'><div class="my_service_anal"><span class='dollar-sign'>${getNameTwo}</span>`;
-                appendTag += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedIdTwo}"><input type='hidden' name='service_id[]' value="${selectedIdTwo}" placeholder=''><span><i class='fas fa-times-circle akh2' data-sname='${getNameTwo}' data-val="${selectedIdTwo}"  id='id_${selectedIdTwo}' value="${selectedIdTwo}" >`;
-                appendTag += `</i></span></div></li>`;
-                $("#selected_service_two").append(` ${appendTag} `);
-                $("#service_id_two option[value=" + selectedIdTwo + "]").attr('disabled', 'disabled');
-                $("#service_id_two option[value=" + selectedIdTwo + "]").remove();
+        /**
+         * Remove the service tag
+         */
+        $(document).on('click','.js_profile_services i', function(){
+            let obj = $(this);
+            let tagContainer = obj.parents('li');
+            let removeTagValue = tagContainer.find('input[name="service_id[]"]').val();
+            let selectElement = tagContainer.parents('.row').slice(0, 1).prev().find('select');
+            tagContainer.remove();
+            selectElement.find(`option[value=${removeTagValue}]`).show();
+            /**
+             * Remove the service tag from the default profile as well
+             */
+            if(obj.hasClass('js_defaultProfileService')){
+                Swal.fire({
+                title: 'My Services ',
+                text: "Do want to remove service from 'My information' page for future Profiles?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('escort.update_escort_default') }}",
+                            dataType: 'json',
+                            data: {'remove_service':removeTagValue},
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(data) {
+                            
+                            }
+                        });
+                    }
+                });
             }
-        });
-
-        $('#service_id_three').on('change', function() {
-            var selectedIdThree = $('#service_id_three').val();
-            var getNameThree = $(this).children(":selected").attr("id");
-            let changeClass = "{{$existDefaultRate?'change_default2':''}}";
-            if (selectedIdThree) {
-                let appendTag = `<li id='hideenclassThree_${selectedIdThree}'><div class="my_service_anal"><span class='dollar-sign'>${getNameThree}</span>`;
-                appendTag += `<input type='number' class='dollar-before input_border ${changeClass}' name='price[]' placeholder='0' min='0' oninput='this.value = Math.abs(this.value)' step='10' max=200 service_id="${selectedIdThree}"><input type='hidden' name='service_id[]' value="${selectedIdThree}" placeholder=''><span><i class='fas fa-times-circle akh3' data-sname='${getNameThree}' data-val="${selectedIdThree}"  id='id_${selectedIdThree}' value="${selectedIdThree}" >`;
-                appendTag += `</i></span></div></li>`;
-                $("#selected_service_three").append(` ${appendTag} `);
-                $("#service_id_three option[value=" + selectedIdThree + "]").attr('disabled', 'disabled');
-                $("#service_id_three option[value=" + selectedIdThree + "]").remove();
-            }
-        });
-
+        })
 
         //start available //
         $('.available_to').click(function() {
@@ -1319,6 +1298,7 @@
                 var trigger_elem = $('#trigger-element').val();
             }
         });
+
         $(document).ready(function() {
 
             $('#save_change').on("click", function(e) {
@@ -1839,6 +1819,7 @@
             let field = $("#trigger-element").val();
             let custom_id = $("#trigger-element2").val();
             let value = $("#current").val();
+            $(`.my_service_anal input[name="service_id[]"][value=${custom_id}]`).next().find('i').addClass('js_defaultProfileService');
             update_escort_default($(this), {
                 [field]: value,
                 custom_id: custom_id

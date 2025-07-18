@@ -168,7 +168,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="d-flex align-items-center justify-content-start gap-10">
+<div class="d-flex align-items-center justify-content-start gap-10">
                
 
 <div class="my-play-box-profile-icon">
@@ -194,7 +194,7 @@
 
             </div>
         </div>
-    </div>
+</div>
     <div class="container-fluid px-0 next-preview-fixed">
         <div class="d-flex d-flex justify-content-between">
             <div class="previous_btn_profile next_previous_btn_pogision preview-dk previousDisableButtonCss">
@@ -1094,7 +1094,7 @@
     <!-- video crousal end -->
     <div class="row pt-2 eqal-bx">
         <div class="col-5">
-            <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" {{(auth()->user() && auth()->user()->type==0)?'':'disabled'}} data-target="#mysendmessage">
+            <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#mysendmessage">
             <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Me</button>
         </div>
         <div class="col-7 text-right">
@@ -1609,7 +1609,7 @@
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
             </div>
-            @if(auth()->check())
+            @if(auth()->check() && auth()->user()->type==0)
             <div class="modal-body pb-0 teop-text">
                     <h6 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
                                 <span id="Lname">To message {{ $escort->name}} please go to your Dashboard and select

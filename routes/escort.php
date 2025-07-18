@@ -1,21 +1,22 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Escort\EscortController;
-use App\Http\Controllers\Escort\EscortPolyPaymentController;
-use App\Http\Controllers\Escort\EscortTourPaymentController;
-use App\Http\Controllers\Escort\ArchivesController;
-use App\Http\Controllers\Escort\TourController;
-use App\Http\Controllers\Escort\Profile\ProfileInformationController;
-use App\Http\Controllers\Escort\PlaymateController;
-use App\Http\Controllers\Escort\PinUpsController;
-use App\Http\Controllers\Escort\EscortAccountController;
-use App\Http\Controllers\Escort\EscortGalleryController;
-use App\Http\Controllers\Escort\EscortSuspendProfileController;
-use App\Http\Controllers\Escort\Profile\CreateController;
-use App\Http\Controllers\Escort\Profile\UpdateController;
-use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\MugsController;
 use App\Http\Controllers\EscortBrbController;
+use App\Http\Controllers\Escort\TourController;
+use App\Http\Controllers\Escort\EscortController;
+use App\Http\Controllers\Escort\PinUpsController;
+use App\Http\Controllers\SupportTicketsController;
+use App\Http\Controllers\Escort\ArchivesController;
+use App\Http\Controllers\Escort\PlaymateController;
+use App\Http\Controllers\Agent\AgentRequestController;
+use App\Http\Controllers\Escort\EscortAccountController;
+use App\Http\Controllers\Escort\EscortGalleryController;
+use App\Http\Controllers\Escort\Profile\CreateController;
+use App\Http\Controllers\Escort\Profile\UpdateController;
+use App\Http\Controllers\Escort\EscortPolyPaymentController;
+use App\Http\Controllers\Escort\EscortTourPaymentController;
+use App\Http\Controllers\Escort\EscortSuspendProfileController;
+use App\Http\Controllers\Escort\Profile\ProfileInformationController;
 
 //remove before prod
 Route::post('/test-paymentUrl', [EscortController::class, 'pinup_test_payment'])->name('escort.payment');
@@ -353,3 +354,6 @@ Route::get('/get-account-locations', [TourController::class, 'getAccountLocation
 Route::get('/get-account-profiles', [TourController::class, 'getAccountProfiles'])->name('account.location_profiles');
 Route::post('/save-account-tour', [TourController::class, 'saveAccountTour'])->name('account.save_tour');
 Route::post('/update-account-tour/{id}', [TourController::class, 'updateAccountTour'])->name('account.update_tour');
+
+
+Route::post('agent-request',[AgentRequestController::class, 'agentRequest'])->name('agent.agent-request');

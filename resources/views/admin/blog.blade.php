@@ -19,21 +19,21 @@
                <div class="custom-heading-wrapper col-md-12">
                      <h1 class="h1">Blog</h1>
                      <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-                  </div>
-               </div>
-               <div class="row collapse" id="notes">
-                  <div class="col-md-12 mb-4">
-                     <div class="card">
-                           <div class="card-body">
-                              <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                              <ol class="pl-4">
-                              <li>You can create a Notification, published at the top of the Website.</li>
-                              </ol>
-                           </div>
+               </div>              
+               <div class="col-md-12 mb-4">
+                  <div class="card collapse" id="notes">
+                     <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol class="pl-4">
+                        <li>You can create a Notification, published at the top of the Website.</li>
+                        </ol>
                      </div>
                   </div>
                </div>
-               <div class="col-md-12 pl-0">
+            </div> 
+
+            <div class="row">  
+               <div class="col-md-12">
                   <div class="row pb-3">
                      <div class="col-lg-4 col-md-6 col-sm-6">
                         <form class="search-form-bg navbar-search">
@@ -54,7 +54,7 @@
                      </div>
                   </div>
                </div>
-               <div class="col-md-12 pl-0">
+               <div class="col-md-12">
                   <div class="panel with-nav-tabs panel-warning">
                      <div class="panel-body">
                         <div class="tab-content">
@@ -87,12 +87,12 @@
                                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                 </a>
                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" data-toggle="modal" data-target="#updateBlog">Edit  <i class="fa fa-fw fa-pen"></i></a>
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#updateBlog"> <i class="fa fa-fw fa-pen"></i> Edit  </a>
                                                    <div class="dropdown-divider"></div>
                                                    
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Suspend  <i class="fa fa-ban"></i></a>
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" > <i class="fa fa-ban"></i> Suspend  </a>
                                                    <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Archive  <i class="fa fa-fw fa-archive" ></i></a>
+                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" > <i class="fa fa-fw fa-archive" ></i> Archive  </a>
                                                    
                                                 </div>
                                              </div>
@@ -126,7 +126,7 @@
                   </div>
                </div>
             </div>
-        
+         </div>
          <!--right side bar end-->
       </div>
    </div>
@@ -264,7 +264,7 @@
 <i class="fas fa-angle-up"></i>
 </a>
 <!-- CKEditor Script -->
-<script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
+{{-- <script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script> --}}
 <script>
   CKEDITOR.replace('editor1', {
     fullPage: false, // Set to true only if you're editing full HTML pages

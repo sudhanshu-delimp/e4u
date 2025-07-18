@@ -14,131 +14,123 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content-->
    <div class="row">
-         <div class="col-md-12">
-            <div class="v-main-heading">
-                  <h1> Alerts  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span></h1>
+      <div class="custom-heading-wrapper col-md-12">
+         <h1 class="h1"> Alerts  </h1>
+         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
+      </div>
+      <div class="col-md-12 mb-4">
+         <div class="card collapse" id="notes">
+            <div class="card-body">
+               <h3 class="NotesHeader"><b>Notes:</b> </h3>
+               <ol class="level-1">
+                  <li>You can create an Alert, published in the Footer, for:</li>
+                     <ol class="level-2 ">
+                        <li>New features launched in the Website</li>
+                        <li>Scammer Alerts; and</li>
+                        <li>Website updates</li>
+                     </ol>
+                  <li>Public notices are published on the Home page.</li>
+               </ol>
             </div>
-            <div class=" my-4">
-                <div class="card collapse" id="notes">
-                    <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol class="level-1">
-                           <li>You can create an Alert, published in the Footer, for:</li>
-                           <ol class="level-2 ">
-                              <li>New features launched in the Website</li>
-                              <li>Scammer Alerts; and</li>
-                              <li>Website updates</li>
-                          </ol>
-                          <li>Public notices are published on the Home page.</li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-      <div class="col-sm-12 col-md-12 col-lg-12 ">  
-            
-            <div class="row my-3">
-               <div class="col-lg-4 col-md-12 col-sm-12">
-                  <form class="search-form-bg navbar-search">
-                     <div class="input-group">
-                        <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                           <button class="btn-right-icon" type="button">
-                           <i class="fas fa-search fa-sm"></i>
-                           </button>
-                        </div>
-                     </div>
-                  </form>
-               </div>
-               <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end"style="gap: 50px;">
-                  <div class="bothsearch-form" style="gap: 10px;">
-                     <button type="button" class="btn btn-primary create-tour-sec dctour " style="color: var(--peach);" data-toggle="modal" data-target="#Create_Notice">New Notice</button>
-                  </div>
-                  <div class="bothsearch-form" style="gap: 10px;">
-                     <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" style="color: var(--peach);" data-target="#Create_Alert">New Alert</button>
-                  </div>
-               </div>
-            </div>
-            <div class="table-responsive">
-               <table class="table">
-                  <thead class="table-bg">
-                     <tr>
-                                          <th scope="col">
-                                          Ref
-                                            
-                                          </th>
-                                          <th scope="col">
-                                          Date Publised 
-                                             
-                                          </th>
-                                          <th scope="col">
-                                          type 
-                                             <!-- <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M13.6139 15.125L10.4473 11.9583H12.8223V4.04167H10.4473L13.6139 0.875L16.7806 4.04167H14.4056V11.9583H16.7806L13.6139 15.125ZM0.947266 13.5417V11.9583H8.86393V13.5417H0.947266ZM0.947266 8.79167V7.20833H6.48893V8.79167H0.947266ZM0.947266 4.04167V2.45833H4.11393V4.04167H0.947266Z" fill="white"></path>
-                                             </svg> -->
-                                          </th>
-                                          <th scope="col">
-                                             Status
-                                          </th>
-                                          <th scope="col">Action</th>
-                                       </tr>
-                                    </thead>
-                                    <tbody class="table-content">
-                                       <tr class="row-color">
-                                          <td width="10%" class="theme-color">REF1001010</td>
-                                          <td class="theme-color">12/31/2022</td>
-                                          <td class="theme-color">New Frature</td>
-                                          <td class="theme-color">Published</td>
-                                          <td>
-                                             <div class="dropdown no-arrow ml-3">
-                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                </a>
-                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item" href="#" >Published <i class="fa fa-check text-dark" style="float: right;"></i></a>
-                                                   <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item" href="#">Withdrawn  <i class="fa fa-times text-dark" style="float: right;"></i></a>
-                                                   <div class="dropdown-divider"></div>
-                                                   <a class="dropdown-item" href="#">view  <i class="fa fa-eye text-dark" style="float: right;"></i></a>
-                                                </div>
-                                             </div>
-                                          </td>
-                                       </tr>
-                                    </tbody>
-                                 </table>
-                                 <nav aria-label="Page navigation example">
-                                    <ul class="pagination float-right pt-4">
-                                       <li class="page-item">
-                                          <a class="page-link" href="#" aria-label="Previous">
-                                          <span aria-hidden="true">«</span>
-                                          <span class="sr-only">Previous</span>
-                                          </a>
-                                       </li>
-                                       <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                       <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                       <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                       <li class="page-item">
-                                          <a class="page-link" href="#" aria-label="Next">
-                                          <span aria-hidden="true">»</span>
-                                          <span class="sr-only">Next</span>
-                                          </a>
-                                       </li>
-                                    </ul>
-                                 </nav>
-                              </div>                              
-               </div>
          </div>
-         </div>
-         
-      <!--middle content end here-->
-      <!--right side bar start from here-->
+      </div>
    </div>
-   <!--right side bar end-->
+   <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-12 ">            
+         <div class="row mb-3">
+            <div class="col-lg-4 col-md-12 col-sm-12">
+               <form class="search-form-bg navbar-search">
+                  <div class="input-group">
+                     <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
+                     <div class="input-group-append">
+                        <button class="btn-right-icon" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                        </button>
+                     </div>
+                  </div>
+               </form>
+            </div>
+            <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end"style="gap: 50px;">
+               <div class="bothsearch-form" style="gap: 10px;">
+                  <button type="button" class="btn btn-primary create-tour-sec dctour " style="color: var(--peach);" data-toggle="modal" data-target="#Create_Notice">New Notice</button>
+               </div>
+               <div class="bothsearch-form" style="gap: 10px;">
+                  <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" style="color: var(--peach);" data-target="#Create_Alert">New Alert</button>
+               </div>
+            </div>
+         </div>
+         <div class="table-responsive">
+            <table class="table">
+               <thead class="table-bg">
+                  <tr>
+                     <th scope="col">
+                     Ref
+                        
+                     </th>
+                     <th scope="col">
+                     Date Publised 
+                        
+                     </th>
+                     <th scope="col">
+                     type 
+                        
+                     </th>
+                     <th scope="col">
+                        Status
+                     </th>
+                     <th scope="col">Action</th>
+                  </tr>
+               </thead>
+               <tbody class="table-content">
+                  <tr class="row-color">
+                     <td width="10%" class="theme-color">REF1001010</td>
+                     <td class="theme-color">12/31/2022</td>
+                     <td class="theme-color">New Frature</td>
+                     <td class="theme-color">Published</td>
+                     <td>
+                        <div class="dropdown no-arrow ml-3">
+                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                           </a>
+                           <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" > <i class="fa fa-check"></i> Published </a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#">  <i class="fa fa-times"></i> Withdrawn </a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-eye"></i> view  </a>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+            <nav aria-label="Page navigation example">
+               <ul class="pagination float-right pt-4">
+                  <li class="page-item">
+                     <a class="page-link" href="#" aria-label="Previous">
+                     <span aria-hidden="true">«</span>
+                     <span class="sr-only">Previous</span>
+                     </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                     <a class="page-link" href="#" aria-label="Next">
+                     <span aria-hidden="true">»</span>
+                     <span class="sr-only">Next</span>
+                     </a>
+                  </li>
+               </ul>
+            </nav>
+         </div>                              
+      </div>
+   </div>
 </div>
-
+{{-- end --}}
 <div class="modal fade upload-modal" id="Create_Notice" tabindex="-1" role="dialog" aria-labelledby="Create_AlertLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
      <div class="modal-content basic-modal">

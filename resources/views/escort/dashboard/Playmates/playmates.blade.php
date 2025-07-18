@@ -109,17 +109,6 @@
    display: flex;
    gap: 10px;
    }
-   .results span {
-   background-color: #5d6d7e;
-   color: #fff;
-   text-align: center;
-   padding: 2px 4px 2px 4px;
-   font-size: 20px;
-   border-radius: 2px;
-   right: -5px;
-   position: relative;
-   height: 25px;
-   }
 </style>
 @endsection
 @section('content')
@@ -195,9 +184,10 @@
                   <ul class="results  mt-2 activePlaymate">
                      @if(!is_null(auth()->user()->playmates))
                      @foreach(auth()->user()->playmates as $playmate)
-                     <li id="rmlist_{{$playmate->id}}"> <a href="{{ route('profile.description',$playmate->id)}}" target="_blank">
+                     <li id="rmlist_{{$playmate->id}}"> <a href="{{ route('profile.description',$playmate->id)}}" target="_blank" class="d_my_tooltip">
                         <img src="{{ $playmate->DefaultImage ? asset($playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}" class="img-profile rounded-circle playmats-img">{{$playmate->user->member_id . ' - ' .$playmate->name}}</a>
                         <span class="playmates_rmid" value="{{$playmate->id}}">×</span>
+                        <small class="mytool-tip">Remove</small>
                      </li>
                      @endforeach
                      @endif
@@ -482,7 +472,7 @@
          console.log("list_"+id + "</br>path ="+path);
         var url = "{{ route('profile.description',':id')}}";
         url = url.replace(':id', id);
-        $(".activePlaymate").append("<li id='rmlist_"+id+"'><a href='"+url+"' target='_blank'><img src='"+path+"' class='img-profile rounded-circle playmats-img'>&nbsp;&nbsp;"+name+"</a><span class='playmates_rmid' value="+id+">×</span></li>");
+        $(".activePlaymate").append("<li id='rmlist_"+id+"' class='d_my-tooltip'><a href='"+url+"' target='_blank'><img src='"+path+"' class='img-profile rounded-circle playmats-img'>&nbsp;&nbsp;"+name+"</a><span class='playmates_rmid' value="+id+">×</span>  <small class='mytool-tip'>Remove</small></li>");
 
 
 

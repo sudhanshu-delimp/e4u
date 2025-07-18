@@ -8,7 +8,7 @@
             <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="">Duplicate Profile</h5>
+                        <h5 class="modal-title" id=""><img src="/assets/app/img/dublicate-profile.png" class="custompopicon" alt="cross"> Duplicate Profile</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true"><img id="modal_close" src="{{ asset('assets/app/img/cross.png') }}"
                                     class="img-fluid img_resize_in_smscreen"></span>

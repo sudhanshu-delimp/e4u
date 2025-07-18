@@ -9,7 +9,7 @@
 <style type="text/css">
 .conversation {
     display: inline-block;
-    margin-bottom: 15px;
+    margin: 10px 0px;
 }
 .adminMessage, .userMessage {
         padding: 10px;
@@ -87,28 +87,30 @@
      aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable"
          role="document"> {{--NOTE:: use  modal-dialog-scrollable instead of modal-dialog to make body scrollable only--}}
-        <div class="modal-content" style="width: 900px;position: absolute;">
+        <div class="modal-content" style="width: 900px;position: absolute;top:50px;">
             {{-- {{ route('escort.upload.gallery') }} --}}
             <div class="modal-content border-0">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="ticket_name">Support Ticket</h5>
+                    <span class="custom-pop-wrapper"><img src="/assets/app/img/history.png" class="custompopicon" alt="cross"><h5 class="modal-title" id="ticket_name">Support Ticket</h5></span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
                                                       class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body my-custom-modal-body">
                     <div class="row">
                         <div class="col-sm-12 conv-main" id="conv-main">
 
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer" style="border-top: 1px solid;">
+                <div class="reply-wrapper p-3 ">
                     <form id="sendMessage">
-                        <textarea class="messageBox" name="message" id="message" rows="4" cols="50" required></textarea>
-                         <input type="hidden" name="ticketId"  id="ticketId" value=""> 
-                        <button class="btn btn-info" id="submit_message">Send</button>
+                       <div class="reply-message-box">
+                        <textarea class="messageBox" name="message" id="message" rows="2" required></textarea>
+                        <input type="hidden" name="ticketId"  id="ticketId" value=""> 
+                        <button class="btn btn-info send-btn" id="submit_message">Send</button>
+                       </div>
                     </form>
                 </div>
             </div>
@@ -262,7 +264,7 @@
                    '    <div class="userMessage">' +
                    '       <p>'+data.message+'</p>'+
                    '   </div>'+
-                   '       <span class="message_time">'+date_time_format(data.created_on)+'</span>'+
+                  '       <span class="message_time"> Member ID: '+data.user.member_id+',  '+date_time_format(data.created_on)+'</span>'+
                    '</div>';
 
                
@@ -273,7 +275,7 @@
                            '    <div class="adminMessage">' +
                            '       <p>'+conversation.message+'</p>'+
                            '   </div>'+
-                           '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
+                          '       <span class="message_time"> Member ID: '+conversation.user_from_admin.member_id+',   '+date_time_format(conversation.date_time)+'</span>'+
                            '</div>'+
                            // '<div class="col-sm-6 conversation"> </div>' +
                            '<div class="col-sm-6 conversation"> </div>';
@@ -284,7 +286,7 @@
                            '    <div class="userMessage">' +
                            '       <p>'+conversation.message+'</p>'+
                            '   </div>'+
-                           '       <span class="message_time">'+date_time_format(conversation.date_time)+'</span>'+
+                          '       <span class="message_time">Member ID: '+conversation.user_from_user.member_id+',   '+date_time_format(conversation.date_time)+'</span>'+
                            '</div>';
                    }
                });

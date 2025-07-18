@@ -475,13 +475,16 @@ class EscortController extends Controller
     }
     public function notificationUpdate(UpdateEscortRequest $request)
     {
-        dd($request->all());
-        $notification_features = json_encode($request->notification_features);
-        $data = [];
+        $playmateAvailable = null;
+        if($request->notification_feature && in_array('available_playmate', $request->notification_feature)){
+            $playmateAvailable = true;
+        }
+
         $data = [
             'alert_notifications' => $request->alert_notifications,
             'agent_communications' => $request->agent_communications,
-            'notification_features' => $notification_features,
+            'notification_features' => $request->notification_feature,
+            'available_playmate' => $playmateAvailable,
         ];
 
         $error = true;

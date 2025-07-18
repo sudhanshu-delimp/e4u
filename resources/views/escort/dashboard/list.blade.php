@@ -151,7 +151,7 @@
                 <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="">Add BRB</h5>
+                            <h5 class="modal-title" id=""><img src="/assets/app/img/brb.png" class="custompopicon" alt="cross"> Add BRB</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><img id="modal_close" src="{{ asset('assets/app/img/cross.png') }}"
                                         class="img-fluid img_resize_in_smscreen"></span>
@@ -227,7 +227,7 @@
                 <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="">Suspend Profile</h5>
+                            <h5 class="modal-title" id=""><img src="/assets/app/img/deactivate.png" class="custompopicon" alt="cross"> Suspend Profile</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><img id="modal_close"
                                         src="{{ asset('assets/app/img/cross.png') }}"
@@ -351,7 +351,7 @@
                 <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="">Register for Pin Up</h5>
+                            <h5 class="modal-title" id=""><img src="/assets/app/img/register.png" class="custompopicon" alt="cross"> Register for Pin Up</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><img id="modal_close"
                                         src="{{ asset('assets/app/img/cross.png') }}"
@@ -476,7 +476,8 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
-                    <span style="color:white">Delete Profile</span>
+                    <h5 class="modal-title" id="" style="color:white"><img src="/assets/app/img/block-user.png" class="custompopicon" alt="cross"> Delete Profile
+                    </h5>
                     {{--
             <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5>
             --}}
@@ -492,8 +493,8 @@
                     <input type="hidden" id="previous" name="previous">
                     <input type="hidden" id="label" name="label">
                     <input type="hidden" id="trigger-element">
-                    <h3 class="mb-4 mt-5"><span id="Lname"></span> </h3>
-                    <h3 class="mb-4 mt-5"><span id="log"></span> </h3>
+                    <h3 class=""><span id="Lname"></span> </h3>
+                    <h3 class=""><span id="log"></span> </h3>
                     <div class="modal-footer">
                         <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
                             value="close" id="close_change">Close</button>

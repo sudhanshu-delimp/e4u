@@ -1,21 +1,22 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Agent\AgentController;
-use App\Http\Controllers\Agent\EscortController;
-use App\Http\Controllers\Agent\AgentTourPaymentController;
-use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Escort\TourController;
-use App\Http\Controllers\Escort\EscortController as DataTableController;
+use App\Http\Controllers\Agent\EscortController;
+use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Agent\AgentAccountController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Escort\EscortGalleryController;
-use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
-use App\Http\Controllers\MyAdvertiser\ListAdvertiserController;
-
-use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
+use App\Http\Controllers\Agent\AgentTourPaymentController;
+
+use App\Http\Controllers\Escort\EscortPolyPaymentController;
+use App\Http\Controllers\MyAdvertiser\ListAdvertiserController;
+use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
+use App\Http\Controllers\Escort\EscortController as DataTableController;
 
     Route::get('/', [AgentController::class, 'index'])->name('agent.dashboard');
     Route::get('/user-escorts-list', [AgentController::class, 'userEscortList'])->name('agent.manage.escorts.list');
@@ -87,6 +88,17 @@ use App\Http\Controllers\Escort\Profile\UpdateController;
     Route::post('add-playmate', [EscortController::class, 'addPlaymate'])->name('agent.playmates.add');
     Route::post('remove-playmate', [EscortController::class, 'removePlaymate'])->name('agent.playmates.remove');
 
+
+     Route::get('Advertisers/new-requests', [AgentRequestController::class, 'newRequest'])->name('agent.new-requests');
+     Route::post('process-request', [AgentRequestController::class, 'processRequest'])->name('agent.process-request');
+
+     Route::get('Advertisers/history-requests', [AgentRequestController::class, 'historyRequests'])->name('agent.history-requests');
+
+//     Route::get('Advertisers/history-requests',function(){
+//     return view('agent.dashboard.Advertisers.history-requests');
+// })->name('agent.history-requests');
+     
+
     Route::get('advertiser-profiles',function(){
     return view('agent.dashboard.Annalytics.advertiser-profiles');
 })->name('agent.advertiser-profiles');
@@ -99,17 +111,14 @@ use App\Http\Controllers\Escort\Profile\UpdateController;
     return view('agent.dashboard.Annalytics.prospets-memberships');
 })->name('agent.prospets-memberships');
 
-    Route::get('Advertisers/new-requests',function(){
-    return view('agent.dashboard.Advertisers.new-requests');
-})->name('agent.new-requests');
-
-Route::get('Advertisers/history-requests',function(){
-    return view('agent.dashboard.Advertisers.history-requests');
-})->name('agent.history-requests');
 
     Route::get('Marketing/create-prospect',function(){
     return view('agent.dashboard.Marketing.create-prospect');
 })->name('marketing.agencreate-prospect');
+
+Route::get('agent-messages',function(){
+    return view('agent.dashboard.agent-messages');
+})->name('agent.agent-messages');
 
     Route::get('Marketing/create-information-package',function(){
     return view('agent.dashboard.Marketing.create-information-package');
@@ -122,6 +131,34 @@ Route::get('Advertisers/history-requests',function(){
     Route::get('Commision/summary',function(){
     return view('agent.dashboard.Commision.summary');
 })->name('Commision.summary');
+
+
+Route::get('my-income',function(){
+    return view('agent.dashboard.my-income');
+})->name('agent.my-income');
+
+Route::get('my-statistics',function(){
+    return view('agent.dashboard.my-statistics');
+})->name('agent.my-statistics');
+
+Route::get('advertisers',function(){
+    return view('agent.dashboard.advertisers');
+})->name('agent.advertisers');
+
+Route::get('logs-and-statistics',function(){
+    return view('agent.dashboard.logs-and-statistics');
+})->name('agent.logs-and-statistics');
+
+Route::get('my-appointments',function(){
+    return view('agent.dashboard.my-appointments');
+})->name('agent.my-appointments');
+
+Route::get('task-list',function(){
+    return view('agent.dashboard.task-list');
+})->name('agent.task-list');
+
+
+
 
 Route::get('pricingsummaries',[PricingsummariesController::class ,'showPricingsummary'])->name('pricingsummaries');
 Route::get('pricingsummaries-datatable',[PricingsummariesController::class ,'PricingDataTable'])->name('agent.myPricing.dataTable');

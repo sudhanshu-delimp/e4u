@@ -350,7 +350,7 @@
         order: [1,'asc'],
         searchable:false,
         //searching:true,
-        bStateSave: false,
+        bStateSave: true,
     
         ajax: {
             url: "{{ route('agent.bankDetail.dataTable') }}",

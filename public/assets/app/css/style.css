@@ -2595,6 +2595,10 @@ i.fa.fa-heart-o{
         gap: 15px;
         margin-bottom: 0.75em;
     }
+    img.custompopicon {
+        max-width: 30px;
+        margin-right: 0.5rem;
+    }
     /*profile end*/
     /*scots list*/
     

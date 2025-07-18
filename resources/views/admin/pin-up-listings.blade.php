@@ -104,14 +104,11 @@
                                     </a>
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink" style="">
-                                        <!-- <a class="dropdown-item" href="#">Published <i class="fa fa-check text-dark"
-                                                style="float: right;"></i></a>
+                                        <!-- <a class="dropdown-item justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-check"></i> Published </a>
                                         <div class="dropdown-divider"></div> -->
-                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">View Listing <i class="fa fa-eye text-dark"
-                                                style="color: var(--peach);"></i></a>
+                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-eye"></i> View Listing </a>
                                                 <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Suspend  <i class="fa fa-trash text-dark"
-                                                style="float: right;"></i></a>
+                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-trash"></i> Suspend  </a>
                                     </div>
                                 </div>
                             </td>
@@ -132,14 +129,12 @@
                                     </a>
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink" style="">
-                                        <!-- <a class="dropdown-item" href="#">Published <i class="fa fa-check text-dark"
+                                        <!-- <a class="dropdown-item" href="#">Published <i class="fa fa-check"
                                                 style="float: right;"></i></a>
                                         <div class="dropdown-divider"></div> -->
-                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">View Listing <i class="fa fa-eye text-dark"
-                                                style="color: var(--peach);"></i></a>
+                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-eye"></i> View Listing </a>
                                                 <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">Suspend  <i class="fa fa-trash text-dark"
-                                                style="float: right;"></i></a>
+                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-trash"></i> Suspend  </a>
                                     </div>
                                 </div>
                             </td>

@@ -57,6 +57,7 @@ class User extends Authenticatable
         'alert_notifications' => 'array',
         'profile_creator' => 'array',
         'agent_communications' => 'array',
+        'notification_features' => 'array',
     ];
 
     /**
@@ -335,6 +336,12 @@ class User extends Authenticatable
         }
         if($this->type == 4) {
             return 'M'.config('escorts.profile.statesName')[$this->state->name].sprintf("%04d",$this->id).':001';
+        }
+        if($this->type == 9) {
+            return 'UP'.config('escorts.profile.statesName')[$this->state->name].sprintf("%04d",$this->id).':001';
+        }
+        if($this->type == 10) {
+            return 'DL'.config('escorts.profile.statesName')[$this->state->name].sprintf("%04d",$this->id).':001';
         }
 
 

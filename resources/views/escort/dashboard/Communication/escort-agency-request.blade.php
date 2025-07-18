@@ -45,46 +45,47 @@
         <div class="row">
             
             <div class="col-md-12">
-                <form class=" ">
+                <form action="{{route('agent.agent-request')}}" method="post" name="agent_request_frm" id="agent_request_frm">
                     <div class="row">
                         <div class="col-md-12">
 
                             <div class="form-group w-50">
                                 <label for="email"><b>First Name</b> </label>
-                                <input id="name" placeholder="First Name" name="name" type="text" class="form-control" required="">
+                                <input id="name" placeholder="First Name" name="first_name" type="text" class="form-control" required="">
                             </div>
                             <div class="form-group w-50">
                                 <label for="email"><b>Last Name</b> </label>
-                                <input id="name" placeholder="Last Name" name="name" type="text" class="form-control" required="">
+                                <input id="name" placeholder="Last Name" name="last_name" type="text" class="form-control" >
 
                             </div>
 
                             <div class="form-group w-50">
                                 <label for="email"><b>Email</b></label>
-                                <input id="name" placeholder="Email Address" name="name" type="text" class="form-control" required="">
+                                <input id="name" placeholder="Email Address" name="email" type="text" class="form-control" required>
 
                             </div>
 
                             <div class="form-group w-50">
                                 <label for="email"><b>Mobile Number</b> </label>
-                                <input id="name" placeholder="Mobile Number" name="name" type="text" class="form-control" required="">
+                                <input id="name" placeholder="Mobile Number" name="mobile_number" type="text" class="form-control" required>
                             </div>
 
                             {{-- <div class="form-group custom-radio mb-0">
                                 <label for="email"><b>Contact preference</b> </label><br>
-                                <input type="radio" id="html" name="fav_language" value="HTML">
-                                <label class="m-0" for="html">Show me Agent list</label><br><input type="radio" id="css" name="fav_language" value="CSS">
+                                <input type="radio" name="contact_by_email" value="1">
+                                <label class="m-0" for="html">Show me Agent list</label><br>
+                                <input type="radio" id="css" name="contact_by_mobile" value="1">
                                 <label for="css">Have Agent contact me (select method below)</label><br>
                             </div> --}}
 
                             <div class="form-group">
                                 <label for="email"><b>Agent</b></label><br>
                                 <div class="form-check m-0">
-                                    <input class="form-check-input" type="checkbox" id="Method_Message" value="option1">
+                                    <input class="form-check-input" type="checkbox"  name="contact_by_email" value="1">
                                     <label class="form-check-label" for="Method_Message">Contact me by email</label>
                                 </div>
                                 <div class="form-check m-0">
-                                    <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
+                                    <input class="form-check-input" type="checkbox" name="contact_by_mobile" value="1">
                                     <label class="form-check-label" for="Method_Text">Contact me by mobile</label>
                                 </div>
                             </div>
@@ -92,19 +93,25 @@
                                 <label for="exampleFormControlTextarea1">
                                     <b>Comments</b> (please provide any additional information to assist us)
                                 </label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Up to 300 characters"></textarea>
+                                <textarea class="form-control" id="comments" name="comments" placeholder="Up to 300 characters"></textarea>
                             </div>
                         </div>
                     </div>
-                    <input type="submit" value="Submit Request" class="new-btn-sec btn btn-primary shadow-none" name="submit">
+                    <input type="submit" id="submitTicketBtn" value="Submit Request" class="new-btn-sec btn btn-primary shadow-none" name="submit">
+                    @csrf
+                    @include('partials.snippet.error')
                 </form>
+
+
+                                    
+
             </div>
         </div>
     <!--middle content end here-->
 </div>
 
-{{-- <button data-toggle="modal" data-target="#confirmationPopup">test</button> --}}
-<div class="modal fade upload-modal" id="confirmationPopup" tabindex="-1" role="dialog" aria-labelledby="confirmationPopup" aria-hidden="true" data-backdrop="static">
+
+<div class="modal fade upload-modal" id="agentconfirmationPopup" tabindex="-1" role="dialog" aria-labelledby="confirmationPopup" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-dialog-centered" role="document">
        <div class="modal-content">
           <div class="modal-header">
@@ -119,7 +126,11 @@
                         <p>Your Request for a Support Agent has been submitted. A Support Agent will be in touch
                             with you according to your preferred method.</p>
                             <p>If a Support Agent has not contacted you within 24 hours, please raise a Support Ticket
-                                quoting the following reference: [Reference number from pool].</p>
+                                quoting the following reference : 
+                                @if(session('req_ref_number'))
+                                {{ session('req_ref_number') }}.
+                                @endif
+                            </p>
                    </div>
                 </div>
           </div>
@@ -134,174 +145,19 @@
 <!-- file upload plugin start here -->
 
 
-
-    <!-- file upload plugin end here -->
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-
-
 <script type="text/javascript">
-
-    $('#userProfile').parsley({
-
+$(document).ready(function() {
+   $('#agent_request_frm').on('submit', function() {
+        $('#submitTicketBtn').prop('disabled', true).val('Submitting please wait...');
+        //let data = {'title':'Agent Request','message':'Sending Request'};
+        //wal_waiting_popup(data);
     });
-
-
-
-    $('#userProfile').on('submit', function(e) {
-        e.preventDefault();
-
-        var form = $(this);
-
-        if (form.parsley().isValid()) {
-
-            var url = form.attr('action');
-            var data = new FormData(form[0]);
-            $.ajax({
-                method: form.attr('method'),
-                url: url,
-                data: data,
-                contentType: false,
-                processData: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    if (!data.error) {
-                        $.toast({
-                            heading: 'Success',
-                            text: 'Details successfully saved',
-                            icon: 'success',
-                            loader: true,
-                            position: 'top-right', // Change it to false to disable loader
-                            loaderBg: '#9EC600' // To change the background
-                        });
-
-                    } else {
-                        $.toast({
-                            heading: 'Error',
-                            text: 'Records Not update',
-                            icon: 'error',
-                            loader: true,
-                            position: 'top-right', // Change it to false to disable loader
-                            loaderBg: '#9EC600' // To change the background
-                        });
-
-                    }
-                },
-
-            });
-        }
-    });
-    $('#city').select2({
-        allowClear: true,
-        placeholder :'Select City',
-        createTag: function(params) {
-            var term = $.trim(params.term);
-
-            if (term === '') {
-                return null;
-            }
-            return {
-                id: term,
-                text: term,
-                newTag: false // add additional parameters
-            }
-        },
-        tags: false,
-        minimumInputLength: 2,
-        tokenSeparators: [','],
-        ajax: {
-            url: "{{ route('city.list') }}",
-            dataType: "json",
-            type: "GET",
-            data: function(params) {
-                console.log(params);
-                var queryParameters = {
-                    query: params.term,
-                    state_id: $('#state').val()
-                }
-                return queryParameters;
-            },
-            processResults: function(data) {
-                return {
-                    results: $.map(data, function(item) {
-
-                        return {
-                            text: item.name,
-                            id: item.id
-                        }
-                    })
-                };
-            }
-        }
-    });
-
-    $('#state').select2({
-        allowClear: true,
-        placeholder :'Select State',
-        createTag: function(params) {
-            var term = $.trim(params.term);
-
-            if (term === '') {
-                return null;
-            }
-            return {
-                id: term,
-                text: term,
-                newTag: false // add additional parameters
-            }
-        },
-        tags: false,
-        minimumInputLength: 2,
-        tokenSeparators: [','],
-        ajax: {
-            url: "{{ route('state.list') }}",
-            dataType: "json",
-            type: "GET",
-            data: function(params) {
-                console.log(params);
-                var queryParameters = {
-                    query: params.term,
-                    country_id: $('#country').val()
-                }
-                return queryParameters;
-            },
-            processResults: function(data) {
-                return {
-                    results: $.map(data, function(item) {
-
-                        return {
-                            text: item.name,
-                            id: item.id
-                        }
-                    })
-                };
-            }
-        }
-    });
-
-
-    $('#country').on('change', function(e) {
-        if($(this).val()) {
-            $('#state').prop('disabled', false);
-            $('#state').select2('open');
-        } else {
-            $('#state').prop('disabled', true);
-        }
-    });
-
-    $('#state').on('change', function(e) {
-        if($(this).val()) {
-            $('#city').prop('disabled', false);
-            $('#city').select2('open');
-        } else {
-            $('#city').prop('disabled', true);
-        }
-    });
-
-
+});
 </script>
 
+@if(session('agent_success'))
+<script>
+$('#agentconfirmationPopup').modal('show');
+</script>
+@endif
 @endpush
