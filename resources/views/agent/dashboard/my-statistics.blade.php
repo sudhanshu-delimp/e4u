@@ -6,7 +6,7 @@
       <!-- Page Heading -->
       <div class="d-flex align-items-center justify-content-between col-md-12">
          <div class="custom-heading-wrapper">
-             <h1 class="h1">Dashboard - My Statistics</h1>
+             <h1 class="h1">My Statistics</h1>
              <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
          </div>
          <div class="back-to-dashboard">
@@ -20,79 +20,402 @@
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
-                 
+                    <li>You can view all of your statistics here.</li>
+                    <li>For an expanded summary on any of your statistics, go to Analytics in the side bar menu.</li>
                </ol>
             </div>
          </div>
       </div>
    </div>
 
-      {{-- first row --}}
+      {{-- 1st row --}}
       <div class="col-lg-12">                
-         <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">                  
+         <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;"> 
+            {{-- 1st --}}
              <div class="col-lg-12">
-                 <h4 class="font-weight-bold" style="color: var(--blue--text);">My Statistics
+                 <h4 class="font-weight-bold" style="color: var(--blue--text);">My Statistics - Memberships (Advertisers)
                  </h4>
              </div>
              <!-- Card Start -->
-             <div class="col-md-3 mb-3">
+             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
                  <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                      <div class="statistics-text">
-                         <div class="statistics-label">My Escorts
+                         <div class="statistics-label font-weight-bold">New today
                         </div>
+                         <div class="statistics-value">4</div>
+                     </div>
+                     <div class="statistics-icon">
+                         <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
+                     </div>
+                 </div>
+             </div>
+             <!-- Card End -->
+             <!-- Card Start -->
+             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                 <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                     <div class="statistics-text">
+                         <div class="statistics-label font-weight-bold">New this week
+                         </div>
+                         <div class="statistics-value">7</div>
+                     </div>
+                     <div class="statistics-icon">
+                         <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
+                     </div>
+                 </div>
+             </div>
+             <!-- Card End -->
+             <!-- Card Start -->
+             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                 <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                     <div class="statistics-text">
+                         <div class="statistics-label font-weight-bold">New this month
+                         </div>
                          <div class="statistics-value">25</div>
                      </div>
                      <div class="statistics-icon">
-                         <img src="{{ asset('assets/dashboard/img/view-profile.png') }}" alt="icon">
+                         <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
                      </div>
                  </div>
              </div>
              <!-- Card End -->
              <!-- Card Start -->
-             <div class="col-md-3 mb-3">
+             <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
                  <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                      <div class="statistics-text">
-                         <div class="statistics-label">My Massage Centres
+                         <div class="statistics-label font-weight-bold">Total
                          </div>
-                         <div class="statistics-value">125</div>
+                         <div class="statistics-value">423</div>
                      </div>
                      <div class="statistics-icon">
-                         <img src="{{ asset('assets/dashboard/img/media-view.png') }}" alt="icon">
+                         <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
                      </div>
                  </div>
              </div>
              <!-- Card End -->
-             <!-- Card Start -->
-             <div class="col-md-3 mb-3">
-                 <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                     <div class="statistics-text">
-                         <div class="statistics-label">Escort Profiles Posted
-                         </div>
-                         <div class="statistics-value">32</div>
-                     </div>
-                     <div class="statistics-icon">
-                         <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
-                     </div>
-                 </div>
-             </div>
-             <!-- Card End -->
-             <!-- Card Start -->
-             <div class="col-md-3 mb-3">
-                 <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
-                     <div class="statistics-text">
-                         <div class="statistics-label">Massage Profiles Posted
-                         </div>
-                         <div class="statistics-value">125</div>
-                     </div>
-                     <div class="statistics-icon">
-                         <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
-                     </div>
-                 </div>
-             </div>
-             <!-- Card End -->
+             {{-- 2nd --}}
+             <div class="col-lg-12">
+                <h4 class="font-weight-bold" style="color: var(--blue--text);">My Statistics (Escorts)
+
+                </h4>
+            </div>
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">New today
+                       </div>
+                        <div class="statistics-value">1</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">New this week
+                        </div>
+                        <div class="statistics-value">3</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">New this month
+                        </div>
+                        <div class="statistics-value">10</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">Total
+                        </div>
+                        <div class="statistics-value">78</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+
+            
+             {{-- 3rd --}}
+             <div class="col-lg-12">
+                <h4 class="font-weight-bold" style="color: var(--blue--text);">My Statistics (Massage Centres)
+
+                </h4>
+            </div>
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">New today
+                       </div>
+                        <div class="statistics-value">3</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">New this week
+                        </div>
+                        <div class="statistics-value">4</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">New this month
+                        </div>
+                        <div class="statistics-value">15</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">Total
+                        </div>
+                        <div class="statistics-value">345</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/membership.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
          </div>
      </div>
      {{-- end --}}
+
+
+      {{-- 2nd row --}}
+      <div class="col-lg-12">                
+        <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;"> 
+           {{-- 1st --}}
+            <div class="col-lg-12">
+                <h4 class="font-weight-bold" style="color: var(--blue--text);">My Statistics - Profiles (Advertisers)
+                </h4>
+            </div>
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">New today
+                       </div>
+                        <div class="statistics-value">4</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">New this week
+                        </div>
+                        <div class="statistics-value">7</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">New this month
+                        </div>
+                        <div class="statistics-value">25</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">Total
+                        </div>
+                        <div class="statistics-value">423</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            {{-- 2nd --}}
+            <div class="col-lg-12">
+               <h4 class="font-weight-bold" style="color: var(--blue--text);">My Statistics (Escorts)
+
+               </h4>
+           </div>
+           <!-- Card Start -->
+           <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                   <div class="statistics-text">
+                       <div class="statistics-label font-weight-bold">New today
+                      </div>
+                       <div class="statistics-value">1</div>
+                   </div>
+                   <div class="statistics-icon">
+                       <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
+                   </div>
+               </div>
+           </div>
+           <!-- Card End -->
+           <!-- Card Start -->
+           <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                   <div class="statistics-text">
+                       <div class="statistics-label font-weight-bold">New this week
+                       </div>
+                       <div class="statistics-value">3</div>
+                   </div>
+                   <div class="statistics-icon">
+                       <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
+                   </div>
+               </div>
+           </div>
+           <!-- Card End -->
+           <!-- Card Start -->
+           <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                   <div class="statistics-text">
+                       <div class="statistics-label font-weight-bold">New this month
+                       </div>
+                       <div class="statistics-value">10</div>
+                   </div>
+                   <div class="statistics-icon">
+                       <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
+                   </div>
+               </div>
+           </div>
+           <!-- Card End -->
+           <!-- Card Start -->
+           <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                   <div class="statistics-text">
+                       <div class="statistics-label font-weight-bold">Total
+                       </div>
+                       <div class="statistics-value">78</div>
+                   </div>
+                   <div class="statistics-icon">
+                       <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
+                   </div>
+               </div>
+           </div>
+           <!-- Card End -->
+
+           
+            {{-- 3rd --}}
+            <div class="col-lg-12">
+               <h4 class="font-weight-bold" style="color: var(--blue--text);">My Statistics (Massage Centres)
+
+               </h4>
+           </div>
+           <!-- Card Start -->
+           <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                   <div class="statistics-text">
+                       <div class="statistics-label font-weight-bold">New today
+                      </div>
+                       <div class="statistics-value">3</div>
+                   </div>
+                   <div class="statistics-icon">
+                       <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
+                   </div>
+               </div>
+           </div>
+           <!-- Card End -->
+           <!-- Card Start -->
+           <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                   <div class="statistics-text">
+                       <div class="statistics-label font-weight-bold">New this week
+                       </div>
+                       <div class="statistics-value">4</div>
+                   </div>
+                   <div class="statistics-icon">
+                       <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
+                   </div>
+               </div>
+           </div>
+           <!-- Card End -->
+           <!-- Card Start -->
+           <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                   <div class="statistics-text">
+                       <div class="statistics-label font-weight-bold">New this month
+                       </div>
+                       <div class="statistics-value">15</div>
+                   </div>
+                   <div class="statistics-icon">
+                       <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
+                   </div>
+               </div>
+           </div>
+           <!-- Card End -->
+           <!-- Card Start -->
+           <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+               <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                   <div class="statistics-text">
+                       <div class="statistics-label font-weight-bold">Total
+                       </div>
+                       <div class="statistics-value">345</div>
+                   </div>
+                   <div class="statistics-icon">
+                       <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
+                   </div>
+               </div>
+           </div>
+           <!-- Card End -->
+        </div>
+    </div>
+    {{-- end --}}
  
 
 

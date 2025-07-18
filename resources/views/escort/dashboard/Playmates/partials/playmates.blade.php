@@ -589,7 +589,7 @@
         console.log("list_" + id + "</br>path =" + path);
         var url = "{{ route('profile.description',':id')}}";
         url = url.replace(':id', id);
-        $(".activePlaymate").append("<li id='rmlist_" + id + "'><a href='" + url + "' target='_blank'><img src='" + path + "' class='img-profile rounded-circle playmats-img'>" + member_id + " -&nbsp;" + name + "</a><span class='playmates_rmid' value=" + id + ">×</span></li>");
+        $(".activePlaymate").append("<li id='rmlist_" + id + "' class='d_my_tooltip'><a href='" + url + "' target='_blank'><img src='" + path + "' class='img-profile rounded-circle playmats-img'>" + member_id + " -&nbsp;" + name + "</a><span class='playmates_rmid' value=" + id + ">×</span> <small class='mytool-tip'>Remove</small></li>");
 
 
         $("#list_" + id).remove();

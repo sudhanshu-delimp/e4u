@@ -6,7 +6,7 @@
       <!-- Page Heading -->
       <div class="d-flex align-items-center justify-content-between col-md-12">
          <div class="custom-heading-wrapper">
-             <h1 class="h1">Dashboard - My Income</h1>
+             <h1 class="h1">My Income</h1>
              <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
          </div>
          <div class="back-to-dashboard">
@@ -20,66 +20,208 @@
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
-                  
+                  <li>You can view your Income according to the period displayed.</li>
+                  <li>For an expanded summary of income, go to <a href="{{ route('Commision.summary') }}" class="custom_links_design">Commission Summary</a> </li>
                </ol>
             </div>
          </div>
       </div>
    </div>
 
-      {{-- first row --}}
-   <div class="row">
-       {{-- col-6 --}}
-       <div class="col-lg-6 my-2">
-         <div class="my-spend-box-wrapper">
-                 <div class="row">
-                       {{-- my spen box --}}
-                     <div class="col-lg-6">
-                         <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
-                             <div class="card-body d-flex align-items-center justify-content-between">
-                                 
-                                 <!-- Text Section -->
-                                 <div>
-                                     <p class="mb-1 label-text">Today’s Income</p>
-                                     <h4 class="mb-0 amount-text font-weight-bold">$580.00</h4>
-                                 </div>
-                     
-                                 <!-- Chart Icon or Image -->
-                                 <div class="spend-icons">
-                                     <i class="fas fa-calendar-week"></i>
-                                 </div>
-                     
-                             </div>
-                         </div>
-                     </div>
-                     {{-- end --}}
-                     {{-- my spen box --}}
-                     <div class="col-lg-6">
-                         <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
-                             <div class="card-body d-flex align-items-center justify-content-between">
-                                 
-                                 <!-- Text Section -->
-                                 <div>
-                                     <p class="mb-1 label-text font-weight-bold">Month to Date</p>
-                                     <h4 class="mb-0 amount-text font-weight-bold">$3,588.00</h4>
-                                 </div>
-                     
-                                 <!-- Chart Icon or Image -->
-                                 <div class="spend-icons">
-                                     <i class="fas fa-calendar-alt"></i>
-                                 </div>
-                     
-                             </div>
-                         </div>
-                     </div>
-                     {{-- end --}}
-                 </div>
-         </div>
-     </div>
      {{-- end --}}
-   </div>
-     {{-- end --}}
- 
+    {{-- 1st row --}}
+    <div class="col-lg-12">                
+        <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;"> 
+           {{-- 1st --}}
+            <div class="col-lg-12">
+                <h4 class="font-weight-bold" style="color: var(--blue--text);">My Income (Advertisers)
+                </h4>
+            </div>
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">Today's Income
+                       </div>
+                        <div class="statistics-value"><span>$</span> 950.00</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">Week to Date
+                        </div>
+                        <div class="statistics-value"><span>$</span> 2,500.00</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">Month to Date
+                        </div>
+                        <div class="statistics-value"><span>$</span> 5,500.00</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            <!-- Card Start -->
+            <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+                <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                    <div class="statistics-text">
+                        <div class="statistics-label font-weight-bold">Year to Date
+                        </div>
+                        <div class="statistics-value"><span>$</span> 75,5000.00</div>
+                    </div>
+                    <div class="statistics-icon">
+                        <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                    </div>
+                </div>
+            </div>
+            <!-- Card End -->
+            {{-- 2nd --}}
+            <div class="col-lg-12">
+               <h4 class="font-weight-bold" style="color: var(--blue--text);">My Income (Escorts)
+
+               </h4>
+           </div>
+          <!-- Card Start -->
+          <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+            <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-text">
+                    <div class="statistics-label font-weight-bold">Today's Income
+                   </div>
+                    <div class="statistics-value"><span>$</span> 450.00</div>
+                </div>
+                <div class="statistics-icon">
+                    <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                </div>
+            </div>
+        </div>
+        <!-- Card End -->
+        <!-- Card Start -->
+        <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+            <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-text">
+                    <div class="statistics-label font-weight-bold">Week to Date
+                    </div>
+                    <div class="statistics-value"><span>$</span> 1,500.00</div>
+                </div>
+                <div class="statistics-icon">
+                    <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                </div>
+            </div>
+        </div>
+        <!-- Card End -->
+        <!-- Card Start -->
+        <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+            <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-text">
+                    <div class="statistics-label font-weight-bold">Month to Date
+                    </div>
+                    <div class="statistics-value"><span>$</span> 2,500.00</div>
+                </div>
+                <div class="statistics-icon">
+                    <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                </div>
+            </div>
+        </div>
+        <!-- Card End -->
+        <!-- Card Start -->
+        <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+            <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-text">
+                    <div class="statistics-label font-weight-bold">Year to Date
+                    </div>
+                    <div class="statistics-value"><span>$</span> 55,000.00</div>
+                </div>
+                <div class="statistics-icon">
+                    <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                </div>
+            </div>
+        </div>
+        <!-- Card End -->
+
+           
+            {{-- 3rd --}}
+            <div class="col-lg-12">
+               <h4 class="font-weight-bold" style="color: var(--blue--text);">My Income (Massage Centres)
+
+               </h4>
+           </div>
+          <!-- Card Start -->
+          <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+            <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-text">
+                    <div class="statistics-label font-weight-bold">Today's Income
+                   </div>
+                    <div class="statistics-value"><span>$</span> 150.00</div>
+                </div>
+                <div class="statistics-icon">
+                    <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                </div>
+            </div>
+        </div>
+        <!-- Card End -->
+        <!-- Card Start -->
+        <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+            <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-text">
+                    <div class="statistics-label font-weight-bold">Week to Date
+                    </div>
+                    <div class="statistics-value"><span>$</span> 500.00</div>
+                </div>
+                <div class="statistics-icon">
+                    <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                </div>
+            </div>
+        </div>
+        <!-- Card End -->
+        <!-- Card Start -->
+        <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+            <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-text">
+                    <div class="statistics-label font-weight-bold">Month to Date
+                    </div>
+                    <div class="statistics-value"><span>$</span> 750.00</div>
+                </div>
+                <div class="statistics-icon">
+                    <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                </div>
+            </div>
+        </div>
+        <!-- Card End -->
+        <!-- Card Start -->
+        <div class="col-md-6 col-lg-3 col-sm-6 mb-3">
+            <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
+                <div class="statistics-text">
+                    <div class="statistics-label font-weight-bold">Year to Date
+                    </div>
+                    <div class="statistics-value"><span>$</span> 25,000.00</div>
+                </div>
+                <div class="statistics-icon">
+                    <img src="{{ asset('assets/dashboard/img/income.png') }}" alt="icon">
+                </div>
+            </div>
+        </div>
+        <!-- Card End -->
+        </div>
+    </div>
+    {{-- end --}}
 
 
 </div>
