@@ -423,7 +423,7 @@
       <div id="privacy-popup" class="popup-overlay custom--cookie--popup">
          <div class="popup-content">
             <div class="popup--header">
-               <h2>Privacy Preference Center</h2>
+               <h2><img src="/assets/app/img/settings.png" class="custompopicon" alt="cross"> Privacy Preference Center</h2>
                <a id="close-popup" class="close-btn"><img src="/assets/app/img/newcross.png" class="" alt="cross"></a>
             </div>
          <div class="popup--content--area">
