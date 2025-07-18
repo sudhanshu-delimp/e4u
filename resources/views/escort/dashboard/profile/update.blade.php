@@ -1821,6 +1821,7 @@
             let custom_id = $("#trigger-element2").val();
             let value = $("#current").val();
             $(`.my_service_anal input[name="service_id[]"][value=${custom_id}]`).next().find('i').addClass('js_defaultProfileService');
+            $(`.my_service_anal input[name="service_id[]"][value=${custom_id}]`).parents('li').addClass('js_defaultProfileService');
             $(`.my_service_anal input[name="service_id[]"][value=${custom_id}]`).parent().find('.d_profile_name').text('Status: Default');
             update_escort_default($(this), {
                 [field]: value,
