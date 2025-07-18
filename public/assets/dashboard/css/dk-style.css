@@ -8072,6 +8072,17 @@ td {
     box-shadow: unset !important;
 }
 
+.js_defaultProfileService .my_service_anal .mytool-tip::after {
+    background-color: #0c223d;
+    border-color: #0c223d;
+}
+.js_defaultProfileService .my_service_anal span#span_id .mytool-tip {
+    background: #0c223d;
+}
+.js_defaultProfileService .my_service_anal {
+    background: #ff3c5f;
+}
+
 @media (min-width:300px) and (max-width:575px) {
     .form-inline-custom {
         display: none;
