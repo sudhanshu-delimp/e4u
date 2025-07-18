@@ -26,7 +26,7 @@ class TaskController extends Controller
             ELSE 2 
         END")
         ->orderByDesc('id') // then by newest
-        ->paginate(7);
+        ->paginate(10);
 
         return response()->json([
             'status' => true,
