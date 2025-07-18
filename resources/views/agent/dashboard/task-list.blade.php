@@ -1,4 +1,4 @@
-@extends('layouts.escort')
+@extends('layouts.agent')
 @section('style')
     <style>
         .toggle-task-form {
@@ -39,7 +39,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between">
             <div class="custom-heading-wrapper">
-                <h1 class="h1">Dashboard - Task List</h1>
+                <h1 class="h1">Task List</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
             <div class="back-to-dashboard">
@@ -847,12 +847,10 @@
             function renderTasks(tasks) {
                
                 let html = '';
-                
+                var taskBadgeColor = '#9d1d08 ';
+                var priorityColor = 'text-high';
 
                 $.each(tasks, function (index, task) {
-
-                    var taskBadgeColor = '#9d1d08 ';
-                    var priorityColor = 'text-high';
 
                     if(task.status == 'inprogress'){
                         taskBadgeColor = '#4e73df ';
@@ -888,7 +886,7 @@
                                 class="fas fa-circle `+priorityColor+` taski mr-2"></i>`+task.title+`
                             </label></td>
                         <td class="td-actions text-center ">
-                            <span class="badge badge-danger-lighten task-1" style="background: `+taskBadgeColor+`; padding:5px 10px; max-width:120px; width:100%;">`+task.status.toUpperCase()+`</span>
+                            <span class="badge badge-danger-lighten task-1" style="background: `+taskBadgeColor+`; padding:5px 10px; max-width:120px; width:100%;">`+task.status+`</span>
                         </td>
                         <td class="theme-color text-center bg-white ">
                             <div class="dropdown no-arrow">

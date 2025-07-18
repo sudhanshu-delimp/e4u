@@ -33,10 +33,18 @@ class AdvertiserAgentRequest extends Model
 
   
 
-    public function advertiser_agent_request_users()
+    public function advertiser_agent_request_user()
     {
         return $this->hasOne(AdvertiserAgentRequestUser::class, 'advertiser_agent_requests_id');
     }
+
+    public function agent_request_users()
+    {
+        return $this->hasMany(AdvertiserAgentRequestUser::class, 'advertiser_agent_requests_id');
+    }
+
+   
+    
 
 
 }

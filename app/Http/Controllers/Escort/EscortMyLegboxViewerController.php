@@ -110,7 +110,14 @@ class EscortMyLegboxViewerController extends Controller
                 })
 
                 ->addColumn('is_notification_enabled', function ($escort) {
-                    return isset($escort->myLegBox->is_notification_enabled) && $escort->myLegBox->is_notification_enabled ? 'Yes' : 'No';
+
+                    if($escort->user->notification_features && in_array('viewer_notification', $escort->user->notification_features)){
+                        $isEnabledNotificationByEscort = 'Yes';
+                    }else{
+                        $isEnabledNotificationByEscort = 'No';
+                    }
+                    // return isset($escort->myLegBox->is_notification_enabled) && $escort->myLegBox->is_notification_enabled ? 'Yes' : 'No';
+                    return $isEnabledNotificationByEscort;
                 })
                 ->addColumn('is_enabled_contact', function ($escort){
                     return isset($escort->myLegBox->is_enabled_contact) && $escort->myLegBox->is_enabled_contact ? 'Yes' : 'No';

@@ -124,9 +124,9 @@
                         <p>Your Request for a Support Agent has been submitted. A Support Agent will be in touch
                             with you according to your preferred method.</p>
                             <p>If a Support Agent has not contacted you within 24 hours, please raise a Support Ticket
-                                quoting the following reference: 
+                                quoting the following reference : 
                                 @if(session('req_ref_number'))
-                                [{{ session('req_ref_number') }}].
+                                {{ session('req_ref_number') }}.
                                 @endif
                             </p>
                    </div>
