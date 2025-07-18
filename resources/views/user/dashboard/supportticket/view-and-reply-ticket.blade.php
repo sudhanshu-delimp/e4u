@@ -91,7 +91,7 @@
             {{-- {{ route('escort.upload.gallery') }} --}}
             <div class="modal-content border-0">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="ticket_name">Support Ticket</h5>
+                    <span class="custom-pop-wrapper"><img src="/assets/app/img/history.png" class="custompopicon" alt="cross"><h5 class="modal-title" id="ticket_name">Support Ticket</h5></span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
                                                       class="img-fluid img_resize_in_smscreen"></span>

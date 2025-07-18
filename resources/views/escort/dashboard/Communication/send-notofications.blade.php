@@ -122,7 +122,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="new-ban">Send Notification</h5>
+            <h5 class="modal-title" id="new-ban"><img src="/assets/app/img/paper-plane-send.png" class="custompopicon" alt="cross"> Send Notification</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>

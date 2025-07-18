@@ -1004,8 +1004,20 @@
         border: none;
         box-shadow: none;
     }
-    
+    img.log--out--pic {
+        margin-right: 0.5rem;
+    }
+    span.custom-pop-wrapper {
+        display: flex;
+        align-items: center;
+    }
+    img.custompopicon {
+        max-width: 30px;
+        margin-right: 0.5rem;
+    }
+
     // Chatting pannel end
+    
     /* width */
     
     ul.custom-chat-list::-webkit-scrollbar,
