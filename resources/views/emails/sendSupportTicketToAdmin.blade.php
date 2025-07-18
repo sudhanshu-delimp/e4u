@@ -38,7 +38,7 @@
                             <p style="font-size: 18px; margin: 0 0 15px 0;"><b>Attention Operations</b></p>
 
                              <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                A member has submit a support ticket with the below deatils :
+                                A member has submit a support ticket with the below deatils:
                             </p>
 
                             <!-- Info Table -->
