@@ -888,7 +888,7 @@
                                 class="fas fa-circle `+priorityColor+` taski mr-2"></i>`+task.title+`
                             </label></td>
                         <td class="td-actions text-center ">
-                            <span class="badge badge-danger-lighten task-1" style="background: `+taskBadgeColor+`; padding:5px 10px; max-width:120px; width:100%;">`+task.status+`</span>
+                            <span class="badge badge-danger-lighten task-1" style="background: `+taskBadgeColor+`; padding:5px 10px; max-width:120px; width:100%;">`+task.status.toUpperCase()+`</span>
                         </td>
                         <td class="theme-color text-center bg-white ">
                             <div class="dropdown no-arrow">
