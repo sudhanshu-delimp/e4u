@@ -3309,6 +3309,20 @@ padding-bottom:80px;
 #parsley-id-13 li {
     margin-left: 7.5rem;
 } */
+.toggle-password {
+    position: absolute;
+    top: 28px;
+    right: 15px;
+    cursor: pointer;
+    z-index: 2;
+    color: #6c757d;
+}
+form#userProfile label {
+    font-weight: 600;
+}
+form#passwordExpiry .form-group > label {
+    font-weight: 600 !important;
+}
     
     .primery_color.normal_heading {
         font-family: Poppins;

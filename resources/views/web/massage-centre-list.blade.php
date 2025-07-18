@@ -19,13 +19,21 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
     }
+    .list-view{
+        padding-top: 25px;
+    padding-bottom: 30px;
+    }
+    .custom--service-tag {
+    display: flex !important;
+    gap: 10px !important;
+}
 </style>
 @endsection
 @section('content')
 <section class="">
     <div class="container filter-contain">
         <div class="search_filters">
-            <div class="search_filters_inside pb-5">
+            <div class="search_filters_inside">
                 <form method="" action="">
                     <div class="row">
                         <div class="col-md-4">
@@ -106,23 +114,10 @@
                                 Clear Shortlist
                                 </a>
                              </div>
-                            {{-- <div class="display_inline_block pad_ryt">
-                                <div class="margin_btn_reset">
-                                    <button type="button" class="btn reset_filter" id="v_wishlist">
-                                        <a href="{{ route('web.massage-show-list')}}" data-toggle="tooltip" title="View Shortlist"> <i class="fa fa-list" aria-hidden="true"></i>
-                                        <span class="badge badge-pill badge-danger" id="session_count">{{ count((array) session('mc_cart')) }}</span>
-                                        </a>
-                                    </button>
-                                </div>
-                            </div> --}}
-                            {{-- <div class="display_inline_block helpquation">
-                                <a href="#" data-toggle="modal" data-target="#forhelp" data-toggle="tooltip" title="Filters explained">
-                                Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
-                                </a>
-                            </div> --}}
+                           
                         </div>
                     </div>
-                    <div class="fiter_btns slect__btn_tab">
+                    <div class="fiter_btns slect__btn_tab pb-2">
                         <div class="display_inline_block mb-1 mr-2">
                             <select class="custome_form_control_border_radus padding_five_px" id="" name="city">
                                 <option value="" selected >All Cities</option>
@@ -177,8 +172,19 @@
                             @endforeach
                             </select>
                         </div>
+                        <div class="display_inline_block mb-1 mr-2">
+                            <button type="button" class="btn verified_btn_bg_color verified_text_color" data-toggle="tooltip" title="View Verified Photos only">
+                                <img src="{{ asset('assets/img/e4u-verified-dark.png')}}">
+                                </button>
+                        </div>
+                        <div class="display_inline_block mb-1">
+                            <button type="submit" class="btn reset_filter" data-toggle="tooltip" title="Apply filters - Search
+                                ">
+                            Apply Filters
+                            </button>
+                        </div>
                     </div>
-                    <div class="row pr-3" style="float: right;">
+                    {{-- <div class="row pr-3" style="float: right;">
                         <div class="display_inline_block mb-1 mr-2">
                             <button type="button" class="btn verified_btn_bg_color verified_text_color" data-toggle="tooltip" title="View Verified Photos only">
                             <img src="{{ asset('assets/img/e4u-verified-dark.png')}}">
@@ -190,38 +196,45 @@
                             Apply Filters
                             </button>
                         </div>
-                    </div>
+                    </div> --}}
                    
                 </form>
+                <div class="row grid_list_part p-0 m-0">
+                    <div class="col-12 custom--service-tag mb-3">
+                        <div class="total--list">
+                            <strong>Total Listings:</strong>
+                            <span>5</span>
+                         </div>
+                        <div class="grid_list_icon_box display_inline_block grid--btn" data-toggle="modal1" data-target="#" data-url="grid-escort-list">
+                            <a href="#" class="active" id="grid-modal" data-toggle="tooltip" title="Grid view">
+                                <span>Grid view</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
+                                    <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <!--  <img src="{{ asset('assets/app/img/grid-pic.svg')}}"> -->
+                            </a>
+                        </div>
+                        <div class="grid_list_icon_box display_inline_block list-btn">
+                            <a href="#" class=" " id="grid-list" data-toggle="tooltip" title="List view">
+                                <span>List view</span>
+                                <!-- <img src="{{ asset('assets/app/img/line.svg')}}"> -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24" viewBox="0 0 27 24" fill="none">
+                                    <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                           
+                    </div>
+                </div>
             </div>
         </div>
         <!-- ================     service provider start here     ========================= -->
-        <div class="row grid_list_part">
-            <div class="col-12">
-                <div class="grid_list_icon_box display_inline_block" data-toggle="modal1" data-target="#" data-url="grid-escort-list">
-                    <a href="#" class="active" id="grid-modal" data-toggle="tooltip" title="Grid view">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="none">
-                            <path d="M25.625 2.11719H20.625C19.2443 2.11719 18.125 3.23648 18.125 4.61719V9.61719C18.125 10.9979 19.2443 12.1172 20.625 12.1172H25.625C27.0057 12.1172 28.125 10.9979 28.125 9.61719V4.61719C28.125 3.23648 27.0057 2.11719 25.625 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9.375 18.3672H4.375C2.99429 18.3672 1.875 19.4865 1.875 20.8672V25.8672C1.875 27.2479 2.99429 28.3672 4.375 28.3672H9.375C10.7557 28.3672 11.875 27.2479 11.875 25.8672V20.8672C11.875 19.4865 10.7557 18.3672 9.375 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M25.625 18.3672H20.625C19.2443 18.3672 18.125 19.4865 18.125 20.8672V25.8672C18.125 27.2479 19.2443 28.3672 20.625 28.3672H25.625C27.0057 28.3672 28.125 27.2479 28.125 25.8672V20.8672C28.125 19.4865 27.0057 18.3672 25.625 18.3672Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M9.375 2.11719H4.375C2.99429 2.11719 1.875 3.23648 1.875 4.61719V9.61719C1.875 10.9979 2.99429 12.1172 4.375 12.1172H9.375C10.7557 12.1172 11.875 10.9979 11.875 9.61719V4.61719C11.875 3.23648 10.7557 2.11719 9.375 2.11719Z" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <!--  <img src="{{ asset('assets/app/img/grid-pic.svg')}}"> -->
-                    </a>
-                </div>
-                <div class="grid_list_icon_box display_inline_block">
-                    <a href="#" class=" " id="grid-list" data-toggle="tooltip" title="List view">
-                        <!-- <img src="{{ asset('assets/app/img/line.svg')}}"> -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24" viewBox="0 0 27 24" fill="none">
-                            <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663" stroke="#0C223D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </a>
-                </div>
-                   
-            </div>
-        </div>
+       
         {{-- <div class="modal defult-modal" id="forhelp"> --}}
-            <div class="modal defult-modal" id="forhelp">
+            <div class="modal fade defult-modal" id="forhelp">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content rounded-0">
                         <!-- Modal body -->
@@ -286,17 +299,7 @@
             </div>
            
             <div id="grid-template" class="text-center"></div>
-            <!--5 items column start here -->
-            {{-- @foreach($escorts as $members)
-            <div class="space_between_row" style="display:block">
-                <div class="row responsive_colums_in_lg_six_col escost_list">
-                    @foreach($members as $key => $escort)
-                    <?php //$pName[] = explode(" ",$escort->name);?>
-                    @include('web.partials.grid.gold')
-                    @endforeach
-                </div>
-            </div>
-            @endforeach --}}
+          
             <div class="space_between_row" style="display:block">
                 <div class="row responsive_colums_in_lg_five_col escost_list">
                     @foreach($escorts as $key => $escort)
@@ -316,9 +319,7 @@
                 @endforeach
             </div>
         </div>
-        {{-- 
-        <div>{!! $escorts->links() !!}</div>
-        --}}
+       
     </div>
     </div>
     <div class="modal hh" id="add_wishlist" style="display: none">
@@ -370,129 +371,14 @@
         </div>
     </div>
 </section>
-<!-- ================       service provider end here        ========================= -->
-<!-- ==============        pagination start here            ====================-->
-{{-- 
-<section class="padding_ninty_btm_ninty_px">
-    <div class="container">
-        <div class="space_between_row">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination justify-content-center">
-                    <li class="page-item change_pagination_style">
-                        <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                    <li class="page-item change_pagination_style"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item change_pagination_style"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item change_pagination_style"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item change_pagination_style">
-                        <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-</section>
---}}
-<!-- =============       pagination end here            ====================-->
+
 @endsection
 @push('scripts')
+
 <script>
-    // var skipSliderage = document.getElementById("skipstepage");
-    // var skipValuesage = [
-    // document.getElementById("skip-value-lower-age"),
-    // document.getElementById("skip-value-upper-age")
-    // ];
     
-    // noUiSlider.create(skipSliderage, {
-    // start: [0, 30],
-    // connect: true,
-    // behaviour: "drag",
-    // step: 1,
-    // range: {
-    //    min: 18,
-    //    max: 60
-    // },
-    // format: {
-    //    from: function (value) {
-    //       return parseInt(value);
-    //    },
-    //    to: function (value) {
-    //       return parseInt(value);
-    //    }
-    // }
-    // });
-    
-    // skipSliderage.noUiSlider.on("update", function (values, handle) {
-    // skipValuesage[handle].innerHTML = values[handle];
-    // });
-    
-</script>
-<script>
-    // var skipSlider = document.getElementById("skipstep");
-    // var skipValues = [
-    // document.getElementById("skip-value-lower"),
-    // document.getElementById("skip-value-upper")
-    // ];
-    
-    // noUiSlider.create(skipSlider, {
-    // start: [0, 200],
-    // connect: true,
-    // behaviour: "drag",
-    // step: 1,
-    // range: {
-    //    min: 150,
-    //    max: 300
-    // },
-    // format: {
-    //    from: function (value) {
-    //       return parseInt(value);
-    //    },
-    //    to: function (value) {
-    //       return parseInt(value);
-    //    }
-    // }
-    // });
-    
-    // skipSlider.noUiSlider.on("update", function (values, handle) {
-    // skipValues[handle].innerHTML = values[handle];
-    // });
-    
-</script>
-<script>
-    // $('#grid-modal').on('shown.bs.modal', function (e) {
-    //    var source = e.relatedTarget;
-    //    console.log($(source).data('url'));
-    //     $.ajax({
-    //         url: $(source).data('url'),
-    //         success: function (data) {
-    //             $('#grid-template').html(data);
-    //         }
-    //     });
-    // });
-    
-    // $('#grid-modal').on('hidden.bs.modal', function (e) {
-    //     $('#grid-template').html('<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>');
-        
-    // });
-    
-    // $('#grid-modal').on('click', function (e) {
-    //    var source = e.relatedTarget;
-    //    console.log($(source).data('url'));
-    //     $.ajax({
-    //         url: $(source).data('url'),
-    //         success: function (data) {
-    //             $('#grid-template').html(data);
-    //         }
-    //     });
-    // });
     $('#grid-modal').on('click', function () {
-       //var source = e.relatedTarget;
+   
        var val = $('#grid-modal').attr('class');
        $('.preChanges').text('MASSAGE CENTRE GRID VIEW')
         if(val != "active") {
@@ -532,7 +418,7 @@
     
        
     });
-    /////////////click event ///////////////
+
     $(document).ready(function(){
        $('body').on('click', '.akh1', function() {
             var id = $(this).attr('id');
@@ -566,13 +452,11 @@
             console.log("click "+name);
         });
     });
-    ///////////////clear reset ////////////////////  
+
     $('#resetAll').click(function(){
         $("#selectedService li").remove();
         $("ul input").remove();
-    });
-    
-    /////////////Change event///////////////////  
+    }); 
     
     $('body').on('change','#service_id_one', function(){
         var selectedIdOne = $('#service_id_one').val();
@@ -608,7 +492,7 @@
             console.log('service_three='+getNameOne);
         }
     });
-    ///////////////end event change //////////////////  
+
     $('body').on('change','#service_id_two', function(){
         var selectedIdTwo = $('#service_id_two').val();
         var getNameTwo = $(this).children(":selected").attr("id");
@@ -637,22 +521,18 @@
       url = url.replace(':id',Eid);
       
       console.log(Uid);
-        // if(Uid != "NA") {
             $.ajax({
                 method: "POST",
-                // url: "{{route('web.save.shortlist')}}",
                 url: url,
                 data:{escortId : Eid,
                     userId : Uid},
                 headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
-                //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function (data) {
                     console.log("count = "+data.count_session);
                     console.log(data);
                     if(data.error == 1)
                     {
 
-                    //$('#Lname').text(name + ' has been added to your Shortlist');
                     $('.class_msg').text(name + ' has been added to your Shortlist');
                     $('#add_wishlist').modal('show');
                     $('.myescort_'+Eid).html('<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_btn.svg') }}"> Remove from Shortlist')
@@ -669,17 +549,14 @@
                             data:{escortId : Eid,
                                 userId : Uid},
                             headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
-                            //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                             success: function (data) {
                                 console.log(data);
                                 if(data.error == 1)
                                 {
-                                //$('#Lname').text(name +' has been removed from your Shortlist');
                                 $('.class_msg').text(name +' has been remove from your Shortlist');
                                 $('#add_wishlist').modal('show');
                                 $('.myescort_'+Eid).html('<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_btn.svg') }}"> Add to Shortlist')
                                 $('#session_count').text(data.count_session);
-                                //location.reload();
                                 }
 
                             }
@@ -688,11 +565,6 @@
                     }
                 }
             });
-        // } else {
-            
-        //     $('#withoutLogin').modal('show');
-        //     $('#string').text(name + ' Please login first');
-        // }
         
         
     });
@@ -707,7 +579,6 @@
             data:{escortId : Eid,
                 userId : Uid},
             headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
-            //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             success: function (data) {
                 console.log(data);
                 if(data.error == 1)
@@ -720,30 +591,9 @@
                     $("#close").click(function(){
                         location.reload();
                     });
-                //location.reload();
+               
                 }
-                // else {
-                //     $.ajax({
-                //         method: "POST",
-                //         url: "{{route('web.remove.shortlist')}}",
-                //         data:{escortId : Eid,
-                //             userId : Uid},
-                //         headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
-                //         //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                //         success: function (data) {
-                //             console.log(data);
-                //             if(data.error == 1)
-                //             {
-                //             $('#string1').text(name +' added to your Shortlist');
-                //             $('#add_wishlist').modal('show');
-                //             $('.myescort_'+Eid).text('Remove from Shortlist')
-                //             //location.reload();
-                //             }
-
-                //         }
-                //     });
-                    
-                // }
+                
 
             }
         });
@@ -781,7 +631,6 @@
             $('#legboxId_'+Eid).html("<i class='fa fa-heart-o' title='Add to legbox' aria-hidden='true'></i>");
             var url = "{{ route('user.delete.massage.legbox' ,':id')}} "; 
             url = url.replace(':id',Eid);
-            //$('.class_msg').text(name + ' Remove from Legbox ');
             $('.class_msg').text(name + ' has been removed from your Legbox ');
             $('#add_wishlist').modal('show');
             $.ajax({
@@ -797,14 +646,9 @@
         }
         else {
             $('#my_legbox').modal('show');
-            //console.log(window.location.pathname);
-            //{{--var loginurl = "{{ route('viewer.login',':id') }}";--}}
-            var login_url = "{!! route('viewer.login',[':id',':path']) !!}";
            
-            //+window.location.pathname ;
-            //{{--var loginurl = "{{ route('viewer.login',':id') }}";//+window.location.pathname ;--}}
+            var login_url = "{!! route('viewer.login',[':id',':path']) !!}";
             var regurl = "{{ route('register',':id') }}";
-            //{{--loginurl = login_url.replace(':id','MclegboxId='+Eid)--}}
             var loginurl = login_url.replace(':id','MclegboxId='+Eid);
             var loginurl2 = loginurl.replace(':path','path='+window.location.pathname);
             console.log(loginurl2);

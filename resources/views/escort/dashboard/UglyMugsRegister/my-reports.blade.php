@@ -117,9 +117,10 @@
               <thead class="bg-first">
                 <tr>
                   <th>REF</th>
+                  <th>Status</th>
                   <th>Mobile</th>
                   <th>Incident Type</th>
-                  <th>Incident Date</th>
+                  <th>Incident Date </th>
                   <th>Location</th>
                   <th class="text-center">Action</th>
                 </tr>
@@ -127,15 +128,17 @@
               <tbody>
                 <tr>
                   <td>#30</td>
+                  <td>Done</td>
                   <td>0450954036</td>
                   <td>Fake</td>
                   <td>14-05-2025</td>
                   <td>WA - Perth</td>
-                  <td class="text-center">
-                    <a href="javascript:void(0);" class="toggle-details">
-                      <i class="fa fa-search" data-toggle="tooltip" data-placement="top" title="View"></i>
-                    </a>
-                  </td>
+                  <td><div class="dropdown no-arrow"> 
+                    <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
+                      <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> 
+                      <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                      <a class="dropdown-item" href="#">Edit</a>
+                    </div></div></td>
                 </tr>
           
                 <!-- Hidden expandable row -->

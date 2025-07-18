@@ -45,7 +45,7 @@
 
     <div class="row">
       <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
-          <h1 class="h1">NUM - Dashboard</h1>
+          <h1 class="h1">Dashboard</h1>
           <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
       </div>
       <div class="col-md-12 my-4">
@@ -93,7 +93,6 @@
            <thead class="bg-first">
              <tr>
                <th>REF</th>
-               <th>Status</th>
                <th>Mobile</th>
                <th>Incident Type</th>
                <th>Incident Date</th>
@@ -104,9 +103,8 @@
            <tbody>
              <tr>
                <td>#30</td>
-               <td>Active</td>
                <td>0450954036</td>
-               <td>Fake</td>
+               <td>Dangerous</td>
                <td>14-05-2025</td>
                <td>WA - Perth</td>
                <td class="text-center">
@@ -135,23 +133,18 @@
                          <td class="border-0">WA - Perth</td>
                        </tr>
                        <tr>
-                         <th>Escort's name:</th>
-                         <td class="border-0">Unknown</td>
-                         <th>Escort's email:</th>
-                         <td class="border-0">N/A</td>
+                         <th>Offender's name:</th>
+                         <td class="border-0">Adrian Weinstein</td>
+                         <th>Offender's email:</th>
+                         <td class="border-0"></td>
                        </tr>
                        <tr>
                          <th>Incident Type:</th>
-                         <td class="border-0">Fake</td>
+                         <td class="border-0">Dangerous</td>
                          <th>Rating:</th>
                          <td class="border-0">Do not book</td>
                        </tr>
-                       <tr>
-                         <th>Platform:</th>
-                         <td class="border-0">Locanto</td>
-                         <th>Profile Link:</th>
-                         <td class="border-0">N/A</td>
-                       </tr>
+                     
                        <tr>
                          <th>Summary of Incident:</th>
                          <td colspan="3" class="border-0">Suspicious activity, fake pics, aggressive behavior.</td>
