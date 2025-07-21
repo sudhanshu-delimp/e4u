@@ -143,6 +143,12 @@
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
+                                       
+                                       
+                                    </div>
+                                 </div>
+                                 <div class="col-md-10">
+                                    <div class="form-group">
                                        <label for="mobile">Method of contact - how we communicate with you</label><br>
                                        <div class="form-check-inline">
                                           <label class="customradio mr-4"><input type="checkbox"  name="contact_type[]" value="1"  @if(!empty($user->contact_type)) {{(in_array(1 , $user->contact_type)) ? 'checked' : null }} @endif>
