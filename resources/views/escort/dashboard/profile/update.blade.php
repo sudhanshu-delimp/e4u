@@ -827,7 +827,7 @@
                     if(!response.error){
                         isDefault?obj.parents('li').removeClass('js_defaultProfileService'):obj.parents('li').addClass('js_defaultProfileService');
                         isDefault?obj.text('Add to Default'):obj.text('Remove from Default');
-                        const span = obj.closest('.d_profile_name');
+                        let span = obj.closest('.d_profile_name');
                         if (span.length) {
                             span.get(0).firstChild.nodeValue = `Status: ${isDefault?profileName:'Default'}`;
                         }
