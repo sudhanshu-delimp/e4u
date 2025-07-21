@@ -144,7 +144,7 @@
                                     <li class='mb-2 {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"js_defaultProfileService":""}}' id="hideenclassThree_{{ $value->id }}">
                                         <div class='my_service_anal hideenclassThree{{ $value->id }}'>
                                             <span class="dollar-sign">{{ $value->name }}</span>
-                                            <span class='d_profile_name'>{{'Status:'}} {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"Default":$escort->profile_name}}</span>
+                                            <span class='d_profile_name'>{{'Status:'}} {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"Default":$escort->profile_name}} <div class="make-ittool">Make it Deafult</div></span>
                                             <input type='number' class='dollar-before input_border change_default' name='price[]'
                                                 placeholder='0' value="{{ $value->pivot->price }}" min=0
                                                 step="10" max=9999 service_id="{{ $value->id }}">
@@ -296,3 +296,11 @@
         </div>
     </div>
 </div>
+<script>
+    jQuery(document).ready(function() {
+    jQuery('.d_profile_name').click(function() {
+        jQuery(this).parent().toggleClass('profile-tooladd');
+       
+    });
+});
+</script>

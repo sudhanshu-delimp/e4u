@@ -42,8 +42,8 @@
                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                      <ol>
                         
-                  <li style="font-size: 15px;">You can access all of your Advertisers here.  The report 'Earnings' column is Commission paid to you by E4U according to the Advertiser's spend.</li>
-                  <li style="font-size: 15px;" class="mb-0">Click the 'Action' button and select from the range of options available to you including Messaging to an Advertiser.</li>
+                  <li style="font-size: 15px;">You can access all of your Advertisers here. The report 'Earnings' column is Commission paid to you by E4U according to the Advertiser's spend.</li>
+                  <li style="font-size: 15px;" class="mb-0">Click the 'Action' button and select from the range of options available to you including Messaging to an Advertiser</li>
                
                      </ol>
                   </div>

@@ -3007,6 +3007,22 @@ tr.custom--row th:not(tr.custom--row th:last-child) {
     cursor: pointer;
     font-weight: 500;
 }
+.make-ittool {
+    position: absolute;
+    background: #ff3c5f;
+    display: inline-block;
+    font-size: 12px;
+    width: max-content;
+    left: 0;
+    bottom: -2rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    opacity: 1;
+    visibility: hidden;
+}
+.js_defaultProfileService .my_service_anal span:has(i), .profile-tooladd span:has(i) {
+    background-color: #0c223d !important;
+}
 
 .my_service_anal span i {
     color: var(--white);
@@ -3017,8 +3033,12 @@ tr.custom--row th:not(tr.custom--row th:last-child) {
     top: 44px;
     font-size: 10px;
     color: #ededed;
+    cursor: pointer;
 }
-
+.my_service_anal span.d_profile_name:hover .make-ittool {
+    opacity: 1;
+    visibility: visible;
+}
 span.dollar-sign {
     position: relative;
 }
@@ -8072,15 +8092,18 @@ td {
     box-shadow: unset !important;
 }
 
-.js_defaultProfileService .my_service_anal .mytool-tip::after {
+.js_defaultProfileService .my_service_anal .mytool-tip::after, .profile-tooladd .mytool-tip::after {
     background-color: #0c223d;
     border-color: #0c223d;
 }
-.js_defaultProfileService .my_service_anal span#span_id .mytool-tip {
+.js_defaultProfileService .my_service_anal span#span_id .mytool-tip, .profile-tooladd .my_service_anal span#span_id .mytool-tip {
     background: #0c223d;
 }
-.js_defaultProfileService .my_service_anal {
+.js_defaultProfileService .my_service_anal, .profile-tooladd {
     background: #ff3c5f;
+}
+.js_defaultProfileService .my_service_anal .mytool-tip, .profile-tooladd  .mytool-tip{
+    background: #0c223d;
 }
 
 @media (min-width:300px) and (max-width:575px) {
