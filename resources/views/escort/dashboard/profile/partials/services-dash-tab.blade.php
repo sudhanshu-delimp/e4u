@@ -44,10 +44,13 @@
                         <div class="manage_tag_style">
                             <ul id="selected_service_one">
                                 @foreach ($escort->services()->where('category_id', 1)->get() as $value)
-                                    <li class='mb-2 {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"js_defaultProfileService":""}}' id="hideenclassOne_{{ $value->id }}">
+                                    @php  
+                                        $isDefaultTag = in_array($value->pivot->service_id ,$defaultServiceIds);
+                                    @endphp
+                                    <li class='mb-2 {{$isDefaultTag?"js_defaultProfileService":""}}' id="hideenclassOne_{{ $value->id }}">
                                         <div class='my_service_anal hideenclassOne{{ $value->id }}'>
                                             <span class="dollar-sign">{{ $value->name }}</span>
-                                            <span class='d_profile_name'>{{'Status:'}} {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"Default":$escort->profile_name}}</span>
+                                            <span class='d_profile_name'>{{'Status:'}} {{$isDefaultTag?"Default":$escort->profile_name}} <div class="make-ittool js_default_action">{{$isDefaultTag?'Remove from Default':'Add to Default'}}</div></span>
                                             <input type='number' class='dollar-before input_border change_default' name='price[]'
                                                 placeholder='0' value="{{ $value->pivot->price }}" min=0 step="10"
                                                 max=9999 service_id="{{ $value->id }}">
@@ -55,7 +58,7 @@
                                                 value="{{ $value->pivot->service_id }}" placeholder='test test '>
                                             <span id="span_id" data-id="{{ $value->id }}">
                                                 <small class="mytool-tip">Remove</small>
-                                                <i class='fas fa-times akh1 {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"js_defaultProfileService":""}}' id="id_{{ $value->id }}"
+                                                <i class='fas fa-times akh1 {{$isDefaultTag?"js_defaultProfileService":""}}' id="id_{{ $value->id }}"
                                                     value="{{ $value->pivot->service_id }}"
                                                     data-sname="{{ $value->name }}"
                                                     data-val="{{ $value->pivot->service_id }}"></i>
@@ -93,10 +96,13 @@
                         <div class="manage_tag_style">
                             <ul id="selected_service_two">
                                 @foreach ($escort->services()->where('category_id', 2)->get() as $key => $value)
-                                    <li class='mb-2 {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"js_defaultProfileService":""}}' id="hideenclassTwo_{{ $value->id }}">
+                                    @php  
+                                        $isDefaultTag = in_array($value->pivot->service_id ,$defaultServiceIds);
+                                    @endphp
+                                    <li class='mb-2 {{$isDefaultTag?"js_defaultProfileService":""}}' id="hideenclassTwo_{{ $value->id }}">
                                         <div class='my_service_anal hideenclassTwo{{ $value->id }}'>
                                             <span class="dollar-sign">{{ $value->name }}</span>
-                                            <span class='d_profile_name'>{{'Status:'}} {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"Default":$escort->profile_name}}</span>
+                                            <span class='d_profile_name'>{{'Status:'}} {{$isDefaultTag?"Default":$escort->profile_name}} <div class="make-ittool js_default_action">{{$isDefaultTag?'Remove from Default':'Add to Default'}}</div></span>
                                             <input type='number' class='dollar-before input_border change_default' name='price[]'
                                                 placeholder='0' value="{{ $value->pivot->price }}" min=0 step="10"
                                                 max=9999 service_id="{{ $value->id }}">
@@ -104,7 +110,7 @@
                                                 value="{{ $value->pivot->service_id }}" placeholder=''>
                                             <span>
                                                 <small class="mytool-tip">Remove</small>
-                                                <i class='fas fa-times akh2 {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"js_defaultProfileService":""}}' id="idTwo_{{ $value->id }}"
+                                                <i class='fas fa-times akh2 {{$isDefaultTag?"js_defaultProfileService":""}}' id="idTwo_{{ $value->id }}"
                                                     value="{{ $value->pivot->service_id }}"
                                                     data-sname="{{ $value->name }}"
                                                     data-val="{{ $value->pivot->service_id }}"></i>
@@ -141,10 +147,13 @@
                         <div class="manage_tag_style">
                             <ul id="selected_service_three">
                                 @foreach ($escort->services()->where('category_id', 3)->get() as $key => $value)
-                                    <li class='mb-2 {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"js_defaultProfileService":""}}' id="hideenclassThree_{{ $value->id }}">
+                                    @php  
+                                        $isDefaultTag = in_array($value->pivot->service_id ,$defaultServiceIds);
+                                    @endphp
+                                    <li class='mb-2 {{$isDefaultTag?"js_defaultProfileService":""}}' id="hideenclassThree_{{ $value->id }}">
                                         <div class='my_service_anal hideenclassThree{{ $value->id }}'>
                                             <span class="dollar-sign">{{ $value->name }}</span>
-                                            <span class='d_profile_name'>{{'Status:'}} {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"Default":$escort->profile_name}} <div class="make-ittool">Make it Deafult</div></span>
+                                            <span class='d_profile_name'>{{'Status:'}} {{$isDefaultTag?"Default":$escort->profile_name}} <div class="make-ittool js_default_action">{{$isDefaultTag?'Remove from Default':'Add to Default'}}</div></span>
                                             <input type='number' class='dollar-before input_border change_default' name='price[]'
                                                 placeholder='0' value="{{ $value->pivot->price }}" min=0
                                                 step="10" max=9999 service_id="{{ $value->id }}">
@@ -152,7 +161,7 @@
                                                 value="{{ $value->pivot->service_id }}" placeholder=''>
                                             <span>
                                                 <small class="mytool-tip">Remove</small>
-                                                <i class='fas fa-times akh3 {{(in_array($value->pivot->service_id ,$defaultServiceIds))?"js_defaultProfileService":""}}' id="idThree_{{ $value->id }}"
+                                                <i class='fas fa-times akh3 {{$isDefaultTag?"js_defaultProfileService":""}}' id="idThree_{{ $value->id }}"
                                                     value="{{ $value->pivot->service_id }}"
                                                     data-sname="{{ $value->name }}"
                                                     data-val="{{ $value->pivot->service_id }}"></i>
@@ -296,11 +305,3 @@
         </div>
     </div>
 </div>
-<script>
-    jQuery(document).ready(function() {
-    jQuery('.d_profile_name').click(function() {
-        jQuery(this).parent().toggleClass('profile-tooladd');
-       
-    });
-});
-</script>

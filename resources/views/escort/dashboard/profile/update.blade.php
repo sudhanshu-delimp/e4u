@@ -797,6 +797,45 @@
             }
         })
 
+        /**
+         * Change to Default and Normal Service Tag from already selected
+         */
+
+         $(document).on('click','.js_default_action', function(){
+            let obj = $(this)
+            let profileName = $('input[name="profile_name"]').val();
+            let priceValue = obj.parent().next('input[name="price[]"]').val();
+            let serviceValue = obj.parent().next().next('input[name="service_id[]"]').val();
+            let isDefault = obj.parents('li').hasClass('js_defaultProfileService');
+            let data = {};
+            if(isDefault){
+                data['remove_service'] = serviceValue;
+            }
+            else{
+                data['price[]'] = priceValue;
+                data['custom_id'] = serviceValue;
+            }
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('escort.update_escort_default') }}",
+                dataType: 'json',
+                data: data,
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if(!response.error){
+                        isDefault?obj.parents('li').removeClass('js_defaultProfileService'):obj.parents('li').addClass('js_defaultProfileService');
+                        isDefault?obj.text('Add to Default'):obj.text('Remove from Default');
+                        const span = obj.closest('.d_profile_name');
+                        if (span.length) {
+                            span.get(0).firstChild.nodeValue = `Status: ${isDefault?profileName:'Default'}`;
+                        }
+                    }
+                }
+            });
+         });
+
         //start available //
         $('.available_to').click(function() {
             var val = $(this).val();
