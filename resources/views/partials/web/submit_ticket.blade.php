@@ -1,24 +1,35 @@
+<<<<<<< Updated upstream
 <div class="container-fluid register-pin-up mb-5  pl-3 pl-lg-5 pr-3 pr-lg-5">
+=======
+<div class="container-fluid register-pin-up mb-5 pl-3 pl-lg-5 pr-3 pr-lg-5">
+>>>>>>> Stashed changes
     <!--middle content start here-->
+
     <div class="row">
-        <div class="custom-heading-wrapper col-md-12">
-            <h1 class="h1">Submit ticket</h1>
-            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b></span>
+        <div class="d-sm-flex align-items-center justify-content-start gap-10 mt-5">
+           <h1 class="h1">Submit ticket</h1>
+           <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
+        <div class="col-md-12 my-4">
+           <div class="card collapse" id="notes" style="">
+              <div class="card-body">
+                 <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                 <ol>
+                    <li>To help us assist you better, when describing your problem or enquiry, please try to provide as much information as
+                        possible.
+                    </li>
+                    <li>Upload any documents or images you have.</li>
+                    <li>Allow us a couple of days to respond.</li>
+                </ol>
+              </div>
+           </div>
+        </div>
+     </div>
+
+    <div class="row">
+        
         <div class="col-md-12 mb-4 mycont">
-            <div class="card collapse" id="notes">
-                <div class="card-body">
-                    <h3 class="NotesHeader"><b>Notes:</b></h3>
-                    <ol>
-                        <li>To help us assist you better, when describing your problem or enquiry, please try to provide as much information as
-                            possible.
-                        </li>
-                        <li>Upload any documents or images you have.</li>
-                        <li>Allow us a couple of days to respond.</li>
-                    </ol>
-                </div>
-            </div>
-            <br>
+            
             <form class="mb-4 w-50" id="supportTicket" method="post" action="{{route('support-ticket.create')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">

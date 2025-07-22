@@ -16,7 +16,7 @@
                         </span>
                         </button>
                     </div>
-                    <div class="modal-body bodytext">Are you sure Do you want to logout ?</div>
+                    <div class="modal-body bodytext">Are you sure that you want to logout?</div>
                     <div class="modal-footer">
                         <button class="btn main_bg_color site_btn_primary btncancel" type="button" data-dismiss="modal">Cancel</button>
                         <form id="modalform" method="POST" action="{{ route('advertiser.logout') }}">

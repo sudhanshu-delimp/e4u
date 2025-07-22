@@ -37,7 +37,7 @@
       {{-- fourth row --}}
         <div class="row">
             <div class="col-lg-12">
-                <div class="table-responsive-xl mt-4">
+                <div class="table-responsive-xl">
                     <table id="socialMediaTable" class="table table-bordered display" width="100%" >
                         <thead class="bg-first">
                         <tr>

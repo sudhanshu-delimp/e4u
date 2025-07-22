@@ -6,26 +6,33 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
 
-{{-- <style type="text/css">
-  .parsley-errors-list {
-    list-style: none;
-    color: rgb(248, 0, 0)
-  }
-</style> --}}
+<style type="text/css">
+  .toggle-password {
+        position: absolute;
+        top: 28px;
+        right: 15px;
+        cursor: pointer;
+        z-index: 2;
+        color: #6c757d;
+    }
+</style>
 @endsection
 @section('content')
 <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5 change-pass-sec">
    <!-- Page Heading -->
    <div class="row">
-      <div class="custom-heading-wrapper col-md-12">
-          <h1 class="h1">Change password</h1>
-            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-        </div>
-        <div class="col-md-12 mb-4">
+    <div class="col-md-12">
+      <div class="v-main-heading h3" style="display: inline-block;">Add Report</div>
+       <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+   </div>
+        <div class="col-md-12 my-4">
           <div class="card collapse" id="notes" style="">
             <div class="card-body">
                 <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                <ol></ol>
+                <ol>
+                  <li>Use this feature to change your Password and to set up your Password preferences.</li>
+                  <li>By default, your password expires every 30 days. You will be notified before expiry.</li>
+                </ol>
             </div>
           </div>
       </div>
@@ -33,43 +40,63 @@
   <div class="row">
     <div class="col-md-12 mb-5">
       <form class="v-form-design" id="userProfile" action="{{ route('user.update.password')}}" method="POST">
+        @csrf
         <div class="row">
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="current_password">Current password</label>
-                  <input type="password" class="form-control" name="password" placeholder="Current password" data-parsley-required-message="Current password is required" required>
-                  <small id="emailHelp" class="form-text text-muted">Case sensative</small>
+            <div class="col-md-6">
+                <div class="row">
+    
+                    <!-- Current Password -->
+                    <div class="col-md-12">
+                        <div class="form-group position-relative">
+                            <label for="current_password">Current password</label>
+                            <input type="password" class="form-control" name="password" id="current_password" placeholder="Current password" data-parsley-required-message="Current password is required" required>
+                            <span class="toggle-password" toggle="#current_password">
+                                <i class="fa fa-eye"></i>
+                            </span>
+                            <small class="form-text text-muted">Case sensitive</small>
+                        </div>
+                    </div>
+    
+                    <!-- New Password -->
+                    <div class="col-md-12">
+                        <div class="form-group position-relative">
+                            <label for="new_password">New password</label>
+                            <input type="password" class="form-control" name="new_password" id="new_password" placeholder="New password" required autocomplete="new-password"
+                                data-parsley-required-message="Current password is required"
+                                data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
+                                data-parsley-pattern-message="@lang('errors/validation/valid.password')">
+                            <span class="toggle-password" toggle="#new_password">
+                                <i class="fa fa-eye"></i>
+                            </span>
+                            <div class="termsandconditions_text_color"></div>
+                            <small class="form-text text-muted">MUST be a minimum of eight (8) characters long</small>
+                        </div>
+                    </div>
+    
+                    <!-- Confirm Password -->
+                    <div class="col-md-12">
+                        <div class="form-group position-relative">
+                            <label for="confirm_password">Confirm password</label>
+                            <input type="password" class="form-control" placeholder="Confirm password" id="confirm_password" name="password_confirmation"
+                                data-parsley-equalto="#new_password"
+                                data-parsley-equalto-message="Confirm password should be the same password"
+                                required autocomplete="new-password"
+                                data-parsley-required-message="Confirm password is required">
+                            <span class="toggle-password" toggle="#confirm_password">
+                                <i class="fa fa-eye"></i>
+                            </span>
+                            <div class="termsandconditions_text_color"></div>
+                        </div>
+                    </div>
+    
                 </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="new_password">New password</label>
-                  <input type="password" class="form-control" name="new_password" id="new_password" placeholder="New password" aria-describedby="emailHelp" required autocomplete="new-password" data-parsley-required-message="Current password is required" data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-                  <div class="termsandconditions_text_color">
-                    <!-- error sms here -->
-                   
-                  </div>
-                  <small id="emailHelp" class="form-text text-muted">MUST be a minimum of six (8) characters long</small>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="confirm_password">Confirm password</label>
-                  <input type="password" class="form-control" placeholder="Confirm password" id="confirm_password" aria-describedby="emailHelp" name="password_confirmation" data-parsley-equalto="#new_password" data-parsley-equalto-message="Confirm password should be the same password" required autocomplete="new-password" data-parsley-required-message="Confirm password is required">
-                  <div class="termsandconditions_text_color">
-                    <!-- error sms here -->
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-        <input type="submit" value="Save Password" class="btn btn-primary shadow-none mt-4" name="submit">
-      </form>
+        <input type="submit" value="Save Password" class="btn btn-primary shadow-none" name="submit">
+    </form>
+    
       <form class="v-form-design" id="passwordExpiry" action="{{ route('user.update.password.expiry')}}" method="POST">          
-        <div class="col-md-12">
+        <div class="col-md-12 p-0 mt-4">
            <div class="form-group mb-0">
               <label for="confirm_password">Password Expiry </label>
            </div>
@@ -91,15 +118,15 @@
            </div>
            <small id="emailHelp" class="form-text text-muted">Unless you set your preferred Password Expiry, by default your password will renew every30 days.</small>
         </div>
-        <div class="col-md-12 mt-3">
+        <div class="col-md-12 p-0 mt-4">
            <div class="form-group mb-0">
               <label for="confirm_password">Notification</label>
            </div>
-           <div class="form-check">
+           <div class="form-check m-0">
               <input class="form-check-input" name="password_notification[]" type="checkbox" id="flexCheckDefault" value="1" @if(isset($user->passwordSecurity->password_notification) && in_array(1,$user->passwordSecurity->password_notification)) checked @endif>
               <label class="form-check-label" for="flexCheckDefault">Text</label>
            </div>
-           <div class="form-check">
+           <div class="form-check m-0">
               <input class="form-check-input" name="password_notification[]" type="checkbox" id="flexCheckDefault" value="2" @if(isset($user->passwordSecurity->password_notification) && in_array(2,$user->passwordSecurity->password_notification)) checked  @endif>
               <label class="form-check-label" for="flexCheckDefault">Email</label>
            </div>
@@ -130,6 +157,23 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 
+<script>
+  document.querySelectorAll('.toggle-password').forEach(function (el) {
+      el.addEventListener('click', function () {
+          var input = document.querySelector(this.getAttribute('toggle'));
+          var icon = this.querySelector('i');
+          if (input.type === "password") {
+              input.type = "text";
+              icon.classList.remove("fa-eye");
+              icon.classList.add("fa-eye-slash");
+          } else {
+              input.type = "password";
+              icon.classList.remove("fa-eye-slash");
+              icon.classList.add("fa-eye");
+          }
+      });
+  });
+</script>
 
 <script type="text/javascript">
 

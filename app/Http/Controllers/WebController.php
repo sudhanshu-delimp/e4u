@@ -676,6 +676,8 @@ class WebController extends Controller
 
         $escorts = collect($escorts->items())->where('end_date','>=', Carbon::now()->startOfDay());
 
+        //dd($escorts);
+
         // dd($user_type->myLegBox);
         //dd($user_type->myLegBox->pluck('id')->toArray());
         //dd($user_type->massageCenterLegBox->pluck('id')->toArray());

@@ -132,34 +132,37 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-   <div class="row">
-      <div class="col-md-12">
-         <div class="v-main-heading h3">
-             My Information
-             <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-         </div>
-          <div class="col-md-12 mt-4">
-              <div class="card collapse" id="notes">
-                  <div class="card-body">
-                      <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                      <ol>
-                          <li>
-                              Use this feature to create all the default information about yourself that will
-                              appear in any Profile you create.
-                          </li>
-                          <li>
-                              You can change any of these settings when creating a Profile.
-                          </li>
-                          <li>
-                              There are some further tips contained inside each of the My Information
-                              groups.
-                          </li>
-                      </ol>
-                  </div>
-              </div>
-          </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0"> My Information</h1></div>
+            <h6 class="helpNoteLink collapsed" data-toggle="collapse" data-target="#notes" aria-expanded="false"><b>Help?</b></h6>
       </div>
-      <div class="col-md-12 mt-4">
+      <div class="col-md-12 my-4">
+        <div class="card collapse" id="notes">
+            <div class="card-body">
+               <h3 class="NotesHeader"><b>Notes:</b> </h3>
+               <ol>
+                <li>
+                    Use this feature to create all the default information about yourself that will
+                    appear in any Profile you create.
+                </li>
+                <li>
+                    You can change any of these settings when creating a Profile.
+                </li>
+                <li>
+                    There are some further tips contained inside each of the My Information
+                    groups.
+                </li>
+            </ol>
+            </div>
+         </div>
+      </div>
+    </div>
+
+   <div class="row">
+     
+      <div class="col-md-12">
          <div id="accordion" class="myacording-design mb-5" style="max-width: 100%;">
             <div class="card custom-help-contain">
                <div class="card-header">
@@ -227,93 +230,7 @@
                   </div>
                </div>
             </div>
-{{--      <div class="card custom-help-contain">
-               <div class="card-header">
-                  <a class="card-link" data-toggle="collapse" href="#my_play_mates">
-                  My playmates
-                  <span class="custom--help"><b>Help?</b></span>
-                  </a>
-               </div>
-               <div id="my_play_mates" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
-                    <div class="custom-note-section">
-                        <div class="card" style="">
-                        <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol class=" mb-0">
-                        <li>By completing these settings, the information set out under My playmates will by default appear in your Profile creator. You should check with the Escort they are still available as a playmate before creating a Profile. A Viewer will be able to view the playmate’s Profile from your Profile
-                        </li>
-                        <li>You can over ride these settings when creating a Profile, provided you have enabled the <a href="/escort-dashboard/update-account" class="custom_links_design">feature</a> (see My Account - Profile & Tour options).
-                        </li>
-                        </ol>
-                        </div>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="card-body border-0 pt-0 pl-0 mt-2">
-                     <form class="at-sec" method="post" action="">
-                        <div class="at-lable">
-                           <label for="Student">Search for playmate</label>
-                           <input type="text" name="q" placeholder="Search by name / Member ID" autocomplete="off" class="clickInput">
-                           <ul class="results showPlaymates">
 
-                              <li> <a href="#"><img src="{{asset('avatars/imageuser.png')}}" class="img-profile rounded-circle">&nbsp;&nbsp;Lovely babe</a></li>
-                              <li> <a href="#"><img src="{{asset('avatars/imageuser.png')}}" class="img-profile rounded-circle">&nbsp;&nbsp;Lovely babe</a></li>
-                              <li> <a href="#"><img src="{{asset('avatars/imageuser.png')}}" class="img-profile rounded-circle">&nbsp;&nbsp;Lovely babe</a></li>
-
-                              {{-- {{ dd(auth()->user()->playmates()->pluck('playmate_id'))}} --}}
-                              {{-- @foreach($users_for_available_playmate as $allUser)
-                              @if(!is_null($allUser->escorts))
-                              @foreach($allUser->escorts as $escort)
-                              @if(!in_array($escort->id,auth()->user()->playmates()->pluck('playmate_id')->toArray()))
-                              @if($escort->membership != null && $escort->start_date != null) --}}
-                              {{-- @if($escort->membership == 4 && Carbon\Carbon::parse($escort->start_date)->diffInDays(Carbon\Carbon::parse(now())) <= 14) --}}
-                              {{--
-                              <li id="list_{{$escort->id}}">
-                                 <a href="#">
-                                 <img src="{{ $escort->default_image }}" class="img-profile rounded-circle playmats-img " >
-                                 {{ $escort->name }}
-                                 <span class="playmates_id" value="{{$escort->id}}" data-path="{{$escort->default_image}}" data-name="{{$escort->name}}">Add</span>
-                                 {{-- <span>{{Carbon\Carbon::parse($escort->start_date)->format('d/m/Y')}}</span>
-                                 <span>{{Carbon\Carbon::now()->format('d/m/Y')}}</span> --}}
-                                 {{-- </a>
-                              </li> --}}
-
-                              {{-- @endif  --}}
-                              {{-- @endif
-                              @endif
-                              @endforeach
-                              @endif
-                              @endforeach --}}
-                              {{-- @foreach($allEscorts as $escort)
-                              <li>
-                                 <a href="#">
-                                 <img src="{{ $escort->default_image }}" class="img-profile rounded-circle playmats-img " >
-                                 {{ $escort->name }} <span class="playmates_id" value="{{$escort->id}}">Add</span>
-                                 </a>
-                              </li>
-                              @endforeach --}}
-                           {{-- </ul>
-                        </div>
-                     </form>
-                  </div>
-                  <div class="card-body active-play border-0 pt-0 pl-0 mt-1">
-                     <div class="at-lable  mt-0">
-                        <label for="Student">My Active playmate</label>
-                        <ul class="results  mt-2 activePlaymate">
-
-                           @if(!is_null(auth()->user()->playmates))
-                           @foreach(auth()->user()->playmates as $playmate)
-                           <li id="rmlist_{{$playmate->id}}"> <a href="#"><img src="{{asset($playmate->default_image)}}" class="img-profile rounded-circle playmats-img">{{$playmate->name}}</a>
-                              <span class="playmates_rmid" value="{{$playmate->id}}">×</span>
-                           </li>
-                           @endforeach
-                           @endif
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div> --}}
             <div class="card custom-help-contain">
                <div class="card-header">
                   <a class="collapsed card-link" data-toggle="collapse" href="#my_social_media">

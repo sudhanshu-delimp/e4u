@@ -310,11 +310,11 @@
             </div>
         </div>
     </li>
-    <li class="nav-item v-last-setting v-divider">
+    {{-- <li class="nav-item v-last-setting v-divider">
         <a class="nav-link py-0" href="#">
             <span class="v-icon">...</span>
             <span class="v-text">Settings</span>
         </a>
-    </li>
+    </li> --}}
 </ul>
 <!-- End of Sidebar -->

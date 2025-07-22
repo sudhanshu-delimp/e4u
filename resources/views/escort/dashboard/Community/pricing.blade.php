@@ -24,28 +24,31 @@
         <div id="content">
             <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 custom--accordfee">
                 <!--middle content-->
+
                 <div class="row">
-                    <div class="col-md-9">
-                        <!-- Begin Page Content -->
-                        <div class="container-fluid" style="padding: 0px 0px;">
-                            <!-- Page Heading -->
-                            <div class="d-flex align-items-center justify-content-start">
-                                   <h1 class="h1"> Pricing summary</h1>
-                                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-                            </div>
-                            <div class="card collapse  mb-4" id="notes">
-                                <div class="card-body">
-                                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                    <ol>
-                                        <li>These pricing information pages are a complete summary of all the discounts and
-                                            Fees that are applied in the Website when posting a Profile or engaging us to do
-                                            any Support Services.</li>
-                                        <li>Information is also provided about our loyalty program.</li>
-                                    </ol>
-                                </div>
+                    <div class="col-md-12">
+                        <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Pricing summary</h1></div>
+                        <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+                  </div>
+                  <div class="col-md-12 my-4">
+                        <div class="card collapse" id="notes" style="">
+                            <div class="card-body">
+                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                <ol>
+                                    <li>These pricing information pages are a complete summary of all the discounts and
+                                        Fees that are applied in the Website when posting a Profile or engaging us to do
+                                        any Support Services.</li>
+                                    <li>Information is also provided about our loyalty program.</li>
+                                </ol>
                             </div>
                         </div>
-                        <!-- /.container-fluid --><br>
+                  </div>
+                </div>
+
+                <div>
+                    <div>
+                      
+                        <!-- /.container-fluid -->
                         <div class="row">
                             <div class="col-md-12">
                                 <div id="accordion" class="myacording-design">

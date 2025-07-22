@@ -52,13 +52,13 @@
          <form class=" ">
             <div class="row">
                <div class="col-md-12">
-                  <h2 class="pb-2 pt-2"><b>Available services</b> </h2>
+                  <h2 class="pb-2"><b>Available services</b> </h2>
                   <p>The following Services are available through our Partner:</p>
                   <ul>
                      <li>Visa and Migration advice including applications, renewals and ongoing assistance</li>
                      <li>Education course selection advice including ongoing assistance</li>
                   </ul>
-                  <h2 class="pb-2 pt-2"><b>Request for assistance</b> </h2>
+                  <h2 class="pb-2"><b>Request for assistance</b> </h2>
                    <div class="form-group w-50">
                        <div><label for="preference"><b>Your contact preference</b> </label></div>
                        <div class="form-check form-check-inline">
@@ -72,7 +72,7 @@
                    </div>
 
                    <b>Your details:</b>
-                   <div class="ml-4 mt-2">
+                   <div class="mt-2">
                        <div class="form-group w-50">
                            <label for="email"><b>First Name</b> </label>
                            <input id="name" placeholder="First Name" name="name" type="text" class="form-control" required="">

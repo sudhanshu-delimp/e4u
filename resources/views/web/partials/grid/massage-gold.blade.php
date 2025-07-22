@@ -1,7 +1,20 @@
 <div class="col-lg col-md-6 col-sm-6 mb-5">
     <div class="six_column_content_top d-flex justify-content-between mid_tit wish_span" style="z-index: 1;width: 90%;">
        <span>
-       <img src="{{asset('assets/img/verified media.png')}}" class="custom-sheild" title="This Escort's Media has been verified by E4U" style="width: 12px;height: 12px;"></span>
+        @php
+            $mediaImage = asset('assets/img/verified media.png'); // default
+            $card_img_top = asset($escort->imagefrontPosition(1)); // default
+            if ($escort->gallary->isNotEmpty()){
+                $path = $escort->gallary[0]['path'];
+
+                if (Illuminate\Support\Facades\File::exists($path)) {
+                    $mediaImage = asset($escort->gallary[0]['path']);
+                    $card_img_top = asset($escort->gallary[0]['path']);
+                }
+            }
+            
+        @endphp
+       <img src="{{$mediaImage}}" class="custom-sheild" title="This Escort's Media has been verified by E4U" style="width: 12px;height: 12px;"></span>
        <span class="six_column_fonts_top">{{ substr($escort->name,0,15)}}</span>
        
         @if(auth()->user())
@@ -29,7 +42,7 @@
     </div>
     <a class="card card_box_style six_col_card mb-0 short-card" href="{{ route('center.profile.description',$escort->id)}}">
        <div class="card2 card_box_style1 six_col_card1">
-            <img class="card-img-top" src="{{ asset($escort->imagefrontPosition(1)) }}" alt="Card image cap">
+            <img class="card-img-top" src="{{ $card_img_top }}" alt="Card image cap">
             <div class="six_column_content_top d-flex justify-content-between mid_tit wish_span"></div>
             <div class="six_column_bottom_content">
                <div class="d-flex justify-content-between six_column_fonts">

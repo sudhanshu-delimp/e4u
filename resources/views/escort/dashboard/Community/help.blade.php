@@ -27,32 +27,33 @@
             <div id="content">
                 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                     <!--middle content-->
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Help & Tips</h1></div>
+                            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+                      </div>
+                      <div class="col-md-12 my-4">
+                            <div class="card collapse" id="notes" style="">
+                               <div class="card-body">
+                                  <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                                  <p></p>
+                                  <ol>
+                                    <li>Use these information pages for any questions you may have about the
+                                        Services.
+                                    </li>
+                                    <li>If you can't find the answer, raise a <a href='/submit_ticket' class="custom_links_design">Support Ticket</a> and we will get
+                                        back to you.
+                                    </li>
+                                </ol>
+                               </div>
+                            </div>
+                      </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-9">
-                            <!-- Begin Page Content -->
-                            <div class="container-fluid" style="padding: 0px 0px;">
-                                <!-- Page Heading -->
-                                <div class="d-sm-flex align-items-center justify-content-between">
-                                    <div class="v-main-heading h3">Help & Tips 
-                                        <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes">
-                                            <b>Help?</b></h6>
-                                    </div>
-                                </div>
-                                <div class="card collapse  mb-4" id="notes">
-                                    <div class="card-body">
-                                        <h3 class="NotesHeader"><b>Notes:</b></h3>
-                                        <ol>
-                                            <li>Use these information pages for any questions you may have about the
-                                                Services.
-                                            </li>
-                                            <li>If you can't find the answer, raise a <a href='/submit_ticket' class="custom_links_design">Support Ticket</a> and we will get
-                                                back to you.
-                                            </li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.container-fluid --><br>
+                            <!-- /.container-fluid -->
                             <div class="row pb-5">
                                 <div class="col-md-12">
                                     <div id="accordion" class="myacording-design">

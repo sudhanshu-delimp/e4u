@@ -17,30 +17,33 @@
        
         <div class="row">
             <div class="col-md-12">
-                <div class="v-main-heading">
-                        <h1>Change password <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span></h1>
+                <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0"> Change password</h1></div>
+                <h6 class="helpNoteLink collapsed" data-toggle="collapse" data-target="#notes" aria-expanded="false"><b>Help?</b></h6>
+          </div>
+          <div class="col-md-12 my-4">
+            <div class="card collapse" id="notes">
+                <div class="card-body">
+                   <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                   <ol>
+                    <li>Use this feature to change your Password and to set up your Password
+                        preferences.
+                    </li>
+                    <li>
+                        Your Password, unless you change the settings, will by default expire every
+                        30 days. You will be notified before the expiry date.
+                    </li>
+                </ol>
                 </div>
-                <div class="my-4">
-                    <div class="card collapse" id="notes">
-                        <div class="card-body">
-                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                            <ol>
-                                <li>Use this feature to change your Password and to set up your Password
-                                    preferences.
-                                </li>
-                                <li>
-                                    Your Password, unless you change the settings, will by default expire every
-                                    30 days. You will be notified before the expiry date.
-                                </li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12 mt-3">
+             </div>
+          </div>
+        </div>
+
+        <div class="row">
+            
+            <div class="col-md-12">
                 <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
             </div>
-            <div class="col-md-12 mb-5">
+            <div class="col-md-12">
                 <form class="v-form-design" id="userProfile" action="{{ route('escort.update.password') }}" method="POST">
                     <div class="row">
                         <div class="col-md-6">

@@ -896,7 +896,9 @@
                                 <div class="carousel-inner">
 
                                     @if ($escort->gallary->isNotEmpty())
-                                        @foreach ($escort->gallary()->wherePivotIn('position', [1, 2, 3, 4, 5, 6, 7])->get() as $key => $media)
+                                        @foreach ($escort->gallary as $key => $media)
+                                        {{-- @foreach ($escort->gallary()->wherePivotIn('position', [1, 2, 3, 4, 5, 6, 7])->get() as $key => $media) --}}
+                                        
                                             <div class="carousel-item {{ $key == 0 ? 'active' : '' }} "
                                                 data-interval="10000">
                                                 {{-- @if ($media->pivot->position != 9 && $media->pivot->position != 8 && $media->pivot->position != 10) --}}

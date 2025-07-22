@@ -25,7 +25,7 @@
         <div class="row">
             {{-- box start --}}
             <div class="col-lg-4 box-wrapper">
-                <div class="my-custom-box shadow-sm">
+                <div class="my-custom-box shadow-sm mt-0">
                     <a href="{{ route('escort.dashboard.escorts-statistics') }}">
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/boxicon/icon_escort-statistics.png') }}" class="my-svg-icons" alt="Escorts Statistics">
@@ -40,7 +40,7 @@
             {{-- end --}}
             {{-- box start --}}
             <div class="col-lg-4 box-wrapper">
-                <div class="my-custom-box shadow-sm">
+                <div class="my-custom-box shadow-sm mt-0">
                     <a href="{{ route('escort.dashboard.my-playmates') }}">
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates01.png') }}" class="my-svg-icons" alt=" My Playmates">
@@ -55,7 +55,7 @@
             {{-- end --}}
             {{-- box start --}}
             <div class="col-lg-4 box-wrapper">
-                <div class="my-custom-box shadow-sm">
+                <div class="my-custom-box shadow-sm mt-0">
                     <a href="{{ route('escort.dashboard.my-spend') }}">
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-spend.png') }}" class="my-svg-icons" alt="My Spend">

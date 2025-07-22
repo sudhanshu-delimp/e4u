@@ -16,32 +16,37 @@
 
         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content start here-->
-            <div class="row">   
-                <div class="col-md-12">
-                    <div class="v-main-heading h3" style="display: inline-block;"><h1>   Mobile SIM</h1></div>
-                       <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+
+            <div class="row">
+                <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+                    <h1 class="h1">Mobile SIM</h1>
+                    <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
                 </div>
-                <div class="col-md-12 ">
-                    <div class="card collapse  mb-4" id="notes">
-                        <div class="card-body">
-                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                            <ol>
-                                <li>This form will be pre-populated with your details according to what you have
-                                    entered in <a href="{{ route('escort.profile.information') }}" class="custom_links_design">My Account</a>.
-                                    You can alter any of the information.</li>
-                                <li>Payment is based on the period you have selected for the Mobile SIM.</li>
-                                <li>Complete the form to request the Mobile SIM. When completing the form please
-                                </li>
-                            </ol>
-                        </div>
+                <div class="col-md-12 my-4">
+                    <div class="card collapse" id="notes" style="">
+                    <div class="card-body">
+                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <ol>
+                            <li>This form will be pre-populated with your details according to what you have
+                                entered in <a href="{{ route('escort.profile.information') }}" class="custom_links_design">My Account</a>.
+                                You can alter any of the information.</li>
+                            <li>Payment is based on the period you have selected for the Mobile SIM.</li>
+                            <li>Complete the form to request the Mobile SIM. When completing the form please
+                            </li>
+                        </ol>  
+                    </div>
                     </div>
                 </div>
-                <div class="col-md-12 mt-4 mb-5">
+            </div>
+
+            <div class="row">   
+               
+                <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h2 class="pb-2 pt-2"><b>Partnership</b> </h2>
+                                    <h2 class="pb-2"><b>Partnership</b> </h2>
                                     <p>Escorts4U has partnered with a leading supplier of telecommunication services to be
                                         able
                                         to supply a mobile SIM, delivered to your nominated address.</p>
