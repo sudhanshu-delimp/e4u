@@ -356,6 +356,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(ViewerInterest::class, 'user_id');
     }
+
+    public function escortViewerInteraction()
+    {
+        return $this->hasOne(EscortViewerInteractions::class, 'viewer_id','id');
+    }
     // public function massageProfiles()
     // {
     //     return $this->hasMany('App\Models\MassageProfile', 'user_id');

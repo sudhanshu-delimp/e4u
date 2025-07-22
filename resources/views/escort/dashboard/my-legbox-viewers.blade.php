@@ -185,8 +185,138 @@
                     infoEmpty: "No entries available",
                     infoFiltered: "(filtered from _MAX_ total entries)"
                 },
-                paging: true
+                paging: true,
+                ajax: {
+                    url: "{{ route('escort.viewer-legbox-list') }}",
+                    data: function(data) {
+                        console.log('data');
+                        console.log(data);
+                        // d.type = 'player';
+                            // console.log('data');
+                            // console.log(data);
+                    }
+                },
+                columns: [
+                    { data: 'viewer_id', name: 'viewer_id' },                         // 0
+                    { data: 'home_state', name: 'home_state' },                        // 2
+                    { data: 'notification_enabled', name: 'notification_enabled' },                        // 2
+                    { data: 'contact_enabled', name: 'contact_enabled' },                               // 3
+                    { data: 'contact_method', name: 'contact_method' },                   // 4
+                    { data: 'viewer_comm', name: 'viewer_comm' }, // 5
+                    { data: 'playbox_subscription', name: 'playbox_subscription' },       // 6
+                    { data: 'block_viewer', name: 'block_viewer' },                       // 9
+                    { data: 'action', name: 'action', orderable: false, searchable: false } // 10
+                ],
+                columnDefs: [
+                    // {
+                    //     targets: 8,            // column index (e.g., 'id' column)
+                    //     width: "15%",          // set width here
+                    // }
+                ]
             });
+
+            $(document).on('change', '.isBlockedButton', function() {
+                let viewerId = $(this).attr('id').replace('customSwitch', '');
+                let isBlocked = $(this).is(':checked') ? 1 : 0;
+                let data = {
+                    'viewer_id' : viewerId,
+                    'is_blocked' : isBlocked,
+                    'type' : 'block',
+                    'message' : 'Viewer blocked successfully!',
+                }
+
+                let url = '{{ route("escort.viewer-interaction.update") }}';
+                return  ajaxCall(url, data, $(this));
+                
+            });
+
+            $(document).on('click', '.toggle-contact', function (e) {
+                e.preventDefault();
+                const $this = $(this);
+                const viewerId = $this.data('id');
+                const currentStatus = $this.data('status'); // disable or enable
+                const newStatus = currentStatus === 'disable' ? 'enable' : 'disable';
+                let url = '{{ route("escort.viewer-interaction.update") }}';
+
+                let data = {
+                    'viewer_id' : viewerId,
+                    'current_status' : currentStatus,
+                    'escort_disabled_contact' : newStatus,
+                    'type' : 'contact',
+                    'message' : 'Viewer contact status is '+ newStatus + ' successfully!',
+                }
+                return  ajaxCall(url, data, $this);
+            });
+
+            $(document).on('click', '.toggle-notification', function (e) {
+                e.preventDefault();
+                const $this = $(this);
+                const viewerId = $this.data('id');
+                const currentStatus = $this.data('status');
+                const newStatus = currentStatus === 'disable' ? 'enable' : 'disable';
+                let url = '{{ route("escort.viewer-interaction.update") }}';
+
+                let data = {
+                    'viewer_id' : viewerId,
+                    'current_status' : currentStatus,
+                    'escort_disabled_notification' : newStatus,
+                    'type' : 'notification',
+                    'message' : 'Viewer notification status is '+ newStatus + ' successfully!',
+                }
+                return  ajaxCall(url, data, $this);
+            });
+
+
+            function ajaxCall(actionUrl,rowData,thisObj)
+            {
+                rowData.token = '{{ csrf_token() }}';
+                $.ajax({
+                    url: actionUrl,
+                    method: 'POST',
+                    data: rowData,
+                    success: function(response) {
+                        console.log('response');
+                        console.log(response);
+                        if(response.type == 'notification'){
+                            const icon = thisObj.find('i');
+                            const label = thisObj.find('span');
+
+                            if (rowData.current_status === 'disable') {
+                                icon.removeClass('fa-bell-slash').addClass('fa-bell');
+                                label.text('Enable Notifications');
+                            } else {
+                                icon.removeClass('fa-bell').addClass('fa-bell-slash');
+                                label.text('Disable Notifications');
+                            }
+
+                            $this.data('status', newStatus);
+                            showGlobalAlert("Notification setting updated successfully.", "success");
+                        }
+
+                        if(response.type == 'contact'){
+                            const icon = thisObj.find('i');
+                            const label = thisObj.find('span');
+
+                            if (rowData.current_status === 'disable') {
+                                icon.removeClass('fa-phone-slash').addClass('fa-phone');
+                                label.text('Enable Contact');
+                            } else {
+                                icon.removeClass('fa-phone').addClass('fa-phone-slash');
+                                label.text('Disable Contact');
+                            }
+
+                            $this.data('status', newStatus);
+                        }
+
+                        showGlobalAlert(response.message, "success");
+                    },
+                    error: function(err) {
+                        showGlobalAlert("Something went wrong.", "danger");
+                    }
+                });
+            }
         });
+
+        
     </script>
 @endsection

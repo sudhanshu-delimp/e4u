@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use DataTables;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
 class EscortMyLegboxViewerController extends Controller
@@ -25,68 +26,159 @@ class EscortMyLegboxViewerController extends Controller
         return view('escort.dashboard.my-legbox-viewers', ['viewers' => $viewers]);
     }
 
-     public function dataTableListingAjax()
+     public function escortViewersAjaxList()
     {
         $user = Auth::user();
         $escortIds = Escort::where('user_id', $user->id)->where('enabled', 1)->pluck('id');
         $legboxEscortUserIds = MyLegbox::whereIn('escort_id', $escortIds)->pluck('user_id')->unique();
-        $viewers = User::whereIn('id',$legboxEscortUserIds)->get();
+        $viewers = User::whereIn('id',$legboxEscortUserIds)->with(['interest','escortViewerInteraction'])->get();
 
-        $actionButtons = `<div class="dropdown no-arrow ml-3">
-                                    <input type="hidden" class="tortalRecords" value="` . count($viewers) . `">
+        // dd($viewers);
+
+        return DataTables::of($viewers)
+            ->addColumn('viewer_id', fn($row) => $row->member_id)
+            ->addColumn('home_state', fn($row) => config("escorts.profile.states.$row->state_id.stateName") ?? '-')
+            ->addColumn('notification_enabled', function($row){
+                if($row->interest && $row->interest->features){
+                    $viewerNotification = json_decode($row->interest->features);
+                    $isNotifcationEnabled = in_array('alerts',$viewerNotification); 
+                    return  $isNotifcationEnabled ? 'Yes' : 'No';
+                }
+
+                return  'No';
+                
+            })
+            ->addColumn('contact_enabled', function($row){
+                if($row->interest && $row->interest->features){
+                    $viewerNotification = json_decode($row->interest->features);
+                    $isNotifcationEnabled = in_array('alerts', $viewerNotification); 
+
+                    if($isNotifcationEnabled && $row->interest->notifications){
+                        $viewerNotificationIsEnabled = json_decode($row->interest->notifications);
+                        if(in_array('email',$viewerNotificationIsEnabled) || in_array('text', $viewerNotificationIsEnabled)){
+                            return  'Yes';
+                        }
+
+                        return 'No';
+                    }
+                }
+
+                return  'No'; 
+                
+            })
+            ->addColumn('contact_method', function($row){
+
+                if($row->interest && $row->interest->features){
+                    $viewerNotification = json_decode($row->interest->features);
+                    $isNotifcationEnabled = in_array('alerts', $viewerNotification); 
+
+                    if($isNotifcationEnabled && $row->interest->notifications){
+                        $viewerNotificationIsEnabled = json_decode($row->interest->notifications);
+                        if(in_array('email', $viewerNotificationIsEnabled) && in_array('text', $viewerNotificationIsEnabled)){
+                            return  'Email, Text';
+                        }
+
+                        if(in_array('email', $viewerNotificationIsEnabled)){
+                            return  'Email';
+                        }
+
+                        if(in_array('text', $viewerNotificationIsEnabled)){
+                            return  'Text';
+                        }
+
+                        return '-';
+                    }
+                }
+
+                return  '-'; 
+                
+            })
+            ->addColumn('viewer_comm', function($row) use (&$contactMethod){
+
+                if($row->interest && $row->interest->features){
+                    $viewerNotification = json_decode($row->interest->features);
+                    $isNotifcationEnabled = in_array('alerts', $viewerNotification); 
+
+                    if($isNotifcationEnabled && $row->interest->notifications){
+                        $viewerNotificationIsEnabled = json_decode($row->interest->notifications);
+                        if(in_array('email', $viewerNotificationIsEnabled) && in_array('text', $viewerNotificationIsEnabled)){
+                            $contactMethod = $row->email.', '.$row->phone;
+                            return  $contactMethod;
+                        }
+
+                        if(in_array('email', $viewerNotificationIsEnabled)){
+                            $contactMethod = $row->email;
+                            return  $contactMethod;
+                        }
+
+                        if(in_array('text', $viewerNotificationIsEnabled)){
+                            $contactMethod = $row->phone;
+                            return  $contactMethod;
+                        }
+
+                        return '-';
+                    }
+                }
+
+                return  '-'; 
+                
+            })
+            ->addColumn('playbox_subscription', fn($row) => 'Not Available')
+            ->addColumn('block_viewer', function($row) {
+
+                if($row->escortViewerInteraction){
+                    $isChecked = $row->escortViewerInteraction->escort_blocked_viewer ? 'checked' : '';
+                }else{
+                    $isChecked = '';
+                }
+
+                $isBlocked = '<div class="custom-control custom-switch">
+                                        <input type="checkbox" '.$isChecked.' class="custom-control-input isBlockedButton" id="customSwitch'.$row->id.'">
+                                        <label class="custom-control-label" for="customSwitch'.$row->id.'"></label>
+                                    </div>';
+
+                
+                return $isBlocked;
+            })
+            ->addColumn('action', function($row) {
+
+                $conClass = '-slash';
+                $conText = 'Disable';
+                $notClass = '-slash';
+                $notText = 'Disable';
+
+                if($row->escortViewerInteraction && $row->escortViewerInteraction->escort_disabled_contact){
+                    $conClass = '';
+                    $conText = 'Enable';
+                }
+                
+                if($row->escortViewerInteraction && $row->escortViewerInteraction->escort_disabled_notification){
+                    $notClass = '';
+                    $notText = 'Enable';
+                }
+
+                $actionButtons = '<div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                     </a>
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink" style="">
-                                        <a class="dropdown-item d-flex justify-content-between align-items-center" data-toggle="modal" data-target="#view-listing" href="#">View Listing <i class="fa fa-eye text-dark"
-                                                style="color: var(--peach);" ></i></a>
+                                        aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item align-item-custom toggle-contact" href="#" 
+                                            data-id="'.$row->id.'" data-status="'.Str::lower($conText).'"> 
+                                            <i class="fa fa-phone'.$conClass.' me-1"></i> <span>'.$conText.' Contact</span>
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item align-item-custom toggle-notification" href="#" 
+                                            data-id="'.$row->id.'" data-status="'.Str::lower($notText).'"> 
+                                            <i class="fa fa-bell'.$notClass.' me-1" aria-hidden="true"></i> <span>'.$notText.' Notifications</span>
+                                        </a>
                                     </div>
-                                </div>`;
-
-        return DataTables::of($viewers)
-            ->addColumn('viewer_id', fn($row) => $row->member_id)
-            ->addColumn('home_state', fn($row) => $row->state_id )
-            ->addColumn('home_state', fn($row) => config(
-                            "escorts.profile.states.$row->state_id.cities.$row->city_id.cityName",
-                        ) ?? '-')
-            ->addColumn('profile_name', fn($row) => $row['profile_name'] )
-            ->addColumn('masseurs', fn($row) => $masseurs)
-            ->addColumn('start_date', fn($row) =>  date('d-m-Y', strtotime($row['start_date'])))
-            ->addColumn('end_date', fn($row) => date('d-m-Y', strtotime($row['end_date'])))
-            ->addColumn('days', function($row){
-
-                $startDate = Carbon::parse(date('d-m-Y', strtotime($row['start_date'])))->startOfDay();
-                $endDate = Carbon::parse(date('d-m-Y', strtotime($row['end_date'])))->startOfDay();
-
-                if ($startDate && $endDate) {
-                    // If end_date is after or equal to start_date, calculate days (inclusive)
-                    if ($endDate->gte($startDate)) {
-                        return $startDate->diffInDays($endDate) + 1 ;
-                    }
-                }
-
-                return  0; // Invalid date range
+                                </div>';
                 
+                return $actionButtons;
             })
-            ->addColumn('left_days', function ($row) {
-                $startDate = Carbon::parse(date('d-m-Y', strtotime($row['start_date'])))->startOfDay();
-                $endDate = Carbon::parse(date('d-m-Y', strtotime($row['end_date'])))->startOfDay();
-                $now = Carbon::now()->startOfDay();
-                $left = $endDate->diffInDays($now) + 1;                
-
-                if($startDate > $now){
-                    return '-';
-                }else if($endDate < $now){
-                   return '0';
-                }else{
-                    return $left ;
-                }
-                
-            })
-            ->addColumn('action', fn($row) => $actionButtons)
-            ->rawColumns(['action']) // if you're returning HTML
+            ->rawColumns(['action','block_viewer']) // if you're returning HTML
             ->make(true);
     }
 
@@ -115,14 +207,7 @@ class EscortMyLegboxViewerController extends Controller
 
            
         }
-
-        // return response()->json(['error' => 'Unauthorized'], 403);
-
-        //dd($user_type->myLegBox->pluck('id')->toArray());
-        // return view('user.dashboard.legbox.escort-list',compact('user_type','escorts'));
-        // $user = Auth::user();
-        // $escortIds = MyLegbox::where('user_id',$user->id)->pluck('escort_id');
-        // $escorts = Escort::whereIn('id',$escortIds)->where('enabled',1)->get();
+        
         return view('user.dashboard.my-legbox',['escorts'=>$escorts]);
     }
 

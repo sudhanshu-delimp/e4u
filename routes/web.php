@@ -24,6 +24,7 @@ use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
+use App\Http\Controllers\Escort\EscortViewerInteractionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -130,6 +131,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/my-legbox',[EscortMyLegboxViewerController::class,'dashboard'])->name('user.my-legbox');
         Route::get('/my-legbox-ajax',[EscortMyLegboxViewerController::class,'dashboardEscortListAjax'])->name('user.my-legbox-escort-list');
+        Route::get('/my-escort-legbox-ajax',[EscortMyLegboxViewerController::class,'escortViewersAjaxList'])->name('escort.viewer-legbox-list');
+        Route::post('/escort/viewer-interaction-update', [EscortViewerInteractionController::class, 'escortUpdateViewerInteraction'])->name('escort.viewer-interaction.update');
         // Route::get('/my-legbox',function(){
         //     return view('user.dashboard.my-legbox');
         // })->name('user.my-legbox');
