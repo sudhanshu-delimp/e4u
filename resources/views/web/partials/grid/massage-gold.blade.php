@@ -2,12 +2,13 @@
     <div class="six_column_content_top d-flex justify-content-between mid_tit wish_span" style="z-index: 1;width: 90%;">
        <span>
         @php
+            use Illuminate\Support\Facades\File;
             $mediaImage = asset('assets/img/verified media.png'); // default
             $card_img_top = asset($escort->imagefrontPosition(1)); // default
             if ($escort->gallary->isNotEmpty()){
                 $path = $escort->gallary[0]['path'];
 
-                if (Illuminate\Support\Facades\File::exists($path)) {
+                if (File::exists($path)) {
                     $mediaImage = asset($escort->gallary[0]['path']);
                     $card_img_top = asset($escort->gallary[0]['path']);
                 }

@@ -142,19 +142,23 @@ class EscortMyLegboxViewerController extends Controller
             })
             ->addColumn('action', function($row) {
 
-                $conClass = '-slash';
+                $conClass = '-slash text-danger';
                 $conText = 'Disable';
-                $notClass = '-slash';
+                $conCurrentText = 'Enable';
+                $notClass = '-slash text-danger';
                 $notText = 'Disable';
+                $notCurrentText = 'Enable';
 
-                if($row->escortViewerInteraction && $row->escortViewerInteraction->escort_disabled_contact){
-                    $conClass = '';
+                if($row->escortViewerInteraction && $row->escortViewerInteraction->escort_disabled_contact == 1){
+                    $conClass = ' text-success';
                     $conText = 'Enable';
+                    $conCurrentText = 'disable';
                 }
                 
-                if($row->escortViewerInteraction && $row->escortViewerInteraction->escort_disabled_notification){
-                    $notClass = '';
+                if($row->escortViewerInteraction && $row->escortViewerInteraction->escort_disabled_notification == 1){
+                    $notClass = ' text-success';
                     $notText = 'Enable';
+                    $notCurrentText = 'disable';
                 }
 
                 $actionButtons = '<div class="dropdown no-arrow">
@@ -164,13 +168,13 @@ class EscortMyLegboxViewerController extends Controller
                                     </a>
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item align-item-custom toggle-contact" href="#" 
-                                            data-id="'.$row->id.'" data-status="'.Str::lower($conText).'"> 
+                                        <a class="dropdown-item align-item-custom toggle-contact" href="#" title="Click to '.Str::lower($conText).' contact" 
+                                            data-id="'.$row->id.'" data-status="'.Str::lower($conCurrentText).'"> 
                                             <i class="fa fa-phone'.$conClass.' me-1"></i> <span>'.$conText.' Contact</span>
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item align-item-custom toggle-notification" href="#" 
-                                            data-id="'.$row->id.'" data-status="'.Str::lower($notText).'"> 
+                                        <a class="dropdown-item align-item-custom toggle-notification" href="#" title="Click to '.Str::lower($notText).' notification"
+                                            data-id="'.$row->id.'" data-status="'.Str::lower($notCurrentText).'"> 
                                             <i class="fa fa-bell'.$notClass.' me-1" aria-hidden="true"></i> <span>'.$notText.' Notifications</span>
                                         </a>
                                     </div>

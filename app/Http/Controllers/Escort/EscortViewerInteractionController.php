@@ -15,11 +15,40 @@ class EscortViewerInteractionController extends Controller
         $isExistAction = EscortViewerInteractions::where('viewer_id',$request->viewer_id)->where('user_id',$userid )->first();
 
         if($isExistAction){
-            $result  = EscortViewerInteractions::where('viewer_id',$request->viewer_id)->where('user_id',$userid )->update([
+
+            $escort_disabled_contact = $isExistAction->escort_disabled_contact;
+            $escort_disabled_notification = $isExistAction->escort_disabled_notification;
+            $is_blocked = $isExistAction->is_blocked ?? false;
+
+            if(isset($request->escort_disabled_contact)){
+                $escort_disabled_contact = false;
+                if($request->escort_disabled_contact == 'disable'){
+                    $escort_disabled_contact = true;
+                }
+            }
+
+            if(isset($request->escort_disabled_notification)){
+                $escort_disabled_notification = false;
+                if($request->escort_disabled_notification == 'disable'){
+                    $escort_disabled_notification = true;
+                }
+                
+            }
+
+            if(isset($request->is_blocked)){
+                $is_blocked = false;
+                if($request->is_blocked){
+                    $is_blocked = true;
+                }
+            }
+
+            $result  = EscortViewerInteractions::where('viewer_id',$request->viewer_id)
+            ->where('user_id',$userid )
+            ->update([
                 'escort_id' => null,
-                'escort_disabled_contact' => isset($request->escort_disabled_contact) && $request->escort_disabled_contact == 'enable' ? true : false ,
-                'escort_disabled_notification' => isset($request->escort_disabled_notification) && $request->escort_disabled_notification == 'enable' ? true : false ,
-                'escort_blocked_viewer' => isset($request->is_blocked) && $request->is_blocked ? true : false ,
+                'escort_disabled_contact' => $escort_disabled_contact,
+                'escort_disabled_notification' => $escort_disabled_notification ,
+                'escort_blocked_viewer' => $is_blocked,
             ]);
 
         }else{
@@ -40,6 +69,7 @@ class EscortViewerInteractionController extends Controller
             "message"    => $request->message,
             "type"    => $request->type,
             "data" => $result,
+            "previous_status" => $request->current_status,
         );
 
         return response()->json($data);

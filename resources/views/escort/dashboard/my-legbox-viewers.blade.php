@@ -60,7 +60,7 @@
 
                     <div class="total_listing">
                         <div><span>Total Viewers Legbox : </span></div>
-                        <div><span>02</span></div>
+                        <div><span class="total_viewer_legbox">0</span></div>
                     </div>
                 </div>
                 <div class="table-responsive custom-responsive">
@@ -166,6 +166,46 @@
             </div>
         </div>
     </div>
+    {{-- Escort Profile Not Found Modal --}}
+    <div class="modal fade upload-modal" id="escortProfileModal" tabindex="-1" role="dialog"
+        aria-labelledby="escortProfileMissingLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {{-- <img src="{{ asset('assets/dashboard/img/not-allowed.png') }}"
+                            style="width:45px; padding-right:10px;"> --}}
+                        <span class="text-white modal_title_span">Contact</span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+
+                <div class="modal-body pb-0 agent-tour">
+                    <div class="row">
+                        <div class="col-md-12 my-4  text-center">
+                            <h5 class=" body_text mb-2">This Escort does not presently have any Listed Profiles.</h5>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-group d-flex align-items-center justify-content-center">
+                                <button type="button" class="btn-success-modal " data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {{-- End Modal --}}
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
@@ -174,7 +214,7 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#viewerTable').DataTable({
+            var viewerTable = $('#viewerTable').DataTable({
                 responsive: true,
                 language: {
                     search: "Search:", // ✅ This will show the label
@@ -190,7 +230,6 @@
                     url: "{{ route('escort.viewer-legbox-list') }}",
                     data: function(data) {
                         console.log('data');
-                        console.log(data);
                         // d.type = 'player';
                             // console.log('data');
                             // console.log(data);
@@ -215,6 +254,14 @@
                 ]
             });
 
+            // Event to set total count
+            viewerTable.on('xhr', function () {
+                var json = viewerTable.ajax.json(); // full JSON response
+                if (json && json.recordsTotal !== undefined) {
+                    $('.total_viewer_legbox').text(json.recordsTotal);
+                }
+            });
+
             $(document).on('change', '.isBlockedButton', function() {
                 let viewerId = $(this).attr('id').replace('customSwitch', '');
                 let isBlocked = $(this).is(':checked') ? 1 : 0;
@@ -222,7 +269,7 @@
                     'viewer_id' : viewerId,
                     'is_blocked' : isBlocked,
                     'type' : 'block',
-                    'message' : 'Viewer blocked successfully!',
+                    'message' : 'Viewer is '+(isBlocked ? 'Blocked' : 'UnBlocked')+' successfully!',
                 }
 
                 let url = '{{ route("escort.viewer-interaction.update") }}';
@@ -243,7 +290,7 @@
                     'current_status' : currentStatus,
                     'escort_disabled_contact' : newStatus,
                     'type' : 'contact',
-                    'message' : 'Viewer contact status is '+ newStatus + ' successfully!',
+                    'message' : 'Viewer contact is '+ newStatus + 'd successfully!',
                 }
                 return  ajaxCall(url, data, $this);
             });
@@ -261,7 +308,7 @@
                     'current_status' : currentStatus,
                     'escort_disabled_notification' : newStatus,
                     'type' : 'notification',
-                    'message' : 'Viewer notification status is '+ newStatus + ' successfully!',
+                    'message' : 'Viewer notification is '+ newStatus + 'd successfully!',
                 }
                 return  ajaxCall(url, data, $this);
             });
@@ -277,41 +324,23 @@
                     success: function(response) {
                         console.log('response');
                         console.log(response);
-                        if(response.type == 'notification'){
-                            const icon = thisObj.find('i');
-                            const label = thisObj.find('span');
-
-                            if (rowData.current_status === 'disable') {
-                                icon.removeClass('fa-bell-slash').addClass('fa-bell');
-                                label.text('Enable Notifications');
-                            } else {
-                                icon.removeClass('fa-bell').addClass('fa-bell-slash');
-                                label.text('Disable Notifications');
-                            }
-
-                            $this.data('status', newStatus);
-                            showGlobalAlert("Notification setting updated successfully.", "success");
+                        $('#escortProfileModal').modal('show');
+                        $('#viewerTable').DataTable().ajax.reload(null, false);
+                        if(response.type == 'block'){
+                            $(".modal_title_span").text('Viewer Block');
+                            $(".body_text").text(response.message);
                         }
-
                         if(response.type == 'contact'){
-                            const icon = thisObj.find('i');
-                            const label = thisObj.find('span');
-
-                            if (rowData.current_status === 'disable') {
-                                icon.removeClass('fa-phone-slash').addClass('fa-phone');
-                                label.text('Enable Contact');
-                            } else {
-                                icon.removeClass('fa-phone').addClass('fa-phone-slash');
-                                label.text('Disable Contact');
-                            }
-
-                            $this.data('status', newStatus);
+                            $(".modal_title_span").text('Viewer Contact');
+                            $(".body_text").text(response.message);
                         }
-
-                        showGlobalAlert(response.message, "success");
+                        if(response.type == 'notification'){
+                            $(".modal_title_span").text('Viewer Notification');
+                            $(".body_text").text(response.message);
+                        }
                     },
                     error: function(err) {
-                        showGlobalAlert("Something went wrong.", "danger");
+                        //showGlobalAlert("Something went wrong.", "danger");
                     }
                 });
             }
