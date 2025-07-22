@@ -18,7 +18,7 @@ class EscortViewerInteractionController extends Controller
 
             $escort_disabled_contact = $isExistAction->escort_disabled_contact;
             $escort_disabled_notification = $isExistAction->escort_disabled_notification;
-            $is_blocked = $isExistAction->is_blocked ?? false;
+            $is_blocked = $isExistAction->escort_blocked_viewer ?? false;
 
             if(isset($request->escort_disabled_contact)){
                 $escort_disabled_contact = false;
@@ -36,9 +36,12 @@ class EscortViewerInteractionController extends Controller
             }
 
             if(isset($request->is_blocked)){
-                $is_blocked = false;
-                if($request->is_blocked){
+                if($request->is_blocked == true){
                     $is_blocked = true;
+                }
+
+                if($request->is_blocked == false){
+                    $is_blocked = false;
                 }
             }
 
