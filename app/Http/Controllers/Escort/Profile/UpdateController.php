@@ -243,6 +243,7 @@ class UpdateController extends AppController
                 ]);
             }
         }
+        
         if(isset($request->remove_service)){
             if ($request->remove_service > 0) {
                 $escort = Escort::with('services')->find($escortId);
