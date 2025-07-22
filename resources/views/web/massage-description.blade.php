@@ -1059,7 +1059,7 @@
 
                 <div class="box_shadow manage_padding_margin_bg_color">
                     <div class="profile_card_border profile_description_contect">
-                        <h2><img src="http://e4u.local/assets/app/img/bedroom.svg"> Playmates</h2>
+                        <h2><img src="/assets/app/img/bedroom.svg"> Playmates</h2>
                     </div>
                     <div class="padding_20_tob_btm_side reduse_pad">
                         <p class="profile_description_contect_pera">Alina does not have any Playmates.</p>
@@ -1069,7 +1069,7 @@
 
                 <div class="box_shadow manage_padding_margin_bg_color">
                     <div class="profile_card_border profile_description_contect">
-                        <h2><img src="http://e4u.local/assets/app/img/contact_me.svg"> Contacting me</h2>
+                        <h2><img src="/assets/app/img/contact_me.svg"> Contacting me</h2>
                     </div>
                     <div class="padding_20_tob_btm_side reduse_pad">
                         <span class="span_display_block connecting_me_chat_phone">
@@ -1090,7 +1090,7 @@
 
                 <div class="vax-btn">
                     <button type="button" class="btn my_legbox single-prof-btn"><img
-                            src="http://e4u.local/assets/app/img/vaccinated.svg">Vaccinated, up to date</button>
+                            src="/assets/app/img/vaccinated.svg">Vaccinated, up to date</button>
                 </div>
 
                 <div class="accordion-container-new">
@@ -1127,7 +1127,7 @@
 
                 <div class="box_shadow padding_twelve_px">
                     <div class="profile_card_border profile_description_contect position-relative">
-                        <h2><img src="http://e4u.local/assets/app/img/tips.svg">Tips</h2>
+                        <h2><img src="/assets/app/img/tips.svg">Tips</h2>
                         <!-- Carousel controls start-->
 
                         <!-- Carousel controls end-->
