@@ -147,21 +147,38 @@
                                        
                                     </div>
                                  </div>
-                                 <div class="col-md-10">
-                                    <div class="form-group">
-                                       <label for="mobile">Method of contact - how we communicate with you</label><br>
+                                 <div class="col-md-12">
+                                    <div class="form-group custom--contact">
+                                       <label for="mobile">Method of contact:</label>
                                        <div class="form-check-inline">
-                                          <label class="customradio mr-4"><input type="checkbox"  name="contact_type[]" value="1"  @if(!empty($user->contact_type)) {{(in_array(1 , $user->contact_type)) ? 'checked' : null }} @endif>
-                                          <span class="radiotextsty">Message (via Console)</span>
+                                          <label class="customradio mr-4">
+                                            <input type="checkbox" name="contact_type[]" value="1"
+                                              @if(!empty($user->contact_type))
+                                                {{ in_array(1, $user->contact_type) ? 'checked' : null }}
+                                              @else
+                                                checked
+                                              @endif>
+                                            <span class="radiotextsty">Message (via Console)</span>
                                           </label>
-                                          <label class="customradio mr-4"><input type="checkbox"  name="contact_type[]" value="2"  @if(!empty($user->contact_type)) {{(in_array(2 , $user->contact_type)) ? 'checked' : null }} @endif>
-                                          <span class="radiotextsty">Text</span>
-                                          </label><label class="customradio mr-4"><input type="checkbox"  name="contact_type[]" value="3"  @if(!empty($user->contact_type)) {{(in_array(3 , $user->contact_type)) ? 'checked' : null }} @endif>
-                                          <span class="radiotextsty">Email</span>
-                                          </label><label class="customradio mr-4"><input type="checkbox"  name="contact_type[]" value="4"  @if(!empty($user->contact_type)) {{(in_array(4 , $user->contact_type)) ? 'checked' : null }} @endif>
-                                          <span class="radiotextsty">Call me</span>
+                                        
+                                          <label class="customradio mr-4">
+                                            <input type="checkbox" name="contact_type[]" value="2"
+                                              @if(!empty($user->contact_type)) {{ in_array(2, $user->contact_type) ? 'checked' : null }} @endif>
+                                            <span class="radiotextsty">Text</span>
                                           </label>
-                                       </div>
+                                        
+                                          <label class="customradio mr-4">
+                                            <input type="checkbox" name="contact_type[]" value="3"
+                                              @if(!empty($user->contact_type)) {{ in_array(3, $user->contact_type) ? 'checked' : null }} @endif>
+                                            <span class="radiotextsty">Email</span>
+                                          </label>
+                                        
+                                          <label class="customradio mr-4">
+                                            <input type="checkbox" name="contact_type[]" value="4"
+                                              @if(!empty($user->contact_type)) {{ in_array(4, $user->contact_type) ? 'checked' : null }} @endif>
+                                            <span class="radiotextsty">Call me</span>
+                                          </label>
+                                        </div>
                                     </div>
                                  </div>
                               </div>
