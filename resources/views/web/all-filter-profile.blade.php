@@ -336,7 +336,7 @@
                                         <div class="col-12 align-items-center">
                                             <div class="total--list">
                                                 <strong>Total Listings:</strong>
-                                                <span>5</span>
+                                                <span>{{array_sum($memberTotalCount)}}</span>
                                              </div>
                                             <div class="grid_list_icon_box display_inline_block grid--btn"
                                                 data-toggle="modal1" data-target="#" data-url="grid-escort-list">
