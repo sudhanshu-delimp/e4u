@@ -258,4 +258,168 @@ class AgentRequestController extends Controller
             return view('admin.reports.agent-requests', compact('lists')); 
       }
 
+
+    ################### Agent Request Listing Into The Admin ########################
+
+    public function dataTable()
+    {
+        list($result, $count) = $this->paginatedList(
+            request()->get('start'),
+            request()->get('length'),
+            (request()->get('order')[0]['column']),
+            request()->get('order')[0]['dir']
+        );
+        $data = array(
+            "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "data"            => $result
+        );
+
+        return response()->json($data);
+    }
+
+    private function paginatedList($start, $limit, $order_key, $dir)
+    {
+            
+           $query = AdvertiserAgentRequest::whereHas('agent_request_users', function ($q) {
+                $q->where('id', '>', 0);
+            })
+            ->with([
+                'user',
+                'user.state',
+                'agent_request_users.user' ,
+                'agent_request_users' => function ($q) {
+                   $q->where('id', '>', 0);
+                },
+            ]);
+        
+            
+            $search = request()->input('search.value');
+
+           if (!empty($search)) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('ref_number', 'like', "%{$search}%")
+                    ->orWhereHas('user', function ($u) use ($search) {
+                    $u->where('member_id', 'like', "%{$search}%");
+                     });
+                });
+            }
+
+            switch ($order_key) {
+                case 1:
+                    $query->orderBy('ref_number', $dir);
+                    break;
+
+                default:
+                    $query->orderBy('created_at', 'DESC')->orderBy('created_at', 'ASC');
+                    break;
+            }
+
+            $totalRequest = $query->count();
+
+            $requestList = $query->offset($start)
+                            ->limit($limit)
+                            ->get();
+
+                            
+
+            $i = 1;
+            foreach ($requestList as $item) {
+
+               
+                $agent_name = "";
+                $agent_mobile = "";
+                $agent_status = "";
+                $accepted_date = "";
+
+                if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)
+                {
+                 foreach ($item->agent_request_users as $index => $agent_user)
+                 {
+
+                    $agent_name .='<p>';
+                    $agent_name .=  isset($agent_user->user->member_id) ? $agent_user->user->member_id: 'NA';
+                    $agent_name .='</p>';
+
+                 }
+                }
+
+                if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)
+                {
+                 foreach ($item->agent_request_users as $index => $agent_user)
+                 {
+                    $agent_mobile .='<p>';
+                    $agent_mobile .=  isset($agent_user->user->phone) ? $agent_user->user->phone: 'NA ';
+                    $agent_mobile .='</p>';
+
+                 }
+                }
+
+                if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)
+                {
+                 foreach ($item->agent_request_users as $index => $agent_user)
+                 {
+                    if($agent_user->status==0)
+                    $agent_status .= '<p><span class="open-badge">Open</span></p>';
+                    
+                     if($agent_user->status==1)
+                    $agent_status .= '<p><span class="accepted-badge">Accepted</span></p>';
+
+                     if($agent_user->status==2)
+                    $agent_status .= '<p><span class="declined-badge">Rejected</span></p>';
+
+                     if($agent_user->status==3)
+                    $agent_status .= '<p><span class="forfeited-badge">Forfeited</span></p>';
+                    
+                 }
+                }
+
+                if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)
+                {
+                 foreach ($item->agent_request_users as $index => $agent_user)
+                 {
+                    if($agent_user->status==1)
+                    {
+                        $accepted_date  =  date('d-m-Y',strtotime($agent_user->created_at));
+                        break;
+                    }
+                 }
+                }
+               
+
+                $item->ref_number =  $item->ref_number;
+                $item->requested_at = date('d-m-Y',strtotime($item->created_at));
+                $item->user_member_id =  $item->user->member_id;
+                $item->phone =  $item->user->phone;
+                $item->country_code =  isset($item->user->state->country_code) ? $item->user->state->country_code : 'NA';
+                $item->agent_name =  $agent_name;
+                $item->agent_mobile =  $agent_mobile;
+                $item->agent_status =  $agent_status;
+                $item->accepted_date =  $accepted_date;
+               
+
+                $item->action = '<div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                    <a class="dropdown-item align-item-custom" href="#" data-target="#confirmationPopup" data-toggle="modal"> <i class="fa fa-bell"></i> Follow Up</a>
+
+                                    <div class="dropdown-divider"></div>
+
+                                    <a class="dropdown-item align-item-custom view-agent-details" href="#"  data-id="' . $item->id . '" data-toggle="modal"> <i class="fa fa-eye" aria-hidden="true" ></i> View</a>
+                                </div>';
+                $i++;
+            }
+
+
+           // dd($requestList);
+
+          
+           
+            return [$requestList, $totalRequest];
+    }
+
+
 }

@@ -680,12 +680,13 @@ Route::get('/admin-dashboard/management/punterbox-reports',function(){
 
 
 
-Route::get('/admin-dashboard/reports/agent-requests', [AgentRequestController::class, 'allAgentRequests'])->name('admin.agent-requests');
+//Route::get('/admin-dashboard/reports/agent-requests', [AgentRequestController::class, 'allAgentRequests'])->name('admin.agent-requests');
 
-// Route::get('/admin-dashboard/reports/agent-requests',function(){
-//     return view('admin.reports.agent-requests');
-// })->name('admin.agent-requests');
+Route::get('/admin-dashboard/reports/agent-requests',function(){
+    return view('admin.reports.agent-requests');
+})->name('admin.agent-requests');
 
+Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
 
 // Route::get('/admin-dashboard/global-monitoring',function(){
 //     return view('admin.global-monitoring');

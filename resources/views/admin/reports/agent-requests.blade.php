@@ -6,6 +6,10 @@
        vertical-align: middle !important;
        text-align: center;
    }
+   #agentRequestreportTable td {
+    white-space: normal !important;
+    word-break: break-word;
+}
 </style>
 @endsection
 @section('content')
@@ -31,16 +35,12 @@
         <div class="row my-3">
             <div class="col-lg-4 col-md-12 col-sm-12"></div>
             <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
-              
-                <div class="total_listing">
-                    <div><span>Total Appointments : </span></div>
-                    <div><span>{{$lists->total()}}</span></div>
-                </div>
+                <div class="total_listing"></div>
             </div>
         </div>
         <div class="table-responsive membership--inner">
             <table class="table table-bordered text-center" id="agentRequestreportTable">
-                <thead>
+                 <thead id="table-sec" class="table-bg">
                    <tr>
                     <th>Ref</th>
                     <th>Request Date</th>
@@ -54,83 +54,7 @@
                     <th>Action</th>
                    </tr>
                 </thead>
-                <tbody>
-                @if($lists->isNotEmpty())
-                @foreach($lists as $index => $list)
-                    
-                    <tr>
-                        <td>{{$list->ref_number}}</td>
-                        <td>{{date('d-m-Y',strtotime($list->created_at))}}</td>
-                        <td>{{$list->user->phone}}</td>
-                        <td>{{$list->user->member_id}}</td>
-                        <td>{{isset($list->user->state->country_code) ? $list->user->state->country_code : 'NA'}}</td>
-                        <td> 
-                             @if(isset($list->agent_request_users ) && count($list->agent_request_users)>0)
-                             @foreach ($list->agent_request_users as $index => $agent_user)
-                             {{isset($agent_user->user->member_id) ? $agent_user->user->member_id: 'NA' }} <br>
-                             @endforeach
-                             @endif
-
-                        <td>
-
-                             @if(isset($list->agent_request_users ) && count($list->agent_request_users)>0)
-                             @foreach ($list->agent_request_users as $index => $agent_user)
-                             {{isset($agent_user->user->phone) ? $agent_user->user->phone: 'NA' }} <br>
-                             @endforeach
-                             @endif
-
-                        </td>
-                        <td>
-                           
-                            @if(isset($list->agent_request_users ) && count($list->agent_request_users)>0)
-                             @foreach ($list->agent_request_users as $index => $agent_user)
-                                @if($agent_user->status==0)
-                                <span class="open-badge">Open</span> <br> 
-                                @elseif($agent_user->status==1)
-                                <span class="accepted-badge">Accepted</span> <br> 
-                                @elseif($agent_user->status==2)
-                                <span class="declined-badge">Rejected</span> <br> 
-                                @elseif($agent_user->status==3)
-                                <span class="forfeited-badge">Forfeited</span> <br>
-                                @endif
-                             @endforeach
-                             @endif
-                            
-                        </td>
-                        <td>
-                            @if(isset($list->agent_request_users ) && count($list->agent_request_users)>0)
-                             @foreach ($list->agent_request_users as $index => $agent_user)
-                              @if($agent_user->status==1)
-                               {{date('d-m-Y',strtotime($agent_user->created_at))}}
-                                @break
-                              @endif
-                             @endforeach
-                             @endif            
-
-                        </td>
-                        <td class="theme-color text-center bg-white">
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item align-item-custom" href="#" data-target="#confirmationPopup" data-toggle="modal"> <i class="fa fa-bell"></i> Follow Up</a>
-
-                                    <div class="dropdown-divider"></div>
-
-                                    <a class="dropdown-item align-item-custom" href="#" data-target="#viewAgentdetails" data-toggle="modal"> <i class="fa fa-eye" aria-hidden="true" ></i> View</a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                       @endforeach
-                        @else
-                        <tr>
-                        <td colspan="10">No List Found</td>
-                        </tr>
-                        @endif
-
-                </tbody>
+                
             </table>
         </div>
      </div>
@@ -141,54 +65,7 @@
 </div>
 {{-- view popup --}}
 <div class="modal fade upload-modal" id="viewAgentdetails" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-       <div class="modal-content basic-modal">
-          <div class="modal-header">
-             <h5 class="modal-title" id="viewAgentdetails">Agent Request</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true">
-                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-             </button>
-          </div>
-          <div class="modal-body pb-0">
-             <div class="card mb-4 border-0">
-                <div class="card-body">
-                   <div class="row">
-                      <div class="col mt-0">
-                         <div class="d-flex align-items-center">
-                            <div class="avatar avatar-xl pr-3 mt-1">
-                               <img src="{{ asset('assets/img/agn-img.png')}}">
-                            </div>
-                            <div class="ms-3 name">
-                               <h5 class="primery_color normal_heading mb-0" data-toggle="modal" data-target="#Agent_Name"><a class="collapse-item" href="#"><b>Carla Brasil</b></a></h5>
-                               <h6 class="text-muted mb-0 small">Member ID: E03152 <span class="ml-5 pl-3">Date: 19/08/2022</span></h6>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   <div class="card-body row pt-4">
-                      <div class="row">
-                         <div class="col-md-6 list-sec pt-3">
-                            <h6><b>Email:</b> <span>jhoannamae@e4u.com</span></h6>
-                            <h6><b>Mobile:</b> <span class="ml-2">0123456789</span></h6>
-                         </div>
-                         <div class="col-md-6 list-sec pt-3">
-                            <h6><b>Home State:</b> <span class="ml-2">SA</span></h6>
-                            <h6><b>Contact Method:</b> <span class="ml-2">By Mobile</span></h6>
-                         </div>
-                      </div>
-                      <div class="row">
-                         <div class="col-md-12 list-sec pt-1">
-                            <h6><b>Comments:</b> </h6>
-                            <h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam egestas erat diam mauris, purus auctor nibh tincidunt. Imperdiet lectus in ut phasellus id vulputate vestibulum purus. Nibh sapien arcu, urna lobortis commodo. Nunc consequat dui imperdiet vitae.</h6>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-             </div>
-          </div>
-       </div>
-    </div>
+    
  </div>
 {{-- end --}}
 {{-- follow up popup confirmation--}}
@@ -224,11 +101,12 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
 <script>
    $(document).ready(function() {
-       $('#agentRequestreportTable').DataTable({
-           responsive: true,
-           language: {
+
+      var table = $("#agentRequestreportTable").DataTable({
+       language: {
                search: "Search: _INPUT_",
                searchPlaceholder: "Search by Member ID or Agent ID...",
                lengthMenu: "Show _MENU_ entries",
@@ -236,9 +114,121 @@
                info: "Showing _START_ to _END_ of _TOTAL_ entries",
                infoEmpty: "No entries available",
                infoFiltered: "(filtered from _MAX_ total entries)"
-           },
-           paging: true
-       });
+         },
+        processing: true,
+        serverSide: true,
+        lengthChange: true,
+        searching: true,
+        bStateSave: false,
+
+        ajax: {
+            url: "{{ route('admin.dataTable') }}",
+            type: 'GET',
+            data: function (d) {
+                d.type = 'player';
+            }
+        },
+
+        columns: [
+            { data: 'ref_number', name: 'ref_number', orderable: true, defaultContent: 'NA' },
+            { data: 'requested_at', name: 'requested_at', orderable: true, defaultContent: 'NA' },
+            { data: 'user_member_id', name: 'user_member_id', orderable: true, defaultContent: 'NA' },
+            { data: 'phone', name: 'phone', orderable: true, defaultContent: 'NA' },
+            { data: 'country_code', name: 'country_code', orderable: true, defaultContent: 'NA' },
+            { data: 'agent_name', name: 'agent_name', orderable: true, defaultContent: 'NA' },
+            { data: 'agent_mobile', name: 'agent_mobile', orderable: true, defaultContent: 'NA' },
+            { data: 'agent_status', name: 'agent_status', orderable: true, defaultContent: 'NA' },
+            { data: 'accepted_date', name: 'accepted_date', orderable: true, defaultContent: 'NA' },
+            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
+        ],
+
+        order: [[1, 'desc']],
+
+        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+        pageLength: 10,
+    });
+
+    $('#agentRequestreportTable').on('init.dt', function () {
+    $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by Member ID or Agent ID...');
+    });
+
+    table.on('xhr.dt', function (e, settings, json, xhr) {
+    $('.total_listing').html( '<div><span>Total Appointments : '+ json.recordsFiltered+'</span></div>');
+    });
+
+    
+    $(document).on('click', '.view-agent-details', function(e) {
+    e.preventDefault();
+
+    var requestId = $(this).data('id');
+    var rowData = table.row($(this).parents('tr')).data();
+
+    let contact_data = "";
+    if(rowData.contact_by_mobile!=0)
+    contact_data +=  'By Mobile';
+
+    if(rowData.contact_by_email!=0)
+    {
+      if (contact_data != "") {
+        contact_data += ' | ';
+       } 
+
+       contact_data +=  'By Email';
+    }
+    
+    
+    var modal_html = `<div class="modal-dialog modal-dialog-centered" role="document">
+       <div class="modal-content basic-modal">
+          <div class="modal-header">
+             <h5 class="modal-title" id="viewAgentdetails">Agent Request</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">
+                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+             </button>
+          </div>
+          <div class="modal-body pb-0">
+             <div class="card mb-4 border-0">
+                <div class="card-body">
+                   <div class="row">
+                      <div class="col mt-0">
+                         <div class="d-flex align-items-center">
+                            <div class="avatar avatar-xl pr-3 mt-1">
+                               <img src="{{ asset('assets/img/agn-img.png')}}">
+                            </div>
+                            <div class="ms-3 name">
+                               <h5 class="primery_color normal_heading mb-0" data-toggle="modal" data-target="#Agent_Name"><a class="collapse-item" href="#"><b>${rowData.first_name}</b></a></h5>
+                               <h6 class="text-muted mb-0 small">Member ID: ${rowData.ref_number} <span class="ml-5 pl-3">Date: ${rowData.requested_at}</span></h6>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                   <div class="card-body row pt-4">
+                      <div class="row">
+                         <div class="col-md-6 list-sec pt-3">
+                            <h6><b>Email:</b> <span>${rowData.email}</span></h6>
+                            <h6><b>Mobile:</b> <span class="ml-2">${rowData.mobile_number}</span></h6>
+                         </div>
+                         <div class="col-md-6 list-sec pt-3">
+                            <h6><b>Home State:</b> <span class="ml-2">${rowData.country_code}</span></h6>
+                            <h6><b>Contact Method:</b> <span class="ml-2">${contact_data}</span></h6>
+                         </div>
+                      </div>
+                      <div class="row">
+                         <div class="col-md-12 list-sec pt-1">
+                            <h6><b>Comments:</b> </h6>
+                            <h6>${rowData.comments}</h6>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>`;
+    $('#viewAgentdetails').html(modal_html);
+    $('#viewAgentdetails').modal('show');
+   });
+
    });
  </script>
 
