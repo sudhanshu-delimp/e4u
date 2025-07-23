@@ -17,6 +17,7 @@ class AddStateIdToAdvertiserAgentRequestsTable extends Migration
         Schema::table('advertiser_agent_requests', function (Blueprint $table) {
              $table->unsignedBigInteger('state_id')->nullable()->after('user_id');
         });
+        //php artisan migrate --path=database/migrations/2025_07_16_195145_add_state_id_to_advertiser_agent_requests_table.php
     }
 
     /**
