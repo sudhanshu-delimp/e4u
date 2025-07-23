@@ -219,7 +219,7 @@
                 <div class="point_of_diff">
                     <h3 class="text-white">What is our point of difference?</h3>
                     <div class="point_of_diff_peragrapg">
-                        <p class="text-white">It became apparent to us after talking with Advertisers and Viewers that there were a number of concerns about the quality and integrity of the services and offerings websites brought to Private Escorts and massage centres.</p>
+                        <p class="text-white">It became apparent to us after talking with Advertisers and Viewers that there were a number of concerns about the quality and integrity of the services and offerings websites brought to Private Escorts and Massage Centres.</p>
                         <p class="text-white">Those discussions helped bring about this Website, ensuring also that it complies with the Local Laws. Features such as verified photos, reviews, guides, concierge services, notes and Alerts are designed to make your experience a pleasant one.</p>
                         <p class="text-white"> We also offer a loyalty program.</p>
                     </div>
