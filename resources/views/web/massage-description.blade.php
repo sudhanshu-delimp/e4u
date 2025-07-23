@@ -27,12 +27,12 @@
             </div>
 
             <div class="d-flex align-items-center justify-content-start gap-10">
-                <div class="my-play-box-profile-icon">
+                {{-- <div class="my-play-box-profile-icon">
                     <a href="{{ url('playbox') }}" target="_blank">
                         <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
                     </a>
                     <div class="custom-tooltip">I don't have any Playbox.</div>
-                </div>
+                </div> --}}
                 <ul class="profile_page_social_profiles">
                     @if (!empty($escort->user->profile_creator) && in_array(3, $escort->user->profile_creator))
                         <li class="selected-from-profile">
@@ -1194,20 +1194,21 @@
         </div>
     </div>
     <!-- model start here 1-->
-    <div class="modal fade" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    {{-- <div class="modal fade" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color">
                     <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="img_resize_in_smscreen">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Send New Harmony Nature Massage a
-                        message</h5>
+                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Message Us</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
                 <div class="modal-body pb-0 teop-text">
+                    <h5 class="text-center">Message Me is only available to Viewers.
+                        Please log in or Register to access Message Me.</h5>
                     <p class="popu_heading_style">Note:-</p>
                     <ol class="mb-0">
                         <li>The Escort needs to have this feature enabled in order to receive it.</li>
@@ -1249,7 +1250,55 @@
                 </form>
             </div>
         </div>
+    </div> --}}
+    
+<!-- model start here 1-->
+<div class="modal fade" id="mysendmessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color">
+                <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="img_resize_in_smscreen">
+                
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Message Me </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
+                </button>
+            </div>
+            @if(auth()->check() && auth()->user()->type==0)
+            <div class="modal-body pb-0 teop-text">
+                    <h6 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
+                                <span id="Lname">To message Alina please go to your Dashboard and select
+                                    Communications > Messages. </span>
+                            </h6>
+                    <hr style="background-color: #0C223D">
+                <p class="mb-1 mt-3"><b>Notes</b></p>
+                <ol class="mb-0">
+                    <li>Make sure you have enabled Messaging in your settings. If you have added Alina to your
+                        Legbox, they will appear in your Message list. Otherwise, you can search by Member ID.</li>
+                    <li>To message Alina, they will also need to have Messaging enabled.</li>
+                </ol>
+            </div>
+            <div class="modal-footer text-center justify-content-center">
+                <a href="{{ route('user.advertiser') }}" type="button" class="btn main_bg_color site_btn_primary rounded" id="loginUrl" >Go to Message</a>                
+            </div>
+            @else
+            <!-- if viewer not login -->
+            <div class="modal-body pb-0 teop-text" >
+                <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
+                    <span id="Lname">Message Me is only available to Viewers.
+                        Please log in or Register to access Message Me.</span>
+                </h6>
+                <div class="modal-footer text-center justify-content-center" >
+                <a href="{{ route('viewer.login') }}" type="button" class="btn btn-danger site_btn_primary" id="loginUrl" >Login</a>
+                <a href="{{ route('register') }}" type="button" class="btn btn-danger site_btn_primary" id="regUrl">Register</a>
+                </div>
+            </div>
+            @endif
+            <!--- end -->
+
+        </div>
     </div>
+</div>
     <!-- model end here 1-->
     <!-- model start here 2-->
     <div class="modal fade ss" id="sendcarlat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
