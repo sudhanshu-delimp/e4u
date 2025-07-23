@@ -30,6 +30,8 @@ class CreateAgentRequestsTable extends Migration
 
             $table->timestamps();
         });
+
+        //php artisan migrate --path=database/migrations/2025_07_14_181844_create_agent_requests_table.php
     }
 
     /**

@@ -26,6 +26,7 @@ class AdvertiserAgentRequestUsers extends Migration
 
             $table->timestamps();
         });
+        //php artisan migrate --path=database/migrations/2025_07_16_200342_advertiser_agent_request_users.php
     }
     
 
