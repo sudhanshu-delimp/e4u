@@ -62,7 +62,7 @@ class EscortViewerInteractionController extends Controller
                 'viewer_id' => $request->viewer_id,
                 'action_by' => 'member',
                 'escort_disabled_contact' => isset($request->escort_disabled_contact) && $request->escort_disabled_contact == 'enable' ? true : false ,
-                'escort_disabled_notification' => isset($request->escort_disabled_notification) && $request->escort_disabled_notification == 'enable' ? true : false ,
+                'escort_disabled_notification' => isset($request->escort_disabled_notification) && $request->escort_disabled_notification == 'disable' ? true : false ,
                 'escort_blocked_viewer' => isset($request->is_blocked) && $request->is_blocked ? true : false ,
             ]);
         }

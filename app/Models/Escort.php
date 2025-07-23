@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class Escort extends Model
 {
@@ -517,5 +518,10 @@ class Escort extends Model
             }
         }
 
+    }
+
+    public function escortViewerInteraction()
+    {
+        return $this->hasOne(EscortViewerInteractions::class, 'escort_id','id')->where('viewer_id', Auth::user()->id);
     }
 }

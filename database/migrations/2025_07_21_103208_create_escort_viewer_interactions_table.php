@@ -27,7 +27,7 @@ class CreateEscortViewerInteractionsTable extends Migration
             $table->boolean('viewer_blocked_escort')->default(false);
             $table->boolean('viewer_disabled_contact')->default(false);
             $table->boolean('viewer_disabled_notification')->default(false);
-            $table->string('viewer_rate_escort')->default('good');
+            $table->string('viewer_rate_escort')->default('no_rated');
 
             // Unique to avoid duplicates
             $table->unique(['escort_id', 'viewer_id']);
