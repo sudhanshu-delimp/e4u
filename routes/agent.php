@@ -145,9 +145,9 @@ Route::get('advertisers',function(){
     return view('agent.dashboard.advertisers');
 })->name('agent.advertisers');
 
-Route::get('logs-and-statistics',function(){
-    return view('agent.dashboard.logs-and-statistics');
-})->name('agent.logs-and-statistics');
+Route::get('logs-and-status',function(){
+    return view('agent.dashboard.logs-and-status');
+})->name('agent.logs-and-status');
 
 Route::get('my-appointments',function(){
     return view('agent.dashboard.my-appointments');

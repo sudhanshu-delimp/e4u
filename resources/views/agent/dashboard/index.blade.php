@@ -116,7 +116,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.logs-and-statistics') }}">
+              <a href="{{ route('agent.logs-and-status') }}">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/agent/logs-and-statistics.png') }}" alt="Logs & Statistics">
                   </div>

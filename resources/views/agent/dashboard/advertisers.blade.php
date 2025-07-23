@@ -20,7 +20,8 @@
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
-                  
+                  <li>View your top Advertisers here.</li>
+                  <li>To view any of these summaries in detail, go to the relevant page in the Side bar Menu.</li>
                </ol>
             </div>
          </div>
@@ -34,7 +35,7 @@
             <div class="my-spend-box-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h4 class="font-weight-bold" style="color: var(--blue--text);">Top Advertisers
+                        <h4 class="font-weight-bold" style="color: var(--blue--text);">Top Advertisers (Escort)
                         </h4>
                     </div>
                         {{-- my spen box --}}
@@ -43,8 +44,8 @@
                             
                             <div class="card-body">                                
                                 <!-- Text Section -->
-                                <h4 class="mb-0 user-type-text font-weight-bold">Escort</h4>
-                                <p class="font-weight-bold esc-name">Carla Brasil</p>
+                                <h4 class="mb-0 user-type-text font-weight-bold">Carla Brasil </h4>
+                                <p class="font-weight-bold esc-name">Today</p>
                                 <div class=" d-flex align-items-center justify-content-start gap-10">
                                    
                                     <div class="spend">
@@ -69,8 +70,125 @@
                         <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
                             <div class="card-body">                                
                                 <!-- Text Section -->
-                                <h4 class="mb-0 user-type-text font-weight-bold">Massage Center</h4>
-                                <p class="font-weight-bold esc-name">Lin's Massage
+                                <h4 class="mb-0 user-type-text font-weight-bold">Lin's Massage</h4>
+                                <p class="font-weight-bold esc-name">Week to Date
+
+                                </p>
+                                <div class=" d-flex align-items-center justify-content-start gap-10">
+                                   
+                                    <div class="spend">
+                                        <small class="mb-1">Spend</small>
+                                        <h4 class="mb-0 amount-text font-weight-bold">$580.00</h4>
+                                    </div>
+                                    <div class="commission">
+                                        <small class="mb-1">Commission</small>
+                                        <h4 class="mb-0 amount-text font-weight-bold">$232.00</h4>
+                                    </div> <!-- Chart Icon or Image -->
+                                   <div class="chart-img">
+                                    <img src="{{ asset('assets/dashboard/img/graph.png') }}" alt="">
+                                   </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- end --}}
+                     {{-- my spen box --}}
+                     <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
+                            <div class="card-body">                                
+                                <!-- Text Section -->
+                                <h4 class="mb-0 user-type-text font-weight-bold">Lin's Massage</h4>
+                                <p class="font-weight-bold esc-name">Month to Date
+
+                                </p>
+                                <div class=" d-flex align-items-center justify-content-start gap-10">
+                                   
+                                    <div class="spend">
+                                        <small class="mb-1">Spend</small>
+                                        <h4 class="mb-0 amount-text font-weight-bold">$580.00</h4>
+                                    </div>
+                                    <div class="commission">
+                                        <small class="mb-1">Commission</small>
+                                        <h4 class="mb-0 amount-text font-weight-bold">$232.00</h4>
+                                    </div> <!-- Chart Icon or Image -->
+                                   <div class="chart-img">
+                                    <img src="{{ asset('assets/dashboard/img/graph.png') }}" alt="">
+                                   </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- end --}}
+                </div>
+                <div class="row my-3">
+                    <div class="col-lg-12">
+                        <h4 class="font-weight-bold" style="color: var(--blue--text);">Top Advertisers (Massage Center)
+                        </h4>
+                    </div>
+                        {{-- my spen box --}}
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
+                            
+                            <div class="card-body">                                
+                                <!-- Text Section -->
+                                <h4 class="mb-0 user-type-text font-weight-bold">Carla Brasil</h4>
+                                <p class="font-weight-bold esc-name">Today</p>
+                                <div class=" d-flex align-items-center justify-content-start gap-10">
+                                   
+                                    <div class="spend">
+                                        <small class="mb-1">Spend</small>
+                                        <h4 class="mb-0 amount-text font-weight-bold">$580.00</h4>
+                                    </div>
+                                    <div class="commission">
+                                        <small class="mb-1">Commission</small>
+                                        <h4 class="mb-0 amount-text font-weight-bold">$232.00</h4>
+                                    </div> <!-- Chart Icon or Image -->
+                                   <div class="chart-img">
+                                    <img src="{{ asset('assets/dashboard/img/graph.png') }}" alt="">
+                                   </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- end --}}
+                    {{-- my spen box --}}
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
+                            <div class="card-body">                                
+                                <!-- Text Section -->
+                                <h4 class="mb-0 user-type-text font-weight-bold">Lin's Massage</h4>
+                                <p class="font-weight-bold esc-name">Week to Date
+
+                                </p>
+                                <div class=" d-flex align-items-center justify-content-start gap-10">
+                                   
+                                    <div class="spend">
+                                        <small class="mb-1">Spend</small>
+                                        <h4 class="mb-0 amount-text font-weight-bold">$580.00</h4>
+                                    </div>
+                                    <div class="commission">
+                                        <small class="mb-1">Commission</small>
+                                        <h4 class="mb-0 amount-text font-weight-bold">$232.00</h4>
+                                    </div> <!-- Chart Icon or Image -->
+                                   <div class="chart-img">
+                                    <img src="{{ asset('assets/dashboard/img/graph.png') }}" alt="">
+                                   </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- end --}}
+                    {{-- my spen box --}}
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
+                            <div class="card-body">                                
+                                <!-- Text Section -->
+                                <h4 class="mb-0 user-type-text font-weight-bold">Lin's Massage</h4>
+                                <p class="font-weight-bold esc-name">Month to Date
 
                                 </p>
                                 <div class=" d-flex align-items-center justify-content-start gap-10">
@@ -102,9 +220,29 @@
             <div class="my-spend-box-wrapper">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h4 class="font-weight-bold" style="color: var(--blue--text);">Registrations
+                        <h4 class="font-weight-bold" style="color: var(--blue--text);">Registrations (Escort)
                         </h4>
                     </div>
+                    {{-- my spen box --}}
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
+                            <div class="card-body">                                
+                                <!-- Text Section -->
+                                <h4 class="mb-0 user-type-text font-weight-bold">Escort</h4>
+                                <p class="font-weight-bold esc-name">Today</p>
+                                <div class=" d-flex align-items-center justify-content-between">                                    
+                                    <h4 class="mb-0 amount-text font-weight-bold">$280.00</h4>
+                                   
+                                    <!-- Chart Icon or Image -->
+                                    <div class="spend-icons">
+                                        <i class="fas fa-calendar-week"></i>
+                                    </div>
+                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- end --}}
                     {{-- my spen box --}}
                     <div class="col-lg-3 col-md-6 col-sm-12">
                         <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
@@ -138,6 +276,32 @@
                                     <!-- Chart Icon or Image -->
                                     <div class="spend-icons">
                                         <i class="fas fa-calendar-alt"></i>
+                                    </div>
+                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- end --}}
+                </div>
+                <div class="row my-3">
+                    <div class="col-lg-12">
+                        <h4 class="font-weight-bold" style="color: var(--blue--text);">Registrations (Massaage Center)
+                        </h4>
+                    </div>
+                    {{-- my spen box --}}
+                    <div class="col-lg-3 col-md-6 col-sm-12">
+                        <div class="card shadow-sm border-1 mb-2 py-3 px-2 my-spend-box">
+                            <div class="card-body">                                
+                                <!-- Text Section -->
+                                <h4 class="mb-0 user-type-text font-weight-bold">Massaage Center</h4>
+                                <p class="font-weight-bold esc-name">Today</p>
+                                <div class=" d-flex align-items-center justify-content-between">                                    
+                                    <h4 class="mb-0 amount-text font-weight-bold">$280.00</h4>
+                                   
+                                    <!-- Chart Icon or Image -->
+                                    <div class="spend-icons">
+                                        <i class="fas fa-calendar-week"></i>
                                     </div>
                         
                                 </div>
@@ -225,38 +389,7 @@
           </div>
         </div>
       
-        <!-- Logs & Status -->
-        <div class="col-md-6 mb-4">
-          <div class="table-responsive">
-            <table class="table table-bordered">
-              <thead style="background-color: #0C223D; color: #ffffff;">
-                <tr><th colspan="4" class="text-center">Logs & Status</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="icon-col"><i class="fas fa-sign-in-alt"></i></td>
-                  <td>Login count</td>
-                  <td class="text-center" colspan="2">526</td>
-                </tr>
-               
-                <tr>
-                  <td class="icon-col"><i class="fas fa-map"></i></td>
-                  <td>Territory</td>
-                  <td class="text-center" colspan="2">Western Australia
-                </td>
-                </tr>
-                <tr>
-                  <td class="icon-col"><i class="fas fa-key"></i></td>
-                  <td>Password expiry</td>
-                  <td class="text-center">Never</td>
-                  <td class="text-center">
-                    <button type="submit" class="save_profile_btn"  data-target="#resetPasswordDate" data-toggle="modal">Change</button>
-                </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+       
     </div>
 </div> 
 

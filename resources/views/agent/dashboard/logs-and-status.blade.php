@@ -6,7 +6,7 @@
       <!-- Page Heading -->
       <div class="d-flex align-items-center justify-content-between col-md-12">
          <div class="custom-heading-wrapper">
-             <h1 class="h1">Dashboard - Logs & Statistics</h1>
+             <h1 class="h1">Logs & Status</h1>
              <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
          </div>
          <div class="back-to-dashboard">
@@ -20,7 +20,8 @@
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
-                 
+                    <li>You can change your Password settings here. You will be notified by your preferred
+                        method when your Password is due to expire.</li>
                </ol>
             </div>
          </div>
@@ -42,7 +43,12 @@
               <td>Login count</td>
               <td class="text-center" colspan="2">526</td>
             </tr>
-           
+            <tr>
+                <td class="icon-col"><i class="fas fa-clock"></i></td>
+                <td>Last login</td>
+                <td class="text-center" colspan="2">20-06-2025 | 12:32:02 PM
+                </td>
+              </tr>
             <tr>
               <td class="icon-col"><i class="fas fa-map"></i></td>
               <td>Territory</td>
