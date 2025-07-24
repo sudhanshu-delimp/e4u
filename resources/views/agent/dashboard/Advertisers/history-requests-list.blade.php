@@ -4,17 +4,19 @@
     @php
     $status = 'Forfeited';
     $listBG = '#fff9eb;';
-    if($list->advertiser_agent_request_users->status=='1')
+    if(isset($list->advertiser_agent_request_users->status) && $list->advertiser_agent_request_users->status=='1')
     {
          $listBG = '#dcf7ea;';
          $status = 'Accepted';
     }
+    
    
-    if($list->advertiser_agent_request_users->status=='2')
+    if(isset($list->advertiser_agent_request_users->status) && $list->advertiser_agent_request_users->status=='2')
     {
         $listBG = '#f8d2d2;';
         $status = 'Rejected';
     }
+   
     
     @endphp
     <div class="col-lg-4">
