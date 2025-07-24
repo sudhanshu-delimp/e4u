@@ -35,7 +35,7 @@
                <div class="col-md-12">
                         <div>
                         <h2><b>Partnership</b></h2>
-                        Escorts4U has partnered with a leading online accommodation booking provider <b>(Partner)</b> to provide
+                        Escorts4U has partnered with a leading online accommodation booking provider (<b>Partner</b>) to provide
                         practical and convenient advice and assistance for all of your accommodation needs and requirements
                         throughout Australia.
                         </div>
@@ -48,10 +48,7 @@
                         </ul>
                         We will let you know as soon as the service is launched.
                     </div>
-                    <div class="mt-5">
-                        <b>Changes to this Guide</b><br>
-                        <p>This Guide was last updated on 17-08-2024.</p>
-                    </div>
+                    
                 </div>
             </div>            
                <!--middle content end here-->

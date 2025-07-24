@@ -13,20 +13,55 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5">
-    <!--middle content start here-->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="v-main-heading h3">Travel</div>
-                <h3><b>Coming Soon</b></h3>
+<div id="wrapper">
+   <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+             {{-- Page Heading   --}}
+             <div class="row">
+                <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+                    <h1 class="h1">Travel</h1>
+                    <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+                </div>
+                <div class="col-md-12 my-4">
+                    <div class="card collapse" id="notes" style="">
+                    <div class="card-body">
+                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <ol></ol>
+                    </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-12 mt-4">
-                
-            </div>
-        </div>
-    <!--middle content end here-->
-</div>
+            {{-- end --}}
+            <!--middle content-->
+            <div class="row">
+               <div class="col-md-12">
+                   <div>
+                       <h2><b>Partnership</b></h2>
+                       Escorts4U has partnered with a leading online flight booking provider (<b>Partner</b>) to provide
+                       practical and convenient advice and assistance for all of your travel requirements
+                       throughout Australia.
+                   </div>
+                   <div class="pt-4">
+                       <h2><b>Launch of the Travel service</b></h2>
+                       Escorts4U will be launching its Travel service in version 2.0 of the Website. The service
+                       will enable you to:
+                       <ul>
+                           <li>book online flights anywhere in Australia and overseas (live)</li>
+                           <li>qualify for 'preferred status' to receive discounted pricing</li>
+                       </ul>
+                       We will let you know as soon as the service is launched.
+                   </div>
 
+                   
+            </div>
+               </div>
+               <!--middle content end here-->
+               <!--right side bar start from here-->
+            </div>
+         </div>
+      </div>
+   </div>
 @endsection
 @push('script')
 <!-- file upload plugin start here -->

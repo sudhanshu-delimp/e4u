@@ -41,8 +41,8 @@
                <div class="row">
                   <div class="col-md-12">
                      <h2 class="pb-2 pt-2"><b>Partnership</b> </h2>
-                     <p>Escorts4U has partnered with PEAMS Australia Pty Ltd <span><b>(Partner)</b></span> a leading provider of
-                         Visa, Migration and Education placement services <span><b>(Services)</b></span> to provide practical advice to
+                     <p>Escorts4U has partnered with PEAMS Australia Pty Ltd <span>(<b>Partner</b>)</span> a leading provider of
+                         Visa, Migration and Education placement services <span>(<b>Services</b>)</span> to provide practical advice to
                          assist you with compliance under the <i>Migration Act 1958 (Cth)</i>, whilst at the same time
                          ensuring your visa type and status suits your needs whilst you are in Australia.</p>
                   </div>
