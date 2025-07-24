@@ -1,4 +1,4 @@
-@extends('layouts.agent')
+@extends('layouts.escort')
 @section('style')
     <style>
         .toggle-task-form {
