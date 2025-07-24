@@ -6,7 +6,9 @@
             vertical-align: middle;
             padding: 12px !important;
         }
-
+        .table th, td{
+            font-size: 13px !important;
+        }
         #escortCenterlegboxTable_length {
             float: left;
         }

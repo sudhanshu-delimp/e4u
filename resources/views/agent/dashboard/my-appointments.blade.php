@@ -1,4 +1,4 @@
-@extends('layouts.agent')
+@extends('layouts.escort')
 @section('style')
     <style>
         .toggle-task-form {
@@ -1227,16 +1227,16 @@
                                 </a>
                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink" style="">
-                                         <a class="dropdown-item create-tour-sec-dropdown" href="#" id="edit_appointment" data-id=`+taskId+`>Edit Appointment</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="edit_appointment" data-id=`+taskId+`> <i class="fa fa-pen"></i> Edit Appointment</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item create-tour-sec-dropdown" href="#" id="reschedule_appointment" data-id=`+taskId+`>Reschedule Appointment</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="reschedule_appointment" data-id=`+taskId+`> <i class="fa fa-clock-rotate-left"></i> Reschedule Appointment</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item create-tour-sec-dropdown" href="#" id="complete_appointment" data-id=`+taskId+`>Completed Appointment</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="complete_appointment" data-id=`+taskId+`> <i class="fa fa-check-circle"></i> Completed Appointment</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item create-tour-sec-dropdown" href="#" id="view_appointment" data-id=`+taskId+`>View Appointment</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="view_appointment" data-id=`+taskId+`> <i class="fa fa-eye"></i> View Appointment</a>
                                     
                                 </div>
                             </div>

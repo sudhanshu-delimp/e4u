@@ -117,9 +117,9 @@
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                            </a>
                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                              <a class="dropdown-item" href="#">Disable Contact</a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-phone-slash"></i> Disable Contact</a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">Disable Notifications</a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-bell-slash"></i> Disable Notifications</a>
                            </div>
                         </div>
                      </td>
@@ -142,10 +142,10 @@
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                            </a>
                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                              <a class="dropdown-item" href="#">Disable Contact</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">Disable Notifications</a>
-                           </div>
+                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-phone-slash"></i> Disable Contact</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-bell-slash"></i> Disable Notifications</a>
+                         </div>
                         </div>
                      </td>
                   </tr>
@@ -167,10 +167,10 @@
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                            </a>
                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                              <a class="dropdown-item" href="#">Disable Contact</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">Disable Notifications</a>
-                           </div>
+                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-phone-slash"></i> Disable Contact</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-bell-slash"></i> Disable Notifications</a>
+                         </div>
                         </div>
                      </td>
                   </tr>
