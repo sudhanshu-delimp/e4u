@@ -1230,7 +1230,7 @@
                                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="edit_appointment" data-id=`+taskId+`> <i class="fa fa-pen"></i> Edit Appointment</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="reschedule_appointment" data-id=`+taskId+`> <i class="fa fa-clock-rotate-left"></i> Reschedule Appointment</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="reschedule_appointment" data-id=`+taskId+`> <i class="fa fa-calendar"></i> Reschedule Appointment</a>
                                         
                                         <div class="dropdown-divider"></div>
                                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="complete_appointment" data-id=`+taskId+`> <i class="fa fa-check-circle"></i> Completed Appointment</a>
