@@ -1565,6 +1565,11 @@
         color: #0C223D
     }
     
+    .bgc-primary {
+        background-color: var(--blue--text) !important;
+        color: var(--white) !important;
+    }
+    
     .register-img {
         padding: 5px 30px;
     }

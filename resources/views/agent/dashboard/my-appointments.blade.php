@@ -271,6 +271,39 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal -->
+<div class="modal fade upload-modal" id="openMapmodal" tabindex="-1" aria-labelledby="openMapLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="openMapLabel">View Map</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                            class="img-fluid img_resize_in_smscreen"></span>
+                </button>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="modal-body p-0">
+                <!-- Map Container -->
+                <div id="mapContainer" style="width:100%; height:100%;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30812395.310645804!2d89.6021919586505!3d-19.486640622600035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2b2bfd076787c5df%3A0x538267a1955b1352!2sAustralia!5e0!3m2!1sen!2sin!4v1753341906368!5m2!1sen!2sin" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
@@ -495,40 +528,160 @@
            
             console.log('hey new task');
         }
+        function viewPlanner() {
+            let viewPlannerHtml = `
+                <div class="mx-auto my-2 col-md-11">
+                    <!-- Planner Header -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4><b>View Planner</b></h4>
+                        <div>
+                            <button type="button" class="btn text-white btn-sm me-2 bgc-primary" id="prevBtn">← Previous</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="todayBtn" style="">Today</button>
+                            <button type="button" class="btn text-white btn-sm ms-2 bgc-primary" id="nextBtn">Next →</button>
+                        </div>
+                    </div>
 
-        // function viewPlanner() {
-        //     let viewPlannerHtml = `
-        //         <div class="mx-auto my-2 col-md-11">
+                    <!-- Summary -->
+                    <div class="row text-center mb-3">
+                        <div class="col">
+                            <div class="card shadow-sm p-2">
+                                <h6>Appointments Today</h6>
+                                <span id="summaryToday" class="fw-bold">0</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card shadow-sm p-2">
+                                <h6>Appointments This Week</h6>
+                                <span id="summaryWeek" class="fw-bold">0</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card shadow-sm p-2">
+                                <h6>Appointments This Month</h6>
+                                <span id="summaryMonth" class="fw-bold">0</span>
+                            </div>
+                        </div>
+                    </div>
 
-        //             <!-- Date -->
-        //             <div class="form-group">
-        //                 <label for="appointment_date"><b>Date</b><span class="text-danger">*</span></label>
-        //                 <input id="appointment_date" name="appointment_date" type="date" class="form-control" required>
-        //             </div>
+                    <!-- View Switcher -->
+                    <div class="d-flex justify-content-center mb-2">
+                        <button  type="button" class="btn bgc-primary text-white mx-2 btn-sm me-1" data-view="day">Day</button>
+                        <button  type="button" class="btn bgc-primary text-white mx-2 btn-sm me-1" data-view="week">Week</button>
+                        <button  type="button" class="btn bgc-primary text-white mx-2 btn-sm" data-view="month">Month</button>
+                    </div>
 
-        //             <!-- Time -->
-        //             <div class="form-group">
-        //                 <label for="appointment_time"><b>Time</b><span class="text-danger">*</span></label>
-        //                 <input id="appointment_time" name="appointment_time" type="time" class="form-control" required>
-        //             </div>
+                    <!-- Planner Body -->
+                    <div id="plannerBody" class="border rounded p-3" style="min-height:400px; overflow:auto;">
+                        <!-- Dynamic Slots will render here -->
+                    </div>
+                </div>
+            `;
 
-                   
+            let addUrl = "{{ route('dashboard.ajax-add-task')}}";
+            $('#task_form').attr('action', addUrl);
 
-        //         </div>
+            $("#task_form_html").html(viewPlannerHtml);
+            $("#save_button").hide(); 
+            $("#cancel_button").text('Close');
+            $(".showDateLabel").hide();
 
-        //     `;
+            // Load Default View (Day)
+            loadPlannerView('day');
 
-        //     let addUrl = "{{ route('dashboard.ajax-add-task')}}";
-        //     $('#task_form').attr('action',addUrl); 
+            console.log('Planner view loaded');
+        }
+        // Load Planner View
+        let currentDate = new Date();
 
-        //     $("#task_form_html").html(viewPlannerHtml);
-        //     $("#save_button").show();
-        //     $("#save_button").text('Save');
-        //     $("#cancel_button").text('Cancel');
-        //     $(".showDateLabel").show();
-           
-        //     console.log('hey view planner');
-        // }
+        function loadPlannerView(viewType) {
+            let plannerBody = $('#plannerBody');
+            plannerBody.empty();
+
+            if (viewType === 'day') {
+                loadDayView(plannerBody);
+            } else if (viewType === 'week') {
+                loadWeekView(plannerBody);
+            } else if (viewType === 'month') {
+                loadMonthView(plannerBody);
+            }
+        }
+
+        function loadDayView(container) {
+            let html = `<table class="table table-bordered text-center"><tbody>`;
+            for (let hour = 8; hour <= 20; hour++) {
+                for (let min of ['00', '30']) {
+                    if (hour === 20 && min === '30') break;
+                    let displayHour = hour > 12 ? hour - 12 : hour;
+                    let ampm = hour >= 12 ? 'PM' : 'AM';
+                    html += `
+                        <tr>
+                            <td style="width:100px;"><b>${displayHour}:${min} ${ampm}</b></td>
+                            <td class="slot" data-time="${hour}:${min}"></td>
+                        </tr>
+                    `;
+                }
+            }
+            html += `</tbody></table>`;
+            container.html(html);
+        }
+
+        function loadWeekView(container) {
+            let days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            let html = `<table class="table table-bordered text-center">
+                <thead>
+                    <tr><th>Time</th>`;
+            days.forEach(d => html += `<th>${d}</th>`);
+            html += `</tr></thead><tbody>`;
+            
+            for (let hour = 8; hour <= 20; hour++) {
+                for (let min of ['00', '30']) {
+                    if (hour === 20 && min === '30') break;
+                    let displayHour = hour > 12 ? hour - 12 : hour;
+                    let ampm = hour >= 12 ? 'PM' : 'AM';
+                    html += `<tr><td><b>${displayHour}:${min} ${ampm}</b></td>`;
+                    for (let i = 0; i < 7; i++) {
+                        html += `<td class="slot" data-day="${days[i]}" data-time="${hour}:${min}"></td>`;
+                    }
+                    html += `</tr>`;
+                }
+            }
+            html += `</tbody></table>`;
+            container.html(html);
+        }
+
+        function loadMonthView(container) {
+            let html = `<table class="table table-bordered text-center"><thead><tr>`;
+            let days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+            days.forEach(d => html += `<th>${d}</th>`);
+            html += `</tr></thead><tbody>`;
+            
+            let firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+            let lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+            let startDay = firstDay.getDay(); // Sunday=0
+            if (startDay === 0) startDay = 7;
+            
+            let dateCounter = 1;
+            for (let week = 0; week < 6; week++) {
+                html += `<tr>`;
+                for (let d = 1; d <= 7; d++) {
+                    if ((week === 0 && d < startDay) || dateCounter > lastDay.getDate()) {
+                        html += `<td></td>`;
+                    } else {
+                        html += `<td class="slot" data-date="${dateCounter}"><b>${dateCounter}</b><br></td>`;
+                        dateCounter++;
+                    }
+                }
+                html += `</tr>`;
+            }
+            html += `</tbody></table>`;
+            container.html(html);
+        }
+
+        // Switch View Buttons
+        $(document).on('click', '[data-view]', function() {
+            let viewType = $(this).data('view');
+            loadPlannerView(viewType);
+        });
 
         function editAppointment(taskId) 
         {
@@ -1059,8 +1212,8 @@
                             <label for="`+checkboxId+`" class="mb-0 cursor-pointer">
                             <i
                                 class="fas fa-circle `+priorityColor+` taski mr-2"></i>`+task.title+`
-                            </label></td>
-                        <td class='text-center'> <img src="{{ asset('assets/dashboard/img/map.png')}}" style="width:45px; padding-right:10px;"> </td>    
+                            </label> <small class="text-muted"> ( 09:30 am | 27-07-2025 ) </small></td>
+                        <td class='text-center' data-toggle="modal" data-target="#openMapmodal"> <img src="{{ asset('assets/dashboard/img/map.png')}}" style="width:45px; padding-right:10px;cursor:pointer" title="view Location"> </td>    
                         <td class="td-actions text-center ">
                             <span class="badge badge-danger-lighten task-1" style="background: `+taskBadgeColor+`; padding:5px 10px; max-width:120px; width:100%;">`+task.status+`</span>
                         </td>
