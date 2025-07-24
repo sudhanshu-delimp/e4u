@@ -319,7 +319,7 @@
 
             <a class="collapse-item" href="{{ route('center.mobile-read-sim') }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/mobile-read.png')}}">
-                <span style="{{request()->segment(2) == 'mobile-read-sim' ? 'color: #e5365a;' : ''}}">Mobile Read SIM</span>
+                <span style="{{request()->segment(2) == 'mobile-read-sim' ? 'color: #e5365a;' : ''}}">Mobile SIM</span>
             </a>
 
             <a class="collapse-item" href="{{ route('center.professional-products') }}">
@@ -327,10 +327,10 @@
                 <span style="{{request()->segment(2) == 'professional-products' ? 'color: #e5365a;' : ''}}">Professional Products</span>
             </a>
 
-            <!-- <a class="collapse-item" href="{{ route('center.travel') }}">
+            <a class="collapse-item" href="{{ route('center.travel') }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/visa-mig.png')}}">
                 <span style="{{request()->segment(2) == 'travel' ? 'color: #e5365a;' : ''}}">Travel</span>
-            </a>  -->
+            </a>  
 
             <a class="collapse-item" href="{{ route('center.visa') }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/visa.png')}}">
