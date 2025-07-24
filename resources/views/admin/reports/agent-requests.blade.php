@@ -226,20 +226,20 @@
                          </div>
                       </div>
                    </div>
-                   <div class="card-body row pt-4">
+                   <div class="card-body pt-4">
                       <div class="row">
                          <div class="col-md-6 list-sec pt-3">
-                            <h6><b>Email:</b> <span>${rowData.email}</span></h6>
-                            <h6><b>Mobile:</b> <span class="ml-2">${rowData.mobile_number}</span></h6>
+                            <h6><b>Email :</b> <span>${rowData.email}</span></h6>
+                            <h6><b>Mobile :</b> <span class="ml-2">${rowData.mobile_number}</span></h6>
                          </div>
                          <div class="col-md-6 list-sec pt-3">
-                            <h6><b>Home State:</b> <span class="ml-2">${rowData.country_code}</span></h6>
-                            <h6><b>Contact Method:</b> <span class="ml-2">${contact_data}</span></h6>
+                            <h6><b>Home State :</b> <span class="ml-2">${rowData.country_code}</span></h6>
+                            <h6><b>Contact Method :</b> <span class="ml-2">${contact_data}</span></h6>
                          </div>
                       </div>
                       <div class="row">
-                         <div class="col-md-12 list-sec pt-1">
-                            <h6><b>Comments:</b> </h6>
+                         <div class="col-md-12 list-sec pt-1 d-flex gap-10 align-items-center justify-content-start">
+                            <h6><b>Comments :</b> </h6>
                             <h6>${rowData.comments}</h6>
                          </div>
                       </div>
