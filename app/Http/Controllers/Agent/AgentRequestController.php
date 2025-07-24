@@ -404,7 +404,7 @@ class AgentRequestController extends Controller
                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                 </a>
                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item align-item-custom" href="#" data-target="#confirmationPopup" data-toggle="modal"> <i class="fa fa-bell"></i> Follow Up</a>
+                                    <a class="dropdown-item align-item-custom notiification-confirmation" href="#" data-id="' . $item->id . '"  data-toggle="modal"> <i class="fa fa-bell"></i> Follow Up</a>
 
                                     <div class="dropdown-divider"></div>
 
