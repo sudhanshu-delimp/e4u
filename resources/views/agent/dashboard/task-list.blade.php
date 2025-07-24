@@ -898,13 +898,13 @@
                                 </a>
                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink" style="">
-                                         <a class="dropdown-item create-tour-sec-dropdown" href="#" id="edit_task" data-id=`+taskId+`>Edit Task</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="edit_task" data-id=`+taskId+`> <i class="fa fa-pen"></i> Edit Task</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item create-tour-sec-dropdown" href="#" id="complete_task" data-id=`+taskId+`>Complete Task</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="complete_task" data-id=`+taskId+`> <i class="fa fa-check-circle"></i> Complete Task</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item create-tour-sec-dropdown" href="#" id="view_task" data-id=`+taskId+`>View</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="view_task" data-id=`+taskId+`> <i class="fa fa-eye"></i> View</a>
                                     
                                 </div>
                             </div>

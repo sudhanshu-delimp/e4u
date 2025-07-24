@@ -71,7 +71,13 @@
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                 </a>
-                  
+                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                  <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-trash"></i> Remove</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-eye"></i> View</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-print"></i> Print</a>
+              </div>
              </div>
           </td>
         </tr>
@@ -87,11 +93,11 @@
                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                 </a>
                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                    <a class="dropdown-item" href="#">Remove</a>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-trash"></i> Remove</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">View</a>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-eye"></i> View</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Print</a>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-print"></i> Print</a>
                 </div>
              </div>
           </td>
@@ -108,12 +114,12 @@
                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                 </a>
                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                    <a class="dropdown-item" href="#">Remove</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">View</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Print</a>
-                </div>
+                  <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-trash"></i> Remove</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-eye"></i> View</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-print"></i> Print</a>
+              </div>
              </div>
           </td>
         </tr>
@@ -129,12 +135,12 @@
                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                 </a>
                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                   <a class="dropdown-item" href="#">Remove</a>
-                   <div class="dropdown-divider"></div>
-                   <a class="dropdown-item" href="#">View</a>
-                   <div class="dropdown-divider"></div>
-                   <a class="dropdown-item" href="#">Print</a>
-                </div>
+                  <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-trash"></i> Remove</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-eye"></i> View</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-print"></i> Print</a>
+              </div>
              </div>
           </td>
         </tr>

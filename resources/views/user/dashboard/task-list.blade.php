@@ -147,13 +147,13 @@
                                                         <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                     </a>
                                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_mytask"> New Task</a>
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#add_mytask"> <i class="fa fa-plus-circle"></i>  New Task</a>
                                                             <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_mytask"> Edit Task</a>
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#edit_mytask"> <i class="fa fa-pen"></i>  Edit Task</a>
                                                             <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#complete_mytask">Complete Task</a>
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#complete_mytask"> <i class="fa fa-check-circle"></i> Complete Task</a>
                                                             <div class="dropdown-divider"></div>
-                                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#view_mytask">View Task</a>
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#view_mytask"> <i class="fa fa-eye"></i> View Task</a>
                                                         
                                                     </div>
                                                 </div>
@@ -173,13 +173,13 @@
                                                         <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                     </a>
                                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_mytask"> New Task</a>
+                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#add_mytask"> <i class="fa fa-plus-circle"></i>  New Task</a>
                                                         <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_mytask"> Edit Task</a>
+                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#edit_mytask"> <i class="fa fa-pen"></i>  Edit Task</a>
                                                         <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#complete_mytask">Complete Task</a>
+                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#complete_mytask"> <i class="fa fa-check-circle"></i> Complete Task</a>
                                                         <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#view_mytask">View Task</a>
+                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#view_mytask"> <i class="fa fa-eye"></i> View Task</a>
                                                     
                                                 </div>
                                                 </div>
@@ -199,14 +199,14 @@
                                                         <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                     </a>
                                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_mytask"> New Task</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_mytask"> Edit Task</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#complete_mytask">Complete Task</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#view_mytask">View Task</a>
-                                                    
+                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#add_mytask"> <i class="fa fa-plus-circle"></i>  New Task</a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 disabled" href="#" data-toggle="modal" data-target="#edit_mytask"> <i class="fa fa-pen"></i>  Edit Task</a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#complete_mytask"> <i class="fa fa-check-circle"></i> Complete Task</a>
+                                                            <div class="dropdown-divider"></div>
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#view_mytask"> <i class="fa fa-eye"></i> View Task</a>
+                                                        
                                                 </div>
                                                 </div>
                                             </td>

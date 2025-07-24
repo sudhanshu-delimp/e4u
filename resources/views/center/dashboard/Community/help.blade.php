@@ -406,7 +406,7 @@
                                                             Yes you can. Our support team will help you manage your Account
                                                             or alternatively,
                                                             you can reach out to an <a href="#"
-                                                                style="color:#FF3C5F">Agent</a>. An Agent will assist you
+                                                                style="color:#FF3C5F" class="custom_links_design">Agent</a>. An Agent will assist you
                                                             with:
                                                         </p>
                                                         <ul>
