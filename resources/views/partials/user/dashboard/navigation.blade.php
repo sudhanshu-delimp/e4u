@@ -191,11 +191,11 @@
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                     aria-labelledby="userDropdown">
                                     <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400 saptate_by_border"></i>
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
                                         Member ID: {{auth()->user()->member_id }}
                                     </a>
                                     <a class="dropdown-item" href="#">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400 saptate_by_border"></i>
+                                        <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
                                         User Name: {{auth()->user()->name }}
                                     </a>
                                             <div class="dropdown-divider"></div>
