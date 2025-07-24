@@ -1,5 +1,6 @@
 <div id="mainAccordion" class="row" style="row-gap: 20px;">
 
+
     @if($lists->isNotEmpty())
     @forelse ($lists as $index => $list)
     <div class="col-lg-4 col-md-6 col-sm-12">
@@ -12,7 +13,8 @@
                                 <div class="d-flex align-items-center stat-detls">
                                     <div class="avatar avatar-xl pr-3 mt-1">
 
-                                     <img src="{{ !$list->user->avatar_img ? asset('assets/dashboard/img/undraw_profile.svg') : asset('avatars/'.$list->user->avatar_img) }}" alt="Face 1">
+                                    <img src="{{ $list->user->avatar_img ? asset('avatars/' . $list->user->avatar_img) : asset('assets/img/default_user.png') }}" alt="Face 1">
+
 
 
                                        
@@ -146,3 +148,10 @@
 <div class="d-flex justify-content-end pt-4">
     {{ $lists->appends(request()->query())->links('pagination::bootstrap-4') }}
 </div>
+
+<style>
+.avatar img {
+   width: 60px; height: 60px;
+   border-radius: 50%;
+}
+</style>

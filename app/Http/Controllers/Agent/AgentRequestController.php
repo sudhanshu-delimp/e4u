@@ -58,6 +58,7 @@ class AgentRequestController extends Controller
                             'advertiser_user_id' => auth()->user()->id,
                             'receiver_agent_id' => $userId,
                             'status' => 0,
+                            'created_at' => date('Y-m-d H:i:s')
                         ];
                     }
 
@@ -207,7 +208,7 @@ class AgentRequestController extends Controller
         AdvertiserAgentRequestUser::
         where('advertiser_agent_requests_id', $request_id)
         ->where('receiver_agent_id', '=', auth()->id())
-        ->update(['status'=>$status]);
+        ->update(['status'=>$status,'created_at' => date('Y-m-d H:i:s')]);
 
         ##########  Update Other Agent Status  ###################
         if($status=='1')
@@ -215,7 +216,7 @@ class AgentRequestController extends Controller
             where('advertiser_agent_requests_id', $request_id)
             ->where('receiver_agent_id','!=', auth()->id())
             ->where('status','!=',2)
-            ->update(['status'=>3]); 
+            ->update(['status'=>3,'created_at' => date('Y-m-d H:i:s')]); 
             return true; 
         } catch (Exception $e) {
           Log::info($e->getMessage());  

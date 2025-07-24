@@ -30,8 +30,9 @@
       </div>
    </div>
    {{-- end --}}
-   <div class="row">
 
+    @if($lists->isNotEmpty())
+   <div class="row">
       <div class="col-lg-12">
          <div class="custom-search-form">
             <form id="searchForm">
@@ -40,6 +41,7 @@
          </div>
       </div>
    </div>
+   @endif
 
 
    <div class="col-md-12 pt-4">
@@ -80,7 +82,9 @@
          clearTimeout(debounce);
          let search = $(this).val();
          debounce = setTimeout(function() {
+            if (search.length >= 4) {
             fetchData(1, search);
+            }
          }, 500);
       });
 

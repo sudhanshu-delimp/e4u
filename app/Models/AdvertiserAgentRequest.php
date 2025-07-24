@@ -33,7 +33,7 @@ class AdvertiserAgentRequest extends Model
 
   
 
-    public function advertiser_agent_request_user()
+   public function advertiser_agent_request_user()
     {
         return $this->hasOne(AdvertiserAgentRequestUser::class, 'advertiser_agent_requests_id');
     }

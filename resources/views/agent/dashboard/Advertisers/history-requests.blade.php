@@ -1,7 +1,5 @@
 @extends('layouts.agent')
-@section('style')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-@endsection
+
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content end here-->
@@ -115,6 +113,12 @@
    </div>
 </div>
 @endsection
+
+@section('style')
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+@endsection
+
+
 @push('script')
 <!-- file upload plugin start here -->
 <!-- file upload plugin end here -->
@@ -147,7 +151,9 @@
          clearTimeout(debounce);
          let search = $(this).val();
          debounce = setTimeout(function() {
+            if (search.length >= 4) {
             fetchData(1, search);
+            }
          }, 500);
       });
 
