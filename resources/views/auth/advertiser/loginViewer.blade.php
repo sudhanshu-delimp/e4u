@@ -155,7 +155,7 @@
                     <form id="SendOtp" method="post" action="" >
                         @csrf
                         <div class="modal-header main_bg_color border-0">
-                            <h5 class="modal-title text-white">Send One Time Password</h5>
+                            <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/face-lock.png') }}" style="width:40px;" alt="face-lock verification">  2FA Verification</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -170,8 +170,18 @@
                                     </div>
                                 </div>
                                 <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Account Protection</strong></h4>
-                                <p class="text-center pb-2">To help keep your account safe, E4U wants to make sure it’s really you trying to sign in.</p>
-                                <input type="password" maxlength="4" required class="form-control" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required">
+                                <ol class="pb-2 pl-3 text-justify">
+                                    <li>To help keep your account safe, E4U wants to make sure it is really you trying to
+                                        log in.</li>
+                                    <li>We have sent you your verification code according to your preference, please
+                                        insert your verification code.</li>
+                                </ol>
+                               
+                                    <div class="d-flex align-items-center justify-content-between gap-10">
+                                        <input type="password" maxlength="4" required class="form-control w-75" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required">
+                                        <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
+                                    </div>
+                                {{-- <input type="password" maxlength="4" required class="form-control" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required"> --}}
 
                                 <div class="termsandconditions_text_color">
                                     @error('opt')
@@ -187,8 +197,7 @@
                             </div>
                         </div>
                         <div class="modal-footer forgot_pass pt-0 pb-4">
-                            <button type="submit" class="btn main_bg_color site_btn_primary" id="sendOtpSubmit">Send</button>
-                            <p class="pt-2">Not received your code? <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a></p>
+                            <p class="pt-2">Not received your verification code? <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a></p>
                         </div>
                     </form>
                 </div>
@@ -372,7 +381,7 @@
                 if(data.error == 1) {
                     $('body').on("click","#resendOtpSubmit",function(){
                         $("#loginFormViewer").submit();
-                        $('#senderror').html("<p> Verification code sent to "+data.phone+"</p>");
+                        $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>");
                     });
                     $("#sendOtp_modal").modal('show');//
                     $("body").on("submit","#SendOtp",function(e){
