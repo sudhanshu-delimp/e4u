@@ -1,13 +1,14 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Center\CenterController;
 use App\Http\Controllers\Escort\EscortController;
-use App\Http\Controllers\Center\CenterProfileInformationController;
+use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Center\PolyPaymentController;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\UpdateController;
+use App\Http\Controllers\Center\CenterProfileInformationController;
 
 
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
@@ -308,3 +309,5 @@ Route::get('report',function(){
 Route::get('request-notification',function(){
     return view('center.dashboard.UglyMugsRegister.request-notification');
 })->name('request-notification');
+
+Route::post('agent-request',[AgentRequestController::class, 'agentRequest'])->name('agent.agent-request');
