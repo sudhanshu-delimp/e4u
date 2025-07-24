@@ -10,6 +10,10 @@
     white-space: normal !important;
     word-break: break-word;
 }
+.avatar img {
+   width: 60px; height: 60px;
+   border-radius: 50%;
+}
 </style>
 @endsection
 @section('content')
@@ -63,37 +67,11 @@
    
    <!--right side bar end-->
 </div>
-{{-- view popup --}}
-<div class="modal fade upload-modal" id="viewAgentdetails" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true">
-    
- </div>
-{{-- end --}}
-{{-- follow up popup confirmation--}}
-<div class="modal fade upload-modal" id="confirmationPopup" tabindex="-1" role="dialog" aria-labelledby="confirmationPopup" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-       <div class="modal-content">
-          <div class="modal-header">
-             <h5 class="modal-title" id="confirmationPopup">Follow-up Notification</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-             </button>
-          </div>
-          <div class="modal-body pb-0">
-                <div class="row">
-                   <div class="col-12 my-2 text-center">
-                        <p>Notification Send successfully</p>
-                           
-                   </div>
-                </div>
-          </div>
-          <div class="modal-footer text-center justify-content-center">             
-             <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
-          </div>
-       </div>
-    </div>
- </div>
-{{-- end --}}
 
+<div class="modal fade upload-modal" id="viewAgentdetails" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
+
+
+<div class="modal fade upload-modal" id="confirmationPopup" tabindex="-1" role="dialog" aria-labelledby="confirmationPopup" aria-hidden="true" data-backdrop="static"></div>
 
  @endsection
 @section('script')
@@ -157,6 +135,43 @@
     });
 
     
+
+
+    ///////////////  View Agent Detail /////////////////////////
+
+
+    $(document).on('click', '.notiification-confirmation', function(e) {
+
+       e.preventDefault();
+       var requestId = $(this).data('id');
+       var rowData = table.row($(this).parents('tr')).data();
+
+        var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class="modal-title" id="confirmationPopup">Follow-up Notification</h5>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                                 </button>
+                              </div>
+                              <div class="modal-body pb-0">
+                                    <div class="row">
+                                       <div class="col-12 my-2 text-center">
+                                             <p>Notification Send successfully</p>
+                                                
+                                       </div>
+                                    </div>
+                              </div>
+                              <div class="modal-footer text-center justify-content-center">             
+                                 <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
+                              </div>
+                           </div>
+                        </div>`;
+
+         $('#confirmationPopup').html(modal_html);
+         $('#confirmationPopup').modal('show');
+    });
+
     $(document).on('click', '.view-agent-details', function(e) {
     e.preventDefault();
 
@@ -166,6 +181,15 @@
     let contact_data = "";
     if(rowData.contact_by_mobile!=0)
     contact_data +=  'By Mobile';
+    
+     let user_img = "{{ asset('assets/img/default_user.png') }}";
+     let avatar_base = "{{ asset('avatars') }}/";
+
+    if (rowData.user.avatar_img !== "" && rowData.user.avatar_img !== null) 
+    {
+      user_img = avatar_base + rowData.user.avatar_img;
+    }
+      
 
     if(rowData.contact_by_email!=0)
     {
@@ -193,10 +217,10 @@
                       <div class="col mt-0">
                          <div class="d-flex align-items-center">
                             <div class="avatar avatar-xl pr-3 mt-1">
-                               <img src="{{ asset('assets/img/agn-img.png')}}">
+                               <img src="${user_img}">
                             </div>
                             <div class="ms-3 name">
-                               <h5 class="primery_color normal_heading mb-0" data-toggle="modal" data-target="#Agent_Name"><a class="collapse-item" href="#"><b>${rowData.first_name}</b></a></h5>
+                               <h5 class="primery_color normal_heading mb-0" data-toggle="modal" data-target="#Agent_Name"><a class="collapse-item" href="#"><b>${rowData.first_name} ${rowData.last_name}</b></a></h5>
                                <h6 class="text-muted mb-0 small">Member ID: ${rowData.ref_number} <span class="ml-5 pl-3">Date: ${rowData.requested_at}</span></h6>
                             </div>
                          </div>
