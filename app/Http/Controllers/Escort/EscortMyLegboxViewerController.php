@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Escort;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Escort;
+use App\Models\EscortViewerInteractions;
 use App\Models\MyLegbox;
 use App\Models\User;
 use Carbon\Carbon;
@@ -29,18 +30,38 @@ class EscortMyLegboxViewerController extends Controller
      public function escortViewersAjaxList()
     {
         $user = Auth::user();
-        $escortIds = Escort::where('user_id', $user->id)->where('enabled', 1)->pluck('id');
-        $legboxEscortUserIds = MyLegbox::whereIn('escort_id', $escortIds)->pluck('user_id')->unique();
-        $viewers = User::whereIn('id',$legboxEscortUserIds)->with(['interest','escortViewerInteraction'])->get();
+        $escortIds = Escort::where('user_id', $user->id)->where('enabled', 1)->pluck('id'); // fetch all escort profile
+        $legboxEscortUserIds = MyLegbox::whereIn('escort_id', $escortIds)->select('user_id','escort_id'); 
 
-        // dd($viewers);
+        // Step 1: Get unique user records
+        $users = User::whereIn('id', $legboxEscortUserIds->pluck('user_id'))->with(['interest'])->get()->keyBy('id');
+        $escorts = Escort::whereIn('id', $legboxEscortUserIds->pluck('escort_id'))->get()->keyBy('id');
 
-        return DataTables::of($viewers)
-            ->addColumn('viewer_id', fn($row) => $row->member_id)
-            ->addColumn('home_state', fn($row) => config("escorts.profile.states.$row->state_id.stateName") ?? '-')
+        // Step 2: Rebuild the full list, preserving duplicates
+        $viewers = $legboxEscortUserIds->pluck('user_id')->map(function ($id) use ($users) {
+            return $users->get($id);
+        });
+        $escorts = $legboxEscortUserIds->pluck('escort_id')->map(function ($id) use ($escorts) {
+            return $escorts->get($id);
+        });
+
+        $newCollect = $viewers->values()->map(function ($viewer, $index) use ($escorts) {
+            return (object)[
+                'viewer' => $viewer,
+                'escort' => $escorts[$index] ?? null,
+            ];
+        });
+
+        return DataTables::of($newCollect)
+            ->addColumn('viewer_id', fn($row) => $row->viewer->member_id)
+            ->addColumn('home_state', function($row) {
+                $stateId = $row->viewer->state_id;
+                return config("escorts.profile.states.$stateId.stateName") ?? '-';
+            })
+            ->addColumn('escort_profile', fn($row) => $row->escort->name ?? '-')
             ->addColumn('notification_enabled', function($row){
-                if($row->interest && $row->interest->features){
-                    $viewerNotification = json_decode($row->interest->features);
+                if($row->viewer->interest && $row->viewer->interest->features){
+                    $viewerNotification = json_decode($row->viewer->interest->features);
                     $isNotifcationEnabled = in_array('alerts',$viewerNotification); 
                     return  $isNotifcationEnabled ? 'Yes' : 'No';
                 }
@@ -49,12 +70,12 @@ class EscortMyLegboxViewerController extends Controller
                 
             })
             ->addColumn('contact_enabled', function($row){
-                if($row->interest && $row->interest->features){
-                    $viewerNotification = json_decode($row->interest->features);
+                if($row->viewer->interest && $row->viewer->interest->features){
+                    $viewerNotification = json_decode($row->viewer->interest->features);
                     $isNotifcationEnabled = in_array('alerts', $viewerNotification); 
 
-                    if($isNotifcationEnabled && $row->interest->notifications){
-                        $viewerNotificationIsEnabled = json_decode($row->interest->notifications);
+                    if($isNotifcationEnabled && $row->viewer->interest->notifications){
+                        $viewerNotificationIsEnabled = json_decode($row->viewer->interest->notifications);
                         if(in_array('email',$viewerNotificationIsEnabled) || in_array('text', $viewerNotificationIsEnabled)){
                             return  'Yes';
                         }
@@ -68,12 +89,12 @@ class EscortMyLegboxViewerController extends Controller
             })
             ->addColumn('contact_method', function($row){
 
-                if($row->interest && $row->interest->features){
-                    $viewerNotification = json_decode($row->interest->features);
+                if($row->viewer->interest && $row->viewer->interest->features){
+                    $viewerNotification = json_decode($row->viewer->interest->features);
                     $isNotifcationEnabled = in_array('alerts', $viewerNotification); 
 
-                    if($isNotifcationEnabled && $row->interest->notifications){
-                        $viewerNotificationIsEnabled = json_decode($row->interest->notifications);
+                    if($isNotifcationEnabled && $row->viewer->interest->notifications){
+                        $viewerNotificationIsEnabled = json_decode($row->viewer->interest->notifications);
                         if(in_array('email', $viewerNotificationIsEnabled) && in_array('text', $viewerNotificationIsEnabled)){
                             return  'Email, Text';
                         }
@@ -95,24 +116,24 @@ class EscortMyLegboxViewerController extends Controller
             })
             ->addColumn('viewer_comm', function($row) use (&$contactMethod){
 
-                if($row->interest && $row->interest->features){
-                    $viewerNotification = json_decode($row->interest->features);
+                if($row->viewer->interest && $row->viewer->interest->features){
+                    $viewerNotification = json_decode($row->viewer->interest->features);
                     $isNotifcationEnabled = in_array('alerts', $viewerNotification); 
 
-                    if($isNotifcationEnabled && $row->interest->notifications){
-                        $viewerNotificationIsEnabled = json_decode($row->interest->notifications);
+                    if($isNotifcationEnabled && $row->viewer->interest->notifications){
+                        $viewerNotificationIsEnabled = json_decode($row->viewer->interest->notifications);
                         if(in_array('email', $viewerNotificationIsEnabled) && in_array('text', $viewerNotificationIsEnabled)){
-                            $contactMethod = $row->email.', '.$row->phone;
+                            $contactMethod = $row->viewer->email.', '.$row->viewer->phone;
                             return  $contactMethod;
                         }
 
                         if(in_array('email', $viewerNotificationIsEnabled)){
-                            $contactMethod = $row->email;
+                            $contactMethod = $row->viewer->email;
                             return  $contactMethod;
                         }
 
                         if(in_array('text', $viewerNotificationIsEnabled)){
-                            $contactMethod = $row->phone;
+                            $contactMethod = $row->viewer->phone;
                             return  $contactMethod;
                         }
 
@@ -126,37 +147,41 @@ class EscortMyLegboxViewerController extends Controller
             ->addColumn('playbox_subscription', fn($row) => 'Not Available')
             ->addColumn('block_viewer', function($row) {
 
-                if($row->escortViewerInteraction){
-                    $isChecked = $row->escortViewerInteraction->escort_blocked_viewer ? 'checked' : '';
-                }else{
-                    $isChecked = '';
+                $isChecked = '';
+
+                $esvi = EscortViewerInteractions::where('escort_id',$row->escort->id)->where('viewer_id',$row->viewer->id)->where('user_id',Auth::user()->id)->first('escort_blocked_viewer');
+                if($esvi && $esvi->escort_blocked_viewer){
+                    $isChecked = 'checked';
                 }
+                
 
                 $isBlocked = '<div class="custom-control custom-switch">
-                                        <input type="checkbox" '.$isChecked.' class="custom-control-input isBlockedButton" id="customSwitch'.$row->id.'">
-                                        <label class="custom-control-label" for="customSwitch'.$row->id.'"></label>
+                                        <input type="checkbox" '.$isChecked.' class="custom-control-input isBlockedButton" id="customSwitch'.$row->viewer->id.$row->escort->id.'" data-id="'.$row->viewer->id.'" data-escort-id="'.$row->escort->id.'">
+                                        <label class="custom-control-label" for="customSwitch'.$row->viewer->id.$row->escort->id.'"></label>
                                     </div>';
 
-                
                 return $isBlocked;
+
             })
             ->addColumn('action', function($row) {
 
-                $conClass = '-slash text-danger';
+                $conClass = '-slash';
                 $conText = 'Disable';
                 $conCurrentText = 'Enable';
-                $notClass = '-slash text-danger';
+                $notClass = '-slash';
                 $notText = 'Disable';
                 $notCurrentText = 'Enable';
 
-                if($row->escortViewerInteraction && $row->escortViewerInteraction->escort_disabled_contact == 1){
-                    $conClass = ' text-success';
+                $esvi = EscortViewerInteractions::where('escort_id',$row->escort->id)->where('viewer_id',$row->viewer->id)->where('user_id',Auth::user()->id)->first();
+
+                if($esvi && $esvi->escort_disabled_contact){
+                    $conClass = '';
                     $conText = 'Enable';
                     $conCurrentText = 'disable';
                 }
-                
-                if($row->escortViewerInteraction && $row->escortViewerInteraction->escort_disabled_notification == 1){
-                    $notClass = ' text-success';
+
+                if($esvi && $esvi->escort_disabled_notification){
+                    $notClass = '';
                     $notText = 'Enable';
                     $notCurrentText = 'disable';
                 }
@@ -168,13 +193,13 @@ class EscortMyLegboxViewerController extends Controller
                                     </a>
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink">
-                                        <a class="dropdown-item align-item-custom toggle-contact" href="#" title="Click to '.Str::lower($conText).' contact" 
-                                            data-id="'.$row->id.'" data-status="'.Str::lower($conCurrentText).'"> 
+                                        <a class="dropdown-item align-item-custom toggle-contact" data-escort-id="'.$row->escort->id.'" href="#" title="Click to '.Str::lower($conText).' contact" 
+                                            data-id="'.$row->viewer->id.'" data-status="'.Str::lower($conCurrentText).'"> 
                                             <i class="fa fa-phone'.$conClass.' me-1"></i> <span>'.$conText.' Contact</span>
                                         </a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item align-item-custom toggle-notification" href="#" title="Click to '.Str::lower($notText).' notification"
-                                            data-id="'.$row->id.'" data-status="'.Str::lower($notCurrentText).'"> 
+                                        <a class="dropdown-item align-item-custom toggle-notification" data-escort-id="'.$row->escort->id.'" href="#" title="Click to '.Str::lower($notText).' notification"
+                                            data-id="'.$row->viewer->id.'" data-status="'.Str::lower($notCurrentText).'"> 
                                             <i class="fa fa-bell'.$notClass.' me-1" aria-hidden="true"></i> <span>'.$notText.' Notifications</span>
                                         </a>
                                     </div>

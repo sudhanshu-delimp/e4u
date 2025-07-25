@@ -522,6 +522,7 @@ class Escort extends Model
 
     public function escortViewerInteraction()
     {
+        // relation used for viewer only
         return $this->hasOne(EscortViewerInteractions::class, 'escort_id','id')->where('viewer_id', Auth::user()->id);
     }
 }
