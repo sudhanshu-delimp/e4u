@@ -115,10 +115,10 @@
             <div class="my-custom-box shadow-sm">
                 <a href="{{ route('user.logs-and-statistics') }}">
                     <div class="box-icon">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt="Logs & Statistics">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt="Logs & Status">
                     </div>
                     <h2>
-                        Logs & Statistics
+                        Logs & Status
                     </h2>
                 </a>
 

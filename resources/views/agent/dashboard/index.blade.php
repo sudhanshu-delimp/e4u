@@ -118,10 +118,10 @@
           <div class="my-custom-box shadow-sm">
               <a href="{{ route('agent.logs-and-status') }}">
                   <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/logs-and-statistics.png') }}" alt="Logs & Statistics">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/logs-and-statistics.png') }}" alt="Logs & Status">
                   </div>
                   <h2>
-                     Logs & Statistics
+                     Logs & Status
                   </h2>
               </a>
 
@@ -134,7 +134,7 @@
          <div class="my-custom-box shadow-sm">
              <a href="{{ route('marketing.agencreate-prospect') }}">
                  <div class="box-icon">
-                     <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt="Logs & Statistics">
+                     <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt=" Database (Centres)">
                  </div>
                  <h2>
                   Database (Centres)

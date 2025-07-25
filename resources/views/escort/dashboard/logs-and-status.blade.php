@@ -8,7 +8,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between">
           <div class="custom-heading-wrapper">
-            <h1 class="h1">Escorts Statistics</h1>
+            <h1 class="h1">Logs & Status</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
             <div class="back-to-dashboard">
@@ -25,8 +25,7 @@
                       <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                       <p></p>
                       <ol>
-                            <li>To add Credit, go to Bookkeeping and select <a href="{{url('escort-dashboard/credit-my-account')}}" class="custom_links_design">Add Credit</a>.</li>
-                            <li>You can change your Password settings here. You will be notified by your preferred method when your Password is due to expire.</li>
+                            
                       </ol>
                    </div>
                 </div>
@@ -34,54 +33,9 @@
         </div>
         <!-- Page Heading -->
         <div class="row mt-2">  
-            <!-- Followers Online (Legbox) -->
-            <div class="col-md-4 mb-4">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead style="background-color: #0C223D; color: #ffffff;">
-                    <tr><th colspan="3" class="text-center">Followers Online (Legbox)</th></tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="icon-col"><i class="fas fa-map-marker-alt"></i></td>
-                      <td>In my Location</td>
-                      <td class="text-center">15</td>
-                    </tr>
-                    <tr>
-                      <td class="icon-col"><i class="fas fa-globe"></i></td>
-                      <td>Outside my Location</td>
-                      <td class="text-center">15</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          
-            <!-- Finance -->
-            <div class="col-md-4 mb-4">
-              <div class="table-responsive">
-                <table class="table table-bordered">
-                  <thead style="background-color: #0C223D; color: #ffffff;">
-                    <tr><th colspan="3" class="text-center">Finance</th></tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="icon-col"><i class="fas fa-credit-card"></i></td>
-                      <td>Credit</td>
-                      <td class="text-center">$ 500.00</td>
-                    </tr>
-                    <tr>
-                      <td class="icon-col"><i class="fas fa-gift"></i></td>
-                      <td>Loyalty days</td>
-                      <td class="text-center">2</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          
+            
             <!-- Logs & Status -->
-            <div class="col-md-4 mb-4">
+            <div class="col-md-6 mb-4">
               <div class="table-responsive">
                 <table class="table table-bordered">
                   <thead style="background-color: #0C223D; color: #ffffff;">

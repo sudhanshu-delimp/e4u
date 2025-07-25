@@ -7,7 +7,7 @@
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">Dashboard - My Playbox</h1>
+            <div class="v-main-heading h3 mb-2 pt-4 d-flex align-items-center"><h1 class="p-0">My Playbox</h1>
                 <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
             </div>
             <div class="back-to-dashboard">

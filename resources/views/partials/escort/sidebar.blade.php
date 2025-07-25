@@ -256,11 +256,11 @@
                          src="{{asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
                     </img><span style="{{request()->segment(2) == 'transaction-summary' ? 'color: #e5365a;' : ''}}">Transaction summary</span>
                 </a>
-                <a class="collapse-item" href="{{url('escort-dashboard/transaction-history')}}">
+                {{-- <a class="collapse-item" href="{{url('escort-dashboard/transaction-history')}}">
                     <img width="16" height="17" viewBox="0 0 16 17" fill="none"
                          src="{{asset('assets/dashboard/img/menu-icon/credit-card-refresh.png') }}">
                     </img><span style="{{request()->segment(2) == 'transaction-history' ? 'color: #e5365a;' : ''}}">Transaction History</span>
-                </a>
+                </a> --}}
             </div>
         </div>
     </li>

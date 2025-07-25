@@ -12,15 +12,15 @@
 <div id="content-wrapper" class="d-flex flex-column">
     <!-- Main Content -->
     <div id="content">
-        <div class="container-fluid">
+        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content-->
              {{-- Page Heading   --}}
             <div class="row">
-                <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
-                    <h1 class="h1">Manage User</h1>
+                <div class="custom-heading-wrapper col-md-12">
+                   <h1 class="h1">Manage User</h1>
                     <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
                 </div>
-                <div class="col-md-12 my-2">
+                <div class="col-md-12 mb-4">
                     <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             {{-- end --}}
-            <div class="row mt-2">
+            <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 ">
                     <!-- Begin Page Content -->
                     <div class="container-fluid" style="padding: 0px 0px;">
@@ -98,13 +98,10 @@
                 <!--middle content end here-->
                 <!--right side bar start from here-->
             </div>
-            <!--right side bar end-->
         </div>
     </div>
     <!-- End of Main Content -->
     
-</div>
-<!-- End of Content Wrapper -->
 </div>
 <!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
