@@ -15,39 +15,38 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!--middle content-->
     <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading">
-                <h1> Advertiser Reports <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                        style="font-size:16px"><b>Help?</b> </span></h1>
-            </div>
-            <div class=" my-4">
-                <div class="card collapse" id="notes">
-                    <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol>
-                            <li>Reports are a consolidation of reports on Advertisers <strong>(Report)</strong>.</li>
-                            <li>When a Report has been made about an Advertiser, place the Advertiser status on
-                            ‘Suspended’ until the Report is resolved.</li>
-                            <li>The Operations Team will assess the Report that has been made by the Viewer
-                            regarding an Advertiser (usually an Escort) and produce the results to management
-                            for a decision.</li>
-                            <li>Where the decision is to:</li>
-                            <ol  class="level-2">
-                                <li>
-                                    Cancel the Advertiser’s Membership, place the status on ‘Cancelled’
-                                </li>
-                                <li>
-                                    Re-instate the Advertiser’s membership, place the status on ‘Registered’
-                                </li>
-                            </ol>
-                            <p>then the Console will generate emails to the Member notifying accordingly the
-                            outcome.</p>
+        <div class="custom-heading-wrapper col-md-12">
+            <h1 class="h1"> Advertiser Reports </h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                    style="font-size:16px"><b>Help?</b> </span>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                    <ol>
+                        <li>Reports are a consolidation of reports on Advertisers (<b>Report</b>).</li>
+                        <li>When a Report has been made about an Advertiser, place the Advertiser status on
+                        'Suspended' until the Report is resolved.</li>
+                        <li>The Operations Team will assess the Report that has been made by the Viewer
+                        regarding an Advertiser (usually an Escort) and produce the results to management
+                        for a decision.</li>
+                        <li>Where the decision is to:</li>
+                        <ol  class="level-2">
+                            <li>
+                                Cancel the Advertiser's Membership, place the status on 'Cancelled'
+                            </li>
+                            <li>
+                                Re-instate the Advertiser's membership, place the status on 'Registered'
+                            </li>
                         </ol>
+                        <p>then the Console will generate emails to the Member notifying accordingly the
+                        outcome.</p>
+                    </ol>
 
-                    </div>
                 </div>
             </div>
         </div>

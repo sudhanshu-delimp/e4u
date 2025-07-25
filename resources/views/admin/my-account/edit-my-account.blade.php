@@ -12,32 +12,31 @@
 <div id="content-wrapper" class="d-flex flex-column">
     <!-- Main Content -->
     <div id="content">
-        <div class="container-fluid pl-3 pl-lg-5">
+        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content start here-->
             <!--middle content end here-->
             <div class="row">
-                <div class="col-md-12">
-                    <div class="v-main-heading">
-                          <h1>My Account  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span></h1>
-                    </div>
-                    <div class="my-4">
-                          <div class="card collapse" id="notes">
-                            <div class="card-body">
-                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                <ol>
-                                  <li>Your Advertiser's Profile Information will pre-populate any Massage Profile you create</li>
-                                  <li>Select your preferred method of contact by a Viewer for your Massage Profiles</li>
-                                </ol>
-                            </div>
-                          </div>
+                <div class="custom-heading-wrapper col-md-12">                    
+                    <h1 class="h1">My Account  </h1>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
+                </div>
+                <div class="mb-4 col-md-12">
+                    <div class="card collapse" id="notes">
+                      <div class="card-body">
+                          <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                          <ol>
+                            <li>Your Advertiser's Profile Information will pre-populate any Massage Profile you create</li>
+                            <li>Select your preferred method of contact by a Viewer for your Massage Profiles</li>
+                          </ol>
+                      </div>
                     </div>
                 </div>
                 
                 <!-- ALERT MESSAGE -->
-                <div class="col-md-12 my-3">
+                <div class="col-md-12 mb-3">
                   <div id="formAlert" class="alert d-none rounded" role="alert"></div>
                 </div>
-                <div class="col-md-12 mt-4 mb-5">
+                <div class="col-md-12 mb-5">
                     <div id="accordion" class="myacording-design">
                         <div class="card">
                             <div class="card-header">
