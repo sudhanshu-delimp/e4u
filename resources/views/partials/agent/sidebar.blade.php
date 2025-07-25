@@ -101,7 +101,11 @@
                         Requests</span>
                 </a>
 
+<<<<<<< Updated upstream
                 <a class="collapse-item" href="{{ route('agent.manage.advertiser-list') }}">
+=======
+                <a class="collapse-item" href="{{ route('agent.advertiser-list') }}">
+>>>>>>> Stashed changes
                     <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path

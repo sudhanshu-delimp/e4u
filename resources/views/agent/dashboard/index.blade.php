@@ -86,7 +86,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.manage.escorts.list') }}">
+              <a href="{{ route('agent.advertiser-list') }}">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-advertisers.png') }}" alt="My Advertiser">
                   </div>

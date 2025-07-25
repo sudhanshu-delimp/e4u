@@ -172,7 +172,9 @@ class AgentRequestController extends Controller
             }
 
 
-            $lists = $query->orderBy('id', 'desc')->paginate(3);
+            $lists = $query->orderBy('id', 'desc')->paginate(8);
+
+            
 
             //dd(json_decode(json_encode($lists),true));
 
@@ -414,15 +416,66 @@ class AgentRequestController extends Controller
                 $i++;
             }
 
-
-           // dd($requestList);
-
-          
-           
             return [$requestList, $totalRequest];
     }
 
 
+    public function accepted_advertiser_paginatedList($start, $limit, $order_key, $dir)
+    {
+
+        $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_user', function ($q) {
+                $q->where('status', '=', 1)
+                ->where('receiver_agent_id', auth()->id());
+            })
+             ->with([
+                'user',
+                'user.state',
+                'advertiser_agent_request_user' => function ($q) {
+                    $q->where('status', '!=', 0)
+                    ->where('receiver_agent_id', auth()->id());
+                },
+            ]);
+            
+            $search = request()->input('search.value');
+             if (!empty($search)) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('ref_number', 'like', "%{$search}%")
+                    ->orWhereHas('user', function ($u) use ($search) {
+                    $u->where('member_id', 'like', "%{$search}%");
+                     });
+                });
+            }
+
+
+            switch ($order_key) {
+                case 1:
+                    $query->orderBy('ref_number', $dir);
+                    break;
+
+                default:
+                    $query->orderBy('created_at', 'DESC')->orderBy('created_at', 'ASC');
+                    break;
+            }
+
+            $totalRequest = $query->count();
+            $requestList = $query->offset($start)->limit($limit)->get();
+
+
+          foreach ($requestList as $item) {
+
+              $item->ref_number =  $item->ref_number;
+              $item->member_id =  $item->user->member_id;
+              $item->name =  $item->user->name;
+              $item->phone =  $item->user->phone;
+              $item->email =  $item->user->email;
+              $item->state =  isset($item->user->state->country_code) ? $item->user->state->country_code : 'NA';
+          }
+
+            return [$requestList, $totalRequest];
+    }
+
+
+<<<<<<< Updated upstream
 
     public function acceptedAdvertiserList()
     {
@@ -430,6 +483,25 @@ class AgentRequestController extends Controller
 
         return view('agent.dashboard.Advertisers.advertiser-list');
         //return view('agent.dashboard.Advertisers.user-escort-list-bkp', compact('escorts'));
+=======
+    ################### accepted_advertiser_datatable ##############################
+     public function accepted_advertiser_datatable()
+    {
+        list($result, $count) = $this->accepted_advertiser_paginatedList(
+            request()->get('start'),
+            request()->get('length'),
+            (request()->get('order')[0]['column']),
+            request()->get('order')[0]['dir']
+        );
+        $data = array(
+            "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "data"            => $result
+        );
+
+        return response()->json($data);
+>>>>>>> Stashed changes
     }
 
 }

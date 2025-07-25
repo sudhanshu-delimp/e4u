@@ -188,8 +188,13 @@
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Change Password
                                 </a>
+<<<<<<< Updated upstream
                                 <a class="dropdown-item" href="{{ route('agent.manage.escorts.list') }}">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+=======
+                                <a class="dropdown-item" href="{{ route('agent.advertiser-list') }}">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2"></i>
+>>>>>>> Stashed changes
                                     List Advertisers
                                 </a>
                                 <a class="dropdown-item" href="{{ route('Commision.statements') }}">

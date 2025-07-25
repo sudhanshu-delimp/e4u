@@ -52,66 +52,6 @@
    </div>
 </div>
 </div>
-<div class="modal fade upload-modal" id="Agent_Name" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content basic-modal">
-         <div class="modal-header">
-            <h5 class="modal-title" id="Agent_Name">History Request </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-            </button>
-         </div>
-         <div class="modal-body pb-0">
-            <div class="card mb-4 border-0">
-               <div class="card-body">
-                  <div class="row">
-                     <div class="col mt-0">
-                        <div class="d-flex align-items-center">
-                           <div class="avatar avatar-xl pr-3 mt-1">
-                              <img src="{{ asset('assets/img/agn-img.png')}}">
-                           </div>
-                           <div class="ms-3 name">
-                              <h5 class="primery_color normal_heading mb-0" data-toggle="modal" data-target="#Agent_Name"><a class="collapse-item" href="#"><b>Carla Brasil</b></a></h5>
-                              <h6 class="text-muted mb-0 small">
-                                 Member ID : E03152
-                                 <span class="px-3">Ref : E98065</span>
-                                 <span>Request Date : 19/08/2022</span>
-
-                              </h6>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="card-body pt-4">
-                     <div class="row">
-                        <div class="col-md-6 list-sec pt-3">
-                           <h6><b>Mobile :</b> <span class="ml-2">0123456789</span></h6>
-                           <h6><b>Email :</b> <span>jhoannamae@e4u.com</span></h6>
-
-                        </div>
-                        <div class="col-md-6 list-sec pt-3">
-                           <h6><b>Home State :</b> <span class="ml-2">SA</span></h6>
-                           <h6><b>Contact Method :</b> <span class="ml-2">By Mobile</span></h6>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-12 list-sec pt-1">
-                           <h6><b>Comments:</b> </h6>
-                           <h6 class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Diam egestas erat diam mauris, purus auctor nibh tincidunt. Imperdiet lectus in ut phasellus id vulputate vestibulum purus. Nibh sapien arcu, urna lobortis commodo. Nunc consequat dui imperdiet vitae.</h6>
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-lg-12">
-                           <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
 @endsection
 
 @section('style')
