@@ -474,16 +474,8 @@ class AgentRequestController extends Controller
             return [$requestList, $totalRequest];
     }
 
+    
 
-<<<<<<< Updated upstream
-
-    public function acceptedAdvertiserList()
-    {
-        //$escorts = $this->escort->all();
-
-        return view('agent.dashboard.Advertisers.advertiser-list');
-        //return view('agent.dashboard.Advertisers.user-escort-list-bkp', compact('escorts'));
-=======
     ################### accepted_advertiser_datatable ##############################
      public function accepted_advertiser_datatable()
     {
@@ -501,7 +493,7 @@ class AgentRequestController extends Controller
         );
 
         return response()->json($data);
->>>>>>> Stashed changes
+
     }
 
 }

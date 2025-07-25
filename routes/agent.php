@@ -21,9 +21,6 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
     Route::get('/', [AgentController::class, 'index'])->name('agent.dashboard');
    
 
-    
-
-
     Route::post('/escorts-list', [AgentController::class, 'onlyEscortList'])->name('agent.only.escorts.list');
 
     //tour manage
@@ -105,10 +102,6 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
      
      Route::get('/accepted_advertiser_datatable', [AgentRequestController::class, 'accepted_advertiser_datatable'])->name('agent.accepted_advertiser_datatable');
 
-
-//     Route::get('Advertisers/history-requests',function(){
-//     return view('agent.dashboard.Advertisers.history-requests');
-// })->name('agent.history-requests');
      
 
     Route::get('advertiser-profiles',function(){
