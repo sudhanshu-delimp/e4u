@@ -95,10 +95,7 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
      Route::post('process-request', [AgentRequestController::class, 'processRequest'])->name('agent.process-request');
 
      Route::get('Advertisers/history-requests', [AgentRequestController::class, 'historyRequests'])->name('agent.history-requests');
-<<<<<<< Updated upstream
-     Route::get('advertiser-list', [AgentRequestController::class, 'acceptedAdvertiserList'])->name('agent.manage.advertiser-list');
 
-=======
      
      
      
@@ -107,8 +104,9 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
      })->name('agent.advertiser-list');
      
      Route::get('/accepted_advertiser_datatable', [AgentRequestController::class, 'accepted_advertiser_datatable'])->name('agent.accepted_advertiser_datatable');
->>>>>>> Stashed changes
 
+
+     
 //     Route::get('Advertisers/history-requests',function(){
 //     return view('agent.dashboard.Advertisers.history-requests');
 // })->name('agent.history-requests');
