@@ -12,7 +12,7 @@ class EscortViewerInteractionController extends Controller
     public function escortUpdateViewerInteraction(Request $request)
     {
         $userid = Auth::user()->id;
-        $isExistAction = EscortViewerInteractions::where('viewer_id',$request->viewer_id)->where('user_id',$userid )->first();
+        $isExistAction = EscortViewerInteractions::where('viewer_id',$request->viewer_id)->where('escort_id',$request->escort_id)->where('user_id',$userid )->first();
 
         if($isExistAction){
 
@@ -47,8 +47,9 @@ class EscortViewerInteractionController extends Controller
 
             $result  = EscortViewerInteractions::where('viewer_id',$request->viewer_id)
             ->where('user_id',$userid )
+            ->where('escort_id',$request->escort_id)
             ->update([
-                'escort_id' => null,
+                'escort_id' => isset($request->escort_id) && $request->escort_id ? $request->escort_id : null,
                 'escort_disabled_contact' => $escort_disabled_contact,
                 'escort_disabled_notification' => $escort_disabled_notification ,
                 'escort_blocked_viewer' => $is_blocked,
@@ -58,7 +59,7 @@ class EscortViewerInteractionController extends Controller
 
             $result  = EscortViewerInteractions::create([
                 'user_id' => $userid,
-                'escort_id' => null,
+                'escort_id' => isset($request->escort_id) && $request->escort_id ? $request->escort_id : null,
                 'viewer_id' => $request->viewer_id,
                 'action_by' => 'member',
                 'escort_disabled_contact' => isset($request->escort_disabled_contact) && $request->escort_disabled_contact == 'enable' ? true : false ,

@@ -17,8 +17,6 @@ class ViewerEscortInteractionController extends Controller
 {
     public function viewerUpdateEscortInteraction(Request $request)
     {
-       // dd($request->all());
-
         $escort = Escort::where('id',$request->escort_id)->first();
         $userid = $escort->user_id;
 
@@ -194,37 +192,121 @@ class ViewerEscortInteractionController extends Controller
 
                 ->addColumn('is_notification_enabled', function ($escort) {
 
-                    if($escort->user->notification_features && in_array('viewer_notification', $escort->user->notification_features)){
-                        $isEnabledNotificationByEscort = 'Yes';
+                    $isEnabledNotificationByEscort = EscortViewerInteractions::where('user_id',$escort->user_id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
+
+                    if($isEnabledNotificationByEscort != null){
+                        $status = $isEnabledNotificationByEscort->escort_disabled_notification == 0 ? 'Yes' : 'No';
                     }else{
-                        $isEnabledNotificationByEscort = 'No';
+                        $status = 'Yes';
                     }
-                    // return isset($escort->myLegBox->is_notification_enabled) && $escort->myLegBox->is_notification_enabled ? 'Yes' : 'No';
-                    return $isEnabledNotificationByEscort;
+                    
+                    return $status;
+
+                    // if($escort->user->notification_features && in_array('viewer_notification', $escort->user->notification_features)){
+                    //     $isEnabledNotificationByEscort = 'Yes';
+                    // }else{
+                    //     $isEnabledNotificationByEscort = 'No';
+                    // }
+                    // // return isset($escort->myLegBox->is_notification_enabled) && $escort->myLegBox->is_notification_enabled ? 'Yes' : 'No';
+                    // return $isEnabledNotificationByEscort;
                 })
                 ->addColumn('is_enabled_contact', function ($escort){
-                    return isset($escort->myLegBox->is_enabled_contact) && $escort->myLegBox->is_enabled_contact ? 'Yes' : 'No';
+                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
+
+                    if($escortViewerInteractions != null){
+                        $status = $escortViewerInteractions && $escortViewerInteractions->escort_disabled_contact == 0 ? 'Yes' : 'No';
+                    }else{
+                        $status = 'Yes';
+                    }
+                    
+                    return $status;
                 })
                 // ->addColumn('is_notification_enabled', fn($escort) => $escort->is_notification_enabled ? 'Yes' : 'No')
                 // ->addColumn('is_enabled_contact', fn($escort) => $escort->is_enabled_contact ? 'Yes' : 'No')
 
                 ->addColumn('contact_method', function ($escort) {
+
+                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
+
+                    # if escort disabled contact setting for this viewer
+                    if($escortViewerInteractions != null && $escortViewerInteractions->escort_disabled_contact == 1){
+                        return 'Disabled';
+                    }
+
                     $methods = [];
-                    $types = $escort->user->contact_type ?? [];
-                    if (in_array(3, $types)) $methods[] = 'Email';
-                    if (in_array(4, $types)) $methods[] = 'Call';
-                    if (in_array(2, $types) || empty($methods)) $methods[] = 'Text';
+                    if($escort->contact != null){
+                        $methods = [];
+                        # get value from escort setting
+                        switch ($escort->contact) {
+                            case 1:
+                                $methods[] = 'Email';
+                                break;
+                            case 2:
+                                $methods[] = 'Text';
+                                break;
+                            case 4:
+                                $methods[] = 'Call';
+                                break;
+                            case 5:
+                                $methods[] = 'Call, Text';
+                                break;
+                                
+                        }
+                    }else{
+                        # get value from member settings
+                        $userSettingMethods = [];
+                        $types = $escort->user->contact_type ?? [];
+                        if (in_array(3, $types)) $userSettingMethods[] = 'Email';
+                        if (in_array(4, $types)) $userSettingMethods[] = 'Call';
+                        if (in_array(2, $types) || empty($userSettingMethods)) $userSettingMethods[] = 'Text';
+                        return implode(', ', $userSettingMethods);
+                    }
                     return implode(', ', $methods);
                 })
 
                 ->addColumn('escort_communication', function ($escort) {
-                    $contactType = $escort->user->contact_type ?? [];
-                    $output = '';
-                    if (in_array(3, $contactType)) $output .= $escort->user->email . '<br>';
-                    if (in_array(4, $contactType)) $output .= $escort->phone . '<br>';
-                    if (in_array(2, $contactType)) $output .= '<span>Text</span><br>';
-                    if (empty($contactType)) $output .= '<span>Text</span><br>';
-                    return $output;
+
+                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
+
+                    # if escort disabled contact setting for this viewer
+                    if($escortViewerInteractions != null && $escortViewerInteractions->escort_disabled_contact == 1){
+                        return 'Disabled';
+                    }
+
+                    $methods = [];
+                    if($escort->contact != null){
+                        $methods = [];
+                        # get value from escort setting
+                        switch ($escort->contact) {
+                            case 1:
+                                # if Email
+                                $methods[] = $escort->user->email;
+                                break;
+                            case 2:
+                                # if Text
+                                $methods[] = $escort->phone;
+                                break;
+                            case 4:
+                                # if call
+                                $methods[] = $escort->phone;
+                                break;
+                            case 5:
+                                # if call, Text
+                                $methods[] = $escort->phone;
+                                break;
+                        }
+                    
+                    }else{
+                        # get value from member settings
+                        $contactType = $escort->user->contact_type ?? [];
+                        $output = '-';
+                        if (in_array(3, $contactType)) $output = $escort->user->email;
+                        if (in_array(4, $contactType)) $output = $escort->phone ;
+                        if (in_array(2, $contactType)) $output = $escort->phone;
+                        if (empty($contactType)) $output = '-';
+                        return $output;
+                    }
+                    return $methods;
                 })
 
                 ->addColumn('is_blocked', function ($escort) {
@@ -245,22 +327,22 @@ class ViewerEscortInteractionController extends Controller
 
                 ->addColumn('action', function ($row) {
 
-                    $conClass = '-slash text-danger';
+                    $conClass = '-slash';
                     $conText = 'Disable';
                     $conCurrentText = 'Enable';
-                    $notClass = '-slash text-danger';
+                    $notClass = '-slash';
                     $notText = 'Disable';
                     $notCurrentText = 'Enable';
                     $rate = 'no_rated';
 
                     if($row->escortViewerInteraction && $row->escortViewerInteraction->viewer_disabled_contact == 1){
-                        $conClass = ' text-success';
+                        $conClass = '';
                         $conText = 'Enable';
                         $conCurrentText = 'disable';
                     }
                     
                     if($row->escortViewerInteraction && $row->escortViewerInteraction->viewer_disabled_notification == 1){
-                        $notClass = ' text-success';
+                        $notClass = '';
                         $notText = 'Enable';
                         $notCurrentText = 'disable';
                         
@@ -270,20 +352,39 @@ class ViewerEscortInteractionController extends Controller
                         $rate = $row->escortViewerInteraction->viewer_rate_escort;
                     }
 
+                    $iconFontColor = '';
                     switch ($rate) {
                         case 'verygood':
-                            $iconFontColor = 'text-primary';
+                            // $iconFontColor = 'text-primary';
                             break;
                         case 'great':
-                            $iconFontColor = 'text-success';
+                            // $iconFontColor = 'text-success';
                             break;
                         case 'good':
-                            $iconFontColor = 'text-danger';
+                            // $iconFontColor = 'text-danger';
                             break;
                         
                         default:
-                            $iconFontColor = 'text-dark';
+                            // $iconFontColor = 'text-dark';
                             break;
+                    }
+
+                    # If escort blocked viewer
+                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$row->user_id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
+
+                    # if escort disabled contact setting for this viewer
+                    if($escortViewerInteractions != null && $escortViewerInteractions->escort_blocked_viewer == 1){
+                        $viewButton = '<a class="dropdown-item align-item-custom text-muted" href="#"
+                                                    data-toggle="modal" > <i
+                                                        class="fa fa-eye-slash text-muted" aria-hidden="true"></i>
+                                                    View</a>
+                                                <span class="tooltip-text ">Access denied: This escort has blocked you.</span>';
+                    }else{
+                        $viewButton = '<a class="dropdown-item align-item-custom escortProfileView" href="#"
+                                                    data-toggle="modal" data-escort-name="'.$row->name.'" data-id="'.$row->id.'"> <i
+                                                        class="fa fa-eye" aria-hidden="true"></i>
+                                                    View</a>
+                                                <span class="tooltip-text">View the Escort’s Profile</span>';
                     }
 
                     $actionButtons = '
@@ -327,11 +428,7 @@ class ViewerEscortInteractionController extends Controller
                                                 <div class="dropdown-divider"></div>
                                             </div>
                                             <div class="custom-tooltip-container">
-                                                <a class="dropdown-item align-item-custom escortProfileView" href="#"
-                                                    data-toggle="modal" data-escort-name="'.$row->name.'" data-id="'.$row->id.'"> <i
-                                                        class="fa fa-eye" aria-hidden="true"></i>
-                                                    View</a>
-                                                <span class="tooltip-text">View the Escort’s Profile</span>
+                                                '.$viewButton.'
                                             </div>
                                         </div>
 

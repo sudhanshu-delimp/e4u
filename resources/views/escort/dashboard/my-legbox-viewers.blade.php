@@ -69,6 +69,7 @@
                             <tr>
                                 <th class="text-left">Viewer ID </th>
                                 <th class="text-left">Home State</th>
+                                <th class="text-left">Escort Profile</th>
                                 <th class="text-center">Notifications
                                     Enabled</th>
                                 <th class="text-center">Contact
@@ -238,6 +239,7 @@
                 columns: [
                     { data: 'viewer_id', name: 'viewer_id' },                         // 0
                     { data: 'home_state', name: 'home_state' },                        // 2
+                    { data: 'escort_profile', name: 'escort_profile' },                        // 2
                     { data: 'notification_enabled', name: 'notification_enabled' },                        // 2
                     { data: 'contact_enabled', name: 'contact_enabled' },                               // 3
                     { data: 'contact_method', name: 'contact_method' },                   // 4
@@ -263,14 +265,18 @@
             });
 
             $(document).on('change', '.isBlockedButton', function() {
-                let viewerId = $(this).attr('id').replace('customSwitch', '');
+                let viewerId = $(this).data('id');;
+                let escortId = $(this).attr('data-escort-id');
                 let isBlocked = $(this).is(':checked') ? 1 : 0;
                 let data = {
                     'viewer_id' : viewerId,
+                    'escort_id' : escortId,
                     'is_blocked' : isBlocked,
                     'type' : 'block',
                     'message' : 'Viewer is '+(isBlocked ? 'Blocked' : 'UnBlocked')+' successfully!',
                 }
+
+                console.log(data);
 
                 let url = '{{ route("escort.viewer-interaction.update") }}';
                 return  ajaxCall(url, data, $(this));
@@ -280,6 +286,7 @@
             $(document).on('click', '.toggle-contact', function (e) {
                 e.preventDefault();
                 const $this = $(this);
+                let escortId = $(this).attr('data-escort-id');
                 const viewerId = $this.data('id');
                 const currentStatus = $this.data('status'); // disable or enable
                 const newStatus = currentStatus === 'disable' ? 'enable' : 'disable';
@@ -288,6 +295,7 @@
                 let data = {
                     'viewer_id' : viewerId,
                     'current_status' : currentStatus,
+                    'escort_id' : escortId,
                     'escort_disabled_contact' : newStatus,
                     'type' : 'contact',
                     'message' : 'Viewer contact is '+ newStatus + 'd successfully!',
@@ -299,6 +307,7 @@
                 e.preventDefault();
                 const $this = $(this);
                 const viewerId = $this.data('id');
+                const escortId = $(this).attr('data-escort-id');
                 const currentStatus = $this.data('status');
                 const newStatus = currentStatus === 'disable' ? 'enable' : 'disable';
                 let url = '{{ route("escort.viewer-interaction.update") }}';
@@ -306,6 +315,7 @@
                 let data = {
                     'viewer_id' : viewerId,
                     'current_status' : currentStatus,
+                    'escort_id' : escortId,
                     'escort_disabled_notification' : newStatus,
                     'type' : 'notification',
                     'message' : 'Viewer notification is '+ newStatus + 'd successfully!',
