@@ -26,42 +26,37 @@
                                         <h6 class="text-muted mb-0 small">
                                             Member ID : {{$list->user->member_id}}
                                             <span class="px-3">Request Date : {{date('d/m/Y',strtotime($list->created_at))}}</span>
-                                            <span>Ref : {{$list->ref_number}}</span>
+                                            <br><span>Ref : {{$list->ref_number}}</span>
                                         </h6>
                                     </div>
                                 </div>
                             </a>
                         </div>
                         <div id="req{{$list->id}}" class="collapse" data-parent="#mainAccordion">
-                            <div class="row">
-                                <div class="col-md-6 list-sec pt-3">
-                                    <h6><b>Mobile:</b> <span class="ml-2"> {{$list->mobile_number}}</span></h6>
-                                    <h6><b>Email:</b> <span class="ml-2"> {{$list->email}}</span></h6>
-                                </div>
-                                <div class="col-md-6 list-sec pt-3">
-                                    <h6><b>Home State:</b>
+                            
+                           
+                            <div class="row mt-3">
+                                <div class="col-md-12 list-sec pt-1">
+                                    <h6><b>Mobile :</b> <span class="ml-2"> {{$list->mobile_number}}</span></h6>
+
+                                    <h6><b>Email :</b> <span class="ml-2"> {{$list->email}}</span></h6>
+
+                                    <h6><b>Home State :</b>
                                         <span class="ml-2">{{isset($list->user->state->name) ? $list->user->state->name : 'NA'}}</span>
                                     </h6>
-                                    <h6><b>Contact Method:</b>
+
+                                    <h6><b>Contact Method :</b>
                                         @if($list->contact_by_email==1)
                                         <span class="ml-2">By Email</span>
                                         @endif
-
-                                        @if($list->contact_by_mobile==1)
-                                        |<span class="ml-2">By Mobile</span>
-                                        @endif
-
-
                                     </h6>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12 list-sec pt-1">
-                                    <h6><b>Comments:</b> </h6>
-                                    <h6 class="text-justify">agent.dashboard.Advertisers.agent-requests-list
+
+                                    <h6><b>Comments :</b>
+                                    <span class="text-justify">agent.dashboard.Advertisers.agent-requests-list
                                         {{$list->comments}}
+                                    </span>
                                     </h6>
-                                </div>
+                                </div>                               
                             </div>
                             <div class="row mt-2">
 
@@ -87,7 +82,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="requestAccepted">Request Accepted</h5>
+                    <h5 class="modal-title" id="requestAccepted"><img src="{{ asset('assets/dashboard/img/accept.png') }}" style="width:40px;" alt="Request Accepted"> Request Accepted</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                     </button>
@@ -116,7 +111,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="requestRejected">Request Rejected</h5>
+                    <h5 class="modal-title" id="requestRejected"><img src="{{ asset('assets/dashboard/img/reject.png') }}" style="width:40px;" alt="Request Rejected"> Request Rejected</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                     </button>

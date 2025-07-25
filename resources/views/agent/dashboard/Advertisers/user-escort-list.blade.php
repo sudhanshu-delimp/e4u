@@ -74,52 +74,10 @@
                                                 <th scope="col">Appointed</th><th scope="col">Earnings</th>
                                                 <th scope="col">Action</th>
                                              </tr>
-                                          </thead>                                          <tbody class="table-content">
-                                             {{-- <tr class="row-color">
-                                                <td class="theme-color">E03153</td>
-                                                <td class="theme-color">Carla</td>
-                                                <td class="theme-color">09876543210</td>
-                                                <td class="theme-color">demo@gmail.com</td>
-                                                <td class="theme-color">Mobile</td>
-                                                <td class="theme-color">WA</td><td class="theme-color">19/02/2022</td><td class="theme-color">25/02/2022</td><td class="theme-color">$200</td><td class="theme-color">
-                                                   <div class="dropdown no-arrow">
-                                                      <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                      <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                      </a>
-                                                      <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                         <a class="dropdown-item" id="manage-profile" href="#">Manage Profile</a>
-                                                         <div class="dropdown-divider"></div>
-                                                         <a class="dropdown-item" id="manage-tour" href="#">Manage Tour</a>
-                                                         <div class="dropdown-divider"></div>
-                                                         <a class="dropdown-item" href="#">Manage Media</a>
-                                                         <div class="dropdown-divider"></div>
-                                                         <a class="dropdown-item" href="#" id="manage-concierge">Manage Concierge &amp; Services</a><div class="dropdown-divider"></div>
-                                                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#viewticket">Print Report</a>
-                                                      </div>
-                                                   </div>
-                                                </td>
-                                             </tr> --}}
+                                          </thead> 
+                                          <tbody class="table-content">
                                           </tbody>
                                        </table>
-                                       {{-- <nav aria-label="Page navigation example">
-                                          <ul class="pagination float-right pt-4">
-                                             <li class="page-item">
-                                                <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">«</span>
-                                                <span class="sr-only">Previous</span>
-                                                </a>
-                                             </li>
-                                             <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                             <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                             <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                             <li class="page-item">
-                                                <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">»</span>
-                                                <span class="sr-only">Next</span>
-                                                </a>
-                                             </li>
-                                          </ul>
-                                       </nav> --}}
                                     </div>
                                  </div>
                               </div>
