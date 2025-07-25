@@ -21,6 +21,8 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
     Route::get('/', [AgentController::class, 'index'])->name('agent.dashboard');
     Route::get('/user-escorts-list', [AgentController::class, 'userEscortList'])->name('agent.manage.escorts.list');
 
+    
+
 
     Route::post('/escorts-list', [AgentController::class, 'onlyEscortList'])->name('agent.only.escorts.list');
 
@@ -93,6 +95,8 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
      Route::post('process-request', [AgentRequestController::class, 'processRequest'])->name('agent.process-request');
 
      Route::get('Advertisers/history-requests', [AgentRequestController::class, 'historyRequests'])->name('agent.history-requests');
+     Route::get('advertiser-list', [AgentRequestController::class, 'acceptedAdvertiserList'])->name('agent.manage.advertiser-list');
+
 
 //     Route::get('Advertisers/history-requests',function(){
 //     return view('agent.dashboard.Advertisers.history-requests');
@@ -145,9 +149,9 @@ Route::get('advertisers',function(){
     return view('agent.dashboard.advertisers');
 })->name('agent.advertisers');
 
-Route::get('logs-and-statistics',function(){
-    return view('agent.dashboard.logs-and-statistics');
-})->name('agent.logs-and-statistics');
+Route::get('logs-and-status',function(){
+    return view('agent.dashboard.logs-and-status');
+})->name('agent.logs-and-status');
 
 Route::get('my-appointments',function(){
     return view('agent.dashboard.my-appointments');

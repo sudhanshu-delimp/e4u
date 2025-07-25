@@ -423,4 +423,13 @@ class AgentRequestController extends Controller
     }
 
 
+
+    public function acceptedAdvertiserList()
+    {
+        //$escorts = $this->escort->all();
+
+        return view('agent.dashboard.Advertisers.advertiser-list');
+        //return view('agent.dashboard.Advertisers.user-escort-list-bkp', compact('escorts'));
+    }
+
 }

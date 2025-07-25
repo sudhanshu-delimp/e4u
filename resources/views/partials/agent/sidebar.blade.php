@@ -101,7 +101,7 @@
                         Requests</span>
                 </a>
 
-                <a class="collapse-item" href="{{ route('agent.manage.escorts.list') }}">
+                <a class="collapse-item" href="{{ route('agent.manage.advertiser-list') }}">
                     <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -109,7 +109,7 @@
                             fill="#C2CFE0" />
                     </svg>
                     <span class="pl-3"
-                        style="{{ request()->segment(2) == 'user-escorts-list' ? 'color: #e5365a;' : '' }}">List
+                        style="{{ request()->segment(2) == 'advertiser-list' ? 'color: #e5365a;' : '' }}">List
                         Advertisers</span>
                 </a>
                 <a class="collapse-item" href="{{ route('pricingsummaries') }}">
