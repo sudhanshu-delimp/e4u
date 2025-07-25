@@ -188,8 +188,11 @@
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2"></i>
                                     Change Password
                                 </a>
-                                <a class="dropdown-item" href="{{ route('agent.manage.escorts.list') }}">
+
+                                
+                                <a class="dropdown-item" href="{{ route('agent.advertiser-list') }}">
                                     <i class="fas fa-list fa-sm fa-fw mr-2"></i>
+
                                     List Advertisers
                                 </a>
                                 <a class="dropdown-item" href="{{ route('Commision.statements') }}">

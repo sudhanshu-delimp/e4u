@@ -68,13 +68,7 @@ class AgentController extends Controller
         return view('agent.dashboard.list', compact('escorts'));
     }
 
-    public function userEscortList()
-    {
-        $escorts = $this->escort->all();
-
-        return view('agent.dashboard.Advertisers.user-escort-list', compact('escorts'));
-        //return view('agent.dashboard.Advertisers.user-escort-list-bkp', compact('escorts'));
-    }
+    
     public function viewTourList()
     {
         
