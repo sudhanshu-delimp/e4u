@@ -461,6 +461,10 @@ Route::get('/escort-dashboard/tour-schedule',function(){
     return view('escort.dashboard.tour-schedule');
 })->name('escort.dashboard.tour-schedule');
 
+Route::get('/escort-dashboard/logs-and-status',function(){
+    return view('escort.dashboard.logs-and-status');
+})->name('escort.dashboard.logs-and-status');
+
 
 Route::get('/escort-dashboard/help',function(){
     return view('escort.dashboard.Community.help');
@@ -694,6 +698,10 @@ Route::get('/admin-dashboard/management/punterbox-reports',function(){
 Route::get('/admin-dashboard/reports/agent-requests',function(){
     return view('admin.reports.agent-requests');
 })->name('admin.agent-requests');
+
+Route::get('/admin-dashboard/reports/transaction-summary',function(){
+    return view('admin.reports.transaction-summary');
+})->name('admin.transaction-summary');
 
 Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
 

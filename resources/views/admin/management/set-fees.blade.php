@@ -12,16 +12,15 @@
 <div id="content-wrapper" class="d-flex flex-column">
    <!-- Main Content -->
    <div id="content">
-      <div class="container-fluid">
+      <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
          <!--middle content-->
          <div class="row">
 
-         <div class="col-md-12">
-            <div class="v-main-heading h3">
-               Set Fees & Variables for UAdvertisers
-               <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+            <div class="custom-heading-wrapper col-md-12">
+               <h1 class="h1">Set Fees & Variables for UAdvertisers</h1>
+               <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
-            <div class="col-md-12 mt-4">
+            <div class="col-md-12 mb-4">
                <div class="card collapse" id="notes">
                      <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -58,641 +57,636 @@
                         </ol>
                      </div>
                </div>
-            </div>
-      </div>
-<!-- Accordian Start -->
-<div class="col-md-12 mt-4">
-   <div id="accordion" class="myacording-design mb-5">
+            </div>   
+            <!-- Accordian Start -->
+            <div class="col-md-12">
+               <div id="accordion" class="myacording-design mb-5">
 
-            <div class="card custom-help-contain">
-               <div class="card-header">
-                  <a class="card-link" data-toggle="collapse" href="#additional_advertising">
-                  Set Fees - Advertising 
-                  </a>
-               </div>
-               <div id="additional_advertising" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
-                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                     <ol>
-                        <li>
-                           Discount only aliplies:
-                        </li>
-                           <ol type="a" class="level-2 my-1">
-                              <li>to a single transaction; and</li>
-                              <li>from day 22.</li>
-                           </ol>   
-                        <li>
-                           After 21 days for Free, then Profile is suspended and Escort asked what Membership Type to go to, e.g. Platinum.
-                        </li>
-                     </ol>
-                     
-                     <div class="table-responsive">
-                           <table class="table table-bordered membership-table w-100" id="myPricing">
-                              <thead class="bg-first text-center">
-                              <tr>
-                                 <th class="text-left">Item</th>
-                                 <th class="text-left">Membership Type</th>
-                                 <th class="text-center">Frequency</th>
-                                 <th class="text-center">Rate</th>
-                                 <th class="text-center">Amount</th>
-                                 <th class="text-center">%</th>
-                                 <th class="text-center">Amount</th>
-                                 <th class="text-center">Action</th>
-                              </tr>
-                              </thead>
-                              <tbody class="">
-                              </tbody>
-                           </table>
-                     
-                        {{-- <div class="d-flex justify-content-end">
-                           <button class="save_profile_btn" onclick="saveTable()">Save & Update</button>
-                        </div> --}}
+                  <div class="card custom-help-contain">
+                     <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#additional_advertising">
+                        Set Fees - Advertising 
+                        </a>
                      </div>
-                        
-                           {{-- <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                     <div id="additional_advertising" class="collapse" data-parent="#accordion">
+                        <div class="card-body pb-0">
+                           <h3 class="NotesHeader"><b>Notes:</b> </h3>
                            <ol>
                               <li>
-                                 Item is the internal number allocated to the Fee for our reference. Open to your
-                                 suggested numbering protocol for Fees. This is a separate number to the Ref.
+                                 Discount only aliplies:
                               </li>
-                              <li>Frequency: Fixed or set number of days.</li> 
-                              <li>Rate: per day, per month, per Service. This are what is set.</li>
-                              <li>% is the discount rate that is set.</li> 
-                              <li>After 21 days for Free, then Profile is suspended and Escort asked what
-                                 Membership Type to go to, eg Platinum. Email is sent to Escort advising of
-                                 intended suspension of Profile the day before expiry. Email provides link to
-                                 Profile so that Membership Type can be edited to the level Escort wants.</li> 
-                              <li><strong>Special Note:</strong> Fee amount is applied right across the Website wherever
-                                 a Fee value is displayed, including Footer files. Search
-                                 website files for change to draw value from here. Eg $8.00
-                                 or $6.00 and so on. Obvious areas are Listings - Payment
-                                 based on Membership Type, Footer information files.</li> 
+                                 <ol type="a" class="level-2 my-1">
+                                    <li>to a single transaction; and</li>
+                                    <li>from day 22.</li>
+                                 </ol>   
+                              <li>
+                                 After 21 days for Free, then Profile is suspended and Escort asked what Membership Type to go to, e.g. Platinum.
+                              </li>
+                           </ol>
                            
-                           </ol> --}}
-                  </div>
-               </div>
-            </div>
-            {{-- end --}}
-            <div class="card custom-help-contain">
-               <div class="card-header">
-                  <a class="card-link" data-toggle="collapse" href="#additional_concierge">
-                  Set Fees - Concierge Services 
-                  </a>
-               </div>
-               <div id="additional_concierge" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
-                     <h3 class="NotesHeader"><b>Note</b>:</h3>
-                        <ol>
-                        <li>
-                           These Fees relate to support staff completing a request by the Advertiser to provide the Concierge Service.
-                        </li>
-                        </ol>
-
-                        <div class="table-responsive">
-                           <table class="table table-bordered membership-table mt-3">
-                              <thead class="bg-first text-center">
-                                 <tr>
-                                 <th class="text-center">Item</th>
-                                 <th class="text-left">Fee</th>
-                                 <th class="text-center">Rate</th>
-                                 <th class="text-center">Amount</th>
-                                 <th class="text-center">Action</th>
-                                 </tr>
-                              </thead>
-                              <tbody>
-                                 <tr>
-                                 <td class="text-center">10</td>
-                                 <td class="text-left">Travel</td>
-                                 <td class="text-center">per Service</td>
-                                 <td class="text-center">$ 75.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                                 </tr>
-                                 <tr>
-                                 <td class="text-center">11</td>
-                                 <td class="text-left">Accommodation</td>
-                                 <td class="text-center">per Service</td>
-                                 <td class="text-center">$ 75.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                                 </tr>
-                                 <tr>
-                                 <td class="text-center">12</td>
-                                 <td class="text-left">Mobile SIM</td>
-                                 <td class="text-center">per Service</td>
-                                 <td class="text-center">$ 75.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                                 </tr>
-                                 <tr>
-                                 <td class="text-center">13</td>
-                                 <td class="text-left">Email Account</td>
-                                 <td class="text-center">per Service</td>
-                                 <td class="text-center">$ 75.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                                 </tr>
-                                 <tr>
-                                 <td class="text-center">14</td>
-                                 <td class="text-left">Visa Migration & Education Placement</td>
-                                 <td class="text-center">per Service</td>
-                                 <td class="text-center">$ 75.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                                 </tr>
-                              </tbody>
-                           </table>
-
-                           {{-- <div class="d-flex justify-content-end">
-                              <button class="save_profile_btn">Save & Update</button>
-                           </div> --}}
-                        </div>
-                        {{-- <h3 class="NotesHeader"><b>Note</b>:</h3>
-                        <ol>
-                           <li>
-                              Item is the internal number allocated to the Fee for our reference. Open to your
-                              suggested numbering protocol for Fees.
-                           </li>
-                           <li>Rate: per day, per month, per Service.</li>
-                           <li>Amount can be set by dollar and cents value. These are what can be adjusted.</li>
-                           <li>Fee amount is applied right across the Website wherever a Fee value is
-                              displayed, including Footer files.</li>
-                        </ol> --}}
-
-                  </div>
-               </div>
-            </div>
-            <div class="card custom-help-contain">
-               <div class="card-header">
-                  <a class="card-link" data-toggle="collapse" href="#additional_support">
-                  Set Fees - Support Services (E4U Staff) 
-                  </a>
-               </div>
-               <div id="additional_support" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
-                     <h3 class="NotesHeader"><b>Notes:</b></h3>
-                     <ol>
-                        <li>No Fee applies to Media Verification if requested while creating a Platinum Profile.</li>
-                        <li>Media Verification is limited to the default values per month. Additional Media Verification in the same month attracts the Fee.</li>
-                     </ol>
-                  
-                     <div class="table-responsive">
-                        <table class="table table-bordered membership-table mt-3">
-                           <thead class="bg-first text-center">
-                              <tr>
-                                 <th class="text-center">Item</th>
-                                 <th class="text-left">Fee</th>
-                                 <th class="text-center">Rate</th>
-                                 <th class="text-center">Amount</th>
-                                 <th class="text-center">Action</th>
+                           <div class="table-responsive">
+                                 <table class="table table-bordered membership-table w-100" id="myPricing">
+                                    <thead class="bg-first text-center">
+                                    <tr>
+                                       <th class="text-left">Item</th>
+                                       <th class="text-left">Membership Type</th>
+                                       <th class="text-center">Frequency</th>
+                                       <th class="text-center">Rate</th>
+                                       <th class="text-center">Amount</th>
+                                       <th class="text-center">%</th>
+                                       <th class="text-center">Amount</th>
+                                       <th class="text-center">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="">
+                                    </tbody>
+                                 </table>
+                           
+                              {{-- <div class="d-flex justify-content-end">
+                                 <button class="save_profile_btn" onclick="saveTable()">Save & Update</button>
+                              </div> --}}
+                           </div>
+                              
+                                 {{-- <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                 <ol>
+                                    <li>
+                                       Item is the internal number allocated to the Fee for our reference. Open to your
+                                       suggested numbering protocol for Fees. This is a separate number to the Ref.
+                                    </li>
+                                    <li>Frequency: Fixed or set number of days.</li> 
+                                    <li>Rate: per day, per month, per Service. This are what is set.</li>
+                                    <li>% is the discount rate that is set.</li> 
+                                    <li>After 21 days for Free, then Profile is suspended and Escort asked what
+                                       Membership Type to go to, eg Platinum. Email is sent to Escort advising of
+                                       intended suspension of Profile the day before expiry. Email provides link to
+                                       Profile so that Membership Type can be edited to the level Escort wants.</li> 
+                                    <li><strong>Special Note:</strong> Fee amount is applied right across the Website wherever
+                                       a Fee value is displayed, including Footer files. Search
+                                       website files for change to draw value from here. Eg $8.00
+                                       or $6.00 and so on. Obvious areas are Listings - Payment
+                                       based on Membership Type, Footer information files.</li> 
                                  
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td class="text-center">20</td>
-                                 <td class="text-left">Create Profile</td>
-                                 <td class="text-center">per Service</td>
-                                 <td class="text-center">$ 50.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-center">21</td>
-                                 <td class="text-left">Edit Profile</td>
-                                 <td class="text-center">per Service</td>
-                                 <td class="text-center">$ 20.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-center">22</td>
-                                 <td class="text-left">Create Tour</td>
-                                 <td class="text-center">per Service</td>
-                                 <td class="text-center">$ 50.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-center">23</td>
-                                 <td class="text-left">Edit Tour</td>
-                                 <td class="text-center">per Service</td>
-                                 <td class="text-center">$ 20.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-center">24</td>
-                                 <td class="text-left">Upload Media (for verification)</td>
-                                 <td class="text-center">per Service</td>
-                                 <td class="text-center">$ 20.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-center">25</td>
-                                 <td class="text-left">Complete Media Verification (excluding Platinum)</td>
-                                 <td class="text-center">per Service</td>
-                                 <td class="text-center">$ 10.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-center">26</td>
-                                 <td class="text-left">Complete Profile Information</td>
-                                 <td class="text-center">per Service</td>
-                                 <td class="text-center">$ 30.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-center">27</td>
-                                 <td class="text-left">Organise Profiles and Media in Archives</td>
-                                 <td class="text-center">per Service</td>
-                                 <td class="text-center">$ 50.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                  
-                        {{-- <div class="d-flex justify-content-end">
-                           <button class="save_profile_btn">Save & Update</button>
-                        </div> --}}
-                     </div>
-                  
-                     {{-- <h3 class="NotesHeader"><b>Note:</b></h3>
-                     <ol>
-                        <li>Item is the internal number allocated to the Fee for our reference. Open to your
-                           suggested numbering protocol for Fees.</li>
-                        <li>Rate: per day, per month, per Service.</li>
-                        <li>Amount can be set by dollar and cents value. These are what can be adjusted.</li>
-                        <li>Fee amount is applied right across the Website wherever a Fee value is
-                           displayed, including Footer files.</li>
-                     </ol> --}}
-                  </div>
-                  
-               </div>
-            </div>
-            <div class="card custom-help-contain">
-               <div class="card-header">
-                  <a class="card-link" data-toggle="collapse" href="#additional_variableloyalty">
-                  Set Variables - Loyalty Program Advertisers
-                  </a>
-               </div>
-               <div id="additional_variableloyalty" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
-                     <h3 class="NotesHeader"><b>Note:</b></h3>
-                     <ol>
-                        <li>Level relates to which Membership Type qualifies for the Loyalty Program.</li>
-                     </ol>
-                  
-                     <div class="table-responsive">
-                        <table class="table table-bordered membership-table mt-3">
-                           <thead class="bg-first text-center">
-                              <tr>
-                                 <th class="text-center">Item</th>
-                                 <th class="text-left">Type</th>
-                                 <th class="text-center">Level</th>
-                                 <th class="text-left">Description</th>
-                                 <th class="text-center">Value</th>
-                                 <th class="text-center">Reward (Days)</th>
-                                 <th class="text-center">Action</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td class="text-center">30</td>
-                                 <td class="text-left">Escorts</td>
-                                 <td class="text-center">P, G, S</td>
-                                 <td class="text-left">Spend</td>
-                                 <td class="text-center">$ 200.00</td>
-                                 <td class="text-center">1</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-center">31</td>
-                                 <td class="text-left">Massage Centre</td>
-                                 <td class="text-center">MC</td>
-                                 <td class="text-left">Spend</td>
-                                 <td class="text-center">$ 500.00</td>
-                                 <td class="text-center">1</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                  
-                        {{-- <div class="d-flex justify-content-end">
-                           <button class="save_profile_btn">Save & Update</button>
-                        </div> --}}
-                     </div>
-                  
-                     {{-- <h3 class="NotesHeader"><b>Note:</b></h3>
-                     <ol>
-                        <li>Item is the internal number allocated for our reference. Open to your suggested numbering protocol for Fees.</li>
-                        <li>Level: P = Platinum, G = Gold, S = Silver, MC = Massage Centre. Each can be enabled or disabled.</li>
-                        <li>Amount can be set by dollar and cents value.</li>
-                        <li>Values are applied right across the Website wherever a Fee value is displayed, including Footer files. The Value and Reward are what can be changed. They are applied in the Listing feature when calculating the Fee.</li>
-                     </ol> --}}
-                  </div>
-                  
-               </div>
-            </div>
-            <div class="card custom-help-contain">
-               <div class="card-header">
-                  <a class="card-link" data-toggle="collapse" href="#additional_variableagent">
-                  Set Variables - Agent & Operator
-                  </a>
-               </div>
-               <div id="additional_variableagent" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
-                     <div class="table-responsive">
-                        <table class="table table-bordered membership-table mt-3">
-                           <thead class="bg-first text-center">
-                              <tr>
-                                 <th class="text-center">Item</th>
-                                 <th class="text-left">Description</th>
-                                 <th class="text-center">Rate</th>
-                                 <th class="text-center">Value</th>
-                                 <th class="text-center">
-                                    Action
-                                 </th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td class="text-center">40</td>
-                                 <td class="text-left">Commission - Advertising</td>
-                                 <td class="text-center">per day</td>
-                                 <td class="text-center">5.00%</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Agent_Operator"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-center">41</td>
-                                 <td class="text-left">Commission - Massage Centre sign up</td>
-                                 <td class="text-center">per Registration</td>
-                                 <td class="text-center">$ 20.00</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Agent_Operator"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                              <tr>
-                                 <td class="text-center">42</td>
-                                 <td class="text-left">Commission - Operator</td>
-                                 <td class="text-center">per day</td>
-                                 <td class="text-center">2.00%</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Agent_Operator"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                  
-                        {{-- <div class="d-flex justify-content-end">
-                           <button class="save_profile_btn">Save & Update</button>
-                        </div> --}}
-                     </div>
-                  
-                     {{-- <h3 class="NotesHeader mt-4"><b>Note:</b></h3>
-                     <ol>
-                        <li>Item is the internal number allocated for our reference. Open to your suggested numbering protocol for Fees.</li>
-                        <li>Rate: per day, per Registration, per Service.</li>
-                        <li>Amount can be set by dollar and cents value, or for the percentage including the percentile.</li>
-                        <li>Values are applied right across the Website wherever a Fee value is displayed, including Footer files.</li>
-                        <li>These values apply to calculating Commission for the Agent and the Operator. See separate tasks.</li>
-                     </ol> --}}
-                  
-                    
-                  </div>
-                  
-               </div>
-            </div>
-            <div class="card custom-help-contain">
-               <div class="card-header">
-                  <a class="card-link" data-toggle="collapse" href="#additional_variableplaybox">
-                  Set Commission - Playbox
-                  </a>
-               </div>
-               <div id="additional_variableplaybox" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
-                    
-                  
-                     <h3 class="NotesHeader"><b>Note:</b></h3>
-                     <ol>
-                        <li>Earnings are split between the Escort and E4U.</li>
-                        <li>Earnings paid at the end of the Month.</li>
-                     </ol>
-                  
-                     <div class="table-responsive mt-3">
-                        <table class="table table-bordered membership-table mt-3">
-                           <thead class="bg-first text-center">
-                              <tr>
-                                 <th class="text-center">Item</th>
-                                 <th class="text-left">Description</th>
-                                 <th class="text-center">Rate</th>
-                                 <th class="text-center">Action</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td class="text-center">50</td>
-                                 <td class="text-left">Earnings portion - Escort</td>
-                                 <td class="text-center">10%</td>
-                                 <td class="text-center"> 
-                                    <div class="dropdown no-arrow">
-                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                       </a>
-                                       <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#playbox"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                           
-                                       </div>
-                                   </div>
-                                 </td>
-                              </tr>
-                           </tbody>
-                        </table>
-                  
-                        {{-- <div class="d-flex justify-content-end">
-                           <button class="save_profile_btn">Save & Update</button>
-                        </div> --}}
+                                 </ol> --}}
+                        </div>
                      </div>
                   </div>
-                  
-               </div>
-            </div>
+                  {{-- end --}}
+                  <div class="card custom-help-contain">
+                     <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#additional_concierge">
+                        Set Fees - Concierge Services 
+                        </a>
+                     </div>
+                     <div id="additional_concierge" class="collapse" data-parent="#accordion">
+                        <div class="card-body pb-0">
+                           <h3 class="NotesHeader"><b>Note</b>:</h3>
+                              <ol>
+                              <li>
+                                 These Fees relate to support staff completing a request by the Advertiser to provide the Concierge Service.
+                              </li>
+                              </ol>
 
-   </div>
-</div>
-<!-- Accordian End -->
+                              <div class="table-responsive">
+                                 <table class="table table-bordered membership-table mt-3">
+                                    <thead class="bg-first text-center">
+                                       <tr>
+                                       <th class="text-center">Item</th>
+                                       <th class="text-left">Fee</th>
+                                       <th class="text-center">Rate</th>
+                                       <th class="text-center">Amount</th>
+                                       <th class="text-center">Action</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr>
+                                       <td class="text-center">10</td>
+                                       <td class="text-left">Travel</td>
+                                       <td class="text-center">per Service</td>
+                                       <td class="text-center">$ 75.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                       </tr>
+                                       <tr>
+                                       <td class="text-center">11</td>
+                                       <td class="text-left">Accommodation</td>
+                                       <td class="text-center">per Service</td>
+                                       <td class="text-center">$ 75.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                       </tr>
+                                       <tr>
+                                       <td class="text-center">12</td>
+                                       <td class="text-left">Mobile SIM</td>
+                                       <td class="text-center">per Service</td>
+                                       <td class="text-center">$ 75.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                       </tr>
+                                       <tr>
+                                       <td class="text-center">13</td>
+                                       <td class="text-left">Email Account</td>
+                                       <td class="text-center">per Service</td>
+                                       <td class="text-center">$ 75.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                       </tr>
+                                       <tr>
+                                       <td class="text-center">14</td>
+                                       <td class="text-left">Visa Migration & Education Placement</td>
+                                       <td class="text-center">per Service</td>
+                                       <td class="text-center">$ 75.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
 
+                                 {{-- <div class="d-flex justify-content-end">
+                                    <button class="save_profile_btn">Save & Update</button>
+                                 </div> --}}
+                              </div>
+                              {{-- <h3 class="NotesHeader"><b>Note</b>:</h3>
+                              <ol>
+                                 <li>
+                                    Item is the internal number allocated to the Fee for our reference. Open to your
+                                    suggested numbering protocol for Fees.
+                                 </li>
+                                 <li>Rate: per day, per month, per Service.</li>
+                                 <li>Amount can be set by dollar and cents value. These are what can be adjusted.</li>
+                                 <li>Fee amount is applied right across the Website wherever a Fee value is
+                                    displayed, including Footer files.</li>
+                              </ol> --}}
 
-            
+                        </div>
+                     </div>
+                  </div>
+                  <div class="card custom-help-contain">
+                     <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#additional_support">
+                        Set Fees - Support Services (E4U Staff) 
+                        </a>
+                     </div>
+                     <div id="additional_support" class="collapse" data-parent="#accordion">
+                        <div class="card-body pb-0">
+                           <h3 class="NotesHeader"><b>Notes:</b></h3>
+                           <ol>
+                              <li>No Fee applies to Media Verification if requested while creating a Platinum Profile.</li>
+                              <li>Media Verification is limited to the default values per month. Additional Media Verification in the same month attracts the Fee.</li>
+                           </ol>
+                        
+                           <div class="table-responsive">
+                              <table class="table table-bordered membership-table mt-3">
+                                 <thead class="bg-first text-center">
+                                    <tr>
+                                       <th class="text-center">Item</th>
+                                       <th class="text-left">Fee</th>
+                                       <th class="text-center">Rate</th>
+                                       <th class="text-center">Amount</th>
+                                       <th class="text-center">Action</th>
+                                       
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                       <td class="text-center">20</td>
+                                       <td class="text-left">Create Profile</td>
+                                       <td class="text-center">per Service</td>
+                                       <td class="text-center">$ 50.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="text-center">21</td>
+                                       <td class="text-left">Edit Profile</td>
+                                       <td class="text-center">per Service</td>
+                                       <td class="text-center">$ 20.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="text-center">22</td>
+                                       <td class="text-left">Create Tour</td>
+                                       <td class="text-center">per Service</td>
+                                       <td class="text-center">$ 50.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="text-center">23</td>
+                                       <td class="text-left">Edit Tour</td>
+                                       <td class="text-center">per Service</td>
+                                       <td class="text-center">$ 20.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="text-center">24</td>
+                                       <td class="text-left">Upload Media (for verification)</td>
+                                       <td class="text-center">per Service</td>
+                                       <td class="text-center">$ 20.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="text-center">25</td>
+                                       <td class="text-left">Complete Media Verification (excluding Platinum)</td>
+                                       <td class="text-center">per Service</td>
+                                       <td class="text-center">$ 10.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="text-center">26</td>
+                                       <td class="text-left">Complete Profile Information</td>
+                                       <td class="text-center">per Service</td>
+                                       <td class="text-center">$ 30.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="text-center">27</td>
+                                       <td class="text-left">Organise Profiles and Media in Archives</td>
+                                       <td class="text-center">per Service</td>
+                                       <td class="text-center">$ 50.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                        
+                              {{-- <div class="d-flex justify-content-end">
+                                 <button class="save_profile_btn">Save & Update</button>
+                              </div> --}}
+                           </div>
+                        
+                           {{-- <h3 class="NotesHeader"><b>Note:</b></h3>
+                           <ol>
+                              <li>Item is the internal number allocated to the Fee for our reference. Open to your
+                                 suggested numbering protocol for Fees.</li>
+                              <li>Rate: per day, per month, per Service.</li>
+                              <li>Amount can be set by dollar and cents value. These are what can be adjusted.</li>
+                              <li>Fee amount is applied right across the Website wherever a Fee value is
+                                 displayed, including Footer files.</li>
+                           </ol> --}}
+                        </div>
+                        
+                     </div>
+                  </div>
+                  <div class="card custom-help-contain">
+                     <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#additional_variableloyalty">
+                        Set Variables - Loyalty Program Advertisers
+                        </a>
+                     </div>
+                     <div id="additional_variableloyalty" class="collapse" data-parent="#accordion">
+                        <div class="card-body pb-0">
+                           <h3 class="NotesHeader"><b>Note:</b></h3>
+                           <ol>
+                              <li>Level relates to which Membership Type qualifies for the Loyalty Program.</li>
+                           </ol>
+                        
+                           <div class="table-responsive">
+                              <table class="table table-bordered membership-table mt-3">
+                                 <thead class="bg-first text-center">
+                                    <tr>
+                                       <th class="text-center">Item</th>
+                                       <th class="text-left">Type</th>
+                                       <th class="text-center">Level</th>
+                                       <th class="text-left">Description</th>
+                                       <th class="text-center">Value</th>
+                                       <th class="text-center">Reward (Days)</th>
+                                       <th class="text-center">Action</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                       <td class="text-center">30</td>
+                                       <td class="text-left">Escorts</td>
+                                       <td class="text-center">P, G, S</td>
+                                       <td class="text-left">Spend</td>
+                                       <td class="text-center">$ 200.00</td>
+                                       <td class="text-center">1</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="text-center">31</td>
+                                       <td class="text-left">Massage Centre</td>
+                                       <td class="text-center">MC</td>
+                                       <td class="text-left">Spend</td>
+                                       <td class="text-center">$ 500.00</td>
+                                       <td class="text-center">1</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                        
+                              {{-- <div class="d-flex justify-content-end">
+                                 <button class="save_profile_btn">Save & Update</button>
+                              </div> --}}
+                           </div>
+                        
+                           {{-- <h3 class="NotesHeader"><b>Note:</b></h3>
+                           <ol>
+                              <li>Item is the internal number allocated for our reference. Open to your suggested numbering protocol for Fees.</li>
+                              <li>Level: P = Platinum, G = Gold, S = Silver, MC = Massage Centre. Each can be enabled or disabled.</li>
+                              <li>Amount can be set by dollar and cents value.</li>
+                              <li>Values are applied right across the Website wherever a Fee value is displayed, including Footer files. The Value and Reward are what can be changed. They are applied in the Listing feature when calculating the Fee.</li>
+                           </ol> --}}
+                        </div>
+                        
+                     </div>
+                  </div>
+                  <div class="card custom-help-contain">
+                     <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#additional_variableagent">
+                        Set Variables - Agent & Operator
+                        </a>
+                     </div>
+                     <div id="additional_variableagent" class="collapse" data-parent="#accordion">
+                        <div class="card-body pb-0">
+                           <div class="table-responsive">
+                              <table class="table table-bordered membership-table mt-3">
+                                 <thead class="bg-first text-center">
+                                    <tr>
+                                       <th class="text-center">Item</th>
+                                       <th class="text-left">Description</th>
+                                       <th class="text-center">Rate</th>
+                                       <th class="text-center">Value</th>
+                                       <th class="text-center">
+                                          Action
+                                       </th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                       <td class="text-center">40</td>
+                                       <td class="text-left">Commission - Advertising</td>
+                                       <td class="text-center">per day</td>
+                                       <td class="text-center">5.00%</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Agent_Operator"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="text-center">41</td>
+                                       <td class="text-left">Commission - Massage Centre sign up</td>
+                                       <td class="text-center">per Registration</td>
+                                       <td class="text-center">$ 20.00</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Agent_Operator"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="text-center">42</td>
+                                       <td class="text-left">Commission - Operator</td>
+                                       <td class="text-center">per day</td>
+                                       <td class="text-center">2.00%</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Agent_Operator"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                        
+                              {{-- <div class="d-flex justify-content-end">
+                                 <button class="save_profile_btn">Save & Update</button>
+                              </div> --}}
+                           </div>
+                        
+                           {{-- <h3 class="NotesHeader mt-4"><b>Note:</b></h3>
+                           <ol>
+                              <li>Item is the internal number allocated for our reference. Open to your suggested numbering protocol for Fees.</li>
+                              <li>Rate: per day, per Registration, per Service.</li>
+                              <li>Amount can be set by dollar and cents value, or for the percentage including the percentile.</li>
+                              <li>Values are applied right across the Website wherever a Fee value is displayed, including Footer files.</li>
+                              <li>These values apply to calculating Commission for the Agent and the Operator. See separate tasks.</li>
+                           </ol> --}}
+                        
+                           
+                        </div>
+                        
+                     </div>
+                  </div>
+                  <div class="card custom-help-contain">
+                     <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#additional_variableplaybox">
+                        Set Commission - Playbox
+                        </a>
+                     </div>
+                     <div id="additional_variableplaybox" class="collapse" data-parent="#accordion">
+                        <div class="card-body pb-0">
+                           
+                        
+                           <h3 class="NotesHeader"><b>Note:</b></h3>
+                           <ol>
+                              <li>Earnings are split between the Escort and E4U.</li>
+                              <li>Earnings paid at the end of the Month.</li>
+                           </ol>
+                        
+                           <div class="table-responsive mt-3">
+                              <table class="table table-bordered membership-table mt-3">
+                                 <thead class="bg-first text-center">
+                                    <tr>
+                                       <th class="text-center">Item</th>
+                                       <th class="text-left">Description</th>
+                                       <th class="text-center">Rate</th>
+                                       <th class="text-center">Action</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                       <td class="text-center">50</td>
+                                       <td class="text-left">Earnings portion - Escort</td>
+                                       <td class="text-center">10%</td>
+                                       <td class="text-center"> 
+                                          <div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#playbox"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                        
+                              {{-- <div class="d-flex justify-content-end">
+                                 <button class="save_profile_btn">Save & Update</button>
+                              </div> --}}
+                           </div>
+                        </div>
+                        
+                     </div>
+                  </div>
+
+               </div>
+            </div>
+            <!-- Accordian End -->
             <!--middle content end here-->
-            <!--right side bar start from here-->
          </div>
          <!--right side bar end-->
       </div>
@@ -707,10 +701,6 @@
       </div>
    </footer>
    <!-- End of Footer -->
-</div>
-<!-- End of Content Wrapper -->
-</div>
-<!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
 <i class="fas fa-angle-up"></i>

@@ -38,7 +38,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between">
             <div class="custom-heading-wrapper">
-                <h1 class="h1">Dashboard - My Tours Schedule</h1>
+                <h1 class="h1">My Tours Schedule</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
             <div class="back-to-dashboard">

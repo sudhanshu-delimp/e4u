@@ -22,7 +22,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between">
             <div class="custom-heading-wrapper">
-                <h1 class="h1">Dashboard - My Spend</h1>
+                <h1 class="h1">My Spend</h1>
                 <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
             </div>
             <div class="back-to-dashboard">

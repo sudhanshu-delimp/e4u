@@ -113,6 +113,22 @@
                 </div>
             </div>
             {{-- end --}}
+
+            {{-- box start --}}
+            <div class="col-lg-4 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('escort.dashboard.logs-and-status') }}">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/agent/logs-and-statistics.png') }}" alt="Logs & Status">
+                        </div>
+                        <h2>
+                        Logs & Status
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            {{-- end --}}
         </div>
         <div class="row my-3">
             <div class="col-lg-12">

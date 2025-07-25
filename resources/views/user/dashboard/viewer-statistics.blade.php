@@ -17,7 +17,7 @@
   <div class="row">
     <div class="col-md-12 custom-heading-wrapper justify-content-between">
        <div class="d-flex align-items-center">
-        <h1 class="h1">Dashboard - Viewer Statistics</h1>
+        <h1 class="h1">Viewer Statistics</h1>
         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
        </div>
         

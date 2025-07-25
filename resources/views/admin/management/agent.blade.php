@@ -6,176 +6,163 @@
 <div id="content-wrapper" class="d-flex flex-column">
    <!-- Main Content -->
    <div id="content">
-      <div class="container-fluid">
+      <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
          <!--middle content-->
-         <div class="row">
-            <div class="col-sm-12 col-md-12 col-lg-12 ">
-               <!-- Begin Page Content -->
-               <div class="container-fluid" style="padding: 0px 0px;">
-                  <!-- Page Heading -->
-                  
-                  
-                  <div class="col-md-12 p-0">
-                     <div class="v-main-heading">
-                           <h1>Manage Agent  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span></h1>
-                     </div>
-                     <div class=" my-4">
-                           <div class="card collapse" id="notes">
-                              <div class="card-body">
-                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                 <ol>
-                                       <li>Create and manage Agents here.</li>
-                                       <li>Manage status of Agents.</li>
-                                 </ol>
-                              </div>
-                           </div>
+         <div class="row">  
+            <div class="custom-heading-wrapper col-md-12">
+               <h1 class="h1">Manage Agent  </h1>
+               <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
+            </div>
+            <div class="col-md-12 mb-4">
+                  <div class="card collapse" id="notes">
+                     <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                              <li>Create and manage Agents here.</li>
+                              <li>Manage status of Agents.</li>
+                        </ol>
                      </div>
                   </div>
-               </div>
-               <!-- /.container-fluid --><br>
-               <div class="row">
-                  <div class="col-md-12">
-                     <div class="panel with-nav-tabs panel-warning">
-                        <div class="panel-body">
-                           <div class="tab-content">  
-                              <div class="tab-pane fade active show" id="tab3warning">
-                                 <div class="row pb-3">
-                                    <div class="col-lg-4 col-md-12 col-sm-12">
-                                       <form class="search-form-bg navbar-search">
-                                          <div class="input-group">
-                                             <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                                             <div class="input-group-append">
-                                                <button class="btn-right-icon" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                                </button>
-                                             </div>
-                                          </div>
-                                       </form>
-                                    </div>
-                                    <div class="col-lg-8 col-md-12 col-sm-12">
-                                       <div class="bothsearch-form" style="gap: 10px;">
-                                          <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#addStaffnew">Add New Agent</button>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-md-12">
+               <div class="panel with-nav-tabs panel-warning">
+                  <div class="panel-body">
+                     <div class="tab-content">  
+                        <div class="tab-pane fade active show" id="tab3warning">
+                           <div class="row pb-3">
+                              <div class="col-lg-4 col-md-12 col-sm-12">
+                                 <form class="search-form-bg navbar-search">
+                                    <div class="input-group">
+                                       <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
+                                       <div class="input-group-append">
+                                          <button class="btn-right-icon" type="button">
+                                          <i class="fas fa-search fa-sm"></i>
+                                          </button>
                                        </div>
                                     </div>
-                                 </div>                                    
-                                 <div class="table-responsive-xl">
-                                    <table class="table mb-0">
-                                       <thead class="table-bg">
-                                       <tr>
-                                          <th scope="col">
-                                          Agent ID
-                                             
-                                          </th>
-                                          <th scope="col">
-                                          Agent Member
-                                             
-                                          </th>
-                                          <th scope="col">
-                                             Territory
-                                          </th>
-                                          <th scope="col">
-                                          Position
-                                          </th>
-                                          <th scope="col">
-                                          Mobile
-                                          </th>
-                                          <th scope="col">
-                                          Email
-                                          </th>
-                                          <th scope="col">
-                                          Total
-                                          Logins                                             
-                                          </th>
-                                          <th scope="col">
-                                          Last Login
-                                          </th>
-                                          <th scope="col">
-                                             Status
-                                             </th>
-                                          
-                                          <th scope="col">Action</th>
-                                       </tr>
-                                       </thead>
-                                       <tbody class="table-content">
-                                          <tr>
-                                             <td width="10%" class="theme-color">S60001</td>
-                                             <td class="theme-color">Binny Primrose</td>
-                                             <td class="theme-color">1</td>
-                                             <td class="theme-color">Managing Director</td>
-                                             <td class="theme-color">0438 028 728</td>
-                                             <td class="theme-color">Binny@blackboxtech.com.au </td>
-                                             <td class="theme-color">1,999</td>
-                                             <td class="theme-color">20-05-2025 09:12 am </td>
-                                             <td class="theme-color">Active </td>
-                                             <td>
-                                                <div class="dropdown no-arrow ml-3">
-                                                   <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                   <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                   </a>
-                                                   <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                      <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-id="S60001">  <i class="fa fa-eye "></i> View Account</a>
-                                                      <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Suspend</a>
-                                                      <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-target="#edit_agent_data" data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>
-                                                   </div>
-                                                </div>
-                                             </td>
-                                          </tr>
-                                          <tr class="account-detail-row" id="account-row-S60001" style="display: none;">
-                                             <td colspan="10">
-                                                <div class="card p-3">
-                                                   <!-- Avatar -->
-                                                   <div class="d-flex align-items-center mb-3">
-                                                      <img src="{{ asset('assets/app/img/ellipse-1.png')}}" alt="Avatar" class="rounded-circle mr-3" width="50" height="50">
-                                                      <h6 class="mb-0">Binny Primrose (S60001)</h6>
-                                                   </div>
-                                          
-                                                   <!-- Details Table -->
-                                                   <table class="table table-bordered mb-3">
-                                                      <tr><th>Business Name</th><td>Binny Pty Ltd</td></tr>
-                                                      <tr><th>Mobile</th><td>0438 028 728</td></tr>
-                                                      <tr><th>Email</th><td>binny@blackboxtech.com.au</td></tr>
-                                                      <tr><th>ABN</th><td>12345678901</td></tr>
-                                                      <tr><th>Address</th><td>123 King St, Melbourne</td></tr>
-                                                   </table>
-                                          
-                                                   <div class="d-flex justify-content-end">
-                                                      <!-- Print Button -->
-                                                   <button class="save_profile_btn bg-second d-block" onclick="printAgent('account-row-S60001')">
-                                                      <i class="fa fa-print text-white"></i> Print
-                                                   </button>
-                                                   </div>
-                                                </div>
-                                             </td>
-                                          </tr>
-                                          
-                                       </tbody>
-                                    </table>
-                                    
+                                 </form>
+                              </div>
+                              <div class="col-lg-8 col-md-12 col-sm-12">
+                                 <div class="bothsearch-form" style="gap: 10px;">
+                                    <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#addStaffnew">Add New Agent</button>
                                  </div>
                               </div>
-                                 
+                           </div>                                    
+                           <div class="table-responsive-xl">
+                              <table class="table mb-0">
+                                 <thead class="table-bg">
+                                 <tr>
+                                    <th scope="col">
+                                    Agent ID
+                                       
+                                    </th>
+                                    <th scope="col">
+                                    Agent Member
+                                       
+                                    </th>
+                                    <th scope="col">
+                                       Territory
+                                    </th>
+                                    <th scope="col">
+                                    Position
+                                    </th>
+                                    <th scope="col">
+                                    Mobile
+                                    </th>
+                                    <th scope="col">
+                                    Email
+                                    </th>
+                                    <th scope="col">
+                                    Total
+                                    Logins                                             
+                                    </th>
+                                    <th scope="col">
+                                    Last Login
+                                    </th>
+                                    <th scope="col">
+                                       Status
+                                       </th>
+                                    
+                                    <th scope="col">Action</th>
+                                 </tr>
+                                 </thead>
+                                 <tbody class="table-content">
+                                    <tr>
+                                       <td width="10%" class="theme-color">S60001</td>
+                                       <td class="theme-color">Binny Primrose</td>
+                                       <td class="theme-color">1</td>
+                                       <td class="theme-color">Managing Director</td>
+                                       <td class="theme-color">0438 028 728</td>
+                                       <td class="theme-color">Binny@blackboxtech.com.au </td>
+                                       <td class="theme-color">1,999</td>
+                                       <td class="theme-color">20-05-2025 09:12 am </td>
+                                       <td class="theme-color">Active </td>
+                                       <td>
+                                          <div class="dropdown no-arrow ml-3">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-id="S60001">  <i class="fa fa-eye "></i> View Account</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Suspend</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-target="#edit_agent_data" data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    <tr class="account-detail-row" id="account-row-S60001" style="display: none;">
+                                       <td colspan="10">
+                                          <div class="card p-3">
+                                             <!-- Avatar -->
+                                             <div class="d-flex align-items-center mb-3">
+                                                <img src="{{ asset('assets/app/img/ellipse-1.png')}}" alt="Avatar" class="rounded-circle mr-3" width="50" height="50">
+                                                <h6 class="mb-0">Binny Primrose (S60001)</h6>
+                                             </div>
+                                    
+                                             <!-- Details Table -->
+                                             <table class="table table-bordered mb-3">
+                                                <tr><th>Business Name</th><td>Binny Pty Ltd</td></tr>
+                                                <tr><th>Mobile</th><td>0438 028 728</td></tr>
+                                                <tr><th>Email</th><td>binny@blackboxtech.com.au</td></tr>
+                                                <tr><th>ABN</th><td>12345678901</td></tr>
+                                                <tr><th>Address</th><td>123 King St, Melbourne</td></tr>
+                                             </table>
+                                    
+                                             <div class="d-flex justify-content-end">
+                                                <!-- Print Button -->
+                                             <button class="save_profile_btn bg-second d-block" onclick="printAgent('account-row-S60001')">
+                                                <i class="fa fa-print text-white"></i> Print
+                                             </button>
+                                             </div>
+                                          </div>
+                                       </td>
+                                    </tr>
+                                    
+                                 </tbody>
+                              </table>
+                              
                            </div>
                         </div>
+                           
                      </div>
-                  </div>
-                  <div class="col-sm-12 col-md-12 col-lg-12">
-                        <div class="timer_section">
-                           <p>Server time: <span class="serverTime">{{ getServertime() }}</span></p>
-                           <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
-                           <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
-                        </div>
                   </div>
                </div>
             </div>
-            <!--middle content end here-->
-            <!--right side bar start from here-->
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                  <div class="timer_section">
+                     <p>Server time: <span class="serverTime">{{ getServertime() }}</span></p>
+                     <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
+                     <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
+                  </div>
+            </div>
          </div>
-         <!--right side bar end-->
       </div>
+      <!--middle content end here-->
    </div>
-   <!-- End of Main Content -->
    <!-- Footer -->
    <footer class="sticky-footer bg-white">
       <div class="container my-auto">
@@ -186,9 +173,6 @@
    </footer>
    <!-- End of Footer -->
 </div>
-<!-- End of Content Wrapper -->
-</div>
-<!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
 <i class="fas fa-angle-up"></i>

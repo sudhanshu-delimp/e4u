@@ -9,16 +9,16 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content-->
    <div class="row">
       
-      <div class="col-md-12">
-         <div class="v-main-heading h3" style="display: inline-block;"><h1> Tours</h1></div>
-            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+      <div class=" custom-heading-wrapper col-md-12">
+        <h1 class="h1"> Tours</h1>
+        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
      </div>
-     <div class="col-md-12 ">
-         <div class="card collapse  mb-4" id="notes">
+     <div class="col-md-12 mb-4">
+         <div class="card collapse" id="notes">
              <div class="card-body">
                  <h3 class="NotesHeader"><b>Notes:</b> </h3>
                  <ol>
@@ -31,7 +31,7 @@
          </div>
      </div>
     <div class="col-md-12"> 
-        <div class="row my-3">
+        <div class="row mb-3">
             <div class="col-lg-4 col-md-12 col-sm-12"></div>
             <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
               
@@ -947,9 +947,6 @@
             </div>
        </div>
    </div>
-   
-   
-   <!--right side bar end-->
 </div>
 @endsection
 @section('script')

@@ -1,4 +1,4 @@
-@extends('layouts.escort')
+@extends('layouts.admin')
 @section('style')
 <style>
    td,
@@ -43,21 +43,23 @@
                  <thead class="table-bg">
                    <tr>
                     <th>Ref</th>
+                    <th>Member ID</th>
+                    <th>Completed By</th>
                     <th>Service Type</th>
                     <th>Transaction Date</th>
                     <th>Transaction Value</th>
                     <th>Card</th>
-                    <th>Completed By</th>
                     <th>Action</th>
                    </tr>
                 </thead>
                 <tbody>
                   <tr>
                      <td>323456</td>
+                     <td>E40125</td>
+                     <td>E40125</td>
                      <td>Listing</td>
                      <td>25-07-2025</td>
-                     <td><span>$</span> 80.00</td>
-                     <td>E40125</td>
+                     <td>$ 80.00</td>
                      <td>1235 1258 4123 xxxx</td>
                      <td>
                         <div class="dropdown no-arrow">
@@ -65,6 +67,7 @@
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                            </a>
                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                              
                               
                               <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#view-listing" > <i class="fa fa-eye"></i> View </a>
                               <div class="dropdown-divider"></div>
