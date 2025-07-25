@@ -87,28 +87,23 @@
                   </div>
                   <div class="card-body pt-4">
                      <div class="row">
-                        <div class="col-md-6 list-sec pt-3">
+                        <div class="col-md-12 list-sec pt-3">
                            <h6><b>Mobile :</b> <span class="ml-2">{{$list->user->phone}}</span></h6>
                            <h6><b>Email :</b> <span>{{$list->user->email}}</span></h6>
-
-                        </div>
-                        <div class="col-md-6 list-sec pt-3">
                            <h6><b>Home State :</b> <span class="ml-2">{{($list->user->state->country_code ? $list->user->state->country_code : 'NA')}}</span></h6>
                            <h6><b>Contact Method :</b> 
-
-                                            @if (!empty($contact_by))
-                                            {!! implode(' | ', $contact_by) !!}
-                                            @else
-                                            NA
-                                            @endif
+                              @if (!empty($contact_by))
+                              {!! implode(' | ', $contact_by) !!}
+                              @else
+                              NA
+                              @endif
+                        </h6>
+                        <h6>
+                           <b>Comments:</b> 
+                           <span class="text-justify">{{$list->comments}} </span>
                         </h6>
                         </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-12 list-sec pt-1">
-                           <h6><b>Comments:</b> </h6>
-                           <h6 class="text-justify">{{$list->comments}}</h6>
-                        </div>
+                        
                      </div>
                      <div class="row">
                         <div class="col-lg-12">
