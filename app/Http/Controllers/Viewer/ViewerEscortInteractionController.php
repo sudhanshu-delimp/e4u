@@ -327,22 +327,22 @@ class ViewerEscortInteractionController extends Controller
 
                 ->addColumn('action', function ($row) {
 
-                    $conClass = '-slash text-danger';
+                    $conClass = '-slash';
                     $conText = 'Disable';
                     $conCurrentText = 'Enable';
-                    $notClass = '-slash text-danger';
+                    $notClass = '-slash';
                     $notText = 'Disable';
                     $notCurrentText = 'Enable';
                     $rate = 'no_rated';
 
                     if($row->escortViewerInteraction && $row->escortViewerInteraction->viewer_disabled_contact == 1){
-                        $conClass = ' text-success';
+                        $conClass = '';
                         $conText = 'Enable';
                         $conCurrentText = 'disable';
                     }
                     
                     if($row->escortViewerInteraction && $row->escortViewerInteraction->viewer_disabled_notification == 1){
-                        $notClass = ' text-success';
+                        $notClass = '';
                         $notText = 'Enable';
                         $notCurrentText = 'disable';
                         
@@ -352,19 +352,20 @@ class ViewerEscortInteractionController extends Controller
                         $rate = $row->escortViewerInteraction->viewer_rate_escort;
                     }
 
+                    $iconFontColor = '';
                     switch ($rate) {
                         case 'verygood':
-                            $iconFontColor = 'text-primary';
+                            // $iconFontColor = 'text-primary';
                             break;
                         case 'great':
-                            $iconFontColor = 'text-success';
+                            // $iconFontColor = 'text-success';
                             break;
                         case 'good':
-                            $iconFontColor = 'text-danger';
+                            // $iconFontColor = 'text-danger';
                             break;
                         
                         default:
-                            $iconFontColor = 'text-dark';
+                            // $iconFontColor = 'text-dark';
                             break;
                     }
 
