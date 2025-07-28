@@ -60,16 +60,31 @@ class EscortMyLegboxViewerController extends Controller
             })
             ->addColumn('escort_profile', fn($row) => $row->escort->name ?? '-')
             ->addColumn('notification_enabled', function($row){
+                # Check viewer account notification setting first
                 if($row->viewer->interest && $row->viewer->interest->features){
                     $viewerNotification = json_decode($row->viewer->interest->features);
                     $isNotifcationEnabled = in_array('alerts',$viewerNotification); 
-                    return  $isNotifcationEnabled ? 'Yes' : 'No';
+                    $isNotifcationEnabled = $isNotifcationEnabled ? 'Yes' : 'No';
                 }
 
-                return  'No';
+                # If particular escort is notification disabled
+                $esvi = EscortViewerInteractions::where('escort_id',$row->escort->id)->where('viewer_id',$row->viewer->id)->where('user_id',Auth::user()->id)->first();
+
+                if($esvi){
+                    $isNotifcationEnabled = 'No';
+                    if($esvi->viewer_disabled_notification == 0){
+                        $isNotifcationEnabled = 'Yes';
+                    }
+                }
+
+                return  $isNotifcationEnabled; 
                 
             })
             ->addColumn('contact_enabled', function($row){
+
+                $contact_enabled = 'Yes';
+
+                # Check viewer account setting first
                 if($row->viewer->interest && $row->viewer->interest->features){
                     $viewerNotification = json_decode($row->viewer->interest->features);
                     $isNotifcationEnabled = in_array('alerts', $viewerNotification); 
@@ -77,18 +92,29 @@ class EscortMyLegboxViewerController extends Controller
                     if($isNotifcationEnabled && $row->viewer->interest->notifications){
                         $viewerNotificationIsEnabled = json_decode($row->viewer->interest->notifications);
                         if(in_array('email',$viewerNotificationIsEnabled) || in_array('text', $viewerNotificationIsEnabled)){
-                            return  'Yes';
+                            $contact_enabled = 'Yes';
                         }
 
-                        return 'No';
+                        $contact_enabled = 'No';
                     }
                 }
 
-                return  'No'; 
+                # If particular escort is contact disabled
+                $esvi = EscortViewerInteractions::where('escort_id',$row->escort->id)->where('viewer_id',$row->viewer->id)->where('user_id',Auth::user()->id)->first();
+
+                if($esvi){
+                    $contact_enabled = 'No';
+                    if($esvi->viewer_disabled_contact == 0){
+                        $contact_enabled = 'Yes';
+                    }
+                }
+
+                return  $contact_enabled; 
                 
             })
             ->addColumn('contact_method', function($row){
 
+                $contactMethod = '-';
                 if($row->viewer->interest && $row->viewer->interest->features){
                     $viewerNotification = json_decode($row->viewer->interest->features);
                     $isNotifcationEnabled = in_array('alerts', $viewerNotification); 
@@ -96,26 +122,34 @@ class EscortMyLegboxViewerController extends Controller
                     if($isNotifcationEnabled && $row->viewer->interest->notifications){
                         $viewerNotificationIsEnabled = json_decode($row->viewer->interest->notifications);
                         if(in_array('email', $viewerNotificationIsEnabled) && in_array('text', $viewerNotificationIsEnabled)){
-                            return  'Email, Text';
+                            $contactMethod =  'Email, Text';
                         }
 
                         if(in_array('email', $viewerNotificationIsEnabled)){
-                            return  'Email';
+                            $contactMethod =  'Email';
                         }
 
                         if(in_array('text', $viewerNotificationIsEnabled)){
-                            return  'Text';
+                            $contactMethod = 'Text';
                         }
-
-                        return '-';
                     }
                 }
 
-                return  '-'; 
+                 # If particular escort is contact disabled then no contact info will be show to escort
+                $esvi = EscortViewerInteractions::where('escort_id',$row->escort->id)->where('viewer_id',$row->viewer->id)->where('user_id',Auth::user()->id)->first();
+
+                if($esvi){
+                    if($esvi->viewer_disabled_contact == 1){
+                        $contactMethod = 'Disabled';
+                    }
+                }
+
+                return  $contactMethod; 
                 
             })
             ->addColumn('viewer_comm', function($row) use (&$contactMethod){
 
+                $viewer_comm = '-';
                 if($row->viewer->interest && $row->viewer->interest->features){
                     $viewerNotification = json_decode($row->viewer->interest->features);
                     $isNotifcationEnabled = in_array('alerts', $viewerNotification); 
@@ -124,24 +158,31 @@ class EscortMyLegboxViewerController extends Controller
                         $viewerNotificationIsEnabled = json_decode($row->viewer->interest->notifications);
                         if(in_array('email', $viewerNotificationIsEnabled) && in_array('text', $viewerNotificationIsEnabled)){
                             $contactMethod = $row->viewer->email.', '.$row->viewer->phone;
-                            return  $contactMethod;
+                            $viewer_comm = $contactMethod;
                         }
 
                         if(in_array('email', $viewerNotificationIsEnabled)){
                             $contactMethod = $row->viewer->email;
-                            return  $contactMethod;
+                            $viewer_comm = $contactMethod;
                         }
 
                         if(in_array('text', $viewerNotificationIsEnabled)){
                             $contactMethod = $row->viewer->phone;
-                            return  $contactMethod;
+                           $viewer_comm = $contactMethod;
                         }
-
-                        return '-';
                     }
                 }
 
-                return  '-'; 
+                 # If particular escort is contact disabled then no contact info will be show to escort
+                $esvi = EscortViewerInteractions::where('escort_id',$row->escort->id)->where('viewer_id',$row->viewer->id)->where('user_id',Auth::user()->id)->first();
+
+                if($esvi){
+                    if($esvi->viewer_disabled_contact == 1){
+                        $viewer_comm = '-';
+                    }
+                }
+
+                return  $viewer_comm; 
                 
             })
             ->addColumn('playbox_subscription', fn($row) => 'Not Available')
@@ -157,7 +198,7 @@ class EscortMyLegboxViewerController extends Controller
 
                 $isBlocked = '<div class="custom-control custom-switch">
                                         <input type="checkbox" '.$isChecked.' class="custom-control-input isBlockedButton" id="customSwitch'.$row->viewer->id.$row->escort->id.'" data-id="'.$row->viewer->id.'" data-escort-id="'.$row->escort->id.'">
-                                        <label class="custom-control-label" for="customSwitch'.$row->viewer->id.$row->escort->id.'"></label>
+                                        <label class="custom-control-label" for="customSwitch'.$row->viewer->id.$row->escort->id.'">'.$row->viewer->id.'-'.$row->escort->id.'</label>
                                     </div>';
 
                 return $isBlocked;

@@ -18,6 +18,7 @@ use App\Models\Payment;
 use App\Models\EscortLike;
 use App\Models\MassageLike;
 use App\Models\EscortBrb;
+use App\Models\EscortViewerInteractions;
 use App\Models\Reviews;
 use App\Models\State;
 use App\Models\SuspendProfile;
@@ -29,6 +30,7 @@ use Illuminate\Support\Facades\Session;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class WebController extends Controller
@@ -71,6 +73,15 @@ class WebController extends Controller
         $query = $query
                 ->with('suspendProfile')
                 ->whereNotIn('id', $suspendProfileIds);
+
+       
+        # Not show specific profile to viewer if specific viewer is blocked by escort
+        if(Auth::user()){
+            $blockedProfileForViewersIds = EscortViewerInteractions::where('viewer_id',Auth::user()->id)->where('escort_blocked_viewer',true)->pluck('escort_id');
+            if($blockedProfileForViewersIds && count($blockedProfileForViewersIds) > 0){
+                $query = $query->whereNotIn('id',$blockedProfileForViewersIds);
+            }
+        }
 
         # Search escort by search button on the bases on radio button with search icon
         if(isset($str['search_by_radio']) && ($str['search_by_radio'] == '1' || $str['search_by_radio'] == 1))
@@ -1188,7 +1199,18 @@ class WebController extends Controller
         $reviews = Reviews::where('escort_id',$id)->where('status','approved')->with('user')->get()->unique('user_id');
         //dd($viewType);
         $user = DB::table('users')->where('id',(int)$escort->user_id)->select('contact_type')->first();
-        //dd($user, $escort->user_id);
+
+        # Not show specific profile to viewer if specific viewer is blocked by escort
+        if (Auth::check()) {
+            $blockedProfileForViewersIds = EscortViewerInteractions::where('viewer_id', Auth::id())
+                ->where('escort_blocked_viewer', true)
+                ->pluck('escort_id');
+
+            if ($blockedProfileForViewersIds->contains($escort->id)) {
+                $escort = collect(); // or null, based on your use-case
+            }
+        }
+        
         return view('web.description',compact('categoryOneServices','categoryTwoServices','categoryThreeServices','brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','backToSearchButton','user','viewType','reviews'));
     }
 

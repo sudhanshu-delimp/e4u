@@ -228,6 +228,11 @@ class ViewerEscortInteractionController extends Controller
 
                     $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
 
+                     # If escort blocked viewer
+                    if($escortViewerInteractions && $escortViewerInteractions->escort_blocked_viewer){
+                        return 'Blocked';
+                    }
+
                     # if escort disabled contact setting for this viewer
                     if($escortViewerInteractions != null && $escortViewerInteractions->escort_disabled_contact == 1){
                         return 'Disabled';
@@ -266,7 +271,12 @@ class ViewerEscortInteractionController extends Controller
 
                 ->addColumn('escort_communication', function ($escort) {
 
-                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
+                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
+
+                    # If escort blocked viewer
+                    if($escortViewerInteractions && $escortViewerInteractions->escort_blocked_viewer){
+                        return 'Blocked';
+                    }
 
                     # if escort disabled contact setting for this viewer
                     if($escortViewerInteractions != null && $escortViewerInteractions->escort_disabled_contact == 1){
