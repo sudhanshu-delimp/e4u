@@ -14,7 +14,7 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-    <!--middle content start here-->
+    
 
     <div class="row">
         <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
@@ -45,7 +45,9 @@
         <div class="row">
             
             <div class="col-md-12">
-                <form action="{{route('agent.agent-request')}}" method="post" name="agent_request_frm" id="agent_request_frm">
+               
+                <form action="{{route('escort.agent-request')}}" method="post" name="agent_request_frm" id="agent_request_frm">
+
                     <div class="row">
                         <div class="col-md-12">
 

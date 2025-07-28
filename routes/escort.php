@@ -356,4 +356,4 @@ Route::post('/save-account-tour', [TourController::class, 'saveAccountTour'])->n
 Route::post('/update-account-tour/{id}', [TourController::class, 'updateAccountTour'])->name('account.update_tour');
 
 
-Route::post('agent-request',[AgentRequestController::class, 'agentRequest'])->name('agent.agent-request');
+Route::post('agent-request',[AgentRequestController::class, 'agentRequest'])->name('escort.agent-request');

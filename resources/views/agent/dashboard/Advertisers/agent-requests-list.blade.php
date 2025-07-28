@@ -3,6 +3,18 @@
 
     @if($lists->isNotEmpty())
     @forelse ($lists as $index => $list)
+
+    @php
+    $contact_by = [];
+
+    if ($list->contact_by_email) {
+        $contact_by[] = '<span class="ml-2">By Email</span>';
+    }
+    if ($list->contact_by_mobile) {
+        $contact_by[] = '<span class="ml-2">By Mobile</span>';
+    }
+    @endphp
+
     <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="card shadow-sm border-0">
             <div class="card-body pb-2 statement-accordian">
@@ -12,21 +24,19 @@
                             <a class="card-link collapsed" data-toggle="collapse" href="#req{{$list->id}}" aria-expanded="false">
                                 <div class="d-flex align-items-center stat-detls">
                                     <div class="avatar avatar-xl pr-3 mt-1">
-
                                     <img src="{{ $list->user->avatar_img ? asset('avatars/' . $list->user->avatar_img) : asset('assets/img/default_user.png') }}" alt="Face 1">
-
-
-
-                                       
                                     </div>
-                                    <div class="ms-3 name">
+                                    <div class="ms-3">
                                         <h5 class="primery_color normal_heading mb-0">
                                             <b>{{$list->first_name.' '.$list->last_name  }} </b>
                                         </h5>
                                         <h6 class="text-muted mb-0 small">
                                             Member ID : {{$list->user->member_id}}
-                                            <span class="px-3">Request Date : {{date('d/m/Y',strtotime($list->created_at))}}</span>
-                                            <br><span>Ref : {{$list->ref_number}}</span>
+
+                                            <span class="pl-3">Ref : {{$list->ref_number}}</span> <br>
+                                            <span>Request Date : {{date('d-m-Y',strtotime($list->created_at))}}</span>
+                                          
+
                                         </h6>
                                     </div>
                                 </div>
@@ -44,15 +54,24 @@
                                     <h6><b>Home State :</b>
                                         <span class="ml-2">{{isset($list->user->state->name) ? $list->user->state->name : 'NA'}}</span>
                                     </h6>
-
+                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 list-sec pt-1">
+                                    
                                     <h6><b>Contact Method :</b>
-                                        @if($list->contact_by_email==1)
-                                        <span class="ml-2">By Email</span>
+
+                                        @if (!empty($contact_by))
+                                        {!! implode(' | ', $contact_by) !!}
+                                        @else
+                                        NA
                                         @endif
+
                                     </h6>
 
                                     <h6><b>Comments :</b>
-                                    <span class="text-justify">agent.dashboard.Advertisers.agent-requests-list
+                                    <span class="text-justify">
+
                                         {{$list->comments}}
                                     </span>
                                     </h6>
@@ -82,9 +101,21 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
+<<<<<<< HEAD
                     <h5 class="modal-title" id="requestAccepted"><img src="{{ asset('assets/dashboard/img/accept.png') }}" style="width:40px;" alt="Request Accepted"> Request Accepted</h5>
+=======
+<<<<<<< Updated upstream
+                    <h5 class="modal-title" id="requestAccepted">Request Accepted</h5>
+=======
+                    <h5 class="modal-title" id="requestAccepted">
+                        <img src="{{ asset('assets/dashboard/img/accept.png') }}" style="width:40px;" alt="Request Accepted">
+                         Request Accepted</h5>
+>>>>>>> Stashed changes
+>>>>>>> delimp-dev-riz-14july
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        </span>
                     </button>
                 </div>
                 <div class="modal-body pb-0">

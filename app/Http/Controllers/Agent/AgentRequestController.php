@@ -335,6 +335,7 @@ class AgentRequestController extends Controller
                 $agent_mobile = "";
                 $agent_status = "";
                 $accepted_date = "";
+                $followup = "";
 
                 if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)
                 {
@@ -395,22 +396,21 @@ class AgentRequestController extends Controller
                 $item->requested_at = date('d-m-Y',strtotime($item->created_at));
                 $item->user_member_id =  $item->user->member_id;
                 $item->phone =  $item->user->phone;
-                $item->country_code =  isset($item->user->state->country_code) ? $item->user->state->country_code : 'NA';
+                $item->country_code =  isset($item->user->state->iso2) ? $item->user->state->iso2 : 'NA';
                 $item->agent_name =  $agent_name;
                 $item->agent_mobile =  $agent_mobile;
                 $item->agent_status =  $agent_status;
                 $item->accepted_date =  $accepted_date;
+                if($accepted_date=='')
+                $followup = '<a class="dropdown-item align-item-custom notiification-confirmation" href="#" data-id="' . $item->id . '"  data-toggle="modal"> <i class="fa fa-bell"></i> Follow Up</a><div class="dropdown-divider"></div>';
+                                    
                
 
                 $item->action = '<div class="dropdown no-arrow">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                 </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item align-item-custom notiification-confirmation" href="#" data-id="' . $item->id . '"  data-toggle="modal"> <i class="fa fa-bell"></i> Follow Up</a>
-
-                                    <div class="dropdown-divider"></div>
-
+                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">'.$followup.'
                                     <a class="dropdown-item align-item-custom view-agent-details" href="#"  data-id="' . $item->id . '" data-toggle="modal"> <i class="fa fa-eye" aria-hidden="true" ></i> View</a>
                                 </div>';
                 $i++;
