@@ -88,10 +88,10 @@
           <div class="my-custom-box shadow-sm">
               <a href="{{ route('agent.advertiser-list') }}">
                   <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-advertisers.png') }}" alt="My Advertiser">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-advertisers.png') }}" alt="My Advertisers">
                   </div>
                   <h2>
-                     My Advertiser
+                     My Advertisers
                   </h2>
               </a>
 
