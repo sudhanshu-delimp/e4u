@@ -41,6 +41,9 @@ class EscortMyLegboxViewerController extends Controller
         $viewers = $legboxEscortUserIds->pluck('user_id')->map(function ($id) use ($users) {
             return $users->get($id);
         });
+
+        //dd($legboxEscortUserIds->get()->toArray(), $viewers);
+
         $escorts = $legboxEscortUserIds->pluck('escort_id')->map(function ($id) use ($escorts) {
             return $escorts->get($id);
         });
@@ -60,6 +63,8 @@ class EscortMyLegboxViewerController extends Controller
             })
             ->addColumn('escort_profile', fn($row) => $row->escort->name ?? '-')
             ->addColumn('notification_enabled', function($row){
+
+                $isNotifcationEnabled = 'No';
                 # Check viewer account notification setting first
                 if($row->viewer->interest && $row->viewer->interest->features){
                     $viewerNotification = json_decode($row->viewer->interest->features);
@@ -71,7 +76,6 @@ class EscortMyLegboxViewerController extends Controller
                 $esvi = EscortViewerInteractions::where('escort_id',$row->escort->id)->where('viewer_id',$row->viewer->id)->where('user_id',Auth::user()->id)->first();
 
                 if($esvi){
-                    $isNotifcationEnabled = 'No';
                     if($esvi->viewer_disabled_notification == 0){
                         $isNotifcationEnabled = 'Yes';
                     }

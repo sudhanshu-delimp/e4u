@@ -104,6 +104,8 @@ class ViewerEscortInteractionController extends Controller
         $result = false;
         if(Auth::user()){
             $result = MyLegbox::where('escort_id', $request->escort_id)->where('user_id',Auth::user()->id)->delete();
+            $escort = Escort::where('id',$request->escort_id)->first();
+            $result = EscortViewerInteractions::where('escort_id', $request->escort_id)->where('user_id',$escort->user_id)->where('viewer_id',Auth::user()->id)->delete();
         }
         
         $data = array(
@@ -143,7 +145,7 @@ class ViewerEscortInteractionController extends Controller
                 }
             ])->get(); // city_id
 
-            //dd($escorts->toArray());
+            // dd($escorts->toArray());
 
              return DataTables::of($escorts)
                 ->addColumn('escort_id', function ($escort) {
