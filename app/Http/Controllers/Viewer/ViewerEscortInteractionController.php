@@ -141,7 +141,7 @@ class ViewerEscortInteractionController extends Controller
                         ->whereDate('end_date', '>=', $today)
                         ->where('status', true);
                 }
-            ])->where('enabled', 1)->get(); // city_id
+            ])->get(); // city_id
 
             //dd($escorts->toArray());
 
@@ -394,8 +394,8 @@ class ViewerEscortInteractionController extends Controller
                                                     View</a>
                                                 <span class="tooltip-text ">Access denied: This escort has blocked you.</span>';
                     }else{
-                        $viewButton = '<a class="dropdown-item align-item-custom escortProfileView" href="#"
-                                                    data-toggle="modal" data-escort-name="'.$row->name.'" data-id="'.$row->id.'"> <i
+                        $viewButton = '<a class="dropdown-item align-item-custom escortProfileView"  href="#"
+                                                    data-toggle="modal" data-escort-name="'.$row->name.'" data-profile-enable="'.$row->enabled.'" data-id="'.$row->id.'"> <i
                                                         class="fa fa-eye" aria-hidden="true"></i>
                                                     View</a>
                                                 <span class="tooltip-text">View the Escort’s Profile</span>';
