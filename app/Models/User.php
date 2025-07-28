@@ -407,6 +407,19 @@ class User extends Authenticatable
     }
 
 
+    public function getAvatarImgAttribute($value)
+    {
+        if($value!="")
+        return $value;
+
+        switch ($this->type) {
+        case 3:
+        case 4:
+            return config('constants.massage_escort_default_icon');
+        default:
+            return $value;
+        }
+    }
     
 
 }

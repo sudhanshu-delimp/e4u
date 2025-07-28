@@ -1,5 +1,4 @@
 @extends('layouts.agent')
-
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content end here-->
@@ -56,6 +55,12 @@
 
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+<style>
+.avatar_img img{
+width: 60px;
+height: 60px;
+}
+ </style>  
 @endsection
 
 

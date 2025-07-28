@@ -17,6 +17,7 @@
     <!--middle content start here-->
         <div class="row">
             <div class="col-md-12">
+<<<<<<< Updated upstream
                 <div class="v-main-heading h3" style="display: inline-block;">Agent Request</div>
                 <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
             </div>
@@ -44,6 +45,9 @@
                 </div>
 
                 <form action="{{route('agent.agent-request')}}" method="post" name="agent_request_frm" id="agent_request_frm">
+=======
+                <form action="{{route('escort.agent-request')}}" method="post" name="agent_request_frm" id="agent_request_frm">
+>>>>>>> Stashed changes
                     <div class="row">
                         <div class="col-md-12">
 

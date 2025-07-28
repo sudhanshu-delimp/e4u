@@ -204,6 +204,7 @@
     var modal_html = `<div class="modal-dialog modal-dialog-centered" role="document">
        <div class="modal-content basic-modal">
           <div class="modal-header">
+           <img src="{{asset('assets/dashboard/img/data-listing.png')}}" style="width:40px; margin-right:10px;" alt="Request Accepted">
              <h5 class="modal-title" id="viewAgentdetails">Agent Request</h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">
@@ -243,6 +244,13 @@
                             <h6>${rowData.comments}</h6>
                          </div>
                       </div>
+
+                     <div class="row">
+                        <div class="col-lg-12 text-right">
+                           <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
+                        </div>
+                     </div>
+
                    </div>
                 </div>
              </div>
