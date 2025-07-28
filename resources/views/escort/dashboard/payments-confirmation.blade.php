@@ -4,9 +4,9 @@
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
        <div class="row">
-            <div class="col-md-12 custom-heading-wrapper">
+            {{-- <div class="col-md-12 custom-heading-wrapper">
                 <h1 class="h1">Payments Confirmation</h1>
-            </div>
+            </div> --}}
             {{-- 3 step bar --}}
             <div class="col-lg-12">
                 <div class="progressbar">

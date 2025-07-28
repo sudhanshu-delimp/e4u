@@ -15,8 +15,24 @@
        <div class="row">
             <div class="col-md-12 custom-heading-wrapper">
                 <h1 class="h1">Checkout</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
-            {{-- 3 step bar --}}
+            
+        <div class="col-md-12 mb-4" id="profile_and_tour_options">
+            <div class="collapse" id="notes">
+                <div class="card">
+                    <div class="card-body">
+                      <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                      <ol>
+                          <li>Please note we use 2FA verification process to enable you to make payment.</li>
+                          <li>Your verification code will be sent to your nominated preference.</li>
+                          <li>Please check the purchase summary before you authorise payment.</li>
+                      </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- 3 step bar --}}
         <div class="col-lg-12">
             <div class="progressbar">
                 <div class="step active">
