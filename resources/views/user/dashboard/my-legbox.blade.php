@@ -702,15 +702,27 @@
                 e.preventDefault();
                 
                 let escortId = $(this).attr('data-id');
+                let escortProfileIsEnabled = $(this).attr('data-profile-enable');
                 let profileurl = "{{route('profile.description','_id')}}";
                 profileurl = profileurl.replace('_id',escortId);
 
-                console.log(profileurl);
+                console.log(escortProfileIsEnabled, ' jite');
 
-                $("#escortPopupModalBodyIframe").attr('src', profileurl)
-                setTimeout(() => {
-                    $("#escortProfileMissingModal").modal('show')
-                }, 300);
+                if(escortProfileIsEnabled == '0'){
+                    let htmlData = '<div class="col-md-12 my-4  text-center"><h5 class=" body_text mb-2">This Escort does not presently have any Listed Profiles.</h5></div>';
+
+                    $(".modal_title_span").text('Escort Profile : ');
+                    $("#escortProfileModal").modal('show')
+                }else{
+                    let htmlData = '<iframe src="" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>';
+                    $("#escortPopupModalBody").html(htmlData);
+                    $("#escortPopupModalBodyIframe").attr('src', profileurl);
+
+                    setTimeout(() => {
+                        $("#escortProfileMissingModal").modal('show')
+                    }, 300);  
+                }
+
                 
                 
             });
