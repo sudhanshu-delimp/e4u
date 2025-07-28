@@ -2972,10 +2972,23 @@ tr.custom--row th:not(tr.custom--row th:last-child) {
 }
 
 .summary-bg {
-    padding: 20px;
-    background: #f7f7f7;
+    padding: 15px 10px;
+    background: var(--blue--text);
     box-shadow: 2px 4px 4px #eee;
-    margin: 10px;
+    color: #eee;
+    /* margin: 10px; */
+}
+
+.summary-bg h4 {
+    color: #eee;
+}
+
+.summary-bg .member-id span {
+    color: #eee;
+}
+
+.summary-bg .member-id span i {
+    color: #eee;
 }
 
 .paymnt_summery p {
@@ -4100,6 +4113,7 @@ input.small-placeholder::placeholder {
 
 .payment_form_bg {
     background: #F3F3F3;
+    border-radius: 5px;
 }
 
 
@@ -6879,6 +6893,218 @@ label#showCal {
     margin: 0;
     font-size: 14px;
 }
+
+
+/* progressbar */
+
+.progressbar {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+    margin-bottom: 40px;
+    background-color: #F3F3F3;
+    padding: 15px 10px;
+    border-radius: 5px;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
+    text-align: center;
+}
+
+.step .step-title {
+    font-weight: bold;
+    color: #0C223D;
+    margin: 10px 0 0;
+}
+
+.step .circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #0C223D;
+    /* default color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 16px;
+    z-index: 2;
+    /* Circle stays above the line */
+    position: relative;
+}
+
+.step.active .circle {
+    background: #FF3C5F;
+    /* active color */
+}
+
+.step::after {
+    content: '';
+    position: absolute;
+    top: 22%;
+    left: 100%;
+    height: 4px;
+    width: 100%;
+    background: #0C223D;
+    /* default line color */
+    z-index: 1;
+    /* Behind the circles */
+    transform: translateX(-50%);
+}
+
+.step.active::after {
+    background: #FF3C5F;
+    /* active line color */
+}
+
+
+/* Remove line after the last circle */
+
+.step:last-child::after {
+    display: none;
+}
+
+
+/* Buttons */
+
+.buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background: #0C223D;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+
+/* listing contaioner */
+
+
+/* Container */
+
+.listing-container {
+    background: #F3F3F3;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+
+/* Each Listing */
+
+.eachListing {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    position: relative;
+    gap: 15px;
+    flex-wrap: wrap;
+    border: 1px solid #ddd;
+}
+
+
+/* Remove Cross */
+
+.removeCross {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: 0.3s;
+}
+
+.removeCross img {
+    width: 30px;
+    height: 30px;
+}
+
+
+/* Flex Row for Fields */
+
+.listing-row {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+
+/* Individual Field */
+
+.listing-field {
+    flex: 1 1 calc(25% - 20px);
+    display: flex;
+    flex-direction: column;
+}
+
+.listing-field label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #0C223D;
+}
+
+.listing-field select,
+.listing-field input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+
+/* Buttons */
+
+.nex_sterp_btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.nex_sterp_btn:hover,
+.save_profile_btn:hover {
+    background: var(--peach);
+}
+
+
+/* Responsive */
+
+@media screen and (max-width: 992px) {
+    .listing-field {
+        flex: 1 1 calc(50% - 20px);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .listing-field {
+        flex: 1 1 100%;
+    }
+}
+
+
+/* end */
 
 .total_listing {
     display: flex;

@@ -1,14 +1,14 @@
 let addListingButton = document.getElementById("add_listing");
 
-addListingButton.addEventListener("click", function () {
-    let $clone  = $(".listing_area .eachListing:first").clone();
+addListingButton.addEventListener("click", function() {
+    let $clone = $(".listing_area .eachListing:first").clone();
 
-    let selectedLocations = $('select[name="escort_id[]"]').map(function () {
-            return $(this).val();
-        }).get().filter(val => val !== "");
+    let selectedLocations = $('select[name="escort_id[]"]').map(function() {
+        return $(this).val();
+    }).get().filter(val => val !== "");
     $clone.find('input, select').val('');
     let $select = $clone.find('select[name="escort_id[]"]');
-    $select.find('option').each(function () {
+    $select.find('option').each(function() {
         let val = $(this).val();
         if (val && selectedLocations.includes(val)) {
             $(this).hide();
@@ -20,7 +20,7 @@ addListingButton.addEventListener("click", function () {
     updateSelectOptions();
 });
 
-$(document).on('click', '.removeCross', function () {
+$(document).on('click', '.removeCross', function() {
     if ($('.eachListing').length > 1) {
         $(this).closest('.eachListing').remove();
         updateSelectOptions();
@@ -31,17 +31,17 @@ $(document).on('change', 'select[name="escort_id[]"]', updateSelectOptions);
 
 function updateSelectOptions() {
     let selectedValues = [];
-    $('select[name="escort_id[]"]').each(function () {
+    $('select[name="escort_id[]"]').each(function() {
         const val = $(this).val();
         if (val) selectedValues.push(val);
     });
 
-    $('select[name="escort_id[]"]').each(function () {
+    $('select[name="escort_id[]"]').each(function() {
         let currentSelect = $(this);
         let currentValue = currentSelect.val();
-        currentSelect.find('option').each(function () {
+        currentSelect.find('option').each(function() {
             let optionVal = $(this).val();
-            $(this).show();            
+            $(this).show();
             if (optionVal && optionVal !== currentValue && selectedValues.includes(optionVal)) {
                 $(this).hide();
             }
@@ -63,11 +63,11 @@ function checkLastRowDates() {
     }
 }
 
-$(document).on('input change, select[name="escort_id[]"], input[name="start_date[]"], input[name="end_date[], select[name="membership[]"]"]', function () {
+$(document).on('input change, select[name="escort_id[]"], input[name="start_date[]"], input[name="end_date[], select[name="membership[]"]"]', function() {
     checkLastRowDates();
 });
 
-$(document).on('change', 'input[name="start_date[]"]', function () {
+$(document).on('change', 'input[name="start_date[]"]', function() {
     let $row = $(this).closest('.eachListing');
     let startDate = $(this).val();
     let $endInput = $row.find('input[name="end_date[]"]');
@@ -81,4 +81,3 @@ $(document).on('change', 'input[name="start_date[]"]', function () {
         $endInput.removeAttr('min');
     }
 });
-

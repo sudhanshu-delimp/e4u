@@ -142,6 +142,9 @@ Route::post('escort-brb/inactive/{id}', [EscortBrbController::class, 'inactive']
 Route::get('view-archives',function(){
     return view('escort.dashboard.archives.view-archives');
 });
+Route::get('payments-confirmation',function(){
+    return view('escort.dashboard.payments-confirmation');
+});
 Route::get('archive-profiles',function(){
     return view('escort.dashboard.archives.archive-profiles');
 });
