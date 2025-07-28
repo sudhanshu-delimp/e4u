@@ -198,7 +198,7 @@ class EscortMyLegboxViewerController extends Controller
 
                 $isBlocked = '<div class="custom-control custom-switch">
                                         <input type="checkbox" '.$isChecked.' class="custom-control-input isBlockedButton" id="customSwitch'.$row->viewer->id.$row->escort->id.'" data-id="'.$row->viewer->id.'" data-escort-id="'.$row->escort->id.'">
-                                        <label class="custom-control-label" for="customSwitch'.$row->viewer->id.$row->escort->id.'">'.$row->viewer->id.'-'.$row->escort->id.'</label>
+                                        <label class="custom-control-label" for="customSwitch'.$row->viewer->id.$row->escort->id.'"></label>
                                     </div>';
 
                 return $isBlocked;
