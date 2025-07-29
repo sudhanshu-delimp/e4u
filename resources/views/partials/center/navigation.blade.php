@@ -25,9 +25,11 @@
                            <div>
                            
 
-                            <span>
-                                <b>My Agent :  </b><span class="user-values">Andrew Stephen</span>
-                            </span>
+                    @if(auth()->user()->my_agent->member_id)
+                    <span>
+                        <b>My Agent :  </b><span class="user-values">{{auth()->user()->my_agent->name}}</span>
+                    </span>
+                    @endif
                            </div>
                         </div>
                     </div>
@@ -213,10 +215,10 @@
                                     Membership ID: {{auth()->user()->member_id }}
                                 </a>
 
-                                @if(isset($escort->my_agent->member_id))
+                                @if(isset(auth()->user()->my_agent->member_id))
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
-                                    My Agent ID : {{ $escort->my_agent ? $escort->my_agent->member_id : 'NA' }}
+                                    My Agent ID : {{ auth()->user()->my_agent->member_id ? auth()->user()->my_agent->member_id : 'NA' }}
                                 </a>
                                 @endif
 
