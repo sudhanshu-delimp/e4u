@@ -127,7 +127,7 @@
                                        <img class="delay_tooltip" src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="You can appoint an Agent to assist you by completing the Agency Request form.  If you want to appoint an Agent, <a target='_blank' class='theme-text-color' href='{{url('escort-dashboard/escort-agency-request')}}'>click here.</a>" data-boundary="window">
                                        </span>
                                        </label>
-                                       <span class="form-control form-back">{{ $escort->escortsAgent ? $escort->escortsAgent->name : '' }} - Agent ID: {{ $escort->escortsAgent ? $escort->escortsAgent->id : '' }}</span>
+                                       <span class="form-control form-back">Agent ID: {{ $escort->my_agent ? $escort->my_agent->member_id : 'NA' }}</span>
                                     </div>
                                  </div>
                                  <div class="col-md-8">

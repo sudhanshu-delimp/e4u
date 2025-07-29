@@ -15,9 +15,10 @@ class AddSelectedTimeToEscortBrbTable extends Migration
     {
         Schema::table('escort_brb', function (Blueprint $table) {
             Schema::table('escort_brb', function (Blueprint $table) {
-                $table->dateTime('selected_time')->nullable()->after('date_set');
+                $table->dateTime('selected_time')->nullable()->after('date_set'); 
             });
         });
+        //php artisan migrate --path=database/migrations/2025_06_05_122119_add_selected_time_to_escort_brb_table.php
     }
 
     /**

@@ -2,33 +2,34 @@
 
 namespace App\Http\Controllers\Escort;
 
-use App\Http\Controllers\Controller;
+use Auth;
+use File;
+use FFMpeg;
+use Carbon\Carbon;
+
+
+use App\Models\Task;
+use App\Models\User;
+use App\Models\Escort;
+use App\Models\PinUps;
+use App\Models\Pricing;
 use App\Models\Purchase;
-use App\Repositories\Escort\EscortInterface;
+use Illuminate\Support\Str;
+use MongoDB\Driver\Session;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
-
-
-use App\Http\Requests\StoreAvatarMediaRequest;
+use App\Traits\DataTablePagination;
+use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\StoreEscortRequest;
 use App\Http\Requests\UpdateEscortRequest;
-use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\JsonResponse;
+use App\Repositories\Escort\EscortInterface;
+use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Repositories\AttemptLogin\AttemptLoginRepository;
-use Carbon\Carbon;
-use App\Models\Escort;
-use App\Models\Pricing;
-use App\Models\PinUps;
-use App\Models\Task;
-use Auth;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use FFMpeg;
-use File;
-use MongoDB\Driver\Session;
-use App\Traits\DataTablePagination;
 
 class EscortController extends Controller
 {
@@ -411,9 +412,7 @@ class EscortController extends Controller
      */
     public function edit()
     {
-        $escort = $this->user->find(auth()->user()->id);
-
-
+        $escort = User::where('id',auth()->user()->id)->first();
         return view('escort.dashboard.my-account', compact('escort'));
     }
     public function editPassword()

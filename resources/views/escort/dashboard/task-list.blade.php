@@ -75,11 +75,11 @@
                                     <div><span class="totalInprogressTask">03</span></div>
                                 </div>
                                 <div class="total_listing">
-                                    <div><span>Open task : </span></div>
+                                    <div><span>Open Task : </span></div>
                                     <div><span class="totalOpenTask">11</span></div>
                                 </div>
                                 <div class="total_listing">
-                                    <div><span>Completed task : </span></div>
+                                    <div><span>Completed Task : </span></div>
                                     <div><span class="totalCompletedTask">11</span></div>
                                 </div>
                             </div>

@@ -406,6 +406,15 @@ class User extends Authenticatable
         return false;
     }
 
+
+  
+    
+    public function my_agent()
+{
+    return $this->belongsTo(User::class, 'assigned_agent_id', 'id');
+}
+
+
     public function shortList()
     {
         return $this->belongsToMany(Escort::class, 'add_to_list', 'user_id', 'escort_id');

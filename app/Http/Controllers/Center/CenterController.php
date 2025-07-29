@@ -2,32 +2,33 @@
 
 namespace App\Http\Controllers\Center;
 
-use App\Http\Controllers\Controller;
+use Auth;
+use File;
+use FFMpeg;
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Service;
 use App\Models\Duration;
-use Illuminate\Http\Request;
-use App\Repositories\MassageProfile\MassageProfileInterface;
-use App\Repositories\Escort\EscortInterface;
-use App\Repositories\Service\ServiceInterface;
-use App\Repositories\Escort\AvailabilityInterface;
-use App\Http\Requests\Escort\StoreRequest;
-use App\Http\Requests\Escort\StoreRequestServices;
-use App\Http\Requests\UpdateEscortRequest;
-use App\Repositories\User\UserInterface;
-use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
-use App\Http\Requests\Escort\UpdateRequestPolicy;
-use App\Http\Requests\Escort\UpdateRequestReadMore;
-use App\Http\Requests\Escort\UpdateRequestAbout;
-use App\Http\Requests\Escort\StoreRequestRates;
-use App\Http\Requests\Escort\StoreAvailabilityRequest;
-use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\StoreAvatarMediaRequest;
-use Carbon\Carbon;
-use Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use FFMpeg;
-use File;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use App\Repositories\User\UserInterface;
+use App\Http\Requests\Escort\StoreRequest;
+use App\Http\Requests\UpdateEscortRequest;
+use App\Repositories\Escort\EscortInterface;
+use App\Http\Requests\StoreAvatarMediaRequest;
+use App\Repositories\Service\ServiceInterface;
+use App\Http\Requests\Escort\StoreRequestRates;
+use App\Http\Requests\Escort\UpdateRequestAbout;
+use App\Http\Requests\Escort\UpdateRequestPolicy;
+use App\Http\Requests\Escort\StoreRequestServices;
+use App\Repositories\Escort\AvailabilityInterface;
+use App\Http\Requests\Escort\UpdateRequestReadMore;
+use App\Http\Requests\Escort\StoreAvailabilityRequest;
+use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
+use App\Repositories\MassageProfile\MassageProfileInterface;
 
 class CenterController extends Controller
 {
@@ -193,9 +194,7 @@ class CenterController extends Controller
     }
     public function edit()
     {
-        $escort = $this->user->find(auth()->user()->id);
-
-
+        $escort = User::where('id',auth()->user()->id)->first();
         return view('center.my-account.edit-my-account', compact('escort'));
     }
     public function update(UpdateEscortRequest $request)
