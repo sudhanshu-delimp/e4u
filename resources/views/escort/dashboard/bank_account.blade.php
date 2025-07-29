@@ -341,45 +341,51 @@
    $(function(){
 
     var table = $('#bankAccountTable').DataTable({
-        "language": {
-         search: "_INPUT_",
-        searchPlaceholder: "Search",
-        "sSearch": '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>',
-
+        language: {
+        search: "_INPUT_",
+        searchPlaceholder: "Search by ID or Profile Name",
+        sSearch: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>',
         oPaginate: {
-       sNext: '<span aria-hidden="true">»</span>',
-       sPrevious: '<span aria-hidden="true">«</span>',
-       sFirst: '<span aria-hidden="true">»</span>',
-       sLast: '<span aria-hidden="true">»</span>'
+            sNext: '<span aria-hidden="true">»</span>',
+            sPrevious: '<span aria-hidden="true">«</span>',
+            sFirst: '<span aria-hidden="true">«</span>',
+            sLast: '<span aria-hidden="true">»</span>'
+        }
+    },
+    info: true,
+    bLengthChange: true,
+    processing: true,
+    serverSide: true,
+    lengthChange: true,
+    order: [1, 'asc'],
+    searchable: false,
+    pagingType: 'simple_numbers',
+    bStateSave: false,
+    ajax: {
+        url: "{{ route('escort.bankDetail.dataTable') }}",
+        data: function (d) {
+            d.type = 'player';
+        }
+    },
+    columns: [
+        { data: 'bank_name', name: 'bank_name', searchable: true, orderable: false, defaultContent: 'NA' },
+        { data: 'account_name', name: 'account_name', searchable: true, orderable: false, defaultContent: 'NA' },
+        { data: 'bsb', name: 'bsb', searchable: true, orderable: false, defaultContent: 'NA' },
+        { data: 'account_numbers', name: 'account_numbers', searchable: true, orderable: false, defaultContent: 'NA' },
+        { data: 'states', name: 'states', searchable: true, orderable: false, defaultContent: 'NA' },
+        { data: 'action', name: 'edit', searchable: false, orderable: false, defaultContent: 'NA' },
+    ],
+    initComplete: function () {
+        // Reposition the filter and length
+        let filter = $('#bankAccountTable_filter');
+        let length = $('#bankAccountTable_length');
+
+        // Wrap them in a flexbox
+        filter.add(length).wrapAll('<div class="d-flex align-items-center justify-content-start gap-3 mb-3 datatable-topbar"></div>');
+
+        // Place filter first
+        filter.parent().prepend(filter);
     }
-
-       },
-        info: false,
-        bLengthChange: false,
-        processing: true,
-        serverSide: true,
-        lengthChange: true,
-        order: [1,'asc'],
-        searchable:false,
-        //searching:true,
-        bStateSave: false,
-
-        ajax: {
-            url: "{{ route('escort.bankDetail.dataTable') }}",
-            data: function (d) {
-                d.type = 'player';
-            }
-        },
-        columns: [
-
-            { data: 'bank_name', name: 'bank_name', searchable: true, orderable:false ,defaultContent: 'NA'},
-            { data: 'account_name', name: 'account_name', searchable: true, orderable:false,defaultContent: 'NA' },
-            { data: 'bsb', name: 'bsb', searchable: true, orderable:false,defaultContent: 'NA' },
-            { data: 'account_numbers', name: 'account_numbers', searchable: true, orderable:false,defaultContent: 'NA' },
-            { data: 'states', name: 'states', searchable: true, orderable:false,defaultContent: 'NA' },
-            // { data: 'joined', name: 'joined', searchable: true, orderable:false,defaultContent: 'NA' },
-            { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
-        ]
     });
         //   $.ajaxSetup({
         //      headers:

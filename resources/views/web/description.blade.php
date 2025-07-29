@@ -609,10 +609,10 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table"  style="{{ empty($categoryOneServices) ? 'border: 1px solid black;' : ''}}">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryOneServices) ? 'padding: 1px;' : ''}}">
+                                            <div class="row margin_zero_for_table table-grid"  style="{{ empty($categoryOneServices) ? ' ' : ''}}">
+                                                <div class="padding_none" style="{{ empty($categoryOneServices) ? 'padding: 1px;' : ''}}">
                                                     
-                                                    <table class="table {{empty($categoryOneServices[0]) ? '': 'table_border_dash' }}  ">
+                                                    <table class="table {{empty($categoryOneServices[0]) ? '': ' ' }}  ">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -634,8 +634,8 @@
                                                     </table>
                                                 </div>
                                                 
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryOneServices[1]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryOneServices[1]) ? '': 'table_border_dash' }}">
+                                                <div class="padding_none" style="{{ empty($categoryOneServices[1]) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{empty($categoryOneServices[1]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -656,8 +656,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryOneServices[2]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryOneServices[2]) ? '': 'table_border_dash' }}">
+                                                <div class="padding_none" style="{{ empty($categoryOneServices[2]) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{empty($categoryOneServices[2]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -691,9 +691,9 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table" style="{{ empty($categoryTwoServices) ? 'border: 1px solid black;' : ''}}">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryTwoServices) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryTwoServices[0]) ? '': 'table_border_dash' }}">
+                                            <div class="row margin_zero_for_table table-grid" style="{{ empty($categoryTwoServices) ? ' ' : ''}}">
+                                                <div class="padding_none" style="{{ empty($categoryTwoServices) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{empty($categoryTwoServices[0]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -714,8 +714,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryTwoServices[1]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryTwoServices[1]) ? '': 'table_border_dash' }}">
+                                                <div class="padding_none" style="{{ empty($categoryTwoServices[1]) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{empty($categoryTwoServices[1]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -736,8 +736,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryTwoServices[2]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryTwoServices[2]) ? '': 'table_border_dash' }}">
+                                                <div class="padding_none" style="{{ empty($categoryTwoServices[2]) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{empty($categoryTwoServices[2]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -771,9 +771,9 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table" style="{{ empty($categoryThreeServices) ? 'border: 1px solid black;' : ''}}">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryThreeServices) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table  {{ empty($categoryThreeServices[0]) ? '': 'table_border_dash' }}">
+                                            <div class="row margin_zero_for_table table-grid" style="{{ empty($categoryThreeServices) ? ' ' : ''}}">
+                                                <div class=" padding_none" style="{{ empty($categoryThreeServices) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table  {{ empty($categoryThreeServices[0]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -794,8 +794,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryThreeServices[1]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryThreeServices[1]) ? '': 'table_border_dash' }}">
+                                                <div class=" padding_none" style="{{ empty($categoryThreeServices[1]) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{empty($categoryThreeServices[1]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -816,8 +816,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryThreeServices[2]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{ empty($categoryThreeServices[2]) ? '': 'table_border_dash' }}">
+                                                <div class=" padding_none" style="{{ empty($categoryThreeServices[2]) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{ empty($categoryThreeServices[2]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>

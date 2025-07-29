@@ -29,7 +29,7 @@
 
 
 <section class="padding_top_eight_px padding_bottom_eight_px">
-   <div class="container">
+   <div class="container text-justify">
         <h1 class="home_heading_first margin_btm_twenty_px page-title">Travel Services</h1>
 
         <h2 class="primery_color normal_heading">Partnership</h2>
