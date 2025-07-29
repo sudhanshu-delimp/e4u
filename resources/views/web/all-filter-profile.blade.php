@@ -743,7 +743,7 @@
                         </span>
                     </button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="padding: 15px 0px;">
                     <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
                         <span id="Lname"></span>
                         <span class="class_msg"></span>
