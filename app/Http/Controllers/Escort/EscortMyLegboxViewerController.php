@@ -118,7 +118,18 @@ class EscortMyLegboxViewerController extends Controller
             })
             ->addColumn('contact_method', function($row){
 
+                # If particular escort is contact disabled then no contact info will be show to escort
+                $esvi = EscortViewerInteractions::where('escort_id',$row->escort->id)->where('viewer_id',$row->viewer->id)->where('user_id',Auth::user()->id)->first();
+
+                if($esvi){
+                    if($esvi->viewer_blocked_escort == 1){
+                        $contact_method = 'blocked';
+                        return $contact_method;
+                    }
+                }
+
                 $contactMethod = '-';
+
                 if($row->viewer->interest && $row->viewer->interest->features){
                     $viewerNotification = json_decode($row->viewer->interest->features);
                     $isNotifcationEnabled = in_array('alerts', $viewerNotification); 
@@ -139,9 +150,6 @@ class EscortMyLegboxViewerController extends Controller
                     }
                 }
 
-                 # If particular escort is contact disabled then no contact info will be show to escort
-                $esvi = EscortViewerInteractions::where('escort_id',$row->escort->id)->where('viewer_id',$row->viewer->id)->where('user_id',Auth::user()->id)->first();
-
                 if($esvi){
                     if($esvi->viewer_disabled_contact == 1){
                         $contactMethod = 'Disabled';
@@ -152,6 +160,16 @@ class EscortMyLegboxViewerController extends Controller
                 
             })
             ->addColumn('viewer_comm', function($row) use (&$contactMethod){
+
+                # If particular escort is contact disabled then no contact info will be show to escort
+                $esvi = EscortViewerInteractions::where('escort_id',$row->escort->id)->where('viewer_id',$row->viewer->id)->where('user_id',Auth::user()->id)->first();
+
+                if($esvi){
+                    if($esvi->viewer_blocked_escort == 1){
+                        $viewer_comm = 'blocked';
+                        return $viewer_comm;
+                    }
+                }
 
                 $viewer_comm = '-';
                 if($row->viewer->interest && $row->viewer->interest->features){
@@ -177,12 +195,9 @@ class EscortMyLegboxViewerController extends Controller
                     }
                 }
 
-                 # If particular escort is contact disabled then no contact info will be show to escort
-                $esvi = EscortViewerInteractions::where('escort_id',$row->escort->id)->where('viewer_id',$row->viewer->id)->where('user_id',Auth::user()->id)->first();
-
                 if($esvi){
                     if($esvi->viewer_disabled_contact == 1){
-                        $viewer_comm = '-';
+                        $viewer_comm = 'Disabled';
                     }
                 }
 
