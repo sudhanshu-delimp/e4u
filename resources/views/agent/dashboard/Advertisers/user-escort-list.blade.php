@@ -2,6 +2,7 @@
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <style type="text/css">
+
    .select2-container .select2-choice, .select2-result-label {
    font-size: 1.5em;
    height: 52px !important; 
@@ -13,6 +14,33 @@
    span.select2.select2-container.select2-container--default > span.selection > span {
    height: 52px !important; 
    }
+   .dropdown-divider{
+      margin: 0rem 0;
+   }
+   @media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #replace-item, #replace-item * {
+    visibility: visible;
+  }
+
+  #replace-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    padding: 20px;
+  }
+  #replace-item .dctour, #replace-item .helpNoteLink, #replace-item .back-to-dashboard {
+    display: none;
+}
+.custom-heading-wrapper{
+   margin: 0;
+}
+}  
 </style>
 @endsection
 @section('content')
@@ -57,7 +85,7 @@
                   <!-- /.container-fluid --><br>
                   <div class="row">
                      <div class="col-md-12">
-                        <div class="d-flex justify-content-end"><button type="button" class="btn btn-primary create-tour-sec dctour" onclick="window.print();return false;">Print Report</button></div>
+                        <div class="d-flex justify-content-end mb-2"><button type="button" class="btn btn-primary create-tour-sec dctour" onclick="window.print();return false;">Print Report</button></div>
                         <div class="panel with-nav-tabs panel-warning">
                            <div class="panel-body">
                               <div class="tab-content">
@@ -75,7 +103,7 @@
                                                 <th scope="col">Action</th>
                                              </tr>
                                           </thead>                                          <tbody class="table-content">
-                                             {{-- <tr class="row-color">
+                                             <tr class="row-color">
                                                 <td class="theme-color">E03153</td>
                                                 <td class="theme-color">Carla</td>
                                                 <td class="theme-color">09876543210</td>
@@ -86,40 +114,35 @@
                                                       <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                       <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                                       </a>
-                                                      <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                         <a class="dropdown-item" id="manage-profile" href="#">Manage Profile</a>
+                                                      <div class="dropdown-menu dropdown-menu-right" style="max-height: 300px; overflow-y: auto;">
+                                                         <a class="dropdown-item" id="manage-profile" href="#">Create Profile</a>
                                                          <div class="dropdown-divider"></div>
-                                                         <a class="dropdown-item" id="manage-tour" href="#">Manage Tour</a>
+                                                         <a class="dropdown-item" href="#">Edit Profile</a>
+                                                         <div class="dropdown-divider"></div>
+                                                         <a class="dropdown-item" href="#">List Profile</a>
+                                                         <div class="dropdown-divider"></div>
+                                                         <a class="dropdown-item" href="#">Create Tour</a>
+                                                         <div class="dropdown-divider"></div>
+                                                         <a class="dropdown-item" href="#">Edit Tour</a>
                                                          <div class="dropdown-divider"></div>
                                                          <a class="dropdown-item" href="#">Manage Media</a>
                                                          <div class="dropdown-divider"></div>
-                                                         <a class="dropdown-item" href="#" id="manage-concierge">Manage Concierge &amp; Services</a><div class="dropdown-divider"></div>
-                                                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#viewticket">Print Report</a>
+                                                         <a class="dropdown-item" href="#">Manage Masseurs</a>
+                                                         <div class="dropdown-divider"></div>
+                                                         <a class="dropdown-item" href="#">Edit Account</a>
+                                                         <div class="dropdown-divider"></div>
+                                                         <a class="dropdown-item" href="#">View Account</a>
+                                                         <div class="dropdown-divider"></div>
+                                                         <a class="dropdown-item" href="#" onclick="showPrintReport()">Print</a>
+                                                         <div class="dropdown-divider"></div>
+                                                         <a class="dropdown-item" href="#">Message</a>
                                                       </div>
                                                    </div>
                                                 </td>
-                                             </tr> --}}
+                                             </tr>
                                           </tbody>
                                        </table>
-                                       {{-- <nav aria-label="Page navigation example">
-                                          <ul class="pagination float-right pt-4">
-                                             <li class="page-item">
-                                                <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true">«</span>
-                                                <span class="sr-only">Previous</span>
-                                                </a>
-                                             </li>
-                                             <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                             <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                             <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                             <li class="page-item">
-                                                <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true">»</span>
-                                                <span class="sr-only">Next</span>
-                                                </a>
-                                             </li>
-                                          </ul>
-                                       </nav> --}}
+                                      
                                     </div>
                                  </div>
                               </div>
@@ -391,7 +414,7 @@
 <script>
    $(document).ready(function(){
       $('#myTour').parsley({});
-      var table = $('#myAdvertisersList').DataTable({
+      var table = $('#myAdvertisersList-').DataTable({
          //$('#').DataTable({
          "language": {
             search: "_INPUT_",
@@ -1309,4 +1332,5 @@
    });
 
 </script>
+
 @endpush

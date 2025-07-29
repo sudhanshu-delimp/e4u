@@ -197,7 +197,7 @@
             <form id="SendBankOtp" method="post" action="" >
                 @csrf
                 <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title text-white">Send One Time Password</h5>
+                    <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/face-lock.png') }}" style="width:40px;" alt="face-lock verification">  2FA Verification</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -212,8 +212,18 @@
                             </div>
                         </div>
                         <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Account Protection</strong></h4>
-                        <p class="text-center pb-2">To help keep your account safe, E4U wants to make sure it’s really you trying to sign in.</p>
-                        <input type="password" maxlength="4"  required class="form-control" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required">
+                        <ol class="pb-2 pl-3 text-justify">
+                            <li>To help keep your account safe, E4U wants to make sure it is really you trying to
+                               log in.</li>
+                            <li>We have sent you your verification code according to your preference, please
+                               insert your verification code.</li>
+                         </ol>
+
+                         <div class="d-flex align-items-center justify-content-between gap-10">
+                            <input type="password" maxlength="4" required class="form-control w-75" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required">
+                            <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
+                        </div>
+                        {{-- <input type="password" maxlength="4"  required class="form-control" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required"> --}}
 
                         <div class="termsandconditions_text_color">
                             @error('opt')
@@ -226,9 +236,9 @@
                     </div>
                     <div id="senderror"></div>
                 </div>
-                <div class="modal-footer forgot_pass pt-0 pb-4">
-                    <button type="submit" class="btn main_bg_color site_btn_primary" id="sendOtpSubmit">Send</button>
-                    {{-- <p class="pt-2">Not received your code? <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a></p> --}}
+                <div class="modal-footer forgot_pass pt-0 pb-4 justify-content-center">
+                    {{-- <button type="submit" class="btn main_bg_color site_btn_primary" id="sendOtpSubmit">Send</button> --}}
+                    <p class="pt-2">Not received your code? <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a></p>
                 </div>
             </form>
         </div>
@@ -331,45 +341,51 @@
    $(function(){
 
     var table = $('#bankAccountTable').DataTable({
-        "language": {
-         search: "_INPUT_",
-        searchPlaceholder: "Search",
-        "sSearch": '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>',
-
+        language: {
+        search: "_INPUT_",
+        searchPlaceholder: "Search by ID or Profile Name",
+        sSearch: '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>',
         oPaginate: {
-       sNext: '<span aria-hidden="true">»</span>',
-       sPrevious: '<span aria-hidden="true">«</span>',
-       sFirst: '<span aria-hidden="true">»</span>',
-       sLast: '<span aria-hidden="true">»</span>'
+            sNext: '<span aria-hidden="true">»</span>',
+            sPrevious: '<span aria-hidden="true">«</span>',
+            sFirst: '<span aria-hidden="true">«</span>',
+            sLast: '<span aria-hidden="true">»</span>'
+        }
+    },
+    info: true,
+    bLengthChange: true,
+    processing: true,
+    serverSide: true,
+    lengthChange: true,
+    order: [1, 'asc'],
+    searchable: false,
+    pagingType: 'simple_numbers',
+    bStateSave: false,
+    ajax: {
+        url: "{{ route('escort.bankDetail.dataTable') }}",
+        data: function (d) {
+            d.type = 'player';
+        }
+    },
+    columns: [
+        { data: 'bank_name', name: 'bank_name', searchable: true, orderable: false, defaultContent: 'NA' },
+        { data: 'account_name', name: 'account_name', searchable: true, orderable: false, defaultContent: 'NA' },
+        { data: 'bsb', name: 'bsb', searchable: true, orderable: false, defaultContent: 'NA' },
+        { data: 'account_numbers', name: 'account_numbers', searchable: true, orderable: false, defaultContent: 'NA' },
+        { data: 'states', name: 'states', searchable: true, orderable: false, defaultContent: 'NA' },
+        { data: 'action', name: 'edit', searchable: false, orderable: false, defaultContent: 'NA' },
+    ],
+    initComplete: function () {
+        // Reposition the filter and length
+        let filter = $('#bankAccountTable_filter');
+        let length = $('#bankAccountTable_length');
+
+        // Wrap them in a flexbox
+        filter.add(length).wrapAll('<div class="d-flex align-items-center justify-content-start gap-3 mb-3 datatable-topbar"></div>');
+
+        // Place filter first
+        filter.parent().prepend(filter);
     }
-
-       },
-        info: false,
-        bLengthChange: false,
-        processing: true,
-        serverSide: true,
-        lengthChange: true,
-        order: [1,'asc'],
-        searchable:false,
-        //searching:true,
-        bStateSave: false,
-
-        ajax: {
-            url: "{{ route('escort.bankDetail.dataTable') }}",
-            data: function (d) {
-                d.type = 'player';
-            }
-        },
-        columns: [
-
-            { data: 'bank_name', name: 'bank_name', searchable: true, orderable:false ,defaultContent: 'NA'},
-            { data: 'account_name', name: 'account_name', searchable: true, orderable:false,defaultContent: 'NA' },
-            { data: 'bsb', name: 'bsb', searchable: true, orderable:false,defaultContent: 'NA' },
-            { data: 'account_numbers', name: 'account_numbers', searchable: true, orderable:false,defaultContent: 'NA' },
-            { data: 'states', name: 'states', searchable: true, orderable:false,defaultContent: 'NA' },
-            // { data: 'joined', name: 'joined', searchable: true, orderable:false,defaultContent: 'NA' },
-            { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
-        ]
     });
         //   $.ajaxSetup({
         //      headers:
