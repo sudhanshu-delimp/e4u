@@ -1189,11 +1189,12 @@ class WebController extends Controller
             $brb = $brb->where('id', request()->get('brb'))->where('active', 'Y')->first();
             dump(request()->get('brb'));
             dump($brb);
+            $brb = $brb->where('profile_id', $brb->profile_id)->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc')->first();
         }
         
-        $brb = $brb->where('profile_id', $id)->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc')->first();
-        dump($brb);
         
+        dump($brb);
+
         if($brb) {
             $brb = $brb->toArray(); 
         }
