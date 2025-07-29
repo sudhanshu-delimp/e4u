@@ -29,7 +29,7 @@
 
 
 <section class="padding_top_eight_px padding_bottom_eight_px">
-   <div class="container reg_info">
+   <div class="container reg_info text-justify">
     <h1 class="home_heading_first margin_btm_twenty_px page-title">What Escorts4U is About</h1>
 
     <h2 class="primery_color normal_heading">What is this Website for?</h2>

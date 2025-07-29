@@ -29,7 +29,7 @@
  
  
 <section class="padding_top_eight_px padding_bottom_eight_px">
-   <div class="container reg_info">
+   <div class="container reg_info text-justify">
     <h1 class="home_heading_first margin_btm_twenty_px page-title">My Playbox</h1>
     <h5 class="primery_color normal_heading">A unique service for Escorts!</h5>
     <p>Unlike other social platforms, My Playbox has an established fan base for Escorts to

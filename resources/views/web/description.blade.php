@@ -102,19 +102,25 @@
 @endif
 
 <div class="profile_description_banner overlay_parent custom--overlay custom--brb-overlay" style="background: none;">
-    <div class="overlay">
-        @if($escort->latestActiveBrb)
-            <div class="brb_details">
-                <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time) )}}</h1>
-                <h3>{{isset($brb['brb_note']) ? $brb['brb_note'] : ''}}</h3>
-            </div>
-        @endif
-    </div>
+   
     {{--
     <div class="profile_description_banner" style="background: url({{$escort->banner_image ? $escort->banner_image : asset('assets/app/img/profiledescrition.png')}});">
         --}}
-        <div class="container profile_pic_holder custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: 100%;">
+        <div class="container profile_pic_holder p-0 custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: 100%;">
+        <div class="container">
+            <div class="row">
+                <div class="overlay">
+                    @if($escort->latestActiveBrb)
+                        <div class="brb_details">
+                            <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time) )}}</h1>
+                            <h3>{{isset($brb['brb_note']) ? $brb['brb_note'] : ''}}</h3>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
         <div class="container-fluid back_to_search_btn pt-2" style="text-align: right;">
+            
             <div class="row">
                 @php
 
@@ -133,7 +139,7 @@
             </div>
         </div>
             <div>
-                <div class="profile_page_title">
+                <div class="profile_page_title px-3">
                     @if($escort->membership == 1)
                     <img src="{{ asset('assets/app/img/profile/image36.png') }}">
                     @elseif($escort->membership == 2)
@@ -149,14 +155,14 @@
                             <h3 class="display_inline_block" style="color: white;">{{ $escort->name}}</h3>
                         @endif
                 </div>
-                <div class="profile_page_name_and_phno">
+                <div class="profile_page_name_and_phno px-3">
                 <p>{{$escort->city->name}} - {{ preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $escort->phone)) }}</p>
 
 
                     
                 </div>
             </div>
-            <div class="profile_page_location_and_id">
+            <div class="profile_page_location_and_id px-3">
                 <ul>
                     <li>
                         <span class="profile_location_icon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
@@ -168,7 +174,7 @@
                     </li>
                 </ul>
             </div>
-<div class="d-flex align-items-center justify-content-start gap-10">
+<div class="d-flex align-items-center justify-content-start gap-10 px-3">
                
 
 <div class="my-play-box-profile-icon">
@@ -609,10 +615,10 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table"  style="{{ empty($categoryOneServices) ? 'border: 1px solid black;' : ''}}">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryOneServices) ? 'padding: 1px;' : ''}}">
+                                            <div class="row margin_zero_for_table table-grid"  style="{{ empty($categoryOneServices) ? ' ' : ''}}">
+                                                <div class="padding_none" style="{{ empty($categoryOneServices) ? 'padding: 1px;' : ''}}">
                                                     
-                                                    <table class="table {{empty($categoryOneServices[0]) ? '': 'table_border_dash' }}  ">
+                                                    <table class="table {{empty($categoryOneServices[0]) ? '': ' ' }}  ">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -634,8 +640,8 @@
                                                     </table>
                                                 </div>
                                                 
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryOneServices[1]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryOneServices[1]) ? '': 'table_border_dash' }}">
+                                                <div class="padding_none" style="{{ empty($categoryOneServices[1]) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{empty($categoryOneServices[1]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -656,8 +662,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryOneServices[2]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryOneServices[2]) ? '': 'table_border_dash' }}">
+                                                <div class="padding_none" style="{{ empty($categoryOneServices[2]) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{empty($categoryOneServices[2]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -691,9 +697,9 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table" style="{{ empty($categoryTwoServices) ? 'border: 1px solid black;' : ''}}">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryTwoServices) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryTwoServices[0]) ? '': 'table_border_dash' }}">
+                                            <div class="row margin_zero_for_table table-grid" style="{{ empty($categoryTwoServices) ? ' ' : ''}}">
+                                                <div class="padding_none" style="{{ empty($categoryTwoServices) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{empty($categoryTwoServices[0]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -714,8 +720,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryTwoServices[1]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryTwoServices[1]) ? '': 'table_border_dash' }}">
+                                                <div class="padding_none" style="{{ empty($categoryTwoServices[1]) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{empty($categoryTwoServices[1]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -736,8 +742,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryTwoServices[2]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryTwoServices[2]) ? '': 'table_border_dash' }}">
+                                                <div class="padding_none" style="{{ empty($categoryTwoServices[2]) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{empty($categoryTwoServices[2]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -771,9 +777,9 @@
                                 <div class="content">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table" style="{{ empty($categoryThreeServices) ? 'border: 1px solid black;' : ''}}">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryThreeServices) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table  {{ empty($categoryThreeServices[0]) ? '': 'table_border_dash' }}">
+                                            <div class="row margin_zero_for_table table-grid" style="{{ empty($categoryThreeServices) ? ' ' : ''}}">
+                                                <div class=" padding_none" style="{{ empty($categoryThreeServices) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table  {{ empty($categoryThreeServices[0]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -794,8 +800,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryThreeServices[1]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{empty($categoryThreeServices[1]) ? '': 'table_border_dash' }}">
+                                                <div class=" padding_none" style="{{ empty($categoryThreeServices[1]) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{empty($categoryThreeServices[1]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -816,8 +822,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="{{ empty($categoryThreeServices[2]) ? 'padding: 1px;' : ''}}">
-                                                    <table class="table {{ empty($categoryThreeServices[2]) ? '': 'table_border_dash' }}">
+                                                <div class=" padding_none" style="{{ empty($categoryThreeServices[2]) ? 'padding: 1px;' : ''}}">
+                                                    <table class="table {{ empty($categoryThreeServices[2]) ? '': ' ' }}">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -1169,9 +1175,9 @@
                 You can contact me by:
                <!-- Tooltip for WeChat Icon -->
                     @php
-                        $contactType = isset($user->contact_type) ? json_decode($user->contact_type) : [];
+                        $contactType = $escort->contact != null ? $escort->contact : '';
                     @endphp
-                    @if(in_array(3,$contactType))
+                    @if($contactType == 1)
                     <div class="tooltip-wrapper">
                         <img src="{{ asset('assets/app/img/email-me.png') }}">
                         <div class="tooltip-text">Email me</div>
@@ -1180,19 +1186,13 @@
                     
                     @endif
  
-                    @if(in_array(4,$contactType))
-                        @if(in_array(3,$contactType))
-                            or
-                        @endif
+                    @if($contactType == 4 || $contactType == 5))
                         <div class="tooltip-wrapper">
                             <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
                             <div class="tooltip-text">Call me</div>
                         </div>
                     @endif
-                    @if(in_array(2,$contactType))
-                        @if(in_array(4,$contactType))
-                            or
-                        @endif
+                    @if($contactType == 2 || $contactType == 5)
                         <div class="tooltip-wrapper">
                                 <img src="{{ asset('assets/app/img/wechat.svg') }}">
                                 <div class="tooltip-text">Text me</div>
@@ -1214,20 +1214,19 @@
             <p class="profile_description_contect_pera">
                 <b><i>Hi {{ $escort->name }}, I found you on Escorts4u ...</i></b>
                 @php
-                    $contactTypes = $escort->user->viewer_contact_type ?? [];
+                    /* $contactTypes = $escort->user->viewer_contact_type ?? [];
                     $hasPhone = in_array(1, $contactTypes) || in_array(2, $contactTypes);
-                    $hasEmail = in_array(3, $contactTypes);
+                    $hasEmail = in_array(3, $contactTypes); */
                     $formattedNumber = preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $number));
-                    //dd($formattedNumber);
+                    //dd($formattedNumber); 
+                    $contactTypes = $escort->contact != null ? $escort->contact : '';
                 @endphp
 
-                @if(!empty($contactTypes))
-                    @if($hasPhone && $hasEmail)
-                        on my number {{ $formattedNumber }} or email {{ $escort->user->email ?? '' }}
-                    @elseif($hasPhone)
-                        on my number {{ $formattedNumber }}
-                    @elseif($hasEmail)
+                @if($contactTypes != '')
+                    @if($contactTypes == 1)
                         on my email {{ $escort->user->email ?? '' }}
+                    @elseif($contactTypes == 4 || $contactTypes == 2)
+                        on my number {{ $formattedNumber }}
                     @else
                         on my number --
                     @endif
