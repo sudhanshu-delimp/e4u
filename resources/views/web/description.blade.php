@@ -1169,9 +1169,9 @@
                 You can contact me by:
                <!-- Tooltip for WeChat Icon -->
                     @php
-                        $contactType = isset($user->contact_type) ? json_decode($user->contact_type) : [];
+                        $contactType = $escort->contact != null ? $escort->contact : '';
                     @endphp
-                    @if(in_array(3,$contactType))
+                    @if($contactType == 1)
                     <div class="tooltip-wrapper">
                         <img src="{{ asset('assets/app/img/email-me.png') }}">
                         <div class="tooltip-text">Email me</div>
@@ -1180,19 +1180,13 @@
                     
                     @endif
  
-                    @if(in_array(4,$contactType))
-                        @if(in_array(3,$contactType))
-                            or
-                        @endif
+                    @if($contactType == 4 || $contactType == 5))
                         <div class="tooltip-wrapper">
                             <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
                             <div class="tooltip-text">Call me</div>
                         </div>
                     @endif
-                    @if(in_array(2,$contactType))
-                        @if(in_array(4,$contactType))
-                            or
-                        @endif
+                    @if($contactType == 2 || $contactType == 5)
                         <div class="tooltip-wrapper">
                                 <img src="{{ asset('assets/app/img/wechat.svg') }}">
                                 <div class="tooltip-text">Text me</div>
@@ -1214,20 +1208,19 @@
             <p class="profile_description_contect_pera">
                 <b><i>Hi {{ $escort->name }}, I found you on Escorts4u ...</i></b>
                 @php
-                    $contactTypes = $escort->user->viewer_contact_type ?? [];
+                    /* $contactTypes = $escort->user->viewer_contact_type ?? [];
                     $hasPhone = in_array(1, $contactTypes) || in_array(2, $contactTypes);
-                    $hasEmail = in_array(3, $contactTypes);
+                    $hasEmail = in_array(3, $contactTypes); */
                     $formattedNumber = preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $number));
-                    //dd($formattedNumber);
+                    //dd($formattedNumber); 
+                    $contactTypes = $escort->contact != null ? $escort->contact : '';
                 @endphp
 
-                @if(!empty($contactTypes))
-                    @if($hasPhone && $hasEmail)
-                        on my number {{ $formattedNumber }} or email {{ $escort->user->email ?? '' }}
-                    @elseif($hasPhone)
-                        on my number {{ $formattedNumber }}
-                    @elseif($hasEmail)
+                @if($contactTypes != '')
+                    @if($contactTypes == 1)
                         on my email {{ $escort->user->email ?? '' }}
+                    @elseif($contactTypes == 4 || $contactTypes == 2)
+                        on my number {{ $formattedNumber }}
                     @else
                         on my number --
                     @endif
