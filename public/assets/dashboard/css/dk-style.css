@@ -7773,6 +7773,14 @@ td {
     margin-right: 10px;
 }
 
+.custom-profile-pic {
+    height: 40px !important;
+    width: 40px !important;
+    background: #eff0f6;
+    padding: 7px;
+    border-radius: 50px;
+}
+
 @media(max-width:1800px) {
     .topbar-logged-in-user-data .d-user-info {
         max-width: 450px;
