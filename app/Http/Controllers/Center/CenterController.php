@@ -50,6 +50,8 @@ class CenterController extends Controller
 
     public function index()
     {
+
+        
         $escorts = $this->escort->all();
 
         return view('center.dashboard.index', compact('escorts'));

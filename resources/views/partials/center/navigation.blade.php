@@ -25,7 +25,7 @@
                            <div>
                            
                             
-                    @if(auth()->user()->my_agent->name)
+                    @if(auth()->user()->my_agent)
                     <span>
                         <b>My Agent :  </b><span class="user-values">{{auth()->user()->my_agent->name}}</span>
                     </span>
@@ -215,7 +215,7 @@
                                     Membership ID: {{auth()->user()->member_id }}
                                 </a>
 
-                                @if(isset(auth()->user()->my_agent->member_id))
+                                @if(auth()->user()->my_agent)
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
                                     My Agent ID : {{ auth()->user()->my_agent->member_id ? auth()->user()->my_agent->member_id : 'NA' }}
