@@ -31,7 +31,7 @@
                                 entered in <a href="{{ route('escort.profile.information') }}" class="custom_links_design">My Account</a>.
                                 You can alter any of the information.</li>
                             <li>Payment is based on the period you have selected for the Mobile SIM.</li>
-                            <li>Complete the form to request the Mobile SIM. When completing the form please
+                            <li>Complete the form to request the Mobile SIM. When completing the form please ensure all of the details are correct and you have selected the correct option for communications.
                             </li>
                         </ol>  
                     </div>

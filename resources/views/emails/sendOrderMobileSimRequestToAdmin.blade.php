@@ -85,7 +85,7 @@
         </p>
 
         <!-- Info Table -->
-        <table cellpadding="8" cellspacing="0" border="0" style="width: 100%; font-size: 14px; border-collapse: collapse;">
+        <table cellpadding="8" cellspacing="0" border="0" style="margin-left:-8px; width: 100%; font-size: 14px; border-collapse: collapse;">
             <tr>
                 <td style=" width: 180px;">Member Name:</td>
                 <td>{{ $body['escort_name'] }}</td>
