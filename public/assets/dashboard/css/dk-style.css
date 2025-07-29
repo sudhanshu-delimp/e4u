@@ -5428,6 +5428,29 @@ input:checked+.slider:before {
     padding: 10px 15px;
 }
 
+.table-grid .table thead th{
+    border-bottom: 0px solid #dee2e6;
+}
+
+.table-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 10px;
+}
+
+.table-grid .table {
+    margin-bottom: 0;
+    border: 1px solid #0c223d;
+    height: 100%;
+}
+.table-grid .table td, .table th{
+    border-top: 0px solid #dee2e6;
+}
+
+.profile_contain .padding_20_tob_btm_side {
+    text-align: justify;
+}
+
 .content p {
     font-family: 'Poppins';
     font-size: 16px;

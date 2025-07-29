@@ -73,7 +73,7 @@
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" > <i class="fa fa-fw fa-download" ></i> Download </a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" > <i class="fa fa-fw fa-print" ></i> Print </a>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" onclick="window.print();"> <i class="fa fa-fw fa-print" ></i> Print </a>
                               
                            </div>
                         </div>
