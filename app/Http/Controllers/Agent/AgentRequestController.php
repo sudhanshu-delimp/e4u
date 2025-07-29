@@ -18,6 +18,11 @@ class AgentRequestController extends Controller
     
         public function agentRequest(AgentRequest $request)
         {
+           
+           if(auth()->user()->assigned_agent_id!=""  && auth()->user()->is_agent_assign=='1')
+           return redirect()->back()->with('error', 'You have already been assigned an Agent.');
+
+           
             $agent_users = User::where('state_id', auth()->user()->state_id)
                 ->where('type', 5)
                 ->pluck('id')
@@ -206,21 +211,47 @@ class AgentRequestController extends Controller
     {
        try 
        {
-        ########## First Update My Column ###################
-        AdvertiserAgentRequestUser::
-        where('advertiser_agent_requests_id', $request_id)
-        ->where('receiver_agent_id', '=', auth()->id())
-        ->update(['status'=>$status,'created_at' => date('Y-m-d H:i:s')]);
+            
+            DB::transaction(function () use($request_id,$status) {
+                ########## First Update My Column ###################
 
-        ##########  Update Other Agent Status  ###################
-        if($status=='1')
-        AdvertiserAgentRequestUser::
-            where('advertiser_agent_requests_id', $request_id)
-            ->where('receiver_agent_id','!=', auth()->id())
-            ->where('status','!=',2)
-            ->update(['status'=>3,'created_at' => date('Y-m-d H:i:s')]); 
-            return true; 
-        } catch (Exception $e) {
+              $updated_data  =  AdvertiserAgentRequestUser::
+                    where('advertiser_agent_requests_id', $request_id)
+                    ->where('receiver_agent_id', '=', auth()->id())
+                    ->update(['status'=>$status,'created_at' => date('Y-m-d H:i:s')]);
+
+
+
+                ##########  Update Other Agent Status  ###################
+                if($status=='1')
+                {
+                    AdvertiserAgentRequestUser::
+                    where('advertiser_agent_requests_id', $request_id)
+                    ->where('receiver_agent_id','!=', auth()->id())
+                    ->where('status','!=',2)
+                    ->update(['status'=>3,'created_at' => date('Y-m-d H:i:s')]); 
+
+                   $advertiser = AdvertiserAgentRequestUser::
+                                     where('advertiser_agent_requests_id', $request_id)
+                                    ->where('receiver_agent_id', '=', auth()->id())
+                                    ->where('status','1')
+                                    ->first();
+
+                    User::where('id', $advertiser->advertiser_user_id)
+                            ->where(function ($query) {
+                            $query->where('type', 3)
+                            ->orWhere('type', 4);
+                            })
+                            ->update([
+                                'is_agent_assign' => '1',
+                                'assigned_agent_id' => auth()->id()
+                    ]);
+                }
+                
+            });
+          return true; 
+        } 
+          catch (Exception $e) {
           Log::info($e->getMessage());  
           return false;
         } 
@@ -493,6 +524,11 @@ class AgentRequestController extends Controller
         );
 
         return response()->json($data);
+
+    }
+
+    public function is_agent_assigned($agent_id)
+    {
 
     }
 
