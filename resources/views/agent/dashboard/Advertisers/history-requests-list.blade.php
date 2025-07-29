@@ -108,7 +108,7 @@
                         <div class="col-md-12 list-sec pt-3">
                            <h6><b>Mobile :</b> <span class="ml-2">{{$list->user->phone}}</span></h6>
                            <h6><b>Email :</b> <span>{{$list->user->email}}</span></h6>
-                           <h6><b>Home State :</b> <span class="ml-2">{{($list->user->state->country_code ? $list->user->state->country_code : 'NA')}}</span></h6>
+                           <h6><b>Home State :</b> <span class="ml-2">{{($list->user->state->iso2 ? $list->user->state->iso2 : 'NA')}}</span></h6>
                            <h6><b>Contact Method :</b> 
                               @if (!empty($contact_by))
                               {!! implode(' | ', $contact_by) !!}
