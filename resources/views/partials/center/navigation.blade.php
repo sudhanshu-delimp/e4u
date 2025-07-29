@@ -24,8 +24,8 @@
                            </div>
                            <div>
                            
-
-                    @if(auth()->user()->my_agent->member_id)
+                            
+                    @if(auth()->user()->my_agent->name)
                     <span>
                         <b>My Agent :  </b><span class="user-values">{{auth()->user()->my_agent->name}}</span>
                     </span>
