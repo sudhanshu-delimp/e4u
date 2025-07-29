@@ -347,7 +347,7 @@
         aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
         aria-modal="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            
+            <form id="pinup_profile_form">
                 <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -362,20 +362,19 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="container p-0">
-                                    <form id="pinup_profile_form" action="{{route('pinup.register')}}" method="POST">
-                                        @csrf
                                         <div class="form-group row">
                                             <label class="col-sm-3" for=""> Profile:</label>
                                             <div class="col-sm-8">
                                                 <select
                                                     class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
-                                                    id="pinup_profile_id" name="pinup_profile_id"
-                                                    data-parsley-errors-container="#pinup_profile-errors" required
+                                                    id="profile_id" name="profile_id"
+                                                    data-parsley-errors-container="#profile-errors" required
                                                     data-parsley-required-message="Select Profile">
                                                     <option value="">Select Profile</option>
                                                     @foreach ($active_escorts as $profile)
-                                                        <option value="{{ $profile['id'] }}">
-                                                            {{ $profile['id'] }} - {{ $profile['profile_name'] }} @if (isset($profile['state']['name']))
+                                                        <option value="{{ $profile['id'] }}"
+                                                            profile_name="{{ $profile['profile_name'] }}">
+                                                            {{ $profile['id'] }} - {{ $profile['name'] }} @if (isset($profile['state']['name']))
                                                                 - {{ $profile['state']['name'] }}
                                                             @endif
                                                         </option>
@@ -387,25 +386,62 @@
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-3" for=""> Next available:</label>
-                                            <div class="col-sm-8">
-                                                <select
-                                                    class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
-                                                    id="pinup_week" name="pinup_week"
-                                                    data-parsley-errors-container="#pinup_week-errors" required
-                                                    data-parsley-required-message="Select Profile">
-                                                    <option value="">Select Week</option>
-                                                </select>
-                                                <span id="profile-errors"></span>
+                                            <div class="col-sm-9 row">
+                                                @php
+                                                    $minDate = \Carbon\Carbon::now()->addDay()->format('Y-m-d');
+                                                @endphp
+                                                <div class="col-sm-5">
+                                                    <input type="date" required min="{{ $minDate }}"
+                                                        class="form-control form-control-sm removebox_shdow"
+                                                        value="{{ $minDate }}" name="start_date"
+                                                        data-parsley-type="" data-parsley-type-message="">
+                                                    <span id="brb-time-errors"></span>
+                                                </div>
+                                                <div class="col-sm-1">
+                                                    <span>to:</span>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <input type="date" required min="{{ $minDate }}"
+                                                        class="form-control form-control-sm removebox_shdow"
+                                                        name="end_date" data-parsley-type="" value="{{ $minDate }}"
+                                                        data-parsley-type-message="">
+                                                    <span id="brb-time-errors"></span>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-1"></div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label" for="">Proceed:</label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group input-group-sm" style="gap:10px;">
+                                                    <div>
+                                                        <input type="radio" id="yes" name="proceed"
+                                                            value="yes">
+                                                        <label for="yes">Yes</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="radio" id="no" name="proceed"
+                                                            value="no">
+                                                        <label for="no">No</label>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group row custom-pin-button">
+
                                             <div class="col-sm-12 text-center">
                                                 <button type="submit" class="btn btn-primary"
-                                                    id="savePinupButton">Proceed to Payment</button>
+                                                    id="proceed_to_payment">Proceed to Payment</button>
                                             </div>
                                         </div>
-                                        </form>
+                                        {{-- <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label" for="">Credit:</label>
+                                        <div class="col-sm-8">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
+                                                <input type="number" readonly class="form-control"  step="0.01" min="0"  name="credit_price" value="0.0" id="credit_price" required>
+                                            </div>
+                                        </div>
+                                    </div> --}}
                                         <div class="form-group row">
                                             <label class="col-sm-1 col-form-label" for="">Notes:</label>
                                             <div class="col-sm-11">
@@ -426,9 +462,12 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- <div class="modal-footer" style="text-align: center; display: block;">
+                            <button type="submit" class="btn btn-primary" id="save_brb">Save</button>
+                        </div> --}}
                     </div>
                 </div>
-            
+            </form>
         </div>
     </div>
     <!-- end List Pin Up profile modal -->
@@ -439,7 +478,9 @@
                 <div class="modal-header main_bg_color border-0">
                     <h5 class="modal-title" id="" style="color:white"><img src="/assets/app/img/block-user.png" class="custompopicon" alt="cross"> Delete Profile
                     </h5>
-                   
+                    {{--
+            <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5>
+            --}}
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -472,7 +513,6 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
-    <script src="{{ asset('js/escort/pinup.js') }}"></script>
     <script>
         $(document).ready(function() {
             var shouldHide = '{{ $type == 'past' ? false : true }}';

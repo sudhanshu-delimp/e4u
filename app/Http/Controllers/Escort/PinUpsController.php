@@ -6,7 +6,9 @@ use App\Http\Controllers\AppController;
 use App\Models\Escort;
 use App\Models\PinUps;
 use App\Models\Pricing;
+use App\Models\EscortPinup;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class PinUpsController extends AppController
 {
@@ -112,5 +114,52 @@ class PinUpsController extends AppController
         }
 
         return $reservedWeeks->pluck('week_start')->toArray();
+    }
+    
+    
+    public function pinup_available_weeks(Escort $escort){
+        $start = Carbon::parse($escort->start_date)->startOfWeek(Carbon::MONDAY);
+        $end = Carbon::parse($escort->end_date)->endOfWeek(Carbon::SUNDAY);
+        $weeks = collect();
+        while ($start->lte($end)) {
+            $weekStart = $start->copy();
+            $weekEnd = $start->copy()->endOfWeek(Carbon::SUNDAY);
+    
+            // Only include if full week is within profile listing range
+            if ($weekStart->gte($escort->start_date) && $weekEnd->lte($escort->end_date)) {
+                $weeks->push([
+                    'start' => $weekStart->toDateString(),
+                    'end' => $weekEnd->toDateString()
+                ]);
+            }
+    
+            $start->addWeek();
+        }
+        return response()->json($weeks);
+    }
+
+    public function register(Request $request){
+        $escortId = $request->pinup_profile_id;
+        $escortDetail = getEscortDetail($escortId);
+        $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
+        [$startDate, $endDate] = explode('|', $request->pinup_week);
+        $localStart = Carbon::createFromFormat('Y-m-d', $startDate, $profileTimezone)->startOfDay();
+        $localEnd = Carbon::createFromFormat('Y-m-d', $endDate, $profileTimezone)->endOfDay();
+        $utcStart = $localStart->copy()->setTimezone('UTC');
+        $utcEnd = $localEnd->copy()->setTimezone('UTC');
+        EscortPinup::create([
+            'escort_id' => $escortDetail->id,
+            'state_id' => $escortDetail->state_id,
+            'city_id' => $escortDetail->city_id,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'utc_start_time' => $utcStart,
+            'utc_end_time' => $utcEnd,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Pinup slot booked successfully!'
+        ]);
     }
 }
