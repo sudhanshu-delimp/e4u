@@ -7747,15 +7747,35 @@ td {
 
 /* navbar custom css  */
 
-.topbar-logged-in-user-data p {
+.topbar-logged-in-user-data .d-user-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 0px 10px;
     font-size: 14px;
     color: var(--blue--text);
     margin-bottom: 0px;
     font-weight: 600;
 }
 
-.topbar-logged-in-user-data p span {
+.topbar-logged-in-user-data .d-user-info .user-values {
     color: var(--peach);
+    min-width: 50px;
+    display: inline-block;
+}
+
+.topbar-logged-in-user-data .d-user-info .separator {
+    color: var(--blue--text);
+    min-width: 50px;
+    display: inline-block;
+    text-align: center;
+}
+
+.topbar-logged-in-user-data .d-user-info b {
+    min-width: 124px;
+    display: inline-block;
+    margin-right: 10px;
 }
 
 .form-inline-custom {
@@ -8427,7 +8447,7 @@ td {
     .form-inline-custom {
         display: none;
     }
-    .topbar-logged-in-user-data p {
+    .topbar-logged-in-user-data .d-user-info {
         display: none;
     }
     .reply-message-box {
@@ -8440,7 +8460,7 @@ td {
 }
 
 @media (max-width:1150px) {
-    .topbar-logged-in-user-data p {
+    .topbar-logged-in-user-data .d-user-info {
         display: none;
     }
 }

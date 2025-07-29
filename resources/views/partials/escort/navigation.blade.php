@@ -8,8 +8,39 @@
         </button>
         {{-- logged in user data --}}
         <div class="topbar-logged-in-user-data">
-            <p>Welcome back : <span>{{auth()->user()->name }}</span> <br> Home State :  <span>{{auth()->user()->home_state  }} </span>  &nbsp;|&nbsp;  Membership ID :  <span>{{auth()->user()->member_id }}</span> </p>
-           
+            {{-- <p>Welcome back : <span>{{auth()->user()->name }}</span> <br> Home State :  <span>{{auth()->user()->home_state  }} </span>  &nbsp;|&nbsp;  Membership ID :  <span>{{auth()->user()->member_id }}</span> </p> --}}
+            {{-- <p style="font-weight:700 !important;">
+                <b>Welcome back : </b><span class="user-values">{{auth()->user()->name }}</span> <span class="separator">|</span>  
+                <b>Membership ID : </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator">|</span>   
+                <b>My Agent : </b><span class="user-values">Andrew Stephen</span>          
+                <br>
+                <b>Territory : </b><span class="user-values">{{auth()->user()->home_state  }} </span> <span class="separator">|</span>   
+                <b>Current Location : </b><span class="user-values">{{auth()->user()->home_state  }}</span> <span class="separator">|</span> 
+                <b>Location time : </b><span class="user-values">10:55 am</span>
+            </p> --}}
+            
+            <div class="d-user-info">
+                <span>
+                    <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name }}</span> <span class="separator">|</span> 
+                </span>
+                <span>
+                    <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator">|</span>
+                </span>
+                <span>
+                    <b>My Agent :  </b><span class="user-values">Andrew Stephen</span>
+                </span>
+
+                <span>
+                    <b>Territory :  </b><span class="user-values">{{auth()->user()->home_state }}</span> <span class="separator">|</span> 
+                </span>
+                <span>
+                    <b>Current Location :  </b><span class="user-values">{{auth()->user()->home_state }}</span> <span class="separator">|</span>
+                </span>
+                <span>
+                    <b>Location time :  </b><span class="user-values">10:55 am</span>
+                </span>
+            </div>
+            
         </div>
         {{-- end --}}
         <!-- Topbar Search -->
