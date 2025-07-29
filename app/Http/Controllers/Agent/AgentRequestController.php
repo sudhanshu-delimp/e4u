@@ -362,20 +362,21 @@ class AgentRequestController extends Controller
             foreach ($requestList as $item) {
 
                
-                $agent_name = "";
-                $agent_mobile = "";
-                $agent_status = "";
+                $agent_name = [];
+                $agent_mobile = [];
+                $agent_status = [];
+                $list_arr = [];
                 $accepted_date = "";
                 $followup = "";
+               
 
                 if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)
                 {
                  foreach ($item->agent_request_users as $index => $agent_user)
                  {
 
-                    $agent_name .='<p>';
-                    $agent_name .=  isset($agent_user->user->member_id) ? $agent_user->user->member_id: 'NA';
-                    $agent_name .='</p>';
+                    $agent_name[] = isset($agent_user->user->member_id) ? $agent_user->user->member_id: 'NA';
+                    
 
                  }
                 }
@@ -384,9 +385,9 @@ class AgentRequestController extends Controller
                 {
                  foreach ($item->agent_request_users as $index => $agent_user)
                  {
-                    $agent_mobile .='<p>';
-                    $agent_mobile .=  isset($agent_user->user->phone) ? $agent_user->user->phone: 'NA ';
-                    $agent_mobile .='</p>';
+                   
+                    $agent_mobile[] = isset($agent_user->user->phone) ? $agent_user->user->phone: 'NA '; 
+                   
 
                  }
                 }
@@ -396,16 +397,16 @@ class AgentRequestController extends Controller
                  foreach ($item->agent_request_users as $index => $agent_user)
                  {
                     if($agent_user->status==0)
-                    $agent_status .= '<p><span class="open-badge">Open</span></p>';
+                    $agent_status[] = '<p class="accepted-badge">Open</p>';
                     
                      if($agent_user->status==1)
-                    $agent_status .= '<p><span class="accepted-badge">Accepted</span></p>';
+                    $agent_status[] = '<p class="accepted-badge">Accepted</p>';
 
                      if($agent_user->status==2)
-                    $agent_status .= '<p><span class="declined-badge">Rejected</span></p>';
+                    $agent_status[] = '<p class="declined-badge" >Rejected</p>';
 
                      if($agent_user->status==3)
-                    $agent_status .= '<p><span class="forfeited-badge">Forfeited</span></p>';
+                    $agent_status[] = '<p class="forfeited-badge">Forfeited</p>';
                     
                  }
                 }
@@ -428,9 +429,21 @@ class AgentRequestController extends Controller
                 $item->user_member_id =  $item->user->member_id;
                 $item->phone =  $item->user->phone;
                 $item->country_code =  isset($item->user->state->iso2) ? $item->user->state->iso2 : 'NA';
-                $item->agent_name =  $agent_name;
-                $item->agent_mobile =  $agent_mobile;
-                $item->agent_status =  $agent_status;
+                //$item->agent_name =  $agent_name;
+                //$item->agent_mobile =  $agent_mobile;
+                //$item->agent_status =  $agent_status;
+
+                $item->list_arr = [
+                    'agent_mobile' => $agent_mobile,
+                    'agent_status' => $agent_status,
+                    'agent_id' => $agent_name,
+
+                ];
+               
+
+                
+
+                
                 $item->accepted_date =  $accepted_date;
                 if($accepted_date=='')
                 $followup = '<a class="dropdown-item align-item-custom notiification-confirmation" href="#" data-id="' . $item->id . '"  data-toggle="modal"> <i class="fa fa-bell"></i> Follow Up</a><div class="dropdown-divider"></div>';
@@ -444,9 +457,14 @@ class AgentRequestController extends Controller
                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">'.$followup.'
                                     <a class="dropdown-item align-item-custom view-agent-details" href="#"  data-id="' . $item->id . '" data-toggle="modal"> <i class="fa fa-eye" aria-hidden="true" ></i> View</a>
                                 </div>';
+
+                $item->view_status =  '<a href="javascript:void(0)" class="current_status" data-id="' . $item->id . '">View Status</a>';
+
+
                 $i++;
             }
 
+            // dd($requestList);
             return [$requestList, $totalRequest];
     }
 
@@ -499,7 +517,7 @@ class AgentRequestController extends Controller
               $item->name =  $item->user->name;
               $item->phone =  $item->user->phone;
               $item->email =  $item->user->email;
-              $item->state =  isset($item->user->state->country_code) ? $item->user->state->country_code : 'NA';
+              $item->state =  isset($item->user->state->iso2) ? $item->user->state->iso2 : 'NA';
           }
 
             return [$requestList, $totalRequest];

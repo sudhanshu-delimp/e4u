@@ -51,8 +51,8 @@
                     <th>Member ID</th>
                     <th>Mobile</th>
                     <th>Home State</th>
-                    <th>Agents ID</th>
-                    <th>Mobiles</th>
+                    <!-- <th>Agents ID</th>
+                    <th>Mobiles</th> -->
                     <th>Status</th>
                     <th>Accepted Date</th>
                     <th>Action</th>
@@ -113,9 +113,8 @@
             { data: 'user_member_id', name: 'user_member_id', orderable: true, defaultContent: 'NA' },
             { data: 'phone', name: 'phone', orderable: true, defaultContent: 'NA' },
             { data: 'country_code', name: 'country_code', orderable: true, defaultContent: 'NA' },
-            { data: 'agent_name', name: 'agent_name', orderable: true, defaultContent: 'NA' },
-            { data: 'agent_mobile', name: 'agent_mobile', orderable: true, defaultContent: 'NA' },
-            { data: 'agent_status', name: 'agent_status', orderable: true, defaultContent: 'NA' },
+           
+            { data: 'view_status', name: 'view_status', orderable: true, defaultContent: 'NA' },
             { data: 'accepted_date', name: 'accepted_date', orderable: true, defaultContent: 'NA' },
             { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
         ],
@@ -135,6 +134,70 @@
     });
 
     
+
+
+
+    ///////// View Status ///////////
+
+     $(document).on('click', '.current_status', function(e) {
+     e.preventDefault();
+     var requestId = $(this).data('id');
+     var rowData = table.row($(this).parents('tr')).data();
+     let statusData = rowData.list_arr;
+     let statusRows = [];
+
+   
+     console.log(statusData);
+      for (let i = 0; i < statusData.agent_id.length; i++) {
+              statusRows +=  `<tr>
+                  <td>${statusData.agent_id[i]}</td>
+                  <td>${statusData.agent_mobile[i]}</td>
+                  <td>${statusData.agent_status[i]}</td>
+                  </tr>
+            `;
+         }
+
+     console.log(statusRows);
+     var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class="modal-title" id="confirmationPopup">Current Status : Ref - ${rowData.ref_number}</h5>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                                 </button>
+                              </div>
+                              <div class="modal-body pb-0">
+                                    <div class="row">
+                                       <div class="col-12 my-2 text-center">
+                                             
+                                          <table border="1" id="agentStatusTable" class="w-100">
+                                             <thead>
+                                                <tr>
+                                                      <th>Agent ID</th>
+                                                      <th>Mobile</th>
+                                                      <th>Status</th>
+                                                </tr>
+                                             </thead>
+                                             <tbody>${statusRows}</tbody>
+                                          </table>
+                                                                                          
+                                       </div>
+                                    </div>
+                              </div>
+                              <div class="modal-footer text-center justify-content-center">             
+                                 <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
+                              </div>
+                           </div>
+                        </div>`;
+
+         $('#confirmationPopup').html(modal_html);
+         $('#confirmationPopup').modal('show');
+       });
+
+   
+
+    var requestId = $(this).data('id');
+    var rowData = table.row($(this).parents('tr')).data();
 
 
     ///////////////  View Agent Detail /////////////////////////
