@@ -221,8 +221,16 @@
                      aria-labelledby="userDropdown">
                     <a class="dropdown-item" href="#">
                         <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
-                        Escort ID: {{auth()->user()->member_id }}
+                        Membership ID : {{auth()->user()->member_id }}
                     </a>
+
+                    @if(isset($escort->my_agent->member_id))
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
+                        My Agent ID : {{ $escort->my_agent ? $escort->my_agent->member_id : 'NA' }}
+                    </a>
+                    @endif
+
                     <a class="dropdown-item" href="#">
                         <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
                         User Name: {{auth()->user()->name }} 

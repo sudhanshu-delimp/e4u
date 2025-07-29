@@ -76,6 +76,9 @@
                                                             <label type="text" class="form-control form-back" placeholder=" " name="phone" aria-describedby="emailHelp" value="{{ $escort->phone }}">{{ $escort->phone }}</label>
                                                         </div>
                                                     </div>
+
+                                                
+                                                    
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="Gender" class="my-agent">Home State <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"></label>
@@ -89,6 +92,15 @@
                                                             </select> --}}
                                                         </div>
                                                     </div>
+
+
+                                                     <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="email">My Agent</label>
+                                                            <label type="text" class="form-control form-back" placeholder=" " name="phone" aria-describedby="emailHelp" value="{{ $escort->my_agent ? $escort->my_agent->member_id : 'NA' }}">{{ $escort->my_agent ? $escort->my_agent->member_id : 'NA' }}</label>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                         </div>

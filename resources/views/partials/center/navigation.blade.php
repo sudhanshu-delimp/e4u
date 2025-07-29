@@ -121,12 +121,20 @@
                                 <img src="{{ !auth()->user()->avatar_img ? asset('assets/dashboard/img/undraw_profile.svg') : asset('avatars/'.auth()->user()->avatar_img) }}" class="img-profile rounded-circle avatarName">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            <div class="dropdown-menu dropdown-menu-right animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400 saptate_by_border"></i>
-                                    Member ID: {{auth()->user()->member_id }}
+                                    <i class="fas fa-user fa-sm fa-fw mr-2  saptate_by_border"></i>
+                                    Membership ID: {{auth()->user()->member_id }}
                                 </a>
+
+                                @if(isset($escort->my_agent->member_id))
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
+                                    My Agent ID : {{ $escort->my_agent ? $escort->my_agent->member_id : 'NA' }}
+                                </a>
+                                @endif
+
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('center.account.edit')}}">
                                     <img class="mr-2" src="{{asset('assets/dashboard/img/menu-icon/account1-edit.png')}}">

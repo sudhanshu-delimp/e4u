@@ -101,17 +101,11 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-<<<<<<< HEAD
-                    <h5 class="modal-title" id="requestAccepted"><img src="{{ asset('assets/dashboard/img/accept.png') }}" style="width:40px;" alt="Request Accepted"> Request Accepted</h5>
-=======
-<<<<<<< Updated upstream
-                    <h5 class="modal-title" id="requestAccepted">Request Accepted</h5>
-=======
+
                     <h5 class="modal-title" id="requestAccepted">
                         <img src="{{ asset('assets/dashboard/img/accept.png') }}" style="width:40px;" alt="Request Accepted">
                          Request Accepted</h5>
->>>>>>> Stashed changes
->>>>>>> delimp-dev-riz-14july
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
