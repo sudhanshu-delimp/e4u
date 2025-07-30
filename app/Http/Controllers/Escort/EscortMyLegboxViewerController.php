@@ -61,7 +61,7 @@ class EscortMyLegboxViewerController extends Controller
                 $stateId = $row->viewer->state_id;
                 return config("escorts.profile.states.$stateId.stateName") ?? '-';
             })
-            ->addColumn('escort_profile', fn($row) => $row->escort->name ?? '-')
+            ->addColumn('escort_profile', fn($row) => $row->escort->id ?? '-')
             ->addColumn('notification_enabled', function($row){
 
                 $isNotifcationEnabled = 'No';

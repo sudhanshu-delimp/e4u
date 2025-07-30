@@ -194,7 +194,7 @@ class ViewerEscortInteractionController extends Controller
 
                 ->addColumn('is_notification_enabled', function ($escort) {
 
-                    $isEnabledNotificationByEscort = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
+                    $isEnabledNotificationByEscort = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->first();
 
                     if($isEnabledNotificationByEscort != null){
                         $status = $isEnabledNotificationByEscort->escort_disabled_notification == 0 ? 'Yes' : 'No';
@@ -213,7 +213,7 @@ class ViewerEscortInteractionController extends Controller
                     // return $isEnabledNotificationByEscort;
                 })
                 ->addColumn('is_enabled_contact', function ($escort){
-                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
+                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->first();
 
                     if($escortViewerInteractions != null){
                         $status = $escortViewerInteractions && $escortViewerInteractions->escort_disabled_contact == 0 ? 'Yes' : 'No';
@@ -228,7 +228,7 @@ class ViewerEscortInteractionController extends Controller
 
                 ->addColumn('contact_method', function ($escort) {
 
-                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
+                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->first();
 
                      # If escort blocked viewer
                     if($escortViewerInteractions && $escortViewerInteractions->escort_blocked_viewer){
@@ -273,7 +273,7 @@ class ViewerEscortInteractionController extends Controller
 
                 ->addColumn('escort_communication', function ($escort) {
 
-                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
+                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->first();
 
                     # If escort blocked viewer
                     if($escortViewerInteractions && $escortViewerInteractions->escort_blocked_viewer){
@@ -324,7 +324,7 @@ class ViewerEscortInteractionController extends Controller
                 ->addColumn('is_blocked', function ($escort) {
                     
                     # If escort blocked viewer
-                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
+                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->first();
 
                     if($escortViewerInteractions){
                         $isChecked = $escortViewerInteractions->viewer_blocked_escort ? 'checked' : '';
@@ -352,7 +352,7 @@ class ViewerEscortInteractionController extends Controller
                     $rate = 'no_rated';
 
                     # If escort blocked viewer
-                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$row->user_id)->where('escort_id',$row->id)->where('viewer_id',Auth::user()->id)->where('action_by','member')->first();
+                    $escortViewerInteractions = EscortViewerInteractions::where('user_id',$row->user_id)->where('escort_id',$row->id)->where('viewer_id',Auth::user()->id)->first();
 
                     if($escortViewerInteractions && $escortViewerInteractions->viewer_disabled_contact == 1){
                         $conClass = '';
