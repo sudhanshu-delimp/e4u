@@ -110,6 +110,7 @@
         <div class="container">
             <div class="row">
                 <div class="overlay">
+                    {{ dd($escort->latestActiveBrb) }}
                     @if($escort->latestActiveBrb && $brb != null)
                         <div class="brb_details">
                             <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time) )}}</h1>
