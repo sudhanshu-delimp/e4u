@@ -1198,7 +1198,7 @@ class WebController extends Controller
             $brb = $brb->toArray(); 
         }
 
-        dd($brb);
+        //dd($brb);
 
         // return view('web.description',compact('escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three'));
 
