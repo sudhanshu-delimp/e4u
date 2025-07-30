@@ -1225,7 +1225,7 @@
                 @if($contactTypes != '')
                     @if($contactTypes == 1)
                         on my email {{ $escort->user->email ?? '' }}
-                    @elseif($contactTypes == 4 || $contactTypes == 2)
+                    @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
                         on my number {{ $formattedNumber }}
                     @else
                         on my number --
