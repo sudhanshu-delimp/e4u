@@ -103,7 +103,7 @@ class Escort extends Model
     public function latestActiveBrb(): HasOne
     {
         return $this->hasOne(EscortBrb::class, 'profile_id', 'id')
-            ->where('brb_time', '>', Carbon::now('UTC'))
+            ->where('brb_time', '>',  date('Y-m-d H:i:s'))
             ->where('active', 'Y')
             ->orderBy('brb_time', 'desc');
     }
