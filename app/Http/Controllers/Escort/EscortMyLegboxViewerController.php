@@ -76,6 +76,7 @@ class EscortMyLegboxViewerController extends Controller
                 $esvi = EscortViewerInteractions::where('escort_id',$row->escort->id)->where('viewer_id',$row->viewer->id)->where('user_id',Auth::user()->id)->first();
 
                 if($esvi){
+                    $isNotifcationEnabled = 'No';
                     if($esvi->viewer_disabled_notification == 0){
                         $isNotifcationEnabled = 'Yes';
                     }
