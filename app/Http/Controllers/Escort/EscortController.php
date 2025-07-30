@@ -2,20 +2,12 @@
 
 namespace App\Http\Controllers\Escort;
 
-use Auth;
+
 use File;
 use FFMpeg;
-use Carbon\Carbon;
-
-
-use App\Models\Task;
 use App\Models\User;
-use App\Models\Escort;
-use App\Models\PinUps;
-use App\Models\Pricing;
 use App\Models\Purchase;
 use Illuminate\Support\Str;
-use MongoDB\Driver\Session;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
@@ -37,12 +29,7 @@ use App\Models\PinUps;
 use App\Models\Task;
 use App\Models\EscortPinup;
 use Auth;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use FFMpeg;
-use File;
 use MongoDB\Driver\Session;
-use App\Traits\DataTablePagination;
 
 class EscortController extends Controller
 {
