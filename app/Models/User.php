@@ -410,9 +410,9 @@ class User extends Authenticatable
   
     
     public function my_agent()
-{
-    return $this->belongsTo(User::class, 'assigned_agent_id', 'id');
-}
+    {
+        return $this->belongsTo(User::class, 'assigned_agent_id', 'id');
+    }
 
 
     public function shortList()

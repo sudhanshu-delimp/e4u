@@ -1186,7 +1186,7 @@
                     
                     @endif
  
-                    @if($contactType == 4 || $contactType == 5))
+                    @if($contactType == 4 || $contactType == 5)
                         <div class="tooltip-wrapper">
                             <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
                             <div class="tooltip-text">Call me</div>
@@ -1225,7 +1225,7 @@
                 @if($contactTypes != '')
                     @if($contactTypes == 1)
                         on my email {{ $escort->user->email ?? '' }}
-                    @elseif($contactTypes == 4 || $contactTypes == 2)
+                    @elseif($contactTypes == 4 || $contactTypes == 2 || $contactTypes == 5)
                         on my number {{ $formattedNumber }}
                     @else
                         on my number --
