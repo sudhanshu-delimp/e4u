@@ -201,13 +201,18 @@
             </svg>
             <span>Communication</span>
         </a>
-        <div id="cms" class="collapse @if (request()->segment(2) == 'communication') show @endif;"
+        <div id="cms" class="collapse @if (request()->segment(2) == 'communication' || request()->segment(2) == 'viewer-messages') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
                 <a class="collapse-item" href="{{ route('user.advertiser') }}">
                     <img src="{{ asset('assets/app/img/Abrieviations.png') }}">
                     <span style="{{ request()->segment(2) == 'communication' ? 'color: #e5365a;' : '' }}">Advertiser
                         Messaging</span>
+                </a>
+
+                <a class="collapse-item" href="{{ route('user.viewer-messages') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png') }}">
+                    <span style="{{ request()->segment(2) == 'viewer-messages' ? 'color: #e5365a;' : '' }}">Messages</span>
                 </a>
             </div>
         </div>

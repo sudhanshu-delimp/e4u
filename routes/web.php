@@ -357,6 +357,7 @@ Route::get('/agents', function() { return view('web.pages.agents'); });
 Route::get('/centres', function() { return view('web.pages.centres'); });
 Route::get('/playbox', function() { return view('web.pages.playbox'); });
 Route::get('/escorts4U', function() { return view('web.pages.escorts4u'); });
+Route::get('/e4u-verified', function() { return view('web.pages.e4u-verified'); });
 
 Route::get('/accommodation', function() { return view('web.pages.accommodation'); });
 Route::get('/email-hosting', function() { return view('web.pages.email-hosting'); });
@@ -444,6 +445,10 @@ Route::get('/escort-dashboard/agent-messages',function(){
 Route::get('/escort-dashboard/viewers-messages',function(){
     return view('escort.dashboard.viewers-messages');
 })->name('escort.dashboard.viewers-messages');
+
+Route::get('/user-dashboard/viewer-messages',function(){
+    return view('user.dashboard.communication.viewer-messages');
+})->name('user.viewer-messages');
 
 Route::get('/escort-dashboard/my-statistics',function(){
     return view('escort.dashboard.my-statistics');

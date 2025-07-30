@@ -307,7 +307,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6 col-md-12 table-width-dk mb-2 table-responsive">
+                    <div class="col-lg-6 col-md-12 table-width-dk mb-2">
                         <table class="table table_striped">
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
@@ -1099,11 +1099,11 @@
     </div>
     <!-- video crousal end -->
     <div class="row pt-2 eqal-bx">
-        <div class="col-xl-5 col-sm-12 my-1 text-center">
+        <div class="col-5">
             <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#mysendmessage">
             <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Me</button>
         </div>
-        <div class="col-xl-7 col-sm-12 my-1 text-center">
+        <div class="col-7 text-right">
             <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#sendcarlat"><img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Report Advertiser</button>
         </div>
     </div>

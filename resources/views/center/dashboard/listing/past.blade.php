@@ -17,66 +17,62 @@
 <div id="content-wrapper" class="d-flex flex-column">
    <!-- Main Content -->
    <div id="content">
-<div class="container-fluid  pl-3 pl-lg-5 change-pass-sec">
-  <!--middle content start here-->
-  
-
-
-
-  <div class="row">
-    
-    <div class="col-md-12">
-      <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Past Listings  </h1></div>
-      <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
-   </div>
-  <div class="col-md-12 my-4">
-      <div class="card collapse" id="notes" style="">
-          <div class="card-body">
-              <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-              <p></p>
-              <ol>
-                  
-              </ol>
-          </div>
-      </div>
-  </div>
-  </div>
-
-
-  <!--middle content end here-->
-</div>
-   </div>
-   <!-- End of Main Content -->
-   <!-- Footer -->
-   <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-         <div class="copyright text-center my-auto">
-            <span> </span>
+      <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
+      {{-- middle content start here --}}
+         <div class="row">
+            
+               <div class="col-md-12 custom-heading-wrapper">
+                  <h1 class="h1">Past Listings</h1>
+                  <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+               </div>
+               <div class="col-md-12 mb-4">
+                  <div class="card collapse" id="notes" style="">
+                     <div class="card-body">
+                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <p></p>
+                        <ol>
+                              
+                        </ol>
+                     </div>
+                  </div>
+               </div>
          </div>
-      </div>
-   </footer>
-   <!-- End of Footer -->
-</div>
-<!-- End of Content Wrapper -->
-</div>
-<!-- End of Page Wrapper -->
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
-</a>
+         <div class="row">
+            <div class="col-md-12">
+               <div class="table-responsive custom-table-responsive  list-sec">
+                  <table id="past-listings" class="table  custom--common-table" width="100%">
+                        <thead>
+                           <tr>
+                              <th>ID</th>
+                              <th>Profile Name</th>
+                              <th>Location</th>
+                              <th>Stage Name</th>
+                              <th>Start Date</th>
+                              <th>End Date</th>
+                              <th>Days</th>
+                                 <th>Membership</th>
+                              <th>Fee Paid</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                              <td colspan="9" class="text-center">
+                                 No record(s) found.
+                              </td>                              
+                           </tr>
+                        </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+      </div>  
+      {{-- end here --}}
+   </div>
+</div>      
 @endsection
-
 @push('script')
-<!-- file upload plugin start here -->
-
-
-
-<!-- file upload plugin end here -->
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-
-
-<script type="text/javascript">
+    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
 
 @endpush

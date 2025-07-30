@@ -17,7 +17,6 @@ Route::get('/list/data-table', [CenterController::class, 'dataTable'])->name('ce
 Route::post('/profile-contact-permission', [EscortController::class, 'profileTourPermissionUpdate'])->name('center.account.profile.contact.update');
 //Route::get('profile/{id}',[CenterController::class,'updateProfile'])->name('center.update.profile');
 Route::post('delete-profile/{id}',[CenterController::class,'deleteProfile'])->name('center.delete.profile');
-
 //Route::post('policy/{id}',[CenterController::class,'updatePolicy'])->name('center.update.policy');
 //Route::post('profile/{id}',[CenterController::class,'storeAboutMe'])->name('center.about.me');
 // Route::post('update-read-more/{id}',[CenterController::class,'storeReadMore'])->name('center.read.more');
@@ -59,6 +58,11 @@ Route::get('/profile-info/create-profile', function()
 	{
 		return view('center.profile-info.create-profile');
 	})->name('center.create-profile');
+
+    Route::get('/payments-confirmation', function()
+	{
+		return view('center.dashboard.payments-confirmation');
+	})->name('center.payments-confirmation');
 
     
 ///////////////profile
