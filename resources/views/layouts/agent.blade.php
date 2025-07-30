@@ -46,5 +46,4 @@
 
 @include('partials.agent.footer')
 
-<!--@section('script')
-@show-->
+

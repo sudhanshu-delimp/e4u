@@ -8,6 +8,7 @@ use App\Http\Controllers\Agent\EscortController;
 use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
+use App\Http\Controllers\Agent\AgentTaskController;
 use App\Http\Controllers\Escort\EscortGalleryController;
 use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
@@ -158,20 +159,21 @@ Route::get('my-appointments',function(){
     return view('agent.dashboard.my-appointments');
 })->name('agent.my-appointments');
 
-Route::get('task-list',function(){
-    return view('agent.dashboard.task-list');
-})->name('agent.task-list');
+Route::get('agent-task-list',[AgentTaskController::class,'index'])->name('agent.task-list'); 
 
-
-
+# Agent tasks
+Route::get('/agent/task-fetch',[AgentTaskController::class,'fetchTask'])->name('agent.dashboard.ajax-fetch-task');
+Route::post('agent/task-add',[AgentTaskController::class,'addTask'])->name('agent.dashboard.ajax-add-task');
+Route::post('agent/task-edit',[AgentTaskController::class,'editTask'])->name('agent.dashboard.ajax-edit-task');
+Route::post('agent/task-update',[AgentTaskController::class,'updateTask'])->name('agent.dashboard.ajax-update-task');
+Route::post('agent/task-status',[AgentTaskController::class,'statusTask'])->name('agent.dashboard.ajax-change-status');
+Route::post('agent/task-open',[AgentTaskController::class,'openTask'])->name('agent.dashboard.ajax-open-task');
+Route::post('agent/task-delete',[AgentTaskController::class,'destroy'])->name('agent.dashboard.ajax-delete-task');
 
 Route::get('pricingsummaries',[PricingsummariesController::class ,'showPricingsummary'])->name('pricingsummaries');
 Route::get('pricingsummaries-datatable',[PricingsummariesController::class ,'PricingDataTable'])->name('agent.myPricing.dataTable');
 Route::post('update-pricing-detail',[PricingsummariesController::class ,'storePricingDetail'])->name('agent.save.pricing.details');
 
-// function(){name('pricingsummaries');
-// return view('agent.dashboard.pricingsummaries');
-// })->name('pricingsummaries');
 
 Route::get('bank_account',[AgentAccountController::class,'bankDetails'])->name('bank_account');
 Route::post('save-bank-details',[AgentAccountController::class,'saveBankDetails'])->name('agent.save.bank.details');

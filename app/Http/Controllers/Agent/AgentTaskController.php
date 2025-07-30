@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Agent;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Http\Request;
-use App\Repositories\Escort\EscortInterface;
-use App\Repositories\User\UserInterface;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Facades\Validator;
 
-class TaskController extends Controller
+class AgentTaskController extends Controller
 {
+    public function index()
+    {
+        return view('Agent.Dashboard.tasks.task-list');
+    }
+
     public function fetchTask(Request $request)
     {
         $data = Task::orderByRaw("CASE 
@@ -27,7 +29,7 @@ class TaskController extends Controller
         END")
         ->orderByDesc('id') // then by newest
         ->where('user_id',Auth::user()->id)
-        ->paginate(10); 
+        ->paginate(10);
 
         return response()->json([
             'status' => true,
@@ -63,7 +65,7 @@ class TaskController extends Controller
 
     public function editTask(Request $request)
     {
-        $task = Task::where('user_id',Auth::user()->id)->findOrFail($request->id);
+        $task = Task::where('user_id', Auth::user()->id)->findOrFail($request->id);
         return response()->json(['success' => true, 'task' => $task,'task_name' => 'edit_task']);
     }
 
@@ -124,5 +126,4 @@ class TaskController extends Controller
         Task::where('user_id',Auth::user()->id)->findOrFail($id)->delete();
         return response()->json(['success' => true]);
     }
-
 }
