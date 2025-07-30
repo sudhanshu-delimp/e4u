@@ -45,9 +45,11 @@
                         About
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ url('escorts4U')}}"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Escorts4U</a>
                             <a class="dropdown-item" href="{{ url('agents')}}"><img src="{{asset('assets/app/img/male-user.svg')}}">Agents</a>
-                            <a class="dropdown-item" href="{{ url('centres')}}"><img src="{{asset('assets/app/img/spa.svg')}}">Massage Centres</a><a class="dropdown-item" href="{{ url('playbox')}}"><img src="{{asset('assets/app/img/MyPlaybox.jpg')}}">My Playbox</a>
+                            <a class="dropdown-item" href="{{ url('escorts4U')}}"><img src="{{asset('assets/app/img/woman-avatar.svg')}}">Escorts4U</a>
+                            <a class="dropdown-item" href="{{ url('e4u-verified')}}"><img src="{{asset('assets/app/img/e4u-verified-shield.png')}}">E4U Verified</a>
+                            <a class="dropdown-item" href="{{ url('centres')}}"><img src="{{asset('assets/app/img/spa.svg')}}">Massage Centres</a>
+                            <a class="dropdown-item" href="{{ url('playbox')}}"><img src="{{asset('assets/app/img/myplay-box.png')}}">My Playbox</a>
                         </div>
                   </li>
                   <li class="nav-item dropdown">
