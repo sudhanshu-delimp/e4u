@@ -25,11 +25,20 @@
                            <div>
                            
                             
-                    @if(auth()->user()->my_agent)
-                    <span>
-                        <b>My Agent :  </b><span class="user-values">{{auth()->user()->my_agent->name}}</span>
+                   
+                        <span>
+                        <b>My Agent :  </b><span class="user-values">
+
+                                        @if(auth()->user()->my_agent)
+                                          {{ auth()->user()->my_agent->name }}
+                                        @else
+                                            <a href="{{url('/center-dashboard/agent-request') }}"> Request one</a>
+                                        @endif
+                            
+                        
+                        </span>
                     </span>
-                    @endif
+                   
                            </div>
                         </div>
                     </div>
@@ -144,7 +153,7 @@
                                             <i class="fas fa-file-alt text-white"></i>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div>member_id
                                         <div class="small text-gray-500">12-06-2025</div>
                                         <span class="font-weight-bold">A new monthly report is ready to download!</span>
                                     </div>
@@ -215,12 +224,22 @@
                                     Membership ID: {{auth()->user()->member_id }}
                                 </a>
 
-                                @if(auth()->user()->my_agent)
-                                <a class="dropdown-item" href="#">
+                                @if(!auth()->user()->my_agent)
+                                
+                                <a class="dropdown-item" href="{{url('/center-dashboard/agent-request') }}">
+                                @else
+                                 <a class="dropdown-item" href="#">   
+                                @endif    
                                     <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
-                                    My Agent ID : {{ auth()->user()->my_agent->member_id ? auth()->user()->my_agent->member_id : 'NA' }}
+                                        
+                                        @if(auth()->user()->my_agent)
+                                           My Agent ID :   {{ auth()->user()->my_agent->member_id }}
+                                        @else
+                                           My Agent ID : <span style="color:var(--peach)"> Request one</span>
+                                        @endif
+                                        
                                 </a>
-                                @endif
+                               
 
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('center.account.edit')}}">

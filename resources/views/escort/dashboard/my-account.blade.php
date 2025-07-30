@@ -117,6 +117,7 @@
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
+                                        <label for="email">Email</label>
                                        <input type="email" class="form-control" name="email" placeholder="JaneDoe@domain.com.au" aria-describedby="emailHelp" value="{{ $escort->email }}">
                                     </div>
                                  </div>
@@ -127,7 +128,16 @@
                                        <img class="delay_tooltip" src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="You can appoint an Agent to assist you by completing the Agency Request form.  If you want to appoint an Agent, <a target='_blank' class='theme-text-color' href='{{url('escort-dashboard/escort-agency-request')}}'>click here.</a>" data-boundary="window">
                                        </span>
                                        </label>
-                                       <span class="form-control form-back">Agent ID: {{ $escort->my_agent ? $escort->my_agent->member_id : 'NA' }}</span>
+                                       <span class="form-control form-back">
+                                                         
+
+                                                            @if(auth()->user()->my_agent)
+                                                                {{ auth()->user()->my_agent->member_id }}
+                                                              @else
+                                                                  <a href="{{ url('/escort-dashboard/escort-agency-request') }}"> Request one</a>
+                                                              @endif
+                                       
+                                       </span>
                                     </div>
                                  </div>
                                  <div class="col-md-8">
