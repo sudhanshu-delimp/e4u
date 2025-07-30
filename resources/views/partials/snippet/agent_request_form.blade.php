@@ -1,3 +1,14 @@
+
+ @if(auth()->user()->is_agent_assign=='1' && auth()->user()->assigned_agent_id!=null)
+     <div class="row">
+        <div class="col-md-12 my-4">
+             <p class="mb-0" style="font-size: 20px;color:red"><b>Note : You have already been assigned an Agent.</b> </p>
+        </div>
+     </div>
+    @endif
+
+
+
 <form action="{{route('agent.agent-request')}}" method="post" name="agent_request_frm" id="agent_request_frm">
                     <div class="row">
                         <div class="col-md-12">
@@ -50,7 +61,11 @@
                             </div>
                         </div>
                     </div>
+
+                     @if(auth()->user()->is_agent_assign == '0' || auth()->user()->assigned_agent_id == null)
                     <input type="submit" id="submitTicketBtn" value="Submit Request" class="new-btn-sec btn btn-primary shadow-none" name="submit">
+                    @endif
+
                     @csrf
                     @include('partials.snippet.error')
                 </form>

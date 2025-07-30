@@ -117,6 +117,7 @@
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
+                                        <label for="email">Email</label>
                                        <input type="email" class="form-control" name="email" placeholder="JaneDoe@domain.com.au" aria-describedby="emailHelp" value="{{ $escort->email }}">
                                     </div>
                                  </div>

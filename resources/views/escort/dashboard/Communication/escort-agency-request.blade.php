@@ -130,7 +130,7 @@
        <div class="modal-content">
           <div class="modal-header">
              <h5 class="modal-title" id="confirmationPopup">Agent Request Submitted</h5>
-             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <button type="button" class="close close_request_modal" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
              </button>
           </div>
@@ -149,7 +149,7 @@
                 </div>
           </div>
           <div class="modal-footer text-center justify-content-center">             
-             <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
+             <button type="button" class="btn-success-modal close_request_modal"  data-dismiss="modal" aria-label="Close">Close</button>
           </div>
        </div>
     </div>
@@ -169,9 +169,12 @@ $(document).ready(function() {
 });
 </script>
 
-@if(session('agent_success'))
+@if(session('agent_success'))  
 <script>
 $('#agentconfirmationPopup').modal('show');
+$('.close_request_modal').click(function(){
+    window.location.href = '/escort-dashboard';
+});
 </script>
 @endif
 @endpush
