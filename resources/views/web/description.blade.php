@@ -110,6 +110,8 @@
         <div class="container">
             <div class="row">
                 <div class="overlay">
+                {{date('Y-m-d H:i:s')}}
+                    {{Carbon::now('UTC')}}
                     {{ dd($escort->latestActiveBrb) }}
                     @if($escort->latestActiveBrb && $brb != null)
                         <div class="brb_details">
