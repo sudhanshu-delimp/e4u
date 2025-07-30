@@ -576,6 +576,7 @@
                     <h5 class="modal-title">
                         {{-- <img src="{{ asset('assets/dashboard/img/not-allowed.png') }}"
                             style="width:45px; padding-right:10px;"> --}}
+                            <img src="{{ asset('assets/dashboard/img/unblock.png') }}" style="width:40px; padding-right:10px;" class="modal_title_img">
                         <span class="text-white modal_title_span">Contact</span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -791,6 +792,12 @@
                     'message' : 'Escort is '+(isBlocked ? 'Blocked' : 'UnBlocked')+' successfully!',
                 }
 
+                if(isBlocked){
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/block.png")}}');
+                }else{
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/unblock.png")}}');
+                }
+
                 let url = '{{ route("viewer.escort-interaction.update") }}';
                 return  ajaxCall(url, data, $(this));
                 
@@ -811,6 +818,13 @@
                     'type' : 'contact',
                     'message' : 'Escort contact is '+ newStatus + 'd successfully!',
                 }
+
+                if(newStatus == 'disable'){
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/no-phone.png")}}');
+                }else{
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/phone.png")}}');
+                }
+
                 return  ajaxCall(url, data, $this);
             });
 
@@ -829,6 +843,13 @@
                     'type' : 'notification',
                     'message' : 'Viewer notification is '+ newStatus + 'd successfully!',
                 }
+
+                if(newStatus == 'disable'){
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/disable_notification.png")}}');
+                }else{
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/enable_notification.png")}}');
+                }
+
                 return  ajaxCall(url, data, $this);
             });
 

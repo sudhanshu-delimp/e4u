@@ -61,7 +61,7 @@ class EscortMyLegboxViewerController extends Controller
                 $stateId = $row->viewer->state_id;
                 return config("escorts.profile.states.$stateId.stateName") ?? '-';
             })
-            ->addColumn('escort_profile', fn($row) => $row->escort->name ?? '-')
+            ->addColumn('escort_profile', fn($row) => $row->escort->id ?? '-')
             ->addColumn('notification_enabled', function($row){
 
                 $isNotifcationEnabled = 'No';
@@ -76,6 +76,7 @@ class EscortMyLegboxViewerController extends Controller
                 $esvi = EscortViewerInteractions::where('escort_id',$row->escort->id)->where('viewer_id',$row->viewer->id)->where('user_id',Auth::user()->id)->first();
 
                 if($esvi){
+                    $isNotifcationEnabled = 'No';
                     if($esvi->viewer_disabled_notification == 0){
                         $isNotifcationEnabled = 'Yes';
                     }
