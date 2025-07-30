@@ -10,6 +10,7 @@ class EscortPinup extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'escort_id',
         'state_id',
         'city_id',

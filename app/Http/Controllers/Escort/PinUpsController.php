@@ -121,21 +121,37 @@ class PinUpsController extends AppController
         $start = Carbon::parse($escort->start_date)->startOfWeek(Carbon::MONDAY);
         $end = Carbon::parse($escort->end_date)->endOfWeek(Carbon::SUNDAY);
         $weeks = collect();
+        $candidateStarts = [];
         while ($start->lte($end)) {
             $weekStart = $start->copy();
             $weekEnd = $start->copy()->endOfWeek(Carbon::SUNDAY);
     
             // Only include if full week is within profile listing range
-            if ($weekStart->gte($escort->start_date) && $weekEnd->lte($escort->end_date)) {
+          
+            if ($weekStart->gte(Carbon::parse($escort->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($escort->end_date)->endOfDay())) {
                 $weeks->push([
                     'start' => $weekStart->toDateString(),
                     'end' => $weekEnd->toDateString()
                 ]);
+                $candidateStarts[] = $weekStart->toDateString();
             }
     
             $start->addWeek();
         }
-        return response()->json($weeks);
+        if (empty($candidateStarts)) {
+            return response()->json($weeks);
+        }
+        
+        // Fetch week starts already booked for THIS location (state_id + city_id)
+        $bookedStarts = EscortPinup::query()
+        ->where('state_id', $escort->state_id)
+        ->where('city_id',  $escort->city_id)
+        ->whereIn('start_date', $candidateStarts)   
+        ->pluck('start_date')                       
+        ->map(fn ($d) => Carbon::parse($d)->toDateString())
+        ->all();
+        $available = $weeks->reject(fn ($w) => in_array($w['start'], $bookedStarts));
+        return response()->json($available->values());
     }
 
     public function register(Request $request){
@@ -148,6 +164,7 @@ class PinUpsController extends AppController
         $utcStart = $localStart->copy()->setTimezone('UTC');
         $utcEnd = $localEnd->copy()->setTimezone('UTC');
         EscortPinup::create([
+            'user_id' => auth()->user()->id,
             'escort_id' => $escortDetail->id,
             'state_id' => $escortDetail->state_id,
             'city_id' => $escortDetail->city_id,

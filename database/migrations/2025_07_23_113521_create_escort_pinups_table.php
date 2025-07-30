@@ -15,6 +15,7 @@ class CreateEscortPinupsTable extends Migration
     {
         Schema::create('escort_pinups', function (Blueprint $table) {
             $table->id();
+            $table->integer('user_id')->nullable();
             $table->integer('escort_id')->nullable();
             $table->integer('state_id')->nullable();
             $table->integer('city_id')->nullable();

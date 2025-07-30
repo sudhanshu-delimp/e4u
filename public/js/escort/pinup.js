@@ -7,11 +7,10 @@ $(document).on('change','#pinup_profile_id', function(){
         url: '/escort-dashboard/pinup-available-weeks/' + escortId,
         type: 'GET',
         success: function(weeks) {
-            
             weekSelect.innerHTML = '<option value="">Select a week</option>';
             if(weeks.length>0){
                 weeks.forEach(week => {
-                    let label = `${week.start}  To  ${week.end}`;
+                    let label = `${week.start} (Mon)  -To-  ${week.end} (Sun)`;
                     let value = `${week.start}|${week.end}`;
 
                     let option = document.createElement('option');
@@ -28,6 +27,7 @@ $(document).on('change','#pinup_profile_id', function(){
         },
         error: function() {
             weekSelect.innerHTML = '<option value="">Error fetching weeks.</option>';
+            savePinupButton.disabled = true;
         }
     });
 });

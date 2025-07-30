@@ -108,10 +108,13 @@
                                 <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                     data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
                                 </div>
-                                <div class="">
-                                <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
-                                    data-target="#pinup_profile" id="btn_pinup_profile">List Pin
-                                    Up</button>
+                                <div class="pinup-tooltip-wrapper">
+                                    <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
+                                        data-target="#pinup_profile" id="btn_pinup_profile" @if($activePinup) disabled title="" @endif>List Pin
+                                        Up</button>
+                                        @if($activePinup)
+                                        <p class="pinup-tooltip">You already have an active pinup. You can book after it expires. </span>
+                                        @endif
                                 </div>
                                 </div>
                             </div>

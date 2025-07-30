@@ -22,6 +22,7 @@ use App\Models\Escort;
 use App\Models\Pricing;
 use App\Models\PinUps;
 use App\Models\Task;
+use App\Models\EscortPinup;
 use Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -139,6 +140,8 @@ class EscortController extends Controller
 
     public function escortList($type)
     {
+        $today  = Carbon::today();
+
         $escort = auth()->user()->escort;
 
         $active_escorts = Escort::select(['id', 'name', 'profile_name', 'state_id', 'city_id','membership','start_date','end_date'])
@@ -161,7 +164,11 @@ class EscortController extends Controller
             }])
             ->get();
 
-        return view('escort.dashboard.list', compact('escort', 'type', 'active_escorts','suspended_escorts'));
+            $activePinup = EscortPinup::where('user_id', auth()->user()->id)
+            ->where('utc_end_time', '>=', $today) // still active (today or future)
+            ->exists();
+
+        return view('escort.dashboard.list', compact('escort', 'type', 'active_escorts','suspended_escorts','activePinup'));
     }
 
     public function dataTable($type = NULL)
