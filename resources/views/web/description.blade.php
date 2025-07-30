@@ -1186,7 +1186,7 @@
                     
                     @endif
  
-                    @if($contactType == 4 || $contactType == 5))
+                    @if($contactType == 4 || $contactType == 5)
                         <div class="tooltip-wrapper">
                             <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
                             <div class="tooltip-text">Call me</div>
