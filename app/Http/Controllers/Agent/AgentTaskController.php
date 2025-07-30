@@ -12,7 +12,7 @@ class AgentTaskController extends Controller
 {
     public function index()
     {
-        return view('Agent.Dashboard.tasks.task-list');
+        return view('agent.dashboard.tasks.task-list');
     }
 
     public function fetchTask(Request $request)
