@@ -1182,25 +1182,9 @@ class WebController extends Controller
             $dp = 0;
         }
 
-        // dd($lp, $dp); lp-67 dp-33
-
-        $brb = new EscortBrb();
-        // if(request()->get('brb')){
-        //     $brb = $brb->where('id', request()->get('brb'))->where('active', 'Y')->first();
-        //     dump(request()->get('brb'));
-        //     dump($brb);
-        // }
         
-        $brb = $brb->where('profile_id', $id)->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc')->first();
-        // dump($brb);
+
         
-        if($brb) {
-            $brb = $brb->toArray(); 
-        }
-
-        // dd($brb);
-
-        // return view('web.description',compact('escortLike','lp','dp','user_type','next','previous','escort','availability','cat1_services_one','cat1_services_two','cat1_services_three','cat2_services_one','cat2_services_two','cat2_services_three','cat3_services_one','cat3_services_two','cat3_services_three'));
 
         $reviews = Reviews::where('escort_id',$id)->where('status','approved')->with('user')->get()->unique('user_id');
         //dd($viewType);
@@ -1217,7 +1201,7 @@ class WebController extends Controller
             }
         }
         
-        return view('web.description',compact('categoryOneServices','categoryTwoServices','categoryThreeServices','brb', 'path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','backToSearchButton','user','viewType','reviews'));
+        return view('web.description',compact('categoryOneServices','categoryTwoServices','categoryThreeServices','path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','backToSearchButton','user','viewType','reviews'));
     }
 
     public function getServiceChunks($array=[],$chunkLenth=3){

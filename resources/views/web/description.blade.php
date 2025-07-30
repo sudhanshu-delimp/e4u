@@ -46,7 +46,7 @@
     opacity: 1;
   }
 
-@if($brb)
+@if($escort->latestActiveBrb)
     .overlay_parent {
         position: relative;
     }
@@ -113,7 +113,7 @@
                     @if($escort->latestActiveBrb)
                         <div class="brb_details">
                             <h1>BRB at {{date('h:i A d-m-Y',strtotime($escort->latestActiveBrb->selected_time) )}}</h1>
-                            <h3>{{isset($brb['brb_note']) ? $brb['brb_note'] : ''}}</h3>
+                            <h3>{{$escort->latestActiveBrb->brb_note}}</h3>
                         </div>
                     @endif
                 </div>
