@@ -96,8 +96,17 @@
 
                                                      <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email">My Agent</label>
-                                                            <label type="text" class="form-control form-back" placeholder=" " name="phone" aria-describedby="emailHelp" value="{{ $escort->my_agent ? $escort->my_agent->member_id : 'NA' }}">{{ $escort->my_agent ? $escort->my_agent->member_id : 'NA' }}</label>
+                                                            <label for="email">My Agents</label>
+                                                            <label type="text" class="form-control form-back" placeholder=" " name="phone" aria-describedby="emailHelp" value="{{ $escort->my_agent ? $escort->my_agent->member_id : 'NA' }}">
+                                                           
+                                                              
+                                                              @if(auth()->user()->my_agent)
+                                                                {{ auth()->user()->my_agent->member_id }}
+                                                              @else
+                                                                  <a href="{{ url('/center-dashboard/agent-request') }}"> Request one</a>
+                                                              @endif
+
+                                                            </label>
                                                         </div>
                                                     </div>
 

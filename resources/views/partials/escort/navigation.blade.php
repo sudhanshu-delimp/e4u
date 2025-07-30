@@ -18,11 +18,19 @@
                     <span>
                         <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator">|</span>
                     </span>
-                     @if(auth()->user()->my_agent)
                     <span>
-                        <b>My Agent :  </b><span class="user-values">{{auth()->user()->my_agent->name}}</span>
+                        <b>My Agent :  </b><span class="user-values">
+
+                                        @if(auth()->user()->my_agent)
+                                          {{ auth()->user()->my_agent->name }}
+                                        @else
+                                            <a href="{{url('/escort-dashboard/escort-agency-request') }}"> Request one</a>
+                                        @endif
+                            
+                        
+                        </span>
                     </span>
-                    @endif
+                   
                 </div>
                 
                 <div>
@@ -33,7 +41,7 @@
                         <b>Current Location :  </b><span class="user-values">{{auth()->user()->home_state }}</span> <span class="separator">|</span>
                     </span>
                     <span>
-                        <b>Location time :  </b><span class="user-values">10:55 am</span>
+                        <b>Location time :  </b><span class="user-values">{{date("g:i a")}}</span>
                     </span>
                 </div>
             </div>
@@ -221,12 +229,21 @@
                         Membership ID : {{auth()->user()->member_id }}
                     </a>
 
-                   @if(auth()->user()->my_agent)
-                    <a class="dropdown-item" href="#">
-                        <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
-                        My Agent ID : {{ auth()->user()->my_agent->member_id ? auth()->user()->my_agent->member_id : 'NA' }}
-                    </a>
-                    @endif
+            
+                     @if(!auth()->user()->my_agent)
+                                <a class="dropdown-item" href="{{url('/escort-dashboard/escort-agency-request') }}">
+                                @else
+                                 <a class="dropdown-item" href="#">   
+                                @endif    
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
+                                        
+                                        @if(auth()->user()->my_agent)
+                                             {{ auth()->user()->my_agent->member_id }}
+                                        @else
+                                           My Agent ID : <span style="color:var(--peach)"> Request one</span>
+                                        @endif
+                                        
+                                </a>
 
                     <a class="dropdown-item" href="#">
                         <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
