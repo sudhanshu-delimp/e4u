@@ -353,6 +353,7 @@ return [
 		'states' => [
 			'4022'=>[
 				"stateName" => 'Uttar Pradesh',
+				'timeZone' => 'Asia/Kolkata',
 				'cities'=>[
 					57601 => [
 						'cityName' => 'Agra',
@@ -362,6 +363,7 @@ return [
 			],
 			'4021'=>[
 				"stateName" => 'Delhi',
+				'timeZone' => 'Asia/Kolkata',
 				'cities'=>[
 					131679 => [
 						'cityName' => 'Delhi',
@@ -371,6 +373,7 @@ return [
 			],
 			'3907'=>[
 				"stateName" => 'Australian Capital Territory',
+				'timeZone' => 'Australia/Sydney',
 				'cities'=>[
 					4566 => [
 						'cityName' => 'Canberra',
@@ -380,6 +383,7 @@ return [
 			],
 			'3909'=>[
 				"stateName" => 'New South Wales',
+				'timeZone' => 'Australia/Sydney',
 				'cities'=>[
 					7408 => [
 						'cityName' => 'Sydney',
@@ -389,6 +393,7 @@ return [
 			],
 			'3910'=>[
 				"stateName" => 'Northern Territory',
+				'timeZone' => 'Australia/Darwin',
 				'cities'=>[
 					4947 => [
 						'cityName' => 'Darwin',
@@ -398,6 +403,7 @@ return [
 			],
 			'3905'=>[
 				"stateName" => 'Queensland',
+				'timeZone' => 'Australia/Brisbane',
 				'cities'=>[
 					4411 => [
 						'cityName' => 'Brisbane',
@@ -407,6 +413,7 @@ return [
 			],
 			'3904'=>[
 				"stateName" => 'South Australia',
+				'timeZone' => 'Australia/Adelaide',
 				'cities'=>[
 					3919 =>[
 						'cityName' => 'Adelaide',
@@ -417,6 +424,7 @@ return [
 			],
 			'3908'=>[
 				"stateName" => 'Tasmania',
+				'timeZone' => 'Australia/Hobart',
 				'cities'=>[
 					5621 => [
 						'cityName' => 'Hobart',
@@ -426,6 +434,7 @@ return [
 			],
 			'3903'=>[
 				"stateName" => 'Victoria',
+				'timeZone' => 'Australia/Melbourne',
 				'cities'=>[
 					6235 =>[
 						'cityName' => 'Melbourne',
@@ -436,6 +445,7 @@ return [
 			],
 			'3906'=>[
 				"stateName" => 'Western Australia',
+				'timeZone' => 'Australia/Perth',
 				 'cities'=>[
 					6839 => [
 						'cityName' => 'Perth',
@@ -444,10 +454,6 @@ return [
 
 				],
 			],
-
-
-
-
 
 		],
 		'subjects' => [

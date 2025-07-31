@@ -8,6 +8,8 @@ use App\Models\Escort;
 use App\Models\Country;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 if (!function_exists('calculateTatalFee')) {
     /**
@@ -312,6 +314,74 @@ if (!function_exists('app_date_time_format')) {
         return \Carbon\Carbon::parse($datetime)->format('d M Y, h:i A');
             
      }
+     
+}
+
+if (!function_exists('get_current_live_location')) {
+
+    function get_current_live_location()
+    {
+        $stateCodes = [
+            'New South Wales' => 'NSW',
+            'Victoria' => 'VIC',
+            'Queensland' => 'QLD',
+            'Western Australia' => 'WA',
+            'South Australia' => 'SA',
+            'Tasmania' => 'TAS',
+            'Australian Capital Territory' => 'ACT',
+            'Northern Territory' => 'NT',
+        ];
+        
+        // Get user IP address
+        $ip = request()->ip(); // or use request()->ip();
+
+        if ($ip === '127.0.0.1' || $ip === '::1') {
+            $ip = '139.130.4.5'; // public IP address from Sydney, Australia
+        }
+
+        // Get location data from IP
+        $location = @json_decode(file_get_contents("http://ip-api.com/json/{$ip}"));
+        $data = [];
+
+        // Example output (you can store this or use as needed)
+        if (auth()->user() && $location && $location->status === 'success') {
+            $city = $location->city;
+            $region = $location->regionName;
+            $timezone = $location->timezone;
+
+            //  // Set PHP timezone to user's timezone
+            // date_default_timezone_set($timezone);
+
+            // // Format current time in that timezone
+            // $currentTime = date('h:i A'); // e.g., 07:32 AM
+
+            $data['user_name'] = auth()->user()->name;
+            $data['home_state']  = auth()->user()->home_state;
+            $data['current_location']  = $stateCodes[$region]; 
+            $data['timezone']    = $timezone;
+            $data['currentTime'] = now($timezone)->format('h:i A'); // fallback
+
+        }else {
+
+            if(auth()->user()){
+                $stateId = auth()->user()->state_id ;
+                $data['user_name'] = auth()->user()->name;
+                $data['home_state']  = auth()->user()->home_state;
+                $data['current_location']  = auth()->user()->home_state;
+                $data['timezone']    = config("escorts.profile.states.$stateId.timeZone");
+                $data['currentTime'] = now($data['timezone'])->format('h:i A'); // fallback
+            }else{
+                $data['user_name'] = '';
+                $data['home_state']  = '';
+                $data['current_location']  = '';
+                $data['timezone']    = 'UTC';
+                $data['currentTime'] = now($data['timezone'])->format('h:i A'); // fallback
+            }
+            
+        }
+
+        return $data;
+    }
      
 }
 
