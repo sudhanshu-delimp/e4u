@@ -26,6 +26,7 @@ use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
 use App\Http\Controllers\Escort\EscortViewerInteractionController;
+use App\Http\Controllers\GetCurrentUserGeolocationController;
 use App\Http\Controllers\Viewer\ViewerEscortInteractionController;
 
 /*
@@ -716,3 +717,5 @@ Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->nam
 // })->name('admin.global-monitoring');
 
 Route::post('/resend-otp', [App\Http\Controllers\User\Auth\RegisterController::class,'resendOtp'])->name('web.resend.otp');
+
+Route::post('/get-geolocation-data', [GetCurrentUserGeolocationController::class, 'getRealTimeGeo'])->name('user.current.location');

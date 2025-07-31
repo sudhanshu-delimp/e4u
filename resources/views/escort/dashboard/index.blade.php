@@ -1017,6 +1017,53 @@
 
         });
 
+        $(document).ready(function () {
+
+            var selectedLocation = {
+                lat : '',
+                lng : '',
+            }
+
+            navigator.geolocation.getCurrentPosition(async function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                selectedLocation.lat = latitude;
+                selectedLocation.lng = longitude;
+
+                console.log(longitude, latitude, ' jiten')
+                sendLocationData(selectedLocation);
+                
+            });
+
+            function sendLocationData(data) {
+                $.ajax({
+                    url: '{{ route("user.current.location") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        data: data
+                    },
+                    success: function (response) {
+                        console.log(response, ' res');
+                        
+                        if(response.status){
+                            //$("#"+data.location).attr('checked', true);
+                            // data.home_state
+                            $(".live_current_time").text(response.data.current_time);
+                            $(".live_current_location").text(response.data.current_location);
+                            $(".resident_home_state").text(response.data.home_state);
+
+                            //window.location.href = response.location;
+                        }
+                        console.log('Location filter updated:', response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error in location filter:', error);
+                    }
+                });
+            }
+        });
+
         $(document).on('click', '.toggle-task-form', function() {
             $(this).next('.task-form-body').slideToggle();
             $(this).toggleClass('open');
