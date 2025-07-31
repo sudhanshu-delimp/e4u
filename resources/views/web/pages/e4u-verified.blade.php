@@ -19,6 +19,17 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
     }
+
+.e4u-verify-list{
+    padding-left: 15px;
+}   
+.e4u-verify-list li{
+    padding-left: 20px;
+}
+.e4u-verify-list li i{
+    color: #212529;    
+    font-family: Poppins !important;
+}
 </style>
 @endsection
 @section('content')
@@ -41,19 +52,19 @@
     </p>
     <h2 class="primery_color normal_heading">The benefits to you</h2>
     <p>By developing this policy, all Users are delivered a range of benefits, which include:</p>
-    <ol>
-        <li>Enhanced Transparency and Trust. E4U Verified lets you know that when you look at
+    <ol class="e4u-verify-list">
+        <li> <i>Enhanced Transparency and Trust.</i> E4U Verified lets you know that when you look at
             any Advertisers Media that displays an E4U Verified icon, the Advertiser has submitted
             that Media and passed the verification process. You can reply on that Media’s
             authenticity.</li>
-        <li>Improved Confidence in Your Bookings. This added layer of verification helps eliminate
+        <li> <i>Improved Confidence in Your Bookings.</i> This added layer of verification helps eliminate
             any uncertainty about who you will be meeting, should you undertake a booking with the
             Advertiser.
             </li>
-        <li>Privacy Protection. E4U Verified assists by eliminating the need for intrusive requests
+        <li> <i>Privacy Protection.</i> E4U Verified assists by eliminating the need for intrusive requests
             of the Advertiser for selfies. This goes a long way in supporting privacy for the
             Advertisers whilst maintaining high standards of authenticity.</li>
-        <li>Enhanced Experience for everyone. E4U Verified helps to foster a safer, more
+        <li> <i>Enhanced Experience for everyone.</i> E4U Verified helps to foster a safer, more
             professional environment for everyone involved. Viewers can feel assured they are
             undertaking a legitimate booking with the Advertiser. And the Advertisers benefit from
             an increased perception of credibility and trust in their Profiles.</li>
@@ -64,7 +75,7 @@
         If you are a registered Viewer, you can set you preference settings to only view E4U Verified
         Profiles.
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-5">
             </p>
             You can also select the E4U Verified
             option located in the Search Filters. By
@@ -73,8 +84,8 @@
             unverified Profiles.
             </p>
         </div>   
-        <div class="col-lg-6">
-            <img src="{{ asset('assets/app/img/e4u-verified.png') }}" alt="e4u verified" class="w-100">
+        <div class="col-lg-7">
+            <img src="{{ asset('assets/app/img/e4u_verified.png') }}" alt="e4u verified" class="w-100">
         </div>
     </div>
     <!-- changes to this policy -->

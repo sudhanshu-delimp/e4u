@@ -129,7 +129,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
        <div class="modal-content">
           <div class="modal-header">
-             <h5 class="modal-title" id="confirmationPopup">Agent Request Submitted</h5>
+             <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/request-submit.png')}}" style="width:40px; margin-right:10px;" alt="Agent Request Submitted"> Agent Request Submitted</h5>
              <button type="button" class="close close_request_modal" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
              </button>

@@ -166,7 +166,7 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ugly"
             aria-expanded="false" aria-controls="collapseten">
             <img class="mr-2 pl-1 cstm--icon "
-                src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}">
+                src="{{ asset('assets/dashboard/img/boxicon/icon_punterbox-2.png') }}">
             <span>Punterbox</span>
         </a>
         <div id="ugly" class=" collapse  @if (request()->segment(3) == 'my-report' || request()->segment(3) == 'dashboard' || request()->segment(3) == 'add-report') show @endif;"

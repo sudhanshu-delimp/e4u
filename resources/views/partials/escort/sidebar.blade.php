@@ -176,7 +176,7 @@
             <img class="cstm-excort" src="{{ asset('assets/dashboard/img/menu-icon/media-exort.png')}}">
             <span>Media</span>
         </a>
-        <div id="pmedia" class="collapse  @if(request()->segment(2) == 'archive-medias' || request()->segment(2) == 'archive-view-photos' || request()->segment(2) == 'archive-view-videos') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="pmedia" class="collapse  @if(request()->segment(2) == 'archive-medias' || request()->segment(2) == 'archive-view-photos' || request()->segment(2) == 'archive-view-videos' || request()->segment(2) == 'pricarchive-myplayboxing') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
                                 {{-- <a class="collapse-item" href="{{ route('escort.archives') }}"> --}}
                 {{--<a class="collapse-item" href="{{ url('escort-dashboard/archive-medias') }}">
@@ -196,6 +196,12 @@
                     <span style=
                           @if( request()->segment(2) == 'archive-view-videos') "color: #e5365a;" @endif
                 >Videos</span>
+                </a>
+                <a class="collapse-item" href="{{ route('escort.archive-myplaybox') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/play-25.png') }}"/>
+                    <span style="@if(request()->segment(2) == 'pricarchive-myplayboxing') color: #e5365a; @endif">
+                        My Playbox
+                    </span>
                 </a>
             </div>
         </div>

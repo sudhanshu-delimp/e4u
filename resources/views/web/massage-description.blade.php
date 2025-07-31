@@ -679,10 +679,10 @@
                                 <div class="content" style="display: none;">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table" style="">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="">
+                                            <div class="row margin_zero_for_table table-grid" style="">
+                                                <div class="padding_none" style="">
 
-                                                    <table class="table table_border_dash  ">
+                                                    <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -704,8 +704,8 @@
                                                     </table>
                                                 </div>
 
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="">
-                                                    <table class="table table_border_dash">
+                                                <div class="padding_none" style="">
+                                                    <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -726,8 +726,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="">
-                                                    <table class="table table_border_dash">
+                                                <div class="padding_none" style="">
+                                                    <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -759,8 +759,8 @@
                                 <div class="content" style="display: none;">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table" style="border: 1px solid black;">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none"
+                                            <div class="row margin_zero_for_table table-grid" style="border: 1px solid black;">
+                                                <div class="padding_none"
                                                     style="padding: 1px;">
                                                     <table class="table ">
                                                         <thead>
@@ -776,7 +776,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none"
+                                                <div class="padding_none"
                                                     style="padding: 1px;">
                                                     <table class="table ">
                                                         <thead>
@@ -793,7 +793,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none"
+                                                <div class="padding_none"
                                                     style="padding: 1px;">
                                                     <table class="table ">
                                                         <thead>
@@ -822,9 +822,9 @@
                                 <div class="content" style="display: none;">
                                     <div class="accodien_manage_padding_content">
                                         <div class="table-responsive">
-                                            <div class="row margin_zero_for_table" style="">
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="">
-                                                    <table class="table  table_border_dash">
+                                            <div class="row margin_zero_for_table table-grid" style="">
+                                                <div class="padding_none" style="">
+                                                    <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -840,8 +840,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="">
-                                                    <table class="table table_border_dash">
+                                                <div class="padding_none" style="">
+                                                    <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>
@@ -857,8 +857,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                <div class="col-lg-4 col-md-12 col-sm-12 padding_none" style="">
-                                                    <table class="table table_border_dash">
+                                                <div class="padding_none" style="">
+                                                    <table class="table">
                                                         <thead>
                                                             <tr class="background_color_table_head_color">
                                                                 <th scope="col">Description</th>

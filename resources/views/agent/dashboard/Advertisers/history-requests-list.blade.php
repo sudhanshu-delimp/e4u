@@ -72,7 +72,7 @@
          <div class="modal-header">
             <h5 class="modal-title" id="Agent_Name">
               
-               <img src="{{ $head_icon  }}" style="width:40px;" alt="Request Accepted">
+               <img src="{{ $head_icon  }}" style="width:40px; margin-right:10px;" alt="Request Accepted">
                 Request : {{$status}}
             </h5>
 

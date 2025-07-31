@@ -18,9 +18,37 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+
+   <div class="row">
+      <div class="col-md-12 p-0">
+        <div class="d-flex justify-content-between align-items-baseline mb-5">
+         <div>
+            <div class="v-main-heading h3" style="display: inline-block;">Transaction Summary</div>
+            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+         </div>
+         
+      </div>
+      </div>
+   </div>
+   <div class="row collapse" id="notes">
+      <div class="col-md-12 mb-5">
+         <div class="card">
+            <div class="card-body">
+               <h3 class="NotesHeader"><b>Notes:</b> </h3>
+               <ol class="mb-0">
+                  <li>All Advertiser transactions are recorded here.</li>
+                  <li>You can view any historical transaction as well as print or email the transaction
+                     summary.</li>
+                  <li class="mb-0">To download the transaction summary, click Download located in the Action options.</li>
+              </ol>
+            </div>
+         </div>
+      </div>
+   </div>
+
    <!--middle content-->
-   <div class="row mt-5">      
-      <div class="custom-heading-wrapper col-md-12">
+   <div class="row">      
+      {{-- <div class="custom-heading-wrapper col-md-12">
         <h1  class="h1"> Transaction Summary</h1>
         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
      </div>
@@ -36,7 +64,7 @@
                  </ol>
              </div>
          </div>
-     </div>
+     </div> --}}
     <div class="col-md-12">        
         <div class="table-responsive membership--inner">
             <table class="table table-bordered text-center" id="transactionSummaryTable">
