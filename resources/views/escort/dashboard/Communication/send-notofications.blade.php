@@ -10,7 +10,22 @@
    <div id="content">
       <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
          {{-- Page Heading   --}}
-        <div class="row">
+
+         <div class="row">
+            <div class="col-md-12 p-0">
+              <div class="d-flex justify-content-between align-items-baseline mb-5">
+               <div>
+                  <div class="v-main-heading h3" style="display: inline-block;">Send Notifications</div>
+                  <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+               </div>
+               <div>
+                  <button type="button" class="btn btn-primary create-tour-sec" data-toggle="modal" data-target="#new-ban">Send Notification</button>
+               </div>
+            </div>
+            </div>
+         </div>
+
+        {{-- <div class="row">
          <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
              <h1 class="h1">Send Notifications</h1>
              <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
@@ -29,13 +44,13 @@
              </div>
              </div>
          </div>
-     </div>
+     </div> --}}
      {{-- end --}}
          <!--middle content-->
          <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12 ">
                <!-- Begin Page Content -->
-               <div class="container-fluid" style="padding: 0px 0px;">
+               {{-- <div class="container-fluid" style="padding: 0px 0px;">
                   <div class="row">
                      <div class="col-lg-12">
                         <div class="bothsearch-form" style="gap: 10px;">
@@ -43,7 +58,7 @@
                         </div>
                      </div>
                   </div>
-               </div>
+               </div> --}}
                <!-- /.container-fluid --><br>
                
                <div class="row">
