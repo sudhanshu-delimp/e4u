@@ -6581,6 +6581,7 @@ ul.tab-sec {
     transition: background-color 0.3s;
 }
 
+
 /* #table-sec input {
     background: #EFF0F6;
     border: 0;
@@ -6633,6 +6634,8 @@ ul.tab-sec {
 
 #table-sec i {
     /* color: #ccc; */
+
+
 /* } */
 
 .table-grid .padding_none:nth-child(3) {
@@ -6642,10 +6645,11 @@ ul.tab-sec {
 .table-grid {
     display: grid !important;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 10px; /* space between columns */
+    gap: 10px;
+    /* space between columns */
 }
 
-.table-grid > div {
+.table-grid>div {
     padding: 0;
 }
 
@@ -6699,9 +6703,9 @@ ul.tab-sec {
     color: #fff;
     background-color: #0C223D;
     border-color: #0C223D;
-} */
+}
 
-#cke_11,
+*/ #cke_11,
 #cke_19,
 #cke_21,
 #cke_25,
@@ -7823,14 +7827,11 @@ td {
     color: var(--blue--text);
 }
 
-.d_request_agent_modal {}
-
 
 /* Hide scrollbar for Webkit (optional) */
 
 .topbar-logged-in-user-data .d-user-info::-webkit-scrollbar {
     height: 6px;
-    margin-top: 20px;
 }
 
 .topbar-logged-in-user-data .d-user-info::-webkit-scrollbar-thumb {
@@ -7873,7 +7874,9 @@ td {
         overflow-x: auto;
         white-space: nowrap;
         padding-right: 10px;
+        font-size: 8px;
     }
+    .topbar-logged-in-user-data .d-user-info span {}
 }
 
 .form-inline-custom {

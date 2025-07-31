@@ -218,7 +218,7 @@
                                     </a>
                                     
                                     <a class="dropdown-item" href="/user-dashboard/my-legbox-list">
-                                    <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox.png')}}">
+                                    <img class="mr-2 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox.png')}}">
                                         My Legbox
                                     </a>
                                     
@@ -228,7 +228,7 @@
                                     </a>
                                     
                                     <a class="dropdown-item" href="/user-dashboard/punterbox/lookup">
-                                        <img class="mr-2 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox.png')}}">
+                                        <img class="mr-2 cstm--icon" src="{{asset('assets/dashboard/img/boxicon/icon_punterbox.png')}}">
                                         Punterbox
                                     </a>
                                     
