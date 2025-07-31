@@ -35,7 +35,7 @@
                 
                 <div>
                     <span>
-                        <b>Territory :  </b><span class="user-values">{{auth()->user()->home_state }}</span> <span class="separator">|</span> 
+                        <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state }}</span> <span class="separator">|</span> 
                     </span>
                     <span>
                         <b>Current Location :  </b><span class="user-values">{{auth()->user()->home_state }}</span> <span class="separator">|</span>
@@ -238,7 +238,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
                                         
                                         @if(auth()->user()->my_agent)
-                                             {{ auth()->user()->my_agent->member_id }}
+                                        My Agent :  {{ auth()->user()->my_agent->member_id }}
                                         @else
                                            My Agent ID : <span style="color:var(--peach)"> Request one</span>
                                         @endif
