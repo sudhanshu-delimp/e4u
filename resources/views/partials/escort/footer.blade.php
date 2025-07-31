@@ -126,6 +126,75 @@ function int_datePicker(ele) {
     }
     $(".ui-datepicker-trigger").removeAttr("title");
 }
+
+    $(document).ready(function () {
+
+            var selectedLocation = {
+                lat : '',
+                lng : '',
+                tiemzone : ''
+            }
+
+            navigator.geolocation.getCurrentPosition(async function(position) {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                selectedLocation.lat = latitude;
+                selectedLocation.lng = longitude;
+
+                console.log(longitude, latitude, ' jiten')
+                sendLocationData(selectedLocation);
+                
+            });
+
+            function sendLocationData(data) {
+                $.ajax({
+                    url: '{{ route("user.current.location") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        data: data
+                    },
+                    success: function (response) {
+                        console.log(response, ' res');
+                        
+                        if(response.status){
+                            //$("#"+data.location).attr('checked', true);
+                            // data.home_state
+                            $(".live_current_time").text(response.data.current_time);
+                            $(".live_current_location").text(response.data.current_location);
+                            $(".resident_home_state").text(response.data.home_state);
+
+                            selectedLocation.timezone = response.data.timezone;
+
+                            //window.location.href = response.location;
+                        }
+                        console.log('Location filter updated:', response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error in location filter:', error);
+                    }
+                });
+            }
+
+           function updateLiveTime() {
+                const now = new Date();
+
+                const timeString = new Intl.DateTimeFormat('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true,
+                    timeZone: selectedLocation.timezone
+                }).format(now);
+
+                $(".live_current_time").text(timeString);
+            }
+
+            updateLiveTime(); // Initial call
+            setInterval(updateLiveTime, 5000); // Update every 5 seconds
+    });
+
+
+
 </script>
 
     </body>

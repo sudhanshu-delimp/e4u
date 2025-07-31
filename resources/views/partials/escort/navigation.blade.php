@@ -32,13 +32,13 @@
                 
                 <div class="gap-b">
                     <span>
-                        <b>Home State :  </b><span class="user-values resident_home_state">WA</span> <span class="separator">|</span> 
+                        <b>Home State :  </b><span class="user-values resident_home_state">--</span> <span class="separator">|</span> 
                     </span>
                     <span>
-                        <b>Current Location :  </b><span class="user-values live_current_location">WA</span> <span class="separator">|</span>
+                        <b>Current Location :  </b><span class="user-values live_current_location">--</span> <span class="separator">|</span>
                     </span>
                     <span>
-                        <b>Location time :  </b><span class="user-values live_current_time">09:30 PM</span>
+                        <b>Location time :  </b><span class="user-values live_current_time">00:00 AM</span>
                     </span>
                 </div>
             </div>
