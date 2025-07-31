@@ -202,7 +202,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="task_title">New Task</h5>
+                    <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/reject.png') }}" class="task_title_img" style="width:32px; margin-right:10px;" alt="New Task"><span id="task_title">New Task</span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -242,7 +242,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="success_task_title">Task</h5>
+                    <h5 class="modal-title" ><img src="{{ asset('assets/dashboard/img/unblock.png') }}" class="success_task_title_img" style="width:32px; margin-right:10px;" alt="New Task"><span id="success_task_title">Task</span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -289,15 +289,19 @@
 
 
                 if (buttonId == 'new_task') {
+                    $(".task_title_img").attr('src',"{{ asset('assets/dashboard/img/add-task.png') }}");
                     $('#task_title').text(taskName);
                     newTask();
                 } else if (buttonId == 'edit_task') {
+                    $(".task_title_img").attr('src',"{{ asset('assets/dashboard/img/edit-task.png') }}");
                     $('#task_title').text(taskName);
                     editTask(taskId);
                 } else if (buttonId == 'view_task') {
+                    $(".task_title_img").attr('src',"{{ asset('assets/dashboard/img/website.png') }}");
                     $('#task_title').text(taskName);
                     viewTask(taskId);
                 } else if (buttonId == 'complete_task') {
+                    $(".task_title_img").attr('src',"{{ asset('assets/dashboard/img/complete-appointment.png') }}");
                     $('#task_title').text(taskTitle);
                     completeTask(taskId);
                 } else if (buttonId == 'open_task') {
