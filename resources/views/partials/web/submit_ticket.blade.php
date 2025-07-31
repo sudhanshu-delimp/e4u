@@ -1,8 +1,4 @@
-<<<<<<< Updated upstream
-<div class="container-fluid register-pin-up mb-5  pl-3 pl-lg-5 pr-3 pr-lg-5">
-=======
 <div class="container-fluid register-pin-up mb-5 pl-3 pl-lg-5 pr-3 pr-lg-5">
->>>>>>> Stashed changes
     <!--middle content start here-->
 
     <div class="row">

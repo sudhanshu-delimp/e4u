@@ -44,24 +44,7 @@
          {{-- end --}}
          <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
-               <!-- Begin Page Content -->
-               <div class="container-fluid" style="padding: 0px 0px;">
-                  <div class="row">
-                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <form class="search-form-bg navbar-search">
-                           <div class="input-group">
-                              <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                              <div class="input-group-append">
-                                 <button class="btn-right-icon" type="button">
-                                 <i class="fas fa-search fa-sm"></i>
-                                 </button>
-                              </div>
-                           </div>
-                        </form>
-                     </div>
-                  </div>
-               </div>
-               <!-- /.container-fluid --><br>
+               
                <div class="row">
                   <div class="col-md-12">
                      <div class="panel with-nav-tabs panel-warning">
@@ -69,7 +52,7 @@
                            <div class="tab-content">
                               <div class="tab-pane fade in active show" id="tab1warning">
                                  <div class="table-responsive-xl">
-                                    <table class="table">
+                                    <table class="table" id="advertiserProfilesTable">
                                        <thead class="table-bg">
                                           <tr>
                                              <th scope="col">Member ID
@@ -84,7 +67,7 @@
                                           </tr>
                                        </thead>
                                        <tbody class="table-content">
-                                          <tr class="row-color">
+                                          {{-- <tr class="row-color">
                                              <td class="theme-color">E03153</td>
                                              <td class="theme-color">Carla Brasil</td>
                                              <td class="theme-color">WA</td>
@@ -111,28 +94,9 @@
                                                 </div>
                                              </td>
                                           </tr>
-                                          
+                                           --}}
                                        </tbody>
                                     </table>
-                                    <nav aria-label="Page navigation example">
-                                       <ul class="pagination float-right pt-4">
-                                          <li class="page-item">
-                                             <a class="page-link" href="#" aria-label="Previous">
-                                             <span aria-hidden="true">«</span>
-                                             <span class="sr-only">Previous</span>
-                                             </a>
-                                          </li>
-                                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                          <li class="page-item">
-                                             <a class="page-link" href="#" aria-label="Next">
-                                             <span aria-hidden="true">»</span>
-                                             <span class="sr-only">Next</span>
-                                             </a>
-                                          </li>
-                                       </ul>
-                                    </nav>
                                  </div>
                               </div>
                            </div>
@@ -157,10 +121,12 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
     //$(document).ready( function () {
-    var table = $('#myTable').DataTable({
-        "language": {
-            "zeroRecords": "No record(s) found."
-        },
+    var table = $('#advertiserProfilesTable').DataTable({
+        language: {
+               search: "_INPUT_",
+               searchPlaceholder: "Search By member Id",
+               sSearch: 'Search:'
+           },
         processing: true,
         serverSide: true,
         lengthChange: true,
@@ -197,7 +163,7 @@
     $(document).on('click','.delete-center', function(e){
         e.preventDefault();
         var $this = $(this);
-        var table = $('#myTable').DataTable();
+        var table = $('#advertiserProfilesTable').DataTable();
         const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
         confirmButton: 'btn btn-success',
