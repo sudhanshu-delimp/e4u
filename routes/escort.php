@@ -167,9 +167,14 @@ Route::post('/delete-tour/{id}',[TourController::class, 'DeleteTour'])->name('es
 Route::get('/archive-tours-list',[TourController::class, 'viewTourList'])->name('escort.tour.view');
 Route::get('/archive-tours-dataTable/{type}',[TourController::class, 'TourDataTable'])->name('escort.tour.dataTable');
 Route::post('/archive-tours-edit/{id}',[TourController::class, 'viewTourEdit'])->name('escort.tour.edit');
-// Route::get('archive-view-profiles-list',function(){
-//     return view('escort.dashboard.archives.archive-view-profiles-list');
-// });
+Route::get('archive-myplaybox',function(){
+    return view('escort.dashboard.archives.myplaybox');
+});
+
+Route::get('pricarchive-myplayboxing',function(){
+    return view('escort.dashboard.archives.myplaybox');
+})->name('escort.archive-myplaybox');
+
 
 Route::get('archive-tours',function(){
     return view('escort.dashboard.archives.archive-tours');
