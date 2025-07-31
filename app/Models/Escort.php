@@ -95,6 +95,15 @@ class Escort extends Model
     {
         return $this->hasMany('App\Models\EscortBrb', 'profile_id');
     }
+    public function pinup()
+    {
+        return $this->hasMany('App\Models\EscortPinup', 'escort_id');
+    }
+    public function latestActivePinup(){
+        return $this->hasOne(EscortPinup::class)
+        ->where('utc_end_time', '>=', Carbon::now('UTC'))
+        ->latestOfMany('utc_end_time');
+    }
     public function suspendProfile()
     {
         return $this->hasMany(SuspendProfile::class, 'escort_profile_id');
