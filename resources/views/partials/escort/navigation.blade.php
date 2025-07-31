@@ -30,7 +30,7 @@
                    
                 </div>
                 
-                <div>
+                <div class="gap-b">
                     <span>
                         <b>Home State :  </b><span class="user-values">{{get_current_live_location()['home_state'] }}</span> <span class="separator">|</span> 
                     </span>

@@ -22,7 +22,7 @@
                                 <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
                             </span>
                            </div>
-                           <div>
+                           <div class="gap-b">
                            
                             
                    
