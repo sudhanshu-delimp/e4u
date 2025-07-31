@@ -14,6 +14,10 @@
    width: 60px; height: 60px;
    border-radius: 50%;
 }
+.d_request_agent_modal td{
+
+   padding: 0px;
+}
 </style>
 @endsection
 @section('content')
@@ -39,7 +43,11 @@
         <div class="row my-3">
             <div class="col-lg-4 col-md-12 col-sm-12"></div>
             <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
-                <div class="total_listing"></div>
+                {{-- <div class="total_listing"></div> --}}
+                <div class="total_listing">
+                                    <div><span>Total Appointments : </span></div>
+                                    <div><span class="totalCompletedTask"></span></div>
+                                </div>
             </div>
         </div>
         <div class="table-responsive membership--inner">
@@ -130,7 +138,7 @@
     });
 
     table.on('xhr.dt', function (e, settings, json, xhr) {
-    $('.total_listing').html( '<div><span>Total Appointments : '+ json.recordsFiltered+'</span></div>');
+    $('.totalCompletedTask').html( json.recordsFiltered);
     });
 
     
@@ -161,12 +169,12 @@
      var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
                            <div class="modal-content">
                               <div class="modal-header">
-                                 <h5 class="modal-title" id="confirmationPopup">Current Status : Ref - ${rowData.ref_number}</h5>
+                                 <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/status.png')}}" style="width:40px; margin-right:10px;" alt="Current Status">  Current Status : Ref - ${rowData.ref_number}</h5>
                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                  <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                                  </button>
                               </div>
-                              <div class="modal-body pb-0">
+                              <div class="modal-body d_request_agent_modal pb-0">
                                     <div class="row">
                                        <div class="col-12 my-2 text-center">
                                              
@@ -212,7 +220,7 @@
         var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
                            <div class="modal-content">
                               <div class="modal-header">
-                                 <h5 class="modal-title" id="confirmationPopup">Follow-up Notification</h5>
+                                 <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/create-notification.png')}}" style="width:40px; margin-right:10px;" alt="Request Accepted"> Follow-up Notification</h5>
                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                  <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                                  </button>
@@ -267,8 +275,8 @@
     var modal_html = `<div class="modal-dialog modal-dialog-centered" role="document">
        <div class="modal-content basic-modal">
           <div class="modal-header">
-           <img src="{{asset('assets/dashboard/img/data-listing.png')}}" style="width:40px; margin-right:10px;" alt="Request Accepted">
-             <h5 class="modal-title" id="viewAgentdetails">Agent Request</h5>
+           
+             <h5 class="modal-title" id="viewAgentdetails"><img src="{{asset('assets/dashboard/img/data-listing.png')}}" style="width:40px; margin-right:10px;" alt="Request Accepted"> Agent Request</h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">
                 <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>

@@ -6055,15 +6055,16 @@ table#myTable\ price-sec {
 
 
 /* Bubble Arrow */
-.pinup-tooltip-wrapper{
+
+.pinup-tooltip-wrapper {
     position: relative;
-    
 }
-.pinup-tooltip-wrapper .pinup-tooltip{
+
+.pinup-tooltip-wrapper .pinup-tooltip {
     position: absolute;
     top: 5px;
     right: 110px;
-    opacity: 0;    
+    opacity: 0;
     background: var(--peach);
     font-size: 14px;
     padding: 8px 8px;
@@ -6076,12 +6077,11 @@ table#myTable\ price-sec {
     width: max-content;
 }
 
-
 .pinup-tooltip-wrapper .pinup-tooltip::after {
     content: '';
     position: absolute;
     bottom: 11px;
-    right: -11px;   
+    right: -11px;
     border-width: 6px;
     border-style: solid;
     background-color: var(--peach);
@@ -6090,10 +6090,9 @@ table#myTable\ price-sec {
     transform: translate(-50%, -10%) rotate(45deg);
 }
 
-.pinup-tooltip-wrapper:hover  .pinup-tooltip{
+.pinup-tooltip-wrapper:hover .pinup-tooltip {
     opacity: 1;
 }
-
 
 .my_service_anal .mytool-tip::after {
     content: '';
@@ -7823,6 +7822,8 @@ td {
     font-weight: 600;
     color: var(--blue--text);
 }
+
+.d_request_agent_modal {}
 
 
 /* Hide scrollbar for Webkit (optional) */
