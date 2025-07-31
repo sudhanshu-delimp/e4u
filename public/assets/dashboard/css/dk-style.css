@@ -8489,6 +8489,60 @@ td {
     gap: 5px;
 }
 
+.pinup_icon {
+    color: white;
+    background-color: #f6c23e;
+    border-radius: 15%;
+    padding: 0 5px;
+}
+
+.brb_icon {
+    color: white;
+    background-color: #e5365a;
+    border-radius: 15%;
+    padding: 0 5px;
+}
+
+.listing-tag-tooltip{
+    position: relative;
+    cursor: pointer;
+    
+}
+.listing-tag-tooltip .listing-tag-tooltip-desc{
+    position: absolute;
+    top: 22px;
+    left: 0px;
+    opacity: 0;    
+    background: var(--blue--text);
+    font-size: 10px;
+    padding:10px;
+    border-radius: 4px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: #fff;
+    font-weight: 300;
+    width: max-content;
+}
+
+
+.listing-tag-tooltip .listing-tag-tooltip-desc::after {
+    content: '';
+    position: absolute;
+    bottom: 12px;
+    left: 14px;   
+    border-width: 5px;
+    border-style: solid;
+    background-color: var(--blue--text);
+    border-color: var(--blue--text);
+    z-index: -1;
+    transform: translate(-50%, -10%) rotate(45deg);
+}
+
+.listing-tag-tooltip:hover  .listing-tag-tooltip-desc{
+    opacity: 1;
+}
+
 @media (min-width:300px) and (max-width:575px) {
     .form-inline-custom {
         display: none;
