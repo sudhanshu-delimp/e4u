@@ -7874,9 +7874,12 @@ td {
         overflow-x: auto;
         white-space: nowrap;
         padding-right: 10px;
-        font-size: 8px;
+        font-size: 10px;
     }
     .topbar-logged-in-user-data .d-user-info span {}
+    .topbar-logged-in-user-data .d-user-info .gap-b {
+        margin-bottom: 10px;
+    }
 }
 
 .form-inline-custom {

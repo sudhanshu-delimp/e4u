@@ -11,15 +11,17 @@
                             <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
                         </div> --}}
                         <div class="d-user-info">
-                            <span>
-                                <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name }}</span> <span class="separator">|</span> 
-                            </span>
-                            <span>
-                                <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator">|</span>
-                            </span>
-                            <span>
-                                <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
-                            </span>
+                           <div class="gap-b">
+                                <span>
+                                    <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name }}</span> <span class="separator">|</span> 
+                                </span>
+                                <span>
+                                    <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator">|</span>
+                                </span>
+                                <span>
+                                    <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
+                                </span>
+                           </div>
                         </div>
                     </div>
                     {{-- end --}}

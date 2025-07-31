@@ -33,7 +33,7 @@
                    
                 </div>
                 
-                <div>
+                <div class="gap-b">
                     <span>
                         <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state }}</span> <span class="separator">|</span> 
                     </span>
