@@ -51,19 +51,8 @@
    <div class="row">
       <div class="col-md-12">
          <div class="row">
-            <div class="col-lg-4 col-md-12 col-sm-12">
-               <form class="search-form-bg navbar-search">
-                  <div class="input-group">
-                     <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                     <div class="input-group-append">
-                        <button class="btn-right-icon" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                        </button>
-                     </div>
-                  </div>
-               </form>
-            </div>
-            <div class="col-lg-8 col-md-12 col-sm-12">
+            
+            <div class="col-sm-12">
                <div class="bothsearch-form" style="gap: 10px;">
                   <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#create-prospect">Create New  Prospect</button>
                </div>
@@ -76,7 +65,7 @@
                      <div class="tab-content">
                         <div class="tab-pane fade in active show" id="tab1warning">
                            <div class="table-responsive-xl">
-                              <table class="table">
+                              <table class="table" id="createProspectTable">
                                  <thead class="table-bg">
                                     <tr>
                                        <th scope="col">
@@ -203,7 +192,7 @@
                                     </tr>
                                  </tbody>
                               </table>
-                              <nav aria-label="Page navigation example">
+                              {{-- <nav aria-label="Page navigation example">
                                  <ul class="pagination float-right pt-4">
                                     <li class="page-item">
                                        <a class="page-link" href="#" aria-label="Previous">
@@ -221,7 +210,7 @@
                                        </a>
                                     </li>
                                  </ul>
-                              </nav>
+                              </nav> --}}
                            </div>
                         </div>
                         <div class="tab-pane fade" id="tab2warning">
@@ -269,7 +258,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="create-prospect">Add Prospective Member</h5>
+            <h5 class="modal-title" id="create-prospect"> <img src="{{ asset('assets/dashboard/img/add-prospective.png') }}" style="width:40px; margin-right:10px;" alt="Request Rejected"> Add Prospective Member</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -446,4 +435,26 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+   $(document).ready(function() {
+       $('#createProspectTable').DataTable({
+           language: {
+               search: "_INPUT_",
+               searchPlaceholder: "Search By Agent Id",
+               sSearch: 'Search:'
+           },
+           paging: true,
+           pageLength: 10,
+           lengthMenu: [10, 25, 50, 100],
+           info: true,
+           searching: true,
+           order: [[1, 'asc']]
+       });
+   });
+   </script>
+   
+
+
 @endpush

@@ -61,7 +61,7 @@
             <div class="row">
                 <div class="col-md-12 mt-2">
                     <div id="table-sec" class="table-responsive-xl">
-                        <table class="table" id="myTable">
+                        <table class="table" id="bankAccountTable">
                             <thead class="table-bg">
                                 <tr>
                                     <th scope="col">Bank</th>
@@ -339,28 +339,20 @@
     
    $(function(){
 
-    var table = $('#myTable').DataTable({
+    var table = $('#bankAccountTable').DataTable({
         "language": {
          search: "_INPUT_",
-        searchPlaceholder: "Search",
-        "sSearch": '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>',
-   
-        oPaginate: {
-       sNext: '<span aria-hidden="true">»</span>',
-       sPrevious: '<span aria-hidden="true">«</span>',
-       sFirst: '<span aria-hidden="true">»</span>',
-       sLast: '<span aria-hidden="true">»</span>'
-    }
-
+        searchPlaceholder: "Search By Account Number",
+        "sSearch": 'Search:',
        },
-        info: false,
-        bLengthChange: false,
+        info: true,
+        bLengthChange: true,
         processing: true,
         serverSide: true,
         lengthChange: true,
         order: [1,'asc'],
-        searchable:false,
-        //searching:true,
+        searchable:true,
+        searching:true,
         bStateSave: true,
     
         ajax: {
@@ -511,7 +503,7 @@
    $("body").on('click','#save_change',function(e){
            console.log("url==",$("#previous").val());
            var url = $("#previous").val();
-           var table = $("#myTable").DataTable();
+           var table = $("#bankAccountTable").DataTable();
            $.ajax({
                    method: "POST",
                    url:url,
