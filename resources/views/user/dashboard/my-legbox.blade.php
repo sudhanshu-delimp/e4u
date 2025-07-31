@@ -554,7 +554,9 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
             <div class="modal-content basic-modal modal-lg">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="emailReport">Escort Profile</h5>
+                    <h5 class="modal-title" id="emailReport">
+                        <img src="{{ asset('assets/dashboard/img/view.png') }}" style="width:40px; margin-right:10px;" alt="Request Rejected">
+                        Escort Profile</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                     </button>

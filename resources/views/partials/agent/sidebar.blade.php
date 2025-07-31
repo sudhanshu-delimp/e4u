@@ -82,7 +82,7 @@
         </a>
         <div id="Escorts" class="collapse @if (request()->segment(3) == 'new-requests' ||
                 request()->segment(3) == 'history-requests' ||
-                request()->segment(2) == 'user-escorts-list' ||
+                request()->segment(2) == 'advertiser-list' ||
                 request()->segment(2) == 'pricingsummaries') show @endif;" aria-labelledby="headingTwo"
             data-parent="#accordionSidebar">
             <div class="py-2 collapse-inner rounded">
@@ -229,9 +229,7 @@
 
             <span>Communication</span>
         </a>
-        <div id="Communication" class="collapse @if (request()->segment(2) == 'advertiser-profiles' ||
-                request()->segment(2) == 'advertiser-social-media' ||
-                request()->segment(2) == 'prospets-memberships') show @endif;"
+        <div id="Communication" class="collapse @if (request()->segment(2) == 'agent-messages') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
             <div class="py-0 collapse-inner rounded mb-2">
