@@ -20,28 +20,25 @@
                     </span>
                     <span>
                         <b>My Agent :  </b><span class="user-values">
-
-                                        @if(auth()->user()->my_agent)
-                                          {{ auth()->user()->my_agent->name }}
-                                        @else
-                                            <a href="{{url('/escort-dashboard/escort-agency-request') }}"> Request one</a>
-                                        @endif
-                            
-                        
+                            @if(auth()->user()->my_agent)
+                                {{ auth()->user()->my_agent->name }}
+                            @else
+                                <a href="{{url('/escort-dashboard/escort-agency-request') }}"> Request one</a>
+                            @endif
                         </span>
                     </span>
                    
                 </div>
                 
-                <div>
+                <div class="gap-b">
                     <span>
-                        <b>Territory :  </b><span class="user-values">{{auth()->user()->home_state }}</span> <span class="separator">|</span> 
+                        <b>Home State :  </b><span class="user-values resident_home_state">--</span> <span class="separator">|</span> 
                     </span>
                     <span>
-                        <b>Current Location :  </b><span class="user-values">{{auth()->user()->home_state }}</span> <span class="separator">|</span>
+                        <b>Current Location :  </b><span class="user-values live_current_location">--</span> <span class="separator">|</span>
                     </span>
                     <span>
-                        <b>Location time :  </b><span class="user-values">{{date("g:i a")}}</span>
+                        <b>Location time :  </b><span class="user-values live_current_time">00:00 AM</span>
                     </span>
                 </div>
             </div>
@@ -238,7 +235,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
                                         
                                         @if(auth()->user()->my_agent)
-                                             {{ auth()->user()->my_agent->member_id }}
+                                        My Agent :  {{ auth()->user()->my_agent->member_id }}
                                         @else
                                            My Agent ID : <span style="color:var(--peach)"> Request one</span>
                                         @endif

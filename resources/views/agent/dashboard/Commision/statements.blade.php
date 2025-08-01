@@ -66,7 +66,7 @@
       <div class="col-md-12">
          
          <div class="table-responsive-xl">
-            <table class="table">
+            <table class="table" id="commissionStatementTable">
                <thead class="table-bg">
                   <tr>
                      <th scope="col">Date</th>
@@ -121,25 +121,7 @@
                   </tr>
                </tbody>
             </table>
-            <nav aria-label="Page navigation example">
-               <ul class="pagination float-right pt-4">
-                  <li class="page-item">
-                     <a class="page-link" href="#" aria-label="Previous">
-                     <span aria-hidden="true">«</span>
-                     <span class="sr-only">Previous</span>
-                     </a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                     <a class="page-link" href="#" aria-label="Next">
-                     <span aria-hidden="true">»</span>
-                     <span class="sr-only">Next</span>
-                     </a>
-                  </li>
-               </ul>
-            </nav>
+            
          </div>
       </div>
       <div class="col-md-12">
@@ -222,217 +204,217 @@
                   </div>
                </div>
             </div>
-<div class="table-responsive-xl">
+   <div class="table-responsive-xl">
                <table class="table commission-table">
-                  <thead class="table-bg">
-                     <tr>
-                        <th scope="col">Member ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Territory</th>
-                        <th scope="col">Level 1 <sup>(1)</sup></th>
-                        <th scope="col">Days</th>
-                        <th scope="col">Value <sup>(2)</sup></th>
-                        <th scope="col">Commission</th>
-                     </tr>
-                  </thead>
-<tbody class="table-content">
-   <tr class="row-color">
-      <td class="theme-color">E612344</td>
-      <td class="theme-color">Oxe Daisy</td>
-      <td class="theme-color">WA</td>
-      <td class="theme-color">P</td>
-      <td class="theme-color">22</td>
-      <td class="theme-color">$ 176.00</td>
-      <td class="theme-color">$ 8.80</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color">G</td>
-      <td class="theme-color">4</td>
-      <td class="theme-color">$ 24.00</td>
-      <td class="theme-color">$ 1.20</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color">S</td>
-      <td class="theme-color">2</td>
-      <td class="theme-color">$ 8.00</td>
-      <td class="theme-color">$ 0.40</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color">PU</td>
-      <td class="theme-color">7</td>
-      <td class="theme-color">$ 475.00</td>
-      <td class="theme-color">$ 23.75</td>
-   </tr>
-   <tr class="commission-color">
-      <td class="border-0" colspan="3"></td>
-      <td colspan="1"><b>Totals</b></td>
-      <td class="commission-border">35</td>
-      <td class="commission-border">$ 683.00</td>
-      <td class="commission-border">$ 34.15</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color">E612351</td>
-      <td class="theme-color">Rose Chaplin</td>
-      <td class="theme-color">WA</td>
-      <td class="theme-color">P</td>
-      <td class="theme-color">22</td>
-      <td class="theme-color">$ 176.00</td>
-      <td class="theme-color">$ 8.80</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color">G</td>
-      <td class="theme-color">4</td>
-      <td class="theme-color">$ 24.00</td>
-      <td class="theme-color">$ 1.20</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color">S</td>
-      <td class="theme-color">2</td>
-      <td class="theme-color">$ 8.00</td>
-      <td class="theme-color">$ 0.40</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color">PU</td>
-      <td class="theme-color">7</td>
-      <td class="theme-color">$ 475.00</td>
-      <td class="theme-color">$ 23.75</td>
-   </tr>
-   <tr class="commission-color">
-      <td class="border-0" colspan="3"></td>
-      <td colspan="1"><b>Totals</b></td>
-      <td class="commission-border">35</td>
-      <td class="commission-border">$ 683.00</td>
-      <td class="commission-border">$ 34.15</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color">E612366</td>
-      <td class="theme-color">Marry Smith</td>
-      <td class="theme-color">WA</td>
-      <td class="theme-color">P</td>
-      <td class="theme-color">22</td>
-      <td class="theme-color">$ 176.00</td>
-      <td class="theme-color">$ 8.80</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color">G</td>
-      <td class="theme-color">4</td>
-      <td class="theme-color">$ 24.00</td>
-      <td class="theme-color">$ 1.20</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color">S</td>
-      <td class="theme-color">2</td>
-      <td class="theme-color">$ 8.00</td>
-      <td class="theme-color">$ 0.40</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color"> </td>
-      <td class="theme-color">PU</td>
-      <td class="theme-color">7</td>
-      <td class="theme-color">$ 475.00</td>
-      <td class="theme-color">$ 23.75</td>
-   </tr>
-   <tr class="commission-color">
-      <td class="border-0" colspan="3"></td>
-      <td colspan="1"><b>Totals</b></td>
-      <td class="commission-border">35</td>
-      <td class="commission-border">$ 683.00</td>
-      <td class="commission-border">$ 34.15</td>
-   </tr>
-   <tr class="commission-color">
-      <td class="border-0" colspan="3"></td>
-      <td class=" " colspan="1"><b>Total Escorts</b></td>
-      <td class="commission-border commission-border-double">105</td>
-      <td class="commission-border commission-border-double">$ 2,049.00</td>
-      <td class="commission-border commission-border-double">$ 102.45</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color">M612380</td>
-      <td class="theme-color">Lin’s Massage</td>
-      <td class="theme-color">WA</td>
-      <td class="theme-color">F</td>
-      <td class="theme-color">30</td>
-      <td class="theme-color">$ 900.00</td>
-      <td class="theme-color">$ 45.00</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color">M612380</td>
-      <td class="theme-color">Lin’s Massage</td>
-      <td class="theme-color">WA</td>
-      <td class="theme-color">F</td>
-      <td class="theme-color">30</td>
-      <td class="theme-color">$ 900.00 </td>
-      <td class="theme-color">$ 45.00</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color">M612380</td>
-      <td class="theme-color">Lin’s Massage</td>
-      <td class="theme-color">WA</td>
-      <td class="theme-color">F</td>
-      <td class="theme-color">30</td>
-      <td class="theme-color">$ 900.00</td>
-      <td class="theme-color">$ 45.00</td>
-   </tr>
-   <tr class="row-color">
-      <td class="theme-color">M612380</td>
-      <td class="theme-color">Lin’s Massagey</td>
-      <td class="theme-color">WA</td>
-      <td class="theme-color">F</td>
-      <td class="theme-color">30</td>
-      <td class="theme-color">$ 900.00</td>
-      <td class="theme-color">$ 45.00</td>
-   </tr>
-   <tr class="commission-color">
-      <td class="border-0" colspan="3"></td>
-      <td class=" " colspan="1"><b>Total Massage Centres:</b></td>
-      <td class="commission-border commission-border-double">120</td>
-      <td class="commission-border commission-border-double">$ 3,600.00</td>
-      <td class="commission-border commission-border-double">$ 180.00</td>
-   </tr>
-   <tr class="commission-color">
-      <td class="border-0" colspan="3"></td>
-      <td class=" " colspan="1"><b>Total Advertisers:</b></td>
-      <td class="commission-border commission-border-double">225</td>
-      <td class="commission-border commission-border-double">$ 5,649.00</td>
-      <td class="commission-border commission-border-double">$ 282.45</td>
-   </tr>
-</tbody>
-               </table>
+                     <thead class="table-bg">
+                        <tr>
+                           <th scope="col">Member ID</th>
+                           <th scope="col">Name</th>
+                           <th scope="col">Territory</th>
+                           <th scope="col">Level 1 <sup>(1)</sup></th>
+                           <th scope="col">Days</th>
+                           <th scope="col">Value <sup>(2)</sup></th>
+                           <th scope="col">Commission</th>
+                        </tr>
+                     </thead>
+                        <tbody class="table-content">
+                           <tr class="row-color">
+                              <td class="theme-color">E612344</td>
+                              <td class="theme-color">Oxe Daisy</td>
+                              <td class="theme-color">WA</td>
+                              <td class="theme-color">P</td>
+                              <td class="theme-color">22</td>
+                              <td class="theme-color">$ 176.00</td>
+                              <td class="theme-color">$ 8.80</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color">G</td>
+                              <td class="theme-color">4</td>
+                              <td class="theme-color">$ 24.00</td>
+                              <td class="theme-color">$ 1.20</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color">S</td>
+                              <td class="theme-color">2</td>
+                              <td class="theme-color">$ 8.00</td>
+                              <td class="theme-color">$ 0.40</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color">PU</td>
+                              <td class="theme-color">7</td>
+                              <td class="theme-color">$ 475.00</td>
+                              <td class="theme-color">$ 23.75</td>
+                           </tr>
+                           <tr class="commission-color">
+                              <td class="border-0" colspan="3"></td>
+                              <td colspan="1"><b>Totals</b></td>
+                              <td class="commission-border">35</td>
+                              <td class="commission-border">$ 683.00</td>
+                              <td class="commission-border">$ 34.15</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color">E612351</td>
+                              <td class="theme-color">Rose Chaplin</td>
+                              <td class="theme-color">WA</td>
+                              <td class="theme-color">P</td>
+                              <td class="theme-color">22</td>
+                              <td class="theme-color">$ 176.00</td>
+                              <td class="theme-color">$ 8.80</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color">G</td>
+                              <td class="theme-color">4</td>
+                              <td class="theme-color">$ 24.00</td>
+                              <td class="theme-color">$ 1.20</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color">S</td>
+                              <td class="theme-color">2</td>
+                              <td class="theme-color">$ 8.00</td>
+                              <td class="theme-color">$ 0.40</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color">PU</td>
+                              <td class="theme-color">7</td>
+                              <td class="theme-color">$ 475.00</td>
+                              <td class="theme-color">$ 23.75</td>
+                           </tr>
+                           <tr class="commission-color">
+                              <td class="border-0" colspan="3"></td>
+                              <td colspan="1"><b>Totals</b></td>
+                              <td class="commission-border">35</td>
+                              <td class="commission-border">$ 683.00</td>
+                              <td class="commission-border">$ 34.15</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color">E612366</td>
+                              <td class="theme-color">Marry Smith</td>
+                              <td class="theme-color">WA</td>
+                              <td class="theme-color">P</td>
+                              <td class="theme-color">22</td>
+                              <td class="theme-color">$ 176.00</td>
+                              <td class="theme-color">$ 8.80</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color">G</td>
+                              <td class="theme-color">4</td>
+                              <td class="theme-color">$ 24.00</td>
+                              <td class="theme-color">$ 1.20</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color">S</td>
+                              <td class="theme-color">2</td>
+                              <td class="theme-color">$ 8.00</td>
+                              <td class="theme-color">$ 0.40</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color"> </td>
+                              <td class="theme-color">PU</td>
+                              <td class="theme-color">7</td>
+                              <td class="theme-color">$ 475.00</td>
+                              <td class="theme-color">$ 23.75</td>
+                           </tr>
+                           <tr class="commission-color">
+                              <td class="border-0" colspan="3"></td>
+                              <td colspan="1"><b>Totals</b></td>
+                              <td class="commission-border">35</td>
+                              <td class="commission-border">$ 683.00</td>
+                              <td class="commission-border">$ 34.15</td>
+                           </tr>
+                           <tr class="commission-color">
+                              <td class="border-0" colspan="3"></td>
+                              <td class=" " colspan="1"><b>Total Escorts</b></td>
+                              <td class="commission-border commission-border-double">105</td>
+                              <td class="commission-border commission-border-double">$ 2,049.00</td>
+                              <td class="commission-border commission-border-double">$ 102.45</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color">M612380</td>
+                              <td class="theme-color">Lin’s Massage</td>
+                              <td class="theme-color">WA</td>
+                              <td class="theme-color">F</td>
+                              <td class="theme-color">30</td>
+                              <td class="theme-color">$ 900.00</td>
+                              <td class="theme-color">$ 45.00</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color">M612380</td>
+                              <td class="theme-color">Lin’s Massage</td>
+                              <td class="theme-color">WA</td>
+                              <td class="theme-color">F</td>
+                              <td class="theme-color">30</td>
+                              <td class="theme-color">$ 900.00 </td>
+                              <td class="theme-color">$ 45.00</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color">M612380</td>
+                              <td class="theme-color">Lin’s Massage</td>
+                              <td class="theme-color">WA</td>
+                              <td class="theme-color">F</td>
+                              <td class="theme-color">30</td>
+                              <td class="theme-color">$ 900.00</td>
+                              <td class="theme-color">$ 45.00</td>
+                           </tr>
+                           <tr class="row-color">
+                              <td class="theme-color">M612380</td>
+                              <td class="theme-color">Lin’s Massagey</td>
+                              <td class="theme-color">WA</td>
+                              <td class="theme-color">F</td>
+                              <td class="theme-color">30</td>
+                              <td class="theme-color">$ 900.00</td>
+                              <td class="theme-color">$ 45.00</td>
+                           </tr>
+                           <tr class="commission-color">
+                              <td class="border-0" colspan="3"></td>
+                              <td class=" " colspan="1"><b>Total Massage Centres:</b></td>
+                              <td class="commission-border commission-border-double">120</td>
+                              <td class="commission-border commission-border-double">$ 3,600.00</td>
+                              <td class="commission-border commission-border-double">$ 180.00</td>
+                           </tr>
+                           <tr class="commission-color">
+                              <td class="border-0" colspan="3"></td>
+                              <td class=" " colspan="1"><b>Total Advertisers:</b></td>
+                              <td class="commission-border commission-border-double">225</td>
+                              <td class="commission-border commission-border-double">$ 5,649.00</td>
+                              <td class="commission-border commission-border-double">$ 282.45</td>
+                           </tr>
+                        </tbody>
+                  </table>
+               </div>
             </div>
-         </div>
-         <div class="modal-footer pt-0">
-            <button type="button" class="btn btn-primary">Query</button>
-            <button type="button" class="btn btn-primary">Approve</button>
+            <div class="modal-footer pt-0">
+               <button type="button" class="btn btn-primary">Query</button>
+               <button type="button" class="btn btn-primary">Approve</button>
+            </div>
          </div>
       </div>
    </div>
-</div>
 @endsection
 @push('script')
 <!-- file upload plugin start here -->
@@ -440,4 +422,27 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+   $(document).ready(function() {
+       $('#commissionStatementTable').DataTable({
+           language: {
+               search: "_INPUT_",
+               searchPlaceholder: "Search By Agent Id",
+               sSearch: 'Search:'
+           },
+           paging: true,
+           pageLength: 10,
+           lengthMenu: [10, 25, 50, 100],
+           info: true,
+           searching: true,
+           order: [[1, 'asc']]
+       });
+   });
+   </script>
+   
+
+
+
 @endpush

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\AppController;
+use App\Http\Requests\Escort\StorePinupRequest;
 use App\Models\Escort;
 use App\Models\PinUps;
 use App\Models\Pricing;
 use App\Models\EscortPinup;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Exception;
 
 class PinUpsController extends AppController
 {
@@ -118,65 +120,90 @@ class PinUpsController extends AppController
     
     
     public function pinup_available_weeks(Escort $escort){
-        $start = Carbon::parse($escort->start_date)->startOfWeek(Carbon::MONDAY);
-        $end = Carbon::parse($escort->end_date)->endOfWeek(Carbon::SUNDAY);
-        $weeks = collect();
-        $candidateStarts = [];
-        while ($start->lte($end)) {
-            $weekStart = $start->copy();
-            $weekEnd = $start->copy()->endOfWeek(Carbon::SUNDAY);
-    
-            // Only include if full week is within profile listing range
-          
-            if ($weekStart->gte(Carbon::parse($escort->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($escort->end_date)->endOfDay())) {
-                $weeks->push([
-                    'start' => $weekStart->toDateString(),
-                    'end' => $weekEnd->toDateString()
-                ]);
-                $candidateStarts[] = $weekStart->toDateString();
-            }
-    
-            $start->addWeek();
-        }
-        if (empty($candidateStarts)) {
-            return response()->json($weeks);
-        }
+        try{
+            $start = Carbon::parse($escort->start_date)->startOfWeek(Carbon::MONDAY);
+            $end = Carbon::parse($escort->end_date)->endOfWeek(Carbon::SUNDAY);
+            $weeks = collect();
+            $candidateStarts = [];
+            while ($start->lte($end)) {
+                $weekStart = $start->copy();
+                $weekEnd = $start->copy()->endOfWeek(Carbon::SUNDAY);
         
-        // Fetch week starts already booked for THIS location (state_id + city_id)
-        $bookedStarts = EscortPinup::query()
-        ->where('state_id', $escort->state_id)
-        ->where('city_id',  $escort->city_id)
-        ->whereIn('start_date', $candidateStarts)   
-        ->pluck('start_date')                       
-        ->map(fn ($d) => Carbon::parse($d)->toDateString())
-        ->all();
-        $available = $weeks->reject(fn ($w) => in_array($w['start'], $bookedStarts));
-        return response()->json($available->values());
+                // Only include if full week is within profile listing range
+            
+                if ($weekStart->gte(Carbon::parse($escort->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($escort->end_date)->endOfDay())) {
+                    $weeks->push([
+                        'start' => $weekStart->toDateString(),
+                        'end' => $weekEnd->toDateString()
+                    ]);
+                    $candidateStarts[] = $weekStart->toDateString();
+                }
+        
+                $start->addWeek();
+            }
+            if (empty($candidateStarts)) {
+                return response()->json([
+                    'success' => false,
+                    'weeks' => $weeks,
+                    'message' => 'Sorry, no weeks are available',
+                ]);
+            }
+            
+            // Fetch week starts already booked for THIS location (state_id + city_id)
+            $bookedStarts = EscortPinup::query()
+            ->where('state_id', $escort->state_id)
+            ->where('city_id',  $escort->city_id)
+            ->whereIn('start_date', $candidateStarts)   
+            ->pluck('start_date')                       
+            ->map(fn ($d) => Carbon::parse($d)->toDateString())
+            ->all();
+            $available = $weeks->reject(fn ($w) => in_array($w['start'], $bookedStarts));
+            return response()->json([
+                'success' => true,
+                'weeks' => $available->values(),
+                'message' => 'Found available weeks.',
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
-    public function register(Request $request){
-        $escortId = $request->pinup_profile_id;
-        $escortDetail = getEscortDetail($escortId);
-        $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
-        [$startDate, $endDate] = explode('|', $request->pinup_week);
-        $localStart = Carbon::createFromFormat('Y-m-d', $startDate, $profileTimezone)->startOfDay();
-        $localEnd = Carbon::createFromFormat('Y-m-d', $endDate, $profileTimezone)->endOfDay();
-        $utcStart = $localStart->copy()->setTimezone('UTC');
-        $utcEnd = $localEnd->copy()->setTimezone('UTC');
-        EscortPinup::create([
-            'user_id' => auth()->user()->id,
-            'escort_id' => $escortDetail->id,
-            'state_id' => $escortDetail->state_id,
-            'city_id' => $escortDetail->city_id,
-            'start_date' => $startDate,
-            'end_date' => $endDate,
-            'utc_start_time' => $utcStart,
-            'utc_end_time' => $utcEnd,
-        ]);
+    public function register(StorePinupRequest $request){
+        try{
+            $data = $request->validated();
+            $escortId = $data['pinup_profile_id'];
+            $escortDetail = getEscortDetail($escortId);
+            $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
+            [$startDate, $endDate] = explode('|', $data['pinup_week']);
+            $localStart = Carbon::createFromFormat('Y-m-d', $startDate, $profileTimezone)->startOfDay();
+            $localEnd = Carbon::createFromFormat('Y-m-d', $endDate, $profileTimezone)->endOfDay();
+            $utcStart = $localStart->copy()->setTimezone('UTC');
+            $utcEnd = $localEnd->copy()->setTimezone('UTC');
+            EscortPinup::create([
+                'user_id' => auth()->user()->id,
+                'escort_id' => $escortDetail->id,
+                'state_id' => $escortDetail->state_id,
+                'city_id' => $escortDetail->city_id,
+                'start_date' => $startDate,
+                'end_date' => $endDate,
+                'utc_start_time' => $utcStart,
+                'utc_end_time' => $utcEnd,
+            ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Pinup slot booked successfully!'
-        ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Pinup slot booked successfully!'
+            ]);
+        }
+        catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong while booking the Pinup.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

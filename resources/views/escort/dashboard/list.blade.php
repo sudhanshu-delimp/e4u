@@ -18,13 +18,6 @@
             height: 52px !important;
         }
 
-        .brb_icon {
-            color: white;
-            background-color: #e5365a;
-            border-radius: 15%;
-            padding: 0 5px;
-        }
-
         .parsley-errors-list {
             list-style: none;
             color: rgb(248, 0, 0);
@@ -247,7 +240,6 @@
                                             <input type="hidden" id="hiddenSuspendProfileId">
                                             <input type="hidden" id="hiddenDiffDays" name="diffDays">
                                             <div class="col-sm-8">
-                                                {{-- dd($active_escorts) --}}
                                                 <select
                                                     class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
                                                     id="suspendProfileId" name="suspend_profile_id"

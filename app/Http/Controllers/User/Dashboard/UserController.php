@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\User\Dashboard;
 
-use Auth;
-use Carbon\Carbon;
-use App\Models\MyLegbox;
-use Illuminate\Http\Request;
-use App\Models\MyMassageLegbox;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
-use App\Models\Escort;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Models\MyLegbox;
+use App\Models\MyMassageLegbox;
+use Auth;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -37,22 +35,8 @@ class UserController extends Controller
         if(auth()->user() && auth()->user()->type == 0) {
             $user_type = auth()->user();
         }
-
-        $escorts =  collect();
-        if($user_type){
-            $myLegbboxIds = MyLegbox::where('user_id',auth()->user()->id)->pluck('escort_id');
-            $escorts = Escort::whereIn('id',$myLegbboxIds)->with(['city','state','likes','user',
-                'suspendProfile' => function ($query) {
-                    $today = Carbon::now(config('app.timezone'));
-                    $query->whereDate('start_date', '<=', $today)
-                        ->whereDate('end_date', '>=', $today)
-                        ->where('status', true);
-                }
-            ])->where('enabled',1)->get(); // city_id
-        }
-
       //dd($user_type->myLegBox->pluck('id')->toArray());
-        return view('user.dashboard.legbox.escort-list',compact('user_type','escorts'));
+        return view('user.dashboard.legbox.list',compact('user_type'));
     }
     public function massageLegboxList()
     {
@@ -318,9 +302,7 @@ class UserController extends Controller
     public function storeMyAvatar(StoreAvatarMediaRequest $request,$id)
     {
         //$attachment = $request->file('avatar_img');
-        $avatar = $request->file('avatar_img');
-        $extension = $avatar->getClientOriginalExtension();
-        //$extension = explode('/', mime_content_type($request->src))[1];
+        $extension = explode('/', mime_content_type($request->src))[1];
         $data = $request->src;
 
         list($type, $data)  = explode(';', $data);
@@ -331,7 +313,6 @@ class UserController extends Controller
         $avatarName          = time(). '-' .$avatar_owner .'.'.$extension;
         $avatar_uri          = file_put_contents(public_path() . '/avatars/' . $avatarName, $data);
 
-    
         //dd($avatar_uri);
         $user = $this->user->find($id);
         $user->avatar_img = $avatarName;

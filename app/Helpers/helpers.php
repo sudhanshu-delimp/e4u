@@ -4,10 +4,15 @@
  * Custom helper functions
  */
 
+use App\Models\City;
 use App\Models\Escort;
 use App\Models\Country;
+use App\Models\State;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 if (!function_exists('calculateTatalFee')) {
     /**
@@ -312,6 +317,64 @@ if (!function_exists('app_date_time_format')) {
         return \Carbon\Carbon::parse($datetime)->format('d M Y, h:i A');
             
      }
+     
+}
+
+if (!function_exists('getRealTimeGeolocationOfUsers')) {
+
+    function getRealTimeGeolocationOfUsers($lat, $lng)
+    {
+        try {
+            $apiKey = config('services.google_map.api_key'); // env('GOOGLE_MAPS_API_KEY');
+        
+            // Get location details from Google Maps Reverse Geocoding
+            $geoUrl = "https://maps.googleapis.com/maps/api/geocode/json?latlng={$lat},{$lng}&key={$apiKey}";
+            $response = Http::get($geoUrl);
+        
+            $state = 'Unknown';
+        
+            if ($response->successful()) {
+                foreach ($response['results'][0]['address_components'] as $component) {
+                    if (in_array('administrative_area_level_1', $component['types'])) {
+                        $state = $component['long_name'];
+                        break;
+                    }
+                }
+            }
+
+            $stateFromDb = State::where('name','like','%'.$state.'%')->first();
+
+            $stateCapital = config('escorts.profile.states')[$stateFromDb->id] ?? null;
+
+            $timezone = $stateCapital ? $stateCapital['timeZone'] : "UTC";
+
+            $parms =[
+                'state'=> $stateFromDb ? $stateFromDb->id : null,
+                'city'=> $stateCapital ? array_key_first($stateCapital['cities']) : null,
+                'home_state'=> auth()->user()->home_state,
+                'current_location'=> $stateFromDb->iso2,
+                'timezone'=> $timezone,
+                'current_time'=> now($timezone)->format('h:i A')
+            ];
+
+            return $parms;
+        } catch (\Exception $e) {
+            $stateCapital = config('escorts.profile.states')[auth()->user()->state_id];
+            $timezone = $stateCapital ? $stateCapital['timeZone'] : "UTC";
+
+            $parms =[
+                'state'=>null,
+                'city'=>null,
+                'home_state'=> auth()->user()->home_state,
+                'current_location'=> auth()->user()->home_state,
+                'timezone'=> $timezone,
+                'current_time'=> now($timezone)->format('h:i A')
+            ];
+
+            return $parms;
+        }
+        
+    }
      
 }
 

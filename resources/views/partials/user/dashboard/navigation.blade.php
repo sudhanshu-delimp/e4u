@@ -11,15 +11,17 @@
                             <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
                         </div> --}}
                         <div class="d-user-info">
-                            <span>
-                                <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name }}</span> <span class="separator">|</span> 
-                            </span>
-                            <span>
-                                <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator">|</span>
-                            </span>
-                            <span>
-                                <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
-                            </span>
+                           <div class="gap-b">
+                                <span>
+                                    <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name }}</span> <span class="separator">|</span> 
+                                </span>
+                                <span>
+                                    <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator">|</span>
+                                </span>
+                                <span>
+                                    <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
+                                </span>
+                           </div>
                         </div>
                     </div>
                     {{-- end --}}
@@ -218,7 +220,7 @@
                                     </a>
                                     
                                     <a class="dropdown-item" href="/user-dashboard/my-legbox-list">
-                                    <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox.png')}}">
+                                    <img class="mr-2 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox.png')}}">
                                         My Legbox
                                     </a>
                                     
@@ -228,7 +230,7 @@
                                     </a>
                                     
                                     <a class="dropdown-item" href="/user-dashboard/punterbox/lookup">
-                                        <img class="mr-2 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox.png')}}">
+                                        <img class="mr-2 cstm--icon" src="{{asset('assets/dashboard/img/boxicon/icon_punterbox.png')}}">
                                         Punterbox
                                     </a>
                                     

@@ -6055,15 +6055,16 @@ table#myTable\ price-sec {
 
 
 /* Bubble Arrow */
-.pinup-tooltip-wrapper{
+
+.pinup-tooltip-wrapper {
     position: relative;
-    
 }
-.pinup-tooltip-wrapper .pinup-tooltip{
+
+.pinup-tooltip-wrapper .pinup-tooltip {
     position: absolute;
     top: 5px;
     right: 110px;
-    opacity: 0;    
+    opacity: 0;
     background: var(--peach);
     font-size: 14px;
     padding: 8px 8px;
@@ -6076,12 +6077,11 @@ table#myTable\ price-sec {
     width: max-content;
 }
 
-
 .pinup-tooltip-wrapper .pinup-tooltip::after {
     content: '';
     position: absolute;
     bottom: 11px;
-    right: -11px;   
+    right: -11px;
     border-width: 6px;
     border-style: solid;
     background-color: var(--peach);
@@ -6090,10 +6090,9 @@ table#myTable\ price-sec {
     transform: translate(-50%, -10%) rotate(45deg);
 }
 
-.pinup-tooltip-wrapper:hover  .pinup-tooltip{
+.pinup-tooltip-wrapper:hover .pinup-tooltip {
     opacity: 1;
 }
-
 
 .my_service_anal .mytool-tip::after {
     content: '';
@@ -6637,6 +6636,8 @@ div#sailorTable_info {
 
 #table-sec i {
     /* color: #ccc; */
+
+
 /* } */
 
 .table-grid .padding_none:nth-child(3) {
@@ -6646,10 +6647,11 @@ div#sailorTable_info {
 .table-grid {
     display: grid !important;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 10px; /* space between columns */
+    gap: 10px;
+    /* space between columns */
 }
 
-.table-grid > div {
+.table-grid>div {
     padding: 0;
 }
 
@@ -6703,9 +6705,9 @@ div#sailorTable_info {
     color: #fff;
     background-color: #0C223D;
     border-color: #0C223D;
-} */
+}
 
-#cke_11,
+*/ #cke_11,
 #cke_19,
 #cke_21,
 #cke_25,
@@ -7832,7 +7834,6 @@ td {
 
 .topbar-logged-in-user-data .d-user-info::-webkit-scrollbar {
     height: 6px;
-    margin-top: 20px;
 }
 
 .topbar-logged-in-user-data .d-user-info::-webkit-scrollbar-thumb {
@@ -7875,6 +7876,11 @@ td {
         overflow-x: auto;
         white-space: nowrap;
         padding-right: 10px;
+        font-size: 10px;
+    }
+    .topbar-logged-in-user-data .d-user-info span {}
+    .topbar-logged-in-user-data .d-user-info .gap-b {
+        margin-bottom: 10px;
     }
 }
 
@@ -8541,6 +8547,60 @@ td {
 .custom--contact {
     display: flex;
     gap: 5px;
+}
+
+.pinup_icon {
+    color: white;
+    background-color: #f6c23e;
+    border-radius: 15%;
+    padding: 0 5px;
+}
+
+.brb_icon {
+    color: white;
+    background-color: #e5365a;
+    border-radius: 15%;
+    padding: 0 5px;
+}
+
+.listing-tag-tooltip{
+    position: relative;
+    cursor: pointer;
+    
+}
+.listing-tag-tooltip .listing-tag-tooltip-desc{
+    position: absolute;
+    top: 22px;
+    left: 0px;
+    opacity: 0;    
+    background: var(--blue--text);
+    font-size: 10px;
+    padding:10px;
+    border-radius: 4px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: #fff;
+    font-weight: 300;
+    width: max-content;
+}
+
+
+.listing-tag-tooltip .listing-tag-tooltip-desc::after {
+    content: '';
+    position: absolute;
+    bottom: 12px;
+    left: 14px;   
+    border-width: 5px;
+    border-style: solid;
+    background-color: var(--blue--text);
+    border-color: var(--blue--text);
+    z-index: -1;
+    transform: translate(-50%, -10%) rotate(45deg);
+}
+
+.listing-tag-tooltip:hover  .listing-tag-tooltip-desc{
+    opacity: 1;
 }
 
 @media (min-width:300px) and (max-width:575px) {

@@ -1,4 +1,5 @@
 let savePinupButton = document.getElementById("savePinupButton");
+let btn_pinup_profile = document.getElementById("btn_pinup_profile");
 savePinupButton.disabled = true;
 $(document).on('change','#pinup_profile_id', function(){
     let weekSelect = document.getElementById('pinup_week');
@@ -6,10 +7,10 @@ $(document).on('change','#pinup_profile_id', function(){
     $.ajax({
         url: '/escort-dashboard/pinup-available-weeks/' + escortId,
         type: 'GET',
-        success: function(weeks) {
+        success: function(response) {
             weekSelect.innerHTML = '<option value="">Select a week</option>';
-            if(weeks.length>0){
-                weeks.forEach(week => {
+            if(response.success){
+                response.weeks.forEach(week => {
                     let label = `${week.start} (Mon)  -To-  ${week.end} (Sun)`;
                     let value = `${week.start}|${week.end}`;
 
@@ -21,19 +22,27 @@ $(document).on('change','#pinup_profile_id', function(){
                 savePinupButton.disabled = false;
             }
             else{
-                weekSelect.innerHTML = '<option value="">Sorry, no weeks are available</option>';
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Pin Up',
+                    text: response.message
+                });
                 savePinupButton.disabled = true;
             }
         },
         error: function() {
-            weekSelect.innerHTML = '<option value="">Error fetching weeks.</option>';
+            Swal.fire({
+                icon: 'error',
+                title: 'Pin Up',
+                text: response.message
+            });
             savePinupButton.disabled = true;
         }
     });
 });
 
 savePinupButton.addEventListener("click", function (e) {
-    e.preventDefault(); // Prevent form submission
+    e.preventDefault();
     
     const button = e.target
     const form = button.closest('form');
@@ -44,18 +53,47 @@ savePinupButton.addEventListener("click", function (e) {
     const action = form.action;
     const method = form.method;
     const formData = new FormData(form);
-    fetch(action, {
+    savePinupButton.disabled = true;
+    $.ajax({
+        url: action,
         method: method,
+        data: formData,
+        processData: false,
+        contentType: false,
         headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json',
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
         },
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-    })
-    .catch(error => {
-        console.log('Submission error:', error);
+        success: function(data) {
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Register for Pin Up',
+                    text: data.message
+                });
+                form.reset();
+                savePinupButton.disabled = false;
+                $("#pinup_profile").modal('hide');
+                btn_pinup_profile.disabled = true;
+            }
+        },
+        error: function(xhr) {
+            if (xhr.status === 422) {
+                let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    html: messages
+                });
+            } else {
+                let message = JSON.parse(xhr.responseText).message;
+                Swal.fire({
+                    icon: 'error',
+                    title: xhr.statusText,
+                    text: message || 'Something went wrong.'
+                });
+            }
+            savePinupButton.disabled = false;
+        }
     });
 });
