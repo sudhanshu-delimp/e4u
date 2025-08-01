@@ -54,6 +54,12 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
+                                                            <label for="email" class="my-agent">Business name</label>
+                                                            <input type="text" class="form-control" placeholder=" " name="" aria-describedby="emailHelp" value="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
                                                             <label for="email" class="my-agent">Your address </label>
                                                             <input type="text" class="form-control" placeholder=" " name="" aria-describedby="emailHelp" value="">
                                                         </div>
@@ -66,16 +72,18 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email" class="my-agent">Business </label>
-                                                            <input type="text" class="form-control" placeholder=" " name="" aria-describedby="emailHelp" value="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="email">Mobile</label>
+                                                            <label for="email">Business No.</label>
                                                             <label type="text" class="form-control form-back" placeholder=" " name="phone" aria-describedby="emailHelp" value="{{ $escort->phone }}">{{ $escort->phone }}</label>
                                                         </div>
                                                     </div>
+
+                                                    
+                                                    <div class="col-md-6">
+                                                      <div class="form-group">
+                                                          <label for="email">Mobile No.</label>
+                                                          <label type="text" class="form-control form-back" placeholder=" " name="phone" aria-describedby="emailHelp" value="{{ $escort->phone }}">{{ $escort->phone }}</label>
+                                                      </div>
+                                                  </div>
 
                                                 
                                                     
@@ -96,7 +104,7 @@
 
                                                      <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email">My Agents</label>
+                                                            <label for="email">My Agent</label>
                                                             <label type="text" class="form-control form-back" placeholder=" " name="phone" aria-describedby="emailHelp" value="{{ $escort->my_agent ? $escort->my_agent->member_id : 'NA' }}">
                                                            
                                                               
@@ -109,7 +117,27 @@
                                                             </label>
                                                         </div>
                                                     </div>
-
+                                                    <div class="col-md-12">
+                                    <div class="form-group">
+                                       <label for="email">Method of contact:</label>
+                                       <div class="form-check form-check-inline">
+                                          <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_Message" value="1"  @if(!empty($escort->contact_type)) {{(in_array(1 , $escort->contact_type)) ? 'checked' : null }} @endif>
+                                          <label class="form-check-label" for="Method_Message">Message (via Console)</label>
+                                       </div>
+                                       <div class="form-check form-check-inline">
+                                          <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_Text" value="2"  @if(!empty($escort->contact_type)) {{(in_array(2 , $escort->contact_type)) ? 'checked' : null }} @endif>
+                                          <label class="form-check-label" for="Method_Text">Text</label>
+                                       </div>
+                                       <div class="form-check form-check-inline">
+                                          <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_Email" value="3"  @if(!empty($escort->contact_type)) {{(in_array(3 , $escort->contact_type)) ? 'checked' : null }} @endif>
+                                          <label class="form-check-label" for="Method_Email">Email</label>
+                                       </div>
+                                       <div class="form-check form-check-inline">
+                                          <input class="form-check-input" type="checkbox" name="contact_type[]" id="Method_call_me" value="4" @if(!empty($escort->contact_type)) {{(in_array(4 , $escort->contact_type)) ? 'checked' : null }} @endif>
+                                          <label class="form-check-label" for="Method_call_me">Call me</label>
+                                       </div>
+                                    </div>
+                                 </div>
                                                 </div>
                                             </div>
                                         </div>
