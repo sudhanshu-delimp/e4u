@@ -5063,6 +5063,18 @@ padding-bottom:80px;
     padding: 5px;
 }
 
+.badge-red {
+    color: #fff;
+    background-color: var(--peach);
+    position: absolute;
+    z-index: 1;
+    left: 5px;
+    bottom: 10px;
+    font-size: 10px !important;
+    padding: 5px;
+    font-weight: 500;
+}
+
 .archive-photo-sec .img-thumbnail {
     padding: 0;
     border-radius: 0;
@@ -6334,6 +6346,12 @@ ul.prof-sec {
     width: 1066.640px !important;
     height: 152px !important;
     object-fit: cover;
+}
+
+.banner-heading {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--blue--text);
 }
 
 .dvDest img {

@@ -64,7 +64,7 @@
     }
     img.img-thumbnail.defult-image {
         width: 190px;
-        height: 202px;
+        height: 135px;
         object-fit: cover;
     }
     img.img-thumbnail.defult-image-3 {
@@ -206,22 +206,31 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
-                                <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
-                                <img class="img-fluid" id="img9" data-position-id="9" src="{{ asset($path->findByposition(auth()->user()->id,9, 1)['path'])}}" >
-                                <input  type="hidden"  id="pos_9" name="position[9]" value="">
-                                </label>
+                           
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h2 class="banner-heading my-1">Default Baanner</h2>
+                                   
+                                    <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
+                                        <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
+                                        <img class="img-fluid" id="img9" data-position-id="9" src="{{ asset($path->findByposition(auth()->user()->id,9, 1)['path'])}}" >
+                                        <input  type="hidden"  id="pos_9" name="position[9]" value="">
+                                        </label>
+                                    </div>
+                                </div>
+                                {{-- new pinup banner --}}
+                                    
+                                <div class="col-lg-6">
+                                    <h2 class="banner-heading my-1">Pinup Baanner</h2>
+                                    <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
+                                        <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
+                                        <img class="img-fluid" id="img9" data-position-id="9" src="{{ asset($path->findByposition(auth()->user()->id,9, 1)['path'])}}" >
+                                        <input  type="hidden"  id="pos_9" name="position[9]" value="">
+                                        </label>
+                                    </div>
+                                </div>
+                                {{-- end --}}
                             </div>
-
-                            {{-- new pinup banner --}}
-                                
-                            <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
-                                <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
-                                <img class="img-fluid" id="img9" data-position-id="9" src="{{ asset($path->findByposition(auth()->user()->id,9, 1)['path'])}}" >
-                                <input  type="hidden"  id="pos_9" name="position[9]" value="">
-                                </label>
-                            </div>
-                            {{-- end --}}
                         </div>
                         <div class="col-md-2" style="padding-left: 7rem;">
                             <button type="submit" class="btn btn-primary create-tour-sec useDefault">Use Default</button>
@@ -338,8 +347,9 @@
                                     @foreach($images as $image)
                                     @if(!in_array($image->position, [8])/*$image->position != 8*/)
                                     <div class="item4" id="dm_{{$image->id}}">
-                                    <img class="img-thumbnail defult-image" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
-                                    <i class="fa fa-trash deleteimg" data-id="{{$image->id}}" title="Remove this media"></i>
+                                        <img class="img-thumbnail defult-image" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
+                                        <i class="fa fa-trash deleteimg" data-id="{{$image->id}}" title="Remove this media"></i>                                        
+                                        <span class="badge badge-red">gallery</span>
                                     </div>
                                     @endif
                                     @endforeach
@@ -502,7 +512,7 @@
                                                 --}}
                                             </div>
                                             <div class="row mt-2">
-                                                <div class="col-12">
+                                                <div class="col-lg-6">
                                                     <div class="plate"><label class="newbtn">
                                                         <img id="blah9" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
                                                         <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
@@ -510,10 +520,7 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="row mt-2">
-                                                <div class="col-12">
+                                                <div class="col-lg-6">
                                                     <div class="plate"><label class="newbtn">
                                                         <img id="blah9" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
                                                         <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
