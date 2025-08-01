@@ -428,6 +428,7 @@ class User extends Authenticatable
 
         switch ($this->type) {
         case 3:
+            return config('constants.escort_default_icon');
         case 4:
             return config('constants.massage_escort_default_icon');
         default:
