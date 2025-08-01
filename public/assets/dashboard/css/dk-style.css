@@ -6581,7 +6581,10 @@ ul.tab-sec {
     text-decoration: none;
     transition: background-color 0.3s;
 }
-
+div#sailorTable_info {
+    color: #000;
+    font-size: 15px;
+}
 /* #table-sec input {
     background: #EFF0F6;
     border: 0;

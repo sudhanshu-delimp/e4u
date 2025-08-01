@@ -234,19 +234,6 @@
         $('#bank_name').attr('disabled',false);
         $("form").attr('autocomplete', 'off');
    })
-   //    $("body").on('click','.editModal',function(){
-   //         var button = $(event.relatedTarget);
-   //         console.log(button.data('data-name'));
-   //         var name = $(this).data('name');
-   //         var id = $(this).data('id');
-   //         console.log("hello",name);
-   //         console.log("id",id);
-   
-   //         $('#bank_name').val($(this).data('name'));
-   //         // $('#bank_name option[value="'+name+'"]').attr('selected','selected');
-   //        // $('#bank_name').attr('disabled',true)
-   //         $("#commission-report").modal('show');
-   //    });
    
    $('body').on ('show.bs.modal', '#commission-report', function(event){
         button = $(event.relatedTarget);
@@ -307,13 +294,13 @@
         }
     },
     columns: [
-        { data: 'bank_name', name: 'bank_name', searchable: true, orderable: false, defaultContent: 'NA' },
-        { data: 'account_name', name: 'account_name', searchable: true, orderable: false, defaultContent: 'NA' },
-        { data: 'bsb', name: 'bsb', searchable: true, orderable: false, defaultContent: 'NA' },
-        { data: 'account_numbers', name: 'account_numbers', searchable: true, orderable: false, defaultContent: 'NA' },
-        { data: 'states', name: 'states', searchable: true, orderable: false, defaultContent: 'NA' },
-        { data: 'action', name: 'edit', searchable: false, orderable: false, defaultContent: 'NA' },
-    ],
+    { data: 'bank_name', name: 'bank_name', searchable: true, orderable: true, defaultContent: 'NA' },
+    { data: 'account_name', name: 'account_name', searchable: true, orderable: true, defaultContent: 'NA' },
+    { data: 'bsb', name: 'bsb', searchable: true, orderable: true, defaultContent: 'NA' },
+    { data: 'account_numbers', name: 'account_numbers', searchable: true, orderable: true, defaultContent: 'NA' },
+    { data: 'states', name: 'states', searchable: true, orderable: true, defaultContent: 'NA' },
+    { data: 'action', name: 'edit', searchable: false, orderable: false, defaultContent: 'NA' }, // only this no sorting
+],
     initComplete: function () {
         // Reposition the filter and length
         let filter = $('#bankAccountTable_filter');

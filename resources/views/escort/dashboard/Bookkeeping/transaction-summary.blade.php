@@ -48,25 +48,8 @@
 
    <!--middle content-->
    <div class="row">      
-      {{-- <div class="custom-heading-wrapper col-md-12">
-        <h1  class="h1"> Transaction Summary</h1>
-        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-     </div>
-     <div class="col-md-12 ">
-         <div class="card collapse mb-4" id="notes">
-             <div class="card-body">
-                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                 <ol>
-                     <li>All Advertiser transactions are recorded here.</li>
-                     <li>You can view any historical transaction as well as print or email the transaction
-                        summary.</li>
-                        <li>To download the transaction summary, click Download located in the Action options.</li>
-                 </ol>
-             </div>
-         </div>
-     </div> --}}
     <div class="col-md-12">        
-        <div class="table-responsive membership--inner">
+        <div class="membership--inner">
             <table class="table table-bordered text-center" id="transactionSummaryTable">
                  <thead class="table-bg">
                    <tr>
@@ -171,9 +154,7 @@
                   </div>
                </div>
             </div>
-            <!-- <div class="modal-footer pb-4 mb-2">
-                <button type="button" class="btn btn-primary">Publish</button>
-            </div> -->
+           
         </div>
     </div>
 </div>
@@ -188,8 +169,8 @@
 
 <script>
    $(document).ready(function() {
-    var table = $("#transactionSummaryTable").DataTable({
-        language: {
+      var table = $("#transactionSummaryTable").DataTable({
+         language: {
             search: "Search: _INPUT_",
             searchPlaceholder: "Search by Member ID or Agent ID...",
             lengthMenu: "Show _MENU_ entries",
@@ -197,20 +178,24 @@
             info: "Showing _START_ to _END_ of _TOTAL_ entries",
             infoEmpty: "No entries available",
             infoFiltered: "(filtered from _MAX_ total entries)"
-        },
-        processing: true,
-        serverSide: true,
-        paging: true, // ✅ Ensure Pagination
-        lengthChange: true,
-        searching: true,
-        bStateSave: true,
-        order: [[1, 'desc']],
-        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-        pageLength: 10,
-        ajax: "your-server-side-script.php" // ✅ Add Your Data Source
-    });
-});
+         },
+         processing: true,
+         serverSide: true,
+         paging: true,
+         lengthChange: true,
+         searching: true,
+         bStateSave: true,
+         order: [[1, 'desc']],
+         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+         pageLength: 10,
+         ajax: "{{ route('escort.bankDetail.dataTable') }}",
 
- </script>
+         // ✅ Disable sorting on Action column (change the target index as needed)
+         columnDefs: [
+            { targets: 6, orderable: false } // 5 = 6th column (0-based index)
+         ]
+      });
+   });
+</script>
 
 @endsection

@@ -22,10 +22,7 @@
         <div class="card-body">
             <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
             <ol>
-                {{-- <li>Use this feature to review and make changes to your Profiles.</li>
-                              <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action function, you will be able to View, Edit or Delete the Profile.</li>
-                              <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming">View Listings</a></li>
-                           --}}
+               
             </ol>
         </div>
         </div>
@@ -49,7 +46,7 @@
                             <th>Subject</th>
                             <th>Date Created</th>
                             <th>Document</th>
-                            <th width="900px">Status</th>
+                            <th>Status</th>
                             <!--<th>Joined E4U</th>-->
                             <th>Action</th>
                         </tr>
@@ -294,26 +291,5 @@
         });
         // $("#sendMessage").reset();
     });
-   /*$(document).on('click','.delete-center', function(e){
-       e.preventDefault();
-       var $this = $(this);
-       $("#Lname").html("<p>Would you like to Delete?</p>");
-
-       $('#delete_profile').modal('show');
-
-       $("#save_change").click(function(e){
-           console.log($this.attr('href'));
-           $.ajax({
-                   method: "POST",
-                   url:$this.attr('href'),
-                   contentType: false,
-                   processData: false,
-                   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                   success: function (data) {
-                       location.reload();
-                   }
-
-           })
-       });*/
 </script>
 @endpush

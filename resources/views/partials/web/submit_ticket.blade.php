@@ -1,10 +1,4 @@
-<<<<<<< Updated upstream
 <div class="container-fluid register-pin-up mb-5  pl-3 pl-lg-5 pr-3 pr-lg-5">
-=======
-<div class="container-fluid register-pin-up mb-5 pl-3 pl-lg-5 pr-3 pr-lg-5">
->>>>>>> Stashed changes
-    <!--middle content start here-->
-
     <div class="row">
         <div class="d-sm-flex align-items-center justify-content-start gap-10 mt-5">
            <h1 class="h1">Submit ticket</h1>
