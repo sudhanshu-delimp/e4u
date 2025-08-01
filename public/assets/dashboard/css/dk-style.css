@@ -6338,7 +6338,7 @@ ul.prof-sec {
 
 .dvDest img {
     width: 101px;
-    height: 162px;
+    height: 82px;
     object-fit: cover;
 }
 
@@ -8561,19 +8561,19 @@ td {
     padding: 0 5px;
 }
 
-.listing-tag-tooltip{
+.listing-tag-tooltip {
     position: relative;
     cursor: pointer;
-    
 }
-.listing-tag-tooltip .listing-tag-tooltip-desc{
+
+.listing-tag-tooltip .listing-tag-tooltip-desc {
     position: absolute;
     top: 22px;
     left: 0px;
-    opacity: 0;    
+    opacity: 0;
     background: var(--blue--text);
     font-size: 10px;
-    padding:10px;
+    padding: 10px;
     border-radius: 4px;
     z-index: 1;
     opacity: 0;
@@ -8583,12 +8583,11 @@ td {
     width: max-content;
 }
 
-
 .listing-tag-tooltip .listing-tag-tooltip-desc::after {
     content: '';
     position: absolute;
     bottom: 12px;
-    left: 14px;   
+    left: 14px;
     border-width: 5px;
     border-style: solid;
     background-color: var(--blue--text);
@@ -8597,7 +8596,7 @@ td {
     transform: translate(-50%, -10%) rotate(45deg);
 }
 
-.listing-tag-tooltip:hover  .listing-tag-tooltip-desc{
+.listing-tag-tooltip:hover .listing-tag-tooltip-desc {
     opacity: 1;
 }
 

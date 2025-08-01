@@ -147,7 +147,7 @@
                             <div class="col-4 pr-0 pl-0">
                                 <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
                                     <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec" id="dvDest">
-                                    <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="1"  data-html="true" data-placement="top" title="" data-boundary="window" id="img1" src="{{ asset($path->findByposition(auth()->user()->id,1, 1)['path']) }}" style="object-fit: cover;width: 167px;height: 332px;">
+                                    <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="1"  data-html="true" data-placement="top" title="" data-boundary="window" id="img1" src="{{ asset($path->findByposition(auth()->user()->id,1, 1)['path']) }}" style="object-fit: cover;width: 167px;height: 172px;">
                                     <input type="hidden" id="pos_1" name="position[1]" value="">
                                     </label>
                                 </div>
@@ -212,6 +212,16 @@
                                 <input  type="hidden"  id="pos_9" name="position[9]" value="">
                                 </label>
                             </div>
+
+                            {{-- new pinup banner --}}
+                                
+                            <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
+                                <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
+                                <img class="img-fluid" id="img9" data-position-id="9" src="{{ asset($path->findByposition(auth()->user()->id,9, 1)['path'])}}" >
+                                <input  type="hidden"  id="pos_9" name="position[9]" value="">
+                                </label>
+                            </div>
+                            {{-- end --}}
                         </div>
                         <div class="col-md-2" style="padding-left: 7rem;">
                             <button type="submit" class="btn btn-primary create-tour-sec useDefault">Use Default</button>
@@ -495,6 +505,17 @@
                                                 <div class="col-12">
                                                     <div class="plate"><label class="newbtn">
                                                         <img id="blah9" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                        <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
+                                                        <input type="hidden" name="position[]" id="mediaId9">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mt-2">
+                                                <div class="col-12">
+                                                    <div class="plate"><label class="newbtn">
+                                                        <img id="blah9" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
                                                         <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
                                                         <input type="hidden" name="position[]" id="mediaId9">
                                                         </label>

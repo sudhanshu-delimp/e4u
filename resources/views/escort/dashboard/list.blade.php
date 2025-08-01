@@ -459,6 +459,56 @@
             </div>
         </div>
     </div>
+
+{{-- Summary of current pinup modal --}}
+
+
+<div class="modal fade upload-modal" id="pinupSummary" tabindex="-1" role="dialog" aria-labelledby="pinupSummaryLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content basic-modal">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h5 class="modal-title" id="removePlaymateModalLabel">
+                <a href="{{route('home')}}"><img src="{{ asset('assets/dashboard/img/summary.png') }}" style="width:45px; padding-right:10px;"><span class="text-white">Summary of your current Pin Up</span></a>
+                
+             </h5>
+          
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+            </span>
+          </button>
+        </div>
+  
+        <!-- Modal Body with Static Table -->
+        <div class="modal-body px-4">
+         <div class="d-flex align-items-center justify-content-between gap-10 flex-wrap">
+            <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>Location:</strong> <span>Location</span></div>
+            <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>Profile:</strong> <span>Profile Name</span></div>
+         </div>
+         <div class="d-flex align-items-center justify-content-between gap-10 flex-wrap">
+            <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>Start Date::</strong> <span>01-08-2025</span></div>
+            <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>End date: </strong> <span>01-09-2025</span></div>
+         </div>
+        <div class="text-center my-2">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" value="close">Close</button> 
+        </div>
+        <div>
+            <strong>Notes:</strong>
+            <ol>
+               <li class="pl-2">The standard Fee for a Pin Up has ben applied.</li>
+               <li class="pl-2">You Pin Up listing will be automatically removed if you Suspend or Cancel the
+                   Profile listing.</li>
+            </ol>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{-- end --}}
+
+
     @include('escort.dashboard.partials.playmates-modal')
     @include('escort.dashboard.partials.duplicate-profile-modal')
 @endsection
