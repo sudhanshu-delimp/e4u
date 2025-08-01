@@ -11,7 +11,7 @@
                             <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
                         </div> --}}
                         <div class="d-user-info">
-                           <div class="escort_header_top_menu">
+                           <div class="escort_header_top_menu" style="display: grid; grid-template-columns: 1fr 1fr; font-size: 14px;">
                             <span>
                                 <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name ? substr(auth()->user()->name, 0, 15) : '--' }}</span>  
                             </span>
@@ -19,10 +19,10 @@
                                 <span class="separator">|</span><b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> 
                             </span>
                             <span>
-                                <span class="separator">|</span><b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
+                                <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
                             </span>
                             <span>
-                                <b>My Agent :  </b>
+                                <span class="separator">|</span><b>My Agent :  </b>
                                 <span class="user-values">
 
                                     @if(auth()->user()->my_agent)
@@ -65,7 +65,7 @@
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
 
-                        <form class="form-inline navbar-search form-inline-custom" style="width: 17rem;">
+                        <form class="form-inline navbar-search form-inline-custom" style="width: 22rem;">
                             <div class="input-group dk-border-radius">
                                 <div class="input-group-append">
                                     <button class="btn" type="button">
