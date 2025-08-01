@@ -90,7 +90,6 @@
 
 <script>
    $(document).ready(function() {
-
       var table = $("#agentRequestreportTable").DataTable({
        language: {
                search: "Search: _INPUT_",
@@ -334,5 +333,9 @@
 
    });
  </script>
+
+
+
+
 
 @endsection

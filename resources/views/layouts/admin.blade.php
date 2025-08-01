@@ -62,6 +62,7 @@
         </div>
     </div>
 
+    
 @include('partials.admin.footer')
 
 @section('script')

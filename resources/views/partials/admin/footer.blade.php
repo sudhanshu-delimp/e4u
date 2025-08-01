@@ -84,6 +84,13 @@
           </script> --}}
 
           <script src="{{ asset('assets/js/common.js') }}"></script>
+          <script src="{{ config('constants.socket_url') }}/socket.io/socket.io.js"></script>
+          <script> const socket_url = "{{ config('constants.socket_url') }}";</script>
+           <script src="{{ asset('assets/js/web-socket.js') }}"></script>
+          <script src="{{ config('constants.socket_url') }}/socket.io/socket.io.js"></script>
+          <script>
+
+           </script> 
        
         @stack('script')
 </body>

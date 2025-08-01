@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Http;
 use App\Models\AdvertiserAgentRequest;
 use App\Http\Requests\Agent\AgentRequest;
 use App\Models\AdvertiserAgentRequestUser;
@@ -116,7 +117,7 @@ class AgentRequestController extends Controller
     {
         if((isset($request->id)) && (isset($request->request_type)))
         {
-
+                
             if($this->is_already_accepted($request->id))
             return response()->json(['success' => false]); 
 
@@ -136,9 +137,15 @@ class AgentRequestController extends Controller
            
 
             if($response)
-            return response()->json(['success' => true]);
+            {
+                return response()->json(['success' => true]);
+                Http::post(config('constants.socket_url').'/agent-assigned', ['id' => $request->id,'status' => 'updated']);
+            }    
+            
             else
-            return response()->json(['success' => false]); 
+            {
+                return response()->json(['success' => false]); 
+            }
         
         }
         else
