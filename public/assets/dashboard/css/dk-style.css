@@ -6349,8 +6349,22 @@ ul.prof-sec {
 }
 
 .banner-heading {
+    font-family: Poppins;
     font-size: 18px;
+    font-style: normal;
     font-weight: 500;
+    line-height: 27px;
+    letter-spacing: 0.01em;
+    color: var(--blue--text);
+}
+
+.banner-sub-heading {
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 27px;
+    letter-spacing: 0.01em;
     color: var(--blue--text);
 }
 

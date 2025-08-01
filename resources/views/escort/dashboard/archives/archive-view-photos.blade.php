@@ -138,8 +138,9 @@
         <div class="col-lg-4">
             <div class="upload-photo-sec">
                 <div class="container">
-                    <div class="d-sm-flex align-items-center justify-content-between pt-4">
-                        <h1 class="h3 text-gray-800 mb-0">Default Images</h1>
+                    <div class="pt-4">
+                        <h2 class="banner-heading">Default</h2>
+                        <h2 class="banner-sub-heading mb-0">Gallery</h2>
                     </div>
                     <form id="defaultImage" method="post" enctype="multipart/form-data" action="{{ route('escort.default.images')}}">
                         @csrf
@@ -209,7 +210,7 @@
                            
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h2 class="banner-heading my-1">Default Baanner</h2>
+                                    <h2 class="banner-sub-heading my-1">Banner</h2>
                                    
                                     <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
@@ -221,7 +222,7 @@
                                 {{-- new pinup banner --}}
                                     
                                 <div class="col-lg-6">
-                                    <h2 class="banner-heading my-1">Pinup Baanner</h2>
+                                    <h2 class="banner-sub-heading my-1">Pinup</h2>
                                     <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
                                         <img class="img-fluid" id="img9" data-position-id="9" src="{{ asset($path->findByposition(auth()->user()->id,9, 1)['path'])}}" >
