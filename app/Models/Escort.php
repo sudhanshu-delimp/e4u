@@ -104,6 +104,7 @@ class Escort extends Model
         ->where('utc_end_time', '>=', Carbon::now('UTC'))
         ->latestOfMany('utc_end_time');
     }
+    
     public function suspendProfile()
     {
         return $this->hasMany(SuspendProfile::class, 'escort_profile_id');

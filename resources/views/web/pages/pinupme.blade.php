@@ -1,16 +1,12 @@
 @extends('layouts.webHome')
-
 @section('content')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly homebanner_bg">
+    <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly homebanner_bg js_pinup_summary">
         <div class="container-fluid banner_width">
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div href="#" class="tip mb-2">
                         <img style="box-shadow: 2px 3px 2px #bdbdbdbd;" class="img-fluid"
                             src="{{ asset('assets/app/img/home/home-demo.png') }}">
-                        <!-- <div class="trikon_style manage_toolkit_font"><img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}"> I am your Pin-up Click Me</div> -->
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -125,23 +121,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- <p class="primery_color normal_heading">AUSTRALIA’S SEXIEST AND MOST ACCESSIBLE ESCORTS</p>
-                    <h1 class="home_heading_first">ESCORTS4U DIRECTORY OF:</h1>
-                    <h1 class="home_heading_first">
-                        <img src="{{ asset('assets/app/img/home/correctsign.png') }}">
-                        Private Escorts
-                    </h1>
-                    <h1 class="home_heading_first">
-                        <img src="{{ asset('assets/app/img/home/correctsign.png') }}">
-                        Massage Centres
-                    </h1>
-                    
-                    <p>The easiest platform from which to view Escorts and Massage Centres, minus the fuss, is about to be launched. Escorts4U prides itself on integrity, honesty and value.</p>
-                    <div class="padding">
-                        <a class="btn btn_advertiser" style="font-weight:500" href="{{ route('find.all') }}" role="button">View Escorts</a>
-                        <a class="btn  btn_become_pin_up" style="font-weight:500" href="become-a-pin-up" role="button">Become a Pin-up</a>
-                    </div> -->
                 </div>
             </div>
 
@@ -318,9 +297,32 @@
             </div>
         </div>
     </section>
-
-
-    <!--  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#onloadpopup">
-        Open modal
-      </button> -->
 @endsection
+@section('enable_navigator')@endsection
+@push('scripts')
+<script>
+    let getPinupProfile = function(latitude, longitude){
+        $.ajax({
+            url:`{{route('web.get_pinup_profile')}}`,
+            method:`POST`,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'Accept': 'application/json'
+            },
+            data:{latitude, longitude, view:'pinup_summary'},
+            dataType:`JSON`,
+            sendBefore: function(){
+
+            },
+            success: function(response){
+                if(response.success){
+                   $(".js_pinup_summary").html(response.html); 
+                }
+            },
+            error: function(xhr) {
+
+            }
+        });
+    }        
+</script>
+@endpush

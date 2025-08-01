@@ -215,38 +215,29 @@
     Open modal
     </button> -->
 @endsection
+@section('enable_navigator')@endsection
 @push('scripts')
 <script>
-    let stateId = $.cookie('session-state-id');
+    let getPinupProfile = function(latitude, longitude){
+        $.ajax({
+            url:`{{route('web.get_pinup_profile')}}`,
+            method:`POST`,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'Accept': 'application/json'
+            },
+            data:{latitude, longitude, view:'pinup_home'},
+            dataType:`JSON`,
+            sendBefore: function(){
 
-    {{-- @if(auth()->user()) --}}
-        navigator.geolocation.getCurrentPosition(async function(position) {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            const newUrl = "{{ route('find.all') }}" +`/?lat=${latitude}&lng=${longitude}`;
+            },
+            success: function(response){
+                console.log(response);
+            },
+            error: function(xhr) {
 
-            let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
-            // let newUrl = currentHref + '?state-id=' + stateId;
-            document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
-
+            }
         });
-
-        
-
-        
-
-        console.log('hey else');
-        // if (stateId) {
-        //     let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
-        //     let newUrl = currentHref + '?state-id=' + stateId;
-        //     document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
-        //     console.log(' view escort url : '+ newUrl);
-        // }
-    {{-- @endif --}}
-
-    
-
-   
-    
+    }        
 </script>
 @endpush

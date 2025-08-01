@@ -520,6 +520,16 @@
 
    });
    $(document).ready(function() {
+      @if(View::hasSection('enable_navigator'))
+         navigator.geolocation.getCurrentPosition(async function(position) {
+               const latitude = position.coords.latitude;
+               const longitude = position.coords.longitude;
+               getPinupProfile(latitude, longitude);
+               const newUrl = "{{ route('find.all') }}" +`/?lat=${latitude}&lng=${longitude}`;
+               let currentHref = document.querySelector(".btn_advertiser").getAttribute("href");
+               document.querySelector(".btn_advertiser").setAttribute("href", newUrl);
+         });
+      @endif
 
        var loginForm = $("#loginForm");
 
@@ -904,17 +914,6 @@ jQuery(document).ready(function() {
   });  
 });
 </script>
-<!-- <script>
-   $(".accordion-container").click(function() {
-
-     $('html,body').animate({
-         scrollTop: $(".set").offset().top
-       },
-       'slow');
-   });
-
-
-</script> -->
 
 
 

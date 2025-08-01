@@ -206,4 +206,33 @@ class PinUpsController extends AppController
             ], 500);
         }
     }
+
+    public function getPinupProfile(Request $request){
+        try{
+            $response = [];
+            $response['success'] = false;
+            $latitude = $request->latitude;
+            $longitude = $request->longitude;
+            $view = $request->view?$request->view:null;
+            $location = getRealTimeGeolocationOfUsers($latitude, $longitude);
+            $pinupDetail = EscortPinup::latestActiveForCity($location['city']);
+            if($pinupDetail){
+                $response['success'] = true;
+                switch($view){
+                    case 'pinup_summary':{
+                        $escort = $pinupDetail->escort;
+                        $response['html'] = view('partials\web\pinup_summary',compact('escort'))->render();
+                    } break;
+                }
+            }
+            return response()->json($response);
+        }
+        catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+        return response()->json($pinupDetail);
+    }
 }

@@ -28,7 +28,8 @@ use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegiste
 use App\Http\Controllers\Escort\EscortViewerInteractionController;
 use App\Http\Controllers\GetCurrentUserGeolocationController;
 use App\Http\Controllers\Viewer\ViewerEscortInteractionController;
-
+use App\Http\Controllers\WebController;
+use App\Http\Controllers\Escort\PinUpsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes    
@@ -57,6 +58,7 @@ Route::middleware('guest')->group(function () {
 ############## End Put All Guest Url Here ####################
 
 
+Route::post('/get-pinup-profile', [PinUpsController::class,'getPinupProfile'])->name('web.get_pinup_profile');
 
 Route::middleware('auth')->group(function () {
 
