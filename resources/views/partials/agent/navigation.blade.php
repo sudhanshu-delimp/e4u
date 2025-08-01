@@ -1,5 +1,5 @@
 <!-- Topbar -->
-                <nav class="sticky-top navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5">
+                <nav class="sticky-top navbar justify-navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 ">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -11,12 +11,12 @@
                             <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
                         </div> --}}
                         <div class="d-user-info">
-                            <div class="gap-b">
+                            <div class="gap-b escort_header_top_menu" style="display: grid; grid-template-columns: 1fr 1fr; font-size: 14px;">
                                 <span>
                                     <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name }}</span> <span class="separator">|</span> 
                                 </span>
                                 <span>
-                                    <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator">|</span>
+                                    <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator"></span>
                                 </span>
                                 <span>
                                     <b>Territory :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
@@ -43,11 +43,11 @@
                     </form> --}}
 
                     <!-- Topbar Navbar -->
-                    <div class="navbar-nav ml-auto">
+                    <div class="navbar-nav">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
 
-                        <form  class="form-inline form-inline-custom navbar-search custom-nav-search">
+                        <form  class="form-inline form-inline-custom navbar-search custom-nav-search" style="width: 23rem;">
                             <div class="input-group dk-border-radius">
                                 <div class="input-group-append">
                                     <button class="btn" type="button">

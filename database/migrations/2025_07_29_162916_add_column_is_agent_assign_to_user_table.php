@@ -19,6 +19,8 @@ class AddColumnIsAgentAssignToUserTable extends Migration
              $table->integer('assigned_agent_id')->nullable()->after('is_agent_assign')->comment('assigned agent id');
             
         });
+
+        // php artisan migrate --path=database/migrations/2025_07_29_162916_add_column_is_agent_assign_to_user_table.php
     }
 
     /**

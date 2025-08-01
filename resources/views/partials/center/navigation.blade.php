@@ -1,5 +1,5 @@
 <!-- Topbar -->
-                <nav class="sticky-top navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5">
+                <nav class="sticky-top navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 justify-navbar">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle">
@@ -11,33 +11,35 @@
                             <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
                         </div> --}}
                         <div class="d-user-info">
-                           <div>
+                           <div class="escort_header_top_menu">
                             <span>
-                                <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name }}</span> <span class="separator">|</span> 
+                                <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name ? substr(auth()->user()->name, 0, 15) : '--' }}</span>  
                             </span>
                             <span>
-                                <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator">|</span>
+                                <span class="separator">|</span><b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> 
                             </span>
                             <span>
-                                <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
+                                <span class="separator">|</span><b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
                             </span>
+                            <span>
+                                <b>My Agent :  </b>
+                                <span class="user-values">
+
+                                    @if(auth()->user()->my_agent)
+                                    {{ auth()->user()->my_agent->name }}
+                                    @else
+                                        <a href="{{url('/center-dashboard/agent-request') }}"> Request one</a>
+                                    @endif
+                                    
+                                
+                                </span>
+                        </span>
                            </div>
                            <div class="gap-b">
                            
                             
                    
-                        <span>
-                        <b>My Agent :  </b><span class="user-values">
-
-                                        @if(auth()->user()->my_agent)
-                                          {{ auth()->user()->my_agent->name }}
-                                        @else
-                                            <a href="{{url('/center-dashboard/agent-request') }}"> Request one</a>
-                                        @endif
-                            
                         
-                        </span>
-                    </span>
                    
                            </div>
                         </div>
@@ -59,11 +61,11 @@
                     </form> --}}
 
                     <!-- Topbar Navbar -->
-                    <div class="navbar-nav ml-auto">
+                    <div class="navbar-nav">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
 
-                        <form class="form-inline navbar-search form-inline-custom">
+                        <form class="form-inline navbar-search form-inline-custom" style="width: 17rem;">
                             <div class="input-group dk-border-radius">
                                 <div class="input-group-append">
                                     <button class="btn" type="button">
