@@ -795,7 +795,7 @@
                                                                     </tr>
                                                                 @endforeach
                                                             @else
-                                                                <td colspan="2" class="let-talk-about"></td>
+                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
                                                             @endif
                                                         </tbody>
                                                     </table>
@@ -817,7 +817,7 @@
                                                                     </tr>
                                                                 @endforeach
                                                             @else
-                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
+                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about"></td>
                                                             @endif
                                                         </tbody>
                                                     </table>
