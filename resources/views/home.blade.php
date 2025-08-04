@@ -10,10 +10,9 @@
 <section class="padding_ninty_top_ninty_px padding_btm_ninty_pxonly homebanner_bg">
     <div class="container-fluid banner_width">
         <div class="row align-items-center">
-            <div class="col-md-5">
+            <div class="col-md-5 js_pinup_profile">
                 <div href="#" class="tip mb-2">
                     <img style="box-shadow: 2px 3px 2px #bdbdbdbd;" class="img-fluid" src="{{ asset('assets/app/img/home/home-demo.png') }}">
-                    <div class="trikon_style manage_toolkit_font"><a href="{{ url('/pin-up') }}">I am your Pin Up click here.</a></div>
                 </div>
             </div>
             <div class="col-md-7">
@@ -228,14 +227,17 @@
             },
             data:{latitude, longitude, view:'pinup_home'},
             dataType:`JSON`,
-            sendBefore: function(){
-
+            beforeSend: function(){
+                $("#preloader").addClass('pre-active');
             },
             success: function(response){
-                console.log(response);
+                if(response.success){
+                   $(".js_pinup_profile").html(response.html); 
+                }
+                $("#preloader").removeClass('pre-active');
             },
             error: function(xhr) {
-
+                $("#preloader").removeClass('pre-active');
             }
         });
     }        

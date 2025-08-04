@@ -351,7 +351,7 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
             $parms =[
                 'state'=> $stateFromDb ? $stateFromDb->id : null,
                 'city'=> $stateCapital ? array_key_first($stateCapital['cities']) : null,
-                'home_state'=> auth()->user()->home_state,
+                'home_state'=> auth()->user() ? auth()->user()->home_state : null,
                 'current_location'=> $stateFromDb->iso2,
                 'timezone'=> $timezone,
                 'current_time'=> now($timezone)->format('h:i A')

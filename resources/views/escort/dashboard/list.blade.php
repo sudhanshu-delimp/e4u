@@ -517,11 +517,12 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
-    <script src="{{ asset('js/escort/pinup.js') }}"></script>
+    
     <script>
+        var table;
         $(document).ready(function() {
             var shouldHide = '{{ $type == 'past' ? false : true }}';
-            var table = $("#sailorTable").DataTable({
+            table = $("#sailorTable").DataTable({
                 "language": {
                     "zeroRecords": "No record(s) found.",
                     searchPlaceholder: "Search by ID or Profile Name"
@@ -1194,4 +1195,5 @@
             return true;
         }
     </script>
+    <script src="{{ asset('js/escort/pinup.js') }}"></script>
 @endpush
