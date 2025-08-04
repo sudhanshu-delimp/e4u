@@ -7736,7 +7736,10 @@ td {
     background-color: #0c223d;
 }
 
-
+#myAdvertisersList_wrapper .dropdown-menu.show {
+    overflow-y: scroll;
+    height: 250px;
+}
 /* blog page design css */
 
 .upload-wrapper {

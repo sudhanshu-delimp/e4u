@@ -1,156 +1,436 @@
 @extends('layouts.agent')
+
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <style type="text/css">
    .select2-container .select2-choice, .select2-result-label {
-   font-size: 1.5em;
-   height: 52px !important; 
-   overflow: auto;
+      font-size: 1.5em;
+      height: 52px !important; 
+      overflow: auto;
    }
    .select2-arrow, .select2-chosen {
-   padding-top: 6px;
+      padding-top: 6px;
    }
    span.select2.select2-container.select2-container--default > span.selection > span {
-   height: 52px !important; 
+      height: 52px !important; 
    }
 </style>
 @endsection
+
 @section('content')
 <div id="wrapper">
    <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
          <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5" id="replace-item">
-            <!--middle content-->
-            
-         {{-- Page Heading   --}}
-         <div class="row">
-            
-            <div class="d-flex align-items-center justify-content-between col-md-12">
-               <div class="custom-heading-wrapper">
 
-                   <h1 class="h1">Advertiser List</h1>
-
-                 
-                   <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+            {{-- Page Heading --}}
+            <div class="row">
+               <div class="d-flex align-items-center justify-content-between col-md-12">
+                  <div class="custom-heading-wrapper">
+                     <h1 class="h1">Advertiser List</h1>
+                     <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+                  </div>
+                  <div class="back-to-dashboard">
+                     <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                        <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                     </a>
+                  </div>
                </div>
-               <div class="back-to-dashboard">
-                   <a href="{{ url()->previous() ?? route('dashboard.home') }}">
-                       <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
-                   </a>
-               </div>
-           </div>
-            <div class="col-md-12 mb-4">
-               <div class="card collapse" id="notes" style="">
-                  <div class="card-body">
-                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                     <ol>
-                        
 
-                  <li style="font-size: 15px;">You can access all of your Advertisers here.  The report 'Earnings' column is Commission paid to you by E4U according to the Advertiser's spend.</li>
-                  <li style="font-size: 15px;" class="mb-0">Click the 'Action' button and select from the range of options available to you including Messaging to an Advertiser.</li>
-
-                     </ol>
+               {{-- Notes Accordion --}}
+               <div class="col-md-12 mb-4">
+                  <div class="card collapse" id="notes">
+                     <div class="card-body">
+                        <h5 class="card-title font-weight-bold mb-3">Notes:</h5>
+                        <ol class="pl-3">
+                           <li style="font-size: 15px;">
+                              You can access all of your Advertisers here. The report 'Earnings' column is Commission paid to you by E4U according to the Advertiser's spend.
+                           </li>
+                           <li style="font-size: 15px;">
+                              Click the <b>'Action'</b> button and select from the range of options available to you including Messaging to an Advertiser.
+                           </li>
+                           <li style="font-size: 15px;">
+                              The Action dropdown includes: Profile, Tour, Media, Masseur, Account, and Message options. Pop-ups will be used where necessary.
+                           </li>
+                           <li style="font-size: 15px;">
+                              You can print the advertiser list summary by selecting from All Advertisers, Escorts, or Massage Centres in the Print menu.
+                           </li>
+                        </ol>
+                     </div>
                   </div>
                </div>
             </div>
-         </div>
+            {{-- End Heading --}}
 
-         {{-- end --}}
-            
-
-      
             <div class="row">
                <div class="col-sm-12 col-md-12 col-lg-12">
-                
                   <div class="row">
                      <div class="col-md-12">
-                        
-                                   <div class="">
-                                        <table class="table table-bordered text-center" id="myAdvertisersList">
-                                             <thead id="table-sec" class="table-bg">
-                                                <tr>
-                                                   <th>Ref</th>
-                                                   <th>Member ID</th>
-                                                   <th>Name</th>
-                                                   <th>Mobile</th>
-                                                   <th>Email</th>
-                                                   <th>Home State</th>
-                                                 
-                                                </tr>
-                                             </thead>
-                                             
-                                          </table>
-                                   </div>
-
+                        <div class="">
+                           <table class="table table-bordered text-center" id="myAdvertisersList">
+                              <thead id="table-sec" class="table-bg">
+                                 <tr>
+                                    <th>Member ID</th>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Email</th>
+                                    <th>Contact</th>
+                                    <th>Joined</th>
+                                    <th>Appointed</th>
+                                    <th>Earnings</th>
+                                    <th>Home State</th>
+                                    <th>Action</th>
+                                 </tr>
+                              </thead>
+                           </table>
                         </div>
                      </div>
                   </div>
                </div>
-  <!--right side bar end-->
+            </div>
 
-              
-           
          </div>
       </div>
    </div>
 </div>
 
+<!-- Action Modals (Frontend Design Only) -->
+
+<!-- Create Profile Modal -->
+<div class="modal upload-modal fade" id="createProfileModal" tabindex="-1">
+   <div class="modal-dialog modal-lg modal-dialog-centered">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title">Create Profile</h5>
+         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
+            class="img-fluid img_resize_in_smscreen"></span></button>
+       </div>
+       <div class="modal-body">
+         <form>
+           <div class="form-group">
+             <label>Profile Name</label>
+             <input type="text" class="form-control" placeholder="Enter profile name">
+           </div>
+           <div class="form-group">
+             <label>Description</label>
+             <textarea class="form-control" rows="3"></textarea>
+           </div>
+         </form>
+         <button type="button" class="btn btn-primary create-tour-sec dctour m-0">Save</button>
+       </div>
+       
+     </div>
+   </div>
+ </div>
+ 
+ <!-- Edit Profile Modal -->
+ <div class="modal upload-modal fade" id="editProfileModal" tabindex="-1">
+   <div class="modal-dialog modal-lg modal-dialog-centered">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5>Edit Profile</h5>
+         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
+            class="img-fluid img_resize_in_smscreen"></span></button>
+       </div>
+       <div class="modal-body">
+         <form>
+           <div class="form-group">
+             <label>Profile Name</label>
+             <input type="text" class="form-control" value="Carla Brasil">
+           </div>
+           <div class="form-group">
+             <label>Description</label>
+             <textarea class="form-control">Current description...</textarea>
+           </div>
+         </form>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-primary create-tour-sec dctour m-0">Update</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- Create Tour Modal -->
+ <div class="modal upload-modal fade" id="createTourModal" tabindex="-1">
+   <div class="modal-dialog modal-lg modal-dialog-centered">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5>Create Tour</h5>
+         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
+            class="img-fluid img_resize_in_smscreen"></span></button>
+       </div>
+       <div class="modal-body">
+         <form>
+           <div class="form-group">
+             <label>Location</label>
+             <input type="text" class="form-control">
+           </div>
+           <div class="form-row">
+             <div class="form-group col-md-6">
+               <label>Start Date</label>
+               <input type="date" class="form-control">
+             </div>
+             <div class="form-group col-md-6">
+               <label>End Date</label>
+               <input type="date" class="form-control">
+             </div>
+           </div>
+         </form>
+       </div>
+       <div class="modal-footer">
+         <button class="btn btn-primary">Save Tour</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- Edit Tour Modal -->
+ <div class="modal upload-modal fade" id="editTourModal" tabindex="-1">
+   <div class="modal-dialog modal-lg modal-dialog-centered">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5>Edit Tour</h5>
+         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
+            class="img-fluid img_resize_in_smscreen"></span></button>
+       </div>
+       <div class="modal-body">
+         <form>
+           <div class="form-group">
+             <label>Location</label>
+             <input type="text" class="form-control" value="Sydney">
+           </div>
+           <div class="form-row">
+             <div class="form-group col-md-6">
+               <label>Start Date</label>
+               <input type="date" class="form-control">
+             </div>
+             <div class="form-group col-md-6">
+               <label>End Date</label>
+               <input type="date" class="form-control">
+             </div>
+           </div>
+         </form>
+       </div>
+       <div class="modal-footer">
+         <button class="btn btn-primary">Update Tour</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- Manage Media Modal -->
+ <div class="modal upload-modal fade" id="manageMediaModal" tabindex="-1">
+   <div class="modal-dialog modal-lg modal-dialog-centered">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5>Manage Media</h5>
+         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
+            class="img-fluid img_resize_in_smscreen"></span></button>
+       </div>
+       <div class="modal-body">
+         <form>
+           <div class="form-group">
+             <label>Upload New Image</label>
+             <input type="file" class="form-control-file">
+           </div>
+         </form>
+       </div>
+       <div class="modal-footer">
+         <button class="btn btn-primary">Update Media</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- Manage Masseurs Modal -->
+ <div class="modal upload-modal fade" id="manageMasseursModal" tabindex="-1">
+   <div class="modal-dialog modal-lg modal-dialog-centered">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5>Manage Masseurs</h5>
+         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
+            class="img-fluid img_resize_in_smscreen"></span></button>
+       </div>
+       <div class="modal-body">
+         <ul class="list-group">
+           <li class="list-group-item d-flex justify-content-between">
+             <span>Ravi</span> <button class="btn-sm btn-danger">Remove</button>
+           </li>
+           <li class="list-group-item d-flex justify-content-between">
+             <span>Akash</span> <button class="btn-sm btn-danger">Remove</button>
+           </li>
+         </ul>
+       </div>
+       <div class="modal-footer">
+         <button class="btn btn-primary">Save Changes</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- View Account Modal -->
+ <div class="modal upload-modal fade" id="viewAccountModal" tabindex="-1">
+   <div class="modal-dialog modal-lg modal-dialog-centered">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5>View Account</h5>
+         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
+            class="img-fluid img_resize_in_smscreen"></span></button>
+       </div>
+       <div class="modal-body">
+         <p><b>Name:</b> Carla Brasil</p>
+         <p><b>Email:</b> carla@gmail.com</p>
+         <p><b>Phone:</b> 0438 028 728</p>
+         <p><b>Joined:</b> 01/01/2022</p>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- Edit Account Modal -->
+ <div class="modal upload-modal fade" id="editAccountModal" tabindex="-1">
+   <div class="modal-dialog modal-lg modal-dialog-centered">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5>Edit Account</h5>
+         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
+            class="img-fluid img_resize_in_smscreen"></span></button>
+       </div>
+       <div class="modal-body">
+         <form>
+           <div class="form-group">
+             <label>Name</label>
+             <input type="text" class="form-control" value="Carla Brasil">
+           </div>
+           <div class="form-group">
+             <label>Email</label>
+             <input type="email" class="form-control" value="carla@gmail.com">
+           </div>
+         </form>
+       </div>
+       <div class="modal-footer">
+         <button class="btn btn-primary">Save Changes</button>
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+ <!-- Print Summary Modal -->
+ <div class="modal upload-modal fade" id="printSummaryModal" tabindex="-1">
+   <div class="modal-dialog modal-lg modal-dialog-centered">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5>Print Advertiser Summary</h5>
+         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
+            class="img-fluid img_resize_in_smscreen"></span></button>
+       </div>
+       <div class="modal-body">
+         <form>
+           <div class="form-group">
+             <label>Select Print Type</label>
+             <select class="form-control">
+               <option>All Advertisers</option>
+               <option>Escorts</option>
+               <option>Massage Centres</option>
+             </select>
+           </div>
+         </form>
+       </div>
+       <div class="modal-footer">
+         <button class="btn btn-primary" onclick="window.print()">Print</button>
+       </div>
+     </div>
+   </div>
+ </div> 
 
 @endsection
-@push('script')
 
+@push('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-
 $(document).ready(function() {
-var table = $("#myAdvertisersList").DataTable({
-       language: {
-               search: "Search: _INPUT_",
-               searchPlaceholder: "Member ID or Reference ID",
-               lengthMenu: "Show _MENU_ entries",
-               zeroRecords: "No matching records found",
-               info: "Showing _START_ to _END_ of _TOTAL_ entries",
-               infoEmpty: "No entries available",
-               infoFiltered: "(filtered from _MAX_ total entries)"
-         },
-        processing: true,
-        serverSide: true,
-        lengthChange: true,
-        searching: true,
-        bStateSave: false,
+   var table = $("#myAdvertisersList").DataTable({
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Member ID or Reference ID",
+         lengthMenu: "Show _MENU_ entries",
+         zeroRecords: "No matching records found",
+         info: "Showing _START_ to _END_ of _TOTAL_ entries",
+         infoEmpty: "No entries available",
+         infoFiltered: "(filtered from _MAX_ total entries)"
+      },
+      processing: true,
+      serverSide: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: false,
 
-        ajax: {
-            url: "{{ route('agent.accepted_advertiser_datatable') }}",
-            type: 'GET',
-            data: function (d) {
-                d.type = 'player';
+      ajax: {
+         url: "{{ route('agent.accepted_advertiser_datatable') }}",
+         type: 'GET',
+         data: function(d) {
+            d.type = 'player';
+         }
+      },
+
+      columns: [
+         { data: 'member_id', name: 'member_id', orderable: true, defaultContent: 'NA' },
+         { data: 'name', name: 'name', orderable: true, defaultContent: 'NA' },
+         { data: 'mobile', name: 'mobile', orderable: true, defaultContent: 'NA' },
+         { data: 'email', name: 'email', orderable: true, defaultContent: 'NA' },
+         { data: 'contact_type', name: 'contact_type', orderable: true, defaultContent: 'NA' },
+         { data: 'joined_date', name: 'joined_date', orderable: true, defaultContent: 'NA' },
+         { data: 'appointed_date', name: 'appointed_date', orderable: true, defaultContent: 'NA' },
+         { data: 'earnings', name: 'earnings', orderable: true, defaultContent: 'NA' },
+         { data: 'state', name: 'state', orderable: true, defaultContent: 'NA' },
+         {
+            data: 'action',
+            name: 'action',
+            orderable: false,
+            searchable: false,
+            render: function(data, type, row) {
+               return `
+               <div class="dropdown no-arrow archive-dropdown text-center">
+      <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <i class="fas fa-ellipsis-v text-gray-400"></i>
+      </a>
+      <div class="dropdown-menu">
+         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createProfileModal">Create Profile</a>
+         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editProfileModal">Edit Profile</a>
+         <a class="dropdown-item" href="/agent/profile/list/${row.member_id}">List Profile</a>
+         <div class="dropdown-divider"></div>
+         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTourModal">Create Tour</a>
+         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editTourModal">Edit Tour</a>
+         <div class="dropdown-divider"></div>
+         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#manageMediaModal">Manage Media</a>
+         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#manageMasseursModal">Manage Masseurs</a>
+         <div class="dropdown-divider"></div>
+         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editAccountModal">Edit Account</a>
+         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#viewAccountModal">View Account</a>
+         <div class="dropdown-divider"></div>
+         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#printSummaryModal">Print</a>
+         <a class="dropdown-item" href="/agent/message/send?member_id=${row.member_id}">Message</a>
+      </div>
+   </div>`;
             }
-        },
+         }
+      ],
 
-        columns: [
-            { data: 'ref_number', name: 'ref_number', orderable: true, defaultContent: 'NA' },
-            { data: 'member_id', name: 'member_id', orderable: true, defaultContent: 'NA' },
-            { data: 'name', name: 'name', orderable: true, defaultContent: 'NA' },
-            { data: 'phone', name: 'phone', orderable: true, defaultContent: 'NA' },
-            { data: 'email', name: 'email', orderable: true, defaultContent: 'NA' },
-            { data: 'state', name: 'state', orderable: true, defaultContent: 'NA' },
-        ],
-
-        order: [[1, 'desc']],
-
-        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-        pageLength: 10,
-    });
-
-   //  $('#myAdvertisersList').on('init.dt', function () {
-   //  $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search by Member ID or Reference ID...');
-   //  });
+      order: [[0, 'desc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10,
    });
+});
 
-
+// Action handler
+function openActionModal(action, memberId) {
+   console.log("Action Triggered:", action, "| Member ID:", memberId);
+   // Add modal or route logic here
+}
 </script>
 @endpush
