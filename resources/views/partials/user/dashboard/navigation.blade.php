@@ -19,7 +19,7 @@
                                     <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span>
                                 </span>
                                 <span>
-                                    <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
+                                    <b>Home State :  </b><span class="user-values" style="padding-left: 9%;">{{auth()->user()->home_state  }} </span>
                                 </span>
                            </div>
                         </div>
