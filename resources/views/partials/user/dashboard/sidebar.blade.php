@@ -30,92 +30,61 @@
                     d="M8 0.720703C9.06087 0.720703 10.0783 1.14213 10.8284 1.89228C11.5786 2.64242 12 3.65984 12 4.7207C12 5.78157 11.5786 6.79899 10.8284 7.54913C10.0783 8.29928 9.06087 8.7207 8 8.7207C6.93913 8.7207 5.92172 8.29928 5.17157 7.54913C4.42143 6.79899 4 5.78157 4 4.7207C4 3.65984 4.42143 2.64242 5.17157 1.89228C5.92172 1.14213 6.93913 0.720703 8 0.720703ZM8 10.7207C12.42 10.7207 16 12.5107 16 14.7207V16.7207H0V14.7207C0 12.5107 3.58 10.7207 8 10.7207Z"
                     fill="#C2CFE0" />
             </svg>
+
             <span>My Account</span>
         </a>
-    
-        <div id="myaccount"
-            class="collapse @if (request()->segment(2) == 'update-account' ||
+        <div id="myaccount" class="collapse @if (request()->segment(2) == 'update-account' ||
                 request()->segment(2) == 'change-features' ||
                 request()->segment(2) == 'change-password' ||
                 request()->segment(2) == 'notifications-features' ||
-                request()->segment(2) == 'upload-my-avatar' ||
-                request()->segment(2) == 'my-legbox-list' ||
-                request()->segment(2) == 'massage-legbox-list' ||
-                request()->segment(3) == 'my-legbox-notes') show @endif;"
-            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-    
+                request()->segment(2) == 'upload-my-avatar') show @endif;" aria-labelledby="headingTwo"
+            data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-                {{-- Normal Links --}}
                 <a class="collapse-item" href="{{ route('user.account.edit') }}">
-                    <img width="16" height="17"
+
+                    <img width="16" height="17" viewBox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
-                    <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Edit my account</span>
+
+                    <span style="{{ request()->segment(2) == 'update-account' ? 'color: #e5365a;' : '' }}">Edit my
+                        account</span>
                 </a>
-    
                 <a class="collapse-item" href="{{ route('user.change.password') }}">
-                    <img width="16" height="17"
+                    <img width="16" height="17" viewBox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/Change-Password.png') }}">
-                    <span style="{{ request()->segment(2) == 'change-password' ? 'color: #e5365a;' : '' }}">Change password</span>
+
+                    <span style="{{ request()->segment(2) == 'change-password' ? 'color: #e5365a;' : '' }}">Change
+                        password</span>
                 </a>
-    
                 <a class="collapse-item" href="{{ route('change-features') }}">
-                    <img width="16" height="17"
+                    <img width="16" height="17" viewBox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/change-feature.png') }}">
-                    <span style="{{ request()->segment(2) == 'change-features' ? 'color: #e5365a;' : '' }}">Change features</span>
+
+                    <span style="{{ request()->segment(2) == 'change-features' ? 'color: #e5365a;' : '' }}">Change
+                        features</span>
                 </a>
-    
+
                 <a class="collapse-item" href="{{ route('user.profile.notifications') }}">
-                    <img width="16" height="17"
+                    <img width="16" height="17" viewBox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
-                    <span style="{{ request()->segment(2) == 'notifications-features' ? 'color: #e5365a;' : '' }}">Notifications</span>
+
+                    <span
+                        style="{{ request()->segment(2) == 'notifications-features' ? 'color: #e5365a;' : '' }}">Notifications</span>
                 </a>
-    
+
                 <a class="collapse-item" href="{{ route('user.profile.avatar') }}">
-                    <img width="16" height="17"
+                    <img width="16" height="17" viewBox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
-                    <span style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #e5365a;' : '' }}">Upload my avatar</span>
+
+                    <span style="{{ request()->segment(2) == 'upload-my-avatar' ? 'color: #e5365a;' : '' }}">Upload my
+                        avatar</span>
                 </a>
-    
-                {{-- My Legbox Submenu --}}
-                <a class="nav-link collapse-item {{ (request()->segment(2) == 'my-legbox-list' || request()->segment(2) == 'massage-legbox-list' || request()->segment(3) == 'my-legbox-notes') ? '' : 'collapsed' }}"
-                    href="#" data-toggle="collapse" data-target="#myLegBox"
-                    aria-expanded="{{ (request()->segment(2) == 'my-legbox-list' || request()->segment(2) == 'massage-legbox-list' || request()->segment(3) == 'my-legbox-notes') ? 'true' : 'false' }}"
-                    aria-controls="myLegBox">
-                    <img width="16" height="17"
-                        src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyLegbox-light.png') }}">
-                    <span>My Legbox</span>
-                </a>
-    
-                <div id="myLegBox"
-                    class="collapse {{ (request()->segment(2) == 'my-legbox-list' || request()->segment(2) == 'massage-legbox-list' || request()->segment(3) == 'my-legbox-notes') ? 'show' : '' }} pl-3"
-                    style="margin-left: 10px;">
-                    <a class="collapse-item" href="{{ route('user.legbox.list') }}">
-                        <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 9.7207V7.7207H19V9.7207H5ZM5 15.7207V13.7207H19V15.7207H5ZM5 3.7207V1.7207H19V3.7207H5ZM1 4.7207V1.7207H0V0.720703H2V4.7207H1ZM0 13.7207V12.7207H3V16.7207H0V15.7207H2V15.2207H1V14.2207H2V13.7207H0ZM2.25 6.7207C2.44891 6.7207 2.63968 6.79972 2.78033 6.94037C2.92098 7.08103 3 7.27179 3 7.4707C3 7.6707 2.92 7.8607 2.79 7.9907L1.12 9.7207H3V10.7207H0V9.8007L2 7.7207H0V6.7207H2.25Z" fill="#C2CFE0"/>
-                        </svg>
-                        <span class="pl-3" style="{{ request()->segment(2) == 'my-legbox-list' ? 'color: #e5365a;' : '' }}">Escort List</span>
-                    </a>
-    
-                    <a class="collapse-item" href="{{ route('user.massage.legbox.list') }}">
-                        <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 9.7207V7.7207H19V9.7207H5ZM5 15.7207V13.7207H19V15.7207H5ZM5 3.7207V1.7207H19V3.7207H5ZM1 4.7207V1.7207H0V0.720703H2V4.7207H1ZM0 13.7207V12.7207H3V16.7207H0V15.7207H2V15.2207H1V14.2207H2V13.7207H0ZM2.25 6.7207C2.44891 6.7207 2.63968 6.79972 2.78033 6.94037C2.92098 7.08103 3 7.27179 3 7.4707C3 7.6707 2.92 7.8607 2.79 7.9907L1.12 9.7207H3V10.7207H0V9.8007L2 7.7207H0V6.7207H2.25Z" fill="#C2CFE0"/>
-                        </svg>
-                        <span class="pl-3" style="{{ request()->segment(2) == 'massage-legbox-list' ? 'color: #e5365a;' : '' }}">Massage List</span>
-                    </a>
-    
-                    <a class="collapse-item" href="{{ route('user.notes') }}">
-                        <svg width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 5.7207V3.7207H2V2.7207C2 1.6207 2.9 0.720703 4 0.720703H10V7.7207L12.5 6.2207L15 7.7207V0.720703H16C17 0.720703 18 1.7207 18 2.7207V12.5207C17.1 12.0207 16.1 11.7207 15 11.7207C11.7 11.7207 9 14.4207 9 17.7207C9 18.8207 9.3 19.8207 9.8 20.7207H4C2.9 20.7207 2 19.7207 2 18.7207V17.7207H0V15.7207H2V11.7207H0V9.7207H2V5.7207H0ZM2 3.7207V5.7207H4V3.7207H2ZM2 17.7207H4V15.7207H2V17.7207ZM2 11.7207H4V9.7207H2V11.7207ZM14 13.7207V16.7207H11V18.7207H14V21.7207H16V18.7207H19V16.7207H16V13.7207H14Z" fill="#C2CFE0"/>
-                        </svg>
-                        <span class="pl-3" style="{{ request()->segment(3) == 'my-legbox-notes' ? 'color: #e5365a;' : '' }}">Notes</span>
-                    </a>
-                </div>
+
+
             </div>
         </div>
     </li>
-    
     {{-- <li class="nav-item">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo" 
+        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo"
             aria-expanded="true">
             <img class="mr-2 pl-1 cstm--icon"
                 src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyLegbox-light.png') }}">
@@ -169,6 +138,37 @@
             </div>
         </div>
     </li> --}}
+
+
+    <li class="nav-item">
+      <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo" aria-expanded="true">
+      <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox-light.png')}}">
+         <span>My Legbox</span>
+      </a>
+      <div id="collapseTwo" class=" collapse  @if(request()->segment(2) == 'my-legbox-list' || request()->segment(2) == 'massage-legbox-list' ||request()->segment(3) == 'my-legbox-notes' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+         <div class="py-0 collapse-inner rounded mb-2">
+            <a class="collapse-item" href="{{ route('user.legbox.list') }}">
+               <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 9.7207V7.7207H19V9.7207H5ZM5 15.7207V13.7207H19V15.7207H5ZM5 3.7207V1.7207H19V3.7207H5ZM1 4.7207V1.7207H0V0.720703H2V4.7207H1ZM0 13.7207V12.7207H3V16.7207H0V15.7207H2V15.2207H1V14.2207H2V13.7207H0ZM2.25 6.7207C2.44891 6.7207 2.63968 6.79972 2.78033 6.94037C2.92098 7.08103 3 7.27179 3 7.4707C3 7.6707 2.92 7.8607 2.79 7.9907L1.12 9.7207H3V10.7207H0V9.8007L2 7.7207H0V6.7207H2.25Z" fill="#C2CFE0"/>
+               </svg>
+               <span class="pl-3" style="{{request()->segment(2) == 'my-legbox-list' ? 'color: #e5365a;' : ''}} ">Escort List</span>
+            </a>
+            <a class="collapse-item" href="{{ route('user.massage.legbox.list') }}">
+               <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 9.7207V7.7207H19V9.7207H5ZM5 15.7207V13.7207H19V15.7207H5ZM5 3.7207V1.7207H19V3.7207H5ZM1 4.7207V1.7207H0V0.720703H2V4.7207H1ZM0 13.7207V12.7207H3V16.7207H0V15.7207H2V15.2207H1V14.2207H2V13.7207H0ZM2.25 6.7207C2.44891 6.7207 2.63968 6.79972 2.78033 6.94037C2.92098 7.08103 3 7.27179 3 7.4707C3 7.6707 2.92 7.8607 2.79 7.9907L1.12 9.7207H3V10.7207H0V9.8007L2 7.7207H0V6.7207H2.25Z" fill="#C2CFE0"/>
+               </svg>
+               <span class="pl-3" style="{{request()->segment(2) == 'massage-legbox-list' ? 'color: #e5365a;' : ''}} ">Massage List</span>
+            </a>
+            <a class="collapse-item" href="{{ route('user.notes')}}">
+               <svg width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 5.7207V3.7207H2V2.7207C2 1.6207 2.9 0.720703 4 0.720703H10V7.7207L12.5 6.2207L15 7.7207V0.720703H16C17 0.720703 18 1.7207 18 2.7207V12.5207C17.1 12.0207 16.1 11.7207 15 11.7207C11.7 11.7207 9 14.4207 9 17.7207C9 18.8207 9.3 19.8207 9.8 20.7207H4C2.9 20.7207 2 19.7207 2 18.7207V17.7207H0V15.7207H2V11.7207H0V9.7207H2V5.7207H0ZM2 3.7207V5.7207H4V3.7207H2ZM2 17.7207H4V15.7207H2V17.7207ZM2 11.7207H4V9.7207H2V11.7207ZM14 13.7207V16.7207H11V18.7207H14V21.7207H16V18.7207H19V16.7207H16V13.7207H14Z" fill="#C2CFE0"/>
+               </svg>
+               <span class="pl-3" style="{{request()->segment(3) == 'my-legbox-notes' ? 'color: #e5365a;' : ''}}">Notes</span>
+            </a>
+         </div>
+      </div>
+   </li>
+
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#notebox"
             aria-expanded="false" aria-controls="notebox">
@@ -248,35 +248,7 @@
             </div>
         </div>
     </li>
-    {{-- <li class="nav-item">
-      <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo" aria-expanded="true">
-      <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox-light.png')}}">
-         <span>My Legbox</span>
-      </a>
-      <div id="collapseTwo" class=" collapse  @if(request()->segment(2) == 'my-legbox-list' || request()->segment(2) == 'massage-legbox-list' ||request()->segment(3) == 'my-legbox-notes' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-         <div class="py-0 collapse-inner rounded mb-2">
-            <a class="collapse-item" href="{{ route('user.legbox.list') }}">
-               <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 9.7207V7.7207H19V9.7207H5ZM5 15.7207V13.7207H19V15.7207H5ZM5 3.7207V1.7207H19V3.7207H5ZM1 4.7207V1.7207H0V0.720703H2V4.7207H1ZM0 13.7207V12.7207H3V16.7207H0V15.7207H2V15.2207H1V14.2207H2V13.7207H0ZM2.25 6.7207C2.44891 6.7207 2.63968 6.79972 2.78033 6.94037C2.92098 7.08103 3 7.27179 3 7.4707C3 7.6707 2.92 7.8607 2.79 7.9907L1.12 9.7207H3V10.7207H0V9.8007L2 7.7207H0V6.7207H2.25Z" fill="#C2CFE0"/>
-               </svg>
-               <span class="pl-3" style="{{request()->segment(2) == 'my-legbox-list' ? 'color: #e5365a;' : ''}} ">Escort List</span>
-            </a>
-            <a class="collapse-item" href="{{ route('user.massage.legbox.list') }}">
-               <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M5 9.7207V7.7207H19V9.7207H5ZM5 15.7207V13.7207H19V15.7207H5ZM5 3.7207V1.7207H19V3.7207H5ZM1 4.7207V1.7207H0V0.720703H2V4.7207H1ZM0 13.7207V12.7207H3V16.7207H0V15.7207H2V15.2207H1V14.2207H2V13.7207H0ZM2.25 6.7207C2.44891 6.7207 2.63968 6.79972 2.78033 6.94037C2.92098 7.08103 3 7.27179 3 7.4707C3 7.6707 2.92 7.8607 2.79 7.9907L1.12 9.7207H3V10.7207H0V9.8007L2 7.7207H0V6.7207H2.25Z" fill="#C2CFE0"/>
-               </svg>
-               <span class="pl-3" style="{{request()->segment(2) == 'massage-legbox-list' ? 'color: #e5365a;' : ''}} ">Massage List</span>
-            </a>
-            <a class="collapse-item" href="{{ route('user.notes')}}">
-               <svg width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 5.7207V3.7207H2V2.7207C2 1.6207 2.9 0.720703 4 0.720703H10V7.7207L12.5 6.2207L15 7.7207V0.720703H16C17 0.720703 18 1.7207 18 2.7207V12.5207C17.1 12.0207 16.1 11.7207 15 11.7207C11.7 11.7207 9 14.4207 9 17.7207C9 18.8207 9.3 19.8207 9.8 20.7207H4C2.9 20.7207 2 19.7207 2 18.7207V17.7207H0V15.7207H2V11.7207H0V9.7207H2V5.7207H0ZM2 3.7207V5.7207H4V3.7207H2ZM2 17.7207H4V15.7207H2V17.7207ZM2 11.7207H4V9.7207H2V11.7207ZM14 13.7207V16.7207H11V18.7207H14V21.7207H16V18.7207H19V16.7207H16V13.7207H14Z" fill="#C2CFE0"/>
-               </svg>
-               <span class="pl-3" style="{{request()->segment(3) == 'my-legbox-notes' ? 'color: #e5365a;' : ''}}">Notes</span>
-            </a>
-         </div>
-      </div>
-   </li> --}}
-   
+    
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Community"
             aria-expanded="true" aria-controls="collapseTwo">
