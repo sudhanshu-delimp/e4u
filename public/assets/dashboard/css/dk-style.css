@@ -7853,7 +7853,7 @@ td {
 /* navbar custom css  */
 
 .topbar-logged-in-user-data .d-user-info {
-    overflow-x: auto;
+    /* overflow-x: auto; */
     white-space: nowrap;
     padding-right: 10px;
     align-items: center;
