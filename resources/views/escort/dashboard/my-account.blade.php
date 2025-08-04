@@ -25,7 +25,7 @@
            <h3 class="NotesHeader"><b>Notes:</b> </h3>
            <ol>
               <li>Use this feature to complete all of your personal details - who you are,
-                 information about Profiles and Tours, and how Users communicate with
+                 information about PayID Profiles and Tours, and how Users communicate with
                  you.
               </li>
               <li>
@@ -80,9 +80,13 @@
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label class="my_name" for="my_name">
-                                       My Name
-                                       <img class="delay_tooltip" src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="You can also create <a target='_blank' href='{{route('escort.profile.information')}}'>Stage Names</a> to use in any Profile." data-boundary="window">
+                                       <label class="my_name common-tooltip" for="my_name">
+                                        My Name
+                                      
+                                       <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}">
+                                       <span class="tooltip-text">
+                                          You can also create <a target="_blank" href="{{route('escort.profile.information')}}">Stage Names</a> to use in any Profile.
+                                      </span>
                                        </label>
                                        <input type="text" class="form-control" name="name" placeholder="Enter name..." value="{{ $escort->name }}">
                                     </div>
@@ -100,14 +104,19 @@
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label for="mobile">Mobile</label>
+                                       <label for="mobile" class="common_help_icon common-tooltip">Mobile
+                                          <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}">
+                                       <span class="tooltip-text">This is the number which will be displayed in your Profiles.</span>
+                                          
+                                       </label>
                                        <span class="form-control form-back">{{ $escort->phone }}</span>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label class="my-agent" for="home_state">Home State
-                                       <img class="delay_tooltip" src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="This is the State you reside in. If you created your Account while you were in another State, log a <a target='_blank' href='{{url('escort-dashboard/submitticket')}}'>Support Ticket</a> and we will correct your setting." data-boundary="window">
+                                       <label class="my-agent common-tooltip" for="home_state">Home State
+                                          <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}">
+                                       <span class="tooltip-text">This is the State you reside in. If you created your Account while you were in another State, log a <a target='_blank' href='{{url('escort-dashboard/submitticket')}}'>Support Ticket</a> and we will correct your setting.</span>
                                        </label>
                                        <label  class="form-control form-back" placeholder="Western Australia" aria-describedby="emailHelp" id="stateNew" name="state_id" value="{{$escort->state_id}}">
                                        {{ $escort->state_id ? config('escorts.profile.states')[$escort->state_id]['stateName'] : ''}}
@@ -123,19 +132,19 @@
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label class="my-agent" for="my_agent">
+                                       <label class="my-agent common-tooltip" for="my_agent">
                                        <span>My Agent
-                                       <img class="delay_tooltip" src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="You can appoint an Agent to assist you by completing the Agency Request form.  If you want to appoint an Agent, <a target='_blank' class='theme-text-color' href='{{url('escort-dashboard/escort-agency-request')}}'>click here.</a>" data-boundary="window">
-                                       </span>
+                                          <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}">
+                                       <span class="tooltip-text">You can appoint an Agent to assist you by completing the Agency Request form.  If you want to appoint an Agent, <a href='{{url('escort-dashboard/escort-agency-request')}}'>click here.</a></span>
                                        </label>
-                                       <span class="form-control form-back">
-                                                         
+                                       </span>
+                                       <span class="form-control form-back">                                                         
 
-                                                            @if(auth()->user()->my_agent)
-                                                                {{ auth()->user()->my_agent->member_id }}
-                                                              @else
-                                                                  <a href="{{ url('/escort-dashboard/escort-agency-request') }}"> Request one</a>
-                                                              @endif
+                                          @if(auth()->user()->my_agent)
+                                                {{ auth()->user()->my_agent->member_id }}
+                                             @else
+                                                <a href="{{ url('/escort-dashboard/escort-agency-request') }}"> Request one</a>
+                                             @endif
                                        
                                        </span>
                                     </div>
@@ -161,6 +170,24 @@
                                        </div>
                                     </div>
                                  </div>
+                                 {{-- new field added --}}
+                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                       <label for="email" class="common_help_icon common-tooltip">PayID Name
+                                          <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}">
+                                       <span class="tooltip-text">Complete this information if you use PayID with your clients.</span>
+                                          
+                                       </label>
+                                       <input type="email" class="form-control" name="email" placeholder="Insert your Bank Account name" aria-describedby="emailHelp">
+                                    </div>
+                                 </div>
+                                 <div class="col-md-6">
+                                    <div class="form-group">
+                                       <label for="email">PayID Number</label>
+                                       <input type="email" class="form-control" name="email" placeholder="Insert your PayID Number" aria-describedby="emailHelp">
+                                    </div>
+                                 </div>
+                                 {{-- end --}}
                               </div>
                            </div>
                         </div>
@@ -179,7 +206,7 @@
                            </div>
                            <div id="collapse-1-2" class="collapse" data-parent="#accordion-2" aria-labelledby="heading-1-2" style="">
                               <div class="card-body">
-                                 <h5>General information</h5>
+                                 <h5 class="d_sub_heading">General information</h5>
                                  <ol class="pl-3">
                                     <li>The information set out on this page is mandatory.</li>
                                     <li>
@@ -192,7 +219,7 @@
                                     <li>If you select ‘Message’ as your preferred method of contact with us, you will receive a text message from us advising that you have a Message waiting for you. Log on to retrieve the message.</li>
                                     <li>If you have any queries regarding your appointed Agent, contact the Escorts4U help centre by raising a Support Ticket. Please include the Agent ID number. </li>
                                  </ol>
-                                 <h5>Home State</h5>
+                                 <h5 class="d_sub_heading">Home State</h5>
                                  <p>If you want to change your Home State, contact the Escorts4U help centre by raising a <a class=" " href="{{ url('escort-dashboard/submitticket') }}" style="font-size: 16px;"><span class="custom_links_design">Support Ticket.</span></a> You can not change your Home State, only Escorts4U support staff can change your Home State. You will have to provide proof that you have relocated to a new Home State.</p>
                               </div>
                            </div>
@@ -208,7 +235,7 @@
                   </a>
                </div>
                <div id="profile_and_tour_options" class="collapse" data-parent="#accordion" style="">
-                  <div class="card-body">
+                  <div class="card-body d_sub_heading">
                      <form class="v-form-design" id="profile_tour_options" action="{{ route('escort.account.profile.tour.update',[$escort->id])}}" method="POST">
                         <div class="row">
                            <div class="col-md-12">
