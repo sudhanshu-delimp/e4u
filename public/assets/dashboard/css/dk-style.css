@@ -6345,7 +6345,7 @@ ul.prof-sec {
     object-fit: cover;
 }
 
-.about_me_drop_down_info img#img9 {
+.about_me_drop_down_info .common-img {
     width: 1066.640px !important;
     height: 152px !important;
     object-fit: cover;

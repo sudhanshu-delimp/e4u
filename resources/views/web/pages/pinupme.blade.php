@@ -318,6 +318,9 @@
                 if(response.success){
                    $(".js_pinup_summary").html(response.html); 
                 }
+                else{
+                    location.assign(`{{route('home')}}`);
+                }
             },
             error: function(xhr) {
 

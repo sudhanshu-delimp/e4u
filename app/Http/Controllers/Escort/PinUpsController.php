@@ -8,6 +8,7 @@ use App\Models\Escort;
 use App\Models\PinUps;
 use App\Models\Pricing;
 use App\Models\EscortPinup;
+use App\Models\EscortMedia;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Exception;
@@ -217,11 +218,16 @@ class PinUpsController extends AppController
             $location = getRealTimeGeolocationOfUsers($latitude, $longitude);
             $pinupDetail = EscortPinup::latestActiveForCity($location['city']);
             if($pinupDetail){
+                $profile_image = EscortMedia::where(['user_id'=>$pinupDetail->user_id,'position'=>10,'default'=>1])->orderBy('id', 'DESC')->first();
                 $response['success'] = true;
                 switch($view){
                     case 'pinup_summary':{
                         $escort = $pinupDetail->escort;
-                        $response['html'] = view('partials\web\pinup_summary',compact('escort'))->render();
+                        $user = $escort->user;
+                        $response['escort'] = $pinupDetail->escort;
+                        $response['user'] = $escort->user;
+                        $response['profile_image'] = $profile_image;
+                        $response['html'] = view('partials\web\pinup_summary',compact('escort','user','profile_image'))->render();
                     } break;
                 }
             }
