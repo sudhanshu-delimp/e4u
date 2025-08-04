@@ -19,14 +19,14 @@
                                 <span class="separator">|</span><b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> 
                             </span>
                             <span>
-                                <b>Home State :  </b><span class="user-values">{{auth()->user()->home_state  }} </span>
+                                <b>Home State :  </b><span class="user-values" style="padding-left: 10%;">{{auth()->user()->home_state  }} </span>
                             </span>
                             <span>
                                 <span class="separator">|</span><b>My Agent :  </b>
-                                <span class="user-values">
+                                <span class="user-values" style="padding-left: 15%;">
 
                                     @if(auth()->user()->my_agent)
-                                    {{ auth()->user()->my_agent->name }}
+                                    {{ Str::title(auth()->user()->my_agent->name) }}
                                     @else
                                         <a href="{{url('/center-dashboard/agent-request') }}"> Request one</a>
                                     @endif

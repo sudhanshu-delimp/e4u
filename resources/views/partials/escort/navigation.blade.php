@@ -13,15 +13,15 @@
             <div class="d-user-info">
                 <div class="escort_header_top_menu">
                     <span>
-                        <b>Welcome back :  </b><span class="user-values">{{substr(auth()->user()->name, 0, 15) }}</span>  
+                        <b>Welcome back :  </b><span class="user-values">{{\Illuminate\Support\Str::limit(auth()->user()->name, 12, '..') }}</span>  
                     </span>
                     <span>
-                        <span class="separator">|</span> <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> 
+                        <span class="separator">|</span> <b>Membership ID :  </b><span class="user-values" style="padding-left: 4%;">{{auth()->user()->member_id }}</span> 
                     </span>
                     <span>
-                        <span class="separator">|</span> <b>My Agent :  </b><span class="user-values">
+                        <span class="separator">|</span> <b>My Agent :  </b><span class="user-values" style="padding-left: 13%;">
                             @if(auth()->user()->my_agent)
-                                {{ substr(auth()->user()->my_agent->name, 0, 15) }}
+                                {{  \Illuminate\Support\Str::limit(Str::title(auth()->user()->my_agent->name), 8, '..') }}
                             @else
                                 <a href="{{url('/escort-dashboard/escort-agency-request') }}"> Request one</a>
                             @endif
@@ -29,7 +29,7 @@
                     </span>
 
                      <span>
-                        <b>Home State :  </b><span class="user-values resident_home_state">--</span> 
+                        <b>Home State :  </b><span class="user-values resident_home_state" style="margin-left:11%">--</span> 
                     </span>
                     <span>
                         <span class="separator">|</span> <b>Current Location :  </b><span class="user-values live_current_location">--</span> 
@@ -47,7 +47,7 @@
         <!-- Topbar Navbar -->
         <div class="navbar-nav ">
             {{-- Nav Item - Search visible all screen not only xs --}}
-                <form class="form-inline navbar-search form-inline-custom" style="width: 17rem;">
+                <form class="form-inline navbar-search form-inline-custom" style="width: 14rem;">
                     <div class="input-group " style="border: 1px solid #D6D7E3; border-radius: 7px;">
                         <div class="input-group-append">
                             <button class="btn" type="button">
