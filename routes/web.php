@@ -372,7 +372,7 @@ Route::get('/blogs', function() { return view('web.pages.blogs'); });
 // Route::get('/blogsingle', function() { return view('web.pages.blogs'); });
 Route::get('/visa-migration', function() { return view('web.pages.visa-migration'); });
 Route::get('/cookie-policy', function() { return view('web.pages.cookie-policy'); });
-Route::get('/pin-up', function() { return view('web.pages.pinupme'); });
+Route::get('/pin-up', function() { return view('web.pages.pinupme'); })->name('web.pinup');
 
 // Route::post('/blogs',[BlogsController::class, 'index'])->name('blogs.index');
 Route::get('/blogs-single',[BlogsController::class, 'blogsSingle'])->name('blogs.single');

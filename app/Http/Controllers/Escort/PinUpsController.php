@@ -220,14 +220,17 @@ class PinUpsController extends AppController
             if($pinupDetail){
                 $profile_image = EscortMedia::where(['user_id'=>$pinupDetail->user_id,'position'=>10,'default'=>1])->orderBy('id', 'DESC')->first();
                 $response['success'] = true;
+                $escort = $pinupDetail->escort;
+                $user = $escort->user;
+                $response['escort'] = $pinupDetail->escort;
+                $response['user'] = $escort->user;
+                $response['profile_image'] = $profile_image;
                 switch($view){
                     case 'pinup_summary':{
-                        $escort = $pinupDetail->escort;
-                        $user = $escort->user;
-                        $response['escort'] = $pinupDetail->escort;
-                        $response['user'] = $escort->user;
-                        $response['profile_image'] = $profile_image;
                         $response['html'] = view('partials\web\pinup_summary',compact('escort','user','profile_image'))->render();
+                    } break;
+                    case 'pinup_home':{
+                        $response['html'] = view('partials\web\pinup_home',compact('profile_image'))->render();
                     } break;
                 }
             }
