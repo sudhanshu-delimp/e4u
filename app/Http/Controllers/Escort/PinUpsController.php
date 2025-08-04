@@ -126,13 +126,14 @@ class PinUpsController extends AppController
             $end = Carbon::parse($escort->end_date)->endOfWeek(Carbon::SUNDAY);
             $weeks = collect();
             $candidateStarts = [];
+            $today = Carbon::now();
             while ($start->lte($end)) {
                 $weekStart = $start->copy();
                 $weekEnd = $start->copy()->endOfWeek(Carbon::SUNDAY);
         
                 // Only include if full week is within profile listing range
             
-                if ($weekStart->gte(Carbon::parse($escort->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($escort->end_date)->endOfDay())) {
+                if ($weekStart->gte(Carbon::parse($escort->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($escort->end_date)->endOfDay()) && $weekEnd->gte($today->startOfDay())) {
                     $weeks->push([
                         'start' => $weekStart->toDateString(),
                         'end' => $weekEnd->toDateString()
