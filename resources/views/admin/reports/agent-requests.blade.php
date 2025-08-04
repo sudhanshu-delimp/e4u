@@ -245,9 +245,9 @@
 
 
         ////////// Send Notification ////////////////////////
-
-       let title = `A request to appoint an Agent in your Territory remains outstanding.
-                     Please visit <a href ="#">New Requests</a> to acknowledge.`; 
+       
+     let title = `A request to appoint an Agent in your Territory remains outstanding.
+             Please visit <a href="{{ env('APP_URL') . '/agent-dashboard/Advertisers/new-requests' }}">New Requests</a> to acknowledge.`;
       
        ajaxRequest({
                url: "{{ route('admin.send-notiification') }}",
