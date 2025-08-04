@@ -1,4 +1,4 @@
-@extends('layouts.escort')
+@extends('layouts.agent')
 @section('style')
     <style>
         .toggle-task-form {
@@ -213,7 +213,8 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="task_title">New Task</h5>
+                    <h5 class="modal-title">
+                        <img src="" class="appointment_title_img" style="width:32px; margin-right:10px;" alt="New Task"><span id="task_title">New Task</span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -233,10 +234,10 @@
                                         style="display: none;">Date Created: {{ \Carbon\Carbon::now()->format('d-m-Y') }}.
                                     </label>
                                     <input type="hidden" name="change_task_id" id="change_task_id">
-                                    <button type="submit" class="btn btn-primary shadow-none float-right ml-2 "
+                                    <button type="submit" class="btn-success-modal float-right ml-2 "
                                         id="save_button">Yes</button>
                                     <button type="button"
-                                        class="btn btn-primary shadow-none float-right ml-2  bg-danger"
+                                        class="btn-cancel-modal float-right ml-2"
                                         data-dismiss="modal" aria-label="Close" id="cancel_button">No</button>
                                 </div>
                             </div>
@@ -263,7 +264,7 @@
                    <div class="py-4 text-center" id="success_form_html">
                         <h4 id="success_msg">Are you sure you want to mark this Appointment as completed?</h4>
                         <button type="button"
-                    class="btn btn-dark mt-3 shadow-none"
+                    class="btn-success-modal mt-3 shadow-none"
                     data-dismiss="modal" aria-label="Close" id="cancel_button">OK</button>
                     </div>
                     
@@ -280,7 +281,7 @@
             
             <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="openMapLabel">View Map</h5>
+                <h5 class="modal-title" id="openMapLabel"> <img src="{{ asset('assets/dashboard/img/viewmap.png') }}" style="width:40px; margin-right:10px;" alt="Request Rejected"> View Map</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                             class="img-fluid img_resize_in_smscreen"></span>
@@ -331,21 +332,27 @@
 
 
                 if (buttonId == 'new_appointment') {
+                    $(".appointment_title_img").attr('src', "{{ asset('assets/dashboard/img/new-appointment.png') }}");
                     $('#task_title').text(taskName);
                     newAppointment();
                 } else if (buttonId == 'view_planner') {
+                    $(".appointment_title_img").attr('src', "{{ asset('assets/dashboard/img/view-planner.png') }}");
                     $('#task_title').text(taskName);
                     viewPlanner(taskId);
                 } else if (buttonId == 'reschedule_appointment') {
+                    $(".appointment_title_img").attr('src', "{{ asset('assets/dashboard/img/rescheduling-appoint.png') }}");
                     $('#task_title').text(taskName);
                     rescheduleAppointment(taskId);
                 } else if (buttonId == 'edit_appointment') {
+                    $(".appointment_title_img").attr('src', "{{ asset('assets/dashboard/img/edit-appointment.png') }}");
                     $('#task_title').text(taskName);
                     editAppointment(taskId);
                 } else if (buttonId == 'view_appointment') {
+                    $(".appointment_title_img").attr('src', "{{ asset('assets/dashboard/img/view-ppointment.png') }}");
                     $('#task_title').text(taskName);
                     viewAppointment(taskId);
                 } else if (buttonId == 'complete_appointment') {
+                    $(".appointment_title_img").attr('src', "{{ asset('assets/dashboard/img/complete-appointment.png') }}");
                     $('#task_title').text(taskName);
                     completeAppointment(taskId);
                 } else if (buttonId == 'open_task') {

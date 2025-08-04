@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class EscortPinup extends Model
 {
@@ -33,5 +34,19 @@ class EscortPinup extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('utc_end_time', '>', Carbon::now('UTC'));
+    }
+
+    public static function latestActiveForCity(int $cityId): ?self
+    {
+        return self::query()
+            ->where('city_id', $cityId)
+            ->active()
+            ->orderBy('utc_end_time', 'desc')
+            ->first();
     }
 }
