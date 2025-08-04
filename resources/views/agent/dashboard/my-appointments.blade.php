@@ -281,7 +281,7 @@
             
             <!-- Modal Header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="openMapLabel"> <img src="{{ asset('assets/dashboard/img/viewmap.png') }}" style="width:40px; margin-right:10px;" alt="Request Rejected"> View Map</h5>
+                <h5 class="modal-title" id="openMapLabel"> <img src="{{ asset('assets/dashboard/img/viewmap.png') }}" style="width:40px; margin-right:10px;" alt="Request Rejected">View Map</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                             class="img-fluid img_resize_in_smscreen"></span>
@@ -578,7 +578,7 @@
                     </div>
 
                     <!-- Planner Body -->
-                    <div id="plannerBody" class="border rounded p-3" style="min-height:400px; overflow:auto;">
+                    <div id="plannerBody" class="border rounded p-3" style="height:350px; overflow:auto;">
                         <!-- Dynamic Slots will render here -->
                     </div>
                 </div>
@@ -718,7 +718,7 @@
                                 <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>
                             </div>
 
-                            <div class="task-form-body p-2" style="display: block;">
+                            <div class="task-form-body p-2" style="display: block; height:350px; overflow:auto;">
                                 <!-- Hidden Task ID -->
                                 <input name="task_id" value="`+taskId+`" type="hidden">
 
@@ -959,7 +959,7 @@
                             <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>
                         </div>
 
-                        <div class="task-form-body p-2" style="display: block;">
+                        <div class="task-form-body p-2" style="display: block; height:350px; overflow:auto;">
                             <!-- Hidden Task ID -->
                             <input name="task_id" value="`+taskId+`" type="hidden">
 
@@ -1234,16 +1234,16 @@
                                 </a>
                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                     aria-labelledby="dropdownMenuLink" style="">
-                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="edit_appointment" data-id=`+taskId+`> <i class="fa fa-pen"></i> Edit Appointment</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="edit_appointment" data-id=`+taskId+`> <i class="fa fa-pen"></i>Edit Appointment</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="reschedule_appointment" data-id=`+taskId+`> <i class="fa fa-calendar"></i> Reschedule Appointment</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="reschedule_appointment" data-id=`+taskId+`> <i class="fa fa-calendar"></i>Reschedule Appointment</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="complete_appointment" data-id=`+taskId+`> <i class="fa fa-check-circle"></i> Completed Appointment</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="complete_appointment" data-id=`+taskId+`> <i class="fa fa-check-circle"></i>Completed Appointment</a>
                                         
                                         <div class="dropdown-divider"></div>
-                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="view_appointment" data-id=`+taskId+`> <i class="fa fa-eye"></i> View Appointment</a>
+                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" id="view_appointment" data-id=`+taskId+`> <i class="fa fa-eye"></i>View Appointment</a>
                                     
                                 </div>
                             </div>
