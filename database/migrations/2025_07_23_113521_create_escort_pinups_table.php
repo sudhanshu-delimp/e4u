@@ -25,6 +25,8 @@ class CreateEscortPinupsTable extends Migration
             $table->dateTime('utc_end_time');
             $table->timestamps();
         });
+
+        // php artisan migrate --path=database/migrations/2025_07_23_113521_create_escort_pinups_table.php
     }
 
     /**
