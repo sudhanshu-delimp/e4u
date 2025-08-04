@@ -215,6 +215,11 @@
        e.preventDefault();
        var requestId = $(this).data('id');
        var rowData = table.row($(this).parents('tr')).data();
+       let statusData = rowData.list_arr;
+       let agent_user_id = [];
+       for (let i = 0; i < statusData.agent_user_id.length; i++) {
+              agent_user_id.push(statusData.agent_user_id[i]);
+        }
 
         var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
                            <div class="modal-content">
@@ -238,8 +243,47 @@
                            </div>
                         </div>`;
 
-         $('#confirmationPopup').html(modal_html);
-         $('#confirmationPopup').modal('show');
+
+        ////////// Send Notification ////////////////////////
+
+       let title = `A request to appoint an Agent in your Territory remains outstanding.
+                     Please visit <a href ="#">New Requests</a> to acknowledge.`; 
+      
+       ajaxRequest({
+               url: "{{ route('admin.send-notiification') }}",
+               method : 'POST',
+               data: {
+                  to_user: agent_user_id,
+                  title:title,
+                  message: (typeof message !== 'undefined' && message) ? message : '',
+                  notification_listing_type: 2,
+                  notification_type: 'agent_follow_up',
+               },
+               
+               success: function(response) {
+                  console.log(response);
+                  if (response.success) {
+                      $('#confirmationPopup').html(modal_html);
+                      $('#confirmationPopup').modal('show');
+                  }
+                  else
+                  {
+                   Swal.fire('Error', response.message , 'error');
+                  }
+               },
+               error: function(xhr) {
+                 const response = xhr.responseJSON;
+                  if (response && response.errors) {
+                     const firstError = Object.values(response.errors)[0][0]; 
+                     Swal.fire('Validation Error', firstError, 'error');
+                  } else {
+                     Swal.fire('Error', 'Something went wrong', 'error');
+                  }
+               }
+            });
+
+
+       ///////// End End Notification /////////////////////                
     });
 
     $(document).on('click', '.view-agent-details', function(e) {
@@ -335,13 +379,13 @@
  </script>
 
          <script>
-            $(document).ready(function(){
-              setInterval(function () {
-                  $('#agentRequestreportTable').DataTable().ajax.reload(function (json) {
-                     console.log("Returned JSON:", json);
-            }, false);
-            }, 15000);
-            });
+            // $(document).ready(function(){
+            //   setInterval(function () {
+            //       $('#agentRequestreportTable').DataTable().ajax.reload(function (json) {
+            //          console.log("Returned JSON:", json);
+            // }, false);
+            // }, 15000);
+            // });
           </script> 
 
 

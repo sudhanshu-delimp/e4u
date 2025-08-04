@@ -34,8 +34,7 @@
                       communications. Once a Support Agent is appointed, they will remain your Support
                       Agent for you to <a href="agent-messages" class="custom_links_design"> communicate </a>with and address any of your
                       concerns.</li>
-                    <li>Once the Agent has accepted your request for support, you will receive a confirmation
-                      email.</li>
+                    <li>Once the Agent has accepted your request for support, you will receive a Notification.</li>
                 </ol>
             </div>
             </div>
