@@ -1,6 +1,6 @@
 <div{{-- style="position: fixed; width: 75%; z-index: 9999;"--}}>
     <!-- Topbar -->
-    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5 justify-navbar" >
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 shadow-sm pl-3 pl-lg-5 pr-3 pr-lg-5">
 
         <!-- Sidebar Toggle (Topbar) -->
         <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -11,44 +11,59 @@
            
             
             <div class="d-user-info">
-                <div class="escort_header_top_menu">
+                <div>
                     <span>
-                        <b>Welcome back :  </b><span class="user-values">{{substr(auth()->user()->name, 0, 15) }}</span>  
+                        <b>Welcome back :  </b><span class="user-values">{{auth()->user()->name }}</span> <span class="separator">|</span> 
                     </span>
                     <span>
-                        <span class="separator">|</span> <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> 
+                        <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator">|</span>
                     </span>
                     <span>
-                        <span class="separator">|</span> <b>My Agent :  </b><span class="user-values">
+                        <b>My Agent :  </b><span class="user-values">
                             @if(auth()->user()->my_agent)
-                                {{ substr(auth()->user()->my_agent->name, 0, 15) }}
+                                {{ auth()->user()->my_agent->name }}
                             @else
                                 <a href="{{url('/escort-dashboard/escort-agency-request') }}"> Request one</a>
                             @endif
                         </span>
                     </span>
-
-                     <span>
-                        <b>Home State :  </b><span class="user-values resident_home_state">--</span> 
-                    </span>
-                    <span>
-                        <span class="separator">|</span> <b>Current Location :  </b><span class="user-values live_current_location">--</span> 
-                    </span>
-                    <span>
-                        <span class="separator">|</span>  <b>Location time :  </b><span class="user-values live_current_time">00:00 AM</span>
-                    </span>
                    
+                </div>
+                
+                <div class="gap-b">
+                    <span>
+                        <b>Home State :  </b><span class="user-values resident_home_state">--</span> <span class="separator">|</span> 
+                    </span>
+                    <span>
+                        <b>Current Location :  </b><span class="user-values live_current_location">--</span> <span class="separator">|</span>
+                    </span>
+                    <span>
+                        <b>Location time :  </b><span class="user-values live_current_time">00:00 AM</span>
+                    </span>
                 </div>
             </div>
             
         </div>
         {{-- end --}}
+        <!-- Topbar Search -->
+        {{-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group dk-border-radius">
+                <div class="input-group-append">
+                    <button class="btn" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+                <input type="text" class="form-control border-0 small" placeholder="Enter keywords..."
+                       aria-label="Search" aria-describedby="basic-addon2">
+
+            </div>
+        </form> --}}
 
         <!-- Topbar Navbar -->
-        <div class="navbar-nav ">
+        <div class="navbar-nav ml-auto">
             {{-- Nav Item - Search visible all screen not only xs --}}
-                <form class="form-inline navbar-search form-inline-custom" style="width: 17rem;">
-                    <div class="input-group " style="border: 1px solid #D6D7E3; border-radius: 7px;">
+                <form class="form-inline navbar-search form-inline-custom">
+                    <div class="input-group dk-border-radius">
                         <div class="input-group-append">
                             <button class="btn" type="button">
                                 <i class="fas fa-search fa-sm"></i>

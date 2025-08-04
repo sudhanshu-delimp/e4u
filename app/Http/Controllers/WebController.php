@@ -1421,5 +1421,4 @@ class WebController extends Controller
         return response()->json(compact('error','lp','dp'));
 
     }
-
 }

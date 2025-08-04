@@ -90,7 +90,6 @@
 
 <script>
    $(document).ready(function() {
-
       var table = $("#agentRequestreportTable").DataTable({
        language: {
                search: "Search: _INPUT_",
@@ -334,5 +333,17 @@
 
    });
  </script>
+
+         <script>
+            $(document).ready(function(){
+              setInterval(function () {
+                  $('#agentRequestreportTable').DataTable().ajax.reload(function (json) {
+                     console.log("Returned JSON:", json);
+            }, false);
+            }, 15000);
+            });
+          </script> 
+
+
 
 @endsection
