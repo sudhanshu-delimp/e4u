@@ -322,11 +322,11 @@
                                 @foreach($escort->durations as $key => $duration)
                                 <tr>
                                     <td>{{ $duration->name }}</td>
-                                    <td>{!! ($duration->pivot->massage_price) ? number_format($duration->pivot->massage_price) : "<span class='if_data_not_available'>N/A</span>" !!}
+                                    <td>{{isset($duration->pivot->massage_price) && $duration->pivot->massage_price != 0 ? '$' : ''}}{!! ($duration->pivot->massage_price) ? number_format($duration->pivot->massage_price) : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>
-                                    <td>{!! ($duration->pivot->incall_price) ? number_format($duration->pivot->incall_price) : "<span class='if_data_not_available'>N/A</span>" !!}
+                                    <td>{{isset($duration->pivot->incall_price) ? '$' : ''}}{!! ($duration->pivot->incall_price) ? number_format($duration->pivot->incall_price) : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>
-                                    <td>{!! ($duration->pivot->outcall_price) ? number_format($duration->pivot->outcall_price) : "<span class='if_data_not_available'>N/A</span>" !!}
+                                    <td>{{isset($duration->pivot->outcall_price) ? '$' : ''}}{!! ($duration->pivot->outcall_price) ? number_format($duration->pivot->outcall_price) : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>
                                 </tr>
                                 @endforeach
