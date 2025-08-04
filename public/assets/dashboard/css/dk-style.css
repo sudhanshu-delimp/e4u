@@ -7924,7 +7924,7 @@ td {
 @media(max-width:1800px) {
     .topbar-logged-in-user-data .d-user-info {
         max-width: 100%;
-        overflow-x: auto;
+        /* overflow-x: auto; */
         white-space: nowrap;
         padding-right: 10px;
         font-size: 10px;
