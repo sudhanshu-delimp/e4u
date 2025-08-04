@@ -10,7 +10,7 @@
     .select2-arrow, .select2-chosen {
     padding-top: 6px;
     }
-    span.select2.select2-container.select2-container--default > span.selection > span {
+    span.select2.select2-container.select2-container--default > span.selection > span { 
     height: 52px !important;
     }
     .list-sec .table td, .table th{
@@ -111,7 +111,12 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <p class="pt-5"><strong>NOTE:</strong> 1. Local Laws published in the relevant jurisdiction as at 1st January 2024.</p>
+                            
+                            <p class="pt-5"><strong>Note:</strong> 
+                                <ol>
+                                <li>Local Laws published in the relevant jurisdiction as at 1st January 2024.</li>
+                                </ol>
+                            </p>
                         </div>
                         <div class="mt-5">
                             <b>Changes to this Guide</b><br>
