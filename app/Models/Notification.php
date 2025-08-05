@@ -5,14 +5,21 @@ namespace App\Models;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Notification extends Model
 {
     use HasFactory;
 
-    protected $table = "notification";
+    protected $table = "notifications";
 
+    public function getCreatedAtAttribute($value)
+    {
+        return $value ? date("F j, Y", strtotime($value)) : null;
+    }
+
+    
     public function sendNotification($data)
     {
 

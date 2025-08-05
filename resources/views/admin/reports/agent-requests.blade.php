@@ -379,13 +379,13 @@
  </script>
 
          <script>
-            // $(document).ready(function(){
-            //   setInterval(function () {
-            //       $('#agentRequestreportTable').DataTable().ajax.reload(function (json) {
-            //          console.log("Returned JSON:", json);
-            // }, false);
-            // }, 15000);
-            // });
+            $(document).ready(function(){
+              setInterval(function () {
+                  $('#agentRequestreportTable').DataTable().ajax.reload(function (json) {
+                     console.log("Returned JSON:", json);
+            }, false);
+            }, 15000);
+            });
           </script> 
 
 

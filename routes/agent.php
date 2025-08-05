@@ -92,6 +92,8 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
 
      Route::get('Advertisers/new-requests', [AgentRequestController::class, 'newRequest'])->name('agent.new-requests');
      Route::post('process-request', [AgentRequestController::class, 'processRequest'])->name('agent.process-request');
+     Route::get('get-notification', [NotificationController::class, 'getNotification'])->name('agent.get-notification');
+     Route::post('notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('agent.notification-seen');
     
 
      Route::get('Advertisers/history-requests', [AgentRequestController::class, 'historyRequests'])->name('agent.history-requests');
