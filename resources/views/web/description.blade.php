@@ -322,11 +322,11 @@
                                 @foreach($escort->durations as $key => $duration)
                                 <tr>
                                     <td>{{ $duration->name }}</td>
-                                    <td>{!! ($duration->pivot->massage_price) ? number_format($duration->pivot->massage_price) : "<span class='if_data_not_available'>N/A</span>" !!}
+                                    <td>{{isset($duration->pivot->massage_price) && $duration->pivot->massage_price != 0 ? '$' : ''}}{!! ($duration->pivot->massage_price) ? number_format($duration->pivot->massage_price) : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>
-                                    <td>{!! ($duration->pivot->incall_price) ? number_format($duration->pivot->incall_price) : "<span class='if_data_not_available'>N/A</span>" !!}
+                                    <td>{{isset($duration->pivot->incall_price) ? '$' : ''}}{!! ($duration->pivot->incall_price) ? number_format($duration->pivot->incall_price) : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>
-                                    <td>{!! ($duration->pivot->outcall_price) ? number_format($duration->pivot->outcall_price) : "<span class='if_data_not_available'>N/A</span>" !!}
+                                    <td>{{isset($duration->pivot->outcall_price) ? '$' : ''}}{!! ($duration->pivot->outcall_price) ? number_format($duration->pivot->outcall_price) : "<span class='if_data_not_available'>N/A</span>" !!}
                                     </td>
                                 </tr>
                                 @endforeach
@@ -634,7 +634,7 @@
                                                                     </tr>
                                                                 @endforeach
                                                             @else
-                                                                <td colspan="2" class="let-talk-about"></td>
+                                                                <td colspan="2" class="let-talk-about">Let's talk about it.</td>
                                                             @endif
                                                         </tbody>
                                                     </table>
@@ -657,7 +657,7 @@
                                                                     </tr>
                                                                 @endforeach
                                                             @else
-                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
+                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about"></td>
                                                             @endif
                                                         </tbody>
                                                     </table>
@@ -715,7 +715,7 @@
                                                                     </tr>
                                                                 @endforeach
                                                             @else
-                                                                <td colspan="2" class="let-talk-about"></td>
+                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
                                                             @endif
                                                         </tbody>
                                                     </table>
@@ -737,7 +737,7 @@
                                                                     </tr>
                                                                 @endforeach
                                                             @else
-                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
+                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about"></td>
                                                             @endif
                                                         </tbody>
                                                     </table>
@@ -795,7 +795,7 @@
                                                                     </tr>
                                                                 @endforeach
                                                             @else
-                                                                <td colspan="2" class="let-talk-about"></td>
+                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
                                                             @endif
                                                         </tbody>
                                                     </table>
@@ -817,7 +817,7 @@
                                                                     </tr>
                                                                 @endforeach
                                                             @else
-                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about">Let's talk about it.</td>
+                                                            <td colspan="2" style="padding-top: 15px;" class="let-talk-about"></td>
                                                             @endif
                                                         </tbody>
                                                     </table>
@@ -1190,6 +1190,9 @@
                         <div class="tooltip-wrapper">
                             <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
                             <div class="tooltip-text">Call me</div>
+                            @if($contactType == 5)
+                                <span>or</span>
+                            @endif
                         </div>
                     @endif
                     @if($contactType == 2 || $contactType == 5)

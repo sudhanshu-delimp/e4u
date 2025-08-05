@@ -125,7 +125,7 @@ class EscortMediaRepository extends BaseRepository implements EscortMediaInterfa
             ['position', $position],
             ['type', 0]
         ];
-        if($position == 9) {
+        if(in_array($position,[9,10])) {
             $update = ['default'=> 0];
             $conditions[] = ['default', 1];
         } else {

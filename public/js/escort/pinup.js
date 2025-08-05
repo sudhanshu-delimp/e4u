@@ -75,6 +75,7 @@ savePinupButton.addEventListener("click", function (e) {
                 savePinupButton.disabled = false;
                 $("#pinup_profile").modal('hide');
                 btn_pinup_profile.disabled = true;
+                table.draw();
             }
         },
         error: function(xhr) {

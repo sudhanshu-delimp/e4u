@@ -35,7 +35,9 @@
                      <div class="card-body">
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                         <ol>
-                        
+                           <li>The following table is a list of all of the legislation that applies to your Location.</li>
+                           <li>To view the law, click the link and the legislation will open in a new tab for you to
+                               browse.</li>
                         </ol>
                      </div>
                   </div>
@@ -43,84 +45,80 @@
             </div>
             {{-- end --}}
             <div class="row">
+               <div class="col-md-12">
+                  <div class="table-responsive-xl list-sec">
+                     <table class="table dataTable" style="width: 100%;">
+                        <thead>
+                           <tr role="row">
+                              <th class="text-left">State</th>
+                              <th class="text-center">Legislation<sup>(1)</sup></th>
+                              <th class="text-center">Regulations</th>
+                           </tr>
+                        </thead>
+                        <tbody class="text-center">
+                           
+                           <tr>
+                              <td>Federal</td>
+                              <td><a target="_blank" class="custom_links_design" href="http://www9.austlii.edu.au/cgi-bin/viewdb/au/legis/cth/consol_act/cfacga1995489/">Classification (Publications, Films and Computer Games) Act <i class="custom_links_design">(Cth)</i> 1995</a></td>
+                              <td></td>
+                           </tr>
+                           <tr>
+                              <td>ACT</td>
+                              <td><a target="_blank" class="custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/act/consol_act/cfacga1995596/">Classification (Publications, Films and Computer Games) (Enforcement) Act 1995</a></td>
+                              <td></td>
+                           </tr>
+                           <tr>
+                              <td>NSW</td>
+                              <td><a target="_blank" class="custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/nsw/consol_act/cfacgea1995596/">Classification (Publications, Films and Computer Games) (Enforcement) Act 1995</a></td>
+                              <td></td>
+                           </tr>
+                           <tr>
+                              <td>NT</td>
+                              <td><a target="_blank" class="custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/nt/consol_act/copfacga1985508/">Classification of Publications, Films and Computer Games Act</a></td>
+                              <td><a target="_blank" class="custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/nt/consol_reg/copfacgr1985617/">Regulations</a></td>
+                            
+                           </tr>
+                           <tr>
+                              <td>Qld</td>
+                              <td><a target="_blank" class="custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/qld/consol_act/cocgaia1995373/">Classification of Computer Games and Images Act 1995</a>
+                                 <a target="_blank" class="custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/qld/consol_act/cofa1991220/">Classification of Films Act 1991</a>
+                                 <a target="_blank" class="custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/qld/consol_act/cocgaia1995373/">Classification of Publications Act 1991</a><br>
+                              </td>
+                              <td></td>
+                           </tr>
+                           <tr>
+                              <td>SA</td>
+                              <td><a target="_blank" class="custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/sa/consol_act/cfacga1995489/">Classification (Publications, Films and Computer Games) (Enforcement) Act 1995</a></td>
+                              <td></td>
+                           </tr>
+                           <tr>
+                              <td>Tas</td>
+                              <td><a target="_blank" class="custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb//au/legis/tas/consol_act/cfacgea1995596/">Classification (Publications, Films and Computer Games) (Enforcement) Act 1995</a></td>
+                              <td></td>
+                           </tr>
+                           <tr>
+                              <td>Vic</td>
+                              <td><a target="_blank" class="custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/vic/consol_act/cfacga1995596/">Classification (Publications, Films and Computer Games) (Enforcement) Act 1995</a></td>
+                              <td></td>
+                           </tr>
+                           <tr>
+                              <td>WA</td>
+                              <td><a target="_blank" class="custom_links_design" href="http://www9.austlii.edu.au/cgi-bin/viewdb/au/legis/wa/consol_act/cfacgea1996596/">Classification (publications, films and computer games) Enforcement Act 1996</a></td>
+                              <td></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <p class="pt-5"><strong>Note:</strong> 
+                     <ol>
+                        <li>Classification Laws published in the relevant jurisdiction as at 1st September 2019.</li>
+                     </ol>
+                  </p>
+               </div>
+            </div>
+            <div class="row">
                <div class="col-md-10">
-                  <!-- Begin Page Content -->
-                  <div class="container-fluid" style="padding: 0px 0px;">
-                    
-                     <h2 class="primery_color normal_heading"><b>Legislation</b></h2>
-                  </div>
-                  <!-- /.container-fluid --><br>
-                  <div class="row">
-                     <div class="col-md-12">
-                        <table style="width:100%;line-height: 25px;">
-                           <tbody>
-                              <tr>
-                                 <th style="width: 20%;">State</th>
-                                 <th>Legislation<sup>(1)</sup></th>
-                                 <th>Regulations</th>
-                              </tr>
-                              <tr>
-                                 <td valign="top">Federal:</td>
-                                 <td><a target="_blank" class="termsandconditions_text_color custom_links_design" href="http://www9.austlii.edu.au/cgi-bin/viewdb/au/legis/cth/consol_act/cfacga1995489/">Classification (Publications, Films and Computer Games) Act <i class="termsandconditions_text_color custom_links_design">(Cth)</i> 1995</a></td>
-                                 <td></td>
-                                 <td></td>
-                              </tr>
-                              <tr>
-                                 <td valign="top">ACT:</td>
-                                 <td><a target="_blank" class="termsandconditions_text_color custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/act/consol_act/cfacga1995596/">Classification (Publications, Films and Computer Games) (Enforcement) Act 1995</a></td>
-                                 <td></td>
-                                 <td></td>
-                              </tr>
-                              <tr>
-                                 <td valign="top">NSW:</td>
-                                 <td><a target="_blank" class="termsandconditions_text_color custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/nsw/consol_act/cfacgea1995596/">Classification (Publications, Films and Computer Games) (Enforcement) Act 1995</a></td>
-                                 <td></td>
-                                 <td></td>
-                              </tr>
-                              <tr>
-                                 <td valign="top">NT:</td>
-                                 <td><a target="_blank" class="termsandconditions_text_color custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/nt/consol_act/copfacga1985508/">Classification of Publications, Films and Computer Games Act</a></td>
-                                 <td><a target="_blank" class="termsandconditions_text_color custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/nt/consol_reg/copfacgr1985617/">Regulations</a></td>
-                                 <td></td>
-                              </tr>
-                              <tr>
-                                 <td valign="top">Qld:</td>
-                                 <td><a target="_blank" class="termsandconditions_text_color custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/qld/consol_act/cocgaia1995373/">Classification of Computer Games and Images Act 1995</a><br>
-                                    <a target="_blank" class="termsandconditions_text_color custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/qld/consol_act/cofa1991220/">Classification of Films Act 1991</a><br>
-                                    <a target="_blank" class="termsandconditions_text_color custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/qld/consol_act/cocgaia1995373/">Classification of Publications Act 1991</a><br>
-                                 </td>
-                                 <td></td>
-                                 <td></td>
-                              </tr>
-                              <tr>
-                                 <td valign="top">SA:</td>
-                                 <td><a target="_blank" class="termsandconditions_text_color custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/sa/consol_act/cfacga1995489/">Classification (Publications, Films and Computer Games) (Enforcement) Act 1995</a></td>
-                                 <td></td>
-                                 <td></td>
-                              </tr>
-                              <tr>
-                                 <td valign="top">Tas:</td>
-                                 <td><a target="_blank" class="termsandconditions_text_color custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb//au/legis/tas/consol_act/cfacgea1995596/">Classification (Publications, Films and Computer Games) (Enforcement) Act 1995</a></td>
-                                 <td></td>
-                                 <td></td>
-                              </tr>
-                              <tr>
-                                 <td valign="top">Vic:</td>
-                                 <td><a target="_blank" class="termsandconditions_text_color custom_links_design" href="https://www.austlii.edu.au/cgi-bin/viewdb/au/legis/vic/consol_act/cfacga1995596/">Classification (Publications, Films and Computer Games) (Enforcement) Act 1995</a></td>
-                                 <td></td>
-                                 <td></td>
-                              </tr>
-                              <tr>
-                                 <td valign="top">WA:</td>
-                                 <td><a target="_blank" class="termsandconditions_text_color custom_links_design" href="http://www9.austlii.edu.au/cgi-bin/viewdb/au/legis/wa/consol_act/cfacgea1996596/">Classification (publications, films and computer games) Enforcement Act 1996</a></td>
-                                 <td></td>
-                                 <td></td>
-                              </tr>
-                           </tbody>
-                        </table>
-                        <p class="pt-5"><strong>NOTE:</strong> 1. Classification Laws published in the relevant jurisdiction as at 1st September 2019.</p>
-                     </div>
-                  </div>
+                  
                   <div class="row">
                      <div class="col-md-12">
                         <div id="accordion" class="myacording-design">
@@ -202,7 +200,7 @@
                         </div>
                      </div>
                   </div>
-               </div>
+               </div>   
                <!--middle content end here-->
                <!--right side bar start from here-->
             </div>

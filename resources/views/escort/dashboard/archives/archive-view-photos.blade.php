@@ -18,17 +18,6 @@
     }
 </style>
 <style type="text/css">
-    /* body
-    {
-    font-family: Arial;
-    font-size: 10pt;
-    }
-    img
-    {
-    height: 100px;
-    width: 100px;
-    margin: 2px;
-    }*/
     .draggable
     {
     filter: alpha(opacity=60);
@@ -38,13 +27,6 @@
     {
     position: static !important;
     }
-    /* #dvSource, #dvDest
-    {
-    border: 5px solid #ccc;
-    padding: 5px;
-    min-height: 100px;
-    width: 430px;
-    }  */
     .pis{
     display: none;
     }
@@ -214,7 +196,7 @@
                                    
                                     <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
-                                        <img class="img-fluid" id="img9" data-position-id="9" src="{{ asset($path->findByposition(auth()->user()->id,9, 1)['path'])}}" >
+                                        <img class="img-fluid common-img" id="img9" data-position-id="9" src="{{ asset($path->findByposition(auth()->user()->id,9, 1)['path'])}}" >
                                         <input  type="hidden"  id="pos_9" name="position[9]" value="">
                                         </label>
                                     </div>
@@ -223,10 +205,10 @@
                                     
                                 <div class="col-lg-6">
                                     <h2 class="banner-sub-heading my-1">Pinup</h2>
-                                    <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
+                                    <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(10)">
                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
-                                        <img class="img-fluid" id="img9" data-position-id="9" src="{{ asset($path->findByposition(auth()->user()->id,9, 1)['path'])}}" >
-                                        <input  type="hidden"  id="pos_9" name="position[9]" value="">
+                                        <img class="img-fluid common-img" id="img10" data-position-id="10" src="{{ asset($path->findByposition(auth()->user()->id,10, 1)['path'])}}" >
+                                        <input  type="hidden"  id="pos_10" name="position[10]" value="">
                                         </label>
                                     </div>
                                 </div>
@@ -331,16 +313,6 @@
                          </ul>
                          <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
                             <div class="carousel-inner" id="view_all">
-                               {{-- <div class="carousel-item" id="cItem_0" data-id="0">
-                                  <div class="grid-container" id="dvSource">
-
-                                     @foreach($media_withPosition  as $key => $img)
-                                     <div class="item4">
-                                        <img class="img-thumbnail {{ $img->position == 9 ? 'defult-image-3' : 'defult-image' }}" src="{{  asset($img->path) }}" alt=" " data-id="{{$img->id}}">
-                                     </div>
-                                     @endforeach
-                                  </div>
-                               </div> --}}
 
                                @foreach($media->chunk(10)  as $keyId => $images)
                                <div class="carousel-item" id="cItem_{{$loop->index}}" data-id="{{$loop->index}}">
@@ -350,7 +322,17 @@
                                     <div class="item4" id="dm_{{$image->id}}">
                                         <img class="img-thumbnail defult-image" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                                         <i class="fa fa-trash deleteimg" data-id="{{$image->id}}" title="Remove this media"></i>                                        
-                                        <span class="badge badge-red">gallery</span>
+                                        @switch($image->position)
+                                        @case(9)
+                                        <span class="badge badge-red">Banner</span>
+                                        @break
+                                        @case(10)
+                                        <span class="badge badge-red">Pin Up</span>
+                                        @break
+                                        @default
+                                        <span class="badge badge-red">Gallery</span>
+                                        @endswitch
+                                        
                                     </div>
                                     @endif
                                     @endforeach
@@ -411,106 +393,16 @@
                                             <div class="photo-sec-popup"  id="image_preview">
                                                 <a href="#">
                                                     <div class="five_column_content_top img-title-sec justify-content-between wish_span rm" style="z-index: 1;">
-                                                        {{-- <span class="card_tit" style="">Photo.img</span>
-                                                        <i class="fa fa-trash"></i>    --}}
+                                                      
                                                     </div>
                                                     <label class="newbtn rm">
                                                         <img id="blah" class="item" src="{{ asset('assets/app/img/upload-thum-1.png')}}">
-                                                        {{--
-                                                        <figcaption>Edit</figcaption>
-                                                        --}}
+                                                        
                                                         <input name="img[]" id="upload_file" class="pis" onchange="preview_image(this);" type="file" multiple accept="image/*">
                                                     </label>
                                                     <div style="margin-top: -34px;">
                                                     </div>
                                                 </a>
-                                                {{-- @foreach($media as $key => $img)
-                                                <a href="#">
-                                                    <div class="five_column_content_top img-title-sec d-flex justify-content-between wish_span" style="z-index: 1;">
-                                                        <span class="card_tit" style="">Photo.img</span>
-                                                        <i class="fa fa-trash deleteId" data-id="{{$img->id}}"></i>
-                                                    </div>
-                                                    <label class="newbtn">
-                                                        <img id="blah1" class="item" src="{{ asset($img->path) }}">
-                                                        <figcaption>Edit</figcaption>
-                                                        <input type="hidden" name="position[]" value="{{$img->position}}">
-                                                    </label>
-                                                    <div style="margin-top: -34px;">
-                                                    </div>
-                                                </a>
-                                                @endforeach --}}
-                                                {{--
-                                                <a href="#">
-                                                    <div class="five_column_content_top img-title-sec d-flex justify-content-between wish_span" style="z-index: 1;">
-                                                        <span class="card_tit" style="">Photo.img</span>
-                                                        <i class="fa fa-trash"></i>
-                                                    </div>
-                                                    <label class="newbtn">
-                                                        <img id="blah1" class="item" src="{{ asset('escorts/attatchment/images/70/girl4.jpg')}}">
-                                                        <figcaption>Edit</figcaption>
-                                                        <input name="img[1]" id="pic1" class="pis" onchange="readURL(this);" type="file">
-                                                        <input type="hidden" name="position[]" value="1">
-                                                    </label>
-                                                    <div style="margin-top: -34px;">
-                                                    </div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="five_column_content_top img-title-sec d-flex justify-content-between wish_span" style="z-index: 1;">
-                                                        <span class="card_tit" style="">Photo.img</span>
-                                                        <i class="fa fa-trash"></i>
-                                                    </div>
-                                                    <label class="newbtn">
-                                                        <img id="blah1" class="item" src="{{ asset('escorts/attatchment/images/70/girl4.jpg')}}">
-                                                        <figcaption>Edit</figcaption>
-                                                        <input name="img[1]" id="pic1" class="pis" onchange="readURL(this);" type="file">
-                                                        <input type="hidden" name="position[]" value="1">
-                                                    </label>
-                                                    <div style="margin-top: -34px;">
-                                                    </div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="five_column_content_top img-title-sec d-flex justify-content-between wish_span" style="z-index: 1;">
-                                                        <span class="card_tit" style="">Photo.img</span>
-                                                        <i class="fa fa-trash"></i>
-                                                    </div>
-                                                    <label class="newbtn">
-                                                        <img id="blah1" class="item" src="{{ asset('escorts/attatchment/images/70/girl4.jpg')}}">
-                                                        <figcaption>Edit</figcaption>
-                                                        <input name="img[1]" id="pic1" class="pis" onchange="readURL(this);" type="file">
-                                                        <input type="hidden" name="position[]" value="1">
-                                                    </label>
-                                                    <div style="margin-top: -34px;">
-                                                    </div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="five_column_content_top img-title-sec d-flex justify-content-between wish_span" style="z-index: 1;">
-                                                        <span class="card_tit" style="">Photo.img</span>
-                                                        <i class="fa fa-trash"></i>
-                                                    </div>
-                                                    <label class="newbtn">
-                                                        <img id="blah1" class="item" src="{{ asset('escorts/attatchment/images/70/girl4.jpg')}}">
-                                                        <figcaption>Edit</figcaption>
-                                                        <input name="img[1]" id="pic1" class="pis" onchange="readURL(this);" type="file">
-                                                        <input type="hidden" name="position[]" value="1">
-                                                    </label>
-                                                    <div style="margin-top: -34px;">
-                                                    </div>
-                                                </a>
-                                                <a href="#">
-                                                    <div class="five_column_content_top img-title-sec d-flex justify-content-between wish_span" style="z-index: 1;">
-                                                        <span class="card_tit" style="">Photo.img</span>
-                                                        <i class="fa fa-trash"></i>
-                                                    </div>
-                                                    <label class="newbtn">
-                                                        <img id="blah1" class="item" src="{{ asset('escorts/attatchment/images/70/girl4.jpg')}}">
-                                                        <figcaption>Edit</figcaption>
-                                                        <input name="img[1]" id="pic1" class="pis" onchange="readURL(this);" type="file">
-                                                        <input type="hidden" name="position[]" value="1">
-                                                    </label>
-                                                    <div style="margin-top: -34px;">
-                                                    </div>
-                                                </a>
-                                                --}}
                                             </div>
                                             <div class="row mt-2">
                                                 <div class="col-lg-6">
@@ -523,9 +415,9 @@
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="plate"><label class="newbtn">
-                                                        <img id="blah9" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
-                                                        <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
-                                                        <input type="hidden" name="position[]" id="mediaId9">
+                                                        <img id="blah10" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                        <input name="img[10]" id="pic10" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
+                                                        <input type="hidden" name="position[]" id="mediaId10">
                                                         </label>
                                                     </div>
                                                 </div>
@@ -542,22 +434,10 @@
                                               <li>A passport which matches your User Name and Home State</li>
                                             </ul>
                                         </div>
-                                        {{--
-                                        <div class="col-6">
-                                            <div class="plate">
-                                                <label class="newbtn rm">
-                                                <img class="img-fluid" id="blah8" src="{{ asset('escorts/attatchment/images/70/girl4.jpg')}}" style="width: 420px;height: 143px;object-fit: cover;">
-                                                <input name="img[8]" id="pic8" class="pis" onchange="readURL(this);" type="file">
-                                                <input type="hidden" name="position[]" value="8">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        --}}
                                         <div class="col-6">
                                             <div class="plate" style="position: relative;top: 30%;"><label class="newbtn">
                                                 <img class="img-fluid" id="blah8" src="{{ asset($path->findByposition(auth()->user()->id,8)['path']) }}" style="height: 138px;object-fit: cover;width: 370px;">
                                                 <input name="img[8]" id="pic8" data-id="8" class="pis" onchange="readURL(this);" type="file">
-                                                {{-- <input type="hidden" name="position[]" id="mediaId8"> --}}
                                                 <input type="hidden" name="selected_files[]" value="8">
                                                 </label>
                                             </div>
@@ -1001,10 +881,6 @@
     // });
 </script>
 <script>
-    // $('.newbtn').bind("click" , function () {
-    //        $('#pic').click();
-    //        console.log($(this).attr('id'));
-    // });
 
     function readURL(input) {
         if (input.files && input.files[0]) {
@@ -1019,19 +895,16 @@
                     image.onload = function () {
                         var height = image.height;
                         var width = image.width;
-                        console.log(`width : ${image.width} px`, `height: ${image.height} px`);
+                        if(input.id.includes('9') && (height < 470 || width < 1921)) {
+                            Swal.fire("Banner Media", "Please upload an image with a minimum size of 1921×470 pixels", "warning");
+                            return false;
 
-                        if(input.id[3] == 9 && (height > 470 || width > 1921)) {
-                            alert("Width and Height must not exceed 1920px * 469px.");
-
-                        } else {
-                            $('#blah'+input.id[3]).attr('src', e.target.result);
-
-                            //$('#img'+input.id[3]).attr('src', e.target.result);
-                            // alert("Uploaded image has valid Width and Height.");
                         }
-
-
+                        if(input.id.includes('10') && (height < 627 || width < 855)){
+                            Swal.fire("Pin Up Media", "Please upload an image with a minimum size of 855×627 pixels", "warning");
+                            return false;
+                        }
+                        $(`#${input.id}`).prev().attr('src', e.target.result);
                     };
             };
 
@@ -1190,35 +1063,11 @@
        });
        $(".dvDest").droppable({
            drop: function (event, ui) {
-               // if ($("#dvDest img").length == 0) {
-               //     var sc = $("#dvDest img").attr('src');
-               //     console.log("src=" + sc);
-
-               //     console.log("if ok");
-               // }
-               // ui.draggable.addClass("dropped");
-
-               //$("#dvDest").append(ui.draggable[0]);
-               //$("#myimg").append(ui.draggable);
-               //console.log(ui.draggable.attr('src'));
-
                var img_target = $(this).find('img');
-
-
-               //img_target.attr('data-id', ui.draggable.data('id'));
                var id = (img_target.attr('id'));
-
-
-               var position = id.slice(3,4);
+               var position = img_target.data('position-id');
                var sourceImagePosition = $(ui.draggable).data('position');
-               // console.log(sourceImagePosition);
-               // debugger;
                var meidaId = ui.draggable.data('id');
-
-
-
-
-
                 $("#pos_"+id.slice(3,4)).val(ui.draggable.data('id'));
                // $("#usedf").append("<input type='hidden' name='imgId[]' value='"+ui.draggable.data('id')+"'>");
                // $('#item-id').draggable( "disable" )

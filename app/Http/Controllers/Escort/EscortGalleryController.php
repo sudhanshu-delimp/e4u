@@ -65,14 +65,8 @@ class EscortGalleryController extends AppController
 
     public function photoGalleries()
     {
-        //$media_withoutPosition = $this->media->with_Or_withoutPosition(auth()->user()->id,$p = null);
-        //$media_withPosition = $this->media->with_Or_withoutPosition(auth()->user()->id,1);
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [8]);
-//        die;
-       //$media = $this->media->get_user_row(auth()->user()->id);
         $path = $this->media;
-        //dd($path->findByposition(auth()->user()->id,1)['path']);
-
         return view('escort.dashboard.archives.archive-view-photos',compact('media','path'/*,'media_withoutPosition','media_withPosition'*/));
     }
     public function videoGalleries()
@@ -201,6 +195,42 @@ class EscortGalleryController extends AppController
 
                                 $this->media->nullPosition($userId,$key);
                                 $media->position = $key;
+                                $media->save();
+                                $my_data['status'] = 200;
+                            }
+
+                        } else {
+                            $my_data['status'] = 400;
+                        }
+                    }
+                    else if($key == 10) {
+                        if($noOfUploadsAllowed > 0) {
+                            Storage::disk('escorts')->put($file_path, file_get_contents($image));
+                            if(!$media = $this->media->findByPath('escorts/'.$file_path)) {
+
+                                $mediaRecordId = null;
+                                if($bannerImages = EscortMedia::where('position', '=', 10)->where('user_id', '=', auth()->user()->id)->get()) {
+                                    foreach ($bannerImages as $bannerImage) {
+                                        $bannerImage->default = 0;
+                                        $bannerImage->save();
+                                    }
+                                }
+
+                                $data = [
+                                    'user_id' => $userId,
+                                    'type' => $type,
+                                    'position' => $key,
+                                    'path' => 'escorts/'.$file_path,
+                                ];
+
+                                $media = $this->media->store($data);
+                                $my_data['status'] = 200;
+                                $noOfUploadsAllowed--;
+
+                            } else {
+
+                                $this->media->nullPosition($userId,$key);
+                                $media->position = $key;
                                 //$media->default = 1;
                                 $media->save();
                                 $my_data['status'] = 200;
@@ -209,7 +239,8 @@ class EscortGalleryController extends AppController
                         } else {
                             $my_data['status'] = 400;
                         }
-                    } else {
+                    }
+                    else {
                         $my_data['status'] = 405; // Can't upload more then 30 Images
                         $my_data['count'] = $noOfUploadsAllowed;
                     }
@@ -302,18 +333,21 @@ class EscortGalleryController extends AppController
     }
     public function defaultImages(Request $request)
     {
-       // dd("DefaultImages");
-        //dd($request->all());
         $error = false;
         $msg = '';
 
         $media = $this->media->find($request->meidaId);
-        //dd($media->position);
         if($request->position == 9 && $media->position != 9) {
             $msg = "It's not a banner image .Please select banner image.";
         } elseif ($request->position != 9 && $media->position == 9) {
             $msg = "It's a banner image. Please select another image.";
-        }  elseif ($media->position != 9 && $media->position) {
+        }
+        if($request->position == 10 && $media->position != 10) {
+            $msg = "It's not a pinup image .Please select pinup image.";
+        } elseif ($request->position != 10 && $media->position == 10) {
+            $msg = "It's a pinup image. Please select another image.";
+        }
+          elseif (!in_array($media->position,[9,10]) && $media->position) {
             $msg = "It's a duplicate image. Please select another image.";
         } else {
             $this->media->nullPosition(auth()->user()->id, $request->position);
