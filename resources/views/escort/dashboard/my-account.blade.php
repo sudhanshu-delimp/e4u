@@ -25,7 +25,7 @@
            <h3 class="NotesHeader"><b>Notes:</b> </h3>
            <ol>
               <li>Use this feature to complete all of your personal details - who you are,
-                 information about PayID Profiles and Tours, and how Users communicate with
+                 information about 'PayID', Profiles and Tours, and how Users communicate with
                  you.
               </li>
               <li>

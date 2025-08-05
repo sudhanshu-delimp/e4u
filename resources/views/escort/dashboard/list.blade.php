@@ -59,36 +59,29 @@
 @section('content')
     <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="row">
-            <div class="col-md-12">
-                <div class="v-main-heading h3" style="display: inline-block;">{{ $type == 'past' ? 'Archive' : 'Listed' }}
-                    Profiles</div>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </h6>
+            <div class="col-md-12 custom-heading-wrapper">
+                <h1 class="h1">{{ $type == 'past' ? 'Archive' : 'Listed' }}
+                    Profiles</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </span>
             </div>
-            <div class="col-md-12 mt-4 collapse" id="profile_and_tour_options">
-                <div class="row">
-                    <div class="col-md-12 mb-5">
-                        <div class="card" id="notes">
-                            <div class="card-body">
-                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                <ol>
-                                    <li>Use this feature to review and make changes to your Profiles.</li>
-                                    <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action
-                                        function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit
-                                        or
-                                        View the Profile.</li>
-                                    <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming"
-                                            class="custom_links_design">View Listings</a></li>
-                                </ol>
-                            </div>
-                        </div>
+            <div class="col-md-12 mb-4 collapse" id="profile_and_tour_options">               
+                <div class="card " id="notes">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>Use this feature to review and make changes to your Profiles.</li>
+                            <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action
+                                function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit
+                                or
+                                View the Profile.</li>
+                            <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming"
+                                    class="custom_links_design">View Listings</a></li>
+                        </ol>
                     </div>
                 </div>
             </div>
         </div>
         <div id="content">
-            <div class="container-fluid">
-            </div>
-            <!-- /.container-fluid --><br>
             <div class="row">
                 <div class="col-md-12">
                     <div class="box-body table table-hover">
@@ -147,9 +140,9 @@
                 <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id=""><img src="/assets/app/img/brb.png" class="custompopicon" alt="cross"> Add BRB</h5>
+                            <h5 class="modal-title" id=""><img src="/assets/app/img/brb.png" class="custompopicon" alt="cross" style="margin-right:10px"> Add BRB</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true"><img id="modal_close" src="{{ asset('assets/app/img/cross.png') }}"
+                                <span aria-hidden="true"><img id="modal_close" src="{{ asset('assets/app/img/newcross.png') }}"
                                         class="img-fluid img_resize_in_smscreen"></span>
                             </button>
                         </div>
@@ -206,7 +199,7 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="text-align: center; display: block;">
-                            <button type="submit" class="btn btn-primary" id="save_brb">Save</button>
+                            <button type="submit" class="btn-success-modal" id="save_brb">Save</button>
                         </div>
                     </div>
                 </div>
@@ -223,10 +216,11 @@
                 <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id=""><img src="/assets/app/img/deactivate.png" class="custompopicon" alt="cross"> Suspend Profile</h5>
+                            <h5 class="modal-title" id="">
+                                <img src="/assets/app/img/deactivate.png" class="custompopicon" alt="cross" style="margin-right: 10px;"> Suspend Profile</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><img id="modal_close"
-                                        src="{{ asset('assets/app/img/cross.png') }}"
+                                        src="{{ asset('assets/app/img/newcross.png') }}"
                                         class="img-fluid img_resize_in_smscreen"></span>
                             </button>
                         </div>
@@ -307,10 +301,11 @@
                                             </div>
                                         </div>
                                     </div> --}}
+                                    <hr style="background-color: #0C223D" class="mt-4"> 
                                         <div class="form-group row">
-                                            <label class="col-sm-1 col-form-label" for="">Notes:</label>
-                                            <div class="col-sm-11">
-                                                <ol class="col-form-label suspension-note-list">
+                                            <div class="col-lg-12">
+                                                <p class="mb-1"><b>Notes:</b></p>
+                                                <ol class="pl-4">
                                                     <li> Use this feature to review and
                                                         make changes to your Profiles. Any changes you make to a Profile
                                                         will be applied to the
@@ -328,7 +323,7 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="text-align: center; display: block;">
-                            <button type="submit" class="btn btn-primary" id="save_brb">Save</button>
+                            <button type="submit" class="btn-success-modal" id="save_brb">Save</button>
                         </div>
                     </div>
                 </div>
@@ -346,10 +341,10 @@
                 <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id=""><img src="/assets/app/img/register.png" class="custompopicon" alt="cross"> Register for Pin Up</h5>
+                            <h5 class="modal-title" id=""><img src="/assets/app/img/register.png" class="custompopicon" alt="cross" style="width:32px"> Register for Pin Up</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><img id="modal_close"
-                                        src="{{ asset('assets/app/img/cross.png') }}"
+                                        src="{{ asset('assets/app/img/newcross.png') }}"
                                         class="img-fluid img_resize_in_smscreen"></span>
                             </button>
                         </div>
@@ -401,10 +396,11 @@
                                             </div>
                                         </div>
                                         </form>
+                                        <hr style="background-color: #0C223D" class="mt-4"> 
                                         <div class="form-group row">
-                                            <label class="col-sm-1 col-form-label" for="">Notes:</label>
-                                            <div class="col-sm-11">
-                                                <ol class="col-form-label suspension-note-list">
+                                            <div class="col-lg-12">
+                                                <p class="mb-1"><b>Notes:</b></p>
+                                                <ol class="pl-4">
                                                     <li> You must have a Current Listing to register as a Pin Up.</li>
                                                     <li> If the date period you have selected is not available, and your
                                                         Current Listing period
@@ -450,9 +446,9 @@
                     <h3 class=""><span id="Lname"></span> </h3>
                     <h3 class=""><span id="log"></span> </h3>
                     <div class="modal-footer">
-                        <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                        <button type="button" class="btn-cancel-modal" data-dismiss="modal"
                             value="close" id="close_change">Close</button>
-                        <button type="button" class="btn main_bg_color site_btn_primary"
+                        <button type="button" class="btn-success-modal"
                             id="save_change">Delete</button>
                     </div>
                 </div>
@@ -462,7 +458,7 @@
 
 {{-- Summary of current pinup modal --}}
 
-
+{{-- <button type="button" data-target="#pinupSummary" data-toggle="modal">pinupSummary</button> --}}
 <div class="modal fade upload-modal" id="pinupSummary" tabindex="-1" role="dialog" aria-labelledby="pinupSummaryLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
@@ -492,13 +488,14 @@
             <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>End date: </strong> <span>01-09-2025</span></div>
          </div>
         <div class="text-center my-2">
-            <button type="button" class="btn btn-danger" data-dismiss="modal" value="close">Close</button> 
+            <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close">Close</button> 
         </div>
         <div>
-            <strong>Notes:</strong>
-            <ol>
-               <li class="pl-2">The standard Fee for a Pin Up has ben applied.</li>
-               <li class="pl-2">You Pin Up listing will be automatically removed if you Suspend or Cancel the
+            <hr style="background-color: #0C223D" class="mt-4">
+            <p class="mb-1"><b>Notes:</b></p>
+            <ol class="pl-4">
+               <li>The standard Fee for a Pin Up has ben applied.</li>
+               <li>You Pin Up listing will be automatically removed if you Suspend or Cancel the
                    Profile listing.</li>
             </ol>
         </div>
