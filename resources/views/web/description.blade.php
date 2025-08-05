@@ -1623,7 +1623,7 @@
                 </ol>
             </div>
             <div class="modal-footer text-center justify-content-center">
-                <a href="{{ route('user.advertiser') }}" type="button" class="btn main_bg_color site_btn_primary rounded" id="loginUrl" >Go to Message</a>                
+                <a href="{{ route('user.viewer-messages') }}" type="button" class="btn main_bg_color site_btn_primary rounded" id="loginUrl" >Go to Message</a>                
             </div>
             @else
             <!-- if viewer not login -->
