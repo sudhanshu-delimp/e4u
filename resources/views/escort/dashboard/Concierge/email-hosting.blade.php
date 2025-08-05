@@ -17,14 +17,14 @@
         <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <!--middle content start here-->
             <div class="row">
-                <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+                <div class="custom-heading-wrapper col-lg-12">
                     <h1 class="h1">Email Account</h1>
                     <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
                 </div>
-                <div class="col-md-12 my-4">
+                <div class="col-md-12 mb-4">
                     <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
                         <ol class=" pl-5">
                             <li>This form will be pre-populated with your details according to what you have
                                 entered in <a href="{{ route('escort.profile.information') }}" class="custom_links_design">My Account</a>. You can alter any of the information.</li>
@@ -164,7 +164,7 @@
                                         @enderror
                                     </div>
 
-                                    <button type="submit" class="new-btn-sec btn btn-primary shadow-none">
+                                    <button type="submit" class="new-btn-sec">
                                         Place Order
                                     </button>
                                 </div>

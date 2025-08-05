@@ -58,7 +58,7 @@
                      <th scope="col">BSB</th>
                      <th scope="col">Account Number</th>
                      <th scope="col">Account Status</th>
-                     <th scope="col">Action</th>
+                     <th scope="col" class="text-center">Action</th>
                   </tr>
                </thead>
             </table>

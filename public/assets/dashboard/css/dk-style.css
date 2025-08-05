@@ -5055,10 +5055,16 @@ padding-bottom:80px;
     flex-direction: row;
     align-items: center;
     padding: 10px 20px;
-    background: #0C223D !important;
+    background: var(--blue--text);
     border-radius: 3px;
     border: 0;
+    color: var(--white);
     text-transform: capitalize;
+    width: max-content;
+}
+
+.create-tour-sec:hover {
+    background-color: var(--peach);
 }
 
 .left-photo-sec {
@@ -6363,16 +6369,18 @@ div.dataTables_wrapper div.dataTables_filter input {
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
-    line-height: 21px;
-    letter-spacing: 0.01em;
     text-align: center;
     flex-direction: row;
     align-items: center;
     padding: 10px 20px;
-    background: var(--blue--text) !important;
+    background: var(--blue--text);
     border-radius: 3px;
     border: 0;
     text-transform: capitalize;
+}
+
+.new-btn-sec:hover {
+    background-color: var(--peach);
 }
 
 .results li {

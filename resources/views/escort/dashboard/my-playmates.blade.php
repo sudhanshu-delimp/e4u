@@ -266,7 +266,7 @@
                <div class="modal-content basic-modal">
                   <div class="modal-header">
                      <h5 class="modal-title" id="removePlaymateModalLabel">
-                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates.png') }}" style="width:45px; padding-right:10px;"> Remove this Playmate?
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates.png') }}" class="custompopicon"> Remove this Playmate?
                      </h5>
                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
