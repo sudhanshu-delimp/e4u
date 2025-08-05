@@ -245,4 +245,18 @@ class PinUpsController extends AppController
         }
         return response()->json($pinupDetail);
     }
+
+    public function pinupSummary(Escort $escort){
+        try {
+            $response = [];
+            $response['success'] = true;
+            $response['html'] = view('escort.dashboard.profile.modal.include.pinup_summary_content',compact('escort'))->render();
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
