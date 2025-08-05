@@ -1604,9 +1604,9 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color">
-                <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="img_resize_in_smscreen">
+               
                 
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Message Me </h5>
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="img_resize_in_smscreen" style="margin-right: 10px;"> Message Me </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
@@ -1618,8 +1618,8 @@
                                     Communications > Messages. </span>
                             </h6>
                     <hr style="background-color: #0C223D">
-                <p class="mb-1 mt-3"><b>Notes</b></p>
-                <ol class="mb-0">
+                <p class="mb-1 mt-3"><b>Notes:</b></p>
+                <ol class="pl-4">
                     <li>Make sure you have enabled Messaging in your settings. If you have added {{ $escort->name}} to your
                         Legbox, they will appear in your Message list. Otherwise, you can search by Member ID.</li>
                     <li>To message {{ $escort->name}}, they will also need to have Messaging enabled.</li>
