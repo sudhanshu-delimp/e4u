@@ -1190,6 +1190,9 @@
                         <div class="tooltip-wrapper">
                             <img src="{{ asset('assets/app/img/phoneicon.svg') }}">
                             <div class="tooltip-text">Call me</div>
+                            @if($contactType == 5)
+                                <span>or</span>
+                            @endif
                         </div>
                     @endif
                     @if($contactType == 2 || $contactType == 5)

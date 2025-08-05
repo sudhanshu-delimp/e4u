@@ -68,7 +68,7 @@ savePinupButton.addEventListener("click", function (e) {
             if (data.success) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Register for Pin Up',
+                    title: 'Registered for Pin Up',
                     text: data.message
                 });
                 form.reset();

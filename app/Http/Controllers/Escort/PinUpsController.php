@@ -147,7 +147,7 @@ class PinUpsController extends AppController
                 return response()->json([
                     'success' => false,
                     'weeks' => $weeks,
-                    'message' => 'Sorry, no weeks are available',
+                    'message' => 'Sorry, no weeks are available during your selected profile dates.',
                 ]);
             }
             
