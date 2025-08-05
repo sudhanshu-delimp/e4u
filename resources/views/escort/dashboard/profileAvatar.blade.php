@@ -81,7 +81,7 @@ label.cabinet input.file{
                                                 <div class="image-title-wrap">
 
                                                     <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-                                                    <button type="submit" class="remove-image crop_image">Save <span class="image-title">Uploaded Image</span></button>
+                                                    <button type="submit" class="crop_image btn-success-modal">Save <span class="image-title">Uploaded Image</span></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -157,7 +157,7 @@ label.cabinet input.file{
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
                 <button type="button" id="cropImageBtn" class="btn main_bg_color site_btn_primary">Crop</button>
             </div>
         </div>

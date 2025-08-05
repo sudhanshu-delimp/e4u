@@ -18,20 +18,14 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-
    <div class="row">
-      <div class="col-md-12 p-0">
-        <div class="d-flex justify-content-between align-items-baseline mb-5">
-         <div>
-            <div class="v-main-heading h3" style="display: inline-block;">Transaction Summary</div>
-            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-         </div>
-         
-      </div>
+      <div class="col-md-12 custom-heading-wrapper">
+         <h1 class="h1">Transaction Summary</h1>
+         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
       </div>
    </div>
    <div class="row collapse" id="notes">
-      <div class="col-md-12 mb-5">
+      <div class="col-md-12 mb-4">
          <div class="card">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -47,27 +41,10 @@
    </div>
 
    <!--middle content-->
-   <div class="row">      
-      {{-- <div class="custom-heading-wrapper col-md-12">
-        <h1  class="h1"> Transaction Summary</h1>
-        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-     </div>
-     <div class="col-md-12 ">
-         <div class="card collapse mb-4" id="notes">
-             <div class="card-body">
-                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                 <ol>
-                     <li>All Advertiser transactions are recorded here.</li>
-                     <li>You can view any historical transaction as well as print or email the transaction
-                        summary.</li>
-                        <li>To download the transaction summary, click Download located in the Action options.</li>
-                 </ol>
-             </div>
-         </div>
-     </div> --}}
+   <div class="row">
     <div class="col-md-12">        
         <div class="table-responsive membership--inner">
-            <table class="table table-bordered text-center" id="transactionSummaryTable">
+            <table class="table table-bordered text-center display" id="transactionSummaryTable">
                  <thead class="table-bg">
                    <tr>
                     <th>Ref</th>
@@ -104,8 +81,7 @@
                         </div>
                      </td>
                   </tr>
-                </tbody>
-                
+                </tbody>                
             </table>
         </div>
      </div>
@@ -187,28 +163,19 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-   $(document).ready(function() {
-    var table = $("#transactionSummaryTable").DataTable({
-        language: {
-            search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID or Agent ID...",
-            lengthMenu: "Show _MENU_ entries",
-            zeroRecords: "No matching records found",
-            info: "Showing _START_ to _END_ of _TOTAL_ entries",
-            infoEmpty: "No entries available",
-            infoFiltered: "(filtered from _MAX_ total entries)"
-        },
-        processing: true,
-        serverSide: true,
-        paging: true, // ✅ Ensure Pagination
-        lengthChange: true,
-        searching: true,
-        bStateSave: true,
-        order: [[1, 'desc']],
-        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-        pageLength: 10,
-        ajax: "your-server-side-script.php" // ✅ Add Your Data Source
-    });
+   var table = $("#transactionSummaryTable").DataTable({
+    language: {
+        search: "Search: _INPUT_",
+        searchPlaceholder: "Search by Ref No..."
+    },
+    info: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    bStateSave: true,
+    order: [[1, 'desc']],
+    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+    pageLength: 10
 });
 
  </script>

@@ -251,7 +251,7 @@
   
         <!-- Modal Footer -->
         <div class="modal-footer justify-content-end">
-          <button type="button" class="btn btn-danger">Remove</button>
+          <button type="button" class="btn-success-modal">Remove</button>
         </div>
       </div>
     </div>
@@ -279,8 +279,8 @@
                        </p>
                   </div>
                   <div class="modal-footer pr-3 mx-auto">
-                     <button type="button" class="btn btn-secondary bg-dangers" data-dismiss="modal">Cancel</button>
-                     <button type="submit" class="btn btn-primary">Confirm Remove</button>
+                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+                     <button type="submit" class="btn-success-modal">Confirm Remove</button>
                   </div>
                </div>
             </div>
