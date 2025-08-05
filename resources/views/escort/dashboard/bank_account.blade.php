@@ -12,43 +12,43 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content end here-->
    <div class="row">
-      <div class="col-md-12 p-0">
-        <div class="d-flex justify-content-between align-items-baseline mb-5">
-         <div>
-            <div class="v-main-heading h3" style="display: inline-block;">Bank Account</div>
-            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-         </div>
-         <div>
-            <button type="button" class="btn btn-primary create-tour-sec dctour mb-3" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New</button>
-         </div>
-      </div>
+      <div class="col-md-12 custom-heading-wrapper">
+        <h1 class="h1">My Bank Account</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+         
       </div>
    </div>
    <div class="row collapse" id="notes">
-      <div class="col-md-12 mb-5">
+      <div class="col-md-12 mb-4">
          <div class="card">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
                <ol>
-                  <li>Use this feature for displaying your Bank Account details for an Electronic Funds Transfer (<b>EFT</b>). By using this feature for an EFT payment, you remove the risk of having your bank account app open.</li>
-                  <li>You can set up, update and add additional bank accounts by clicking the 'Add New' button. SMS 2FA is applied for any changes to Close your Bank Account details, including the initial setup.</li>
-                  <li>To display your Bank Account details, enter your PIN number. </li>
+                  <li>Use this feature for displaying your Bank Account details for an Electronic
+                     Funds Transfer (<b>EFT</b>). By using this feature for an EFT payment, you remove
+                     the risk of having your bank account app open.</li>
+                  <li>You can set up, update and add additional bank accounts by clicking the 'Add
+                     New' button. SMS 2FA authentification is applied for any changes to your Bank
+                     Account details, including the initial setup.</li>
+                  <li>To display your Bank Account details to a client, select from the Action options
+                     ‘EFT Client’, enter your PIN number, and your bank account details will display.</li>
                </ol>
             </div>
          </div>
       </div>
    </div>
-   {{-- 
+   
    <div class="row mb-2">
       <div class="col-lg-12 col-md-12 col-sm-12">
+        
          <div class="bothsearch-form">
-            <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New</button>
+            <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New Account</button>
          </div>
       </div>
    </div>
-   --}}
+  
    <div class="row">
-      <div class="col-md-12 pl-0 mt-2">
+      <div class="col-md-12 mt-2">
          <div id="table-sec" class="table-responsive-xl">
             <table class="table" id="bankAccountTable">
                <thead class="table-bg">
@@ -57,7 +57,7 @@
                      <th scope="col">Account Name</th>
                      <th scope="col">BSB</th>
                      <th scope="col">Account Number</th>
-                     <th scope="col">State</th>
+                     <th scope="col">Account Status</th>
                      <th scope="col">Action</th>
                   </tr>
                </thead>
@@ -72,7 +72,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title">Add Bank Account</h5>
+            <h5 class="modal-title">Add New Account</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -114,7 +114,7 @@
                   </div>
                   <div class="col-md-6">
                      <div class="form-group">
-                        <label>State</label>
+                        <label>Account Status</label>
                         <select class="custom-select" name="state" id="state" required data-parsley-required-message="Please select state">
                            <option value="">Select State</option>
                            <option value="1">Primary Account</option>
@@ -282,14 +282,9 @@
     var table = $('#bankAccountTable').DataTable({
         language: {
         search: "_INPUT_",
-        searchPlaceholder: "Search by ID or Profile Name",
-        sSearch: 'Search:',
-        oPaginate: {
-            sNext: '<span aria-hidden="true">»</span>',
-            sPrevious: '<span aria-hidden="true">«</span>',
-            sFirst: '<span aria-hidden="true">«</span>',
-            sLast: '<span aria-hidden="true">»</span>'
-        }
+        searchPlaceholder: "Search by Account Number",
+        sSearch: 'Search:'
+      
     },
     info: true,
     bLengthChange: true,
