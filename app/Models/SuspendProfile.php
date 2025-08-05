@@ -15,6 +15,8 @@ class SuspendProfile extends Model
         'start_date',
         'end_date',
         'credit',
+        'utc_start_date',
+        'utc_end_date',
         'note',
         'status',
     ];

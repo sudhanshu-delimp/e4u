@@ -35,9 +35,9 @@ class EscortSuspendProfileController extends Controller
 
     function suspendProfile(Request $request) 
     {
-        # retrieved profile listed date range and note - user can suspend thier profile within listed date range only
+        # retrieved profile listed date range and note - user can't suspend thier profile beyond listed date range 
         $escortProfile = Escort::where(['enabled' => 1, 'id' => $request->suspend_profile_id])->with(['purchase'=>function($query){
-            $query->where('end_date' ,'>=', Carbon::now(config('app.timezone')))->first();
+            $query->where('utc_end_time' ,'>=', Carbon::now(config('app.timezone')))->first();
         }])->first();
 
         if(!$escortProfile){
@@ -54,18 +54,28 @@ class EscortSuspendProfileController extends Controller
             $escortTimezone = config('escorts.profile.states')[$escortProfile->state_id]['cities'][$escortProfile->city_id]['timeZone'];
         }
 
+        # get purchase start date because we we want escort can't suspend their profile beyond start date
         $startDate = isset($escortProfile->purchase[0]->start_date) 
-            ? Carbon::parse($escortProfile->purchase[0]->start_date, $escortTimezone) 
-            : Carbon::now($escortTimezone);
+            ? Carbon::parse($escortProfile->purchase[0]->start_date)->startOfDay() 
+            : Carbon::now($escortTimezone)->startOfDay();
 
+        # get purchase end date because we we want escort can't suspend their profile beyond end date
         $endDate = isset($escortProfile->purchase[0]->end_date) 
-            ? Carbon::parse($escortProfile->purchase[0]->end_date, $escortTimezone) 
-            : Carbon::now($escortTimezone);
+            ? Carbon::parse($escortProfile->purchase[0]->end_date)->endOfDay() 
+            : Carbon::now($escortTimezone)->endOfDay();
+            
+        // $startDate = isset($escortProfile->purchase[0]->start_date) 
+        //     ? Carbon::parse($escortProfile->purchase[0]->start_date, $escortTimezone) 
+        //     : Carbon::now($escortTimezone);
+
+        // $endDate = isset($escortProfile->purchase[0]->end_date) 
+        //     ? Carbon::parse($escortProfile->purchase[0]->end_date, $escortTimezone) 
+        //     : Carbon::now($escortTimezone);
 
         
 
-        $requestStartDate = Carbon::parse($request->start_date, $escortTimezone);
-        $requestEndDate = Carbon::parse($request->end_date, $escortTimezone);
+        $requestStartDate = Carbon::parse($request->start_date)->startOfDay();
+        $requestEndDate = Carbon::parse($request->end_date)->endOfDay();
 
         # Compare timezone
         if (!($requestStartDate->greaterThanOrEqualTo($startDate) && $requestEndDate->lessThanOrEqualTo($endDate))) {
@@ -80,7 +90,7 @@ class EscortSuspendProfileController extends Controller
         # If suspended periods already exists then add future date
         $existSuspendedDate = SuspendProfile::where('escort_profile_id', $request->suspend_profile_id)->where('status', true)->orderBy('end_date','desc')->first();
 
-        if($existSuspendedDate && !($requestStartDate > Carbon::parse($existSuspendedDate->end_date, $escortTimezone) && $requestEndDate > Carbon::parse($existSuspendedDate->end_date, $escortTimezone))){
+        if($existSuspendedDate && !($requestStartDate > Carbon::parse($existSuspendedDate->end_date)->endOfDay() && $requestEndDate > Carbon::parse($existSuspendedDate->end_date)->endOfDay())){
             $response = [
                 'success' => false,
                 'suspend' => '',
@@ -95,17 +105,19 @@ class EscortSuspendProfileController extends Controller
 
         [$total_dis, $credit] = calculateFee($planId, $diffDays);
 
+        $utcStart = Carbon::createFromFormat('Y-m-d H:i:s', $requestStartDate, $escortTimezone)->setTimezone('UTC');
+        $utcEnd = Carbon::createFromFormat('Y-m-d H:i:s', $requestEndDate, $escortTimezone)->setTimezone('UTC');
+
+
         # Store suspend profile details
         $suspendProfile = SuspendProfile::create(
             [
                 'escort_profile_id' => $request->suspend_profile_id,
                 'user_id'=> auth()->user()->id,
-                'start_date' => Carbon::parse($request->start_date)
-                    ->startOfDay()
-                    ->setTimezone(config('app.timezone')),
-                'end_date' => Carbon::parse($request->end_date)
-                  ->endOfDay()
-                  ->setTimezone(config('app.timezone')),
+                'start_date' => Carbon::parse($request->start_date),
+                'utc_start_date' => $utcStart,
+                'end_date' => Carbon::parse($request->end_date),
+                'utc_end_date' => $utcEnd,
                 'credit' => $credit,
                 'note' => null,
             ]

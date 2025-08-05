@@ -157,10 +157,10 @@ class EscortController extends Controller
             ->where('user_id', auth()->user()->id)
             ->whereNotNull('profile_name')
             ->whereHas('purchase', function ($query) {
-                $query->where('end_date', '>=', Carbon::now());
+                $query->where('utc_end_time', '>=', Carbon::now());
             })
             ->with(['purchase' => function ($query) {
-                $query->where('end_date', '>=', Carbon::now());
+                $query->where('utc_end_time', '>=', Carbon::now());
             }])
             ->get();
 
