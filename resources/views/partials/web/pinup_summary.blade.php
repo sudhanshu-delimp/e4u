@@ -25,7 +25,7 @@
                             <a href="#"><img
                                     src="/assets/app/img/video_play.svg" class=""
                                     alt="logo">
-                                <span class="custom-icon-hover-tooltip">Video To View</span>
+                                <span class="custom-icon-hover-tooltip">I have Video</span>
                             </a>
                         </div>
                     </div>
