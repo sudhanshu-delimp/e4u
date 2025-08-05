@@ -76,6 +76,142 @@
         @stack('script')
         @section('script')
         @show
-        </body>
 
+        <!-- ///////////// Notification ////////////////// -->
+        <script>
+            const getNotifications = () => {
+                    ajaxRequest({
+                    url: "{{ route('agent.get-notification') }}",
+                    method : 'Get',
+                    data: {},
+                    success: function(response) {
+
+                        let alert_notifications = response.alert_notifications;
+                        let support_notifications = response.support_notifications;
+                        let alert_notifications_html = "";
+                        let support_notify_html = "";
+
+                            /////////// Alert Notification List ///////////////////////
+                            if(alert_notifications.data.length>0)
+                            {   
+                                if(alert_notifications.is_new)
+                                {
+                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
+                                }
+                            
+                                alert_notifications.data.forEach((notification) => {
+                                    alert_notifications_html+= `<span class="dropdown-item d-flex align-items-center">
+                                                <div class="mr-3">
+                                                    <div class="icon-circle bg-success">
+                                                    ${notification.notification_icon}
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="small text-gray-800"> ${notification.created_at}</div>
+                                                    ${notification.title}
+                                                </div>
+                                            </span>`;
+                                });
+
+                                alert_notifications_html+=`<a class="dropdown-item text-center small text-gray-800" href="show-ALL">Show All Alerts</a>`;
+                                $('.alert_notify_html').html(alert_notifications_html);
+                            }
+                            else
+                            {
+                                $('.alert_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No Notification Found</a>`); 
+                            }
+                        /////////// End  Alert Notification List /////////////////////////////
+
+                        
+
+                        ///////////// Support Notification List //////////////////////////////
+                        
+                        if(support_notifications.data.length>0)
+                        {   
+                                if(support_notifications.is_new)
+                                {
+                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
+                                }
+                            
+                                support_notifications.data.forEach((notification) => {
+                                    support_notify_html+= `<span class="dropdown-item d-flex align-items-center">
+                                                <div class="mr-3">
+                                                    <div class="icon-circle bg-success">
+                                                    ${notification.notification_icon}
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <div class="small text-gray-800"> ${notification.created_at}</div>
+                                                    ${notification.title}
+                                                </div>
+                                            </span>`;
+                                });
+
+                                support_notify_html+=`<a class="dropdown-item text-center small text-gray-800" href="show-ALL">Show All Alerts</a>`;
+                                $('.support_notify_html').html(support_notify_html);
+                        }
+                        else
+                        {
+                                $('.support_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No Notification Found</a>`); 
+                        }
+                        ///////////// End Support Notification List //////////////////////////
+                    },
+                    error: function(xhr) {
+                        console.log('Error in Notification List');
+                    }
+                    });
+
+            }
+
+         const notificationSeen = (notification_listing_type) => {
+
+             return new Promise((resolve, reject) => {
+                ajaxRequest({
+                    url: "{{ route('agent.notification-seen') }}",
+                    method : 'Post',
+                    data: {
+                        'notification_listing_type' : notification_listing_type
+                    },
+                    success: function(response) {
+                        if(response.success)
+                         {
+                            resolve(true);
+                         }
+                         else
+                         {
+                            resolve(false);
+                         }   
+                        
+                    },
+                    error: function() {
+                        resolve(false); 
+                    }
+                });
+             });
+
+         }   
+        
+         $(document).ready(function(){
+            getNotifications();
+             setInterval(function () {
+                  getNotifications();
+            }, 15000);
+
+            $('#alertsDropdown').click( async function(){
+                const seen = await notificationSeen('2');
+                 if (seen) {
+                    $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i>');
+                 }
+            });
+
+            $('#ticketNotificationDropdown').click( async function(){
+                const seen = await notificationSeen('1');
+                 if (seen) {
+                    $('.support_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i>');
+                 }
+            });
+        });
+
+        </script>    
+        </body>
         </html>

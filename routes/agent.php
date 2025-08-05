@@ -5,15 +5,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Agent\AgentController;
 use App\Http\Controllers\Escort\TourController;
 use App\Http\Controllers\Agent\EscortController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Agent\AgentTaskController;
 use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
-use App\Http\Controllers\Agent\AgentTaskController;
 use App\Http\Controllers\Escort\EscortGalleryController;
 use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
-use App\Http\Controllers\Agent\AgentTourPaymentController;
 
+use App\Http\Controllers\Agent\AgentTourPaymentController;
 use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\MyAdvertiser\ListAdvertiserController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
@@ -91,6 +92,9 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
 
      Route::get('Advertisers/new-requests', [AgentRequestController::class, 'newRequest'])->name('agent.new-requests');
      Route::post('process-request', [AgentRequestController::class, 'processRequest'])->name('agent.process-request');
+     Route::get('get-notification', [NotificationController::class, 'getNotification'])->name('agent.get-notification');
+     Route::post('notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('agent.notification-seen');
+    
 
      Route::get('Advertisers/history-requests', [AgentRequestController::class, 'historyRequests'])->name('agent.history-requests');
 

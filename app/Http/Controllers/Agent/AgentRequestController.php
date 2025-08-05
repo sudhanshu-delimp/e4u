@@ -139,7 +139,6 @@ class AgentRequestController extends Controller
             if($response)
             {
                 return response()->json(['success' => true]);
-                Http::post(config('constants.socket_url').'/agent-assigned', ['id' => $request->id,'status' => 'updated']);
             }    
             
             else
@@ -371,6 +370,7 @@ class AgentRequestController extends Controller
                
                 $agent_name = [];
                 $agent_mobile = [];
+                $agent_id = [];
                 $agent_status = [];
                 $list_arr = [];
                 $accepted_date = "";
@@ -383,6 +383,7 @@ class AgentRequestController extends Controller
                  {
 
                     $agent_name[] = isset($agent_user->user->member_id) ? $agent_user->user->member_id: 'NA';
+                    $agent_user_id[] = isset($agent_user->user->id) ? $agent_user->user->id: 'NA';
                     
 
                  }
@@ -406,7 +407,7 @@ class AgentRequestController extends Controller
                     if($agent_user->status==0)
                     $agent_status[] = '<p class="accepted-badge">Open</p>';
                     
-                     if($agent_user->status==1)
+                    if($agent_user->status==1)
                     $agent_status[] = '<p class="accepted-badge">Accepted</p>';
 
                      if($agent_user->status==2)
@@ -425,6 +426,7 @@ class AgentRequestController extends Controller
                     if($agent_user->status==1)
                     {
                         $accepted_date  =  date('d-m-Y',strtotime($agent_user->created_at));
+                        $agent_user_id = [];
                         break;
                     }
                  }
@@ -436,20 +438,12 @@ class AgentRequestController extends Controller
                 $item->user_member_id =  $item->user->member_id;
                 $item->phone =  $item->user->phone;
                 $item->country_code =  isset($item->user->state->iso2) ? $item->user->state->iso2 : 'NA';
-                //$item->agent_name =  $agent_name;
-                //$item->agent_mobile =  $agent_mobile;
-                //$item->agent_status =  $agent_status;
-
                 $item->list_arr = [
                     'agent_mobile' => $agent_mobile,
                     'agent_status' => $agent_status,
                     'agent_id' => $agent_name,
-
+                    'agent_user_id' => $agent_user_id
                 ];
-               
-
-                
-
                 
                 $item->accepted_date =  $accepted_date;
                 if($accepted_date=='')
@@ -470,8 +464,6 @@ class AgentRequestController extends Controller
 
                 $i++;
             }
-
-            // dd($requestList);
             return [$requestList, $totalRequest];
     }
 
