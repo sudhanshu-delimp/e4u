@@ -95,7 +95,6 @@ class RegisterController extends Controller
     public function register(StoreAdvertiserRegisterRequest $request)
     {
 
-
         event(new Registered($user = $this->create($request->all())));
 
         //dd($user);
