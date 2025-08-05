@@ -92,7 +92,7 @@
                         let support_notify_html = "";
 
                             /////////// Alert Notification List ///////////////////////
-                            if(alert_notifications.data.length>0)
+                            if (alert_notifications?.data?.length > 0)
                             {   
                                 if(alert_notifications.is_new)
                                 {
@@ -126,7 +126,7 @@
 
                         ///////////// Support Notification List //////////////////////////////
                         
-                        if(support_notifications.data.length>0)
+                        if (support_notifications?.data?.length > 0) 
                         {   
                                 if(support_notifications.is_new)
                                 {
