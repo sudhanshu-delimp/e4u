@@ -11,7 +11,11 @@
 /* img.my-svg-icons {
     filter: invert(14%) sepia(19%) saturate(1577%) hue-rotate(173deg) brightness(91%) contrast(98%);
 } */
-
+/* .alert_notify_html, .support_notify_html {
+    min-height: 35px;
+    max-height: 500px;
+    overflow: auto;
+} */
 .bg-first {
     background-color: var(--blue--text) !important;
     color: var(--white);

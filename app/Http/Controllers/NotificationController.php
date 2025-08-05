@@ -50,8 +50,9 @@ class NotificationController extends Controller
                 $userId = Auth::id();
                 $alert_notifications = [];
                 $support_notifications = [];
-                $notifications = Notification::where([
+                $notifications = $this->notification->where([
                     'to_user' => $userId,
+                    'is_seen' => '0',
                 ])->latest()->take(5)->get();
 
                if ($notifications->isNotEmpty()) 
@@ -96,12 +97,10 @@ class NotificationController extends Controller
 
      public function makeNotificationSeen(Request $request)
      {
-        if(isset($request->notification_listing_type) && ($request->notification_listing_type =='1' || $request->notification_listing_type =='2'))
+        if(isset($request->notification_id) && $request->notification_id !='')
         {
-           Notification::where([
-                    'is_seen' => '0',
-                    'to_user' => auth()->user()->id,
-                    'notification_listing_type'=>$request->notification_listing_type
+           $this->notification->where([
+                    'id' => $request->notification_id,
                 ])->update(['is_seen' => '1']);
           return response()->json(['success' => true, 'message' => 'updated']);      
         }

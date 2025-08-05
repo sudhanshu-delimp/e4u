@@ -100,7 +100,7 @@
                                 }
                             
                                 alert_notifications.data.forEach((notification) => {
-                                    alert_notifications_html+= `<span class="dropdown-item d-flex align-items-center">
+                                    alert_notifications_html+= `<span class="dropdown-item d-flex align-items-center alert_notify_li" id="${notification.id}">
                                                 <div class="mr-3">
                                                     <div class="icon-circle bg-success">
                                                     ${notification.notification_icon}
@@ -118,7 +118,7 @@
                             }
                             else
                             {
-                                $('.alert_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No Notification Found</a>`); 
+                                $('.alert_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`); 
                             }
                         /////////// End  Alert Notification List /////////////////////////////
 
@@ -134,7 +134,7 @@
                                 }
                             
                                 support_notifications.data.forEach((notification) => {
-                                    support_notify_html+= `<span class="dropdown-item d-flex align-items-center">
+                                    support_notify_html+= `<span class="dropdown-item d-flex align-items-center support_notify_li" id="${notification.id}">
                                                 <div class="mr-3">
                                                     <div class="icon-circle bg-success">
                                                     ${notification.notification_icon}
@@ -152,7 +152,7 @@
                         }
                         else
                         {
-                                $('.support_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No Notification Found</a>`); 
+                                $('.support_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`); 
                         }
                         ///////////// End Support Notification List //////////////////////////
                     },
@@ -163,14 +163,14 @@
 
             }
 
-         const notificationSeen = (notification_listing_type) => {
+         const notificationSeen = (notification_id) => {
 
              return new Promise((resolve, reject) => {
                 ajaxRequest({
                     url: "{{ route('agent.notification-seen') }}",
                     method : 'Post',
                     data: {
-                        'notification_listing_type' : notification_listing_type
+                        'notification_id' : notification_id
                     },
                     success: function(response) {
                         if(response.success)
@@ -197,19 +197,23 @@
                   getNotifications();
             }, 15000);
 
-            $('#alertsDropdown').click( async function(){
-                const seen = await notificationSeen('2');
+            $(document).on('click', '.alert_notify_li', async function (e) {
+                const seen = await notificationSeen($(this).attr('id'));
                  if (seen) {
-                    $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i>');
+                    getNotifications();
                  }
             });
 
-            $('#ticketNotificationDropdown').click( async function(){
-                const seen = await notificationSeen('1');
+            $(document).on('click', '.support_notify_li', async function (e) {
+                const seen = await notificationSeen($(this).attr('id'));
                  if (seen) {
-                    $('.support_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i>');
+                    getNotifications();
                  }
             });
+        });
+
+        $(document).on('click', '.alert_notify_html .dropdown-item', function (e) {
+            e.stopPropagation(); // Prevents Bootstrap from closing the dropdown
         });
 
         </script>    
