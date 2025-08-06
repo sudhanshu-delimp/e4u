@@ -213,7 +213,7 @@
         });
 
         $(document).on('click', '.alert_notify_html .dropdown-item', function (e) {
-            e.stopPropagation(); // Prevents Bootstrap from closing the dropdown
+            e.stopPropagation(); 
         });
 
         </script>    
