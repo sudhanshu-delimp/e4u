@@ -39,7 +39,7 @@
                                         <span style="font-size: 13px; color: #cccccc;">(Ref:
                                             {{ $body['order_ref'] }})</span><br>
                                         <span style="font-size: 13px; color: #cccccc;">Member ID:
-                                            {{ $body['member_id'] }}</span>
+                                            E6{{ str_pad($body['member_id'], 4, '0', STR_PAD_LEFT) }}</span>
                                     </td>
                                 </tr>
                             </table>
@@ -50,31 +50,34 @@
                         <td style="padding: 30px;">
                             <!-- Greeting -->
                             <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{ $body['escort_name'] }},</p>
-                            {{-- <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Escort ID: {{ $body['member_id'] }},</b> --}}
-                            </p>
+
                             <!-- Main Message -->
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
                                 Your request for a Mobile SIM has been received. Please allow <strong>72 hours</strong>
-                                for the SIM to
-                                arrive. We will express post your Mobile SIM to your nominated address.
+                                for the SIM to arrive. We will express post your Mobile SIM to your nominated address.
                             </p>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
                                 If you do not receive your SIM within 72 hours, please lodge a Support
-                                Ticket, by logging
-                                onto your Dashboard, and quote your reference number [Ref number].
+                                Ticket by logging onto your Dashboard, and quote your reference number
+                                <strong>{{ $body['order_ref'] }}</strong>.
                             </p>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
                                 We confirm payment will be made according to your instructions.
                             </p>
                             <p style="font-size: 14px; line-height: 1.6; margin-bottom: 15px;">
-                                <strong>Note:</strong> Your Sim Will:<br>
-                                <p style="font-size: 14px; line-height: 1.6; margin-bottom: 15px; margin-left:15px;">(a) be dispatched on the next business day; and</p>
-                                <p style="font-size: 14px; line-height: 1.6; margin-bottom: 15px; margin-left:15px;">(b) have been activated. Simply install the SIM into your phone and you can use it immediately</p>
+                                <strong>Note:</strong> your SIM will:
                             </p>
+                            <p style="font-size: 14px; line-height: 1.6; margin-bottom: 15px; margin-left:15px;">
+                                (a) be dispatched on the next business day; and
+                            </p>
+                            <p style="font-size: 14px; line-height: 1.6; margin-bottom: 15px; margin-left:15px;">
+                                (b) have been activated. Simply install the SIM into your phone and you can use it immediately.
+                            </p>
+
                             <!-- Closing -->
                             <p style="font-size: 15px; margin-top: 20px;">
                                 Regards,<br>
-                                <b>E4U - Operations centre</b>
+                                <b>E4U - Operations Centre</b>
                             </p>
                         </td>
                     </tr>
