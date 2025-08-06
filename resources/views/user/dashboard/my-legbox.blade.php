@@ -1,6 +1,9 @@
 @extends('layouts.userDashboard')
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
+    <!-- FixedColumns CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.min.css">
+
     <style>
         .table td {
             vertical-align: middle;
@@ -70,7 +73,7 @@
                     <table id="escortCenterlegboxTable" class="table table-bordered display" width="100%">
                         <thead class="bg-first">
                             <tr>
-                                <th class="text-left">Escorts ID</th>
+                                <th class="text-left" style="background-color: #0c223d;">Escorts ID</th>
                                 <th class="text-left">Location</th>
                                 <th class="text-left">Stage Name</th>
                                 <th class="text-left">Gender</th>
@@ -83,9 +86,9 @@
                                     Method</th>
                                 <th class="text-center">Escort <br>
                                     Communication</th>
-                                <th class="text-center">Block Escort</th>
+                                <th class="text-center" style="background-color: #0c223d;">Block Escort</th>
 
-                                <th class="text-center">Action</th>
+                                <th class="text-center" style="background-color: #0c223d;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -615,13 +618,15 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
+    <!-- FixedColumns JS -->
+    <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
 
     {{-- massage center legbox --}}
     <script>
 
         $(document).ready(function() {
             var escortTable = $('#escortCenterlegboxTable').DataTable({
-                responsive: true,
+                responsive: false,
                 language: {
                     search: "Search: _INPUT_",
                     searchPlaceholder: "Search by ID or Profile Name...",
@@ -634,6 +639,12 @@
                 paging: true,
                 searchable: true,
                 searching: true,
+                scrollX: true,
+                scrollCollapse: true,
+                fixedColumns: {
+                    leftColumns: 1,
+                    rightColumns: 2
+                },
                 ajax: {
                     url: "{{ route('user.my-legbox-escort-list') }}",
                     data: function(data) {
