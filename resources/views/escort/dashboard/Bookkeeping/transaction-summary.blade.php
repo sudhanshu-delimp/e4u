@@ -18,20 +18,14 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-
    <div class="row">
-      <div class="col-md-12 p-0">
-        <div class="d-flex justify-content-between align-items-baseline mb-5">
-         <div>
-            <div class="v-main-heading h3" style="display: inline-block;">Transaction Summary</div>
-            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-         </div>
-         
-      </div>
+      <div class="col-md-12 custom-heading-wrapper">
+         <h1 class="h1">Transaction Summary</h1>
+         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
       </div>
    </div>
    <div class="row collapse" id="notes">
-      <div class="col-md-12 mb-5">
+      <div class="col-md-12 mb-4">
          <div class="card">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -87,8 +81,7 @@
                         </div>
                      </td>
                   </tr>
-                </tbody>
-                
+                </tbody>                
             </table>
         </div>
      </div>

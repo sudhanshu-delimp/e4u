@@ -59,36 +59,29 @@
 @section('content')
     <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="row">
-            <div class="col-md-12">
-                <div class="v-main-heading h3" style="display: inline-block;">{{ $type == 'past' ? 'Archive' : 'Listed' }}
-                    Profiles</div>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </h6>
+            <div class="col-md-12 custom-heading-wrapper">
+                <h1 class="h1">{{ $type == 'past' ? 'Archive' : 'Listed' }}
+                    Profiles</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </span>
             </div>
-            <div class="col-md-12 mt-4 collapse" id="profile_and_tour_options">
-                <div class="row">
-                    <div class="col-md-12 mb-5">
-                        <div class="card" id="notes">
-                            <div class="card-body">
-                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                <ol>
-                                    <li>Use this feature to review and make changes to your Profiles.</li>
-                                    <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action
-                                        function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit
-                                        or
-                                        View the Profile.</li>
-                                    <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming"
-                                            class="custom_links_design">View Listings</a></li>
-                                </ol>
-                            </div>
-                        </div>
+            <div class="col-md-12 mb-4 collapse" id="profile_and_tour_options">               
+                <div class="card " id="notes">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>Use this feature to review and make changes to your Profiles.</li>
+                            <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action
+                                function, you will be able to {{ $type == 'past' ? 'Duplicate,' : '' }} Delete, Edit
+                                or
+                                View the Profile.</li>
+                            <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming"
+                                    class="custom_links_design">View Listings</a></li>
+                        </ol>
                     </div>
                 </div>
             </div>
         </div>
         <div id="content">
-            <div class="container-fluid">
-            </div>
-            <!-- /.container-fluid --><br>
             <div class="row">
                 <div class="col-md-12">
                     <div class="box-body table table-hover">
@@ -139,80 +132,7 @@
         <!--middle content end here-->
         <!--right side bar start from here-->
     </div>
-    <div class="modal fade upload-modal" id="add_brb" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
-        aria-modal="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <form id="brb_form">
-                <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id=""><img src="/assets/app/img/brb.png" class="custompopicon" alt="cross"> Add BRB</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true"><img id="modal_close" src="{{ asset('assets/app/img/cross.png') }}"
-                                        class="img-fluid img_resize_in_smscreen"></span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="container p-0">
-                                        <div class="form-group row">
-                                            <label class="col-sm-3" for=""> Profile:</label>
-                                            <div class="col-sm-8">
-                                                <select
-                                                    class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
-                                                    id="profile_id" name="profile_id"
-                                                    data-parsley-errors-container="#profile-errors" required
-                                                    data-parsley-required-message="Select Profile">
-                                                    <option value="">Select Profile</option>
-                                                    @foreach ($active_escorts as $profile)
-                                                        <option value="{{ $profile['id'] }}"
-                                                            profile_name="{{ $profile['profile_name'] }}">
-                                                            {{ $profile['id'] }} - {{ $profile['name'] }} @if (isset($profile['state']['name']))
-                                                                - {{ $profile['state']['name'] }}
-                                                            @endif
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <span id="profile-errors"></span>
-                                            </div>
-                                            <div class="col-sm-1"></div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3" for=""> BRB Date & Time:</label>
-                                            <div class="col-sm-4">
-                                                <input type="date" required min="{{ date('Y-m-d') }}"
-                                                    class="form-control form-control-sm removebox_shdow" name="brb_date"
-                                                    data-parsley-type="" data-parsley-type-message="">
-                                                <span id="brb-time-errors"></span>
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <input type="time" class="form-control form-control-sm removebox_shdow"
-                                                    name="brb_time" required data-parsley-time required>
-                                                <span id="brb-time-errors"></span>
-                                            </div>
-                                            <div class="col-sm-1"></div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3" for=""> BRB Note:</label>
-                                            <div class="col-sm-8">
-                                                <textarea class="form-control form-control-sm" name="brb_note" id="brb_note" required></textarea>
-                                            </div>
-                                            <div class="col-sm-2=1"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer" style="text-align: center; display: block;">
-                            <button type="submit" class="btn btn-primary" id="save_brb">Save</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+    
 
     <!-- suspend profile modal start here -->
     <div class="modal fade upload-modal" id="suspend_profile" tabindex="-1" role="dialog"
@@ -223,10 +143,11 @@
                 <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id=""><img src="/assets/app/img/deactivate.png" class="custompopicon" alt="cross"> Suspend Profile</h5>
+                            <h5 class="modal-title" id="">
+                                <img src="/assets/app/img/deactivate.png" class="custompopicon" alt="cross" style="margin-right: 10px;"> Suspend Profile</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true"><img id="modal_close"
-                                        src="{{ asset('assets/app/img/cross.png') }}"
+                                        src="{{ asset('assets/app/img/newcross.png') }}"
                                         class="img-fluid img_resize_in_smscreen"></span>
                             </button>
                         </div>
@@ -307,10 +228,11 @@
                                             </div>
                                         </div>
                                     </div> --}}
+                                    <hr style="background-color: #0C223D" class="mt-4"> 
                                         <div class="form-group row">
-                                            <label class="col-sm-1 col-form-label" for="">Notes:</label>
-                                            <div class="col-sm-11">
-                                                <ol class="col-form-label suspension-note-list">
+                                            <div class="col-lg-12">
+                                                <p class="mb-1"><b>Notes:</b></p>
+                                                <ol class="pl-4">
                                                     <li> Use this feature to review and
                                                         make changes to your Profiles. Any changes you make to a Profile
                                                         will be applied to the
@@ -328,7 +250,7 @@
                             </div>
                         </div>
                         <div class="modal-footer" style="text-align: center; display: block;">
-                            <button type="submit" class="btn btn-primary" id="save_brb">Save</button>
+                            <button type="submit" class="btn-success-modal" id="save_brb">Save</button>
                         </div>
                     </div>
                 </div>
@@ -336,97 +258,6 @@
         </div>
     </div>
     <!-- end suspend profile modal -->
-
-    <!-- List Pin Up profile modal start here -->
-    <div class="modal fade upload-modal" id="pinup_profile" tabindex="-1" role="dialog"
-        aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static"
-        aria-modal="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            
-                <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id=""><img src="/assets/app/img/register.png" class="custompopicon" alt="cross"> Register for Pin Up</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true"><img id="modal_close"
-                                        src="{{ asset('assets/app/img/cross.png') }}"
-                                        class="img-fluid img_resize_in_smscreen"></span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="container p-0">
-                                    <form id="pinup_profile_form" action="{{route('pinup.register')}}" method="POST">
-                                        @csrf
-                                        <div class="form-group row">
-                                            <label class="col-sm-3" for=""> Profile:</label>
-                                            <div class="col-sm-8">
-                                                <select
-                                                    class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
-                                                    id="pinup_profile_id" name="pinup_profile_id"
-                                                    data-parsley-errors-container="#pinup_profile-errors" required
-                                                    data-parsley-required-message="Select Profile">
-                                                    <option value="">Select Profile</option>
-                                                    @foreach ($active_escorts as $profile)
-                                                        <option value="{{ $profile['id'] }}">
-                                                            {{ $profile['id'] }} - {{ $profile['profile_name'] }} @if (isset($profile['state']['name']))
-                                                                - {{ $profile['state']['name'] }}
-                                                            @endif
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                                <span id="profile-errors"></span>
-                                            </div>
-                                            <div class="col-sm-1"></div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3" for=""> Next available:</label>
-                                            <div class="col-sm-8">
-                                                <select
-                                                    class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
-                                                    id="pinup_week" name="pinup_week"
-                                                    data-parsley-errors-container="#pinup_week-errors" required
-                                                    data-parsley-required-message="Select Profile">
-                                                    <option value="">Select Week</option>
-                                                </select>
-                                                <span id="profile-errors"></span>
-                                            </div>
-                                            <div class="col-sm-1"></div>
-                                        </div>
-                                        <div class="form-group row custom-pin-button">
-                                            <div class="col-sm-12 text-center">
-                                                <button type="submit" class="btn btn-primary"
-                                                    id="savePinupButton">Proceed to Payment</button>
-                                            </div>
-                                        </div>
-                                        </form>
-                                        <div class="form-group row">
-                                            <label class="col-sm-1 col-form-label" for="">Notes:</label>
-                                            <div class="col-sm-11">
-                                                <ol class="col-form-label suspension-note-list">
-                                                    <li> You must have a Current Listing to register as a Pin Up.</li>
-                                                    <li> If the date period you have selected is not available, and your
-                                                        Current Listing period
-                                                        exceeds the requested period, you will be added to the pool.</li>
-                                                    <li> If a position becomes available from the pool, you will be
-                                                        automatically listed. If
-                                                        your Listed Profile has been Suspended or Cancelled, the Pin Up
-                                                        listing will also
-                                                        cancel.</li>
-                                                </ol>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            
-        </div>
-    </div>
-    <!-- end List Pin Up profile modal -->
 
     <div class="modal programmatic" id="delete_profile" style="display: none">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -450,65 +281,16 @@
                     <h3 class=""><span id="Lname"></span> </h3>
                     <h3 class=""><span id="log"></span> </h3>
                     <div class="modal-footer">
-                        <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                        <button type="button" class="btn-cancel-modal" data-dismiss="modal"
                             value="close" id="close_change">Close</button>
-                        <button type="button" class="btn main_bg_color site_btn_primary"
+                        <button type="button" class="btn-success-modal"
                             id="save_change">Delete</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-{{-- Summary of current pinup modal --}}
-
-
-<div class="modal fade upload-modal" id="pinupSummary" tabindex="-1" role="dialog" aria-labelledby="pinupSummaryLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-      <div class="modal-content basic-modal">
-  
-        <!-- Modal Header -->
-        <div class="modal-header">
-            <h5 class="modal-title" id="removePlaymateModalLabel">
-                <a href="{{route('home')}}"><img src="{{ asset('assets/dashboard/img/summary.png') }}" style="width:45px; padding-right:10px;"><span class="text-white">Summary of your current Pin Up</span></a>
-                
-             </h5>
-          
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">
-                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-            </span>
-          </button>
-        </div>
-  
-        <!-- Modal Body with Static Table -->
-        <div class="modal-body px-4">
-         <div class="d-flex align-items-center justify-content-between gap-10 flex-wrap">
-            <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>Location:</strong> <span>Location</span></div>
-            <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>Profile:</strong> <span>Profile Name</span></div>
-         </div>
-         <div class="d-flex align-items-center justify-content-between gap-10 flex-wrap">
-            <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>Start Date::</strong> <span>01-08-2025</span></div>
-            <div class="d-flex align-items-center justify-content-between gap-10 my-2"><strong>End date: </strong> <span>01-09-2025</span></div>
-         </div>
-        <div class="text-center my-2">
-            <button type="button" class="btn btn-danger" data-dismiss="modal" value="close">Close</button> 
-        </div>
-        <div>
-            <strong>Notes:</strong>
-            <ol>
-               <li class="pl-2">The standard Fee for a Pin Up has ben applied.</li>
-               <li class="pl-2">You Pin Up listing will be automatically removed if you Suspend or Cancel the
-                   Profile listing.</li>
-            </ol>
-        </div>
-        </div>
-      </div>
-    </div>
-  </div>
-{{-- end --}}
-
-
+    @include('escort.dashboard.profile.modal.index')
     @include('escort.dashboard.partials.playmates-modal')
     @include('escort.dashboard.partials.duplicate-profile-modal')
 @endsection
@@ -517,11 +299,12 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
-    <script src="{{ asset('js/escort/pinup.js') }}"></script>
+    
     <script>
+        var table;
         $(document).ready(function() {
             var shouldHide = '{{ $type == 'past' ? false : true }}';
-            var table = $("#sailorTable").DataTable({
+            table = $("#sailorTable").DataTable({
                 "language": {
                     "zeroRecords": "No record(s) found.",
                     searchPlaceholder: "Search by ID or Profile Name"
@@ -1194,4 +977,5 @@
             return true;
         }
     </script>
+    <script src="{{ asset('js/escort/pinup.js') }}"></script>
 @endpush

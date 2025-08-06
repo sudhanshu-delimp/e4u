@@ -258,7 +258,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="create-prospect"> <img src="{{ asset('assets/dashboard/img/add-prospective.png') }}" style="width:40px; margin-right:10px;" alt="Request Rejected"> Add Prospective Member</h5>
+            <h5 class="modal-title" id="create-prospect"> <img src="{{ asset('assets/dashboard/img/add-prospective.png') }}" style="width:32px; margin-right:10px;" alt="Request Rejected"> Add Prospective Member</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -266,164 +266,164 @@
          <div class="modal-body pb-0">
 
             <ul class="nav tab-sec" id="myTab" role="tablist" style="gap: 0;">
-  <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">General</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Prospect</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Spend</a>
-  </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"> 
-   <div class="table-responsive">
-                           <table class="table table-nowrap mb-0 w-50">
-                              <tbody class="table-content">
-                                 <tr>
-                                    <td class="pl-0 border-0"><b>Ref:</b> 1236</td>
-                                    <td class="text-right border-0"><b>Date:</b> 12/31/2022</td>
-                                 </tr>
-                                 
-                              </tbody>
-                           </table>
-                        </div>
+               <li class="nav-item">
+                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">General</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Prospect</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Spend</a>
+               </li>
+            </ul>
+               <div class="tab-content" id="myTabContent">
+               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"> 
+                  <div class="table-responsive">
+                     <table class="table table-nowrap mb-0 w-50">
+                        <tbody class="table-content">
+                           <tr>
+                              <td class="pl-0 border-0"><b>Ref:</b> 1236</td>
+                              <td class="text-right border-0"><b>Date:</b> 12/31/2022</td>
+                           </tr>
+                           
+                        </tbody>
+                     </table>
+                  </div>
 
-<div class="row agent-tour pt-2 pb-4">
-   <div class="col-md-6">
-      <div class="form-group">
-         <select class="custom-select" name="membership" id="membership">
-            <option value="">Membership Type</option>
-            <option value="1">Platinum</option>
-            <option value="2">Gold</option>
-            <option value="3">Silver</option>
-         </select>
-      </div>
-   </div>
-   <div class="col-md-6">
-      <div class="form-group">
-         <select class="custom-select" name="location" id="location">
-            <option selected="">Source</option>
-            <option>Source 1</option>
-            <option>Source 2</option>
-         </select>
-      </div>
-   </div>
-   <div class="col-md-6">
-      <div class="form-group">
-         <select class="custom-select" name="location" id="location">
-            <option selected="">Status</option>
-            <option>Approved</option>
-            <option>Panding</option>
-         </select>
-      </div>
-   </div>
-   <div class="col-md-6">
-      <div class="form-group">
-         <select class="custom-select rounded-0" name="location" id="location">
-            <option selected="">Location</option>
-            <option>Location 1</option>
-            <option>Location 2</option>
-         </select>
-      </div>
-   </div>
-   <div class="col-md-12">
-      <div class="form-group">
-         <input type="button" value="Next" class="btn btn-primary shadow-none float-right" name="submit">
-      </div>
-   </div>
-</div>
-  </div>
-  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-   <div class="row agent-tour pt-2 pb-4">
-   <div class="col-md-12">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Name">
-      </div>
-   </div>
-   
-   
-   
-   
-<div class="col-md-12">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Address">
-      </div>
-   </div><div class="col-md-12">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Business Numner">
-      </div>
-   </div><div class="col-md-6">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Mobile">
-      </div>
-   </div><div class="col-md-6">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Email">
-      </div>
-   </div><div class="col-md-12">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Point of Contact">
-      </div>
-   </div><div class="col-md-6">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Mobile">
-      </div>
-   </div><div class="col-md-6">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Email">
-      </div>
-   </div><div class="col-md-12">
-      <div class="form-group">
-          <textarea class="form-control" placeholder="Comment" rows="5"></textarea>
-      </div>
-   </div>
-   <div class="col-md-12">
-      <div class="form-group">
-         <input type="button" value="Next" class="btn btn-primary shadow-none float-right" name="submit">
-      </div>
-   </div></div>
-  </div>
-  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-     <div class="row agent-tour pt-2 pb-4">
-   
-   
-   
-   
-   
-<div class="col-md-6">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Competitor 1">
-      </div>
-   </div><div class="col-md-6">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Monthly Spend">
-      </div>
-   </div><div class="col-md-6">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Competitor 2">
-      </div>
-   </div>
-   <div class="col-md-6">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Monthly Spend">
-      </div>
-   </div><div class="col-md-6">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Competitor 3">
-      </div>
-   </div><div class="col-md-6">
-      <div class="form-group">
-         <input type="text" class="form-control" placeholder="Monthly Spend">
-      </div>
-   </div><div class="col-md-12">
-      <div class="form-group">
-         <input type="button" value="Save" class="btn btn-primary shadow-none float-right" name="submit">
-      </div>
-   </div></div>
-  </div>
-</div>
+                  <div class="row agent-tour pt-2 pb-4">
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <select class="custom-select" name="membership" id="membership">
+                              <option value="">Membership Type</option>
+                              <option value="1">Platinum</option>
+                              <option value="2">Gold</option>
+                              <option value="3">Silver</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <select class="custom-select" name="location" id="location">
+                              <option selected="">Source</option>
+                              <option>Source 1</option>
+                              <option>Source 2</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <select class="custom-select" name="location" id="location">
+                              <option selected="">Status</option>
+                              <option>Approved</option>
+                              <option>Panding</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group">
+                           <select class="custom-select rounded-0" name="location" id="location">
+                              <option selected="">Location</option>
+                              <option>Location 1</option>
+                              <option>Location 2</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div class="col-md-12">
+                        <div class="form-group">
+                           <input type="button" value="Next" class="btn-success-modal float-right" name="submit">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                  <div class="row agent-tour pt-2 pb-4">
+                  <div class="col-md-12">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Name">
+                     </div>
+                  </div>
+                  
+                  
+                  
+                  
+               <div class="col-md-12">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Address">
+                     </div>
+                  </div><div class="col-md-12">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Business Numner">
+                     </div>
+                  </div><div class="col-md-6">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Mobile">
+                     </div>
+                  </div><div class="col-md-6">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Email">
+                     </div>
+                  </div><div class="col-md-12">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Point of Contact">
+                     </div>
+                  </div><div class="col-md-6">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Mobile">
+                     </div>
+                  </div><div class="col-md-6">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Email">
+                     </div>
+                  </div><div class="col-md-12">
+                     <div class="form-group">
+                        <textarea class="form-control" placeholder="Comment" rows="5"></textarea>
+                     </div>
+                  </div>
+                  <div class="col-md-12">
+                     <div class="form-group">
+                        <input type="button" value="Next" class="btn-success-modal float-right" name="submit">
+                     </div>
+                  </div></div>
+               </div>
+               <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                  <div class="row agent-tour pt-2 pb-4">
+                  
+                  
+                  
+                  
+                  
+               <div class="col-md-6">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Competitor 1">
+                     </div>
+                  </div><div class="col-md-6">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Monthly Spend">
+                     </div>
+                  </div><div class="col-md-6">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Competitor 2">
+                     </div>
+                  </div>
+                  <div class="col-md-6">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Monthly Spend">
+                     </div>
+                  </div><div class="col-md-6">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Competitor 3">
+                     </div>
+                  </div><div class="col-md-6">
+                     <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Monthly Spend">
+                     </div>
+                  </div><div class="col-md-12">
+                     <div class="form-group">
+                        <input type="button" value="Save" class="btn-success-modal float-right" name="submit">
+                     </div>
+                  </div></div>
+               </div>
+               </div>
          </div>
       </div>
    </div>

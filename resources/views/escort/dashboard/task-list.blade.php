@@ -222,10 +222,10 @@
                                         style="display: none;">Date Created: {{ \Carbon\Carbon::now()->format('d-m-Y') }}.
                                     </label>
                                     <input type="hidden" name="change_task_id" id="change_task_id">
-                                    <button type="submit" class="btn btn-primary shadow-none float-right ml-2 "
+                                    <button type="submit" class="btn-success-modal float-right ml-2 "
                                         id="save_button">Yes</button>
                                     <button type="button"
-                                        class="btn btn-primary shadow-none float-right ml-2  bg-danger"
+                                        class="btn-cancel-modal float-right ml-2  bg-danger"
                                         data-dismiss="modal" aria-label="Close" id="cancel_button">No</button>
                                 </div>
                             </div>
@@ -252,7 +252,7 @@
                    <div class="py-4 text-center" id="success_form_html">
                         <h4 id="success_msg">Are you sure you want to mark this Appointment as completed?</h4>
                         <button type="button"
-                    class="btn btn-dark mt-3 shadow-none"
+                    class="btn-success-modal mt-3"
                     data-dismiss="modal" aria-label="Close" id="cancel_button">OK</button>
                     </div>
                     

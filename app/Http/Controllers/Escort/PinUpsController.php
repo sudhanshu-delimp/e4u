@@ -8,6 +8,7 @@ use App\Models\Escort;
 use App\Models\PinUps;
 use App\Models\Pricing;
 use App\Models\EscortPinup;
+use App\Models\EscortMedia;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Exception;
@@ -125,13 +126,14 @@ class PinUpsController extends AppController
             $end = Carbon::parse($escort->end_date)->endOfWeek(Carbon::SUNDAY);
             $weeks = collect();
             $candidateStarts = [];
+            $today = Carbon::now();
             while ($start->lte($end)) {
                 $weekStart = $start->copy();
                 $weekEnd = $start->copy()->endOfWeek(Carbon::SUNDAY);
         
                 // Only include if full week is within profile listing range
             
-                if ($weekStart->gte(Carbon::parse($escort->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($escort->end_date)->endOfDay())) {
+                if ($weekStart->gte(Carbon::parse($escort->start_date)->startOfDay()) && $weekEnd->lte(Carbon::parse($escort->end_date)->endOfDay()) && $weekEnd->gte($today->startOfDay())) {
                     $weeks->push([
                         'start' => $weekStart->toDateString(),
                         'end' => $weekEnd->toDateString()
@@ -145,7 +147,7 @@ class PinUpsController extends AppController
                 return response()->json([
                     'success' => false,
                     'weeks' => $weeks,
-                    'message' => 'Sorry, no weeks are available',
+                    'message' => 'Sorry, no weeks are available during your selected profile dates.',
                 ]);
             }
             
@@ -215,13 +217,22 @@ class PinUpsController extends AppController
             $longitude = $request->longitude;
             $view = $request->view?$request->view:null;
             $location = getRealTimeGeolocationOfUsers($latitude, $longitude);
+            $response['location'] = $location;
             $pinupDetail = EscortPinup::latestActiveForCity($location['city']);
             if($pinupDetail){
+                $profile_image = EscortMedia::where(['user_id'=>$pinupDetail->user_id,'position'=>10,'default'=>1])->orderBy('id', 'DESC')->first();
                 $response['success'] = true;
+                $escort = $pinupDetail->escort;
+                $user = $escort->user;
+                $response['escort'] = $pinupDetail->escort;
+                $response['user'] = $escort->user;
+                $response['profile_image'] = $profile_image;
                 switch($view){
                     case 'pinup_summary':{
-                        $escort = $pinupDetail->escort;
-                        $response['html'] = view('partials\web\pinup_summary',compact('escort'))->render();
+                        $response['html'] = view('partials.web.pinup_summary',compact('escort','user','profile_image'))->render();
+                    } break;
+                    case 'pinup_home':{
+                        $response['html'] = view('partials.web.pinup_home',compact('profile_image'))->render();
                     } break;
                 }
             }
@@ -234,5 +245,19 @@ class PinUpsController extends AppController
             ], 500);
         }
         return response()->json($pinupDetail);
+    }
+
+    public function pinupSummary(Escort $escort){
+        try {
+            $response = [];
+            $response['success'] = true;
+            $response['html'] = view('escort.dashboard.profile.modal.include.pinup_summary_content',compact('escort'))->render();
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }

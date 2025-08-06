@@ -34,8 +34,7 @@
                       communications. Once a Support Agent is appointed, they will remain your Support
                       Agent for you to <a href="agent-messages" class="custom_links_design"> communicate </a>with and address any of your
                       concerns.</li>
-                    <li>Once the Agent has accepted your request for support, you will receive a confirmation
-                      email.</li>
+                    <li>Once the Agent has accepted your request for support, you will receive a Notification.</li>
                 </ol>
             </div>
             </div>
@@ -109,7 +108,7 @@
                     </div>
 
                     @if(auth()->user()->is_agent_assign == '0' || auth()->user()->assigned_agent_id == null)
-                    <input type="submit" id="submitTicketBtn" value="Submit Request" class="new-btn-sec btn btn-primary shadow-none" name="submit">
+                    <input type="submit" id="submitTicketBtn" value="Submit Request" class=" btn-success-modal" name="submit">
                     @endif
                     
                     @csrf
@@ -129,7 +128,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
        <div class="modal-content">
           <div class="modal-header">
-             <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/request-submit.png')}}" style="width:40px; margin-right:10px;" alt="Agent Request Submitted"> Agent Request Submitted</h5>
+             <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/request-submit.png')}}" style="width:32px; margin-right:10px;" alt="Agent Request Submitted"> Agent Request Submitted</h5>
              <button type="button" class="close close_request_modal" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
              </button>

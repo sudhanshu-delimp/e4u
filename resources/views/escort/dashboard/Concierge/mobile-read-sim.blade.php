@@ -25,7 +25,7 @@
                 <div class="col-md-12 my-4">
                     <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
                         <ol>
                             <li>This form will be pre-populated with your details according to what you have
                                 entered in <a href="{{ route('escort.profile.information') }}" class="custom_links_design">My Account</a>.

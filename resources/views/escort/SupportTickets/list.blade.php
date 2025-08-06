@@ -13,14 +13,14 @@
    <!--middle content start here-->
 {{-- Page Heading   --}}
 <div class="row">
-    <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
-        <h1 class="h1">My Support Tickets </h1>
+    <div class="custom-heading-wrapper col-lg-12">
+        <h1 class="h1">My Support Tickets</h1>
         <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
     </div>
-    <div class="col-md-12 my-2">
+    <div class="col-md-12 mb-4">
         <div class="card collapse" id="notes" style="">
         <div class="card-body">
-            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+            <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
             <ol>
                
             </ol>
@@ -30,9 +30,6 @@
 </div>
 {{-- end --}}
     <div id="content">
-        <div class="container-fluid">
-        </div>
-        <!-- /.container-fluid --><br>
         <div class="row">
             <div class="col-md-12">
                 <div class="box-body table table-hover">

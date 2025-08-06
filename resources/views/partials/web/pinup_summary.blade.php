@@ -3,7 +3,7 @@
         <div class="col-md-6">
             <div href="#" class="tip mb-2">
                 <img style="box-shadow: 2px 3px 2px #bdbdbdbd;" class="img-fluid"
-                    src="{{ asset('assets/app/img/home/home-demo.png') }}">
+                    src="{{ !empty($profile_image)?asset($profile_image->path):asset('assets/app/img/home/home-demo.png') }}">
             </div>
         </div>
         <div class="col-md-6">
@@ -25,7 +25,7 @@
                             <a href="#"><img
                                     src="/assets/app/img/video_play.svg" class=""
                                     alt="logo">
-                                <span class="custom-icon-hover-tooltip">Video To View</span>
+                                <span class="custom-icon-hover-tooltip">I have Video</span>
                             </a>
                         </div>
                     </div>
@@ -38,27 +38,27 @@
                         <ul
                             class="d-flex list-unstyled pl-0 mb-0 justify-content-end mr-5  meet-with custom-meet-pin">
                             <li>Meet with:</li>
-                            <li class="{{in_array(1 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/woman-avatar-big.png') }}"
+                            <li class="{{!empty($escort->available_to) && in_array(1 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/woman-avatar-big.png') }}"
                                         class="" alt="logo">
                                     <span class="custom-icon-hover-tooltip">Female</span>
                                 </a></li>
-                            <li class="{{in_array(2 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/male-user.png') }}"
+                            <li class="{{!empty($escort->available_to) && in_array(2 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/male-user.png') }}"
                                         class="" alt="logo">
                                     <span class="custom-icon-hover-tooltip">Male</span>
                                 </a></li>
-                            <li class="{{in_array(3 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/transgender-big.png') }}"
+                            <li class="{{!empty($escort->available_to) && in_array(3 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/transgender-big.png') }}"
                                         class="" alt="logo">
                                     <span class="custom-icon-hover-tooltip">Transgender</span>
                                 </a></li>
-                            <li class="{{in_array(4 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/couple.png') }}" class=""
+                            <li class="{{!empty($escort->available_to) && in_array(4 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/couple.png') }}" class=""
                                         alt="logo">
                                     <span class="custom-icon-hover-tooltip">Couples</span>
                                 </a></li>
-                            <li class="{{in_array(5 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/disabilities.png') }}" class=""
+                            <li class="{{!empty($escort->available_to) && in_array(5 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/disabilities.png') }}" class=""
                                     alt="logo">
                                 <span class="custom-icon-hover-tooltip">Disabled</span>
                             </a></li>
-                            <li class="{{in_array(6 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/group.png') }}" class=""
+                            <li class="{{!empty($escort->available_to) && in_array(6 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/group.png') }}" class=""
                                     alt="logo">
                                 <span class="custom-icon-hover-tooltip">Groups/Parties</span>
                             </a></li>
@@ -100,12 +100,19 @@
                 </div>
                 <div class="row social-and-view custom-pin-social-row">
                     <div class="col-md-6 align-self-center">
+                        @if(!empty($user->social_links))
                         <ul class="d-flex list-unstyled pl-0 mb-0 custom--socialpin">
-                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-                            <li><a href="#"><img src="{{ asset('assets/app/img/twitter-x.png') }}"
-                                        class="twitter-x-logo" alt="logo"></a></li>
+                            @if(!empty($user->social_links['facebook']))
+                                <li><a href="{{$user->social_links['facebook']}}" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                            @endif
+                            @if(!empty($user->social_links['insta']))
+                                <li><a href="{{$user->social_links['insta']}}" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            @endif
+                            @if(!empty($user->social_links['twitter']))
+                                <li><a href="{{$user->social_links['twitter']}}" target="_blank"><img src="{{ asset('assets/app/img/twitter-x.png') }}" class="twitter-x-logo" alt="logo"></a></li>
+                            @endif
                         </ul>
+                        @endif
                     </div>
                     <div class="custom-playbox"><a href="/playbox"><img
                                 src="{{ asset('assets/app/img/Icon_MyPlaybox-light.png') }}" class="playbox-logo"

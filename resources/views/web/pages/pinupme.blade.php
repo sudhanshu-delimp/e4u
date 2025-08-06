@@ -311,16 +311,20 @@
             },
             data:{latitude, longitude, view:'pinup_summary'},
             dataType:`JSON`,
-            sendBefore: function(){
-
+            beforeSend: function(){
+                $("#preloader").addClass('pre-active');
             },
             success: function(response){
                 if(response.success){
                    $(".js_pinup_summary").html(response.html); 
                 }
+                else{
+                    location.assign(`{{route('home')}}`);
+                }
+                $("#preloader").removeClass('pre-active');
             },
             error: function(xhr) {
-
+                $("#preloader").removeClass('pre-active');
             }
         });
     }        

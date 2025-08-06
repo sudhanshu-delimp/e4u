@@ -176,7 +176,7 @@
                   <label class="form-check-label pr-4" for="exampleCheck1">  No. of Viewers:<span class="ml-1" style="font-weight: 300;">[total]</span></label>
                </div>
             </div>
-            <button type="button" class="btn btn-primary">Send</button>
+            <button type="button" class="btn-success-modal">Send</button>
          </div>
       </div>
    </div>

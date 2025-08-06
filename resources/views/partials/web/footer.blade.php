@@ -7,6 +7,11 @@
    
 </style>
 @endsection
+<!-- Preloader -->
+{{-- if add a class pre-active then it show --}}
+<div id="preloader" class="">
+   <div class="loader"></div>
+</div>
 <footer class="footer_bg_color padding_fifty_top_and_btm custom--footer">
    <section class="footer_mange_padding">
       <div class="container-fluid">

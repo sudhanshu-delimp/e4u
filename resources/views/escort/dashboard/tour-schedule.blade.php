@@ -233,11 +233,13 @@
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
+                
                 <div class="modal-body pb-0 agent-tour">
                     <form>
                         <p>You are about to cancel your Tour. Are you sure you want to cancel your Tour?</p>
+                        <hr style="background-color: #0C223D" class="mt-3">
                         <div class="note">
-                            <h4>Note:</h4>
+                            <h4>Notes:</h4>
                             <ol>
                                 <li>If you cancel your Tour, any remaining Fees paid will be credited back to
                                     you. Cancellation is immediate.</li>
@@ -250,10 +252,10 @@
 
                                 <div class="form-group mb-0">
                                     <button type="button"
-                                        class="btn btn-primary shadow-none  ml-2  bg-danger"
+                                        class="btn-cancel-modal ml-2"
                                         data-dismiss="modal" aria-label="Close">Cancel</button>
                                         <button type="submit"
-                                            class="btn btn-primary shadow-none  ml-2 " >Cancel Tour</button>
+                                            class="btn-success-modal ml-2 " >Cancel Tour</button>
                                 </div>
                             </div>
                         </div>

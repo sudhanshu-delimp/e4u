@@ -10,7 +10,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id=""><img src="/assets/app/img/dublicate-profile.png" class="custompopicon" alt="cross"> Duplicate Profile</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true"><img id="modal_close" src="{{ asset('assets/app/img/cross.png') }}"
+                            <span aria-hidden="true"><img id="modal_close" src="{{ asset('assets/app/img/newcross.png') }}"
                                     class="img-fluid img_resize_in_smscreen"></span>
                         </button>
                     </div>
@@ -110,7 +110,7 @@
                     <div class="modal-footer" style="text-align: center; display: block;">
                         <input type="hidden" name="escort_id">
                         <input type="hidden" id="profile_city_id" name="city_id">
-                        <button type="submit" class="btn btn-primary" id="save_brb">Save</button>
+                        <button type="submit" class="btn-success-modal" id="save_brb">Save</button>
                     </div>
                 </div>
             </div>

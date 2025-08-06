@@ -25,7 +25,7 @@
         <div class="col-md-12 my-4">
             <div class="card collapse" id="notes" style="">
             <div class="card-body">
-                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
                 <ol></ol>
             </div>
             </div>
@@ -314,7 +314,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end mr-0">
-                        <button type="button" class="bulk-btn">Place Order</button>
+                        <button type="button" class="bulk-btn new-btn-sec">Place Order</button>
                     </div>
 
                     </form>
