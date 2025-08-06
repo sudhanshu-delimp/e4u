@@ -46,6 +46,12 @@ class EscortPinup extends Model
         return self::query()
             ->where('city_id', $cityId)
             ->active()
+            ->whereHas('escort', function ($escortQuery) {
+                $escortQuery->whereDoesntHave('suspendProfile', function ($suspendQuery) {
+                    $suspendQuery->where('start_date', '<=', Carbon::now('UTC'))
+                                 ->where('end_date', '>=', Carbon::now('UTC'));
+                });
+            })
             ->orderBy('utc_end_time', 'desc')
             ->first();
     }
