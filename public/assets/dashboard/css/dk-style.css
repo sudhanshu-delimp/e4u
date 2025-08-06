@@ -11,11 +11,14 @@
 /* img.my-svg-icons {
     filter: invert(14%) sepia(19%) saturate(1577%) hue-rotate(173deg) brightness(91%) contrast(98%);
 } */
+
+
 /* .alert_notify_html, .support_notify_html {
     min-height: 35px;
     max-height: 500px;
     overflow: auto;
 } */
+
 .bg-first {
     background-color: var(--blue--text) !important;
     color: var(--white);
@@ -7874,10 +7877,10 @@ td {
 .my-account-card .card-head .print-btns {
     background-color: var(--blue--text);
     color: white;
-    padding: 12px 24px;
+    padding: 10px 20px;
     font-size: 16px;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
@@ -7886,8 +7889,12 @@ td {
     padding-right: 10px;
 }
 
-.my-account-card .print-btn:hover {
-    background-color: #0c223d;
+.my-account-card .card-head .print-btn:hover {
+    background-color: var(--peach) !important;
+}
+
+.print-btn:hover {
+    background-color: var(--peach) !important;
 }
 
 
