@@ -147,7 +147,7 @@ class PinUpsController extends AppController
                 return response()->json([
                     'success' => false,
                     'weeks' => $weeks,
-                    'message' => 'Sorry, no weeks are available',
+                    'message' => 'Sorry, no weeks are available during your selected profile dates.',
                 ]);
             }
             
@@ -217,6 +217,7 @@ class PinUpsController extends AppController
             $longitude = $request->longitude;
             $view = $request->view?$request->view:null;
             $location = getRealTimeGeolocationOfUsers($latitude, $longitude);
+            $response['location'] = $location;
             $pinupDetail = EscortPinup::latestActiveForCity($location['city']);
             if($pinupDetail){
                 $profile_image = EscortMedia::where(['user_id'=>$pinupDetail->user_id,'position'=>10,'default'=>1])->orderBy('id', 'DESC')->first();
@@ -244,5 +245,19 @@ class PinUpsController extends AppController
             ], 500);
         }
         return response()->json($pinupDetail);
+    }
+
+    public function pinupSummary(Escort $escort){
+        try {
+            $response = [];
+            $response['success'] = true;
+            $response['html'] = view('escort.dashboard.profile.modal.include.pinup_summary_content',compact('escort'))->render();
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }

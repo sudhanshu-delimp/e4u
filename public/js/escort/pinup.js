@@ -68,7 +68,7 @@ savePinupButton.addEventListener("click", function (e) {
             if (data.success) {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Register for Pin Up',
+                    title: 'Registered for Pin Up',
                     text: data.message
                 });
                 form.reset();
@@ -76,6 +76,42 @@ savePinupButton.addEventListener("click", function (e) {
                 $("#pinup_profile").modal('hide');
                 btn_pinup_profile.disabled = true;
                 table.draw();
+            }
+        },
+        error: function(xhr) {
+            if (xhr.status === 422) {
+                let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    html: messages
+                });
+            } else {
+                let message = JSON.parse(xhr.responseText).message;
+                Swal.fire({
+                    icon: 'error',
+                    title: xhr.statusText,
+                    text: message || 'Something went wrong.'
+                });
+            }
+            savePinupButton.disabled = false;
+        }
+    });
+});
+
+$("#pinupSummary").on('show.bs.modal', function (event) {
+    let button = $(event.relatedTarget);
+    let dataId = button.data('id');
+    $.ajax({
+        url: `/escort-dashboard/pinup-summary/${dataId}`,
+        type: 'GET',
+        beforeSend: function(){
+            $("#pinupSummary .modal-dialog .modal-body").html(`<div class="text-center"><i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span></div>`);
+        },
+        success: function(data) {
+            if (data.success) {
+                $("#pinupSummary .modal-dialog").html(data.html);
             }
         },
         error: function(xhr) {

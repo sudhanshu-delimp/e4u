@@ -81,7 +81,7 @@ label.cabinet input.file{
                                                 <div class="image-title-wrap">
 
                                                     <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-                                                    <button type="submit" class="remove-image crop_image">Save <span class="image-title">Uploaded Image</span></button>
+                                                    <button type="submit" class="crop_image btn-success-modal">Save <span class="image-title">Uploaded Image</span></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -141,7 +141,7 @@ label.cabinet input.file{
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color border-0">
-                <span style="color: white">Crop Photo</span>
+                <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/crop-image.png') }}" style="width:32px; padding-right:10px;"> Crop Photo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
 
@@ -157,7 +157,7 @@ label.cabinet input.file{
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
                 <button type="button" id="cropImageBtn" class="btn main_bg_color site_btn_primary">Crop</button>
             </div>
         </div>

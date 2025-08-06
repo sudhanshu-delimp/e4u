@@ -78,7 +78,7 @@
                 </div>
 
 
-                <input type="submit" name="submit" id="submitTicketBtn" class="btn btn-primary create-tour-sec dctour mt-3"
+                <input type="submit" name="submit" id="submitTicketBtn" class="create-tour-sec dctour mt-3"
                        value="Submit ticket">
             </form>
         </div>

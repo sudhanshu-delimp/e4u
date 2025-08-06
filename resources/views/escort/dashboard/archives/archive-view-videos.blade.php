@@ -209,7 +209,7 @@
                 @csrf
                 <div class="modal-content border-0">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Upload Videos</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle"><img src="/assets/dashboard/img/upload-videos.png" class="custompopicon" alt="cross"> Upload Videos</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                         </button>
@@ -270,8 +270,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Verify Media</button>
-                        <button type="submit" class="btn btn-primary">Upload</button>
+                        <button type="submit" class="btn-success-modal">Verify Media</button>
+                        <button type="submit" class="btn-success-modal">Upload</button>
                     </div>
                 </div>
             </form>

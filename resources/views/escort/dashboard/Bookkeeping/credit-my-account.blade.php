@@ -11,48 +11,48 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!--middle content start here-->
         <div class="row">
-            <div class="col-md-12">
-                <div class="v-main-heading h3" style="display: inline-block;">Add Credit</div>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+            <div class="col-md-12 custom-heading-wrapper">
+                <h1 class="h1">Add Credit</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
         </div>
 
         <div class="row collapse" id="notes">
-                            <div class="col-md-12 mb-5">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                        <ol>
-                                            <li>You can select a payment option by clicking the card, or simply insert the amount you want to pay.</li>
-                                            <li>SMS 2FA applies to this feature.</li>
-                                            <li>You can enable the Auto Recharge feature <a href="#" class="custom_links_design">here</a> as well.</li>
-                                            <li>You can view how much credit you have available in the summary below. When creating a Listing or Tour, your available credit will be displayed on the payment page.</li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+          <div class="col-md-12 mb-4">
+              <div class="card">
+                  <div class="card-body">
+                      <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                      <ol>
+                          <li>You can select a payment option by clicking the card, or simply insert the amount you want to pay.</li>
+                          <li>SMS 2FA applies to this feature.</li>
+                          <li>You can enable the Auto Recharge feature <a href="#" class="custom_links_design">here</a> as well.</li>
+                          <li>You can view how much credit you have available in the summary below. When creating a Listing or Tour, your available credit will be displayed on the payment page.</li>
+                      </ol>
+                  </div>
+              </div>
+          </div>
+        </div>
     <!-- Member Details -->
-    <div class="mt-5 mb-4 p-3 bg-light rounded">
-        <h2 class="h4 mb-4">Member Details</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <p>Membership ID: <strong>E12345</strong></p>
-        <p>Available Credit: <strong>AU$<span id="available-credit">250.00</span></strong></p>
-        <p>Average spend per day: <strong>AU$15.00</strong></p>
-                </div>
-                <div class="col-md-6">  
-                <p>Average listing period: <strong>30 days</strong></p>
-        <p>Last top up: <strong>01 June 2025</strong></p>
-        <p>Average top up: <strong>AU$200.00</strong></p>
-                </div>
+    <div class=" mb-4 p-3 bg-light rounded">
+      <h2 class="h4 mb-4">Member Details</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <p>Membership ID: <strong>E12345</strong></p>
+                <p>Available Credit: <strong>AU$<span id="available-credit">250.00</span></strong></p>
+                <p>Average spend per day: <strong>AU$15.00</strong></p>
             </div>
-      </div>
+            <div class="col-md-6">  
+              <p>Average listing period: <strong>30 days</strong></p>
+              <p>Last top up: <strong>01 June 2025</strong></p>
+              <p>Average top up: <strong>AU$200.00</strong></p>
+            </div>
+        </div>
+    </div>
 
   <!-- Top Up Options -->
   <div class="row text-center add--credit">
 
-    <div>
+    <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
           <img src="{{ asset('assets/app/img/logo.svg') }}" class="img-fluid mb-2" alt="E4U Logo">
@@ -63,7 +63,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
           <img src="{{ asset('assets/app/img/logo.svg') }}" class="img-fluid mb-2" alt="E4U Logo">
@@ -74,7 +74,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
           <img src="{{ asset('assets/app/img/logo.svg') }}" class="img-fluid mb-2" alt="E4U Logo">
@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="col-lg-12">
       <div class="card">
         <div class="card-body">
           <img src="{{ asset('assets/app/img/logo.svg') }}" class="img-fluid mb-2" alt="E4U Logo">
@@ -100,15 +100,16 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+<div class="modal fade upload-modal" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
+    <div class="modal-content basic-modal">
 
       <div class="modal-header">
-        <h5 class="modal-title" id="confirmModalLabel">Add Credit to My Account</h5>
+        <h5 class="modal-title" id="confirmModalLabel"><img src="/assets/dashboard/img/add-credit.png" class="custompopicon" alt="cross"> Add Credit to My Account</h5>
+       
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+          <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+          </button>
       </div>
 
       <div class="modal-body text-center">
@@ -131,8 +132,8 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary p-2" data-dismiss="modal">Cancel</button>
-        <button type="button" class="nex_sterp_btn btn btn-success p-2" onclick="proceedPayment()">Proceed</button>
+        <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+        <button type="button" class="nex_sterp_btn btn-success-modal" onclick="proceedPayment()">Proceed</button>
       </div>
 
     </div>

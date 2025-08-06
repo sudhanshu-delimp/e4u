@@ -49,7 +49,7 @@
   
    <div class="row">
       <div class="col-md-12 mt-2">
-         <div id="table-sec" class="table-responsive-xl">
+         <div id="" class="table-responsive-xl">
             <table class="table" id="bankAccountTable">
                <thead class="table-bg">
                   <tr>
@@ -58,7 +58,7 @@
                      <th scope="col">BSB</th>
                      <th scope="col">Account Number</th>
                      <th scope="col">Account Status</th>
-                     <th scope="col">Action</th>
+                     <th scope="col" class="text-center">Action</th>
                   </tr>
                </thead>
             </table>
@@ -72,7 +72,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title">Add New Account</h5>
+            <h5 class="modal-title"><img src="/assets/dashboard/img/add-new-account.png" class="custompopicon" alt="cross"> Add New Account</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -124,7 +124,7 @@
                   </div>
                   <div class="col-md-12 mb-3">
                      <div class="form-group">
-                        <button type="submit" class="btn btn-primary shadow-none float-right">Save</button>
+                        <button type="submit" class="btn-success-modal float-right">Save</button>
                      </div>
                   </div>
                </div>
@@ -188,10 +188,8 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content custome_modal_max_width">
          <div class="modal-header main_bg_color border-0">
-            {{--
-            <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5>
-            --}}
-            <span style="color:white">Delete Bank Account</span>
+           
+            <h5 class="modal-title text-white"><img src="/assets/dashboard/img/remove-bank-account.png" class="custompopicon" alt="cross"> Delete Bank Account</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">
             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -202,11 +200,11 @@
             <input type="hidden" id="previous" name="url">
             <input type="hidden" id="label" name="label">
             <input type="hidden" id="trigger-element">
-            <h3 class="mb-4 mt-5"><span id="Lname"></span> </h3>
-            <h3 class="mb-4 mt-5"><span id="log"></span> </h3>
+            <h3 class="mb-2 mt-3"><span id="Lname"></span> </h3>
+            <h3 class="mb-4 mt-2"><span id="log"></span> </h3>
             <div class="modal-footer">
-               <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal" value="close" id="close_change">Close</button>
-               <button type="button" class="btn main_bg_color site_btn_primary" id="save_change">Delete</button>
+               <button type="button" class="btn-success-modal" data-dismiss="modal" value="close" id="close_change">Close</button>
+               <button type="button" class="btn-cancel-modal" id="save_change">Delete</button>
             </div>
          </div>
       </div>
@@ -293,7 +291,6 @@
     lengthChange: true,
     order: [1, 'asc'],
     searchable: false,
-    pagingType: 'simple_numbers',
     bStateSave: false,
     ajax: {
         url: "{{ route('escort.bankDetail.dataTable') }}",
