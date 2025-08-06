@@ -337,18 +337,14 @@ class EscortGalleryController extends AppController
         $msg = '';
 
         $media = $this->media->find($request->meidaId);
-        if($request->position == 9 && $media->position != 9) {
-            $msg = "It's not a banner image .Please select banner image.";
-        } elseif ($request->position != 9 && $media->position == 9) {
-            $msg = "It's a banner image. Please select another image.";
-        }
-        if($request->position == 10 && $media->position != 10) {
-            $msg = "It's not a pinup image .Please select pinup image.";
-        } elseif ($request->position != 10 && $media->position == 10) {
-            $msg = "It's a pinup image. Please select another image.";
-        }
-          elseif (!in_array($media->position,[9,10]) && $media->position) {
-            $msg = "It's a duplicate image. Please select another image.";
+
+        $labels = [
+            9 => 'Banner',
+            10 => 'Pin Up',
+        ];
+        $repositoryName = array_key_exists($request->position,$labels)?$labels[$request->position]:'Gallery';
+        if($request->position != $media->position) {
+            $msg = "The photo you selected is not a {$repositoryName} image.  Please select a {$repositoryName} image from your repository.";
         } else {
             $this->media->nullPosition(auth()->user()->id, $request->position);
             $media->position = $request->position;

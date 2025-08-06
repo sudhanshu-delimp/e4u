@@ -48,8 +48,8 @@ class EscortPinup extends Model
             ->active()
             ->whereHas('escort', function ($escortQuery) {
                 $escortQuery->whereDoesntHave('suspendProfile', function ($suspendQuery) {
-                    $suspendQuery->where('start_date', '<=', Carbon::now('UTC'))
-                                 ->where('end_date', '>=', Carbon::now('UTC'));
+                    $suspendQuery->where('utc_start_date', '<=', Carbon::now('UTC'))
+                                 ->where('utc_end_date', '>=', Carbon::now('UTC'));
                 });
             })
             ->orderBy('utc_end_time', 'desc')
