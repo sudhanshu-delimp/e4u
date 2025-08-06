@@ -563,7 +563,7 @@
 
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable  mt-0">
-                                        <ul class="results  mt-4">
+                                        <ul class="results  mt-4" id="stageList">
                                             @if(!empty(auth()->user()->escorts_names))
                                                 @foreach(auth()->user()->escorts_names as $key => $name)
                                                 <li style="font-size: 14px; background:#0C223D !important;"> <a href="#">{{ $name}}</a>

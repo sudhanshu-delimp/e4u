@@ -416,6 +416,8 @@
            var url = form.attr('action');
            var data = new FormData($('#read_more')[0]);
 
+           console.log(data, ' jiten');
+
            $('#read-more').prop('disabled', true);
            $('#read-more').html('<div class="spinner-border"></div>');
            $.ajax({
