@@ -112,7 +112,10 @@
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <p class="pt-5"><strong>NOTE:</strong> 1. Local Laws published in the relevant jurisdiction as at 1st January 2024.</p>
+                                    <p class="pt-5"><b>NOTE:</b> </p>
+                                    <ol>
+                                        <li class="">Local Laws published in the relevant jurisdiction as at 1st January 2024.</li>
+                                    </ol>
                                     </div>
                                     <div class="mt-5">
                                         <b>Changes to this Guide</b><br>

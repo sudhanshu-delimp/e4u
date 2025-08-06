@@ -32,36 +32,28 @@
 </style>
 @endsection
 @section('content')
-<div class="d-flex flex-column container-fluid pl-3 pl-lg-5">
+<div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading h3" style="display: inline-block;">My Support Tickets</div>
-           <h6 class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </h6>
+        <div class="custom-heading-wrapper col-lg-12">
+            <h1 class="h1">My Support Tickets</h1>
+           <span class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </span>
         </div>
-        <div class="col-md-12 mt-4 collapse" id="profile_and_tour_options">
-            <div class="row">
-                <div class="col-md-12 mb-5">
-                    <div class="card" id="notes">
-                        <div class="card-body">
-                          <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                          <ol>
-                              <li>Use this feature to review and make changes to your Profiles.</li>
-                              <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action function, you will be able to View, Edit or Delete the Profile.</li>
-                              <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming" class="custom_links_design">View Listings</a></li>
-                          </ol>
-                        </div>
-                    </div>
+        <div class="col-md-12 collapse" id="profile_and_tour_options">
+            <div class="card" id="notes">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                    <ol>
+                        <li>Use this feature to review and make changes to your Profiles.</li>
+                        <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action function, you will be able to View, Edit or Delete the Profile.</li>
+                        <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming" class="custom_links_design">View Listings</a></li>
+                    </ol>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="content">
-        <div class="container-fluid">
-        </div>
-        <!-- /.container-fluid --><br>
+    </div>    
         <div class="row">
             <div class="col-md-12">
-                <div class="box-body table table-hover">
+                <div class="box-body table table-hover table-responsive-xl">
                     <table class="table table-hover" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                         <tr>
@@ -83,9 +75,6 @@
                 </div>
             </div>
         </div>
-    </div>
-  <!--middle content end here-->
-  <!--right side bar start from here-->
 </div>
 
 
@@ -137,9 +126,10 @@
     });
    $(document).ready( function () {
        var table = $("#supportTicketsTable").DataTable({
-           "language": {
-               "zeroRecords": "No record(s) found."
-           },
+                language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Ticket ID..."
+            },
            processing: true,
            serverSide: true,
            lengthChange: true,

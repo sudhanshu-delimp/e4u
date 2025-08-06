@@ -28,7 +28,7 @@
         <p class="mb-1"><b>Notes:</b></p>
         <ol class="pl-4">
             <li>The standard Fee for a Pin Up has ben applied.</li>
-            <li>You Pin Up listing will be automatically removed if you Suspend or Cancel the
+            <li>Your Pin Up listing will be automatically removed if you Suspend or Cancel the
                 Profile listing.</li>
         </ol>
     </div>

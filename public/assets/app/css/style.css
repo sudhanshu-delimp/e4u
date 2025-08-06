@@ -464,6 +464,10 @@
         background-color: var(--peach) !important;
     }
     
+    .otp-verify-btn:focus-visible {
+        outline: none;
+    }
+    
     .short-card {
         border: 1px solid #0C223D;
         border-radius: 0.25rem 0.25rem 0rem 0rem;
@@ -1082,6 +1086,11 @@
         line-height: 23.76px;
         background-color: #0c223d;
         border-color: #0c223d;
+    }
+    
+    .site_btn_primary:hover {
+        background-color: var(--peach);
+        border-color: var(--peach);
     }
     
     .btn:focus {

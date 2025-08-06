@@ -1812,6 +1812,13 @@ span.menu-active {
     border: 0;
 }
 
+.dropdown-item.active,
+.dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: var(--peach) !important;
+}
+
 .forgot_pass input {
     border: 1px solid #90A0B76E;
     padding: 24px;
@@ -5069,6 +5076,10 @@ padding-bottom:80px;
 
 .create-tour-sec:hover {
     background-color: var(--peach);
+}
+
+.create-tour-sec:focus-visible {
+    outline: none !important;
 }
 
 .left-photo-sec {

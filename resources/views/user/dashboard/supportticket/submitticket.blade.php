@@ -14,11 +14,11 @@
 <div class="container-fluid pl-3 pl-lg-5 register-pin-up mb-5">
     <!--middle content start here-->
     <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading h3" style="display: inline-block;">Submit ticket</div>
-            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b></h6>
+        <div class="custom-heading-wrapper col-md-12">
+            <h1 class="h1">Submit ticket</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b></span>
         </div>
-        <div class="col-md-12 mt-4 pl-4 mycont">
+        <div class="col-md-12 mb-4 mycont">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
@@ -90,7 +90,7 @@
 
 
                 <input type="hidden"  name="user_type"  value="viewer">
-                <input type="submit" name="submit" id="submitTicketBtn" class="btn btn-primary create-tour-sec dctour mt-3" value="Submit Ticket">
+                <input type="submit" name="submit" id="submitTicketBtn" class=" create-tour-sec dctour mt-3" value="Submit Ticket">
             </form>
         </div>
     </div>

@@ -178,7 +178,7 @@
                      <div class="row">
                          <div class="col-md-12 mb-3">
                              <div class="form-group">
-                                 <button type="submit" class="btn btn-primary shadow-none float-right ml-2" id="save_button">Save</button>
+                                 <button type="submit" class="btn-success-modal float-right ml-2" id="save_button">Save</button>
                              </div>
                          </div>
                      </div>
