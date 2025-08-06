@@ -454,8 +454,8 @@ class GlobalMonitoringController extends Controller
             },
             'suspendProfile' => function ($query) {
                 $today = Carbon::now(config('app.timezone'));
-                $query->whereDate('start_date', '<=', $today)
-                    ->whereDate('end_date', '>=', $today)
+                $query->where('utc_start_date', '<=', $today)
+                    ->where('utc_end_date', '>=', $today)
                     ->where('status', true);
             }
         ])
@@ -573,13 +573,13 @@ class GlobalMonitoringController extends Controller
 
                     if(count($escort['suspend_profile']) > 0){
                         # get timezone of escort
-                        $escortTimezone = config('app.escort_server_timezone');
-                        if($escort && $escort['state_id'] && $escort['city_id']){
-                            $escortTimezone = config('escorts.profile.states')[$escort['state_id']]['cities'][$escort['city_id']]['timeZone'];
-                        }
+                        // $escortTimezone = config('app.escort_server_timezone');
+                        // if($escort && $escort['state_id'] && $escort['city_id']){
+                        //     $escortTimezone = config('escorts.profile.states')[$escort['state_id']]['cities'][$escort['city_id']]['timeZone'];
+                        // }
 
-                        $suspensionBadge = "<sup title='Suspended on " . Carbon::parse($escort['suspend_profile'][0]['created_at'])->setTimezone($escortTimezone)->format('d-m-Y h:i A') .
-                        "' class='brb_icon' style='background-color: #d2730a;'>SUS</sup></span>";
+                        $suspensionBadge = "<sup title='Suspended Form " . Carbon::parse($escort['suspend_profile'][0]['start_date'])->format('d-m-Y h:i A') . ' To '.Carbon::parse($escort['suspend_profile'][0]['end_date'])->format('d-m-Y h:i A').
+                        "' class='brb_icon' style='background-color: #2e59d9;'>SUS</sup></span>";
                     }else{
                         $suspensionBadge = '';
                     }

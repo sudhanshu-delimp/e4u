@@ -139,13 +139,13 @@ class ViewerEscortInteractionController extends Controller
                 'escortViewerInteraction',
                 'suspendProfile' => function ($query) {
                     $today = Carbon::now(config('app.timezone'));
-                    $query->whereDate('start_date', '<=', $today)
-                        ->whereDate('end_date', '>=', $today)
+                    $query->where('utc_start_date', '<=', $today)
+                        ->where('utc_end_date', '>=', $today)
                         ->where('status', true);
                 }
             ])->get(); // city_id
 
-            // dd($escorts->toArray());
+            //dd($escorts->toArray());
 
              return DataTables::of($escorts)
                 ->addColumn('escort_id', function ($escort) {
@@ -159,9 +159,10 @@ class ViewerEscortInteractionController extends Controller
                 ->addColumn('name', function($escort){ 
                     $suspendedBadge = isset($escort->suspendProfile[0]->created_at);
                     $suspendedText = $suspendedBadge
-                        ? '<sup title="Suspended on ' . \Carbon\Carbon::parse($escort->suspendProfile[0]->created_at)->format('d-m-Y h:i A') . '" class="brb_icon" style="background-color: #d2730a;">SUS</sup>'
-                        : '';
-                    return $escort->name ?? '-' . ' ' . $suspendedText;
+                        ? '<span>'.$escort->name .' '.'<sup title="Suspended From  ' . \Carbon\Carbon::parse($escort->suspendProfile[0]->start_date)->format('d-m-Y h:i A') . ' To '.\Carbon\Carbon::parse($escort->suspendProfile[0]->end_date)->format('d-m-Y h:i A'). '" class="brb_icon" style="background-color: #2e59d9;">SUS</sup></span>'
+                        : ($escort->name  ?? '-');
+                        
+                    return $suspendedText;
                     
                  })
                 ->addColumn('gender', fn($escort) => Str::substr($escort->gender, 0, 1))
@@ -403,6 +404,15 @@ class ViewerEscortInteractionController extends Controller
                                                 <span class="tooltip-text">View the Escort’s Profile</span>';
                     }
 
+                    $suspendedBadge = isset($row->suspendProfile[0]->created_at);
+                    if($suspendedBadge){
+                        $viewButton = '<a class="dropdown-item align-item-custom text-muted" href="#"
+                                                    data-toggle="modal" > <i
+                                                        class="fa fa-eye-slash text-muted" aria-hidden="true"></i>
+                                                    View</a>
+                                                <span class="tooltip-text ">Access denied: Profile has been suspended.</span>';
+                    }
+
                     $actionButtons = '
                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -454,7 +464,7 @@ class ViewerEscortInteractionController extends Controller
                     return $actionButtons;
                 })
 
-                ->rawColumns(['escort_id', 'escort_communication', 'is_blocked', 'action'])
+                ->rawColumns(['escort_id', 'escort_communication', 'is_blocked', 'action','name'])
                 ->make(true);
         }
 
