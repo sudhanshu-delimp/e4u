@@ -18,9 +18,10 @@ class RegisterListenerForEscort implements ShouldQueue
      *
      * @return void
      */
+  
     public function __construct()
     {
-        //
+     
     }
 
     /**
@@ -31,8 +32,9 @@ class RegisterListenerForEscort implements ShouldQueue
      */
     public function handle(Registered $event)
     {
-       Mail::to('admin@e4u.com.au')->send(new RegisterEmailForEscort());
+        $user = $event->user;
+       Mail::to($user->email)->send(new RegisterEmailForEscort($user));
 
-       Log::info('third Queue for Escort');
+       //Log::info('third Queue for Escort');
     }
 }

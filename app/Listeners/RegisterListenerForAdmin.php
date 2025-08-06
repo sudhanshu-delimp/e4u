@@ -31,8 +31,9 @@ class RegisterListenerForAdmin implements ShouldQueue
      */
     public function handle(Registered $event)
     {
-        Mail::to('admin@e4u.com.au')->send(new RegisterEmailForAdmin());
+        $user = $event->user;
+        Mail::to(config('common.contactus_admin_email'))->send(new RegisterEmailForAdmin($user));
 
-        Log::info('first Queue for Admin');
+        //Log::info('first Queue for Admin');
     }
 }

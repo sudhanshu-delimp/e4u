@@ -18,10 +18,13 @@ class RegisterEmailForAgent extends Mailable
      * @return void
      */
 
-    public $body;
-    public function __construct($body = null)
+    protected $user;
+    protected $agentUser;
+
+    public function __construct($user, $agentUser)
     {
-        $this->body = $body;
+        $this->user = $user;
+        $this->agentUser = $agentUser;
     }
 
     /**
@@ -31,6 +34,10 @@ class RegisterEmailForAgent extends Mailable
      */
     public function build()
     {
-         return $this->view('emails.register.email_for_agent');
+         return $this->view('emails.register.email_for_agent')->with([
+            'user' => $this->user,
+            'agentUser' => $this->agentUser,
+        ]);
+    
     }
 }

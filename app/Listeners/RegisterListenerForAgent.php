@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Models\User;
 use App\Mail\RegisterEmailForAdmin;
 use App\Mail\RegisterEmailForAgent;
 use Illuminate\Support\Facades\Log;
@@ -32,8 +33,15 @@ class RegisterListenerForAgent implements ShouldQueue
      */
     public function handle(Registered $event)
     {
-        Mail::to('admin@e4u.com.au')->send(new RegisterEmailForAgent());
-
-        Log::info('second Queue for Agent');
+       
+        $user = $event->user;
+        if (!empty($user->agent_id)) {
+            $agentUser = User::where('member_id', $user->agent_id)->select('id', 'email', 'phone', 'name')->first();
+            if ($agentUser) {
+                Mail::to($agentUser->email)->send(
+                    new RegisterEmailForAgent($user, $agentUser)
+                );
+            }
+        }
     }
 }

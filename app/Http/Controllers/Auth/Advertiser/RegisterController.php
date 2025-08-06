@@ -69,15 +69,39 @@ class RegisterController extends Controller
       * @return \Illuminate\Contracts\Validation\Validator
       */
 
+     /**
+     * Check if agent_id exists in the users table.
+     *
+     * @param int $agent_id
+     * @return int
+     */
+
+    protected function checkAgentExists($data){
+        if($data['agent_id']){
+            return User::where('member_id', $data['agent_id'])->where('type', 5)->exists() ? '1' : '0';
+        }else{
+            return '0';
+        }
+    }
+
+    protected function getAgentIdIfExist($data){
+        if ($data['agent_id']) {
+            $agent = User::where('member_id', $data['agent_id'])->where('type', 5)->first();
+            return $agent ? $agent->id : null;
+        }else{
+            return null;
+        }
+    }
+
     protected function create($data)
     {
-
         return User::create([
             // 'phone' => (int) $data['phone'],
             'phone' => $data['phone'],
             'email' => $data['email'],
             'state_id' => $data['state_id'],
             'type' => $data['type'],
+            'referred_by_agent_id' => $this->getAgentIdIfExist($data),
             'password' => Hash::make($data['password']),
             'enabled' => 1,
             'viewer_contact_type' => ["2"],
@@ -95,7 +119,22 @@ class RegisterController extends Controller
     public function register(StoreAdvertiserRegisterRequest $request)
     {
 
-        event(new Registered($user = $this->create($request->all())));
+        $password = $request->password;
+        $user = $this->create($request->all());
+      
+
+        $userDataForEvent = [
+            'id' => $user->id,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'password' => $request->password,
+            'agent_id' => $request->agent_id ? $request->agent_id : null ,
+            'location'  => config('escorts.profile.states')[$user->state_id]['stateName'] ?? null,
+            'create_at' => Carbon::now()->format('j F'),
+            'member_id' => $user->member_id,
+        ];
+       
+        event(new Registered((object)$userDataForEvent));
 
         //dd($user);
         if($user) {

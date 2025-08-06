@@ -153,7 +153,7 @@
 
                             <div class="form-group">
                                 <label for="conformPassword">Referred by Agent (Agent ID)</label>
-                                <input type="txt" class="form-control" id="" placeholder="Enter Agent ID">
+                                <input type="txt" class="form-control" id="agent_id" name="agent_id" placeholder="Enter Agent ID">
                                 <div class="termsandconditions_text_color">
                                     <!-- error sms here -->
                                 </div>

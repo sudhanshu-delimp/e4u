@@ -17,10 +17,10 @@ class RegisterEmailForEscort extends Mailable
      *
      * @return void
      */
-    public $body;
-    public function __construct($body = null)
+    protected $user;
+    public function __construct($user)
     {
-        $this->body = $body;
+        $this->user = $user;
     }
 
     /**
@@ -30,6 +30,8 @@ class RegisterEmailForEscort extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.register.email_for_escort');
+        return $this->view('emails.register.email_for_escort')->with([
+            'user' => $this->user,
+        ]);
     }
 }

@@ -21,8 +21,8 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
             RegisterListenerForEscort::class,
-            //RegisterListenerForAdmin::class,
-           // RegisterListenerForAgent::class
+            RegisterListenerForAdmin::class,
+            RegisterListenerForAgent::class
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\LoginListener',
