@@ -232,7 +232,7 @@ class PinUpsController extends AppController
                         $response['html'] = view('partials.web.pinup_summary',compact('escort','user','profile_image'))->render();
                     } break;
                     case 'pinup_home':{
-                        $response['html'] = view('partials.web.pinup_home',compact('profile_image'))->render();
+                        $response['html'] = view('partials.web.pinup_home',compact('profile_image','user'))->render();
                     } break;
                 }
             }

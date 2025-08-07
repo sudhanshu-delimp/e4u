@@ -247,7 +247,7 @@
             data:{latitude, longitude, view:'pinup_home'},
             dataType:`JSON`,
             beforeSend: function(){
-                $("#preloader").addClass('pre-active');
+                //$("#preloader").addClass('pre-active');
             },
             success: function(response){
                 if(response.success){
