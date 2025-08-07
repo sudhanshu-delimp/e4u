@@ -5001,7 +5001,6 @@ padding-bottom:80px;
 .list-sec thead {
     background: #0C223D;
     color: #fff;
-    font-size: 14px;
 }
 
 .list-sec .table thead th {
@@ -5019,7 +5018,6 @@ padding-bottom:80px;
 
 .list-sec td {
     line-height: 16.8px;
-    font-size: 13px;
     font-weight: 500;
     color: #767676;
 }
