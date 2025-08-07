@@ -19,11 +19,12 @@
     </div>
     <div class="col-md-12 mb-4">
         <div class="card collapse" id="notes" style="">
-            <div class="card-body">
-                <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
-                <ol>
-                </ol>
-            </div>
+        <div class="card-body">
+            <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
+            <ol>
+               
+            </ol>
+        </div>
         </div>
     </div>
 </div>
@@ -43,6 +44,7 @@
                             <th>Date Created</th>
                             <th>Document</th>
                             <th>Status</th>
+                            <!--<th>Joined E4U</th>-->
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -286,26 +288,5 @@
         });
         // $("#sendMessage").reset();
     });
-   /*$(document).on('click','.delete-center', function(e){
-       e.preventDefault();
-       var $this = $(this);
-       $("#Lname").html("<p>Would you like to Delete?</p>");
-
-       $('#delete_profile').modal('show');
-
-       $("#save_change").click(function(e){
-           console.log($this.attr('href'));
-           $.ajax({
-                   method: "POST",
-                   url:$this.attr('href'),
-                   contentType: false,
-                   processData: false,
-                   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                   success: function (data) {
-                       location.reload();
-                   }
-
-           })
-       });*/
 </script>
 @endpush

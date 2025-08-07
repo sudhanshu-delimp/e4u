@@ -50,7 +50,7 @@
                 and at their Dashboard:</p>
 
             <ul>
-                <li><p class="mb-0">Select Pinups from the menu and click "New Pinup Registration"</p></li>
+                <li><p class="mb-0">Select Profiles Listed from the menu and click "Pin Up"</p></li>
                 <li><p class="mb-0">Follow the instructions and complete the form</p></li>
                 <li><p class="mb-0">Check your details are correct and proceed to payment</p></li>
             </ul>
