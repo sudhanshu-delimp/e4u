@@ -315,10 +315,19 @@ class User extends Authenticatable
         //dd($arr);
          return $arr;
     }
-    public function getMemberIdAttribute()
+    public function setMemberIdAttribute($value)
     {
-        //dd($this->state);
-        // return 'E4U20'.$this->id;
+        // If value is provided, use it, otherwise generate based on type and state
+        if (empty($value)) {
+            $memberId = $this->generateMemberId();
+            $this->attributes['member_id'] = $memberId;
+        } else {
+            $this->attributes['member_id'] = $value;
+        }
+    }
+
+    public function generateMemberId()
+    {
         if($this->type == 1) {
             return 'S'.config('escorts.profile.statesName')[$this->state->name].sprintf("%04d",$this->id);
         }
@@ -343,8 +352,30 @@ class User extends Authenticatable
         if($this->type == 10) {
             return 'DL'.config('escorts.profile.statesName')[$this->state->name].sprintf("%04d",$this->id).':001';
         }
+        
+        return null;
+    }
 
+    public function getMemberIdAttribute()
+    {
+        // Return the stored member_id from database
+        return $this->attributes['member_id'] ?? null;
+    }
 
+    /**
+     * Boot method to automatically set member_id when user is created
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($user) {
+            // Only set member_id if it's not already set
+            if (empty($user->member_id)) {
+                $user->member_id = $user->generateMemberId();
+                $user->save();
+            }
+        });
     }
 
     public function escorts()

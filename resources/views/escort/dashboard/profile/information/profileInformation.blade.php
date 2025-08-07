@@ -106,6 +106,7 @@
    position: relative;
    list-style: none;
    gap: 10px;
+   flex-wrap: wrap;
    }
    .active-play li {
    padding: 10px;
@@ -630,6 +631,52 @@
 
    });
    });
+
+    $(document).ready(function () {
+        $('input[name="sortedByStageName"]').on('change', function () {
+            let selectedValue = $(this).val(); 
+            sortStageNameByOrder(selectedValue);
+        });
+    });
+
+    function sortStageNameByOrder(sortBy){
+        $.ajax({
+                url: '{{route("escort.settings.sort-stage-name.about.me")}}', // Replace with your actual endpoint
+                type: 'POST',
+                data: {
+                    sort_by: sortBy,
+                    _token: $('meta[name="csrf-token"]').attr('content') // For Laravel CSRF
+                },
+                success: function (response) {
+                    if(response.status == true){
+                        let stageListhtml = ``;
+                        var da = response.data;
+                        if(response.sort_by != 'random'){
+                            da = (response.data).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()));
+                        }
+                        
+                        da.forEach(function (name) {
+                            stageListhtml += `
+                                <li style="font-size: 14px; background:#0C223D !important;">
+                                    <a href="#">${name}</a>
+                                    <div class="close ml-2 text-white stage-close" aria-label="Close">
+                                        <span aria-hidden="true" class='delete_stname' id='${name}'>×</span>
+                                        <small class='mytool-tip'>Remove</small>
+                                    </div>
+                                    <input type='hidden' name='name[]' value="${name}">
+                                </li>`;
+                        });
+                        $('#stageList').html(stageListhtml);
+                    }
+                     // Example DOM update
+                },
+                error: function (xhr) {
+                    console.error("Error in sorting:", xhr.responseText);
+                }
+            });
+    }
+
+    sortStageNameByOrder('alphabetically');
 
    $('#myServices').on('submit', function(e) {
        e.preventDefault();

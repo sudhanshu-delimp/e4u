@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -725,3 +726,13 @@ Route::post('send-notiification', [NotificationController::class, 'sendNotificat
 Route::post('/resend-otp', [App\Http\Controllers\User\Auth\RegisterController::class,'resendOtp'])->name('web.resend.otp');
 
 Route::post('/get-geolocation-data', [GetCurrentUserGeolocationController::class, 'getRealTimeGeo'])->name('user.current.location');
+
+
+
+// Generate all users member_id
+Route::get('/generate-all-users-member-id', [AdvertiserRegisterController::class, 'generateAllUsersMemberId']);
+
+Route::get('/delete', function(){
+    User::where('email', 'muqafan@mailinator.com')->forceDelete();
+    return "done";
+});
