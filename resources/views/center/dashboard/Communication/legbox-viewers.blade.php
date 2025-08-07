@@ -56,13 +56,11 @@
 <div class="container-fluid pl-3 pl-lg-5">
    <!--middle content start here-->
    <div class="row">
-      <div class="col-md-12">
-         <div class="v-main-heading h3" style="display: inline-block;">
-            <h1 class="p-0 m-0">My Legbox Viewers</h1>
-         </div>
-         <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+      <div class="col-md-12 custom-heading-wrapper">
+        <h1 class="h1">My Legbox Viewers</h1>
+         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
       </div>
-      <div class="col-md-12 my-2">
+      <div class="col-md-12 mb-4">
          <div class="card collapse" id="notes" style="">
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
@@ -86,7 +84,7 @@
             </div>
          </div>
          <div class="table-responsive list-sec">
-            <table class="table table-bordered table-hover mb-0">
+            <table class="table table-bordered table-hover mb-0" id="legboxNotificationTable">
                <thead>
                   <tr>
                      <th>Viewer ID</th>
@@ -188,6 +186,26 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+   var table = $("#legboxNotificationTable").DataTable({
+    language: {
+        search: "Search: _INPUT_",
+        searchPlaceholder: "Search by Viewer ID..."
+    },
+    info: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    bStateSave: true,
+    order: [[1, 'desc']],
+    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+    pageLength: 10
+});
+
+ </script>
 <script type="text/javascript">
    $('#userProfile').parsley({
    

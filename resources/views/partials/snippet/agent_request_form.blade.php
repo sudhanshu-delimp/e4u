@@ -63,7 +63,7 @@
                     </div>
 
                      @if(auth()->user()->is_agent_assign == '0' || auth()->user()->assigned_agent_id == null)
-                    <input type="submit" id="submitTicketBtn" value="Submit Request" class="new-btn-sec btn btn-primary shadow-none" name="submit">
+                    <input type="submit" id="submitTicketBtn" value="Submit Request" class="new-btn-sec text-white" name="submit">
                     @endif
 
                     @csrf

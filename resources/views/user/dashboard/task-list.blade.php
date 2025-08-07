@@ -228,7 +228,8 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="task_title">New Task</h5>
+                <h5 class="modal-title" id="task_title"><img src="{{ asset('assets/dashboard/img/add-task.png') }}"
+                    class="custompopicon"> New Task</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                             class="img-fluid img_resize_in_smscreen"></span>
@@ -270,8 +271,8 @@
                         <div class="col-md-12 mb-3">
                             <div class="form-group d-flex align-items-center justify-content-end">
                                 <div>
-                                    <button type="submit" class="btn btn-danger bg-dangers shadow-none ml-2 " data-dismiss="modal" aria-label="Close">Cancel</button>
-                                    <button type="submit" class="btn btn-primary shadow-none ml-2 "
+                                    <button type="submit" class="btn-cancel-modal ml-2 " data-dismiss="modal" aria-label="Close">Cancel</button>
+                                    <button type="submit" class="btn-success-modal ml-2 "
                                     id="save_button">Save</button>
                                 </div>
                                 
@@ -290,7 +291,8 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="task_title">Edit Task</h5>
+                <h5 class="modal-title" id="task_title"> <img src="{{ asset('assets/dashboard/img/edit-task.png') }}"
+                    class="custompopicon"> Edit Task</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                             class="img-fluid img_resize_in_smscreen"></span>
@@ -341,9 +343,9 @@
                             <div class="form-group d-flex align-items-center justify-content-end">
                                
                             <div>
-                                <button type="submit" class="btn btn-danger bg-dangers shadow-none ml-2 "
+                                <button type="submit" class="btn-cancel-modal ml-2 "
                                 id="save_button"  data-dismiss="modal" aria-label="Close">Cancel</button>
-                                <button type="submit" class="btn btn-primary shadow-none ml-2 "
+                                <button type="submit" class="btn-success-modal ml-2 "
                                 id="save_button">Update</button>
                             </div>
                                 
@@ -363,7 +365,8 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="task_title">View Task</h5>
+                <h5 class="modal-title" id="task_title"> <img src="{{ asset('assets/dashboard/img/website.png') }}"
+                    class="custompopicon"> View Task</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                             class="img-fluid img_resize_in_smscreen"></span>
@@ -412,9 +415,9 @@
                         <div class="col-md-12 mb-3">
                             <div class="form-group d-flex align-items-center justify-content-end">
                                 <div>
-                                    <button type="button" class="btn btn-secondary shadow-none ml-2" id="edit_button">Edit</button>
-                                    <button type="submit" class="btn btn-primary shadow-none ml-2 d-none" id="update_button">Update</button>
-                                    <button type="button" class="btn btn-danger bg-dangers shadow-none ml-2" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn-success-modal ml-2" id="edit_button">Edit</button>
+                                    <button type="submit" class="btn-success-modal ml-2 d-none" id="update_button">Update</button>
+                                    <button type="button" class="btn-cancel-modal ml-2" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>

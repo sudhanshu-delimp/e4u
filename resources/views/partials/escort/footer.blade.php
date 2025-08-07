@@ -18,10 +18,10 @@
                     </div>
                     <div class="modal-body">Are you sure that you want to logout?</div>
                     <div class="modal-footer">
-                        <button class="btn main_bg_color site_btn_primary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn-cancel-modal" type="button" data-dismiss="modal">Cancel</button>
                         <form method="POST" action="{{ route('advertiser.logout') }}">
                             @csrf
-                            <button type="submit" class="btn main_bg_color site_btn_primary">Logout</button>
+                            <button type="submit" class="btn-success-modal">Logout</button>
                         </form>
                     </div>
                 </div>

@@ -54,11 +54,11 @@
                                         alt="logo">
                                     <span class="custom-icon-hover-tooltip">Couples</span>
                                 </a></li>
-                            <li class="{{!empty($escort->available_to) && in_array(5 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/disabilities.png') }}" class=""
+                            <li class="{{!empty($escort->available_to) && in_array(5 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/icon_disabled.png') }}" class=""
                                     alt="logo">
                                 <span class="custom-icon-hover-tooltip">Disabled</span>
                             </a></li>
-                            <li class="{{!empty($escort->available_to) && in_array(6 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/group.png') }}" class=""
+                            <li class="{{!empty($escort->available_to) && in_array(6 , $escort->available_to)?'':'d-none'}}"><a href="#"><img src="{{ asset('assets/app/img/icon_groups.png') }}" class=""
                                     alt="logo">
                                 <span class="custom-icon-hover-tooltip">Groups/Parties</span>
                             </a></li>

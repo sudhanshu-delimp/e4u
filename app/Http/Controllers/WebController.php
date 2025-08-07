@@ -68,8 +68,12 @@ class WebController extends Controller
 
     public function applyFilterOnEscort($query,$str,$gender, $age, $location)
     {
-        # Get non suspended escort profile only
-        $suspendProfileIds = SuspendProfile::whereDate('start_date', '<=', Carbon::now(config('app.timezone')))->whereDate('end_date', '>=', Carbon::now(config('app.timezone')))->where('status', true)->pluck('escort_profile_id')->unique();
+        # Get suspended escort profile only
+        $suspendProfileIds = SuspendProfile::where('utc_start_date', '<=', Carbon::now('UTC'))
+        ->where('utc_end_date', '>=', Carbon::now('UTC'))
+        ->pluck('escort_profile_id')
+        ->unique();
+        
         $query = $query
                 ->with('suspendProfile')
                 ->whereNotIn('id', $suspendProfileIds);

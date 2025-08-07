@@ -17,11 +17,11 @@
 <div class="container-fluid pl-3 pl-lg-5">
     <!--middle content start here-->
         <div class="row">
-            <div class="col-md-12">
-                <div class="v-main-heading h3" style="display: inline-block;">Agent Request</div>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+            <div class="col-md-12 custom-heading-wrapper">
+                <h1 class="h1">Agent Request</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
-            <div class="col-md-12 mt-4 mb-5">
+            <div class="col-md-12 mb-4">
                 <div class="row collapse" id="notes">
                     <div class="col-md-12 mb-4">
                         <div class="card">

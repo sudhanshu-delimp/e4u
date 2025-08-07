@@ -12,12 +12,12 @@
 #cke_1_contents {
     height: 150px !important;
 }
-.dataTables_filter label {
+/* .dataTables_filter label {
     display: none;
-}
-.dataTables_length{
+} */
+/* .dataTables_length{
     display: none;
-}
+} */
 #escort_listings{
     margin-bottom: 0px !important;
 }
@@ -33,12 +33,12 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!--middle content-->
     <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading">
-                <h1> Escort Listings<span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                        style="font-size:16px"><b>Help?</b> </span></h1>
-            </div>
-            <div class=" my-4">
+            <div class="col-md-12 custom-heading-wrapper">
+                    <h1 class="h1"> Escort Listings</h1>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                    style="font-size:16px"><b>Help?</b> </span>
+            </div>            
+            <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes">
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -55,7 +55,7 @@
         </div>
         <div class="col-sm-12 col-md-12 col-lg-12 ">
             <div class="row my-3">
-                <div class="col-lg-4 col-md-12 col-sm-12">
+                {{-- <div class="col-lg-4 col-md-12 col-sm-12">
                     <form class="search-form-bg navbar-search">
                         <div class="input-group">
                             <input type="text" class="search-form-bg-i form-control border-0 small"
@@ -67,8 +67,8 @@
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
+                </div> --}}
+                <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
                   
                     <div class="total_listing">
                         <div><span>Total Listings : </span></div>
@@ -106,36 +106,6 @@
                         <tr class="row-color">
                             <td colspan="10" class="theme-color text-center">Loading...</td>
                         </tr>
-                        {{-- <tr class="row-color">
-                            <td width="10%" class="theme-color">M60178</td>
-                            <td class="theme-color">Lins Massage</td>
-                            <td class="theme-color">Perth</td>
-                            <td class="theme-color">Perth 01</td>
-                            <td class="theme-color">Platinum</td>
-                            <td class="theme-color">23-05-2025</td>
-                            <td class="theme-color">17-06-2025</td>
-                            <td class="theme-color">14</td>
-                            <td class="theme-color">15</td>
-                            <td>
-                                <div class="dropdown no-arrow ml-3">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink" style="">
-                                        <!-- <a class="dropdown-item" href="#">Published <i class="fa fa-check text-dark"
-                                                style="float: right;"></i></a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Withdrawn <i class="fa fa-times text-dark"
-                                                style="float: right;"></i></a> -->
-                                        <!-- <div class="dropdown-divider"></div> -->
-                                        <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">View Listing <i class="fa fa-eye text-dark"
-                                                style="color: var(--peach);" data-toggle="modal" data-target="#view-listing"></i></a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr> --}}
                     </tbody>
                 </table>
                 <div class="timer_section">
@@ -144,25 +114,7 @@
                     <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
                 </div>
                 <div class="customPaginationContainer mt-4 d-flex justify-content-between "></div>
-                <nav aria-label="Page navigation example">
-                    {{-- <ul class="pagination float-right pt-4">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">«</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">»</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul> --}}
-                </nav>
+                
             </div>
         </div>
        {{-- <div class="col-sm-12 col-md-12 col-lg-12">
@@ -189,7 +141,7 @@
    <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
       <div class="modal-content basic-modal modal-lg">
          <div class="modal-header">
-            <h5 class="modal-title" id="emailReport">Listing</h5>
+            <h5 class="modal-title" id="emailReport"><img src="{{ asset('assets/dashboard/img/view-listing.png')}}" class="custompopicon">  Listing</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -318,11 +270,18 @@ CKEDITOR.replace('editor1', {
         function ajaxReload()
         {
             var table = $('#escort_listings').DataTable({
+                language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Member ID..."
+            },   
+            info: true,
+            lengthChange: true,
+            searching: true,
+            bStateSave: true,
+            order: [[1, 'desc']],
             processing: true,
             serverSide: true,
             paging: true,
-            info: true, // optional: hides "Showing X of Y"
-            searching: true,
             ajax: {
                 url: "{{ route('escort.current.list.escort-dataTableListing', 'current') }}", 
                 type: "GET",

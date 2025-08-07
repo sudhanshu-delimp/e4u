@@ -19,6 +19,7 @@ use App\Http\Requests\Escort\UpdateRequestReadMore;
 use App\Http\Requests\Escort\UpdateRequestAbout;
 use App\Http\Requests\Escort\StoreRateRequest;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
+use App\Models\Escort;
 use App\Repositories\Duration\DurationInterface;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -27,6 +28,9 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\Escort\EscortMediaInterface;
 use App\Models\EscortCovidReport;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 //use Illuminate\Http\Request;
 
 class ProfileInformationController extends Controller
@@ -119,7 +123,6 @@ class ProfileInformationController extends Controller
     }
     public function storeAboutMe(UpdateRequestAboutMe $request)
     {
-        //dd($request->all());
         $save_user = auth()->user();
         $user = $this->user->find(auth()->user()->id);
         $user->escorts_names = $request->name;
@@ -169,6 +172,24 @@ class ProfileInformationController extends Controller
             $error = false;
         }
         return response()->json(compact('error'));
+    }
+    public function sortByStageNameAboutMe(Request $request)
+    {
+        if(Auth::user() == null){
+            return response()->json([
+                'status'=>  false,
+                'sort_by' => 'random',
+                'data'=>[],
+            ]);
+        }
+
+        $stageName = auth()->user()->escorts_names;
+
+        return response()->json([
+            'status'=> auth()->user() ? true : false,
+            'sort_by' => $request->sort_by,
+            'data'=>$stageName,
+        ]);
     }
     public function storeSocialsLink(Request $request)
     {

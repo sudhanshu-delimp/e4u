@@ -77,7 +77,7 @@
                         <h1 class="h3 mb-0 text-gray-800">Photos </h1>
                     </div>
                     <div class="col-md-2" style="padding-left: 7rem;">
-                        <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
+                        <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
                     </div>
                 </div>
             </div>
@@ -317,8 +317,8 @@
                     </div>
                     <input type="hidden" id="deleteId" value="">
                     <div class="modal-footer border-0 pt-5" style="justify-content: flex-start;">
-                        <button type="submit" class="btn btn-secondary create-tour-sec permission">Ok</button>
-                        <button type="button" class="btn btn-primary create-tour-sec nopermission" data-dismiss="modal" aria-label="Close">close</button>
+                        <button type="submit" class="btn-success-modal permission">Ok</button>
+                        <button type="button" class="btn-cancel-modal nopermission" data-dismiss="modal" aria-label="Close">close</button>
                     </div>
 
             </div>
@@ -332,7 +332,7 @@
             @csrf
             <div class="modal-content border-0">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Upload Photos</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle"><img src="{{ asset('assets/dashboard/img/upload-photos.png')}}" class="custompopicon"> Upload Photos</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                     </button>
@@ -475,7 +475,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Upload</button>
+                    <button type="submit" class="btn-success-modal">Upload</button>
                 </div>
             </div>
             </form>

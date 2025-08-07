@@ -191,7 +191,7 @@ class EscortMediaRepository extends BaseRepository implements EscortMediaInterfa
             '1' => ['path'=>url('assets/app/img/img-11.png'), 'id'=>''],
             '8' => ['path'=>url('assets/app/img/img-13.png'), 'id'=>''],
             '9' => ['path'=>url('assets/app/img/img-13.png'), 'id'=>''],
-            '10' => ['path'=>url('assets/app/img/upload-manage-video.png'), 'id'=>'']
+            '10' => ['path'=>url('assets/app/img/pin-up-img-default.png'), 'id'=>'']
         ];
         switch (in_array($position, ['1', '8', '9', '10'])) {
             case '1':

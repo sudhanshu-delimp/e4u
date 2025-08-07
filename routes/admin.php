@@ -111,6 +111,10 @@ Route::get('advertiser-reports',function(){
     return view('admin.advertiser-reports');
 })->name('admin.advertiser-reports');
 
+Route::get('advertiser-reviews',function(){
+    return view('admin.advertiser-reviews');
+})->name('admin.advertiser-reviews');
+
 Route::get('support-tickets',function(){
     return view('admin.support-tickets');
 })->name('admin.support-tickets');

@@ -15,9 +15,9 @@
    <!--middle content start here-->
    <div class="row">
       <div class="col-md-12">
-         <div class="v-main-heading h3">
-             Visa & Education
-             <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+         <div class="custom-heading-wrapper col-lg-12">
+            <h1 class="h1">Visa & Education</h1>
+             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
          </div>
       </div>
       <div class="col-md-12 ">
@@ -35,7 +35,7 @@
               </div>
           </div>
       </div>
-      <div class="col-md-12 mt-4 mb-5">
+      <div class="col-md-12">
          <div class="row">
             <div class="col-md-12">
                <div class="row">
@@ -48,7 +48,7 @@
                   </div>
                </div>
             </div>
-         </div>
+          </div>
          <form class=" ">
             <div class="row">
                <div class="col-md-12">
@@ -145,7 +145,7 @@
                      <p>No. Escorts4U does not undertake any communication with, or report to, the the Australian Government. Our Partner may undertake enquiries on your behalf should you engage them. You should direct any questions regarding the Australian Government directly to our Partner.</p>
                      <p><b>Q? How do I make payment?</p> 
                      <p>If you engage our Partner, they will make full disclosure of fees and charges, including fees payable to the Australian Government, and invoice you directly. Payment is made
-directly to our Partner to their nominated bank account, details of which are set out in the Partner's invoice.</p>
+                            directly to our Partner to their nominated bank account, details of which are set out in the Partner's invoice.</p>
                   </div>
                </div>
             </div>
