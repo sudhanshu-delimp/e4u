@@ -47,7 +47,7 @@
                         <ol>
                             <li>Use this feature to review and make changes to your Profiles.</li>
                             <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action function, you will be able to View, Edit or Delete the Profile.</li>
-                            <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming" class="custom_links_design">View Listings</a></li>
+                            <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming" class="custom_links_design">View Listings.</a></li>
                         </ol>
                     </div>
                 </div>
@@ -66,10 +66,8 @@
                                 <th>Priority</th>
                                 <th>Service Type</th>
                                 <th>Subject</th>
-                                {{-- <th>Message</th>--}}
                                 <th>Date Created</th>
                                 <th>Status</th> 
-                                <!--<th>Joined E4U</th>-->
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -88,7 +86,7 @@
             {{-- {{ route('escort.upload.gallery') }} --}}
             <div class="modal-content border-0">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="ticket_name">Support Ticket</h5>
+                    <span class="custom-pop-wrapper"><img src="/assets/app/img/history.png" class="custompopicon" alt="cross"><h5 class="modal-title" id="ticket_name">Support Ticket</h5></span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
                                                       class="img-fluid img_resize_in_smscreen"></span>
@@ -105,7 +103,7 @@
                     <form id="sendMessage">
                        <div class="reply-message-box">
                         <textarea class="messageBox" name="message" id="message" rows="2" required></textarea>
-                        <button class="btn btn-info send-btn" id="submit_message">Send</button>
+                        <button class="btn-success-modal py-3" id="submit_message">Send</button>
                        </div>
                     </form>
                 </div>
@@ -245,7 +243,7 @@
                 if(data.status == "success") {
                     Swal.fire(
                         'Message Sent!',
-                        'Your message sent successfully',
+                        'Your message has been successfully sent.',
                         'success'
                     );
                     $("#conversation_modal").modal('hide');
@@ -254,7 +252,7 @@
                     Swal.close();
                     Swal.fire(
                         'Oops!',
-                        'Error while saving the message',
+                        'Error while saving the message.',
                         'error'
                     );
                 }

@@ -24,7 +24,7 @@
         /*bottom: 0;*/
     }
     .modal-body {
-        min-height: 200px;
+        /* min-height: 200px; */
     }
     .messageBox {
         border-radius: 10px;

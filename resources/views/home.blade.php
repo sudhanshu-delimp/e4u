@@ -217,7 +217,7 @@
                     <div class="padding">
                         <a class="btn btn_advertiser"  style="border: 1px solid;" href="{{ route('advertiser.register') }}" role="button">I am an Advertiser</a>
                         <a class="btn btn_viewer" style="border: 1px solid;" href="{{ route('register') }}" role="button">I am a Viewer</a>
-                        <a class="btn  btn_viewer" style="color:red;border: 1px solid;" href="{{ route('agent.register')}}" role="button">I am an Agent</a>
+                        <a class="btn  btn_viewer" style="color:var(--peach);border: 1px solid var(--peach);" href="{{ route('agent.register')}}" role="button">I am an Agent</a>
                     </div>
                 </div>
             </div>
