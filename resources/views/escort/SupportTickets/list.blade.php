@@ -14,20 +14,16 @@
 {{-- Page Heading   --}}
 <div class="row">
     <div class="custom-heading-wrapper col-lg-12">
-        <h1 class="h1">My Support Tickets</h1>
+        <h1 class="h1">View & Reply Ticket</h1>
         <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
     </div>
     <div class="col-md-12 mb-4">
         <div class="card collapse" id="notes" style="">
-        <div class="card-body">
-            <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
-            <ol>
-                {{-- <li>Use this feature to review and make changes to your Profiles.</li>
-                              <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action function, you will be able to View, Edit or Delete the Profile.</li>
-                              <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming">View Listings</a></li>
-                           --}}
-            </ol>
-        </div>
+            <div class="card-body">
+                <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
+                <ol>
+                </ol>
+            </div>
         </div>
     </div>
 </div>
@@ -46,8 +42,7 @@
                             <th>Subject</th>
                             <th>Date Created</th>
                             <th>Document</th>
-                            <th width="900px">Status</th>
-                            <!--<th>Joined E4U</th>-->
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -90,7 +85,7 @@
                        <div class="reply-message-box">
                         <textarea class="messageBox" name="message" id="message" rows="2" required></textarea>
                         <input type="hidden" name="ticketId"  id="ticketId" value="">
-                        <button class="btn btn-info send-btn" id="submit_message">Send</button>
+                        <button class="btn-success-modal py-3" id="submit_message">Send</button>
                        </div>
                     </form>
                 </div>
@@ -150,7 +145,7 @@
 
     // ✅ Add placeholder to search input
     $('#supportTicketsTable').on('init.dt', function () {
-        $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search Ticket');
+        $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search By Ticket ID');
     });
 
     // 🟠 Cancel Ticket
@@ -275,7 +270,7 @@
                 if(data.status == "success") {
                     Swal.fire(
                         'Message Sent!',
-                        'Your message sent successfully',
+                        'Your message has been successfully sent.',
                         'success'
                     );
                     $("#conversation_modal").modal('hide');
