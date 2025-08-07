@@ -554,18 +554,39 @@
                             <label class="col-sm-3 font-weight-500 small-icon custom--stathead  custom--stathead--flex" for="exampleFormControlSelect1" style="font-size: 18px;">
                             <h2>Create Stage Names</h2>
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="You can create as many as you like. Select your Stage Name from the drop down list that will appear in the Profile creator." data-boundary="window">
+
                             </label>
+                            
                             <div class="col-sm-12">
+                                <div class="col-sm-12 ">
                                 <input type="text" class="form-control form-control-sm {{-- js-example-tokenizer--}}" id="st_name" placeholder="Enter stage name">
+                                </div>
                                     {{-- <option value="">-Not Set-</option> --}}
 
                                 {{-- </select> --}}
+                                
+                                <div class="col-sm-12 " style="display: ruby; padding-left: 0px;">
+                                    <label for="">Sort By : </label>
+                                    <div class="pt-4 pb-3" data-i="{{$escort->covidreport}}">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input sortedByStageName" type="radio" name="sortedByStageName" id="alphabetically" value="alphabetically" checked>
+                                            <label class="form-check-label" for="alphabetically">Alphabetical (A–Z)</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input sortedByStageName" type="radio" name="sortedByStageName" id="random" value="random">
+                                            <label class="form-check-label" for="random">Random</label>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="card-body active-play border-0 pt-0 pl-0 mt-1 pb-0 mb-0">
                                     <div class="at-lable  mt-0">
-                                        <ul class="results  mt-4" id="stageList">
+                                        <ul class="results" id="stageList">
                                             @if(!empty(auth()->user()->escorts_names))
-                                                @foreach(auth()->user()->escorts_names as $key => $name)
+                                                @php 
+                                                    $sortedEscortName= Arr::sort(auth()->user()->escorts_names);
+                                                @endphp
+                                                @foreach($sortedEscortName as $key => $name)
                                                 <li style="font-size: 14px; background:#0C223D !important;"> <a href="#">{{ $name}}</a>
                                                     <div class="close ml-2 text-white stage-close" aria-label="Close">
                                                         <span aria-hidden="true" class='delete_stname' id='{{$name}}'>×</span>

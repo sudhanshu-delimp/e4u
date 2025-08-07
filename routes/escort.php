@@ -99,6 +99,7 @@ Route::post('profile/{id}',[UpdateController::class,'storeAboutMe'])->name('esco
 /////////settings
 Route::get('profile-information', [ProfileInformationController::class, 'showAboutMe'])->name('escort.profile.information');
 Route::post('settings-information',[ProfileInformationController::class,'storeAboutMe'])->name('escort.settings.about.me');
+Route::post('settings-information/sort-stage-name',[ProfileInformationController::class,'sortByStageNameAboutMe'])->name('escort.settings.sort-stage-name.about.me');
 Route::post('settings-my-rates',[ProfileInformationController::class,'storeRates'])->name('escort.settings.rate');
 Route::post('settings-availability',[ProfileInformationController::class,'storeAvailability'])->name('escort.settings.availability');
 Route::post('settings-services',[ProfileInformationController::class,'storeServices'])->name('escort.settings.services');
