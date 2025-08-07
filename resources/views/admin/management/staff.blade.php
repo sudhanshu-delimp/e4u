@@ -47,12 +47,12 @@
                               </div>
                               <div class="col-lg-8 col-md-12 col-sm-12">
                                  <div class="bothsearch-form" style="gap: 10px;">
-                                    <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#addStaffnew">Add New Staff Member</button>
+                                    <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#addStaffnew">Add New Staff Member</button>
                                  </div>
                               </div>
                            </div>                                    
                            <div class="table-responsive-xl">
-                              <table class="table mb-0">
+                              <table class="table mb-0" id="staffTable">
                                  <thead class="table-bg">
                                  <tr>
                                     <th scope="col">
@@ -131,7 +131,7 @@
                                     
                                              <div class="d-flex justify-content-end">
                                                 <!-- Print Button -->
-                                             <button class="save_profile_btn  d-block bg-second" onclick="printAgent('account-row-S60001')">
+                                             <button class="btn-success-modal d-block" onclick="printAgent('account-row-S60001')">
                                                 <i class="fa fa-print text-white"></i> Print
                                              </button>
                                              </div>
@@ -180,7 +180,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="addStaffnew">Add New Staff Member</h5>
+            <h5 class="modal-title" id="addStaffnew"><img src="{{ asset('assets/dashboard/img/add-member.png')}}" class="custompopicon"> Add New Staff Member</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -308,7 +308,7 @@
 
                </div>             
                <div class="modal-footer p-0 pl-2 pb-4">
-                  <button type="button" class="btn btn-primary mr-3">Save</button>
+                  <button type="button" class="btn-success-modal mr-3">Save</button>
                </div>
             </form>
          </div>
@@ -318,12 +318,12 @@
  <!-- end -->
 
 
-<!-- add new staff member popupform -->
+<!-- update staff member popupform -->
 <div class="modal fade upload-modal" id="updateStaff" tabindex="-1" role="dialog" aria-labelledby="updateStaffLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="updateStaff">Update Staff Details</h5>
+            <h5 class="modal-title" id="updateStaff"> <img src="{{ asset('assets/dashboard/img/add-member.png')}}" class="custompopicon"> Update Staff Details</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -447,7 +447,7 @@
                   </div>
                </div>
                <div class="modal-footer p-0 pl-2 pb-4">
-                  <button type="button" class="btn btn-primary mr-3">Save</button>
+                  <button type="button" class="btn-success-modal mr-3">Save</button>
                </div>
             </form>
          </div>
@@ -462,8 +462,25 @@
     "></script>
    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+   <script>
+     $(document).ready(function () {
+      var table = $('#staffTable').DataTable({
+         paging: true,
+         searching: true,
+         ordering: true,
+         info: true,
+         responsive: true,
+         language: {
+            search: "Search:",
+            searchPlaceholder: "Search by Staff ID or Name..."
+         },
+         columnDefs: [
+            { orderable: false, targets: -1 } // Disable ordering on Action column
+         ]
+      });
 
-<script type="text/javascript">
+   });
+
    $(document).ready(function(e) {
             // ajaxReload();
             let countdown = 15;

@@ -65,7 +65,7 @@
                         <div class="panel-body">
                            <div class="tab-content">
                               <div class="tab-pane fade in active show" id="tab1warning">
-                                 <div id="table-sec" class="table-responsive-xl w-75 pt-3 mt-5">
+                                 <div  class="table-responsive-xl w-75 pt-3 mt-5">
                                     <table class="table" id="securityDatatable">
                                        <thead class="table-bg">
                                           <th scope="col">Member ID</th>
@@ -472,25 +472,18 @@ Consoles</span></li>
    $("#securityDatatable").DataTable({
        "language": {
            search: "_INPUT_",
-        searchPlaceholder: "Search",
-        "sSearch": '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>',
+        searchPlaceholder: "Search by Member ID...",
 
-        oPaginate: {
-       sNext: '<span aria-hidden="true">»</span>',
-       sPrevious: '<span aria-hidden="true">«</span>',
-       sFirst: '<span aria-hidden="true">»</span>',
-       sLast: '<span aria-hidden="true">»</span>'
-    }
        },
 
-       info: false,
-      bLengthChange: false,
+       info: true,
+       bLengthChange: true,
        processing: true,
        serverSide: true,
        lengthChange: true,
        order: [0,'asc'],
        searchable:false,
-       //searching:false,
+       searching:true,
        bStateSave: true,
 
        ajax: {
