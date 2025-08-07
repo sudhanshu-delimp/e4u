@@ -69,15 +69,33 @@ class RegisterController extends Controller
       * @return \Illuminate\Contracts\Validation\Validator
       */
 
+     /**
+     * Check if agent_id exists in the users table.
+     *
+     * @param int $agent_id
+     * @return int
+     */
+
+    
+
+    protected function getAgentIdIfExist($data){
+        if ($data['agent_id']) {
+            $agent = User::where('member_id', $data['agent_id'])->where('type', 5)->first();
+            return $agent ? $agent->member_id : null;
+        }else{
+            return null;
+        }
+    }
+
     protected function create($data)
     {
-
         return User::create([
             // 'phone' => (int) $data['phone'],
             'phone' => $data['phone'],
             'email' => $data['email'],
             'state_id' => $data['state_id'],
             'type' => $data['type'],
+            'referred_by_agent_id' => $this->getAgentIdIfExist($data),
             'password' => Hash::make($data['password']),
             'enabled' => 1,
             'viewer_contact_type' => ["2"],
@@ -95,10 +113,23 @@ class RegisterController extends Controller
     public function register(StoreAdvertiserRegisterRequest $request)
     {
 
+        $password = $request->password;
+        $user = $this->create($request->all());
 
-        event(new Registered($user = $this->create($request->all())));
+        $userDataForEvent = [
+            'id' => $user->id,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'password' => $request->password,
+            'agent_id' => $user->referred_by_agent_id ? $user->referred_by_agent_id : null,
+            'location'  => config('escorts.profile.states')[$user->state_id]['stateName'] ?? null,
+            'create_at' => Carbon::now()->format('j F'),
+            'member_id' => $user->member_id,
+        ];
 
-        //dd($user);
+       
+        event(new Registered((object)$userDataForEvent));
+
         if($user) {
             $error = 1;
             $phone = $user->phone;
@@ -145,4 +176,32 @@ class RegisterController extends Controller
 
     //     return $request->wantsJson() ? new JsonResponse([], 201) : redirect($this->redirectPath());
     // }
+
+
+    public function generateAllUsersMemberId()
+    {
+        try {
+            $usersWithoutMemberId = User::whereNull('member_id')
+                ->orWhere('member_id', '')
+                ->get();
+
+            foreach ($usersWithoutMemberId as $user) {
+                $memberId = $user->generateMemberId();
+                if ($memberId) {
+                    $user->member_id = $memberId;
+                    $user->save();
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'All missing member_ids generated and saved.'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
+        }
+    }
 }
