@@ -33,28 +33,10 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 ">
                     <!-- Begin Page Content -->
-                    <div class="container-fluid" style="padding: 0px 0px;">
-                        
-                        <div class="row">
-                            <div class="col-lg-4 col-md-12 col-sm-12">
-                                <form class="search-form-bg navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn-right-icon" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.container-fluid --><br>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive-xl">
-                                <table class="table">
+                                <table class="table" id="logOfficeTable">
                                     <thead class="table-bg">
                                         <tr>
                                             <th scope="col">ID</th>
@@ -81,12 +63,12 @@
                                             <td class="theme-color">26-05-20 01:04 PM </td>
                                             <td class="theme-color owner-sec" data-toggle="modal" data-target="#Competitor">
                                                 <select class="form-control rounded-0 w-75">
-                                <option class="text-secondary">Admin</option>
-                                <option class="text-secondary">Staff</option>
-                                <option class="text-secondary">Agent</option>
-                                <option class="text-secondary">Viewer</option>
-                                <option class="text-secondary">Advertiser</option>
-                            </select>
+                                                    <option class="text-secondary">Admin</option>
+                                                    <option class="text-secondary">Staff</option>
+                                                    <option class="text-secondary">Agent</option>
+                                                    <option class="text-secondary">Viewer</option>
+                                                    <option class="text-secondary">Advertiser</option>
+                                                </select>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -112,19 +94,45 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="Competitor">Change Security Level</h5>
+                <h5 class="modal-title" id="Competitor"> <img src="{{ asset('assets/dashboard/img/change-security.png')}}" class="custompopicon">Change Security Level</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
             </div>
             <div class="modal-body pb-0">
-              <p class="pl-5 pr-5 pt-4 mb-0"> You’re about to change <b>Ewan Dev</b> Security Level from <b>Admin</b> to <b>Staff</b></p>
+              <p class="py-4 mb-0"> You’re about to change <b>Ewan Dev</b> Security Level from <b>Admin</b> to <b>Staff</b></p>
             </div>
             <div class="modal-footer">
-          <button type="button" class="btn btn-primary" style="background: #5D6D7E;border: #5D6D7E;">Cancel</button>
-                <button type="button" class="btn btn-primary">Confirm</button>
+          <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn-success-modal">Confirm</button>
             </div>
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+   var table = $("#logOfficeTable").DataTable({
+    language: {
+        search: "Search: _INPUT_",
+        searchPlaceholder: "Search by ID..."
+    },
+    info: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    bStateSave: true,
+    order: [[1, 'desc']],
+    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+    pageLength: 10
+});
+
+ </script>
+
 @endsection

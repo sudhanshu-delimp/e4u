@@ -5011,7 +5011,6 @@ padding-bottom:80px;
 .list-sec thead {
     background: #0C223D;
     color: #fff;
-    font-size: 14px;
 }
 
 .list-sec .table thead th {
@@ -5029,7 +5028,6 @@ padding-bottom:80px;
 
 .list-sec td {
     line-height: 16.8px;
-    font-size: 13px;
     font-weight: 500;
     color: #767676;
 }
@@ -6739,8 +6737,10 @@ ul.tab-sec {
     text-decoration: none;
     transition: background-color 0.3s;
 }
-
-
+div#sailorTable_info {
+    color: #000;
+    font-size: 15px;
+}
 /* #table-sec input {
     background: #EFF0F6;
     border: 0;
@@ -7897,7 +7897,10 @@ td {
     background-color: var(--peach) !important;
 }
 
-
+#myAdvertisersList_wrapper .dropdown-menu.show {
+    overflow-y: scroll;
+    height: 250px;
+}
 /* blog page design css */
 
 .upload-wrapper {

@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="table-responsive membership--inner">
-            <table class="table table-bordered text-center mb-0">
+            <table class="table table-bordered text-center mb-0" id="profileStatisticTable">
                <colgroup>
                   <col style="width: 7%;">
                   <col style="width: 7%;">
@@ -951,6 +951,12 @@
 </div>
 @endsection
 @section('script')
+
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
 <script>
   $(document).ready(function() {
             let isHidden = false;
@@ -992,5 +998,22 @@
             });
         });
 </script>
+<script>
+   var table = $("#profileStatisticTable").DataTable({
+    language: {
+        search: "Search: _INPUT_",
+        searchPlaceholder: "Search by Name..."
+    },
+    info: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    bStateSave: true,
+    order: [[1, 'desc']],
+    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+    pageLength: 10
+});
+
+ </script>
 
 @endsection

@@ -41,10 +41,10 @@
    </div>
 
    <!--middle content-->
-   <div class="row">
+   <div class="row">      
     <div class="col-md-12">        
-        <div class="table-responsive membership--inner">
-            <table class="table table-bordered text-center display" id="transactionSummaryTable">
+        <div class="membership--inner">
+            <table class="table table-bordered text-center" id="transactionSummaryTable">
                  <thead class="table-bg">
                    <tr>
                     <th>Ref</th>
@@ -147,9 +147,7 @@
                   </div>
                </div>
             </div>
-            <!-- <div class="modal-footer pb-4 mb-2">
-                <button type="button" class="btn btn-primary">Publish</button>
-            </div> -->
+           
         </div>
     </div>
 </div>
@@ -163,21 +161,34 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-   var table = $("#transactionSummaryTable").DataTable({
-    language: {
-        search: "Search: _INPUT_",
-        searchPlaceholder: "Search by Ref No..."
-    },
-    info: true,
-    paging: true,
-    lengthChange: true,
-    searching: true,
-    bStateSave: true,
-    order: [[1, 'desc']],
-    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10
-});
+   $(document).ready(function() {
+      var table = $("#transactionSummaryTable").DataTable({
+         language: {
+            search: "Search: _INPUT_",
+            searchPlaceholder: "Search by Member ID or Agent ID...",
+            lengthMenu: "Show _MENU_ entries",
+            zeroRecords: "No matching records found",
+            info: "Showing _START_ to _END_ of _TOTAL_ entries",
+            infoEmpty: "No entries available",
+            infoFiltered: "(filtered from _MAX_ total entries)"
+         },
+         processing: true,
+         serverSide: true,
+         paging: true,
+         lengthChange: true,
+         searching: true,
+         bStateSave: true,
+         order: [[1, 'desc']],
+         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+         pageLength: 10,
+         ajax: "{{ route('escort.bankDetail.dataTable') }}",
 
- </script>
+         // ✅ Disable sorting on Action column (change the target index as needed)
+         columnDefs: [
+            { targets: 6, orderable: false } // 5 = 6th column (0-based index)
+         ]
+      });
+   });
+</script>
 
 @endsection

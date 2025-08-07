@@ -330,14 +330,13 @@
                 <a class="collapse-item show" href="{{ url('user-dashboard/submitticket') }}">
                     <img src="{{ asset('assets/app/img/right-30.png') }}">
                     <span
-                        style="{{ request()->segment(2) == 'submitticket' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">Submit
-                        ticket</span>
+                        style="{{ request()->segment(2) == 'submitticket' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">Submit</span>
                 </a>
 
                 <a class="collapse-item" href="{{ route('user.view-and-reply-ticket') }}">
                     <img src="{{ asset('assets/app/img/view-48.png') }}">
                     <span
-                        style="{{ request()->segment(2) == 'view-and-reply-ticket' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">View & reply tickets</span>
+                        style="{{ request()->segment(2) == 'view-and-reply-ticket' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">View & reply</span>
                 </a>
 
             </div>

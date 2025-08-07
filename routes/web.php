@@ -224,7 +224,7 @@ Route::get('/mail', function () {
 //**************SUPPORT TICKET*******************//
 Route::get('submit_ticket', [SupportTicketsController::class,'create'])->name('support-ticket.form_create');
 Route::post('submit_ticket', [SupportTicketsController::class,'submit_ticket'])->name('support-ticket.create');
-Route::get('support_tickets/list/{id?}',[SupportTicketsController ::class, 'index'])->name('support-ticket.list');
+Route::get('support_tickets/ticket-list/{id?}',[SupportTicketsController ::class, 'index'])->name('support-ticket.list');
 Route::get('support_tickets/dataTable', [SupportTicketsController::class, 'dataTable'])->name('support-ticket.dataTable');
 Route::get('support_tickets/conversations/{id?}', [SupportTicketsController::class, 'conversations'])->name('support-ticket.conversations');
 Route::put('support_tickets/withdraw/{id}', [SupportTicketsController::class, 'withdraw'])->name('support-ticket.withdraw');

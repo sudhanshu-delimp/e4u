@@ -31,9 +31,9 @@
                            <li>
                               There are a range of Fees that apply to Advertisers, namely:
                               <ol class="level-2">
-                                          <li>Advertising Fees</li>
-                                          <li>Concierge Services</li>
-                                          <li>Support Services</li>
+                                          <li>Advertising Fees.</li>
+                                          <li>Concierge Services.</li>
+                                          <li>Support Services.</li>
                                        </ol>
                            </li>
                            <li>
@@ -42,9 +42,9 @@
                            <li>
                            There are a range of variables that determine:
                            <ol class="level-2">
-                                          <li>Discounts to Adverting Fees</li>
-                                          <li>Loyalty Program entitlements and discounts</li>
-                                          <li>Agent Commission</li>
+                                          <li>Discounts to Adverting Fees.</li>
+                                          <li>Loyalty Program entitlements and discounts.</li>
+                                          <li>Agent Commission.</li>
                                        </ol>
                            </li>
                            <li>
@@ -709,7 +709,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-               <h5 class="modal-title">Edit Pricing Detail</h5>
+               <h5 class="modal-title"><img src="{{ asset('assets/dashboard/img/edit-price.png')}}" class="custompopicon">Edit Pricing Detail</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                </button>
@@ -766,7 +766,7 @@
                   </div>
                   <div class="col-md-12 mb-3">
                      <div class="form-group">
-                           <button type="submit" class="btn btn-primary shadow-none float-right">Save</button>
+                           <button type="submit" class="btn-success-modal shadow-none float-right">Save</button>
                      </div>
                   </div>
                </div>
@@ -779,7 +779,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="Edit_Competitor">Set Variables - Loyalty Program Advertisers</h5>
+            <h5 class="modal-title" id="Edit_Competitor"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Variables - Loyalty Program Advertisers</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -811,7 +811,7 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save &amp; Update</button>
+            <button type="button" class="btn-success-modal">Save &amp; Update</button>
          </div>
       </div>
    </div>
@@ -820,7 +820,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="Concierge_Services">Set Fees - Concierge Services</h5>
+            <h5 class="modal-title" id="Concierge_Services"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Fees - Concierge Services</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -844,7 +844,7 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save &amp; Update</button>
+            <button type="button" class="btn-success-modal">Save &amp; Update</button>
          </div>
       </div>
    </div>
@@ -853,7 +853,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="Support_Services">Set Fees - Support Services (E4U Staff)</h5>
+            <h5 class="modal-title" id="Support_Services"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Fees - Support Services (E4U Staff)</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -877,7 +877,7 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save &amp; Update</button>
+            <button type="button" class="btn-success-modal">Save &amp; Update</button>
          </div>
       </div>
    </div>
@@ -886,7 +886,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="Agent_Operator">Set Variables - Agent & Operator</h5>
+            <h5 class="modal-title" id="Agent_Operator"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Variables - Agent & Operator</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -913,7 +913,7 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save &amp; Update</button>
+            <button type="button" class="btn-success-modal">Save &amp; Update</button>
          </div>
       </div>
    </div>
@@ -922,7 +922,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="playbox">Set Commission - Playbox</h5>
+            <h5 class="modal-title" id="playbox"><img src="{{ asset('assets/dashboard/img/set-commission.png')}}" class="custompopicon">Set Commission - Playbox</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -945,7 +945,7 @@
             </form>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save &amp; Update</button>
+            <button type="button" class="btn-success-modal">Save &amp; Update</button>
          </div>
       </div>
    </div>
@@ -966,9 +966,8 @@ $(document).ready(function(){
 
    var table = $('#myPricing').DataTable({
       "language": {
-         search: "_INPUT_",
-         searchPlaceholder: "Search",
-         "sSearch": '<a class="btn searchBtn" id="searchBtn"><i class="fa fa-search"></i></a>',
+          search: "Search: _INPUT_",
+           searchPlaceholder: "Search by Membership Type",
 
          oPaginate: {
          sNext: '<span aria-hidden="true">Next</span>',
@@ -978,7 +977,7 @@ $(document).ready(function(){
          }
       },
       info: false,
-      bLengthChange: false,
+      bLengthChange: true,
       processing: true,
       serverSide: true,
       lengthChange: true,

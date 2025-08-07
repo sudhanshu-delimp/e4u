@@ -310,13 +310,13 @@
                 <a class="collapse-item show" href="{{ url('submit_ticket') }}">
                     <img src="{{ asset('assets/app/img/right-30.png') }}">
                     <span style="{{ request()->segment(1) == 'submit_ticket' ? 'color: #e5365a;' : '' }}">Submit
-                        ticket</span>
+                        </span>
                 </a>
 
                 <a class="collapse-item" href="{{ route('support-ticket.list') }}">
                     <img src="{{ asset('assets/app/img/view-48.png') }}">
                     <span style="{{ request()->segment(2) == 'list' ? 'color: #e5365a;' : '' }}">View & reply
-                        tickets</span>
+                        </span>
                 </a>
 
             </div>
