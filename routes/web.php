@@ -1,16 +1,18 @@
 <?php
 
-use App\Http\Controllers\Admin\GlobalMonitoringController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
+use App\Http\Controllers\WebController;
 use App\Http\Controllers\BlogsController;
 use App\Mail\sendPlaymateAccountDisableMail;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Center\CenterController;
 use App\Http\Controllers\Escort\EscortController;
+use App\Http\Controllers\Escort\PinUpsController;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\Escort\ConciergeController;
@@ -18,18 +20,17 @@ use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\Agent\AgentRegisterController;
 use App\Http\Controllers\User\Dashboard\UserController;
+use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Http\Controllers\Admin\ManagePeopleStaffController;
+use App\Http\Controllers\GetCurrentUserGeolocationController;
 use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
+use App\Http\Controllers\Escort\EscortViewerInteractionController;
+use App\Http\Controllers\Viewer\ViewerEscortInteractionController;
 use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
-use App\Http\Controllers\Escort\EscortViewerInteractionController;
-use App\Http\Controllers\GetCurrentUserGeolocationController;
-use App\Http\Controllers\Viewer\ViewerEscortInteractionController;
-use App\Http\Controllers\WebController;
-use App\Http\Controllers\Escort\PinUpsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes    
@@ -721,3 +722,13 @@ Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->nam
 Route::post('/resend-otp', [App\Http\Controllers\User\Auth\RegisterController::class,'resendOtp'])->name('web.resend.otp');
 
 Route::post('/get-geolocation-data', [GetCurrentUserGeolocationController::class, 'getRealTimeGeo'])->name('user.current.location');
+
+
+
+// Generate all users member_id
+Route::get('/generate-all-users-member-id', [AdvertiserRegisterController::class, 'generateAllUsersMemberId']);
+
+Route::get('/delete', function(){
+    User::where('email', 'muqafan@mailinator.com')->forceDelete();
+    return "done";
+});
