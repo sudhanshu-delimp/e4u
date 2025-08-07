@@ -130,7 +130,7 @@
                         {   
                                 if(support_notifications.is_new)
                                 {
-                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
+                                $('.support_notify_html').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
                                 }
                             
                                 support_notifications.data.forEach((notification) => {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Exception;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Models\SupportTickets;
 use App\Models\TicketConversations;
@@ -25,6 +26,13 @@ class SupportTicketsController extends AppController
     {
         $this->SupportTickets = $support_tickets;
     }*/
+
+
+    protected $notification;
+    public function __construct()
+    {
+        $this->notification = new Notification;
+    }
 
     public function index()
     {
@@ -359,7 +367,18 @@ class SupportTicketsController extends AppController
                     'member_id' => isset($st->user->member_id) ? $st->user->member_id : "",
                 ];
 
-            $this->sendSupportReplyToUser($userData);
+             ############ Send Notification ################
+             $data = [
+                'title' => 'You have received a new message on <a href="'.url('/support_tickets/list/').'"> ticket#'.$st->ref_number.'</a>',
+                'to_user' => [$st->user->id],
+                'notification_type' =>  'support_ticket',
+                'notification_listing_type' =>  '1',
+             ];
+             $this->notification->sendNotification($data);
+
+             ############## End Send Notification ##########
+
+            //$this->sendSupportReplyToUser($userData);
 
             ################## End Send Email To User ################
 

@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MugsController;
 use App\Http\Controllers\EscortBrbController;
 use App\Http\Controllers\Escort\TourController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Escort\EscortController;
 use App\Http\Controllers\Escort\PinUpsController;
 use App\Http\Controllers\SupportTicketsController;
@@ -369,3 +370,7 @@ Route::post('/update-account-tour/{id}', [TourController::class, 'updateAccountT
 
 
 Route::post('agent-request',[AgentRequestController::class, 'agentRequest'])->name('escort.agent-request');
+
+Route::get('get-notification', [NotificationController::class, 'getNotification'])->name('escort.get-notification');
+Route::post('notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('escort.notification-seen');
+    
