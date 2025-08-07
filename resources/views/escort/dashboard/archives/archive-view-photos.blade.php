@@ -44,8 +44,12 @@
     .item1 {
     grid-column: 3 / span 3;
     }
+    .item4{
+        width: 180px;
+        object-fit: cover;
+    }
     img.img-thumbnail.defult-image {
-        width: 190px;
+        width: 100%;
         height: 135px;
         object-fit: cover;
     }
@@ -111,7 +115,7 @@
                     </div>
                 </div>
                <div class="col-md-2" style="padding-left: 7rem;">
-                  <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
+                  <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
                </div>
             </div>
         </div>
@@ -460,7 +464,7 @@
    <div class="modal-dialog modal-dialog-centered">
        <div class="modal-content custome_modal_max_width">
            <div class="modal-header main_bg_color border-0">
-               <h5 class="modal-title" style="color: white;">Select Photo</h5>
+               <h5 class="modal-title" style="color: white;"><img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Photo</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -490,7 +494,7 @@
    <div class="modal-dialog modal-dialog-centered">
        <div class="modal-content custome_modal_max_width">
            <div class="modal-header main_bg_color border-0">
-               <h5 class="modal-title" style="color: white;">Select Banner</h5>
+               <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Banner</h5>
                {{--<div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 200px;">
                    <button type="button" data-toggle="modal" data-target="empty" class="btn btn-info" style=" padding: 5px;">Upload from device</button>
                </div>--}}
@@ -545,7 +549,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color border-0">
-                <span class="text-white">Delete Image</span>
+                <h5 class="modal-title text-white"> <img src="/assets/dashboard/img/remove-image.png" class="custompopicon" alt="cross"> Delete Image</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">
                 <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -559,8 +563,8 @@
                 </h1>
             </div>
             <div class="modal-footer" style="justify-content: center;">
-                <button type="submit" class="btn main_bg_color site_btn_primary d_img" data-dismiss="modal" id="close">Cancel</button>
-                <button type="submit" class="btn main_bg_color site_btn_primary d_img" id="dImg">Ok</button>
+                <button type="submit" class="btn-cancel-modal d_img" data-dismiss="modal" id="close">Cancel</button>
+                <button type="submit" class="btn-success-modal d_img" id="dImg">Ok</button>
             </div>
         </div>
     </div>
