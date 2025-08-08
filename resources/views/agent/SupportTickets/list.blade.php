@@ -39,7 +39,7 @@
         {{-- Page Heading   --}}
         <div class="row">
             <div class="custom-heading-wrapper col-lg-12">
-            <h1 class="h1">My Support Tickets</h1>
+            <h1 class="h1">View & Reply Ticket</h1>
             <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
             </div>
             <div class="col-md-12 mb-4">
@@ -47,10 +47,6 @@
                 <div class="card-body">
                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                     <ol>
-                        {{-- <li>Use this feature to review and make changes to your Profiles.</li>
-                        <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action function, you will be able to View, Edit or Delete the Profile.</li>
-                        <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming">View Listings</a></li>
-                    --}}
                     </ol>
                 </div>
             </div>
@@ -71,7 +67,6 @@
                             <th>Date Created</th>
                             <th>Document</th>
                             <th>Status</th>
-                            <!--<th>Joined E4U</th>-->
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -96,7 +91,7 @@
             {{-- {{ route('escort.upload.gallery') }} --}}
             <div class="modal-content border-0">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="ticket_name">Support Ticket</h5>
+                    <span class="custom-pop-wrapper"><img src="/assets/app/img/history.png" class="custompopicon" alt="cross"><h5 class="modal-title" id="ticket_name">Support Ticket</h5></span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
                                                       class="img-fluid img_resize_in_smscreen"></span>
@@ -109,19 +104,12 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="modal-footer" style="border-top: 1px solid;">
-                    <form id="sendMessage">
-                        <textarea class="messageBox" name="message" id="message" rows="4" cols="50" required></textarea>
-                        <button class="btn btn-info" id="submit_message">Send</button>
-                    </form>
-                </div> --}}
-
                 <div class="reply-wrapper p-3">
                     <form id="sendMessage">
                        <div class="reply-message-box">
                         <textarea class="messageBox" name="message" id="message" rows="2" required></textarea>
                         <input type="hidden" name="ticketId"  id="ticketId" value="">
-                        <button class="btn btn-info send-btn" id="submit_message">Send</button>
+                        <button class="btn-success-modal py-3" id="submit_message">Send</button>
                        </div>
                     </form>
                 </div>
@@ -178,7 +166,10 @@
         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
         pageLength: 10,
     });
-
+    // ✅ Add placeholder to search input
+    $('#supportTicketsTable').on('init.dt', function () {
+        $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search By Ticket ID');
+    });
      $(document).on('click', ".view_ticket", function () {
         var ticketId = $(this).data("id");
         _load_conversations(ticketId);
@@ -251,7 +242,7 @@
                 if(data.status == "success") {
                     Swal.fire(
                         'Message Sent!',
-                        'Your message sent successfully',
+                        'Your message has been successfully sent.',
                         'success'
                     );
                     $("#conversation_modal").modal('hide');
@@ -259,7 +250,7 @@
                 } else {
                     Swal.fire(
                         'Oops!',
-                        'Error while saving the message',
+                        'Error while saving the message.',
                         'error'
                     );
                 }

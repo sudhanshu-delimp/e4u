@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="table-responsive membership--inner">
-            <table class="table table-bordered text-center mb-0">
+            <table class="table table-bordered text-center mb-0" id="tourStatisticTable">
                <colgroup>
                   <col style="width: 7%;">
                   <col style="width: 7%;">
@@ -949,6 +949,12 @@
    </div>
 </div>
 @endsection
+
+
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 @section('script')
 <script>
   $(document).ready(function() {
@@ -992,4 +998,61 @@
         });
 </script>
 
+$(document).ready(function() {
+   let isHidden = false;
+
+   $('#hideAlltr').on('click', function() {
+       const $chevron = $(this).find('i');
+
+       if (!isHidden) {
+           // Hide only visible rows, and mark them
+           $('#hideAlltr').nextAll('tr:visible').addClass('user-hidden').hide();
+           $chevron.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+           isHidden = true;
+       } else {
+           // Show only those rows that were hidden by this action
+           $('tr.user-hidden').removeClass('user-hidden').show();
+           $chevron.removeClass('fa-chevron-up').addClass('fa-chevron-down');
+           isHidden = false;
+       }
+   });
+});
+
+$(document).ready(function() {
+   $('.collapse-row').hide(); // 🔒 Hide all groups initially
+
+   $('[data-toggle="toggle-row"]').on('click', function() {
+       const targetClass = $(this).data('target');
+       const $icon = $(this).find('i.fa');
+       const isVisible = $(targetClass).is(':visible');
+
+       $('.collapse-row').not(targetClass).hide();
+       $('[data-toggle="toggle-row"] i.fa').removeClass('fa-chevron-up').addClass('fa-chevron-down');
+
+       if (!isVisible) {
+           $(targetClass).show();
+           $icon.removeClass('fa-chevron-down').addClass('fa-chevron-up');
+       } else {
+           $(targetClass).hide();
+       }
+   });
+});
+</script>
+<script>
+var table = $("#profileStatisticTable").DataTable({
+language: {
+search: "Search: _INPUT_",
+searchPlaceholder: "Search by Name..."
+},
+info: true,
+paging: true,
+lengthChange: true,
+searching: true,
+bStateSave: true,
+order: [[1, 'desc']],
+lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+pageLength: 10
+});
+
+</script>
 @endsection

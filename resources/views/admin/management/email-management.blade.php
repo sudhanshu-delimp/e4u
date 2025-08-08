@@ -56,22 +56,10 @@
                      </div>
                   </div>
                   <div class="row">
-                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <form class="search-form-bg navbar-search">
-                           <div class="input-group">
-                              <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                              <div class="input-group-append">
-                                 <button class="btn-right-icon" type="button">
-                                 <i class="fas fa-search fa-sm"></i>
-                                 </button>
-                              </div>
-                           </div>
-                        </form>
-                     </div>
-                     <div class="col-lg-8 col-md-12 col-sm-12">
-                        <div class="bothsearch-form" style="gap: 10px;">
-                           <span class="pt-2 mt-1" style="font-size: 14px;font-weight: 600;color: #5D6D7E;">1 - 50 of 17,377</span>
-                           <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#Competitor">Create Note</button>
+                     
+                     <div class="col-md-12 col-sm-12">
+                        <div class="bothsearch-form">                        
+                           <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#Competitor">Create Note</button>
                         </div>
                      </div>
                   </div>
@@ -84,7 +72,7 @@
                            <div class="tab-content">
                               <div class="tab-pane fade in active show" id="tab1warning">
                                  <div class="table-responsive-xl">
-                                    <table class="table">
+                                    <table class="table" id="emailManagementTable">
                                        <thead class="table-bg">
                                           <tr>
                                              <th scope="col"><input type="checkbox"></th>
@@ -117,147 +105,9 @@
                                                 </div>
                                              </td>
                                           </tr>
-                                          <tr class="row-color">
-                                             <td class="theme-color"><input type="checkbox"></td>
-                                             <td class="theme-color"><a href="#"><img src="{{ asset('assets/app/img/profile-img.png')}}" class="img-profile rounded-circle playmats-img ">Kathy -Adelaide 1</a></td>
-                                             <td class="theme-color">New local updates</td>
-                                             <td class="theme-color w-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. </td>
-                                             <td class="theme-color">01/02/22</td>
-                                             <td class="theme-color">5:02 PM</td>
-                                             <td>
-                                                <div class="dropdown no-arrow ml-3">
-                                                   <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                   <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                   </a>
-                                                   <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-reply " ></i> Reply </a>
-                                                      <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"><i class="fa fa-fw fa-trash" ></i> Delete </a>
-                                                   </div>
-                                                </div>
-                                             </td>
-                                          </tr>
-                                          <tr class="row-color">
-                                             <td class="theme-color"><input type="checkbox"></td>
-                                             <td class="theme-color"><a href="#"><img src="{{ asset('assets/app/img/profile-img.png')}}" class="img-profile rounded-circle playmats-img ">Kathy -Adelaide 1</a></td>
-                                             <td class="theme-color">New local updates</td>
-                                             <td class="theme-color w-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. </td>
-                                             <td class="theme-color">01/02/22</td>
-                                             <td class="theme-color">5:02 PM</td>
-                                             <td>
-                                                <div class="dropdown no-arrow ml-3">
-                                                   <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                   <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                   </a>
-                                                   <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-reply " ></i> Reply </a>
-                                                      <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"><i class="fa fa-fw fa-trash" ></i> Delete </a>
-                                                   </div>
-                                                </div>
-                                             </td>
-                                          </tr>
-                                          <tr class="row-color">
-                                             <td class="theme-color"><input type="checkbox"></td>
-                                             <td class="theme-color"><a href="#"><img src="{{ asset('assets/app/img/profile-img.png')}}" class="img-profile rounded-circle playmats-img ">Kathy -Adelaide 1</a></td>
-                                             <td class="theme-color">New local updates</td>
-                                             <td class="theme-color w-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. </td>
-                                             <td class="theme-color">01/02/22</td>
-                                             <td class="theme-color">5:02 PM</td>
-                                             <td>
-                                                <div class="dropdown no-arrow ml-3">
-                                                   <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                   <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                   </a>
-                                                   <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-reply " ></i> Reply </a>
-                                                      <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"><i class="fa fa-fw fa-trash" ></i> Delete </a>
-                                                   </div>
-                                                </div>
-                                             </td>
-                                          </tr>
-                                          <tr class="row-color">
-                                             <td class="theme-color"><input type="checkbox"></td>
-                                             <td class="theme-color"><a href="#"><img src="{{ asset('assets/app/img/profile-img.png')}}" class="img-profile rounded-circle playmats-img ">Kathy -Adelaide 1</a></td>
-                                             <td class="theme-color">New local updates</td>
-                                             <td class="theme-color w-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. </td>
-                                             <td class="theme-color">01/02/22</td>
-                                             <td class="theme-color">5:02 PM</td>
-                                             <td>
-                                                <div class="dropdown no-arrow ml-3">
-                                                   <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                   <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                   </a>
-                                                   <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-reply " ></i> Reply </a>
-                                                      <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"><i class="fa fa-fw fa-trash" ></i> Delete </a>
-                                                   </div>
-                                                </div>
-                                             </td>
-                                          </tr>
-                                          <tr class="row-color">
-                                             <td class="theme-color"><input type="checkbox"></td>
-                                             <td class="theme-color"><a href="#"><img src="{{ asset('assets/app/img/profile-img.png')}}" class="img-profile rounded-circle playmats-img ">Kathy -Adelaide 1</a></td>
-                                             <td class="theme-color">New local updates</td>
-                                             <td class="theme-color w-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. </td>
-                                             <td class="theme-color">01/02/22</td>
-                                             <td class="theme-color">5:02 PM</td>
-                                             <td>
-                                                <div class="dropdown no-arrow ml-3">
-                                                   <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                   <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                   </a>
-                                                   <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-reply " ></i> Reply </a>
-                                                      <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"><i class="fa fa-fw fa-trash" ></i> Delete </a>
-                                                   </div>
-                                                </div>
-                                             </td>
-                                          </tr>
-                                          <tr class="row-color">
-                                             <td class="theme-color"><input type="checkbox"></td>
-                                             <td class="theme-color"><a href="#"><img src="{{ asset('assets/app/img/profile-img.png')}}" class="img-profile rounded-circle playmats-img ">Kathy -Adelaide 1</a></td>
-                                             <td class="theme-color">New local updates</td>
-                                             <td class="theme-color w-50">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. </td>
-                                             <td class="theme-color">01/02/22</td>
-                                             <td class="theme-color">5:02 PM</td>
-                                             <td>
-                                                <div class="dropdown no-arrow ml-3">
-                                                   <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                   <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                   </a>
-                                                   <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Edit_Competitor"><i class="fa fa-fw fa-reply " ></i> Reply </a>
-                                                      <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"><i class="fa fa-fw fa-trash" ></i> Delete </a>
-                                                   </div>
-                                                </div>
-                                             </td>
-                                          </tr>
                                        </tbody>
                                     </table>
-                                    <nav aria-label="Page navigation example">
-                                       <ul class="pagination float-right pt-4">
-                                          <li class="page-item">
-                                             <a class="page-link" href="#" aria-label="Previous">
-                                             <span aria-hidden="true">«</span>
-                                             <span class="sr-only">Previous</span>
-                                             </a>
-                                          </li>
-                                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                          <li class="page-item">
-                                             <a class="page-link" href="#" aria-label="Next">
-                                             <span aria-hidden="true">»</span>
-                                             <span class="sr-only">Next</span>
-                                             </a>
-                                          </li>
-                                       </ul>
-                                    </nav>
+                                    
                                  </div>
                               </div>
                               <div class="tab-pane fade" id="tab2warning">
@@ -302,7 +152,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="Competitor">New Email</h5>
+            <h5 class="modal-title" id="Competitor"> <img src="{{ asset('assets/dashboard/img/new-mail.png')}}" class="custompopicon"> New Email</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -332,7 +182,7 @@
             </form>
          </div>
          <div class="modal-footer p-0 pl-2 pb-4">
-            <button type="button" class="btn btn-primary mr-3">Send</button>
+            <button type="button" class="btn-success-modal mr-3">Send</button>
          </div>
       </div>
    </div>
@@ -341,7 +191,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="replyticket">Mail</h5>
+            <h5 class="modal-title" id="replyticket"> <img src="{{ asset('assets/dashboard/img/reply-mail.png')}}" class="custompopicon"> Mail</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -462,13 +312,13 @@
                      <div class="form-group pt-2 pb-2">
                         <textarea class="form-control rounded-0" id="editor2" name="editor2" placeholder="Message" cols="30" rows="5"></textarea>
                      </div>
-                     <button type="button" class="btn btn-primary float-right">Send</button>
+                     <button type="button" class="btn-success-modal float-right">Send</button>
                   </div>
                </div>
             </div>
          </div>
                   <div class="modal-footer pr-3 pt-0">
-            <button id="hide-btn1" onclick="toggler()" type="button" class="btn btn-primary"><img src="{{ asset('assets/app/img/repeat.png')}}" class="img-profile pr-2">Reply</button>
+            <button id="hide-btn1" onclick="toggler()" type="button" class="btn-success-modal"><img src="{{ asset('assets/app/img/repeat.png')}}" class="img-profile pr-2">Reply</button>
          </div>
       </div>
    </div>
@@ -564,80 +414,80 @@
                            </div>
                         </div>
                      </div>
-<div class="justify-content-between align-items-center mt-5">
-<div id="accordion">
-      <div class="card border-right-0 border-left-0 border-bottom-0 rounded-0 background-white">
-         <div class="card-header pl-0 pr-0 bg-white" id="headingOne">
-            <h5 class="mb-0">
-               <div class="row">
-                  <div class="col-12 basic-font">
-                     <div data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="d-flex justify-content-between align-items-center collapsed">
-                        <div class="d-flex justify-content-between align-items-center">
-                           <div class="ml-2">
-                              <div class="hp m-0">You:</div>
-                           </div>
-                           <div class="ml-2">
-                              <img class="rounded-circle" width="30" src="{{ asset('assets/app/img/profile-img.png')}}" alt="">
-                           </div>
-                           <div class="hp m-0 ml-2"><span>E4U Support agent</span></div>
-                        </div>
-                        <div>
-                           <div class="d-flex justify-content-between align-items-center">
-                              <div class="ml-2">
-                                 <div class="hp m-0">Date:<span class="ml-2">01/02/22</span></div>
+                     <div class="justify-content-between align-items-center mt-5">
+                     <div id="accordion">
+                           <div class="card border-right-0 border-left-0 border-bottom-0 rounded-0 background-white">
+                              <div class="card-header pl-0 pr-0 bg-white" id="headingOne">
+                                 <h5 class="mb-0">
+                                    <div class="row">
+                                       <div class="col-12 basic-font">
+                                          <div data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" class="d-flex justify-content-between align-items-center collapsed">
+                                             <div class="d-flex justify-content-between align-items-center">
+                                                <div class="ml-2">
+                                                   <div class="hp m-0">You:</div>
+                                                </div>
+                                                <div class="ml-2">
+                                                   <img class="rounded-circle" width="30" src="{{ asset('assets/app/img/profile-img.png')}}" alt="">
+                                                </div>
+                                                <div class="hp m-0 ml-2"><span>E4U Support agent</span></div>
+                                             </div>
+                                             <div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                   <div class="ml-2">
+                                                      <div class="hp m-0">Date:<span class="ml-2">01/02/22</span></div>
+                                                   </div>
+                                                   <div class="ml-4">
+                                                      <div class="hp m-0">Time:<span class="ml-2">5:02 PM</span></div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </h5>
                               </div>
-                              <div class="ml-4">
-                                 <div class="hp m-0">Time:<span class="ml-2">5:02 PM</span></div>
+                              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
+                                 <div class="card-body pl-0 pr-0">
+                                    <textarea cols="30" rows="5" class="form-control rounded-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. </textarea>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="card border-right-0 border-left-0 background-white rounded-0">
+                              <div class="card-header pl-0 pr-0 bg-white" id="headingTwo">
+                                 <div class="row">
+                                    <div class="col-12 basic-font">
+                                       <div data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne" class="d-flex justify-content-between align-items-center collapsed">
+                                          <div class="d-flex justify-content-between align-items-center">
+                                             <div class="ml-2">
+                                                <div class="hp m-0">You:</div>
+                                             </div>
+                                             <div class="ml-2">
+                                                <img class="rounded-circle" width="30" src="{{ asset('assets/app/img/profile-img.png')}}" alt="">
+                                             </div>
+                                             <div class="hp m-0 ml-2"><span>E4U Support agent</span></div>
+                                          </div>
+                                          <div>
+                                             <div class="d-flex justify-content-between align-items-center">
+                                                <div class="ml-2">
+                                                   <div class="hp m-0">Date:<span class="ml-2">01/02/22</span></div>
+                                                </div>
+                                                <div class="ml-4">
+                                                   <div class="hp m-0">Time:<span class="ml-2">5:02 PM</span></div>
+                                                </div>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion" style="">
+                                 <div class="card-body pl-0 pr-0">
+                                    <textarea cols="30" rows="5" class="form-control rounded-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. </textarea>
+                                 </div>
                               </div>
                            </div>
                         </div>
                      </div>
-                  </div>
-               </div>
-            </h5>
-         </div>
-         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion" style="">
-            <div class="card-body pl-0 pr-0">
-               <textarea cols="30" rows="5" class="form-control rounded-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. </textarea>
-            </div>
-         </div>
-      </div>
-      <div class="card border-right-0 border-left-0 background-white rounded-0">
-         <div class="card-header pl-0 pr-0 bg-white" id="headingTwo">
-            <div class="row">
-               <div class="col-12 basic-font">
-                  <div data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseOne" class="d-flex justify-content-between align-items-center collapsed">
-                     <div class="d-flex justify-content-between align-items-center">
-                        <div class="ml-2">
-                           <div class="hp m-0">You:</div>
-                        </div>
-                        <div class="ml-2">
-                           <img class="rounded-circle" width="30" src="{{ asset('assets/app/img/profile-img.png')}}" alt="">
-                        </div>
-                        <div class="hp m-0 ml-2"><span>E4U Support agent</span></div>
-                     </div>
-                     <div>
-                        <div class="d-flex justify-content-between align-items-center">
-                           <div class="ml-2">
-                              <div class="hp m-0">Date:<span class="ml-2">01/02/22</span></div>
-                           </div>
-                           <div class="ml-4">
-                              <div class="hp m-0">Time:<span class="ml-2">5:02 PM</span></div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion" style="">
-            <div class="card-body pl-0 pr-0">
-               <textarea cols="30" rows="5" class="form-control rounded-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ultrices in iaculis nunc sed augue lacus viverra. Placerat in egestas erat imperdiet sed euismod nisi porta. </textarea>
-            </div>
-         </div>
-      </div>
-   </div>
-</div>
                   </div>
                </div>
             </form>
@@ -674,4 +524,32 @@
       $("#hide-btn1").hide();
    }
 </script>
+@endsection
+
+
+
+@section('script')
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+   var table = $("#emailManagementTable").DataTable({
+    language: {
+        search: "Search: _INPUT_",
+        searchPlaceholder: "Search by Name..."
+    },
+    info: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    bStateSave: true,
+    order: [[1, 'desc']],
+    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+    pageLength: 10
+});
+
+ </script>
+
 @endsection

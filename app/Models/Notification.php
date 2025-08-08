@@ -81,6 +81,9 @@ class Notification extends Model
         if($notification_type=='agent_follow_up')
            $icon = config('constants.NotificationIcon.agent_follow_up');
 
+        if($notification_type=='support_ticket')
+           $icon = config('constants.NotificationIcon.support_ticket');
+
         return $icon;
         
     }

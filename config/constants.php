@@ -10,6 +10,9 @@ return [
         'general' => '<i class="fas fas fa-comments text-white"></i>',
         'agent_accept' => '<i class="fas fa-file-alt text-white"></i>',
         'agent_follow_up' => '<i class="fas fa-exclamation-triangle text-white"></i>',
+        'support_ticket' => '<i class="fas fa-ticket-alt text-white"></i>',
+
+        
     ]
 
 ];

@@ -32,27 +32,16 @@
                      <div class="tab-content">  
                         <div class="tab-pane fade active show" id="tab3warning">
                            <div class="row pb-3">
-                              <div class="col-lg-4 col-md-12 col-sm-12">
-                                 <form class="search-form-bg navbar-search">
-                                    <div class="input-group">
-                                       <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                                       <div class="input-group-append">
-                                          <button class="btn-right-icon" type="button">
-                                          <i class="fas fa-search fa-sm"></i>
-                                          </button>
-                                       </div>
-                                    </div>
-                                 </form>
-                              </div>
-                              <div class="col-lg-8 col-md-12 col-sm-12">
+                              
+                              <div class="col-md-12 col-sm-12">
                                  <div class="bothsearch-form" style="gap: 10px;">
-                                    <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#addStaffnew">Add New Agent</button>
+                                    <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#addStaffnew">Add New Agent</button>
                                  </div>
                               </div>
                            </div>                                    
                            <div class="table-responsive-xl">
-                              <table class="table mb-0">
-                                 <thead class="table-bg">
+                              <table class="table mb-0" id="manageAgentTable">
+                                 <thead class="table-bg" >
                                  <tr>
                                     <th scope="col">
                                     Agent ID
@@ -134,7 +123,7 @@
                                     
                                              <div class="d-flex justify-content-end">
                                                 <!-- Print Button -->
-                                             <button class="save_profile_btn bg-second d-block" onclick="printAgent('account-row-S60001')">
+                                             <button class="btn-success-modal d-block" onclick="printAgent('account-row-S60001')">
                                                 <i class="fa fa-print text-white"></i> Print
                                              </button>
                                              </div>
@@ -183,7 +172,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="addStaffnew">Add New Agent</h5>
+            <h5 class="modal-title" id="addStaffnew"> <img src="{{ asset('assets/dashboard/img/add-agent.png')}}" class="custompopicon"> Add New Agent</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -285,7 +274,7 @@
 
             </div>
             <div class="modal-footer p-0 pl-2 pb-4">
-               <button type="submit" class="btn btn-primary mr-2">Save</button>
+               <button type="submit" class="btn-success-modal mr-2">Save</button>
             </div>
             </form>
          </div>
@@ -299,7 +288,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="edit_agent_data">Update Agent Details </h5>
+            <h5 class="modal-title" id="edit_agent_data"> <img src="{{ asset('assets/dashboard/img/update-agent.png')}}" class="custompopicon"> Update Agent Details </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -402,7 +391,7 @@
                   </div>
                </div>
             <div class="modal-footer p-0 pl-2 pb-4">
-               <button type="submit" class="btn btn-primary mr-2">Update</button>
+               <button type="submit" class="btn-success-modal mr-2">Update</button>
             </div>
             </form>
          </div>
@@ -412,11 +401,29 @@
  <!-- end -->
 @endsection
 @push('script')
-   <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}
-    "></script>
    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+   <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}
+    "></script>
 
+
+    <script>
+      var table = $("#manageAgentTable").DataTable({
+       language: {
+           search: "Search: _INPUT_",
+           searchPlaceholder: "Search by Ref No..."
+       },
+       info: true,
+       paging: true,
+       lengthChange: true,
+       searching: true,
+       bStateSave: true,
+       order: [[1, 'desc']],
+       lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+       pageLength: 10
+   });
+   
+    </script>
 <script type="text/javascript">
    $(document).ready(function(e) {
             // ajaxReload();
@@ -456,6 +463,4 @@
       });
    });
    </script>
-   
-   
 @endpush

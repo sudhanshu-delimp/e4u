@@ -45,7 +45,7 @@
     grid-column: 3 / span 3;
     }
     .item4{
-        width: 180px;
+        width: 100%;
         object-fit: cover;
     }
     img.img-thumbnail.defult-image {
@@ -78,6 +78,17 @@
     .item4 {
         position: relative;
     }
+    .item2{
+        height: 100% !important;
+        width: 100%;
+    }
+    .item2 img{
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+    }
+
+    
 </style>
 @endsection
 @section('content')
@@ -124,14 +135,12 @@
         <div class="col-lg-4">
             <div class="upload-photo-sec">
                 <div class="container">
-                    <div class="pt-4">
-                        <h2 class="banner-heading">Default</h2>
-                        <h2 class="banner-sub-heading mb-0">Gallery</h2>
-                    </div>
                     <form id="defaultImage" method="post" enctype="multipart/form-data" action="{{ route('escort.default.images')}}">
                         @csrf
                         <div class="row pt-3 pl-2 pr-2">
                             <div class="col-4 pr-0 pl-0">
+                                
+                                <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                                 <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
                                     <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec" id="dvDest">
                                     <img class="img-fluid excludeTooltip" data-toggle="tooltip" data-position-id="1"  data-html="true" data-placement="top" title="" data-boundary="window" id="img1" src="{{ asset($path->findByposition(auth()->user()->id,1, 1)['path']) }}" style="object-fit: cover;width: 167px;height: 172px;">
@@ -140,6 +149,11 @@
                                 </div>
                             </div>
                             <div class="col-8">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h2 class="banner-sub-heading my-2">Default Image</h2>
+                                    </div>
+                                </div>
                                 <div class="row" style="">
                                     <div class="col-4 pr-0">
                                         <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
@@ -196,7 +210,7 @@
                            
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <h2 class="banner-sub-heading my-1">Banner</h2>
+                                    <h2 class="banner-sub-heading my-1">Banner Image</h2>
                                    
                                     <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
@@ -208,7 +222,7 @@
                                 {{-- new pinup banner --}}
                                     
                                 <div class="col-lg-6">
-                                    <h2 class="banner-sub-heading my-1">Pinup</h2>
+                                    <h2 class="banner-sub-heading my-1">Pin Up Image</h2>
                                     <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(10)">
                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
                                         <img class="img-fluid common-img" id="img10" data-position-id="10" src="{{ asset($path->findByposition(auth()->user()->id,10, 1)['path'])}}" >
@@ -510,7 +524,7 @@
                    @foreach($media  as $keyId => $image)
                        @if(in_array($image->position, [9,10])/*$image->position != 8*/)
                            <div class="item2">
-                               <img class="img-thumbnail defult-image select_image" style="height: 150px; width: 100%;" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
+                               <img class="img-thumbnail defult-image select_image" style="" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                            </div>
                        @endif
                    @endforeach
