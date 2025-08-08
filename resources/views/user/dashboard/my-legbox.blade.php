@@ -314,68 +314,94 @@
         </div>
         {{-- escort list legbox --}}
 
-        <div class="row ">
-            <div class="col-md-12 mb-4">
-                <div class="my-3 d-flex align-items-center justify-content-between flex-wrap gap-10">
-                    <h2 class="h2">Massage Center Legbox</h2>
-                    <div class="total_listing">
-                        <div><span>Total Massage Center Legbox: : </span></div>
-                        <div><span>00</span></div>
-                    </div>
-                </div>
-                <div class="table-responsive list-sec" id="sailorTableArea">
-                    <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                        <table id="massagelistTable" class="table table-bordered display dataTable no-footer"
-                            width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
-                            <thead>
-                                <tr role="row">
-                                    <th class="sorting_asc" tabindex="0" aria-controls="myTable" rowspan="1"
-                                        colspan="1" aria-sort="ascending"
-                                        aria-label="
-                             : activate to sort column descending"
-                                        style="width: 21px;">
-                                        <div class="ckbox">
-                                            <input type="checkbox" id="checkbox1">
-                                        </div>
-                                    </th>
-                                    <th class="sorting_disabled" aria-label="Name">
-                                        Name
-
-                                    </th>
-                                    <th class="sorting_disabled" aria-label="Date Created">Location</th>
-                                    {{-- <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 149px;" aria-label="Subscription Type">Type </th>
-                          <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 161px;" aria-label="Subscription Status">Mobile</th>
-                          <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 79px;" aria-label="Status">Email</th> --}}
-                                    <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 56px;"
-                                        aria-label="Action">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- <tr role="row" class="odd">
-                          <td class="sorting_1">1</td>
-                          <td>Kathryn Murphy</td>
-                          <td>SA</td>
-                          <td>Female</td>
-                          <td>09818 22 2222</td>
-                          <td>test@gmail.com</td>
-                          <td>
-                             <div class="dropdown no-arrow archive-dropdown">
-                                <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                                   <a class="dropdown-item" href="#" data-id="27" data-name="test one" data-category="27">Edit <i class="fa fa-fw fa-pen" style="float: right;"></i></a>
-                                   <a class="dropdown-item delete-center" href="#" data-id="27">Delete <i class="fa fa-fw fa-trash" style="float: right;"></i> </a>
-                                </div>
-                             </div>
-                          </td>
-                       </tr> --}}
-                            </tbody>
-                        </table>
-                        {{-- <div class="dataTables_info" id="myTable_info" role="status" aria-live="polite">Showing 1 to 8 of 8 entries</div>
-                 <div class="dataTables_paginate paging_simple_numbers" id="myTable_paginate"><a class="paginate_button previous disabled" aria-controls="myTable" data-dt-idx="0" tabindex="0" id="myTable_previous">Previous</a><span><a class="paginate_button current" aria-controls="myTable" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="myTable" data-dt-idx="2" tabindex="0" id="myTable_next">Next</a></div> --}}
-                    </div>
-                </div>
+        <!-- My massage Legbox -->
+   <div class="row my-2">
+      <div class="col-md-12 mb-4">
+         <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-10">
+            <h2 class="h2">Massage Center Legbox</h2>
+            <div class="total_listing">
+               <div><span>Total Massage Centre Legbox: </span></div>
+               <div><span>1</span></div>
             </div>
-        </div>
+         </div>
+         <table id="massagelistTable" class="table table-bordered">
+            <thead class="bg-first">
+               <tr>
+                  <th>Massage Centre ID</th>
+                  <th>Location</th>
+                  <th>Business Name</th>
+                  <th>Open Now</th>
+                  <th>Rating</th>
+                  <th>Contact Enabled</th>
+                  <th>Contact Method</th>
+                  <th>Massage Centre Communication</th>
+                  <th>Action</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr>
+                  <td>MC001</td>
+                  <td>Delhi</td>
+                  <td>Urban Spa</td>
+                  <td>Yes</td>
+                  <td>4.5</td>
+                  <td>Yes</td>
+                  <td>Phone</td>
+                  <td>WhatsApp Only</td>
+                  <td class="text-center">
+                     <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v text-gray-400"></i>
+                        </a>
+                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink1">
+                           <div class="custom-tooltip-container">
+                              <a class="dropdown-item align-item-custom toggle-contact" href="#" title="Click to disable contact" data-toggle="modal" data-target="#massageProfileModal"> 
+                              <i class="fa fa-phone-slash me-1"></i> 
+                              <span>Disable Contact</span>
+                              </a>
+                              <span class="tooltip-text">Viewer can’t contact this escort again</span>
+                              <div class="dropdown-divider"></div>
+                           </div>
+                           <div class="custom-tooltip-container">
+                              <a class="dropdown-item align-item-custom toggle-notification" href="#" title="Click to disable notification" data-toggle="modal" data-target="#notificationProfileModal"> 
+                              <i class="fa fa-bell-slash me-1"></i> 
+                              <span>Disable Notifications</span>
+                              </a>
+                              <span class="tooltip-text">Viewer will not get notifications from this escort</span>
+                              <div class="dropdown-divider"></div>
+                           </div>
+                           <div class="custom-tooltip-container">
+                              <a class="dropdown-item align-item-custom escortRating" href="#" title="Rate" data-toggle="modal" data-target="#rateProfileModal"> 
+                              <i class="fa fa-star"></i> 
+                              Rate
+                              </a>
+                              <span class="tooltip-text">Rate this Escort</span>
+                              <div class="dropdown-divider"></div>
+                           </div>
+                           <div class="custom-tooltip-container">
+                              <a class="dropdown-item align-item-custom escortProfileRemove" href="#" data-toggle="modal" data-toggle="modal" data-target="#removeProfileModal"> 
+                              <i class="fa fa-trash"></i> 
+                              Remove
+                              </a>
+                              <span class="tooltip-text">Viewer can’t contact this escort again</span>
+                              <div class="dropdown-divider"></div>
+                           </div>
+                           <div class="custom-tooltip-container">
+                              <a class="dropdown-item align-item-custom escortProfileView" href="#" data-toggle="modal" data-target="#viewProfileModal"> 
+                              <i class="fa fa-eye"></i> 
+                              View
+                              </a>
+                              <span class="tooltip-text">View the Escort’s Profile</span>
+                           </div>
+                        </div>
+                     </div>
+                  </td>
+               </tr>
+               <!-- Add more static rows as needed -->
+            </tbody>
+         </table>
+      </div>
+   </div>
         {{-- end massage list --}}
     </div>
 
@@ -915,72 +941,38 @@
             }
         });
 
+        // user.my-legbox-massage-list
+
         $('#massagelistTable').DataTable({
-
-            "language": {
-                "zeroRecords": "No record(s) found.",
-                searchPlaceholder: "Search by ID or Profile Name...",
-            },
-            bLengthChange: true,
-            processing: false,
-            serverSide: true,
-            order: [0, 'asc'],
-            searchable: true,
-            searching: true,
-            bStateSave: false,
-
-            ajax: {
-                url: "{{ route('user.legbox.massagedataTable') }}",
-                data: function(d) {
-                    d.type = 'player';
-                }
-            },
-            columns: [{
-                    data: 'key',
-                    name: 'key',
-                    searchable: true,
-                    orderable: true,
-                    defaultContent: 'NA'
+            responsive: false,
+                language: {
+                    search: "Search: _INPUT_",
+                    searchPlaceholder: "Search by ID or Massage Center Name...",
+                    lengthMenu: "Show _MENU_ entries",
+                    zeroRecords: "No matching records found",
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    infoEmpty: "No entries available",
+                    infoFiltered: "(filtered from _MAX_ total entries)"
                 },
-                {
-                    data: 'name',
-                    name: 'name',
-                    searchable: false,
-                    orderable: false,
-                    defaultContent: 'NA'
+                paging: true,
+                searchable: true,
+                searching: true,
+                ajax: {
+                    url: "{{ route('user.my-legbox-massage-list') }}",
+                    data: function(data) {
+                    }
                 },
-                {
-                    data: 'city_name',
-                    name: 'city_name',
-                    searchable: false,
-                    orderable: false,
-                    defaultContent: 'NA'
-                },
-                //  { data: 'type', name: 'gender', searchable: false, orderable:false ,defaultContent: 'NA'},
-                //  { data: 'phone', name: 'phone', searchable: false, orderable:false,defaultContent: 'NA' },
-                //  { data: 'email', name: 'email', searchable: false, orderable:false,defaultContent: 'NA' },
-                {
-                    data: 'action',
-                    name: 'action',
-                    searchable: false,
-                    orderable: false,
-                    defaultContent: 'NA'
-                },
-            ],
-            aoColumnDefs: [
-
-                // {
-                //    "aTargets":[0],
-                //       "render": function (data) { return  "<a href='#'>"+data+"  </a>"; 
-                //    }
-                // },
-                // {
-                //    "aTargets": [0],
-                //    "visible": false,
-                //    "searchable": false
-                // }
-
-            ]
+                columns: [
+                    { data: 'massage_id', name: 'massage_id' },                         // 0
+                    { data: 'location', name: 'location' },                        // 2
+                    { data: 'business_name', name: 'business_name' },                        // 2
+                    { data: 'open_now', name: 'open_now' },                               // 3
+                    { data: 'rating_label', name: 'rating_label' },
+                    { data: 'is_enabled_contact', name: 'is_enabled_contact' },       // 6
+                    { data: 'contact_method', name: 'contact_method' },               // 7
+                    { data: 'massage_communication', name: 'massage_communication' },                    // 9
+                    { data: 'action', name: 'action', orderable: false, searchable: false } // 10
+                ]
         });
 
         $('body').on('click', '.delete-center', function(e) {

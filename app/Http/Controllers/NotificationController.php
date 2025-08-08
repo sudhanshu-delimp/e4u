@@ -62,7 +62,7 @@ class NotificationController extends Controller
                     {
                         if($notification->notification_listing_type=='1')
                         {
-                            $support_notifications[]['data'] = $notification;
+                            $support_notifications['data'][] = $notification;
                             if($notification->is_seen=='0')
                             $support_notifications['is_new'] = 1;
 

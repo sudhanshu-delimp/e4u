@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Center\CenterController;
 use App\Http\Controllers\Escort\EscortController;
 use App\Http\Controllers\Agent\AgentRequestController;
@@ -315,3 +316,6 @@ Route::get('request-notification',function(){
 })->name('request-notification');
 
 Route::post('agent-request',[AgentRequestController::class, 'agentRequest'])->name('agent.agent-request');
+
+Route::get('get-notification', [NotificationController::class, 'getNotification'])->name('center.get-notification');
+Route::post('notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('center.notification-seen');
