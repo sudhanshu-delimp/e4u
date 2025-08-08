@@ -40,7 +40,7 @@
     }
     .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 10px;
     }
     .grid-container > div {
@@ -98,42 +98,28 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-   <div class="col-md-12 p-0">
       <div class="row">
-         <div class="col-md-12">
- 
-            <div class="row mb-4">
-                <div class="col-md-10">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="v-main-heading h3" style="display: inline-block;">Photos</div>
-                            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-                        </div>
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1" style="display: inline-block;">Photos</h1>
+            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+        </div>
+        <div class="col-md-12 mb-4">                    
+            <div class="collapse" id="notes">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>Upload your photos here (up to 30) and then select your default images including your Thumbnail, other photos (up to six portrait) and your Banner Image (landscape) (<b>Default Images</b>).</li>
+                            <li>Your Default Images will always appear in the Profile Creator when you activate the Profile Creator (for a new Profile). If you change any of the Default Images in the Profile Creator, like when you are creating a second Profile for the same Location, you will be asked if you want to update your changes to the Default Images.</li>
+                            <li>When uploading your Photos, make sure they comply with our <a href="/escort-dashboard/help" class="custom_links_design">Profile Image</a> guidelines, especially in terms of the pixilation and the size of the photo.</li>
+                            <li>If you don't upload a Banner Image (which is located at the top of your Profile), you can select a template image from the list (<b>Template</b>).  There is a Template designed to represent each Location.  We encourage you to upload your own Banner.  Remember, it is a landscape image and you can include a montage.</li>
+                        </ol>
                     </div>
                 </div>
-                <div class="col-md-10">
-
-                    
-                    <div class="row collapse" id="notes">
-                        <div class="col-md-12 mb-5">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                    <ol>
-                                        <li>Upload your photos here (up to 30) and then select your default images including your Thumbnail, other photos (up to six portrait) and your Banner Image (landscape) (<b>Default Images</b>).</li>
-                                        <li>Your Default Images will always appear in the Profile Creator when you activate the Profile Creator (for a new Profile). If you change any of the Default Images in the Profile Creator, like when you are creating a second Profile for the same Location, you will be asked if you want to update your changes to the Default Images.</li>
-                                        <li>When uploading your Photos, make sure they comply with our <a href="/escort-dashboard/help" class="custom_links_design">Profile Image</a> guidelines, especially in terms of the pixilation and the size of the photo.</li>
-                                        <li>If you don't upload a Banner Image (which is located at the top of your Profile), you can select a template image from the list (<b>Template</b>).  There is a Template designed to represent each Location.  We encourage you to upload your own Banner.  Remember, it is a landscape image and you can include a montage.</li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-               <div class="col-md-2" style="padding-left: 7rem;">
-                  <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
-               </div>
             </div>
+        </div>
+        <div class="col-md-12 mb-3 d-flex justify-content-end">
+            <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
         </div>
     </div>
     <div class="row">
@@ -276,8 +262,7 @@
             </div>
         </div>
         <div class="col-lg-8">
-            <div class="photo-top-header" style="
-                ">
+            <div class="photo-top-header">
                 <div class="photo-header border-0">
                     <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
                         <div class="row">
@@ -370,7 +355,7 @@
                 </div>
             </div>
         </div>
-         </div>
+    </div>
 
 </div>
 <div class="modal delete" id="pesrmissionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -492,7 +477,6 @@
            </div>
            <div class="modal-body">
                <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
-{{--                   <div class="col-sm-12">--}}
                    @foreach($media  as $keyId => $image)
                        @if(!in_array($image->position, [8, 9, 10])/*$image->position != 8*/)
                            <div class="item4">
@@ -500,12 +484,8 @@
                            </div>
                        @endif
                    @endforeach
-{{--                   </div>--}}
                </div>
            </div>
-           {{--<div class="modal-footer" style="justify-content: center;">
-               <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-           </div>--}}
        </div>
    </div>
 </div>
