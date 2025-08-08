@@ -49,7 +49,7 @@
                     <th>Transaction Date</th>
                     <th>Transaction Value</th>
                     <th>Card</th>
-                    <th>Action</th>
+                    <th class="text-center">Action</th>
                    </tr>
                 </thead>
                 <tbody>
@@ -61,7 +61,7 @@
                      <td>25-07-2025</td>
                      <td>$ 80.00</td>
                      <td>1235 1258 4123 xxxx</td>
-                     <td>
+                     <td class="text-center">
                         <div class="dropdown no-arrow">
                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -146,9 +146,9 @@
                   </div>
                </div>
             </div>
-            <!-- <div class="modal-footer pb-4 mb-2">
-                <button type="button" class="btn btn-primary">Publish</button>
-            </div> -->
+            <div class="modal-footer pb-4 mb-2">
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
@@ -156,33 +156,24 @@
 
  @endsection
 @section('script')
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
    $(document).ready(function() {
     var table = $("#transactionSummaryTable").DataTable({
-        language: {
+         language: {
             search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID or Agent ID...",
-            lengthMenu: "Show _MENU_ entries",
-            zeroRecords: "No matching records found",
-            info: "Showing _START_ to _END_ of _TOTAL_ entries",
-            infoEmpty: "No entries available",
-            infoFiltered: "(filtered from _MAX_ total entries)"
-        },
+            searchPlaceholder: "Search by Member ID..."
+         },
         processing: true,
-        serverSide: true,
-        paging: true, // ✅ Ensure Pagination
+        serverSide: false,
+        paging: true, 
         lengthChange: true,
         searching: true,
         bStateSave: true,
         order: [[1, 'desc']],
         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
         pageLength: 10,
-        ajax: "your-server-side-script.php" // ✅ Add Your Data Source
     });
 });
 

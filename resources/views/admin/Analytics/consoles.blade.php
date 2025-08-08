@@ -61,29 +61,20 @@
 @endsection
 @push('script')
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
 <script>
    $("#consoleDatatable").DataTable({
-       "language": {
-         search: "_INPUT_",
-        searchPlaceholder: "Search by Member Id or Name",
-        "sSearch": 'Search ',
-   
-        oPaginate: {
-       sNext: '<span aria-hidden="true">Next</span>',
-       sPrevious: '<span aria-hidden="true">Previous</span>',
-       sFirst: '<span aria-hidden="true">»</span>',
-       sLast: '<span aria-hidden="true">»</span>'
-    }
-
-       },
-       
-      info: false,
+    language: {
+       search: "Search: _INPUT_",
+       searchPlaceholder: "Search by Member Id or Name"
+    },
+      info: true,
       bLengthChange: true,
       processing: true,
       serverSide: true,
       //lengthChange: true,
       order: [0,'asc'],
-      searchable:false,
+      searchable:true,
       //searching:false,
       bStateSave: true,
    

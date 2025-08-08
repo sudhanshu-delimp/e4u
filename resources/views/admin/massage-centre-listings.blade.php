@@ -26,45 +26,31 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!--middle content-->
     <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading">
-                <h1> Massage Centre Listings <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                        style="font-size:16px"><b>Help?</b> </span></h1>
-            </div>
-            <div class=" my-4">
-                <div class="card collapse" id="notes">
-                    <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol>
-                            <li>All current (published) Listings are displayed in this table.</li>
-                            <li>You have limited Action access according to your security level.</li>
-                            <li>Prefixes:</li>
-                            <p>1. ACT  &nbsp;&nbsp;2. NSW  &nbsp;&nbsp;3. Vic  &nbsp;&nbsp;4. Qld  &nbsp;&nbsp;5. SA  &nbsp;&nbsp;6. WA  &nbsp;&nbsp;7. Tas  &nbsp;&nbsp;8. NT</p>
-                            
-                        </ol>
+        <div class="col-md-12 custom-heading-wrapper">            
+            <h1 class="h1"> Massage Centre Listings</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                    style="font-size:16px"><b>Help?</b> </span>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                    <ol>
+                        <li>All current (published) Listings are displayed in this table.</li>
+                        <li>You have limited Action access according to your security level.</li>
+                        <li>Prefixes:</li>
+                        <p>1. ACT  &nbsp;&nbsp;2. NSW  &nbsp;&nbsp;3. Vic  &nbsp;&nbsp;4. Qld  &nbsp;&nbsp;5. SA  &nbsp;&nbsp;6. WA  &nbsp;&nbsp;7. Tas  &nbsp;&nbsp;8. NT.</p>
+                        
+                    </ol>
 
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
         <div class="col-sm-12 col-md-12 col-lg-12 ">
             <div class="row my-3">
-                <div class="col-lg-4 col-md-12 col-sm-12">
-                    <form class="search-form-bg navbar-search" style="width: 310px;">
-                        <div class="input-group">
-                            
-                            <input type="search" class="search-form-bg-i form-control border-0 small"
-                                placeholder="Search by Member ID & Profile Name..  " id="customSearch" aria-label="Search" aria-describedby="basic-addon2" style="font-size: 13px;">   
-                            <div class="input-group-append">
-                                <button class="btn-right-icon" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>                         
-                        </div>
-                        
-                    </form>
-                </div>
-                <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
+                
+                <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
                   
                     <div class="total_listing">
                         <div><span>Total Listings : </span></div>
@@ -291,8 +277,12 @@
             processing: true,
             serverSide: true,
             paging: true,
-            info: true, // optional: hides "Showing X of Y"
+            info: true,
             searching: true,
+            bStateSave: true,
+            order: [[1, 'desc']],
+            lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+            pageLength: 10,
             ajax: {
                 url: "{{ route('escort.current.list.dataTableListing', 'current') }}",
                 type: "GET",

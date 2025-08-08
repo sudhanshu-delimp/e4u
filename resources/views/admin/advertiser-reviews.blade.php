@@ -148,7 +148,7 @@ table td,th{
                                     </a>
                                     <div class="dropdown-divider"></div>
 
-                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"  data-toggle="modal" data-target="#confirm-popup">
+                                    <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"  data-toggle="modal" data-target="#rejected-popup">
                                         
                                         <i class="fa fa-ban text-dark"></i>Rejected
                                     </a>
@@ -249,13 +249,17 @@ table td,th{
 </div>
 <!--right side bar end-->
 </div>
+
+
+
+{{-- published modal --}}
 <div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content basic-modal">
             <div class="modal-header border-0">
                 <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
-                    <img src="{{ asset('assets/app/img/resolved.png') }}" alt="alert" style="width: 24px; margin-right: 8px;">
+                    <img src="{{ asset('assets/dashboard/img/published.png') }}" alt="published" class="custompopicon">
                     Published
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -266,7 +270,37 @@ table td,th{
             </div>
 
             <div class="modal-body text-center">
-                <p style="font-size: 16px; color: #333; font-weight: 500;">We’re happy to inform you that your query has been <br> successfully resolved.</p>
+                <p style="font-size: 16px; color: #333; font-weight: bold;">We’re happy to inform you that your query has been <br> successfully resolved.</p>
+
+            </div>
+
+            <div class="modal-footer justify-content-center border-0 pb-4">
+                <button type="button" class="btn-success-modal px-4" data-dismiss="modal" aria-label="Close">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{-- rejected modal --}}
+<div class="modal fade upload-modal" id="rejected-popup" tabindex="-1" role="dialog" aria-labelledby="rejectedPopupLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content basic-modal">
+            <div class="modal-header border-0">
+                <h5 class="modal-title d-flex align-items-center" id="rejectedPopupLabel">
+                    <img src="{{ asset('assets/dashboard/img/rejected.png') }}" alt="rejected" class="custompopicon">
+                    Rejected
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+
+            <div class="modal-body text-center">
+                <p style="font-size: 16px; color: #333; font-weight: bold;">We’re inform you that your query has been <br> Rejected.</p>
 
             </div>
 

@@ -37,10 +37,10 @@
                         <li>Where the decision is to:</li>
                         <ol  class="level-2">
                             <li>
-                                Cancel the Advertiser's Membership, place the status on 'Cancelled'
+                                Cancel the Advertiser's Membership, place the status on 'Cancelled',
                             </li>
                             <li>
-                                Re-instate the Advertiser's membership, place the status on 'Registered'
+                                Re-instate the Advertiser's membership, place the status on 'Registered',
                             </li>
                         </ol>
                         <p>then the Console will generate emails to the Member notifying accordingly the
@@ -88,31 +88,9 @@
             </div> 
         </div>                             
 
-        <div class="col-sm-12 col-md-12 col-lg-12 ">
-            <div class="row my-3">
-                <div class="col-lg-4 col-md-12 col-sm-12">
-                    <form class="search-form-bg navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="search-form-bg-i form-control border-0 small"
-                                placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn-right-icon" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <!-- <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
-                  
-                    <div class="total_listing">
-                        <div><span>Total Listings : </span></div>
-                        <div><span>4,456</span></div>
-                    </div>
-                </div> -->
-            </div>
+        <div class="col-sm-12 col-md-12 col-lg-12 ">           
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="AdvertiserReportTable">
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">
@@ -131,7 +109,7 @@
                             </th>
                             <th scope="col">Home State</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Action</th>
+                            <th scope="col" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody class="table-content">
@@ -142,7 +120,7 @@
                             <td class="theme-color">1438 028 733</td>
                             <td class="theme-color">WA</td>
                             <td class="theme-color">Current</td>
-                            <td>
+                            <td class="text-center">
                                 <div class="dropdown no-arrow ml-3">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -178,25 +156,6 @@
                         </tr>
                     </tbody>
                 </table>
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination float-right pt-4">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">«</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">»</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
         
@@ -287,7 +246,7 @@
         <div class="modal-content basic-modal">
             <div class="modal-header border-0">
                 <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
-                    <img src="{{ asset('assets/app/img/resolved.png') }}" alt="alert" style="width: 24px; margin-right: 8px;">
+                    <img src="{{ asset('assets/dashboard/img/unblock.png') }}" alt="resolved"  class="custompopicon">
                     Resolved
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -308,18 +267,23 @@
         </div>
     </div>
 </div>
-
-<script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
-<script>
-CKEDITOR.replace('editor1', {
-    fullPage: true,
-    extraPlugins: 'docprops',
-    // Disable content filtering because if you use full page mode, you probably
-    // want to  freely enter any HTML content in source mode without any limitations.
-    allowedContent: true,
-    height: 320
-});
-</script>
 @endsection
 @push('script')
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script>
+      var table = $("#AdvertiserReportTable").DataTable({
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by Member ID..."
+      },
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: true,
+      order: [[1, 'desc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10
+   });
+</script>
 @endpush

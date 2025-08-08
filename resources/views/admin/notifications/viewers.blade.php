@@ -33,24 +33,8 @@
             </div>  
             <div class="row">
                <div class="col-md-12">
-                  <div class="row pb-3">
-                     <div class="col-lg-4 col-md-6 col-sm-6">
-                        <form class="search-form-bg navbar-search">
-                           <div class="input-group">
-                              <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                              <div class="input-group-append">
-                                 <button class="btn-right-icon" type="button">
-                                 <i class="fas fa-search fa-sm"></i>
-                                 </button>
-                              </div>
-                           </div>   
-                        </form>
-                     </div>
-                     <div class="col-lg-8 col-md-12 col-sm-12">
-                        <div class="bothsearch-form" style="gap: 10px;">
-                           <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#createNotification" style="color:var(--peach)">New Notification</button>
-                        </div>
-                     </div>
+                  <div class="bothsearch-form mb-3">
+                     <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#createNotification">New Notification</button>
                   </div>
                </div>
                <div class="col-md-12">
@@ -59,7 +43,7 @@
                         <div class="tab-content">
                            <div class="tab-pane fade in active show" id="tab1warning">
                               <div class="table-responsive-xl">
-                                 <table class="table">
+                                 <table class="table" id="viewerNotificationTable">
                                     <thead class="table-bg">
                                        <tr>
                                           <th scope="col">Ref
@@ -69,7 +53,7 @@
                                           <th scope="col">Finish</th>
                                           <th scope="col">Type</th>
                                           <th scope="col">Status</th>
-                                          <th scope="col">Action</th>
+                                          <th scope="col" class="text-center">Action</th>
                                        </tr>
                                     </thead>
                                     <tbody class="table-content">
@@ -80,7 +64,7 @@
                                           <td class="theme-color">Adhoc</td>
                                           <td class="theme-color">Published</td>
                                          
-                                          <td class="theme-color">
+                                          <td class="theme-color text-center">
                                              <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -99,25 +83,6 @@
                                        </tr>
                                     </tbody>
                                  </table>
-                                 <nav aria-label="Page navigation example">
-                                    <ul class="pagination float-right pt-4">
-                                       <li class="page-item">
-                                          <a class="page-link" href="#" aria-label="Previous">
-                                          <span aria-hidden="true">«</span>
-                                          <span class="sr-only">Previous</span>
-                                          </a>
-                                       </li>
-                                       <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                       <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                       <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                       <li class="page-item">
-                                          <a class="page-link" href="#" aria-label="Next">
-                                          <span aria-hidden="true">»</span>
-                                          <span class="sr-only">Next</span>
-                                          </a>
-                                       </li>
-                                    </ul>
-                                 </nav>
                               </div>
                            </div>
                         </div>
@@ -136,7 +101,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="createNotification">  <img src="{{ asset('assets/dashboard/img/create-notification.png') }}" style="width:25px"> Create Notification</h5>
+            <h5 class="modal-title" id="createNotification">  <img src="{{ asset('assets/dashboard/img/create-notification.png') }}" class="custompopicon"> Create Notification</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -217,7 +182,7 @@
 
          </div>
          <div class="modal-footer pr-3">
-            <button type="button" class="btn btn-primary">Save</button>
+            <button type="button" class="btn-success-modal">Save</button>
          </div>
       </div>
    </div>
@@ -256,3 +221,31 @@
    }
 </script>
 @endsection
+
+
+
+
+@push('script')
+  
+
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+      var table = $("#viewerNotificationTable").DataTable({
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by Ref..."
+      },
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: true,
+      order: [[1, 'desc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10
+   });
+
+ </script>
+  
+@endpush

@@ -39,18 +39,14 @@
              </div>
          </div>
      </div>
-    <div class="col-md-12"> 
-        <div class="row my-3">
-            <div class="col-lg-4 col-md-12 col-sm-12"></div>
-            <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
-                {{-- <div class="total_listing"></div> --}}
-                <div class="total_listing">
-                                    <div><span>Total Appointments : </span></div>
-                                    <div><span class="totalCompletedTask"></span></div>
-                                </div>
+         <div class="col-md-12"> 
+           <div class="d-flex justify-content-end">
+            <div class="total_listing mb-3">
+               <div><span>Total Appointments : </span></div>
+               <div><span class="totalCompletedTask"></span></div>
             </div>
-        </div>
-        <div class="table-responsive membership--inner">
+           </div>
+        <div class="table-responsive-xl membership--inner">
             <table class="table table-bordered text-center" id="agentRequestreportTable">
                  <thead id="table-sec" class="table-bg">
                    <tr>

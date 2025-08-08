@@ -18,53 +18,35 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5" >
     <!--middle content-->
     <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading">
-                <h1> Pin Up Listings <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                        style="font-size:16px"><b>Help?</b> </span></h1>
-            </div>
-            <div class=" my-4">
-                <div class="card collapse" id="notes">
-                    <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol>
-                            <li>All current (published) Pin Up Listings are displayed in this table.</li>
-                            <li>You have limited Action access according to your security level.</li>
-                            <li>
-                                <p>Prefixes:</p>
-                                <p>1. ACT 2. NSW 3. Vic 4. Qld 5. SA 6. W A 7. Tas 8. NT</p>
-                            </li>
-                        </ol>
-
-                    </div>
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1"> Pin Up Listings</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                    style="font-size:16px"><b>Help?</b> </span>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                    <ol>
+                        <li>All current (published) Pin Up Listings are displayed in this table.</li>
+                        <li>You have limited Action access according to your security level.</li>
+                        <li>
+                            <p>Prefixes:</p>
+                            <p>1. ACT 2. NSW 3. Vic 4. Qld 5. SA 6. W A 7. Tas 8. NT.</p>
+                        </li>
+                    </ol>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-md-12 col-lg-12 ">
-            <div class="row my-3">
-                <div class="col-lg-4 col-md-12 col-sm-12">
-                    <form class="search-form-bg navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="search-form-bg-i form-control border-0 small"
-                                placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn-right-icon" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
-                  
-                    <div class="total_listing">
-                        <div><span>Total Listings : </span></div>
-                        <div><span>8</span></div>
-                    </div>
+            <div class="my-3 col-md-12 col-sm-12 d-flex justify-content-end">
+                <div class="total_listing">
+                    <div><span>Total Listings : </span></div>
+                    <div><span>8</span></div>
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table pin-table">
+                <table class="table pin-table" id="pinUpListingTable">
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">
@@ -104,8 +86,6 @@
                                     </a>
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink" style="">
-                                        <!-- <a class="dropdown-item justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-check"></i> Published </a>
-                                        <div class="dropdown-divider"></div> -->
                                         <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-eye"></i> View Listing </a>
                                                 <div class="dropdown-divider"></div>
                                         <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-trash"></i> Suspend  </a>
@@ -129,9 +109,6 @@
                                     </a>
                                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink" style="">
-                                        <!-- <a class="dropdown-item" href="#">Published <i class="fa fa-check"
-                                                style="float: right;"></i></a>
-                                        <div class="dropdown-divider"></div> -->
                                         <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-eye"></i> View Listing </a>
                                                 <div class="dropdown-divider"></div>
                                         <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-trash"></i> Suspend  </a>
@@ -141,88 +118,16 @@
                         </tr>
                     </tbody>
                 </table>
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination float-right pt-4">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">«</span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">»</span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
        <div class="col-sm-12 col-md-12 col-lg-12">
             <div class="timer_section">
-                    <p>Server time: <span>[10:23:51 am]</span></p>
-                    <p>Refresh time:<span> [seconds]</span></p>
-                    <p>Up time: <span>[214 days & 09 hours 12 minutes]</span></p>
-                </div>
-        </div>
-        {{-- <div class="col-md-12">
-            <div class="my-account-card">
-            <div class="card-head">                  
-                    
-                <h2>My Account details </h2>
-                    <button class="print-btn" onclick="window.print()">🖨️ Print Report</button>
-                </div>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <label>Member ID</label>
-                        <span>M60178</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Member</label>
-                        <span>Lins Massage</span>
-                    </div>
-                    <div class="info-item">
-                        <label>IP Address</label>
-                        <span>123.176.113.164</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Platform</label>
-                        <span>Firefox</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Page</label>
-                        <span>/escort-dashboard</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Listed Profiles (Escort)</label>
-                        <span>08</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Published Masseurs (Massage Centre)</label>
-                        <span>02</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Listed Advertisers (Agent)</label>
-                        <span>01</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Legboxes (Viewer)</label>
-                        <span>04</span>
-                    </div>
-                </div>
+                <p>Server time: <span>[10:23:51 am]</span></p>
+                <p>Refresh time:<span> [seconds]</span></p>
+                <p>Up time: <span>[214 days & 09 hours 12 minutes]</span></p>
             </div>
-        </div> --}}
+        </div>
     </div>
-</div>
-
-<!--middle content end here-->
-<!--right side bar start from here-->
-</div>
-<!--right side bar end-->
 </div>
 <script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
 <script>
@@ -237,4 +142,24 @@ CKEDITOR.replace('editor1', {
 </script>
 @endsection
 @push('script')
+
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+   var table = $("#pinUpListingTable").DataTable({
+    language: {
+        search: "Search: _INPUT_",
+        searchPlaceholder: "Search by Ref No..."
+    },
+    info: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    bStateSave: true,
+    order: [[1, 'desc']],
+    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+    pageLength: 10
+});
+
+ </script>
 @endpush
