@@ -31,7 +31,6 @@
             <div class="col-md-5 js_pinup_profile">
                 <div href="#" class="tip mb-2 d_custom_home_img">
                     <img style="" class="img-fluid" src="{{ asset('assets/app/img/home/home-demo.png') }}">
-                    <span class="memmber_info"><i class="fa fa-user"></i> Member ID: E30122</span>
                 </div>
             </div>
             <div class="col-md-7">
