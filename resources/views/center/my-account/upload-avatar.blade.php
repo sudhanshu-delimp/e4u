@@ -31,13 +31,13 @@
 <div class="container-fluid pl-3 pl-lg-5">
     <!--middle content start here-->
     <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Upload your avatar</h1></div>
-            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1">Upload your avatar</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
         <div class="col-md-12 mt-4" id="profile_and_tour_options">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 mb-4">
                     <div class="card collapse" id="notes" style="">
                         <div class="card-body">
                             <h2 class="primery_color normal_heading"><b>Notes:</b></h2>
@@ -153,7 +153,7 @@
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color border-0">
-                <span style="color: white">Crop Photo</span>
+                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/crop-image.png') }}" class="custompopicon"> Crop Photo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                     
@@ -169,8 +169,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal">Close</button>
-                <button type="button" id="cropImageBtn" class="btn main_bg_color site_btn_primary">Crop</button>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+                <button type="button" id="cropImageBtn" class="btn-success-modal">Crop</button>
             </div>
         </div>
     </div>

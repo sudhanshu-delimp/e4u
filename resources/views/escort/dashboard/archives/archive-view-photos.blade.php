@@ -19,8 +19,8 @@
 </style>
 <style type="text/css">
     .ui-draggable-dragging {
-        width: 80px !important;
-        height: auto !important;
+        width: 82px !important;
+        height: 82px !important;
         opacity: 0.8;
     }
     .draggable
