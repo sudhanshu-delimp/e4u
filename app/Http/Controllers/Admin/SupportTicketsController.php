@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 //use Illuminate\Http\Request;
 use Exception;
 use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Support\Str;
 use App\Models\Notification;
 use Illuminate\Http\Request;
@@ -368,14 +369,23 @@ class SupportTicketsController extends AppController
                 ];
 
              ############ Send Notification ################
+             $user_type = User::where('id',$st->user->id)->first();
+             if($user_type->type=='3' || $user_type->type=='4')
+             $url = url('/support_tickets/ticket-list');
+             elseif($user_type->type=='5')
+             $url =  url('/support_tickets/ticket-list/'); 
+             else
+             $url =  url('/user-dashboard/view-and-reply-ticket/');      
+
+             $title =    'You have received a new message on <a href="'. $url .'"> support ticket#'.$st->ref_number.'</a>';
+        
              $data = [
-                'title' => 'You have received a new message on <a href="'.url('/support_tickets/list/').'"> ticket#'.$st->ref_number.'</a>',
+                'title' => $title,
                 'to_user' => [$st->user->id],
                 'notification_type' =>  'support_ticket',
                 'notification_listing_type' =>  '1',
              ];
              $this->notification->sendNotification($data);
-
              ############## End Send Notification ##########
 
             //$this->sendSupportReplyToUser($userData);

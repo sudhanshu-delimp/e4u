@@ -237,6 +237,7 @@ function int_datePicker(ele) {
                             }
                             else
                             {
+                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i>');
                                 $('.alert_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`); 
                             }
                         /////////// End  Alert Notification List /////////////////////////////
@@ -250,7 +251,7 @@ function int_datePicker(ele) {
                              
                                 if(support_notifications.is_new)
                                 {
-                                $('.support_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
+                                $('.support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
                                 }
                             
                                 support_notifications.data.forEach((notification) => {
@@ -271,7 +272,7 @@ function int_datePicker(ele) {
                                 $('.support_notify_html').html(support_notify_html);
                         }
                         else
-                        {
+                        {       $('.support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>');
                                 $('.support_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`); 
                         }
                         ///////////// End Support Notification List //////////////////////////

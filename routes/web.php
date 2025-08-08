@@ -736,3 +736,8 @@ Route::get('/delete', function(){
     User::where('email', 'muqafan@mailinator.com')->forceDelete();
     return "done";
 });
+
+
+Route::get('/get-notification', [NotificationController::class, 'getNotification'])->name('user.get-notification');
+Route::post('/notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('user.notification-seen');
+
