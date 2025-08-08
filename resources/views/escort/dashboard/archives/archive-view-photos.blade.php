@@ -49,7 +49,7 @@
         object-fit: cover;
     }
     img.img-thumbnail.defult-image {
-        width: 100%;
+        width: 190px;
         height: 135px;
         object-fit: cover;
     }
