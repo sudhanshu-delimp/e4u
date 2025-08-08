@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\AgentRegistered;
+use App\Listeners\Agent\SendAdminAgentRegisteredEmail;
+use App\Listeners\Agent\SendAgentWelcomeEmail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -23,6 +26,10 @@ class EventServiceProvider extends ServiceProvider
             RegisterListenerForEscort::class,
             RegisterListenerForAdmin::class,
             RegisterListenerForAgent::class
+        ],
+        AgentRegistered::class => [
+            SendAgentWelcomeEmail::class,
+            SendAdminAgentRegisteredEmail::class
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\LoginListener',
