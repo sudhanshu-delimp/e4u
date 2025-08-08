@@ -32,6 +32,8 @@ use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
+use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes    
@@ -140,16 +142,20 @@ Route::middleware('auth')->group(function () {
         Route::get('/my-legbox',[EscortMyLegboxViewerController::class,'dashboard'])->name('user.my-legbox');
         Route::get('/my-escort-legbox-ajax',[EscortMyLegboxViewerController::class,'escortViewersAjaxList'])->name('escort.viewer-legbox-list');
         Route::post('/escort/viewer-interaction-update', [EscortViewerInteractionController::class, 'escortUpdateViewerInteraction'])->name('escort.viewer-interaction.update');
-        // Route::get('/my-legbox',function(){
-        //     return view('user.dashboard.my-legbox');
-        // })->name('user.my-legbox');
 
         # Viewer escort interaction routes
-        Route::get('/my-viwer-legbox-ajax',[ViewerEscortInteractionController::class,'dashboardEscortListAjax'])->name('user.my-legbox-escort-list');
-        Route::get('/my-viewer-legbox-ajax',[ViewerEscortInteractionController::class,'viewersEscortAjaxList'])->name('viewer.escort-legbox-list');
+        Route::get('/my-viwer-escort-legbox-ajax',[ViewerEscortInteractionController::class,'dashboardEscortListAjax'])->name('user.my-legbox-escort-list');
+        Route::get('/my-viewer-escort-legbox-ajax',[ViewerEscortInteractionController::class,'viewersEscortAjaxList'])->name('viewer.escort-legbox-list');
         Route::post('/viewer/escort-interaction-update', [ViewerEscortInteractionController::class, 'viewerUpdateEscortInteraction'])->name('viewer.escort-interaction.update');
         Route::get('/viewer/escort-profile-view/{id?}', [GlobalMonitoringController::class, 'dataTableSingleListingAjax'])->name('viewer.escort.profile-view');
         Route::post('/viewer/escort-remove-from-legbox', [ViewerEscortInteractionController::class, 'viewerRemoveEscortFromLegbox'])->name('viewer.escort-remove');
+
+        # Viewer massage interaction routes
+        Route::get('/my-viwer-massage-legbox-ajax',[ViewerMassageInteractionController::class,'dashboardMassageListAjax'])->name('user.my-legbox-massage-list');
+        Route::get('/my-viewer-massage-legbox-ajax',[ViewerMassageInteractionController::class,'viewersMassageAjaxList'])->name('viewer.massage-legbox-list');
+        Route::post('/viewer/massage-interaction-update', [ViewerMassageInteractionController::class, 'viewerUpdateMassageInteraction'])->name('viewer.massage-interaction.update');
+        Route::get('/viewer/massage-profile-view/{id?}', [ViewerMassageInteractionController::class, 'dataTableSingleMassageListingAjax'])->name('viewer.massage.profile-view');
+        Route::post('/viewer/massage-remove-from-legbox', [ViewerMassageInteractionController::class, 'viewerRemoveMassageFromLegbox'])->name('viewer.massage-remove');
 
 
         Route::get('/favorites-online',function(){
