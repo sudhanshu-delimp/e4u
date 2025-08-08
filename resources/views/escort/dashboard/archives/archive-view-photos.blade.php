@@ -1078,6 +1078,10 @@
         appendTo: ".upload-photo-sec",
            refreshPositions: false,
            drag: function (event, ui) {
+            // ui.helper.css({
+            //         width: "50px",   // desired width
+            //         height: "50px"    // keep aspect ratio
+            //     });
            },
            stop: function (event, ui) {
                // ui.helper.removeClass("draggable");
