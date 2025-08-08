@@ -343,16 +343,22 @@ class EscortGalleryController extends AppController
             10 => 'Pin Up',
         ];
         $repositoryName = array_key_exists($request->position,$labels)?$labels[$request->position]:'Gallery';
-        if($request->position != $media->position) {
+        if((in_array($request->position,[9,10]) && $request->position != $media->position) || ($request->position < 9 && in_array($media->position,[9,10]))) {
             $msg = "The photo you selected is not a {$repositoryName} image.  Please select a {$repositoryName} image from your repository.";
-        } else {
+        } 
+        else if(!in_array($media->position,[9,10]) && !empty($media->position)){
+            $msg = "The photo you selected is already set as the default. Please select a {$repositoryName} image from your repository.";
+        }
+        else {
             $this->media->nullPosition(auth()->user()->id, $request->position);
             $media->position = $request->position;
             $media->default = 1;
             $media->save();
             $error = true;
         }
-
+        // elseif ($media->position != 9 && $media->position) {
+        //     $msg = "It's a duplicate image. Please select another image.";
+        // }
         // foreach($request->position as $position => $id) {
         //     if($id != null) {
         //
