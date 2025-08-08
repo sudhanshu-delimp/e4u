@@ -18,6 +18,11 @@
     }
 </style>
 <style type="text/css">
+    .ui-draggable-dragging {
+        width: 80px !important;
+        height: auto !important;
+        opacity: 0.8;
+    }
     .draggable
     {
     filter: alpha(opacity=60);
@@ -1075,25 +1080,12 @@
        $("#dvSource img").draggable({
            revert: "invalid",
            helper: 'clone',
-        appendTo: ".upload-photo-sec",
+            appendTo: ".upload-photo-sec",
            refreshPositions: false,
            drag: function (event, ui) {
-            // ui.helper.css({
-            //         width: "50px",   // desired width
-            //         height: "50px"    // keep aspect ratio
-            //     });
+               
            },
            stop: function (event, ui) {
-               // ui.helper.removeClass("draggable");
-               // var image = this.src.split("/")[this.src.split("/").length - 1];
-               // console.log("image = "+image);
-               // if ($.ui.ddmanager.drop(ui.helper.data("draggable"), event)) {
-               //     alert(image + " dropped.");
-               // }
-               // else {
-               //     alert(image + " not dropped.");
-               // }
-
            }
        });
        $(".dvDest").droppable({
@@ -1104,28 +1096,12 @@
                var sourceImagePosition = $(ui.draggable).data('position');
                var meidaId = ui.draggable.data('id');
                 $("#pos_"+id.slice(3,4)).val(ui.draggable.data('id'));
-               // $("#usedf").append("<input type='hidden' name='imgId[]' value='"+ui.draggable.data('id')+"'>");
-               // $('#item-id').draggable( "disable" )
 
                console.log("sourcePosition :"+ sourceImagePosition);
                console.log("destinationPosition :"+ position);
                console.log("meidaId :"+ meidaId);
                console.log("1198");
                updateDefaultImage(position, meidaId, img_target, ui.draggable.attr('src'));
-               // debugger;
-
-                // if(position != 9){
-                /*if(position != 0){
-
-
-                } else {
-                    $('.comman_msg').html("<p>It's not a banner image .Please select banner image</p>");
-                    $("#comman_modal").modal('show');
-                    $('#comman_modal').on('hidden.bs.modal', function () {
-                    //location.reload();
-                    });
-                }*/
-               //$(".useDefault").show();
            }
 
        });
