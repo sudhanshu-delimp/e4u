@@ -21,6 +21,11 @@ class EscortPinup extends Model
         'utc_end_time',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function escort()
     {
         return $this->belongsTo(Escort::class);
@@ -54,5 +59,15 @@ class EscortPinup extends Model
             })
             ->orderBy('utc_end_time', 'desc')
             ->first();
+    }
+
+    public function getStatusAttribute(){
+        $now = Carbon::now('UTC');
+        if ($now->between($this->utc_start_time, $this->utc_end_time)) {
+            return 'current';
+        }
+        if ($now->lt($this->utc_start_time)) {
+            return 'upcoming';
+        }
     }
 }
