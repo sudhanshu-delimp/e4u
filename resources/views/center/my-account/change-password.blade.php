@@ -17,14 +17,14 @@
 @section('content')
 <div id="content-wrapper" class="d-flex flex-column">
    <div id="content">
-      <div class="container-fluid pl-3 pl-lg-5 change-pass-sec">
+      <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 change-pass-sec">
          <div class="row">
-            <div class="col-md-12 d-flex align-items-baseline">
-               <div class="v-main-heading h3"><h1 class="p-0 m-0">Change Password</h1></div>
-               <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true" style="cursor: pointer;"><b>Help?</b></h6>
+            <div class="custom-heading-wrapper col-md-12">
+               <h1 class="h1">Change Password</h1>
+               <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
 
-            <div class="col-md-12 my-4">
+            <div class="col-md-12 mb-4">
                <div class="card collapse" id="notes">
                   <div class="card-body">
                      <p class="mb-2 font-weight-bold" style="font-size: 18px;">Notes:</p>

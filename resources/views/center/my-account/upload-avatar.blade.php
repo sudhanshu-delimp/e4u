@@ -28,28 +28,26 @@
 <div id="content-wrapper" class="d-flex flex-column">
    <!-- Main Content -->
    <div id="content">
-<div class="container-fluid pl-3 pl-lg-5">
-    <!--middle content start here-->
-    <div class="row">
-        <div class="col-md-12 custom-heading-wrapper">
-            <h1 class="h1">Upload your avatar</h1>
-            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-        </div>
-        <div class="col-md-12 mt-4" id="profile_and_tour_options">
+        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+            <!--middle content start here-->
             <div class="row">
-                <div class="col-md-12 mb-4">
+                <div class="col-md-12 custom-heading-wrapper">
+                    <h1 class="h1">Upload your avatar</h1>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+                </div>
+                <div class="col-md-12 mb-4" id="profile_and_tour_options">
                     <div class="card collapse" id="notes" style="">
                         <div class="card-body">
-                            <h2 class="primery_color normal_heading"><b>Notes:</b></h2>
+                            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                             <ol>
-                                <li>You don't have to have an avatar, it is entirely up to you</li>
-                                <li>Your avatar will not be displayed publicly</li>
-                                <li>You can remove or change your avatar anytime</li>
+                                <li>You don't have to have an avatar, it is entirely up to you.</li>
+                                <li>Your avatar will not be displayed publicly.</li>
+                                <li>You can remove or change your avatar anytime.</li>
                             </ol>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div> 
+            </div>       
             <div class="row">
                 <div class="col-md-12">
                     <div class="card border-0">
@@ -57,9 +55,9 @@
                             <h2 class="primery_color normal_heading">File types</h2>
                             <p>When selecting your avatar, please be mindful of the following:</p>
                             <ul>
-                                <li>Yes you can use a photo, but we do not recommend it</li>
-                                <li>Acceptable formats include; .jpg, .gif or .png</li>
-                                <li>.pdf, .psd, .tff, and .doc files are not compatible</li>
+                                <li>Yes you can use a photo, but we do not recommend it.</li>
+                                <li>Acceptable formats include; .jpg, .gif or .png.</li>
+                                <li>.pdf, .psd, .tff, and .doc files are not compatible.</li>
                             </ul>
                             <div class="row">
                                 <div class="col-lg-4 mt-4">
@@ -130,8 +128,6 @@
     </div>
     <!--middle content end here-->
 </div>
-   </div>
-   <!-- End of Main Content -->
    <!-- Footer -->
    <footer class="sticky-footer bg-white">
       <div class="container my-auto">

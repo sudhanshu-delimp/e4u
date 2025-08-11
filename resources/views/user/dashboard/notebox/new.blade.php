@@ -17,7 +17,7 @@
     <div class="row">
       <div class="custom-heading-wrapper col-md-12">
           <h1 class="h1">Add Notebox</h1>
-          <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
       </div>
       <div class="col-md-12 mb-4">
           <div class="card collapse" id="notes" style="">

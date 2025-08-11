@@ -21,11 +21,11 @@
 <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5 change-pass-sec">
    <!-- Page Heading -->
    <div class="row">
-    <div class="col-md-12">
-      <div class="v-main-heading h3" style="display: inline-block;">Add Report</div>
-       <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+    <div class="col-md-12 custom-heading-wrapper">
+      <h1 class="h1">Change password</h1>
+      <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
    </div>
-        <div class="col-md-12 my-4">
+        <div class="col-md-12 mb-4">
           <div class="card collapse" id="notes" style="">
             <div class="card-body">
                 <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>

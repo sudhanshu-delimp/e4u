@@ -4437,6 +4437,19 @@ span.menu-active {
         margin: 30px 0px 30px;
         flex-wrap: wrap;
     }
+    /*     
+    .custom-sidebar {
+        position: sticky !important;
+        top: 0 !important;
+        height: 100vh !important;
+    }
+    
+    .custom-navbar {
+        position: fixed;
+        z-index: 1080;
+        width: -webkit-fill-available;
+        width: -moz-available;
+    } */
     
     .v-main-heading h1 {
         font-family: Poppins;

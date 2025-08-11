@@ -14,12 +14,10 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content start here-->
    <div class="row">
-      <div class="col-md-12">
          <div class="custom-heading-wrapper col-lg-12">
             <h1 class="h1">Visa & Education</h1>
              <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
          </div>
-      </div>
       <div class="col-md-12 ">
           <div class="card collapse  mb-4" id="notes">
               <div class="card-body">

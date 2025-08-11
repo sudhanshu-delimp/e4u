@@ -68,7 +68,7 @@
                      <div class="col-md-12">
                         <div class="">
                            <table class="table table-bordered text-center" id="myAdvertisersList">
-                              <thead id="table-sec" class="table-bg">
+                              <thead class="table-bg">
                                  <tr>
                                     <th>Member ID</th>
                                     <th>Name</th>
@@ -357,12 +357,8 @@ $(document).ready(function() {
    var table = $("#myAdvertisersList").DataTable({
       language: {
          search: "Search: _INPUT_",
-         searchPlaceholder: "Member ID or Reference ID",
-         lengthMenu: "Show _MENU_ entries",
-         zeroRecords: "No matching records found",
-         info: "Showing _START_ to _END_ of _TOTAL_ entries",
-         infoEmpty: "No entries available",
-         infoFiltered: "(filtered from _MAX_ total entries)"
+         searchPlaceholder: "Search by Member ID"
+        
       },
       processing: true,
       serverSide: true,
