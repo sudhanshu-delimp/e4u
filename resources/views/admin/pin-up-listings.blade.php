@@ -42,10 +42,10 @@
             <div class="my-3 col-md-12 col-sm-12 d-flex justify-content-end">
                 <div class="total_listing">
                     <div><span>Total Listings : </span></div>
-                    <div><span>8</span></div>
+                    <div><span id="total_listings">0</span></div>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive-xl">
                 <table class="table pin-table" id="pinUpListingTable">
                     <thead class="table-bg">
                         <tr>
@@ -70,95 +70,70 @@
                         </tr>
                     </thead>
                     <tbody class="table-content">
-                        <tr class="row-color">
-                            <td width="10%" class="theme-color">E10178</td>
-                            <td class="theme-color">Joy</td>
-                            <td class="theme-color">ACT</td>
-                            <td class="theme-color">158</td>
-                            <td class="theme-color">07-07-2025</td>
-                            <td class="theme-color">3-07-2025</td>
-                            <td class="theme-color">Current</td>
-                            <td>
-                                <div class="dropdown no-arrow ml-3">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink" style="">
-                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-eye"></i> View Listing </a>
-                                                <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-trash"></i> Suspend  </a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="row-color">
-                            <td width="10%" class="theme-color"></td>
-                            <td class="theme-color"></td>
-                            <td class="theme-color">SA</td>
-                            <td class="theme-color"></td>
-                            <td class="theme-color"></td>
-                            <td class="theme-color"></td>
-                            <td class="theme-color"></td>
-                            <td>
-                                <div class="dropdown no-arrow ml-3">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink" style="">
-                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-eye"></i> View Listing </a>
-                                                <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-trash"></i> Suspend  </a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                       
                     </tbody>
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="2">
+                                    Server time: <span>[10:23:51 am]</span>
+                            </th>
+                            <th colspan="2" class="text-center">
+                                    Refresh time:<span> [seconds]</span>
+                            </th>
+                            <th colspan="4" class="text-right">
+                                    Up time: <span>[214 days & 09 hours 12 minutes]</span>
+                            </th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
        <div class="col-sm-12 col-md-12 col-lg-12">
-            <div class="timer_section">
-                <p>Server time: <span>[10:23:51 am]</span></p>
-                <p>Refresh time:<span> [seconds]</span></p>
-                <p>Up time: <span>[214 days & 09 hours 12 minutes]</span></p>
-            </div>
+            
         </div>
     </div>
 </div>
-<script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
-<script>
-CKEDITOR.replace('editor1', {
-    fullPage: true,
-    extraPlugins: 'docprops',
-    // Disable content filtering because if you use full page mode, you probably
-    // want to  freely enter any HTML content in source mode without any limitations.
-    allowedContent: true,
-    height: 320
-});
-</script>
 @endsection
 @push('script')
 
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-   var table = $("#pinUpListingTable").DataTable({
-    language: {
-        search: "Search: _INPUT_",
-        searchPlaceholder: "Search by Ref No..."
+  var table;
+  table = $("#pinUpListingTable").DataTable({
+    processing: true,
+    serverSide: true,
+    lengthChange: false,
+    searching: false,
+    pageLength: 20,
+    ajax: {
+        url: `{{route('admin.global_monitoring.get_pinup_listing')}}`,
+        type: 'GET',
+        error: function(xhr) {
+            console.log(xhr);
+                let message = 'Something went wrong while fetching data.';
+                if (xhr.responseJSON && xhr.responseJSON.error) {
+                    message = xhr.responseJSON.error;
+                }
+                alert(message);
+        }
     },
-    info: true,
-    paging: true,
-    lengthChange: true,
-    searching: true,
-    bStateSave: true,
-    order: [[1, 'desc']],
-    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10
+    drawCallback: function(settings) {
+        var json = settings.json;
+        if (json) {
+            $('#total_listings').text(json.recordsTotal);
+        }
+    },
+    columns: [
+        { data: 'member_id' },
+        { data: 'escort_name' },
+        { data: 'location' },
+        { data: 'profile_id' },
+        { data: 'start_date' },
+        { data: 'end_date' },
+        { data: 'status' },
+        { data: 'option' },
+    ]
 });
 
  </script>

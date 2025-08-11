@@ -445,6 +445,10 @@ class User extends Authenticatable
         return $this->belongsTo(User::class, 'assigned_agent_id', 'id');
     }
 
+    public function defaultPinupImage(){
+        return $this->hasOne(EscortMedia::class)
+        ->where(['default'=>1,'position'=>10]);
+    }
 
     public function shortList()
     {

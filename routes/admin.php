@@ -72,6 +72,7 @@ return view('admin.global-monitoring');
  Route::get('massage-centre-listings',[GlobalMonitoringController::class,'massageCenterListing'])->name('admin.massage-centre-listings');
  Route::get('/data-table-listing/{type?}', [GlobalMonitoringController::class, 'dataTableListingAjax'])->name('escort.current.list.dataTableListing');
  Route::get('/data-table-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableSingleListingAjax'])->name('escort.current.single-list.dataTableListing');
+ Route::get('/get-pinup-listing', [GlobalMonitoringController::class, 'getPinupListing'])->name('admin.global_monitoring.get_pinup_listing');
   
 //  Route::get('escort-listings', function(){
 //     return view('admin.escort-listings');
