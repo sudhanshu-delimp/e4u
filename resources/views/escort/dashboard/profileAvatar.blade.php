@@ -35,106 +35,97 @@ label.cabinet input.file{
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!--middle content start here-->
     <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading h3" style="display: inline-block;">Upload your avatar</div>
-            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1">Upload your avatar</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
         </div>
-        <div class="col-md-12 mt-4" id="profile_and_tour_options">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card collapse" id="notes">
-                        <div class="card-body">
-                            <h2 class="primery_color normal_heading"><b>Notes:</b></h2>
-                            <ol>
-                                <li>You don't have to have an avatar, it is entirely up to you.</li>
-                                <li>Your avatar will not be displayed publicly.</li>
-                                <li>You can remove or change your avatar anytime.</li>
-                            </ol>
-                        </div>
-                    </div>
+        <div class="col-md-12 mb-4" id="profile_and_tour_options">
+            <div class="card collapse" id="notes">
+                <div class="card-body">
+                    <h2 class="primery_color normal_heading"><b>Notes:</b></h2>
+                    <ol>
+                        <li>You don't have to have an avatar, it is entirely up to you.</li>
+                        <li>Your avatar will not be displayed publicly.</li>
+                        <li>You can remove or change your avatar anytime.</li>
+                    </ol>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card border-0">
-                        <div class="card-body">
-                            <h2 class="primery_color normal_heading">File types</h2>
-                            <p>When selecting your avatar, please be mindful of the following:</p>
-                            <ul>
-                                <li>Yes you can use a photo, but we do not recommend it</li>
-                                <li>Acceptable formats include; .jpg, .gif or .png </li>
-                                <li>.pdf, .psd, .tff, and .doc files are not compatible</li>
-                            </ul>
-                            <div class="row">
-                                <div class="col-lg-4 mt-4">
-                                    <h2 class="primery_color normal_heading">Upload your avatar</h2>
-                                    <form id="my_avatar" action="{{ route('escort.save.avatar',auth()->user()->id)}}" method="POST" enctype="multipart/form-data">
-                                        <div class="file-upload">
-                                            <div class="image-upload-wrap">
-                                                <input class="file-upload-input gambar item-img" name="avatar_img" type='file' onchange="readURL(this);" accept="image/*" />
-                                                <div class="drag-text">
-                                                    <h3>Drag and drop a file or select add Image</h3>
-                                                </div>
-                                            </div>
-                                            <div class="file-upload-content">
-                                                <img class="file-upload-image item-img" src="#" alt="your image" id="item-img-output" />
-                                                <div class="image-title-wrap">
-
-                                                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-                                                    <button type="submit" class="crop_image btn-success-modal">Save <span class="image-title">Uploaded Image</span></button>
-                                                </div>
-                                            </div>
+        </div>
+    </div>                
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card border-0">
+                <div class="card-body">
+                    <h2 class="primery_color normal_heading">File types</h2>
+                    <p>When selecting your avatar, please be mindful of the following:</p>
+                    <ul>
+                        <li>Yes you can use a photo, but we do not recommend it.</li>
+                        <li>Acceptable formats include; .jpg, .gif or .png.</li>
+                        <li>.pdf, .psd, .tff, and .doc files are not compatible.</li>
+                    </ul>
+                    <div class="row">
+                        <div class="col-lg-4 mt-4">
+                            <h2 class="primery_color normal_heading">Upload your avatar</h2>
+                            <form id="my_avatar" action="{{ route('escort.save.avatar',auth()->user()->id)}}" method="POST" enctype="multipart/form-data">
+                                <div class="file-upload">
+                                    <div class="image-upload-wrap">
+                                        <input class="file-upload-input gambar item-img" name="avatar_img" type='file' onchange="readURL(this);" accept="image/*" />
+                                        <div class="drag-text">
+                                            <h3>Drag and drop a file or select add Image</h3>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="col-lg-4 mt-4 current-avatar">
+                                    </div>
+                                    <div class="file-upload-content">
+                                        <img class="file-upload-image item-img" src="#" alt="your image" id="item-img-output" />
+                                        <div class="image-title-wrap">
 
-                                    <h2 class="primery_color normal_heading">Current Avatar</h2><!-- <i class="fab fa-twitter delete_avatar"></i> -->
-{{--                                    @if(auth()->user()->avatar_img)--}}
-                                    <button type="button" class="avatar close delete_avatar" aria-label="Close"  {{auth()->user()->avatar_img ? '' : 'hidden'}}>
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-{{--                                    @endif--}}
-                                    <img id="avatarUploaded" src="{{ !auth()->user()->avatar_img ? asset('assets/app/img/service-provider/Frame-408.png') :asset('avatars/'.auth()->user()->avatar_img) }}" alt="" class="img-rounded avatarName">
+                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                            <button type="submit" class="crop_image btn-success-modal">Save <span class="image-title">Uploaded Image</span></button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col-md-12 mt-4">
-                    <div id="accordion" class="myacording-design mb-5">
-                        <div class="card custom-help-contain">
-                            <div class="card-header">
-                                <a class="card-link" data-toggle="collapse" href="#File_name" aria-expanded="true">
-                                Additional Upload Information
-                                </a>
-                            </div>
-                            <div id="File_name" class="collapse" data-parent="#accordion" style="">
-                                <div class="card-body">
-                                    <p style="font-size: 20px;"><b>File name</b> </p>
-                                    <p>Only use letters, numbers, underscores, and hyphens in file names.</p>
-                                    <p style="font-size: 20px;"><b>File size</b> </p>
-                                    <p>We recommend using image files of less than 500 KB for best results, though the limit for an individual image upload is 2 MB.</p>
-                                    <p style="font-size: 20px;"><b>Resolution</b> </p>
-                                    <p>There is an image resolution limit of 60 MP (megapixels).</p>
-                                    <p style="font-size: 20px;"><b>Colour mode</b> </p>
-                                    <p>Save images in RGB color mode. Print mode (CMYK) won't render in most browsers.
-                                    </p>
-                                    <p style="font-size: 20px;"><b>Colour profile</b> </p>
-                                    <p>Save images in the sRGB color profile. If images don't look right on mobile devices, it's probably because they don't have an sRGB color profile.</p>
-                                </div>
-                            </div>
+                        <div class="col-lg-4 mt-4 current-avatar">
+
+                            <h2 class="primery_color normal_heading">Current Avatar</h2>
+                            <button type="button" class="avatar close delete_avatar" aria-label="Close"  {{auth()->user()->avatar_img ? '' : 'hidden'}}>
+                                <span aria-hidden="true">×</span>
+                            </button>
+                            <img id="avatarUploaded" src="{{ !auth()->user()->avatar_img ? asset('assets/app/img/service-provider/Frame-408.png') :asset('avatars/'.auth()->user()->avatar_img) }}" alt="" class="img-rounded avatarName">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!--middle content end here-->
-
-
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div id="accordion" class="myacording-design mb-5">
+                <div class="card custom-help-contain">
+                    <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#File_name" aria-expanded="true">
+                        Additional Upload Information
+                        </a>
+                    </div>
+                    <div id="File_name" class="collapse" data-parent="#accordion" style="">
+                        <div class="card-body">
+                            <p style="font-size: 20px;"><b>File name</b> </p>
+                            <p>Only use letters, numbers, underscores, and hyphens in file names.</p>
+                            <p style="font-size: 20px;"><b>File size</b> </p>
+                            <p>We recommend using image files of less than 500 KB for best results, though the limit for an individual image upload is 2 MB.</p>
+                            <p style="font-size: 20px;"><b>Resolution</b> </p>
+                            <p>There is an image resolution limit of 60 MP (megapixels).</p>
+                            <p style="font-size: 20px;"><b>Colour mode</b> </p>
+                            <p>Save images in RGB color mode. Print mode (CMYK) won't render in most browsers.
+                            </p>
+                            <p style="font-size: 20px;"><b>Colour profile</b> </p>
+                            <p>Save images in the sRGB color profile. If images don't look right on mobile devices, it's probably because they don't have an sRGB color profile.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

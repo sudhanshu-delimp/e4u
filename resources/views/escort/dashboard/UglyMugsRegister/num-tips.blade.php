@@ -42,11 +42,11 @@
    <!-- Page Heading -->
    
    <div class="row">
-      <div class="d-sm-flex align-items-center justify-content-start gap-10 mt-5">
+      <div class="col-md-12 custom-heading-wrapper">
          <h1 class="h1">Screening Tips - NUM</h1>
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
       </div>
-      <div class="col-md-12 my-2">
+      <div class="col-md-12 mb-4">
          <div class="card collapse" id="notes" style="">
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
@@ -60,7 +60,7 @@
    </div>
    <!-- Page Heading -->
    <div class="row">
-      <div class="col-md-12 mt-4 mb-5">
+      <div class="col-md-12">
          <div id="accordion" class="myacording-design">
             <div class="card">
                <div class="card-header">

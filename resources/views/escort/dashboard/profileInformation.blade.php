@@ -13,8 +13,8 @@
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading h3">Profile Information</div>
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1">Profile Information</h1>
         </div>
         <div class="col-md-12 mt-4">
             <div id="accordion" class="myacording-design mb-5">

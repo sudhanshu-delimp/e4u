@@ -52,36 +52,32 @@
     @endphp
     <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 custom-heading-wrapper">
                 @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
-                    <div class="v-main-heading h3" style="display:inline-block">New Profile</div>
+                    <h1 class="h1">New Profile</h1>
                 @else
-                    <div class="v-main-heading h3" style="display:inline-block">Update Profile</div>
+                    <h1 class="h1">Update Profile</h1>
                 @endif
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
-            <div class="col-md-12 mt-4" id="profile_and_tour_options">
-                <div class="row">
-                    <div class="col-md-12 mb-5">
-                        <div class="card collapse" id="notes">
-                            <div class="card-body">
-                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                <ol>
-                                    <li>Use this feature to create your Profiles. You can create as many Profiles as you
-                                        like for as many Locations as you like.</li>
-                                    <li>The Profiles you create will be used to create Tours.</li>
-                                    <li>Each time you create a Profile, it will be pre-populated with your <a
-                                            href="/escort-dashboard/profile-informations"
-                                            class="custom_links_design">Profile Information</a> you have set. Take the time
-                                        to set up your <a href="/escort-dashboard/profile-informations"
-                                            class="custom_links_design">Profile Information</a> and <a
-                                            href="/escort-dashboard/archive-medias" class="custom_links_design">Media</a>.
-                                        Any changes you make in the Profile Creator will only apply to that Profile unless
-                                        you click the ‘Update’ button for the section you have changed. Otherwise your
-                                        Profile Information settings will not change.</li>
-                                </ol>
-                            </div>
-                        </div>
+            <div class="col-md-12 mb-4" id="profile_and_tour_options">
+                <div class="card collapse" id="notes">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>Use this feature to create your Profiles. You can create as many Profiles as you
+                                like for as many Locations as you like.</li>
+                            <li>The Profiles you create will be used to create Tours.</li>
+                            <li>Each time you create a Profile, it will be pre-populated with your <a
+                                    href="/escort-dashboard/profile-informations"
+                                    class="custom_links_design">Profile Information</a> you have set. Take the time
+                                to set up your <a href="/escort-dashboard/profile-informations"
+                                    class="custom_links_design">Profile Information</a> and <a
+                                    href="/escort-dashboard/archive-medias" class="custom_links_design">Media</a>.
+                                Any changes you make in the Profile Creator will only apply to that Profile unless
+                                you click the ‘Update’ button for the section you have changed. Otherwise your
+                                Profile Information settings will not change.</li>
+                        </ol>
                     </div>
                 </div>
             </div>

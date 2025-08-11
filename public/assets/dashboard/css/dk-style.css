@@ -4434,7 +4434,7 @@ span.menu-active {
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        margin: 60px 0px 40px;
+        margin: 30px 0px 30px;
         flex-wrap: wrap;
     }
     
@@ -8069,6 +8069,11 @@ padding-bottom:80px;
     .custom--newtable thead,
     .custom--newtable tbody {
         font-size: 14px;
+    }
+    
+    #myReportTable_paginate span {
+        display: flex;
+        gap: 2px;
     }
     
     .dataTables_paginate span {

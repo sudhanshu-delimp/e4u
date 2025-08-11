@@ -18,32 +18,30 @@
 
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-    <div class="col-md-10 p-0">
+    <div class="col-md-12 p-0">
         <div class="row">
-            <div class="col-md-12">
-                <div class="v-main-heading h3 mb-0" style="display: inline-block;">My Playbox</div>
-                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+            <div class="col-md-12 custom-heading-wrapper">
+                <h1 class="h1">My Playbox</h1>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
 
             <!-- Help Notes Accordion -->
-            <div class="col-md-10 my-4">
-                <div class="row collapse" id="notes">
-                    <div class="col-md-12 mb-5">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="NotesHeader"><b>Notes:</b></h3>
-                                <ol class="pl-4">
-                                    <li>This is a social feature to help Escorts connect with Viewers.</li>
-                                    <li>Once launched, Playbox will be visible on your profile if content is uploaded.</li>
-                                </ol>
-                            </div>
+            <div class="col-md-12 mb-4">
+                <div class="collapse" id="notes">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="NotesHeader"><b>Notes:</b></h3>
+                            <ol class="pl-4">
+                                <li>This is a social feature to help Escorts connect with Viewers.</li>
+                                <li>Once launched, Playbox will be visible on your profile if content is uploaded.</li>
+                            </ol>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Playbox Content -->
-            <div class="col-md-12 fill_profile_headings_global text-justify">
+            <div class="col-md-10 fill_profile_headings_global text-justify">
                 <p><strong>Coming soon!</strong></p>
 
                 <h2>What is this all about?</h2>
