@@ -30,6 +30,6 @@ class AgentWelcomeMail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.agent.email_for_admin')->with(['agent' => $this->agent]);
+        return $this->view('emails.agent.email_for_agent')->with(['agent' => $this->agent]);
     }
 }

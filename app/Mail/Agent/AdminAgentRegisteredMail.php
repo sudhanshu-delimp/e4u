@@ -21,6 +21,7 @@ class AdminAgentRegisteredMail extends Mailable
     public function __construct($agent)
     {
         $this->agent = $agent;
+        
     }
 
     /**

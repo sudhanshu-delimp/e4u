@@ -94,41 +94,42 @@ class AgentRegisterController extends Controller
 
     public function register(StoreAgentRegisterRequest $request)
     {
+        $user = $this->create($request->all());
+
         $userDataForEvent = [
-            'id'        => 123,
-            'name'      => 'John Doe',
-            'phone'     => '9876543210',
-            'email'     => 'johndoe@example.com',
-            'location'  => 'Delhi', // Example state name
-            'agent_id'  => 'ADEL0001', // Example member_id
-            'create_at' => '5 April', // Example formatted date
+            'id' => $user->id,
+            'name' => $user->name,
+            'phone' => $user->phone,
+            'email' => $request->email,
+            'location' => config('escorts.profile.states')[$user->state_id]['stateName'] ?? null,
+            'agent_id'  => $user->member_id,
+            'create_at' => Carbon::now()->format('j F'),
         ];
-        event(new AgentRegistered($userDataForEvent));
-        //event(new Registered($user = $this->create($request->all())));
-
        
-        // if($user) {
-        //     $error = 1;
-        //     $phone = $user->phone;
-        //     $otp = $this->generateOTP();
-        //     $user->otp = $otp;
-        //     $user->save();
-        //     PasswordSecurity::create([
-        //         'user_id' => $user->id,
-        //         'password_expiry_days' =>30,
-        //         //'status' =>1,
-        //         'password_updated_at' => Carbon::now(),
-        //     ]);
-        //     $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+        event(new AgentRegistered($userDataForEvent));
 
-        //     $sendotp = new SendSms();
-        //     $output = $sendotp->send($phone,$msg);
-        //     //TODO:: don't send otp in the response, remove from bellow compact function
-        //     return response()->json(compact('error','phone','otp'));
-        // } else {
-        //     $error = 0;
-        //     return response()->json(compact('error'));
-        // }
+        if($user) {
+            $error = 1;
+            $phone = $user->phone;
+            $otp = $this->generateOTP();
+            $user->otp = $otp;
+            $user->save();
+            PasswordSecurity::create([
+                'user_id' => $user->id,
+                'password_expiry_days' =>30,
+                //'status' =>1,
+                'password_updated_at' => Carbon::now(),
+            ]);
+            $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
+
+            $sendotp = new SendSms();
+            $output = $sendotp->send($phone,$msg);
+            //TODO:: don't send otp in the response, remove from bellow compact function
+            return response()->json(compact('error','phone','otp'));
+        } else {
+            $error = 0;
+            return response()->json(compact('error'));
+        }
 
 
     }

@@ -30,6 +30,8 @@ class SendAdminAgentRegisteredEmail implements ShouldQueue
      */
     public function handle(AgentRegistered $event)
     {
-        Mail::to('admin@admin.com')->send(new AdminAgentRegisteredMail($event->agent));
-   }
+
+       
+        Mail::to(config('common.contactus_admin_email'))->send(new AdminAgentRegisteredMail($event->agent));
+    }
 }

@@ -3,15 +3,16 @@
 namespace App\Providers;
 
 use App\Events\AgentRegistered;
-use App\Listeners\Agent\SendAdminAgentRegisteredEmail;
-use App\Listeners\Agent\SendAgentWelcomeEmail;
+use Illuminate\Support\Facades\Event;
+
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\RegisterListenerForAdmin;
+use App\Listeners\RegisterListenerForAgent;
+use App\Listeners\RegisterListenerForEscort;
+use App\Listeners\Agent\SendAgentWelcomeEmail;
+use App\Listeners\Agent\SendAdminAgentRegisteredEmail;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
-use App\Listeners\RegisterListenerForAdmin;
-use App\Listeners\RegisterListenerForEscort;
-use App\Listeners\RegisterListenerForAgent;
 
 class EventServiceProvider extends ServiceProvider
 {

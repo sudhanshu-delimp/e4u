@@ -20,8 +20,8 @@
                     <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                   </td>
                   <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                    Confirmation of Registration - Support Agent [Title]<br>
-                    <span style="font-size: 13px; color: #cccccc;">Agent ID: [Agent ID]</span>
+                    Confirmation of Registration - Support Agent <br>
+                    <span style="font-size: 13px; color: #cccccc;">Agent ID: {{$agent['agent_id']}}</span>
                   </td>
                 </tr>
               </table>
@@ -33,7 +33,7 @@
             <td style="padding: 30px;">
               
               <!-- Greeting -->
-              <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Dear [salutation (> My Account > Edit My Account > About Me > My Name)],</b></p>
+              <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Dear {{$agent['name'] ?? ''}},</b></p>
 
               <!-- Main Message -->
               <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">We are please to confirm your Registration has been received. One of our team members
@@ -59,7 +59,7 @@
           <tr>
             <td>
               <em>This is an automatically generated email by the Escorts4u Operations Centre.<br>
-                &copy; Copyright 2024 Blackbox Tech Pty Ltd. All rights reserved.</em>
+                &copy; Copyright {{date('Y')}} Blackbox Tech Pty Ltd. All rights reserved.</em>
             </td>
           </tr>
         </table>
