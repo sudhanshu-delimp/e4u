@@ -20,13 +20,31 @@
             </div> 
          @endif
          <div class="row">
+
+               <div class="col-md-12">
+                  <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">My Legbox</h1></div>
+                  <h6 class="helpNoteLink collapsed" data-toggle="collapse" data-target="#notes" aria-expanded="false"><b>Help?</b></h6>
+               </div>
+
+                           <div class="col-md-12 my-4">
+                           <div class="card collapse" id="notes">
+                              <div class="card-body">
+                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                 <ol>
+                                    <li>The My Legbox feature is a list only for your favourite Escorts and Massage Centres.  Please note that Notifications only applies to Escorts.
+                                    <li>Use the Notebox feature to record your experience with an Escort or Massage Centre you have added to <a href="{{ url('user-dashboard/notebox/new')}}" class="custom_links_design">My Legbox.</a>  </li>
+                                 </ol>
+                              </div>
+                           </div>
+                        </div>
+
+
             <div class="col-sm-12 col-md-12 col-lg-9 ">
                <!-- Begin Page Content -->
-               <div class="container-fluid" style="padding: 0px 0px;">
-                  <!-- Page Heading -->
-                  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                     <h2 class="h4 mb-0 text-gray-800 font-weight-500">My Legbox</h2>
-                  </div>
+               <div class="" style="padding: 0px 0px;">
+                
+                 
+
                   <div class="row">
                      <div class="col-md-12">
                         <div class="table-responsive list-sec" id="sailorTableArea">
