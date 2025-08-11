@@ -1708,7 +1708,7 @@
                         <div class="col">
                             <div class="form-group popup_massage_box">
                                 <label for="exampleFormControlTextarea1">What is wrong:</label>
-                                <textarea name="description" id="reportDesc" required class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="4" placeholder="Message (500 characters)">{{$spamReportAdvertiser != null ? $spamReportAdvertiser->report_desc : '' }}</textarea>
+                                <textarea name="description" id="reportDesc" required class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="4" placeholder="Message (500 characters)">{{isset($spamReportAdvertiser->report_desc) ? $spamReportAdvertiser->report_desc : '' }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -1718,21 +1718,21 @@
                             <p class="diff_font_pera mb-0 mr-2">Why are you reporting this Profile:</p>
                             
                             <div class="form-check py-0 mr-2">
-                                <input class="form-check-input" type="radio" name="report_tag" id="fake_media" value="fake_media" {{$spamReportAdvertiser != null && $spamReportAdvertiser->report_tag == 'fake_media' ? 'checked': '' }}>
+                                <input class="form-check-input" type="radio" name="report_tag" id="fake_media" value="fake_media" {{isset($spamReportAdvertiser->report_tag) && $spamReportAdvertiser->report_tag == 'fake_media' ? 'checked': '' }}>
                                 <label class="form-check-label" for="fake_media">
                                     Fake Media
                                 </label>
                             </div>
 
                             <div class="form-check py-0 mr-2">
-                                <input class="form-check-input" type="radio" name="report_tag" id="spam" value="spam" {{$spamReportAdvertiser != null && $spamReportAdvertiser->report_tag == 'spam' ? 'checked': '' }} >
+                                <input class="form-check-input" type="radio" name="report_tag" id="spam" value="spam" {{isset($spamReportAdvertiser->report_tag) != null && $spamReportAdvertiser->report_tag == 'spam' ? 'checked': '' }} >
                                 <label class="form-check-label" for="spam">
                                     Spam
                                 </label>
                             </div>
 
                             <div class="form-check py-0">
-                                <input class="form-check-input" type="radio" name="report_tag" id="other" value="other" value="other" {{$spamReportAdvertiser != null &&  $spamReportAdvertiser->other == 'other'  ? 'checked': ($spamReportAdvertiser == null ? 'checked' : '') }} >
+                                <input class="form-check-input" type="radio" name="report_tag" id="other" value="other" value="other" {{isset($spamReportAdvertiser->report_tag) != null &&  $spamReportAdvertiser->report_tag == 'other'  ? 'checked': ($spamReportAdvertiser == null ? 'checked' : '') }} >
                                 <label class="form-check-label" for="other">
                                     Other
                                 </label>
