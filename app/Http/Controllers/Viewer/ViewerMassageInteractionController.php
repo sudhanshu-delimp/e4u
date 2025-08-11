@@ -5,30 +5,31 @@ namespace App\Http\Controllers\Viewer;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Escort;
-use App\Models\EscortViewerInteractions;
 use App\Models\MassageProfile;
+use App\Models\MassageViewerInteractions;
 use App\Models\MyLegbox;
 use App\Models\MyMassageLegbox;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use DataTables;
+use MassageViewerInteractions as GlobalMassageViewerInteractions;
 
 class ViewerMassageInteractionController extends Controller
 {
-    public function viewerUpdateEscortInteraction(Request $request)
+    public function viewerUpdateMassageInteraction(Request $request)
     {
-        $escort = Escort::where('id',$request->escort_id)->first();
-        $userid = $escort->user_id;
+        $massageCenter = MassageProfile::where('id',$request->massage_id)->first();
+        $userid = $massageCenter->user_id;
 
-        $isExistAction = EscortViewerInteractions::where('escort_id',$request->escort_id)->where('user_id',$userid )->where('viewer_id',Auth::user()->id)->first();
+        $isExistAction = MassageViewerInteractions::where('massage_id',$request->massage_id)->where('user_id',$userid )->where('viewer_id',Auth::user()->id)->first();
 
         if($isExistAction){
 
             $viewer_disabled_contact = $isExistAction->viewer_disabled_contact;
             $viewer_disabled_notification = $isExistAction->viewer_disabled_notification;
-            $is_blocked = $isExistAction->viewer_blocked_escort ?? false;
-            $viewer_rate_escort = $isExistAction->viewer_rate_escort ?? 'no_rated';
+            $is_blocked = $isExistAction->viewer_blocked_massage ?? false;
+            $viewer_rate_massage = $isExistAction->viewer_rate_massage ?? 'no_rated';
 
             if(isset($request->viewer_disabled_contact)){
                 $viewer_disabled_contact = false;
@@ -56,35 +57,35 @@ class ViewerMassageInteractionController extends Controller
             }
 
             if(isset($request->type) && $request->type == 'rate'){
-                $viewer_rate_escort = $request->escort_rating;
+                $viewer_rate_massage = $request->massage_rating;
             }
 
-            $result  = EscortViewerInteractions::where('escort_id',$request->escort_id)
+            $result  = MassageViewerInteractions::where('massage_id',$request->massage_id)
             ->where('user_id',$userid )
             ->where('viewer_id',Auth::user()->id)
             ->update([
                 'viewer_disabled_contact' => $viewer_disabled_contact,
                 'viewer_disabled_notification' => $viewer_disabled_notification ,
-                'viewer_blocked_escort' => $is_blocked,
-                'viewer_rate_escort' => $viewer_rate_escort,
+                'viewer_blocked_massage' => $is_blocked,
+                'viewer_rate_massage' => $viewer_rate_massage,
             ]);
 
         }else{
 
-            $escortrate = 'no_rated';
+            $massagerate = 'no_rated';
             if(isset($request->type) && $request->type == 'rate'){
-                $escortrate = $request->escort_rating;
+                $massagerate = $request->massage_rating;
             }
 
-            $result  = EscortViewerInteractions::create([
+            $result  = MassageViewerInteractions::create([
                 'user_id' => $userid,
-                'escort_id' => $request->escort_id,
+                'massage_id' => $request->massage_id,
                 'viewer_id' => Auth::user()->id,
                 'action_by' => 'viewer',
                 'viewer_disabled_contact' => isset($request->viewer_disabled_contact) && $request->viewer_disabled_contact == 'enable' ? true : false ,
                 'viewer_disabled_notification' => isset($request->viewer_disabled_notification) && $request->viewer_disabled_notification == 'disable' ? true : false ,
-                'viewer_blocked_escort' => isset($request->is_blocked) && $request->is_blocked ? true : false ,
-                'viewer_rate_escort' => $escortrate,
+                'viewer_blocked_massage' => isset($request->is_blocked) && $request->is_blocked ? true : false ,
+                'viewer_rate_massage' => $massagerate,
             ]);
         }
 
@@ -126,9 +127,9 @@ class ViewerMassageInteractionController extends Controller
         if (auth()->user()) {
             $myMassageLegbboxIds = MyMassageLegbox::where('user_id', auth()->user()->id)->pluck('massage_id');
 
-            $massageCenters = MassageProfile::whereIn('id',$myMassageLegbboxIds)->with(['city','state','user'])->get();
+            $massageCenters = MassageProfile::whereIn('id',$myMassageLegbboxIds)->with(['city','state','user','messageViewerInteraction'])->get();
 
-            //dd($massageCenters->toArray());
+            // dd($massageCenters);
 
              return DataTables::of($massageCenters)
                 ->addColumn('massage_id', function ($row) {
@@ -140,17 +141,19 @@ class ViewerMassageInteractionController extends Controller
                     return $stateCode;
                 })
                 ->addColumn('business_name', function($row){  
-                    return $row->name;
+                    return Str::title($row->name);
                  })
                 ->addColumn('open_now', function($row){  
+
                     return 'Yes';
                  })
 
                 ->addColumn('rating_label', function ($row) {
 
+                    //dd($row)
                     $rate = 'no_rated';
-                    if($row->escortViewerInteraction && $row->escortViewerInteraction->viewer_rate_escort){
-                        $rate = $row->escortViewerInteraction->viewer_rate_escort;
+                    if($row->messageViewerInteraction && $row->messageViewerInteraction->viewer_rate_massage){
+                        $rate = $row->messageViewerInteraction->viewer_rate_massage;
                     }
 
                     switch ($rate) {
@@ -197,11 +200,11 @@ class ViewerMassageInteractionController extends Controller
                     $notCurrentText = 'Enable';
                     $rate = 'no_rated';
 
-                    $viewButton = '<a class="dropdown-item align-item-custom escortProfileView"  href="#"
-                                                    data-toggle="modal" data-escort-name="'.$row->name.'" data-profile-enable="'.$row->enabled.'" data-id="'.$row->id.'"> <i
+                    $viewButton = '<a class="dropdown-item align-item-custom massageProfileView"  href="#"
+                                                    data-toggle="modal" data-massage-name="'.$row->name.'" data-profile-enable="'.$row->enabled.'" data-id="'.$row->id.'"> <i
                                                         class="fa fa-eye" aria-hidden="true"></i>
                                                     View</a>
-                                                <span class="tooltip-text">View the Escort’s Profile</span>';
+                                                <span class="tooltip-text">View the Massage Center Profile</span>';
 
                     $actionButtons = '
                     <div class="dropdown no-arrow">
@@ -217,7 +220,7 @@ class ViewerMassageInteractionController extends Controller
                                                 data-id="'.$row->id.'" data-status="'.Str::lower($conCurrentText).'"> 
                                                 <i class="fa fa-phone'.$conClass.' me-1"></i> <span>'.$conText.' Contact</span>
                                                 </a>
-                                                <span class="tooltip-text">Viewer can’t contact this escort again </span>
+                                                <span class="tooltip-text">Viewer can’t contact this massage center again </span>
                                                 <div class="dropdown-divider"></div>
                                             </div>
                                             <div class="custom-tooltip-container">
@@ -225,22 +228,22 @@ class ViewerMassageInteractionController extends Controller
                                                 data-id="'.$row->id.'" data-status="'.Str::lower($notCurrentText).'"> 
                                                 <i class="fa fa-bell'.$notClass.' me-1" aria-hidden="true"></i> <span>'.$notText.' Notifications</span>
                                                 <span class="tooltip-text">Viewer will not get notifications from this
-                                                    escort</span>
+                                                    massage center</span>
                                                 <div class="dropdown-divider"></div>
                                             </div>
                                             <div class="custom-tooltip-container">
-                                                <a class="dropdown-item align-item-custom escortRating" data-escort-name="'.$row->name.'" data-rate="'.$rate.'" data-id="'.$row->id.'" href="#" title=""> <i
+                                                <a class="dropdown-item align-item-custom massageRating" data-massage-name="'.$row->name.'" data-rate="'.$rate.'" data-id="'.$row->id.'" href="#" title=""> <i
                                                         class="fa fa-star" aria-hidden="true"></i>
                                                     Rate</a>
-                                                <span class="tooltip-text">Rate this Escort</span>
+                                                <span class="tooltip-text">Rate this Massage Center</span>
                                                 <div class="dropdown-divider"></div>
                                             </div>
                                             <div class="custom-tooltip-container">
-                                                <a class="dropdown-item align-item-custom escortProfileRemove" href="#"
-                                                    data-toggle="modal" data-escort-name="'.$row->name.'" data-id="'.$row->id.'"> <i
+                                                <a class="dropdown-item align-item-custom massageProfileRemove" href="#"
+                                                    data-toggle="modal" data-massage-name="'.$row->name.'" data-id="'.$row->id.'"> <i
                                                         class="fa fa-trash" aria-hidden="true"></i>
                                                     Remove</a>
-                                                <span class="tooltip-text">Viewer can’t contact this escort again </span>
+                                                <span class="tooltip-text">Viewer can’t contact this massage center again </span>
                                                 <div class="dropdown-divider"></div>
                                             </div>
                                             <div class="custom-tooltip-container">
