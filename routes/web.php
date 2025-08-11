@@ -24,6 +24,7 @@ use App\Http\Controllers\User\Dashboard\UserController;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Http\Controllers\Admin\ManagePeopleStaffController;
+use App\Http\Controllers\AdvertiserSpamReportController;
 use App\Http\Controllers\GetCurrentUserGeolocationController;
 use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
 use App\Http\Controllers\Escort\EscortViewerInteractionController;
@@ -331,6 +332,11 @@ Route::get('/escort-profile/{id}/{city?}/{membershipId?}', [App\Http\Controllers
 Route::get('/center-profile/{id}', [App\Http\Controllers\WebController::class,'centerProfileDescription'])->name('center.profile.description');
 Route::post('/store-message/{id}', [App\Http\Controllers\Escort\MessageReviewController::class,'saveMessage'])->name('store.message');
 Route::post('/review-advertiser/{id}', [App\Http\Controllers\Escort\MessageReviewController::class,'SaveReviewAdvertiser'])->name('review.advertiser');
+
+/********** Advertiser spam report by viewer **********/
+Route::get('/advertiser-get-spam-report', [AdvertiserSpamReportController::class,'getSpamReportForAdvertiser'])->name('advertiser.get.spam.report');
+Route::post('/advertiser-spam-report', [AdvertiserSpamReportController::class,'saveSpamReportForAdvertiser'])->name('advertiser.spam.report');
+
 /*************User *********************/
 
 
