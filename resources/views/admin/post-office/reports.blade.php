@@ -26,7 +26,7 @@
             <!--middle content-->
             <div class="row">
                <div class="custom-heading-wrapper col-md-12">
-                   <h1 class="h1">Post Office - Reports</h1>
+                   <h1 class="h1">Reports</h1>
                   <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                </div>
                <div class="col-md-12 mb-4">
@@ -48,7 +48,7 @@
                         <div class="tab-content">
                            <div class="tab-pane fade in active show" id="tab1warning">
                               <div class="table-responsive-xl">
-                                 <table class="table">
+                                 <table class="table" id="postReportTable">
                                     <thead class="table-bg">
                                        <tr>
                                           <th scope="col">Ref
@@ -57,7 +57,7 @@
                                           <th scope="col">
                                              Subject
                                           </th>
-                                          <th scope="col">
+                                          <th scope="col" class="text-center">
                                              Action
                                           </th>
                                        </tr>
@@ -67,7 +67,7 @@
                                           <td class="theme-color">123</td>
                                           <td class="theme-color">2025-06-09 8:36:54</td>
                                           <td class="theme-color">National Ugly Mugs Feature [header tile in email]</td>
-                                          <td class="theme-color">
+                                          <td class="theme-color text-center">
                                              <div class="dropdown no-arrow">
                                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -85,25 +85,6 @@
                                        </tr>
                                     </tbody>
                                  </table>
-                                 <nav aria-label="Page navigation example">
-                                    <ul class="pagination float-right pt-4">
-                                       <li class="page-item">
-                                          <a class="page-link" href="#" aria-label="Previous">
-                                          <span aria-hidden="true">«</span>
-                                          <span class="sr-only">Previous</span>
-                                          </a>
-                                       </li>
-                                       <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                       <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                       <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                       <li class="page-item">
-                                          <a class="page-link" href="#" aria-label="Next">
-                                          <span aria-hidden="true">»</span>
-                                          <span class="sr-only">Next</span>
-                                          </a>
-                                       </li>
-                                    </ul>
-                                 </nav>
                               </div>
                            </div>
                         </div>
@@ -124,7 +105,7 @@
    <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
       <div class="modal-content basic-modal modal-lg">
          <div class="modal-header">
-            <h5 class="modal-title" id="postOffivereport">Post Office Report</h5>
+            <h5 class="modal-title" id="postOffivereport"><img src="{{ asset('assets/dashboard/img/post-office-report.png') }}" class="custompopicon">Post Office Report</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -166,7 +147,7 @@
                 <!-- Footer Row -->
                 <tr>
                     <td colspan="4" style="background-color: #0c2340; color: white; font-weight: bold;">Sent: 156</td>
-                    <td style="background-color: red; text-align: center;">
+                    <td style="background-color: #ff3c5f; text-align: center;">
                         <a href="#" style="color: white; text-decoration: none; font-weight: bold;">Print Report</a>
                     </td>
                 </tr>
@@ -183,6 +164,24 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+      var table = $("#postReportTable").DataTable({
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by Ref No..."
+      },
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: true,
+      order: [[1, 'desc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10
+   });
+
+ </script>
 <script>
   function showRecipients() {
     const recipientDiv = document.querySelector('.recipient-container');

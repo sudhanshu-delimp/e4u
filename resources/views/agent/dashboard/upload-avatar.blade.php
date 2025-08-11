@@ -155,7 +155,7 @@
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color border-0">
-                <span style="color: white">Crop Photo</span>
+                <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/crop-image.png') }}" class="custompopicon"> Crop Photo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
                     
@@ -171,8 +171,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal">Close</button>
-                <button type="button" id="cropImageBtn" class="btn main_bg_color site_btn_primary">Crop</button>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+                <button type="button" id="cropImageBtn" class="btn-success-modal">Crop</button>
             </div>
         </div>
     </div>

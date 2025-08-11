@@ -18,6 +18,11 @@
     }
 </style>
 <style type="text/css">
+    .ui-draggable-dragging {
+        width: 82px !important;
+        height: 82px !important;
+        opacity: 0.8;
+    }
     .draggable
     {
     filter: alpha(opacity=60);
@@ -35,7 +40,7 @@
     }
     .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 10px;
     }
     .grid-container > div {
@@ -49,7 +54,7 @@
         object-fit: cover;
     }
     img.img-thumbnail.defult-image {
-        width: 100%;
+        width: 190px;
         height: 135px;
         object-fit: cover;
     }
@@ -93,42 +98,28 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-   <div class="col-md-12 p-0">
       <div class="row">
-         <div class="col-md-12">
- 
-            <div class="row mb-4">
-                <div class="col-md-10">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="v-main-heading h3" style="display: inline-block;">Photos</div>
-                            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-                        </div>
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1" style="display: inline-block;">Photos</h1>
+            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
+        </div>
+        <div class="col-md-12 mb-4">                    
+            <div class="collapse" id="notes">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>Upload your photos here (up to 30) and then select your default images including your Thumbnail, other photos (up to six portrait) and your Banner Image (landscape) (<b>Default Images</b>).</li>
+                            <li>Your Default Images will always appear in the Profile Creator when you activate the Profile Creator (for a new Profile). If you change any of the Default Images in the Profile Creator, like when you are creating a second Profile for the same Location, you will be asked if you want to update your changes to the Default Images.</li>
+                            <li>When uploading your Photos, make sure they comply with our <a href="/escort-dashboard/help" class="custom_links_design">Profile Image</a> guidelines, especially in terms of the pixilation and the size of the photo.</li>
+                            <li>If you don't upload a Banner Image (which is located at the top of your Profile), you can select a template image from the list (<b>Template</b>).  There is a Template designed to represent each Location.  We encourage you to upload your own Banner.  Remember, it is a landscape image and you can include a montage.</li>
+                        </ol>
                     </div>
                 </div>
-                <div class="col-md-10">
-
-                    
-                    <div class="row collapse" id="notes">
-                        <div class="col-md-12 mb-5">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                    <ol>
-                                        <li>Upload your photos here (up to 30) and then select your default images including your Thumbnail, other photos (up to six portrait) and your Banner Image (landscape) (<b>Default Images</b>).</li>
-                                        <li>Your Default Images will always appear in the Profile Creator when you activate the Profile Creator (for a new Profile). If you change any of the Default Images in the Profile Creator, like when you are creating a second Profile for the same Location, you will be asked if you want to update your changes to the Default Images.</li>
-                                        <li>When uploading your Photos, make sure they comply with our <a href="/escort-dashboard/help" class="custom_links_design">Profile Image</a> guidelines, especially in terms of the pixilation and the size of the photo.</li>
-                                        <li>If you don't upload a Banner Image (which is located at the top of your Profile), you can select a template image from the list (<b>Template</b>).  There is a Template designed to represent each Location.  We encourage you to upload your own Banner.  Remember, it is a landscape image and you can include a montage.</li>
-                                    </ol>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-               <div class="col-md-2" style="padding-left: 7rem;">
-                  <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
-               </div>
             </div>
+        </div>
+        <div class="col-md-12 mb-3 d-flex justify-content-end">
+            <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
         </div>
     </div>
     <div class="row">
@@ -223,7 +214,7 @@
                                     
                                 <div class="col-lg-6">
                                     <h2 class="banner-sub-heading my-1">Pin Up Image</h2>
-                                    <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(10)">
+                                    <div class="about_me_drop_down_info pt-2" data-toggle="modal" data-target="#photo_gallery_pinup" onclick="positionToUpdate(10)">
                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
                                         <img class="img-fluid common-img" id="img10" data-position-id="10" src="{{ asset($path->findByposition(auth()->user()->id,10, 1)['path'])}}" >
                                         <input  type="hidden"  id="pos_10" name="position[10]" value="">
@@ -271,8 +262,7 @@
             </div>
         </div>
         <div class="col-lg-8">
-            <div class="photo-top-header" style="
-                ">
+            <div class="photo-top-header">
                 <div class="photo-header border-0">
                     <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
                         <div class="row">
@@ -365,7 +355,7 @@
                 </div>
             </div>
         </div>
-         </div>
+    </div>
 
 </div>
 <div class="modal delete" id="pesrmissionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -487,7 +477,6 @@
            </div>
            <div class="modal-body">
                <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
-{{--                   <div class="col-sm-12">--}}
                    @foreach($media  as $keyId => $image)
                        @if(!in_array($image->position, [8, 9, 10])/*$image->position != 8*/)
                            <div class="item4">
@@ -495,12 +484,8 @@
                            </div>
                        @endif
                    @endforeach
-{{--                   </div>--}}
                </div>
            </div>
-           {{--<div class="modal-footer" style="justify-content: center;">
-               <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-           </div>--}}
        </div>
    </div>
 </div>
@@ -509,9 +494,7 @@
        <div class="modal-content custome_modal_max_width">
            <div class="modal-header main_bg_color border-0">
                <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Banner</h5>
-               {{--<div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 200px;">
-                   <button type="button" data-toggle="modal" data-target="empty" class="btn btn-info" style=" padding: 5px;">Upload from device</button>
-               </div>--}}
+              
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">
             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -520,20 +503,43 @@
            </div>
            <div class="modal-body">
                <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll; grid-template-columns: auto;">
-                   {{--                   <div class="col-sm-12">--}}
+                  
                    @foreach($media  as $keyId => $image)
-                       @if(in_array($image->position, [9,10])/*$image->position != 8*/)
+                       @if(in_array($image->position, [9])/*$image->position != 8*/)
                            <div class="item2">
                                <img class="img-thumbnail defult-image select_image" style="" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                            </div>
                        @endif
                    @endforeach
-                   {{--                   </div>--}}
                </div>
            </div>
-           {{--<div class="modal-footer" style="justify-content: center;">
-               <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-           </div>--}}
+       </div>
+   </div>
+</div>
+<div class="modal" id="photo_gallery_pinup" style="display: none">
+   <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content custome_modal_max_width">
+           <div class="modal-header main_bg_color border-0">
+               <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Pin Up</h5>
+              
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+            <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+            </span>
+               </button>
+           </div>
+           <div class="modal-body">
+               <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll; grid-template-columns: auto;">
+                  
+                   @foreach($media  as $keyId => $image)
+                       @if(in_array($image->position, [10])/*$image->position != 8*/)
+                           <div class="item2">
+                               <img class="img-thumbnail defult-image select_image" style="" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
+                           </div>
+                       @endif
+                   @endforeach
+               </div>
+           </div>
        </div>
    </div>
 </div>
@@ -1054,29 +1060,12 @@
        $("#dvSource img").draggable({
            revert: "invalid",
            helper: 'clone',
-        appendTo: ".upload-photo-sec",
+            appendTo: ".upload-photo-sec",
            refreshPositions: false,
            drag: function (event, ui) {
-
-
-               //img_target.attr('data-id', ui.draggable.data('id'));
-
-               // ui.helper.addClass("draggable");
-
-            //    var srcc=$("#dvSource").find('img').attr('src');
-            //    console.log("src="+srcc);
+               
            },
            stop: function (event, ui) {
-               // ui.helper.removeClass("draggable");
-               // var image = this.src.split("/")[this.src.split("/").length - 1];
-               // console.log("image = "+image);
-               // if ($.ui.ddmanager.drop(ui.helper.data("draggable"), event)) {
-               //     alert(image + " dropped.");
-               // }
-               // else {
-               //     alert(image + " not dropped.");
-               // }
-
            }
        });
        $(".dvDest").droppable({
@@ -1087,28 +1076,12 @@
                var sourceImagePosition = $(ui.draggable).data('position');
                var meidaId = ui.draggable.data('id');
                 $("#pos_"+id.slice(3,4)).val(ui.draggable.data('id'));
-               // $("#usedf").append("<input type='hidden' name='imgId[]' value='"+ui.draggable.data('id')+"'>");
-               // $('#item-id').draggable( "disable" )
 
                console.log("sourcePosition :"+ sourceImagePosition);
                console.log("destinationPosition :"+ position);
                console.log("meidaId :"+ meidaId);
                console.log("1198");
                updateDefaultImage(position, meidaId, img_target, ui.draggable.attr('src'));
-               // debugger;
-
-                // if(position != 9){
-                /*if(position != 0){
-
-
-                } else {
-                    $('.comman_msg').html("<p>It's not a banner image .Please select banner image</p>");
-                    $("#comman_modal").modal('show');
-                    $('#comman_modal').on('hidden.bs.modal', function () {
-                    //location.reload();
-                    });
-                }*/
-               //$(".useDefault").show();
            }
 
        });
@@ -1366,7 +1339,7 @@
        console.log("1467");
        updateDefaultImage(updatePosition, mediaId, img_target, imageSrc);
 
-       $("#photo_gallery_banner").modal("hide");
+       $(`#${$(this).parents('.modal').attr('id')}`).modal("hide");
    });
 </script>
 @endpush

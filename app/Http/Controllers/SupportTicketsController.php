@@ -115,7 +115,7 @@ class SupportTicketsController extends AppController
                 $item->file = ($item->file!="") ? '<a download="true" href = "'.asset('support_tickets/'.$item->file).'">Download</a>' : "No Documents";
                 $item->created_on = \Carbon\Carbon::parse($item->created_on)->format('d-m-Y');
                 $item->status_mod = "<span class='status' data-status-id='".$item->getRawOriginal('status')."'>$item->status</span>";
-                $item->action = '<div class="dropdown no-arrow archive-dropdown">
+                $item->action = '<div class="dropdown no-arrow archive-dropdown text-center">
                                     <a class="dropdown-toggle" href="" role="button" class="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></a>
                                     ';

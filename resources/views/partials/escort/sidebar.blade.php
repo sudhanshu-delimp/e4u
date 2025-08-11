@@ -497,7 +497,7 @@
              <img src="{{ asset('assets/app/img/ticket.png')}}">
              <span >Submit Ticket</span>
         </a>
-        <div id="tickets" class=" collapse  @if(request()->segment(1) == 'support_tickets' || request()->segment(1) == 'submit_ticket') show @endif;" aria-labelledby="headingten" data-parent="#accordionSidebar" style="">
+        <div id="tickets" class=" collapse  @if(request()->segment(2) == 'ticket-list' || request()->segment(1) == 'submit_ticket') show @endif;" aria-labelledby="headingten" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
              <a class="collapse-item show" href="{{ url('submit_ticket') }}">
                 <img src="{{ asset('assets/app/img/right-30.png')}}">
@@ -506,7 +506,7 @@
 
             <a class="collapse-item"  href="{{ route('support-ticket.list')}}">
                 <img src="{{ asset('assets/app/img/view-48.png')}}">
-                <span style="{{request()->segment(2) == 'list'  ? 'color: #e5365a;' : ''}}">View & reply</span>
+                <span style="{{request()->segment(2) == 'ticket-list'  ? 'color: #e5365a;' : ''}}">View & reply</span>
             </a>
 
             {{--<a class="collapse-item" href="#">

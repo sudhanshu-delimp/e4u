@@ -155,7 +155,7 @@ class SupportTicketsController extends AppController
 
             	
             $dropdown = "";
-            $dropdown = '<div class="dropdown no-arrow archive-dropdown">
+            $dropdown = '<div class="dropdown no-arrow archive-dropdown text-center">
                                 <a class="dropdown-toggle" href="" role="button" class="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">';

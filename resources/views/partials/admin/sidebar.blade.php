@@ -387,7 +387,8 @@
                     request()->is('*logged-in-users*') ||
                     request()->is('*escort-listings*') ||
                     request()->is('*massage-centre-listings*') ||
-                    request()->is('*visitors*')) show @endif"
+                    request()->is('*visitors*') ||
+                    request()->is('*pinup-listings*')) show @endif"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
                     {{-- <a class="collapse-item" href="{{ route('admin.global-monitoring') }}">
@@ -752,17 +753,17 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Reportings"
                 aria-expanded="false" aria-controls="collapseTwo">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
+                    src="{{ asset('assets/dashboard/img/menu-icon/reportings.png') }}">
                 <span>Reportings </span>
             </a>
             <div id="Reportings" class="collapse @if (request()->is('*reporting*') || request()->is('*advertiser-reports*') || request()->is('*advertiser-reviews*')) show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="nav-link collapsed" href="{{ route('admin.reporting') }}">
+                    {{-- <a class="nav-link collapsed" href="{{ route('admin.reporting') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
                         <span style="{{ request()->is('*reporting*') ? 'color: #e5365a;' : '' }}">Reporting</span>
-                    </a>
+                    </a> --}}
 
                     <a class="nav-link collapsed" href="{{ route('admin.advertiser-reports') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
@@ -786,7 +787,7 @@
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Reports"
                 aria-expanded="false" aria-controls="collapseTwo">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
+                    src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
                 <span>Reports </span>
             </a>
             <div id="Reports" class="collapse @if (request()->is('*credit*') || request()->is('*agent-requests*') || request()->is('*transaction-summary*')) show @endif;"

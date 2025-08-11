@@ -1118,11 +1118,7 @@
             // debugger;
             var data = e.params.data;
 
-            // $("#st_name").val([]).trigger();
-            //$("#st_name").val([]).trigger();
-            // console.log(e.params);
-
-            $(this).parent().find(".results").append($("<li style='font-size: 14px;'><a href='#'>"+data.text +"</a><button type='button' class=' close ml-2 text-white stage-close' aria-label='Close'> <span class='delete_stname' id='"+data.id+"' aria-hidden='true'>×</span> <small class='mytool-tip'>Remove</small></button></li><input type='hidden' name='name[]' value='"+data.id+"'>"))
+            $(this).parents('.stageListParent').find(".results").append($("<li style='font-size: 14px;'><a href='#'>"+data.text +"</a><button type='button' class=' close ml-2 text-white stage-close' aria-label='Close'> <span class='delete_stname' id='"+data.id+"' aria-hidden='true'>×</span> <small class='mytool-tip'>Remove</small></button></li><input type='hidden' name='name[]' value='"+data.id+"'>"))
         });
 
       $('body').on('click', '.clickInput', function() {

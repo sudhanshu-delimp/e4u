@@ -35,33 +35,18 @@
                     </div>
                 {{-- end --}}
                 <div class="col-sm-12 col-md-12 col-lg-12 mt-4">
-                    <!-- Begin Page Content -->
-                        
-                        <div class="mb-3">
-                            <div class="panel-heading">
-                                <ul class="nav nav-tabs tab-sec pb-2">
-                                    <li class="active"><a href="#tab1warning" data-toggle="tab" class="active">Manage New Profile</a></li>
-                                    <li><a href="#tab2warning" data-toggle="tab" class="">Media Verification</a></li>
-                                    <li><a href="#tab3warning" data-toggle="tab" class="">Pin-Up Management</a></li>
-                                    <li><a href="#tab4warning" data-toggle="tab" class="">Agent List</a></li>
-                                    <li><a href="#tab5warning" data-toggle="tab" class="">User List</a></li>
-                                </ul>
-                            </div>
+                    <!-- Begin Page Content -->                        
+                    <div class="mb-3">
+                        <div class="panel-heading">
+                            <ul class="nav nav-tabs tab-sec pb-2">
+                                <li class="active"><a href="#tab1warning" data-toggle="tab" class="active">Manage New Profile</a></li>
+                                <li><a href="#tab2warning" data-toggle="tab" class="">Media Verification</a></li>
+                                <li><a href="#tab3warning" data-toggle="tab" class="">Pin-Up Management</a></li>
+                                <li><a href="#tab4warning" data-toggle="tab" class="">Agent List</a></li>
+                                <li><a href="#tab5warning" data-toggle="tab" class="">User List</a></li>
+                            </ul>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-4 col-md-12 col-sm-12 mb-2">
-                                <form class="search-form-bg navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn-right-icon" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="panel with-nav-tabs panel-warning">
@@ -69,7 +54,7 @@
                                     <div class="tab-content">
                                         <div class="tab-pane fade in active show" id="tab1warning">
                                             <div class="table-responsive-xl">
-                                                <table class="table">
+                                                <table class="table" id="databaseTable">
                                                     <thead class="table-bg">
                                                         <tr>
                                                            <th scope="col">Alert Type <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -121,25 +106,6 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <nav aria-label="Page navigation example">
-                                                    <ul class="pagination float-right pt-4">
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="#" aria-label="Previous">
-                                                            <span aria-hidden="true">«</span>
-                                                            <span class="sr-only">Previous</span>
-                                                            </a>
-                                                        </li>
-                                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                        <li class="page-item">
-                                                            <a class="page-link" href="#" aria-label="Next">
-                                                            <span aria-hidden="true">»</span>
-                                                            <span class="sr-only">Next</span>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </nav>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="tab2warning">
@@ -192,3 +158,28 @@
 </a>
 
 @endsection
+
+@push('script')
+  
+
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+      var table = $("#databaseTable").DataTable({
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by Title..."
+      },
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: true,
+      order: [[1, 'desc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10
+   });
+
+ </script>
+  
+@endpush
