@@ -8640,6 +8640,23 @@ padding-bottom:80px;
         position: relative;
     }
     
+    .pinup-summary-img {
+        aspect-ratio: 191 / 140;
+        width: 100%;
+        overflow: hidden;
+    }
+    
+    .pinup-summary-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .pinup-summary-img {
+        width: 100%;
+        /* height: 627px; */
+    }
+    
     #pinUpListingTable_wrapper .dataTables_processing {
         top: 50% !important;
         left: 50% !important;
