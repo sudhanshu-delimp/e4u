@@ -8640,6 +8640,19 @@ padding-bottom:80px;
         position: relative;
     }
     
+    .d_custom_home_img {
+        aspect-ratio: 15 / 11;
+        width: 631px;
+        max-width: 100%;
+        /* overflow: hidden; */
+    }
+    
+    .d_custom_home_img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
     .pinup-summary-img {
         aspect-ratio: 191 / 140;
         width: 100%;
