@@ -74,14 +74,14 @@
                     </tbody>
                     <tfoot class="bg-first t-foot">
                         <tr>
-                            <th colspan="2">
-                                    Server time: <span>[10:23:51 am]</span>
+                            <th colspan="3">
+                                    Server time: <span id="server_time">[10:23:51 am]</span>
                             </th>
-                            <th colspan="2" class="text-center">
-                                    Refresh time:<span> [seconds]</span>
+                            <th colspan="1" class="text-center">
+                                    Refresh time:<span id="refresh_time">--</span>
                             </th>
                             <th colspan="4" class="text-right">
-                                    Up time: <span>[214 days & 09 hours 12 minutes]</span>
+                                    Up time: <span id="server_up_time">--</span>
                             </th>
                         </tr>
                     </tfoot>
@@ -99,13 +99,34 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-  var table;
+  let table;
+  let refreshInterval = 15;
+  let counter = refreshInterval;
+
+  let updateCounter = function() {
+    document.getElementById('refresh_time').innerText = counter;
+  }
+
+  setInterval(() => {
+    counter--;
+    updateCounter();
+    if (counter <= 0) {
+        table.ajax.reload(null, false);
+        counter = refreshInterval;
+    }
+ }, 1000);
+ 
+  updateCounter();
   table = $("#pinUpListingTable").DataTable({
+    // language: {
+    //      search: "Search: _INPUT_",
+    //      searchPlaceholder: "Search by Membar ID..."
+    //   },
     processing: true,
     serverSide: true,
-    lengthChange: false,
-    searching: false,
-    pageLength: 20,
+    lengthChange: true,
+    searching: true,
+    pageLength: 10,
     ajax: {
         url: `{{route('admin.global_monitoring.get_pinup_listing')}}`,
         type: 'GET',
@@ -122,6 +143,8 @@
         var json = settings.json;
         if (json) {
             $('#total_listings').text(json.recordsTotal);
+            $('#server_up_time').text(json.server_up_time);
+            $('#server_time').text(json.server_time);
         }
     },
     columns: [
