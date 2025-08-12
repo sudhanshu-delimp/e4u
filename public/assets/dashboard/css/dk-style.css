@@ -7627,7 +7627,7 @@ padding-bottom:80px;
     /* my account card */
     
     .notes-section {
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); */
         margin-bottom: 40px;
         padding: 25px;
         border-radius: 10px;
@@ -7640,6 +7640,7 @@ padding-bottom:80px;
     .notes-section .notes-label {
         font-weight: bold;
         margin-bottom: 5px;
+        color: var(--blue--text);
     }
     
     .notes-section .lines {
@@ -7653,11 +7654,16 @@ padding-bottom:80px;
         border-collapse: collapse;
     }
     
+    .notes-section .manage-table table th {
+        color: var(--blue--text);
+    }
+    
     .notes-section .manage-table table td {
         border: 1px solid black;
         padding: 25px 10px;
         vertical-align: top;
         font-weight: bold;
+        color: var(--blue--text);
     }
     
     .stats-container .stat-card-wrapper {
