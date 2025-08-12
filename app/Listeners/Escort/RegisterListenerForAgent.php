@@ -1,20 +1,16 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Escort;
 
 use App\Models\User;
-use App\Mail\RegisterEmailForAdmin;
-use App\Mail\RegisterEmailForAgent;
-use Illuminate\Support\Facades\Log;
+use App\Events\EscortRegister;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Mail\RegisterEscort\RegisterEmailForAgent;
 
-class RegisterListenerForAgent implements ShouldQueue
+class RegisterListenerForAgent
 {
-    use InteractsWithQueue;
-
     /**
      * Create the event listener.
      *
@@ -28,13 +24,12 @@ class RegisterListenerForAgent implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  App\Events\Registered  $event
+     * @param  \App\Events\EscortRegister  $event
      * @return void
      */
-    public function handle(Registered $event)
+    public function handle(EscortRegister $event)
     {
-       
-        $user = $event->user;
+        $user = $event->escode;
         if (!empty($user->agent_id)) {
             $agentUser = User::where('member_id', $user->agent_id)->select('id', 'email', 'phone', 'name')->first();
             if ($agentUser) {

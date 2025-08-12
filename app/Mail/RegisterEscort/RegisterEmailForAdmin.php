@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\RegisterEscort;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
 
-class RegisterEmailForEscort extends Mailable
+class RegisterEmailForAdmin extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,12 +16,12 @@ class RegisterEmailForEscort extends Mailable
      *
      * @return void
      */
-    protected $user;
-    public function __construct($user)
+     public $user;
+     public function __construct($user)
     {
         $this->user = $user;
     }
-
+      
     /**
      * Build the message.
      *
@@ -30,8 +29,9 @@ class RegisterEmailForEscort extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.register.email_for_escort')->with([
+        return $this->view('emails.escort.email_for_admin')->with([
             'user' => $this->user,
-        ]);
+        ]);;
+        
     }
 }

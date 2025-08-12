@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Listeners\Escort;
 
-use App\Mail\RegisterEmailForAdmin;
-use Illuminate\Support\Facades\Log;
+use App\Events\EscortRegister;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Mail\RegisterEscort\RegisterEmailForAdmin;
 
-class RegisterListenerForAdmin implements ShouldQueue
+class RegisterListenerForAdmin
 {
-    use InteractsWithQueue;
-
     /**
      * Create the event listener.
      *
@@ -26,14 +23,13 @@ class RegisterListenerForAdmin implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  App\Events\Registered  $event
+     * @param  \App\Events\EscortRegister  $event
      * @return void
      */
-    public function handle(Registered $event)
+    public function handle(EscortRegister $event)
     {
-        $user = $event->user;
+        $user = $event->escode;
         Mail::to(config('common.contactus_admin_email'))->send(new RegisterEmailForAdmin($user));
-
-        //Log::info('first Queue for Admin');
+		
     }
 }

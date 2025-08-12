@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Auth\Advertiser;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
+use App\Events\EscortRegister;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Sms\SendSms;
+
 use App\Models\PasswordSecurity;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\StoreAdvertiserRegisterRequest;
-use Illuminate\Auth\Events\Registered;
 use App\Repositories\State\StateInterface;
-use Carbon\Carbon;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\StoreAdvertiserRegisterRequest;
 
 class RegisterController extends Controller
 {
@@ -127,8 +128,13 @@ class RegisterController extends Controller
             'member_id' => $user->member_id,
         ];
 
+        //3 is Escote and 4 is Massage Center
+        if($request->type == 3){
+            event(new EscortRegister((object)$userDataForEvent));
+        }elseif($request->type == 4){
+
+        }
        
-        event(new Registered((object)$userDataForEvent));
 
         if($user) {
             $error = 1;
