@@ -115,6 +115,7 @@
         counter = refreshInterval;
     }
  }, 1000);
+ 
   updateCounter();
   table = $("#pinUpListingTable").DataTable({
     processing: true,
