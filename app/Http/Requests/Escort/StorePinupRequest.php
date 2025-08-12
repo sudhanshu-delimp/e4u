@@ -23,10 +23,15 @@ class StorePinupRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules =  [
             'pinup_profile_id' => 'required',
             'pinup_week' => 'required',
         ];
+        // If user doesn't have a default pinup image, require it
+        if (!$this->user()?->defaultPinupImage) {
+            $rules['pinup_image'] = ['required', 'image', 'max:2048'];
+        }
+        return $rules;
     }
 
     public function messages(): array
@@ -34,6 +39,7 @@ class StorePinupRequest extends FormRequest
         return [
             'pinup_profile_id.required' => 'Profile field is required.',
             'pinup_week.required' => 'Next available field is required.',
+            'pinup_image.required' => 'To list a Pin Up, you must have uploaded your Pin Up image.  See Media.',
         ];
     }
 }

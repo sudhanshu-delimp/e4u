@@ -1104,7 +1104,7 @@
             <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Me</button>
         </div>
         <div class="col-xl-7 col-sm-12 my-1 text-center">
-            <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#sendcarlat"><img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Report Advertiser</button>
+            <button type="button" class="btn profile_message_btn_cc" id="reportAdvertiserBtn" data-toggle="modal"><img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Report Advertiser</button>
         </div>
     </div>
     <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx">
@@ -1648,6 +1648,35 @@
 </div>
 <!-- model end here 1-->
 <!-- Report advertiser model start here 2-->
+
+<div class="modal fade" id="reportAdvertiserNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color">
+               
+                
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="img_resize_in_smscreen" style="margin-right: 10px;"> Report Advertiser </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
+                </button>
+            </div>
+            <!-- if viewer not login -->
+            <div class="modal-body pb-0 teop-text" >
+                <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
+                    <span id="Lname">Please log in or Register to report Advertiser</span>
+                </h6>
+                <div class="modal-footer text-center justify-content-center" >
+                <a href="{{ route('viewer.login') }}" type="button" class="btn btn-danger site_btn_primary" id="loginUrl" >Login</a>
+                <a href="{{ route('register') }}" type="button" class="btn btn-danger site_btn_primary" id="regUrl">Register</a>
+                </div>
+            </div>
+            <!--- end -->
+
+        </div>
+    </div>
+</div>
+
+
 <div class="modal fade ss" id="sendcarlat" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content custome_modal_max_width">
@@ -1661,17 +1690,17 @@
                 </span>
                 </button>
             </div>
-            <form id="" action="{{ route('review.advertiser',[$escort->id])}}" method="post">
+            <form id="sendReportForm" action="{{ route('advertiser.spam.report')}}" method="post">
                 @csrf
                 <div class="modal-body">
                     <p class="mb-1 mt-3"><b>Notes :</b></p>
                     <div class="row">
+                        <input type="hidden" name="escort_id" value="{{$escort->id}}">
                         <div class="col">
                             <ol>
                                 <li>Only report if you had direct contact with the Escort.</li>
-                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended.</li>
-                                <li>The Advertiser’s Membership Number will automatically attach to this report.</li>
-                                <li>You will receive a notification when this report has been resolved.</li>
+                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended Only genuine reports will be considered.</li>
+                                <li>The Escort’s Member ID will automatically attach to this report.</li>
                             </ol>
                         </div>
                     </div>
@@ -1679,67 +1708,43 @@
                         <div class="col">
                             <div class="form-group popup_massage_box">
                                 <label for="exampleFormControlTextarea1">What is wrong:</label>
-                                <textarea name="description" class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="3" placeholder="Message (250 characters)"></textarea>
+                                <textarea name="description" id="reportDesc" required class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="4" placeholder="Message (500 characters)">{{isset($spamReportAdvertiser->report_desc) ? $spamReportAdvertiser->report_desc : '' }}</textarea>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="d-flex  align-items-center">
-                                <p class="diff_font_pera mb-0 mr-2">Why are you reporting this Profile:</p>
-                                <div class="form-check py-0 mr-2">
-                                    <input class="form-check-input" type="checkbox" name="photo_status" id="exampleRadios2" value="1">
-                                    <span class="form-check-label" for="exampleRadios2">
+                            <div class="d-flex align-items-center">
+                            <p class="diff_font_pera mb-0 mr-2">Why are you reporting this Profile:</p>
+                            
+                            <div class="form-check py-0 mr-2">
+                                <input class="form-check-input" type="radio" name="report_tag" id="fake_media" value="fake_media" {{isset($spamReportAdvertiser->report_tag) && $spamReportAdvertiser->report_tag == 'fake_media' ? 'checked': '' }}>
+                                <label class="form-check-label" for="fake_media">
                                     Fake Media
-                                    </span>
-                                </div>
-                                <div class="form-check py-0 mr-2">
-                                    <input class="form-check-input" type="checkbox" name="photo_status" id="exampleRadios2" value="0">
-                                    <span class="form-check-label" for="exampleRadios2">
-                                    Spam
-                                    </span>
-                                </div>
-                                <div class="form-check py-0">
-                                    <input class="form-check-input" type="checkbox" name="photo_status" id="exampleRadios2" value="2">
-                                    <span class="form-check-label" for="exampleRadios2">
-                                    Other
-                                    </span>
-                                </div>
+                                </label>
                             </div>
+
+                            <div class="form-check py-0 mr-2">
+                                <input class="form-check-input" type="radio" name="report_tag" id="spam" value="spam" {{isset($spamReportAdvertiser->report_tag) != null && $spamReportAdvertiser->report_tag == 'spam' ? 'checked': '' }} >
+                                <label class="form-check-label" for="spam">
+                                    Spam
+                                </label>
+                            </div>
+
+                            <div class="form-check py-0">
+                                <input class="form-check-input" type="radio" name="report_tag" id="other" value="other" value="other" {{isset($spamReportAdvertiser->report_tag) != null &&  $spamReportAdvertiser->report_tag == 'other'  ? 'checked': ($spamReportAdvertiser == null ? 'checked' : '') }} >
+                                <label class="form-check-label" for="other">
+                                    Other
+                                </label>
+                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn main_bg_color site_btn_primary rounded">Send Report</button>
+                    <button type="submit" class="btn main_bg_color site_btn_primary rounded" id="sendReportSubmitBtn">Send Report</button>
                 </div>
             </form>
-        </div>
-    </div>
-</div>
-
-<!-- Report Advertiser Modal login popup if not login-->
-<div class="modal fade" id="reportAdvertiserNew" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content custome_modal_max_width">
- 
-            <!-- Header with navy background and [X] -->
-            <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
-                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Report Advertiser</h5>
-                <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;">
-                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/newcross.png" class="img-fluid img_resize_in_smscreen">
-                </button>
-            </div>
- 
-            <!-- Body content -->
-            <!-- Body content -->
-            <div class="modal-body text-center">
-                <p class="font-weight-bold">Please log in or Register to report Advertiser</p>
-                <div class="d-flex justify-content-center mt-3">
-                    <a href="{{ route('login') }}" class="mx-3 font-weight-bold" style="color:#0C223D; text-decoration:none;">[Login]</a>
-                    <a href="{{ route('register') }}" class="mx-3 font-weight-bold" style="color:#0C223D; text-decoration:none;">[Register]</a>
-                </div>
-            </div>
- 
         </div>
     </div>
 </div>
@@ -2389,6 +2394,92 @@ let carousel = new bootstrap.Carousel(myCarousel, {
 
 $(document).on('click', '.modal .close', function () {
     $('#my_legbox').modal('hide');
+    $('#reportAdvertiserNew').modal('hide');
+    $('#sendcarlat').modal('hide');
+});
+
+$(document).ready(function() {
+
+    function sendReportAjaxCallback(formData, url, type)
+    {
+        $.ajax({
+            method: type,
+            url: url,
+            data: formData,
+            contentType: type === 'GET' ? 'application/x-www-form-urlencoded; charset=UTF-8' : false,
+            processData: type === 'GET',
+            headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
+            success: function (response) {
+                $('#sendReportForm')[0].reset();
+
+                if(type == 'GET'){
+                    if(response.data){
+                        let desc = response.data.report_desc;
+                        let tag = response.data.report_tag;
+                        $("#reportDesc").text(desc);
+                        $('input[name="report_tag"][value="' + response.data.report_tag + '"]').prop('checked', true);
+                    }
+                    
+                }else{
+                    if(!response.error){
+                        $.toast({
+                            heading: 'Success',
+                            text: 'Your report for this advertiser has been submitted successfully.',
+                            icon: 'success',
+                            loader: true,
+                            position: 'top-right',      // Change it to false to disable loader
+                            loaderBg: '#9EC600'  // To change the background
+                        });
+                    } else {
+                        $.toast({
+                            heading: 'Error',
+                            text: 'Failed to save the review',
+                            icon: 'error',
+                            loader: true,
+                            position: 'top-right',      // Change it to false to disable loader
+                            loaderBg: '#9EC600'  // To change the background
+                        });
+                    }
+                    $('#sendcarlat').modal('hide');
+                }
+                
+            }
+        });
+    }
+
+    $('#reportAdvertiserBtn').on('click', function(e) {
+        e.preventDefault(); 
+
+        @if(auth()->check() && auth()->user()->type == 0)
+            $('#sendcarlat').modal('show');
+
+            // if viewer already reported this escort
+
+            var formData = {
+                'escort_id' : '{{$escort->id}}',
+                'viewer_id' : '{{auth()->user ?? auth()->user()->id}}',
+                'type' : 'get',
+                'url': "{{ route('advertiser.get.spam.report')}}"
+            }
+            sendReportAjaxCallback(formData, formData.url, 'GET');
+
+        @else 
+            $('#reportAdvertiserNew').modal('show');
+        @endif
+    });
+
+    $('#sendReportForm').submit(function(e) {
+        e.preventDefault();
+
+        var form = $(this);
+        var url = form.attr('action');
+        var formData = new FormData(this);
+        formData.append('type','post');
+
+        sendReportAjaxCallback(formData, url, 'POST');
+    });
+
+    
 });
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Agent;
 
 use Exception;
 use App\Models\User;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -17,6 +18,12 @@ use App\Models\AdvertiserAgentRequestUser;
 class AgentRequestController extends Controller
 {
     
+        protected $notification;
+        public function __construct()
+        {
+            $this->notification = new Notification;
+        }
+
         public function agentRequest(AgentRequest $request)
         {
            
@@ -252,6 +259,23 @@ class AgentRequestController extends Controller
                                 'is_agent_assign' => '1',
                                 'assigned_agent_id' => auth()->id()
                     ]);
+
+                        ######### Send Notification ################
+                        $data = [
+                            'title' => 'Your request for a Support Agent has been accepted',
+                            'to_user' => [$advertiser->advertiser_user_id],
+                            'notification_type' =>  'agent_accept',
+                            'notification_listing_type' =>  '2',
+                        ];
+                        $this->notification->sendNotification($data);
+                        ######### End Notification ################
+
+                        ########### Delete Other Pending Request For Agent #############
+                         $advertiser = AdvertiserAgentRequestUser::
+                                     where('advertiser_agent_requests_id', '!=', $request_id)
+                                    ->where('advertiser_user_id', '=', $advertiser->advertiser_user_id)
+                                    ->delete();
+                        ######### End Delete Other Pending Request For Agent ###########
                 }
                 
             });

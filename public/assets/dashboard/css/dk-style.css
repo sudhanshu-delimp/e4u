@@ -6362,6 +6362,10 @@ padding-bottom:80px;
         object-fit: cover;
     }
     
+    .t-foot tr th{
+        font-size:13px;
+        font-weight:500;
+    }
     .about_me_drop_down_info .common-img {
         width: 1066.640px !important;
         height: 152px !important;

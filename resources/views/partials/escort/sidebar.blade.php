@@ -495,7 +495,7 @@
 <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#tickets" aria-expanded="true" aria-controls="collapseten">
              <img src="{{ asset('assets/app/img/ticket.png')}}">
-             <span >Submit Ticket</span>
+             <span >Support Tickets</span>
         </a>
         <div id="tickets" class=" collapse  @if(request()->segment(2) == 'ticket-list' || request()->segment(1) == 'submit_ticket') show @endif;" aria-labelledby="headingten" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">

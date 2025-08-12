@@ -188,6 +188,11 @@ class MassageProfile extends Model
         return $this->hasMany('App\Models\EscortMessages', 'escort_id');
     }
 
+    public function messageViewerInteraction()
+    {
+        return $this->hasOne(MassageViewerInteractions::class, 'massage_id');
+    }
+
     public function images()
     {
         return $this->hasMany('App\Models\MassageMedia', 'user_id')->where('type', 0);
