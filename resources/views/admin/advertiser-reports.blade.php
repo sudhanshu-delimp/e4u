@@ -22,6 +22,12 @@ table td,th{
     border-top: 0px !important;
     border: none;
 } */
+ .paging_simple_numbers{
+    margin-top: 18px;
+ }
+ .dataTables_info{
+    margin-top: 18px;
+ }
 .table-report-info tr td{
     border: 0;
 }
@@ -132,11 +138,12 @@ table td,th{
             </div>
         </div>
         
-        <div class="col-md-12">
-            <div class="my-account-card print-advertiser-report">
+        <div class="col-md-12" id="print-advertiser-report">
+            <div class="my-account-card">
                 <div class="card-head">                    
                     <h2 class="font-weight-bold">My Report Information </h2>
-                    <button class="print-btns" onclick="window.print()" type="button"><i class ="fa fa-print"></i> Print Report</button>
+                    <button class="print-btns"  type="button"><i class ="fa fa-print"></i> Print Report</button>
+                    <input type="hidden" id="printReportId" value="">
                 </div>
                 <table class="table  w-100 table-report-info"> 
                     <tr class="details-row">
@@ -145,27 +152,35 @@ table td,th{
                             <table class="table border-0 table-report-info">
                               <tbody>
                                 <tr >
-                                  <th>Our Ref:</th>
-                                  <td>#30</td>
+                                  <th>Ref:</th>
+                                  <td class="report_ref">#30</td>
                                   <th>Date:</th>
-                                  <td>14-05-2025</td>
+                                  <td class="report_date">14-05-2025</td>
                                 </tr>
                                 <tr>
+                                  <th>Member ID:</th>
+                                  <td class="report_member_id">14-05-2025</td>
                                   <th>Escort ID:</th>
-                                  <td>14-05-2025</td>
-                                  <th>Viewer ID:</th>
-                                  <td>WA - Perth</td>
+                                  <td class="report_escort_id">14-05-2025</td>
+                                  
                                 </tr>
                                 <tr>
+                                    <th>Viewer ID:</th>
+                                  <td class="report_viewer_id">WA - Perth</td>
                                   <th>Mobile:</th>
-                                  <td>Adrian Weinstein</td>
-                                  <th>Status:</th>
-                                  <td>Current</td>
+                                  <td class="report_mobile">Adrian Weinstein</td>
+                                  
                                 </tr>
                               
                                 <tr>
+                                    <th>Status:</th>
+                                  <td class="report_status">Current</td>
+                                  <th>Home State:</th>
+                                  <td colspan="3" class="report_home_state">WA</td>
+                                </tr>
+                                <tr>
                                   <th>Comments:</th>
-                                  <td colspan="3">Great service, very polite.</td>
+                                  <td colspan="3" class="report_comment">Great service, very polite.</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -307,18 +322,114 @@ table td,th{
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script>
-//       var table = $("#AdvertiserReportTable").DataTable({
-//       language: {
-//          search: "Search: _INPUT_",
-//          searchPlaceholder: "Search by Member ID..."
-//       },
-//       info: true,
-//       paging: true,
-//       lengthChange: true,
-//       searching: true,
-//       bStateSave: true,
-//       pageLength: 10
-//    });
+
+    $(document).on('click', '.print-btns', function(e) {
+        e.preventDefault();
+        
+        var printReportId = $("#printReportId").val();
+        console.log('jiten ',printReportId);
+        var printUrl = "{{route('admin.print.single-member-reports')}}?report_id="+printReportId;
+        location.href = printUrl;
+    });
+
+    $("#print-advertiser-report").slideUp();
+
+    $(document).on('click', '.view_member_report', function(e) {
+        e.preventDefault();
+
+        // Get the data-id value
+        var reportId = $(this).data('id');
+        $("#printReportId").val(reportId);
+        console.log("Report ID:", reportId); 
+        let routeUrl = '{{route("admin.single-member-reports.ajax")}}';
+        $("#print-advertiser-report")
+        .stop(true, true) // stop any current animation
+        .slideUp(0)       // instantly hide
+        .slideDown(800);  // slide down again
+
+        $('html, body').animate({
+            scrollTop: $("#print-advertiser-report").offset().top
+        }, 500); // 500ms for smooth scroll
+
+        viewMemberReportAjax(reportId, routeUrl);
+        
+    });
+
+    $(document).on('click', '.update-member-status', function(e) {
+        e.preventDefault();
+        const reportId = $(this).data('id');
+        const status = $(this).data('val');
+        var reportData = {
+            'reportId' :reportId,
+            'status' :status,
+        }
+        var url = "{{route('admin.advertiser.report-status')}}";
+        updateMemberReportStatus(reportData, url);
+    });
+
+    function updateMemberReportStatus(reportData, routeUrl)
+    {
+        const reportId = $(this).data('id');
+
+        $.ajax({
+            url: routeUrl, // replace with your actual route
+            method: 'POST',
+            data:{
+                'report_id':reportData.reportId,
+                'status':reportData.status,
+            },
+            success: function(response) {
+                console.log('response');
+                console.log(response);
+                if(response.error == false){
+                    $('#AdvertiserReportTable').DataTable().ajax.reload(null, false);
+                }
+            },
+            error: function(xhr) {
+                console.error('Failed to fetch data');
+                $('#view-listing .modal-body').html('<p class="text-danger">Error loading data...</p>');
+            }
+        });
+    }
+
+    function capitalizeFirstLetter(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function viewMemberReportAjax(report_id, routeUrl)
+    {
+        const reportId = $(this).data('id');
+
+        $.ajax({
+            url: routeUrl, // replace with your actual route
+            method: 'GET',
+            data:{
+                'report_id':report_id
+            },
+            success: function(response) {
+                console.log('response');
+                console.log(response);
+                if(response.error == false){
+                    let status = (response.data.report_status == 'pending') ? 'Current' : response.data.report_status;
+                    $(".report_ref").text('#'+response.data.id +''+ response.data.escort_id);
+                    $(".report_date").text(response.data.formatted_created_at);
+                    $(".report_member_id").text(response.data.escort.user.member_id);
+                    $(".report_escort_id").text(response.data.escort_id);
+                    $(".report_viewer_id").text(response.data.viewer_id);
+                    $(".report_status").text(capitalizeFirstLetter(status));
+                    $(".report_home_state").text(response.data.escort.user.home_state);
+                    $(".report_comment").text(capitalizeFirstLetter(response.data.report_desc));
+                    $(".report_mobile").text(response.data.escort.user.phone);
+                }
+
+                //$("#escortPopupModalBodyIframe").attr('src', response.profileurl)
+            },
+            error: function(xhr) {
+                console.error('Failed to fetch data');
+                $('#view-listing .modal-body').html('<p class="text-danger">Error loading data...</p>');
+            }
+        });
+    }
 
     ajaxReload('AdvertiserReportTable', "{{ route('admin.advertiser-reports.ajax') }}",'GET')
  
@@ -351,7 +462,6 @@ table td,th{
             ]
         });
     }
-
     
 </script>
 @endpush

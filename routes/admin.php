@@ -113,6 +113,9 @@ Route::get('reporting',function(){
 # Advertiser report section
 Route::get('advertiser-reports',[AdvertiserReportContoller::class, 'index'])->name('admin.advertiser-reports');
 Route::get('advertiser-reports-ajax',[AdvertiserReportContoller::class, 'getReportByAjax'])->name('admin.advertiser-reports.ajax');
+Route::get('member-single-escort-reports-ajax',[AdvertiserReportContoller::class, 'getSingleMemberEscortReport'])->name('admin.single-member-reports.ajax');
+Route::get('print-single-escort-reports',[AdvertiserReportContoller::class, 'printSingleMemberEscortReport'])->name('admin.print.single-member-reports');
+Route::post('advertiser-report-status',[AdvertiserReportContoller::class, 'updateMemberReportStatus'])->name('admin.advertiser.report-status');
 
 Route::get('advertiser-reviews',function(){
     return view('admin.advertiser-reviews');

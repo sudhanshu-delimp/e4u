@@ -15,7 +15,6 @@ class AdvertiserReportContoller extends Controller
     public function index(Request $request)
     {
         [$advertiserReports, $reports] = $this->getAdvertiserReports();
-        //dd($this->getReportByAjax());
 
         return view('admin.advertiser-reports', [
             'advertiserReports' => $advertiserReports,
@@ -32,7 +31,7 @@ class AdvertiserReportContoller extends Controller
                 'ref'        => $row->id . $row->escort->id,
                 'date'       => date('d-m-Y', strtotime($row->created_at)),
                 'member_id'  => $row->escort->user->member_id ?? '-',
-                'mobile'     => $row->escort->user->mobile ?? '-',
+                'mobile'     => $row->escort->user->phone ?? '-',
                 'home_state' => City::where('state_id', $row->escort->user->state_id)->value('state_code') ?? '-',
                 'status'     => $row->report_status == 'pending' ? 'Current' : 'Resolved',
                 'action'     => '<div class="dropdown no-arrow ml-3">
@@ -44,28 +43,25 @@ class AdvertiserReportContoller extends Controller
                                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink">
                                         
-                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">
+                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" data-id='.$row->id.' data-val="pending" href="#">
                                         
                                             <i class="fa fa-hourglass-half text-dark" ></i> Current 
                                         </a>
 
                                         <div class="dropdown-divider"></div>
 
-                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"  data-toggle="modal" data-target="#confirm-popup">
+                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" data-id='.$row->id.' data-val="resolved" href="#"  data-toggle="modal" data-target="#confirm-popup" >
                                             
                                             <i class="fa fa-check-circle text-dark"></i>Resolved 
                                         </a>
 
                                         <div class="dropdown-divider"></div>
 
-                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">
+                                        <a class="view_member_report dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-id='.$row->id.'>
                                         
                                             <i class="fa fa-eye text-dark"></i> View 
                                         </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="" data-toggle="modal" data-target="#add-note-popup">
-                                            <i class="fa fa-book"></i> Add Note 
-                                        </a>
+                                        
                                     </div>
 
                                     </div>
@@ -122,6 +118,111 @@ class AdvertiserReportContoller extends Controller
             return config("escorts.profile.states.$user->state_id.timeZone");
         }
         return config('app.escort_server_timezone');
+    }
+
+    public function getSingleMemberEscortReport(Request $request)
+    {
+        $user = Auth::user();
+        if (!($user && $user->id)) {
+           $data = array(
+                "status"     => 404,
+                "error"     => true,
+                "message"    => "You are not authorized user!",
+                "data" => [],
+            );
+        }else{
+
+            $report = ReportEscortProfile::where('id', $request->report_id)
+            ->with([
+                'escort:id,user_id',
+                'escort.user:id,member_id,phone,state_id',
+                ])
+            ->first();
+
+            if ($report) {
+                $report->formatted_created_at = $report->created_at->format('d-m-Y');
+            }
+
+            $data = array(
+                "status"     => 200,
+                "error"     => false,
+                "message"    => "Member report successfully fetched.",
+                "data" => $report != null ? $report : null,
+            );
+        }
+
+        return response()->json($data);
+
+    }
+
+    public function printSingleMemberEscortReport(Request $request)
+    {
+        $report_id = $request->report_id;
+        $user = Auth::user();
+        if (!($user && $user->id)) {
+           $data = array(
+                "status"     => 404,
+                "error"     => true,
+                "message"    => "You are not authorized user!",
+                "data" => [],
+            );
+
+            //return $data;
+        }else{
+
+            $report = ReportEscortProfile::where('id', $report_id)
+            ->with([
+                'escort:id,user_id',
+                'escort.user:id,member_id,phone,state_id',
+                ])
+            ->first();
+
+            // $html = view('admin.prints_file.advertiser_report_print', ['report' => $report])->render();
+
+            // $data = array(
+            //     "status"     => 200,
+            //     "error"     => false,
+            //     "message"    => "Page printed sucessfully.",
+            //     "data" => $html,
+            // );
+            return view('admin.prints_file.advertiser_report_print', ['report'=>$report]);
+        }
+
+        // return response()->json($data);
+
+    }
+
+    public function updateMemberReportStatus(Request $request)
+    {
+        $report_id = $request->report_id;
+        $status = $request->status;
+
+        $user = Auth::user();
+        if (!($user && $user->id)) {
+           $data = array(
+                "status"     => 404,
+                "error"     => true,
+                "message"    => "You are not authorized user!",
+                "data" => [],
+            );
+
+            return $data;
+        }else{
+
+            $reportStatus = ReportEscortProfile::where('id', $report_id)->update([
+                'report_status'=>$status
+            ]);
+
+            $data = array(
+                "status"     => 200,
+                "error"     => false,
+                "message"    => "Member report status updated successfully.",
+                "data" => $reportStatus != null ? $reportStatus : null,
+            );
+        }
+
+        return response()->json($data);
+
     }
 
 
