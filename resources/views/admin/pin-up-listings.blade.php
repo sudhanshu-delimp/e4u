@@ -124,8 +124,8 @@
     //   },
     processing: true,
     serverSide: true,
-    lengthChange: false,
-    searching: false,
+    lengthChange: true,
+    searching: true,
     pageLength: 10,
     ajax: {
         url: `{{route('admin.global_monitoring.get_pinup_listing')}}`,
