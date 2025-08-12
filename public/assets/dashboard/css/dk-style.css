@@ -8636,6 +8636,20 @@ padding-bottom:80px;
         gap: 5px;
     }
     
+    #pinUpListingTable_wrapper {
+        position: relative;
+    }
+    
+    #pinUpListingTable_wrapper .dataTables_processing {
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        position: absolute !important;
+        z-index: 9999;
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+    
     .pinup_icon {
         color: white;
         background-color: #f6c23e;
