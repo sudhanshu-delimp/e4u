@@ -74,10 +74,10 @@
                     </tbody>
                     <tfoot class="bg-first t-foot">
                         <tr>
-                            <th colspan="2">
+                            <th colspan="3">
                                     Server time: <span id="server_time">[10:23:51 am]</span>
                             </th>
-                            <th colspan="2" class="text-center">
+                            <th colspan="1" class="text-center">
                                     Refresh time:<span id="refresh_time">--</span>
                             </th>
                             <th colspan="4" class="text-right">
@@ -118,11 +118,15 @@
  
   updateCounter();
   table = $("#pinUpListingTable").DataTable({
+    // language: {
+    //      search: "Search: _INPUT_",
+    //      searchPlaceholder: "Search by Membar ID..."
+    //   },
     processing: true,
     serverSide: true,
     lengthChange: false,
     searching: false,
-    pageLength: 20,
+    pageLength: 10,
     ajax: {
         url: `{{route('admin.global_monitoring.get_pinup_listing')}}`,
         type: 'GET',

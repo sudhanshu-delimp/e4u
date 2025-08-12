@@ -6124,6 +6124,13 @@ padding-bottom:80px;
         opacity: 1;
     }
     
+    .pin-up-content p {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
     .my_service_anal .mytool-tip::after {
         content: '';
         position: absolute;
@@ -7627,7 +7634,7 @@ padding-bottom:80px;
     /* my account card */
     
     .notes-section {
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); */
         margin-bottom: 40px;
         padding: 25px;
         border-radius: 10px;
@@ -7640,6 +7647,7 @@ padding-bottom:80px;
     .notes-section .notes-label {
         font-weight: bold;
         margin-bottom: 5px;
+        color: var(--blue--text);
     }
     
     .notes-section .lines {
@@ -7653,11 +7661,16 @@ padding-bottom:80px;
         border-collapse: collapse;
     }
     
+    .notes-section .manage-table table th {
+        color: var(--blue--text);
+    }
+    
     .notes-section .manage-table table td {
         border: 1px solid black;
         padding: 25px 10px;
         vertical-align: top;
         font-weight: bold;
+        color: var(--blue--text);
     }
     
     .stats-container .stat-card-wrapper {
@@ -8621,6 +8634,20 @@ padding-bottom:80px;
     .custom--contact {
         display: flex;
         gap: 5px;
+    }
+    
+    #pinUpListingTable_wrapper {
+        position: relative;
+    }
+    
+    #pinUpListingTable_wrapper .dataTables_processing {
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        position: absolute !important;
+        z-index: 9999;
+        padding: 10px 20px;
+        border-radius: 5px;
     }
     
     .pinup_icon {

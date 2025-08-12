@@ -3,7 +3,7 @@
         <div class="col-md-6">
             <div href="#" class="tip mb-2">
                 <img class="img-fluid"
-                    src="{{ !empty($profile_image)?asset($profile_image->path):asset('assets/app/img/home/home-demo.png') }}">
+                src="{{ !empty($profile_image)?asset($profile_image->path):asset('assets/app/img/home/home-demo.png') }}">
             </div>
         </div>
         <div class="col-md-6">
@@ -65,7 +65,10 @@
                         </ul>
                     </div>
                 </div>
-                <p class="pin-description">{!!$escort->about!!}</p>
+                @php
+                    $about = html_entity_decode(strip_tags($escort->about));
+                @endphp
+                <p class="pin-description">{{ $about }}</p>
                 <div class="row">
                     <div class="col-md-6 col-lg-4">
                         <div class="media align-items-center">
