@@ -166,7 +166,7 @@ table td,th{
         <div class="col-md-12">
             <div class="my-account-card print-report-info">
                 <div class="card-head">                    
-                    <h2 class="font-weight-bold">My Review Information </h2>
+                    <h2 class="font-weight-bold">My Report Information </h2>
                     <button class="print-btns" onclick="window.print()" type="button"><i class ="fa fa-print"></i> Print Report</button>
                 </div>
                 <table class="table  w-100"> 
