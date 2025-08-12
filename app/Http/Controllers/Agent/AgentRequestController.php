@@ -346,6 +346,7 @@ class AgentRequestController extends Controller
     private function paginatedList($start, $limit, $order_key, $dir)
     {
             
+           $total_accepted = 0;
            $query = AdvertiserAgentRequest::whereHas('agent_request_users', function ($q) {
                 $q->where('id', '>', 0);
             })
@@ -380,8 +381,7 @@ class AgentRequestController extends Controller
                     break;
             }
 
-            $totalRequest = $query->count();
-
+            //$totalRequest = $query->count();
             $requestList = $query->offset($start)
                             ->limit($limit)
                             ->get();
@@ -399,8 +399,8 @@ class AgentRequestController extends Controller
                 $list_arr = [];
                 $accepted_date = "";
                 $followup = "";
-               
-
+                
+            
                 if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)
                 {
                  foreach ($item->agent_request_users as $index => $agent_user)
@@ -451,6 +451,7 @@ class AgentRequestController extends Controller
                     {
                         $accepted_date  =  date('d-m-Y',strtotime($agent_user->created_at));
                         $agent_user_id = [];
+                        $total_accepted++;
                         break;
                     }
                  }
@@ -488,6 +489,7 @@ class AgentRequestController extends Controller
 
                 $i++;
             }
+            $totalRequest = $total_accepted;
             return [$requestList, $totalRequest];
     }
 
@@ -495,6 +497,7 @@ class AgentRequestController extends Controller
     public function accepted_advertiser_paginatedList($start, $limit, $order_key, $dir)
     {
 
+        
         $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_user', function ($q) {
                 $q->where('status', '=', 1)
                 ->where('receiver_agent_id', auth()->id());
