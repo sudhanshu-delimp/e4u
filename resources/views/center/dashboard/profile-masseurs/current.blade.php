@@ -17,34 +17,24 @@
 <div id="content-wrapper" class="d-flex flex-column">
    <!-- Main Content -->
    <div id="content">
-<div class="container-fluid  pl-3 pl-lg-5 change-pass-sec">
-  <!--middle content start here-->
-  
-
-
-
-  <div class="row">
-    
-    <div class="col-md-12">
-      <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Current Profile </h1></div>
-      <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
-   </div>
-  <div class="col-md-12 my-4">
-      <div class="card collapse" id="notes" style="">
-          <div class="card-body">
-              <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-              <p></p>
-              <ol>
-                  
-              </ol>
-          </div>
+      <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
+         <div class="row">    
+            <div class="custom-heading-wrapper col-md-12">
+               <h1 class="h1">Current Profile</h1>
+               <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+            </div>
+            <div class="col-md-12 mb-4">
+               <div class="card collapse" id="notes" style="">
+                  <div class="card-body">
+                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                     <ol>
+                           
+                     </ol>
+                  </div>
+               </div>
+            </div>
+         </div>
       </div>
-  </div>
-  </div>
-
-
-  <!--middle content end here-->
-</div>
    </div>
    <!-- End of Main Content -->
    <!-- Footer -->

@@ -13,6 +13,18 @@
 #cke_1_contents {
     height: 150px !important;
 }
+/* table td,th{
+    border-top: 0px !important;
+    border: none;
+}
+
+table td,th{
+    border-top: 0px !important;
+    border: none;
+} */
+.table-report-info tr td{
+    border: 0;
+}
 </style>
 @endsection
 @section('content')
@@ -121,75 +133,71 @@
         </div>
         
         <div class="col-md-12">
-            <div class="my-account-card">
+            <div class="my-account-card print-advertiser-report">
                 <div class="card-head">                    
-                    <h2>My Report Information </h2>
-                    <button class="print-btns" onclick="window.print()"><i class ="fa fa-print"></i> Print Report</button>
+                    <h2 class="font-weight-bold">My Report Information </h2>
+                    <button class="print-btns" onclick="window.print()" type="button"><i class ="fa fa-print"></i> Print Report</button>
                 </div>
-                <div class="info-grid">
-                    <div class="info-item">
-                        <label>Member ID</label>
-                        <span>M60178</span>
+                <table class="table  w-100 table-report-info"> 
+                    <tr class="details-row">
+                        <td colspan="7">
+                          <div>
+                            <table class="table border-0 table-report-info">
+                              <tbody>
+                                <tr >
+                                  <th>Our Ref:</th>
+                                  <td>#30</td>
+                                  <th>Date:</th>
+                                  <td>14-05-2025</td>
+                                </tr>
+                                <tr>
+                                  <th>Escort ID:</th>
+                                  <td>14-05-2025</td>
+                                  <th>Viewer ID:</th>
+                                  <td>WA - Perth</td>
+                                </tr>
+                                <tr>
+                                  <th>Mobile:</th>
+                                  <td>Adrian Weinstein</td>
+                                  <th>Status:</th>
+                                  <td>Current</td>
+                                </tr>
+                              
+                                <tr>
+                                  <th>Comments:</th>
+                                  <td colspan="3">Great service, very polite.</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </td>
+                      </tr>
+                </table>
+                <div class="notes-section">
+                    <div class="notes-label">Notes:</div>
+                    <div class="lines"></div>
+                    <div class="lines"></div>
+                    <div class="lines"></div>
+                    <div class="lines"></div>
+                    <div class="lines"></div>
+    
+                    <div class="manage-table table-responsive">
+                        <table>
+                            <tr style="">
+                                <th colspan="1" style="width: 30%;" class="pb-3">Management only:</th>
+                                <th colspan="2" style="width: 30%;" class="pb-3"><input type="checkbox"> Cancel Membership</th>
+                                <th colspan="2" style="width: 30%;" class="pb-3"><input type="checkbox"> Re-instate Membership</th>
+                            </tr>
+                            <tr>
+                                <td style="width: 25%;">Name:</td>
+                                <td style="width: 25%;"></td>
+                                <td style="width: 25%;">Signature:</td>
+                                <td style="width: 25%;"></td>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="info-item">
-                        <label>Member</label>
-                        <span>Lins Massage</span>
-                    </div>
-                    <div class="info-item">
-                        <label>IP Address</label>
-                        <span>123.176.113.164</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Platform</label>
-                        <span>Firefox</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Page</label>
-                        <span>/escort-dashboard</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Listed Profiles (Escort)</label>
-                        <span>08</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Published Masseurs (Massage Centre)</label>
-                        <span>02</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Listed Advertisers (Agent)</label>
-                        <span>01</span>
-                    </div>
-                    <div class="info-item">
-                        <label>Legboxes (Viewer)</label>
-                        <span>04</span>
-                    </div>
+    
                 </div>
-            </div>
-            
-            <div class="notes-section">
-                <div class="notes-label">Notes:</div>
-                <div class="lines"></div>
-                <div class="lines"></div>
-                <div class="lines"></div>
-                <div class="lines"></div>
-                <div class="lines"></div>
-
-                <div class="manage-table table-responsive">
-                    <table>
-                        <tr>
-                            <th colspan="1" style="width: 30%;">Management only:</th>
-                            <th colspan="2" style="width: 30%;"><input type="checkbox"> Cancel Membership</th>
-                            <th colspan="2" style="width: 30%;"><input type="checkbox"> Re-instate Membership</th>
-                        </tr>
-                        <tr>
-                            <td style="width: 25%;">Name:</td>
-                            <td style="width: 25%;"></td>
-                            <td style="width: 25%;">Signature:</td>
-                            <td style="width: 25%;"></td>
-                        </tr>
-                    </table>
-                </div>
-
             </div>
 
         </div>

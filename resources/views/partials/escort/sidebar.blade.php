@@ -4,7 +4,7 @@
     }
 </style>
 <!-- Sidebar -->
-<ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="/*overflow-x: hidden;overflow-y: overlay;*/">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand text-left pb-0" href="{{ route('home') }}">

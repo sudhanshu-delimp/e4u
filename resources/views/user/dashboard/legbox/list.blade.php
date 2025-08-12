@@ -12,7 +12,7 @@
 <div id="content-wrapper" class="d-flex flex-column">
    <!-- Main Content -->
    <div id="content">
-      <div class="container-fluid">
+      <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
          <!--middle content-->
          @if(session('success'))
             <div class="alert alert-success">
@@ -21,48 +21,30 @@
          @endif
          <div class="row">
 
-               <div class="col-md-12">
-                  <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">My Legbox</h1></div>
-                  <h6 class="helpNoteLink collapsed" data-toggle="collapse" data-target="#notes" aria-expanded="false"><b>Help?</b></h6>
-               </div>
-
-                           <div class="col-md-12 my-4">
-                           <div class="card collapse" id="notes">
-                              <div class="card-body">
-                                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                                 <ol>
-                                    <li>The My Legbox feature is a list only for your favourite Escorts and Massage Centres.  Please note that Notifications only applies to Escorts.
-                                    <li>Use the Notebox feature to record your experience with an Escort or Massage Centre you have added to <a href="{{ url('user-dashboard/notebox/new')}}" class="custom_links_design">My Legbox.</a>  </li>
-                                 </ol>
-                              </div>
-                           </div>
-                        </div>
-
 
             <div class="col-sm-12 col-md-12 col-lg-9 ">
-               <!-- Begin Page Content -->
-               <div class="" style="padding: 0px 0px;">
-                
-                 
-
-                  <div class="row">
+                 <!-- Begin Page Content -->
+                 <div class="row">
+                   <!-- Page Heading -->
+                     <div class="col-md-12 custom-heading-wrapper">
+                        <h1 class="h1">My Legbox</h1>
+                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+                     </div>                  
+                     <div class="col-md-12 mb-4">
+                        <div class="card collapse" id="notes" style="">
+                           <div class="card-body">
+                              <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                              <ol>
+                                 <li>The My Legbox feature is a list only for your favourite Escorts and Massage Centres.  Please note that Notifications only applies to Escorts.
+                                    <li>Use the Notebox feature to record your experience with an Escort or Massage Centre you have added to <a href="{{ url('user-dashboard/notebox/new')}}" class="custom_links_design">My Legbox.</a>  </li>
+                                 
+                              </ol>
+                           </div>
+                        </div>
+                     </div>
                      <div class="col-md-12">
                         <div class="table-responsive list-sec" id="sailorTableArea">
-                           <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
-                              <div class="dataTables_length" id="myTable_length">
-                                 <label>
-                                    Show 
-                                    <select name="myTable_length" aria-controls="myTable" class="">
-                                       <option value="10">10</option>
-                                       <option value="25">25</option>
-                                       <option value="50">50</option>
-                                       <option value="100">100</option>
-                                    </select>
-                                    entries
-                                 </label>
-                              </div>
-                              <div id="myTable_filter" class="dataTables_filter"><label>Search:<input type="search" class="" placeholder="" aria-controls="myTable"></label></div>
-                              <div id="myTable_processing" class="dataTables_processing" style="display: none;">Processing...</div>
+                           <div id="myTable_wrapper" class="dataTables_wrapper no-footer"> 
                               <table id="myTable" class="table table-striped dataTable no-footer" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                  <thead>
                                     <tr role="row">
@@ -111,8 +93,6 @@
                         </div>
                      </div>
                   </div>
-               </div>
-               <!-- /.container-fluid --><br>
             </div>
             <!--middle content end here-->
             <!--right side bar start from here-->
@@ -165,9 +145,6 @@
    </footer>
    <!-- End of Footer -->
 </div>
-<!-- End of Content Wrapper -->
-</div>
-<!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
 <i class="fas fa-angle-up"></i>
@@ -202,8 +179,8 @@ var table = $('#myTable').DataTable({
    serverSide: true,
    lengthChange: true,
    order: [0,'asc'],
-   searchable:false,
-   //searching:false,
+   searchable:true,
+   searching:true,
    bStateSave: false,
 
    ajax: {

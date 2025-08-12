@@ -54,7 +54,7 @@
             <div class="row mb-2">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <div class="bothsearch-form">
-                        <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New</button>
+                        <button type="button" class="create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New</button>
                     </div>
                 </div>
             </div>
@@ -72,47 +72,7 @@
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            {{-- <tbody class="table-content">
-                                <tr class="row-color">
-                                    <td class="theme-color">ANZ</td>
-                                    <td class="theme-color">Well Done Accounts</td>
-                                    <td class="theme-color">123-258</td>
-                                    <td class="theme-color">***-*587</td>
-                                    <td class="theme-color">Primary Account</td>
-                                    <td class="theme-color">
-                                        <div class="dropdown no-arrow">
-                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                            </a>
-                                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#">Edit</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody> --}}
                         </table>
-                        {{-- <nav aria-label="Page navigation example">
-                            <ul class="pagination float-right pt-4">
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">«</span>
-                                    <span class="sr-only">Previous</span>
-                                    </a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">»</span>
-                                    <span class="sr-only">Next</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav> --}}
                     </div>
                 </div>
             </div>
@@ -125,7 +85,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-               <h5 class="modal-title">Add Bank Account</h5>
+               <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/add-new-account.png')}}" class="custompopicon"> Add Bank Account</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                </button>
@@ -180,7 +140,7 @@
                   </div>
                   <div class="col-md-12 mb-3">
                      <div class="form-group">
-                           <button type="submit" class="btn btn-primary shadow-none float-right">Save</button>
+                           <button type="submit" class="btn-success-modal float-right">Save</button>
                      </div>
                   </div>
                </div>
@@ -250,7 +210,7 @@
              {{-- 
              <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5>
              --}}
-             <span style="color:white">Delete Bank Account</span>
+             <span style="color:white"> <img src="{{ asset('assets/dashboard/img/remove-bank-account.png')}}" class="custompopicon"> Delete Bank Account</span>
              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true">
              <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -261,11 +221,11 @@
              <input type="hidden" id="previous" name="url">
              <input type="hidden" id="label" name="label">
              <input type="hidden" id="trigger-element">
-             <h3 class="mb-4 mt-5"><span id="Lname"></span> </h3>
-             <h3 class="mb-4 mt-5"><span id="log"></span> </h3>
+             <h3 class="my-3"><span id="Lname"></span> </h3>
+             <h3 class=""><span id="log"></span> </h3>
              <div class="modal-footer">
-                <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal" value="close" id="close_change">Close</button>
-                <button type="button" class="btn main_bg_color site_btn_primary" id="save_change">Delete</button>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close" id="close_change">Close</button>
+                <button type="button" class="btn-success-modal" id="save_change">Delete</button>
              </div>
           </div>
        </div>

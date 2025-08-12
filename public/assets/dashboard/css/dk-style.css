@@ -4434,9 +4434,22 @@ span.menu-active {
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        margin: 60px 0px 40px;
+        margin: 30px 0px 30px;
         flex-wrap: wrap;
     }
+    /*     
+    .custom-sidebar {
+        position: sticky !important;
+        top: 0 !important;
+        height: 100vh !important;
+    }
+    
+    .custom-navbar {
+        position: fixed;
+        z-index: 1080;
+        width: -webkit-fill-available;
+        width: -moz-available;
+    } */
     
     .v-main-heading h1 {
         font-family: Poppins;
@@ -6349,10 +6362,11 @@ padding-bottom:80px;
         object-fit: cover;
     }
     
-    .t-foot tr th{
-        font-size:13px;
-        font-weight:500;
+    .t-foot tr th {
+        font-size: 13px;
+        font-weight: 500;
     }
+    
     .about_me_drop_down_info .common-img {
         width: 1066.640px !important;
         height: 152px !important;
@@ -7613,7 +7627,7 @@ padding-bottom:80px;
     /* my account card */
     
     .notes-section {
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); */
         margin-bottom: 40px;
         padding: 25px;
         border-radius: 10px;
@@ -7626,6 +7640,7 @@ padding-bottom:80px;
     .notes-section .notes-label {
         font-weight: bold;
         margin-bottom: 5px;
+        color: var(--blue--text);
     }
     
     .notes-section .lines {
@@ -7639,25 +7654,30 @@ padding-bottom:80px;
         border-collapse: collapse;
     }
     
+    .notes-section .manage-table table th {
+        color: var(--blue--text);
+    }
+    
     .notes-section .manage-table table td {
         border: 1px solid black;
         padding: 25px 10px;
         vertical-align: top;
         font-weight: bold;
+        color: var(--blue--text);
     }
     
     .stats-container .stat-card-wrapper {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 20px;
     }
     
     .stats-container {
         background-color: #fff;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); */
         max-width: 100%;
         margin: 0px auto 50px auto;
-        padding: 25px;
+        /* padding: 25px; */
         border-radius: 10px;
     }
     
@@ -7675,6 +7695,11 @@ padding-bottom:80px;
     .stat-card-wrapper .stat-card .stat-top .stat-label,
     .stat-card-wrapper .stat-card .stat-number {
         font-weight: bold;
+        color: var(--peach);
+    }
+    
+    .stat-card-wrapper .stat-card .stat-top .stat-label {
+        font-weight: bold;
         color: var(--blue--text);
     }
     
@@ -7683,13 +7708,15 @@ padding-bottom:80px;
     }
     
     .stats-container .stat-card {
-        background-color: #eff0f6;
+        background-color: #fff;
+        /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); */
         padding: 16px;
-        border-radius: 12px;
+        /* border-radius: 12px; */
         display: flex;
         justify-content: space-between;
         align-items: end;
         gap: 6px;
+        border: 1px solid var(--blue--text);
     }
     
     .my-account-card {
@@ -8073,6 +8100,11 @@ padding-bottom:80px;
     .custom--newtable thead,
     .custom--newtable tbody {
         font-size: 14px;
+    }
+    
+    #myReportTable_paginate span {
+        display: flex;
+        gap: 2px;
     }
     
     .dataTables_paginate span {

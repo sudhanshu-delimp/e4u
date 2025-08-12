@@ -14,13 +14,11 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content start here-->
    <div class="row">
-      <div class="col-md-12">
-         <div class="v-main-heading h3">
-             Visa & Education
-             <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </h6>
-         </div>
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1">Visa & Education</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
       </div>
-      <div class="col-md-12 ">
+      <div class="col-md-12">
           <div class="card collapse  mb-4" id="notes">
               <div class="card-body">
                   <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -35,7 +33,7 @@
               </div>
           </div>
       </div>
-      <div class="col-md-12 mt-4 mb-5">
+      <div class="col-md-12 mb-5">
          <div class="row">
             <div class="col-md-12">
                <div class="row">

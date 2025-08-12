@@ -41,9 +41,9 @@
               <div class="card-body">
                  <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                  <ol>
-                    <li>You don't have to have an avatar, it is entirely up to you</li>
-                    <li>Your avatar will not be displayed publicly</li>
-                    <li>You can remove or change your avatar anytime</li>
+                    <li>You don't have to have an avatar, it is entirely up to you.</li>
+                    <li>Your avatar will not be displayed publicly.</li>
+                    <li>You can remove or change your avatar anytime.</li>
                  </ol>
               </div>
            </div>

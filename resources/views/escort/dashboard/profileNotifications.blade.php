@@ -14,31 +14,29 @@
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <!--middle content start here-->
         <div class="row">
-
-            <div class="col-md-12">
-                <div class="v-main-heading">
-                    <h1>Notifications & Features <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                            style="font-size:16px"><b>Help?</b> </span></h1>
-                </div>
-                <div class="my-4">
-                    <div class="card collapse" id="notes">
-                        <div class="card-body">
-                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                            <ol>
-                                <li>Use this feature to enable and disable your notification and feature
-                                    preferences.</li>
-                                <li>Please note that for a Viewer or Agent to receive your Notifications, the
-                                    Viewer or Agent has to have enabled the corresponding feature in their preference
-                                    settings.</li>
-                            </ol>
-                        </div>
+            <div class="col-md-12 custom-heading-wrapper">
+                <h1 class="h1">Notifications & Features</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
+                        ><b>Help?</b> </span>
+            </div>
+            <div class="mb-4 col-md-12">
+                <div class="card collapse" id="notes">
+                    <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol>
+                            <li>Use this feature to enable and disable your notification and feature
+                                preferences.</li>
+                            <li>Please note that for a Viewer or Agent to receive your Notifications, the
+                                Viewer or Agent has to have enabled the corresponding feature in their preference
+                                settings.</li>
+                        </ol>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12 my-3">
+            <div class="col-lg-12">
                 <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
             </div>
-            <div class="col-md-12 mt-4" id="profile_and_tour_options">
+            <div class="col-md-12" id="profile_and_tour_options">
 
                 <form class="v-form-design" id="profile_notification_options"
                     action="{{ route('escort.notification.update') }}" method="POST">

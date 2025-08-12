@@ -42,11 +42,11 @@
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
   <div class="row">
-    <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+    <div class="col-md-12 custom-heading-wrapper">
       <h1 class="h1">Dashboard</h1>
       <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
     </div>
-    <div class="col-md-12 my-4">
+    <div class="col-md-12 mb-4">
       <div class="card collapse" id="notes">
         <div class="card-body">
           <p class="mb-0" style="font-size: 20px;"><b>Notes:</b></p>
@@ -55,8 +55,8 @@
             <li>You can only search for an offender by their mobile number...</li>
             <li>E4U makes no claims:
               <ol class="level-2">
-                <li>as to the accuracy or legitimacy of the allegations contained in a Report</li>
-                <li>nor do we investigate the authenticity of the Reports</li>
+                <li>as to the accuracy or legitimacy of the allegations contained in a Report.</li>
+                <li>nor do we investigate the authenticity of the Reports.</li>
               </ol>
             </li>
           </ol>

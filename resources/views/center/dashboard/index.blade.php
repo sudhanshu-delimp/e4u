@@ -1,9 +1,25 @@
 @extends('layouts.center')
 @section('content')
-<div class="container-fluid pl-lg-4">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!-- Page Heading -->
-   <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <div class="v-main-heading h3 mb-2 pt-4">Dashboard</div>
+   
+   <div class="row">
+      <div class="custom-heading-wrapper col-md-12 ">
+         <h1 class="h1">Dashboard</h1>
+         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+      </div>
+      <div class="col-md-12 mb-4">
+         <div class="collapse" id="notes">
+            <div class="card">
+                <div class="card-body">
+                  <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                  <ol>
+                     
+                  </ol>
+                </div>
+            </div>
+        </div>
+      </div>
    </div>
    <div class="row agent-dash">
       <div class="col-lg-8 pr-2">

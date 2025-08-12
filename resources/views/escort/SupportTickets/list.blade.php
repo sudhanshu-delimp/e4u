@@ -13,9 +13,9 @@
    <!--middle content start here-->
 {{-- Page Heading   --}}
 <div class="row">
-    <div class="custom-heading-wrapper col-lg-12">
+    <div class="col-md-12 custom-heading-wrapper">
         <h1 class="h1">View & Reply Ticket</h1>
-        <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
     </div>
     <div class="col-md-12 mb-4">
         <div class="card collapse" id="notes" style="">

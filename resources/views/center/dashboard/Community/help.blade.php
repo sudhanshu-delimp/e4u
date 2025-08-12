@@ -28,37 +28,36 @@
     <div id="wrapper">
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
-                <div class="container-fluid pl-3 pl-lg-5">
+                <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
                     <!--middle content-->
                     <div class="row">
-                        <div class="col-md-9">
+                        <div class="col-md-12">
                             <!-- Begin Page Content -->
                             <div class="container-fluid" style="padding: 0px 0px;">
                                 <!-- Page Heading -->
-                                <div class="d-sm-flex align-items-center justify-content-between">
-                                    <div class="v-main-heading h3">Help & Tips
-                                        <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes">
+                                <div class="row">
+                                    <div class="col-md-12 custom-heading-wrapper">
+                                        <h1 class="h1">Help & Tips</h1>
+                                        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes">
                                             <b>Help?</b>
-                                        </h6>
+                                        </span>
+                                    </div>
+                                    <div class="card collapse col-lg-12 mb-4" id="notes">
+                                        <div class="card-body">
+                                            <h3 class="NotesHeader"><b>Notes:</b></h3>
+                                            <ol>
+                                                <li>Use these information pages for any questions you may have about the
+                                                    Services.
+                                                </li>
+                                                <li>If you can't find the answer, raise a <a href='/submit_ticket'
+                                                        class="custom_links_design">Support Ticket</a> and we will get
+                                                    back to you.
+                                                </li>
+                                            </ol>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="card collapse  mb-4" id="notes">
-                                    <div class="card-body">
-                                        <h3 class="NotesHeader"><b>Notes:</b></h3>
-                                        <ol>
-                                            <li>Use these information pages for any questions you may have about the
-                                                Services.
-                                            </li>
-                                            <li>If you can't find the answer, raise a <a href='/submit_ticket'
-                                                    class="custom_links_design">Support Ticket</a> and we will get
-                                                back to you.
-                                            </li>
-                                        </ol>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.container-fluid --><br>
-                            <div class="row pb-5">
+                            <div class="row">
                                 <div class="col-md-12">
                                     <div id="accordion" class="myacording-design">
                                         <div class="card">

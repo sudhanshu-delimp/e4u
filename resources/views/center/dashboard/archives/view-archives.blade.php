@@ -13,41 +13,36 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid">
-<div class="col-md-10">
-                <div class="row">
-                      
-         <div class="col-md-12">
-            <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Archives</h1></div>
-            <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
-         </div>
-         <div class="col-md-12 my-4">
-            <div class="card collapse" id="notes" style="">
-               <div class="card-body">
-                  <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                  <p></p>
-                  <ol>
-                        
-                  </ol>
-               </div>
-            </div>
-         </div>
-            </div> 
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <div class="row">                      
+        <div class="custom-heading-wrapper col-md-12">
+            <h1 class="h1">Archives</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes" style="">
+                <div class="card-body">
+                    <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                    <p></p>
+                    <ol>
+                            
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div> 
 <div class="col-md-10">
 <div class="row">
-                                <div class="col-md-2">
-                    <div class="card archive-sec">
-
-                      <a href ="{{route('cen.archive.profile')}}">
-                      <figure class="figure m-0">
-  
-  <img src="{{ asset('assets/dashboard/img/Vector.png') }}" class="figure-img img-fluid rounded" alt=" ">
-  <figcaption class="figure-caption"><p>Profiles</p></figcaption>
-</figure>
-</a>
-                    </div>
-                </div>
+    <div class="col-md-2">
+        <div class="card archive-sec">
+            <a href ="{{route('cen.archive.profile')}}">
+                <figure class="figure m-0">                    
+                <img src="{{ asset('assets/dashboard/img/Vector.png') }}" class="figure-img img-fluid rounded" alt=" ">
+                <figcaption class="figure-caption"><p>Profiles</p></figcaption>
+                </figure>
+            </a>
+        </div>
+    </div>
 
 
 <!-- <div class="col-md-2">
@@ -92,104 +87,103 @@
 </figure>
                     </div>
                 </div> -->
-                            </div></div>
+                            </div>
+                        </div>
                             
                             <div class="col-md-10 mt-4">
-                <div id="accordion" class="myacording-design mb-5">
+                                <div id="accordion" class="myacording-design mb-5">
+                                    <div class="card">
+                                        <div class="card-header">
+                                        <a class="card-link" data-toggle="collapse" href="#additional_information">
+                                            Guidelines
+                                        </a>
+                                        </div>
+                                        <div id="additional_information" class="collapse" data-parent="#accordion">
+                                        <div class="card-body pl-0 arch-acrd">
+                                            <div class="form-group">
+                                                <h5>Profiles &amp; Media Storage</h5>
+                                                <p>All of your Profiles and Media are stored here. When editing a Profile or Tour or uploading
+                                                Media, select:</p> 
+                                            </div>
+                                                <ul class="mb-0">
+                                                                            <li>Your Profile by going to the folder Location the Profile is stored in</li>
+                                                                            
+                                                                        <li>Your Tour by going to the ‘Current Listings’ folder </li><li> The relevant Media folder to upload or remove photos and video, or to verified your photos</li></ul>
+                                                <h5 class="pt-2">Managing your Archive Folder</h5>
+                                                <div class="form-group">
+                                                <p>Things you should know:</p>
+                                                                    </div>
 
-                  <div class="card">
-                    <div class="card-header">
-                      <a class="card-link" data-toggle="collapse" href="#additional_information">
-                        Guidelines
-                      </a>
-                    </div>
-                    <div id="additional_information" class="collapse" data-parent="#accordion">
-                      <div class="card-body pl-0 arch-acrd">
-                        <div class="form-group">
-                      <h5>Profiles &amp; Media Storage</h5>
-<p>All of your Profiles and Media are stored here. When editing a Profile or Tour or uploading
-Media, select:</p>
-                    </div>
-<ul class="mb-0">
-                            <li>Your Profile by going to the folder Location the Profile is stored in</li>
-                            
-                        <li>Your Tour by going to the ‘Current Listings’ folder </li><li> The relevant Media folder to upload or remove photos and video, or to verified your photos</li></ul>
-<h5 class="pt-2">Managing your Archive Folder</h5>
-<div class="form-group">
-<p>Things you should know:</p>
-                    </div>
+                                                <ul class="mb-0">
+                                                <li>Create multiple folders to store your Profiles and Media in</li>
+                                                <li>Your Home State folder is your default folder where you store your first Profile</li>
+                                                <li>Copy your Home State Profile to create other Profiles or just use the Profile creator</li>
+                                                <li>Move your folders around into a convenient order. Your Home State folder will always
+                                                remain at the front of the folders</li>
+                                                <li>Any Profile or Media you delete will be stored in your ‘History’ folder. Deleted Profiles
+                                                and Media are stored in your History folder for 6 months and then deleted
+                                                permanently</li>
+                                                <li>Any folder you delete will be permanently deleted including all content</li>
+                                                </ul>
 
-<ul class="mb-0">
-<li>Create multiple folders to store your Profiles and Media in</li>
-<li>Your Home State folder is your default folder where you store your first Profile</li>
-<li>Copy your Home State Profile to create other Profiles or just use the Profile creator</li>
-<li>Move your folders around into a convenient order. Your Home State folder will always
-remain at the front of the folders</li>
-<li>Any Profile or Media you delete will be stored in your ‘History’ folder. Deleted Profiles
-and Media are stored in your History folder for 6 months and then deleted
-permanently</li>
-<li>Any folder you delete will be permanently deleted including all content</li>
-</ul>
+                                                <div class="form-group pt-2">
+                                                <p>Some Profile & Tour tips:</p>
+                                                                    </div>
+                                                <ul class="mb-0">                 
+                                                <li>Name your Profile folder after a Location - ‘NSW’ or ‘ACT or ‘WA’’</li>
+                                                <li>Name your Profiles after the city within the Location folder - ‘Sydney01' and Sydney02’ or ‘Canberra01’ and ‘Canberra02’ or ‘Perth01’ and ‘Perth02’</li>
+                                                <li>When you create a Tour folder, by default the folder will be labeled ‘Tours [year]’</li>
+                                                </ul>
 
-<div class="form-group pt-2">
-<p>Some Profile & Tour tips:</p>
-                    </div>
-<ul class="mb-0">                 
-<li>Name your Profile folder after a Location - ‘NSW’ or ‘ACT or ‘WA’’</li>
-<li>Name your Profiles after the city within the Location folder - ‘Sydney01' and Sydney02’ or ‘Canberra01’ and ‘Canberra02’ or ‘Perth01’ and ‘Perth02’</li>
-<li>When you create a Tour folder, by default the folder will be labeled ‘Tours [year]’</li>
-</ul>
+                                                <div class="form-group pt-2">
+                                                <p>Some Media tips:</p>
+                                                                    </div>
 
-<div class="form-group pt-2">
-<p>Some Media tips:</p>
-                    </div>
+                                                <ul class="mb-0">                 
+                                                <li>Label your photo images and video after an event</li>
+                                                <li>Get your photo images verified by E4U</li>
+                                                <li>Name your image that you select to appear in your Profile that displays on the Search
+                                                Page ‘Thumbnail’</li>
+                                                </ul>
 
-<ul class="mb-0">                 
-<li>Label your photo images and video after an event</li>
-<li>Get your photo images verified by E4U</li>
-<li>Name your image that you select to appear in your Profile that displays on the Search
-Page ‘Thumbnail’</li>
-</ul>
+                                                <h5 class="pt-2">How to verify your Media (Photos and Videos)
+                                                </h5>
+                                                <p>To get the best results with your Viewers for when they are looking at your Profile we
+                                                recommend you get your Media verified by us. The E4U Verification Icon will indicate to
+                                                Users that your Media within your Profile is authentic.</p>
+                                                <p>It is a simple process to follow from within the Archive Folder. To authenticate any of your
+                                                Media we require you to:</p>
 
-<h5 class="pt-2">How to verify your Media (Photos and Videos)
-</h5>
-<p>To get the best results with your Viewers for when they are looking at your Profile we
-recommend you get your Media verified by us. The E4U Verification Icon will indicate to
-Users that your Media within your Profile is authentic.</p>
-<p>It is a simple process to follow from within the Archive Folder. To authenticate any of your
-Media we require you to:</p>
+                                                <ul class="mb-0">
+                                                <li> Open ‘Profiles & Archives - Media’ and select Photos.</li>
+                                                <li> Upload your photos and click the ‘Verify Media’ button.</li>
+                                                <li> Upload your identification you are relying on to verify your photos. Acceptable forms
+                                                of identification include:</li>
+                                                <ul style="list-style: outside;">
+                                                    <li>Two (2) selfies with your User Name and Membership ID printed (can be hand
+                                                written) on a sheet of paper held up to the side of you and not obscuring any part of
+                                                you</li>
+                                                <li> A drivers licence which matches your User Name and Home State </li>
+                                                <li> A passport which matches your User Name and Home State </li>
+                                                </ul>
+                                                <li>Repeat the above procedure for video, opening ‘Profiles & Archives - Media’ and
+                                                select Videos. </li>
+                                                </ul>
 
-<ul class="mb-0">
-<li> Open ‘Profiles & Archives - Media’ and select Photos.</li>
-<li> Upload your photos and click the ‘Verify Media’ button.</li>
-<li> Upload your identification you are relying on to verify your photos. Acceptable forms
-of identification include:</li>
-<ul style="list-style: outside;">
-    <li>Two (2) selfies with your User Name and Membership ID printed (can be hand
-written) on a sheet of paper held up to the side of you and not obscuring any part of
-you</li>
-<li> A drivers licence which matches your User Name and Home State </li>
-<li> A passport which matches your User Name and Home State </li>
-</ul>
-<li>Repeat the above procedure for video, opening ‘Profiles & Archives - Media’ and
-select Videos. </li>
-</ul>
-
-<p class="mt-4">Please Note: </p>
-<ul>
-<li>Your identification images will not be available as Media in any Profile.</li>
-<li>Any fake photo uploaded for verification will disqualify the remaining photos for
-verification. We will notify you and request you replace the fake photo.</li>
-<li>A Viewer can undertake a reverse image search and may report your Profile to us as a
-Profile with fake Media. Your Profile may be suspended where this occurs.</li>
-</ul>
-                      </div>
-                    </div>
-                  </div>        
-
-                </div>
-            </div>
-</div>
+                                                <p class="mt-4">Please Note: </p>
+                                                <ul>
+                                                <li>Your identification images will not be available as Media in any Profile.</li>
+                                                <li>Any fake photo uploaded for verification will disqualify the remaining photos for
+                                                verification. We will notify you and request you replace the fake photo.</li>
+                                                <li>A Viewer can undertake a reverse image search and may report your Profile to us as a
+                                                Profile with fake Media. Your Profile may be suspended where this occurs.</li>
+                                                </ul>
+                                        </div>
+                                        </div>
+                                    </div>   
+                                </div>
+                            </div>
+                        </div>
 
 @endsection
 @push('script')

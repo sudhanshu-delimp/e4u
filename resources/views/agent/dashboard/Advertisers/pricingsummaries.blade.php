@@ -39,15 +39,15 @@
                                 <ol>
                                     <li>There are a range of Fees that apply to Advertisers, namely:</li>
                                         <ol class="level-2">
-                                            <li>Advertising Fees</li>
-                                            <li>Concierge Services</li>
-                                            <li>Support Services</li>
+                                            <li>Advertising Fees.</li>
+                                            <li>Concierge Services.</li>
+                                            <li>Support Services.</li>
                                         </ol>
                                     <li>There is a loyalty program which also applies to Advertisers.</li>
                                     <li>There are a range of variables that determine:</li>
                                     <ol class="level-2">
-                                        <li>Discounts to Advertising Fees</li>
-                                        <li>Loyalty Program entitlements and discounts</li>
+                                        <li>Discounts to Advertising Fees.</li>
+                                        <li>Loyalty Program entitlements and discounts.</li>
                                     </ol>
                                     <li>All amounts are exclusive of GST.</li>
                                 </ol>
