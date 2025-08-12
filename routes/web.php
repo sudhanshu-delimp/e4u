@@ -370,10 +370,7 @@ Route::get('/help-for-escorts', function() { return view('web.pages.help-for-adv
 Route::get('/help-for-agents', function() { return view('web.pages.help-for-agents'); });
 Route::get('/help-for-massage-centres', function() { return view('web.pages.help-for-massage-centres'); });
 Route::get('/help-for-viewers', function() { return view('web.pages.help-for-viewers'); });
-Route::get('/become-a-pin-up', function() { 
-    session(['search_escort_filters_url' => url()->full()]);
-    return view('web.pages.pinup'); 
-});
+Route::get('/become-a-pin-up', function() { return view('web.pages.pinup'); });
 Route::get('/agents', function() { return view('web.pages.agents'); });
 Route::get('/centres', function() { return view('web.pages.centres'); });
 Route::get('/playbox', function() { return view('web.pages.playbox'); });
