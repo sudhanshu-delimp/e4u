@@ -2,7 +2,7 @@
     <div class="row align-items-center">
         <div class="col-md-6">
             <div href="#" class="tip mb-2">
-                <img style="box-shadow: 2px 3px 2px #bdbdbdbd;" class="img-fluid"
+                <img class="img-fluid"
                     src="{{ !empty($profile_image)?asset($profile_image->path):asset('assets/app/img/home/home-demo.png') }}">
             </div>
         </div>
