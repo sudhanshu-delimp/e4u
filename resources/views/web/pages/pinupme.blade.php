@@ -4,7 +4,7 @@
         <div class="container-fluid banner_width">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <div href="#" class="tip mb-2 ddd">
+                    <div href="#" class="tip mb-2">
                         <img class="img-fluid"
                             src="{{ asset('assets/app/img/home/home-demo.png') }}">
                     </div>
