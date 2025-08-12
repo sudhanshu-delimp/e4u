@@ -12,9 +12,17 @@
 #cke_1_contents {
     height: 150px !important;
 }
+/* table td,th{
+    border-top: 0px !important;
+    border: none;
+}
+
 table td,th{
     border-top: 0px !important;
     border: none;
+} */
+.table-report-info tr td{
+    border: 0;
 }
 </style>
 @endsection
@@ -164,16 +172,16 @@ table td,th{
         </div>
         
         <div class="col-md-12">
-            <div class="my-account-card print-report-info">
+            <div class="my-account-card print-advertiser-report">
                 <div class="card-head">                    
                     <h2 class="font-weight-bold">My Report Information </h2>
                     <button class="print-btns" onclick="window.print()" type="button"><i class ="fa fa-print"></i> Print Report</button>
                 </div>
-                <table class="table  w-100"> 
+                <table class="table  w-100 table-report-info"> 
                     <tr class="details-row">
                         <td colspan="7">
                           <div>
-                            <table class="table border-0">
+                            <table class="table border-0 table-report-info">
                               <tbody>
                                 <tr >
                                   <th>Our Ref:</th>
@@ -204,32 +212,31 @@ table td,th{
                         </td>
                       </tr>
                 </table>
-            </div>           
-            
-            <div class="notes-section">
-                <div class="notes-label">Notes:</div>
-                <div class="lines"></div>
-                <div class="lines"></div>
-                <div class="lines"></div>
-                <div class="lines"></div>
-                <div class="lines"></div>
-
-                <div class="manage-table table-responsive">
-                    <table>
-                        <tr>
-                            <th colspan="1" style="width: 30%;">Management only:</th>
-                            <th colspan="2" style="width: 30%;"><input type="checkbox"> Cancel Membership</th>
-                            <th colspan="2" style="width: 30%;"><input type="checkbox"> Re-instate Membership</th>
-                        </tr>
-                        <tr>
-                            <td style="width: 25%;">Name:</td>
-                            <td style="width: 25%;"></td>
-                            <td style="width: 25%;">Signature:</td>
-                            <td style="width: 25%;"></td>
-                        </tr>
-                    </table>
+                <div class="notes-section">
+                    <div class="notes-label">Notes:</div>
+                    <div class="lines"></div>
+                    <div class="lines"></div>
+                    <div class="lines"></div>
+                    <div class="lines"></div>
+                    <div class="lines"></div>
+    
+                    <div class="manage-table table-responsive">
+                        <table>
+                            <tr style="">
+                                <th colspan="1" style="width: 30%;" class="pb-3">Management only:</th>
+                                <th colspan="2" style="width: 30%;" class="pb-3"><input type="checkbox"> Cancel Membership</th>
+                                <th colspan="2" style="width: 30%;" class="pb-3"><input type="checkbox"> Re-instate Membership</th>
+                            </tr>
+                            <tr>
+                                <td style="width: 25%;">Name:</td>
+                                <td style="width: 25%;"></td>
+                                <td style="width: 25%;">Signature:</td>
+                                <td style="width: 25%;"></td>
+                            </tr>
+                        </table>
+                    </div>
+    
                 </div>
-
             </div>
 
         </div>
