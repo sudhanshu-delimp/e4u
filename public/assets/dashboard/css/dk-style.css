@@ -6124,6 +6124,13 @@ padding-bottom:80px;
         opacity: 1;
     }
     
+    .pin-up-content p {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
     .my_service_anal .mytool-tip::after {
         content: '';
         position: absolute;
