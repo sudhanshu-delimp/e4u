@@ -1,8 +1,8 @@
 <div class="container-fluid banner_width">
     <div class="row align-items-center">
         <div class="col-md-6">
-            <div href="#" class="tip mb-2">
-                <img class="img-fluid"
+            <div href="#" class="tip mb-2 pinup-summary-img">
+                <img 
                 src="{{ !empty($profile_image)?asset($profile_image->path):asset('assets/app/img/home/home-demo.png') }}">
             </div>
         </div>
