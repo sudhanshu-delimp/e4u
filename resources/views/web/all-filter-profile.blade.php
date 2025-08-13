@@ -474,7 +474,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <img src="{{ asset('assets/app/img/newcross.png') }}" class=" ">
                             </button>
-                            <h3>   <img src="{{ asset('assets/app/img/help.png') }}" class=" " style="width:25px; margin-right:10px;"> Help</h3>
+                            <h3><img src="{{ asset('assets/app/img/help.png') }}" class="custompopicon"> Help</h3>
                             <div class="modal-sec">
                                 <p><b class="pb-4">Search Filters</b></p>
                                 <p>
@@ -713,7 +713,8 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">My Legbox</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/my-legbox.png') }}"
+                        class="custompopicon"> <span class=" popup_modal_title_new">My Legbox</span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -727,10 +728,10 @@
                     </h1>
                 </div>
                 <div class="modal-footer my_legbox_footer" style="justify-content: center;">
-                    <a href="{{ route('viewer.login') }}" type="button" class="btn main_bg_color site_btn_primary"
+                    <a href="{{ route('viewer.login') }}" type="button" class="btn site_btn_primary"
                         id="loginUrl">Login</a>
-                    <a href="{{ route('register') }}" type="button" class="btn main_bg_color site_btn_primary"
-                        id="regUrl" style="width: 26%;">Register</a>
+                    <a href="{{ route('register') }}" type="button" class="btn site_btn_primary"
+                        id="regUrl">Register</a>
                 </div>
 
             </div>
@@ -740,7 +741,8 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title popup_modal_title_new " id="exampleModalLabel">Add To Shortlist</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><img src="{{ asset('assets/dashboard/img/short-list-profile.png') }}"
+                        class="custompopicon"> <span class="popup_modal_title_new">Add To Shortlist</span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png') }}"

@@ -176,7 +176,7 @@
                         </div>
                         <div class="col pr-1 all-escort-view-profile-btn">
                             
-                            <a  href="{{ route('profile.description',$escort->id)}}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}" class="btn btn_for_profile_list_view min_width_hundredpresent" style="float: right;">View Profile</a>
+                            <a  href="{{ route('profile.description',$escort->id)}}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}" class="btn btn_for_profile_list_view min_width_hundredpresent custom-view-profile" style="float: right;">View Profile</a>
                         </div>
                     </div>
                 </div>

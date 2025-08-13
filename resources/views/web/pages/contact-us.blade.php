@@ -35,14 +35,6 @@
         padding-bottom:0px;
         text-transform:capitalize;
     }
-    .btn-primary {
-      background-color: #0C223D;
-      border-color: #0C223D;
-    }
-    .btn-primary:hover {
-      background-color: #0C223D;
-      border-color: #0C223D;
-    }
         .input-error {
     color: #e5365a;
     font-size: small;
@@ -259,7 +251,7 @@ if (session('error')) {
                             <div class="input-error-box input-error">{{ $message }}</div>
                         @enderror
                 </div>
-                <button type="submit" id="btn-submit" class="btn btn-primary mb-3">Send Message</button>
+                <button type="submit" id="btn-submit" class="common-btn mb-3">Send Message</button>
             </form>
 
                         </div>

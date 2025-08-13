@@ -216,9 +216,16 @@ class PinUpsController extends AppController
             $latitude = $request->latitude;
             $longitude = $request->longitude;
             $view = $request->view?$request->view:null;
-            $location = getRealTimeGeolocationOfUsers($latitude, $longitude);
-            $response['location'] = $location;
-            $pinupDetail = EscortPinup::latestActiveForCity($location['city']);
+            if(!empty($request->current_city_id)){
+                $pinupDetail = EscortPinup::latestActiveForCity($request->current_city_id);
+            }
+            else{
+                $location = getRealTimeGeolocationOfUsers($latitude, $longitude);
+                $pinupDetail = EscortPinup::latestActiveForCity($location['city']);
+                $response['location'] = $location;
+            }
+            $response['request'] = $request->all();
+            //
             if($pinupDetail){
                 $profile_image = EscortMedia::where(['user_id'=>$pinupDetail->user_id,'position'=>10,'default'=>1])->orderBy('id', 'DESC')->first();
                 $response['success'] = true;

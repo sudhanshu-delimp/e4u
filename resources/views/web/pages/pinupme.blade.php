@@ -298,10 +298,11 @@
         </div>
     </section>
 @endsection
-@section('enable_navigator')@endsection
+
+@section('enable_loader')@endsection
 @push('scripts')
 <script>
-    let getPinupProfile = function(latitude, longitude){
+    let getPinupProfile = function(latitude=null, longitude=null){
         $.ajax({
             url:`{{route('web.get_pinup_profile')}}`,
             method:`POST`,
@@ -309,10 +310,10 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 'Accept': 'application/json'
             },
-            data:{latitude, longitude, view:'pinup_summary'},
+            data:{latitude, longitude, current_city_id:sessionStorage.getItem('current_city_id'),  view:'pinup_summary'},
             dataType:`JSON`,
             beforeSend: function(){
-                $("#preloader").addClass('pre-active');
+                //$("#preloader").addClass('pre-active');
             },
             success: function(response){
                 if(response.success){
@@ -327,6 +328,7 @@
                 $("#preloader").removeClass('pre-active');
             }
         });
-    }        
+    }
+    getPinupProfile();        
 </script>
 @endpush

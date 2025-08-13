@@ -2807,6 +2807,10 @@ i.fa.fa-heart-o{
         justify-content: space-around;
     }
     
+    .btn_for_profile_list_view:hover {
+        color: var(--white);
+    }
+    
     .manage_listview_margin_gold_section {
         margin-top: 50px;
         margin-bottom: 50px;
@@ -3005,6 +3009,14 @@ i.fa.fa-heart-o{
         font-size: 15px;
     }
     
+    .help--filter .nav-tabs .nav-item .nav-link.active {
+        color: #fff;
+    }
+    
+    .help--filter .nav-tabs .nav-item .nav-link {
+        color: var(--blue--text);
+    }
+    
     .grid_list_part>div,
     .grid_list_part>div * {
         padding: 0;
@@ -3148,6 +3160,10 @@ i.fa.fa-heart-o{
     .seleceted_service_text_and_icon p {
         font-weight: 500;
         font-family: Montserrat;
+    }
+    
+    .seleceted_service_text_and_icon i {
+        color: var(--peach);
     }
     
     .search_filters_inside {
@@ -5082,10 +5098,15 @@ i.fa.fa-heart-o{
     
     .myblog-design .btn-card {
         padding: 15px 50px;
-        background-color: #0c223d;
+        background-color: var(--blue--text);
         color: #fff;
         font-family: 'Poppins';
         border-radius: 3px;
+        text-decoration: none;
+    }
+    
+    .myblog-design .btn-card:hover {
+        background-color: var(--peach);
     }
     
     .myblog-design img {
@@ -5715,15 +5736,19 @@ i.fa.fa-heart-o{
     }
     
     .custom--service-tag .grid--btn:hover {
-        background: #0c223d;
+        background: var(--blue--text);
+    }
+    
+    .custom--service-tag .grid--btn:hover svg path {
+        stroke: var(--white);
     }
     
     .custom--service-tag .list-btn:hover {
-        background: var(--peach);
+        background: var(--blue--text);
     }
     
-    .custom--service-tag .list-btn:hover a {
-        color: var(--white) !important;
+    .custom--service-tag .list-btn:hover svg path {
+        stroke: var(--white);
     }
     
     .custom--service-tag .grid_list_icon_box span,
@@ -6014,8 +6039,26 @@ i.fa.fa-heart-o{
         margin-top: 10px;
     }
     
+    .custom-view-profile:hover {
+        background-color: var(--peach) !important;
+        color: white;
+    }
+    
+    .common-btn {
+        background-color: var(--blue--text);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin-top: 15px;
+        border-radius: 5px;
+    }
+    
+    .common-btn:hover {
+        background-color: var(--peach);
+    }
+    
     .add-review-btn {
-        background-color: #001f3f;
+        background-color: var(--blue--text);
         color: white;
         border: none;
         padding: 10px 20px;
