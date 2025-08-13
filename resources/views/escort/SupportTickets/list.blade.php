@@ -22,7 +22,9 @@
         <div class="card-body">
             <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
             <ol>
-               
+                    <li>You will receive a Notification, located in the Support Ticket Alert (top menu bar), when you have an unread Support Ticket message.</li>
+                    <li>Use the <a href="{{ route('escort.dashboard.agent-messages') }}" class="custom_links_design">Messaging</a> service for communication with other Users (if available).</li>
+                
             </ol>
         </div>
         </div>
