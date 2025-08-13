@@ -132,7 +132,7 @@
        var table = $("#supportTicketsTable").DataTable({
            "language": {
                "zeroRecords": "No record(s) found.",
-               "searchPlaceholder": "Search by Ticket ID or Member ID...",
+               "searchPlaceholder": "Search by Ticket ID",
            },
            processing: true,
            serverSide: true,
