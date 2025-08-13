@@ -16,7 +16,7 @@
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
-                  <li>When an Advertiser requests the services of an Agent <b>(Request)</b>, the Request will
+                  <li>When an Advertiser requests the services of an Agent (<b>Request</b>), the Request will
                      appear here.</li>
                   <li>You can view the full details of the Request by clicking the accordion arrow. The
                      Request will provide you will all the details you need to decide whether or not you will
