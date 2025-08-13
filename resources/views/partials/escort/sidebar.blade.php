@@ -176,15 +176,8 @@
             <img class="cstm-excort" src="{{ asset('assets/dashboard/img/menu-icon/media-exort.png')}}">
             <span>Media</span>
         </a>
-        <div id="pmedia" class="collapse  @if(request()->segment(2) == 'archive-medias' || request()->segment(2) == 'archive-view-photos' || request()->segment(2) == 'archive-view-videos' || request()->segment(2) == 'pricarchive-myplayboxing') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="pmedia" class="collapse  @if(request()->segment(2) == 'archive-medias' || request()->segment(2) == 'archive-view-photos' || request()->segment(2) == 'archive-view-videos') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-                                {{-- <a class="collapse-item" href="{{ route('escort.archives') }}"> --}}
-                {{--<a class="collapse-item" href="{{ url('escort-dashboard/archive-medias') }}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png')}}">
-                    <span style=
-                          @if( request()->segment(2) == 'archive-medias') "color: #e5365a;" @endif
-                >View Media</span>
-                </a>--}}
                 <a class="collapse-item" href="{{route('escort.archive-view-photos')}}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/photo-camera.png')}}">
                     <span style=
@@ -197,18 +190,24 @@
                           @if( request()->segment(2) == 'archive-view-videos') "color: #e5365a;" @endif
                 >Videos</span>
                 </a>
-                <a class="collapse-item" href="{{ route('escort.archive-myplaybox') }}">
+                {{-- <a class="collapse-item" href="{{ route('escort.archive-myplaybox') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/play-25.png') }}"/>
                     <span style="@if(request()->segment(2) == 'pricarchive-myplayboxing') color: #e5365a; @endif">
                         My Playbox
                     </span>
-                </a>
+                </a> --}}
             </div>
         </div>
     </li>
 
+    <li class="nav-item active">
+        <a class="nav-link" href="{{ route('escort.archive-myplaybox') }}">
+            <img src="{{ asset('assets/dashboard/img/menu-icon/play-25.png') }}"/>
+           <span>My Playbox</span>
+        </a>
+    </li>
 
-    <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; /*padding:20px 0;*/"></li>
+    <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;"></li>
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Analytics"

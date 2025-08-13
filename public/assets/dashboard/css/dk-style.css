@@ -220,6 +220,10 @@ span.menu-active {
     color: #D6D7E3;
 }
 
+.sidebar-dark .nav-item.active .nav-link{
+    color: rgba(255, 255, 255, .8);
+}
+
 .search-form-bg-i {
     height: 44px
 }
@@ -4747,9 +4751,9 @@ form.v-form-design .form-control {
 
 form.v-form-design input[type="submit"] {
     font-family: Poppins;
-    font-size: 14px;
+    font-size: 1rem;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 400;
     line-height: 21px;
     letter-spacing: 0.01em;
     text-align: center;
@@ -8545,6 +8549,9 @@ td {
 
 
 /* add punterbox report */
+.add-punterbox-report .form-group {
+    margin-bottom: 0.5rem;
+}
 
 .add-punterbox-report {
     color: var(--blue--text);

@@ -31,7 +31,7 @@
                 <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                 <ol>
                   <li>Use this feature to change your Password and to set up your Password preferences.</li>
-                  <li>By default, your password expires every 30 days. You will be notified before expiry.</li>
+                  <li>Your Password, unless you change the settings, will by default expire every 30 days. You will be notified before the expiry date.</li>
                 </ol>
             </div>
           </div>
