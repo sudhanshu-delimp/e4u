@@ -26,7 +26,7 @@
                                 <span class="margin_and_font_size_color_for_free manage_age_responsive_in_gold">AGE:</span><span class="free_profile_age_color_and_font">{{$escort->age}}</span>
                             </div>
                             <div class="add_to_shortlist_btn manage_btn_gor_gold_in_responsive">
-                                <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent">
+                                <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent ">
                                 <img class="listiconprofilelistview" src="{{ asset('assets/app/img/listiconprofilelistview.png')}}">Add to short list</button>
                             </div>
                         </div>

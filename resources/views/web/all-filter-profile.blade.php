@@ -470,7 +470,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <img src="{{ asset('assets/app/img/newcross.png') }}" class=" ">
                             </button>
-                            <h3>   <img src="{{ asset('assets/app/img/help.png') }}" class=" " style="width:25px; margin-right:10px;"> Help</h3>
+                            <h3><img src="{{ asset('assets/app/img/help.png') }}" class="custompopicon"> Help</h3>
                             <div class="modal-sec">
                                 <p><b class="pb-4">Search Filters</b></p>
                                 <p>

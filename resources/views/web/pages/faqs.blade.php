@@ -161,7 +161,10 @@
                         </tr>
                      </tbody>
                   </table>
-                  <p class="border-top-0 pl-2 pb-2"><b>Note:</b> 1. Local Laws published in the relevant jurisdiction as at 1st January 2024.</p>
+                  <p class="border-top-0 pl-2 pb-2"><b>Note:</b></p>
+                  <ol>
+                     <li>Local Laws published in the relevant jurisdiction as at 1st January 2024.</li>
+                  </ol>
                   
                </div>
             </div>

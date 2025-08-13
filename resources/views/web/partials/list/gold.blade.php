@@ -202,7 +202,7 @@
                         </div>
                         <div class="col pl-0 pr-1 all-escort-view-profile-btn">
                         <a href="{{ route('profile.description', $escort->id) }}?list&brb={{isset($escort->latestActiveBrb->id) ? $escort->latestActiveBrb->id : ''}}"
-                                    class="btn btn_for_profile_list_view">View Profile</a>
+                                    class="btn btn_for_profile_list_view custom-view-profile">View Profile</a>
                         </div>
 
                     </div>

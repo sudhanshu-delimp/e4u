@@ -26,7 +26,7 @@
                             </div>
                             <div class="add_to_shortlist_btn manage_btn_gor_gold_in_responsive">
 
-                                <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent fill_platinum_btn removeshortlist custom-sort-filter"  data-name="{{$escort->name}}"  data-escortId="{{$escort->id}}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
+                                <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent custom-view-profile fill_platinum_btn removeshortlist custom-sort-filter"  data-name="{{$escort->name}}"  data-escortId="{{$escort->id}}"><img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_view.png') }}">
                                     Remove from Shortlist</button>
                             </div>
                         </div>
