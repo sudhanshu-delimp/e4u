@@ -21,7 +21,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content custome_modal_max_width">
                         <div class="modal-header main_bg_color border-0">
-                            <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/upload-photos.png') }}" class="custompopicon"> <span style="color:white" id="header_msg"></span></h5>
+                            <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/save-setting.png') }}" class="custompopicon"> <span style="color:white" id="header_msg"></span></h5>
                             
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
