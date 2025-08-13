@@ -310,7 +310,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
                 'Accept': 'application/json'
             },
-            data:{latitude, longitude, current_city_id:sessionStorage.getItem('current_city_id'),  view:'pinup_summary'},
+            data:{latitude, longitude, pinup_id:sessionStorage.getItem('pinup_id'),  view:'pinup_summary'},
             dataType:`JSON`,
             beforeSend: function(){
                 //$("#preloader").addClass('pre-active');
