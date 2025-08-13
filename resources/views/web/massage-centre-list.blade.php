@@ -316,7 +316,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <img src="{{ asset('assets/app/img/newcross.png') }}" class=" ">
                             </button>
-                            <h3>Help</h3>
+                            <h3><img src="{{ asset('assets/app/img/help.png') }}" class="custompopicon">Help</h3>
                             <div class="modal-sec help--filter">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li class="nav-item">

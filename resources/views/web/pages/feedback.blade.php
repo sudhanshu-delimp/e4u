@@ -41,24 +41,6 @@
         padding-bottom:0px;
         text-transform:capitalize;
     }
-    .btn-primary {
-      background-color: #0C223D;
-      border-color: #0C223D;
-    }
-    .btn-primary:hover {
-      background-color: #0C223D;
-      border-color: #0C223D;
-    }
-    .btn-outline-light{
-       
-      background-color: #0C223D;
-      border-color: #0C223D;
-    }
-    .btn-outline-light:hover {
-      background-color: #0C223D;
-      border-color: #0C223D;
-      color: #fff;
-    }
     .form-control {
       border: 1px solid #d1d3e2;
     }
@@ -114,7 +96,7 @@
     <textarea class="form-control border_for_form" name="comment" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
 </div>
 
-            <button type="submit" id="btnSubmit" class="btn btn-primary mb-3">Submit Feedback</button>
+            <button type="submit" id="btnSubmit" class="common-btn mb-3">Submit Feedback</button>
         </form>
 
          <!-- changes to this policy -->

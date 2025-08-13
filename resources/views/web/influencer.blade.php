@@ -28,24 +28,6 @@
     #membershipForm label{
       font-weight:bold;
     }
-    .btn-primary {
-      background-color: #0C223D;
-      border-color: #0C223D;
-    }
-    .btn-primary:hover {
-      background-color: #0C223D;
-      border-color: #0C223D;
-    }
-    .btn-outline-light{
-       
-      background-color: #0C223D;
-      border-color: #0C223D;
-    }
-    .btn-outline-light:hover {
-      background-color: #0C223D;
-      border-color: #0C223D;
-      color: #fff;
-    }
     .form-control {
       border: 1px solid #d1d3e2;
     }
@@ -139,7 +121,7 @@ an Influencer’ program works.
             <input type="url" class="form-control" name="socialMedia[]" placeholder="Social Media Address(es)" required>
           </div>
         </div>
-        <button type="button" class="btn btn-outline-light btn-sm" onclick="addSocialMedia()">Add Address</button>
+        <button type="button" class="common-btn btn-sm py-2" onclick="addSocialMedia()">Add Address</button>
       </div>
  
  
@@ -152,7 +134,7 @@ an Influencer’ program works.
           <input class="form-check-input" type="checkbox" id="ccEmail" name="ccEmail">
           <label class="form-check-label" for="ccEmail">CC email to me</label>
         </div>
-        <button type="submit" class="btn btn-primary">Send Request</button>
+        <button type="submit" class="common-btn">Send Request</button>
     </form>
      <!-- changes to this policy -->
     <div class="container mt-4 px-0 chagneto-policy">
