@@ -26,7 +26,7 @@
                                         <h1 style="margin: 0; font-size: 22px; color: #ffffff; text-align: right;">
                                             New Registration - Escort
                                         </h1>
-                                         <div style="font-weight: 500;">Member ID: {{$user->member_id ?? ''}}</div>
+                                        <div style="font-weight: 500;">Member ID: {{$user->member_id ?? ''}}</div>
                                     </td>
                                 </tr>
                             </table>
@@ -35,7 +35,7 @@
 
                     <!-- Content Padding -->
                     <tr>
-                        <td style="padding: 30px;">
+                        <td style="padding: 30px; text-align: justify;">
                             <!-- Content -->
                             <p style="font-size: 16px; font-weight: bold; margin: 0 0 15px 0;">Attention Operations</p>
 
@@ -43,7 +43,7 @@
                                 The following Escort Registration was made on the {{$user->create_at}}. Details of the registration are:
                             </p>
 
-                            <table cellpadding="0" cellspacing="0" style="font-size: 15px; line-height: 1.8; margin-bottom: 20px;">
+                            <table cellpadding="0" cellspacing="0" style="font-size: 15px; line-height: 1.8; margin-bottom: 20px; text-align: justify;">
                                 <tr>
                                     <td style="padding-right: 10px; font-weight: bold;">Mobile:</td>
                                     <td>{{$user->phone ?? ''}}</td>

@@ -30,7 +30,7 @@
 
                     <!-- Body content -->
                     <tr>
-                        <td style="padding: 30px;">
+                        <td style="padding: 30px; text-align: justify;">
                             <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$agentUser->name ?? ''}},</p>
 
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
@@ -39,7 +39,7 @@
 
                             <h3 style="margin-top: 25px;">Logging in</h3>
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 10px;">The following information will assist you when logging in:</p>
-                            <ul style="padding-left: 20px; font-size: 15px;">
+                            <ul style="padding-left: 20px; font-size: 15px; text-align: justify;">
                                 <li>Web address: <a href="http://www.e4u.com.au" target="_blank">www.e4u.com.au</a></li>
                                 <li>Username: {{$agentUser->phone ?? ''}} <em>(your mobile number)</em></li>
                                 <li>Password: xxxxxxxxx <em>(please note passwords are case sensitive)</em></li>
@@ -53,7 +53,7 @@
                             <p style="font-size: 15px; line-height: 1.6;">
                                 Simply log in and go to ‘My Advertisers’ and select Advertiser List and complete the following important settings from within the Escort’s My Account:
                             </p>
-                            <ul style="font-size: 15px; padding-left: 20px;">
+                            <ul style="font-size: 15px; padding-left: 20px; text-align: justify;">
                                 <li>Edit my Account - ‘About me’ and ‘Profile and Tour Options’ (some settings are enabled by default)</li>
                                 <li>Profile Information - ‘My Additional Information’, ‘My Available Times’, ‘My Playmates’, ‘My Rates’, ‘My Service (tags)’ and ‘My Social Media’</li>
                                 <li>Notifications & Features (some settings are enabled by default)</li>

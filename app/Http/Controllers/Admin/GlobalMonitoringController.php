@@ -829,7 +829,9 @@ class GlobalMonitoringController extends Controller
                 'draw' => $draw,
                 'recordsTotal' => $recordsTotal,
                 'recordsFiltered' => $recordsFiltered,
-                'data' => $data
+                'data' => $data,
+                'server_up_time' => $this->getAppUptime(),
+                'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
             ]);    
 
         }

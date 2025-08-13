@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\RegisterEscort;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -34,7 +34,7 @@ class RegisterEmailForAgent extends Mailable
      */
     public function build()
     {
-         return $this->view('emails.register.email_for_agent')->with([
+         return $this->view('emails.escort.email_for_agent')->with([
             'user' => $this->user,
             'agentUser' => $this->agentUser,
         ]);

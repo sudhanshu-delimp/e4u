@@ -5,11 +5,11 @@
             <div class="row align-items-center">
                 <div class="col-md-6">
                     <div href="#" class="tip mb-2">
-                        <img style="box-shadow: 2px 3px 2px #bdbdbdbd;" class="img-fluid"
+                        <img class="img-fluid"
                             src="{{ asset('assets/app/img/home/home-demo.png') }}">
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6">  
 
                     <div class="row go-to-index">
                         <div class="col-md-6 ml-auto d-block">
