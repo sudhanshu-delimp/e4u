@@ -1606,7 +1606,7 @@
             <div class="modal-header main_bg_color">
                
                 
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="img_resize_in_smscreen" style="margin-right: 10px;"> Message Me </h5>
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Me </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
@@ -1626,7 +1626,7 @@
                 </ol>
             </div>
             <div class="modal-footer text-center justify-content-center">
-                <a href="{{ route('user.viewer-messages') }}" type="button" class="btn main_bg_color site_btn_primary rounded" id="loginUrl" >Go to Message</a>                
+                <a href="{{ route('user.viewer-messages') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Go to Message</a>                
             </div>
             @else
             <!-- if viewer not login -->
@@ -1636,8 +1636,8 @@
                         Please log in or Register to access Message Me.</span>
                 </h6>
                 <div class="modal-footer text-center justify-content-center" >
-                <a href="{{ route('viewer.login') }}" type="button" class="btn btn-danger site_btn_primary" id="loginUrl" >Login</a>
-                <a href="{{ route('register') }}" type="button" class="btn btn-danger site_btn_primary" id="regUrl">Register</a>
+                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>
+                <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
                 </div>
             </div>
             @endif
@@ -1655,7 +1655,7 @@
             <div class="modal-header main_bg_color">
                
                 
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="img_resize_in_smscreen" style="margin-right: 10px;"> Report Advertiser </h5>
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Report Advertiser </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
@@ -1666,8 +1666,8 @@
                     <span id="Lname">Please log in or Register to report Advertiser</span>
                 </h6>
                 <div class="modal-footer text-center justify-content-center" >
-                <a href="{{ route('viewer.login') }}" type="button" class="btn btn-danger site_btn_primary" id="loginUrl" >Login</a>
-                <a href="{{ route('register') }}" type="button" class="btn btn-danger site_btn_primary" id="regUrl">Register</a>
+                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>
+                <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
                 </div>
             </div>
             <!--- end -->
@@ -1681,7 +1681,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color">
-                <img src="{{ asset('assets/app/img/alert.png') }}" class="img_resize_in_smscreen pr-3">
+                <img src="{{ asset('assets/app/img/alert.png') }}" class="custompopicon">
                 <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Report  {{$escort->name}} to our team
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1742,7 +1742,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn main_bg_color site_btn_primary rounded" id="sendReportSubmitBtn">Send Report</button>
+                    <button type="submit" class="site_btn_primary" id="sendReportSubmitBtn">Send Report</button>
                 </div>
             </form>
         </div>
@@ -1982,7 +1982,7 @@
 {{--    <div class="modal-dialog modal-dialog-centered" role="document">--}}
 {{--        <div class="modal-content custome_modal_max_width">--}}
 {{--            <div class="modal-header main_bg_color">--}}
-{{--                <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">--}}
+{{--                <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="custompopicon">--}}
 {{--                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Add review for Carla Brasil--}}
 {{--                </h5>--}}
 {{--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
@@ -2045,7 +2045,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custome_modal_max_width rounded-0">
             <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">My Legbox</h5>
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/my-legbox.png')}}" class="custompopicon"> My Legbox</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">
                 <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -2056,8 +2056,8 @@
                 <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
                     <span id="Lname">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
                 </h1>
-                <a href="{{ route('viewer.login') }}" type="button" class="btn btn-danger site_btn_primary" id="loginUrl" >Login</a>
-                <a href="{{ route('register') }}" type="button" class="btn btn-danger site_btn_primary" id="regUrl">Register</a>
+                <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>
+                <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
             </div>
         </div>
     </div>
