@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Escort;
 use App\Models\MassageProfile;
+use App\Models\EscortPinup;
 use App\Repositories\Escort\EscortInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Repositories\Service\ServiceInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Exception;
 // use Yajra\DataTables\Facades\DataTables;
 use DataTables;
 
@@ -776,6 +778,69 @@ class GlobalMonitoringController extends Controller
         }
 
         return response()->json($dataTableData);
+
+    }
+
+    public function getPinupListing(Request $request){
+        try{
+            $draw   = intval($request->get('draw'));
+            $start  = intval($request->get('start'));
+            $length = intval($request->get('length'));
+            $search = $request->get('search')['value'] ?? '';
+            $orderColumnIndex = $request->get('order')[0]['column'] ?? 0;
+            $orderDirection   = $request->get('order')[0]['dir'] ?? 'asc';
+
+            // Columns mapping (order index -> DB column)
+            $columns = [4=>'start_date', 5=>'end_date'];
+            $orderColumn = $columns[$orderColumnIndex] ?? 'id';
+
+            $listing = EscortPinup::query();
+            $listing->where('utc_end_time', '>=', Carbon::now('UTC'));
+            $recordsTotal = $listing->count();
+            $listing->orderBy($orderColumn, $orderDirection);
+            $listing->offset($start);
+            $listing->limit($length);
+            $recordsFiltered = $listing->count();
+            $items = $listing->get();
+            $data = [];
+            if(!empty($items)){
+                foreach($items as $item){
+                    $nestedData['member_id'] = $item->user->member_id;
+                    $nestedData['escort_name'] = $item->escort->profile_name;
+                    $nestedData['location'] = config("escorts.profile.states.$item->state_id.stateName");;
+                    $nestedData['profile_id'] = $item->escort->id;
+                    $nestedData['start_date'] = $item->start_date;
+                    $nestedData['end_date'] = $item->end_date;
+                    $nestedData['status'] = $item->status;
+                    $nestedData['option'] = '<div class="dropdown no-arrow ml-3">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                    aria-labelledby="dropdownMenuLink" style="">
+                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" target="_blank" href="'.route('profile.description',$item->escort_id).'"> <i class="fa fa-eye"></i> View Listing </a>
+                    </div>
+                    </div>';
+                    $data[] = $nestedData;
+                }
+            }
+            return response()->json([
+                'draw' => $draw,
+                'recordsTotal' => $recordsTotal,
+                'recordsFiltered' => $recordsFiltered,
+                'data' => $data,
+                'server_up_time' => $this->getAppUptime(),
+                'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
+            ]);    
+
+        }
+        catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
 
     }
 }

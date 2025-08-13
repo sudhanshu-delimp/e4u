@@ -18,9 +18,9 @@
             <!--middle content start here-->
 
             <div class="row">
-                <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
+                <div class="col-md-12 custom-heading-wrapper">
                     <h1 class="h1">Mobile SIM</h1>
-                    <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                 </div>
                 <div class="col-md-12 my-4">
                     <div class="card collapse" id="notes" style="">

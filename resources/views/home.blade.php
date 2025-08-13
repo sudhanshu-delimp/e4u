@@ -4,6 +4,24 @@
     #parsley-id-5 li {
     margin-left: 0 !important;
 }
+.d_custom_home_img{
+    position: relative;
+}
+.d_custom_home_img .memmber_info{
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: #fff;
+    background: #ff3c5a;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.d_custom_home_img .memmber_info i{
+    color: #fff;
+    font-size: 14px;
+}
 </style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -11,8 +29,8 @@
     <div class="container-fluid banner_width">
         <div class="row align-items-center">
             <div class="col-md-5 js_pinup_profile">
-                <div href="#" class="tip mb-2">
-                    <img style="box-shadow: 2px 3px 2px #bdbdbdbd;" class="img-fluid" src="{{ asset('assets/app/img/home/home-demo.png') }}">
+                <div href="#" class="tip mb-2 d_custom_home_img">
+                    <img style="" class="img-fluid" src="{{ asset('assets/app/img/home/home-demo.png') }}">
                 </div>
             </div>
             <div class="col-md-7">
@@ -198,7 +216,7 @@
                     <div class="padding">
                         <a class="btn btn_advertiser"  style="border: 1px solid;" href="{{ route('advertiser.register') }}" role="button">I am an Advertiser</a>
                         <a class="btn btn_viewer" style="border: 1px solid;" href="{{ route('register') }}" role="button">I am a Viewer</a>
-                        <a class="btn  btn_viewer" style="color:red;border: 1px solid;" href="{{ route('agent.register')}}" role="button">I am an Agent</a>
+                        <a class="btn  btn_viewer" style="color:var(--peach);border: 1px solid var(--peach);" href="{{ route('agent.register')}}" role="button">I am an Agent</a>
                     </div>
                 </div>
             </div>
@@ -228,7 +246,7 @@
             data:{latitude, longitude, view:'pinup_home'},
             dataType:`JSON`,
             beforeSend: function(){
-                $("#preloader").addClass('pre-active');
+                //$("#preloader").addClass('pre-active');
             },
             success: function(response){
                 if(response.success){

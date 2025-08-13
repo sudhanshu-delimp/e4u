@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Agent;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use App\Models\User;
-use App\Models\PasswordSecurity;
-use App\Sms\SendSms;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\StoreAgentRegisterRequest;
-use Illuminate\Auth\Events\Registered;
-use App\Repositories\State\StateInterface;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Sms\SendSms;
+use App\Events\AgentRegistered;
+use App\Models\PasswordSecurity;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Validator;
+use App\Repositories\State\StateInterface;
+use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Requests\StoreAgentRegisterRequest;
 
 
 
@@ -93,11 +94,20 @@ class AgentRegisterController extends Controller
 
     public function register(StoreAgentRegisterRequest $request)
     {
+        $user = $this->create($request->all());
 
+        $userDataForEvent = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'phone' => $user->phone,
+            'email' => $request->email,
+            'location' => config('escorts.profile.states')[$user->state_id]['stateName'] ?? null,
+            'agent_id'  => $user->member_id,
+            'create_at' => Carbon::now()->format('j F'),
+        ];
+       
+        event(new AgentRegistered($userDataForEvent));
 
-        event(new Registered($user = $this->create($request->all())));
-
-        //dd($user);
         if($user) {
             $error = 1;
             $phone = $user->phone;

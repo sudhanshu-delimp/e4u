@@ -117,7 +117,7 @@
                                 $('.alert_notify_html').html(alert_notifications_html);
                             }
                             else
-                            {
+                            {   $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i>');
                                 $('.alert_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`); 
                             }
                         /////////// End  Alert Notification List /////////////////////////////
@@ -129,8 +129,8 @@
                         if (support_notifications?.data?.length > 0) 
                         {   
                                 if(support_notifications.is_new)
-                                {
-                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
+                                { 
+                                $('.support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
                                 }
                             
                                 support_notifications.data.forEach((notification) => {
@@ -151,7 +151,7 @@
                                 $('.support_notify_html').html(support_notify_html);
                         }
                         else
-                        {
+                        {       $('.support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>');
                                 $('.support_notify_html').html(`<a class="dropdown-item d-flex align-items-center" href="#">No New Notification Found</a>`); 
                         }
                         ///////////// End Support Notification List //////////////////////////

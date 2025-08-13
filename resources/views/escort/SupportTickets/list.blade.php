@@ -13,9 +13,9 @@
    <!--middle content start here-->
 {{-- Page Heading   --}}
 <div class="row">
-    <div class="custom-heading-wrapper col-lg-12">
-        <h1 class="h1">My Support Tickets</h1>
-        <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+    <div class="col-md-12 custom-heading-wrapper">
+        <h1 class="h1">View & Reply Ticket</h1>
+        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
     </div>
     <div class="col-md-12 mb-4">
         <div class="card collapse" id="notes" style="">
@@ -87,7 +87,7 @@
                        <div class="reply-message-box">
                         <textarea class="messageBox" name="message" id="message" rows="2" required></textarea>
                         <input type="hidden" name="ticketId"  id="ticketId" value="">
-                        <button class="btn btn-info send-btn" id="submit_message">Send</button>
+                        <button class="btn-success-modal py-3" id="submit_message">Send</button>
                        </div>
                     </form>
                 </div>
@@ -147,7 +147,7 @@
 
     // ✅ Add placeholder to search input
     $('#supportTicketsTable').on('init.dt', function () {
-        $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search Ticket');
+        $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search By Ticket ID');
     });
 
     // 🟠 Cancel Ticket
@@ -272,7 +272,7 @@
                 if(data.status == "success") {
                     Swal.fire(
                         'Message Sent!',
-                        'Your message sent successfully',
+                        'Your message has been successfully sent.',
                         'success'
                     );
                     $("#conversation_modal").modal('hide');

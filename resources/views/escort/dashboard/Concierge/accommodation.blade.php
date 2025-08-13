@@ -14,44 +14,44 @@
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-            <!--middle content-->
-             {{-- Page Heading   --}}
-            <div class="row">
-                <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
-                    <h1 class="h1">Accommodation</h1>
-                    <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
-                </div>
-                <div class="col-md-12 my-4">
-                    <div class="card collapse" id="notes" style="">
-                    <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                        <ol></ol>  
-                    </div>
-                    </div>
-                </div>
+    <!--middle content-->
+        {{-- Page Heading   --}}
+    <div class="row">
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1">Accommodation</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes" style="">
+            <div class="card-body">
+                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                <ol></ol>  
             </div>
-            {{-- end --}}
-            <div class="row">
-               <div class="col-md-12">
-                        <div>
-                        <h2><b>Partnership</b></h2>
-                        Escorts4U has partnered with a leading online accommodation booking provider (<b>Partner</b>) to provide
-                        practical and convenient advice and assistance for all of your accommodation needs and requirements
-                        throughout Australia.
-                        </div>
-                        <div class="pt-2">
-                        <h3 class="pb-2 pt-2">Launch of the Accommodation service</h3>
-                        Escorts4U will be launching its Accommodation service in version 2.0 of the Website.  The service will enable you to:
-                        <ul>
-                            <li>book online accommodation throughout Australia (live)</li>
-                            <li>qualify for 'preferred status' to receive discounted pricing</li>
-                        </ul>
-                        We will let you know as soon as the service is launched.
-                    </div>
-                    
+            </div>
+        </div>
+    </div>
+    {{-- end --}}
+    <div class="row">
+        <div class="col-md-12">
+                <div>
+                <h2><b>Partnership</b></h2>
+                Escorts4U has partnered with a leading online accommodation booking provider (<b>Partner</b>) to provide
+                practical and convenient advice and assistance for all of your accommodation needs and requirements
+                throughout Australia.
                 </div>
-            </div>            
-               <!--middle content end here-->
+                <div class="pt-2">
+                <h3 class="pb-2 pt-2">Launch of the Accommodation service</h3>
+                Escorts4U will be launching its Accommodation service in version 2.0 of the Website.  The service will enable you to:
+                <ul>
+                    <li>book online accommodation throughout Australia (live)</li>
+                    <li>qualify for 'preferred status' to receive discounted pricing</li>
+                </ul>
+                We will let you know as soon as the service is launched.
+            </div>
+            
+        </div>
+    </div>            
+    <!--middle content end here-->
 </div>
 
 @endsection

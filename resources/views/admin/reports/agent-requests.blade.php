@@ -6,6 +6,11 @@
        vertical-align: middle !important;
        text-align: center;
    }
+   .table-bg tr th{
+       font-weight: bold !important;
+       padding: 10px ;
+
+   }
    #agentRequestreportTable td {
     white-space: normal !important;
     word-break: break-word;
@@ -25,7 +30,7 @@
    <!--middle content-->
    <div class="row mt-5">      
       <div class="custom-heading-wrapper col-md-12">
-        <h1  class="h1"> Agent Requests Reports</h1>
+        <h1  class="h1"> Agent Requests</h1>
         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
      </div>
      <div class="col-md-12 ">
@@ -39,18 +44,14 @@
              </div>
          </div>
      </div>
-    <div class="col-md-12"> 
-        <div class="row my-3">
-            <div class="col-lg-4 col-md-12 col-sm-12"></div>
-            <div class="col-lg-8 col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
-                {{-- <div class="total_listing"></div> --}}
-                <div class="total_listing">
-                                    <div><span>Total Appointments : </span></div>
-                                    <div><span class="totalCompletedTask"></span></div>
-                                </div>
+         <div class="col-md-12"> 
+           <div class="d-flex justify-content-end">
+            <div class="total_listing mb-3">
+               <div><span>Total Appointments : </span></div>
+               <div><span class="totalCompletedTask"></span></div>
             </div>
-        </div>
-        <div class="table-responsive membership--inner">
+           </div>
+        <div class="table-responsive-xl membership--inner">
             <table class="table table-bordered text-center" id="agentRequestreportTable">
                  <thead id="table-sec" class="table-bg">
                    <tr>
@@ -178,9 +179,9 @@
                                        <div class="col-12 my-2 text-center">
                                              
                                           <table border="1" id="agentStatusTable" class="w-100">
-                                             <thead>
+                                             <thead class="table-bg">
                                                 <tr>
-                                                      <th>Agent ID</th>
+                                                      <th class="font-weight:bold;">Agent ID</th>
                                                       <th>Mobile</th>
                                                       <th>Status</th>
                                                 </tr>

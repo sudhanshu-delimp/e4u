@@ -79,115 +79,49 @@
                             </div>
                         </li>
                         
-                        <!-- Nav Item - support tickets -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="ticketNotificationDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="Support tickets">
-                                <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                @if(count($support_tickets))
-                                <span class="badge badge-danger badge-counter">{{count($support_tickets)}}</span>
-                                @endif
-                            </a>
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="ticketNotificationDropdown">
-                                <h6 class="dropdown-header">
-                                    Support Ticket Alert
-                                </h6>
-                                @if(count($support_tickets))
-                                    @foreach($support_tickets as $ticket)
-                                        <a class="dropdown-item d-flex align-items-center" href="{{route('support-ticket.list', $ticket->id)}}">
-                                            <div class="mr-3">
-                                                <div class="icon-circle bg-primary">
-                                                    <i class="fas fa-file-alt text-white"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                    {{-- <div class="small text-gray-500">December 12, 2019</div>--}}
-                                                    <span class="font-weight-bold">{{$ticket->subject}}</span>
-                                            </div>
-                                        </a>
-                                    @endforeach
-                                @else
-                                    <div class="text-center">No new notification</div>
-                                @endif
-                                <a class="dropdown-item text-center small text-gray-500" href="{{route('support-ticket.list')}}">Support Tickets</a>
-                            </div>
-                            <!-- Dropdown - Alerts -->
-                        </li>
-                        <!-- Nav Item - Alerts -->
+                       
+
+                        <!-- //////// Notification ///////////// -->
 
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="top-icon-bg fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter"> </span>
+                            <a class="nav-link dropdown-toggle support_notify_bell" href="#" id="ticketNotificationDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" title="Support tickets">
+                                <i class="top-icon-bg fas fa-ticket-alt fa-fw"></i>
                             </a>
-                            <!-- Dropdown - Alerts -->
+                            
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
+                                    aria-labelledby="ticketNotificationDropdown">
+                                    <h6 class="dropdown-header">Support Ticket Alert</h6>
+                                    <div class="support_notify_html">
+
+                                       <div class="text-center">No new notification</div>
+
                                     </div>
-                                    <div>
-                                        <div class="small text-gray-500">12-06-2025</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">02-05-2025</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">17-04-2025</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-dark">
-                                            <i class="fas fas fa-comments text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">18-02-2025</div>
-                                        A message has been sent from an Advertiser
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-info">
-                                            <i class="fas fa-user text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">15-01-2025</div>
-                                        Profile has been posted.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
+
                         </li>
+
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle alert_notify_bell" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="top-icon-bg fas fa-bell fa-fw"></i>
+                            </a>
+                          
+
+                                <div class="dropdown-list  dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="alertsDropdown">
+                                    <h6 class="dropdown-header">Alerts Center</h6>
+                                    <div class="alert_notify_html">
+
+                                       <div class="text-center">No new notification</div>
+
+                                    </div>
+                                </div>
+                        </li>
+
+                        <!-- //////// End Notification ///////////// -->
+
+
 
                         <div class=" d-none d-sm-block"></div>
 

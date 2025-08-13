@@ -557,7 +557,7 @@
 
                             </label>
                             
-                            <div class="col-sm-12">
+                            <div class="col-sm-12 stageListParent">
                                 <div class="col-sm-12 ">
                                 <input type="text" class="form-control form-control-sm {{-- js-example-tokenizer--}}" id="st_name" placeholder="Enter stage name">
                                 </div>

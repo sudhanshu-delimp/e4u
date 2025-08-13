@@ -25,34 +25,34 @@
 <div id="content-wrapper" class="d-flex flex-column">
     <!-- Main Content -->
     <div id="content">
-        <div class="container-fluid pl-3 pl-lg-5">
+        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Profile Information</h1></div>
-                    <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
+                <div class="custom-heading-wrapper col-md-12">
+                    <h1 class="h1">Profile Information</h1>
+                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
                  </div>
-                <div class="col-md-12 my-4">
+                <div class="col-md-12 mb-4">
                     <div class="card collapse" id="notes" style="">
                         <div class="card-body">
                             <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                             <p>Please complete as much as you can about yourself. When creating a Massage Profile, your Profile Information will:</p>
                             <ol>
-                                <li>Pre-populate the forms</li>
+                                <li>Pre-populate the forms.</li>
                                 <li>Make the process much quicker and easier for you; and
                                 </li>
-                                <li>You can always elect to over-write any Profile Information when creating a Massage Profile form which will then update your Profile Information if you ellect to
+                                <li>You can always elect to over-write any Profile Information when creating a Massage Profile form which will then update your Profile Information if you ellect to.
                                 </li>
                                 <li>You can also upload photos and video into your Advertiser's archives. The benefits to you by doing this are:
                                 </li>
-                                <li>We will verify your photos, ensuring they are complient</li>
-                                <li>Your photos will be immediately available to include in any of your Advertiser's Profile/s</li>
-                                <li>Your Massage Profile can be posted immediately without the need for us to check any photos for complience</li>
+                                <li>We will verify your photos, ensuring they are complient.</li>
+                                <li>Your photos will be immediately available to include in any of your Advertiser's Profile/s.</li>
+                                <li>Your Massage Profile can be posted immediately without the need for us to check any photos for complience.</li>
                             </ol>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div id="accordion" class="myacording-design mb-5">
+                    <div id="accordion" class="myacording-design">
                         <div class="card">
                             <div class="card-header">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#additional_information" aria-expanded="false">

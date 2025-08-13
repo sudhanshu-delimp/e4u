@@ -19,6 +19,7 @@ use App\Models\EscortLike;
 use App\Models\MassageLike;
 use App\Models\EscortBrb;
 use App\Models\EscortViewerInteractions;
+use App\Models\ReportEscortProfile;
 use App\Models\Reviews;
 use App\Models\State;
 use App\Models\SuspendProfile;
@@ -1193,6 +1194,11 @@ class WebController extends Controller
         $reviews = Reviews::where('escort_id',$id)->where('status','approved')->with('user')->get()->unique('user_id');
         //dd($viewType);
         $user = DB::table('users')->where('id',(int)$escort->user_id)->select('contact_type')->first();
+        $spamReportAdvertiser = collect();
+
+        if(Auth::user() && Auth::user()->type == 0){
+            $spamReportAdvertiser = ReportEscortProfile::where('viewer_id',Auth::user()->id)->first();
+        }
 
         # Not show specific profile to viewer if specific viewer is blocked by escort
         if (Auth::check()) {
@@ -1205,7 +1211,7 @@ class WebController extends Controller
             }
         }
         
-        return view('web.description',compact('categoryOneServices','categoryTwoServices','categoryThreeServices','path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','backToSearchButton','user','viewType','reviews'));
+        return view('web.description',compact('categoryOneServices','categoryTwoServices','categoryThreeServices','path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','backToSearchButton','user','viewType','reviews','spamReportAdvertiser'));
     }
 
     public function getServiceChunks($array=[],$chunkLenth=3){

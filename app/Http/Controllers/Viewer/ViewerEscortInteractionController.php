@@ -204,14 +204,6 @@ class ViewerEscortInteractionController extends Controller
                     }
                     
                     return $status;
-
-                    // if($escort->user->notification_features && in_array('viewer_notification', $escort->user->notification_features)){
-                    //     $isEnabledNotificationByEscort = 'Yes';
-                    // }else{
-                    //     $isEnabledNotificationByEscort = 'No';
-                    // }
-                    // // return isset($escort->myLegBox->is_notification_enabled) && $escort->myLegBox->is_notification_enabled ? 'Yes' : 'No';
-                    // return $isEnabledNotificationByEscort;
                 })
                 ->addColumn('is_enabled_contact', function ($escort){
                     $escortViewerInteractions = EscortViewerInteractions::where('user_id',$escort->user_id)->where('escort_id',$escort->id)->where('viewer_id',Auth::user()->id)->first();
@@ -224,8 +216,6 @@ class ViewerEscortInteractionController extends Controller
                     
                     return $status;
                 })
-                // ->addColumn('is_notification_enabled', fn($escort) => $escort->is_notification_enabled ? 'Yes' : 'No')
-                // ->addColumn('is_enabled_contact', fn($escort) => $escort->is_enabled_contact ? 'Yes' : 'No')
 
                 ->addColumn('contact_method', function ($escort) {
 
@@ -414,7 +404,7 @@ class ViewerEscortInteractionController extends Controller
                     }
 
                     $actionButtons = '
-                    <div class="dropdown no-arrow">
+                    <div class="dropdown no-arrow escortDropMenuPopup">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>

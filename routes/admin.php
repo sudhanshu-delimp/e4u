@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
@@ -72,6 +73,7 @@ return view('admin.global-monitoring');
  Route::get('massage-centre-listings',[GlobalMonitoringController::class,'massageCenterListing'])->name('admin.massage-centre-listings');
  Route::get('/data-table-listing/{type?}', [GlobalMonitoringController::class, 'dataTableListingAjax'])->name('escort.current.list.dataTableListing');
  Route::get('/data-table-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableSingleListingAjax'])->name('escort.current.single-list.dataTableListing');
+ Route::get('/get-pinup-listing', [GlobalMonitoringController::class, 'getPinupListing'])->name('admin.global_monitoring.get_pinup_listing');
   
 //  Route::get('escort-listings', function(){
 //     return view('admin.escort-listings');
@@ -107,9 +109,13 @@ Route::get('reporting',function(){
     return view('admin.reporting');
 })->name('admin.reporting');
 
-Route::get('advertiser-reports',function(){
-    return view('admin.advertiser-reports');
-})->name('admin.advertiser-reports');
+
+# Advertiser report section
+Route::get('advertiser-reports',[AdvertiserReportContoller::class, 'index'])->name('admin.advertiser-reports');
+Route::get('advertiser-reports-ajax',[AdvertiserReportContoller::class, 'getReportByAjax'])->name('admin.advertiser-reports.ajax');
+Route::get('member-single-escort-reports-ajax',[AdvertiserReportContoller::class, 'getSingleMemberEscortReport'])->name('admin.single-member-reports.ajax');
+Route::get('print-single-escort-reports',[AdvertiserReportContoller::class, 'printSingleMemberEscortReport'])->name('admin.print.single-member-reports');
+Route::post('advertiser-report-status',[AdvertiserReportContoller::class, 'updateMemberReportStatus'])->name('admin.advertiser.report-status');
 
 Route::get('advertiser-reviews',function(){
     return view('admin.advertiser-reviews');

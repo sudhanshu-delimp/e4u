@@ -1,10 +1,10 @@
 <div class="container-fluid register-pin-up mb-5  pl-3 pl-lg-5 pr-3 pr-lg-5">
     <div class="row">
-        <div class="d-sm-flex align-items-center justify-content-start gap-10 mt-5">
+        <div class="col-md-12 custom-heading-wrapper">
            <h1 class="h1">Submit ticket</h1>
            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
-        <div class="col-md-12 my-4">
+        <div class="col-md-12 mb-4">
            <div class="card collapse" id="notes" style="">
               <div class="card-body">
                  <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
@@ -22,7 +22,7 @@
 
     <div class="row">
         
-        <div class="col-md-12 mb-4 mycont">
+        <div class="col-md-12 mycont">
             
             <form class="mb-4 w-50" id="supportTicket" method="post" action="{{route('support-ticket.create')}}" enctype="multipart/form-data">
                 @csrf

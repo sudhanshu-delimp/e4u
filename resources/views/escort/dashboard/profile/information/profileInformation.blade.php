@@ -135,11 +135,11 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
 
     <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0"> My Information</h1></div>
-            <h6 class="helpNoteLink collapsed" data-toggle="collapse" data-target="#notes" aria-expanded="false"><b>Help?</b></h6>
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1"> My Information</h1>
+            <span class="helpNoteLink collapsed" data-toggle="collapse" data-target="#notes" aria-expanded="false"><b>Help?</b></span>
       </div>
-      <div class="col-md-12 my-4">
+      <div class="col-md-12 mb-4">
         <div class="card collapse" id="notes">
             <div class="card-body">
                <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -1118,11 +1118,7 @@
             // debugger;
             var data = e.params.data;
 
-            // $("#st_name").val([]).trigger();
-            //$("#st_name").val([]).trigger();
-            // console.log(e.params);
-
-            $(this).parent().find(".results").append($("<li style='font-size: 14px;'><a href='#'>"+data.text +"</a><button type='button' class=' close ml-2 text-white stage-close' aria-label='Close'> <span class='delete_stname' id='"+data.id+"' aria-hidden='true'>×</span> <small class='mytool-tip'>Remove</small></button></li><input type='hidden' name='name[]' value='"+data.id+"'>"))
+            $(this).parents('.stageListParent').find(".results").append($("<li style='font-size: 14px;'><a href='#'>"+data.text +"</a><button type='button' class=' close ml-2 text-white stage-close' aria-label='Close'> <span class='delete_stname' id='"+data.id+"' aria-hidden='true'>×</span> <small class='mytool-tip'>Remove</small></button></li><input type='hidden' name='name[]' value='"+data.id+"'>"))
         });
 
       $('body').on('click', '.clickInput', function() {

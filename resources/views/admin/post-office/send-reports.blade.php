@@ -153,7 +153,7 @@
                         </div>
 
                         <!-- stat recipient-container -->
-                        <div class="recipient-container">
+                        <div class="recipient-container table-responsive">
                             <!-- when Email Recipients selected, Trial Run must be On -->
 
                             <table>
@@ -284,7 +284,7 @@
    <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
       <div class="modal-content basic-modal modal-lg">
          <div class="modal-header">
-            <h5 class="modal-title" id="emailReport">Email Report</h5>
+            <h5 class="modal-title" id="emailReport"> <img src="{{ asset('assets/dashboard/img/email-details.png') }}" class="custompopicon"> Email Report</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -326,7 +326,7 @@
                 <!-- Footer Row -->
                 <tr>
                     <td colspan="4" style="background-color: #0c2340; color: white; font-weight: bold;">Sent: 156</td>
-                    <td style="background-color: red; text-align: center;">
+                    <td style="background-color: #ff3c5f; text-align: center;">
                         <a href="#" style="color: white; text-decoration: none; font-weight: bold;">Print Report</a>
                     </td>
                 </tr>
@@ -344,7 +344,7 @@
    <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
       <div class="modal-content basic-modal modal-lg">
          <div class="modal-header">
-            <h5 class="modal-title" id="previewTemplate">Template</h5>
+            <h5 class="modal-title" id="previewTemplate"> <img src="{{ asset('assets/dashboard/img/email-template.png') }}" class="custompopicon"> Template</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>

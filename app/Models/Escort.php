@@ -82,23 +82,28 @@ class Escort extends Model
     {
         return $this->belongsTo('App\Models\User', 'user_id');
     }
+
     public function myLegBox()
     {
         return $this->hasOne(MyLegbox::class, 'escort_id', 'id')
                 ->where('user_id', auth()->id());
     }
+
     public function purchase()
     {
         return $this->hasMany(Purchase::class, 'escort_id','id');
     }
+
     public function brb()
     {
         return $this->hasMany('App\Models\EscortBrb', 'profile_id');
     }
+
     public function pinup()
     {
         return $this->hasMany('App\Models\EscortPinup', 'escort_id');
     }
+
     public function latestActivePinup(){
         return $this->hasOne(EscortPinup::class)
         ->where('utc_end_time', '>=', Carbon::now('UTC'))
@@ -128,6 +133,7 @@ class Escort extends Model
     {
         return $this->belongsTo('App\Models\Payment','referenceId');
     }
+
     public function city()
     {
         return $this->belongsTo('App\Models\City','city_id');
@@ -142,7 +148,6 @@ class Escort extends Model
     {
         return $this->belongsTo('App\Models\Country','nationality_id');
     }
-
 
     public function state()
     {
@@ -200,7 +205,6 @@ class Escort extends Model
         if($attribute =  $availability->{$day.'_'.$type}) {
             return Carbon::createFromFormat('H:i:s', $attribute)->format('h:i');
         }
-
         return null;
     }
 

@@ -24,9 +24,9 @@
                     <h3 class="NotesHeader"><b>Notes:</b></h3>
                     <p>To help us assist you better:</p>
                     <ol>
-                        <li>When describing your problem or enquiry, please try to provide as much information as possible</li>
-                        <li>Upload any documents or images you have</li>
-                        <li>Allow us a couple of days to respond</li>
+                        <li>When describing your problem or enquiry, please try to provide as much information as possible.</li>
+                        <li>Upload any documents or images you have.</li>
+                        <li>Allow us a couple of days to respond.</li>
                     </ol>
                 </div>
             </div>

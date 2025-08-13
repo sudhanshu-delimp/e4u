@@ -15,11 +15,11 @@
    <!--middle content end here-->
 
    <div class="row">
-    <div class="col-md-12">
-        <div class="v-main-heading h3" style="display: inline-block;"><h1 class="p-0 m-0">Edit My Account</h1></div>
-        <h6 class="helpNoteLink collapsed" data-toggle="collapse" data-target="#notes" aria-expanded="false"><b>Help?</b></h6>
+    <div class="col-md-12 custom-heading-wrapper">
+      <h1 class="h1">Edit My Account</h1>
+        <span class="helpNoteLink collapsed" data-toggle="collapse" data-target="#notes" aria-expanded="false"><b>Help?</b></span>
   </div>
-  <div class="col-md-12 my-4">
+  <div class="col-md-12 mb-4">
     <div class="card collapse" id="notes">
         <div class="card-body">
            <h3 class="NotesHeader"><b>Notes:</b> </h3>

@@ -2,13 +2,17 @@
 
 namespace App\Providers;
 
+use App\Events\EscortRegister;
+use App\Events\AgentRegistered;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\Agent\SendAgentWelcomeEmail;
+use App\Listeners\Escort\RegisterListenerForEscort;
+use App\Listeners\Escort\RegisterListenerForAdmin;
+use App\Listeners\Escort\RegisterListenerForAgent;
+use App\Listeners\Agent\SendAdminAgentRegisteredEmail;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
-use App\Listeners\RegisterListenerForAdmin;
-use App\Listeners\RegisterListenerForEscort;
-use App\Listeners\RegisterListenerForAgent;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,9 +24,16 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+            
+        ],
+        EscortRegister::class => [
             RegisterListenerForEscort::class,
             RegisterListenerForAdmin::class,
             RegisterListenerForAgent::class
+        ],
+        AgentRegistered::class => [
+            SendAgentWelcomeEmail::class,
+            SendAdminAgentRegisteredEmail::class
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\LoginListener',

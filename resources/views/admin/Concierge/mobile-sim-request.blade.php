@@ -30,25 +30,11 @@
                    </div>
                </div>
            </div>
-         </div>  
-         <div class="row mb-3">
-            <div class="col-lg-4 col-md-12 col-sm-12">
-               <form class="search-form-bg navbar-search">
-                  <div class="input-group">
-                     <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                     <div class="input-group-append">
-                        <button class="btn-right-icon" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                        </button>
-                     </div>
-                  </div>
-               </form>
-            </div>
          </div>
          <div class="row mb-3">
            <div class="col-md-12">
                <div class="table-responsive">
-                  <table class="table table-bordered table-striped">
+                  <table class="table table-bordered table-striped" id="MobileRequestTable">
                      <thead class="table-bg">
                         <tr>
                            <th>Ref</th>
@@ -58,7 +44,7 @@
                            <th>Delivery Address</th>
                            <th>Order Number</th>
                            <th>Status</th>
-                           <th>Action</th>
+                           <th class="text-center">Action</th>
                         </tr>
                      </thead>
                      <tbody class="table-content">
@@ -70,13 +56,13 @@
                            <td>Level 2, 310 Main Street, Brisbane</td>
                            <td>E40161 04052025 04 003</td>
                            <td><span class="badge badge-warning">Pending</span></td>
-                           <td>
+                           <td class="text-center">
                               <div class="dropdown no-arrow ml-3">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                  <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                  </a>
                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-toggle="modal" data-target="#Edit_Competitor"> <i class="fa fa-fw fa-pen "></i> Reply</a>
+                                    <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-toggle="modal" data-target="#Edit_Competitor"> <i class="fa fa-reply "></i> Reply</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#"> <i class="fa fa-fw fa-trash"></i> Delete </a>
                                  </div>
@@ -91,13 +77,13 @@
                            <td>Level 2, 310 Main Street, Adelaide</td>
                            <td>E50167 03052025 05 002</td>
                            <td><span class="badge badge-secondary">On Hold</span></td>
-                           <td>
+                           <td class="text-center">
                               <div class="dropdown no-arrow ml-3">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                  <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                  </a>
                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-toggle="modal" data-target="#Edit_Competitor"> <i class="fa fa-fw fa-pen "></i> Reply</a>
+                                    <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-toggle="modal" data-target="#Edit_Competitor"> <i class="fa fa-reply "></i> Reply</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#"> <i class="fa fa-fw fa-trash"></i> Delete </a>
                                  </div>
@@ -112,13 +98,13 @@
                            <td>Level 2, 310 Main Street, Perth</td>
                            <td>E60112 02052025 06 001</td>
                            <td><span class="badge badge-success">Completed</span></td>
-                           <td>
+                           <td class="text-center">
                               <div class="dropdown no-arrow ml-3">
                                  <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                  <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                  </a>
                                  <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-toggle="modal" data-target="#Edit_Competitor"> <i class="fa fa-fw fa-pen "></i> Reply</a>
+                                    <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#" data-toggle="modal" data-target="#Edit_Competitor"> <i class="fa fa-reply "></i> Reply</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item d-flex align-items-center gap-10 justify-content-start" href="#"> <i class="fa fa-fw fa-trash"></i> Delete </a>
                                  </div>
@@ -141,3 +127,29 @@
 <i class="fas fa-angle-up"></i>
 </a>
 @endsection
+
+
+@push('script')
+  
+
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+      var table = $("#MobileRequestTable").DataTable({
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by Member ID..."
+      },
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: true,
+      order: [[1, 'desc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10
+   });
+
+ </script>
+  
+@endpush

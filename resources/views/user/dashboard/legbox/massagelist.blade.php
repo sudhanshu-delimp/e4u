@@ -22,11 +22,9 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!-- Page Heading -->
    <div class="row">
-      <div class="col-md-12 custom-heading-wrapper justify-content-between">
-         <div class="d-flex align-items-center">
-            <h1 class="h1">Massage Center Legbox  </h1>
+      <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1">Massage Center Legbox </h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-         </div>
       </div>
    </div>
    <div class="row">
@@ -36,7 +34,7 @@
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
                   <li>The My Legbox feature is a list only of your favourite Massage Centres. Please note,
-                     Notifications do not apply to Massage Centres
+                     Notifications do not apply to Massage Centres.
                   </li>
                   <li>Use the <a href="#" class="custom_links_design">Notebox</a> feature to record your experience with a Massage Centre you have
                      added to My Legbox.

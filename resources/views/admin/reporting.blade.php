@@ -54,30 +54,16 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <form class="search-form-bg navbar-search">
-                            <div class="input-group">
-                                <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn-right-icon" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-12">
                         <div class="panel with-nav-tabs panel-warning">
                             <div class="panel-body">
                                 <div class="tab-content">
                                     <div class="tab-pane fade in active show" id="tab1warning">
                                         <div class="table-responsive-xl">
-                                            <table class="table">
+                                            <table class="table" id="ReportTable">
                                                 <thead class="table-bg">
                                                     <tr>
-                                                    <th scope="col">Email ID <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <th scope="col">Email ID <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                 <path d="M13.6139 15.125L10.4473 11.9583H12.8223V4.04167H10.4473L13.6139 0.875L16.7806 4.04167H14.4056V11.9583H16.7806L13.6139 15.125ZM0.947266 13.5417V11.9583H8.86393V13.5417H0.947266ZM0.947266 8.79167V7.20833H6.48893V8.79167H0.947266ZM0.947266 4.04167V2.45833H4.11393V4.04167H0.947266Z" fill="white"></path>
                                                             </svg></th>
                                                         <th scope="col">User ID</th>
@@ -99,49 +85,24 @@
                                                 <tbody class="table-content">
                                                     <tr class="row-color">
                                                         <td width="10%" class="theme-color">New Feature</td>
-                                                        <td width="20%" class="theme-color">This is a new feature to be apply</td>
-                                                        <td class="theme-color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sapien nec sagittis  aliquam malesuada bibendum arcu.</td>
+                                                        <td width="20%" class="theme-color">UID0097</td>
+                                                        <td class="theme-color">user@gmail.com</td>
+                                                        <td class="theme-color">Wheratsra</td>
                                                         <td class="theme-color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </td>
-                                                        <td class="theme-color" width="15%">12/31/2022</td>
-                                                        <td class="theme-color"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></td>
-                                                    </tr>
-                                                    <tr class="row-color">
-                                                        <td width="10%" class="theme-color">New Feature</td>
-                                                        <td width="20%" class="theme-color">This is a new feature to be apply</td>
-                                                        <td class="theme-color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sapien nec sagittis  aliquam malesuada bibendum arcu.</td>
-                                                        <td class="theme-color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </td>
-                                                        <td class="theme-color" width="15%">12/31/2022</td>
-                                                        <td class="theme-color"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></td>
-                                                    </tr>
-                                                    <tr class="row-color">
-                                                        <td width="10%" class="theme-color">New Feature</td>
-                                                        <td width="20%" class="theme-color">This is a new feature to be apply</td>
-                                                        <td class="theme-color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sapien nec sagittis  aliquam malesuada bibendum arcu.</td>
-                                                        <td class="theme-color">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </td>
-                                                        <td class="theme-color" width="15%">12/31/2022</td>
-                                                        <td class="theme-color"><i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i></td>
+                                                        <td class="theme-color text-center">
+                                                            <div class="dropdown no-arrow">
+                                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                                </a>
+                                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#updateBlog"> <i class="fa fa-fw fa-pen"></i> Edit  </a>
+                                                                   
+                                                                </div>
+                                                             </div>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <nav aria-label="Page navigation example">
-                                                <ul class="pagination float-right pt-4">
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Previous">
-                                                        <span aria-hidden="true">«</span>
-                                                        <span class="sr-only">Previous</span>
-                                                        </a>
-                                                    </li>
-                                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="#" aria-label="Next">
-                                                        <span aria-hidden="true">»</span>
-                                                        <span class="sr-only">Next</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
                                         </div>
                                     </div>
                                     <div class="tab-pane fade" id="tab2warning">
@@ -209,3 +170,28 @@
 </a>
 
 @endsection
+
+@push('script')
+  
+
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+      var table = $("#ReportTable").DataTable({
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by User ID..."
+      },
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: true,
+      order: [[1, 'desc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10
+   });
+
+ </script>
+  
+@endpush

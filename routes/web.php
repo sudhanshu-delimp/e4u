@@ -24,6 +24,7 @@ use App\Http\Controllers\User\Dashboard\UserController;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Http\Controllers\Admin\ManagePeopleStaffController;
+use App\Http\Controllers\AdvertiserSpamReportController;
 use App\Http\Controllers\GetCurrentUserGeolocationController;
 use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
 use App\Http\Controllers\Escort\EscortViewerInteractionController;
@@ -32,6 +33,8 @@ use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
+use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes    
@@ -140,16 +143,20 @@ Route::middleware('auth')->group(function () {
         Route::get('/my-legbox',[EscortMyLegboxViewerController::class,'dashboard'])->name('user.my-legbox');
         Route::get('/my-escort-legbox-ajax',[EscortMyLegboxViewerController::class,'escortViewersAjaxList'])->name('escort.viewer-legbox-list');
         Route::post('/escort/viewer-interaction-update', [EscortViewerInteractionController::class, 'escortUpdateViewerInteraction'])->name('escort.viewer-interaction.update');
-        // Route::get('/my-legbox',function(){
-        //     return view('user.dashboard.my-legbox');
-        // })->name('user.my-legbox');
 
         # Viewer escort interaction routes
-        Route::get('/my-viwer-legbox-ajax',[ViewerEscortInteractionController::class,'dashboardEscortListAjax'])->name('user.my-legbox-escort-list');
-        Route::get('/my-viewer-legbox-ajax',[ViewerEscortInteractionController::class,'viewersEscortAjaxList'])->name('viewer.escort-legbox-list');
+        Route::get('/my-viwer-escort-legbox-ajax',[ViewerEscortInteractionController::class,'dashboardEscortListAjax'])->name('user.my-legbox-escort-list');
+        Route::get('/my-viewer-escort-legbox-ajax',[ViewerEscortInteractionController::class,'viewersEscortAjaxList'])->name('viewer.escort-legbox-list');
         Route::post('/viewer/escort-interaction-update', [ViewerEscortInteractionController::class, 'viewerUpdateEscortInteraction'])->name('viewer.escort-interaction.update');
         Route::get('/viewer/escort-profile-view/{id?}', [GlobalMonitoringController::class, 'dataTableSingleListingAjax'])->name('viewer.escort.profile-view');
         Route::post('/viewer/escort-remove-from-legbox', [ViewerEscortInteractionController::class, 'viewerRemoveEscortFromLegbox'])->name('viewer.escort-remove');
+
+        # Viewer massage interaction routes
+        Route::get('/my-viwer-massage-legbox-ajax',[ViewerMassageInteractionController::class,'dashboardMassageListAjax'])->name('user.my-legbox-massage-list');
+        Route::get('/my-viewer-massage-legbox-ajax',[ViewerMassageInteractionController::class,'viewersMassageAjaxList'])->name('viewer.massage-legbox-list');
+        Route::post('/viewer/massage-interaction-update', [ViewerMassageInteractionController::class, 'viewerUpdateMassageInteraction'])->name('viewer.massage-interaction.update');
+        Route::get('/viewer/massage-profile-view/{id?}', [ViewerMassageInteractionController::class, 'dataTableSingleMassageListingAjax'])->name('viewer.massage.profile-view');
+        Route::post('/viewer/massage-remove-from-legbox', [ViewerMassageInteractionController::class, 'viewerRemoveMassageFromLegbox'])->name('viewer.massage-remove');
 
 
         Route::get('/favorites-online',function(){
@@ -224,7 +231,7 @@ Route::get('/mail', function () {
 //**************SUPPORT TICKET*******************//
 Route::get('submit_ticket', [SupportTicketsController::class,'create'])->name('support-ticket.form_create');
 Route::post('submit_ticket', [SupportTicketsController::class,'submit_ticket'])->name('support-ticket.create');
-Route::get('support_tickets/list/{id?}',[SupportTicketsController ::class, 'index'])->name('support-ticket.list');
+Route::get('support_tickets/ticket-list/{id?}',[SupportTicketsController ::class, 'index'])->name('support-ticket.list');
 Route::get('support_tickets/dataTable', [SupportTicketsController::class, 'dataTable'])->name('support-ticket.dataTable');
 Route::get('support_tickets/conversations/{id?}', [SupportTicketsController::class, 'conversations'])->name('support-ticket.conversations');
 Route::put('support_tickets/withdraw/{id}', [SupportTicketsController::class, 'withdraw'])->name('support-ticket.withdraw');
@@ -325,6 +332,11 @@ Route::get('/escort-profile/{id}/{city?}/{membershipId?}', [App\Http\Controllers
 Route::get('/center-profile/{id}', [App\Http\Controllers\WebController::class,'centerProfileDescription'])->name('center.profile.description');
 Route::post('/store-message/{id}', [App\Http\Controllers\Escort\MessageReviewController::class,'saveMessage'])->name('store.message');
 Route::post('/review-advertiser/{id}', [App\Http\Controllers\Escort\MessageReviewController::class,'SaveReviewAdvertiser'])->name('review.advertiser');
+
+/********** Advertiser spam report by viewer **********/
+Route::get('/advertiser-get-spam-report', [AdvertiserSpamReportController::class,'getSpamReportForAdvertiser'])->name('advertiser.get.spam.report');
+Route::post('/advertiser-spam-report', [AdvertiserSpamReportController::class,'saveSpamReportForAdvertiser'])->name('advertiser.spam.report');
+
 /*************User *********************/
 
 
@@ -736,3 +748,8 @@ Route::get('/delete', function(){
     User::where('email', 'muqafan@mailinator.com')->forceDelete();
     return "done";
 });
+
+
+Route::get('/get-notification', [NotificationController::class, 'getNotification'])->name('user.get-notification');
+Route::post('/notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('user.notification-seen');
+

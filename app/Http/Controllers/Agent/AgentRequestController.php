@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Agent;
 
 use Exception;
 use App\Models\User;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -17,6 +18,12 @@ use App\Models\AdvertiserAgentRequestUser;
 class AgentRequestController extends Controller
 {
     
+        protected $notification;
+        public function __construct()
+        {
+            $this->notification = new Notification;
+        }
+
         public function agentRequest(AgentRequest $request)
         {
            
@@ -252,6 +259,23 @@ class AgentRequestController extends Controller
                                 'is_agent_assign' => '1',
                                 'assigned_agent_id' => auth()->id()
                     ]);
+
+                        ######### Send Notification ################
+                        $data = [
+                            'title' => 'Your request for a Support Agent has been accepted',
+                            'to_user' => [$advertiser->advertiser_user_id],
+                            'notification_type' =>  'agent_accept',
+                            'notification_listing_type' =>  '2',
+                        ];
+                        $this->notification->sendNotification($data);
+                        ######### End Notification ################
+
+                        ########### Delete Other Pending Request For Agent #############
+                         $advertiser = AdvertiserAgentRequestUser::
+                                     where('advertiser_agent_requests_id', '!=', $request_id)
+                                    ->where('advertiser_user_id', '=', $advertiser->advertiser_user_id)
+                                    ->delete();
+                        ######### End Delete Other Pending Request For Agent ###########
                 }
                 
             });
@@ -322,6 +346,7 @@ class AgentRequestController extends Controller
     private function paginatedList($start, $limit, $order_key, $dir)
     {
             
+           $total_accepted = 0;
            $query = AdvertiserAgentRequest::whereHas('agent_request_users', function ($q) {
                 $q->where('id', '>', 0);
             })
@@ -356,8 +381,7 @@ class AgentRequestController extends Controller
                     break;
             }
 
-            $totalRequest = $query->count();
-
+            //$totalRequest = $query->count();
             $requestList = $query->offset($start)
                             ->limit($limit)
                             ->get();
@@ -375,8 +399,8 @@ class AgentRequestController extends Controller
                 $list_arr = [];
                 $accepted_date = "";
                 $followup = "";
-               
-
+                
+            
                 if(isset($item->agent_request_users ) && count($item->agent_request_users)>0)
                 {
                  foreach ($item->agent_request_users as $index => $agent_user)
@@ -427,6 +451,7 @@ class AgentRequestController extends Controller
                     {
                         $accepted_date  =  date('d-m-Y',strtotime($agent_user->created_at));
                         $agent_user_id = [];
+                        $total_accepted++;
                         break;
                     }
                  }
@@ -464,6 +489,7 @@ class AgentRequestController extends Controller
 
                 $i++;
             }
+            $totalRequest = $total_accepted;
             return [$requestList, $totalRequest];
     }
 
@@ -471,6 +497,7 @@ class AgentRequestController extends Controller
     public function accepted_advertiser_paginatedList($start, $limit, $order_key, $dir)
     {
 
+        
         $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_user', function ($q) {
                 $q->where('status', '=', 1)
                 ->where('receiver_agent_id', auth()->id());
