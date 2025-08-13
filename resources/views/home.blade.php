@@ -250,6 +250,7 @@
             },
             success: function(response){
                 if(response.success){
+                    sessionStorage.setItem('current_city_id', response.location.city);
                    $(".js_pinup_profile").html(response.html); 
                 }
                 $("#preloader").removeClass('pre-active');

@@ -8,8 +8,8 @@
 </style>
 @endsection
 <!-- Preloader -->
-{{-- if add a class pre-active then it show --}}
-<div id="preloader" class="">
+
+<div id="preloader" class="{{ View::hasSection('enable_loader') ? 'pre-active' : '' }}">
    <div class="loader"></div>
 </div>
 <footer class="footer_bg_color padding_fifty_top_and_btm custom--footer">
