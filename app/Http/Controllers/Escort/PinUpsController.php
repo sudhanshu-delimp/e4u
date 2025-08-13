@@ -17,6 +17,17 @@ class PinUpsController extends AppController
 {
 
 
+    function index(Request $request){
+        $escort = Escort::find($request->escort_id);
+        if($escort->currentActivePinup){
+            $user = $escort->user;
+            return view('web.pages.pinupme', compact('escort','user'));
+        }
+        else{
+            return redirect()->route('home');
+        }
+    }
+
     function create() {
         $escorts = Escort::where('user_id', '!=', auth()->user()->id)->where('profile_name', '!=', NULL)->get();
 
@@ -238,7 +249,7 @@ class PinUpsController extends AppController
                         $response['html'] = view('partials.web.pinup_summary',compact('escort','user'))->render();
                     } break;
                     case 'pinup_home':{
-                        $response['html'] = view('partials.web.pinup_home',compact('user'))->render();
+                        $response['html'] = view('partials.web.pinup_home',compact('escort'))->render();
                     } break;
                 }
             }
