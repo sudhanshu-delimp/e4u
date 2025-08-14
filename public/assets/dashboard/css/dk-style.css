@@ -271,7 +271,7 @@ span.menu-active {
 }
 
 .table-content tr td {
-   font-size: 13px;
+   font-size: 14px;
    font-family: 'Poppins';
    font-weight: 500;
    color: #000;
@@ -4909,6 +4909,8 @@ padding-bottom:80px;
    vertical-align: middle !important;
    padding-top: 15px;
    padding-bottom: 15px;
+   font-size: 14px;
+   font-weight: 500;
 }
 
 .list-sec td {
@@ -4946,7 +4948,7 @@ padding-bottom:80px;
    font-family: Poppins;
    font-size: 14px;
    font-style: normal;
-   font-weight: 600;
+   font-weight: 500;
    line-height: 21px;
    text-align: center;
    flex-direction: row;
@@ -5003,6 +5005,10 @@ padding-bottom:80px;
    font-size: 10px !important;
    padding: 5px;
    font-weight: 500;
+}
+
+.pagination{
+    gap: 5px;
 }
 
 .archive-photo-sec .img-thumbnail {
@@ -5776,8 +5782,10 @@ ul#accordionSidebar {
 }
 
 .page-link {
-   color: #0C223D;
-   border: 1px solid #0C223D;
+    color: #fff;
+    border: 1px solid #0C223D;
+    background: var(--blue--text) !important;
+    font-size: 14px;
 }
 
 #blogCarousel .page-item.active .page-link {
@@ -6725,7 +6733,7 @@ padding-left: 5px;
    padding: 0;
 }
 
-#table-sec tbody {
+/* #table-sec tbody {
    font-size: 13px;
    color: #192A3E;
 }
@@ -6775,7 +6783,7 @@ padding-left: 5px;
    color: #fff;
    background-color: #0C223D;
    border-color: #0C223D;
-}
+} */
 
 */ #cke_11,
 #cke_19,
@@ -7253,6 +7261,8 @@ button:disabled {
    gap: 10px;
    border: 2px solid var(--blue--text);
    text-align: center;
+   font-size: 14px;
+    font-weight: 500;
 }
 
 .total_listing>div:first-child {
@@ -8115,8 +8125,8 @@ border-top: 5px solid var(--peach);
 }
 
 .dataTables_paginate span {
-   /* display: flex; */
-   /* gap: 2px; */
+   display: flex;
+   gap: 2px;
 }
 
 #supportTicketsTable_paginate span {
@@ -8367,11 +8377,11 @@ border-top: 5px solid var(--peach);
 }
 
 .page-item.active .page-link {
-   z-index: 3;
-   color: #fff;
-   background-color: var(--blue--text) !important;
-   border-color: var(--blue--text) !important;
-   outline: none
+    z-index: 3;
+    color: #FF3C5F !important;
+    background-color: #fff !important;
+    border-color: #0c223d1a !important;
+    outline: none;
 }
 
 .page-link:focus {
