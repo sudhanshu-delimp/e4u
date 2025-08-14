@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Center;
 
-use Auth;
 use File;
 use FFMpeg;
 use Carbon\Carbon;
@@ -29,6 +28,7 @@ use App\Http\Requests\Escort\UpdateRequestReadMore;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
 use App\Repositories\MassageProfile\MassageProfileInterface;
+use Illuminate\Support\Facades\Auth;
 
 class CenterController extends Controller
 {
@@ -184,7 +184,22 @@ class CenterController extends Controller
 
         $user->save();
         $type = 0;
-        return response()->json(compact('type','avatarName'));
+        dd($type, $avatarName);
+        // return response()->json(compact('type','avatarName'));
+        // return response()->json([
+        //     'type' => $type,
+        //     'avatarName'=> $avatarName,
+        //     'message'=> 'Hello Message'
+        // ]);
+
+        $data = [
+            'type' => $type,
+            'avatarName'=> $avatarName,
+            'message'=> 'Hello Message'
+        ];
+        dd(json_encode($data));
+        return '';
+
     }
     public function removeMyAvatar()
     {

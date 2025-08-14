@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="card collapse col-lg-12 mb-4" id="notes">
                                         <div class="card-body">
-                                            <h3 class="NotesHeader"><b>Notes:</b></h3>
+                                            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                                             <ol>
                                                 <li>Use these information pages for any questions you may have about the
                                                     Services.
