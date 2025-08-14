@@ -1260,7 +1260,7 @@
                 if (data.current_page > 1) {
                     pagination += `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page - 1}"><i class="fa fa-angle-left"></i></a></li>`;
                 }else{
-                    pagination += `<li class="page-item page-link"><i class="fa fa-angle-left"></i></li>`;
+                    pagination += `<li class="page-item page-link">Previous</li>`;
                 }
 
                 for (let i = 1; i <= data.last_page; i++) {
@@ -1272,7 +1272,7 @@
                 if (data.current_page < data.last_page) {
                     pagination += `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page + 1}"><i class="fa fa-angle-right"></i></a></li>`;
                 }else{
-                    pagination += `<li class="page-item page-link"><i class="fa fa-angle-right"></i></li>`;
+                    pagination += `<li class="page-item page-link">Next</li>`;
                 }
 
                 pagination += `</ul></nav>`;

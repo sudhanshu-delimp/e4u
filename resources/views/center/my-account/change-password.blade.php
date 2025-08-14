@@ -29,10 +29,8 @@
                   <div class="card-body">
                      <p class="mb-2 font-weight-bold" style="font-size: 18px;">Notes:</p>
                      <ol>
-                        <li>Your password must meet strong security requirements.</li>
-                        <li>You will receive a notification 24 hours before your password expires.</li>
-                        <li>If no expiry is selected, your password will expire every 30 days by default.</li>
-                        <li>You can choose to be notified by Text and/or Email.</li>
+                        <li>Use this feature to change your Password and to set up your Password preferences.</li>
+                        <li>Your Password, unless you change the settings, will by default expire every 30 days. You will be notified before the expiry date.</li>
                      </ol>
                   </div>
                </div>

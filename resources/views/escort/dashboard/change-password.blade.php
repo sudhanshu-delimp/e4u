@@ -20,7 +20,7 @@
                 <h1 class="h1"> Change password</h1>
                 <span class="helpNoteLink collapsed" data-toggle="collapse" data-target="#notes" aria-expanded="false"><b>Help?</b></span>
           </div>
-          <div class="col-md-12 mb-4">
+          <div class="col-md-12 my-3">
             <div class="card collapse" id="notes">
                 <div class="card-body">
                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
@@ -43,7 +43,7 @@
                 <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
             </div>
             <div class="col-md-12">
-                <form class="v-form-design" id="userProfile" action="{{ route('escort.update.password') }}" method="POST">
+                <form class="add-punterbox-report" id="userProfile" action="{{ route('escort.update.password') }}" method="POST">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="submit" value="Save Password" class="btn btn-primary shadow-none mb-4" name="submit">
+                    <input type="submit" value="Save Password" class="save_profile_btn mb-4 mt-3" name="submit">
                 </form>
                 <form class="v-form-design" id="passwordExpiry" action="{{ route('escort.update.password.expiry') }}"
                     method="POST">
@@ -161,7 +161,7 @@
                             password expiry by Text or Email, you will receive a notification 24 hours prior to expiry
                             date.</small>
                     </div>
-                    <input type="submit" value="Save" class="btn btn-primary shadow-none mt-4" name="submit">
+                    <input type="submit" value="Save" class="save_profile_btn mt-4" name="submit">
                 </form>
             </div>
         </div>
