@@ -37,6 +37,10 @@
         .apply-filter-btn {
             font-size: 16px;
         }
+
+        
+
+        
     </style>
 @endsection
 @php
@@ -479,18 +483,18 @@
                                 </p>
                                 <ol class="pl-3">
                                     <li>&nbsp;Filter the search criteria by selecting your preferred filter and then
-                                        selecting the ‘Refresh’ &nbsp;button.
+                                        selecting the 'Refresh' &nbsp;button.
                                     </li>
                                     <li>&nbsp;Change your Location by selecting your preferred city.</li>
-                                    <li>&nbsp;Change the number of listings displayed by changing the ‘Displayed
-                                        &nbsp;item’ filter to your preferred value.
+                                    <li>&nbsp;Change the number of listings displayed by changing the 'Displayed
+                                        &nbsp;item' filter to your preferred value.
                                     </li>
                                 </ol>
 
                                 <p><b>Service Tags</b></p>
                                 <p> Selected Service Tags will be listed in the Service Tag list which will
                                     appear below the tags. You can remove any Service Tag by clicking the
-                                    ‘X’ located on the tag, or all of the Service Tags by clicking the ‘Clear Tags’
+                                    'X' located on the tag, or all of the Service Tags by clicking the 'Clear Tags'
                                     link.
                                 </p>
                             </div>
@@ -508,8 +512,9 @@
                 </div>
 
             </div>
+           
             @if (!$grouped->isEmpty())
-                <div class="otherliste" style="display: block;">
+                <div class="otherliste" style="display: none;">
                     @if ($grouped->has('1'))
                         <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
                             <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
@@ -587,7 +592,7 @@
                         </div>
                     @endif
                 </div>
-                <div class="grid list-view " style="display: {{$viewType == 'list' ? 'block' : 'none'}}">
+                <div class="grid list-view list-view-div" style="display: none;">
                     @if ($grouped->has('1'))
                         <div class="platinum-sec">
                             <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
@@ -858,158 +863,87 @@
         let view1 = $('.footer_view_type_one').attr('href');
         let view2 = $('.footer_view_type_two').attr('href');
 
-        $('#grid-modal').on('click', function() {
-            //var source = e.relatedTarget;
+        let viewType = localStorage.getItem('profileViewType') || 'grid';
+
+        // Define functions for grid and list view logic
+        function showGridView() {
+            localStorage.setItem('profileViewType', 'grid');
             $('.preChanges').html('<h3>Escorts Grid View</h3>');
             var val = $('#grid-modal').attr('class');
             $('#view_type').val('grid')
+            // Always set display states explicitly
+            $('.otherliste').css('display', 'block');
+            $('.list-view-div').css('display', 'none');
             if (val != "active") {
                 $('.grid').hide();
                 $('.my-wishlist').hide();
                 $('#grid-template').html(
                     '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
                 );
-
                 if (view1.includes('=list')) {
-                    let newUrl = view1.replace('=list', '=grid'); 
+                    let newUrl = view1.replace('=list', '=grid');
                     $('.footer_view_type_one').attr('href', newUrl);
                 }
-
                 if (view2.includes('=list')) {
                     let newUrl = view2.replace('=list', '=grid');
                     $('.footer_view_type_two').attr('href', newUrl);
-                } 
-
+                }
                 setTimeout(function() {
                     $('.spinner-border').css('display', 'none');
                     $('.my-wishlist').css('display', 'none');
                     $('.space_between_row').show();
                     $('#grid-modal').addClass('active');
                     $('#grid-list').removeClass('active');
-
                 }, 1000);
-
             }
-            //
-
-        });
-        $('#grid-list').on('click', function() {
+        }
+        function showListView() {
+            localStorage.setItem('profileViewType', 'list');
             $('.preChanges').html('<h3>Escorts List View</h3>');
             var grid = $('#grid-list').attr('class');
             $('#view_type').val('list')
+            // Always set display states explicitly
+            $('.otherliste').css('display', 'none');
+            $('.list-view-div').css('display', 'block');
             if (grid != "active") {
                 console.log(grid);
                 $('.space_between_row').hide();
                 $('.my-wishlist').hide();
-
                 $('#grid-template').html(
                     '<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>'
                 );
-
                 if (view1.includes('=grid')) {
                     let newUrl = view1.replace('=grid', '=list');
                     $('.footer_view_type_one').attr('href', newUrl);
                 }
-
                 if (view2.includes('=grid')) {
                     let newUrl = view2.replace('=grid', '=list');
                     $('.footer_view_type_two').attr('href', newUrl);
                 }
-
                 setTimeout(function() {
                     $('.spinner-border').css('display', 'none');
                     $('.my-wishlist').css('display', 'none');
+                    $('.list-view').show();
                     $('#grid-list').addClass('active');
                     $('#grid-modal').removeClass('active');
-                    $('.grid').show();
-
                 }, 1000);
             }
+        }
+
+        // Update click handlers to use the new functions
+        $('#grid-modal').on('click', function() {
+            showGridView();
+        });
+        $('#grid-list').on('click', function() {
+            showListView();
         });
 
-
-
-        // $('#v_wishlist').on('click', function () {
-        //    var grid = $('#v_wishlist').attr('class');
-        //    if(grid != "active") {
-        //         console.log(grid);
-        //         $('.space_between_row').hide();
-        //         $('.grid_list_part').hide();
-        //         $('.otherliste').hide();
-
-        //         $('#grid-template').html('<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>');
-
-        //         setTimeout(function(){
-        //         $('.spinner-border').css('display', 'none');
-        //         $('.grid_list_part').css('display', 'none');
-        //         $('.otherliste').css('display', 'none');
-        //         $('.list-wishlist-view').css('display', 'none');
-        //         $('.grid_wishlist_part').show();
-        //         $('.wislist-filster').show();
-        //         $('.my-wishlist').show();
-
-        //         }, 1000);
-
-        //    }
-        // });
-
-
-        // $('#grid-wishlist-modal').on('click', function () {
-        //    var grid = $('#grid-wishlist-modal').attr('class');
-        //    if(grid != "active") {
-        //         console.log(grid);
-
-        //         $('.space_between_row').hide();
-        //         $('.grid_list_part').hide();
-        //         $('.list-wishlist-view').hide();
-        //         $('.otherliste').hide();
-
-        //         $('#grid-template').html('<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>');
-
-        //         setTimeout(function(){
-        //         $('.spinner-border').css('display', 'none');
-        //         $('.grid_list_part').css('display', 'none');
-        //         $('.list-wishlist-view').css('display', 'none');
-        //         $('.otherliste').css('display', 'none');
-        //         $('#grid-wishlist-modal').addClass('active');
-        //         $('#grid-wishlist-list').removeClass('active');
-        //         $('.grid_wishlist_part').show();
-        //         $('.wislist-filster').show();
-        //         $('.my-wishlist').show();
-
-        //         }, 1000);
-
-        //    }
-        // });
-
-
-        // $('#grid-wishlist-list').on('click', function () {
-        //    var grid = $('#grid-wishlist-list').attr('class');
-        //    if(grid != "active") {
-        //         console.log(grid);
-        //         $('.space_between_row').hide();
-        //         $('.grid_list_part').hide();
-        //         $('.my-wishlist').hide();
-        //         $('.otherliste').hide();
-
-        //         $('#grid-template').html('<div class="spinner-border text-secondary" style="width: 6rem; height: 6rem;" role="status"><span class="sr-only">Loading...</span></div>');
-
-        //         setTimeout(function(){
-        //         $('.spinner-border').css('display', 'none');
-        //         $('.grid_list_part').css('display', 'none');
-        //         $('.my-wishlist').css('display', 'none');
-        //         $('.list-wishlist-view').css('display', 'none');
-        //         $('.otherliste').css('display', 'none');
-        //         $('#grid-wishlist-list').addClass('active');
-        //         $('#grid-wishlist-modal').removeClass('active');
-        //         $('.grid_wishlist_part').show();
-        //         $('.wislist-filster').show();
-        //         $('.list-wishlist-view').show();
-
-        //         }, 1000);
-        //    }
-        // });
-
+        // On page load, trigger the correct view logic as if the user clicked the button
+        if(viewType === 'grid') {
+            showGridView();
+        } else {
+            showListView();
+        }
 
         /////////////click event ///////////////
         $(document).ready(function() {
@@ -1471,3 +1405,4 @@
         // });
     </script>
 @endpush
+

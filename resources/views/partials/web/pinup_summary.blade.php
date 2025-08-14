@@ -3,7 +3,7 @@
         <div class="col-md-6">
             <div href="#" class="tip mb-2 pinup-summary-img">
                 <img 
-                src="{{ !empty($profile_image)?asset($profile_image->path):asset('assets/app/img/home/home-demo.png') }}">
+                src="{{ !empty($user->defaultPinupImage)?asset($user->defaultPinupImage->path):asset('assets/app/img/home/home-demo.png') }}">
             </div>
         </div>
         <div class="col-md-6">

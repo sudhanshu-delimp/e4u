@@ -436,10 +436,13 @@ class WebController extends Controller
         );
 
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
+
+        // we are not ue View type UI side 
         $viewType = 'grid';
         if(request()->get('view_type') == 'list'){
             $viewType = 'list';
         }
+        //dd($viewType);
 
         return view('web.all-filter-profile', compact('paginator','user_type','escortId','user','services', 'service_one', 'service_two', 'service_three', 'escorts', 'locationCityId','filterGenderId','memberTotalCount','radio_location_filter','all_services_tag','viewType'));
     }

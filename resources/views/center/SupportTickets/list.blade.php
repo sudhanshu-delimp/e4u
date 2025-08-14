@@ -43,9 +43,9 @@
                 <div class="card-body">
                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
                     <ol>
-                        <li>Use this feature to review and make changes to your Profiles.</li>
-                        <li>You can view and edit a Profile by selecting 'Action'. By selecting the Action function, you will be able to View, Edit or Delete the Profile.</li>
-                        <li>To suspend a Profile listing go to <a href="/escort-dashboard/listings/upcoming" class="custom_links_design">View Listings.</a></li>
+                        <li>You will receive a Notification, located in the Support Ticket Alert (top menu bar), when you have an unread Support Ticket message.</li>
+                        <li>Use the <a href="{{ route('agent-messages')}}" class="custom_links_design">Messaging</a> service for communication with other Users (if available).</li>
+                        
                     </ol>
                 </div>
             </div>
@@ -129,7 +129,7 @@
        var table = $("#supportTicketsTable").DataTable({
                 language: {
                 search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Ticket ID..."
+                searchPlaceholder: "Search by Ticket ID"
             },
            processing: true,
            serverSide: true,

@@ -17,6 +17,17 @@ class PinUpsController extends AppController
 {
 
 
+    function index(Request $request){
+        $escort = Escort::find($request->escort_id);
+        if($escort->currentActivePinup){
+            $user = $escort->user;
+            return view('web.pages.pinupme', compact('escort','user'));
+        }
+        else{
+            return redirect()->route('home');
+        }
+    }
+
     function create() {
         $escorts = Escort::where('user_id', '!=', auth()->user()->id)->where('profile_name', '!=', NULL)->get();
 
@@ -216,23 +227,29 @@ class PinUpsController extends AppController
             $latitude = $request->latitude;
             $longitude = $request->longitude;
             $view = $request->view?$request->view:null;
-            $location = getRealTimeGeolocationOfUsers($latitude, $longitude);
-            $response['location'] = $location;
-            $pinupDetail = EscortPinup::latestActiveForCity($location['city']);
+            if(!empty($request->pinup_id)){
+                $pinupDetail = EscortPinup::find($request->pinup_id);
+            }
+            else{
+                $location = getRealTimeGeolocationOfUsers($latitude, $longitude);
+                $pinupDetail = EscortPinup::latestActiveForCity($location['city']);
+                $response['location'] = $location;
+                $response['pinupDetail'] = $pinupDetail;
+            }
+            $response['request'] = $request->all();
+            //
             if($pinupDetail){
-                $profile_image = EscortMedia::where(['user_id'=>$pinupDetail->user_id,'position'=>10,'default'=>1])->orderBy('id', 'DESC')->first();
                 $response['success'] = true;
                 $escort = $pinupDetail->escort;
                 $user = $escort->user;
                 $response['escort'] = $pinupDetail->escort;
                 $response['user'] = $escort->user;
-                $response['profile_image'] = $profile_image;
                 switch($view){
                     case 'pinup_summary':{
-                        $response['html'] = view('partials.web.pinup_summary',compact('escort','user','profile_image'))->render();
+                        $response['html'] = view('partials.web.pinup_summary',compact('escort','user'))->render();
                     } break;
                     case 'pinup_home':{
-                        $response['html'] = view('partials.web.pinup_home',compact('profile_image','user'))->render();
+                        $response['html'] = view('partials.web.pinup_home',compact('escort'))->render();
                     } break;
                 }
             }

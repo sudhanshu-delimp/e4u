@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Listeners\Escort;
+namespace App\Listeners\MessageCentr;
 
-use App\Events\EscortRegister;
+use App\Events\MassageRegister;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Mail\RegisterEscort\RegisterEmailForAdmin;
+use App\Mail\MessageCentr\RegisterEmailForAdmin;
 
-class RegisterListenerForAdmin implements ShouldQueue
+class RegisterListnerForAdmin implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -23,13 +23,12 @@ class RegisterListenerForAdmin implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  \App\Events\EscortRegister  $event
+     * @param  \App\Events\MassageRegister  $event
      * @return void
      */
-    public function handle(EscortRegister $event)
+    public function handle(MassageRegister $event)
     {
-        $user = $event->escode;
+        $user = $event->massage;
         Mail::to(config('common.contactus_admin_email'))->send(new RegisterEmailForAdmin($user));
-		
     }
 }
