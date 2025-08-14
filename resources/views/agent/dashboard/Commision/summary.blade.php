@@ -19,8 +19,8 @@
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
-                  <li style="font-size: 15px;">You can apply filters within the Commission Summary to suit your query or report type</li>
-                  <li style="font-size: 15px;" class="mb-0">All Commission paid to you under the Agent Agreement will be paid into your nominated Bank Account. Commission is inclusive of GST.</li>
+                  <li>You can apply filters within the Commission Summary to suit your query or report type.</li>
+                  <li>All Commission paid to you under the Agent Agreement will be paid into your nominated Bank Account. Commission is inclusive of GST.</li>
                
                </ol>
             </div>
@@ -613,7 +613,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1200px !important;">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="commission-report">Escort Report: Oxi Daisy (Member ID: E612345)</h5>
+            <h5 class="modal-title" id="commission-report"> <img src="{{ asset('assets/dashboard/img/statement-report.png')}}" class="custompopicon"> Escort Report: Oxi Daisy (Member ID: E612345)</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>

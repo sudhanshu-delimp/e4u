@@ -41,18 +41,18 @@
                <div class="col-md-12 mb-4">
                   <div class="card collapse" id="notes">
                      <div class="card-body">
-                        <h5 class="card-title font-weight-bold mb-3">Notes:</h5>
-                        <ol class="pl-3">
-                           <li style="font-size: 15px;">
+                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <ol>
+                           <li>
                               You can access all of your Advertisers here. The report 'Earnings' column is Commission paid to you by E4U according to the Advertiser's spend.
                            </li>
-                           <li style="font-size: 15px;">
+                           <li>
                               Click the <b>'Action'</b> button and select from the range of options available to you including Messaging to an Advertiser.
                            </li>
-                           <li style="font-size: 15px;">
+                           <li>
                               The Action dropdown includes: Profile, Tour, Media, Masseur, Account, and Message options. Pop-ups will be used where necessary.
                            </li>
-                           <li style="font-size: 15px;">
+                           <li>
                               You can print the advertiser list summary by selecting from All Advertisers, Escorts, or Massage Centres in the Print menu.
                            </li>
                         </ol>

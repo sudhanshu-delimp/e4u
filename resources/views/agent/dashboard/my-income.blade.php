@@ -21,7 +21,7 @@
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
                   <li>You can view your Income according to the period displayed.</li>
-                  <li>For an expanded summary of income, go to <a href="{{ route('Commision.summary') }}" class="custom_links_design">Commission Summary</a> </li>
+                  <li>For an expanded summary of income, go to <a href="{{ route('Commision.summary') }}" class="custom_links_design">Commission Summary</a>. </li>
                </ol>
             </div>
          </div>
