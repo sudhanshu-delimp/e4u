@@ -118,10 +118,10 @@
  
   updateCounter();
   table = $("#pinUpListingTable").DataTable({
-    // language: {
-    //      search: "Search: _INPUT_",
-    //      searchPlaceholder: "Search by Membar ID..."
-    //   },
+    language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by Member ID or Location"
+      },
     processing: true,
     serverSide: true,
     lengthChange: true,
@@ -131,7 +131,6 @@
         url: `{{route('admin.global_monitoring.get_pinup_listing')}}`,
         type: 'GET',
         error: function(xhr) {
-            console.log(xhr);
                 let message = 'Something went wrong while fetching data.';
                 if (xhr.responseJSON && xhr.responseJSON.error) {
                     message = xhr.responseJSON.error;
