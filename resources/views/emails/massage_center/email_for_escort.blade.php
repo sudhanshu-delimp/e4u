@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Confirmation of Registration</title>
-    -->
+    
 </head>
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
