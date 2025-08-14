@@ -50,7 +50,9 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div> 
+    
+    
         <div class="row">
             <div class="col-md-12">
                 <div class="box-body table table-hover table-responsive-xl">
