@@ -34,8 +34,8 @@
                             <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$agentUser->name ?? ''}},</p>
 
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                We are please to confirm your appointment as Agent for the recent Registration of [Member
-                                ID] on the [Date]. Your appointment has now been entered into the E4U database. You
+                                We are please to confirm your appointment as Agent for the recent Registration of {{$user->member_id ?? ''}}
+                                 on the {{$user->create_at}}. Your appointment has now been entered into the E4U database. You
                                 can now log into the Agent Console and proceed to manage your Massage Centre’s
                                 Account and Profiles.
                             </p>

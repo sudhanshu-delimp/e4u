@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>New Registration - Escort</title>
+    <title>New Registration - Massage</title>
 </head>
 
 <body style="margin:0; padding:0; background-color:#f4f4f4;">

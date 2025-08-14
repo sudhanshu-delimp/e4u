@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth\Advertiser;
 
 use App\Events\EscortRegister;
+use App\Events\MassageRegister;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Sms\SendSms;
@@ -115,7 +116,7 @@ class RegisterController extends Controller
     {
 
         $password = $request->password;
-        $user = $this->create($request->all());
+       $user = $this->create($request->all());
 
         $userDataForEvent = [
             'id' => $user->id,
@@ -128,11 +129,23 @@ class RegisterController extends Controller
             'member_id' => $user->member_id,
         ];
 
+        // $userDataForEvent = [
+        //     'id'        => 123,
+        //     'email'     => 'johndoe@example.com',
+        //     'phone'     => '9876543210',
+        //     'password'  => 'password',
+        //     'agent_id' =>  'A40312',
+        //     'location'  => 'Delhi',
+        //     'create_at' => '5 April',
+        //     'member_id' => 'E100324'
+        // ];
+    
+
         //3 is Escote and 4 is Massage Center
         if($request->type == 3){
             event(new EscortRegister((object)$userDataForEvent));
         }elseif($request->type == 4){
-
+            event(new MassageRegister((object)$userDataForEvent));
         }
        
 

@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Listeners\Escort;
+namespace App\Listeners\MessageCentr;
+
 
 use App\Models\User;
-use App\Events\EscortRegister;
+use App\Events\MassageRegister;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Mail\RegisterEscort\RegisterEmailForAgent;
+use App\Mail\MessageCentr\RegisterEmailForAgent;
 
-class RegisterListenerForAgent implements ShouldQueue
+class RegisterListnerForAgent implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -24,12 +25,13 @@ class RegisterListenerForAgent implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  \App\Events\EscortRegister  $event
+     * @param  \App\Events\MassageRegister  $event
      * @return void
      */
-    public function handle(EscortRegister $event)
+    public function handle(MassageRegister $event)
     {
-        $user = $event->escode;
+        $user = $event->massage;
+        
         if (!empty($user->agent_id)) {
             $agentUser = User::where('member_id', $user->agent_id)->select('id', 'email', 'phone', 'name')->first();
             if ($agentUser) {

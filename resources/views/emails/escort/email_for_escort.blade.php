@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Confirmation of Registration</title>
-    @php
-        $namePart = explode('@', $user->email)[0];
-    @endphp
+    
 </head>
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f4; padding: 20px 0;">
@@ -23,7 +21,7 @@
                                         <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                                     </td>
                                     <td style="color: #ffffff; font-size: 16px; font-weight: bold; vertical-align: middle; text-align: right;">
-                                        <h1 style="margin: 0; font-size: 22px; color:#ffffff; text-align: right;">Confirmation of Registration - Escort {{$namePart}}</h1>
+                                        <h1 style="margin: 0; font-size: 22px; color:#ffffff; text-align: right;">Confirmation of Registration - Escort</h1>
                                         <div style="font-weight: 500;">Member ID: {{$user->member_id ?? ''}}</div>
                                     </td>
                                 </tr>
@@ -33,7 +31,7 @@
                     <!-- Body content -->
                     <tr>
                         <td style="padding: 30px; text-align: justify;">
-                            <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$namePart}},</p>
+                            <p style="font-size: 16px; margin: 0 0 15px 0;">Dear</p>
 
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
                                 We are pleased to confirm your Registration has been accepted and you can now log into the Escort Console and proceed to create Profiles and Tours.
