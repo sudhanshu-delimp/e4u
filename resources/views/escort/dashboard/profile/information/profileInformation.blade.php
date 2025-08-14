@@ -313,6 +313,7 @@
        e.preventDefault();
        var form = $(this);
       $("#modal-title").text('My Additional Information');
+      $("#modal-icon").attr("src", "/assets/dashboard/img/save-info.png");
        if (form.parsley().isValid()) {
 
            var url = form.attr('action');
@@ -362,6 +363,7 @@
 
        var form = $(this);
         $("#modal-title").text('My Social Media');
+        $("#modal-icon").attr("src", "/assets/dashboard/img/save-info.png");
        if (form.parsley().isValid()) {
 
            var url = form.attr('action');
