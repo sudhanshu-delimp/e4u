@@ -135,12 +135,12 @@ class AgentController extends Controller
             	
             $dropdown = '<div class="dropdown no-arrow ml-3">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                              </a>
                                              <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-id="S60001"> <i class="fa fa-eye "></i> View Account</a>
+                                                <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-id='.$item->id.'>  <i class="fa fa-eye "></i> View Account</a>
                                                 <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#"> <i class="fa fa-ban"></i> Suspend</a>
+                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Suspend</a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-target="#edit_agent_data" data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>
                                              </div>
