@@ -250,6 +250,7 @@
             },
             success: function(response){
                 if(response.success){
+                   sessionStorage.setItem('pinup_id', response.pinupDetail.id);
                    $(".js_pinup_profile").html(response.html); 
                 }
                 $("#preloader").removeClass('pre-active');

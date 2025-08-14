@@ -429,13 +429,15 @@ not available to meet, but they still can view your Profile</li>
                                 </table>
                             </div>
 
-                            <p><b>Notes: </b> 1 Feature availability is subject to the <a
+                            <p><b>Notes: </b>
+                                </p>
+                            <ol>
+                                <li>Feature availability is subject to the <a
                                     href="{{ url('law-enforcement')}}"
-                                    class="termsandconditions_text_color">Local Laws</a></p>
-                            <ul style="list-style:none; padding-left: 46px;">
-                                <li>2 Monthly fee of $5.00 (to cover SMS costs)</li>
-                                <li>3 Payment by Card</li>
-                            </ul>
+                                    class="termsandconditions_text_color">Local Laws</a>.</li>
+                                <li>Monthly fee of $5.00 (to cover SMS costs).</li>
+                                <li>Payment by Card.</li>
+                            </ol>
 
 
                             <p><b>Some other great services</b></p>

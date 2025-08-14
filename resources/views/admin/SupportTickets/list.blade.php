@@ -29,6 +29,9 @@
     #supportTicketsTable_info{
         float: left;
     }
+    #supportTicketsTable td  {
+          text-align: center;
+    }
 </style>
 @endsection
 @section('content')
@@ -37,7 +40,7 @@
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="row">
             <div class="custom-heading-wrapper col-md-12">
-                <h1 class="h1">My Support Tickets</h1>
+                <h1 class="h1">Support Tickets</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
             </div>
             <div class="col-md-12 mb-4" id="profile_and_tour_options">
@@ -63,8 +66,8 @@
                                 <th>Ticket ID</th>
                                 <th>Member ID</th>
                                 <th>Department</th>
-                                <th>Priority</th>
-                                <th>Service Type</th>
+                                <!-- <th>Priority</th> 
+                                <th>Service Type</th>-->
                                 <th>Subject</th>
                                 <th>Date Created</th>
                                 <th>Status</th> 
@@ -129,7 +132,7 @@
        var table = $("#supportTicketsTable").DataTable({
            "language": {
                "zeroRecords": "No record(s) found.",
-               "searchPlaceholder": "Search by Ticket ID or Member ID...",
+               "searchPlaceholder": "Search by Ticket ID",
            },
            processing: true,
            serverSide: true,
@@ -150,8 +153,8 @@
                { data: 'ref_number', name: 'ref_number', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'member_id', name: 'member_id', searchable: true, orderable:false ,defaultContent: 'NA'},
                { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'service_type', name: 'service_type', searchable: false, orderable:true ,defaultContent: 'NA'},
+              // { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
+              // { data: 'service_type', name: 'service_type', searchable: false, orderable:true ,defaultContent: 'NA'},
                { data: 'subject', name: 'start_date', searchable: true, orderable:true,defaultContent: 'NA' },
                // { data: 'message', name: 'enabled', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'created_on', name: 'date_created', searchable: false, orderable:true,defaultContent: 'NA' },

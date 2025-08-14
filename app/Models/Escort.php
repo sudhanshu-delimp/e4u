@@ -109,6 +109,13 @@ class Escort extends Model
         ->where('utc_end_time', '>=', Carbon::now('UTC'))
         ->latestOfMany('utc_end_time');
     }
+
+    public function currentActivePinup(){
+        return $this->hasOne(EscortPinup::class)
+        ->where('utc_start_time', '<=', Carbon::now('UTC'))
+        ->where('utc_end_time', '>=', Carbon::now('UTC'))
+        ->latestOfMany('utc_end_time');
+    }
     
     public function suspendProfile()
     {

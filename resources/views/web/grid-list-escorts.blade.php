@@ -193,7 +193,7 @@
                                           </div>
 
                                           <div class="add_to_shortlist_btn manage_btn_gor_gold_in_responsive">                                           
-                                                      <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent">
+                                                      <button type="button" class="btn btn_for_profile_list_view min_width_hundredpresent custom-view-profile">
                                                       <img class="listiconprofilelistview" src="{{ asset('assets/app/img/listiconprofilelistview.png') }}">Add to Shortlist</button>
                                                 </div>
 
