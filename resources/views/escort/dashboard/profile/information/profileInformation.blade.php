@@ -363,7 +363,7 @@
 
        var form = $(this);
         $("#modal-title").text('My Social Media');
-        $("#modal-icon").attr("src", "/assets/dashboard/img/save-info.png");
+        $("#modal-icon").attr("src", "/assets/dashboard/img/social-info.png");
        if (form.parsley().isValid()) {
 
            var url = form.attr('action');
