@@ -31,7 +31,7 @@ return [
                                 'name'  =>  'My Playbox Summary',
                                 'text'  =>  'View a complete financial and analytical summary of your My Playbox service.',
                                 'icon'  =>  'boxicon/icon_myplaybox.png',
-                                'link'  =>   url('escort-dashboard/archive-myplaybox'),
+                                'link'  =>   'escort-dashboard/archive-myplaybox',
                             ],
 
                             [
@@ -47,7 +47,7 @@ return [
                                 'name'  =>  'Support Tickets',
                                 'text'  =>  'View your Support Tickets.',
                                 'icon'  =>  'boxicon/icon_support-tickets.png',
-                                'link'  =>   url('submit_ticket')
+                                'link'  =>   'submit_ticket'
                             ],
         
                         ]

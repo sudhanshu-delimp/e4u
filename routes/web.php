@@ -225,9 +225,9 @@ Route::post('state-name', [App\Http\Controllers\HomeController::class, 'getGioLo
 // Auth::routes();
 
 
-Route::get('/mail', function () {
-   return new sendPlaymateAccountDisableMail();
-});
+// Route::get('/mail', function () {
+//    return new sendPlaymateAccountDisableMail();
+// });
 //**************SUPPORT TICKET*******************//
 Route::get('submit_ticket', [SupportTicketsController::class,'create'])->name('support-ticket.form_create');
 Route::post('submit_ticket', [SupportTicketsController::class,'submit_ticket'])->name('support-ticket.create');
