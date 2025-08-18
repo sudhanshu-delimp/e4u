@@ -121,6 +121,12 @@ class Escort extends Model
     {
         return $this->hasMany(SuspendProfile::class, 'escort_profile_id');
     }
+
+    public function activeUpcomingSuspend(){
+        return $this->hasOne(SuspendProfile::class, 'escort_profile_id')
+        ->where('utc_end_date', '>=', Carbon::now('UTC'))
+        ->latestOfMany('utc_end_date');
+    }
     
     public function latestActiveBrb(): HasOne
     {

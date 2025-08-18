@@ -145,15 +145,16 @@
       <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox-light.png')}}">
          <span>My Legbox</span>
       </a>
-      <div id="collapseTwo" class=" collapse  @if(request()->segment(2) == 'my-legbox-list' || request()->segment(2) == 'massage' ||request()->segment(3) == 'my-legbox-notes' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+
+      <div id="collapseTwo" class=" collapse  @if(request()->is('user-dashboard/my-legbox/escort') || request()->is('user-dashboard/my-legbox/massage')) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
          <div class="py-0 collapse-inner rounded mb-2">
-            <a class="collapse-item" href="{{ route('user.legbox.list') }}">
+            <a class="collapse-item" href="{{ route('user.my-legbox',['escort']) }}">
                <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/escort-listing.png')}}">
-               <span class="pl-3" style="{{request()->segment(2) == 'my-legbox-list' ? 'color: #e5365a;' : ''}} ">Escort List</span>
+               <span class="pl-3" style="{{request()->is('user-dashboard/my-legbox/escort') ? 'color: #e5365a;' : ''}} ">Escort List</span>
             </a>
-            <a class="collapse-item" href="{{ route('user.massage.legbox.list') }}">
+            <a class="collapse-item" href="{{ route('user.my-legbox',['massage']) }}">
                <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/mc-listings.png')}}">
-               <span class="pl-3" style="{{request()->segment(2) == 'massage' ? 'color: #e5365a;' : ''}} ">Massage List</span>
+               <span class="pl-3" style="{{request()->is('user-dashboard/my-legbox/massage') ? 'color: #e5365a;' : ''}} ">Massage List</span>
             </a>
             {{-- <a class="collapse-item" href="{{ route('user.notes')}}">
                <svg width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">

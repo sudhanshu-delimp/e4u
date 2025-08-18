@@ -3,12 +3,21 @@
 namespace App\Http\Controllers\Escort;
 
 
+use Auth;
 use File;
 use FFMpeg;
+use Carbon\Carbon;
+use App\Models\Task;
 use App\Models\User;
+use App\Models\Escort;
+use App\Models\PinUps;
+use App\Models\Pricing;
 use App\Models\Purchase;
+use App\Models\EscortPinup;
 use Illuminate\Support\Str;
+use MongoDB\Driver\Session;
 use Illuminate\Http\Request;
+use App\Models\DashboardViewer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use App\Traits\DataTablePagination;
@@ -22,14 +31,6 @@ use App\Http\Requests\UpdateEscortRequest;
 use App\Repositories\Escort\EscortInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
 use App\Repositories\AttemptLogin\AttemptLoginRepository;
-use Carbon\Carbon;
-use App\Models\Escort;
-use App\Models\Pricing;
-use App\Models\PinUps;
-use App\Models\Task;
-use App\Models\EscortPinup;
-use Auth;
-use MongoDB\Driver\Session;
 
 class EscortController extends Controller
 {
@@ -57,8 +58,40 @@ class EscortController extends Controller
 
         $escorts = $this->escort->all();
         $tasks = Task::latest()->paginate(10);
-        return view('escort.dashboard.index', compact('escorts', 'result', 'result2', 'tasks'));
+        $viewer_array = DashboardViewer::where('user_id', auth()->id())->first(); 
+        return view('escort.dashboard.index', compact('escorts', 'result', 'result2', 'tasks','viewer_array'));
     }
+
+
+    public function customiseDashboard(Request $request)
+    {
+        
+        $viewer_array = DashboardViewer::where('user_id', auth()->id())->first(); 
+        return view('escort.dashboard.customise-dashboard', compact('viewer_array'));
+    }
+
+    public function updateCustomiseDashboard(Request $request)
+    {
+           $viewers = config('constants.dashboard_viewer.escort');
+            $my_view = [];
+            foreach($viewers as $view) :
+                $my_view[$view['key']] = 0 ;
+            endforeach;
+
+          
+            $viewer = DashboardViewer::firstOrCreate(
+                ['user_id' => auth()->id()],
+                ['my_view' =>  $my_view]
+            );
+
+            $data = $viewer->my_view;
+            $data[$request->key] = (int) $request->value;
+
+            $viewer->update(['my_view' => $data]);
+            return response()->json(['success' => true, 'data' => $data]);
+    }
+
+    
 
     function add_listing()
     {

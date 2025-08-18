@@ -29,72 +29,34 @@
         </div>
         <!-- Page Heading -->
         <div class="row">
-            {{-- box start --}}
-            
+           
+         <?php
+         $viewers = config('constants.dashboard_viewer.escort');
+         if(!empty($viewers))
+         {
+             foreach($viewers as $view) :
+             $checked = (($viewer_array->my_view[$view['key']] ?? 0) == 1) ? true : false; 
+         ?>
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <label class="card-label shadow-sm">
-                    <input type="checkbox" name="acc_summary">
+                    <input type="checkbox" name="{{$view['key']}}" data-key="{{$view['key'] }}" value="1" class="toggle-view" 
+                     @if($checked) checked @endif >
                     <div class="selectable-card">
                     <div class="card-title-row">
-                        <div class="card-title">My Legbox Viewers</div>
+                        <div class="card-title">{{$view['name']}}</div>
                         <div class="card-image">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_mylegbox.png') }}" alt="Escorts Statistics">
+                            <img src="{{ asset('assets/dashboard/img/'.$view['icon'].'')}}" alt="{{$view['name']}}">
                         </div>
                     </div>
-                    <div class="card-desc">View a complete summary of your Legbox Viewers.</div>
+                    <div class="card-desc">{{$view['text']}}</div>
                     </div>
                 </label>
             </div>
-            {{-- end --}}
-            {{-- box start --}}
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <label class="card-label shadow-sm">
-                    <input type="checkbox" name="acc_summary">
-                    <div class="selectable-card">
-                    <div class="card-title-row">
-                        <div class="card-title">My Playbox Summary</div>
-                        <div class="card-image">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_myplaybox.png') }}" alt="Escorts Statistics">
-                        </div>
-                    </div>
-                    <div class="card-desc">View a complete financial and analytical summary of your
-                        My Playbox service.</div>
-                    </div>
-                </label>
-            </div>
-            {{-- end --}}
-            {{-- box start --}}
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <label class="card-label shadow-sm">
-                    <input type="checkbox" name="acc_summary">
-                    <div class="selectable-card">
-                    <div class="card-title-row">
-                        <div class="card-title">Manage Media</div>
-                        <div class="card-image">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_manage-media.png') }}" alt="Escorts Statistics">
-                        </div>
-                    </div>
-                    <div class="card-desc">Manage all of your photos and video content from here.</div>
-                    </div>
-                </label>
-            </div>
-            {{-- end --}}
-            {{-- box start --}}
-            <div class="col-lg-3 col-md-4 col-sm-6">
-                <label class="card-label shadow-sm">
-                    <input type="checkbox" name="acc_summary">
-                    <div class="selectable-card">
-                    <div class="card-title-row">
-                        <div class="card-title">Support Tickets</div>
-                        <div class="card-image">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_support-tickets.png') }}" alt="Escorts Statistics">
-                        </div>
-                    </div>
-                    <div class="card-desc">View your Support Tickets.</div>
-                    </div>
-                </label>
-            </div>
-            {{-- end --}}
+            <?php
+             endforeach;
+            } 
+            ?>
+           
         </div>
 @endsection
 @section('style')
@@ -737,5 +699,28 @@
                 $('.custome_paginator').html(pagination);
             }
         // });
+
+
+            $(document).on("change", ".toggle-view", function () {
+                let key = $(this).data("key");
+                let value = $(this).is(":checked") ? 1 : 0;
+
+                $.ajax({
+                    url: "{{ route('escort.dashboard.customise-dashboard') }}",
+                    method: "POST",
+                    data: {
+                        key: key,
+                        value: value
+                    },
+                    success: function (res) {
+                        console.log("Saved:", res);
+                    },
+                    error: function (xhr) {
+                        console.error("Error:", xhr.responseText);
+                    }
+                });
+            });
+
+
     </script>
 @endsection

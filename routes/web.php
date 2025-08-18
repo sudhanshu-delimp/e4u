@@ -140,7 +140,7 @@ Route::middleware('auth')->group(function () {
         })->name('user.viewer-statistics');
 
         # Escort viewer interaction routes
-        Route::get('/my-legbox',[EscortMyLegboxViewerController::class,'dashboard'])->name('user.my-legbox');
+        Route::get('/my-legbox/{type?}',[EscortMyLegboxViewerController::class,'dashboard'])->name('user.my-legbox');
         Route::get('/my-escort-legbox-ajax',[EscortMyLegboxViewerController::class,'escortViewersAjaxList'])->name('escort.viewer-legbox-list');
         Route::post('/escort/viewer-interaction-update', [EscortViewerInteractionController::class, 'escortUpdateViewerInteraction'])->name('escort.viewer-interaction.update');
 
@@ -225,9 +225,9 @@ Route::post('state-name', [App\Http\Controllers\HomeController::class, 'getGioLo
 // Auth::routes();
 
 
-Route::get('/mail', function () {
-   return new sendPlaymateAccountDisableMail();
-});
+// Route::get('/mail', function () {
+//    return new sendPlaymateAccountDisableMail();
+// });
 //**************SUPPORT TICKET*******************//
 Route::get('submit_ticket', [SupportTicketsController::class,'create'])->name('support-ticket.form_create');
 Route::post('submit_ticket', [SupportTicketsController::class,'submit_ticket'])->name('support-ticket.create');
@@ -436,9 +436,9 @@ Route::get('/agent-dashboard/abbreviations',function(){
 
 
 
-Route::get('/escort-dashboard/customise-dashboard',function(){
-    return view('escort.dashboard.customise-dashboard');
-})->name('escort.dashboard.customise-dashboard');
+
+
+
 
 Route::get('/escort-dashboard/escorts-statistics',function(){
     return view('escort.dashboard.escorts-statistics');
@@ -652,9 +652,7 @@ Route::get('/admin-dashboard/management/staff',function(){
     return view('admin.management.staff');
 })->name('admin.staff');
 
-Route::get('/admin-dashboard/management/agent',function(){
-    return view('admin.management.agent');
-})->name('admin.agent');
+
 
 Route::get('/admin-dashboard/management/email-management',function(){
     return view('admin.management.email-management');

@@ -34,7 +34,7 @@
                     <div class="col-lg-12">
                         <div class="card collapse  mb-4" id="notes">
                             <div class="card-body">
-                                <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                                 <ol>
                                     <li>These pricing information pages are a complete summary of all the discounts and
                                         Fees that are applied in the Website when posting a Profile or engaging us to do

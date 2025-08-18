@@ -8,146 +8,69 @@
    <div id="content">
       <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
          <!--middle content-->
-         <div class="row">  
+         <div class="row">
             <div class="custom-heading-wrapper col-md-12">
-               <h1 class="h1">Manage Agent  </h1>
+               <h1 class="h1">Manage Agent</h1>
                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
             </div>
             <div class="col-md-12 mb-4">
-                  <div class="card collapse" id="notes">
-                     <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol>
-                              <li>Create and manage Agents here.</li>
-                              <li>Manage status of Agents.</li>
-                        </ol>
-                     </div>
+               <div class="card collapse" id="notes">
+                  <div class="card-body">
+                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                     <ol>
+                        <li>Create and manage Agents here.</li>
+                        <li>Manage status of Agents.</li>
+                     </ol>
                   </div>
+               </div>
             </div>
          </div>
          <div class="row">
             <div class="col-md-12">
                <div class="panel with-nav-tabs panel-warning">
                   <div class="panel-body">
-                     <div class="tab-content">  
+                     <div class="tab-content">
                         <div class="tab-pane fade active show" id="tab3warning">
                            <div class="row pb-3">
-                              
+
                               <div class="col-md-12 col-sm-12">
                                  <div class="bothsearch-form" style="gap: 10px;">
                                     <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#addStaffnew">Add New Agent</button>
                                  </div>
                               </div>
-                           </div>                                    
+                           </div>
                            <div class="table-responsive-xl">
-                              <table class="table mb-0" id="manageAgentTable">
-                                 <thead class="table-bg" >
-                                 <tr>
-                                    <th scope="col">
-                                    Agent ID
-                                       
-                                    </th>
-                                    <th scope="col">
-                                    Agent Member
-                                       
-                                    </th>
-                                    <th scope="col">
-                                       Territory
-                                    </th>
-                                    <th scope="col">
-                                    Position
-                                    </th>
-                                    <th scope="col">
-                                    Mobile
-                                    </th>
-                                    <th scope="col">
-                                    Email
-                                    </th>
-                                    <th scope="col">
-                                    Total
-                                    Logins                                             
-                                    </th>
-                                    <th scope="col">
-                                    Last Login
-                                    </th>
-                                    <th scope="col">
-                                       Status
-                                       </th>
-                                    
+                              <table class="table mb-3" id="agent_data_table">
+                                 <thead class="table-bg">
+                                    <tr>
+                                    <th scope="col">Agent ID</th>
+                                    <th scope="col">Agent</th>
+                                    <th scope="col">Territory</th>
+                                    <th scope="col">Mobile</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Total Clients</th>
+                                    <th scope="col">Last Login</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Action</th>
-                                 </tr>
+                                    </tr>
                                  </thead>
                                  <tbody class="table-content">
-                                    <tr>
-                                       <td width="10%" class="theme-color">S60001</td>
-                                       <td class="theme-color">Binny Primrose</td>
-                                       <td class="theme-color">1</td>
-                                       <td class="theme-color">Managing Director</td>
-                                       <td class="theme-color">0438 028 728</td>
-                                       <td class="theme-color">Binny@blackboxtech.com.au </td>
-                                       <td class="theme-color">1,999</td>
-                                       <td class="theme-color">20-05-2025 09:12 am </td>
-                                       <td class="theme-color">Active </td>
-                                       <td>
-                                          <div class="dropdown no-arrow ml-3">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-id="S60001">  <i class="fa fa-eye "></i> View Account</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Suspend</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-target="#edit_agent_data" data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr class="account-detail-row" id="account-row-S60001" style="display: none;">
-                                       <td colspan="10">
-                                          <div class="card p-3">
-                                             <!-- Avatar -->
-                                             <div class="d-flex align-items-center mb-3">
-                                                <img src="{{ asset('assets/app/img/ellipse-1.png')}}" alt="Avatar" class="rounded-circle mr-3" width="50" height="50">
-                                                <h6 class="mb-0">Binny Primrose (S60001)</h6>
-                                             </div>
-                                    
-                                             <!-- Details Table -->
-                                             <table class="table table-bordered mb-3">
-                                                <tr><th>Business Name</th><td>Binny Pty Ltd</td></tr>
-                                                <tr><th>Mobile</th><td>0438 028 728</td></tr>
-                                                <tr><th>Email</th><td>binny@blackboxtech.com.au</td></tr>
-                                                <tr><th>ABN</th><td>12345678901</td></tr>
-                                                <tr><th>Address</th><td>123 King St, Melbourne</td></tr>
-                                             </table>
-                                    
-                                             <div class="d-flex justify-content-end">
-                                                <!-- Print Button -->
-                                             <button class="btn-success-modal d-block" onclick="printAgent('account-row-S60001')">
-                                                <i class="fa fa-print text-white"></i> Print
-                                             </button>
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
                                     
                                  </tbody>
                               </table>
-                              
                            </div>
                         </div>
-                           
                      </div>
                   </div>
                </div>
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-12">
-                  <div class="timer_section">
-                     <p>Server time: <span class="serverTime">{{ getServertime() }}</span></p>
-                     <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
-                     <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
-                  </div>
-            </div>
+            <!-- <div class="col-sm-12 col-md-12 col-lg-12">
+               <div class="timer_section">
+                  <p>Server time: <span class="serverTime">{{ getServertime() }}</span></p>
+                  <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
+                  <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
+               </div>
+            </div> -->
          </div>
       </div>
       <!--middle content end here-->
@@ -398,69 +321,168 @@
       </div>
    </div>
 </div>
- <!-- end -->
+
+<div class="modal fade upload-modal" id="viewAgentdetails" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
+<div class="modal fade upload-modal" id="printAgentdetails" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
+
+
 @endsection
 @push('script')
-   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-   <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}
-    "></script>
-
-
-    <script>
-      var table = $("#manageAgentTable").DataTable({
-       language: {
-           search: "Search: _INPUT_",
-           searchPlaceholder: "Search by Ref No..."
-       },
-       info: true,
-       paging: true,
-       lengthChange: true,
-       searching: true,
-       bStateSave: true,
-       order: [[1, 'desc']],
-       lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-       pageLength: 10
-   });
-   
-    </script>
-<script type="text/javascript">
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script>
    $(document).ready(function(e) {
-            // ajaxReload();
-            let countdown = 15;
-            setInterval(() => {
-                countdown--;
-                $(".refreshSeconds").text(' '+countdown);
+   var table = $("#agent_data_table").DataTable({
+            language: {
+                  search: "Search: _INPUT_",
+                  searchPlaceholder: "Search by Agent ID...",
+                  lengthMenu: "Show _MENU_ entries",
+                  zeroRecords: "No matching records found",
+                  info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                  infoEmpty: "No entries available",
+                  infoFiltered: "(filtered from _MAX_ total entries)"
+            },
+           
+           processing: true,
+           serverSide: true,
+           lengthChange: true,
+           searchable:false,
+           bStateSave: false,
 
-                if (countdown <= 0) {
-                    $('#listings').DataTable().ajax.reload(null, false);
-                    countdown = 15;
-                }
+           ajax: {
+               url: "{{ route('admin.agent_list_data_table') }}",
+               data: function (d) {
+                   d.type = 'player';
+               }
+           },
+           columns: [
+               { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'name', name: 'name', searchable: true, orderable:false ,defaultContent: 'NA'},
+               { data: 'territory ', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'phone', name: 'phone', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
+               { data: 'no_of_client', name: 'no_of_client', searchable: true, orderable:true,defaultContent: 'NA' },
+               { data: 'last_login', name: 'last_login', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
+               { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
+           ],
+          
+           order: [[1, 'desc']],
+           lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+           pageLength: 10,
+       });
 
-            }, 1000);
 
-            $('#customSearch').on('keyup', function() {
-                $('#listings').DataTable().search(this.value).draw();
-            });
-        })
+      $(document).on('click', '.view-account-btn', function(e) {
+      var requestId = $(this).data('id');
+      var rowData = table.row($(this).parents('tr')).data();
+
+      console.log(rowData);
+
+      let user_img = "{{ asset('assets/img/default_user.png') }}";
+      let avatar_base = "{{ asset('avatars') }}/";
+      if (rowData.avatar_img !== "" && rowData.avatar_img !== null) 
+      user_img = avatar_base + rowData.avatar_img;
+
+      var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/view-listing.png')}}" style="width:40px; margin-right:10px;" alt="Request Accepted"> 
+                                 View Account
+                                 </h5>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                                 </button>
+                              </div>
+                              <div class="modal-body pb-0">
+                                    <div class="row">
+                                       <div class="col-12">
+                                             
+                                       <div class="card mb-3 p-3">
+                                             <!-- Avatar -->
+                                             <div class="d-flex align-items-center mb-3">
+                                                <img src="${user_img}" alt="Avatar" class="rounded-circle mr-3" width="50" height="50">
+                                                <h6 class="mb-0">${(rowData.name ? rowData.name : 'NA')}</h6>
+                                             </div>
+                                    
+                                             <!-- Details Table -->
+                                             <table class="table table-bordered mb-3">
+                                                <tr><th>Business Name</th><td>${(rowData.business_name) ? rowData.business_name : 'NA'}</td></tr>
+                                                <tr><th>Mobile</th><td>${(rowData.business_number) ? rowData.business_number : 'NA'}</td></tr>
+                                                <tr><th>Email</th><td>${(rowData.email) ? rowData.email : 'NA'}</td></tr>
+                                                <tr><th>ABN</th><td>${(rowData.abn) ? rowData.abn : 'NA'}</td></tr>
+                                                <tr><th>Address</th><td>${(rowData.business_address) ? rowData.business_address : 'NA'}</td></tr>
+                                             </table>
+                                    
+                                             <div class="d-flex justify-content-end mb-2">
+                                                <!-- Print Button -->
+                                             <button class="btn-success-modal d-block" onclick="printAgent('account-row-S60001')">
+                                                <i class="fa fa-print text-white"></i> Print
+                                             </button>
+                                              <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
+                                             </div>
+                                          </div>
+                                                
+                                       </div>
+                                    </div>
+                              </div>
+                            
+                           </div>
+                        </div>`;
+
+
+            $('#printAgentdetails').html(modal_html);
+            $('#printAgentdetails').modal('show');          
+
+    });
+
+
+
+      });
+
+
+
+
+  
+</script>
+<script type="text/javascript">
+   // $(document).ready(function(e) {
+   //    // ajaxReload();
+   //    let countdown = 15;
+   //    setInterval(() => {
+   //       countdown--;
+   //       $(".refreshSeconds").text(' ' + countdown);
+
+   //       if (countdown <= 0) {
+   //          $('#listings').DataTable().ajax.reload(null, false);
+   //          countdown = 15;
+   //       }
+
+   //    }, 1000);
+
+   //    $('#customSearch').on('keyup', function() {
+   //       $('#listings').DataTable().search(this.value).draw();
+   //    });
+   // })
 </script>
 
 <script>
-   document.addEventListener("DOMContentLoaded", function () {
-      document.querySelectorAll(".view-account-btn").forEach(function (btn) {
-         btn.addEventListener("click", function (e) {
-            e.preventDefault();
-            const id = btn.getAttribute("data-id");
-            const row = document.getElementById(`account-row-${id}`);
+   //  document.addEventListener("DOMContentLoaded", function () {
+   //    document.querySelectorAll(".view-account-btn").forEach(function (btn) {
+   //       btn.addEventListener("click", function (e) {
+   //          e.preventDefault();
+   //          const id = btn.getAttribute("data-id");
+   //          const row = document.getElementById(`account-row-${id}`);
             
-            // Toggle visibility
-            if (row.style.display === "none") {
-               row.style.display = "table-row";
-            } else {
-               row.style.display = "none";
-            }
-         });
-      });
-   });
-   </script>
+   //          // Toggle visibility
+   //          if (row.style.display === "none") {
+   //             row.style.display = "table-row";
+   //          } else {
+   //             row.style.display = "none";
+   //          }
+   //       });
+   //    });
+   // });
+
+   
+</script>
 @endpush

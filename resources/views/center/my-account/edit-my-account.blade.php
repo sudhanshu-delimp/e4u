@@ -22,10 +22,10 @@
                <div class="col-md-12 mb-4">
                   <div class="card collapse" id="notes" style="">
                     <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b></h3>
+                      <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                         <ol>
-                          <li>Your Advertiser's Profile Information will pre-populate any Massage Profile you create</li>
-                          <li>Select your preferred method of contact by a Viewer for your Massage Profiles</li>
+                          <li>Your Advertiser's Profile Information will pre-populate any Massage Profile you create.</li>
+                          <li>Select your preferred method of contact by a Viewer for your Massage Profiles.</li>
                       </ol>
                     </div>
                   </div>              
@@ -224,13 +224,12 @@
     
     });
     
-    
-    
     $('#userProfile').on('submit', function(e) {
       e.preventDefault();
     
       var form = $(this);
-    
+      $("#modal-title").text("Abou Us");
+      $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
       if (form.parsley().isValid()) {
     
         var url = form.attr('action');
@@ -381,6 +380,9 @@
       e.preventDefault();
     
         var form = $(this);
+        
+      $("#modal-title").text("Profile Contact Options");
+      $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
         var url = form.attr('action');
         var data = new FormData(form[0]);
         $.ajax({
