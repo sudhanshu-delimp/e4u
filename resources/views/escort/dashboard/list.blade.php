@@ -582,9 +582,8 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                    console.log(data.success);
                     if (data.response.success) {
-                        location.reload();
+                        table.draw();
                     } else {
                         Swal.fire(
                             'Oops!',
@@ -819,9 +818,6 @@
             e.preventDefault();
             var form = $(this);
             var profileId = $("#profile_id").val();
-
-            // if (form.parsley().isValid()) {
-            //var url = '/escort-dashboard/escort-brb/add';
             var url = "{{ route('escort.brb.add') }}";
             var data = new FormData(form[0]);
             var selectedProfileName = $('#profile_id option:selected').attr('profile_name');
@@ -843,9 +839,7 @@
                         });
                         $("#brb_form")[0].reset();
                         $('#add_brb').modal('hide');
-                        var txy = selectedProfileName + ' <sup title="Brb at ' + data.response.brbtime +
-                            '" class="brb_icon">BRB</sup>';
-                        $("#brb_" + profileId).html(txy);
+                        table.draw();
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -855,7 +849,6 @@
                 },
 
             });
-            // }
         });
 
         $("#modal_close").on('click', function(e) {
@@ -951,11 +944,7 @@
 
                         // set suspend icon to profile 
                         $('#suspend_profile').modal('hide');
-                        let selectedProfileName = $("#brb_" + data.response.profile_id).text();
-                        var txy = selectedProfileName + '<sup title="Suspended at ' + data.response
-                            .suspended_at +
-                            '" class="brb_icon" style="background-color: #d2730a;" >SUS</sup>';
-                        $("#brb_" + data.response.profile_id).html(txy);
+                        table.draw();
                     } else {
                         Swal.fire({
                             icon: "error",

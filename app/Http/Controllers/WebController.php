@@ -1213,7 +1213,9 @@ class WebController extends Controller
                 $escort = collect(); // or null, based on your use-case
             }
         }
-        
+        if(empty($backToSearchButton)){
+            $backToSearchButton = route('find.all');
+        }
         return view('web.description',compact('categoryOneServices','categoryTwoServices','categoryThreeServices','path','media','escortLike','lp','dp','user_type','next','previous','escort','availability','backToSearchButton','user','viewType','reviews','spamReportAdvertiser'));
     }
 
