@@ -1693,22 +1693,11 @@
             <form id="sendReportForm" action="{{ route('advertiser.spam.report')}}" method="post">
                 @csrf
                 <div class="modal-body">
-                    <p class="mb-1 mt-3"><b>Notes :</b></p>
-                    <div class="row">
-                        <input type="hidden" name="escort_id" value="{{$escort->id}}">
-                        <div class="col">
-                            <ol>
-                                <li>Only report if you had direct contact with the Escort.</li>
-                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended Only genuine reports will be considered.</li>
-                                <li>The Escort’s Member ID will automatically attach to this report.</li>
-                            </ol>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group popup_massage_box">
-                                <label for="exampleFormControlTextarea1">What is wrong:</label>
-                                <textarea name="description" id="reportDesc" required class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="4" placeholder="Message (500 characters)">{{isset($spamReportAdvertiser->report_desc) ? $spamReportAdvertiser->report_desc : '' }}</textarea>
+                                <p class="font-weight-bold">What is wrong:</p>
+                                <textarea name="description" id="reportDesc" required class="form-control popup_massage_box p-2" id="exampleFormControlTextarea1" rows="5" placeholder="Message (500 characters)">{{isset($spamReportAdvertiser->report_desc) ? $spamReportAdvertiser->report_desc : '' }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -1740,7 +1729,22 @@
                         </div>
                         </div>
                     </div>
+                    
+                    
+                    <hr style="background-color: #0C223D" />
+                    <p class="mb-1 mt-3"><b>Notes :</b></p>
+                    <div class="row">
+                        <input type="hidden" name="escort_id" value="{{$escort->id}}">
+                        <div class="col">
+                            <ol>
+                                <li>Only report if you had direct contact with the Escort.</li>
+                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended Only genuine reports will be considered.</li>
+                                <li>The Escort’s Member ID will automatically attach to this report.</li>
+                            </ol>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="modal-footer">
                     <button type="submit" class="site_btn_primary" id="sendReportSubmitBtn">Send Report</button>
                 </div>
@@ -1757,7 +1761,7 @@
  
             <!-- Header with navy background and [X] -->
             <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
-                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Report Loged</h5>
+                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Report Logged</h5>
                 <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;">
                 <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/newcross.png" class="img-fluid img_resize_in_smscreen">
                 </button>
@@ -1809,11 +1813,11 @@
                     <p class="mb-1 mt-3"><b>Notes</b></p>
                     <div class="row">
                         <div class="col teop-text">
-                            <ul>
+                            <ol>
                                 <li>Only review if you had direct contact with the Escort.</li>
                                 <li>Do not write fake or abusive reviews, as they will not be published.</li>
                                 <li>To contact this Escort click on <span style="color: #FF3C5F; ">Message Me</span>.</li>
-                            </ul>
+                            </ol>
                         </div>
                     </div>
                     <div class="row">

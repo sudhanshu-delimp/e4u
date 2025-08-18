@@ -64,10 +64,24 @@
                     <img class="img-fluid p-2" src="{{ asset('assets/app/img/img-14.png')}}">
                 </form> --}}
                 <label class="newbtn dvDest" id="dvDest">
-                <video class="videoUp" id="img1" controls="" src="{{ asset($path)}}">
-                    <source id="akhVideo" src="{{ asset($path)}}" type="video/mp4" >
-                </video>
-                <input  type="hidden"  id="pos_1" name="position[1]" value="">
+                    <video class="videoUp" id="img1" controls="" src="{{ asset($path)}}">
+                        <source id="akhVideo" src="{{ asset($path)}}" type="video/mp4" >
+                    </video>
+                    <input  type="hidden"  id="pos_1" name="position[1]" value="">
+                </label>
+
+                <label class="newbtn dvDest" id="dvDest">
+                    <video class="videoUp" id="img2" controls="" src="{{ asset($path)}}">
+                        <source id="akhVideo" src="{{ asset($path)}}" type="video/mp4" >
+                    </video>
+                    <input  type="hidden"  id="pos_2" name="position[2]" value="">
+                </label>
+
+                <label class="newbtn dvDest" id="dvDest">
+                    <video class="videoUp" id="img3" controls="" src="{{ asset($path)}}">
+                        <source id="akhVideo" src="{{ asset($path)}}" type="video/mp4" >
+                    </video>
+                    <input  type="hidden"  id="pos_3" name="position[3]" value="">
                 </label>
             </div>
         </div>
@@ -78,7 +92,7 @@
                     <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
                         <div class="row">
                             <div class="col-md-8">
-                                <ul class="nav nav-tabs border-0">
+                                {{-- <ul class="nav nav-tabs border-0">
                                     <li class="nav-item">
                                         <a class="nav-link show" id=" " data-toggle="tab" href="#home">All</a>
                                     </li>
@@ -88,7 +102,8 @@
                                     <li class="nav-item">
                                         <a class="nav-link active" id="menu2-tab" data-toggle="tab" href="#menu2">Unverified</a>
                                     </li>
-                                </ul>
+                                </ul> --}}
+                                <h4 class="pl-3 text-white">All Videos</h4>
                             </div>
                             <div class="col-md-2 pt-1">
                                 <div class="progress">
@@ -253,7 +268,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn-success-modal">Verify Media</button>
+                        {{-- <button type="submit" class="btn-success-modal">Verify Media</button> --}}
                         <button type="submit" class="btn-success-modal">Upload</button>
                     </div>
                 </div>
