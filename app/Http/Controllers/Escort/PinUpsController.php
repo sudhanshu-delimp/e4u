@@ -15,8 +15,6 @@ use Exception;
 
 class PinUpsController extends AppController
 {
-
-
     function index(Request $request){
         $escort = Escort::find($request->escort_id);
         if($escort->currentActivePinup){

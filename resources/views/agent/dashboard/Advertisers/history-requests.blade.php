@@ -13,7 +13,7 @@
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
-                  <li>You can view all the Advertiser requests to you for services <b>(Request)</b> here.</li>
+                  <li>You can view all the Advertiser requests to you for services (<b>Request</b>) here.</li>
                   <li>You can view the full details of the Request by clicking the 'View' icon. The Request will
                      display all the details first provided by the Advertiser in the Request.</li>
                   <li>The Request will also note if the invitation was accepted or rejected.</li>
