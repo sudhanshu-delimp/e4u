@@ -1762,7 +1762,7 @@
             <!-- Header with navy background and [X] -->
             <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
                 <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Report Logged</h5>
-                <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;">
+                <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
                 <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/newcross.png" class="img-fluid img_resize_in_smscreen">
                 </button>
             </div>
@@ -1770,8 +1770,10 @@
             <!-- if logi Body content -->
            
             <div class="modal-body text-left">
-                <p class="font-weight-bold">Thank you for your report. Someone from our team will be in
-                touch shortly.</p>
+                <h6 class="popu_heading_style mb-4 mt-2 " style="text-align: center; color:#0C223D;">
+                    <span id="Lname">Thank you for your report. Someone from our team will be in
+                touch shortly.</span>
+                </h6>
              
             </div>
  
@@ -1780,13 +1782,13 @@
 </div>
  
 <!-- Trigger Button -->
-<!--- <button type="button" class="btn btn-outline-danger mt-3" data-toggle="modal" data-target="#reportLogedIn">
+{{-- <button type="button" class="btn btn-outline-danger mt-3" data-toggle="modal" data-target="#reportLogedIn">
    Viewer Loged In
 </button>
 
  <button type="button" class="btn btn-outline-danger mt-3" data-toggle="modal" data-target="#reportAdvertiserNew">
  login popup
- </button> -->
+ </button> --}}
 
 
 
@@ -2400,6 +2402,7 @@ $(document).on('click', '.modal .close', function () {
     $('#my_legbox').modal('hide');
     $('#reportAdvertiserNew').modal('hide');
     $('#sendcarlat').modal('hide');
+    $('#reportLogedIn').modal('hide');
 });
 
 $(document).ready(function() {
@@ -2426,14 +2429,15 @@ $(document).ready(function() {
                     
                 }else{
                     if(!response.error){
-                        $.toast({
+                        /* $.toast({
                             heading: 'Success',
                             text: 'Your report for this advertiser has been submitted successfully.',
                             icon: 'success',
                             loader: true,
                             position: 'top-right',      // Change it to false to disable loader
                             loaderBg: '#9EC600'  // To change the background
-                        });
+                        }); */
+                        $("#reportLogedIn").modal('show');
                     } else {
                         $.toast({
                             heading: 'Error',
