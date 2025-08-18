@@ -313,6 +313,7 @@
        e.preventDefault();
        var form = $(this);
       $("#modal-title").text('My Additional Information');
+      $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
        if (form.parsley().isValid()) {
 
            var url = form.attr('action');
@@ -362,6 +363,7 @@
 
        var form = $(this);
         $("#modal-title").text('My Social Media');
+        $("#modal-icon").attr("src", "/assets/dashboard/img/social-info.png");
        if (form.parsley().isValid()) {
 
            var url = form.attr('action');
@@ -685,6 +687,7 @@
            var url = form.attr('action');
            var data = new FormData($('#myServices')[0]);
            $("#modal-title").text('My Service (tags)');
+           $("#modal-icon").attr("src", "/assets/dashboard/img/my-service-tag.png");
            $('#my_services').prop('disabled', true);
            $('#my_services').html('<div class="spinner-border"></div>');
 
@@ -732,6 +735,7 @@
        var url = form.attr('action');
        var data = new FormData($('#storeRate')[0]);
        $("#modal-title").text('My Rates');
+       $("#modal-icon").attr("src", "/assets/dashboard/img/price-list.png");
        $('#store_rate').prop('disabled', true);
        $('#store_rate').html('<div class="spinner-border"></div>');
        $.ajax({
@@ -765,6 +769,7 @@
        e.preventDefault();
        var form = $(this);
        $("#modal-title").text('My Available Times');
+       $("#modal-icon").attr("src", "/assets/dashboard/img/available-time.png");
        if (form.parsley().isValid()) {
 
            $('#my_abilities').prop('disabled', true);

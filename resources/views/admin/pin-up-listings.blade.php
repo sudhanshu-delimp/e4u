@@ -30,10 +30,6 @@
                     <ol>
                         <li>All current (published) Pin Up Listings are displayed in this table.</li>
                         <li>You have limited Action access according to your security level.</li>
-                        <li>
-                            <p>Prefixes:</p>
-                            <p>1. ACT 2. NSW 3. Vic 4. Qld 5. SA 6. W A 7. Tas 8. NT.</p>
-                        </li>
                     </ol>
                 </div>
             </div>
@@ -118,10 +114,10 @@
  
   updateCounter();
   table = $("#pinUpListingTable").DataTable({
-    // language: {
-    //      search: "Search: _INPUT_",
-    //      searchPlaceholder: "Search by Membar ID..."
-    //   },
+    language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by Member ID or Location"
+      },
     processing: true,
     serverSide: true,
     lengthChange: true,
@@ -131,7 +127,6 @@
         url: `{{route('admin.global_monitoring.get_pinup_listing')}}`,
         type: 'GET',
         error: function(xhr) {
-            console.log(xhr);
                 let message = 'Something went wrong while fetching data.';
                 if (xhr.responseJSON && xhr.responseJSON.error) {
                     message = xhr.responseJSON.error;

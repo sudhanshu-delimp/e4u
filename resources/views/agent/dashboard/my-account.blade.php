@@ -315,7 +315,8 @@
        e.preventDefault();
    
        var form = $(this);
-   
+      $("#modal-title").text("About Me");
+      $("#modal-icon").attr("src", "/assets/dashboard/img/info.png");
        if (form.parsley().isValid()) {
    
            var url = form.attr('action');

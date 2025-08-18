@@ -190,7 +190,6 @@
         e.preventDefault();
     
         var form = $(this);
-    
         if (form.parsley().isValid()) {
     
             var url = form.attr('action');
@@ -472,6 +471,9 @@
         e.preventDefault();
         
         var form = $(this);
+        
+        $("#modal-title").text("Upload Your Avatar");
+        $("#modal-icon").attr("src", "/assets/dashboard/img/upload-photos.png");
         var src = $("#item-img-output").attr('src');
         var url = form.attr('action');
         //console.log("hii"+ src);
@@ -495,13 +497,9 @@
                         $("#comman_modal").modal('show');
                         $(".avatarName").attr('src',url);
                         $(".file-upload-content").hide();
-                        
-                        
-                        
                     } else {
                         var msg = "Sumthing wrong...";
                         $('.comman_msg').text(msg);
-                        //$("#my_account_modal").show();
                         $("#comman_modal").modal('show');
                         location.reload();
                     }
@@ -519,8 +517,13 @@
                 }
             });
     });
-    $(".delete_avatar").click(function()
-    {
+
+
+
+    $(".delete_avatar").click(function() {       
+        
+        $("#modal-title").text("Remove Avatar");
+        $("#modal-icon").attr("src", "/assets/dashboard/img/remove-image.png");
         console.log("hello");
         $.ajax({
             method: 'POST',
@@ -528,13 +531,14 @@
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             success: function (data) {
                 if(data.type == 0) {
-                    $('.Lname').html("Saved");
-                    $("#my_account_modal").modal('show');
+                    var msg = "Saved";
+                    $('.comman_msg').text(msg);
+                    $("#comman_modal").modal('show');
                     console.log("Oops..");
                 } else {
-                    $('.Lname').html("Removed");
-                // $("#my_account_modal").modal('show');
-                    $("#my_account_modal").show();
+                    var msg = "Removed";
+                    $('.comman_msg').text(msg);
+                    $("#comman_modal").modal('show');
                     console.log("ok");
                 }
             }
@@ -542,7 +546,7 @@
     });
     $("#close").click(function()
     {
-        $("#my_account_modal").hide();
+        $("#comman_modal").hide();
         location.reload();
     });
 </script>

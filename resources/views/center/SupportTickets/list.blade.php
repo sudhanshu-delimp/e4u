@@ -50,7 +50,9 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div> 
+    
+    
         <div class="row">
             <div class="col-md-12">
                 <div class="box-body table table-hover table-responsive-xl">
@@ -255,5 +257,49 @@
 
            })
        });*/
+
+          // 🟠 Cancel Ticket
+    $(document).on('click', ".cancelTicket", function () {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, withdraw it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var ticketId = $(this).data('id');
+                var cancelTicketBtn = $(this);
+                $.ajax({
+                    method: "PUT",
+                    dataType: "json",
+                    url: "{{ route('support-ticket.withdraw', ':id') }}".replace(':id', ticketId),
+                    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                    success: function (data) {
+                        if (data.status == "success") {
+                            cancelTicketBtn.closest('tr').find('.status').data('status-id', 4).html('Withdrawn');
+                            cancelTicketBtn.closest('tr').find('.cancelTicket').remove();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Withdrawn',
+                                text: 'Your ticket withdrawn successfully.',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        } else {
+                            Swal.fire(
+                                'Oops!',
+                                data.message,
+                                'error'
+                            );
+                        }
+                    }
+                });
+            }
+        });
+    });
+       
 </script>
 @endpush

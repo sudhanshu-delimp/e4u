@@ -121,9 +121,9 @@ class SupportTicketsController extends AppController
                                     ';
 
                 $item->action .= '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 view_ticket" href="#" data-toggle="modal" data-id='.$item->id.' data-target="#conversation_modal"> <i class="fa fa-comments"></i> History
-                                    </a>  <div class="dropdown-divider"></div>';
+                                    </a>  ';
                 if (!in_array($item->getRawOriginal('status'), [3, 4])) {
-                    $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 cancelTicket" href="#" data-id=' . $item->id . '> <i class="fa fa-ban"></i> Withdraw
+                    $item->action .= '<div class="dropdown-divider"></div> <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 cancelTicket" href="#" data-id=' . $item->id . '> <i class="fa fa-ban"></i> Withdraw
                                         </a>';
                 }
                 $item->action .= '</div></div>';
