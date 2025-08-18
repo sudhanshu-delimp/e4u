@@ -1612,18 +1612,18 @@
                 </button>
             </div>
             @if(auth()->check() && auth()->user()->type==0)
-            <div class="modal-body pb-0 teop-text">
+            <div class="modal-body">
                     <h6 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
                                 <span id="Lname">To message {{ $escort->name}} please go to your Dashboard and select
                                     Communications > Messages. </span>
                             </h6>
                     <hr style="background-color: #0C223D">
-                <p class="mb-1 mt-3"><b>Notes:</b></p>
-                <ol class="pl-4">
-                    <li>Make sure you have enabled Messaging in your settings. If you have added {{ $escort->name}} to your
-                        Legbox, they will appear in your Message list. Otherwise, you can search by Member ID.</li>
-                    <li>To message {{ $escort->name}}, they will also need to have Messaging enabled.</li>
-                </ol>
+                    <p class="mb-1 mt-3"><b>Notes:</b></p>
+                                <ol>
+                                    <li>Make sure you have enabled Messaging in your settings. If you have added {{ $escort->name}} to your
+                                        Legbox, they will appear in your Message list. Otherwise, you can search by Member ID.</li>
+                                    <li>To message {{ $escort->name}}, they will also need to have Messaging enabled.</li>
+                                </ol>   
             </div>
             <div class="modal-footer text-center justify-content-center">
                 <a href="{{ route('user.viewer-messages') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Go to Message</a>                
@@ -1693,22 +1693,11 @@
             <form id="sendReportForm" action="{{ route('advertiser.spam.report')}}" method="post">
                 @csrf
                 <div class="modal-body">
-                    <p class="mb-1 mt-3"><b>Notes :</b></p>
-                    <div class="row">
-                        <input type="hidden" name="escort_id" value="{{$escort->id}}">
-                        <div class="col">
-                            <ol>
-                                <li>Only report if you had direct contact with the Escort.</li>
-                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended Only genuine reports will be considered.</li>
-                                <li>The Escort’s Member ID will automatically attach to this report.</li>
-                            </ol>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col">
                             <div class="form-group popup_massage_box">
-                                <label for="exampleFormControlTextarea1">What is wrong:</label>
-                                <textarea name="description" id="reportDesc" required class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="4" placeholder="Message (500 characters)">{{isset($spamReportAdvertiser->report_desc) ? $spamReportAdvertiser->report_desc : '' }}</textarea>
+                                <p class="font-weight-bold">What is wrong:</p>
+                                <textarea name="description" id="reportDesc" required class="form-control popup_massage_box p-2" id="exampleFormControlTextarea1" rows="5" placeholder="Message (500 characters)">{{isset($spamReportAdvertiser->report_desc) ? $spamReportAdvertiser->report_desc : '' }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -1740,7 +1729,22 @@
                         </div>
                         </div>
                     </div>
+                    
+                    
+                    <hr style="background-color: #0C223D" />
+                    <p class="mb-1 mt-3"><b>Notes :</b></p>
+                    <div class="row">
+                        <input type="hidden" name="escort_id" value="{{$escort->id}}">
+                        <div class="col">
+                            <ol>
+                                <li>Only report if you had direct contact with the Escort.</li>
+                                <li>Do not write fake or abusive reports, as it may result in your Account being suspended Only genuine reports will be considered.</li>
+                                <li>The Escort’s Member ID will automatically attach to this report.</li>
+                            </ol>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="modal-footer">
                     <button type="submit" class="site_btn_primary" id="sendReportSubmitBtn">Send Report</button>
                 </div>
@@ -1757,8 +1761,8 @@
  
             <!-- Header with navy background and [X] -->
             <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
-                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Report Loged</h5>
-                <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;">
+                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Report Logged</h5>
+                <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
                 <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/newcross.png" class="img-fluid img_resize_in_smscreen">
                 </button>
             </div>
@@ -1766,8 +1770,10 @@
             <!-- if logi Body content -->
            
             <div class="modal-body text-left">
-                <p class="font-weight-bold">Thank you for your report. Someone from our team will be in
-                touch shortly.</p>
+                <h6 class="popu_heading_style mb-4 mt-2 " style="text-align: center; color:#0C223D;">
+                    <span id="Lname">Thank you for your report. Someone from our team will be in
+                touch shortly.</span>
+                </h6>
              
             </div>
  
@@ -1776,13 +1782,13 @@
 </div>
  
 <!-- Trigger Button -->
-<!--- <button type="button" class="btn btn-outline-danger mt-3" data-toggle="modal" data-target="#reportLogedIn">
+{{-- <button type="button" class="btn btn-outline-danger mt-3" data-toggle="modal" data-target="#reportLogedIn">
    Viewer Loged In
 </button>
 
  <button type="button" class="btn btn-outline-danger mt-3" data-toggle="modal" data-target="#reportAdvertiserNew">
  login popup
- </button> -->
+ </button> --}}
 
 
 
@@ -1805,22 +1811,12 @@
             <form id="reviewAdvertiser" action="{{ route('review.advertiser',[$escort->id])}}" method="post">
                 @csrf
                 {{--  <input type="hidden" value="" name="star_rating">--}}
-                <div class="modal-body">
-                    <p class="mb-1 mt-3"><b>Notes</b></p>
-                    <div class="row">
-                        <div class="col teop-text">
-                            <ul>
-                                <li>Only review if you had direct contact with the Escort.</li>
-                                <li>Do not write fake or abusive reviews, as they will not be published.</li>
-                                <li>To contact this Escort click on <span style="color: #FF3C5F; ">Message Me</span>.</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="modal-body">                    
                     <div class="row">
                         <div class="col">
                             <div class="form-group popup_massage_box">
-                                <label for="exampleFormControlTextarea1">Tell us about your experience:</label>
-                                <textarea name="description" class="form-control popup_massage_box" id="review_textarea" rows="3" placeholder="Message (500 characters)">{{$reviewExistsMessage}}</textarea>
+                                <p class="font-weight-bold">Tell us about your experience:</p>
+                                <textarea name="description" class="form-control popup_massage_box p-2" id="review_textarea" rows="5" placeholder="Message (500 characters)">{{$reviewExistsMessage}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -1842,6 +1838,14 @@
                         </div>
                         <input type="hidden" id="userRating" name="rating" value="{{$reviewExistsStarRating}}">
                     </div>
+                    
+                    <hr style="background-color: #0C223D">
+                    <p class="mb-1 mt-3"><b>Notes:</b></p>
+                            <ol>
+                                <li>Only review if you had direct contact with the Escort.</li>
+                                <li>Do not write fake or abusive reviews, as they will not be published.</li>
+                                <li>To contact this Escort click on <a href="{{ route('user.viewer-messages') }}" style="color: #ff3c5f;" class="custom_links_design">Message Me</span></a>.</li>
+                            </ol>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn main_bg_color site_btn_primary rounded">{{$reviewAlreadyExist ? 'Update' : "Submit"}} Review</button>
@@ -2396,6 +2400,7 @@ $(document).on('click', '.modal .close', function () {
     $('#my_legbox').modal('hide');
     $('#reportAdvertiserNew').modal('hide');
     $('#sendcarlat').modal('hide');
+    $('#reportLogedIn').modal('hide');
 });
 
 $(document).ready(function() {
@@ -2422,14 +2427,15 @@ $(document).ready(function() {
                     
                 }else{
                     if(!response.error){
-                        $.toast({
+                        /* $.toast({
                             heading: 'Success',
                             text: 'Your report for this advertiser has been submitted successfully.',
                             icon: 'success',
                             loader: true,
                             position: 'top-right',      // Change it to false to disable loader
                             loaderBg: '#9EC600'  // To change the background
-                        });
+                        }); */
+                        $("#reportLogedIn").modal('show');
                     } else {
                         $.toast({
                             heading: 'Error',

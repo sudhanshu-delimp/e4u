@@ -44,6 +44,19 @@
             </div>
         </div>
 
+        @php
+            $escortDisplayType = 'block';
+            $massageDisplayType = 'block';
+
+            if($dashboardType == 'escort'){
+                $massageDisplayType = 'none';
+            }
+            
+            if ($dashboardType == 'massage') {
+                $escortDisplayType = 'none';
+            }
+        @endphp
+
         <div class="row">
             <div class="col-md-12 mb-4">
                 <div class="card collapse" id="notes" style="">
@@ -51,10 +64,16 @@
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
 
                         <ol>
-                            <li>The My Legbox feature is a list only for your favourite Escorts and Massage Centres.  Please
-                                note that Notifications only applies to Escorts.</li>
+                            @if($massageDisplayType == 'block')
+                                <li>The My Legbox feature is a list only of your favourite Massage Centres. Please note Notifications do not apply to Massage Centres.</li>
                             <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a> feature to
-                                record your experience with an Escort or Massage Centre you have added to My Legbox.</li>
+                                record your experience with an Escort you have added to My Legbox.</li>
+                            @else
+                                <li>The My Legbox feature is a list only of your favourite Escorts. Please note, the Notifications feature is enabled, according to your settings, by default. You can enable or disable Notifications exclusively with an Escort. Go to ‘Action’.</li>
+                            <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a> feature to
+                                record your experience with a Massage Centre you have added to My Legbox.</li>
+                            @endif
+                            
                         </ol>
                     </div>
                 </div>
@@ -63,7 +82,7 @@
         <!-- Page Heading -->
 
         <!-- My Escort Legbox -->
-        <div class="row my-2">
+        <div class="row my-2" style="display: {{ $escortDisplayType }}">
             <div class="col-md-12 mb-4">
                 <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-10">
                     <h2 class="h2">Escort Center Legbox</h2>
@@ -103,7 +122,7 @@
         {{-- escort list legbox --}}
 
         <!-- My massage Legbox -->
-   <div class="row my-2">
+   <div class="row my-2" style="display: {{ $massageDisplayType }}">
       <div class="col-md-12 mb-4">
          <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-10">
             <h2 class="h2">Massage Center Legbox</h2>
@@ -386,6 +405,50 @@
                                 <input type="hidden" id="removeEscortName" value="">
                                 <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
                                 <button type="button" class="btn-success-modal removeEscortButton">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {{-- End Modal --}}
+
+    {{-- Remove Massage Profile  Modal --}}
+    <div class="modal fade upload-modal" id="removeMassage" tabindex="-1" role="dialog"
+        aria-labelledby="removeMassageLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <img src="{{ asset('assets/dashboard/img/delete-user.png') }}"
+                            style="width:45px; padding-right:10px;">
+                        <span class="text-white removeMassageTitle">Remove Massage Center</span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+
+                <div class="modal-body pb-0 agent-tour">
+                    <div class="row">
+                        <div class="col-md-12 my-3 text-center">
+                            <h4 class="mb-0">Remove permanently from your Legbox</h4>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 my-3">
+                            <div class="form-group d-flex align-items-center justify-content-end gap-10">
+                                <input type="hidden" id="removeMassageId" value="">
+                                <input type="hidden" id="removeMassageName" value="">
+                                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn-success-modal removeMassageButton">Remove</button>
                             </div>
                         </div>
                     </div>
@@ -890,10 +953,10 @@
                 //     'message' : 'Escort '+stagename+' is removed successfully!',
                 // }
 
-                $(".removeEscortTitle").text('Remove '+stagename)
-                $("#removeEscortId").val(massageId);
-                $("#removeEscortName").val(stagename);
-                $("#removeEscort").modal('show')
+                $(".removeMassageTitle").text('Remove '+stagename)
+                $("#removeMassageId").val(massageId);
+                $("#removeMassageName").val(stagename);
+                $("#removeMassage").modal('show')
                 //return  ajaxCall(url, data, $(this));
                 
             });
@@ -901,16 +964,16 @@
             $(document).on('click', '.removeMassageButton', function(e) {
                 e.preventDefault();
                 
-                let escortId = $("#removeMassageId").val();
+                let massageId = $("#removeMassageId").val();
                 let stagename = $("#removeMassageName").val();
                 let data = {
-                    'escort_id' : escortId,
+                    'massage_id' : massageId,
                     'type' : 'remove',
                     'message' : stagename+' removed from your legbox successfully!',
                 }
 
                 let url = '{{ route("viewer.massage-remove") }}';
-                return  ajaxCall(url, data, $(this));
+                return  massageAjaxCallback(url, data, $(this));
                 
             });
 
@@ -923,7 +986,7 @@
                     data: rowData,
                     success: function(response) {
                         
-                        console.log('response');
+                        console.log('response jiten');
                         console.log(response);
                         // i am using same modal for massage just change the text, title, message here
                         $('#escortProfileModal').modal('show');
@@ -948,7 +1011,7 @@
                         }
 
                         if(response.type == 'remove'){
-                            $("#removeEscort").modal('hide');
+                            $("#removeMassage").modal('hide');
                             $(".modal_title_span").text('Massage Center Removed');
                             $(".body_text").text(response.message);
                         }

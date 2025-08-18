@@ -202,7 +202,7 @@
 
     <li class="nav-item active">
         <a class="nav-link" href="{{ route('escort.archive-myplaybox') }}">
-            <img src="{{ asset('assets/dashboard/img/menu-icon/play-25.png') }}"/>
+            <img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}"/>
            <span>My Playbox</span>
         </a>
     </li>

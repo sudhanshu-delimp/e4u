@@ -30,10 +30,6 @@
                     <ol>
                         <li>All current (published) Pin Up Listings are displayed in this table.</li>
                         <li>You have limited Action access according to your security level.</li>
-                        <li>
-                            <p>Prefixes:</p>
-                            <p>1. ACT 2. NSW 3. Vic 4. Qld 5. SA 6. W A 7. Tas 8. NT.</p>
-                        </li>
                     </ol>
                 </div>
             </div>
