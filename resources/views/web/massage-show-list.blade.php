@@ -582,19 +582,21 @@
         {{-- 
         <div class="modal defult-modal" id="forhelp">
             --}}
-            <div class="modal defult-modal" id="forhelp">
+            <div class="modal fade" id="forhelp">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content rounded-0 custome_modal_max_width">
+                        <div class="modal-header bg-first rounded-0">
+                            <h4 class="modal-title"><img src="{{ asset('assets/dashboard/img/short-list-profile.png') }}" class="custompopicon">Managing your Short List</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <img src="{{ asset('assets/app/img/newcross.png')}}" class=" ">
+                                </button>
+                        </div>
                         <!-- Modal body -->
                         <div class="modal-body p-0">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <img src="{{ asset('assets/app/img/newcross.png')}}" class=" ">
-                            </button>
-                            <h3>Managing your Short List</h3>
                             <div class="modal-sec">
-                                <p><b class="pb-4">You can manage your Short List by:</b></p>
+                                <p><b class="mt-1 mb-3">You can manage your Short List by:</b></p>
                                 
-                                <ol class="pl-3">
+                                <ol>
                                     <li>Adding and removing Profiles by clicking the Short List button attached to the Profiles
                                     and then refreshing the page.</li>
                                     <li>Remembering that your Short List presents the Profiles according to the search criteria
