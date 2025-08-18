@@ -918,6 +918,7 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content border-0">
                                     <div class="modal-header border-0">
+                                        {{--<h5 class="modal-title pl-5"><img src="{{ asset('assets/dashboard/img/upload-videos.png') }}" class="custompopicon"></h5>--}}
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen pt-3 mt-1 pr-4"></span>
                                         </button>
