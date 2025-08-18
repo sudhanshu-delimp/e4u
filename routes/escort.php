@@ -374,3 +374,11 @@ Route::post('agent-request',[AgentRequestController::class, 'agentRequest'])->na
 Route::get('get-notification', [NotificationController::class, 'getNotification'])->name('escort.get-notification');
 Route::post('notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('escort.notification-seen');
     
+
+
+Route::get('customise-dashboard', [EscortController::class, 'customiseDashboard'])->name('escort.dashboard.customise-dashboard');
+Route::post('customise-dashboard', [EscortController::class, 'updateCustomiseDashboard'])->name('escort.dashboard.customise-dashboard');
+
+// Route::get('customise-dashboard',function(){
+//     return view('escort.dashboard.customise-dashboard');
+// })->name('escort.dashboard.customise-dashboard');

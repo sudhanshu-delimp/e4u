@@ -436,9 +436,9 @@ Route::get('/agent-dashboard/abbreviations',function(){
 
 
 
-Route::get('/escort-dashboard/customise-dashboard',function(){
-    return view('escort.dashboard.customise-dashboard');
-})->name('escort.dashboard.customise-dashboard');
+
+
+
 
 Route::get('/escort-dashboard/escorts-statistics',function(){
     return view('escort.dashboard.escorts-statistics');
