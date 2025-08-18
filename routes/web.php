@@ -652,9 +652,7 @@ Route::get('/admin-dashboard/management/staff',function(){
     return view('admin.management.staff');
 })->name('admin.staff');
 
-Route::get('/admin-dashboard/management/agent',function(){
-    return view('admin.management.agent');
-})->name('admin.agent');
+
 
 Route::get('/admin-dashboard/management/email-management',function(){
     return view('admin.management.email-management');

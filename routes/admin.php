@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\TaskController;
+use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\Analytics\ConsolesController;
+use App\Http\Controllers\Admin\SupportTicketsController;
+use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
+use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
-use App\Http\Controllers\Admin\SupportTicketsController;
-use App\Http\Controllers\Admin\TaskController;
 
 Route::get('', 'DashboardController@index')->name('admin.index');
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
@@ -136,3 +137,9 @@ Route::get('pricingsummaries-datatable',[PricingsummariesController::class ,'Pri
 // Route::get('/my-legbox-notes', function(){
 // 	return view('admin.legbox.notes');
 // });
+
+
+
+
+Route::get('/management/agent',[AgentController::class,'agent_list'])->name('admin.agent');
+Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');
