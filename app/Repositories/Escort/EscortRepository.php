@@ -128,15 +128,16 @@ class EscortRepository extends BaseRepository implements EscortInterface
             ->limit($limit)
             ->with([
                 'latestActivePinup',
+                'activeUpcomingSuspend',
                 'brb' => function ($query) {
                     $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
                 },
-                'suspendProfile' => function ($query) {
-                    $today = Carbon::now(config('app.timezone'));
-                    $query->where('utc_start_date', '<=', $today)
-                        ->where('utc_end_date', '>=', $today)
-                        ->where('status', true);
-                }
+                // 'suspendProfile' => function ($query) {
+                //     $today = Carbon::now(config('app.timezone'));
+                //     $query->where('utc_start_date', '<=', $today)
+                //         ->where('utc_end_date', '>=', $today)
+                //         ->where('status', true);
+                // }
             ])
 
             //->whereNotNull('profile_name')
@@ -247,49 +248,41 @@ class EscortRepository extends BaseRepository implements EscortInterface
            
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '"> <i class="fa fa-trash"></i> Delete </a> <div class="dropdown-divider"></div>';
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', $item->id) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"> <i class="fa fa-pen"></i> Edit</a> <div class="dropdown-divider"></div>';
-            if($item->latestActivePinup && empty($itemArray['suspend_profile'])){
+            if($item->latestActivePinup && empty($item->activeUpcomingSuspend)){
                 $item->action .= '<a class="dropdown-item" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary"><i class="fa fa-hand-pointer" aria-hidden="true"></i> Pin Up Summary</a> <div class="dropdown-divider"></div>';
             }
             $item->action .= ' <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '"> <i class="fa fa-eye"></i>  View Profile</a></div>';
             $item->action .= '</div>';
 
             $itemArray = $item->toArray();
-            //$item->custom_profile_name = ($itemArray['profile_name'] ? $itemArray['profile_name'] :"NA");
+           
 
-            if (!empty($itemArray['suspend_profile']) && isset($itemArray['suspend_profile'][0])) {
-                $suspend = $itemArray['suspend_profile'][0];
-
-                $startDate = Carbon::parse($suspend['utc_start_date']);
-                $endDate = Carbon::parse($suspend['utc_end_date']);
-                $createdAt = Carbon::parse($suspend['created_at']);
-
-                if (Carbon::now('UTC')->greaterThanOrEqualTo($startDate) && Carbon::now('UTC')->lessThanOrEqualTo($endDate)) {
-                    $item->pro_name = '<span id="brb_' . $item->id . '">' .
-                        $item->profile_name .
-                        " <sup title='Suspended on " . $createdAt->format('d-m-Y h:i A') .
-                        "' class='brb_icon' style='background-color: #2653d4;'>Suspend</sup>";
-                }
-            }
-
-            if ($itemArray['brb'] && empty($itemArray['suspend_profile'])) {
+            if ($itemArray['brb']) {
                 $item->pro_name = '<span id="brb_' . $item->id . '">' . $item->profile_name . " <sup class='brb_icon listing-tag-tooltip'>BRB <small class='listing-tag-tooltip-desc'>Brb  " . date('d-m-Y h:i A', strtotime($itemArray['brb'][0]['selected_time']))."</small></sup>";
                 $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">';
                 
                 $item->action .= '<a class="dropdown-item brb-inactivate" href="' . route('escort.brb.inactive', $itemArray['brb'][0]['id']) . '" data-id="' . $itemArray['brb'][0]['id'] . '" data-category="' . ($itemArray['brb'][0]['id']) . '"><i class="fa fa-ban" aria-hidden="true"></i> Cancel BRB</a> <div class="dropdown-divider"></div>';
                 $item->action .= '<a class="dropdown-item" href="' . route('escort.update.profile', $item->id) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"><i class="fa fa-pen"></i> Edit</a> <div class="dropdown-divider"></div>';
                 $item->action .= '<a class="dropdown-item delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '"><i class="fa fa-trash"></i> Delete </a> <div class="dropdown-divider"></div>';
-                if($item->latestActivePinup && empty($itemArray['suspend_profile'])){
+                if($item->latestActivePinup){
                     $item->action .= '<a class="dropdown-item" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary" ><i class="fa fa-hand-pointer" aria-hidden="true"></i> Pin Up Summary</a> <div class="dropdown-divider"></div>';
                 }
                 $item->action .= '<a class="dropdown-item" href="' . route('profile.description', $item->id) . '?brb='.$itemArray['brb'][0]['id'].'" data-id="' . $item->id . '"><i class="fa fa-eye"></i>  View Profile</a> <div class="dropdown-divider"></div>';
                 $item->action .= '</div></div>';
             }
 
-            if($item->latestActivePinup && empty($itemArray['suspend_profile'])){
+            if($item->latestActivePinup){
                 $item->pro_name .= '<sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
                 <small class="listing-tag-tooltip-desc">Pinup from ' . date("d-m-Y", strtotime($item->latestActivePinup->start_date)) . " to ".date("d-m-Y", strtotime($item->latestActivePinup->end_date)).'</small>
                 </sup>';
             }
+
+            if(!empty($item->activeUpcomingSuspend)){
+                $item->pro_name .= '<sup class="suspend_icon listing-tag-tooltip ml-1">SUS
+                <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($item->activeUpcomingSuspend->start_date)) . " to ".date("d-m-Y", strtotime($item->activeUpcomingSuspend->end_date)).'</small>
+                </sup>';
+            }
+            
             $item->pro_name .= '</span>';
             $i++;
         }
