@@ -250,7 +250,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             if($item->latestActivePinup && empty($itemArray['suspend_profile'])){
                 $item->action .= '<a class="dropdown-item" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary"><i class="fa fa-hand-pointer" aria-hidden="true"></i> Pin Up Summary</a> <div class="dropdown-divider"></div>';
             }
-            $item->action .= ' <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '"> <i class="fa fa-eye"></i> View</a></div>';
+            $item->action .= ' <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '"> <i class="fa fa-eye"></i>  View Profile</a></div>';
             $item->action .= '</div>';
 
             $itemArray = $item->toArray();
@@ -281,7 +281,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 if($item->latestActivePinup && empty($itemArray['suspend_profile'])){
                     $item->action .= '<a class="dropdown-item" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary" ><i class="fa fa-hand-pointer" aria-hidden="true"></i> Pin Up Summary</a> <div class="dropdown-divider"></div>';
                 }
-                $item->action .= '<a class="dropdown-item" href="' . route('profile.description', $item->id) . '?brb='.$itemArray['brb'][0]['id'].'" data-id="' . $item->id . '"><i class="fa fa-eye"></i> View</a> <div class="dropdown-divider"></div>';
+                $item->action .= '<a class="dropdown-item" href="' . route('profile.description', $item->id) . '?brb='.$itemArray['brb'][0]['id'].'" data-id="' . $item->id . '"><i class="fa fa-eye"></i>  View Profile</a> <div class="dropdown-divider"></div>';
                 $item->action .= '</div></div>';
             }
 
@@ -315,7 +315,7 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->start_date_parsed = $item->created_at ? Carbon::parse($item->start_date)->format('d M Y') : null;
             $item->joined = $item->joined ? "<span class='times_circle_icon'><i class='far fa-check-circle'></i>
             </span>" : "<span class='check_circle_icon'><i class='far fa-times-circle'></i></span>";
-            $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"> <a class="dropdown-item" href="../escort-profile/' . $item->id . '" data-id="' . $item->id . '">view</a> <div class="dropdown-divider"></div><a class="dropdown-item" href="profile/' . $item->id . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '">Edit</a> <div class="dropdown-divider"></div><a class="dropdown-item" href="#" data-id="' . $item->id . '" data-name="' . $item->name . '"  data-city="' . ($item->city ? $item->city->name : null) . '" data-url="playmates/' . $item->id . '" data-toggle="modal" data-target="#play-mates-modal">Playmates</a> <div class="dropdown-divider"></div><a class="dropdown-item delete-center" href="delete-profile/' . $item->id . '" data-id="' . $item->id . '">Delete </a> <div class="dropdown-divider"></div></div></div>';
+            $item->action = '<div class="dropdown no-arrow"> <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink"> <a class="dropdown-item" href="../escort-profile/' . $item->id . '" data-id="' . $item->id . '"> View Profile</a> <div class="dropdown-divider"></div><a class="dropdown-item" href="profile/' . $item->id . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '">Edit</a> <div class="dropdown-divider"></div><a class="dropdown-item" href="#" data-id="' . $item->id . '" data-name="' . $item->name . '"  data-city="' . ($item->city ? $item->city->name : null) . '" data-url="playmates/' . $item->id . '" data-toggle="modal" data-target="#play-mates-modal">Playmates</a> <div class="dropdown-divider"></div><a class="dropdown-item delete-center" href="delete-profile/' . $item->id . '" data-id="' . $item->id . '">Delete </a> <div class="dropdown-divider"></div></div></div>';
             $i++;
         }
 
