@@ -1612,18 +1612,18 @@
                 </button>
             </div>
             @if(auth()->check() && auth()->user()->type==0)
-            <div class="modal-body pb-0 teop-text">
+            <div class="modal-body">
                     <h6 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
                                 <span id="Lname">To message {{ $escort->name}} please go to your Dashboard and select
                                     Communications > Messages. </span>
                             </h6>
                     <hr style="background-color: #0C223D">
-                <p class="mb-1 mt-3"><b>Notes:</b></p>
-                <ol class="pl-4">
-                    <li>Make sure you have enabled Messaging in your settings. If you have added {{ $escort->name}} to your
-                        Legbox, they will appear in your Message list. Otherwise, you can search by Member ID.</li>
-                    <li>To message {{ $escort->name}}, they will also need to have Messaging enabled.</li>
-                </ol>
+                    <p class="mb-1 mt-3"><b>Notes:</b></p>
+                                <ol>
+                                    <li>Make sure you have enabled Messaging in your settings. If you have added {{ $escort->name}} to your
+                                        Legbox, they will appear in your Message list. Otherwise, you can search by Member ID.</li>
+                                    <li>To message {{ $escort->name}}, they will also need to have Messaging enabled.</li>
+                                </ol>   
             </div>
             <div class="modal-footer text-center justify-content-center">
                 <a href="{{ route('user.viewer-messages') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Go to Message</a>                
@@ -1809,22 +1809,12 @@
             <form id="reviewAdvertiser" action="{{ route('review.advertiser',[$escort->id])}}" method="post">
                 @csrf
                 {{--  <input type="hidden" value="" name="star_rating">--}}
-                <div class="modal-body">
-                    <p class="mb-1 mt-3"><b>Notes</b></p>
-                    <div class="row">
-                        <div class="col teop-text">
-                            <ol>
-                                <li>Only review if you had direct contact with the Escort.</li>
-                                <li>Do not write fake or abusive reviews, as they will not be published.</li>
-                                <li>To contact this Escort click on <span style="color: #FF3C5F; ">Message Me</span>.</li>
-                            </ol>
-                        </div>
-                    </div>
+                <div class="modal-body">                    
                     <div class="row">
                         <div class="col">
                             <div class="form-group popup_massage_box">
-                                <label for="exampleFormControlTextarea1">Tell us about your experience:</label>
-                                <textarea name="description" class="form-control popup_massage_box" id="review_textarea" rows="3" placeholder="Message (500 characters)">{{$reviewExistsMessage}}</textarea>
+                                <p class="font-weight-bold">Tell us about your experience:</p>
+                                <textarea name="description" class="form-control popup_massage_box p-2" id="review_textarea" rows="5" placeholder="Message (500 characters)">{{$reviewExistsMessage}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -1846,6 +1836,14 @@
                         </div>
                         <input type="hidden" id="userRating" name="rating" value="{{$reviewExistsStarRating}}">
                     </div>
+                    
+                    <hr style="background-color: #0C223D">
+                    <p class="mb-1 mt-3"><b>Notes:</b></p>
+                            <ol>
+                                <li>Only review if you had direct contact with the Escort.</li>
+                                <li>Do not write fake or abusive reviews, as they will not be published.</li>
+                                <li>To contact this Escort click on <a href="{{ route('user.viewer-messages') }}" style="color: #ff3c5f;" class="custom_links_design">Message Me</span></a>.</li>
+                            </ol>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn main_bg_color site_btn_primary rounded">{{$reviewAlreadyExist ? 'Update' : "Submit"}} Review</button>

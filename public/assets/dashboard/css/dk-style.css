@@ -6091,8 +6091,14 @@ button.short-list.btn.btn-primary {
     border: 1px solid #d1d3e2;
 }
 
-.photo-sec-popup {
+.photo-sec-popup.video-sec-popup {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.photo-sec-popup {
     padding: 5px;
     overflow-x: scroll;
     overflow-y: hidden;
