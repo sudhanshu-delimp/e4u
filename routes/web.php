@@ -140,7 +140,7 @@ Route::middleware('auth')->group(function () {
         })->name('user.viewer-statistics');
 
         # Escort viewer interaction routes
-        Route::get('/my-legbox',[EscortMyLegboxViewerController::class,'dashboard'])->name('user.my-legbox');
+        Route::get('/my-legbox/{type?}',[EscortMyLegboxViewerController::class,'dashboard'])->name('user.my-legbox');
         Route::get('/my-escort-legbox-ajax',[EscortMyLegboxViewerController::class,'escortViewersAjaxList'])->name('escort.viewer-legbox-list');
         Route::post('/escort/viewer-interaction-update', [EscortViewerInteractionController::class, 'escortUpdateViewerInteraction'])->name('escort.viewer-interaction.update');
 
