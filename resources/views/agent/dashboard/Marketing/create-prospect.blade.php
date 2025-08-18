@@ -54,7 +54,7 @@
             
             <div class="col-sm-12">
                <div class="bothsearch-form" style="gap: 10px;">
-                  <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#create-prospect">Create New  Prospect</button>
+                  <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#create-prospect">Create New  Prospect</button>
                </div>
             </div>
          </div>

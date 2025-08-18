@@ -195,8 +195,7 @@
     $('#userProfile').on('submit', function(e) {
         e.preventDefault();
     
-        var form = $(this);
-    
+        var form = $(this); 
         if (form.parsley().isValid()) {
     
             var url = form.attr('action');
@@ -475,9 +474,10 @@
     //     });
     // });
     $("#my_avatar").on('submit',function(e){
-        e.preventDefault();
-        
-        var form = $(this);
+        e.preventDefault();        
+        var form = $(this);        
+        $("#modal-title").text("Upload Your Avatar");
+        $("#modal-icon").attr("src", "/assets/dashboard/img/upload-photos.png");
         var src = $("#item-img-output").attr('src');
         var url = form.attr('action');
         //console.log("hii"+ src);
@@ -497,22 +497,19 @@
                         var url = "{{asset('avatars/name')}}";
                         url = url.replace('name',data.avatarName);
                         $('.comman_msg').text(msg);
-                        //$("#my_account_modal").show();
                         $("#comman_modal").modal('show');
                         $(".avatarName").attr('src',url);
                         $(".file-upload-content").hide();
-                        
-                        
+                        location.reload();
                         
                     } else {
-                        var msg = "Sumthing wrong...";
+                        var msg = "Something is wrong...";
                         $('.comman_msg').text(msg);
-                        //$("#my_account_modal").show();
                         $("#comman_modal").modal('show');
-                        location.reload();
                     }
                 },
                 error: function (data) {
+                    
                     $.toast({
                         heading: 'Error!',
                         text: data.responseJSON.message,
@@ -527,19 +524,23 @@
     });
     $(".delete_avatar").click(function()
     {
+        
+        $("#modal-title").text("Remove Avatar");
+        $("#modal-icon").attr("src", "/assets/dashboard/img/remove-image.png");
         $.post({
                     type: 'POST',
                     url: "{{ route('center.avatar.remove') }}",
                     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 }).done(function (data) {
                     if(data.type == 0) {
-                        $('.Lname').html("Saved");
-                        $("#my_account_modal").modal('show');
+                        var msg = "Saved";
+                        $('.comman_msg').text(msg);
+                        $("#comman_modal").modal('show');
                         console.log("Oops..");
                     } else {
-                        $('.Lname').html("Removed");
-                       // $("#my_account_modal").modal('show');
-                        $("#my_account_modal").show();
+                        var msg = "Removed";
+                        $('.comman_msg').text(msg);
+                        $("#comman_modal").show();
                         console.log("ok");
                     }
                 });

@@ -1663,7 +1663,7 @@
             <!-- if viewer not login -->
             <div class="modal-body pb-0 teop-text" >
                 <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
-                    <span id="Lname">Please log in or Register to report Advertiser</span>
+                    <span id="Lname">Report Advertiser is only available to Viewers. Please log in or Register to access Report Advertiser.</span>
                 </h6>
                 <div class="modal-footer text-center justify-content-center" >
                 <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>

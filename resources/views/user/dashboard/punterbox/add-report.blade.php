@@ -61,7 +61,7 @@
                      <ol class="level-2">
                         <li>as to the accuracy or legitimacy of the allegations; and</li>
                         <li>nor do we investigate the authenticity of the Reports (provided in confidence by
-                           Viewers)
+                           Viewers).
                            </li>
                      </ol>
                 </ol>

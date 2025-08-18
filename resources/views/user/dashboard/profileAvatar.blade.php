@@ -187,7 +187,6 @@ label.cabinet input.file{
         e.preventDefault();
     
         var form = $(this);
-    
         if (form.parsley().isValid()) {
     
             var url = form.attr('action');
@@ -376,6 +375,9 @@ label.cabinet input.file{
     
     $(".delete_avatar").click(function()
     {
+        
+    $("#modal-title").text("Remove Avatar");
+    $("#modal-icon").attr("src", "/assets/dashboard/img/remove-image.png");
         $.post({
                     type: 'POST',
                     url: "{{ route('user.avatar.remove') }}",
@@ -504,6 +506,11 @@ label.cabinet input.file{
         e.preventDefault();
         
         var form = $(this);
+        
+    
+    
+    $("#modal-title").text("Upload Your Avatar");
+    $("#modal-icon").attr("src", "/assets/dashboard/img/upload-photos.png");
         var src = $("#item-img-output").attr('src');
         var url = form.attr('action');
         //console.log("hii"+ src);
