@@ -219,7 +219,7 @@
                                     <div class="row pl-2">
                                         <div class="col-12">
                                             <div class="row" style="">
-                                                <div class="photo-sec-popup"  id="image_preview">
+                                                <div class="photo-sec-popup video-sec-popup"  id="image_preview">
                                                     {{-- <div class="col-md-2 pl-0">
                                                         {{-- <video poster="{{ asset('assets/app/img/video-poster.png')}}" controls="" style="width: 135px;height: 190px;background: #0000006b;">
                                                             <source src="{{ asset('assets/app/img/mov_bbb.mp4')}}" type="video/mp4">
@@ -244,7 +244,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-4 pt-1" style="border: 1px dotted;">
+                                    {{-- <div class="row mt-4 pt-1" style="border: 1px dotted;">
                                         <div class="col-6 pt-4 pb-4">
                                             <h4>Verify these Videos</h4>
                                             <ul style="text-align: justify;">
@@ -262,7 +262,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -295,8 +295,8 @@
                 </h1>
             </div>
             <div class="modal-footer" style="justify-content: center;">
-                <button type="submit" class="btn main_bg_color site_btn_primary d_img" data-dismiss="modal" id="close">Cancel</button>
-                <button type="submit" class="btn main_bg_color site_btn_primary d_img" id="dImg">Ok</button>
+                <button type="submit" class="btn-cancel-modal d_img" data-dismiss="modal" id="close">Cancel</button>
+                <button type="submit" class="btn-success-modal d_img" id="dImg">Ok</button>
             </div>
         </div>
     </div>
