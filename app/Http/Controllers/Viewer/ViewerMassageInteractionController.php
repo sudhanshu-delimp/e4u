@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Viewer;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Escort;
+use App\Models\MassageAvailability;
 use App\Models\MassageProfile;
 use App\Models\MassageViewerInteractions;
 use App\Models\MyLegbox;
 use App\Models\MyMassageLegbox;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -19,6 +21,7 @@ class ViewerMassageInteractionController extends Controller
 {
     public function viewerUpdateMassageInteraction(Request $request)
     {
+        //dd($request->all());
         $massageCenter = MassageProfile::where('id',$request->massage_id)->first();
         $userid = $massageCenter->user_id;
 
@@ -134,9 +137,7 @@ class ViewerMassageInteractionController extends Controller
         if (auth()->user()) {
             $myMassageLegbboxIds = MyMassageLegbox::where('user_id', auth()->user()->id)->pluck('massage_id');
 
-            $massageCenters = MassageProfile::whereIn('id',$myMassageLegbboxIds)->with(['city','state','user','messageViewerInteraction'])->get();
-
-            // dd($massageCenters);
+            $massageCenters = MassageProfile::whereIn('id',$myMassageLegbboxIds)->where('enabled',1)->with(['city','state','user','messageViewerInteraction']);
 
              return DataTables::of($massageCenters)
                 ->addColumn('massage_id', function ($row) {
@@ -152,7 +153,39 @@ class ViewerMassageInteractionController extends Controller
                  })
                 ->addColumn('open_now', function($row){  
 
-                    return 'Yes';
+                    # get viewer location with timezone
+                    $user = Auth::user();
+                    if(!$user){
+                        return 'No';
+                    }
+
+                    # Get massage center state & tiemzone # get massage profile opeing and closing times
+                    $massageCenterStateId = $row->state_id;
+                    $massageTimezone = config("escorts.profile.states.$massageCenterStateId.timeZone");
+                    $massageTime = Carbon::now()->copy()->setTimezone($massageTimezone);
+
+                    $day = strtolower($massageTime->format('l')); // massage_availability
+
+                    $massageOpenCloseTiming = MassageAvailability::where('massage_profile_id',$row->id)->select($day.'_from',$day.'_to')->first();
+
+                    if($massageOpenCloseTiming){
+                        $massageOpenCloseTiming = $massageOpenCloseTiming->toArray();
+                        $openTime = $massageOpenCloseTiming[$day."_from"];
+                        $closeTime = $massageOpenCloseTiming[$day."_to"];
+
+                        if ($openTime && $closeTime) {
+                            // Convert to Carbon with timezone
+                            $open = Carbon::createFromFormat('H:i:s', $openTime, $massageTimezone);
+                            $close = Carbon::createFromFormat('H:i:s', $closeTime, $massageTimezone);
+                            
+                            // Check if current time is between open & close
+                            if ($massageTime->between($open, $close)) {
+                                // return 'Yes -' . $close. ' - '.$massageTime;
+                                return 'Yes';
+                            }
+                        }
+                    }
+                    return 'No';
                  })
 
                 ->addColumn('rating_label', function ($row) {
@@ -207,6 +240,26 @@ class ViewerMassageInteractionController extends Controller
                     $notCurrentText = 'Enable';
                     $rate = 'no_rated';
 
+                    # If escort blocked viewer
+                    $massageViewerInteractions = MassageViewerInteractions::where('user_id',$row->user_id)->where('massage_id',$row->id)->where('viewer_id',Auth::user()->id)->first();
+
+                    if($massageViewerInteractions && $massageViewerInteractions->viewer_disabled_contact == 1){
+                        $conClass = '';
+                        $conText = 'Enable';
+                        $conCurrentText = 'disable';
+                    }
+                    
+                    if($massageViewerInteractions && $massageViewerInteractions->viewer_disabled_notification == 1){
+                        $notClass = '';
+                        $notText = 'Enable';
+                        $notCurrentText = 'disable';
+                        
+                    }
+
+                    // if($massageViewerInteractions && $massageViewerInteractions->viewer_rate_escort){
+                    //     $rate = $massageViewerInteractions->viewer_rate_escort;
+                    // }
+
                     $viewButton = '<a class="dropdown-item align-item-custom massageProfileView"  href="#"
                                                     data-toggle="modal" data-massage-name="'.$row->name.'" data-profile-enable="'.$row->enabled.'" data-id="'.$row->id.'"> <i
                                                         class="fa fa-eye" aria-hidden="true"></i>
@@ -223,7 +276,7 @@ class ViewerMassageInteractionController extends Controller
                                             aria-labelledby="dropdownMenuLink">
 
                                             <div class="custom-tooltip-container">
-                                                <a class="dropdown-item align-item-custom toggle-contact" href="#" title="Click to '.Str::lower($conText).' contact" 
+                                                <a class="dropdown-item align-item-custom toggle-massage-contact" href="#" title="Click to '.Str::lower($conText).' contact" 
                                                 data-id="'.$row->id.'" data-status="'.Str::lower($conCurrentText).'"> 
                                                 <i class="fa fa-phone'.$conClass.' me-1"></i> <span>'.$conText.' Contact</span>
                                                 </a>
@@ -231,7 +284,7 @@ class ViewerMassageInteractionController extends Controller
                                                 <div class="dropdown-divider"></div>
                                             </div>
                                             <div class="custom-tooltip-container">
-                                                <a class="dropdown-item align-item-custom toggle-notification" href="#" title="Click to '.Str::lower($notText).' notification"
+                                                <a class="dropdown-item align-item-custom toggle-massage-notification" href="#" title="Click to '.Str::lower($notText).' notification"
                                                 data-id="'.$row->id.'" data-status="'.Str::lower($notCurrentText).'"> 
                                                 <i class="fa fa-bell'.$notClass.' me-1" aria-hidden="true"></i> <span>'.$notText.' Notifications</span>
                                                 <span class="tooltip-text">Viewer will not get notifications from this
