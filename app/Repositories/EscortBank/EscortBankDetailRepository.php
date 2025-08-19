@@ -25,24 +25,30 @@ class EscortBankDetailRepository extends BaseRepository implements EscortBankDet
     public function paginatedByEscortBankDetail($start, $limit, $order_key, $dir, $columns, $search = null, $user_id)
 	{
         $order = $this->getOrder($order_key);
+       
 
 		$searchables = $this->getSearchableFields($columns);
+       
         $query = $this->model
 			->where('user_id', $user_id)
 			->offset($start)
 		    ->limit($limit)
 		    ->orderBy('state',$dir);
+        
 
-		if($search) {
-			foreach ($searchables as $column) {
-				if(in_array($column, $this->getColumns())) {
-					$query->orWhere($column, 'LIKE', "%{$search}%");
-				}
-			}
-		}
+
+        if($search){
+            $query->where(function($q) use ($searchables, $search){
+                foreach($searchables as $column){
+                    if(in_array($column, $this->getColumns())){
+                        $q->orWhere($column, 'LIKE', "%{$search}%");
+                    }
+                }
+            });
+        }
 
 		$result = $query->get();
-       //dd($result);
+      // dd($result);
         $result = $this->modifyProperties($result,$start);
 		$count =  $this->model->where('user_id', $user_id)->get()->count();
 

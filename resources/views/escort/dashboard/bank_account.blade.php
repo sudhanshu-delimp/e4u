@@ -3,8 +3,8 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <style type="text/css">
    .parsley-errors-list {
-   /* color: red; */
-   list-style: none;
+      /* color: red; */
+      list-style: none;
    }
 </style>
 @endsection
@@ -13,39 +13,39 @@
    <!--middle content end here-->
    <div class="row">
       <div class="col-md-12 custom-heading-wrapper">
-        <h1 class="h1">My Bank Account</h1>
-            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-         
+         <h1 class="h1">My Bank Account</h1>
+         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+
       </div>
-      
-   <div class="col-md-12 mb-4 collapse" id="notes">
-      <div class="card">
-         <div class="card-body">
-            <h3 class="NotesHeader"><b>Notes:</b> </h3>
-            <ol>
-               <li>Use this feature for displaying your Bank Account details for an Electronic
-                  Funds Transfer (<b>EFT</b>). By using this feature for an EFT payment, you remove
-                  the risk of having your bank account app open.</li>
-               <li>You can set up, update and add additional bank accounts by clicking the 'Add
-                  New' button. SMS 2FA authentification is applied for any changes to your Bank
-                  Account details, including the initial setup.</li>
-               <li>To display your Bank Account details to a client, select from the Action options
-                  ‘EFT Client’, enter your PIN number, and your bank account details will display.</li>
-            </ol>
+
+      <div class="col-md-12 mb-4 collapse" id="notes">
+         <div class="card">
+            <div class="card-body">
+               <h3 class="NotesHeader"><b>Notes:</b> </h3>
+               <ol>
+                  <li>Use this feature for displaying your Bank Account details for an Electronic
+                     Funds Transfer (<b>EFT</b>). By using this feature for an EFT payment, you remove
+                     the risk of having your bank account app open.</li>
+                  <li>You can set up, update and add additional bank accounts by clicking the 'Add
+                     New' button. SMS 2FA authentification is applied for any changes to your Bank
+                     Account details, including the initial setup.</li>
+                  <li>To display your Bank Account details to a client, select from the Action options
+                     ‘EFT Client’, enter your PIN number, and your bank account details will display.</li>
+               </ol>
+            </div>
          </div>
       </div>
-</div>
    </div>
-   
+
    <div class="row mb-2">
       <div class="col-lg-12 col-md-12 col-sm-12">
-        
+
          <div class="bothsearch-form">
-            <button type="button" class="create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New Account</button>
+            <button type="button" class="create-tour-sec dctour" data-toggle="modal" id="commission-modal" data-target="#commission-report2">Add New Account</button>
          </div>
       </div>
    </div>
-  
+
    <div class="row">
       <div class="col-md-12 mt-2">
          <div id="" class="table-responsive-xl">
@@ -73,7 +73,7 @@
          <div class="modal-header">
             <h5 class="modal-title"><img src="/assets/dashboard/img/add-new-account.png" class="custompopicon" alt="cross"> Add New Account</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
          </div>
          <div class="modal-body pb-0 escort-tour">
@@ -135,14 +135,14 @@
 <div class="modal" id="sendOtp_modal" style="display: none">
    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content custome_modal_max_width">
-         <form id="SendBankOtp" method="post" action="" >
+         <form id="SendBankOtp" method="post" action="">
             @csrf
             <div class="modal-header main_bg_color border-0">
-               <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/face-lock.png') }}" style="width:40px;" alt="face-lock verification">  2FA Verification</h5>
+               <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/face-lock.png') }}" style="width:40px;" alt="face-lock verification"> 2FA Verification</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true">
-               <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-               </span>
+                  <span aria-hidden="true">
+                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                  </span>
                </button>
             </div>
             <div class="modal-body forgot_pass pb-1">
@@ -187,12 +187,12 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content custome_modal_max_width">
          <div class="modal-header main_bg_color border-0">
-           
+
             <h5 class="modal-title text-white"><img src="/assets/dashboard/img/remove-bank-account.png" class="custompopicon" alt="cross"> Delete Bank Account</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">
-            <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-            </span>
+               <span aria-hidden="true">
+                  <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+               </span>
             </button>
          </div>
          <div class="modal-body">
@@ -219,96 +219,142 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
    $("#escort_bank").parsley({
-   
+
    });
    $("#SendBankOtp").parsley({
-   
+
    });
-   
-   $("#commission-modal").click(function(){
-        console.log("hello");
-        $("#commission-report").modal('show');
-        $('#bank_name').attr('disabled',false);
-        $("form").attr('autocomplete', 'off');
+
+   $("#commission-modal").click(function() {
+      console.log("hello");
+      $("#commission-report").modal('show');
+      $('#bank_name').attr('disabled', false);
+      $("form").attr('autocomplete', 'off');
    })
-   
-   $('body').on ('show.bs.modal', '#commission-report', function(event){
-        button = $(event.relatedTarget);
-   
-        //$('.parsley-required').css('list-style-type', 'disc');
-        $("form #escort_bank").attr('autocomplete', 'on');
-        const bank = $(button).data('name');
-        if($(button).data('target') == "#commission-report") {
-            $('#bank_name').attr('disabled',true);
-        }
-   
-        $('#bank_name').val($(button).data('bank_name'));
-        $('#account_name').val($(button).data('ac_name'));
-        $('#account_number').val($(button).data('ac_number'));
-        $('#bsb').val($(button).data('bsb'));
-        $('#state').val($(button).data('state'));
-        $('#bankId').val($(button).data('id'));
-        console.log("target = ", $(button).data('target'));
-        //document.getElementById("bank_name").value = bank;
-    });
-    $('body').on('hidden.bs.modal','#commission-report', function() {
-        console.log("taasdasd");
-        $('#escort_bank')[0].reset();
-   
-        $('.parsley-required').html('');
-   
-    });
-   
-   
-   
-   $(function(){
-   
-    var table = $('#bankAccountTable').DataTable({
-        language: {
-        search: "_INPUT_",
-        searchPlaceholder: "Search by Account Number",
-        sSearch: 'Search:'
-      
-    },
-    info: true,
-    bLengthChange: true,
-    processing: true,
-    serverSide: true,
-    lengthChange: true,
-    order: [1, 'asc'],
-    searchable: false,
-    bStateSave: false,
-    ajax: {
-        url: "{{ route('escort.bankDetail.dataTable') }}",
-        data: function (d) {
-            d.type = 'player';
-        }
-    },
-    columns: [
-    { data: 'bank_name', name: 'bank_name', searchable: true, orderable: true, defaultContent: 'NA' },
-    { data: 'account_name', name: 'account_name', searchable: true, orderable: true, defaultContent: 'NA' },
-    { data: 'bsb', name: 'bsb', searchable: true, orderable: true, defaultContent: 'NA' },
-    { data: 'account_numbers', name: 'account_numbers', searchable: true, orderable: true, defaultContent: 'NA' },
-    { data: 'states', name: 'states', searchable: true, orderable: true, defaultContent: 'NA' },
-    { data: 'action', name: 'edit', searchable: false, orderable: false, defaultContent: 'NA' }, // only this no sorting
-],
-    initComplete: function () {
-        // Reposition the filter and length
-        let filter = $('#bankAccountTable_filter');
-        let length = $('#bankAccountTable_length');
-   
-        // Wrap them in a flexbox
-        filter.add(length).wrapAll('<div class="datatable-topbar"></div>');
-   
-        // Place filter first
-        filter.parent().prepend(filter);
-    }
-    });
-        //   $.ajaxSetup({
-        //      headers:
-        //      { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-        //   });
-        $("body").on('submit','#escort_bank',function(e){
+
+   $('body').on('show.bs.modal', '#commission-report', function(event) {
+      button = $(event.relatedTarget);
+
+      //$('.parsley-required').css('list-style-type', 'disc');
+      $("form #escort_bank").attr('autocomplete', 'on');
+      const bank = $(button).data('name');
+      if ($(button).data('target') == "#commission-report") {
+         $('#bank_name').attr('disabled', true);
+      }
+
+      $('#bank_name').val($(button).data('bank_name'));
+      $('#account_name').val($(button).data('ac_name'));
+      $('#account_number').val($(button).data('ac_number'));
+      $('#bsb').val($(button).data('bsb'));
+      $('#state').val($(button).data('state'));
+      $('#bankId').val($(button).data('id'));
+      console.log("target = ", $(button).data('target'));
+      //document.getElementById("bank_name").value = bank;
+   });
+   $('body').on('hidden.bs.modal', '#commission-report', function() {
+      console.log("taasdasd");
+      $('#escort_bank')[0].reset();
+
+      $('.parsley-required').html('');
+
+   });
+
+
+   $(document).ready(function() {
+      var table = $('#bankAccountTable').DataTable({
+         language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search by Account Number",
+            sSearch: 'Search:'
+
+         },
+         info: true,
+         bLengthChange: true,
+         processing: true,
+         serverSide: true,
+         lengthChange: true,
+         order: [1, 'asc'],
+         searchable: false,
+         bStateSave: false,
+         "language": {
+                    "zeroRecords": "There is no record of the search criteria you entered.",
+                },
+         ajax: {
+            url: "{{ route('escort.bankDetail.dataTable') }}",
+            data: function(d) {
+               d.type = 'player';
+            }
+         },
+         columns: [{
+               data: 'bank_name',
+               name: 'bank_name',
+               searchable: true,
+               orderable: true,
+               defaultContent: 'NA'
+            },
+            {
+               data: 'account_name',
+               name: 'account_name',
+               searchable: true,
+               orderable: true,
+               defaultContent: 'NA'
+            },
+            {
+               data: 'bsb',
+               name: 'bsb',
+               searchable: true,
+               orderable: true,
+               defaultContent: 'NA'
+            },
+            {
+               data: 'account_numbers',
+               name: 'account_numbers',
+               searchable: true,
+               orderable: true,
+               defaultContent: 'NA'
+            },
+            {
+               data: 'states',
+               name: 'states',
+               searchable: true,
+               orderable: true,
+               defaultContent: 'NA'
+            },
+            {
+               data: 'action',
+               name: 'edit',
+               searchable: false,
+               orderable: false,
+               defaultContent: 'NA'
+            }, // only this no sorting
+         ],
+         initComplete: function() {
+            // Reposition the filter and length
+            let filter = $('#bankAccountTable_filter');
+            let length = $('#bankAccountTable_length');
+
+            filter.add(length).wrapAll('<div class="datatable-topbar"></div>');
+            filter.parent().prepend(filter);
+
+            if ($('#returnToReportBtn').length === 0) {
+               $('.dataTables_filter').append(
+                  '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+               );
+            }
+            $('#returnToReportBtn').on('click', function() {
+               var table = $('#bankAccountTable').DataTable();
+               table.search('').draw();
+            });
+         }
+      });
+   });
+
+   $(function() {
+      //   $.ajaxSetup({
+      //      headers:
+      //      { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+      //   });
+      $("body").on('submit', '#escort_bank', function(e) {
          e.preventDefault();
          console.log("bank id");
          var form = $(this);
@@ -322,148 +368,150 @@
             contentType: false,
             processData: false,
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
-            success:function(data){
-                console.log(data);
-                if(data.error == false) {
-                    // if(data.id != null) {
-                        $("#otp").val('');
-                        $("#sendOtp_modal").modal('show');//
-                        $("#commission-report").modal('hide');
-                        $("body").on("submit","#SendBankOtp",function(e){
-                            e.preventDefault();
-                            var form = $(this);
-   
-   
-                            // var url = form.attr('action');
-                            var url = "{{ route('escort.checkOTP')}}";
-   
-                            var data = new FormData($('#SendBankOtp')[0]);
-                            var phone = data.phone;
-                            //data.append("phone",phone );
-                            console.log("url="+url);
-                            var token = $('input[name="_token"]').attr('value');
-   
-                            $.ajax({
-                            url: url,
-                            type: 'POST',
-                            data: data,
-                            dataType: "JSON",
-                            contentType: false,
-                            processData: false,
-                            headers: {
-                                'X-CSRF-Token': token
-                            },
-                            success: function(data) {
-                                console.log(data);
-   
-                                if(data.error == 0) {
-                                    $('.comman_msg').html("Saved");
-                                    $("#comman_modal").modal('show');
-                                    $("#sendOtp_modal").modal('hide');
-                                    table.draw();
-                                }
-                                if(data.error == 2) {
-                                    $('.comman_msg').html("Please select primary account");
-                                    $("#comman_modal").modal('show');
-                                    $("#sendOtp_modal").modal('hide');
-                                    table.draw();
-                                }
-                                if(data.error == 3) {
-                                    $('.comman_msg').html("Primary account not updated");
-                                    $("#comman_modal").modal('show');
-                                    $("#sendOtp_modal").modal('hide');
-                                    table.draw();
-                                }
-                            },
-                            error: function(data) {
-   
-                                console.log("error otp: ", data.responseJSON.errors);
-                                $.each(data.responseJSON.errors, function(key, value) {
-                                errorsHtml = '<div class="alert alert-danger"><ul>';
-                                errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
-                                });
-   
-                                errorsHtml += '</ul></di>';
-                                $('#senderror').html(errorsHtml);
-                            }
-                            });
-   
-                        });
-                    //}
+            success: function(data) {
+               console.log(data);
+               if (data.error == false) {
+                  // if(data.id != null) {
+                  $("#otp").val('');
+                  $("#sendOtp_modal").modal('show'); //
+                  $("#commission-report").modal('hide');
+                  $("body").on("submit", "#SendBankOtp", function(e) {
+                     e.preventDefault();
+                     var form = $(this);
+
+
+                     // var url = form.attr('action');
+                     var url = "{{ route('escort.checkOTP')}}";
+
+                     var data = new FormData($('#SendBankOtp')[0]);
+                     var phone = data.phone;
+                     //data.append("phone",phone );
+                     console.log("url=" + url);
+                     var token = $('input[name="_token"]').attr('value');
+
+                     $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: data,
+                        dataType: "JSON",
+                        contentType: false,
+                        processData: false,
+                        headers: {
+                           'X-CSRF-Token': token
+                        },
+                        success: function(data) {
+                           console.log(data);
+
+                           if (data.error == 0) {
+                              $('.comman_msg').html("Saved");
+                              $("#comman_modal").modal('show');
+                              $("#sendOtp_modal").modal('hide');
+                              table.draw();
+                           }
+                           if (data.error == 2) {
+                              $('.comman_msg').html("Please select primary account");
+                              $("#comman_modal").modal('show');
+                              $("#sendOtp_modal").modal('hide');
+                              table.draw();
+                           }
+                           if (data.error == 3) {
+                              $('.comman_msg').html("Primary account not updated");
+                              $("#comman_modal").modal('show');
+                              $("#sendOtp_modal").modal('hide');
+                              table.draw();
+                           }
+                        },
+                        error: function(data) {
+
+                           console.log("error otp: ", data.responseJSON.errors);
+                           $.each(data.responseJSON.errors, function(key, value) {
+                              errorsHtml = '<div class="alert alert-danger"><ul>';
+                              errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
+                           });
+
+                           errorsHtml += '</ul></di>';
+                           $('#senderror').html(errorsHtml);
+                        }
+                     });
+
+                  });
+                  //}
                   // $('.comman_msg').html("Saved");
                   // $("#comman_modal").modal('show');
-   
+
                   //window.location.reload();
-                } else {
-                        console.log(data);
-                }
-   
+               } else {
+                  console.log(data);
+               }
+
             },
-            error: function(data){
+            error: function(data) {
                console.log(data.responseJSON.errors);
                console.log(data.responseJSON.errors.account_number);
                $('#account_numberError').text(data.responseJSON.errors.account_number);
             }
-   
+
          })
       })
-   
+
    });
-   
-   $('body').on('hidden.bs.modal','#delete_bank', function() {
-        console.log("delete-bank");
-        // $('#delete_bank').reset();
-   
-        // $("#previous").val('');
-        $("#previous input:hidden").val(' ');
-   
-    });
-   $(document).on('click','.delete_bankModal', function(e){
-       e.preventDefault();
-       var $this = $(this);
-   
-       $("#previous").val($this.attr('href'));
-       console.log($this.attr('href'));
-       $("#Lname").html("<p>Would you like to Delete?</p>");
-       $('#delete_bank').modal('show');
-        // $("#delete_bank").load(target, function() {
-   
-        // });
+
+   $('body').on('hidden.bs.modal', '#delete_bank', function() {
+      console.log("delete-bank");
+      // $('#delete_bank').reset();
+
+      // $("#previous").val('');
+      $("#previous input:hidden").val(' ');
+
    });
-   $("body").on('click','#save_change',function(e){
-           console.log("url==",$("#previous").val());
-           var url = $("#previous").val();
-           var table = $("#bankAccountTable").DataTable();
-           $.ajax({
-                   method: "POST",
-                   url:url,
-                   contentType: false,
-                   processData: false,
-                   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                   success: function (data) {
-                        console.log(data);
-                        if(data.error == false) {
-                            console.log("sdfjsdhfsjd",data);
-                            table.draw();
-                            $('#delete_bank').modal('hide');
-                            $("#header_msg").html("Delete Profile");
-                            $('.comman_msg').html("Deleted ");
-                            $("#comman_modal").modal('show');
-   
-                        }
-                        if(data.error == true) {
-                            table.draw();
-                            $('#delete_bank').modal('hide');
-                            $('.comman_msg').html("Primary Account can not be deleted. ");
-                            $("#header_msg").html("Delete Profile");
-                            $("#comman_modal").modal('show');
-   
-                        }
-                    }
-   
-           })
-       });
+   $(document).on('click', '.delete_bankModal', function(e) {
+      e.preventDefault();
+      var $this = $(this);
+
+      $("#previous").val($this.attr('href'));
+      console.log($this.attr('href'));
+      $("#Lname").html("<p>Would you like to Delete?</p>");
+      $('#delete_bank').modal('show');
+      // $("#delete_bank").load(target, function() {
+
+      // });
+   });
+   $("body").on('click', '#save_change', function(e) {
+      console.log("url==", $("#previous").val());
+      var url = $("#previous").val();
+      var table = $("#bankAccountTable").DataTable();
+      $.ajax({
+         method: "POST",
+         url: url,
+         contentType: false,
+         processData: false,
+         headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         },
+         success: function(data) {
+            console.log(data);
+            if (data.error == false) {
+               console.log("sdfjsdhfsjd", data);
+               table.draw();
+               $('#delete_bank').modal('hide');
+               $("#header_msg").html("Delete Profile");
+               $('.comman_msg').html("Deleted ");
+               $("#comman_modal").modal('show');
+
+            }
+            if (data.error == true) {
+               table.draw();
+               $('#delete_bank').modal('hide');
+               $('.comman_msg').html("Primary Account can not be deleted. ");
+               $("#header_msg").html("Delete Profile");
+               $("#comman_modal").modal('show');
+
+            }
+         }
+
+      })
+   });
 </script>
 @endpush
