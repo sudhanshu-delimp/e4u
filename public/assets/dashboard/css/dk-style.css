@@ -233,6 +233,10 @@ span.menu-active {
    height: 40px;
 }
 
+.sidebar .nav-item .nav-link span{
+   font-size: 16px !important;
+}
+
 #content {
    background: #fff !important;
 }
@@ -3589,13 +3593,13 @@ ol.custom--substyle li:before {
 
 .sidebar-table td.leftside-table {
    text-align: left;
-   padding: 6px 0px;
+   padding: 6px 6px;
    color: #0C223D;
 }
 
 .sidebar-table td.rightside-table {
    text-align: right;
-   padding: 6px 0px;
+   padding: 6px 6px;
    color: #0C223D;
    ;
 }
@@ -4359,7 +4363,7 @@ white-space: nowrap;
 .sidebar .nav-item .nav-link svg,
 .sidebar .nav-item .nav-link img,
 .sidebar .nav-item.v-last-setting span.v-icon {
-   margin-right: 18px;
+   margin-right: 15px;
    width: 22px;
    height: auto;
    object-fit: fill;
