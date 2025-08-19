@@ -917,30 +917,21 @@
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content border-0">
-                                    <div class="modal-header border-0">
-                                        {{--<h5 class="modal-title pl-5"><img src="{{ asset('assets/dashboard/img/upload-videos.png') }}" class="custompopicon"></h5>--}}
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen pt-3 mt-1 pr-4"></span>
+                                    <div class="modal-header d-flex justify-content-between align-items-center">                                       
+                                        <ul class="nav nav-tabs justify-content-center border-0">
+                                            <!--  <li class="nav-item">
+                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home">All</a>
+                                                </li> -->
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">Photos</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">Videos</a>
+                                            </li>
+                                        </ul>
+                                        <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
+                                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                                         </button>
-                                        <div class="col-12">
-                                            {{--
-                                            <div class="popup-tab-heading">
-                                                --}}
-                                                <ul class="nav nav-tabs justify-content-center border-0">
-                                                    <!--  <li class="nav-item">
-                                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home">All</a>
-                                                        </li> -->
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">Photos</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">Videos</a>
-                                                    </li>
-                                                </ul>
-                                                {{--
-                                            </div>
-                                            --}}
-                                        </div>
                                     </div>
                                     <div class="modal-body p-1">
                                         <div class="tab-content" id="myTabContent">
