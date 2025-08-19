@@ -362,268 +362,268 @@
             </div>
 
             <div class="modal" id="photo_gallery_banner" style="display: none">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title" style="color: white;">Select Banner</h5>
-                <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 200px;">
-                    <button type="button" data-toggle="modal" data-target="empty" class="btn btn-info" style=" padding: 5px;">Upload from device</button>
-                </div>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                    <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                    </span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="grid-container modalPopup" id="banner_images" style="max-height: 500px; overflow-y:scroll; grid-template-columns: auto;">
-                    {{--                   <div class="col-sm-12">--}}
-                    @foreach($media  as $keyId => $image)
-                        @if(in_array($image->position, [9,10])/*$image->position != 8*/)
-                            <div class="item2">
-                                <img class="img-thumbnail defult-image select_image" style="height: 150px;" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content custome_modal_max_width">
+                        <div class="modal-header main_bg_color border-0">
+                            <h5 class="modal-title" style="color: white;"> <img src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon">  Select Banner</h5>
+                            <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 200px;">
+                                <button type="button" data-toggle="modal" data-target="empty" class="btn-cancel-modal" style=" padding: 5px 10px;">Upload from device</button>
                             </div>
-                        @endif
-                    @endforeach
-                    {{--                   </div>--}}
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">
+                                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                                </span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="grid-container modalPopup" id="banner_images" style="max-height: 500px; overflow-y:scroll; grid-template-columns: auto;">
+                                {{--                   <div class="col-sm-12">--}}
+                                @foreach($media  as $keyId => $image)
+                                    @if(in_array($image->position, [9,10])/*$image->position != 8*/)
+                                        <div class="item2">
+                                            <img class="img-thumbnail defult-image select_image" style="height: 150px;" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
+                                        </div>
+                                    @endif
+                                @endforeach
+                                {{--                   </div>--}}
+                            </div>
+                        </div>
+                        {{--<div class="modal-footer" style="justify-content: center;">
+                            <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
+                        </div>--}}
+                    </div>
                 </div>
             </div>
-            {{--<div class="modal-footer" style="justify-content: center;">
-                <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-            </div>--}}
-        </div>
-    </div>
-</div>
-<div class="modal fade upload-modal" id="upload-sec" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Manage Photos</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/cross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="container p-0">
-                                <div class="row pr-2">
-                                    <div class="col-4">
-                                        <div class="plate"><label class="newbtn">
-                                            <img id="blah1" class="img-fluid" src="{{ asset($escort->imagefrontPosition(1))}}" style="width: 300px;height: 308px;object-fit: cover;">
-                                            <input name="img[1]" id="pic1" data-id="1" class="pis" onchange="readURL(this);" type="file" accept="image/*">
-                                            <input type="hidden" name="position[1]" id="mediaId1">
-                                            </label>
-                                        </div>
-                                    </div>
-                                    {{-- <div class="col-8 pl-0">
-                                        <div class="row" style="">
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img id="blah2" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                    <input name="img[2]" id="pic2" class="pis" onchange="readURL(this);" type="file">
-                                                    <input type="hidden" name="position[]" value="2">
-                                                    </label>
+            <div class="modal fade upload-modal" id="upload-sec" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle"> <img src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon"> Manage Photos</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"><img src="{{ asset('assets/app/img/cross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="container p-0">
+                                            <div class="row pr-2">
+                                                <div class="col-4">
+                                                    <div class="plate"><label class="newbtn">
+                                                        <img id="blah1" class="img-fluid" src="{{ asset($escort->imagefrontPosition(1))}}" style="width: 300px;height: 308px;object-fit: cover;">
+                                                        <input name="img[1]" id="pic1" data-id="1" class="pis" onchange="readURL(this);" type="file" accept="image/*">
+                                                        <input type="hidden" name="position[1]" id="mediaId1">
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                {{-- <div class="col-8 pl-0">
+                                                    <div class="row" style="">
+                                                        <div class="col-4 pr-0">
+                                                            <div class="plate"><label class="newbtn">
+                                                                <img id="blah2" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
+                                                                <input name="img[2]" id="pic2" class="pis" onchange="readURL(this);" type="file">
+                                                                <input type="hidden" name="position[]" value="2">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 pr-0">
+                                                            <div class="plate"><label class="newbtn">
+                                                                <img id="blah3" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
+                                                                <input name="img[3]" id="pic3" class="pis" onchange="readURL(this);" type="file">
+                                                                <input type="hidden" name="position[]" value="3">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 pr-0">
+                                                            <div class="plate"><label class="newbtn">
+                                                                <img id="blah4" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
+                                                                <input name="img[4]" id="pic4" class="pis" onchange="readURL(this);" type="file">
+                                                                <input type="hidden" name="position[]" value="4">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style="">
+                                                        <div class="col-4 pr-0">
+                                                            <div class="plate"><label class="newbtn">
+                                                                <img id="blah5" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
+                                                                <input name="img[5]" id="pic5" class="pis" onchange="readURL(this);" type="file">
+                                                                <input type="hidden" name="position[]" value="5">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 pr-0">
+                                                            <div class="plate"><label class="newbtn">
+                                                                <img id="blah6" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
+                                                                <input name="img[6]" id="pic6" class="pis" onchange="readURL(this);" type="file">
+                                                                <input type="hidden" name="position[]" value="6">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 pr-0">
+                                                            <div class="plate"><label class="newbtn">
+                                                                <img id="blah7" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
+                                                                <input name="img[7]" id="pic7" class="pis" onchange="readURL(this);" type="file">
+                                                                <input type="hidden" name="position[]" value="7">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+                                                <div class="col-8 pl-0">
+                                                    <div class="row" style="">
+                                                        <div class="col-4 pr-0">
+                                                            <div class="plate"><label class="newbtn">
+                                                                <img id="blah2" class="img-fluid modal-image" src="{{ asset($escort->imagefrontPosition(2))   }}">
+                                                                <input name="img[2]" id="pic2" data-id="2" class="pis" onchange="readURL(this);" type="file" accept="image/*">
+                                                                <input type="hidden" name="position[2]" id="mediaId2">
+                                                            </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 pr-0">
+                                                            <div class="plate"><label class="newbtn">
+                                                                <img id="blah3" class="img-fluid modal-image" src="{{ asset($escort->imagefrontPosition(3))   }}">
+                                                                <input name="img[3]" id="pic3" data-id="3" class="pis" onchange="readURL(this);" type="file" accept="image/*">
+                                                                <input type="hidden" name="position[3]" id="mediaId3">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 pr-0">
+                                                            <div class="plate"><label class="newbtn">
+                                                                <img id="blah4" class="img-fluid modal-image" src="{{ asset($escort->imagefrontPosition(4))   }}">
+                                                                <input name="img[4]" id="pic4" data-id="4" class="pis" onchange="readURL(this);" type="file" accept="image/*">
+                                                                <input type="hidden" name="position[4]" id="mediaId4">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row" style="">
+                                                        <div class="col-4 pr-0">
+                                                            <div class="plate"><label class="newbtn">
+                                                                <img id="blah5" class="img-fluid modal-image" src="{{ asset($escort->imagefrontPosition(5))   }}">
+                                                                <input name="img[5]" id="pic5" data-id="5" class="pis" onchange="readURL(this);" type="file" accept="image/*">
+                                                                <input type="hidden" name="position[5]" id="mediaId5">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 pr-0">
+                                                            <div class="plate"><label class="newbtn">
+                                                                <img id="blah6" class="img-fluid modal-image" src="{{ asset($escort->imagefrontPosition(6))   }}">
+                                                                <input name="img[6]" id="pic6" data-id="6" class="pis" onchange="readURL(this);" type="file" accept="image/*">
+                                                                <input type="hidden" name="position[6]" id="mediaId6">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4 pr-0">
+                                                            <div class="plate"><label class="newbtn">
+                                                                <img id="blah7" class="img-fluid modal-image" src="{{ asset($escort->imagefrontPosition(7)) }}">
+                                                                <input name="img[7]" id="pic7" data-id="7" class="pis" onchange="readURL(this);" type="file" accept="image/*">
+                                                                <input type="hidden" name="position[7]" id="mediaId7">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img id="blah3" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                    <input name="img[3]" id="pic3" class="pis" onchange="readURL(this);" type="file">
-                                                    <input type="hidden" name="position[]" value="3">
-                                                    </label>
+                                            {{--<div class="row row pr-2 pt-2">
+                                                <div class="col-12 pr-0">
+                                                    <div class="plate">
+                                                        <label class="newbtn">
+
+                                                        --}}{{-- <img id="blahx" class="img-fluid" style="width:870px; height:147px;object-fit: cover;"src="{{ asset($escort->imagefrontPosition(10)) }}"> --}}{{--
+                                                        <input name="img[11]" id="picx" class="pis" onchange="readURL(this);" type="file" accept="video/*">
+
+                                                        <video class="img-fluid" id="blahx" controls="" src="" style="width:870px; height:147px;object-fit: cover;">
+                                                            <source id="akhVideo" src="" type="video/mp4" >
+                                                        </video>
+                                                        <input type="hidden" name="position[]" id="mediaIdx">
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img id="blah4" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                    <input name="img[4]" id="pic4" class="pis" onchange="readURL(this);" type="file">
-                                                    <input type="hidden" name="position[]" value="4">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" style="">
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img id="blah5" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                    <input name="img[5]" id="pic5" class="pis" onchange="readURL(this);" type="file">
-                                                    <input type="hidden" name="position[]" value="5">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img id="blah6" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                    <input name="img[6]" id="pic6" class="pis" onchange="readURL(this);" type="file">
-                                                    <input type="hidden" name="position[]" value="6">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img id="blah7" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                    <input name="img[7]" id="pic7" class="pis" onchange="readURL(this);" type="file">
-                                                    <input type="hidden" name="position[]" value="7">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    <div class="col-8 pl-0">
-                                        <div class="row" style="">
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img id="blah2" class="img-fluid modal-image" src="{{ asset($escort->imagefrontPosition(2))   }}">
-                                                    <input name="img[2]" id="pic2" data-id="2" class="pis" onchange="readURL(this);" type="file" accept="image/*">
-                                                    <input type="hidden" name="position[2]" id="mediaId2">
-                                                </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img id="blah3" class="img-fluid modal-image" src="{{ asset($escort->imagefrontPosition(3))   }}">
-                                                    <input name="img[3]" id="pic3" data-id="3" class="pis" onchange="readURL(this);" type="file" accept="image/*">
-                                                    <input type="hidden" name="position[3]" id="mediaId3">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img id="blah4" class="img-fluid modal-image" src="{{ asset($escort->imagefrontPosition(4))   }}">
-                                                    <input name="img[4]" id="pic4" data-id="4" class="pis" onchange="readURL(this);" type="file" accept="image/*">
-                                                    <input type="hidden" name="position[4]" id="mediaId4">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row" style="">
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img id="blah5" class="img-fluid modal-image" src="{{ asset($escort->imagefrontPosition(5))   }}">
-                                                    <input name="img[5]" id="pic5" data-id="5" class="pis" onchange="readURL(this);" type="file" accept="image/*">
-                                                    <input type="hidden" name="position[5]" id="mediaId5">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img id="blah6" class="img-fluid modal-image" src="{{ asset($escort->imagefrontPosition(6))   }}">
-                                                    <input name="img[6]" id="pic6" data-id="6" class="pis" onchange="readURL(this);" type="file" accept="image/*">
-                                                    <input type="hidden" name="position[6]" id="mediaId6">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-4 pr-0">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img id="blah7" class="img-fluid modal-image" src="{{ asset($escort->imagefrontPosition(7)) }}">
-                                                    <input name="img[7]" id="pic7" data-id="7" class="pis" onchange="readURL(this);" type="file" accept="image/*">
-                                                    <input type="hidden" name="position[7]" id="mediaId7">
-                                                    </label>
+                                            </div>--}}
+                                            <div class="row mt-3 pt-1" style="border: 1px dotted;">
+                                                <div class="col-6 pt-4 pb-4">
+                                                        <h4>Verify these Photos</h4>
+
+                                                        <ul style="text-align: justify;">
+                                                        <li>Two (2) selfies with your User Name and Membership ID printed (can be handwritten) on a sheet of paper held up to the side of you and not obscuring any part of you</li>
+                                                        <li>A drivers licence which matches your User Name and Home State</li>
+                                                        <li>A passport which matches your User Name and Home State</li>
+                                                        </ul>
+                                                    </div>
+                                                <div class="col-6 pt-4">
+                                                    <div class="plate" style="position: relative;top: 25%;"><label class="newbtn">
+                                                        {{-- <img class="img-fluid" id="blah8" src="{{ asset('assets/app/img/upload-6.png')}}" style="height: 138px;object-fit: cover;width: 370px;"> --}}
+                                                        <img class="img-fluid cl_blash8" id="blah8" src="{{ asset($escort->imagefrontPosition(8))}}" style="height: 138px;object-fit: cover;width: 370px;">
+                                                        <input id="pic8" class="pis" onchange="readURL(this);" type="file" accept="image/*">
+                                                        <input type="hidden" name="position[8]" id="mediaId8">
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                {{--<div class="row row pr-2 pt-2">
-                                    <div class="col-12 pr-0">
-                                        <div class="plate">
-                                            <label class="newbtn">
-
-                                            --}}{{-- <img id="blahx" class="img-fluid" style="width:870px; height:147px;object-fit: cover;"src="{{ asset($escort->imagefrontPosition(10)) }}"> --}}{{--
-                                            <input name="img[11]" id="picx" class="pis" onchange="readURL(this);" type="file" accept="video/*">
-
-                                            <video class="img-fluid" id="blahx" controls="" src="" style="width:870px; height:147px;object-fit: cover;">
-                                                <source id="akhVideo" src="" type="video/mp4" >
-                                            </video>
-                                            <input type="hidden" name="position[]" id="mediaIdx">
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>--}}
-                                <div class="row mt-3 pt-1" style="border: 1px dotted;">
-                                    <div class="col-6 pt-4 pb-4">
-                                            <h4>Verify these Photos</h4>
-
-                                            <ul style="text-align: justify;">
-                                              <li>Two (2) selfies with your User Name and Membership ID printed (can be handwritten) on a sheet of paper held up to the side of you and not obscuring any part of you</li>
-                                              <li>A drivers licence which matches your User Name and Home State</li>
-                                              <li>A passport which matches your User Name and Home State</li>
-                                            </ul>
-                                        </div>
-                                    <div class="col-6 pt-4">
-                                        <div class="plate" style="position: relative;top: 25%;"><label class="newbtn">
-                                            {{-- <img class="img-fluid" id="blah8" src="{{ asset('assets/app/img/upload-6.png')}}" style="height: 138px;object-fit: cover;width: 370px;"> --}}
-                                            <img class="img-fluid cl_blash8" id="blah8" src="{{ asset($escort->imagefrontPosition(8))}}" style="height: 138px;object-fit: cover;width: 370px;">
-                                            <input id="pic8" class="pis" onchange="readURL(this);" type="file" accept="image/*">
-                                            <input type="hidden" name="position[8]" id="mediaId8">
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn-success-modal" id="defaultImg">Use Default</button>
+                                <button type="button" class="btn-success-modal" id="manageImgId">Save</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="defaultImg">Use Default</button>
-                    <button type="button" class="btn btn-primary" id="manageImgId">Save</button>
-                </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade upload-modal" id="upload-sec-banner" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Manage Banner</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true"><img src="{{ asset('assets/app/img/cross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="container p-0">
+            <div class="modal fade upload-modal" id="upload-sec-banner" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle"> <img src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon"> Manage Banner</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><img src="{{ asset('assets/app/img/cross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
                             <div class="row">
-                                <div class="col-12">
-                                    <div class="plate"><label class="newbtn">
-                                        <img id="blah9" class="img-fluid" src="{{ asset($escort->imagefrontPosition(9))}}" style="height: 118px;object-fit: cover;width: 618px;">
-                                        {{-- <img id="blah9" class="img-fluid" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 118px;object-fit: cover;width: 618px;"> --}}
-                                        <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*">
-                                        <input type="hidden" name="position[9]" id="mediaId9">
-                                        </label>
+                                <div class="col-md-12">
+                                    <div class="container p-0">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="plate"><label class="newbtn">
+                                                    <img id="blah9" class="img-fluid" src="{{ asset($escort->imagefrontPosition(9))}}" style="height: 118px;object-fit: cover;width: 618px;">
+                                                    {{-- <img id="blah9" class="img-fluid" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 118px;object-fit: cover;width: 618px;"> --}}
+                                                    <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*">
+                                                    <input type="hidden" name="position[9]" id="mediaId9">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{--<div class="row mt-3" style="border: 1px dotted;">
+                                            <div class="col-6 pt-4 pb-4">
+                                                <h4>Verify these photos</h4>
+                                                <p>Upload a picture of your ID with your most recent photo for verification.</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="plate"><label class="newbtn">
+                                                    <img class="img-fluid cl_blash10" id="blah10" src="{{ asset($escort->imagefrontPosition(10))}}" style="height: 138px;object-fit: cover;width: 291px;">
+                                                    --}}{{-- <img class="img-fluid" id="blah0" src="{{ asset('assets/app/img/upload-6.png')}}" style="height: 138px;object-fit: cover;width: 291px;"> --}}{{--
+                                                    <input name="img[10]" id="pic10" class="pis" onchange="readURL(this);" type="file" accept="image/*">
+                                                    <input type="hidden" name="position[]" id="mediaIdx">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>--}}
                                     </div>
                                 </div>
                             </div>
-                            {{--<div class="row mt-3" style="border: 1px dotted;">
-                                <div class="col-6 pt-4 pb-4">
-                                    <h4>Verify these photos</h4>
-                                    <p>Upload a picture of your ID with your most recent photo for verification.</p>
-                                </div>
-                                <div class="col-6">
-                                    <div class="plate"><label class="newbtn">
-                                        <img class="img-fluid cl_blash10" id="blah10" src="{{ asset($escort->imagefrontPosition(10))}}" style="height: 138px;object-fit: cover;width: 291px;">
-                                        --}}{{-- <img class="img-fluid" id="blah0" src="{{ asset('assets/app/img/upload-6.png')}}" style="height: 138px;object-fit: cover;width: 291px;"> --}}{{--
-                                        <input name="img[10]" id="pic10" class="pis" onchange="readURL(this);" type="file" accept="image/*">
-                                        <input type="hidden" name="position[]" id="mediaIdx">
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>--}}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn-success-modal" id="defaultImg2">Use Default</button>
+                            <button type="button" class="btn-success-modal" id="manageImgId">Save</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="defaultImg2">Use Default</button>
-                <button type="button" class="btn btn-primary" id="manageImgId">Save</button>
-            </div>
-        </div>
-    </div>
-</div>
             @if (request()->segment(2) == 'profile' && request()->segment(3))
                 <div class="row">
                     <div class="col-md-12 text-right media-profile">
@@ -1503,9 +1503,9 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title" style="color: white;">Select Photo</h5>
+                <h5 class="modal-title" style="color: white;"><img src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon"> Select Photo</h5>
                 <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 200px;">
-                    <button type="button" data-toggle="modal" data-target="empty" class="btn btn-info" style=" padding: 5px;">Upload from device</button>
+                    <button type="button" data-toggle="modal" data-target="empty" class="btn-cancel-modal" style=" padding: 5px 10px;">Upload from device</button>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
@@ -1539,7 +1539,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
-                    {{-- <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5> --}}
+                    <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon">Update Media</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
                         <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -1549,8 +1549,8 @@
                 <div class="modal-body">
                     Would you like to update Media in your My Information page for future Profiles? 
                     <div class="modal-footer">
-                        <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal" value="close" id="close_change">No</button>
-                        <button type="button" class="btn main_bg_color site_btn_primary" onclick="setAsDefultImages()">Yes</button>
+                        <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close" id="close_change">No</button>
+                        <button type="button" class="btn-success-modal" onclick="setAsDefultImages()">Yes</button>
                     </div>
                 </div>
             </div>
