@@ -1257,7 +1257,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color">
-                <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="img_resize_in_smscreen">
+                <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon">
                 
                 <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Message Me </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1265,21 +1265,21 @@
                 </button>
             </div>
             @if(auth()->check() && auth()->user()->type==0)
-            <div class="modal-body pb-0 teop-text">
+            <div class="modal-body">
                     <h6 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
                                 <span id="Lname">To message Alina please go to your Dashboard and select
                                     Communications > Messages. </span>
                             </h6>
                     <hr style="background-color: #0C223D">
-                <p class="mb-1 mt-3"><b>Notes</b></p>
-                <ol class="mb-0">
+                <p class="mb-1 mt-3"><b>Notes:</b></p>
+                <ol>
                     <li>Make sure you have enabled Messaging in your settings. If you have added Alina to your
                         Legbox, they will appear in your Message list. Otherwise, you can search by Member ID.</li>
                     <li>To message Alina, they will also need to have Messaging enabled.</li>
                 </ol>
             </div>
             <div class="modal-footer text-center justify-content-center">
-                <a href="{{ route('user.advertiser') }}" type="button" class="btn main_bg_color site_btn_primary rounded" id="loginUrl" >Go to Message</a>                
+                <a href="{{ route('user.advertiser') }}" type="button" class="btn-success-modal text-white" id="loginUrl" style="text-decoration: none;">Go to Message</a>                
             </div>
             @else
             <!-- if viewer not login -->
@@ -1306,8 +1306,8 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color">
-                    <img src="{{ asset('assets/app/img/alert.png') }}" class="img_resize_in_smscreen pr-3">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Report [Name] to our team.
+                    <img src="{{ asset('assets/app/img/alert.png') }}" class="custompopicon">
+                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Report {{-- [Name]--}} to our team. 
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
@@ -1319,23 +1319,11 @@
                 <form id="reviewAdvertiser" action="#" method="post">
                     <input type="hidden" name="_token" value="UuIFvrcEqKkKmQRBOgnpguuLsEYEUO1qHwlvC49U">
                     <div class="modal-body">
-                        <p class="mb-1 mt-3"><b>Notes :</b></p>
-                        <div class="row">
-                            <div class="col">
-                                <ol>
-                                    <li>Only report if you had direct contact with the Massage Centre.</li>
-                                    <li>Do not write fake or abusive reports, as it may result in your Account being
-                                        suspended. Only genuine
-                                        reports will be considered.</li>
-                                    <li>The Massage Centre’s Member ID will automatically attach to this report.</li>
-                                </ol>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col">
                                 <div class="form-group popup_massage_box">
-                                    <label for="exampleFormControlTextarea1">What is wrong:</label>
-                                    <textarea name="description" class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="3"
+                                    <p class="font-weight-bold">What is wrong:</p>
+                                    <textarea name="description" class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="5"
                                         placeholder="Message (250 characters)"></textarea>
                                 </div>
                             </div>
@@ -1367,10 +1355,20 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>                      
+                        
+                        <hr style="background-color: #0C223D">
+                        <p class="mb-1 mt-3"><b>Notes:</b></p>
+                        <ol>
+                            <li>Only report if you had direct contact with the Massage Centre.</li>
+                            <li>Do not write fake or abusive reports, as it may result in your Account being
+                                suspended. Only genuine
+                                reports will be considered.</li>
+                            <li>The Massage Centre’s Member ID will automatically attach to this report.</li>
+                        </ol>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn main_bg_color site_btn_primary rounded">Send Report</button>
+                        <button type="submit" class="btn-success-modal">Send Report</button>
                     </div>
                 </form>
             </div>
@@ -1382,7 +1380,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color">
-                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="img_resize_in_smscreen pr-3">
+                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="custompopicon">
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Add review for Carla Brasil
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1395,22 +1393,11 @@
                 <form id="reviewAdvertiser" action="#" method="post">
                     <input type="hidden" name="_token" value="UuIFvrcEqKkKmQRBOgnpguuLsEYEUO1qHwlvC49U">
                     <div class="modal-body">
-                        <p class="popu_heading_style mb-2">Note</p>
-                        <div class="row">
-                            <div class="col teop-text">
-                                <ul>
-                                    <li>Only review if you had direct contact with the Escort.</li>
-                                    <li>Do not write fake or abusive reviews, as they will not be published.</li>
-                                    <li>To contact this Escort click on <span style="color: #FF3C5F;">Message Me</span>.
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col">
                                 <div class="form-group popup_massage_box">
-                                    <label for="exampleFormControlTextarea1">Tell us about your experience:</label>
-                                    <textarea name="description" class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="3"
+                                    <p class="font-weight-bold">Tell us about your experience:</p>
+                                    <textarea name="description" class="form-control popup_massage_box" id="exampleFormControlTextarea1" rows="5"
                                         placeholder="Message (250 characters)"></textarea>
                                 </div>
                             </div>
@@ -1455,9 +1442,18 @@
                                 </svg>
                             </div>
                         </div>
+                        
+                        <hr style="background-color: #0C223D">
+                        <p class="mb-1 mt-3"><b>Notes :</b></p>
+                        <ol>
+                            <li>Only review if you had direct contact with the Escort.</li>
+                            <li>Do not write fake or abusive reviews, as they will not be published.</li>
+                            <li>To contact this Escort click on <a href="{{ route('user.viewer-messages') }}" style="color: #ff3c5f;" class="custom_links_design">Message Me</a>.
+                            </li>
+                        </ol>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn main_bg_color site_btn_primary">Post Reviews</button>
+                        <button type="submit" class="btn-success-modal">Post Reviews</button>
                     </div>
                 </form>
             </div>
@@ -1469,7 +1465,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color">
-                    <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="img_resize_in_smscreen">
+                    <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="icustompopicon">
                     <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Send New Harmony Nature Massage a
                         message</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -1514,7 +1510,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn main_bg_color site_btn_primary">Send Message</button>
+                        <button type="submit" class="btn-success-modal">Send Message</button>
                     </div>
                 </form>
             </div>
