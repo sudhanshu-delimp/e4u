@@ -1085,6 +1085,7 @@
         line-height: 23.76px;
         background-color: #0c223d;
         border-color: #0c223d;
+        border-radius: 5px;
     }
     
     .site_btn_primary:hover {

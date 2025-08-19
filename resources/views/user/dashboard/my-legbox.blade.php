@@ -88,7 +88,7 @@
                     <h2 class="h2">Escort Center Legbox</h2>
                     <div class="total_listing">
                         <div><span>Total Escort Center Legbox : </span></div>
-                        <div><span>{{count($escorts)}}</span></div>
+                        <div><span id="totalEscortList">{{count($escorts)}}</span></div>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -128,7 +128,7 @@
             <h2 class="h2">Massage Center Legbox</h2>
             <div class="total_listing">
                <div><span>Total Massage Centre Legbox: </span></div>
-               <div><span>1</span></div>
+               <div><span id="totalMassageList">1</span></div>
             </div>
          </div>
          <table id="massagelistTable" class="table table-bordered">
@@ -595,6 +595,12 @@
                 },
                 ajax: {
                     url: "{{ route('user.my-legbox-escort-list') }}",
+                    dataSrc: function(json) {
+                            // json is the response from server
+                            console.log(json, 'response data');
+                            $("#totalEscortList").text(json.recordsTotal);
+                            return json.data; // MUST return the data array for DataTables
+                        },
                     data: function(data) {
                     }
                 },
@@ -875,7 +881,14 @@
                     searching: true,
                     ajax: {
                         url: "{{ route('user.my-legbox-massage-list') }}",
+                        dataSrc: function(json) {
+                            // json is the response from server
+                            console.log(json, 'response data');
+                            $("#totalMassageList").text(json.recordsTotal);
+                            return json.data; // MUST return the data array for DataTables
+                        },
                         data: function(data) {
+                            //
                         }
                     },
                     columns: [
