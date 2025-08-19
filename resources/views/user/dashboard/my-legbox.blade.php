@@ -1,9 +1,6 @@
 @extends('layouts.userDashboard')
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
-    <!-- FixedColumns CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.min.css">
-
     <style>
         .table td {
             vertical-align: middle;
@@ -19,6 +16,9 @@
 
         #escortCenterlegboxTable_filter {
             float: right;
+        }
+        .escortCenterlegboxTableClass.dataTable thead>tr>th.sorting {
+            padding-right: 27px !important;
         }
         td:has(.escortDropMenuPopup.show) {
             z-index: 9 !important;
@@ -49,11 +49,13 @@
             $massageDisplayType = 'block';
 
             if($dashboardType == 'escort'){
+                $escortDisplayType = 'block';
                 $massageDisplayType = 'none';
             }
             
             if ($dashboardType == 'massage') {
                 $escortDisplayType = 'none';
+                $massageDisplayType = 'block';
             }
         @endphp
 
@@ -64,14 +66,17 @@
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
 
                         <ol>
-                            @if($massageDisplayType == 'block')
-                                <li>The My Legbox feature is a list only of your favourite Massage Centres. Please note Notifications do not apply to Massage Centres.</li>
-                            <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a> feature to
-                                record your experience with an Escort you have added to My Legbox.</li>
-                            @else
+                            @if($escortDisplayType == 'block')
                                 <li>The My Legbox feature is a list only of your favourite Escorts. Please note, the Notifications feature is enabled, according to your settings, by default. You can enable or disable Notifications exclusively with an Escort. Go to ‘Action’.</li>
-                            <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a> feature to
+                                <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a> feature to
+                                record your experience with an Escort you have added to My Legbox.</li>
+                            
+                                
+                            @else
+                                <li>The My Legbox feature is a list only of your favourite Massage Centres. Please note Notifications do not apply to Massage Centres.</li>
+                                <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a> feature to
                                 record your experience with a Massage Centre you have added to My Legbox.</li>
+                                
                             @endif
                             
                         </ol>
@@ -85,14 +90,14 @@
         <div class="row my-2" style="display: {{ $escortDisplayType }}">
             <div class="col-md-12 mb-4">
                 <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-10">
-                    <h2 class="h2">Escort Center Legbox</h2>
+                    <h2 class="h2">Escort Legbox</h2>
                     <div class="total_listing">
-                        <div><span>Total Escort Center Legbox : </span></div>
+                        <div><span>Total Escort Legbox : </span></div>
                         <div><span id="totalEscortList">{{count($escorts)}}</span></div>
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table id="escortCenterlegboxTable" class="table table-bordered display" width="100%">
+                    <table id="escortCenterlegboxTable" class="table table-bordered display escortCenterlegboxTableClass" width="100%">
                         <thead class="bg-first">
                             <tr>
                                 <th class="text-left" style="background-color: #0c223d;">Escorts ID</th>
@@ -566,8 +571,6 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
-    <!-- FixedColumns JS -->
-    <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
 
     {{-- massage center legbox --}}
     <script>
@@ -577,7 +580,7 @@
                 responsive: false,
                 language: {
                     search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by ID or Profile Name...",
+                    searchPlaceholder: "Search by ID or Stage Name...",
                     lengthMenu: "Show _MENU_ entries",
                     zeroRecords: "No matching records found",
                     info: "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -586,13 +589,8 @@
                 },
                 paging: true,
                 searchable: true,
+                serverSide: true,
                 searching: true,
-                scrollX: true,
-                scrollCollapse: true,
-                fixedColumns: {
-                    leftColumns: 1,
-                    rightColumns: 2
-                },
                 ajax: {
                     url: "{{ route('user.my-legbox-escort-list') }}",
                     dataSrc: function(json) {
@@ -613,8 +611,18 @@
                     { data: 'is_notification_enabled', name: 'is_notification_enabled' }, // 5
                     { data: 'is_enabled_contact', name: 'is_enabled_contact' },       // 6
                     { data: 'contact_method', name: 'contact_method' },               // 7
-                    { data: 'escort_communication', name: 'escort_communication' },   // 8
-                    { data: 'is_blocked', name: 'is_blocked' },                       // 9
+                    {
+                        data: 'escort_communication',
+                        name: 'escort_communication',
+                        orderable: false,
+                        render: function (data, type, row) {
+                            if (!data) return '';
+                            let str = String(data); 
+                            // Har 12 characters ke baad line break
+                            return str.replace(/(.{12})/g, '$1<br>');
+                        }
+                    },
+                    { data: 'is_blocked', name: 'is_blocked',orderable: false, searchable: false },                       // 9
                     { data: 'action', name: 'action', orderable: false, searchable: false } // 10
                 ],
                 columnDefs: [
