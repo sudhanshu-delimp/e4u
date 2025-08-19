@@ -796,6 +796,17 @@ class GlobalMonitoringController extends Controller
 
             $listing = EscortPinup::query();
             $listing->where('utc_end_time', '>=', Carbon::now('UTC'));
+            if (!empty($search)) {
+                $listing->where(function ($q) use ($search) {
+                    $q->whereHas('user', function ($uq) use ($search) {
+                        $uq->where('member_id', 'like', "%{$search}%");
+                    })
+                    
+                    ->orWhereHas('state', function ($sq) use ($search) {
+                        $sq->where('name', 'like', "%{$search}%");
+                    });
+                });
+            }
             $recordsTotal = $listing->count();
             $listing->orderBy($orderColumn, $orderDirection);
             $listing->offset($start);

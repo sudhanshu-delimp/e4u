@@ -182,7 +182,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 886px !important;">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="commission-report">Commission Report (Period Ending 27-06-2022)</h5>
+            <h5 class="modal-title" id="commission-report"><img src="{{ asset('assets/dashboard/img/set-commission.png')}}" class="custompopicon"> Commission Report (Period Ending 27-06-2022)</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -409,8 +409,8 @@
                </div>
             </div>
             <div class="modal-footer pt-0">
-               <button type="button" class="btn btn-primary">Query</button>
-               <button type="button" class="btn btn-primary">Approve</button>
+               <button type="button" class="btn-success-modal">Query</button>
+               <button type="button" class="btn-success-modal">Approve</button>
             </div>
          </div>
       </div>

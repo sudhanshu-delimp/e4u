@@ -8,7 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Mail\RegisterEscort\RegisterEmailForAdmin;
 
-class RegisterListenerForAdmin
+class RegisterListenerForAdmin implements ShouldQueue
 {
     /**
      * Create the event listener.

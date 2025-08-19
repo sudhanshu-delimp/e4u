@@ -187,7 +187,8 @@
     e.preventDefault();
 
     var form = $(this);
-
+    $("#modal-title").text("Change Password");
+    $("#madal-icon").attr("src", "assets/dashboard/img/change-password.png");
     if (form.parsley().isValid()) {
 
       var url = form.attr('action');
@@ -227,7 +228,9 @@
     e.preventDefault();
 
     var form = $(this);
-
+    
+    $("#modal-title").text("Renew Password Expiry");
+    $("#modal-icon").attr("src", "/assets/dashboard/img/renew.png");
     if (form.parsley().isValid()) {
 
       var url = form.attr('action');

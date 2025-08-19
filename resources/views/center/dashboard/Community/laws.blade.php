@@ -33,7 +33,7 @@
                 <div class="col-lg-12">
                     <div class="card collapse  mb-4" id="notes">
                         <div class="card-body">
-                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                             <ol>
                                 <li>The following table is a list of all of the legislation that applies to your Location.</li>
                                 <li>To view the law, click the link and the legislation will open in a new tab for you to

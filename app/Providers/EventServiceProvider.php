@@ -4,13 +4,17 @@ namespace App\Providers;
 
 use App\Events\EscortRegister;
 use App\Events\AgentRegistered;
+use App\Events\MassageRegister;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Listeners\Agent\SendAgentWelcomeEmail;
-use App\Listeners\Escort\RegisterListenerForEscort;
 use App\Listeners\Escort\RegisterListenerForAdmin;
 use App\Listeners\Escort\RegisterListenerForAgent;
+use App\Listeners\Escort\RegisterListenerForEscort;
 use App\Listeners\Agent\SendAdminAgentRegisteredEmail;
+use App\Listeners\MessageCentr\RegisterListnerForAdmin;
+use App\Listeners\MessageCentr\RegisterListnerForAgent;
+use App\Listeners\MessageCentr\RegisterListnerForMassageCentr;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -34,6 +38,11 @@ class EventServiceProvider extends ServiceProvider
         AgentRegistered::class => [
             SendAgentWelcomeEmail::class,
             SendAdminAgentRegisteredEmail::class
+        ],
+        MassageRegister::class => [
+            RegisterListnerForMassageCentr::class,
+            RegisterListnerForAgent::class,
+            RegisterListnerForAdmin::class,
         ],
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\LoginListener',

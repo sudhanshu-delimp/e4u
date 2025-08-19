@@ -101,21 +101,28 @@ class ViewerMassageInteractionController extends Controller
 
     }
 
-    public function viewerRemoveEscortFromLegbox(Request $request)
+    public function viewerRemoveMassageFromLegbox(Request $request)
     {
+        //dd($request->all());
+
         $result = false;
         if(Auth::user()){
-            $result = MyLegbox::where('escort_id', $request->escort_id)->where('user_id',Auth::user()->id)->delete();
-            $escort = Escort::where('id',$request->escort_id)->first();
-            $result = EscortViewerInteractions::where('escort_id', $request->escort_id)->where('user_id',$escort->user_id)->where('viewer_id',Auth::user()->id)->delete();
+
+            $massageProfile = MassageProfile::where('id',$request->massage_id)->first();
+            //dd($massageProfile);
+            $result1 = MyMassageLegbox::where('massage_id', $request->massage_id)->where('user_id',Auth::user()->id)->delete();
+            $result = MassageViewerInteractions::where('massage_id', $request->massage_id)->where('user_id',$massageProfile->user_id)->where('viewer_id', Auth::user()->id)->delete();
+            
+            if($result1 || $result){
+                $result = true;
+            }
         }
         
         $data = array(
             "status"     => $result ? 200 : 404,
-            "message"    => $result ? $request->message : 'Escort not exist!',
+            "message"    => $result ? $request->message : 'Massage center not exist!',
             "type"    => $request->type,
             "data" => $result,
-            "previous_status" => '',
         );
 
         return response()->json($data);

@@ -27,7 +27,7 @@
             <div class="col-md-12 mb-4">
                <div class="card collapse" id="notes">
                   <div class="card-body">
-                     <p class="mb-2 font-weight-bold" style="font-size: 18px;">Notes:</p>
+                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                      <ol>
                         <li>Use this feature to change your Password and to set up your Password preferences.</li>
                         <li>Your Password, unless you change the settings, will by default expire every 30 days. You will be notified before the expiry date.</li>
@@ -153,6 +153,8 @@ $('#userProfile').parsley();
 $('#userProfile').on('submit', function(e) {
    e.preventDefault();
    var form = $(this);
+   $("#modal-title").text("Change Password");
+   $("#modal-icon").attr("src", "/assets/dashboard/img/change-password.png");
    if (form.parsley().isValid()) {
       $.ajax({
          method: form.attr('method'),
@@ -177,6 +179,8 @@ $('#userProfile').on('submit', function(e) {
 $('#passwordExpiry').on('submit', function(e) {
    e.preventDefault();
    var form = $(this);
+   $("#modal-title").text("Renew Password Expiry");
+        $("#modal-icon").attr("src", "/assets/dashboard/img/renew.png");
    $.ajax({
       method: form.attr('method'),
       url: form.attr('action'),
