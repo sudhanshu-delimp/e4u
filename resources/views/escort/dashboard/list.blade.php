@@ -290,7 +290,11 @@
             </div>
         </div>
     </div>
+    
+    @if ($type != 'past')
     @include('escort.dashboard.profile.modal.index')
+    @endif
+
     @include('escort.dashboard.partials.playmates-modal')
     @include('escort.dashboard.partials.duplicate-profile-modal')
 @endsection
