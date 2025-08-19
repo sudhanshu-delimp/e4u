@@ -167,6 +167,10 @@
                url: "{{ route('support-ticket.conversations') }}" + '/' + ticketId,
                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                success: function (data) {
+                    if(data.status_id == 3 || data.status_id == 4) {
+                    $("#sendMessage").parent().hide();
+                    }
+
                    $("#ticket_name").html(data.subject);
                    var html = '<div class="col-sm-6 conversation"> </div>' +
                                // '<div class="col-sm-6 conversation"> </div>' +
