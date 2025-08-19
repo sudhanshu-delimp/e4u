@@ -929,12 +929,7 @@
                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content border-0">
-                                                <div class="modal-header border-0">
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                        <span aria-hidden="true">×</span>
-                                                    </button>
-                                                    <div class="col-12">
+                                                <div class="modal-header d-flex justify-content-between align-items-center">
                                                         <ul class="nav nav-tabs justify-content-center border-0">
                                                             <li class="nav-item">
                                                                 <a class="nav-link active" id="home-tab"
@@ -949,7 +944,9 @@
                                                                     href="#menu2">Videos</a>
                                                             </li>
                                                         </ul>
-                                                    </div>
+                                                        <button type="button" class="p-0" data-dismiss="modal"
+                                                            aria-label="Close"> <img src="{{ asset('assets/app/img/newcross.png') }}" class="custompopicon">
+                                                         </button>
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="tab-content" id="myTabContent">
