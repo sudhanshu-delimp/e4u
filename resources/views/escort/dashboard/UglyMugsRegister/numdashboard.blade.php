@@ -125,6 +125,20 @@
         infoEmpty: "No entries available",
         infoFiltered: "(filtered from _MAX_ total entries)"
       },
+      "language": {
+                    "zeroRecords": "There is no record of the search criteria you entered.",
+                },
+      initComplete: function() {
+          if ($('#returnToReportBtn').length === 0) {
+              $('.dataTables_filter').append(
+                  '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+              );
+          }
+          $('#returnToReportBtn').on('click', function() {
+              var table = $('#myReportTable').DataTable();
+              table.search('').draw();
+          });
+      },
       paging: true,
       processing: false,
       serverSide: false,

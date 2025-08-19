@@ -170,6 +170,21 @@
                infoEmpty: "No entries available",
                infoFiltered: "(filtered from _MAX_ total entries)"
            },
+           initComplete: function() {
+                    if ($('#returnToReportBtn').length === 0) {
+                        $('.dataTables_filter').append(
+                            '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+                        );
+                    }
+                    $('#returnToReportBtn').on('click', function() {
+                        var table = $('#sendNotificationTable').DataTable();
+                        table.search('').draw();
+                    });
+                },
+                "language": {
+                    "zeroRecords": "There is no record of the search criteria you entered.",
+                    searchPlaceholder: "Search by ID or Profile Name"
+                },
            paging: true
        });
    });

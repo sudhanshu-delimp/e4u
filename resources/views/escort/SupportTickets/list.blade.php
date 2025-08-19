@@ -119,6 +119,22 @@
         lengthChange: true,
         searching: true,
         bStateSave: false,
+        initComplete: function() {
+                    if ($('#returnToReportBtn').length === 0) {
+                        $('.dataTables_filter').append(
+                            '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+                        );
+                    }
+                    $('#returnToReportBtn').on('click', function() {
+                        var table = $('#supportTicketsTable').DataTable();
+                        table.search('').draw();
+                    });
+                },	
+				
+        "language": {
+                            "zeroRecords": "There is no record of the search criteria you entered.",
+                            searchPlaceholder: "Search by ID or Profile Name"
+                        },
 
         ajax: {
             url: "{{ route('support-ticket.dataTable') }}",

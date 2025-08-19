@@ -165,6 +165,23 @@
       pageLength: 5,
       lengthMenu: [[5, 10, 25, 50, 100], [5, 10, 25, 50, 100]],
       ordering: true,
+      initComplete: function() {
+                    if ($('#returnToReportBtn').length === 0) {
+                        $('.dataTables_filter').append(
+                            '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+                        );
+                    }
+                    $('#returnToReportBtn').on('click', function() {
+                        var table = $('#myReportTable').DataTable();
+                        table.search('').draw();
+                    });
+                },	
+				
+ "language": {
+                    "zeroRecords": "There is no record of the search criteria you entered.",
+                    searchPlaceholder: "Search by ID or Profile Name"
+                },
+
       columnDefs: [
         { targets: 6, orderable: false } // Action column
       ]
