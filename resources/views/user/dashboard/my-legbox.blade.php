@@ -512,7 +512,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="emailReport">
                         <img src="{{ asset('assets/dashboard/img/view.png') }}" style="width:40px; margin-right:10px;" alt="Request Rejected">
-                        Escort Profile</h5>
+                        <span class="iframeEscortTitle">Escort Profile</span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                     </button>
@@ -691,6 +691,7 @@
                     $("#escortProfileModal").modal('show')
                 }else{
                     let htmlData = '<iframe src="" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>';
+                    $(".iframeEscortTitle").text('Escort Profile');
                     $("#escortPopupModalBody").html(htmlData);
                     $("#escortPopupModalBodyIframe").attr('src', profileurl);
 
@@ -910,6 +911,85 @@
                         { data: 'massage_communication', name: 'massage_communication' },                    // 9
                         { data: 'action', name: 'action', orderable: false, searchable: false } // 10
                     ]
+            });
+
+            $(document).on('click', '.toggle-massage-contact', function (e) {
+                e.preventDefault();
+                const $this = $(this);
+                const massageId = $this.data('id');
+                const currentStatus = $this.data('status'); // disable or enable
+                const newStatus = currentStatus === 'disable' ? 'enable' : 'disable';
+                let url = '{{ route("viewer.massage-interaction.update") }}';
+
+                let data = {
+                    'massage_id' : massageId,
+                    'current_status' : currentStatus,
+                    'viewer_disabled_contact' : newStatus,
+                    'type' : 'contact',
+                    'message' : 'Massage contact is '+ newStatus + 'd successfully!',
+                }
+
+                if(newStatus == 'disable'){
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/no-phone.png")}}');
+                }else{
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/phone.png")}}');
+                }
+
+                return  massageAjaxCallback(url, data, $this);
+            });
+
+            $(document).on('click', '.toggle-massage-notification', function (e) {
+                e.preventDefault();
+                const $this = $(this);
+                const massageId = $this.data('id');
+                const currentStatus = $this.data('status');
+                const newStatus = currentStatus === 'disable' ? 'enable' : 'disable';
+                let url = '{{ route("viewer.massage-interaction.update") }}';
+
+                let data = {
+                    'massage_id' : massageId,
+                    'current_status' : currentStatus,
+                    'viewer_disabled_notification' : newStatus,
+                    'type' : 'notification',
+                    'message' : 'Massage notification is '+ newStatus + 'd successfully!',
+                }
+
+                if(newStatus == 'disable'){
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/disable_notification.png")}}');
+                }else{
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/enable_notification.png")}}');
+                }
+
+                return  massageAjaxCallback(url, data, $this);
+            });
+
+            $(document).on('click', '.massageProfileView', function(e) {
+                e.preventDefault();
+                
+                let massageId = $(this).attr('data-id');
+                let massageProfileIsEnabled = $(this).attr('data-profile-enable');
+                let profileurl = "{{route('center.profile.description','_id')}}";
+                profileurl = profileurl.replace('_id',massageId);
+
+                if(massageProfileIsEnabled == '0'){
+                    let htmlData = '<div class="col-md-12 my-4  text-center"><h5 class=" body_text mb-2">This Massage Centre does not presently have a Listed Profile.</h5></div>';
+
+                    $(".modal_title_span").text('Massage Centre : ');
+                    
+                    $("#escortProfileModal").modal('show')
+                }else{
+                    let htmlData = '<iframe src="" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>';
+                    $(".iframeEscortTitle").text('Massage Centre');
+                    $("#escortPopupModalBody").html(htmlData);
+                    $("#escortPopupModalBodyIframe").attr('src', profileurl);
+
+                    setTimeout(() => {
+                        $("#escortProfileMissingModal").modal('show')
+                    }, 300);  
+                }
+
+                
+                
             });
 
             $('#massageCenterRatingForm').on('submit', function (e) {
