@@ -225,9 +225,12 @@ class ViewerMassageInteractionController extends Controller
                 })
 
                 ->addColumn('massage_communication', function ($row) {
-
-                    $methods[] = 'Text';
-                    return $methods;
+                    if($row->user->contact_type ){
+                        if(in_array(3, $row->user->contact_type) || in_array('3', $row->user->contact_type)){
+                            return $row->user->email;
+                        }
+                    }
+                    return $row->phone;
                 })
 
                 ->addColumn('action', function ($row) {

@@ -972,7 +972,7 @@
                 profileurl = profileurl.replace('_id',massageId);
 
                 if(massageProfileIsEnabled == '0'){
-                    let htmlData = '<div class="col-md-12 my-4  text-center"><h5 class=" body_text mb-2">This Massage does not presently have any Listed centre.</h5></div>';
+                    let htmlData = '<div class="col-md-12 my-4  text-center"><h5 class=" body_text mb-2">This Massage Centre does not presently have a Listed Profile.</h5></div>';
 
                     $(".modal_title_span").text('Massage Centre : ');
                     
