@@ -7,6 +7,7 @@ use App\Traits\DataTablePagination;
 use App\Models\MassageProfile;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class MassageProfileRepository extends BaseRepository implements MassageProfileInterface
 {
@@ -454,6 +455,15 @@ class MassageProfileRepository extends BaseRepository implements MassageProfileI
         
         
 
+        //dd($collection->get()); // massage-centres-list
+        if(Auth::user() && Auth::user()->type == 0){
+             $collection = $collection
+                ->whereDoesntHave('messageViewerInteraction') // no interaction (include bhi karna hai)
+                ->orWhereHas('messageViewerInteraction', function ($query) {
+                    $query->where('massage_blocked_viewer', '!=', 1); // not blocked
+                })
+                ->with('messageViewerInteraction');
+        }
         
 
         return $collection;

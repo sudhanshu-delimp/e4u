@@ -878,7 +878,7 @@
                 responsive: false,
                     language: {
                         search: "Search: _INPUT_",
-                        searchPlaceholder: "Search by ID or Massage Center Name...",
+                        searchPlaceholder: "Search by ID or Business Name...",
                         lengthMenu: "Show _MENU_ entries",
                         zeroRecords: "No matching records found",
                         info: "Showing _START_ to _END_ of _TOTAL_ entries",
