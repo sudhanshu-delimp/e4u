@@ -701,6 +701,18 @@ class UpdateController extends AppController
         }
         //********FILE UPLOAD AREA CLOSE**********//
 
+        if($request->position){
+            foreach($request->position as $position=>$media_id){
+                if(!empty($media_id)){
+                    $media_arr[$position]  = [
+                        'escort_id' => $id,
+                        'escort_media_id' => $media_id,
+                        'position' => $position,
+                        'created_at' => date('Y-m-d H:i:s')
+                    ];
+                }
+            }
+        }
 
         $escortImages = EscortGallery::where('escort_id', $id)->get();
         foreach ($escortImages as $escortImage) {
@@ -710,14 +722,6 @@ class UpdateController extends AppController
                 $escortImage->save();
                 unset($media_arr[$escortImage->position]);
             }
-        }
-        foreach ($media_arr as $newRecord) {
-            $gallery = new EscortGallery;
-            $gallery->escort_id = $id;
-            $gallery->escort_media_id = $newRecord['escort_media_id'];
-            $gallery->position = $newRecord['position'];
-            $gallery->created_at = date('Y-m-d H:i:s');
-            $gallery->save();
         }
 
         return response()->json(compact('error'));
