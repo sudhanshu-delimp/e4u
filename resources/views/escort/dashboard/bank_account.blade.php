@@ -6,6 +6,67 @@
       /* color: red; */
       list-style: none;
    }
+   /* Target your SetPinModal only */
+#SetPinModal .modal-dialog {
+  max-width: 450px !important;   
+  margin: auto;
+}
+
+#SetPinModal .modal-content {
+  border-radius: 10px;
+}
+
+   /* PIN display box */
+.pin-display {
+  font-size: 18px;
+  font-weight: bold;
+  border-bottom: 1px solid #000;
+  padding: 8px;
+  min-height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Keypad styling */
+.pin-keypad {
+  display: inline-block;
+}
+
+.keypad-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.key {
+  width: 100px;
+  height: 60px;
+  margin: 0 5px;
+  font-size: 20px;
+  font-weight: bold;
+  border: 1px solid #000;
+  background: #fff;
+  cursor: pointer;
+  color: #0c223d;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+}
+
+.key:hover {
+  background: #0c223d;
+  color: #fff;
+}
+
+/* Buttons */
+.btn-secondary, .btn-primary {
+  padding: 8px 20px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 </style>
 @endsection
 @section('content')
@@ -41,7 +102,9 @@
       <div class="col-lg-12 col-md-12 col-sm-12">
 
          <div class="bothsearch-form">
-            <button type="button" class="create-tour-sec dctour" data-toggle="modal" id="commission-modal" data-target="#commission-report2">Add New Account</button>
+            <button type="button" class="create-tour-sec dctour" data-toggle="modal"  data-target="#payid">PayID</button>
+            <button type="button" class="create-tour-sec dctour" data-toggle="modal"  data-target="#SetPinModal">Change PIN</button>
+            <button type="button" class="create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New Account</button>
          </div>
       </div>
    </div>
@@ -65,8 +128,14 @@
       </div>
    </div>
 </div>
+{{-- PayID Change PIN action btn--}}
+{{-- <button class="btn-success-modal" data-toggle="modal" data-target="#AddNewAccountConfirm">New Bank Account added </button>
+<button class="btn-success-modal" data-toggle="modal" data-target="#AddPayId">PayID </button>
+<button class="btn-success-modal" data-toggle="modal" data-target="#EFTInstructions">EFT Instructions </button> --}}
+
 </div>
 </div>
+
 <div class="modal fade upload-modal" id="commission-report" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel" aria-hidden="true" style="display: none">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
@@ -209,6 +278,195 @@
       </div>
    </div>
 </div>
+{{-- New Bank Account added  --}}
+<div class="modal fade upload-modal" id="AddNewAccountConfirm" tabindex="-1" role="dialog"
+         aria-labelledby="escortProfileMissingLabel" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+
+            <div class="modal-header">
+                  <h5 class="modal-title">
+                     <img src="{{ asset('assets/dashboard/img/add-new-account.png') }}" style="width:40px; padding-right:10px;" class="modal_title_img">New Bank Account added
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}"
+                              class="img-fluid img_resize_in_smscreen">
+                     </span>
+                  </button>
+            </div>
+
+            <div class="modal-body pb-0 agent-tour">
+                  <div class="row">
+                     <div class="col-md-12 my-4">
+                        <p class="font-weight-bold">We confirm:</p>
+                        <ol>
+                           <li>Bank Account <span>526985412036</span> has been added to your
+                              list of Bank Accounts as a <span>Primary or Secondary</span>
+                              account.</li>
+                           <li>You can edit the details by clicking the 'Action' link.</li>
+                           <li>Your default PIN is <span>1234</span> which you can reset by clicking
+                              the Change PIN button.</li>
+                        </ol>
+                     </div>
+                  </div>
+
+                  <div class="row">
+                     <div class="col-md-12 mb-3">
+                        <div class="form-group d-flex align-items-center justify-content-center">
+                              <button type="button" class="btn-success-modal " data-dismiss="modal">Close</button>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+
+         </div>
+      </div>
+</div>
+{{-- End Modal --}}
+
+
+{{-- PayID for Payer [X] --}}
+<div class="modal fade upload-modal" id="AddPayId" tabindex="-1" role="dialog"
+         aria-labelledby="escortProfileMissingLabel" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+
+            <div class="modal-header">
+                  <h5 class="modal-title">
+                     <img src="{{ asset('assets/dashboard/img/payer.png') }}" style="width:40px; padding-right:10px;" class="modal_title_img">PayID for Payer 
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}"
+                              class="img-fluid img_resize_in_smscreen">
+                     </span>
+                  </button>
+            </div>
+
+            <div class="modal-body pb-0 agent-tour">
+                  <div class="row">
+                     <div class="col-md-12 my-4">
+                        <ol class="pl-3">
+                           <li class="pl-3">My PayID number is: <span class="font-weight-bold">1234567890</span></li>                           
+                           
+                           <li class="pl-3">Account name: <span>XYZ65464</span></li>
+                        </ol>
+                        <p>Thank you for your payment.</p>
+                     </div>
+                  </div>
+
+                  <div class="row">
+                     <div class="col-md-12 mb-3">
+                        <div class="form-group d-flex align-items-center justify-content-center">
+                              <button type="button" class="btn-success-modal " data-dismiss="modal">Close</button>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+
+         </div>
+      </div>
+</div>
+{{-- End Modal --}}
+
+{{-- EFT Instructions for Payer [X] --}}
+<div class="modal fade upload-modal" id="EFTInstructions" tabindex="-1" role="dialog"
+         aria-labelledby="escortProfileMissingLabel" aria-hidden="true" data-backdrop="static">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+
+            <div class="modal-header">
+                  <h5 class="modal-title">
+                     <img src="{{ asset('assets/dashboard/img/payer.png') }}" style="width:40px; padding-right:10px;" class="modal_title_img">EFT Instructions for Payer
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}"
+                              class="img-fluid img_resize_in_smscreen">
+                     </span>
+                  </button>
+            </div>
+
+            <div class="modal-body pb-0 agent-tour">
+                  <div class="row">
+                     <div class="col-md-12 my-4">
+                        <ol class="pl-3">
+                           <li class="pl-3">EFT your payment to this bank account: </li>                           
+                              <p class="pl-3 d-flex justify-content-start"><span class="w-25">BSB:</span> <span class="font-weight-bold">123 445</span></p>
+                              <p class="pl-3 d-flex justify-content-start"><span class="w-25">A/c Number:</span> <span class="font-weight-bold">123-1235</span></p>
+                           <li class="pl-3">Please email your payment receipt to:</li>
+                           <p class="pl-3"><a href="#">Escort email</a></p>
+                        </ol>
+                        <p>Thank you for your payment.</p>
+                     </div>
+                  </div>
+
+                  <div class="row">
+                     <div class="col-md-12 mb-3">
+                        <div class="form-group d-flex align-items-center justify-content-center">
+                              <button type="button" class="btn-success-modal " data-dismiss="modal">Close</button>
+                        </div>
+                     </div>
+                  </div>
+            </div>
+
+         </div>
+      </div>
+</div>
+{{-- End Modal --}}
+
+{{-- set pin --}}
+<div class="modal fade upload-modal" id="SetPinModal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+      <div class="modal-header justify-content-center text-center">
+         <!-- Title -->
+         <h5 class=""><b>Set your PIN</b> <br><small>(4 digits)</small></h5>
+      </div>
+ 
+       <div class="modal-body text-center p-0">
+         <!-- PIN Display -->
+         <div id="pinDisplay" class="pin-display mb-3">
+           [numbers appear as typed]
+         </div>
+ 
+         <!-- Keypad -->
+         <div class="pin-keypad mx-auto mb-3">
+           <div class="keypad-row">
+             <button class="key input_value">1</button>
+             <button class="key input_value">2</button>
+             <button class="key input_value">3</button>
+           </div>
+           <div class="keypad-row">
+             <button class="key input_value">4</button>
+             <button class="key input_value">5</button>
+             <button class="key input_value">6</button>
+           </div>
+           <div class="keypad-row">
+             <button class="key input_value">7</button>
+             <button class="key input_value">8</button>
+             <button class="key input_value">9</button>
+           </div>
+           <div class="keypad-row">
+             <button class="key" id="clear">⌫</button>
+             <button class="key input_value">0</button>
+             <button class="key" id="ok">OK</button>
+           </div>
+         </div>
+ 
+         <!-- Footer Buttons -->
+         <div class="d-flex justify-content-center mb-3">
+           <button type="button" class="btn-cancel-modal mr-3">Clear</button>
+           <button type="button" class="btn-success-modal">Save</button>
+         </div>
+ 
+       </div>
+     </div>
+   </div>
+ </div>
+ 
+{{-- end modal --}}
 @endsection
 @push('script')
 <!-- file upload plugin start here -->
@@ -217,6 +475,27 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script>
+   $(document).ready(function(){
+      let fClick = true;
+      $('.input_value').click(function(){
+         let inputValue = $(this).text();
+         if(fClick){
+            $('#pinDisplay').empty();
+               fClick = false;            
+         }
+         $('#pinDisplay').append(inputValue);
+         
+      });
+      $('#clear').click(function(){
+         $('#pinDisplay').text(' ');
+      });
+         $("#ok").click(function(){
+            alert('Your Pin Set');
+            $('#pinDisplay').text(' ');
+         });
+   })
+</script>
 <script>
    $("#escort_bank").parsley({
 

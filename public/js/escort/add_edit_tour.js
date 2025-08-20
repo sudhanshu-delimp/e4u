@@ -1,44 +1,47 @@
-document.addEventListener("DOMContentLoaded", async function () {
-    let locationsContainer = document.getElementById("locationsContainer");
-    let addLocationButton = document.getElementById("addLocation");
-    let saveButton = document.getElementById("saveButton");
+document.addEventListener("DOMContentLoaded", async function() {
+            let locationsContainer = document.getElementById("locationsContainer");
+            let addLocationButton = document.getElementById("addLocation");
+            let saveButton = document.getElementById("saveButton");
 
-    let locationOptions = await fetchLocations(); // Fetch locations dynamically
-    let profileOptions = {}; // Store profiles dynamically per location
+            let locationOptions = await fetchLocations(); // Fetch locations dynamically
+            let profileOptions = {}; // Store profiles dynamically per location
 
-    addLocationButton.addEventListener("click", function () {
-        let previousLocations = document.querySelectorAll(".location-group");
-        let lastEndDate = previousLocations.length ? previousLocations[previousLocations.length - 1].querySelector(".end-date").value : null;
+            addLocationButton.addEventListener("click", function() {
+                        let previousLocations = document.querySelectorAll(".location-group");
+                        let lastEndDate = previousLocations.length ? previousLocations[previousLocations.length - 1].querySelector(".end-date").value : null;
 
-        let availableLocations = getAvailableLocations();
-        if (availableLocations.length === 0) {
-            alert("No more locations available.");
-            return;
-        }
+                        let availableLocations = getAvailableLocations();
+                        if (availableLocations.length === 0) {
+                            alert("No more locations available.");
+                            return;
+                        }
 
-        let newLocation = document.createElement("div");
-        newLocation.classList.add("location-group");
+                        let newLocation = document.createElement("div");
+                        newLocation.classList.add("location-group");
 
-        let nextStartDate = lastEndDate ? getNextDate(lastEndDate) : "";
+                        let nextStartDate = lastEndDate ? getNextDate(lastEndDate) : "";
 
-        newLocation.innerHTML = `
+                        newLocation.innerHTML = `
         <div class="card p-3 mb-3 shadow-sm">
-        <h5 class="card-title">Location</h5>
-        <div class="row g-2">
-            <div class="col-md-4">
-                <select name="location[]" class="form-select location-dropdown">
+        <!--- <h5 class="card-title">Location</h5>-->
+        <div class="listing-row">
+            <div class="listing-field">
+             <label for="location">Location:</label>
+                <select name="location[]" class="form-select form-control location-dropdown">
                     ${availableLocations.map(loc => `<option value="${loc.id}">${loc.name}</option>`).join("")}
                 </select>
             </div>
-            <div class="col-md-3">
+            <div class="listing-field">
+                <label for="start-date">Start Date:</label>
                 <input type="date" name="start_date[]" class="form-control start-date" value="${nextStartDate}" min="${nextStartDate}">
             </div>
-            <div class="col-md-3">
+            <div class="listing-field">            
+                <label for="end-date">End Date:</label>
                 <input type="date" name="end_date[]" class="form-control end-date">
             </div>
-            <div class="col-md-2 d-flex gap-2">
-                <button type="button" class="btn btn-primary addProfile">Add Profile</button>
-                <button type="button" class="btn btn-danger removeLocation">Remove</button>
+            <div class="d-flex align-items-end justify-content-start">
+                <button type="button" class="btn-success-modal addProfile" style="padding:6px 10px;">Add Profile</button>
+                <button type="button" class="btn-cancel-modal removeLocation" style="padding:6px 10px;">Remove</button>
             </div>
         </div>
         <div class="profiles mt-3"></div>
