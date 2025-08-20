@@ -45,22 +45,12 @@
                 <table class="table pin-table" id="pinUpListingTable">
                     <thead class="table-bg">
                         <tr>
-                            <th scope="col">
-                                Member ID
-
-                            </th>
-                            <th scope="col">
-                                Member
-
-                            </th>
-                            <th scope="col">
-                                Location
-                            </th>
-                            <th scope="col">
-                                Profile ID
-                            </th>
-                            <th scope="col">Listed </th>
-                            <th scope="col">De-listed </th>
+                            <th scope="col">Member ID</th>
+                            <th scope="col">Profile ID</th>
+                            <th scope="col">Profile Name</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Listed</th>
+                            <th scope="col">De-Listed</th>
                             <th scope="col">Status</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -71,7 +61,7 @@
                     <tfoot class="bg-first t-foot">
                         <tr>
                             <th colspan="3">
-                                    Server time: <span id="server_time">[10:23:51 am]</span>
+                                    Server time: <span id="server_time">--</span>
                             </th>
                             <th colspan="1" class="text-center">
                                     Refresh time:<span id="refresh_time">--</span>
@@ -144,9 +134,9 @@
     },
     columns: [
         { data: 'member_id' },
+        { data: 'profile_id' },
         { data: 'escort_name' },
         { data: 'location' },
-        { data: 'profile_id' },
         { data: 'start_date' },
         { data: 'end_date' },
         { data: 'status' },

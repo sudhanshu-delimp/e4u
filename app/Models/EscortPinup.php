@@ -64,10 +64,10 @@ class EscortPinup extends Model
     public function getStatusAttribute(){
         $now = Carbon::now('UTC');
         if ($now->between($this->utc_start_time, $this->utc_end_time)) {
-            return 'current';
+            return 'Current';
         }
         if ($now->lt($this->utc_start_time)) {
-            return 'upcoming';
+            return 'Upcoming';
         }
     }
 }
