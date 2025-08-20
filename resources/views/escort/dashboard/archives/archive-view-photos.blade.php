@@ -286,8 +286,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div style="display: flex;gap: 15px;">
-                                    <p>{{ $media->count()}}/30</p>
-                                    <img src="{{ asset('assets/app/img/Vector-2.png')}}" style="height: 21px;">
+                                    <p>{{ $media->count() }}/30</p>
                                 </div>
                             </div>
                         </div>

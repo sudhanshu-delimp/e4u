@@ -346,7 +346,7 @@ class EscortGalleryController extends AppController
         if((in_array($request->position,[9,10]) && $request->position != $media->position) || ($request->position < 9 && in_array($media->position,[9,10]))) {
             $msg = "The photo you selected is not a {$repositoryName} image.  Please select a {$repositoryName} image from your repository.";
         } 
-        else if(!in_array($media->position,[9,10]) && !empty($media->position)){
+        else if(!in_array($media->position,[9,10]) && !empty($media->default)){
             $msg = "The photo you selected is already set as the default. Please select a {$repositoryName} image from your repository.";
         }
         else {
@@ -356,18 +356,6 @@ class EscortGalleryController extends AppController
             $media->save();
             $error = true;
         }
-        // elseif ($media->position != 9 && $media->position) {
-        //     $msg = "It's a duplicate image. Please select another image.";
-        // }
-        // foreach($request->position as $position => $id) {
-        //     if($id != null) {
-        //
-        //         $media->position = $position;
-        //         $media->save();
-        //         $error = true;
-        //     }
-
-        // }
         return response()->json(compact('error','msg'));
     }
     public function defaultVideos(Request $request)
