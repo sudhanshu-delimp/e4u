@@ -83,6 +83,8 @@
             </div>
          </section>
       </section>
+
+
         <div class="modal" id="comman_modal" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content custome_modal_max_width">
@@ -123,6 +125,8 @@
                 </div>
             </div>
         </div>
+
+
         <div class="modal" id="recovery_modal" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content custome_modal_max_width">
@@ -149,60 +153,9 @@
                 </div>
             </div>
         </div>
-        <div class="modal" id="sendOtp_modal" style="display: none">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content custome_modal_max_width">
-                    <form id="SendOtp" method="post" action="" >
-                        @csrf
-                        <div class="modal-header main_bg_color border-0">
-                            <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/face-lock.png') }}" style="width:40px;" alt="face-lock verification">  2FA Verification</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                            </span>
-                            </button>
-                        </div>
-                        <div class="modal-body forgot_pass pb-1">
-                            <div class="form-group label_margin_zero_for_login">
-                                <div class="row text-center" style="">
-                                    <div class="col-md-12">
-                                        <a href="#"><img src="{{ asset('assets/app/img/e4u_forget.png') }}" class="img-fluid" alt="logo"></a>
-                                    </div>
-                                </div>
-                                <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Account Protection</strong></h4>
-                                <ol class="pb-2 pl-3 text-justify">
-                                    <li>To help keep your account safe, E4U wants to make sure it is really you trying to
-                                        log in.</li>
-                                    <li>We have sent you your verification code according to your preference, please
-                                        insert your verification code.</li>
-                                </ol>
-                               
-                                    <div class="d-flex align-items-center justify-content-between gap-10">
-                                        <input type="password" maxlength="4" required class="form-control w-75" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required">
-                                        <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
-                                    </div>
-                                {{-- <input type="password" maxlength="4" required class="form-control" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required"> --}}
 
-                                <div class="termsandconditions_text_color">
-                                    @error('opt')
-
-                                            {{ $message }}
-                                    @enderror
-
-                                </div>
-                                <input type="hidden" name="phone" id="phoneId" value="">
-
-                            </div>
-                            <div id="senderror">
-                            </div>
-                        </div>
-                        <div class="modal-footer forgot_pass pt-0 pb-4">
-                            <p class="pt-2">Not received your verification code? <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a></p>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        
+         @include('modal.two-step-verification')
     </div>
 
 
@@ -338,13 +291,14 @@
         //            }
         //        });
         //    });--}}
+
+
+
     var loginFormViewer = $("#loginFormViewer");
 
     loginFormViewer.submit(function(e) {
 
       e.preventDefault();
-
-
       var form = $(this);
       var url = form.attr('action');
       var formData = new FormData($("#loginFormViewer")[0]);
@@ -362,8 +316,7 @@
                'X-CSRF-Token': token
          },
             success: function(data) {
-
-                console.log(data);
+                $('#formerror').html('');
                 if(data.escort_id != null) {
 
                 }
@@ -378,12 +331,15 @@
                 console.log('path=='+ path);
                 var ph = data.phone;
                 $("#phoneId").attr('value',ph);
-                if(data.error == 1) {
+                if(data.error == 1) 
+                {
                     $('body').on("click","#resendOtpSubmit",function(){
                         $("#loginFormViewer").submit();
                         $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>");
                     });
-                    $("#sendOtp_modal").modal('show');//
+
+
+                    $("#sendOtp_modal").modal('show');
                     $("body").on("submit","#SendOtp",function(e){
                         e.preventDefault();
                         var form = $(this);
@@ -391,7 +347,6 @@
                         console.log(ph);
                         // var url = form.attr('action');
                         var url = "{{ route('web.checkOTP')}}";
-
                         var data = new FormData($('#SendOtp')[0]);
                         var phone = data.phone;
                         // var escort_id = data.escort_id;
@@ -413,30 +368,30 @@
                            success: function(data) {
                               console.log(data);
 
-                              if(data.error == true) {
-                              //console.log(data);
-                                if(path != null && path == '/massage-centres-list') {
-                                    window.location.href = "{{ route('find.massage.centre') }}";
-                                } else if(path == '/all-escorts-list'){
+                              if(data.error == true) 
+                              {
+                                    if(path != null && path == '/massage-centres-list') {
+                                        window.location.href = "{{ route('find.massage.centre') }}";
+                                    } else if(path == '/all-escorts-list'){
 
-                                    window.location.href = "{{ route('find.all') }}";
-                                } else if(path == 'center-profile'){
-                                    var my_url = "{{ route('center.profile.description',':show_id')}}";
-                                    my_url = my_url.replace(':show_id', show_id);
-                                    window.location.href = my_url;
-                                } else if(path == 'escort-profile'){
-                                    var my_url = "{{ route('profile.description',':show_id')}}";
-                                    my_url = my_url.replace(':show_id', show_id);
-                                    window.location.href = my_url;
-                                } else {
-                                    window.location.href = "{{ route('find.all') }}";
-                                }
+                                        window.location.href = "{{ route('find.all') }}";
+                                    } else if(path == 'center-profile'){
+                                        var my_url = "{{ route('center.profile.description',':show_id')}}";
+                                        my_url = my_url.replace(':show_id', show_id);
+                                        window.location.href = my_url;
+                                    } else if(path == 'escort-profile'){
+                                        var my_url = "{{ route('profile.description',':show_id')}}";
+                                        my_url = my_url.replace(':show_id', show_id);
+                                        window.location.href = my_url;
+                                    } else {
+                                        window.location.href = "{{ route('find.all') }}";
+                                    }
 
                               }
                            },
                            error: function(data) {
 
-                                console.log("error otp: ", data.responseJSON.errors);
+                                //console.log("error otp: ", data.responseJSON.errors);
                                 $.each(data.responseJSON.errors, function(key, value) {
                                 errorsHtml = '<div class="alert alert-danger"><ul>';
                                 errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
@@ -453,13 +408,9 @@
 
          },
          error: function(data) {
-
-               console.log("error w: ", data.responseJSON.errors);
-
-
                $.each(data.responseJSON.errors, function(key, value) {
                 errorsHtml = '<div class="alert alert-danger"><ul>';
-                errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
+                errorsHtml += '<li>' + value + '</li>'; 
                });
 
                errorsHtml += '</ul></di>';

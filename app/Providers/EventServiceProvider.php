@@ -8,6 +8,7 @@ use App\Events\MassageRegister;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use App\Listeners\Agent\SendAgentWelcomeEmail;
+use App\Listeners\CreateDefaultAccountSettings;
 use App\Listeners\Escort\RegisterListenerForAdmin;
 use App\Listeners\Escort\RegisterListenerForAgent;
 use App\Listeners\Escort\RegisterListenerForEscort;
@@ -27,8 +28,8 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Registered::class => [
+            CreateDefaultAccountSettings::class,
             SendEmailVerificationNotification::class,
-            
         ],
         EscortRegister::class => [
             RegisterListenerForEscort::class,
@@ -44,6 +45,7 @@ class EventServiceProvider extends ServiceProvider
             RegisterListnerForAgent::class,
             RegisterListnerForAdmin::class,
         ],
+       
         'Illuminate\Auth\Events\Login' => [
             'App\Listeners\LoginListener',
         ],

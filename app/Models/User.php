@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\AccountSetting;
+use App\Models\AgentBankDetail;
+use App\Models\PasswordSecurity;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use App\Models\PasswordSecurity;
-use App\Models\AgentBankDetail;
 
 class User extends Authenticatable
 {
@@ -471,5 +472,17 @@ class User extends Authenticatable
         }
     }
     
+
+    public function account_setting()
+    {
+      return $this->belongsTo(AccountSetting::class, 'id','user_id');
+    }
+
+
+     public function generateOTP(){
+        $otp = '123456';
+        //$otp = mt_rand(1000,9999);
+        return $otp;
+    }
 
 }

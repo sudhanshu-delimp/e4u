@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\User\Dashboard;
 
+use Auth;
+use Exception;
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\MyLegbox;
+use Illuminate\Http\Request;
+use App\Models\MyMassageLegbox;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Models\MyLegbox;
-use App\Models\MyMassageLegbox;
-use Auth;
-use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -228,7 +230,8 @@ class UserController extends Controller
 
     public function editPassword()
     {
-        $user = $this->user->find(auth()->user()->id);
+        $user = User::with('account_setting')->where('id',auth()->user()->id)->first();
+        //dd( $user);
         //dd($user->passwordSecurity);
         return view('user.dashboard.change-password',compact('user'));
     }
@@ -266,35 +269,48 @@ class UserController extends Controller
 
     public function updatePassword(Request $request)
     {
-        $user = $this->user->find(auth()->user()->id);
-        $error = true;
-        if(!Hash::check($request->password, $user->password)){
-           //'Return error with current passowrd is not match';
-           $error = false;
-        }else{
-            //'Write here your update password code';
-            $data = [
-                'password' => Hash::make($request->new_password),
-            ];
-            $this->user->store($data, auth()->user()->id);
-
+        $response = [];
+        try 
+        {
+                $user = $user = User::with('account_setting')->where('id',auth()->user()->id)->first();
+                if(!Hash::check($request->password, $user->password)){
+                    $response = ['error' => true ,'message'=>'Your current password is incorrect.'];
+                }
+                else
+                {
+                $data = ['password' => Hash::make($request->new_password)];
+                $this->user->store($data, auth()->user()->id);
+                if ($user->account_setting) {
+                $user->account_setting->password_updated_date = date('Y-m-d H:i:s');
+                $user->account_setting->save();
+                }
+                $response = ['error' => false ,'message'=>'Password Changed Successfully'];
+                }
+                return response()->json($response);
+        } 
+        catch (Exception $e ) {
+         return response()->json(['error' => true ,'message'=>'Error occured while changing password']);
         }
-
-        return response()->json(compact('error'));
     }
+
+
+
     public function updatePasswordExpiry(Request $request)
     {
-        $user = $this->user->find(auth()->user()->id);
-        $error = true;
+        $user = $user = User::with('account_setting')->where('id',auth()->user()->id)->first();
 
-            //'Write here your update password code';
-            $user->passwordSecurity->password_expiry_days = $request->password_expiry_days;
-            $user->passwordSecurity->password_notification = $request->password_notification;
-            $user->passwordSecurity->password_updated_at = Carbon::now();
-            $user->passwordSecurity->save();
-            // dd( $request->all());
-        return response()->json(compact('error'));
+        if($request->password_expiry_days)
+        $user->account_setting->password_expiry_days = $request->password_expiry_days;  
+
+        $user->account_setting->is_text_notificaion_on = ($request->is_text_notificaion_on) ? '1' : '0'; 
+        $user->account_setting->is_email_notificaion_on = ($request->is_email_notificaion_on) ? '1' : '0';
+
+        $user->account_setting->save();
+        return response()->json(['error' => false ,'message'=>'Password Settings Updated Successfully']);
+    
     }
+
+
     public function uploadAvatar()
     {
         return view('user.dashboard.profileAvatar');

@@ -29,33 +29,23 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
+   
     protected $redirectTo = 'RouteServiceProvider::HOME';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $user;
+    public function __construct(User $user)
     {
         $this->middleware('guest')->except('logout');
+        $this->user = $user;
     }
     public function generateOTP(){
         $otp = mt_rand(1000,9999);
         return $otp;
     }
 
-    /////////////VIEWER LOGIN
+  
     public function login(Request $request)
     {
-        // dd($request->all());
-       // dd($request->path);
-
+    
         $this->validateLogin($request);
         $path = null;
         $show_id = null;
@@ -80,25 +70,18 @@ class LoginController extends Controller
 
         $hasher = app('hash');
         $error = 0;
-        //TODO:: remove bypass before deployment
-        if (1 || Hash::check($request->password, $user->password)) {
+        if (Hash::check($request->password, $user->password)) 
+        {
             $error = 1;
             $phone = $user->phone;
-            $otp = $this->generateOTP();
+            $otp = $this->user->generateOTP();
             $user->otp = $otp;
             $path = $request->path;
             $user->save();
 
-            if(!isset($user->passwordSecurity)) {
-                PasswordSecurity::create([
-                    'user_id' => $user->id,
-                    'password_expiry_days' =>0,
-                    //'status' =>1,
-                    'password_updated_at' => Carbon::now(),
-                ]);
-            }
 
-            if(! is_null($request->escort_id)) {
+            if(! is_null($request->escort_id)) 
+            {
 
                 $show_id = $request->escort_id;
                 $escort_id = $request->escort_id;
@@ -126,18 +109,15 @@ class LoginController extends Controller
                     MyMassageLegbox::create($index);
                 }
             }
-           // $msg = "Never tell anyone this code. Your E4U one time password code is: ".$otp;
+
             $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
             $sendotp = new SendSms();
             $output = $sendotp->send($phone,$msg);
-            //dd($output);
             $id = $user->id;
             return response()->json(compact('error','phone','path','show_id'));
-
-
-        } else {
+        } 
+        else {
             return $this->sendFailedLoginResponse($request);
-            //dd("hellog user");
         }
 
 

@@ -182,9 +182,9 @@ class LoginController extends AppController
 
         //dd($user->otp);
 
-        //TODO::Enable
-        //if($user->otp == (int)$request->otp) {
-        if(1) {
+        
+        if($user->otp == (int)$request->otp) {
+       
             // if($user->email_verified_at == NULL && ($user->type == 3 || $user->type == 4)) {
             //     $this->_sendRegisterSuccessEmail($user);
             // }
