@@ -397,7 +397,7 @@
                                 <div class="container p-0">
                                     <div class="row p-0">
                                         <div class="col-12 p-0">
-                                            <div class="photo-sec-popup"  id="image_preview">
+                                            <div class="photo-sec-popup custom-upload-photo"  id="image_preview">
                                                 <a href="#">
                                                     <div class="five_column_content_top img-title-sec justify-content-between wish_span rm" style="z-index: 1;">
                                                       

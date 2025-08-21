@@ -20,6 +20,9 @@
 #cke_1_contents {
     height: 150px !important;
 }
+#listings_paginate span{
+display: contents;
+}
 </style>
 @endsection
 @section('content')

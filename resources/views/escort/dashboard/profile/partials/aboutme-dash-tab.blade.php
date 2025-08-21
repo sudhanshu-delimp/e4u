@@ -299,6 +299,7 @@
                         <div class="col-lg-8 pl-1">
                             <div class="row pt-3">
                                 <div class="col-4 pr-0 ">
+                                    <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                                     <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
                                             {{-- <img class="img-fluid modal-image-first" id="img1" src="{{ asset('assets/app/img/upload-1.png')}}" style="height: 284px;object-fit: cover;"> --}}
 
@@ -308,6 +309,9 @@
                                 </div>
                                 <div class="col-8">
                                     <div class="row" style="">
+                                       <div class="col-lg-12">
+                                        <h2 class="banner-sub-heading my-2">Default Image</h2>
+                                       </div>
                                         <div class="col-4 pr-0">
                                             <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
                                                     <img class="img-fluid upld-img profile-gallery" id="img2" src="{{asset($escort->imagePosition(2))}}">
@@ -350,6 +354,9 @@
                                 </div>
                             </div>
                             <div class="row pt-2">
+                                <div class="col-lg-12">
+                                    <h2 class="banner-sub-heading my-2">Banner Image</h2>
+                                   </div>
                                 <div class="about_me_drop_down_info add_banner_pic pb-0">
                                     <label class="newbtn" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
                                         <img class="img-fluid profile-gallery"  id="img9" src="{{asset($escort->imagePosition(9))}}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
