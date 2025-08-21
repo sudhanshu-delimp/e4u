@@ -185,6 +185,7 @@
                 },
                 "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
+                    searchPlaceholder: "Search by Member ID or Agent ID..."
                 },
          processing: true,
          serverSide: true,
