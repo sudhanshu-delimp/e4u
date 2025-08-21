@@ -94,7 +94,7 @@ class MassageProfileRepository extends BaseRepository implements MassageProfileI
 				if(in_array($column, $this->getColumns())) {
 					$query->orWhere($column, 'LIKE', "%{$search}%");
 				}
-			}
+			} 
 		}
 
 		$result = $query->get();
