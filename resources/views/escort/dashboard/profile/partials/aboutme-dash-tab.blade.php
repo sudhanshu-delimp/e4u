@@ -298,7 +298,8 @@
                         </div>
                         <div class="col-lg-8 pl-1">
                             <div class="row pt-3">
-                                <div class="col-4 pr-0 ">
+                                <div class="col-2 pr-0 ">                                          
+                                        <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                                     <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
                                             {{-- <img class="img-fluid modal-image-first" id="img1" src="{{ asset('assets/app/img/upload-1.png')}}" style="height: 284px;object-fit: cover;"> --}}
 
@@ -306,21 +307,24 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-8">
+                                <div class="col-6">
                                     <div class="row" style="">
-                                        <div class="col-4 pr-0">
+                                        <div class="col-12">                                            
+                                            <h2 class="banner-sub-heading my-2">Default Image</h2>
+                                        </div>
+                                        <div class="col-3 pr-0">
                                             <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
                                                     <img class="img-fluid upld-img profile-gallery" id="img2" src="{{asset($escort->imagePosition(2))}}">
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-4 pr-0">
+                                        <div class="col-3 pr-0">
                                             <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(3)">
                                                     <img class="img-fluid upld-img profile-gallery" id="img3" src="{{asset($escort->imagePosition(3))}}">
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-4 pr-0">
+                                        <div class="col-3 pr-0">
                                             <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(4)">
                                                     <img class="img-fluid upld-img profile-gallery" id="img4" src="{{asset($escort->imagePosition(4))}}">
                                                 </label>
@@ -328,19 +332,19 @@
                                         </div>
                                     </div>
                                     <div class="row" style="">
-                                        <div class="col-4 pr-0">
+                                        <div class="col-3 pr-0">
                                             <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(5)">
                                                     <img class="img-fluid upld-img profile-gallery" id="img5" src="{{asset($escort->imagePosition(5))}}">
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-4 pr-0">
+                                        <div class="col-3 pr-0">
                                             <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(6)">
                                                     <img class="img-fluid upld-img profile-gallery" id="img6" src="{{asset($escort->imagePosition(6))}}">
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-4 pr-0">
+                                        <div class="col-3 pr-0">
                                             <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(7)">
                                                     <img class="img-fluid upld-img profile-gallery" id="img7" src="{{asset($escort->imagePosition(7))}}">
                                                 </label>
@@ -350,7 +354,8 @@
                                 </div>
                             </div>
                             <div class="row pt-2">
-                                <div class="about_me_drop_down_info add_banner_pic pb-0">
+                                <div class="about_me_drop_down_info add_banner_pic pb-0 col-7">
+                                    <h2 class="banner-sub-heading my-2">Banner Image</h2>
                                     <label class="newbtn" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
                                         <img class="img-fluid profile-gallery"  id="img9" src="{{asset($escort->imagePosition(9))}}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
                                     </label>
