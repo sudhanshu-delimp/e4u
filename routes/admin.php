@@ -141,5 +141,9 @@ Route::get('pricingsummaries-datatable',[PricingsummariesController::class ,'Pri
 
 
 
+Route::get('management/manage-suppliers',function(){
+    return view('admin.management/manage-suppliers');
+})->name('admin.manage-suppliers');
+
 Route::get('/management/agent',[AgentController::class,'agent_list'])->name('admin.agent');
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');
