@@ -1,5 +1,6 @@
 function date_time_format(dateString) {
-    const date = new Date(dateString.replace(" ", "T"));
+   
+    const date = new Date(dateString.replace(" ", "T") + "Z");
     const options = {
         year: 'numeric',
         month: 'short',
@@ -14,7 +15,7 @@ function date_time_format(dateString) {
 }
 
 
-console.log(date_time_format("2025-08-21 06:31:28")); 
+console.log(date_time_format("2025-08-21 08:03:12")); 
 
 
 function swal_waiting_popup(data) {
