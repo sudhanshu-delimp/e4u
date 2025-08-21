@@ -10,6 +10,7 @@ use App\Models\MassageProfile;
 use App\Models\MassageViewerInteractions;
 use App\Models\MyLegbox;
 use App\Models\MyMassageLegbox;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -140,6 +141,18 @@ class ViewerMassageInteractionController extends Controller
             $massageCenters = MassageProfile::whereIn('id',$myMassageLegbboxIds)->where('enabled',1)->with(['city','state','user','messageViewerInteraction']);
 
              return DataTables::of($massageCenters)
+                ->filter(function ($query) use ($request) {
+                        $search = $request->input('search.value'); // null-safe
+                        if (!empty($search)) {
+                            $query->where(function ($q) use ($search) {
+                                // search by massage_id
+                                $q->orWhere('id', 'like', "%{$search}%");
+
+                                // search by business_name (massage profile name)
+                                $q->orWhere('name', 'like', "%{$search}%");
+                            });
+                        }
+                })
                 ->addColumn('massage_id', function ($row) {
                     return $row->id;
                 })
@@ -215,16 +228,28 @@ class ViewerMassageInteractionController extends Controller
                     return $rateText;
                 })
                 ->addColumn('is_enabled_contact', function ($row){
-                    
-                    return "No";
+                    return ($row->messageViewerInteraction && $row->messageViewerInteraction->massage_disabled_contact == 1) ? 'No' : 'Yes';
                 })
                 ->addColumn('contact_method', function ($row) {
 
-                    
-                    return 'Yes';
+                    if($row->messageViewerInteraction && ($row->messageViewerInteraction->massage_disabled_contact || $row->messageViewerInteraction->massage_blocked_viewer)){
+                        return $row->messageViewerInteraction->massage_blocked_viewer ? 'Blocked':'Disabled';
+                    }
+                    if($row->user ){
+                        $viewer = User::where('id',$row->user->id)->first();
+                        if($viewer->contact_type && (in_array(3, $viewer->contact_type) || in_array('3', $viewer->contact_type))){
+                            return 'Email';
+                        }
+                        return "Text";
+                    }
+                    return '-';
                 })
 
                 ->addColumn('massage_communication', function ($row) {
+                    if($row->messageViewerInteraction && ($row->messageViewerInteraction->massage_disabled_contact || $row->messageViewerInteraction->massage_blocked_viewer)){
+                        return $row->messageViewerInteraction->massage_blocked_viewer ? 'Blocked':'Disabled';
+                    }
+
                     if($row->user->contact_type ){
                         if(in_array(3, $row->user->contact_type) || in_array('3', $row->user->contact_type)){
                             return $row->user->email;
@@ -259,15 +284,22 @@ class ViewerMassageInteractionController extends Controller
                         
                     }
 
-                    // if($massageViewerInteractions && $massageViewerInteractions->viewer_rate_escort){
-                    //     $rate = $massageViewerInteractions->viewer_rate_escort;
-                    // }
-
-                    $viewButton = '<a class="dropdown-item align-item-custom massageProfileView"  href="#"
+                    # if massage blocked viewer
+                    if($massageViewerInteractions != null && $massageViewerInteractions->massage_blocked_viewer == 1){
+                        $viewButton = '<a class="dropdown-item align-item-custom text-muted" href="#"
+                                                    data-toggle="modal" > <i
+                                                        class="fa fa-eye-slash text-muted" aria-hidden="true"></i>
+                                                    View</a>
+                                                <span class="tooltip-text ">Access denied: This massage center has blocked you.</span>';
+                    }else{
+                        $viewButton = '<a class="dropdown-item align-item-custom massageProfileView"  href="#"
                                                     data-toggle="modal" data-massage-name="'.$row->name.'" data-profile-enable="'.$row->enabled.'" data-id="'.$row->id.'"> <i
                                                         class="fa fa-eye" aria-hidden="true"></i>
                                                     View</a>
                                                 <span class="tooltip-text">View the Massage Center Profile</span>';
+                    }
+
+                    
 
                     $actionButtons = '
                     <div class="dropdown no-arrow">
