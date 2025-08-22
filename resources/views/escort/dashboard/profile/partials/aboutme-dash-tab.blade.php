@@ -298,7 +298,8 @@
                         </div>
                         <div class="col-lg-8 pl-1">
                             <div class="row pt-3">
-                                <div class="col-4 pr-0 ">
+                                <div class="col-2 pr-0 ">                                          
+                                        <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                                     <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
                                             {{-- <img class="img-fluid modal-image-first" id="img1" src="{{ asset('assets/app/img/upload-1.png')}}" style="height: 284px;object-fit: cover;"> --}}
 
@@ -306,21 +307,24 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-8">
+                                <div class="col-6">
                                     <div class="row" style="">
-                                        <div class="col-4 pr-0">
+                                        <div class="col-12">                                            
+                                            <h2 class="banner-sub-heading my-2">Default Image</h2>
+                                        </div>
+                                        <div class="col-3 pr-0">
                                             <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
                                                     <img class="img-fluid upld-img profile-gallery" id="img2" src="{{asset($escort->imagePosition(2))}}">
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-4 pr-0">
+                                        <div class="col-3 pr-0">
                                             <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(3)">
                                                     <img class="img-fluid upld-img profile-gallery" id="img3" src="{{asset($escort->imagePosition(3))}}">
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-4 pr-0">
+                                        <div class="col-3 pr-0">
                                             <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(4)">
                                                     <img class="img-fluid upld-img profile-gallery" id="img4" src="{{asset($escort->imagePosition(4))}}">
                                                 </label>
@@ -328,19 +332,19 @@
                                         </div>
                                     </div>
                                     <div class="row" style="">
-                                        <div class="col-4 pr-0">
+                                        <div class="col-3 pr-0">
                                             <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(5)">
                                                     <img class="img-fluid upld-img profile-gallery" id="img5" src="{{asset($escort->imagePosition(5))}}">
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-4 pr-0">
+                                        <div class="col-3 pr-0">
                                             <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(6)">
                                                     <img class="img-fluid upld-img profile-gallery" id="img6" src="{{asset($escort->imagePosition(6))}}">
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-4 pr-0">
+                                        <div class="col-3 pr-0">
                                             <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(7)">
                                                     <img class="img-fluid upld-img profile-gallery" id="img7" src="{{asset($escort->imagePosition(7))}}">
                                                 </label>
@@ -350,7 +354,8 @@
                                 </div>
                             </div>
                             <div class="row pt-2">
-                                <div class="about_me_drop_down_info add_banner_pic pb-0">
+                                <div class="about_me_drop_down_info add_banner_pic pb-0 col-7">
+                                    <h2 class="banner-sub-heading my-2">Banner Image</h2>
                                     <label class="newbtn" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
                                         <img class="img-fluid profile-gallery"  id="img9" src="{{asset($escort->imagePosition(9))}}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
                                     </label>
@@ -1571,20 +1576,10 @@
         $("#img1, #img2, #img3, #img4, #img5, #img6, #img7, #img9").on('click', function(e) {
             if($(this).attr('id') == 'img9') {
                 $(".uploadModalTrigger").find("button").attr('data-target', '#upload-sec-banner');
-                /*if($("#banner_images").find('.item2').length) {
-                    $(".uploadModalTrigger").find("button").attr('data-target', '#upload-sec-banner');
-                    $("#photo_gallery_banner").modal("hide");
-                } else {
-                    $("#upload-sec-banner").modal('show');
-                }*/
+               
             } else {
                 $(".uploadModalTrigger").find("button").attr('data-target', '#upload-sec');
-                /*if($("#profile_images").find('.item4').length) {
-                    $(".uploadModalTrigger").find("button").attr('data-target', '#upload-sec');
-                    $("#photo_gallery").modal("hide");
-                } else {
-                    $("#upload-sec").modal('show');
-                }*/
+               
             }
         });
 
@@ -1593,14 +1588,7 @@
             $("#photo_gallery_banner").modal("hide");
         });
 
-        // $(".modalPopup .item4").on('click', function(e) {
-        //     let imageSrc = $(this).find('img').attr('src');
-        //     let mediaId = $(this).find('img').data('id');
-        //     $("#blah"+updatePosition).attr('src',imageSrc);
-        //     $("#img"+updatePosition).attr('src',imageSrc);
-        //     $("#mediaId"+updatePosition).val(mediaId);
-        //     $("#photo_gallery").modal("hide");
-        // });
+      
         
         $(".modalPopup .item2").on('click', function(e) {
             let imageSrc = $(this).find('img').attr('src');
@@ -1614,12 +1602,14 @@
     });
 
     let profile_selected_images = [];
-
+    let default_image_icons = ['img-11.png','img-12.png','img-13.png'];
     $(".modalPopup .item4, .modalPopup .item2").on('click', function(e) {
        let imageSrc = $(this).find('img').attr('src');
        let mediaId = $(this).find('img').data('id');
        let img_target = $("#img"+updatePosition);
        let media_image_length = $(".upld-img").length;
+       let targetImageSrc = img_target.attr('src');
+       let targetImageName = targetImageSrc.split("/").pop();
        /**
         * Get existing profile image data to check duplicates
         */
@@ -1629,9 +1619,8 @@
 
        let newObject = { imageSrc: imageSrc, mediaId: mediaId, img_target: img_target, updatePosition: updatePosition };
        let duplicateImage = srcArray.findIndex(item => item === imageSrc);
-       //let duplicateImage = profile_selected_images.findIndex(item => item.mediaId === mediaId);
        if(duplicateImage !== -1){
-            swal.fire('', "<p>It's a duplicate image. Please select another image 001.</p>", 'error');
+            swal.fire('', "<p>It's a duplicate image. Please select another image.</p>", 'error');
        }
        else{
             let index = profile_selected_images.findIndex(item => item.updatePosition === updatePosition);
@@ -1645,6 +1634,13 @@
             $("#img"+updatePosition).attr('src',imageSrc);
             $("#mediaId"+updatePosition).val(mediaId);
             if(profile_selected_images.length > 0){
+                let modalTitle = document.querySelector("#setAsDefaultForMainAccount .modal-title");
+                let textNode = [...modalTitle.childNodes].find(
+                    node => node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== ""
+                );
+                if (textNode) {
+                    textNode.textContent = default_image_icons.includes(targetImageName)?'Save to Default Media or Repository':'Replace Media';
+                }
                 $("#setAsDefaultForMainAccount").modal('show');
             }
        }
@@ -1766,125 +1762,12 @@
         }
         
     });
-    /*$("body").on("click","#update_who_am_i",function(){
-        let about = editor.getData();
-        let about_title = $("[name=about_title]").val();
-        if(about || about_title) {
-            update_escort($(this), {
-                'about' : about,
-                'about_title' : about_title
-            });
-        }
-    });*/
-    /* $("body").on("click","#location-info",function(){
-        var profile_name = $('#profile_name').val();
-        var name = ($('#stageName').is(":visible")) ? $('#stageName').val() : $('#stageNameInp').val();
-        var state_id = $('#state_id').val();
-        var city_id = $('#city_id').val();
-        var address = $('#address').val();
-        var phone = $('#phone').val();
-        if(profile_name != null && name != null && city_id != null && phone != null) {
-            update_escort($(this), {
-                'profile_name' : profile_name,
-                'name' : name,
-                'state_id' : state_id,
-                'city_id' : city_id,
-                'address' : address,
-                'phone' : phone
-            });
-        } */
-        /*$('.comman_msg').html("Updated");
-        $("#comman_modal").modal('show');*/
-    //});
-    /*$("#read-more").on('click', function(e) {
-       e.preventDefault();
-       var inputFormData = {};
-        $("#read-more-area").find("input, select, textarea").each(function(id, element) {
-            if($(element).val()) {
-                console.log($(element));
-                inputFormData[$(element).attr('name')] = $(element).val();
-            }
-        });
-        console.log(inputFormData);
-    });*/
-
-
-
-
-
-
-
-
-
-
-
-    {{--$('#search-playmate-input').select2({--}}
-    {{--    //dropdownParent: $("#play-mates-modal"),--}}
-    {{--    width: '100%',--}}
-    {{--    dropdownCssClass: "bigdrop",--}}
-    {{--    placeholder: {--}}
-    {{--        id: 0, // the value of the option--}}
-    {{--        text: "{{ asset('assets/app/img/service-provider/Frame-408.png') }}",--}}
-    {{--        name: 'Search by name ',--}}
-    {{--        member_id: 'Member ID',--}}
-    {{--    },--}}
-    {{--    allowClear: true,--}}
-    {{--    language: {--}}
-    {{--        inputTooShort: function() {--}}
-    {{--            return 'Enter the Name';--}}
-    {{--        }--}}
-    {{--    },--}}
-    {{--    createTag: function(params) {--}}
-    {{--        var term = $.trim(params.term);--}}
-    {{--        console.log(term);--}}
-    {{--        if (term === '') {--}}
-    {{--            return null;--}}
-    {{--        }--}}
-    {{--        return {--}}
-    {{--            id: term,--}}
-    {{--            text: term,--}}
-    {{--            newTag: true // add additional parameters--}}
-    {{--        }--}}
-    {{--    },--}}
-    {{--    tags: false,--}}
-    {{--    minimumInputLength: 2,--}}
-    {{--    tokenSeparators: [','],--}}
-    {{--    ajax: {--}}
-
-    {{--        url: "{{ route('escort.playmatesId.find') }}",--}}
-    {{--        dataType: "json",--}}
-    {{--        type: "POST",--}}
-    {{--        data: function(params) {--}}
-
-    {{--            var queryParameters = {--}}
-    {{--                query: params.term,--}}
-    {{--                escort_id: $('#h_escort_id').val()--}}
-    {{--            }--}}
-
-    {{--            return queryParameters;--}}
-    {{--        },--}}
-    {{--        processResults: function(data) {--}}
-    {{--            return {--}}
-    {{--                results: $.map(data, function(item) {--}}
-
-    {{--                    return {--}}
-    {{--                        text: item.default_image,--}}
-    {{--                        name: item.name,--}}
-    {{--                        member_id: item.member_id,--}}
-    {{--                        id: item.id--}}
-    {{--                    }--}}
-    {{--                })--}}
-    {{--            };--}}
-    {{--        }--}}
-    {{--    },--}}
-    {{--    templateResult: formatEscortList,--}}
-    {{--    templateSelection: $('#search-playmate-input').select2(--}}
-
-    {{--});--}}
+   
     function positionToUpdate(position) {
         updatePosition = position;
         return true;
     }
+
     function stageNameInput(ele) {
         if($(ele).val() == 'new') {
             $(ele).remove();

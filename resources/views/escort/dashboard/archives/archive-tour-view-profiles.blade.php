@@ -188,6 +188,22 @@
    var table = $('#sailorTable').DataTable({
       serverSide: true,
       processing: true,
+       "language": {
+            "zeroRecords": "There is no record of the search criteria you entered.",
+            searchPlaceholder: "Search by ID or Profile Name"
+         },
+      initComplete: function() {
+         if ($('#returnToReportBtn').length === 0) {
+            $('.dataTables_filter').append(
+                  '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+            );
+         }
+         $('#returnToReportBtn').on('click', function() {
+            var table = $('#sailorTable').DataTable();
+            table.search('').draw();
+         });
+      },
+				
       ajax: {
          url: "{{ route('escort.tour.dataTable', $type) }}",
          data: function (d) {

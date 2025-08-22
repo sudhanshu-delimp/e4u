@@ -1020,8 +1020,7 @@
                     <div class="col-5">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
                             data-target="#mysendmessage">
-                            <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message
-                            Me</button>
+                            <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Me</button>
                     </div>
                     <div class="col-7 text-right">
                         <button type="button" class="btn profile_message_btn_cc" data-toggle="modal"
@@ -1276,7 +1275,7 @@
                 </ol>
             </div>
             <div class="modal-footer text-center justify-content-center">
-                <a href="{{ route('user.advertiser') }}" type="button" class="btn-success-modal text-white" id="loginUrl" style="text-decoration: none;">Go to Message</a>                
+                <a href="{{ route('user.viewer-messages') }}" type="button" class="btn-success-modal text-white" id="loginUrl" style="text-decoration: none;">Go to Message</a>                
             </div>
             @else
             <!-- if viewer not login -->

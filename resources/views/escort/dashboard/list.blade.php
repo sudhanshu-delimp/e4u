@@ -307,10 +307,10 @@
     <script>
         var table;
         $(document).ready(function() {
-            var shouldHide = '{{ $type == 'past' ? false : true }}';
+            var shouldHide = "{{ $type == 'past' ? false : true }}";
             table = $("#sailorTable").DataTable({
                 "language": {
-                    "zeroRecords": "No record(s) found.",
+                    "zeroRecords": "There is no record of the search criteria you entered.",
                     searchPlaceholder: "Search by ID or Profile Name"
                 },
                 processing: true,
@@ -337,6 +337,17 @@
                     } else {
                         $('.dataTables_paginate').show();
                     }
+                },
+                initComplete: function() {
+                    if ($('#returnToReportBtn').length === 0) {
+                        $('.dataTables_filter').append(
+                            '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+                        );
+                    }
+                    $('#returnToReportBtn').on('click', function() {
+                        var table = $('#sailorTable').DataTable();
+                        table.search('').draw();
+                    });
                 },
 
                 ajax: {

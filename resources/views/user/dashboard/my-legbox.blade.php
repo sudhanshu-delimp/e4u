@@ -1,9 +1,6 @@
 @extends('layouts.userDashboard')
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
-    <!-- FixedColumns CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.min.css">
-
     <style>
         .table td {
             vertical-align: middle;
@@ -19,6 +16,9 @@
 
         #escortCenterlegboxTable_filter {
             float: right;
+        }
+        .escortCenterlegboxTableClass.dataTable thead>tr>th.sorting {
+            padding-right: 27px !important;
         }
         td:has(.escortDropMenuPopup.show) {
             z-index: 9 !important;
@@ -49,11 +49,13 @@
             $massageDisplayType = 'block';
 
             if($dashboardType == 'escort'){
+                $escortDisplayType = 'block';
                 $massageDisplayType = 'none';
             }
             
             if ($dashboardType == 'massage') {
                 $escortDisplayType = 'none';
+                $massageDisplayType = 'block';
             }
         @endphp
 
@@ -64,14 +66,17 @@
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
 
                         <ol>
-                            @if($massageDisplayType == 'block')
-                                <li>The My Legbox feature is a list only of your favourite Massage Centres. Please note Notifications do not apply to Massage Centres.</li>
-                            <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a> feature to
-                                record your experience with an Escort you have added to My Legbox.</li>
-                            @else
+                            @if($escortDisplayType == 'block')
                                 <li>The My Legbox feature is a list only of your favourite Escorts. Please note, the Notifications feature is enabled, according to your settings, by default. You can enable or disable Notifications exclusively with an Escort. Go to ‘Action’.</li>
-                            <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a> feature to
+                                <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a> feature to
+                                record your experience with an Escort you have added to My Legbox.</li>
+                            
+                                
+                            @else
+                                <li>The My Legbox feature is a list only of your favourite Massage Centres. Please note Notifications do not apply to Massage Centres.</li>
+                                <li>Use the <a href="{{ route('user.new') }}" class="custom_links_design">Notebox</a> feature to
                                 record your experience with a Massage Centre you have added to My Legbox.</li>
+                                
                             @endif
                             
                         </ol>
@@ -85,14 +90,14 @@
         <div class="row my-2" style="display: {{ $escortDisplayType }}">
             <div class="col-md-12 mb-4">
                 <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-10">
-                    <h2 class="h2">Escort Center Legbox</h2>
+                    <h2 class="h2">Escort Legbox</h2>
                     <div class="total_listing">
-                        <div><span>Total Escort Center Legbox : </span></div>
+                        <div><span>Total Escort Legbox : </span></div>
                         <div><span id="totalEscortList">{{count($escorts)}}</span></div>
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table id="escortCenterlegboxTable" class="table table-bordered display" width="100%">
+                    <table id="escortCenterlegboxTable" class="table table-bordered display escortCenterlegboxTableClass" width="100%">
                         <thead class="bg-first">
                             <tr>
                                 <th class="text-left" style="background-color: #0c223d;">Escorts ID</th>
@@ -507,7 +512,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="emailReport">
                         <img src="{{ asset('assets/dashboard/img/view.png') }}" style="width:40px; margin-right:10px;" alt="Request Rejected">
-                        Escort Profile</h5>
+                        <span class="iframeEscortTitle">Escort Profile</span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                     </button>
@@ -566,8 +571,6 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
-    <!-- FixedColumns JS -->
-    <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
 
     {{-- massage center legbox --}}
     <script>
@@ -577,7 +580,7 @@
                 responsive: false,
                 language: {
                     search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by ID or Profile Name...",
+                    searchPlaceholder: "Search by ID or Stage Name...",
                     lengthMenu: "Show _MENU_ entries",
                     zeroRecords: "No matching records found",
                     info: "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -586,13 +589,8 @@
                 },
                 paging: true,
                 searchable: true,
+                serverSide: true,
                 searching: true,
-                scrollX: true,
-                scrollCollapse: true,
-                fixedColumns: {
-                    leftColumns: 1,
-                    rightColumns: 2
-                },
                 ajax: {
                     url: "{{ route('user.my-legbox-escort-list') }}",
                     dataSrc: function(json) {
@@ -613,8 +611,18 @@
                     { data: 'is_notification_enabled', name: 'is_notification_enabled' }, // 5
                     { data: 'is_enabled_contact', name: 'is_enabled_contact' },       // 6
                     { data: 'contact_method', name: 'contact_method' },               // 7
-                    { data: 'escort_communication', name: 'escort_communication' },   // 8
-                    { data: 'is_blocked', name: 'is_blocked' },                       // 9
+                    {
+                        data: 'escort_communication',
+                        name: 'escort_communication',
+                        orderable: false,
+                        render: function (data, type, row) {
+                            if (!data) return '';
+                            let str = String(data); 
+                            // Har 12 characters ke baad line break
+                            return str.replace(/(.{12})/g, '$1<br>');
+                        }
+                    },
+                    { data: 'is_blocked', name: 'is_blocked',orderable: false, searchable: false },                       // 9
                     { data: 'action', name: 'action', orderable: false, searchable: false } // 10
                 ],
                 columnDefs: [
@@ -683,6 +691,7 @@
                     $("#escortProfileModal").modal('show')
                 }else{
                     let htmlData = '<iframe src="" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>';
+                    $(".iframeEscortTitle").text('Escort Profile');
                     $("#escortPopupModalBody").html(htmlData);
                     $("#escortPopupModalBodyIframe").attr('src', profileurl);
 
@@ -869,7 +878,7 @@
                 responsive: false,
                     language: {
                         search: "Search: _INPUT_",
-                        searchPlaceholder: "Search by ID or Massage Center Name...",
+                        searchPlaceholder: "Search by ID or Business Name...",
                         lengthMenu: "Show _MENU_ entries",
                         zeroRecords: "No matching records found",
                         info: "Showing _START_ to _END_ of _TOTAL_ entries",
@@ -902,6 +911,85 @@
                         { data: 'massage_communication', name: 'massage_communication' },                    // 9
                         { data: 'action', name: 'action', orderable: false, searchable: false } // 10
                     ]
+            });
+
+            $(document).on('click', '.toggle-massage-contact', function (e) {
+                e.preventDefault();
+                const $this = $(this);
+                const massageId = $this.data('id');
+                const currentStatus = $this.data('status'); // disable or enable
+                const newStatus = currentStatus === 'disable' ? 'enable' : 'disable';
+                let url = '{{ route("viewer.massage-interaction.update") }}';
+
+                let data = {
+                    'massage_id' : massageId,
+                    'current_status' : currentStatus,
+                    'viewer_disabled_contact' : newStatus,
+                    'type' : 'contact',
+                    'message' : 'Massage contact is '+ newStatus + 'd successfully!',
+                }
+
+                if(newStatus == 'disable'){
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/no-phone.png")}}');
+                }else{
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/phone.png")}}');
+                }
+
+                return  massageAjaxCallback(url, data, $this);
+            });
+
+            $(document).on('click', '.toggle-massage-notification', function (e) {
+                e.preventDefault();
+                const $this = $(this);
+                const massageId = $this.data('id');
+                const currentStatus = $this.data('status');
+                const newStatus = currentStatus === 'disable' ? 'enable' : 'disable';
+                let url = '{{ route("viewer.massage-interaction.update") }}';
+
+                let data = {
+                    'massage_id' : massageId,
+                    'current_status' : currentStatus,
+                    'viewer_disabled_notification' : newStatus,
+                    'type' : 'notification',
+                    'message' : 'Massage notification is '+ newStatus + 'd successfully!',
+                }
+
+                if(newStatus == 'disable'){
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/disable_notification.png")}}');
+                }else{
+                    $(".modal_title_img").attr('src','{{asset("assets/dashboard/img/enable_notification.png")}}');
+                }
+
+                return  massageAjaxCallback(url, data, $this);
+            });
+
+            $(document).on('click', '.massageProfileView', function(e) {
+                e.preventDefault();
+                
+                let massageId = $(this).attr('data-id');
+                let massageProfileIsEnabled = $(this).attr('data-profile-enable');
+                let profileurl = "{{route('center.profile.description','_id')}}";
+                profileurl = profileurl.replace('_id',massageId);
+
+                if(massageProfileIsEnabled == '0'){
+                    let htmlData = '<div class="col-md-12 my-4  text-center"><h5 class=" body_text mb-2">This Massage Centre does not presently have a Listed Profile.</h5></div>';
+
+                    $(".modal_title_span").text('Massage Centre : ');
+                    
+                    $("#escortProfileModal").modal('show')
+                }else{
+                    let htmlData = '<iframe src="" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>';
+                    $(".iframeEscortTitle").text('Massage Centre');
+                    $("#escortPopupModalBody").html(htmlData);
+                    $("#escortPopupModalBodyIframe").attr('src', profileurl);
+
+                    setTimeout(() => {
+                        $("#escortProfileMissingModal").modal('show')
+                    }, 300);  
+                }
+
+                
+                
             });
 
             $('#massageCenterRatingForm').on('submit', function (e) {

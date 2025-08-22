@@ -695,13 +695,8 @@ class WebController extends Controller
 
         $escorts = collect($escorts->items())->where('end_date','>=', Carbon::now()->startOfDay());
 
-        //dd($escorts);
-
-        // dd($user_type->myLegBox);
-        //dd($user_type->myLegBox->pluck('id')->toArray());
-        //dd($user_type->massageCenterLegBox->pluck('id')->toArray());
+        
         return view('web.massage-centre-list', compact('user_type','escortId','services', 'service_one', 'service_two', 'service_three', 'escorts'));
-        //return view('web.gread-list-escorts', compact('services', 'service_one', 'service_two', 'service_three', 'escorts'));
     }
 
     public function searchFilter(Request $request)
