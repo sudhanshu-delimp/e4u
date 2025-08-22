@@ -6104,6 +6104,16 @@ button.short-list.btn.btn-primary {
     display: flex;
 }
 
+.custom-merchant-modal {
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.custom-modal-height {
+    height: 500px;
+    overflow-y: scroll;
+}
+
 .photo-sec-popup.video-sec-popup {
     display: flex;
     align-items: center;

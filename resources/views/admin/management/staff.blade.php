@@ -33,26 +33,15 @@
                      <div class="tab-content">  
                         <div class="tab-pane fade active show" id="tab3warning">
                            <div class="row pb-3">
-                              <div class="col-lg-4 col-md-12 col-sm-12">
-                                 <form class="search-form-bg navbar-search">
-                                    <div class="input-group">
-                                       <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                                       <div class="input-group-append">
-                                          <button class="btn-right-icon" type="button">
-                                          <i class="fas fa-search fa-sm"></i>
-                                          </button>
-                                       </div>
-                                    </div>
-                                 </form>
-                              </div>
-                              <div class="col-lg-8 col-md-12 col-sm-12">
+                              
+                              <div class="col-lg-12 col-md-12 col-sm-12">
                                  <div class="bothsearch-form" style="gap: 10px;">
                                     <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#addStaffnew">Add New Staff Member</button>
                                  </div>
                               </div>
                            </div>                                    
                            <div class="table-responsive-xl">
-                              <table class="table mb-0" id="staffTable">
+                              <table class="table mb-3" id="staffTable">
                                  <thead class="table-bg">
                                  <tr>
                                     <th scope="col">
@@ -102,43 +91,23 @@
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                              </a>
                                              <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-id="S60001">  <i class="fa fa-eye "></i> View Account</a>
+                                                <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#ViewStaffAccount">  <i class="fa fa-eye "></i> View Account</a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#">   <i class="fa fa-ban"></i> Suspend</a>
                                                 <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-target="#edit_agent_data" data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>
+                                                <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-target="#updateStaff" data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>
                                              </div>
                                           </div>
                                        </td>
                                     </tr>
-                                    <tr class="account-detail-row" id="account-row-S60001" style="display: none;">
-                                       <td colspan="10">
-                                          <div class="card p-3">
-                                             <!-- Avatar -->
-                                             <div class="d-flex align-items-center mb-3">
-                                                <img src="{{ asset('assets/app/img/ellipse-1.png')}}" alt="Avatar" class="rounded-circle mr-3" width="50" height="50">
-                                                <h6 class="mb-0">Binny John (S60001)</h6>
-                                             </div>
-                                    
-                                             <!-- Details Table -->
-                                             <table class="table table-bordered mb-3">
-                                                <tr><th>Business Name</th><td>Binny Pty Ltd</td></tr>
-                                                <tr><th>Mobile</th><td>0438 028 728</td></tr>
-                                                <tr><th>Email</th><td>Binny@john.com.au</td></tr>
-                                                <tr><th>ABN</th><td>12345678901</td></tr>
-                                                <tr><th>Address</th><td>123 King St, Melbourne</td></tr>
-                                             </table>
-                                    
-                                             <div class="d-flex justify-content-end">
-                                                <!-- Print Button -->
-                                             <button class="btn-success-modal d-block" onclick="printAgent('account-row-S60001')">
-                                                <i class="fa fa-print text-white"></i> Print
-                                             </button>
-                                             </div>
-                                          </div>
-                                       </td>
+                                 </tbody>                                 
+                                 <tfoot class="bg-first">
+                                    <tr>
+                                       <th colspan="3" class="text-left">Server time: <span class="serverTime">{{ getServertime() }}</span></th>
+                                       <th colspan="3" class="text-center">Refresh time: <span class="refreshSeconds"> 15</span></th>
+                                       <th colspan="3" class="text-right">Up time: <span class="uptimeClass">{{getAppUptime()}}</span></th>
                                     </tr>
-                                 </tbody>
+                              </tfoot>
                               </table>
                               
                            </div>
@@ -147,13 +116,6 @@
                      </div>
                   </div>
                </div>
-            </div>
-            <div class="col-sm-12 col-md-12 col-lg-12">
-                  <div class="timer_section">
-                     <p>Server time: <span class="serverTime">{{ getServertime() }}</span></p>
-                     <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
-                     <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
-                  </div>
             </div>
          </div>
       </div>
@@ -456,6 +418,91 @@
 </div>
 <!-- end -->
 
+
+<!-- View Staff Member popupform -->
+<div class="modal fade upload-modal" id="ViewStaffAccount" tabindex="-1" role="dialog" aria-labelledby="ViewStaffAccountLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content basic-modal">
+         
+         <!-- Header -->
+         <div class="modal-header">
+            <h5 class="modal-title" id="ViewStaffAccountLabel">
+               <img src="{{ asset('assets/dashboard/img/add-member.png')}}" class="custompopicon"> 
+               View Staff Details
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+
+         <!-- Body -->
+         <div class="modal-body custom-modal-height">
+            <div class="row">
+               <div class="col-12">
+
+                  <div class="card mb-3 p-3">
+                       <!-- Avatar + Name -->
+                       <div class="d-flex align-items-center mb-3">
+                        <img src="{{ asset('assets/img/default_user.png')}}" alt="Avatar" class="rounded-circle mr-3" width="50" height="50">
+                        <h6 class="mb-0">Binny John</h6>
+                     </div>
+                     <!-- Personal Details -->
+                     <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
+                     <table class="table table-bordered mb-3">
+                        <tr><th>Address</th><td>123 Street Name, City</td></tr>
+                        <tr><th>Mobile</th><td>0412 345 678</td></tr>
+                        <tr><th>Email</th><td>binny@example.com</td></tr>
+                        <tr><th>Gender</th><td>Female</td></tr>
+                     </table>
+
+                     <!-- Next of Kin -->
+                     <h6 class="border-bottom pb-1 text-blue-primary">Next of Kin (Emergency Contact)</h6>
+                     <table class="table table-bordered mb-3">
+                        <tr><th>Name</th><td>Alice John</td></tr>
+                        <tr><th>Relationship</th><td>Wife</td></tr>
+                        <tr><th>Mobile</th><td>0412 765 432</td></tr>
+                        <tr><th>Email</th><td>alice@example.com</td></tr>
+                     </table>
+
+                     <!-- Other Details -->
+                     <h6 class="border-bottom pb-1 text-blue-primary">Other Details</h6>
+                     <table class="table table-bordered mb-3">
+                        <tr><th>Position</th><td>Security Officer</td></tr>
+                        <tr><th>Location</th><td>Delhi</td></tr>
+                        <tr><th>Commenced Date</th><td>2023-08-15</td></tr>
+                        <tr><th>Level</th><td>Level 3</td></tr>
+                        <tr><th>Employment Status</th><td>Full Time</td></tr>
+                        <tr><th>Agreement</th><td>Yes</td></tr>
+                     </table>
+
+                     <!-- Building Security -->
+                     <h6 class="border-bottom pb-1 text-blue-primary">Building Security</h6>
+                     <table class="table table-bordered mb-3">
+                        <tr><th>Access Code Provided?</th><td>Yes</td></tr>
+                        <tr><th>Key Provided?</th><td>Yes</td></tr>
+                        <tr><th>Car Park?</th><td>Yes</td></tr>
+                     </table>
+
+                     <!-- Footer Buttons -->
+                     <div class="d-flex justify-content-end mb-2">
+                        <button class="btn-success-modal d-block mr-2" onclick="window.print();">
+                           <i class="fa fa-print text-white"></i> Print
+                        </button>
+                        <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">
+                           Close
+                        </button>
+                     </div>
+                  </div>
+
+               </div>
+            </div>
+         </div>
+         
+      </div>
+   </div>
+</div>
+<!-- end -->
+
 @endsection
 @push('script')
    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}
@@ -500,26 +547,5 @@
             });
         })
 </script>
-
-
-
-<script>
-   document.addEventListener("DOMContentLoaded", function () {
-      document.querySelectorAll(".view-account-btn").forEach(function (btn) {
-         btn.addEventListener("click", function (e) {
-            e.preventDefault();
-            const id = btn.getAttribute("data-id");
-            const row = document.getElementById(`account-row-${id}`);
-            
-            // Toggle visibility
-            if (row.style.display === "none") {
-               row.style.display = "table-row";
-            } else {
-               row.style.display = "none";
-            }
-         });
-      });
-   });
-   </script>
    
 @endpush

@@ -386,7 +386,7 @@
       var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
                            <div class="modal-content">
                               <div class="modal-header">
-                                 <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/view-listing.png')}}" style="width:40px; margin-right:10px;" alt="Request Accepted"> 
+                                 <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/view-merchant.png')}}" style="width:40px; margin-right:10px;" alt="Request Accepted"> 
                                  View Account
                                  </h5>
                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -418,7 +418,7 @@
                                              <button class="btn-success-modal d-block" onclick="printAgent('account-row-S60001')">
                                                 <i class="fa fa-print text-white"></i> Print
                                              </button>
-                                              <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">Close</button>
+                                              <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
                                              </div>
                                           </div>
                                                 
