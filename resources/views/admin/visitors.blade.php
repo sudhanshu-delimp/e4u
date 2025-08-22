@@ -80,17 +80,18 @@
                             
                         </tr>
                     </tbody>
+                    <tfoot class="bg-first">
+                        <tr>
+                            <th colspan="2" class="text-left">Server time: <span>[10:23:51 am]</span></th>
+                            <th colspan="3" class="text-center">Refresh time:<span> [seconds]</span></th>
+                            <th colspan="2" class="text-right">Up time: <span>[214 days & 09 hours 12 minutes]</span></th>
+                        </tr>
+                    </tfoot>
                 </table>
                 
             </div>
         </div>
-       <div class="col-sm-12 col-md-12 col-lg-12">
-        <div class="timer_section">
-                <p>Server time: <span>[10:23:51 am]</span></p>
-                <p>Refresh time:<span> [seconds]</span></p>
-                <p>Up time: <span>[214 days & 09 hours 12 minutes]</span></p>
-            </div>
-       </div>
+       
     </div>
 </div>
 

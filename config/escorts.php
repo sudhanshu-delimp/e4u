@@ -234,13 +234,10 @@ return [
 		],
 		'Payments'=>[
 			1 =>'Cash',
-			2 =>'Card',
+			2 =>'Card / EFTPOS',
 			3 =>'Cash or Card',
-			4 =>'Cash & Rewards',
-			5 =>'Card & Rewards',
-			6 =>'Cash or PayID',
-			7 =>'PayID',
-			8 =>'Rewards',
+			4 =>'Cash or PayID',
+			5 =>'PayID',
 		],
 		'smokes'=>[
 			1=>'Yes',
@@ -552,6 +549,7 @@ return [
 			"1" => " Bed",
 			"2" => " Table",
 			"3" => " Table or bed",
+			"4" => " Milking Table",
 
 		],
 		'Shower' => [

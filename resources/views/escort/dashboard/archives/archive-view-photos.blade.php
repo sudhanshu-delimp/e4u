@@ -129,7 +129,7 @@
                     <form id="defaultImage" method="post" enctype="multipart/form-data" action="{{ route('escort.default.images')}}">
                         @csrf
                         <div class="row pt-3 pl-2 pr-2">
-                            <div class="col-4 pr-0 pl-0">
+                            <div class="col-lg-2 pr-0 pl-0">
                                 
                                 <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                                 <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
@@ -397,7 +397,7 @@
                                 <div class="container p-0">
                                     <div class="row p-0">
                                         <div class="col-12 p-0">
-                                            <div class="photo-sec-popup"  id="image_preview">
+                                            <div class="photo-sec-popup custom-upload-photo"  id="image_preview">
                                                 <a href="#">
                                                     <div class="five_column_content_top img-title-sec justify-content-between wish_span rm" style="z-index: 1;">
                                                       

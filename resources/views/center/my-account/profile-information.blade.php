@@ -18,6 +18,10 @@
     .custom-x-link .twitter-x-logo{
         width:18px;
     }
+    .myacording-design {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
 </style>
 @stop
 @section('content')
@@ -69,7 +73,7 @@
                                                 <div class="padding_20_all_side pb-0">
                                                     <!--New Row from here-->
                                                     <div class="row">
-                                                        <div class="col-lg-3 col-md-12 col-sm-12">
+                                                        <div class="col-lg-4 col-md-12 col-sm-12">
                                                             <div class="form-group row tab-about-me-row-padding">
                                                                 <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">
                                                                 Building<span style="color:red">*</span></label>
@@ -84,7 +88,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 col-md-12 col-sm-12">
+                                                        <div class="col-lg-4 col-md-12 col-sm-12">
                                                             <div class="form-group row tab-about-me-row-padding">
                                                                 <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Parking</label>
                                                                 <div class="col-sm-8">
@@ -98,7 +102,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 col-md-12 col-sm-12">
+                                                        <div class="col-lg-4 col-md-12 col-sm-12">
                                                             <div class="form-group row tab-about-me-row-padding">
                                                                 <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Entry</label>
                                                                 <div class="col-sm-8">
@@ -112,7 +116,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 col-md-12 col-sm-12">
+                                                        <div class="col-lg-4 col-md-12 col-sm-12">
                                                             <div class="form-group row tab-about-me-row-padding">
                                                                 <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Type</label>
                                                                 <div class="col-sm-8">
@@ -127,12 +131,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-lg-3 col-md-12 col-sm-12">
+                                                        <div class="col-lg-4 col-md-12 col-sm-12">
                                                             <div class="form-group row tab-about-me-row-padding">
                                                                 <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">
-                                                                Shower<span style="color:red">*</span></label>
+                                                                Shower</label>
                                                                 <div class="col-sm-8">
-                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="shower" required="">
+                                                                    <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="shower">
                                                                         <option value="" selected="">-- Not Set --</option>
                                                                         @foreach(config('escorts.profile.Shower') as $key =>$Type)
                                                                         <option value="{{$key}}" {{ ($massage_profile->shower == $key)? 'selected' : ''}} >{{$Type}}</option>
@@ -141,7 +145,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 col-md-12 col-sm-12">
+                                                        <div class="col-lg-4 col-md-12 col-sm-12">
                                                             <div class="form-group row tab-about-me-row-padding">
                                                                 <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Ambiance</label>
                                                                 <div class="col-sm-8">
@@ -154,7 +158,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 col-md-12 col-sm-12">
+                                                        <div class="col-lg-4 col-md-12 col-sm-12">
                                                             <div class="form-group row tab-about-me-row-padding">
                                                                 <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Security</label>
                                                                 <div class="col-sm-8">
@@ -168,7 +172,7 @@
                                                                 
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 col-md-12 col-sm-12">
+                                                        <div class="col-lg-4 col-md-12 col-sm-12">
                                                             <div class="form-group row tab-about-me-row-padding">
                                                                 <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Payment</label>
                                                                 <div class="col-sm-8">
@@ -194,7 +198,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 col-md-12 col-sm-12">
+                                                        <div class="col-lg-4 col-md-12 col-sm-12">
                                                             <div class="form-group row tab-about-me-row-padding">
                                                                 <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Loyalty program
                                                                 </label>
@@ -208,7 +212,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 col-md-12 col-sm-12">
+                                                        <div class="col-lg-4 col-md-12 col-sm-12">
                                                             <div class="form-group row tab-about-me-row-padding">
                                                                 <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Languages
                                                                 </label>
@@ -255,7 +259,8 @@
                                 <div class="card-body pb-0">
                                     <ol class="pl-0 mb-0">
                                         <li>By completing these settings, the information set out under My rates will by default appear in your Profile creator.</li>
-                                        <li>You can over ride these settings when creating a Profile, provided you have enabled the <span class="theme-text-color">feature</span>  (see My Account - Profile &amp; Tour options).</li>
+                                        <li>You can over ride these settings when creating a Profile, provided you have enabled
+                                            the <a href="{{ route('centre.notifications-and-features') }}" class="custom_links_design">feature</a>.</li>
                                     </ol>
                                     @include('center.my-account.partials.rate-dash-tab')
                                     {{-- <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab">
