@@ -31,6 +31,15 @@ table td,th{
 .table-report-info tr td{
     border: 0;
 }
+
+.popu_heading_style {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 29px;
+    color: #0C223D;
+}
 </style>
 @endsection
 @section('content')
@@ -196,20 +205,32 @@ table td,th{
                     <div class="lines"></div>
                     <div class="lines"></div>
     
-                    <div class="manage-table table-responsive">
-                        <table>
-                            <tr style="">
-                                <th colspan="1" style="width: 30%;" class="pb-3">Management only:</th>
-                                <th colspan="2" style="width: 30%;" class="pb-3"><input type="checkbox"> Cancel Membership</th>
-                                <th colspan="2" style="width: 30%;" class="pb-3"><input type="checkbox"> Re-instate Membership</th>
-                            </tr>
-                            <tr>
-                                <td style="width: 25%;">Name:</td>
-                                <td style="width: 25%;"></td>
-                                <td style="width: 25%;">Signature:</td>
-                                <td style="width: 25%;"></td>
-                            </tr>
-                        </table>
+                    <div class="mt-5 table-responsive">
+                    <table style="width:100%; border-collapse:collapse;">
+                        <tr>
+                            <td colspan="2" style="border:1px solid #000; padding:8px; font-weight:bold;">Management only:</td>
+                            <td colspan="2" style="border:1px solid #000; padding:8px;">
+                            <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
+                                <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Cancel Membership</span>
+                            </label>
+                            </td>
+                            <td colspan="2" style="border:1px solid #000; padding:8px;">
+                            <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
+                                <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Re-instate Membership</span>
+                            </label>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:175px;" colspan="1">Name:</td>
+                            <td colspan="2" style="border:1px solid #000; padding:25px 12px; width:200px"></td>
+                            <td style="border:1px solid #000; padding:25px 12px; font-weight:bold;">Signature:</td>
+                            <td colspan="1" style="border:1px solid #000; padding:25px 12px;"></td>
+                        </tr>
+                    </table>
+
+
+
                     </div>
     
                 </div>
@@ -229,9 +250,11 @@ table td,th{
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content basic-modal">
             <div class="modal-header border-0">
+                <input type="hidden" id="status_data_id">
+                <input type="hidden" id="status_data_value">
                 <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
-                    <img src="{{ asset('assets/dashboard/img/unblock.png') }}" alt="resolved"  class="custompopicon">
-                    Resolved
+                    <img src="{{ asset('assets/dashboard/img/question-mark.png') }}" alt="resolved"  class="custompopicon">
+                    <span>Confirmation</span>
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
@@ -240,17 +263,51 @@ table td,th{
                 </button>
             </div>
 
-            <div class="modal-body text-center">
-                <p style="font-size: 16px; color: #333; font-weight: 500;">We’re happy to inform you that your query has been <br> successfully resolved.</p>
+            <div class="modal-body pb-0 teop-text text-center">
+                <h6 class="popu_heading_style mt-2">
+                    <span id="Lname">Are you sure you want to perform this action.</span>
+                </h6>
 
             </div>
 
             <div class="modal-footer justify-content-center border-0 pb-4">
-                <button type="button" class="btn btn-danger px-4" data-dismiss="modal" aria-label="Close">OK</button>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
+                <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal" aria-label="Close">Save</button>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade upload-modal" id="success_popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content basic-modal">
+            <div class="modal-header border-0">
+                <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
+                    <img src="{{ asset('assets/dashboard/img/unblock.png') }}" alt="resolved"  class="custompopicon">
+                    <span class="success-modal-title">Resolved</span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+
+            <div class="modal-body pb-0 teop-text text-center">
+                <h6 class="popu_heading_style mt-2">
+                    <span class="Lname success-modal-text">We’re happy to inform you that your query has been <br> successfully resolved.</span>
+                </h6>
+
+            </div>
+
+            <div class="modal-footer justify-content-center border-0 pb-4">
+                <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
  {{-- add notes  --}}
 <div class="modal fade upload-modal" id="add-note-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel"
@@ -321,8 +378,9 @@ table td,th{
     "></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    
 <script>
-
+$(document).ready(function() {
     $(document).on('click', '.print-btns', function(e) {
         e.preventDefault();
         
@@ -357,12 +415,28 @@ table td,th{
 
     $(document).on('click', '.update-member-status', function(e) {
         e.preventDefault();
-        const reportId = $(this).data('id');
-        const status = $(this).data('val');
+        let reportId = $(this).data('id');
+        let status = $(this).data('val');
+
+        $('#status_data_id').val(reportId);
+        $('#status_data_value').val(status);
+
+        //$("#success-popup").modal('show');
+
+        console.log(reportId, status);
+        
+        
+    });
+
+    $(document).on('click', '.saveStatus', function(e) {
+        e.preventDefault();
+        let reportId = $('#status_data_id').val();
+        let status = $('#status_data_value').val();
         var reportData = {
             'reportId' :reportId,
             'status' :status,
         }
+        
         var url = "{{route('admin.advertiser.report-status')}}";
         updateMemberReportStatus(reportData, url);
     });
@@ -382,7 +456,21 @@ table td,th{
                 console.log('response');
                 console.log(response);
                 if(response.error == false){
+                    if(response.member_status == 'resolved'){
+                        $(".success-modal-title").text('Resolved');
+                        $(".success-modal-text").text('We’re happy to inform you that your query has been successfully resolved.');
+
+                    }else{
+                        $(".success-modal-title").text('Current');
+                        $(".success-modal-text").text('We’re happy to inform you that we are currently working on your report.');
+                    }
+
                     $('#AdvertiserReportTable').DataTable().ajax.reload(null, false);
+                    console.log($("#success_popup").html());
+                    // $("#success_popup").modal('show');
+                    var myModal = new bootstrap.Modal(document.getElementById('success_popup'));
+                    myModal.show();
+                    // alert('sdfd');
                 }
             },
             error: function(xhr) {
@@ -462,6 +550,8 @@ table td,th{
             ]
         });
     }
+
+});
     
 </script>
 @endpush
