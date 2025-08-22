@@ -6091,6 +6091,19 @@ button.short-list.btn.btn-primary {
     border: 1px solid #d1d3e2;
 }
 
+
+/* 
+.defaul-box-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+    grid-column-gap: 10px;
+    grid-row-gap: 5px;
+} */
+
+.custom-upload-photo {
+    display: flex;
+}
+
 .photo-sec-popup.video-sec-popup {
     display: flex;
     align-items: center;
