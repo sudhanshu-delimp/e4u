@@ -73,7 +73,9 @@
             </div>
          </section>
       </section>
-        <div class="modal" id="sendOtp_modal" style="display: none">
+
+      @include('modal.two-step-verification')
+        <!-- <div class="modal" id="sendOtp_modal" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content custome_modal_max_width">
                     <form id="SendOtp" method="post" action="" >
@@ -123,7 +125,9 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div> -->
+
+
         <div class="modal" id="comman_modal" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content custome_modal_max_width">
@@ -326,7 +330,7 @@
                },
                 success: function(data) {
                    
-                    console.log(data);
+                   $('#formerror').html('');
                     var ph = data.phone;
                     $("#phoneId").attr('value',ph);
                     if(data.error == 1) {
@@ -334,13 +338,15 @@
                             $("#escort_login").submit();
                             $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>");
                         });
-                        $("#sendOtp_modal").modal('show');//
+                        $("#sendOtp_modal").modal({backdrop: 'static',keyboard: false});
                         $("body").on("submit","#SendOtp",function(e){
                             e.preventDefault();
                             var form = $(this);
                             console.log(ph);
                             console.log('asi');
                             // var url = form.attr('action');
+                             $('#sendOtpSubmit').attr('disabled', true);
+                             $('.wait-loader').css({'display':'block'});
                             var url = "{{ route('web.checkOTP')}}";
                             var data = new FormData($('#SendOtp')[0]);
                             var phone = data.phone;
@@ -373,7 +379,8 @@
                                     
                                 },
                                 error: function(data) {
-
+                                     $('#sendOtpSubmit').attr('disabled', false);
+                                     $('.wait-loader').css({'display':'none'});
                                     console.log("error: a", data);
                                     console.log("error: a", data.responseJSON.errors);
                                     var errorsHtml = '';

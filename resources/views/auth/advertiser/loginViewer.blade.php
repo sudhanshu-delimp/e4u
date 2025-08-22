@@ -294,6 +294,8 @@
 
 
 
+    
+
     var loginFormViewer = $("#loginFormViewer");
 
     loginFormViewer.submit(function(e) {
@@ -335,17 +337,18 @@
                 {
                     $('body').on("click","#resendOtpSubmit",function(){
                         $("#loginFormViewer").submit();
-                        $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>");
+                        $('#senderror').html("<p class='text-center text-success mt-4'> Your verification code has been resend to your nominated preference. "+data.phone+"</p>");
                     });
 
 
-                    $("#sendOtp_modal").modal('show');
+                    $("#sendOtp_modal").modal({backdrop: 'static',keyboard: false});
+
                     $("body").on("submit","#SendOtp",function(e){
                         e.preventDefault();
                         var form = $(this);
-
+                        $('#sendOtpSubmit').attr('disabled', true);
+                        $('.wait-loader').css({'display':'block'});
                         console.log(ph);
-                        // var url = form.attr('action');
                         var url = "{{ route('web.checkOTP')}}";
                         var data = new FormData($('#SendOtp')[0]);
                         var phone = data.phone;
@@ -365,32 +368,32 @@
                            headers: {
                               'X-CSRF-Token': token
                            },
-                           success: function(data) {
-                              console.log(data);
+                           success: function(data) 
+                           {
+                                if(data.error == true) 
+                                {
+                                        if(path != null && path == '/massage-centres-list') {
+                                            window.location.href = "{{ route('find.massage.centre') }}";
+                                        } else if(path == '/all-escorts-list'){
 
-                              if(data.error == true) 
-                              {
-                                    if(path != null && path == '/massage-centres-list') {
-                                        window.location.href = "{{ route('find.massage.centre') }}";
-                                    } else if(path == '/all-escorts-list'){
+                                            window.location.href = "{{ route('find.all') }}";
+                                        } else if(path == 'center-profile'){
+                                            var my_url = "{{ route('center.profile.description',':show_id')}}";
+                                            my_url = my_url.replace(':show_id', show_id);
+                                            window.location.href = my_url;
+                                        } else if(path == 'escort-profile'){
+                                            var my_url = "{{ route('profile.description',':show_id')}}";
+                                            my_url = my_url.replace(':show_id', show_id);
+                                            window.location.href = my_url;
+                                        } else {
+                                            window.location.href = "{{ route('find.all') }}";
+                                        }
 
-                                        window.location.href = "{{ route('find.all') }}";
-                                    } else if(path == 'center-profile'){
-                                        var my_url = "{{ route('center.profile.description',':show_id')}}";
-                                        my_url = my_url.replace(':show_id', show_id);
-                                        window.location.href = my_url;
-                                    } else if(path == 'escort-profile'){
-                                        var my_url = "{{ route('profile.description',':show_id')}}";
-                                        my_url = my_url.replace(':show_id', show_id);
-                                        window.location.href = my_url;
-                                    } else {
-                                        window.location.href = "{{ route('find.all') }}";
-                                    }
-
-                              }
+                                }
                            },
                            error: function(data) {
-
+                                 $('#sendOtpSubmit').attr('disabled', false);
+                                 $('.wait-loader').css({'display':'none'});
                                 //console.log("error otp: ", data.responseJSON.errors);
                                 $.each(data.responseJSON.errors, function(key, value) {
                                 errorsHtml = '<div class="alert alert-danger"><ul>';
@@ -448,6 +451,10 @@
             });
         }
     });
+
+
+       
+
 </script>
 
 @endsection

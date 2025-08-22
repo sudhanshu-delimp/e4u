@@ -37,12 +37,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
         $this->user = $user;
     }
-    public function generateOTP(){
-        $otp = mt_rand(1000,9999);
-        return $otp;
-    }
+    
 
-  
     public function login(Request $request)
     {
     

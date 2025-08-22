@@ -13,10 +13,6 @@
                             </button>
                         </div>
 
-
-                         
-
-
                           <div class="modal-body forgot_pass pb-1">
                             <div class="form-group label_margin_zero_for_login">
                                 <div class="row text-center" style="">
@@ -37,8 +33,8 @@
                                         <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
                                     </div> -->
 
-                                    <div class="d-flex align-items-center justify-content-between gap-10">
-                                        <div class="d-flex gap-2 w-75">
+                                    <div class="d-flex flex-column align-items-center gap-3">
+                                        <div class="d-flex gap-2 mb-4">
                                             <input type="text" maxlength="1" class="form-control otp-input text-center" />
                                             <input type="text" maxlength="1" class="form-control otp-input text-center ml-1" />
                                             <input type="text" maxlength="1" class="form-control otp-input text-center ml-1" />
@@ -51,6 +47,7 @@
                                         <input type="hidden" maxlength="6" required class="form-control w-75" name="otp" id="otp">
                                         
 
+                                        <img src="http://e4u.local/assets/app/img/circle-loader.gif" class="wait-loader" style="width: 60px;margin-bottom:18px;display:none;" alt="face-lock verification">
                                         <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
                                     </div>
 
@@ -68,13 +65,21 @@
                                 <input type="hidden" name="phone" id="phoneId" value="">
 
                             </div>
-                            <div id="senderror">
+                            <div id="senderror" class="text-center">
                             </div>
                         </div>
 
                         
                         <div class="modal-footer forgot_pass pt-0 pb-4">
-                            <p class="pt-2">Not received your verification code? <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a></p>
+
+                                    <p id="otpTimerMsg" class="pt-2 text-muted" style="color:brown !important"></p>
+                                    <p id="resendLine" class="pt-2" style="display: none;">
+                                        Not received your verification code?
+                                        <a href="#" id="resendOtpSubmit" class="termsandconditions_text_color">Resend Code</a>
+                                    </p>
+
+                                    
+                           
                         </div>
                     </form>
                 </div>
@@ -93,6 +98,10 @@ function updateHiddenOtp() {
     let otp = "";
     otpInputs.forEach(input => otp += input.value);
     hiddenOtp.value = otp;
+
+    if (otp.length === 6) {
+        document.getElementById("sendOtpSubmit").click();
+    }
 }
 
 otpInputs.forEach((input, index) => {
@@ -111,4 +120,57 @@ otpInputs.forEach((input, index) => {
     });
 });  
 
+document.addEventListener("DOMContentLoaded", function () {
+    const timerEl = document.getElementById("otpTimerMsg");
+    const resendEl = document.getElementById("resendLine");
+
+    let seconds = 120; 
+
+    function startOtpTimer() {
+        resendEl.style.display = "none";
+        timerEl.style.display = "block";
+
+        const timer = setInterval(function () {
+            const min = String(Math.floor(seconds / 60)).padStart(2, '0');
+            const sec = String(seconds % 60).padStart(2, '0');
+            timerEl.innerHTML = `If you have not received the OTP, please wait  <span style="color:#097969; font-size:18px;"> ${min}:${sec} sec </span> to resend it`;
+
+            if (seconds <= 0) {
+                clearInterval(timer);
+                timerEl.style.display = "none";
+                resendEl.style.display = "block";
+            }
+            seconds--;
+        }, 1000);
+    }
+
+    startOtpTimer();
+
+    document.getElementById("resendOtpSubmit").addEventListener("click", function (e) {
+        e.preventDefault();
+        $('#resendLine').css({'display':'none'});
+        seconds = 120;
+        startOtpTimer();
+    });
+});
+
+
+otpInputs.forEach((input, index) => {
+    input.addEventListener("input", () => {
+       
+        input.value = input.value.replace(/[^0-9]/g, '');
+        if (input.value.length === 1 && index < otpInputs.length - 1) {
+            otpInputs[index + 1].focus();
+        }
+    });
+
+    input.addEventListener("keydown", (e) => {
+        if (
+            ![ "Backspace", "Tab", "ArrowLeft", "ArrowRight", "Delete" ].includes(e.key) &&
+            !/^[0-9]$/.test(e.key)
+        ) {
+            e.preventDefault();
+        }
+    });
+});
 </script>
