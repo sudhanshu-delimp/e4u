@@ -2869,6 +2869,18 @@ tr.custom--row th:not(tr.custom--row th:last-child) {
     color: #0c223d;
     font-size: 13px;
     font-weight: 400;
+    position: relative;
+}
+
+.select_lang .languages_choosed_from_drop_down::after {
+    position: absolute;
+    content: '+';
+    right: -5px;
+    color: var(--peach);
+    top: -12px;
+    font-size: 18px;
+    cursor: pointer;
+    transform: rotate(45deg);
 }
 
 .covid_heading h2 {
@@ -4617,6 +4629,17 @@ span.removeCross {
 .h2 {
     font-family: Poppins;
     font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 0em;
+    text-align: left;
+    color: var(--blue--text);
+    text-transform: capitalize;
+}
+
+.h3 {
+    font-family: Poppins;
+    font-size: 18px;
     font-style: normal;
     font-weight: 600;
     letter-spacing: 0em;
