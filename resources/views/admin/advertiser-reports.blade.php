@@ -530,6 +530,7 @@ $(document).ready(function() {
             info: true,
             searching: true,
             bStateSave: true,
+           // ordering: false,
             ajax: {
                 url: ajaxUrl,
                 type: method,
@@ -545,7 +546,7 @@ $(document).ready(function() {
                 { data: 'member_id', name: 'member_id' },
                 { data: 'mobile', name: 'mobile' },
                 { data: 'home_state', name: 'home_state' },
-                { data: 'status', name: 'status' },
+                { data: 'status', name: 'status'},
                 { data: 'action', name: 'action', orderable: false }
             ]
         });
