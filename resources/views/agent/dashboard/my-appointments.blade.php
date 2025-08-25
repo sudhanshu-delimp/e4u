@@ -104,11 +104,8 @@
                                 class="btn btn-sm btn-primary shadow-none create-tour-sec">View Task</button> --}}
                             {{-- <button type="submit" id="open_task" name="submit"
                                 class="btn btn-sm btn-primary shadow-none create-tour-sec">Open Task</button> --}}
-                            <div class="text-center small d-flex justify-content-end align-items-center gap-5 flex-wrap">
-                                
-                                
-                                <button type="submit" id="view_planner" name="submit"
-                                class="btn btn-sm btn-primary shadow-none create-tour-sec">View Planner</button>
+                            <div class="text-center small d-flex justify-content-end align-items-center gap-5 flex-wrap">                                
+                                <a href="{{ route('agent.view-planner') }}" class="btn-common text-white">View Planner</a>
                                 <button type="submit" id="new_appointment" name="submit"
                                 class="btn btn-sm btn-primary shadow-none create-tour-sec">New Appointment</button>
                             </div>

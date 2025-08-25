@@ -66,7 +66,7 @@
                <div class="col-sm-12 col-md-12 col-lg-12">
                   <div class="row">
                      <div class="col-md-12">
-                        <div class="">
+                        <div class="table-responsive-xl">
                            <table class="table table-bordered text-center" id="myAdvertisersList">
                               <thead class="table-bg">
                                  <tr>
@@ -391,28 +391,28 @@ $(document).ready(function() {
             searchable: false,
             render: function(data, type, row) {
                return `
-               <div class="dropdown no-arrow archive-dropdown text-center">
-      <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         <i class="fas fa-ellipsis-v text-gray-400"></i>
-      </a>
-      <div class="dropdown-menu">
-         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createProfileModal">Create Profile</a>
-         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editProfileModal">Edit Profile</a>
-         <a class="dropdown-item" href="/agent/profile/list/${row.member_id}">List Profile</a>
-         <div class="dropdown-divider"></div>
-         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#createTourModal">Create Tour</a>
-         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editTourModal">Edit Tour</a>
-         <div class="dropdown-divider"></div>
-         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#manageMediaModal">Manage Media</a>
-         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#manageMasseursModal">Manage Masseurs</a>
-         <div class="dropdown-divider"></div>
-         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#editAccountModal">Edit Account</a>
-         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#viewAccountModal">View Account</a>
-         <div class="dropdown-divider"></div>
-         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#printSummaryModal">Print</a>
-         <a class="dropdown-item" href="/agent/message/send?member_id=${row.member_id}">Message</a>
-      </div>
-   </div>`;
+                <div class="dropdown no-arrow archive-dropdown text-center">
+                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   <i class="fas fa-ellipsis-v text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu">
+                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#createProfileModal"><i class="fa fa-plus"></i> Create Profile</a>
+                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#editProfileModal"><i class="fa fa-pen"></i> Edit Profile</a>
+                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="/agent/profile/list/${row.member_id}"><i class="fa fa-list"></i> List Profile</a>
+                   <div class="dropdown-divider"></div>
+                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#createTourModal"><i class="fa fa-plus"></i> Create Tour</a>
+                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#editTourModal"><i class="fa fa-pen"></i> Edit Tour</a>
+                   <div class="dropdown-divider"></div>
+                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#manageMediaModal"><i class="fa fa-play-circle"></i> Manage Media</a>
+                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#manageMasseursModal"><i class="fa fa-user"></i> Manage Masseurs</a>
+                   <div class="dropdown-divider"></div>
+                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#editAccountModal"><i class="fa fa-pen"></i> Edit Account</a>
+                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#viewAccountModal"><i class="fa fa-eye"></i>View Account</a>
+                   <div class="dropdown-divider"></div>
+                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#printSummaryModal"><i class="fa fa-print"></i> Print</a>
+                   <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="/agent/message/send?member_id=${row.member_id}"><i class="fa fa-comment"></i> Message</a>
+                </div>
+             </div>`;
             }
          }
       ],

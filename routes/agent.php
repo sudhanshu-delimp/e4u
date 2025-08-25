@@ -163,6 +163,11 @@ Route::get('my-appointments',function(){
     return view('agent.dashboard.my-appointments');
 })->name('agent.my-appointments');
 
+
+Route::get('view-planner',function(){
+    return view('agent.dashboard.view-planner');
+})->name('agent.view-planner');
+
 Route::get('agent-task-list',[AgentTaskController::class,'index'])->name('agent.task-list'); 
 
 # Agent tasks
