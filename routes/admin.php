@@ -122,6 +122,20 @@ Route::get('advertiser-reviews',function(){
     return view('admin.advertiser-reviews');
 })->name('admin.advertiser-reviews');
 
+
+Route::get('commission-statements',function(){
+    return view('admin.management.operator.commission-statements');
+})->name('admin.commission-statements');
+
+Route::get('commission-summary',function(){
+    return view('admin.management.operator.commission-summary');
+})->name('admin.commission-summary');
+
+Route::get('operator-manage',function(){
+    return view('admin.management.operator.operator-manage');
+})->name('admin.operator-manage');
+
+
 Route::get('support-tickets',function(){
     return view('admin.support-tickets');
 })->name('admin.support-tickets');

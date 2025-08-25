@@ -2862,7 +2862,7 @@ tr.custom--row th:not(tr.custom--row th:last-child) {
     padding-left: 1px;
 }
 
-.languages_choosed_from_drop_down {
+.selecated_languages .languages_choosed_from_drop_down {
     padding: 2px 6px;
     background: #0c223d14;
     border-radius: 1px;
@@ -2872,7 +2872,7 @@ tr.custom--row th:not(tr.custom--row th:last-child) {
     position: relative;
 }
 
-.select_lang .languages_choosed_from_drop_down::after {
+.selecated_languages .languages_choosed_from_drop_down::after {
     position: absolute;
     content: '+';
     right: -5px;
@@ -6172,6 +6172,10 @@ button.short-list.btn.btn-primary {
     overflow-y: hidden;
     white-space: nowrap;
     gap: 13px;
+}
+
+.massage-photo-popup {
+    display: flex;
 }
 
 .photo-sec-popup .item {
