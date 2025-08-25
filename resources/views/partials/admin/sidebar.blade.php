@@ -931,6 +931,37 @@
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
 
+                    {{-- Operator --}}
+                    <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
+                        data-target="#operatorMenu" aria-expanded="false" aria-controls="operatorMenu">
+                        <img width="16" height="17"
+                            src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                        <span>Operator</span>
+
+                    </a>
+
+                    <div id="operatorMenu" class="collapse pl-3" style="margin-left: 10px;">
+                        <a class="collapse-item" href="{{ route('admin.commission-statements') }}">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span
+                                style="{{ request()->segment(3) == 'commission-statements' ? 'color: #e5365a;' : '' }}">Commission Statements</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('admin.commission-summary') }}">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span
+                                style="{{ request()->segment(3) == 'commission-summary' ? 'color: #e5365a;' : '' }}">Commission Summary</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('admin.operator-manage') }}">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span
+                                style="{{ request()->segment(3) == 'operator-manage' ? 'color: #e5365a;' : '' }}">Manage</span>
+                        </a>
+                    </div>
+
+
                     {{-- statistics --}}
                     <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
                         data-target="#statisticsMenu" aria-expanded="false" aria-controls="statisticsMenu">
