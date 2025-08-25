@@ -33,6 +33,7 @@ use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
+use App\Http\Controllers\Escort\MyPlaymatesContoller;
 use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
 
 /*
@@ -445,9 +446,9 @@ Route::get('/escort-dashboard/escorts-statistics',function(){
 })->name('escort.dashboard.escorts-statistics');
 
 
-Route::get('/escort-dashboard/my-playmates',function(){
-    return view('escort.dashboard.my-playmates');
-})->name('escort.dashboard.my-playmates');
+Route::get('/escort-dashboard/my-playmates',[MyPlaymatesContoller::class,'index'])->name('escort.dashboard.my-playmates');
+Route::post('/escort-dashboard/my-user-playmates-ajax',[MyPlaymatesContoller::class,'dashboardUserPlaymatesListAjax'])->name('escort.get.user-playmates-by-ajax');
+Route::post('/escort-dashboard/my-playmates-ajax',[MyPlaymatesContoller::class,'getPlaymatesDataByAjax'])->name('escort.get.my-playmates-by-ajax');
 
 Route::get('/escort-dashboard/my-playbox',function(){
     return view('escort.dashboard.my-playbox');
