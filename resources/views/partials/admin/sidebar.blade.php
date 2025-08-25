@@ -1033,13 +1033,13 @@
                             <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                 src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'tours' ? 'color: #e5365a;' : '' }}">Staff</span>
+                                style="{{ request()->segment(3) == 'tours' ? 'color: #e5365a;' : '' }}">Manage Staff</span>
                         </a>
                         <a class="collapse-item" href="{{ route('admin.agent') }}">
                             <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                 src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'agent' ? 'color: #e5365a;' : '' }}">Agent</span>
+                                style="{{ request()->segment(3) == 'agent' ? 'color: #e5365a;' : '' }}">Manage Agents</span>
                         </a>
                         
                         <a class="collapse-item" href="{{ route('admin.manage-suppliers') }}">
