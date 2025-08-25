@@ -197,7 +197,7 @@
                                                 : "<span class='na-label'>N/A</span>" !!}
                                             </td>
                                             <td>{!! $duration->pivot->incall_price ? '$ ' . $duration->pivot->incall_price : "<span class='na-label'>N/A</span>" !!}
-                                            </td>
+                                            </td>     
                                             <td>{!! $duration->pivot->outcall_price
                                                 ? '$ ' . $duration->pivot->outcall_price
                                                 : "<span class='na-label'>N/A</span>" !!}
@@ -233,9 +233,9 @@
                                 </tr>
                             </thead>
                         </table>
-                        <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx hide">
+                        {{-- <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx hide">
                             <div class="like_img">
-                                {{-- {{ dd($escortLike)}} --}}
+                                
                                 <i class="{{ $massageLike && $massageLike->like == 1 ? 'fa fa-thumbs-up' : 'fa fa-thumbs-o-up' }}"
                                     id="like" title="like" aria-hidden="true"></i>
                                 <!-- <img class="likeImg" id="like" value='1' src="{{ asset('assets/app/img/like.png') }}"> -->
@@ -246,7 +246,7 @@
                             <div class="display_persantage">
                                 <p id="like_per">{{ $lp }}%</p>
                             </div>
-                        </div>
+                        </div> --}}
                         
                         {{-- <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx">
                         <div class="like_img">

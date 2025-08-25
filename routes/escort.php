@@ -17,6 +17,7 @@ use App\Http\Controllers\Escort\Profile\UpdateController;
 use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\EscortTourPaymentController;
 use App\Http\Controllers\Escort\EscortSuspendProfileController;
+use App\Http\Controllers\Escort\HowIsItDoneController;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
 
 //remove before prod
@@ -382,3 +383,5 @@ Route::post('customise-dashboard', [EscortController::class, 'updateCustomiseDas
 // Route::get('customise-dashboard',function(){
 //     return view('escort.dashboard.customise-dashboard');
 // })->name('escort.dashboard.customise-dashboard');
+
+Route::get('profile', [HowIsItDoneController::class, 'profile'])->name('escort.how_is_it_done.profile');
