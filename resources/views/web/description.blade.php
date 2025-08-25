@@ -917,30 +917,21 @@
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content border-0">
-                                    <div class="modal-header border-0">
-                                        {{--<h5 class="modal-title pl-5"><img src="{{ asset('assets/dashboard/img/upload-videos.png') }}" class="custompopicon"></h5>--}}
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen pt-3 mt-1 pr-4"></span>
+                                    <div class="modal-header d-flex justify-content-between align-items-center">                                       
+                                        <ul class="nav nav-tabs justify-content-center border-0">
+                                            <!--  <li class="nav-item">
+                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home">All</a>
+                                                </li> -->
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">Photos</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">Videos</a>
+                                            </li>
+                                        </ul>
+                                        <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
+                                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                                         </button>
-                                        <div class="col-12">
-                                            {{--
-                                            <div class="popup-tab-heading">
-                                                --}}
-                                                <ul class="nav nav-tabs justify-content-center border-0">
-                                                    <!--  <li class="nav-item">
-                                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home">All</a>
-                                                        </li> -->
-                                                    <li class="nav-item">
-                                                        <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">Photos</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">Videos</a>
-                                                    </li>
-                                                </ul>
-                                                {{--
-                                            </div>
-                                            --}}
-                                        </div>
                                     </div>
                                     <div class="modal-body p-1">
                                         <div class="tab-content" id="myTabContent">
@@ -1762,7 +1753,12 @@
  
             <!-- Header with navy background and [X] -->
             <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
-                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">Report Logged</h5>
+                <img src="{{ asset('assets/dashboard/img/request-submit.png') }}"
+                                class="custompopicon">
+                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">
+                    
+                    Report Logged
+                    </h5>
                 <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
                 <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/newcross.png" class="img-fluid img_resize_in_smscreen">
                 </button>
@@ -1771,11 +1767,15 @@
             <!-- if logi Body content -->
            
             <div class="modal-body text-left">
-                <h6 class="popu_heading_style mb-4 mt-2 " style="text-align: center; color:#0C223D;">
+                <h6 class="popu_heading_style  mt-2 " style="text-align: center; color:#0C223D;">
                     <span id="Lname">Thank you for your report. Someone from our team will be in
                 touch shortly.</span>
                 </h6>
              
+            </div>
+            <div class="modal-footer pt-0" style="justify-content: center; ">
+                <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                    id="close">Ok</button>
             </div>
  
         </div>
@@ -2397,10 +2397,14 @@ let carousel = new bootstrap.Carousel(myCarousel, {
   });
 });
 
-$(document).on('click', '.modal .close', function () {
+$(document).on('click', '.modal .close ', function () {
     $('#my_legbox').modal('hide');
     $('#reportAdvertiserNew').modal('hide');
     $('#sendcarlat').modal('hide');
+    $('#reportLogedIn').modal('hide');
+});
+
+$(document).on('click', '#close ', function () {
     $('#reportLogedIn').modal('hide');
 });
 

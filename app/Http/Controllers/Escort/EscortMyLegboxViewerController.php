@@ -27,7 +27,7 @@ class EscortMyLegboxViewerController extends Controller
         return view('escort.dashboard.my-legbox-viewers', ['viewers' => $viewers]);
     }
 
-     public function escortViewersAjaxList()
+    public function escortViewersAjaxList()
     {
         $user = Auth::user();
         $escortIds = Escort::where('user_id', $user->id)->where('enabled', 1)->pluck('id'); // fetch all escort profile

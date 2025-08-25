@@ -122,66 +122,7 @@
                                         $i = 1;
                                         $dataTableData = [];
 
-                                        /*foreach ($relatedEscorts as $escort) {
-                                            if ($escort['purchase']) {
-                                                foreach ($escort['purchase'] as $purchase) {
-                                                    $brb = $escort['profile_name'];
-                                                    $totalAmount = 0;
-                                                    if (isset($escort['brb'][0]['brb_time'])) {
-                                                        $brb =
-                                                            '<span id="brb_' .
-                                                            $escort['id'] .
-                                                            '" >' .
-                                                            $escort['profile_name'] .
-                                                            ' <sup
-                                            title="Brb at ' .
-                                                            date(
-                                                                'd-m-Y h:i A',
-                                                                strtotime($escort['brb'][0]['brb_time']),
-                                                            ) .
-                                                            '"
-                                            class="brb_icon">BRB</sup></span>';
-                                                    }
-                                                    if (!empty($purchase['start_date'])) {
-                                                        $daysDiff = Carbon\Carbon::parse(
-                                                            $purchase['end_date'],
-                                                        )->diffInDays(Carbon\Carbon::parse($purchase['start_date']));
-                                                        [$discount, $rate] = calculateTatalFee(
-                                                            $purchase['membership'],
-                                                            $daysDiff,
-                                                        );
-                                                        $totalAmount = $rate;
-                                                        $totalAmount -= $discount;
-                                                        $totalAmount = formatIndianCurrency($totalAmount);
-                                                    }
-                                                    $dataTableData[] = [
-                                                        //'sl_no' => $i++,
-                                                        'sl_no' => $escort['id'],
-                                                        //'profile_name' => $escort['profile_name'],
-                                                        'profile_name' => $escort['profile_name'] ? $brb : 'NA',
-                                                        //'city' =>
-                                                        config(
-                                                            "escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName",
-                                                        ) .
-                                                        '<br>' .
-                                                        config("escorts.profile.states.$escort[state_id].stateName"),
-                                                        'city' => config(
-                                                            "escorts.profile.states.$escort[state_id].stateName",
-                                                        ),
-                                                        'name' => $escort['name'],
-                                                        'start_date' => date(
-                                                            'd-m-Y',
-                                                            strtotime($purchase['start_date']),
-                                                        ),
-                                                        'end_date' => date('d-m-Y', strtotime($purchase['end_date'])),
-                                                        'days' => Carbon\Carbon::parse(
-                                                            $purchase['end_date'],
-                                                        )->diffInDays(Carbon\Carbon::parse($purchase['start_date'])),
-                                                        'fee' => $totalAmount,
-                                                    ];
-                                                }
-                                            }
-                                        }*/
+                                        
                                     @endphp
 
                                 </tbody>
@@ -200,7 +141,6 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function(e) {
-             //var shouldHide = '{{$type == "past" ? false :true}}';
               var shouldHide = true;
             var table = $("#listings").DataTable({
                 processing: true,
@@ -210,7 +150,7 @@
                 bStateSave: false,
                 pageLength: 10,
                 "language": {
-                    "zeroRecords": "No record(s) found.",
+                    "zeroRecords": "There is no record of the search criteria you entered.",
                     searchPlaceholder: "Search by ID or Profile Name"
                 },
                 drawCallback: function(settings) {
@@ -223,6 +163,17 @@
                        $('.dataTables_paginate').show();
                     }
                 },
+                initComplete: function() {
+                    if ($('#returnToReportBtn').length === 0) {
+                        $('.dataTables_filter').append(
+                            '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+                        );
+                    }
+                    $('#returnToReportBtn').on('click', function() {
+                        var table = $('#listings').DataTable();
+                        table.search('').draw();
+                    });
+                },
                 ajax: {
                     url: "{{ route('escort.list.dataTableListing', $type) }}",
                     data: function(d) {
@@ -230,16 +181,7 @@
                       //  d.type = "{{$type}}";
                     }
                 },
-                // data: <?php echo json_encode($dataTableData); ?>,
-                /*@if ($type == 'past')
-                    order: [
-                        [4, 'desc']
-                    ],
-                @else
-                    order: [
-                        [4, 'asc']
-                    ],
-                @endif*/
+
                 columns: [{
                         data: 'id',
                         searchable: true,
@@ -275,7 +217,7 @@
                     }
                 ]
             });
-            // $('#listings_filter label').append('<i class="fa fa-search "></i>');
+            
         })
     </script>
 @endpush

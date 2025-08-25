@@ -1007,6 +1007,13 @@
                             <span
                                 style="{{ request()->segment(3) == 'agent' ? 'color: #e5365a;' : '' }}">Agent</span>
                         </a>
+                        
+                        <a class="collapse-item" href="{{ route('admin.manage-suppliers') }}">
+                            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                                src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span
+                                style="{{ request()->segment(3) == 'manage-suppliers' ? 'color: #e5365a;' : '' }}">Manage Suppliers</span>
+                        </a>
                     </div>
 
 

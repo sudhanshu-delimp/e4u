@@ -27,6 +27,9 @@
         border-radius: 15%;
         padding: 0 5px;
     }
+    #escort_listings_paginate span{
+        display:contents;
+    }
 </style>
 @endsection
 @section('content')

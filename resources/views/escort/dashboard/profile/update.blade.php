@@ -209,7 +209,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title" id="exampleModalLabel" style="color:white">Update My Information</h5>
+                    <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -223,12 +223,12 @@
                     <input type="hidden" id="label" name="label">
                     <input type="hidden" id="trigger-element">
                     <input type="hidden" id="trigger-element2">
-                    <h3 class="mb-4 mt-5"><span id="Lname"></span> </h3>
-                    <h3 class="mb-4 mt-5"><span id="log"></span> </h3>
+                    <h3 class="my-2"><span id="Lname"></span> </h3>
+                    <h3 class="my-2"><span id="log"></span> </h3>
                     <div class="modal-footer">
-                        <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                        <button type="button" class="btn-cancel-modal" data-dismiss="modal"
                             value="close" id="close_change">No</button>
-                        <button type="button" class="btn main_bg_color site_btn_primary" id="save_change">Yes</button>
+                        <button type="button" class="btn-success-modal" id="save_change">Yes</button>
                     </div>
                 </div>
             </div>
@@ -239,7 +239,7 @@
    <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
       <div class="modal-content basic-modal modal-lg">
          <div class="modal-header">
-            <h5 class="modal-title" id="emailReport">Listing</h5>
+            <h5 class="modal-title" id="emailReport"><img src="{{ asset('assets/dashboard/img/view-listing.png') }}" class="custompopicon"> Listing</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>

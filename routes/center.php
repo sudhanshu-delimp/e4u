@@ -10,7 +10,7 @@ use App\Http\Controllers\Center\PolyPaymentController;
 use App\Http\Controllers\Center\Profile\CreateController;
 use App\Http\Controllers\Center\Profile\UpdateController;
 use App\Http\Controllers\Center\CenterProfileInformationController;
-
+use App\Http\Controllers\Center\MassageViewerInteractionController;
 
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
 Route::get('/list', [CenterController::class, 'escortList'])->name('center.list');
@@ -287,9 +287,13 @@ Route::get('legbox-notification',function(){
     return view('center.dashboard.Communication.legbox-notification');
 })->name('legbox-notification');
 
-Route::get('legbox-viewers',function(){
-    return view('center.dashboard.Communication.legbox-viewers');
-})->name('legbox-viewers');
+# Massage viewer Interaction
+Route::get('legbox-viewers',[MassageViewerInteractionController::class,'index'])->name('legbox-viewers');
+// Route::get('/my-legbox/{type?}',[MassageViewerInteractionController::class,'dashboard'])->name('user.my-legbox');
+Route::get('/my-massage-legbox-ajax',[MassageViewerInteractionController::class,'dashboardMassageLegboxListAjax'])->name('massage.viewer-legbox-list-ajax');
+Route::post('/massage/viewer-interaction-update', [MassageViewerInteractionController::class, 'massageUpdateViewerInteraction'])->name('massage-center.viewer-interaction.update');
+
+
 
 Route::get('viewer-notes',function(){
     return view('center.dashboard.Communication.viewer-notes');

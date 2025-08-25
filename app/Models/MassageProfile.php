@@ -193,6 +193,11 @@ class MassageProfile extends Model
         return $this->hasOne(MassageViewerInteractions::class, 'massage_id');
     }
 
+    public function messageViewerLegbox()
+    {
+        return $this->hasOne(MyMassageLegbox::class, 'massage_id');
+    }
+
     public function images()
     {
         return $this->hasMany('App\Models\MassageMedia', 'user_id')->where('type', 0);
