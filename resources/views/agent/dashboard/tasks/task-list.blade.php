@@ -91,7 +91,7 @@
                                
                                 <span class="d-flex justify-content-start gap-5 align-items-center">Low <i class="fas fa-circle text-low"></i></span>
                                 <button type="submit" id="new_task" name="submit"
-                                class="btn btn-sm btn-primary shadow-none create-tour-sec">New Task</button>
+                                class="create-tour-sec">New Task</button>
                             </div>
                         </div>
                     </div>
