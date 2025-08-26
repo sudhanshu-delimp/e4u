@@ -42,7 +42,7 @@
      <!-- Page Heading -->
      <div class="row">
         <div class="custom-heading-wrapper col-md-12">
-            <h1 class="h1">View & Reply Ticket</h1>
+            <h1 class="h1">View & Reply</h1>
             <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></h6>
         </div>
         <div class="col-md-12 mb-4">
