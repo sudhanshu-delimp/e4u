@@ -25,7 +25,7 @@
 
   <div class="row">    
       <div class="custom-heading-wrapper col-md-12">
-         <h1 class="h1">Photos</h1>
+         <h1 class="h1">Masseurs Photos</h1>
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
       </div>
       <div class="col-md-12 mb-4">
@@ -33,7 +33,12 @@
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
-                     
+                     <li>Use these help pages for explanations and guidance on managing all of your Masseur
+                        Photos.</li>
+                     <li>You can upload four photos for each Masseur. Designate one as the Masseur's
+                        Thumbnail.</li>
+                     <li>Activate up to eight Masseur Profiles at any one time to appear the Massage Centre
+                        Profile.</li>
                </ol>
             </div>
          </div>

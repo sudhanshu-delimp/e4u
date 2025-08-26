@@ -1,17 +1,22 @@
 function date_time_format(dateString) {
-
-    const date = new Date(dateString.replace(" ", "T"));
+   
+    const date = new Date(dateString.replace(" ", "T") + "Z");
     const options = {
         year: 'numeric',
         month: 'short',
         day: '2-digit',
         hour: '2-digit',
         minute: '2-digit',
-        hour12: true
+        hour12: true,
+        timeZone: 'Australia/Perth'
     };
 
-    return formatted = date.toLocaleString('en-GB', options);
+    return date.toLocaleString('en-GB', options);
 }
+
+
+console.log(date_time_format("2025-08-21 08:03:12")); 
+console.log(date_time_format("2025-08-21 08:15:52")); 
 
 
 

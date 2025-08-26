@@ -127,6 +127,7 @@
       },
       "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
+                    searchPlaceholder: "Search by Mobile..."
                 },
       initComplete: function() {
           if ($('#returnToReportBtn').length === 0) {

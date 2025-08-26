@@ -543,7 +543,6 @@
       var table = $('#bankAccountTable').DataTable({
          language: {
             search: "_INPUT_",
-            searchPlaceholder: "Search by Account Number",
             sSearch: 'Search:'
 
          },
@@ -557,6 +556,7 @@
          bStateSave: false,
          "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
+                     searchPlaceholder: "Search by Account Number"
                 },
          ajax: {
             url: "{{ route('escort.bankDetail.dataTable') }}",
