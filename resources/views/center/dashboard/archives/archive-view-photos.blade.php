@@ -91,7 +91,7 @@
                                 <div class="col-4 pr-0 pl-0">
                                     <h2 class="banner-sub-heading my-2 font-weight-bold">Thumbnail</h2>
                                     <div class="plate">
-                                        <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec" id="dvDest">
+                                        <label class="newbtn dvDest" data-toggle="modal" data-target="#photoGallery" id="dvDest">
                                             <img class="img-fluid" id="img1" src="{{ asset($path->findByposition(auth()->user()->id,1)['path']) }}" style="object-fit: cover;width: 167px;height: 172px;">
                                             <input type="hidden" id="pos_1" name="position[1]" value="">
                                         </label>
@@ -104,7 +104,7 @@
                                         </div>
                                         <div class="col-4 pr-0">
                                             <div class="plate">
-                                                <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
+                                                <label class="newbtn dvDest" data-toggle="modal" data-target="#photoGallery">
                                                     <img class="img-fluid" id="img2" src="{{ asset($path->findByposition(auth()->user()->id,2)['path'])}}">
                                                     <input type="hidden" id="pos_2" name="position[2]" value="">
                                                 </label>
@@ -112,7 +112,7 @@
                                         </div>
                                         <div class="col-4 pr-0">
                                             <div class="plate">
-                                                <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
+                                                <label class="newbtn dvDest" data-toggle="modal" data-target="#photoGallery">
                                                     <img class="img-fluid"  id="img3" src="{{ asset($path->findByposition(auth()->user()->id,3)['path'])}}">
                                                     <input type="hidden" id="pos_3" name="position[3]" value="">
                                                 </label>
@@ -120,7 +120,7 @@
                                         </div>
                                         <div class="col-4 pr-0">
                                             <div class="plate">
-                                                <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
+                                                <label class="newbtn dvDest" data-toggle="modal" data-target="#photoGallery">
                                                     <img class="img-fluid"  id="img4" src="{{ asset($path->findByposition(auth()->user()->id,4)['path'])}}">
                                                     <input type="hidden" id="pos_4" name="position[4]" value="">
                                                 </label>
@@ -431,6 +431,34 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="modal fade upload-modal" id="photoGallery" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color border-0">
+                <h5 class="modal-title" style="color: white;"><img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Photo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">
+                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                     </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
+                    @foreach($media  as $keyId => $image)
+                        @if(!in_array($image->position, [8, 9, 10])/*$image->position != 8*/)
+                            <div class="item4">
+                                <img class="img-thumbnail defult-image select_image" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
 @endsection
 @push('script')
 <script src="https://foliotek.github.io/Croppie/croppie.js"></script>
