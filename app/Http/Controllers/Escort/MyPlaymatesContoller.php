@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
 use App\Models\Escort;
+use App\Models\Playmate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DataTables;
 
 class MyPlaymatesContoller extends Controller
 {
@@ -18,18 +20,17 @@ class MyPlaymatesContoller extends Controller
         
         $playmates = Auth::user()
             ->playmates()
-            ->with('user','user.state') // eager load user relation
+            ->with('user','user.state')
             ->get()
             ->groupBy('user_id');
 
             $usersWithPlaymates = $playmates->map(function ($group) {
                 return [
-                    'user' => $group->first()->user, // related user
-                    'playmates' => $group->pluck('id') // saare playmates of that user
+                    'user' => $group->first()->user, 
+                    'playmates' => $group->pluck('id')
                 ];
             });
 
-            //dd($usersWithPlaymates);
         return view('escort.dashboard.my-playmates',[
             'usersWithPlaymates' => $usersWithPlaymates]);
     }
@@ -51,146 +52,72 @@ class MyPlaymatesContoller extends Controller
                 ];
             });
 
-            dd($usersWithPlaymates);
+            $totalPlaymatesCount = $playmates->flatten()->count();
 
              return DataTables::of($usersWithPlaymates)
-                ->filter(function ($query) use ($request) {
-                    $search = $request->input('search.value'); // null-safe
-                    if (!empty($search)) {
-                        $query->where(function ($q) use ($search) {
-                            // search viewer_id from relation
-                            $q->orWhereHas('messageViewerLegbox', function ($q2) use ($search) {
-                                $q2->where('user_id', 'like', "%{$search}%");
-                            });
-                            // search business_name from massage profile name
-                            $q->orWhere('name', 'like', "%{$search}%");
-                        });
-                    }
-                })
-                ->addColumn('viewer_id', function ($row) {
-                    return $row->messageViewerLegbox ? $row->messageViewerLegbox->user_id : '-';
-                })
-                ->addColumn('business_name', function($row){
-                    return Str::title($row->name);
-                })
-                ->addColumn('home_state', function($row){
-                    return config("escorts.profile.states.$row->state_id.stateName") ?? '-';
-                })
-                ->addColumn('is_enabled_contact', function ($row){
-                    return ($row->messageViewerInteraction && $row->messageViewerInteraction->viewer_disabled_contact == 0) ? 'Yes' : 'No';
-                })
-                ->addColumn('contact_method', function ($row) {
-                    if($row->messageViewerInteraction && $row->messageViewerInteraction->viewer_disabled_contact){
-                        return 'Disabled';
-                    }
-                    if($row->messageViewerLegbox ){
-                        $viewer = User::where('id',$row->messageViewerLegbox->user_id)->first();
-                        if($viewer->contact_type && (in_array(3, $viewer->contact_type) || in_array('3', $viewer->contact_type))){
-                            return 'Email';
-                        }
-                        return "Text";
-                    }
-                    return '-';
-                })
+                // ->filter(function ($collection) use ($request) {
+                //     $search = $request->input('search.value');
+                //     if (!empty($search)) {
+                //         $collection->filter(function ($item) use ($search) {
+                //             return str_contains($item['user']->member_id, $search);
+                //         });
+                //     }
+                // })
+                ->addColumn('playmate', function ($row) {
 
-                ->addColumn('viewer_communication', function ($row) {
-                    if($row->messageViewerInteraction && $row->messageViewerInteraction->viewer_disabled_contact){
-                        return 'Disabled';
-                    }
+                    $avatar = $row['user']->avatar_img ?? null;
+                    $path   = public_path('assets/app/img/' . $avatar);
 
-                    if($row->messageViewerLegbox ){
-                        $viewer = User::where('id',$row->messageViewerLegbox->user_id)->first();
-                        if($viewer->contact_type && (in_array(3, $viewer->contact_type) || in_array('3', $viewer->contact_type))){
-                            return $row->user->email;
-                        }
-                        return $viewer->phone;
-                    }
-                    return '-';
-                })
-                ->addColumn('block_viewer', function($row) {
-
-                    $isChecked = '';
-
-                    $esvi = MassageViewerInteractions::where('massage_id',$row->id)->where('viewer_id',$row->messageViewerLegbox->user_id)->where('user_id',Auth::user()->id)->first('massage_blocked_viewer');
-
-                    if($esvi && $esvi->massage_blocked_viewer){
-                        $isChecked = 'checked';
+                    if ($avatar && file_exists($path)) {
+                        $img = asset('assets/app/img/' . $avatar);
+                    } else {
+                        $img = asset('assets/app/img/service-provider/Frame-408.png'); // default image
                     }
                     
-
-                    $isBlocked = '<div class="custom-control custom-switch">
-                                            <input type="checkbox" '.$isChecked.' class="custom-control-input isBlockedButton" id="customSwitch'.$row->messageViewerLegbox->user_id.$row->id.'" data-id="'.$row->messageViewerLegbox->user_id.'" data-massage-id="'.$row->id.'">
-                                            <label class="custom-control-label" for="customSwitch'.$row->messageViewerLegbox->user_id.$row->id.'"></label>
-                                        </div>';
-
-                    return $isBlocked;
-
+                    return '<div class="playmate-avatar">
+                        <img
+                        src="'. $img .'"
+                        class="img-fluid rounded-circle"
+                        alt=" ">
+                    </div>';
+                    //return $row['user'] ? $row->messageViewerLegbox->user_id : '-';
                 })
-
+                ->addColumn('current_location', function($row){
+                    return $row['user']->state->name ?? '-';
+                })
+                ->addColumn('member_id', function ($row){
+                    return $row['user']->member_id ?? '-';
+                })
+                ->addColumn('profile', function ($row){
+                    return count($row['playmates']) ?? '0';
+                })
                 ->addColumn('action', function ($row) {
-
-                    $conClass = '-slash';
-                    $conText = 'Disable';
-                    $conCurrentText = 'Enable';
-                    $notClass = '-slash';
-                    $notText = 'Disable';
-                    $notCurrentText = 'Enable';
-                    $contactTooltip = 'not';
-                    $notifiTooltip = "can't";
-
-
-                    # If massage blocked viewer
-                    $massageViewerInteractions = MassageViewerInteractions::where('user_id',Auth::user()->id)->where('massage_id',$row->id)->where('viewer_id',$row->messageViewerLegbox->user_id)->first();
-
-                    if($massageViewerInteractions && $massageViewerInteractions->massage_disabled_contact == 1){
-                        $conClass = '';
-                        $contactTooltip = '';
-                        $conText = 'Enable';
-                        $conCurrentText = 'disable';
-                    }
-                    
-                    if($massageViewerInteractions && $massageViewerInteractions->massage_disabled_notification == 1){
-                        $notClass = '';
-                        $notText = 'Enable';
-                        $notifiTooltip = '';
-                        $notCurrentText = 'disable';
-                        
-                    }
+                    $dataMemberIds = $row['user']->member_id ?? '';
+                    $dataUserId = $row['user']->id ?? '';
+                    $dataEscortIds = json_encode($row['playmates']) ?? '';
+                    $dataUserName = $row['user']->name ?? '';
 
                     $actionButtons = '
                     <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-
-                                            <div class="custom-tooltip-container">
-                                                <a class="dropdown-item align-item-custom toggle-massage-contact" href="#" title="Click to '.Str::lower($conText).' contact" 
-                                                data-id="'.$row->messageViewerLegbox->user_id.'" data-massage-id="'.$row->id.'" data-status="'.Str::lower($conCurrentText).'"> 
-                                                <i class="fa fa-phone'.$conClass.' me-1"></i> <span>'.$conText.' Contact</span>
-                                                </a>
-                                                <span class="tooltip-text">Massage center '.$contactTooltip.' contact this viewer again </span>
-                                                <div class="dropdown-divider"></div>
-                                            </div>
-                                            <div class="custom-tooltip-container">
-                                                <a class="dropdown-item align-item-custom toggle-massage-notification" href="#" title="Click to '.Str::lower($notText).' notification"
-                                                data-id="'.$row->messageViewerLegbox->user_id.'" data-massage-id="'.$row->id.'" data-status="'.Str::lower($notCurrentText).'"> 
-                                                <i class="fa fa-bell'.$notClass.' me-1" aria-hidden="true"></i> <span>'.$notText.' Notifications</span>
-                                                <span class="tooltip-text">Massage center will '.$notifiTooltip.' get notifications from this viewer</span>
-                                                <div class="dropdown-divider"></div>
-                                            </div>
-                                            
-                                        </div>
-
-                                    </div>
-                    ';
+                        <a class="dropdown-toggle" href="#" role="button"
+                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i
+                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink" style="">
+                                <a class="listPlaymateModal dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-user-name="'.$dataUserName.'" data-member-ids="'.$dataMemberIds.'" data-user-id="'.$dataUserId.'" data-escort-ids="'.$dataEscortIds.'"> <i class="fa fa-list"></i> List</a>
+                                <div class="dropdown-divider"></div>
+                            <a class="removePlaymateParentClass dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-user-id="'.$dataUserId.'" data-escort-ids="'.$dataEscortIds.'"> <i class="fa fa-trash"></i> Remove</a>
+                        </div>
+                    </div>';
 
                     return $actionButtons;
                 })
 
-                ->rawColumns(['block_viewer', 'viewer_communication', 'action'])
+                ->rawColumns(['playmate', 'action'])
+                ->with('totalPlaymatesCount', $totalPlaymatesCount)
                 ->make(true);
         }
 
@@ -206,24 +133,33 @@ class MyPlaymatesContoller extends Controller
         
         $escortIds = json_decode($request->escort_ids);
         
-        $playmates = Escort::whereIn('id',$escortIds)->select('id','profile_name','user_id')->with('user')->get();
-
-        //dd($playmates);
-
-            // $usersWithPlaymates = $playmates->map(function ($group) {
-            //     return [
-            //         'user' => $group->first()->user, // related user
-            //         'playmates' => $group->pluck('id') // saare playmates of that user
-            //     ];
-            // });
-
-        //dd($playmates);
+        $playmates = Escort::whereIn('id',$escortIds)->select('id','profile_name','name','user_id')->with('user')->get();
 
         return response([
             'status'=>200,
             'success'=>true,
             'message'=>'Playmates fetched successfully',
             'data'=>$playmates,
+        ]);
+    }
+
+    public function removePlaymatesByAjax(Request $request)
+    {
+        if(!Auth::user()){
+            return redirect()->route('advertiser.login');
+        }
+
+        $playmateIds = json_decode($request->escort_ids);
+
+        $userId = auth()->user()->id;
+        $result = Playmate::whereIn('playmate_id',$playmateIds)->where('user_id', $userId)->delete();
+        $msg = $result ? 'Playmates deleted successfully' : 'Something went wrong, Please try again';
+
+        return response([
+            'status'=>$result ? 200 : 403,
+            'success'=>$result ? true :false,
+            'message'=> $msg,
+            'data'=>$result,
         ]);
     }
 }

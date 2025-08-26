@@ -447,8 +447,9 @@ Route::get('/escort-dashboard/escorts-statistics',function(){
 
 
 Route::get('/escort-dashboard/my-playmates',[MyPlaymatesContoller::class,'index'])->name('escort.dashboard.my-playmates');
-Route::post('/escort-dashboard/my-user-playmates-ajax',[MyPlaymatesContoller::class,'dashboardUserPlaymatesListAjax'])->name('escort.get.user-playmates-by-ajax');
+Route::get('/escort-dashboard/my-user-playmates-ajax',[MyPlaymatesContoller::class,'dashboardUserPlaymatesListAjax'])->name('escort.get.user-playmates-by-ajax');
 Route::post('/escort-dashboard/my-playmates-ajax',[MyPlaymatesContoller::class,'getPlaymatesDataByAjax'])->name('escort.get.my-playmates-by-ajax');
+Route::post('/escort-dashboard/remove-my-playmates-ajax',[MyPlaymatesContoller::class,'removePlaymatesByAjax'])->name('escort.remove.my-playmates-by-ajax');
 
 Route::get('/escort-dashboard/my-playbox',function(){
     return view('escort.dashboard.my-playbox');

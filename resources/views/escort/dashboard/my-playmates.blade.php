@@ -37,8 +37,8 @@
           
             <!-- My Playmates -->
             <div class="col-md-12 mb-4">
-                <div class="table-responsive">
-                  <table class="table table-bordered">
+                <div class="table-responsive-xl">
+                  <table class="table table-bordered" id="playmateListTable" style="border: none;">
                     <thead style="background-color: #0C223D; color: #ffffff;">
                       <tr>
                         <th class="text-left">Playmates</th>
@@ -48,7 +48,7 @@
                         <th class="text-center">Action</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody style="border: 1px solid #ddd;">
                         @php
                             $allTotalPlaymates = 0;
                         @endphp
@@ -93,51 +93,15 @@
                                 $allTotalPlaymates += count($userPlayemate['playmates']);
                             @endphp
                       @endforeach
-                      {{-- <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                               
-                                <div class="playmate-avatar">
-                                    <img
-                                    src="{{ asset('assets/app/img/ellipse-5.png') }}"
-                                    class="img-fluid rounded-circle"
-                                    alt=" ">
-                                </div>
-                            </div>
-                        </td>
-                        <td>Queensland</td>
-                        <td class="text-center">E40123</td>
-                        <td class="text-center">2</td>
-                        
-                        <td class="theme-color text-center bg-white">
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button"
-                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i
-                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                    data-target="#listPlaymateModal"> <i class="fa fa-list"></i> List</a>
-                                
-                                    <div class="dropdown-divider"></div>
-                                    
-                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                data-target="#removePlaymateModal"> <i class="fa fa-trash"></i> Remove</a>
-                                </div>
-                            </div>
-                        </td>
-                      </tr> --}}
-                      <tr>
-                        <td style="border:none;" colspan="2"></td>
-                        <td class="text-right" style="font-weight: bold;">Total:</td>
-                        <td style="text-align: center; font-weight: bold;">{{$allTotalPlaymates}}</td>
-                        <td style="border:none;"></td>
-                    </tr>
                     
                     </tbody>
+                    <tfoot style="" >
+                        <tr>
+                            <td style="border-bottom: none;" colspan="2"></td>
+                            <td class="" style="font-weight: bold;">Total:</td>
+                            <td class="totalPlaymatesCount" style="font-weight: bold; border: 1px solid #ddd;">{{$allTotalPlaymates}}</td>
+                        </tr>
+                    </tfoot>
                   </table>
                 </div>
               </div>
@@ -164,7 +128,7 @@
   
         <!-- Modal Body with Static Table -->
         <div class="modal-body">
-          <table class="table table-bordered table-striped text-center">
+          <table class="table table-bordered table-striped text-center" >
             <thead style="background-color: #0C223D; color: #ffffff;">
               <tr>
                 <th class="text-left">Select</th>
@@ -175,63 +139,11 @@
               </tr>
             </thead>
             <tbody class="user_playmates_data">
-              <tr>
+              {{-- <tr>
                 <td><input type="checkbox"></td>
                 <td>[P001]</td>
                 <td>Perth01</td>
                 <td>E60123</td>
-                <td class="theme-color text-center bg-white">
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button"
-                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <i
-                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                    data-target="#listPlaymateModal"> <i class="fa fa-list"></i> List</a>
-                                
-                                    <div class="dropdown-divider"></div>
-                                    
-                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                data-target="#removePlaymateModal"> <i class="fa fa-trash"></i> Remove</a>
-                                </div>
-                    </div>
-                </td>
-              </tr>
-              {{-- <tr>
-                <td><input type="checkbox"></td>
-                <td>[P002]</td>
-                <td>Perth02</td>
-                <td>E40123</td>
-                <td class="theme-color text-center bg-white">
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button"
-                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <i
-                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                    data-target="#listPlaymateModal"> <i class="fa fa-list"></i> List</a>
-                                
-                                    <div class="dropdown-divider"></div>
-                                    
-                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                data-target="#removePlaymateModal"> <i class="fa fa-trash"></i> Remove</a>
-                                </div>
-                    </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox"></td>
-                <td>[P003]</td>
-                <td>Perth03</td>
-                <td>E30123</td>
                 <td class="theme-color text-center bg-white">
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button"
@@ -259,7 +171,7 @@
   
         <!-- Modal Footer -->
         <div class="modal-footer justify-content-end">
-          <button type="button" class="btn-success-modal">Remove</button>
+          <button type="button" class="btn-success-modal removeMultipleEscort">Remove</button>
         </div>
       </div>
     </div>
@@ -273,6 +185,8 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                <div class="modal-content basic-modal">
                   <div class="modal-header">
+                    <input type="hidden" class="playmate_user_id"  value="">
+                    <input type="hidden" class="playmate_escort_ids" value="">
                      <h5 class="modal-title" id="removePlaymateModalLabel">
                         <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates.png') }}" class="custompopicon"> Remove this Playmate?
                      </h5>
@@ -283,16 +197,63 @@
                      </button>
                   </div>
                   <div class="modal-body text-center">
-                     <p class="mb-0"> Are you sure you want to remove this Playmate?
-                       </p>
+                     <h6 class=" body_text mb-0"> Are you sure you want to remove this Playmate?
+                     </h6>
                   </div>
                   <div class="modal-footer pr-3 mx-auto">
                      <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
-                     <button type="submit" class="btn-success-modal">Confirm Remove</button>
+                     <button type="submit" class="btn-success-modal confirm_remove_btn">Confirm Remove</button>
                   </div>
                </div>
             </div>
          </div>
+          <!-- Remove success playmates Modal -->
+
+          <div class="modal fade upload-modal child_popup_remove_single_playmate_profile_css" id="removePlaymateSuccessModal" tabindex="-1" role="dialog" aria-labelledby="removePlaymateModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+               <div class="modal-content basic-modal">
+                  <div class="modal-header">
+                    <input type="hidden" class="playmate_user_id"  value="">
+                    <input type="hidden" class="playmate_escort_ids" value="">
+                     <h5 class="modal-title" id="removePlaymateModalLabel">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates.png') }}" class="custompopicon"> Playmate Removed
+                     </h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                           <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                     </button>
+                  </div>
+                  <div class="modal-body text-center">
+                     <h6 class=" body_text mb-0"> Playmates removed successfully.
+                     </h6>
+                  </div>
+                  <div class="modal-footer pr-3 mx-auto text-center">
+                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">OK</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+        <!-- View escort Listing Modal -->
+        <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
+                <div class="modal-content basic-modal modal-lg">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="emailReport">Playmate Profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="escortPopupModalBody">
+                        <iframe src="" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- end -->
 @endsection
 @section('style')
     <style>
@@ -314,25 +275,47 @@
         .page-item:hover .page-link {
             color: white;
         }
+        .child_popup_remove_single_playmate_profile_css{
+            background: rgba(0, 0, 0, 0.35)
+        }
     </style>
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script>
-        $(document).ready(function() {
-
-            // $('#save_button').on('click', function(e) {
-            //     e.preventDefault(); // prevent the default form submission
-
-            //     let formData = $('#task_form').serialize(); // serialize form data
-            //     let actionUrl = $('#task_form').attr('action');  // let actionUrl = "{{ route('dashboard.ajax-add-task')}}";
-
-            //     console.log(formData, actionUrl, ' jitemn');
-
-            //     callAjax(formData, actionUrl);
-                
-            // });
-
+        var playmateListTable = $('#playmateListTable').DataTable({
+            responsive: false,
+            language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Member ID...",
+                lengthMenu: "Show _MENU_ entries",
+                zeroRecords: "No matching records found",
+                info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                infoEmpty: "No entries available",
+                infoFiltered: "(filtered from _MAX_ total entries)"
+            },
+            paging: true,
+            searchable: true,
+            serverSide: true,
+            searching: false,
+            ajax: {
+                url: "{{ route('escort.get.user-playmates-by-ajax') }}",
+                dataSrc: function(json) {
+                        // json is the response from server
+                        console.log(json, 'response data');
+                        $(".totalPlaymatesCount").text(json.totalPlaymatesCount);
+                        return json.data; // MUST return the data array for DataTables
+                    },
+                data: function(data) {
+                }
+            },
+            columns: [
+                { data: 'playmate', name: 'playmate'},                         // 0
+                { data: 'current_location', name: 'current_location'},                         // 0
+                { data: 'member_id', name: 'member_id' },  
+                { data: 'profile', name: 'profile' },                     // 9
+                { data: 'action', name: 'action', orderable: false, searchable: false } // 10
+            ]
         });
 
         $(document).on('click', '.listPlaymateModal', function() {
@@ -341,6 +324,7 @@
             var escortIds = $(this).attr('data-escort-ids');
             var memberId = $(this).attr('data-member-ids');
             var userName = $(this).attr('data-user-name');
+            $('.user_name').text(userName);
 
             let data = {
                 user_id: userId,
@@ -350,6 +334,59 @@
             };
 
             fetchPlaymatesDataByAjax(data);
+
+        });
+
+        $(document).on('click', '.removePlaymateParentClass', function() {
+            $('#removePlaymateModal').modal('show');
+            var userId = $(this).attr('data-user-id');
+            var escortIds = $(this).attr('data-escort-ids');
+
+            $('.playmate_user_id').val(userId);
+            $('.playmate_escort_ids').val(escortIds);
+
+        });
+
+        $(document).on('click', '.child_popup_remove_single_playmate_profile', function() {
+            $('#removePlaymateModal').modal('show');
+            $('#removePlaymateModal').addClass('child_popup_remove_single_playmate_profile_css');
+            var userId = $(this).attr('data-user-id');
+            var escortIds = JSON.stringify([$(this).attr('data-escort-id')]);
+
+            console.log(escortIds, userId, 'escortIds');
+
+            $('.playmate_user_id').val(userId);
+            $('.playmate_escort_ids').val(escortIds);
+        });
+
+        $(document).on('click', '.confirm_remove_btn', function() {
+            var userId = $('.playmate_user_id').val();
+            var escortIds = $('.playmate_escort_ids').val();
+
+            let data = {
+                user_id: userId,
+                escort_ids: escortIds,
+            };
+
+            console.log(data, 'remove data');
+            
+
+            removePlaymatesByAjax(data);
+
+        });
+
+        $(document).on('click', '.view_escort_profile ', function(e) {
+            //e.preventDefault(); // prevent default link behavior
+ 
+            var escortId = $(this).attr('data-escort-id');
+            console.log(escortId, 'escortId');
+            var url = '{{ route("profile.description", ":id") }}'.replace(':id', escortId)
+
+            setTimeout(() => {
+                $("#escortPopupModalBodyIframe").attr('src', url);
+                $('#view-listing').modal('show');
+            }, 200);
+            
 
         });
 
@@ -367,8 +404,6 @@
                 success: function(response) {
                     console.log(response);
                     // handle success
-                    //alert('Task marked as completed successfully.');
-                    // Optionally close modal or reset form
                     var html = '';
                     if(response.data.length > 0){
                         response.data.forEach(function(escort){
@@ -376,7 +411,7 @@
                             <tr>
                                 <td><input type="checkbox" name="" value=""></td>
                                 <td>`+escort.id+`</td>
-                                <td>`+escort.profile_name+`</td>
+                                <td>`+escort.name+`</td>
                                 <td>`+escort.user.member_id+`</td>
                                 <td class="theme-color text-center bg-white">
                                     <div class="dropdown no-arrow">
@@ -386,15 +421,13 @@
                                             <i
                                                 class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                         </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                        <div class="view_playmate_profile dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                     aria-labelledby="dropdownMenuLink" style="">
-                                                    <a class="view_escort_profile dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                                    data-target="#listPlaymateModal"> <i class="fa fa-eye"></i> View</a>
+                                                    <a class="view_escort_profile dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-escort-id="`+escort.id+`" > <i class="fa fa-eye"></i> View</a>
                                                 
                                                     <div class="dropdown-divider"></div>
                                                     
-                                                <a class="remove_escort_profile dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                                data-target="#removePlaymateModal"> <i class="fa fa-trash"></i> Remove</a>
+                                                <a class="child_popup_remove_single_playmate_profile dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-escort-id="`+escort.id+`" data-user-id="`+{{auth()->user() ? auth()->user()->id : ''}}+`"> <i class="fa fa-trash"></i> Remove</a>
                                                 </div>
                                     </div>
                                 </td>
@@ -403,8 +436,6 @@
                     }
 
                     $('.user_playmates_data').html(html);
-
-
                     
                 },
                 error: function(xhr) {
@@ -414,9 +445,9 @@
             });
         }
 
-        function fetchAjaxEditData(formData)
+        function removePlaymatesByAjax(formData)
         {
-            let editUrl = "{{ route('dashboard.ajax-edit-task')}}";
+            let actionUrl = "{{ route('escort.remove.my-playmates-by-ajax')}}";
 
              $.ajax({
                 url: actionUrl, // form action URL
@@ -426,9 +457,11 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
                 },
                 success: function(response) {
-                    // handle success
-                    alert('Task marked as completed successfully.');
-                    // Optionally close modal or reset form
+                    if(response.success){
+                        $('#removePlaymateModal').modal('hide');
+                        $('#removePlaymateSuccessModal').modal('show');
+                        playmateListTable.ajax.reload();
+                    }
                 },
                 error: function(xhr) {
                     // handle error
