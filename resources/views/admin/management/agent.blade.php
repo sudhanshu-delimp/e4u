@@ -355,7 +355,7 @@
                }
            },
            columns: [
-               { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'agent_id', name: 'agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'name', name: 'name', searchable: true, orderable:false ,defaultContent: 'NA'},
                { data: 'territory ', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'phone', name: 'phone', searchable: true, orderable:true ,defaultContent: 'NA'},

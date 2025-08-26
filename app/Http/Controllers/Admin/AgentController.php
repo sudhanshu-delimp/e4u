@@ -96,8 +96,9 @@ class AgentController extends Controller
         foreach($agents as $key => $item) {
 
             $item->no_of_client = '23232';
-            $item->last_login = '23232';
+            $item->last_login = 'NA';
             $item->status = 'active';
+            $item->agent_id = (isset($item->member_id) && $item->member_id!="") ? $item->member_id : 'NA';
 
             // $s = explode('/',$_SERVER['REQUEST_URI']);
             // $item->sn = ($start+$i);
