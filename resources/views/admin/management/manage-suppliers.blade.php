@@ -40,7 +40,7 @@
                               </div>
                            </div>
                            <div class="table-responsive-xl">
-                              <table class="table mb-3" id="merchant_data_table">
+                              <table class="table mb-3" id="ManageSupplierTable">
                                  <thead class="table-bg">
                                     <tr>
                                     <th scope="col">Merchant ID</th>
@@ -425,30 +425,22 @@
 @endsection
 @push('script')
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
 <script>
-   $(document).ready(function(e) {
-   var table = $("#merchant_data_table").DataTable({
-            language: {
-                  search: "Search: _INPUT_",
-                  searchPlaceholder: "Search by Merchant ID...",
-                  
-            },
-           
-           processing: false,
-           serverSide: true,
-           lengthChange: true,
-           searchable:false,
-           bStateSave: false,
-           order: [[1, 'desc']],
-           lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-           pageLength: 10,
-       });
+      var table = $("#ManageSupplierTable").DataTable({
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by Merchant ID..."
+      },
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: true,
+      order: [[1, 'desc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10
+   });
 
-
-
-
-
-      });  
-</script>
-
+ </script>
 @endpush
