@@ -197,8 +197,8 @@
                      </button>
                   </div>
                   <div class="modal-body text-center">
-                     <h6 class=" body_text mb-0"> Are you sure you want to remove this Playmate?
-                     </h6>
+                     <h4 class=" body_text mb-0"> Are you sure you want to remove this Playmate?
+                     </h4>
                   </div>
                   <div class="modal-footer pr-3 mx-auto">
                      <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
@@ -225,8 +225,8 @@
                      </button>
                   </div>
                   <div class="modal-body text-center">
-                     <h6 class=" body_text mb-0"> Playmates removed successfully.
-                     </h6>
+                     <h4 class=" body_text mb-0"> Playmates removed successfully.
+                     </h4>
                   </div>
                   <div class="modal-footer pr-3 mx-auto text-center">
                      <button type="button" class="btn-cancel-modal" data-dismiss="modal">OK</button>
@@ -278,11 +278,18 @@
         .child_popup_remove_single_playmate_profile_css{
             background: rgba(0, 0, 0, 0.35)
         }
+        .upload-modal h4 {
+            color: #000;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 27px;
+        }
     </style>
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script>
+        var globalEscortIds = {};
         var playmateListTable = $('#playmateListTable').DataTable({
             responsive: false,
             language: {
@@ -301,8 +308,6 @@
             ajax: {
                 url: "{{ route('escort.get.user-playmates-by-ajax') }}",
                 dataSrc: function(json) {
-                        // json is the response from server
-                        console.log(json, 'response data');
                         $(".totalPlaymatesCount").text(json.totalPlaymatesCount);
                         return json.data; // MUST return the data array for DataTables
                     },
@@ -327,11 +332,10 @@
             $('.user_name').text(userName);
 
             let data = {
-                user_id: userId,
                 escort_ids: escortIds,
-                member_id: memberId,
-                user_name: userName,
             };
+
+            globalEscortIds = data;
 
             fetchPlaymatesDataByAjax(data);
 
@@ -353,10 +357,36 @@
             var userId = $(this).attr('data-user-id');
             var escortIds = JSON.stringify([$(this).attr('data-escort-id')]);
 
-            console.log(escortIds, userId, 'escortIds');
-
             $('.playmate_user_id').val(userId);
             $('.playmate_escort_ids').val(escortIds);
+        });
+
+        $(document).on('click', '.removeMultipleEscort', function() {
+            $('#removePlaymateModal').modal('show');
+            $('#removePlaymateModal').addClass('child_popup_remove_single_playmate_profile_css');
+
+            let escortIds = [];
+
+            $('.user_playmates_data tr').each(function () {
+                let isChecked = $(this).find('input[type="checkbox"]').is(':checked');
+                if (isChecked) {
+                    let escortId = $(this).find('.child_popup_remove_single_playmate_profile').data('escort-id');
+                    if (escortId) {
+                        escortIds.push(escortId);
+                    }
+                }
+            });
+
+            var userId = "{{auth()->user() ? auth()->user()->id : ''}}";
+            jsonEscortIds = JSON.stringify(escortIds);
+
+            $('.playmate_user_id').val(userId);
+            $('.playmate_escort_ids').val(jsonEscortIds);
+
+            let data = {
+                user_id: userId,
+                escort_ids: jsonEscortIds,
+            };
         });
 
         $(document).on('click', '.confirm_remove_btn', function() {
@@ -367,17 +397,12 @@
                 user_id: userId,
                 escort_ids: escortIds,
             };
-
-            console.log(data, 'remove data');
             
-
             removePlaymatesByAjax(data);
 
         });
 
         $(document).on('click', '.view_escort_profile ', function(e) {
-            //e.preventDefault(); // prevent default link behavior
- 
             var escortId = $(this).attr('data-escort-id');
             console.log(escortId, 'escortId');
             var url = '{{ route("profile.description", ":id") }}'.replace(':id', escortId)
@@ -393,7 +418,6 @@
         function fetchPlaymatesDataByAjax(formData)
         {
             let fetchUrl = "{{ route('escort.get.my-playmates-by-ajax')}}";
-            // var formData = new from();
              $.ajax({
                 url: fetchUrl, // form action URL
                 type: 'POST',
@@ -461,42 +485,10 @@
                         $('#removePlaymateModal').modal('hide');
                         $('#removePlaymateSuccessModal').modal('show');
                         playmateListTable.ajax.reload();
+
+                        let data = globalEscortIds;
+                        console.log(data, 'globalEscortIds');
                     }
-                },
-                error: function(xhr) {
-                    // handle error
-                    alert('Something went wrong. Please try again.');
-                }
-            });
-        }
-
-        function callAjax(formData, actionUrl) {
-            $.ajax({
-                url: actionUrl, // form action URL
-                type: 'POST',
-                data: formData,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
-                },
-                success: function(response) {
-                    console.log(response);
-                    // console.log('response');
-
-                    if(response.task_name == 'open'){
-                        $('.totalOpenTask').text(response.data.open);
-                        $('.totalInprogressTask').text(response.data.inprogress);
-                        $('.totalCompletedTask').text(response.data.completed);
-                        return true;
-                    }
-
-                    if(response.task_name == 'add_task'){
-                        loadTasks(1);
-                        $('#taskModal').modal('hide');
-                        return true;
-                    }
-
-                    //alert('Task marked as completed successfully.');
-                    // Optionally close modal or reset form
                 },
                 error: function(xhr) {
                     // handle error
