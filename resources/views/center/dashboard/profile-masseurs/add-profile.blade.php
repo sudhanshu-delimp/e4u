@@ -247,7 +247,7 @@
          <div class="modal-header">
             <h5 class="modal-title" id="editMasseurLabel"> 
                <img src="{{ asset('assets/dashboard/img/add-massaure.png')}}" class="custompopicon"> 
-               Update Masseur 
+               Update Profile 
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">
@@ -348,7 +348,7 @@
          <div class="modal-header">
             <h5 class="modal-title" id="viewMasseurLabel">
                <img src="{{asset('assets/dashboard/img/add-massaure.png')}}" style="width:40px; margin-right:10px;" alt="View Masseur">
-               View Masseur
+               View Profile
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">
