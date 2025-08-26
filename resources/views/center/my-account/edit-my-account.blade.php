@@ -110,7 +110,10 @@
                                                     
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="Gender" class="my-agent">Home State <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"></label>
+                                                            <label for="Gender" class="my-agent common_help_icon common-tooltip">Home State
+                                                              <img class="delay_tooltip tooltip-icon" src="http://127.0.0.1:8000/assets/app/img/home/quationmarkblue.svg">
+                                                              <span class="tooltip-text">This is the State you reside in. If you created your Account while you were in another State, log a <a href="{{ url('submit_ticket') }}">Support Ticket</a> and we will correct your setting.</span>
+                                                            </label>
                                                             <label  class="form-control form-back" placeholder="Western Australia" aria-describedby="emailHelp" id="stateNew" name="state_id" value="{{$escort->state_id}}">
                                                               {{ $escort->state_id ? config('escorts.profile.states')[$escort->state_id]['stateName'] : ''}}
                                                           </label>

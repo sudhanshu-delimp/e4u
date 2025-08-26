@@ -21,7 +21,7 @@
       <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
          <div class="row">    
             <div class="custom-heading-wrapper col-md-12">
-               <h1 class="h1">Masseurs Profiles</h1>
+               <h1 class="h1">Profiles</h1>
                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
             <div class="col-md-12 mb-4">
@@ -52,7 +52,11 @@
                            <div class="row pb-3">
 
                               <div class="col-md-12 col-sm-12">
-                                 <div class="bothsearch-form" style="gap: 10px;">
+                                 <div class="bothsearch-form d-flex align-items-center justify-content-between" style="gap: 10px;">
+                                    <div class="total_listing">
+                                       <div><span>Current Active : </span></div>
+                                       <div><span id="totalViewerLegboxList">1</span></div>
+                                    </div>
                                     <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#addMasseur">Add Masseur</button>
                                  </div>
                               </div>
@@ -133,40 +137,48 @@
 
 
 
-<!-- Add New Massure member popupform -->
+<!-- Add New Masseur member popupform -->
 <div class="modal fade upload-modal" id="addMasseur" tabindex="-1" role="dialog" aria-labelledby="addMasseurLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="addMasseur"> <img src="{{ asset('assets/dashboard/img/add-massaure.png')}}" class="custompopicon"> Add Masseur</h5>
+            <h5 class="modal-title" id="addMasseur"> 
+               <img src="{{ asset('assets/dashboard/img/add-massaure.png')}}" class="custompopicon"> Add Masseur
+            </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+               <span aria-hidden="true">
+                  <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+               </span>
             </button>
          </div>
          <div class="modal-body">
             <form>
                <div class="row">
-           
+
                    <!-- Personal Info -->
                    <div class="col-6 mb-3">
-                       <input type="text" class="form-control rounded-0" placeholder="Name" required>
+                       <label for="masseurName" class="mb-1">Name</label>
+                       <input type="text" id="masseurName" class="form-control rounded-0" placeholder="Enter Name" required>
                    </div>
                    <div class="col-6 mb-3">
-                       <input type="text" class="form-control rounded-0" placeholder="Mobile" required>
+                       <label for="masseurMobile" class="mb-1">Mobile</label>
+                       <input type="text" id="masseurMobile" class="form-control rounded-0" placeholder="Enter Mobile" required>
                    </div>
                    <div class="col-6 mb-3">
-                       <input type="email" class="form-control rounded-0" placeholder="Email" required>
+                       <label for="masseurEmail" class="mb-1">Email</label>
+                       <input type="email" id="masseurEmail" class="form-control rounded-0" placeholder="Enter Email" required>
                    </div>
-           
+
                    <!-- Profile Info -->
                    <div class="col-6 mb-3">
-                       <input type="text" class="form-control rounded-0" placeholder="Stage Name" required>
+                       <label for="stageName" class="mb-1">Stage Name</label>
+                       <input type="text" id="stageName" class="form-control rounded-0" placeholder="Enter Stage Name" required>
                    </div>
-           
+
                    <!-- Availability -->
                    <div class="col-6 mb-3">
-                       <label class="mb-1">Available Days</label>
-                       <select class="form-control rounded-0" required>
+                       <label for="availableDays" class="mb-1">Available Days</label>
+                       <select id="availableDays" class="form-control rounded-0" required>
                            <option value="">Select Days</option>
                            <option>Monday</option>
                            <option>Tuesday</option>
@@ -178,8 +190,8 @@
                        </select>
                    </div>
                    <div class="col-6 mb-3">
-                       <label class="mb-1">Available Time</label>
-                       <select class="form-control rounded-0" required>
+                       <label for="availableTime" class="mb-1">Available Time</label>
+                       <select id="availableTime" class="form-control rounded-0" required>
                            <option value="">Select Time</option>
                            <option>Morning (8am - 12pm)</option>
                            <option>Afternoon (12pm - 4pm)</option>
@@ -187,43 +199,48 @@
                            <option>Night (8pm - 12am)</option>
                        </select>
                    </div>
-           
+
                    <div class="col-6 mb-3">
-                       <input type="text" class="form-control rounded-0" placeholder="Massage Rate" required>
+                       <label for="massageRate" class="mb-1">Massage Rate</label>
+                       <input type="text" id="massageRate" class="form-control rounded-0" placeholder="Enter Rate" required>
                    </div>
                    <div class="col-6 mb-3">
-                       <input type="text" class="form-control rounded-0" placeholder="Vaccine">
+                       <label for="vaccine" class="mb-1">Vaccine</label>
+                       <input type="text" id="vaccine" class="form-control rounded-0" placeholder="Enter Vaccine">
                    </div>
                    <div class="col-6 mb-3">
-                       <input type="text" class="form-control rounded-0" placeholder="Nationality">
+                       <label for="nationality" class="mb-1">Nationality</label>
+                       <input type="text" id="nationality" class="form-control rounded-0" placeholder="Enter Nationality">
                    </div>
                    <div class="col-6 mb-3">
-                       <input type="text" class="form-control rounded-0" placeholder="Ethnicity">
+                       <label for="ethnicity" class="mb-1">Ethnicity</label>
+                       <input type="text" id="ethnicity" class="form-control rounded-0" placeholder="Enter Ethnicity">
                    </div>
                    <div class="col-6 mb-3">
-                       <input type="number" class="form-control rounded-0" placeholder="Age">
+                       <label for="age" class="mb-1">Age</label>
+                       <input type="number" id="age" class="form-control rounded-0" placeholder="Enter Age">
                    </div>
-           
+
                    <!-- Commentary -->
                    <div class="col-12 mb-3">
-                       <textarea class="form-control rounded-0" placeholder="Commentary (max 300 words)" rows="3"></textarea>
+                       <label for="commentary" class="mb-1">Commentary</label>
+                       <textarea id="commentary" class="form-control rounded-0" placeholder="Commentary (max 300 words)" rows="3"></textarea>
                    </div>
-           
+
                </div>
-           
+
                <div class="modal-footer p-0 pl-2 pb-4">
                    <button type="submit" class="btn-success-modal mr-2">Save</button>
                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
                </div>
            </form>
-           
         </div>
-        
       </div>
    </div>
 </div>
- <!-- end -->
- <!-- Edit Masseur popupform -->
+<!-- end -->
+
+<!-- Edit Masseur popupform -->
 <div class="modal fade upload-modal" id="editMasseur" tabindex="-1" role="dialog" aria-labelledby="editMasseurLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
@@ -243,20 +260,24 @@
             <form>
                <div class="row">
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Name" value="John Doe" required>
+                     <label for="editName" class="mb-1">Name</label>
+                     <input type="text" id="editName" class="form-control rounded-0" placeholder="Enter Name" value="John Doe" required>
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Mobile" value="0412345678" required>
+                     <label for="editMobile" class="mb-1">Mobile</label>
+                     <input type="text" id="editMobile" class="form-control rounded-0" placeholder="Enter Mobile" value="0412345678" required>
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="email" class="form-control rounded-0" placeholder="Email" value="john@example.com" required>
+                     <label for="editEmail" class="mb-1">Email</label>
+                     <input type="email" id="editEmail" class="form-control rounded-0" placeholder="Enter Email" value="john@example.com" required>
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Stage Name" value="RelaxMaster">
+                     <label for="editStageName" class="mb-1">Stage Name</label>
+                     <input type="text" id="editStageName" class="form-control rounded-0" placeholder="Enter Stage Name" value="RelaxMaster">
                   </div>
                   <div class="col-6 mb-3">
-                     <label class="mb-1">Available Days</label>
-                     <select class="form-control rounded-0" required>
+                     <label for="editAvailableDays" class="mb-1">Available Days</label>
+                     <select id="editAvailableDays" class="form-control rounded-0" required>
                         <option>Select Days</option>
                         <option selected>Monday</option>
                         <option>Tuesday</option>
@@ -268,8 +289,8 @@
                      </select>
                   </div>
                   <div class="col-6 mb-3">
-                     <label class="mb-1">Available Time</label>
-                     <select class="form-control rounded-0" required>
+                     <label for="editAvailableTime" class="mb-1">Available Time</label>
+                     <select id="editAvailableTime" class="form-control rounded-0" required>
                         <option>Select Time</option>
                         <option selected>Morning (8am - 12pm)</option>
                         <option>Afternoon (12pm - 4pm)</option>
@@ -278,24 +299,30 @@
                      </select>
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Massage Rate" value="$120/hr">
+                     <label for="editRate" class="mb-1">Massage Rate</label>
+                     <input type="text" id="editRate" class="form-control rounded-0" placeholder="Enter Rate" value="$120/hr">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Vaccine" value="Yes">
+                     <label for="editVaccine" class="mb-1">Vaccine</label>
+                     <input type="text" id="editVaccine" class="form-control rounded-0" placeholder="Enter Vaccine" value="Yes">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Nationality" value="Australian">
+                     <label for="editNationality" class="mb-1">Nationality</label>
+                     <input type="text" id="editNationality" class="form-control rounded-0" placeholder="Enter Nationality" value="Australian">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Ethnicity" value="Caucasian">
+                     <label for="editEthnicity" class="mb-1">Ethnicity</label>
+                     <input type="text" id="editEthnicity" class="form-control rounded-0" placeholder="Enter Ethnicity" value="Caucasian">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="number" class="form-control rounded-0" placeholder="Age" value="32">
+                     <label for="editAge" class="mb-1">Age</label>
+                     <input type="number" id="editAge" class="form-control rounded-0" placeholder="Enter Age" value="32">
                   </div>
 
                   <!-- Commentary -->
                   <div class="col-12 mb-3">
-                     <textarea class="form-control rounded-0" placeholder="Commentary (max 300 words)" rows="3">Specialized in deep tissue massage and relaxation techniques.</textarea>
+                     <label for="editCommentary" class="mb-1">Commentary</label>
+                     <textarea id="editCommentary" class="form-control rounded-0" placeholder="Commentary (max 300 words)" rows="3">Specialized in deep tissue massage and relaxation techniques.</textarea>
                   </div>
                </div>
 
@@ -308,7 +335,7 @@
       </div>
    </div>
 </div>
-
+{{-- end --}}
 
 {{-- view Masseur modal popup --}}
 

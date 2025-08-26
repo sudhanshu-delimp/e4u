@@ -121,7 +121,7 @@ display: contents;
    <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
       <div class="modal-content basic-modal modal-lg">
          <div class="modal-header">
-            <h5 class="modal-title" id="emailReport">Listing</h5>
+            <h5 class="modal-title" id="emailReport"> <img src="{{ asset('assets/dashboard/img/view-listing.png')}}" class="custompopicon"> Listing</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -276,10 +276,16 @@ display: contents;
 
         function ajaxReload()
         {
+
             var table = $('#listings').DataTable({
+                language: {
+        search: "Search: _INPUT_",
+        searchPlaceholder: "Search by Member ID..."
+    },
             processing: true,
             serverSide: true,
             paging: true,
+            lengthChange: true,
             info: true,
             searching: true,
             bStateSave: true,
