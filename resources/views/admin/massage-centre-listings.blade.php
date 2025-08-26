@@ -10,12 +10,6 @@
     color: rgb(248, 0, 0)
 }
 
-.dataTables_filter label {
-    display: none;
-}
-.dataTables_length{
-    display: none;
-}
 
 #cke_1_contents {
     height: 150px !important;
