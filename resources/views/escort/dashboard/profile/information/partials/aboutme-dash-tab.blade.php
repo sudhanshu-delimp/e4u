@@ -58,7 +58,7 @@
 
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">
                             Age:<span style="color:red">*</span></label>
                             <div class="col-sm-7">
                                 <input type="text" data-parsley-type="digits" class="form-control form-control-sm select_tag_remove_box_sadow" id="" required="" name="age" value="{{$escort->age}}" data-parsley-min="18" data-parsley-max="70">
@@ -67,7 +67,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Orientation:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Orientation:</label>
                             <div class="col-sm-7 national">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="orientation">
                                     <option value="" selected>-Not Set-</option>
@@ -79,7 +79,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Ethnicity:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Ethnicity:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="ethnicity" name="ethnicity">
                                     <option value="">-Not Set-</option>
@@ -94,7 +94,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Body type:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Body type:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="body_type">
                                     <option value="" selected>-Not Set-</option>
@@ -106,7 +106,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">
                             Nationality:</label>
                             <div class="col-sm-7 national">
                                 {{-- <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="payment_type">
@@ -129,7 +129,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500 custom--stathead" for="exampleFormControlSelect1" style="font-size: 18px;
+                            <label class="col-sm-4 font-weight-500 custom--stathead" for="exampleFormControlSelect1" style="font-size: 18px;
                                 margin-top: 11px;"><h2>Statistics</h2></label>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Hair colour:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Hair colour:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="hair_color">
                                     <option value="" selected>-Not Set-</option>
@@ -153,7 +153,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Hair style:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Hair style:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="hair-style" name="hair_style">
                                     <option value="" selected>-Not Set-</option>
@@ -165,7 +165,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Height:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Height:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" name="height" id="">
                                     <option value="" selected>-Not Set-</option>
@@ -180,7 +180,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1"> Eyes:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1"> Eyes:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" name="eyes" id="">
                                     <option value="" selected>-Not Set-</option>
@@ -192,7 +192,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Skin tone:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Skin tone:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="skin_tone">
                                     <option value="" selected>-Not Set-</option>
@@ -204,7 +204,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Weight (Kgs):</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Weight (Kgs):</label>
                             <div class="col-sm-7">
                                 <input type="text" data-parsley-type="digits" class="form-control form-control-sm  removebox_shdow" placeholder="Enter Your Weight" value="{{$escort->weight}}" name="weight" data-parsley-min="30" data-parsley-max="150" vlaue="{{ $escort->weight}}">
                             </div>
@@ -214,7 +214,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Shaved:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Shaved:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="shaved">
                                     <option value="" selected>-Not Set-</option>
@@ -227,7 +227,7 @@
                     @if(!in_array($user->gender, [1]))
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Breast:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Breast:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="breast">
                                     <option value="" selected>-Not Set-</option>
@@ -244,7 +244,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Dress size:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Dress size:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" name="dress_size">
                                     <option value="" selected>-Not Set-</option>
@@ -258,7 +258,7 @@
                     @if(!in_array($user->gender, [6]))
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Endowment:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Endowment:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" name="endowment">
                                     <option value="" selected>-Not Set-</option>
@@ -270,7 +270,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Thickness:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Thickness:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" name="thickness">
                                     <option value="" selected>-Not Set-</option>
@@ -282,7 +282,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Circumcised:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Circumcised:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" name="circumcised">
                                     <option value="" selected>-Not Set-</option>
@@ -294,7 +294,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Butt:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Butt:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" name="butt">
                                     <option value="" selected>-Not Set-</option>
@@ -306,7 +306,7 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Preference:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Preference:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" name="preference">
                                     <option value="" selected>-Not Set-</option>
@@ -322,7 +322,7 @@
                     @if(in_array($user->gender, [1,2,3]))
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Hormones:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Hormones:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" name="hormones">
                                     <option value="" selected>-Not Set-</option>
@@ -335,7 +335,7 @@
                     @endif
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Contact me:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Contact me:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="contact">
                                     <option value="" selected>-Not Set-</option>
@@ -349,7 +349,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500 custom--stathead" for="exampleFormControlSelect1" style="font-size: 18px;
+                            <label class="col-sm-4 font-weight-500 custom--stathead" for="exampleFormControlSelect1" style="font-size: 18px;
                                 margin-top: 11px;"><h2>Read More</h2></label>
                         </div>
                     </div>
@@ -361,7 +361,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Piercing:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Piercing:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="piercing">
                                     <option value="" selected>-Not Set-</option>
@@ -371,7 +371,7 @@
                             </div>
                         </div>
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Drugs:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Drugs:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="drugs">
                                     <option value="" selected>-Not Set-</option>
@@ -381,7 +381,7 @@
                             </div>
                         </div>
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Language:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Language:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="language">
                                     <option value="" selected>-Not Set-</option>
@@ -403,7 +403,7 @@
                             </div>
                         </div>
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Travel:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Travel:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="travel">
                                     <option value="" selected>-Not Set-</option>
@@ -415,7 +415,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Tattoos:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Tattoos:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="tattoos">
                                     <option value="" selected>-Not Set-</option>
@@ -425,7 +425,7 @@
                             </div>
                         </div>
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Smoke:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Smoke:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="" name="smoke">
                                     <option value="" selected>-Not Set-</option>
@@ -435,7 +435,7 @@
                             </div>
                         </div>
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Available to:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Available to:</label>
                             <div class="col-sm-7">
                                 <div class="form-control form-control-sm dropdown dropdown-with-checkbox">
                                     <button class="btn toggle_custome_btn_style custome_button_style dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select</button>
@@ -462,7 +462,7 @@
                         </div>
                         </div>
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500 small-icon" for="exampleFormControlSelect1">
+                            <label class="col-sm-4 font-weight-500 small-icon" for="exampleFormControlSelect1">
                                 SWA License:
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="Not compulsory but display it if you have one (Victoria only)." data-boundary="window">
                             </label>
@@ -473,7 +473,7 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Play types:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Play types:</label>
                             <div class="col-sm-7">
                                 <div class="form-control form-control-sm dropdown dropdown-with-checkbox">
                                     <button class="btn custome_button_style dropdown-toggle toggle_custome_btn_style" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Select</button>
@@ -498,7 +498,7 @@
                         </div>
                         </div>
                         <div class="form-group row tab-about-me-row-padding">
-                            <label class="col-sm-3 font-weight-500" for="exampleFormControlSelect1">Payment:</label>
+                            <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Payment:</label>
                             <div class="col-sm-7">
                                 <select class="form-control form-control-sm select_tag_remove_box_sadow" id="payment_type" name="payment_type">
                                     <option value="" selected>-Not Set-</option>
@@ -532,7 +532,7 @@
                 <div class="row">
                     <div class="col-sm-7">
                         <div class="pt-2 pb-3" data-i="{{$escort->covidreport}}">
-                            <div class="form-check form-check-inline">
+                            <div class="form-check form-check-inline ml-1">
                                 <input class="form-check-input covidreport" type="radio" name="covidreport" id="inlineRadio1" value="1"{{ $escort->getRawOriginal('covidreport') == 1 ? ' checked' : null }}>
                                 <label class="form-check-label" for="inlineRadio1">Vaccinated, not up to date</label>
                             </div>
@@ -552,13 +552,13 @@
                     <div class="col-lg-12 stage">
                         <div class="form-group row tab-about-me-row-padding">
                             <label class="col-sm-3 font-weight-500 small-icon custom--stathead  custom--stathead--flex" for="exampleFormControlSelect1" style="font-size: 18px;">
-                            <h2>Create Stage Names</h2>
+                            <h2>Stage Names</h2>
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="You can create as many as you like. Select your Stage Name from the drop down list that will appear in the Profile creator." data-boundary="window">
 
                             </label>
                             
-                            <div class="col-sm-12 stageListParent">
-                                <div class="col-sm-12 ">
+                            <div class="col-sm-12 stageListParent pl-1">
+                                <div class="col-sm-12 pl-0">
                                 <input type="text" class="form-control form-control-sm {{-- js-example-tokenizer--}}" id="st_name" placeholder="Enter stage name">
                                 </div>
                                     {{-- <option value="">-Not Set-</option> --}}
