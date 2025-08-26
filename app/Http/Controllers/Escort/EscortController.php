@@ -13,6 +13,7 @@ use App\Models\Escort;
 use App\Models\PinUps;
 use App\Models\Pricing;
 use App\Models\Purchase;
+use App\Models\PasswordHistory;
 use App\Models\EscortPinup;
 use Illuminate\Support\Str;
 use MongoDB\Driver\Session;
@@ -535,19 +536,62 @@ class EscortController extends Controller
     public function updatePassword(UpdateEscortRequest $request)
     {
         $user = $this->user->find(auth()->user()->id);
-        $error = true;
+        $msg = true;
+
+        // verify current password
         if (!Hash::check($request->password, $user->password)) {
-            //'Return error with current passowrd is not match';
-            $error = false;
-        } else {
-            //'Write here your update password code';
-            $data = [
-                'password' => Hash::make($request->new_password),
-            ];
-            $this->user->store($data, auth()->user()->id);
+            $msg = false;
+            $message = 'Invalid current password';
+            return response()->json(compact('msg', 'message'));
         }
 
-        return response()->json(compact('error'));
+        // check new password against current and last 5 previous passwords
+        $newPassword = $request->new_password;
+
+        // Collect last 5 password hashes
+        $previousHashes = PasswordHistory::where('user_id', $user->id)
+            ->orderByDesc('created_at')
+            ->limit(5)
+            ->pluck('password')
+            ->all();
+
+        // Also include current hash to prevent reusing current
+        $hashesToCheck = array_merge([$user->password], $previousHashes);
+
+
+        foreach ($hashesToCheck as $oldHash) {
+            if (Hash::check($newPassword, $oldHash)) {
+                $msg = false;
+                $message = 'You cannot reuse any of your last 5 passwords.';
+                return response()->json(compact('msg', 'message'));
+            }
+        }
+
+        // Store current password to history BEFORE updating
+        if (!empty($user->password)) {
+            PasswordHistory::create([
+                'user_id' => $user->id,
+                'password' => $user->password,
+            ]);
+        }
+
+        // Update to new password
+        $this->user->store([
+            'password' => Hash::make($newPassword),
+        ], $user->id);
+
+        // Trim history to last 5 (delete older ones)
+        $historyIdsToKeep = PasswordHistory::where('user_id', $user->id)
+            ->orderByDesc('created_at')
+            ->limit(5)
+            ->pluck('id')
+            ->all();
+
+        PasswordHistory::where('user_id', $user->id)
+            ->whereNotIn('id', $historyIdsToKeep)
+            ->delete();
+
+        return response()->json(compact('msg'));
     }
     public function updatePasswordExpiry(UpdateEscortRequest $request)
     {
