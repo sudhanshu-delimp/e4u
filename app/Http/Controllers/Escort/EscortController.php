@@ -95,22 +95,22 @@ class EscortController extends Controller
 
     function add_listing()
     {
-        $today = Carbon::today()->toDateString();        
-        $excludedEscortIds = DB::table('purchase')
-            ->select('escort_id')
-            ->groupBy('escort_id')
-            ->havingRaw('MAX(end_date) >= ?', [$today])
-            ->pluck('escort_id');
+        // $today = Carbon::today()->toDateString();        
+        // $excludedEscortIds = DB::table('purchase')
+        //     ->select('escort_id')
+        //     ->groupBy('escort_id')
+        //     ->havingRaw('MAX(end_date) >= ?', [$today])
+        //     ->pluck('escort_id');
 
-        $escorts = Escort::whereNotIn('id', $excludedEscortIds)
-            ->whereNotNull('profile_name')
-            ->where('user_id', auth()->id())
-            ->get();
-        if (empty($escorts->toArray())) {
-            return redirect()->route('escort.profile')->with('info', 'Create at-least one profile');
-        }
+        // $escorts = Escort::whereNotIn('id', $excludedEscortIds)
+        //     ->whereNotNull('profile_name')
+        //     ->where('user_id', auth()->id())
+        //     ->get();
+        // if (empty($escorts->toArray())) {
+        //     return redirect()->route('escort.profile')->with('info', 'Create at-least one profile');
+        // }
 
-        return view('escort.dashboard.add_listing', compact('escorts'));
+        return view('escort.dashboard.add_listing');
     }
 
 
@@ -687,5 +687,62 @@ class EscortController extends Controller
     public function notificationsFeatures()
     {
         return view('escort.dashboard.profileNotifications');
+    }
+    public function getGeoLocationProfiles(Request $request){
+        try {
+            $response['success'] = false;
+            $state_id = $request->state;
+            $profiles = Escort::where(['user_id'=>auth()->user()->id,'state_id'=>$state_id])
+                ->whereDoesntHave('purchase', function ($query) {
+                    $query->where('utc_end_time', '>=', Carbon::now());
+                })
+                ->get(['id','name','profile_name','state_id']);
+            if($profiles->isNotEmpty()){
+                $response['success'] = true;
+                $response['profiles'] = $profiles;
+                $response['message'] = "Profiles are available.";
+            }
+            else{
+                $response['message'] = "Create at-least one profile.";
+            }
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function validateDateRange(Request $request){
+        try {
+            $response['success'] = false;
+            $startDate = $request->startDate;
+            $endDate = $request->endDate;
+            $escortId = $request->escortId;
+            $escort = $this->escort->find($escortId);
+
+            $conflictExists = Purchase::overlapping($startDate, $endDate)
+                ->whereHas('escort', function ($q) use ($escort) {
+                $q->where('user_id',auth()->user()->id);
+                $q->where('state_id', '<>', $escort->state_id);
+            })
+            ->with('escort:id,state_id')
+            ->orderByDesc('end_date')
+            ->first()?->escort?->state?->name;
+
+            if($conflictExists){
+                $response['success'] = true;
+                $response['message'] = "You have a Current or Upcomming Listing in {$conflictExists}. To create multiple Listings across Locations, use the Tour creator.";
+            }
+
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }

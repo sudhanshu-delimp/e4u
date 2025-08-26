@@ -71,15 +71,12 @@
                                 <img src="{{ asset('assets/dashboard/img/crossimg.png') }}">
                             </span>
             
-                            <div class="listing-row">
+                            <div class="listing-row js_geo_location_profiles">
                                 <!-- Choose Profile -->
                                 <div class="listing-field">
                                     <label>Choose Profile:</label>
-                                    <select name="escort_id[]" required>
-                                        <option value="">Select One</option>
-                                        @foreach($escorts as $escort)
-                                            <option value="{{$escort->id}}">{{$escort->name}} ({{$escort->profile_name}})</option>
-                                        @endforeach
+                                    <select name="escort_id[]" required disabled>
+                                    <option value="">--Select--</option>
                                     </select>
                                 </div>
             
@@ -112,7 +109,7 @@
             
                     <!-- Footer -->
                     <div class="listing-footer" style="text-align:right; margin-top:20px;">
-                        <button type="submit" class="save_profile_btn" id="escort-form-submit-btn">Proceed to Payment</button>
+                        <button type="submit" class="save_profile_btn" id="escort-form-submit-btn" >Proceed to Payment</button>
                     </div>
                 </form>
             </div>
