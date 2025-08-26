@@ -80,6 +80,18 @@ class User extends Authenticatable
         return false;
     }
 
+    public function getStatusAttribute($value)
+    {
+        $map = [
+            '1' => 'Active',
+            '2' => 'Pending',
+            '3' => 'Suspended',
+            '4' => 'Blocked',
+        ];
+
+        return $map[$value] ?? 'Unknown';
+    }
+
     public function findRole($role)
     {
         switch ($role) {

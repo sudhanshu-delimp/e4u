@@ -206,6 +206,8 @@
 </div>
  <!-- end -->
  
+
+ <?php /*
 <!-- Edit Agent member popupform -->
 <div class="modal fade upload-modal" id="edit_agent_data" tabindex="-1" role="dialog" aria-labelledby="edit_agent_dataLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
@@ -321,6 +323,7 @@
       </div>
    </div>
 </div>
+<?php */?>
 
 <div class="modal fade upload-modal" id="viewAgentdetails" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
 <div class="modal fade upload-modal" id="printAgentdetails" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
@@ -357,7 +360,7 @@
            columns: [
                { data: 'agent_id', name: 'agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'name', name: 'name', searchable: true, orderable:false ,defaultContent: 'NA'},
-               { data: 'territory ', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'phone', name: 'phone', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
                { data: 'no_of_client', name: 'no_of_client', searchable: true, orderable:true,defaultContent: 'NA' },
@@ -371,6 +374,38 @@
            pageLength: 10,
        });
 
+
+     
+       
+
+      $(document).on('click', '.account-suspend-btn', async function(e) 
+      {
+          if (await isConfirm({'action': 'Suspend','text':' Suspend This Account.'})) { 
+            ajaxRequest({
+               url: "{{ route('admin.suspend-agent') }}",
+               method : 'POST',
+               data: {
+                  id: $(this).data('id'),
+                  request_type: 'suspend'
+               },
+               success: function(response) {
+                  console.log(response)
+                  if (response.success) {
+                   swal_success_popup(response.message);
+                   table.ajax.reload(null, false); 
+                  }
+                  else
+                  {
+                   swal_error_popup(response.message);
+                  }
+               },
+               error: function(xhr) {
+                  swal_error_popup('Error occured whiile making request');
+               }
+            });
+
+          }
+      })
 
       $(document).on('click', '.view-account-btn', function(e) {
       var requestId = $(this).data('id');
@@ -437,7 +472,139 @@
 
 
 
-      });
+     $(document).on('click', '.edit-agent-btn', function(e) {
+      var requestId = $(this).data('id');
+      var rowData = table.row($(this).parents('tr')).data();
+
+      console.log(rowData);
+
+      let user_img = "{{ asset('assets/img/default_user.png') }}";
+      let avatar_base = "{{ asset('avatars') }}/";
+      if (rowData.avatar_img !== "" && rowData.avatar_img !== null) 
+      user_img = avatar_base + rowData.avatar_img;
+
+      var modal_html =` <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content basic-modal">
+         <div class="modal-header">
+            <h5 class="modal-title" id="edit_agent_data"> <img src="{{ asset('assets/dashboard/img/update-agent.png')}}" class="custompopicon"> Update Agent Details </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form>
+               <div class="row">
+                  <!-- Personal Details -->
+                  <div class="col-12 my-2">
+                     <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
+                  </div>
+
+                  <div class="col-6 mb-3">
+                     <input type="text" class="form-control rounded-0" placeholder="Agent ID (Auto)" readonly value="S60001">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="text" class="form-control rounded-0" placeholder="Date Joined" readonly value="2024-03-01">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="text" class="form-control rounded-0" placeholder="Business Name" value="Wayne Pty Ltd">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="text" class="form-control rounded-0" placeholder="ABN" value="12345678901">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="text" class="form-control rounded-0" placeholder="Business Address" value="123 King St, Melbourne">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="text" class="form-control rounded-0" placeholder="Business Number" value="028888999">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="text" class="form-control rounded-0" placeholder="Point of Contact" value="Wayne Primrose">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="text" class="form-control rounded-0" placeholder="Mobile" value="0438 028 728">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="email" class="form-control rounded-0" placeholder="Private Email" value="wayne.personal@gmail.com">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="email" class="form-control rounded-0" placeholder="E4U Email" value="wayne@blackboxtech.com.au">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <select class="form-control rounded-0">
+                        <option>Select Territory</option>
+                        <option selected>North</option>
+                        <option>South</option>
+                        <option>East</option>
+                        <option>West</option>
+                     </select>
+                  </div>
+
+                  <!-- Method of Contact -->
+                  <div class="col-12 mb-3 d-flex align-items-center justify-content-start gap-10 flex-wrap">
+                     <h6 class="mb-0 text-blue-primary">Method of Contact:</h6>
+                     <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="contactText" value="text" checked>
+                        <label class="form-check-label" for="contactText">Text</label>
+                     </div>
+                     <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="contactEmail" value="email">
+                        <label class="form-check-label" for="contactEmail">Email</label>
+                     </div>
+                     <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" id="contactCall" value="call" checked>
+                        <label class="form-check-label" for="contactCall">Call Me</label>
+                     </div>
+                  </div>
+
+                  <!-- Agreement Details -->
+                  <div class="col-12 my-2">
+                     <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="date" class="form-control rounded-0" value="2023-12-01">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="text" class="form-control rounded-0" placeholder="Term" value="12 Months">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="text" class="form-control rounded-0" placeholder="Option Period" value="6 Months">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <select class="form-control rounded-0">
+                        <option>Option Exercised?</option>
+                        <option selected>Yes</option>
+                        <option>No</option>
+                     </select>
+                  </div>
+
+                  <!-- Commission -->
+                  <div class="col-12 my-2">
+                     <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="number" step="0.01" class="form-control rounded-0" placeholder="Advertising Commission %" value="10.50">
+                  </div>
+                  <div class="col-6 mb-3">
+                     <input type="number" step="0.01" class="form-control rounded-0" placeholder="Massage Centre Commission %" value="15.00">
+                  </div>
+               </div>
+            <div class="modal-footer p-0 pl-2 pb-4">
+               <button type="submit" class="btn-success-modal mr-2">Update</button>
+            </div>
+            </form>
+         </div>
+      </div>
+   </div>`;
+
+
+            $('#viewAgentdetails').html(modal_html);
+            $('#viewAgentdetails').modal('show');          
+
+    });
+
+
+
+   });
 
 
 
