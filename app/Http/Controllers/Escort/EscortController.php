@@ -693,6 +693,7 @@ class EscortController extends Controller
             $response['success'] = false;
             $state_id = $request->state;
             $profiles = Escort::where(['user_id'=>auth()->user()->id,'state_id'=>$state_id])
+                ->whereNotNull('profile_name')
                 ->whereDoesntHave('purchase', function ($query) {
                     $query->where('utc_end_time', '>=', Carbon::now());
                 })
