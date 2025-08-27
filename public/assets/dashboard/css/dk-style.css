@@ -4842,7 +4842,15 @@ form.v-form-design input[type="submit"]:hover {
     font-size: 16px;
     font-style: normal;
     text-align: left;
-    color: #000;
+    color: var(--blue--text);
+}
+
+.custom-file-label{
+    border-radius: 0;
+}
+
+.input-group-text{
+    border-radius: 0;
 }
 
 .register-pin-up .mycont form.v-form-design label:first-child {

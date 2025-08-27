@@ -24,7 +24,7 @@
         
         <div class="col-md-12 mycont">
             
-            <form class="mb-4 w-50" id="supportTicket" method="post" action="{{route('support-ticket.create')}}" enctype="multipart/form-data">
+            <form class="mb-4 col-md-9" id="supportTicket" method="post" action="{{route('support-ticket.create')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="sel1"><b>Department</b></label>
