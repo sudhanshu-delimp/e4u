@@ -33,6 +33,7 @@ use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
 
 /*
@@ -749,4 +750,7 @@ Route::get('/delete', function(){
 
 Route::get('/get-notification', [NotificationController::class, 'getNotification'])->name('user.get-notification');
 Route::post('/notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('user.notification-seen');
+
+
+Route::get('/send-password-expire', [DemoController::class, 'sendPasswordExpire']);
 

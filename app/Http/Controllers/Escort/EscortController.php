@@ -13,6 +13,7 @@ use App\Models\Escort;
 use App\Models\PinUps;
 use App\Models\Pricing;
 use App\Models\Purchase;
+use App\Models\PasswordHistory;
 use App\Models\EscortPinup;
 use Illuminate\Support\Str;
 use MongoDB\Driver\Session;
@@ -95,22 +96,22 @@ class EscortController extends Controller
 
     function add_listing()
     {
-        $today = Carbon::today()->toDateString();        
-        $excludedEscortIds = DB::table('purchase')
-            ->select('escort_id')
-            ->groupBy('escort_id')
-            ->havingRaw('MAX(end_date) >= ?', [$today])
-            ->pluck('escort_id');
+        // $today = Carbon::today()->toDateString();        
+        // $excludedEscortIds = DB::table('purchase')
+        //     ->select('escort_id')
+        //     ->groupBy('escort_id')
+        //     ->havingRaw('MAX(end_date) >= ?', [$today])
+        //     ->pluck('escort_id');
 
-        $escorts = Escort::whereNotIn('id', $excludedEscortIds)
-            ->whereNotNull('profile_name')
-            ->where('user_id', auth()->id())
-            ->get();
-        if (empty($escorts->toArray())) {
-            return redirect()->route('escort.profile')->with('info', 'Create at-least one profile');
-        }
+        // $escorts = Escort::whereNotIn('id', $excludedEscortIds)
+        //     ->whereNotNull('profile_name')
+        //     ->where('user_id', auth()->id())
+        //     ->get();
+        // if (empty($escorts->toArray())) {
+        //     return redirect()->route('escort.profile')->with('info', 'Create at-least one profile');
+        // }
 
-        return view('escort.dashboard.add_listing', compact('escorts'));
+        return view('escort.dashboard.add_listing');
     }
 
 
@@ -535,19 +536,62 @@ class EscortController extends Controller
     public function updatePassword(UpdateEscortRequest $request)
     {
         $user = $this->user->find(auth()->user()->id);
-        $error = true;
+        $msg = true;
+
+        // verify current password
         if (!Hash::check($request->password, $user->password)) {
-            //'Return error with current passowrd is not match';
-            $error = false;
-        } else {
-            //'Write here your update password code';
-            $data = [
-                'password' => Hash::make($request->new_password),
-            ];
-            $this->user->store($data, auth()->user()->id);
+            $msg = false;
+            $message = 'Invalid current password';
+            return response()->json(compact('msg', 'message'));
         }
 
-        return response()->json(compact('error'));
+        // check new password against current and last 5 previous passwords
+        $newPassword = $request->new_password;
+
+        // Collect last 5 password hashes
+        $previousHashes = PasswordHistory::where('user_id', $user->id)
+            ->orderByDesc('created_at')
+            ->limit(5)
+            ->pluck('password')
+            ->all();
+
+        // Also include current hash to prevent reusing current
+        $hashesToCheck = array_merge([$user->password], $previousHashes);
+
+
+        foreach ($hashesToCheck as $oldHash) {
+            if (Hash::check($newPassword, $oldHash)) {
+                $msg = false;
+                $message = 'You cannot reuse any of your last 5 passwords.';
+                return response()->json(compact('msg', 'message'));
+            }
+        }
+
+        // Store current password to history BEFORE updating
+        if (!empty($user->password)) {
+            PasswordHistory::create([
+                'user_id' => $user->id,
+                'password' => $user->password,
+            ]);
+        }
+
+        // Update to new password
+        $this->user->store([
+            'password' => Hash::make($newPassword),
+        ], $user->id);
+
+        // Trim history to last 5 (delete older ones)
+        $historyIdsToKeep = PasswordHistory::where('user_id', $user->id)
+            ->orderByDesc('created_at')
+            ->limit(5)
+            ->pluck('id')
+            ->all();
+
+        PasswordHistory::where('user_id', $user->id)
+            ->whereNotIn('id', $historyIdsToKeep)
+            ->delete();
+
+        return response()->json(compact('msg'));
     }
     public function updatePasswordExpiry(UpdateEscortRequest $request)
     {
@@ -687,5 +731,63 @@ class EscortController extends Controller
     public function notificationsFeatures()
     {
         return view('escort.dashboard.profileNotifications');
+    }
+    public function getGeoLocationProfiles(Request $request){
+        try {
+            $response['success'] = false;
+            $state_id = $request->state;
+            $profiles = Escort::where(['user_id'=>auth()->user()->id,'state_id'=>$state_id])
+                ->whereNotNull('profile_name')
+                ->whereDoesntHave('purchase', function ($query) {
+                    $query->where('utc_end_time', '>=', Carbon::now());
+                })
+                ->get(['id','name','profile_name','state_id']);
+            if($profiles->isNotEmpty()){
+                $response['success'] = true;
+                $response['profiles'] = $profiles;
+                $response['message'] = "Profiles are available.";
+            }
+            else{
+                $response['message'] = "Create at-least one profile.";
+            }
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function validateDateRange(Request $request){
+        try {
+            $response['success'] = false;
+            $startDate = $request->startDate;
+            $endDate = $request->endDate;
+            $escortId = $request->escortId;
+            $escort = $this->escort->find($escortId);
+
+            $conflictExists = Purchase::overlapping($startDate, $endDate)
+                ->whereHas('escort', function ($q) use ($escort) {
+                $q->where('user_id',auth()->user()->id);
+                $q->where('state_id', '<>', $escort->state_id);
+            })
+            ->with('escort:id,state_id')
+            ->orderByDesc('end_date')
+            ->first()?->escort?->state?->name;
+
+            if($conflictExists){
+                $response['success'] = true;
+                $response['message'] = "You have a Current or Upcomming Listing in {$conflictExists}. To create multiple Listings across Locations, use the Tour creator.";
+            }
+
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }

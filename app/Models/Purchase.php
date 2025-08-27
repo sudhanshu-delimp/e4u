@@ -33,6 +33,13 @@ class Purchase extends Model
     {
         return $this->belongsTo('App\Models\Escort', 'escort_id');
     }
+
+    public function scopeOverlapping($query, $start, $end)
+    {
+        return $query->where('start_date', '<=', $end)
+                     ->where('end_date', '>=', $start);
+    }
+    
     public function availabilityFromA($day)
     {
         if(!$availability = $this->availability) {

@@ -21,7 +21,7 @@
       <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
          <div class="row">    
             <div class="custom-heading-wrapper col-md-12">
-               <h1 class="h1">Masseurs Photos</h1>
+               <h1 class="h1">Photos</h1>
                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
             <div class="col-md-12 mb-4">
