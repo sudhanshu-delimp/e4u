@@ -32,7 +32,7 @@
                                     <div class="col-3">
                                         <div class="service_rate_dolor_symbol form-group" @disabled(true)>
                                             <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_from" id="mon_hh_from" data-parsley-gt="#mon_hh_to">
-                                                <option value="" selected>HM</option>
+                                                <option value="" selected>HH</option>
                                                 @for($i=1; $i
                                                 <=12;$i++) 
                                                 <option vlaue="{{ $i }}" {{($i== $massage_profile->availabilityFromHour('monday')) ? "selected" : ''}}>{{sprintf("%02d", $i)}}</option>
