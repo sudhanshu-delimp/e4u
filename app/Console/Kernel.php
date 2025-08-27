@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
         Commands\DisableEscortProfile::class,
         Commands\PasswordSecurityReset::class,
         Commands\SendPlaymateProfileDeactivationNotification::class,
+        Commands\SendPasswordExpiryNotifications::class
     ];
 
     /**
@@ -32,6 +33,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('disable_escort')->everyMinute();//Based on the escort profile end date, set enable to 0
         $schedule->command('enable_escort')->everyMinute();  //Based on the listing, add start-end date to escort profile and enable the profile
         $schedule->command('send:playmate_disable')->daily();
+        $schedule->command('send:playmate_disable')->daily();
+        $schedule->command('passwords:send-expiry-notices')->dailyAt('10:00');
         //$schedule->command('resetPassword')->daily();
     }
     // protected function schedule(Schedule $schedule)

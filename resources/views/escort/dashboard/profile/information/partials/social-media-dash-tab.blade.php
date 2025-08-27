@@ -42,7 +42,7 @@
                         <div class="custom-x-link"> <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo"> </div>
                         </span></label>
                         <div class="col-sm-7 col-lg-7 col-md-7 col-10">
-                            <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Twitter" name="social_links[twitter]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ $user->social_links ? $user->social_links['twitter'] : null }}">
+                            <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="X" name="social_links[twitter]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ $user->social_links ? $user->social_links['twitter'] : null }}">
                         </div>
                     </div>
                 </div>

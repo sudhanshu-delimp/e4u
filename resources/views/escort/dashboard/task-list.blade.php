@@ -216,7 +216,7 @@
                         </div>
 
                         <div class="row" id="task_form_button">
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-11 mb-3 p-0 mx-auto">
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1" class="ml-2 showDateLabel"
                                         style="display: none;">Date Created: {{ \Carbon\Carbon::now()->format('d-m-Y') }}.

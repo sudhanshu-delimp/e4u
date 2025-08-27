@@ -6,6 +6,14 @@
    list-style: none;
    color: rgb(248, 0, 0)
    }
+    .toggle-password {
+    position: absolute;
+    top: 28px;
+    right: 15px;
+    cursor: pointer;
+    z-index: 2;
+    color: #6c757d;
+}
 </style>
 @endsection
 @section('content')
@@ -35,17 +43,23 @@
                <div class="col-md-6">
                   <div class="row">
                      <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="form-group position-relative">
                            <label for="current_password">Current Password</label>
-                           <input type="password" class="form-control" name="password" placeholder="Current Password" data-parsley-required-message="Current password is required" required>
+                           <input type="password" class="form-control" id="passwordN"name="password" placeholder="Current Password" data-parsley-required-message="Current password is required" required>
+                           <span class="toggle-password" toggle="#passwordN">
+                              <i class="fa fa-eye"></i>
+                          </span>
                            <div id="formerror"></div>
                            <small id="emailHelp" class="form-text text-muted">Case sensitive</small>
                         </div>
                      </div>
                      <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="form-group position-relative">
                            <label for="new_password">New Password</label>
                            <input type="password" class="form-control" name="new_password" id="new_password" placeholder="New Password" aria-describedby="emailHelp" required autocomplete="new-password" data-parsley-required-message="Current password is required" data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
+                           <span class="toggle-password" toggle="#new_password">
+                              <i class="fa fa-eye"></i>
+                          </span>
                            <div class="termsandconditions_text_color">
                               <!-- error sms here -->
                            </div>
@@ -53,9 +67,12 @@
                         </div>
                      </div>
                      <div class="col-md-12">
-                        <div class="form-group">
+                        <div class="form-group position-relative">
                            <label for="confirm_password">Confirm Password</label>
                            <input type="password" class="form-control" placeholder="Confirm Password" id="confirm_password" aria-describedby="emailHelp" name="password_confirmation" data-parsley-equalto="#new_password" data-parsley-equalto-message="Confirm password should be the same password" required autocomplete="new-password" data-parsley-required-message="Confirm password is required">
+                           <span class="toggle-password" toggle="#confirm_password">
+                              <i class="fa fa-eye"></i>
+                          </span>
                            <div class="termsandconditions_text_color">
                               <!-- error sms here -->
                            </div>
@@ -117,6 +134,29 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script>
+   
+   document.querySelectorAll('.toggle-password').forEach(function (el) {
+        el.addEventListener('click', function () {
+            var selector = this.getAttribute('toggle');
+            var input = document.querySelector(selector);
+            if (!input) {
+                console.error("Invalid selector:", selector);
+                return;
+            }
+            var icon = this.querySelector('i');
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+    });
+</script>
 <script type="text/javascript">
    $('#userProfile').parsley({
    
