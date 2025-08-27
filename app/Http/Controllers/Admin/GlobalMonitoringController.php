@@ -823,7 +823,7 @@ class GlobalMonitoringController extends Controller
                     $nestedData['start_date'] = $item->start_date;
                     $nestedData['end_date'] = $item->end_date;
                     $nestedData['status'] = $item->status;
-                    $nestedData['option'] = '<div class="dropdown no-arrow ml-3">
+                    $nestedData['option'] = '<div class="dropdown no-arrow text-center">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
