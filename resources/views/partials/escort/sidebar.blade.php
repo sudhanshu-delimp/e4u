@@ -376,6 +376,45 @@
             </div>
         </div>
     </li>
+
+    {{-- How is it Done --}}
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#masseurs" aria-expanded="true" aria-controls="collapseTwo">
+             <img src="{{ asset('assets/dashboard/img/menu-icon/how-quest.png')}}">
+             <span>How is it Done</span>
+        </a>
+        <div id="masseurs" class="collapse ;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="py-0 collapse-inner rounded mb-2">
+            <a class="collapse-item" href="#">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/icons-account.png')}}">
+                <span style="">Edit My Account</span>
+            </a>
+             <a class="collapse-item" href="#">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/information-24.png')}}">
+                <span style="">My Information</span>
+            </a>
+
+            <a class="collapse-item" href="#">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/listing-24.png')}}">
+                <span style="">Listings</span>
+            </a>
+           
+            <a class="collapse-item" href="#">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/media-24.png')}}">
+                <span style="">Media</span>
+            </a>
+            <a class="collapse-item" href="{{ route('escort.how_is_it_done.profile') }}">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/add-administrator-24.png')}}">
+                <span style="">Profiles</span>
+            </a>
+            <a class="collapse-item" href="#">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/tour-24.png')}}">
+                <span style="">Tours</span>
+            </a>
+            </div>
+        </div>
+    </li>
+
 <?php
 /*  //hidden for Wayne 20240715
     <li class="nav-item">

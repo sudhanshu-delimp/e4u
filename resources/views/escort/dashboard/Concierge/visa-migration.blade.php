@@ -33,7 +33,7 @@
               </div>
           </div>
       </div>
-      <div class="col-md-12 mb-5">
+      <div class="col-md-9 mb-5">
          <div class="row">
             <div class="col-md-12">
                <div class="row">
@@ -49,7 +49,7 @@
          </div>
          <form class=" ">
             <div class="row">
-               <div class="col-md-12">
+               <div class="col-md-9">
                   <h2 class="pb-2"><b>Available services</b> </h2>
                   <p>The following Services are available through our Partner:</p>
                   <ul>
@@ -57,7 +57,7 @@
                      <li>Education course selection advice including ongoing assistance</li>
                   </ul>
                   <h2 class="pb-2"><b>Request for assistance</b> </h2>
-                   <div class="form-group w-50">
+                   <div class="form-group ">
                        <div><label for="preference"><b>Your contact preference</b> </label></div>
                        <div class="form-check form-check-inline">
                            <input name="contact_pref"  class="form-check-input" type="checkbox" id="pref_Email" value="1">
@@ -71,25 +71,25 @@
 
                    <b>Your details:</b>
                    <div class="mt-2">
-                       <div class="form-group w-50">
+                       <div class="form-group ">
                            <label for="email"><b>First Name</b> </label>
                            <input id="name" placeholder="First Name" name="name" type="text" class="form-control" required="">
                        </div>
-                       <div class="form-group w-50">
+                       <div class="form-group ">
                            <label for="email"><b>Last Name</b> </label>
                            <input id="name" placeholder="Last Name" name="name" type="text" class="form-control" required="">
                        </div>
-                       <div class="form-group w-50">
+                       <div class="form-group ">
                            <label for="email"><b>Email Address</b></label>
                            <input id="name" placeholder="Email" name="name" type="text" class="form-control" required="">
                        </div>
-                       <div class="form-group w-50">
+                       <div class="form-group ">
                            <label for="email"><b>Mobile Number</b> </label>
                            <input id="name" placeholder="Mobile" name="name" type="text" class="form-control" required="">
                        </div>
                    </div>
 
-                  <div class="form-group w-50">
+                  <div class="form-group ">
                      <label for="email"><b>Passport country of issue</b> <span style="color:red">*</span></label>
                      <input id="name" placeholder="Country of issue eg Thailand" name="name" type="text" class="form-control" required="">
                      <span><i>You can disclose this information during your discussion with us if you prefer</i></span>
@@ -100,7 +100,7 @@
                      &nbsp; <label class="m-0" for="html">Visa</label><br><input type="radio" id="css" name="fav_language" value="CSS">
                      &nbsp; <label for="css">Visa & Education Course</label><br>
                   </div>
-                  <div class="form-group w-50">
+                  <div class="form-group ">
                      <label for="home_state"><b>Visa enquiry type</b></label>
                      <select class="form-control" placeholder="Western Australia" aria-describedby="emailHelp" required="">
                         <option selected="">--- Select ----------</option>
@@ -115,7 +115,7 @@
                      <span id="state-errors"></span>
                   </div>
                   
-                  <div class="form-group w-50">
+                  <div class="form-group ">
                       <label for="exampleFormControlTextarea1"><b>Comments</b> (<i>Please provide any additional information that may assist</i>)
                      </label>
                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
@@ -125,7 +125,7 @@
             <input type="submit" value="Send request" class="new-btn-sec btn btn-primary shadow-none" name="submit">
          </form>
          <div id="accordion" class="myacording-design mb-5 mt-5">
-            <div class="card w-75">
+            <div class="card ">
                <div class="card-header">
                   <a class="card-link" data-toggle="collapse" href="#Other-important-information" aria-expanded="true">
                   Other important information
@@ -147,7 +147,7 @@ directly to our Partner to their nominated bank account, details of which are se
                   </div>
                </div>
             </div>
-            <div class="card w-75">
+            <div class="card ">
                <div class="card-header">
                   <a class="card-link" data-toggle="collapse" href="#Confidentiality" aria-expanded="true">
                   Confidentiality
@@ -164,7 +164,7 @@ directly to our Partner to their nominated bank account, details of which are se
                   </div>
                </div>
             </div>
-            <div class="card w-75">
+            <div class="card ">
                <div class="card-header">
                   <a class="card-link" data-toggle="collapse" href="#Contact-details" aria-expanded="true">
                   Contact details
