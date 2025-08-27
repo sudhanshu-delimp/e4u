@@ -155,13 +155,15 @@
                { data: 'created_on', name: 'date_created', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'status_mod', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
+               { data: 'id', visible: false },
            ],
            order: [6, 'desc'],
        });
 
 
        $(document).on('click', ".view_ticket", function() {
-           ticketId = $(this).closest('tr').find('td:first').html();
+           var rowData = table.row($(this).closest('tr')).data();
+           var ticketId = rowData.id;
            $.ajax({
                method: "GET",
                url: "{{ route('support-ticket.conversations') }}" + '/' + ticketId,
