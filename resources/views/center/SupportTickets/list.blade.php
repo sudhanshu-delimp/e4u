@@ -146,7 +146,7 @@
                }
            },
            columns: [
-               { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'ref_number', name: 'ref_number', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'service_type', name: 'service_type', searchable: false, orderable:true ,defaultContent: 'NA'},
@@ -266,7 +266,7 @@
     $(document).on('click', ".cancelTicket", function () {
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "You won't be able to reverse this!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

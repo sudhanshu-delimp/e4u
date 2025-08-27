@@ -203,8 +203,8 @@ class SupportTicketsController extends AppController
             $body = $input;
             try 
             {
-                //Mail::to(config('common.contactus_admin_email'))->queue(new SendSupportTicketToAdmin($body));
-                //Mail::to(auth()->user()->email)->queue(new sendSupportTicketConfirmationToUser($body));
+                Mail::to(config('common.contactus_admin_email'))->queue(new SendSupportTicketToAdmin($body));
+                Mail::to(auth()->user()->email)->queue(new sendSupportTicketConfirmationToUser($body));
             } 
             catch (Exception $e) {
                 
