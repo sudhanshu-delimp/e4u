@@ -417,6 +417,7 @@
       let avatar_base = "{{ asset('avatars') }}/";
       if (rowData.avatar_img !== "" && rowData.avatar_img !== null) 
       user_img = avatar_base + rowData.avatar_img;
+   
 
       var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
                            <div class="modal-content">
@@ -475,15 +476,51 @@
      $(document).on('click', '.edit-agent-btn', function(e) {
       var requestId = $(this).data('id');
       var rowData = table.row($(this).parents('tr')).data();
+      const states = @json(config('escorts.profile.states'));
+      const savedStateId = rowData.state_id;
+      let viewerContactType = rowData.viewer_contact_type || []; 
 
-      console.log(rowData);
+     let optionsHtml = '<option>Select Territory</option>';
+      Object.entries(states).forEach(([key, state]) => {
+         const selected = (String(key) === String(savedStateId)) ? 'selected' : '';
+         optionsHtml += `<option value="${key}" ${selected}>${state.stateName}</option>`;
+      });
+    
+       if (!viewerContactType) {
+         viewerContactType = [];
+      } else if (typeof viewerContactType === "string") {
+         try {
+            viewerContactType = JSON.parse(viewerContactType);
+         } catch (e) {
+            viewerContactType = [];
+         }
+      }
 
-      let user_img = "{{ asset('assets/img/default_user.png') }}";
-      let avatar_base = "{{ asset('avatars') }}/";
-      if (rowData.avatar_img !== "" && rowData.avatar_img !== null) 
-      user_img = avatar_base + rowData.avatar_img;
+     const selectedValues = Array.isArray(viewerContactType) ? viewerContactType.map(String) : [];
 
-      var modal_html =` <div class="modal-dialog modal-dialog-centered" role="document">
+      let viewer_contact_type_1 = false;
+      let viewer_contact_type_2 = false;
+      let viewer_contact_type_3 = false;
+
+      if (Array.isArray(selectedValues) && selectedValues.length > 0) {
+         selectedValues.forEach(val => {
+            switch(val) {
+                  case "1":
+                     viewer_contact_type_1 = true;
+                     break;
+                  case "2":
+                     viewer_contact_type_2 = true;
+                     break;
+                  case "3":
+                     viewer_contact_type_3 = true;
+                     break;
+            }
+         });
+      }
+     
+      
+
+      var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
             <h5 class="modal-title" id="edit_agent_data"> <img src="{{ asset('assets/dashboard/img/update-agent.png')}}" class="custompopicon"> Update Agent Details </h5>
@@ -494,64 +531,51 @@
          <div class="modal-body">
             <form>
                <div class="row">
-                  <!-- Personal Details -->
                   <div class="col-12 my-2">
                      <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
                   </div>
 
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Agent ID (Auto)" readonly value="S60001">
+                     <input type="text" class="form-control rounded-0" placeholder="Business Name" value="${(rowData.business_name ? rowData.business_name : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Date Joined" readonly value="2024-03-01">
+                     <input type="text" class="form-control rounded-0" placeholder="ABN" value="${(rowData.abn ? rowData.abn : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Business Name" value="Wayne Pty Ltd">
+                     <input type="text" class="form-control rounded-0" placeholder="Business Address" value="${(rowData.business_address ? rowData.business_address : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="ABN" value="12345678901">
+                     <input type="text" class="form-control rounded-0" placeholder="Business Number" value="${(rowData.business_number ? rowData.business_number : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Business Address" value="123 King St, Melbourne">
+                     <input type="text" class="form-control rounded-0" placeholder="Point of Contact" value="${(rowData.contact_person ? rowData.contact_person : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Business Number" value="028888999">
+                     <input type="text" class="form-control rounded-0" placeholder="Mobile" value="${(rowData.	phone ? rowData.	phone : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Point of Contact" value="Wayne Primrose">
+                     <input type="email" class="form-control rounded-0" placeholder="Private Email" value="${(rowData.email ? rowData.email : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Mobile" value="0438 028 728">
+                     <input type="email" class="form-control rounded-0" placeholder="E4U Email" value="${(rowData.email2 ? rowData.	email2 : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="email" class="form-control rounded-0" placeholder="Private Email" value="wayne.personal@gmail.com">
-                  </div>
-                  <div class="col-6 mb-3">
-                     <input type="email" class="form-control rounded-0" placeholder="E4U Email" value="wayne@blackboxtech.com.au">
-                  </div>
-                  <div class="col-6 mb-3">
-                     <select class="form-control rounded-0">
-                        <option>Select Territory</option>
-                        <option selected>North</option>
-                        <option>South</option>
-                        <option>East</option>
-                        <option>West</option>
-                     </select>
+                     <select class="form-control rounded-0" name="state_id" id="state_id">${optionsHtml}</select>
                   </div>
 
-                  <!-- Method of Contact -->
+                 
                   <div class="col-12 mb-3 d-flex align-items-center justify-content-start gap-10 flex-wrap">
                      <h6 class="mb-0 text-blue-primary">Method of Contact:</h6>
                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="contactText" value="text" checked>
+                        <input class="form-check-input" type="checkbox" id="viewer_contact_type_1" name="viewer_contact_type[]" value="1" ${viewer_contact_type_1 ? 'checked' : ''}>
                         <label class="form-check-label" for="contactText">Text</label>
                      </div>
                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="contactEmail" value="email">
+                        <input class="form-check-input" type="checkbox" id="viewer_contact_type_2" name="viewer_contact_type[]" value="2" ${viewer_contact_type_2 ? 'checked' : ''}>
                         <label class="form-check-label" for="contactEmail">Email</label>
                      </div>
                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="contactCall" value="call" checked>
+                        <input class="form-check-input" type="checkbox" id="viewer_contact_type_3" name="viewer_contact_type[]" value="3" ${viewer_contact_type_3 ? 'checked' : ''}>
                         <label class="form-check-label" for="contactCall">Call Me</label>
                      </div>
                   </div>
@@ -597,8 +621,11 @@
    </div>`;
 
 
-            $('#viewAgentdetails').html(modal_html);
-            $('#viewAgentdetails').modal('show');          
+     
+    
+     
+      $('#viewAgentdetails').html(modal_html);
+      $('#viewAgentdetails').modal('show');          
 
     });
 
