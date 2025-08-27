@@ -339,7 +339,7 @@ display: contents;
                         $(".serverTime").text(row.server_time);
                         $(".uptimeClass").html(row.upTime);
                         return `
-                            <div class="dropdown no-arrow ml-3">
+                            <div class="dropdown no-arrow text-center">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>

@@ -52,7 +52,7 @@
                             <th scope="col">Listed</th>
                             <th scope="col">De-Listed</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Action</th>
+                            <th scope="col" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody class="table-content">
