@@ -185,7 +185,7 @@
             <div class="card">
                <div class="card-header">
                   <a class="card-link collapsed" data-toggle="collapse" href="#call_screening" aria-expanded="false">
-                  In call screening
+                  In call screening 
                   </a>
                </div>
                <div id="call_screening" class="collapse" data-parent="#accordion" style="">
