@@ -28,6 +28,7 @@
             </div>
         </div>
 
+
         <!-- Bootstrap core JavaScript-->
         {{-- <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script> --}}
         {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> --}}
@@ -62,12 +63,15 @@
                 $(document).on('mouseenter', '[data-toggle="tooltip"]', function() {
                     $('.tooltip').tooltip("hide")
                 });
-                //Create sweet alert for flash message
-                @foreach(['success', 'warning', 'info', 'error'] as $alert)
-                @if (Session::has($alert))
-                swal.fire('', '{{Session::get($alert)}}', '{{$alert}}');
-                @endif
-                @endforeach
+
+                // //Create sweet alert for flash message
+                // @foreach(['success', 'warning', 'info', 'error'] as $alert)
+                // @if (Session::has($alert))
+                // swal.fire('', '{{Session::get($alert)}}', '{{$alert}}');
+                // @endif
+                // @endforeach
+
+
 
                 $.ajaxSetup({
                     headers: {
@@ -266,7 +270,7 @@ function int_datePicker(ele) {
                             {   
                                 if(alert_notifications.is_new)
                                 {
-                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
+                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> '+alert_notifications?.data?.length+'</span>');
                                 }
                             
                                 alert_notifications.data.forEach((notification) => {
@@ -302,7 +306,7 @@ function int_datePicker(ele) {
                              
                                 if(support_notifications.is_new)
                                 {
-                                $('.support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
+                                $('.support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i><span class="badge badge-danger badge-counter"> '+support_notifications?.data?.length+'</span>');
                                 }
                             
                                 support_notifications.data.forEach((notification) => {
@@ -389,6 +393,29 @@ function int_datePicker(ele) {
         });
 
         </script>  
+                    @if (Session::has('success'))
+                    <script>
+                        Swal.fire({
+                            title: '{{ Session::get('title') }}',
+                            text: '{{ Session::get('success') }}',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    </script>
+                @endif
+
+                @foreach(['warning', 'info', 'error'] as $alert)
+                    @if (Session::has($alert))
+                        <script>
+                            Swal.fire({
+                                title: '{{ ucfirst($alert) }}',
+                                text: '{{ Session::get($alert) }}',
+                                icon: '{{ $alert }}',
+                                confirmButtonText: 'OK'
+                            });
+                        </script>
+                    @endif
+                @endforeach
 
 </body>
 </html>

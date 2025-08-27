@@ -42,7 +42,7 @@
 
     @if(auth()->user()->is_agent_assign=='1' && auth()->user()->assigned_agent_id!=null)
      <div class="row">
-        <div class="col-md-12 my-4">
+        <div class="col-md-12 add-punterbox-report my-4">
              <p class="mb-0" style="font-size: 20px;color:red"><b>Note : You have already been assigned an Agent.</b> </p>
         </div>
      </div>
@@ -55,25 +55,25 @@
                 <form action="{{route('escort.agent-request')}}" method="post" name="agent_request_frm" id="agent_request_frm">
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-9">
 
-                            <div class="form-group w-50">
+                            <div class="form-group ">
                                 <label for="email"><b>First Name</b> </label>
                                 <input id="name" placeholder="First Name" name="first_name" type="text" class="form-control" required="">
                             </div>
-                            <div class="form-group w-50">
+                            <div class="form-group ">
                                 <label for="email"><b>Last Name</b> </label>
                                 <input id="name" placeholder="Last Name" name="last_name" type="text" class="form-control" >
 
                             </div>
 
-                            <div class="form-group w-50">
+                            <div class="form-group ">
                                 <label for="email"><b>Email</b></label>
                                 <input id="name" placeholder="Email Address" name="email" type="text" class="form-control" required>
 
                             </div>
 
-                            <div class="form-group w-50">
+                            <div class="form-group ">
                                 <label for="email"><b>Mobile Number</b> </label>
                                 <input id="name" placeholder="Mobile Number" name="mobile_number" type="text" class="form-control" required>
                             </div>
@@ -97,7 +97,7 @@
                                     <label class="form-check-label" for="Method_Text">Contact me by mobile</label>
                                 </div>
                             </div>
-                            <div class="form-group w-50">
+                            <div class="form-group ">
                                 <label for="exampleFormControlTextarea1">
                                     <b>Comments</b> (please provide any additional information to assist us)
                                 </label>

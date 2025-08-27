@@ -9,6 +9,7 @@
             color: rgb(248, 0, 0)
         }
     </style>
+    <script type="text/javascript" src="{{ asset('assets/plugins/ajax/libs/jquery/jquery.min.js') }}"></script>
 @endsection
 @section('content')
     @include('partials.web.submit_ticket')

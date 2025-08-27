@@ -203,8 +203,8 @@ class SupportTicketsController extends AppController
             $body = $input;
             try 
             {
-                Mail::to(config('common.contactus_admin_email'))->queue(new SendSupportTicketToAdmin($body));
-                Mail::to(auth()->user()->email)->queue(new sendSupportTicketConfirmationToUser($body));
+                //Mail::to(config('common.contactus_admin_email'))->queue(new SendSupportTicketToAdmin($body));
+                //Mail::to(auth()->user()->email)->queue(new sendSupportTicketConfirmationToUser($body));
             } 
             catch (Exception $e) {
                 
@@ -213,15 +213,15 @@ class SupportTicketsController extends AppController
             if($is_file_attached!="")
             {
 
-                 $message = 'Your ticket is submitted successfully along with attached document.';
+                 $message = 'Your message has been successfully sent along with attached document.';
             }
             else
             {
-                $message = 'Your ticket is submitted successfully.';
+                $message = 'Your message has been successfully sent.';
             }
            
 
-            return redirect()->route($red_url)->with('success', $message);
+            return redirect()->route($red_url)->with(['success' => $message,'title' => 'Message Sent!']);
         } 
         else 
         {
