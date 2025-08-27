@@ -225,7 +225,8 @@
                                                                     </select>
                                                                     @if(!empty($massage_profile->language)) @foreach($massage_profile->language as $language)
                                                                     <div class='selecated_languages select_lang'>
-                                                                        <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!}</span>
+                                                                        <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!} <small class='remove-lang'>×</small></span>
+                                                                        
                                                                     </div>
                                                                     @endforeach @endif
                                                                     <div id="container_language">
@@ -249,666 +250,34 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card custom-help-contain">
                             <div class="card-header">
                                 <a class="collapsed card-link" data-toggle="collapse" href="#my_rates">
                                 Our rates
                                 </a>
                             </div>
                             <div id="my_rates" class="collapse" data-parent="#accordion">
+                                
                                 <div class="card-body pb-0">
-                                    <ol class="pl-0 mb-0">
-                                        <li>By completing these settings, the information set out under My rates will by default appear in your Profile creator.</li>
-                                        <li>You can over ride these settings when creating a Profile, provided you have enabled
-                                            the <a href="{{ route('centre.notifications-and-features') }}" class="custom_links_design">feature</a>.</li>
-                                    </ol>
+                                    
                                     @include('center.my-account.partials.rate-dash-tab')
-                                    {{-- <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab">
-                                        <div class="about_me_drop_down_info ">
-                                            <div class="about_me_heading_in_first_tab fill_profile_headings_global">
-                                                <h2>Rates</h2>
-                                            </div>
-                                            <div class="padding_20_all_side pb-0">
-                                                <form id="storeRate" action="{{ route('center.settings.rate') }}" method="Post">
-                                                    @csrf               
-                                                     <div class="row">
-                                                        <div class="col-lg-12 col-md-12 col-sm-12 full-width-for-ipad-select horizontal-scroll-rates">
-                                                           <div class="rate_first_row row">
-                                                                <div class="col-3">
-                                                                </div>
-                                                                <div class="col-3 rate-img-center">
-                                                                    <img src="{{asset('assets/img/hand-icon.png')}}">
-                                                                </div>
-                                                                <div class="col-3 rate-img-center">
-                                                                    <img src="{{asset('assets/img/incalls.png')}}">
-                                                                </div>
-                                                                <div class="col-3 rate-img-center">
-                                                                    <img src="{{asset('assets/img/outcall.png')}}">
-                                                                </div>
-                                                            </div> 
-                                                             <div class="rate_first_row">
-                                                                <input type="hidden" name="duration_id[]" value="1">
-                                                                <div class="form-group row">
-                                                                    <label class="col-3" for="exampleFormControlSelect1">30 Minutes:</label>
-                                                                    <div class="col-3">
-                                                                        <div class="service_rate_dolor_symbol form-group">
-                                                                            <span>$</span>
-                                                                            <input min="0" type="number" class="form-control form-control-sm select_tag_remove_box_sadow" id="massage_price" name="massage_price[]" value="" step="10" max="200">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="service_rate_dolor_symbol form-group">
-                                                                            <span>$</span>
-                                                                            <input min="0" type="number" class="form-control form-control-sm select_tag_remove_box_sadow" id="incall_price" name="incall_price[]" value="" step="10" max="200">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="service_rate_dolor_symbol form-group">
-                                                                            <span>$</span>
-                                                                            <input min="0" type="number" class="form-control form-control-sm select_tag_remove_box_sadow" id="outcall_price" name="outcall_price[]" value="" step="10" max="200">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="rate_first_row">
-                                                                <input type="hidden" name="duration_id[]" value="2">
-                                                                <div class="form-group row">
-                                                                    <label class="col-3" for="exampleFormControlSelect1">45 Minutes:</label>
-                                                                    <div class="col-3">
-                                                                        <div class="service_rate_dolor_symbol form-group">
-                                                                            <span>$</span>
-                                                                            <input min="0" type="number" class="form-control form-control-sm select_tag_remove_box_sadow" id="massage_price" name="massage_price[]" value="" step="10" max="200">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="service_rate_dolor_symbol form-group">
-                                                                            <span>$</span>
-                                                                            <input min="0" type="number" class="form-control form-control-sm select_tag_remove_box_sadow" id="incall_price" name="incall_price[]" value="" step="10" max="200">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="service_rate_dolor_symbol form-group">
-                                                                            <span>$</span>
-                                                                            <input min="0" type="number" class="form-control form-control-sm select_tag_remove_box_sadow" id="outcall_price" name="outcall_price[]" value="" step="10" max="200">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="rate_first_row">
-                                                                <input type="hidden" name="duration_id[]" value="3">
-                                                                <div class="form-group row">
-                                                                    <label class="col-3" for="exampleFormControlSelect1">60 minutes:</label>
-                                                                    <div class="col-3">
-                                                                        <div class="service_rate_dolor_symbol form-group">
-                                                                            <span>$</span>
-                                                                            <input min="0" type="number" class="form-control form-control-sm select_tag_remove_box_sadow" id="massage_price" name="massage_price[]" value="" step="10" max="200">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="service_rate_dolor_symbol form-group">
-                                                                            <span>$</span>
-                                                                            <input min="0" type="number" class="form-control form-control-sm select_tag_remove_box_sadow" id="incall_price" name="incall_price[]" value="" step="10" max="200">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="service_rate_dolor_symbol form-group">
-                                                                            <span>$</span>
-                                                                            <input min="0" type="number" class="form-control form-control-sm select_tag_remove_box_sadow" id="outcall_price" name="outcall_price[]" value="" step="10" max="200">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div> 
-                                                           
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12 text-right">
-                                                            <button id="store_rate" type="submit" class="save_profile_btn">Save Rates</button>
-                                                        </div>
-                                                    </div> 
-                                                   
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div> --}}
+                                   
                                 </div>
                             </div>
                         </div>
-                        <div class="card">
+                        <div class="card custom-help-contain">
                             <div class="card-header">
                                 <a class="collapsed card-link" data-toggle="collapse" href="#my_available_times">
                                 Our open times
                                 </a>
                             </div>
                             <div id="my_available_times" class="collapse" data-parent="#accordion">
-                                <div class="card-body pb-0">
-                                    <ol class="pl-0 mb-0">
-                                        <li>By completing these settings, the information set out under My available times will by default appear in your Profile creator.</li>
-                                        <li>Leave the time blank if you are unavailable. Select ‘By Appointment’ as an alternative to a particular time period.</li>
-                                        <li>You can over ride these settings when creating a Profile, provided you have enabled the <span class="theme-text-color">feature</span>  (see My Account - Profile &amp; Tour options).</li>
-                                    </ol>
-                                    {{-- 
-                                    
-                                    <div class="tab-pane fade" id="available" role="tabpanel" aria-labelledby="contact-tab">
-                                        <div class="about_me_drop_down_info ">
-                                            <div class="padding_20_all_side pb-0 my-availability-mon">
-                                                <form class="my-availability-mon-sun" id="myability" action="{{ route('center.settings.availability') }}" method="Post" novalidate="">
-                                                    <input type="hidden" name="_token" value="tVXo0LPNVhdC8y1csTS01uA5ltKSXXKQC2qa5j0E">               
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="form-group row">
-                                                                <label class="col-0 pr-5" for="exampleFormControlSelect1">Monday:</label>
-                                                                <input type="hidden" value="monday">
-                                                                <div class="col-11 p-0 monday">
-                                                                    <div class="row">
-                                                                        <div class="col-3">
-                                                                            <div class="service_rate_dolor_symbol form-group" @disabled(true)="">
-                                                                            <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_from" id="mon_hh_from" data-parsley-gt="#mon_hh_to">
-                                                                                <option value="" selected="">HH</option>
-                                                                                <option vlaue="1">01</option>
-                                                                                <option vlaue="2">02</option>
-                                                                                <option vlaue="3">03</option>
-                                                                                <option vlaue="4">04</option>
-                                                                                <option vlaue="5">05</option>
-                                                                                <option vlaue="6">06</option>
-                                                                                <option vlaue="7">07</option>
-                                                                                <option vlaue="8">08</option>
-                                                                                <option vlaue="9">09</option>
-                                                                                <option vlaue="10">10</option>
-                                                                                <option vlaue="11">11</option>
-                                                                                <option vlaue="12">12</option>
-                                                                            </select>
-                                                                            <span>:</span>
-                                                                            <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="mon_mm_from" name="mon_mm_from">
-                                                                                <option value="" selected="">MM</option>
-                                                                                <option value="00"> 00</option>
-                                                                                <option value="10"> 10</option>
-                                                                                <option value="20"> 20</option>
-                                                                                <option value="30"> 30</option>
-                                                                                <option value="40"> 40</option>
-                                                                                <option value="50"> 50</option>
-                                                                                <option value="59"> 59</option>
-                                                                            </select>
-                                                                            <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_from">
-                                                                                <option value="" selected="">--</option>
-                                                                                <option value="AM">AM</option>
-                                                                                <option vlaue="PM">PM</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-0 pr-3">
-                                                                        <span>to</span>
-                                                                    </div>
-                                                                    <div class="col-3 p-0">
-                                                                        <div class="service_rate_dolor_symbol form-group">
-                                                                            <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_to" id="mon_hh_to">
-                                                                                <option value="" selected="">HH</option>
-                                                                                <option vlaue="1">01</option>
-                                                                                <option vlaue="2">02</option>
-                                                                                <option vlaue="3">03</option>
-                                                                                <option vlaue="4">04</option>
-                                                                                <option vlaue="5">05</option>
-                                                                                <option vlaue="6">06</option>
-                                                                                <option vlaue="7">07</option>
-                                                                                <option vlaue="8">08</option>
-                                                                                <option vlaue="9">09</option>
-                                                                                <option vlaue="10">10</option>
-                                                                                <option vlaue="11">11</option>
-                                                                                <option vlaue="12">12</option>
-                                                                            </select>
-                                                                            <span>:</span>
-                                                                            <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_mm_to" id="mon_mm_to">
-                                                                                <option value="" selected="">MM</option>
-                                                                                <option value="00"> 00</option>
-                                                                                <option value="10"> 10</option>
-                                                                                <option value="20"> 20</option>
-                                                                                <option value="30"> 30</option>
-                                                                                <option value="40"> 40</option>
-                                                                                <option value="50"> 50</option>
-                                                                                <option value="59"> 59</option>
-                                                                            </select>
-                                                                            <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_to">
-                                                                                <option value="" selected="">--</option>
-                                                                                <option value="AM">AM</option>
-                                                                                <option vlaue="PM">PM</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4 pl-2">
-                                                                        <div class="form-check form-check-inline">
-                                                                            <input class="form-check-input monday" type="radio" name="availability_time[monday]" id="monday" value="unavailable" data-parsley-multiple="covidreport">
-                                                                            <label class="form-check-label" for="inlineRadio1">Unavailable</label>
-                                                                        </div>
-                                                                        <div class="form-check form-check-inline">
-                                                                            <input class="form-check-input monday" type="radio" name="availability_time[monday]" id="monday" value="By Appointment" data-parsley-multiple="covidreport">
-                                                                            <label class="form-check-label" for="inlineRadio1">By Appointment</label>
-                                                                        </div>
-                                                                        <div class="form-check form-check-inline">
-                                                                            <input class="form-check-input monday" type="radio" name="availability_time[monday]" id="monday" value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                                            <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-1">
-                                                                        <div class="resetdays-icon">
-                                                                            <input type="button" value="Reset" class="resetdays" data-day="monday" id="resetMonday">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                            </div>
-                                            <div class="row">
-                                            <div class="col-12">
-                                            <div class="form-group row">
-                                            <label class="col-0 pr-5" for="exampleFormControlSelect1">Tuesday:</label>
-                                            <input type="hidden" value="tuesday">
-                                            <div class="col-11 p-0 tuesday">
-                                            <div class="row">
-                                            <div class="col-3">
-                                            <div class="service_rate_dolor_symbol form-group">
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow tuesday" name="tue_hh_from" id="tue_hh_from">
-                                            <option value="" selected="">HH</option>
-                                            <option vlaue="1">01</option> <option vlaue="2">02</option> <option vlaue="3">03</option> <option vlaue="4">04</option> <option vlaue="5">05</option> <option vlaue="6">06</option> <option vlaue="7">07</option> <option vlaue="8">08</option> <option vlaue="9">09</option> <option vlaue="10">10</option> <option vlaue="11">11</option> <option vlaue="12">12</option>                                            </select>
-                                            <span>:</span>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow tuesday" id="tue_mm_from" name="tue_mm_from">
-                                            <option value="" selected="">MM</option>
-                                            <option value="00"> 00</option> <option value="10"> 10</option> <option value="20"> 20</option> <option value="30"> 30</option> <option value="40"> 40</option> <option value="50"> 50</option> <option value="59"> 59</option>                                            </select>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow tuesday" id="" name="tue_time_from">
-                                            <option value="" selected="" disable="">--</option>
-                                            <option value="AM">AM</option>
-                                            <option vlaue="PM">PM</option>
-                                            </select>
-                                            </div>
-                                            </div>
-                                            <div class="col-0 pr-3">
-                                            <span>to</span>
-                                            </div>
-                                            <div class="col-3 p-0">
-                                            <div class="service_rate_dolor_symbol form-group">
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow tuesday" name="tue_hh_to" id="tue_hh_to">
-                                            <option value="" selected="">HH</option>
-                                            <option vlaue="1">01</option> <option vlaue="2">02</option> <option vlaue="3">03</option> <option vlaue="4">04</option> <option vlaue="5">05</option> <option vlaue="6">06</option> <option vlaue="7">07</option> <option vlaue="8">08</option> <option vlaue="9">09</option> <option vlaue="10">10</option> <option vlaue="11">11</option> <option vlaue="12">12</option>                                            </select>
-                                            <span>:</span>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow tuesday" name="tue_mm_to" id="tue_mm_to">
-                                            <option value="" selected="">MM</option>
-                                            <option value="00"> 00</option> <option value="10"> 10</option> <option value="20"> 20</option> <option value="30"> 30</option> <option value="40"> 40</option> <option value="50"> 50</option> <option value="59"> 59</option>                                            </select>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow tuesday" id="" name="tue_time_to">
-                                            <option value="" selected="" disable="">--</option>
-                                            <option value="AM">AM</option>
-                                            <option vlaue="PM">PM</option>
-                                            </select>
-                                            </div>
-                                            </div>
-                                            <div class="col-4 pl-2">
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input tuesday" type="radio" name="availability_time[tuesday]" id="tuesday" value="unavailable" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">Unavailable</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input tuesday" type="radio" name="availability_time[tuesday]" id="tuesday" value="By Appointment" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">By Appointment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input tuesday" type="radio" name="availability_time[tuesday]" id="tuesday" value="Available 24 hours" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                            </div>
-                                            </div>
-                                            <div class="col-1">
-                                            <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="tuesday" id="resetTuesday">
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            <div class="row">
-                                            <div class="col-12">
-                                            <div class="form-group row">
-                                            <label class="col-0 pr-4" for="exampleFormControlSelect1">Wednesday:</label>
-                                            <input type="hidden" value="wednesday">
-                                            <div class="col-11 p-0 wednesday">
-                                            <div class="row">
-                                            <div class="col-3">
-                                            <div class="service_rate_dolor_symbol form-group">
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow wednesday" name="wed_hh_from" id="wed_hh_from">
-                                            <option value="" selected="">HH</option>
-                                            <option vlaue="1">01</option> <option vlaue="2">02</option> <option vlaue="3">03</option> <option vlaue="4">04</option> <option vlaue="5">05</option> <option vlaue="6">06</option> <option vlaue="7">07</option> <option vlaue="8">08</option> <option vlaue="9">09</option> <option vlaue="10">10</option> <option vlaue="11">11</option> <option vlaue="12">12</option>                                            </select>
-                                            <span>:</span>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow wednesday" id="wed_mm_from" name="wed_mm_from">
-                                            <option value="" selected="">MM</option>
-                                            <option value="00"> 00</option> <option value="10"> 10</option> <option value="20"> 20</option> <option value="30"> 30</option> <option value="40"> 40</option> <option value="50"> 50</option> <option value="59"> 59</option>                                            </select>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow wednesday" id="" name="wed_time_from">
-                                            <option value="" selected="">--</option>
-                                            <option value="AM">AM</option>
-                                            <option vlaue="PM">PM</option>
-                                            </select>
-                                            </div>
-                                            </div>
-                                            <div class="col-0 pr-3">
-                                            <span>to</span>
-                                            </div>
-                                            <div class="col-3 p-0">
-                                            <div class="service_rate_dolor_symbol form-group">
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow wednesday" name="wed_hh_to" id="wed_hh_to">
-                                            <option value="" selected="">HH</option>
-                                            <option vlaue="1">01</option> <option vlaue="2">02</option> <option vlaue="3">03</option> <option vlaue="4">04</option> <option vlaue="5">05</option> <option vlaue="6">06</option> <option vlaue="7">07</option> <option vlaue="8">08</option> <option vlaue="9">09</option> <option vlaue="10">10</option> <option vlaue="11">11</option> <option vlaue="12">12</option>                                            </select>
-                                            <span>:</span>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow wednesday" name="wed_mm_to" id="wed_mm_to">
-                                            <option value="" selected="">MM</option>
-                                            <option value="00"> 00</option> <option value="10"> 10</option> <option value="20"> 20</option> <option value="30"> 30</option> <option value="40"> 40</option> <option value="50"> 50</option> <option value="59"> 59</option>                                            </select>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow wednesday" id="" name="wed_time_to">
-                                            <option value="" selected="">--</option>
-                                            <option value="AM">AM</option>
-                                            <option vlaue="PM">PM</option>
-                                            </select>
-                                            </div>
-                                            </div>
-                                            <div class="col-4 pl-2">
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input wednesday" type="radio" name="availability_time[wednesday]" id="wednesday" value="unavailable" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">Unavailable</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input wednesday" type="radio" name="availability_time[wednesday]" id="wednesday" value="By Appointment" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">By Appointment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input wednesday" type="radio" name="availability_time[wednesday]" id="wednesday" value="Available 24 hours" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                            </div>
-                                            </div>
-                                            <div class="col-1">
-                                            <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="wednesday" id="resetWednesday">
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            <div class="row">
-                                            <div class="col-12">
-                                            <div class="form-group row">
-                                            <label class="col-0" for="exampleFormControlSelect1" style="padding-right: 3em;">Thursday:</label>
-                                            <input type="hidden" value="thursday">
-                                            <div class="col-11 p-0 thursday">
-                                            <div class="row">
-                                            <div class="col-3">
-                                            <div class="service_rate_dolor_symbol form-group">
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow thursday" name="thu_hh_from" id="thu_hh_from">
-                                            <option value="" selected="">HH</option>
-                                            <option vlaue="1">01</option> <option vlaue="2">02</option> <option vlaue="3">03</option> <option vlaue="4">04</option> <option vlaue="5">05</option> <option vlaue="6">06</option> <option vlaue="7">07</option> <option vlaue="8">08</option> <option vlaue="9">09</option> <option vlaue="10">10</option> <option vlaue="11">11</option> <option vlaue="12">12</option>                                            </select>
-                                            <span>:</span>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow thursday" id="thu_mm_from" name="thu_mm_from">
-                                            <option value="" selected="">MM</option>
-                                            <option value="00"> 00</option> <option value="10"> 10</option> <option value="20"> 20</option> <option value="30"> 30</option> <option value="40"> 40</option> <option value="50"> 50</option> <option value="59"> 59</option>                                            </select>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow thursday" id="" name="thu_time_from">
-                                            <option value="" selected="">--</option>
-                                            <option value="AM">AM</option>
-                                            <option vlaue="PM">PM</option>
-                                            </select>
-                                            </div>
-                                            </div>
-                                            <div class="col-0 pr-3">
-                                            <span>to</span>
-                                            </div>
-                                            <div class="col-3 p-0">
-                                            <div class="service_rate_dolor_symbol form-group">
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow thursday" name="thu_hh_to" id="thu_hh_to">
-                                            <option value="" selected="">HH</option>
-                                            <option vlaue="1">01</option> <option vlaue="2">02</option> <option vlaue="3">03</option> <option vlaue="4">04</option> <option vlaue="5">05</option> <option vlaue="6">06</option> <option vlaue="7">07</option> <option vlaue="8">08</option> <option vlaue="9">09</option> <option vlaue="10">10</option> <option vlaue="11">11</option> <option vlaue="12">12</option>                                            </select>
-                                            <span>:</span>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow thursday" name="thu_mm_to" id="thu_mm_to">
-                                            <option value="" selected="">MM</option>
-                                            <option value="00"> 00</option> <option value="10"> 10</option> <option value="20"> 20</option> <option value="30"> 30</option> <option value="40"> 40</option> <option value="50"> 50</option> <option value="59"> 59</option>                                            </select>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow thursday" id="" name="thu_time_to">
-                                            <option value="" selected="">--</option>
-                                            <option value="AM">AM</option>
-                                            <option vlaue="PM">PM</option>
-                                            </select>
-                                            </div>
-                                            </div>
-                                            <div class="col-4 pl-2">
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input thursday" type="radio" name="availability_time[thursday]" id="thursday" value="unavailable" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">Unavailable</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input thursday" type="radio" name="availability_time[thursday]" id="thursday" value="By Appointment" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">By Appointment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input thursday" type="radio" name="availability_time[thursday]" id="thursday" value="Available 24 hours" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                            </div>
-                                            </div>
-                                            <div class="col-1">
-                                            <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="thursday" id="resetThursday">
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            <div class="row">
-                                            <div class="col-12">
-                                            <div class="form-group row">
-                                            <label class="col-0" for="exampleFormControlSelect1" style="padding-right: 4.5em;">Friday:</label>
-                                            <input type="hidden" value="friday">
-                                            <div class="col-11 p-0 friday">
-                                            <div class="row">
-                                            <div class="col-3">
-                                            <div class="service_rate_dolor_symbol form-group">
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow friday" name="fri_hh_from" id="fri_hh_from">
-                                            <option value="" selected="">HH</option>
-                                            <option vlaue="1">01</option> <option vlaue="2">02</option> <option vlaue="3">03</option> <option vlaue="4">04</option> <option vlaue="5">05</option> <option vlaue="6">06</option> <option vlaue="7">07</option> <option vlaue="8">08</option> <option vlaue="9">09</option> <option vlaue="10">10</option> <option vlaue="11">11</option> <option vlaue="12">12</option>                                            </select>
-                                            <span>:</span>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow friday" id="fri_mm_from" name="fri_mm_from">
-                                            <option value="" selected="">MM</option>
-                                            <option value="00"> 00</option> <option value="10"> 10</option> <option value="20"> 20</option> <option value="30"> 30</option> <option value="40"> 40</option> <option value="50"> 50</option> <option value="59"> 59</option>                                            </select>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow friday" id="" name="fri_time_from">
-                                            <option value="" selected="">--</option>
-                                            <option value="AM">AM</option>
-                                            <option vlaue="PM">PM</option>
-                                            </select>
-                                            </div>
-                                            </div>
-                                            <div class="col-0 pr-3">
-                                            <span>to</span>
-                                            </div>
-                                            <div class="col-3 p-0">
-                                            <div class="service_rate_dolor_symbol form-group">
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow friday" name="fri_hh_to" id="fri_hh_to">
-                                            <option value="" selected="">HH</option>
-                                            <option vlaue="1">01</option> <option vlaue="2">02</option> <option vlaue="3">03</option> <option vlaue="4">04</option> <option vlaue="5">05</option> <option vlaue="6">06</option> <option vlaue="7">07</option> <option vlaue="8">08</option> <option vlaue="9">09</option> <option vlaue="10">10</option> <option vlaue="11">11</option> <option vlaue="12">12</option>                                            </select>
-                                            <span>:</span>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow friday" name="fri_mm_to" id="fri_mm_to">
-                                            <option value="" selected="">MM</option>
-                                            <option value="00">00</option>
-                                            <option value="00"> 00</option> <option value="10"> 10</option> <option value="20"> 20</option> <option value="30"> 30</option> <option value="40"> 40</option> <option value="50"> 50</option> <option value="59"> 59</option>                                            </select>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow friday" id="" name="fri_time_to">
-                                            <option value="" selected="">--</option>
-                                            <option value="AM">AM</option>
-                                            <option vlaue="PM">PM</option>
-                                            </select>
-                                            </div>
-                                            </div>
-                                            <div class="col-4 pl-2">
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input friday" type="radio" name="availability_time[friday]" id="friday" value="unavailable" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">Unavailable</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input friday" type="radio" name="availability_time[friday]" id="friday" value="By Appointment" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">By Appointment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input friday" type="radio" name="availability_time[friday]" id="friday" value="Available 24 hours" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                            </div>
-                                            </div>
-                                            <div class="col-1">
-                                            <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="friday" id="resetFriday">
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            <div class="row">
-                                            <div class="col-12">
-                                            <div class="form-group row">
-                                            <label class="col-0" for="exampleFormControlSelect1" style="padding-right: 3em;">Saturday:</label>
-                                            <input type="hidden" value="saturday">
-                                            <div class="col-11 p-0 saturday">
-                                            <div class="row">
-                                            <div class="col-3">
-                                            <div class="service_rate_dolor_symbol form-group">
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow saturday" name="sat_hh_from" id="sat_hh_from">
-                                            <option value="" selected="">HH</option>
-                                            <option vlaue="1">01</option> <option vlaue="2">02</option> <option vlaue="3">03</option> <option vlaue="4">04</option> <option vlaue="5">05</option> <option vlaue="6">06</option> <option vlaue="7">07</option> <option vlaue="8">08</option> <option vlaue="9">09</option> <option vlaue="10">10</option> <option vlaue="11">11</option> <option vlaue="12">12</option>                                            </select>
-                                            <span>:</span>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow saturday" id="sat_mm_from" name="sat_mm_from">
-                                            <option value="">MM</option>
-                                            <option value="00"> 00</option> <option value="10"> 10</option> <option value="20"> 20</option> <option value="30"> 30</option> <option value="40"> 40</option> <option value="50"> 50</option> <option value="59"> 59</option>                                            </select>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow saturday" id="" name="sat_time_from">
-                                            <option value="" selected="">--</option>
-                                            <option value="AM">AM</option>
-                                            <option vlaue="PM">PM</option>
-                                            </select>
-                                            </div>
-                                            </div>
-                                            <div class="col-0 pr-3">
-                                            <span>to</span>
-                                            </div>
-                                            <div class="col-3 p-0">
-                                            <div class="service_rate_dolor_symbol form-group">
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow saturday" name="sat_hh_to" id="sat_hh_to">
-                                            <option value="" selected="">HH</option>
-                                            <option vlaue="1">01</option> <option vlaue="2">02</option> <option vlaue="3">03</option> <option vlaue="4">04</option> <option vlaue="5">05</option> <option vlaue="6">06</option> <option vlaue="7">07</option> <option vlaue="8">08</option> <option vlaue="9">09</option> <option vlaue="10">10</option> <option vlaue="11">11</option> <option vlaue="12">12</option>                                            </select>
-                                            <span>:</span>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow saturday" name="sat_mm_to" id="sat_mm_to">
-                                            <option value="" selected="">MM</option>
-                                            <option value="00"> 00</option> <option value="10"> 10</option> <option value="20"> 20</option> <option value="30"> 30</option> <option value="40"> 40</option> <option value="50"> 50</option> <option value="59"> 59</option>                                            </select>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow saturday" id="" name="sat_time_to">
-                                            <option value="" selected="">--</option>
-                                            <option value="AM">AM</option>
-                                            <option vlaue="PM">PM</option>
-                                            </select>
-                                            </div>
-                                            </div>
-                                            <div class="col-4 pl-2">
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input saturday" type="radio" name="availability_time[saturday]" id="saturday" value="unavailable" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">Unavailable</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input saturday" type="radio" name="availability_time[saturday]" id="saturday" value="By Appointment" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">By Appointment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input saturday" type="radio" name="availability_time[saturday]" id="saturday" value="Available 24 hours" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                            </div>
-                                            </div>
-                                            <div class="col-1">
-                                            <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="saturday" id="resetSaturday">
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            <div class="row">
-                                            <div class="col-12">
-                                            <div class="form-group row">
-                                            <label class="col-0" for="exampleFormControlSelect1" style="padding-right: 3.8em;">Sunday:</label>
-                                            <input type="hidden" value="sunday">
-                                            <div class="col-11 p-0 sunday">
-                                            <div class="row">
-                                            <div class="col-3">
-                                            <div class="service_rate_dolor_symbol form-group">
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow sunday" name="sun_hh_from" id="">
-                                            <option value="" selected="">HH</option>
-                                            <option vlaue="1">01</option> <option vlaue="2">02</option> <option vlaue="3">03</option> <option vlaue="4">04</option> <option vlaue="5">05</option> <option vlaue="6">06</option> <option vlaue="7">07</option> <option vlaue="8">08</option> <option vlaue="9">09</option> <option vlaue="10">10</option> <option vlaue="11">11</option> <option vlaue="12">12</option>                                            </select>
-                                            <span>:</span>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow sunday" id="" name="sun_mm_from">
-                                            <option value="" selected="">MM</option>
-                                            <option value="00"> 00</option> <option value="10"> 10</option> <option value="20"> 20</option> <option value="30"> 30</option> <option value="40"> 40</option> <option value="50"> 50</option> <option value="59"> 59</option>                                            </select>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow sunday" id="" name="sun_time_from">
-                                            <option value="" selected="">--</option>
-                                            <option value="AM">AM</option>
-                                            <option vlaue="PM">PM</option>
-                                            </select>
-                                            </div>
-                                            </div>
-                                            <div class="col-0 pr-3">
-                                            <span>to</span>
-                                            </div>
-                                            <div class="col-3 p-0">
-                                            <div class="service_rate_dolor_symbol form-group">
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow sunday" name="sun_hh_to" id="">
-                                            <option value="" selected="">HH</option>
-                                            <option vlaue="1">01</option> <option vlaue="2">02</option> <option vlaue="3">03</option> <option vlaue="4">04</option> <option vlaue="5">05</option> <option vlaue="6">06</option> <option vlaue="7">07</option> <option vlaue="8">08</option> <option vlaue="9">09</option> <option vlaue="10">10</option> <option vlaue="11">11</option> <option vlaue="12">12</option>                                            </select>
-                                            <span>:</span>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow sunday" name="sun_mm_to" id="">
-                                            <option value="" selected="">MM</option>
-                                            <option value="00"> 00</option> <option value="10"> 10</option> <option value="20"> 20</option> <option value="30"> 30</option> <option value="40"> 40</option> <option value="50"> 50</option> <option value="59"> 59</option>                                            </select>
-                                            <select class="form-control form-control-sm select_tag_remove_box_sadow sunday" id="sun_time_to" name="sun_time_to">
-                                            <option value="">--</option>
-                                            <option value="AM">AM</option>
-                                            <option vlaue="PM">PM</option>
-                                            </select>
-                                            </div>
-                                            </div>
-                                            <div class="col-4 pl-2">
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input sunday" type="radio" name="availability_time[sunday]" id="sunday" value="unavailable" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">Unavailable</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input sunday" type="radio" name="availability_time[sunday]" id="sunday" value="By Appointment" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">By Appointment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                            <input class="form-check-input sunday" type="radio" name="availability_time[sunday]" id="sunday" value="Available 24 hours" data-parsley-multiple="covidreport">
-                                            <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                            </div>
-                                            </div>
-                                            <div class="col-1">
-                                            <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="sunday" id="resetSunday">
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            <div class="row pt-3">
-                                            <div class="col-11 text-right">
-                                            <button id="my_abilities" type="submit" class="save_profile_btn">Save</button>
-                                            </div>
-                                            </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    </div> --}}
+                                <div class="card-body pb-0">                                    
                                     @include('center.my-account.partials.available-dash-tab')
                                 </div>
                             </div>
                         </div>
-                    <div class="card">
+                    <div class="card custom-help-contain">
                         <div class="card-header">
                             <a class="collapsed card-link" data-toggle="collapse" href="#my_service_tags">
                             Our service (tags)
@@ -918,8 +287,24 @@
                             <div class="card-body pb-0">
                                 <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab">
                                     <div class="about_me_drop_down_info ">
-                                        <div class="fill_profile_headings_global">
-                                            <h2>My Services</h2>
+                                        <div class="fill_profile_headings_global col-md-12 p-0  custom--social-head">
+                                            <h2>Our Service (Tags)</h2>
+                                            <span class="custom--help"><b>Help?</b></span>
+                                        </div>
+                                        <div class="custom-note-section">
+                                            <div class="card" style="">
+                                                <div class="card-body">
+                                                <h3 class="NotesHeader"><b>Notes:</b> </h3> 
+                                                    <ol class=" mb-0">
+                                                        <li>By completing these settings, the information set out under Service Tags will by default
+                                                        appear in your Profile creator.</li>
+                                                        <li>Any value you attach to a Service Tag is a separate value and is not included in your
+                                                            Rates.</li>
+                                                        <li>You can over ride these settings when creating a Profile, provided you have enabled
+                                                            the the  <a href="{{ route('centre.notifications-and-features') }}" class="custom_links_design">feature</a>.</li>
+                                                    </ol>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="padding_20_all_side pb-0">
                                             <form id="myServices" action="{{ route('center.settings.services') }}" method="POST">
@@ -1024,51 +409,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card custom-help-contain">
                         <div class="card-header">
                             <a class="collapsed card-link" data-toggle="collapse" href="#my_social_media">
-                            My social media
+                                Our Social Media
                             </a>
                         </div>
                         <div id="my_social_media" class="collapse" data-parent="#accordion">
-                            <div class="card-body pb-0">
-                                {{-- <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab">
-                                    <form id="socials_link" action="{{ route('center.settings.social') }}" method="POST" enctype="multipart/form-data" novalidate="">
-                                        <div class="about_me_heading_in_first_tab fill_profile_headings_global">
-                                            <h2>Social Links</h2>
-                                        </div>
-                                        <div class="padding_20_all_side pb-0">
-                                            <div class="row">
-                                                <div class="col-lg-6">
-                                                    <div class="form-group row align-items-center">
-                                                        <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><i class="fab fa-facebook-f"></i></span></label>
-                                                        <div class="col-sm-7 col-lg-7 col-md-7 col-10">
-                                                            <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Facebook" name="social_links[facebook]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row align-items-center">
-                                                        <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><i class="fab fa-instagram"></i></span></label>
-                                                        <div class="col-sm-7 col-lg-7 col-md-7 col-10">
-                                                            <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Instagram" name="social_links[insta]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="form-group row align-items-center">
-                                                        <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons">
-                                                            <div class="custom-x-link"> <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo"> </div></span></label>
-                                                        <div class="col-sm-7 col-lg-7 col-md-7 col-10">
-                                                            <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Twitter" name="social_links[twitter]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12 text-right"><button type="submit" class="save_profile_btn" id="escort-form-submit-btn">Save Social</button></div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div> --}}
+                            <div class="card-body pb-0">                                
                                 @include('center.my-account.partials.social-media-dash-tab')
                             </div>
                         </div>
@@ -1356,7 +704,7 @@
         $("#show_language").show();
         $(".select_lang").hide();
         var selectedLanguage = $(this).children("option:selected", this).data("name");
-        $("#show_language").append("  <div class='selecated_languages' style='display: inline-block'><span class='languages_choosed_from_drop_down'>"+ selectedLanguage +" </span> </div> ");
+        $("#show_language").append("  <div class='selecated_languages' style='display: inline-block'><span class='languages_choosed_from_drop_down'>"+ selectedLanguage +" <small class='remove-lang'>×</small></span> </div> ");
         $("#container_language").append("<input type='hidden' name='language[]' value="+ languageValue +">");
         $("#language option[value='"+languageValue+"']").remove();
     });
@@ -1948,4 +1296,16 @@
     //    $("#container_payment").append("<input type='hidden' name='payment_type[]' value="+ payment_typeValue +">");
    });
 </script>
+
+
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '.remove-lang , span.custom--help', function () {
+            $(this).closest('.selecated_languages').remove();            
+            $(this).closest('.custom-help-contain').toggleClass('help-note-toggle');
+        });
+	});
+</script>
+
+
 @endpush

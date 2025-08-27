@@ -1,10 +1,23 @@
 <div class="tab-pane fade" id="available" role="tabpanel" aria-labelledby="contact-tab">
     <div class="about_me_drop_down_info ">
-        {{-- 
-        <div class="fill_profile_headings_global">
-            <h2>My Availability</h2>
+        <div class="fill_profile_headings_global col-md-12 p-0  custom--social-head">
+            <h2>Our Open Times</h2>
+            <span class="custom--help"><b>Help?</b></span>
         </div>
-        --}}
+        <div class="custom-note-section">
+            <div class="card" style="">
+                <div class="card-body">
+                <h3 class="NotesHeader"><b>Notes:</b> </h3> 
+                    <ol class=" mb-0">
+                        <li>By completing these settings, the information set out under our Open Times will by
+                            default appear in your Profile creator.</li>
+                                        <li>Leave the time blank if you are unavailable. Select ‘By Appointment’ as an alternative to a particular time period.</li>
+                                        <li>You can over ride these
+                                            settings when creating a Profile, provided you have enabled the <a href="{{ route('centre.notifications-and-features') }}" class="custom_links_design">feature</a>.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
         <div class="padding_20_all_side pb-0 my-availability-mon">
             <form class="my-availability-mon-sun" id="myability" action="{{ route('center.settings.availability')}}" method="Post">
                 @csrf
@@ -19,9 +32,11 @@
                                     <div class="col-3">
                                         <div class="service_rate_dolor_symbol form-group" @disabled(true)>
                                             <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_from" id="mon_hh_from" data-parsley-gt="#mon_hh_to">
-                                                <option value="" selected>HH</option>
+                                                <option value="" selected>HM</option>
                                                 @for($i=1; $i
-                                                <=12;$i++) <option vlaue="{{ $i }}" {{($i== $massage_profile->availabilityFromHour('monday')) ? "selected" : ''}}>{{sprintf("%02d", $i)}}</option>@endfor
+                                                <=12;$i++) 
+                                                <option vlaue="{{ $i }}" {{($i== $massage_profile->availabilityFromHour('monday')) ? "selected" : ''}}>{{sprintf("%02d", $i)}}</option>
+                                                @endfor
                                             </select>
                                             <span>:</span>
                                             <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="mon_mm_from" name="mon_mm_from">
@@ -36,7 +51,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-0 pr-3">
+                                    <div class="col-1 pr-3">
                                         <span>to</span>
                                     </div>
                                     <div class="col-3 p-0">
@@ -59,19 +74,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-1 pl-2">
+                                    <div class="col-4 pl-2">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input monday" type="radio" name="availability_time[monday]" id="monday" value="closed" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['monday'])) {{ $massage_profile->availability->availability_time['monday'] == 'closed' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">Closed</label>
                                         </div>
-                                        {{-- <div class="form-check form-check-inline">
+                                        <div class="form-check form-check-inline">
                                             <input class="form-check-input monday" type="radio" name="availability_time[monday]" id="monday" value="By Appointment"  data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['monday'])) {{ $massage_profile->availability->availability_time['monday'] == 'By Appointment' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">By Appointment</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input monday" type="radio" name="availability_time[monday]" id="monday" value="Available 24 hours" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['monday']))  {{ $massage_profile->availability->availability_time['monday'] == 'Available 24 hours' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                     <div class="col-1">
                                         <div class="resetdays-icon">
@@ -110,7 +125,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-0 pr-3">
+                                    <div class="col-1 pr-3">
                                         <span>to</span>
                                     </div>
                                     <div class="col-3 p-0">
@@ -133,19 +148,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-1 pl-2">
+                                    <div class="col-4 pl-2">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input tuesday" type="radio" name="availability_time[tuesday]" id="tuesday" value="closed" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['tuesday']))  {{ $massage_profile->availability->availability_time['tuesday'] == 'closed' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">closed</label>
                                         </div>
-                                        {{-- <div class="form-check form-check-inline">
+                                        <div class="form-check form-check-inline">
                                             <input class="form-check-input tuesday" type="radio" name="availability_time[tuesday]" id="tuesday" value="By Appointment" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['tuesday']))  {{ $massage_profile->availability->availability_time['tuesday'] == 'By Appointment' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">By Appointment</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input tuesday" type="radio" name="availability_time[tuesday]" id="tuesday" value="Available 24 hours" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['tuesday']))  {{ $massage_profile->availability->availability_time['tuesday'] == 'Available 24 hours' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                     <div class="col-1">
                                         <div class="resetdays-icon">
@@ -184,7 +199,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-0 pr-3">
+                                    <div class="col-1 pr-3">
                                         <span>to</span>
                                     </div>
                                     <div class="col-3 p-0">
@@ -207,19 +222,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-1 pl-2">
+                                    <div class="col-4 pl-2">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input wednesday" type="radio" name="availability_time[wednesday]" id="wednesday" value="closed" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['wednesday'])) {{ $massage_profile->availability->availability_time['wednesday'] == 'closed' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">Closed</label>
                                         </div>
-                                        {{-- <div class="form-check form-check-inline">
+                                        <div class="form-check form-check-inline">
                                             <input class="form-check-input wednesday" type="radio" name="availability_time[wednesday]" id="wednesday" value="By Appointment" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['wednesday'])) {{ $massage_profile->availability->availability_time['wednesday'] == 'By Appointment' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">By Appointment</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input wednesday" type="radio" name="availability_time[wednesday]" id="wednesday" value="Available 24 hours" data-parsley-multiple="covidreport"  @if(!empty($massage_profile->availability->availability_time['wednesday'])) {{ $massage_profile->availability->availability_time['wednesday'] == 'Available 24 hours' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                     <div class="col-1">
                                         <div class="resetdays-icon">
@@ -258,7 +273,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-0 pr-3">
+                                    <div class="col-1 pr-3">
                                         <span>to</span>
                                     </div>
                                     <div class="col-3 p-0">
@@ -281,19 +296,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-1 pl-2">
+                                    <div class="col-4 pl-2">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input thursday" type="radio" name="availability_time[thursday]" id="thursday" value="closed" data-parsley-multiple="covidreport"  @if(!empty($massage_profile->availability->availability_time['thursday'])) {{ $massage_profile->availability->availability_time['thursday'] == 'closed' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">Closed</label>
                                         </div>
-                                        {{-- <div class="form-check form-check-inline">
+                                        <div class="form-check form-check-inline">
                                             <input class="form-check-input thursday" type="radio" name="availability_time[thursday]" id="thursday" value="By Appointment" data-parsley-multiple="covidreport"  @if(!empty($massage_profile->availability->availability_time['thursday'])) {{ $massage_profile->availability->availability_time['thursday'] == 'By Appointment' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">By Appointment</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input thursday" type="radio" name="availability_time[thursday]" id="thursday" value="Available 24 hours" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['thursday'])) {{ $massage_profile->availability->availability_time['thursday'] == 'Available 24 hours' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                     <div class="col-1">
                                         <div class="resetdays-icon">
@@ -332,7 +347,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-0 pr-3">
+                                    <div class="col-1 pr-3">
                                         <span>to</span>
                                     </div>
                                     <div class="col-3 p-0">
@@ -356,19 +371,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-1 pl-2">
+                                    <div class="col-4 pl-2">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input friday" type="radio" name="availability_time[friday]" id="friday" value="closed" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['friday'])) {{ $massage_profile->availability->availability_time['friday'] == 'closed' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">Closed</label>
                                         </div>
-                                        {{-- <div class="form-check form-check-inline">
+                                        <div class="form-check form-check-inline">
                                             <input class="form-check-input friday" type="radio" name="availability_time[friday]" id="friday" value="By Appointment" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['friday'])) {{ $massage_profile->availability->availability_time['friday'] == 'By Appointment' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">By Appointment</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input friday" type="radio" name="availability_time[friday]" id="friday" value="Available 24 hours" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['friday'])) {{ $massage_profile->availability->availability_time['friday'] == 'Available 24 hours' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                     <div class="col-1">
                                         <div class="resetdays-icon">
@@ -407,7 +422,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-0 pr-3">
+                                    <div class="col-1 pr-3">
                                         <span>to</span>
                                     </div>
                                     <div class="col-3 p-0">
@@ -430,19 +445,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-1 pl-2">
+                                    <div class="col-4 pl-2">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input saturday" type="radio" name="availability_time[saturday]" id="saturday" value="closed" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['saturday'])) {{ $massage_profile->availability->availability_time['saturday'] == 'closed' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">Closed</label>
                                         </div>
-                                        {{-- <div class="form-check form-check-inline">
+                                        <div class="form-check form-check-inline">
                                             <input class="form-check-input saturday" type="radio" name="availability_time[saturday]" id="saturday" value="By Appointment" data-parsley-multiple="covidreport"@if(!empty($massage_profile->availability->availability_time['saturday'])) {{ $massage_profile->availability->availability_time['saturday'] == 'By Appointment' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">By Appointment</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input saturday" type="radio" name="availability_time[saturday]" id="saturday" value="Available 24 hours" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['saturday'])) {{ $massage_profile->availability->availability_time['saturday'] == 'Available 24 hours' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                     <div class="col-1">
                                         <div class="resetdays-icon">
@@ -481,7 +496,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-0 pr-3">
+                                    <div class="col-1 pr-3">
                                         <span>to</span>
                                     </div>
                                     <div class="col-3 p-0">
@@ -504,19 +519,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-1 pl-2">
+                                    <div class="col-4 pl-2">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input sunday" type="radio" name="availability_time[sunday]" id="sunday" value="closed" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['sunday'])) {{ $massage_profile->availability->availability_time['sunday'] == 'closed' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">Closed</label>
                                         </div>
-                                        {{-- <div class="form-check form-check-inline">
+                                        <div class="form-check form-check-inline">
                                             <input class="form-check-input sunday" type="radio" name="availability_time[sunday]" id="sunday" value="By Appointment" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['sunday'])) {{ $massage_profile->availability->availability_time['sunday'] == 'By Appointment' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">By Appointment</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input sunday" type="radio" name="availability_time[sunday]" id="sunday" value="Available 24 hours" data-parsley-multiple="covidreport" @if(!empty($massage_profile->availability->availability_time['sunday'])) {{ $massage_profile->availability->availability_time['sunday'] == 'Available 24 hours' ? 'checked' : ''}} @endif>
                                             <label class="form-check-label" for="inlineRadio1">Available 24 hours</label>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                     <div class="col-1">
                                         <div class="resetdays-icon">
