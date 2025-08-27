@@ -105,8 +105,6 @@ $(document).on('change', 'input[name="end_date[]"]', function() {
 });
 
 var validateSelectedDateRange = function(object, requestPayload){
-    return false;
-    
     $.ajax({
         url: '/escort-dashboard/listing/validate-date-range',
         method: 'POST',

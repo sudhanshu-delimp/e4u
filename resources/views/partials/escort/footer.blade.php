@@ -144,10 +144,7 @@ function int_datePicker(ele) {
                 const longitude = position.coords.longitude;
                 selectedLocation.lat = latitude;
                 selectedLocation.lng = longitude;
-
-                console.log(longitude, latitude, ' jiten')
                 sendLocationData(selectedLocation);
-                
             });
 
             function sendLocationData(data) {
@@ -159,24 +156,18 @@ function int_datePicker(ele) {
                         data: data
                     },
                     success: function (response) {
-                        console.log(response, ' res');
-                        
-                        if(response.status){
-                            if($(".js_geo_location_profiles").length > 0){
-                                console.log(response);
+                        if(response.status){ 
+                            if($(".js_geo_location_profiles").length > 0){ /** Only display user's current location profiles in the create new listing page. */
                                 getGeoLocationProfiles(response.data.state);
                             }
-                            //$("#"+data.location).attr('checked', true);
-                            // data.home_state
+                            if($(".js_profile_current_location").length > 0){
+                                $("select[name='state_id']").val(response.data.state).trigger("change");
+                            }
                             $(".live_current_time").text(response.data.current_time);
                             $(".live_current_location").text(response.data.current_location);
                             $(".resident_home_state").text(response.data.home_state);
-
                             selectedLocation.timezone = response.data.timezone;
-
-                            //window.location.href = response.location;
                         }
-                        console.log('Location filter updated:', response);
                     },
                     error: function (xhr, status, error) {
                         console.error('Error in location filter:', error);

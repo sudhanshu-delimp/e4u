@@ -147,8 +147,7 @@
                                         <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="This is the Location you want the Profile to be saved to, like Western Australia, Victoria etc. Make sure the Profile Name matches up." data-boundary="window">
                                     </label>
                                     <div class="col-sm-6">
-                                        <select class="form-control form-control-sm select_tag_remove_box_sadow change_default" id="state_id" name="state_id" required="required" data-parsley-required-message="-select location-" data-parsley-group="group_one" data-parsley-errors-container="#locationState-errors">
-                                            {{-- <required data-parsley-required-message="-select city-" data-parsley-group="group_one"> --}}
+                                        <select class="form-control form-control-sm select_tag_remove_box_sadow change_default {{$routeIsNewprofile?'js_profile_current_location':''}}" id="state_id" name="state_id" required="required" data-parsley-required-message="-select location-" data-parsley-group="group_one" data-parsley-errors-container="#locationState-errors">
                                             <option value="" selected="">-- Select States--</option>
                                             @foreach(config('escorts.profile.states') as $key => $state)
                                                 <option style="font-weight: 500;" value="{{$key}}"
