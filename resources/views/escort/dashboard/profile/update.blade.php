@@ -528,7 +528,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(data) {
-                            console.log(data);
+                            
                             if (!data.error) {
                                 Swal.fire('Updated', '', 'success');
                                 $('#aboutMeBtn').prop('disabled', false);
@@ -573,7 +573,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        console.log(data);
+                       
                         if (!data.error) {
                             Swal.fire('Updated', '', 'success');
                             $('#update_who_am_i').prop('disabled', false);
@@ -606,7 +606,7 @@
                     $('#my_abilities').html('<div class="spinner-border"></div>');
                     var url = form.attr('action');
                     var data = new FormData($('#myability')[0]);
-                    console.log(data);
+                    
 
                     $.ajax({
                         method: form.attr('method'),
@@ -692,7 +692,7 @@
                     $('#mediaProfileBtn').html('<div class="spinner-border"></div>');
                     var url = form.attr('action');
                     var data = new FormData($('#myProfileMediaForm')[0]);
-                    console.log(data);
+                    
 
                     $.ajax({
                         method: form.attr('method'),
@@ -1045,7 +1045,7 @@
 
             for (const input of allInputs) {
             const val = parseFloat(input.value);
-            console.log(val);
+            
             if (!isNaN(val) && val > 0) {
                 isValid = true;
                 break;
@@ -1113,7 +1113,7 @@
             const editorId = 'editor1';
             // Check if CKEditor instance exists
             if (CKEDITOR.instances[editorId]) {
-                console.log("CKEditor instance found, updating...");
+                
                 CKEDITOR.instances[editorId].updateElement(); // Push content to textarea
             } else {
                 console.warn("CKEditor instance NOT found for #editor1");
@@ -1121,7 +1121,7 @@
 
             // Debug: Show the updated textarea value
             const content = document.getElementById(editorId).value.trim();
-            console.log('Textarea value after update:', content);
+            
             showManualRequiredError(editorId);
             return (!content) ? false : true;
         }
@@ -1166,14 +1166,7 @@
                 } break;
                 case 'contact-tab': {
                      let existRates = checkRates();
-                     //let existService = checkServicePrice();
                      let editMode = '{{$editMode}}';
-                    //  if (!existService && !editMode) {
-                    //     Swal.fire('My Services',
-                    //         'You must complete all selected service value to proceed.',
-                    //         'warning');
-                    //     return false;
-                    // }
                     if (!existRates && !editMode) {
                         Swal.fire('Rates',
                             'You must complete at least one rate value to proceed.',
@@ -1257,7 +1250,7 @@
                         var day_key = $(this).attr('day_key_from');
                         var dayFrom = $("#" + day_key + "from").val();
                         var dayFromTime = $("#" + day_key + "fromtime").val();
-                        //console.log(day_key, dayFrom, dayFromTime);
+                        
                         if (dayFrom != "" && dayFromTime != "") {
                             Current = dayFrom + " " + dayFromTime;
                             $('#current').val(Current);
@@ -1475,7 +1468,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                    console.log(data);
+                    
                     if (data.error == true) {
 
                         $("#img9").attr('src', data.path[9]['path']);
@@ -1542,7 +1535,7 @@
                 const nextGroup = tabGroupMap[tabId];        // e.g. 'group_one'
                 const $target   = $(e.target)
 
-                console.log("e target id: ", e.target.id);
+                
                 
                 if (!nextGroup) {
                     allowTabChange = true;
@@ -1803,28 +1796,7 @@
             config.removeButtons =
                 'Underline,Subscript,Superscript,PasteText,PasteFromWord,Scayt,Anchor,Unlink,Image,Table,HorizontalRule,SpecialChar,Maximize,About,RemoveFormat,Strike';
         };
-        let editor = CKEDITOR.replace(textarea);
-        // editor.on('instanceReady', function() {
-        //     $.each(CKEDITOR.instances, function(instance) {
-        //         CKEDITOR.instances[instance].on("change", function(e) {
-        //             var desc = CKEDITOR.instances['editor1'].getData();
-        //             for (instance in CKEDITOR.instances) {
-        //                 CKEDITOR.instances[instance].updateElement();
-
-        //                 let validateee = $('#my_escort_profile').parsley().validate({
-        //                     group: 'ckeditor'
-        //                 });
-        //                 if (validateee != true) {
-        //                     $(".who_am_i").attr('id', "who_am_i");
-        //                 }
-        //                 if (validateee == true) {
-        //                     $(".who_am_i").attr('id', "update_who_am_i");
-        //                 }
-        //             }
-        //         });
-        //     });
-        // });
-        
+        let editor = CKEDITOR.replace(textarea); 
         let deleteKey = 46;
         let backspaceKey = 8;
         let leftArrowKey = 37;
