@@ -5,20 +5,20 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
 
- <style>
+<style>
     .toggle-password {
-    position: absolute;
-    top: 28px;
-    right: 15px;
-    cursor: pointer;
-    z-index: 2;
-    color: #6c757d;
-}
-form.v-form-design label {
-    font-weight: 400;
-}
- </style>
-   </style>
+        position: absolute;
+        top: 28px;
+        right: 15px;
+        cursor: pointer;
+        z-index: 2;
+        color: #6c757d;
+    }
+
+    form.v-form-design label {
+        font-weight: 400;
+    }
+</style>
 @endsection
 @section('content')
 <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5 change-pass-sec">
@@ -43,6 +43,10 @@ form.v-form-design label {
                     </ol>
                 </div>
             </div>
+
+            <div class="col-md-12">
+                <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
+            </div>
             <div class="col-md-12">
                 <form class="v-form-design" id="userProfile" action="{{ route('escort.update.password') }}" method="POST">
                     <div class="row">
@@ -61,7 +65,7 @@ form.v-form-design label {
                                         <small class="form-text text-muted">Case sensitive</small>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="form-group position-relative">
                                         <label for="new_password">New password</label>
@@ -77,7 +81,7 @@ form.v-form-design label {
                                         <small class="form-text text-muted">MUST be a minimum of eight (8) characters long</small>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="form-group position-relative">
                                         <label for="confirm_password">Confirm password</label>
@@ -95,8 +99,8 @@ form.v-form-design label {
                             </div>
                         </div>
                     </div>
-                </div>
-                <input type="submit" value="Save Password" class="save_profile_btn mb-4 mt-3" name="submit">
+            </div>
+            <input type="submit" value="Save Password" class="save_profile_btn mb-4 mt-3" name="submit">
             </form>
             <form class="v-form-design" id="passwordExpiry" action="{{ route('escort.update.password.expiry') }}"
                 method="POST">
@@ -164,14 +168,14 @@ form.v-form-design label {
 
 
 
-    <!-- file upload plugin end here -->
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-    
+<!-- file upload plugin end here -->
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+
 <script>
-   document.querySelectorAll('.toggle-password').forEach(function (el) {
-        el.addEventListener('click', function () {
+    document.querySelectorAll('.toggle-password').forEach(function(el) {
+        el.addEventListener('click', function() {
             var selector = this.getAttribute('toggle');
             var input = document.querySelector(selector);
             if (!input) {
@@ -190,10 +194,9 @@ form.v-form-design label {
             }
         });
     });
-
-  </script>
-    <script type="text/javascript">
-        $('#userProfile').parsley({
+</script>
+<script type="text/javascript">
+    $('#userProfile').parsley({
 
     });
 
@@ -235,7 +238,7 @@ form.v-form-design label {
                         $('#formerror').html('');
                     } else {
                         const msg = data.message ? data.message : 'Invalid current Password';
-                        showGlobalAlert(msg, 'dangar');
+                        showGlobalAlert(msg, 'danger');
 
                     }
                 },
@@ -418,11 +421,11 @@ form.v-form-design label {
     //     }
     // });
 
-        // $('#comman_modal').on('hidden.bs.modal', function() {
-        //     $("#modal-title").text('');
-        // });
-    </script>
+    // $('#comman_modal').on('hidden.bs.modal', function() {
+    //     $("#modal-title").text('');
+    // });
+</script>
 
-    
-    
+
+
 @endpush

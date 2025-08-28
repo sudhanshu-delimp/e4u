@@ -5155,13 +5155,17 @@ i.fa.fa-heart-o{
         border-color: #0C223D;
     }
     
+    .page-item.disabled .page-link {
+        color: #cfcbcb !important;
+    }
+    
     .page-sec .page-item.active .page-link {
         background-color: #0C223D;
         border-color: #0C223D;
     }
     
     .page-sec .page-link {
-        color: #0C223D;
+        color: #fff;
         border: 1px solid #0C223D;
     }
     

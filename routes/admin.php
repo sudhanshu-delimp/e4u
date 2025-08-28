@@ -160,4 +160,5 @@ Route::get('management/manage-suppliers',function(){
 })->name('admin.manage-suppliers');
 
 Route::get('/management/agent',[AgentController::class,'agent_list'])->name('admin.agent');
+Route::post('/suspend-agent',[AgentController::class,'suspend_agent'])->name('admin.suspend-agent');
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');

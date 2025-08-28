@@ -80,6 +80,18 @@ class User extends Authenticatable
         return false;
     }
 
+    public function getStatusAttribute($value)
+    {
+        $map = [
+            '1' => 'Active',
+            '2' => 'Pending',
+            '3' => 'Suspended',
+            '4' => 'Blocked',
+        ];
+
+        return $map[$value] ?? 'Unknown';
+    }
+
     public function findRole($role)
     {
         switch ($role) {
@@ -406,6 +418,11 @@ class User extends Authenticatable
     public function state()
     {
         return $this->belongsTo('App\Models\State','state_id');
+    }
+
+    public function currentState()
+    {
+        return $this->belongsTo('App\Models\State','current_state_id');
     }
 
     public function pages()

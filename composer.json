@@ -7,7 +7,7 @@
     "require": {
         "php": "^8.2",
         "danielme85/laravel-log-to-db": "^3.0",
-        "doctrine/dbal": "2.*",
+        "doctrine/dbal": "^3.6",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "ipinfo/ipinfolaravel": "^2.2",

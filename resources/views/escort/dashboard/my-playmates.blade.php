@@ -37,8 +37,8 @@
           
             <!-- My Playmates -->
             <div class="col-md-12 mb-4">
-                <div class="table-responsive">
-                  <table class="table table-bordered">
+                <div class="table-responsive-xl">
+                  <table class="table table-bordered" id="playmateListTable" style="border: none;">
                     <thead style="background-color: #0C223D; color: #ffffff;">
                       <tr>
                         <th class="text-left">Playmates</th>
@@ -48,88 +48,60 @@
                         <th class="text-center">Action</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                <div class="playmate-avatar">
-                                    <img
-                                    src="{{ asset('assets/app/img/ellipse-1.png') }}"
-                                    class="img-fluid rounded-circle"
-                                    alt=" ">
-                                </div>
-                            </div>
-                        </td>
-                        <td>Western Australia</td>
-                        <td class="text-center">E60123</td>
-                        <td class="text-center">3</td>
+                    <tbody style="border: 1px solid #ddd;">
+                        @php
+                            $allTotalPlaymates = 0;
+                        @endphp
+                        @foreach($usersWithPlaymates as $key => $userPlayemate)
                         
-                        <td class="theme-color text-center bg-white">
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button"
-                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i
-                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink" style="">
-                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                        data-target="#listPlaymateModal"> <i class="fa fa-list"></i> List</a>
-                                    
-                                        <div class="dropdown-divider"></div>
-                                        
-                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                    data-target="#removePlaymateModal"> <i class="fa fa-trash"></i> Remove</a>
-                                </div>
-                            </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div class="d-flex align-items-center">
-                               
-                                <div class="playmate-avatar">
-                                    <img
-                                    src="{{ asset('assets/app/img/ellipse-5.png') }}"
-                                    class="img-fluid rounded-circle"
-                                    alt=" ">
-                                </div>
-                            </div>
-                        </td>
-                        <td>Queensland</td>
-                        <td class="text-center">E40123</td>
-                        <td class="text-center">2</td>
-                        
-                        <td class="theme-color text-center bg-white">
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button"
-                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i
-                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                    data-target="#listPlaymateModal"> <i class="fa fa-list"></i> List</a>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="playmate-avatar">
+                                            <img
+                                            src="{{ asset('assets/app/img/' . ($userPlayemate['user']->avatar_img ?? 'ellipse-5.png')) }}"
+                                            class="img-fluid rounded-circle"
+                                            alt=" ">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>{{$userPlayemate['user']->state->name}}</td>
+                                <td class="text-center">{{$userPlayemate['user']->member_id }}</td>
+                                <td class="text-center">{{count($userPlayemate['playmates']) }}</td>
                                 
-                                    <div class="dropdown-divider"></div>
-                                    
-                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                data-target="#removePlaymateModal"> <i class="fa fa-trash"></i> Remove</a>
-                                </div>
-                            </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="border:none;" colspan="2"></td>
-                        <td class="text-right" style="font-weight: bold;">Total:</td>
-                        <td style="text-align: center; font-weight: bold;">5</td>
-                        <td style="border:none;"></td>
-                    </tr>
+                                <td class="theme-color text-center bg-white">
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button"
+                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i
+                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink" style="">
+                                                <a class="listPlaymateModal dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-user-name="{{Str::title($userPlayemate['user']->name ?? 'NA')}}" data-member-ids="{{$userPlayemate['user']->member_id}}" data-user-id="{{$userPlayemate['user']->id}}" data-escort-ids='{{json_encode($userPlayemate['playmates'])}}'> <i class="fa fa-list"></i> List</a>
+                                            
+                                                <div class="dropdown-divider"></div>
+                                                
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
+                                            data-target="#removePlaymateModal"> <i class="fa fa-trash"></i> Remove</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            @php
+                                $allTotalPlaymates += count($userPlayemate['playmates']);
+                            @endphp
+                      @endforeach
                     
                     </tbody>
+                    <tfoot style="" >
+                        <tr>
+                            <td style="border-bottom: none;" colspan="2"></td>
+                            <td class="" style="font-weight: bold;">Total:</td>
+                            <td class="totalPlaymatesCount" style="font-weight: bold; border: 1px solid #ddd;">{{$allTotalPlaymates}}</td>
+                        </tr>
+                    </tfoot>
                   </table>
                 </div>
               </div>
@@ -143,7 +115,7 @@
         <!-- Modal Header -->
         <div class="modal-header">
             <h5 class="modal-title" id="removePlaymateModalLabel">
-                <a href="{{route('home')}}"><img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates.png') }}" style="width:45px; padding-right:10px;"><span class="text-white">Bunny</span></a>
+                <a href="{{route('home')}}"><img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates.png') }}" style="width:45px; padding-right:10px;"><span class="text-white user_name">Bunny</span></a>
                 
              </h5>
           
@@ -156,7 +128,7 @@
   
         <!-- Modal Body with Static Table -->
         <div class="modal-body">
-          <table class="table table-bordered table-striped text-center">
+          <table class="table table-bordered table-striped text-center" >
             <thead style="background-color: #0C223D; color: #ffffff;">
               <tr>
                 <th class="text-left">Select</th>
@@ -166,8 +138,8 @@
                 <th>Action</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
+            <tbody class="user_playmates_data">
+              {{-- <tr>
                 <td><input type="checkbox"></td>
                 <td>[P001]</td>
                 <td>Perth01</td>
@@ -192,66 +164,14 @@
                                 </div>
                     </div>
                 </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox"></td>
-                <td>[P002]</td>
-                <td>Perth02</td>
-                <td>E40123</td>
-                <td class="theme-color text-center bg-white">
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button"
-                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <i
-                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                    data-target="#listPlaymateModal"> <i class="fa fa-list"></i> List</a>
-                                
-                                    <div class="dropdown-divider"></div>
-                                    
-                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                data-target="#removePlaymateModal"> <i class="fa fa-trash"></i> Remove</a>
-                                </div>
-                    </div>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox"></td>
-                <td>[P003]</td>
-                <td>Perth03</td>
-                <td>E30123</td>
-                <td class="theme-color text-center bg-white">
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button"
-                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <i
-                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                    data-target="#listPlaymateModal"> <i class="fa fa-list"></i> List</a>
-                                
-                                    <div class="dropdown-divider"></div>
-                                    
-                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal"
-                                data-target="#removePlaymateModal"> <i class="fa fa-trash"></i> Remove</a>
-                                </div>
-                    </div>
-                </td>
-              </tr>
+              </tr> --}}
             </tbody>
           </table>
         </div>
   
         <!-- Modal Footer -->
         <div class="modal-footer justify-content-end">
-          <button type="button" class="btn-success-modal">Remove</button>
+          <button type="button" class="btn-success-modal removeMultipleEscort">Remove</button>
         </div>
       </div>
     </div>
@@ -265,6 +185,8 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                <div class="modal-content basic-modal">
                   <div class="modal-header">
+                    <input type="hidden" class="playmate_user_id"  value="">
+                    <input type="hidden" class="playmate_escort_ids" value="">
                      <h5 class="modal-title" id="removePlaymateModalLabel">
                         <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates.png') }}" class="custompopicon"> Remove this Playmate?
                      </h5>
@@ -275,16 +197,63 @@
                      </button>
                   </div>
                   <div class="modal-body text-center">
-                     <p class="mb-0"> Are you sure you want to remove this Playmate?
-                       </p>
+                     <h4 class=" body_text mb-0"> Are you sure you want to remove this Playmate?
+                     </h4>
                   </div>
                   <div class="modal-footer pr-3 mx-auto">
                      <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
-                     <button type="submit" class="btn-success-modal">Confirm Remove</button>
+                     <button type="submit" class="btn-success-modal confirm_remove_btn">Confirm Remove</button>
                   </div>
                </div>
             </div>
          </div>
+          <!-- Remove success playmates Modal -->
+
+          <div class="modal fade upload-modal child_popup_remove_single_playmate_profile_css" id="removePlaymateSuccessModal" tabindex="-1" role="dialog" aria-labelledby="removePlaymateModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+               <div class="modal-content basic-modal">
+                  <div class="modal-header">
+                    <input type="hidden" class="playmate_user_id"  value="">
+                    <input type="hidden" class="playmate_escort_ids" value="">
+                     <h5 class="modal-title" id="removePlaymateModalLabel">
+                        <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates.png') }}" class="custompopicon"> Playmate Removed
+                     </h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                           <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                        </span>
+                     </button>
+                  </div>
+                  <div class="modal-body text-center">
+                     <h4 class=" body_text mb-0"> Playmates removed successfully.
+                     </h4>
+                  </div>
+                  <div class="modal-footer pr-3 mx-auto text-center">
+                     <button type="button" class="btn-cancel-modal" data-dismiss="modal">OK</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+        <!-- View escort Listing Modal -->
+        <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
+                <div class="modal-content basic-modal modal-lg">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="emailReport">Playmate Profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="escortPopupModalBody">
+                        <iframe src="" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- end -->
 @endsection
 @section('style')
     <style>
@@ -306,265 +275,165 @@
         .page-item:hover .page-link {
             color: white;
         }
+        .child_popup_remove_single_playmate_profile_css{
+            background: rgba(0, 0, 0, 0.35)
+        }
+        .upload-modal h4 {
+            color: #000;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 27px;
+        }
     </style>
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script>
-        $(document).ready(function() {
-
-            $(".showDateLabel").hide();
-            // Reusable click event
-            $('.create-tour-sec').on('click', function(e) {
-                e.preventDefault();
-                $(".showDateLabel").hide();
-
-                let buttonId = $(this).attr('id');
-                let taskName = $(this).text();
-
-                console.log('hell', buttonId);
-                console.log('hellsd', taskName);
-
-
-                if (buttonId == 'new_task') {
-                    $('#task_title').text(taskName);
-                    newTask();
-                } else if (buttonId == 'edit_task') {
-                    $('#task_title').text(taskName);
-                    editTask();
-                } else if (buttonId == 'view_task') {
-                    $('#task_title').text(taskName);
-                    viewTask();
-                } else if (buttonId == 'complete_task') {
-                    $('#task_title').text(taskName);
-                    completeTask();
-                } else if (buttonId == 'open_task') {
-                    $('#task_title').text(taskName);
-                    let formData = $('#task_form').serialize(); // serialize form data
-                    let actionUrl = '{{route("dashboard.ajax-open-task")}}';
-                    callAjax(formData, actionUrl);
-                    openTask();
-                } else {
-
+        // for update row of tables inside the modal
+        var removeGlobalEscortIds = {
+            'user_id' : '',
+            'escort_ids' : '',
+        };
+        var playmateListTable = $('#playmateListTable').DataTable({
+            responsive: false,
+            language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Member ID...",
+                lengthMenu: "Show _MENU_ entries",
+                zeroRecords: "No matching records found",
+                info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                infoEmpty: "No entries available",
+                infoFiltered: "(filtered from _MAX_ total entries)"
+            },
+            paging: true,
+            searchable: true,
+            serverSide: true,
+            searching: false,
+            ajax: {
+                url: "{{ route('escort.get.user-playmates-by-ajax') }}",
+                dataSrc: function(json) {
+                        $(".totalPlaymatesCount").text(json.totalPlaymatesCount);
+                        return json.data; // MUST return the data array for DataTables
+                    },
+                data: function(data) {
                 }
+            },
+            columns: [
+                { data: 'playmate', name: 'playmate'},                         // 0
+                { data: 'current_location', name: 'current_location'},                         // 0
+                { data: 'member_id', name: 'member_id' },  
+                { data: 'profile', name: 'profile' },                     // 9
+                { data: 'action', name: 'action', orderable: false, searchable: false } // 10
+            ]
+        });
 
-                // Show modal
-                $('#taskModal').modal('show');
-            });
+        $(document).on('click', '.listPlaymateModal', function() {
+            $('#listPlaymateModal').modal('show');
+            var userId = $(this).attr('data-user-id');
+            var escortIds = $(this).attr('data-escort-ids');
+            var memberId = $(this).attr('data-member-ids');
+            var userName = $(this).attr('data-user-name');
+            $('.user_name').text(userName);
 
-            $('#save_button').on('click', function(e) {
-                e.preventDefault(); // prevent the default form submission
+            let data = {
+                escort_ids: escortIds,
+            };
 
-                let formData = $('#task_form').serialize(); // serialize form data
-                let actionUrl = $('#task_form').attr('action');  // let actionUrl = "{{ route('dashboard.ajax-add-task')}}";
-
-                console.log(formData, actionUrl, ' jitemn');
-
-                callAjax(formData, actionUrl);
-                
-            });
+            fetchPlaymatesDataByAjax(data);
 
         });
 
-        $(document).on('click', '.toggle-task-form', function() {
-            $(this).next('.task-form-body').slideToggle();
-            $(this).toggleClass('open');
+        $(document).on('click', '.removePlaymateParentClass', function() {
+            $('#removePlaymateModal').modal('show');
+            var userId = $(this).attr('data-user-id');
+            var escortIds = $(this).attr('data-escort-ids');
 
-            console.log('Toggle clicked');
+            $('.playmate_user_id').val(userId);
+            $('.playmate_escort_ids').val(escortIds);
 
-            if ($(this).hasClass('open')) {
-                $(this).find('i').removeClass('top-icon-bg fas fa-chevron-down fa-fw');
-                $(this).find('i').addClass('top-icon-bg fas fa-chevron-up fa-fw');
-                console.log('Toggle open');
-            } else {
-                $(this).find('i').removeClass('top-icon-bg fas fa-chevron-up fa-fw');
-                $(this).find('i').addClass('top-icon-bg fas fa-chevron-down fa-fw');
-                console.log('Toggle close');
-            }
         });
 
-        function newTask() {
-            let addNewTaskHtml = `
-                <div class="mx-auto my-2 col-md-11">
-                    <div class="form-group ">
-                        <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
-                        <input id="title" placeholder="Enter Title..." name="title" type="text"
-                            class="form-control" required>
-                        @error('title')
-                            <div class="text-danger text-sm">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="form-group pt-2 pb-3" data-i="">
-                        <label for="exampleFormControlTextarea1"><b>Importance</b><span class="text-danger">*</span>
-                        </label><br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio1" value="high">
-                            <label class="form-check-label" for="inlineRadio1">High</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio2" checked value="medium">
-                            <label class="form-check-label"  for="inlineRadio2">Medium</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio3" value="low">
-                            <label class="form-check-label" for="inlineRadio3">Low</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1"><b>Task Description</b>
-                        </label>
-                        <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="5"
-                            placeholder="Up to 300 character"></textarea>
-                    </div>
-                    
-                </div>
-            `;
+        $(document).on('click', '.child_popup_remove_single_playmate_profile', function() {
+            $('#removePlaymateModal').modal('show');
+            $('#removePlaymateModal').addClass('child_popup_remove_single_playmate_profile_css');
+            var userId = $(this).attr('data-user-id');
+            var escortIds = JSON.stringify([$(this).attr('data-escort-id')]);
 
-            let addUrl = "{{ route('dashboard.ajax-add-task')}}";
-            $('#task_form').attr('action',addUrl); 
+            removeGlobalEscortIds.user_id = userId;
+            removeGlobalEscortIds.escort_ids = [$(this).attr('data-escort-id')];
 
-            $("#task_form_html").html(addNewTaskHtml);
-            $("#save_button").show();
-            $("#save_button").text('Add');
-            $("#cancel_button").text('Cancel');
-            $(".showDateLabel").show();
-           
-            console.log('hey new task');
-        }
+            $('.playmate_user_id').val(userId);
+            $('.playmate_escort_ids').val(escortIds);
+        });
 
-        function editTask() 
-        {
+        $(document).on('click', '.removeMultipleEscort', function() {
+            
 
-            let completeHtml =
-                `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
-            var checkboxInputs = $(".task_table input[type='checkbox']:checked");
+            let escortIds = [];
 
-            if (checkboxInputs.length === 0) {
-                $("#task_form_html").html(completeHtml);
-                $("#save_button").hide();
-                $("#cancel_button").text('Cancel');
+            $('.user_playmates_data tr').each(function () {
+                let isChecked = $(this).find('input[type="checkbox"]').is(':checked');
+                if (isChecked) {
+                    let escortId = $(this).find('.child_popup_remove_single_playmate_profile').data('escort-id');
+                    if (escortId) {
+                        escortIds.push(escortId);
+                    }
+                }
+            });
+
+            if(escortIds.length === 0){
+                alert('Please select at least one playmate to remove.');
                 return false;
             }
 
-            console.log(checkboxInputs);
-            console.log('checkboxInputs');
+            $('#removePlaymateModal').modal('show');
+            $('#removePlaymateModal').addClass('child_popup_remove_single_playmate_profile_css');
 
-            let selectedTask = 1;
-            let editNewTaskHtml = ``;
-            for (selectedTask; selectedTask <= checkboxInputs.length; selectedTask++) {
-                editNewTaskHtml += `
-                    <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
-                        <div class=" col-md-12 card shadow-sm border-0 rounded-3">
-                            <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10" style="background:#C2CFE0; ">
-                                <h6 class="mb-0 text-dark">Task Summary</h6> <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>                            
-                            </div>
-                            <div class="task-form-body p-2" style="display: none;">
-                                <!-- Your original form HTML -->
-                                <div class="form-group">
-                                    <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
-                                    <input id="title" placeholder="Enter Title..." name="title" type="text" class="form-control" required>
-                                </div>
+            var userId = "{{auth()->user() ? auth()->user()->id : ''}}";
+            removeGlobalEscortIds.escort_ids = escortIds;
+            removeGlobalEscortIds.user_id = userId;
 
-                                <div class="pt-2 pb-3">
-                                    <label><b>Importance</b><span class="text-danger">*</span></label><br>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio1" value="high">
-                                        <label class="form-check-label" for="inlineRadio1">High</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio2" value="medium" checked>
-                                        <label class="form-check-label" for="inlineRadio2">Medium</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio3" value="low">
-                                        <label class="form-check-label" for="inlineRadio3">Low</label>
-                                    </div>
-                                </div>
+            jsonEscortIds = JSON.stringify(escortIds);
 
-                                <div class="form-group">
-                                    <label for="status"><b>Status</b><span class="text-danger">*</span></label>
-                                    <select class="custom-select" name="status" id="status">
-                                        <option value="open">Open</option>
-                                        <option value="inprogress">In Progress</option>
-                                        <option value="completed">Completed</option>
-                                    </select>
-                                </div>
+            $('.playmate_user_id').val(userId);
+            $('.playmate_escort_ids').val(jsonEscortIds);
 
-                                <div class="form-group">
-                                    <label for="exampleFormControlTextarea1"><b>Description</b></label>
-                                    <textarea class="form-control" name="description" rows="5" placeholder="Up to 300 characters"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                `;
-            }
+            let data = {
+                user_id: userId,
+                escort_ids: jsonEscortIds,
+            };
+            
+        });
 
-            $("#task_form_html").html(editNewTaskHtml);
+        $(document).on('click', '.confirm_remove_btn', function() {
+            var userId = $('.playmate_user_id').val();
+            var escortIds = $('.playmate_escort_ids').val();
 
-            // $editTaskData = fetchAjaxEditData(formData);
+            let data = {
+                user_id: userId,
+                escort_ids: escortIds,
+            };
 
-            // let editNewTaskHtml = `
-            //     <div class="mx-auto my-2 col-md-11">
-            //         <div class="form-group ">
-            //             <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
-            //             <input id="title" placeholder="Enter Title..." name="title" type="text"
-            //                 class="form-control" required>
-            //             @error('title')
-            //                 <div class="text-danger text-sm">{{ $message }}</div>
-            //             @enderror
-            //         </div>
-            //         <div class="pt-2 pb-3" data-i="">
-            //             <label for="exampleFormControlTextarea1"><b>Importance</b><span class="text-danger">*</span>
-            //             </label><br>
-            //             <div class="form-check form-check-inline">
-            //                 <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio1" value="high">
-            //                 <label class="form-check-label" for="inlineRadio1">High</label>
-            //             </div>
-            //             <div class="form-check form-check-inline">
-            //                 <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio2" checked value="medium">
-            //                 <label class="form-check-label"  for="inlineRadio2">Medium</label>
-            //             </div>
-            //             <div class="form-check form-check-inline">
-            //                 <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio3" value="low">
-            //                 <label class="form-check-label" for="inlineRadio3">Low</label>
-            //             </div>
-            //         </div>
-            //         <div class="form-group ">
-            //             <label for="status"><b>Status</b><span class="text-danger">*</span> </label>
-            //             <select class="custom-select" aria-label="Default select example" name="" id="">
-            //                 <option value="open" >Open</option>
-            //                 <option value="inprogress">In Progress</option>
-            //                 <option value="completed">Completed</option>
-            //             </select>
-            //             @error('title')
-            //                 <div class="text-danger text-sm">{{ $message }}</div>
-            //             @enderror
-            //         </div>
-            //         <div class="form-group">
-            //             <label for="exampleFormControlTextarea1"><b>Description</b>
-            //             </label>
-            //             <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="5"
-            //                 placeholder="Up to 300 character"></textarea>
-            //         </div>
-            //     </div>
-            // `;
+            removePlaymatesByAjax(data);
 
-            let updateUrl = "{{ route('dashboard.ajax-update-task')}}";
-            $('#task_form').attr('action',updateUrl); 
+        });
 
-            $("#task_form_html").html(editNewTaskHtml);
-            $("#save_button").show();
-            $("#save_button").text('Update');
-            $("#cancel_button").text('Cancel');
-            $(".showDateLabel").show();
-        }
+        $(document).on('click', '.view_escort_profile ', function(e) {
+            var escortId = $(this).attr('data-escort-id');
+            console.log(escortId, 'escortId');
+            var url = '{{ route("profile.description", ":id") }}'.replace(':id', escortId)
 
-        function fetchAllTaskData()
+            setTimeout(() => {
+                $("#escortPopupModalBodyIframe").attr('src', url);
+                $('#view-listing').modal('show');
+            }, 200);
+            
+
+        });
+
+        function fetchPlaymatesDataByAjax(formData)
         {
-            let fetchUrl = "{{ route('dashboard.ajax-fetch-task')}}";
-            var formData = new from();
+            let fetchUrl = "{{ route('escort.get.my-playmates-by-ajax')}}";
              $.ajax({
                 url: fetchUrl, // form action URL
                 type: 'POST',
@@ -573,9 +442,41 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
                 },
                 success: function(response) {
+                    console.log(response);
                     // handle success
-                    alert('Task marked as completed successfully.');
-                    // Optionally close modal or reset form
+                    var html = '';
+                    if(response.data.length > 0){
+                        response.data.forEach(function(escort){
+                            html += `
+                            <tr class="remove_single_playmate_profile_`+escort.id+`">
+                                <td><input type="checkbox" name="" value=""></td>
+                                <td>`+escort.id+`</td>
+                                <td>`+escort.name+`</td>
+                                <td>`+escort.user.member_id+`</td>
+                                <td class="theme-color text-center bg-white">
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button"
+                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i
+                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="view_playmate_profile dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                    aria-labelledby="dropdownMenuLink" style="">
+                                                    <a class="view_escort_profile dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-escort-id="`+escort.id+`" > <i class="fa fa-eye"></i> View</a>
+                                                
+                                                    <div class="dropdown-divider"></div>
+                                                    
+                                                <a class="child_popup_remove_single_playmate_profile dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-escort-id="`+escort.id+`" data-user-id="`+{{auth()->user() ? auth()->user()->id : ''}}+`"> <i class="fa fa-trash"></i> Remove</a>
+                                                </div>
+                                    </div>
+                                </td>
+                            </tr>`;
+                        });
+                    }
+
+                    $('.user_playmates_data').html(html);
+                    
                 },
                 error: function(xhr) {
                     // handle error
@@ -584,9 +485,9 @@
             });
         }
 
-        function fetchAjaxEditData(formData)
+        function removePlaymatesByAjax(formData)
         {
-            let editUrl = "{{ route('dashboard.ajax-edit-task')}}";
+            let actionUrl = "{{ route('escort.remove.my-playmates-by-ajax')}}";
 
              $.ajax({
                 url: actionUrl, // form action URL
@@ -596,9 +497,20 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
                 },
                 success: function(response) {
-                    // handle success
-                    alert('Task marked as completed successfully.');
-                    // Optionally close modal or reset form
+                    if(response.success){
+                        $('#removePlaymateModal').modal('hide');
+                        $('#removePlaymateSuccessModal').modal('show');
+                        playmateListTable.ajax.reload();
+
+                        let data = removeGlobalEscortIds;
+                        console.log(data, 'removeGlobalEscortIds');
+                        if (data.escort_ids != '' && data.escort_ids.length > 0) {
+                            data.escort_ids.forEach(element => {
+                                console.log(element, 'element');
+                                $('.remove_single_playmate_profile_' + element).remove();
+                            });
+                        }
+                    }
                 },
                 error: function(xhr) {
                     // handle error
@@ -607,320 +519,6 @@
             });
         }
 
-        function completeTask() {
-            let completeHtml =
-                `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
-            var checkboxInputs = $(".task_table input[type='checkbox']:checked");
-
-            if (checkboxInputs.length === 0) {
-                $("#task_form_html").html(completeHtml);
-                $("#save_button").hide();
-                $("#cancel_button").text('Cancel');
-                return false;
-            }
-
-            let selectedTask = 1;
-            let completedTaskIds = [];
-
-            for (selectedTask; selectedTask <= checkboxInputs.length; selectedTask++) {
-                let taskId = $(this).data('id');
-                if (taskId) {
-                    completedTaskIds.push(taskId);
-                }
-            }
-
-            let formData = new FormData();
-            formData.append('task_ids', JSON.stringify(completedTaskIds)); //
-
-            completeHtml =
-                `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc">Are you sure you want to mark all selected tasks as completed?</h4></div>`;
-
-            $("#task_form_html").html(completeHtml);
-            $("#save_button").text('Yes');
-            $("#save_button").show();
-            $("#cancel_button").text('Cancel');
-            let actionStatusUrl = "{{route('dashboard.ajax-change-status')}}";
-            //callAjax(formData, actionStatusUrl);
-
-
-            // let formData = new FormData();
-            // formData.append('task_ids', JSON.stringify(completedTaskIds)); //
-
-            // completeHtml =
-            //     `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc">Are you sure you want to mark all selected tasks as completed?</h4></div>`;
-
-            // $("#task_form_html").html(completeHtml);
-            // let actionUrl = "{{route('dashboard.ajax-change-status')}}";
-            // $("#save_button").text('Yes');
-            // $("#save_button").show();
-            // $("#cancel_button").text('Cancel');
-
-            // callAjax(formData, actionUrl);
-        }
-
-        function viewTask() {
-            let completeHtml =
-                `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc" class="text-danger">Please select at least one task!</h4></div>`;
-            var checkboxInputs = $(".task_table input[type='checkbox']:checked");
-
-            if (checkboxInputs.length === 0) {
-                $("#task_form_html").html(completeHtml);
-                $("#save_button").hide();
-                $("#cancel_button").text('Cancel');
-                return false; 
-            }
-
-            console.log(checkboxInputs.length, ' jite');
-            let selectedTask = 1;
-            let viewTaskHtml = ``;
-            for (selectedTask; selectedTask <= checkboxInputs.length; selectedTask++) {
-                viewTaskHtml += `
-                    <div class="task-form-wrapper mx-auto my-2 col-md-11" style="cursor:pointer;">
-                        <div class=" col-md-12 card shadow-sm border-0 rounded-3">
-                            <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10" style="background:#C2CFE0; ">
-                                <h6 class="mb-0 text-dark">Task Summary</h6> <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>                            
-                            </div>
-                            <div class="task-form-body p-2" style="display: none;">
-                                <!-- Your original form HTML -->
-                                <div class="form-group">
-                                    <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
-                                    <input id="title" placeholder="Enter Title..." name="title" type="text" class="form-control" required>
-                                </div>
-
-                                <div class="pt-2 pb-3">
-                                    <label><b>Importance</b><span class="text-danger">*</span></label><br>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio1" value="high">
-                                        <label class="form-check-label" for="inlineRadio1">High</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio2" value="medium" checked>
-                                        <label class="form-check-label" for="inlineRadio2">Medium</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority" id="inlineRadio3" value="low">
-                                        <label class="form-check-label" for="inlineRadio3">Low</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="status"><b>Status</b><span class="text-danger">*</span></label>
-                                    <select class="custom-select" name="status" id="status">
-                                        <option value="open">Open</option>
-                                        <option value="inprogress">In Progress</option>
-                                        <option value="completed">Completed</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="exampleFormControlTextarea1"><b>Description</b></label>
-                                    <textarea class="form-control" name="description" rows="5" placeholder="Up to 300 characters"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit"
-                                        class="edit_button btn btn-success shadow-none float-right ml-2 border-0" >Edit</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                `;
-            }
-
-            $("#task_form_html").html(viewTaskHtml);
-            //$("#save_button").text('Yes');
-            $("#save_button").hide();
-            $("#cancel_button").text('Cancel');
-        }
-
-        function openTask(openData) {
-
-            let openHtml = `<div class="col-md-11 mx-auto my-3">
-                <div class="card shadow-sm border-0 rounded-3">
-                    <div class="card-header text-white" style="background:#C2CFE0;">
-                        <h5 class="mb-0 text-dark" >Task Summary</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                            <strong>Open Tasks:</strong>
-                            <span class="badge text-light bg-warning fs-6 p-1 totalOpenTask" >20</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                            <strong>In Progress Tasks:</strong>
-                            <span class="badge bg-primary text-light fs-6 p-1 totalInprogressTask" >30</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center py-2">
-                            <strong>Completed Tasks:</strong>
-                            <span class="badge bg-success text-light fs-6 p-1 totalCompletedTask" >20</span>
-                        </div>
-                    </div>
-                </div>
-            </div>`;
-
-            $("#task_form_html").html(openHtml);
-            //$("#save_button").text('Yes');
-            $("#save_button").hide();
-            $("#cancel_button").text('Cancel');
-        }
-
-        function callAjax(formData, actionUrl) {
-            $.ajax({
-                url: actionUrl, // form action URL
-                type: 'POST',
-                data: formData,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
-                },
-                success: function(response) {
-                    console.log(response);
-                    // console.log('response');
-
-                    if(response.task_name == 'open'){
-                        $('.totalOpenTask').text(response.data.open);
-                        $('.totalInprogressTask').text(response.data.inprogress);
-                        $('.totalCompletedTask').text(response.data.completed);
-                        return true;
-                    }
-
-                    if(response.task_name == 'add_task'){
-                        loadTasks(1);
-                        $('#taskModal').modal('hide');
-                        return true;
-                    }
-
-                    //alert('Task marked as completed successfully.');
-                    // Optionally close modal or reset form
-                },
-                error: function(xhr) {
-                    // handle error
-                    alert('Something went wrong. Please try again.');
-                }
-            });
-        }
-
-        // $(document).ready(function () {
-            loadTasks(1);
-
-            // handle pagination click
-            $(document).on('click', '.page-link', function (e) {
-                e.preventDefault();
-                let page = $(this).data('page');
-                loadTasks(page);
-            });
-
-            function loadTasks(page = 1) {
-               let baseUrl = "{{ route('dashboard.ajax-fetch-task') }}"+'?page='+page;
-                 $.ajax({
-                    url: baseUrl, // form action URL
-                    type: 'GET',
-                    contentType: 'application/json',
-                    headers: {
-                        'Accept': 'application/json',
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
-                    },
-                    success: function(response) {
-                        console.log(response, response.data)
-                        console.log('response, response.data.data')
-                        
-                        renderTasks(response.data.data); 
-                        renderPagination(response.data);  
-                    },
-                    error: function(xhr) {
-                        // handle error
-                        //alert('Something went wrong. Please try again.');
-                    }
-                });
-            }
-
-            function renderTasks(tasks) {
-               
-                let html = '';
-                var taskBadgeColor = '#9d1d08 ';
-                var priorityColor = 'text-high';
-
-                $.each(tasks, function (index, task) {
-
-                    if(task.status == 'inprogress'){
-                        taskBadgeColor = '#4e73df ';
-                    }
-
-                    if(task.status == 'completed'){
-                        taskBadgeColor = '#1cc88a';
-                    }
-
-                    
-                    if(task.priority == 'medium'){
-                        priorityColor = 'text-medium';
-                    }
-                    if(task.priority === 'low'){
-                        priorityColor = 'text-low';
-                    }
-                    let checkboxId = 'task_checkbox_' + task.id;
-                    let taskId = task.id;
-
-                    html += `<tr>
-                        <td class="border-0 pl-0 pr-0">
-                            <div class="form-check m-0 p-0">
-                                <label class="form-check-label" for="`+checkboxId+`">
-                                    <input class="form-check-input" name="task_ids" data-id="`+taskId+`" id="`+checkboxId+`" type="checkbox" value="">
-                                    <span class="form-check-sign"></span>
-                                </label>
-                            </div>
-                        </td>
-                        <td class="border-0 pl-0 task-color">
-                            <label for="`+checkboxId+`" class="mb-0 cursor-pointer">
-                            <i
-                                class="fas fa-circle `+priorityColor+` taski mr-2"></i>`+task.title+`
-                            </label></td>
-                        <td class="td-actions text-left border-0 ">
-                            <span class="badge badge-danger-lighten task-1" style="background: `+taskBadgeColor+`; padding:5px 10px; max-width:120px; width:100%;">`+task.status+`</span>
-                        </td>
-                        <td class="theme-color  pr-0 bg-white" style="border: none;">
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button"
-                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i
-                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink" style="">
-                                    <a class="dropdown-item" href="#" data-toggle="modal"
-                                        data-target="#new-ban">Delete</a>
-                                    
-                                </div>
-                            </div>
-                        </td>
-                    </tr>`;
-                });
-                
-                $('#taskList').html(html);
-            }
-
-            function renderPagination(data) {
-                let pagination = `<nav><ul class="pagination">`;
-
-                if (data.current_page > 1) {
-                    pagination += `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page - 1}"><i class="fa fa-angle-left"></i></a></li>`;
-                }else{
-                    pagination += `<li class="page-item page-link"><i class="fa fa-angle-left"></i></li>`;
-                }
-
-                for (let i = 1; i <= data.last_page; i++) {
-                    pagination += `<li class="page-item ${i === data.current_page ? 'active' : ''}">
-                        <a href="#" class="page-link" data-page="${i}">${i}</a>
-                    </li>`;
-                }
-
-                if (data.current_page < data.last_page) {
-                    pagination += `<li class="page-item"><a href="#" class="page-link" data-page="${data.current_page + 1}"><i class="fa fa-angle-right"></i></a></li>`;
-                }else{
-                    pagination += `<li class="page-item page-link"><i class="fa fa-angle-right"></i></li>`;
-                }
-
-                pagination += `</ul></nav>`;
-                $('.custome_paginator').html(pagination);
-            }
-        // });
+     
     </script>
 @endsection
