@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 
 use Laravel\Ui\Presets\React;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Repositories\Agent\AgentInterface;
 
-class AgentController extends Controller
+class AgentController extends BaseController
 {
     protected $current_date_time;
      protected $agentRepo;
@@ -136,27 +137,21 @@ class AgentController extends Controller
             $user = User::where('id',$request->id)->first();
             if($user->status && $user->status=='Suspended')
             {
-                return response()->json(['success' => true,'message'=>'This Account Already Suspended']);
-                exit;
+                return $this->successResponse('This Account Already Suspended'); 
             }
             
-
             $user->status = '3';
             $response = $user->save();
 
             if($response)
-            {
-                return response()->json(['success' => true,'message'=>'Account Suspended Successfully']);
-            }    
-            
+            return $this->successResponse('Account Suspended Successfully'); 
             else
-            {
-                return response()->json(['success' => false,'message'=>'Error Occurred while Account Suspending']); 
-            }
+            return $this->successResponse('Error Occurred while Account Suspending');
         }
         else
         {
-            return response()->json(['success' => false,'message'=>'Unknown Input Found']);  
+            return $this->successResponse('Unknown Input Found');
+             
         }
          
     }
@@ -166,17 +161,12 @@ class AgentController extends Controller
     {
         $data = $request->all();
         $errors = $this->agentRepo->check_agent_email($data);
-      
-        if (!empty($errors)) {
-            return response()->json([
-                'status' => false,
-                'errors' => $errors
-            ], 422);
-        }
-        return response()->json([
-            'status' => true,
-            'message' => 'Email(s) are available.'
-        ]);
+
+        if (!empty($errors)) 
+        return $this->validationError('Email Validation',$errors);
+        else
+        return $this->successResponse('Email(s) are available');
+        
     }
 
 
@@ -185,9 +175,12 @@ class AgentController extends Controller
     {
 
         $data = $request->all();
-        exit;
-        $this->agentRepo->updateAgent($data);
-        return response()->json(['message' => 'Agent updated successfully']);
+        $resposne = $this->agentRepo->updateAgent($data);
+        if($resposne['status'])
+        return $this->successResponse($resposne['message']);
+        else
+        return $this->validationError($resposne['message']);
+
     }
 
     

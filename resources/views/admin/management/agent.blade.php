@@ -613,13 +613,14 @@
 
                    <div class="col-12 my-2">
                     <h6 class=" pb-1 text-blue-primary">Agreement File</h6>
-                    <input type="file">
+                    <input type="file" name="agreement_file" id="agreement_file">
+                     <div id="file_preview" class="mt-2"></div>
                   </div>
 
                </div>
                <div class="modal-footer p-0 pl-2 pb-4">
                   <input type="hidden" name="user_id" value="${(rowData.id ? rowData.id : '')}" >
-                  <button type="submit" class="btn-success-modal mr-2">Update</button>
+                  <button type="submit" class="btn-success-modal mr-2 mt-3">Update</button>
                </div>
             </form>
          </div>
@@ -660,14 +661,16 @@
                     contentType: false,
                     processData: false, 
                     success: function(response) {
+                        table.ajax.reload(null, false); 
                         Swal.close();
                         $('#viewAgentdetails').modal('hide');
                         swal_success_popup('Agent details updated successfully.');
                     },
                     error: function(xhr) {
+                       
                         Swal.close();
                         $('#viewAgentdetails').modal('hide');
-                        swal_error_popup('Something went wrong while updating.');
+                        swal_error_popup(xhr.responseJSON.message);
                     }
                 });
             }
@@ -686,6 +689,28 @@
          }
      });
     });
+
+
+   // $(document).on('change', '#agreement_file', function(e) {
+   //  const file = e.target.files[0];
+   //  const preview = $('#file_preview');
+   //  preview.html(''); 
+   //  if (!file) return;
+   //  const fileType = file.type;
+
+   //  if (fileType.startsWith('image/')) {
+   //      const reader = new FileReader();
+   //      reader.onload = function(e) {
+   //          preview.append('<img src="' + e.target.result + '" style="max-width:200px; max-height:200px;" />');
+   //      };
+   //      reader.readAsDataURL(file);
+   //  } else if (fileType === 'application/pdf') {
+   //      const fileURL = URL.createObjectURL(file);
+   //      preview.append('<iframe src="' + fileURL + '" style="width:100%; height:400px;" frameborder="0"></iframe>');
+   //  } else {
+   //      preview.append('<p>File selected: ' + file.name + '</p>');
+   //  }
+   // });
 
     ////////// End Submit Form ////////////////////////
 
