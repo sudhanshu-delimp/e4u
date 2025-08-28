@@ -748,7 +748,7 @@ class EscortController extends Controller
                 $response['message'] = "Profiles are available.";
             }
             else{
-                $response['message'] = "You need to create at least one Profile for the Location`.";
+                $response['message'] = "You need to create at least one Profile for the Location.";
             }
             return response()->json($response);
         } catch (Exception $e) {
