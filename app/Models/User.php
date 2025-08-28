@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\AgentDetail;
+use App\Models\AgentBankDetail;
+use App\Models\PasswordSecurity;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use App\Models\PasswordSecurity;
-use App\Models\AgentBankDetail;
 
 class User extends Authenticatable
 {
@@ -483,5 +484,11 @@ class User extends Authenticatable
         }
     }
     
+
+    public function agent_detail()
+    {
+      return $this->belongsTo(AgentDetail::class,  'id','agent_id');  
+    }
+
 
 }

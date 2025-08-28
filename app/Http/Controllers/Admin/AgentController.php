@@ -7,13 +7,17 @@ use Illuminate\Http\Request;
 
 use Laravel\Ui\Presets\React;
 use App\Http\Controllers\Controller;
+use App\Repositories\Agent\AgentInterface;
 
 class AgentController extends Controller
 {
     protected $current_date_time;
-    public function __construct()
+     protected $agentRepo;
+
+    public function __construct(AgentInterface $agentRepo)
     {
         $this->current_date_time = date('Y-m-d H:i:s');
+        $this->agentRepo = $agentRepo;
     }
 
 
@@ -48,7 +52,9 @@ class AgentController extends Controller
 
     public function agent_data_pagination($start, $limit, $order_key, $dir)
     {
-        $agent = User::with('state')->where('type','5');
+        $agent = User::with('state','agent_detail')->where('type','5');
+
+      
         
         $search = request()->input('search.value');
 
@@ -81,6 +87,11 @@ class AgentController extends Controller
 
         $total_agents = $agent->count();
         $agents = $agent->offset($start)->limit($limit)->get();
+
+
+         
+
+
         $i = 1;
                 //dd($agents);
         foreach($agents as $key => $item) {
@@ -149,5 +160,64 @@ class AgentController extends Controller
         }
          
     }
+
+
+    public function check_agent_email(Request $request)
+    {
+        $request->validate([
+            'email'  => 'nullable|email',
+            'email2' => 'nullable|email',
+        ]);
+
+        $errors = [];
+       
+        if (!empty($request->email)) {
+            $existsEmail = User::where('email', $request->email)
+                            ->where('id', '!=', $request->user_id)
+                            ->exists();
+
+            if ($existsEmail) {
+                $errors['email'] = ['This email is already taken.'];
+            }
+        }
+
+       
+        if (!empty($request->email2)) {
+            $existsEmail2 = User::where('email2', $request->email2)
+                            ->where('id', '!=', $request->user_id)
+                            ->exists();
+
+            if ($existsEmail2) {
+                $errors['email2'] = ['This email is already taken.'];
+            }
+        }
+
+       
+        if (!empty($errors)) {
+            return response()->json([
+                'status' => false,
+                'errors' => $errors
+            ], 422);
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Email(s) are available.'
+        ]);
+    }
+
+
+
+    public function update_agent(Request $request)
+    {
+
+        $data = $request->all();
+        exit;
+        $this->agentRepo->updateAgent($data);
+        return response()->json(['message' => 'Agent updated successfully']);
+    }
+
+    
+
     
 }

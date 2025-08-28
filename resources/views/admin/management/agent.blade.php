@@ -417,7 +417,7 @@
       let avatar_base = "{{ asset('avatars') }}/";
       if (rowData.avatar_img !== "" && rowData.avatar_img !== null) 
       user_img = avatar_base + rowData.avatar_img;
-   
+      
 
       var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
                            <div class="modal-content">
@@ -497,7 +497,8 @@
       }
 
      const selectedValues = Array.isArray(viewerContactType) ? viewerContactType.map(String) : [];
-
+     const agent_details = (rowData.agent_detail && Object.keys(rowData.agent_detail).length > 0) ? rowData.agent_detail : null; 
+     
       let viewer_contact_type_1 = false;
       let viewer_contact_type_2 = false;
       let viewer_contact_type_3 = false;
@@ -529,36 +530,38 @@
             </button>
          </div>
          <div class="modal-body">
-            <form>
+            <form name="update_agent" method="POST" action="{{ route('admin.update-agent') }}" enctype="multipart/form-data">
                <div class="row">
                   <div class="col-12 my-2">
                      <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
                   </div>
 
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Business Name" value="${(rowData.business_name ? rowData.business_name : '')}">
+                     <input type="text" class="form-control rounded-0" placeholder="Business Name" name="business_name" id="business_name" value="${(rowData.business_name ? rowData.business_name : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="ABN" value="${(rowData.abn ? rowData.abn : '')}">
+                     <input type="text" class="form-control rounded-0" placeholder="ABN" name="abn" id="abn" value="${(rowData.abn ? rowData.abn : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Business Address" value="${(rowData.business_address ? rowData.business_address : '')}">
+                     <input type="text" class="form-control rounded-0" placeholder="Business Address" name="business_address" id="business_address" value="${(rowData.business_address ? rowData.business_address : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Business Number" value="${(rowData.business_number ? rowData.business_number : '')}">
+                     <input type="text" class="form-control rounded-0" placeholder="Business Number" name="business_number" id="business_number" value="${(rowData.business_number ? rowData.business_number : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Point of Contact" value="${(rowData.contact_person ? rowData.contact_person : '')}">
+                     <input type="text" class="form-control rounded-0" placeholder="Point of Contact" name="contact_person" id="contact_person" value="${(rowData.contact_person ? rowData.contact_person : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Mobile" value="${(rowData.	phone ? rowData.	phone : '')}">
+                     <input type="text" class="form-control rounded-0" placeholder="Mobile" name="phone" id="phone" value="${(rowData.	phone ? rowData.	phone : '')}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="email" class="form-control rounded-0" placeholder="Private Email" value="${(rowData.email ? rowData.email : '')}">
-                  </div>
+                     <input type="email" class="form-control rounded-0" placeholder="Private Email"  name="email" id="email" value="${(rowData.email ? rowData.email : '')}">
+                     <span class="text-danger error-email"></span>
+                     </div>
                   <div class="col-6 mb-3">
-                     <input type="email" class="form-control rounded-0" placeholder="E4U Email" value="${(rowData.email2 ? rowData.	email2 : '')}">
-                  </div>
+                     <input type="email" class="form-control rounded-0" placeholder="E4U Email" name="email2" id="email2" value="${(rowData.email2 ? rowData.	email2 : '')}">
+                       <span class="text-danger error-email2"></span>
+                     </div>
                   <div class="col-6 mb-3">
                      <select class="form-control rounded-0" name="state_id" id="state_id">${optionsHtml}</select>
                   </div>
@@ -585,20 +588,16 @@
                      <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="date" class="form-control rounded-0" value="2023-12-01">
+                     <input type="date" class="form-control rounded-0"  name="agreement_date" id="agreement_date" value="${agent_details?.agreement_date ??  ''}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Term" value="12 Months">
+                     <input type="text" class="form-control rounded-0" placeholder="Term"  name="term" id="term" value="${agent_details?. term ?? ''}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="text" class="form-control rounded-0" placeholder="Option Period" value="6 Months">
+                     <input type="text" class="form-control rounded-0" placeholder="Option Period"  name="option_peroid" id="option_peroid" value="${agent_details?. option_peroid ?? ''}">
                   </div>
                   <div class="col-6 mb-3">
-                     <select class="form-control rounded-0">
-                        <option>Option Exercised?</option>
-                        <option selected>Yes</option>
-                        <option>No</option>
-                     </select>
+                      <input type="text" class="form-control rounded-0" placeholder="Option Exercised"  name="option_exercised" id="option_exercised" value="${agent_details ?. option_exercised ?? ''}">
                   </div>
 
                   <!-- Commission -->
@@ -606,30 +605,89 @@
                      <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="number" step="0.01" class="form-control rounded-0" placeholder="Advertising Commission %" value="10.50">
+                     <input class="form-control rounded-0" placeholder="Advertising Commission %" name="commission_advertising_percent" id="commission_advertising_percent" value="${agent_details ?. commission_advertising_percent ?? ''}">
                   </div>
                   <div class="col-6 mb-3">
-                     <input type="number" step="0.01" class="form-control rounded-0" placeholder="Massage Centre Commission %" value="15.00">
+                     <input  class="form-control rounded-0" placeholder="Massage Centre Commission %" name="commission_registration_amount" id="commission_registration_amount" value="${agent_details ?. commission_registration_amount ?? ''}">
                   </div>
+
+                   <div class="col-12 my-2">
+                    <h6 class=" pb-1 text-blue-primary">Agreement File</h6>
+                    <input type="file">
+                  </div>
+
                </div>
-            <div class="modal-footer p-0 pl-2 pb-4">
-               <button type="submit" class="btn-success-modal mr-2">Update</button>
-            </div>
+               <div class="modal-footer p-0 pl-2 pb-4">
+                  <input type="hidden" name="user_id" value="${(rowData.id ? rowData.id : '')}" >
+                  <button type="submit" class="btn-success-modal mr-2">Update</button>
+               </div>
             </form>
          </div>
       </div>
    </div>`;
 
-
-     
-    
-     
       $('#viewAgentdetails').html(modal_html);
-      $('#viewAgentdetails').modal('show');          
+      $('#viewAgentdetails').modal({backdrop: 'static',  keyboard: false});          
 
     });
 
 
+    ///////// Submit For //////////////////////////////
+
+   $(document).on('submit', 'form[name="update_agent"]', function(e) {
+    e.preventDefault(); 
+
+    let form = $(this);
+    let formData = new FormData(this);
+
+    $('.error-email2').text('');
+    $('.error-email').text('');
+
+    swal_waiting_popup({'title':'Validating email..'});
+    $.ajax({
+        url: "{{ route('admin.check-agent-email') }}", 
+        method: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function(res) {
+            if (res.status) {
+                swal_waiting_popup({'title':'Updating agent details..'});
+                $.ajax({
+                    url: "{{ route('admin.update-agent') }}",
+                    method: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false, 
+                    success: function(response) {
+                        Swal.close();
+                        $('#viewAgentdetails').modal('hide');
+                        swal_success_popup('Agent details updated successfully.');
+                    },
+                    error: function(xhr) {
+                        Swal.close();
+                        $('#viewAgentdetails').modal('hide');
+                        swal_error_popup('Something went wrong while updating.');
+                    }
+                });
+            }
+        },
+         error: function(xhr) {
+            Swal.close();
+            if (xhr.status === 422) {
+               let errors = xhr.responseJSON.errors;
+               if (errors.email) {
+                     $('.error-email').text(errors.email[0]);
+               }
+               if (errors.email2) {
+                     $('.error-email2').text(errors.email2[0]);
+               }
+            }
+         }
+     });
+    });
+
+    ////////// End Submit Form ////////////////////////
 
    });
 
@@ -677,6 +735,25 @@
    //    });
    // });
 
-   
+
+   // swal_waiting_popup({'title':'Updating agent details..'});
+
+//   let gif_img = `<p>Processing your request...</p><img src="http://e4u.local/assets/img/wait_loader.gif" alt="loading..." style="width:80px; margin-top:10px;">`;
+//     let my_html  = (data.title) ? '<p>'+data.title+'</p>'+gif_img  :  '<p>Processing your request...</p>'+gif_img;
+
+//         Swal.fire({
+//         title: 'Please wait...',
+//         html: my_html,
+//        showConfirmButton: false,
+//          allowOutsideClick: false
+//         });
+
+
+// Swal.fire({
+//   title: 'Please wait...',
+//   html: gif_img,
+//   showConfirmButton: false,
+//   allowOutsideClick: false
+// });
 </script>
 @endpush

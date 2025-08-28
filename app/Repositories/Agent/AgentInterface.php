@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Repositories\Agent;
+
+use App\Repositories\BaseRepositoryInterface;
+
+interface AgentInterface extends BaseRepositoryInterface
+{
+    public function updateAgent(array $data);
+}
