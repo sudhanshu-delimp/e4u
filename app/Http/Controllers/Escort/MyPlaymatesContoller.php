@@ -41,7 +41,7 @@ class MyPlaymatesContoller extends Controller
 
             $playmates = Auth::user()
             ->playmates()
-            ->with('user','user.state') // eager load user relation
+            ->with('user','user.state','user.currentState') // eager load user relation
             ->get()
             ->groupBy('user_id');
 
@@ -66,10 +66,10 @@ class MyPlaymatesContoller extends Controller
                 ->addColumn('playmate', function ($row) {
 
                     $avatar = $row['user']->avatar_img ?? null;
-                    $path   = public_path('avatars/' . $avatar);
+                    $path   = public_path('assets/app/img/' . $avatar);
 
                     if ($avatar && file_exists($path)) {
-                        $img = asset('avatars/' . $avatar);
+                        $img = asset('assets/app/img/' . $avatar);
                     } else {
                         $img = asset('assets/app/img/service-provider/Frame-408.png'); // default image
                     }
@@ -83,7 +83,10 @@ class MyPlaymatesContoller extends Controller
                     //return $row['user'] ? $row->messageViewerLegbox->user_id : '-';
                 })
                 ->addColumn('current_location', function($row){
-                    return $row['user']->state->name ?? '-';
+
+                    $currentState = ($row['user']->currentState && $row['user']->currentState->name) ? $row['user']->currentState->name : ($row['user']->state->name ?? '-');
+
+                    return $currentState;
                 })
                 ->addColumn('member_id', function ($row){
                     return $row['user']->member_id ?? '-';

@@ -420,6 +420,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\State','state_id');
     }
 
+    public function currentState()
+    {
+        return $this->belongsTo('App\Models\State','current_state_id');
+    }
+
     public function pages()
     {
         return $this->hasMany('App\Models\Page', 'user_id');
