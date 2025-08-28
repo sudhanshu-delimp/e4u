@@ -19,7 +19,6 @@
         font-weight: 400;
     }
 </style>
-</style>
 @endsection
 @section('content')
 <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5 change-pass-sec">
@@ -239,7 +238,7 @@
                         $('#formerror').html('');
                     } else {
                         const msg = data.message ? data.message : 'Invalid current Password';
-                        showGlobalAlert(msg, 'dangar');
+                        showGlobalAlert(msg, 'danger');
 
                     }
                 },
