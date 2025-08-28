@@ -35,26 +35,26 @@
                     </ol>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
-        </div>
-        <div class="col-md-12">
-            <form class="add-punterbox-report" id="userProfile" action="{{ route('escort.update.password') }}" method="POST">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="current_password">Current password</label>
-                                    <input type="password" class="form-control" id="passwordN" name="password"
-                                        placeholder="Current password"
-                                        data-parsley-required-message="Current password is required" required>
-                                    <div id="formerror"></div>
-                                    <small id="emailHelp" class="form-text text-muted">Case sensative</small>
+            
+            <div class="col-md-12">
+                <form class="v-form-design" id="userProfile" action="{{ route('escort.update.password') }}" method="POST">
+                      
+                    <div class="row">
+                      
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label for="passwordN">Current password</label>
+                                        <input type="password" class="form-control" id="passwordN" name="password"
+                                            placeholder="Current password"
+                                            data-parsley-required-message="Current password is required" required>
+                                        <span class="toggle-password" toggle="#passwordN">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <div id="formerror"></div>
+                                        <small class="form-text text-muted">Case sensitive</small>
+                                    </div>
                                 </div>
 
                             </div>
@@ -232,7 +232,7 @@
 
         if (form.parsley().isValid()) {
             var url = form.attr('action');
-            var data = new FormData(form[0]);
+            var data = new FormData(form[0]);   
 
             $.ajax({
                 method: form.attr('method'),
