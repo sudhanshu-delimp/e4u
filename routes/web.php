@@ -33,11 +33,8 @@ use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
-<<<<<<< HEAD
 use App\Http\Controllers\Escort\MyPlaymatesContoller;
-=======
 use App\Http\Controllers\DemoController;
->>>>>>> 8119bec228d90509c81de9fc95f1bf0e55d55eaa
 use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
 
 /*
