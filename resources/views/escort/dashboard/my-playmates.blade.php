@@ -289,7 +289,11 @@
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script>
-        var globalEscortIds = {};
+        // for update row of tables inside the modal
+        var removeGlobalEscortIds = {
+            'user_id' : '',
+            'escort_ids' : '',
+        };
         var playmateListTable = $('#playmateListTable').DataTable({
             responsive: false,
             language: {
@@ -335,8 +339,6 @@
                 escort_ids: escortIds,
             };
 
-            globalEscortIds = data;
-
             fetchPlaymatesDataByAjax(data);
 
         });
@@ -357,13 +359,15 @@
             var userId = $(this).attr('data-user-id');
             var escortIds = JSON.stringify([$(this).attr('data-escort-id')]);
 
+            removeGlobalEscortIds.user_id = userId;
+            removeGlobalEscortIds.escort_ids = [$(this).attr('data-escort-id')];
+
             $('.playmate_user_id').val(userId);
             $('.playmate_escort_ids').val(escortIds);
         });
 
         $(document).on('click', '.removeMultipleEscort', function() {
-            $('#removePlaymateModal').modal('show');
-            $('#removePlaymateModal').addClass('child_popup_remove_single_playmate_profile_css');
+            
 
             let escortIds = [];
 
@@ -377,7 +381,18 @@
                 }
             });
 
+            if(escortIds.length === 0){
+                alert('Please select at least one playmate to remove.');
+                return false;
+            }
+
+            $('#removePlaymateModal').modal('show');
+            $('#removePlaymateModal').addClass('child_popup_remove_single_playmate_profile_css');
+
             var userId = "{{auth()->user() ? auth()->user()->id : ''}}";
+            removeGlobalEscortIds.escort_ids = escortIds;
+            removeGlobalEscortIds.user_id = userId;
+
             jsonEscortIds = JSON.stringify(escortIds);
 
             $('.playmate_user_id').val(userId);
@@ -387,6 +402,7 @@
                 user_id: userId,
                 escort_ids: jsonEscortIds,
             };
+            
         });
 
         $(document).on('click', '.confirm_remove_btn', function() {
@@ -397,7 +413,7 @@
                 user_id: userId,
                 escort_ids: escortIds,
             };
-            
+
             removePlaymatesByAjax(data);
 
         });
@@ -432,7 +448,7 @@
                     if(response.data.length > 0){
                         response.data.forEach(function(escort){
                             html += `
-                            <tr>
+                            <tr class="remove_single_playmate_profile_`+escort.id+`">
                                 <td><input type="checkbox" name="" value=""></td>
                                 <td>`+escort.id+`</td>
                                 <td>`+escort.name+`</td>
@@ -486,8 +502,14 @@
                         $('#removePlaymateSuccessModal').modal('show');
                         playmateListTable.ajax.reload();
 
-                        let data = globalEscortIds;
-                        console.log(data, 'globalEscortIds');
+                        let data = removeGlobalEscortIds;
+                        console.log(data, 'removeGlobalEscortIds');
+                        if (data.escort_ids != '' && data.escort_ids.length > 0) {
+                            data.escort_ids.forEach(element => {
+                                console.log(element, 'element');
+                                $('.remove_single_playmate_profile_' + element).remove();
+                            });
+                        }
                     }
                 },
                 error: function(xhr) {
