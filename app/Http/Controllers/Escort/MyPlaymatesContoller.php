@@ -66,10 +66,10 @@ class MyPlaymatesContoller extends Controller
                 ->addColumn('playmate', function ($row) {
 
                     $avatar = $row['user']->avatar_img ?? null;
-                    $path   = public_path('assets/app/img/' . $avatar);
+                    $path   = public_path('avatars/' . $avatar);
 
                     if ($avatar && file_exists($path)) {
-                        $img = asset('assets/app/img/' . $avatar);
+                        $img = asset('avatars/' . $avatar);
                     } else {
                         $img = asset('assets/app/img/service-provider/Frame-408.png'); // default image
                     }
