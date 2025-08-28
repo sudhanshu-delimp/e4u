@@ -43,7 +43,8 @@ class EscortPinup extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('utc_end_time', '>', Carbon::now('UTC'));
+        return $query->where('utc_start_time', '<=', Carbon::now('UTC'))
+        ->where('utc_end_time', '>=', Carbon::now('UTC'));
     }
 
     public static function latestActiveForCity(int $cityId): ?self

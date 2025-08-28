@@ -18,6 +18,7 @@ use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\EscortTourPaymentController;
 use App\Http\Controllers\Escort\EscortSuspendProfileController;
 use App\Http\Controllers\Escort\MyPlaymatesContoller;
+use App\Http\Controllers\Escort\HowIsItDoneController;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
 
 //remove before prod
@@ -51,6 +52,8 @@ Route::get('/list/data-table-listing/{type?}', [EscortController::class, 'dataTa
 Route::get('/add-listing', [EscortController::class, 'add_listing'])->name('escort.account.add-listing');
 Route::get('/listings/{type}', [EscortController::class, 'listings'])->name('escort.dashboard.listings');
 Route::post('/listing-checkout', [EscortController::class, 'listing_checkout'])->name('escort.account.listing_checkout');
+Route::post('/get-geo-location-profiles', [EscortController::class, 'getGeoLocationProfiles'])->name('listing.get_geo_location_profiles');
+Route::post('/listing/validate-date-range', [EscortController::class, 'validateDateRange'])->name('listing.validate_date_range');
 Route::get('/update-account', [EscortController::class, 'edit'])->name('escort.account.edit');
 Route::post('/update-account', [EscortController::class, 'update'])->name('escort.account.update');
 Route::post('/notification-update', [EscortController::class, 'notificationUpdate'])->name('escort.notification.update');
@@ -388,3 +391,5 @@ Route::post('customise-dashboard', [EscortController::class, 'updateCustomiseDas
 // Route::get('customise-dashboard',function(){
 //     return view('escort.dashboard.customise-dashboard');
 // })->name('escort.dashboard.customise-dashboard');
+
+Route::get('profile', [HowIsItDoneController::class, 'profile'])->name('escort.how_is_it_done.profile');

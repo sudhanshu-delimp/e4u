@@ -122,6 +122,20 @@ Route::get('advertiser-reviews',function(){
     return view('admin.advertiser-reviews');
 })->name('admin.advertiser-reviews');
 
+
+Route::get('commission-statements',function(){
+    return view('admin.management.operator.commission-statements');
+})->name('admin.commission-statements');
+
+Route::get('commission-summary',function(){
+    return view('admin.management.operator.commission-summary');
+})->name('admin.commission-summary');
+
+Route::get('operator-manage',function(){
+    return view('admin.management.operator.operator-manage');
+})->name('admin.operator-manage');
+
+
 Route::get('support-tickets',function(){
     return view('admin.support-tickets');
 })->name('admin.support-tickets');
@@ -146,4 +160,5 @@ Route::get('management/manage-suppliers',function(){
 })->name('admin.manage-suppliers');
 
 Route::get('/management/agent',[AgentController::class,'agent_list'])->name('admin.agent');
+Route::post('/suspend-agent',[AgentController::class,'suspend_agent'])->name('admin.suspend-agent');
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');

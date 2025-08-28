@@ -10,12 +10,6 @@
     color: rgb(248, 0, 0)
 }
 
-.dataTables_filter label {
-    display: none;
-}
-.dataTables_length{
-    display: none;
-}
 
 #cke_1_contents {
     height: 150px !important;
@@ -121,7 +115,7 @@ display: contents;
    <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
       <div class="modal-content basic-modal modal-lg">
          <div class="modal-header">
-            <h5 class="modal-title" id="emailReport">Listing</h5>
+            <h5 class="modal-title" id="emailReport"> <img src="{{ asset('assets/dashboard/img/view-listing.png')}}" class="custompopicon"> Listing</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -276,10 +270,16 @@ display: contents;
 
         function ajaxReload()
         {
+
             var table = $('#listings').DataTable({
+                language: {
+        search: "Search: _INPUT_",
+        searchPlaceholder: "Search by Member ID..."
+    },
             processing: true,
             serverSide: true,
             paging: true,
+            lengthChange: true,
             info: true,
             searching: true,
             bStateSave: true,
@@ -339,7 +339,7 @@ display: contents;
                         $(".serverTime").text(row.server_time);
                         $(".uptimeClass").html(row.upTime);
                         return `
-                            <div class="dropdown no-arrow ml-3">
+                            <div class="dropdown no-arrow text-center">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>

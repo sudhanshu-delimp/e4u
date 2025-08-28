@@ -35,7 +35,7 @@
 <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <div class="row">
         <div class="custom-heading-wrapper col-lg-12">
-            <h1 class="h1">View & Reply Ticket</h1>
+            <h1 class="h1">View & Reply</h1>
            <span class="helpNoteLink" data-toggle="collapse" data-target="#profile_and_tour_options"><b>Help?</b> </span>
         </div>
         <div class="col-md-12 mb-4 collapse" id="profile_and_tour_options">
@@ -146,7 +146,7 @@
                }
            },
            columns: [
-               { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+               { data: 'ref_number', name: 'ref_number', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
                { data: 'service_type', name: 'service_type', searchable: false, orderable:true ,defaultContent: 'NA'},
@@ -155,13 +155,15 @@
                { data: 'created_on', name: 'date_created', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'status_mod', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
                { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
+               { data: 'id', visible: false },
            ],
            order: [6, 'desc'],
        });
 
 
        $(document).on('click', ".view_ticket", function() {
-           ticketId = $(this).closest('tr').find('td:first').html();
+           var rowData = table.row($(this).closest('tr')).data();
+           var ticketId = rowData.id;
            $.ajax({
                method: "GET",
                url: "{{ route('support-ticket.conversations') }}" + '/' + ticketId,
@@ -266,7 +268,7 @@
     $(document).on('click', ".cancelTicket", function () {
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "You won't be able to reverse this!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -305,5 +307,31 @@
         });
     });
        
+
+       
 </script>
+
+@if (Session::has('success'))
+                    <script>
+                        Swal.fire({
+                            title: '{{ Session::get('title') }}',
+                            text: '{{ Session::get('success') }}',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    </script>
+                @endif
+
+                @foreach(['warning', 'info', 'error'] as $alert)
+                    @if (Session::has($alert))
+                        <script>
+                            Swal.fire({
+                                title: '{{ ucfirst($alert) }}',
+                                text: '{{ Session::get($alert) }}',
+                                icon: '{{ $alert }}',
+                                confirmButtonText: 'OK'
+                            });
+                        </script>
+                    @endif
+                @endforeach
 @endpush

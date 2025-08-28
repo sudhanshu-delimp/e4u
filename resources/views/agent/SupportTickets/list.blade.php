@@ -39,7 +39,7 @@
         {{-- Page Heading   --}}
         <div class="row">
             <div class="custom-heading-wrapper col-lg-12">
-            <h1 class="h1">View & Reply Ticket</h1>
+            <h1 class="h1">View & Reply</h1>
             <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
             </div>
             <div class="col-md-12 mb-4">
@@ -287,7 +287,7 @@
     $(document).on('click', ".cancelTicket", function () {
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "You won't be able to reverse this!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

@@ -36,6 +36,14 @@ function updateSelectOptions() {
         if (val) selectedValues.push(val);
     });
 
+    let row = $(this).closest('.eachListing');
+    let escortId = row.find('select[name="escort_id[]"] option:selected').val();
+    let startDate = row.find('input[name="start_date[]"]').val();
+    let endDate = row.find('input[name="end_date[]"]').val();
+    if(startDate && endDate){
+        validateSelectedDateRange(row, {startDate,endDate,escortId});
+    }
+
     $('select[name="escort_id[]"]').each(function() {
         let currentSelect = $(this);
         let currentValue = currentSelect.val();
@@ -70,14 +78,54 @@ $(document).on('input change, select[name="escort_id[]"], input[name="start_date
 $(document).on('change', 'input[name="start_date[]"]', function() {
     let $row = $(this).closest('.eachListing');
     let startDate = $(this).val();
-    let $endInput = $row.find('input[name="end_date[]"]');
-
+    let endDate = $row.find('input[name="end_date[]"]');
+    let escortId = $row.find('select[name="escort_id[]"] option:selected').val();
     if (startDate) {
-        $endInput.attr('min', startDate);
-        if ($endInput.val() && $endInput.val() < startDate) {
-            $endInput.val('');
+        endDate.attr('min', startDate);
+        if (endDate.val() && endDate.val() < startDate) {
+            endDate.val('');
         }
     } else {
-        $endInput.removeAttr('min');
+        endDate.removeAttr('min');
+    }
+    endDate = endDate.val();
+    if(endDate && escortId){
+        validateSelectedDateRange($row, {startDate,endDate,escortId});
     }
 });
+
+$(document).on('change', 'input[name="end_date[]"]', function() {
+    let row = $(this).closest('.eachListing');
+    let endDate = $(this).val();
+    let startDate = row.find('input[name="start_date[]"]').val();
+    let escortId = row.find('select[name="escort_id[]"] option:selected').val();
+    if(startDate && escortId){
+        validateSelectedDateRange(row, {startDate,endDate,escortId});
+    }
+});
+
+var validateSelectedDateRange = function(object, requestPayload){
+    $.ajax({
+        url: '/escort-dashboard/listing/validate-date-range',
+        method: 'POST',
+        headers: {
+        'Accept': 'application/json',
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        data: requestPayload,
+        success: function (response) {
+            if(response.success){
+                object.find('input[name="start_date[]"]').val('');
+                object.find('input[name="end_date[]"]').val('');
+                Swal.fire({
+                    title: 'Listings',
+                    text: `${response.message}`,
+                    icon: 'warning'
+                });
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error in location filter:', error);
+        }
+    });
+}

@@ -18,7 +18,27 @@ function date_time_format(dateString) {
 console.log(date_time_format("2025-08-21 08:03:12")); 
 console.log(date_time_format("2025-08-21 08:15:52")); 
 
+function swal_success_popup(message) {
 
+      Swal.fire({
+      title: (message) ? message : 'Action Performed',
+      icon: "success",
+      draggable: true,
+      allowOutsideClick: false,
+        allowEscapeKey: false,
+    });
+}
+
+function swal_error_popup(message) {
+
+      Swal.fire({
+      title: (message) ? message : 'Action could not performed',
+      icon: "error",
+      draggable: true,
+      allowOutsideClick: false,
+        allowEscapeKey: false,
+    });
+}
 
 function swal_waiting_popup(data) {
 
