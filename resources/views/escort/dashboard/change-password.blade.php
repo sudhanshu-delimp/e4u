@@ -5,12 +5,21 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
 
-{{-- <style type="text/css">
-  .parsley-errors-list {
-    list-style: none;
-    color: rgb(248, 0, 0)
-  }
-</style> --}}
+<style>
+    .toggle-password {
+        position: absolute;
+        top: 28px;
+        right: 15px;
+        cursor: pointer;
+        z-index: 2;
+        color: #6c757d;
+    }
+
+    form.v-form-design label {
+        font-weight: 400;
+    }
+</style>
+</style>
 @endsection
 @section('content')
 <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5 change-pass-sec">
@@ -35,12 +44,13 @@
                     </ol>
                 </div>
             </div>
-            
+
+            <div class="col-md-12">
+                <div id="globalAlert" class="alert d-none rounded " role="alert"></div>
+            </div>
             <div class="col-md-12">
                 <form class="v-form-design" id="userProfile" action="{{ route('escort.update.password') }}" method="POST">
-                      
                     <div class="row">
-                      
                         <div class="col-md-6">
                             <div class="row">
                                 <div class="col-md-12">
@@ -57,42 +67,41 @@
                                     </div>
                                 </div>
 
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="new_password">New password</label>
-                                    <input type="password" class="form-control" name="new_password" id="new_password"
-                                        placeholder="New password" aria-describedby="emailHelp" required
-                                        autocomplete="new-password"
-                                        data-parsley-required-message="Current password is required"
-                                        data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
-                                        data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-                                    <div class="termsandconditions_text_color">
-                                        <!-- error sms here -->
-
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label for="new_password">New password</label>
+                                        <input type="password" class="form-control" name="new_password" id="new_password"
+                                            placeholder="New password" aria-describedby="emailHelp" required
+                                            autocomplete="new-password"
+                                            data-parsley-required-message="Current password is required"
+                                            data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/"
+                                            data-parsley-pattern-message="@lang('errors/validation/valid.password')">
+                                        <span class="toggle-password" toggle="#new_password">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
+                                        <small class="form-text text-muted">MUST be a minimum of eight (8) characters long</small>
                                     </div>
-                                    <small id="emailHelp" class="form-text text-muted">MUST be a minimum of eight (8)
-                                        characters long</small>
                                 </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="confirm_password">Confirm password</label>
-                                    <input type="password" class="form-control" placeholder="Confirm password"
-                                        id="confirm_password" aria-describedby="emailHelp" name="password_confirmation"
-                                        data-parsley-equalto="#new_password"
-                                        data-parsley-equalto-message="Confirm password should be the same password"
-                                        required autocomplete="new-password"
-                                        data-parsley-required-message="Confirm password is required">
-                                    <div class="termsandconditions_text_color">
-                                        <!-- error sms here -->
+
+                                <div class="col-md-12">
+                                    <div class="form-group position-relative">
+                                        <label for="confirm_password">Confirm password</label>
+                                        <input type="password" class="form-control" placeholder="Confirm password"
+                                            id="confirm_password" aria-describedby="emailHelp" name="password_confirmation"
+                                            data-parsley-equalto="#new_password"
+                                            data-parsley-equalto-message="Confirm password should be the same password"
+                                            required autocomplete="new-password"
+                                            data-parsley-required-message="Confirm password is required">
+                                        <span class="toggle-password" toggle="#confirm_password">
+                                            <i class="fa fa-eye"></i>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <input type="submit" value="Save Password" class="save_profile_btn mb-4 mt-3" name="submit">
+            </div>
+            <input type="submit" value="Save Password" class="save_profile_btn mb-4 mt-3" name="submit">
             </form>
             <form class="v-form-design" id="passwordExpiry" action="{{ route('escort.update.password.expiry') }}"
                 method="POST">
@@ -165,7 +174,28 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 
-
+<script>
+    document.querySelectorAll('.toggle-password').forEach(function(el) {
+        el.addEventListener('click', function() {
+            var selector = this.getAttribute('toggle');
+            var input = document.querySelector(selector);
+            if (!input) {
+                console.error("Invalid selector:", selector);
+                return;
+            }
+            var icon = this.querySelector('i');
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        });
+    });
+</script>
 <script type="text/javascript">
     $('#userProfile').parsley({
 
@@ -232,7 +262,7 @@
 
         if (form.parsley().isValid()) {
             var url = form.attr('action');
-            var data = new FormData(form[0]);   
+            var data = new FormData(form[0]);
 
             $.ajax({
                 method: form.attr('method'),
@@ -396,4 +426,7 @@
     //     $("#modal-title").text('');
     // });
 </script>
+
+
+
 @endpush

@@ -16,8 +16,6 @@
     .modalPopup > .item2 {
         cursor: pointer;
     }
-</style>
-<style type="text/css">
     .ui-draggable-dragging {
         width: 82px !important;
         height: 82px !important;
@@ -129,7 +127,7 @@
                     <form id="defaultImage" method="post" enctype="multipart/form-data" action="{{ route('escort.default.images')}}">
                         @csrf
                         <div class="row pt-3 pl-2 pr-2">
-                            <div class="col-lg-2 pr-0 pl-0">
+                            <div class="col-lg-4 pr-0 pl-0">
                                 
                                 <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                                 <div class="plate" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
@@ -501,7 +499,7 @@
                </button>
            </div>
            <div class="modal-body">
-               <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll; grid-template-columns: auto;">
+               <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll; grid-template-columns: 1fr 1fr 1fr;">
                   
                    @foreach($media  as $keyId => $image)
                        @if(in_array($image->position, [9])/*$image->position != 8*/)
@@ -528,7 +526,7 @@
                </button>
            </div>
            <div class="modal-body">
-               <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll; grid-template-columns: auto;">
+               <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll; grid-template-columns: 1fr 1fr 1fr;">
                   
                    @foreach($media  as $keyId => $image)
                        @if(in_array($image->position, [10])/*$image->position != 8*/)

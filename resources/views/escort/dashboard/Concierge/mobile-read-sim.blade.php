@@ -45,7 +45,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-9">
                                     <h2 class="pb-2"><b>Partnership</b> </h2>
                                     <p>Escorts4U has partnered with a leading supplier of telecommunication services to be
                                         able
@@ -57,12 +57,12 @@
                     <form class="" id="simOrderForm" action="{{ route('mobile-read-sim') }}" method="POST">
                         {{ csrf_field() }}
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-9 add-punterbox-report">
 
                                 <h2 class="pb-2 pt-2"><b>Order Mobile SIM</b> </h2>
-                                <div class="form-group w-50">
+                                <div class="form-group">
                                     <div><label for="preference"><b>Your contact preference</b> </label></div>
-                                    <div class="form-check form-check-inline">
+                                    <div class="form-check form-check-inline ml-0">
                                         <input name="contact_pref_email" class="form-check-input" type="checkbox"
                                             id="pref_Email" checked>
                                         <label class="form-check-label" for="pref_Email">Email</label>
@@ -75,8 +75,8 @@
                                 </div>
 
                                 <b>Your details:</b>
-                                <div class="ml-4 mt-2">
-                                    <div class="form-group w-50">
+                                <div class="mt-2">
+                                    <div class="form-group">
                                         <label for="email"><b>Your Name</b><span class="text-danger">*</span> </label>
                                         <input id="name" value="{{ old('first_name') }}" placeholder="Birth Name"
                                             name="first_name" type="text" class="form-control" required>
@@ -92,7 +92,7 @@
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div> --}}
-                                    <div class="form-group w-50">
+                                    <div class="form-group">
                                         <label for="email"><b>Email Address</b><span class="text-danger">*</span>
                                         </label>
                                         <input id="email" value="{{ old('email') }}" required
@@ -101,7 +101,7 @@
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group w-50">
+                                    <div class="form-group">
                                         <label for="email"><b>Mobile Number</b> <span class="text-danger">*</span>
                                         </label>
                                         <input id="mobile" value="{{ old('mobile') }}" placeholder="Mobile Number"
@@ -110,7 +110,7 @@
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group w-50">
+                                    <div class="form-group">
                                         <label for="email"><b> Delivery address
                                             </b> <span class="text-danger">*</span> </label>
                                         <input id="delivery_address" value="{{ old('delivery_address') }}"
@@ -120,7 +120,7 @@
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group w-50">
+                                    <div class="form-group">
                                         <label for="period_required"><b>Period required</b><span
                                                 class="text-danger">*</span></label>
                                         <div class="input-group">
@@ -132,15 +132,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group w-50">
+                                    <div class="form-group">
                                         <label for="exampleFormControlTextarea1"><b>Comments</b> (<i>please provide any
                                                 additional information to assist us</i>)
                                         </label>
                                         <textarea class="form-control" name="comments" id="exampleFormControlTextarea1" rows="5"
                                              placeholder="Up to 300 character">{{ old('comments') }}</textarea>
                                     </div>
-                                    <div class="form-group w-50">
-                                        <div class="form-check form-check-inline">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline ml-0">
                                             <input name="auth" class="form-check-input" type="checkbox"
                                                 id="auth">
                                             <label class="form-check-label" for="auth"> I authorise E4U to debit my
@@ -150,8 +150,8 @@
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group w-50">
-                                        <div class="form-check form-check-inline">
+                                    <div class="form-group">
+                                        <div class="form-check form-check-inline ml-0">
                                             <input name="terms" class="form-check-input" type="checkbox"
                                                 id="pref_terms">
                                             <label class="form-check-label" for="pref_terms"> I have read and agree to the

@@ -28,6 +28,7 @@
             </div>
         </div>
 
+
         <!-- Bootstrap core JavaScript-->
         {{-- <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script> --}}
         {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> --}}
@@ -39,6 +40,7 @@
         <!-- Custom scripts for all pages-->
         <script src="{{ asset('assets/dashboard/js/sb-admin-2.min.js') }}"></script>
         <script src="{{ asset('assets/js/common.js') }}"></script>
+        <script src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
         <script>
             jQuery.browser = {};
             (function () {
@@ -62,12 +64,15 @@
                 $(document).on('mouseenter', '[data-toggle="tooltip"]', function() {
                     $('.tooltip').tooltip("hide")
                 });
-                //Create sweet alert for flash message
-                @foreach(['success', 'warning', 'info', 'error'] as $alert)
-                @if (Session::has($alert))
-                swal.fire('', '{{Session::get($alert)}}', '{{$alert}}');
-                @endif
-                @endforeach
+
+                // //Create sweet alert for flash message
+                // @foreach(['success', 'warning', 'info', 'error'] as $alert)
+                // @if (Session::has($alert))
+                // swal.fire('', '{{Session::get($alert)}}', '{{$alert}}');
+                // @endif
+                // @endforeach
+
+
 
                 $.ajaxSetup({
                     headers: {
@@ -140,10 +145,7 @@ function int_datePicker(ele) {
                 const longitude = position.coords.longitude;
                 selectedLocation.lat = latitude;
                 selectedLocation.lng = longitude;
-
-                console.log(longitude, latitude, ' jiten')
                 sendLocationData(selectedLocation);
-                
             });
 
             function sendLocationData(data) {
@@ -155,24 +157,18 @@ function int_datePicker(ele) {
                         data: data
                     },
                     success: function (response) {
-                        console.log(response, ' res');
-                        
-                        if(response.status){
-                            if($(".js_geo_location_profiles").length > 0){
-                                console.log(response);
+                        if(response.status){ 
+                            if($(".js_geo_location_profiles").length > 0){ /** Only display user's current location profiles in the create new listing page. */
                                 getGeoLocationProfiles(response.data.state);
                             }
-                            //$("#"+data.location).attr('checked', true);
-                            // data.home_state
+                            if($(".js_profile_current_location").length > 0){
+                                $("select[name='state_id']").val(response.data.state).trigger("change");
+                            }
                             $(".live_current_time").text(response.data.current_time);
                             $(".live_current_location").text(response.data.current_location);
                             $(".resident_home_state").text(response.data.home_state);
-
                             selectedLocation.timezone = response.data.timezone;
-
-                            //window.location.href = response.location;
                         }
-                        console.log('Location filter updated:', response);
                     },
                     error: function (xhr, status, error) {
                         console.error('Error in location filter:', error);
@@ -266,7 +262,7 @@ function int_datePicker(ele) {
                             {   
                                 if(alert_notifications.is_new)
                                 {
-                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
+                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> '+alert_notifications?.data?.length+'</span>');
                                 }
                             
                                 alert_notifications.data.forEach((notification) => {
@@ -302,7 +298,7 @@ function int_datePicker(ele) {
                              
                                 if(support_notifications.is_new)
                                 {
-                                $('.support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
+                                $('.support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i><span class="badge badge-danger badge-counter"> '+support_notifications?.data?.length+'</span>');
                                 }
                             
                                 support_notifications.data.forEach((notification) => {
@@ -389,6 +385,29 @@ function int_datePicker(ele) {
         });
 
         </script>  
+                    @if (Session::has('success'))
+                    <script>
+                        Swal.fire({
+                            title: '{{ Session::get('title') }}',
+                            text: '{{ Session::get('success') }}',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
+                    </script>
+                @endif
+
+                @foreach(['warning', 'info', 'error'] as $alert)
+                    @if (Session::has($alert))
+                        <script>
+                            Swal.fire({
+                                title: '{{ ucfirst($alert) }}',
+                                text: '{{ Session::get($alert) }}',
+                                icon: '{{ $alert }}',
+                                confirmButtonText: 'OK'
+                            });
+                        </script>
+                    @endif
+                @endforeach
 
 </body>
 </html>

@@ -180,8 +180,7 @@
                     $("#sendMessage").parent().hide();
                     }
 
-                   var modalHeading = "<b>"+data.subject+'</b> - '+ date_time_format(data.created_on )+'<br>'+
-                   "<span>"+data.user.name+'</span> ( '+ data.user.member_id +')';
+                   var modalHeading = "<b>"+data.subject+'</b> - '+ date_time_format(data.created_on );
                    
                    $("#ticket_name").html(modalHeading);
                    var html =

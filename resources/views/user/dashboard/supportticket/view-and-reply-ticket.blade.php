@@ -191,7 +191,7 @@
     $(document).on('click', ".cancelTicket", function () {
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "You won't be able to reverse this!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -257,7 +257,7 @@
                if(data.status_id == 3 || data.status_id == 4) {
                    $("#sendMessage").parent().hide();
                }
-               var modalHeading = "<b>"+data.subject+'</b> - '+ data.created_on +'<br>';
+               var modalHeading = "<b>"+data.subject+'</b> - '+ date_time_format(data.created_on) +'<br>';
                // "<span>"+data.user.name+'</span> ( '+ data.user.member_id +')';
                $("#ticket_name").html(modalHeading);
                var html = '<div class="col-sm-6 conversation"> </div>' +
@@ -324,9 +324,10 @@
        });*/
 
 
+       
     @foreach(['success', 'warning', 'info', 'error'] as $alert)
     @if (Session::has($alert))
-    swal.fire('', '{{Session::get($alert)}}', '{{$alert}}');
+    swal.fire('Message Sent!', '{{Session::get($alert)}}', '{{$alert}}');
     @endif
     @endforeach
 

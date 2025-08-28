@@ -17,6 +17,8 @@ use App\Http\Controllers\Escort\Profile\UpdateController;
 use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\EscortTourPaymentController;
 use App\Http\Controllers\Escort\EscortSuspendProfileController;
+use App\Http\Controllers\Escort\MyPlaymatesContoller;
+use App\Http\Controllers\Escort\HowIsItDoneController;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
 
 //remove before prod
@@ -357,6 +359,11 @@ Route::get('code-of-conduct',function(){
     return view('escort.dashboard.UglyMugsRegister.code-of-conduct');
 })->name('escort.code-of-conduct');
 
+Route::get('/escort-dashboard/my-playmates',[MyPlaymatesContoller::class,'index'])->name('escort.dashboard.my-playmates');
+Route::get('/escort-dashboard/my-user-playmates-ajax',[MyPlaymatesContoller::class,'dashboardUserPlaymatesListAjax'])->name('escort.get.user-playmates-by-ajax');
+Route::post('/escort-dashboard/my-playmates-ajax',[MyPlaymatesContoller::class,'getPlaymatesDataByAjax'])->name('escort.get.my-playmates-by-ajax');
+Route::post('/escort-dashboard/remove-my-playmates-ajax',[MyPlaymatesContoller::class,'removePlaymatesByAjax'])->name('escort.remove.my-playmates-by-ajax');
+
 Route::get('home-state/',[EscortController::class, 'homeState'])->name('escort.home-state');
 Route::post('add-playmate/{id}',[ProfileInformationController::class, 'savePlaymate'])->name('escort.add.playmate');
 Route::post('remove-playmate/{id}',[ProfileInformationController::class, 'removePlaymate'])->name('escort.remove.playmate');
@@ -384,3 +391,5 @@ Route::post('customise-dashboard', [EscortController::class, 'updateCustomiseDas
 // Route::get('customise-dashboard',function(){
 //     return view('escort.dashboard.customise-dashboard');
 // })->name('escort.dashboard.customise-dashboard');
+
+Route::get('profile', [HowIsItDoneController::class, 'profile'])->name('escort.how_is_it_done.profile');

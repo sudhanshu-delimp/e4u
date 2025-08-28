@@ -340,30 +340,46 @@
         </div>
 
     </li>
-    {{-- Masseurs Profile --}}
-    {{-- <li class="nav-item">
+    {{-- How is it Done --}}
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#masseurs" aria-expanded="true" aria-controls="collapseTwo">
-             <img src="{{ asset('assets/app/img/massage-table.png')}}">
-             <span>Masseurs Profile</span>
+             <img src="{{ asset('assets/dashboard/img/menu-icon/how-quest.png')}}">
+             <span>How is it Done</span>
         </a>
         <div id="masseurs" class="collapse ;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
             <a class="collapse-item" href="#">
-                <img src="{{ asset('assets/app/img/profile.png')}}">
-                <span style="">Add Profile</span>
+                <img src="{{ asset('assets/dashboard/img/menu-icon/icons-account.png')}}">
+                <span style="">Edit My Account</span>
             </a>
              <a class="collapse-item" href="#">
-                <img src="{{ asset('assets/app/img/media.png')}}">
-                <span style="">Add Media</span>
+                <img src="{{ asset('assets/dashboard/img/menu-icon/information-24.png')}}">
+                <span style="">Profile Information</span>
             </a>
 
             <a class="collapse-item" href="#">
-                <img src="{{ asset('assets/app/img/summary-list.png')}}">
-                <span style="">Profiles Summary</span>
+                <img src="{{ asset('assets/dashboard/img/menu-icon/listing-24.png')}}">
+                <span style="">Listings</span>
+            </a>
+            <a class="collapse-item" href="#">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/center-24.png')}}">
+                <span style="">Profiles Centre</span>
+            </a>
+            <a class="collapse-item" href="#">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/media-24.png')}}">
+                <span style="">Media Centre</span>
+            </a>
+            <a class="collapse-item" href="#">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/wooden-massage-table-24.png')}}">
+                <span style="">Profiles Masseurs</span>
+            </a>
+            <a class="collapse-item" href="#">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/masseur-24.png')}}">
+                <span style="">Media Masseurs</span>
             </a>
             </div>
         </div>
-    </li> --}}
+    </li>
 
     {{-- Reviews --}}
     {{-- <li class="nav-item">

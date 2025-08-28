@@ -162,7 +162,7 @@
 
         function newTask() {
             let addNewTaskHtml = `
-                <div class="mx-auto my-2 col-md-11">
+                <div class="mx-auto my-2 col-md-11 p-0">
                     <div class="form-group ">
                         <label for="title"><b>Title</b><span class="text-danger">*</span> </label>
                         <input id="title" placeholder="Enter Title..." name="title" type="text"

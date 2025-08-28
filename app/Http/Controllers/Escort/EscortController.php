@@ -737,6 +737,7 @@ class EscortController extends Controller
             $response['success'] = false;
             $state_id = $request->state;
             $profiles = Escort::where(['user_id'=>auth()->user()->id,'state_id'=>$state_id])
+                ->whereNotNull('profile_name')
                 ->whereDoesntHave('purchase', function ($query) {
                     $query->where('utc_end_time', '>=', Carbon::now());
                 })
@@ -747,7 +748,7 @@ class EscortController extends Controller
                 $response['message'] = "Profiles are available.";
             }
             else{
-                $response['message'] = "Create at-least one profile.";
+                $response['message'] = "You need to create at least one Profile for the Location.";
             }
             return response()->json($response);
         } catch (Exception $e) {
