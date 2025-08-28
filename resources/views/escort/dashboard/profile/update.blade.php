@@ -53,7 +53,7 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
    <div class="row">
       <div class="col-md-12 custom-heading-wrapper">
          @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
-         <h1 class="h1">New Profile</h1>
+         <h1 class="h1">New Profile ddd</h1>
          @else
          <h1 class="h1">Update Profile</h1>
          @endif
