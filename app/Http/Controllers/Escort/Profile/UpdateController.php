@@ -751,7 +751,6 @@ class UpdateController extends AppController
 
     public function updateProfile($id)
     {
-        // dd($id);
         $escort = $this->escort->find($id);
         if ($escort->user_id != auth()->user()->id) {
             return redirect()->route('escort.list', 'current')->with('error', "This profile doesn't belongs to you");
@@ -762,7 +761,7 @@ class UpdateController extends AppController
             $durations = $this->duration->all();
             $availability = $escort->availability;
             $service = $this->service;
-            $path = $this->media->findByVideoposition(auth()->user()->id, 1)['path'];
+            $path = $this->media;
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [8, 10], $id);
             $users_for_available_playmate = $this->user->findPlaymates(auth()->user()->id);
             $defaultImages = $this->media->findDefaultMedia($user->id, 0);
