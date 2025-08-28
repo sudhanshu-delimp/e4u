@@ -164,42 +164,15 @@ class AgentController extends Controller
 
     public function check_agent_email(Request $request)
     {
-        $request->validate([
-            'email'  => 'nullable|email',
-            'email2' => 'nullable|email',
-        ]);
-
-        $errors = [];
-       
-        if (!empty($request->email)) {
-            $existsEmail = User::where('email', $request->email)
-                            ->where('id', '!=', $request->user_id)
-                            ->exists();
-
-            if ($existsEmail) {
-                $errors['email'] = ['This email is already taken.'];
-            }
-        }
-
-       
-        if (!empty($request->email2)) {
-            $existsEmail2 = User::where('email2', $request->email2)
-                            ->where('id', '!=', $request->user_id)
-                            ->exists();
-
-            if ($existsEmail2) {
-                $errors['email2'] = ['This email is already taken.'];
-            }
-        }
-
-       
+        $data = $request->all();
+        $errors = $this->agentRepo->check_agent_email($data);
+      
         if (!empty($errors)) {
             return response()->json([
                 'status' => false,
                 'errors' => $errors
             ], 422);
         }
-
         return response()->json([
             'status' => true,
             'message' => 'Email(s) are available.'

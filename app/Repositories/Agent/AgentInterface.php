@@ -7,4 +7,7 @@ use App\Repositories\BaseRepositoryInterface;
 interface AgentInterface extends BaseRepositoryInterface
 {
     public function updateAgent(array $data);
+    public function check_agent_email(array $data);
+
+    
 }

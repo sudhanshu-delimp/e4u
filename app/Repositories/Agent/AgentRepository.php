@@ -20,6 +20,30 @@ class AgentRepository extends BaseRepository implements AgentInterface
         $this->agent = $agent;
     }
     
+
+    public function check_agent_email(array $data)
+    {
+        $errors = [];
+        if (!empty($request->email)) {
+            $existsEmail =$this->agent->where('email', $data['email'])->where('id', '!=', $data['user_id'])->exists();
+            if ($existsEmail) {
+                $errors['email'] = ['This email is already taken.'];
+            }
+        }
+
+       
+        if (!empty($request->email2)) {
+            $existsEmail2 =$this->agent->where('email2', $data['email2'])->where('id', '!=', $data['user_id'])->exists();
+
+            if ($existsEmail2) {
+                $errors['email2'] = ['This email is already taken.'];
+            }
+        }
+
+        return $errors;
+    }
+
+
     public function updateAgent(array $data,)
     {
         $user = $this->agent->where('id',$data['user_id'])->firstOrFail();
