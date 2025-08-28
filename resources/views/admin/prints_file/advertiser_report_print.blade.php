@@ -171,24 +171,29 @@
         <div></div>
     </div>
 
-    <div class="checkbox-group">
-            <strong>Management only:</strong>
-            <div>
-                <label><input type="checkbox"> Cancel Membership</label>
-                <label style="margin-left: 20px;"><input type="checkbox"> Re-instate Membership</label>
-            </div>
-        </div>
+    <div class="checkbox-group " style="margin-top:7%" >
+        <table style="width:100%; border-collapse:collapse;">
+                        <tr>
+                            <td colspan="2" style="border:1px solid #000; padding:8px; padding-top:3%; padding-bottom:3%; font-weight:bold;">Management only:</td>
+                            <td colspan="2" style="border:1px solid #000; padding:8px;">
+                            <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
+                                <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Cancel Membership</span>
+                            </label>
+                            </td>
+                            <td colspan="2" style="border:1px solid #000; padding:8px;">
+                            <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
+                                <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Re-instate Membership</span>
+                            </label>
+                            </td>
+                        </tr>
 
-        <table class="signature-table">
-            <tbody>
-                <tr>
-                    <td style="width: 25%;"><strong>Name:</strong></td>
-                    <td style="width: 25%;"></td>
-                    <td style="width: 25%;"><strong>Signature:</strong></td>
-                    <td style="width: 25%;"></td>
-                </tr>
-            </tbody>
-        </table>
+                        <tr>
+                            <td style="border:1px solid #000; padding:40px 12px; font-weight:bold; width:175px;" colspan="1">Name:</td>
+                            <td colspan="2" style="border:1px solid #000; padding:25px 12px; width:200px"></td>
+                            <td style="border:1px solid #000; padding:25px 12px; font-weight:bold;">Signature:</td>
+                            <td colspan="1" style="border:1px solid #000; padding:25px 12px;"></td>
+                        </tr>
+                    </table>
     </div>
 
 </body>
