@@ -827,7 +827,7 @@
                     <span class="span_display_block connecting_me_chat_phone">You can contact us by: <img src="{{ asset('assets/app/img/wechat.svg') }}"> or <img src="{{ asset('assets/app/img/phoneicon.svg') }}"></span>
                     <b>When texting me please say:</b>
                     <p class="profile_description_contect_pera">
-                        i [name of Advertiser], I found you on Escorts4u ..." on our number {{ $escort->phone}}
+                        i [name of Advertiser], I found you on Escorts4U ..." on our number {{ $escort->phone}}
                     </p>
                 </div>
             </div>

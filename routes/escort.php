@@ -386,4 +386,28 @@ Route::post('customise-dashboard', [EscortController::class, 'updateCustomiseDas
 //     return view('escort.dashboard.customise-dashboard');
 // })->name('escort.dashboard.customise-dashboard');
 
-Route::get('profile', [HowIsItDoneController::class, 'profile'])->name('escort.how_is_it_done.profile');
+// Route::get('profile', [HowIsItDoneController::class, 'profile'])->name('escort.how_is_it_done.profile');
+
+Route::get('editmyaccount',function(){
+    return view('escort.dashboard.HowDone.editmyaccount');
+})->name('escort.editmyaccount');
+
+Route::get('my-information',function(){
+    return view('escort.dashboard.HowDone.my-information');
+})->name('escort.my-information');
+
+Route::get('listings',function(){
+    return view('escort.dashboard.HowDone.listings');
+})->name('escort.listings');
+
+Route::get('media',function(){
+    return view('escort.dashboard.HowDone.media');
+})->name('escort.media');
+
+Route::get('profiles',function(){
+    return view('escort.dashboard.HowDone.profiles');
+})->name('escort.profiles');
+
+Route::get('tours',function(){
+    return view('escort.dashboard.HowDone.tours');
+})->name('escort.tours');

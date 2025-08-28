@@ -154,7 +154,7 @@
             <a class="nav-link" href="{{ route('admin.database') }}">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/database.png') }}">
-                <span>Database &#10060;</span>
+                <span>Database </span>
             </a>
             <!-- database
         <div id="collapseTwo" class=" collapse @if (request()->segment(3) == 'escorts') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -182,7 +182,7 @@
             <a class="nav-link" href="{{ route('admin.reporting') }}">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
-                <span>Reporting &#10060;</span>
+                <span>Reporting </span>
             </a>
 
             <div id="Reporting" class="collapse @if (request()->segment(3) == 'email-request' ||
@@ -709,7 +709,7 @@
                         d="M8 0.720703C9.06087 0.720703 10.0783 1.14213 10.8284 1.89228C11.5786 2.64242 12 3.65984 12 4.7207C12 5.78157 11.5786 6.79899 10.8284 7.54913C10.0783 8.29928 9.06087 8.7207 8 8.7207C6.93913 8.7207 5.92172 8.29928 5.17157 7.54913C4.42143 6.79899 4 5.78157 4 4.7207C4 3.65984 4.42143 2.64242 5.17157 1.89228C5.92172 1.14213 6.93913 0.720703 8 0.720703ZM8 10.7207C12.42 10.7207 16 12.5107 16 14.7207V16.7207H0V14.7207C0 12.5107 3.58 10.7207 8 10.7207Z"
                         fill="#C2CFE0"></path>
                 </svg>
-                <span>My Account &#10060;</span>
+                <span>My Account </span>
             </a>
             <div id="myaccount" class="collapse @if (request()->segment(2) == 'update-account' ||
                     request()->segment(2) == 'profile-informations' ||
@@ -766,7 +766,7 @@
                     </g>
 
                 </svg>
-                <span>Blog &#10060;</span>
+                <span>Blog </span>
             </a>
         </li>
 
@@ -774,7 +774,7 @@
             <a class="nav-link" href="{{ route('admin.accounting-reports') }}">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/book.png') }}">
-                <span>Accounting Reports &#10060;</span>
+                <span>Accounting Reports </span>
             </a>
             <div id="accounting-reports" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style=""
                 class="collapse">
@@ -801,7 +801,7 @@
                 aria-expanded="false" aria-controls="collapseTwo">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
-                <span>Billing (Support Services) &#10060;</span>
+                <span>Billing (Support Services) </span>
             </a>
         </li>
        
@@ -810,7 +810,7 @@
                 aria-expanded="false" aria-controls="Website">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-                <span>logs &#10060;</span>
+                <span>logs </span>
             </a>
             <div id="logs" class=" collapse  @if (request()->segment(3) == ' ') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -825,7 +825,7 @@
                 aria-expanded="false" aria-controls="Website">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/e4ucms.png') }}">
-                <span>Website &#10060;</span>
+                <span>Website </span>
             </a>
             <div id="Website" class=" collapse  @if (request()->segment(3) == 'maintenance' || request()->segment(3) == 'global-notifications') show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
@@ -1069,7 +1069,7 @@
                     <a class="collapse-item" href="#">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
-                        <span>Website Management &#10060;</span></a>
+                        <span>Website Management </span></a>
 
 
                 </div>
