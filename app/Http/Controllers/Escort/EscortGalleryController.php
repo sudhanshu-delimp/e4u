@@ -552,7 +552,7 @@ class EscortGalleryController extends AppController
             $path = $this->media;
             $response = [];
             $response['success'] = true;
-            $response['html'] = view('escort\dashboard\profile\partials\media_gallary_container',compact('media','path'))->render();
+            $response['html'] = view('escort.dashboard.profile.partials.media_gallery_container',compact('media','path'))->render();
             return response()->json($response);
         } catch (Exception $e) {
             return response()->json([
