@@ -157,7 +157,7 @@ details[open] > summary:first-of-type {
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <div class="row">
         <div class="col-md-12 custom-heading-wrapper">
-            <h1 class="h1">How is it Done – Profiles</h1>
+            <h1 class="h1">Profiles</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
         </div>
     </div>
@@ -202,7 +202,7 @@ details[open] > summary:first-of-type {
                      </div>
                      <div id="collapseFeatures" class="collapse" aria-labelledby="headingFeatures" data-parent="#accordion">
                        <div class="card-body">
-                         <p>This step requires the most input. If you have already completed your data under <a href="/escort-dashboard/profile-information" class="custom_links_design">My Information</a> [> My Account > My Information], then the data will have pre-loaded. Check that every field, or at the very least the fields that you want to be published in your Profile, are complete.</p>
+                         <p>This step requires the most input. If you have already completed your data under <a href="/escort-dashboard/profile-information" class="custom_links_design">My Information</a>, then the data will have pre-loaded. Check that every field, or at the very least the fields that you want to be published in your Profile, are complete.</p>
                          <p class="mt-4 d_sub_heading"> <b>About Me is divided into four parts:</b></p>
                          <h5 class="mt-3 d_sub_heading"> Location Information</h5>
                          <p>Some of these fields are pre-loaded with your data. You will need to complete the following:</p>
@@ -283,6 +283,7 @@ details[open] > summary:first-of-type {
                             </div>
                           </li>
                         </ol>
+                        <h5 class="mt-4 d_sub_heading">Features</h5>
                         </div>
                      </div>
                    </div>

@@ -1,16 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Mail\sendForgotPassword;
-use App\Sms\SendSms;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Auth;
 use Mail;
-use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Models\User;
-use Auth;
+use App\Sms\SendSms;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Mail\sendForgotPassword;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 // use Illuminate\Support\Facades\Mail;
 
 class SendForgotPasswordController extends Controller
@@ -75,17 +76,7 @@ class SendForgotPasswordController extends Controller
     public function viewerResetPassword(Request $request)
     {
         //dd($request->all());
-       //Validate input
-        // $validator = Validator::make($request->all(), [
-        //     //'email' => 'required|email|exists:users,email',
-        //     'password' => 'required|confirmed',
-        //     'token' => 'required' ]);
-
-        // //check if payload is valid before moving on
-        // if ($validator->fails()) {
-        //     dd("validation");
-        //     return redirect()->back()->withErrors(['email' => 'Please complete the form']);
-        // }
+      
 
         $password = $request->password;  
         // Validate the token
@@ -97,6 +88,7 @@ class SendForgotPasswordController extends Controller
         // if (!$tokenData) { dd("tokendata"); return view('auth.passwords.email'); }
 
         $user = User::where('email', $tokenData->email)->first();
+      
         
         // Redirect the user back if the email is invalid
         if (!$user) { 
@@ -115,17 +107,16 @@ class SendForgotPasswordController extends Controller
             
             // return redirect()->back()->withErrors(['email' => 'Email not found']);
         }
+      
         //Hash and update the new password
-        $user->password = \Hash::make($password);
+        $user->password = Hash::make($password);
         $error = false;
-        if($user->update()) {
+        $check = $user->save();
+        if($check) {
             $error = true;
         }
-        //or $user->save();
-
-        //login the user immediately they change password successfully
-        //Auth::login($user);
-
+       
+       
         //Delete the token
         DB::table('password_resets')->where('email', $user->email)
         ->delete();
