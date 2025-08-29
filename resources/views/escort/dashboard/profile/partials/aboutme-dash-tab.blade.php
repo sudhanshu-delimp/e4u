@@ -393,7 +393,7 @@
                                     <div class="col-4">                                          
                                         <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                                         <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
-                                        <img class="img-fluid upld-img profile-gallery" id="img1" src="{{asset($escort->imagePosition(1))}}" style="height: 220px;object-fit: cover;width: 167px;">
+                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img1" src="{{asset($escort->imagePosition(1))}}" style="height: 220px;object-fit: cover;width: 167px;">
                                             </label>
                                         </div>
                                     </div>
@@ -404,19 +404,19 @@
                                             </div>
                                             <div class="col">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
-                                                        <img class="img-fluid upld-img profile-gallery" id="img2" src="{{asset($escort->imagePosition(2))}}">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img2" src="{{asset($escort->imagePosition(2))}}">
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(3)">
-                                                        <img class="img-fluid upld-img profile-gallery" id="img3" src="{{asset($escort->imagePosition(3))}}">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img3" src="{{asset($escort->imagePosition(3))}}">
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(4)">
-                                                        <img class="img-fluid upld-img profile-gallery" id="img4" src="{{asset($escort->imagePosition(4))}}">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img4" src="{{asset($escort->imagePosition(4))}}">
                                                     </label>
                                                 </div>
                                             </div>
@@ -424,19 +424,19 @@
                                         <div class="row" style="">
                                             <div class="col">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(5)">
-                                                        <img class="img-fluid upld-img profile-gallery" id="img5" src="{{asset($escort->imagePosition(5))}}">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img5" src="{{asset($escort->imagePosition(5))}}">
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(6)">
-                                                        <img class="img-fluid upld-img profile-gallery" id="img6" src="{{asset($escort->imagePosition(6))}}">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img6" src="{{asset($escort->imagePosition(6))}}">
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(7)">
-                                                        <img class="img-fluid upld-img profile-gallery" id="img7" src="{{asset($escort->imagePosition(7))}}">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img7" src="{{asset($escort->imagePosition(7))}}">
                                                     </label>
                                                 </div>
                                             </div>
@@ -447,7 +447,7 @@
                                     <div class="col-lg-12">
                                         <h2 class="banner-sub-heading my-2">Banner Image</h2>
                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
-                                            <img class="img-fluid profile-gallery"  id="img9" src="{{asset($escort->imagePosition(9))}}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
+                                            <img class="img-fluid profile-gallery" data-type="banner"  id="img9" src="{{asset($escort->imagePosition(9))}}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
                                         </label>
                                     </div>
                                 </div>
@@ -1724,10 +1724,8 @@
             </div>
         </div>
     </div>
-@include('escort.dashboard.modal.upload_gallery_image');
-@include('escort.dashboard.profile.modal.remvoe_gallary_image');
+@include('escort.dashboard.modal.remove_gallary_image');
 @push('script')
-<script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
 <script>
   $(function () {
     $("#dvSource img").draggable({
@@ -1743,14 +1741,25 @@
        });
        $(".dvDest").droppable({
            drop: function (event, ui) {
-            $(this).trigger('click');
-            let meidaId = ui.draggable.data('id');
-            let target;
-            if(ui.draggable.closest(".item4").find('span').text() == 'Gallery'){
-                target = $(".modalPopup .item4 img[data-id='" + meidaId + "']").closest(".item4");
+            let dropSlot = $(this);
+            let dragSlot = ui.draggable;
+            let dropSlotType = dropSlot.find('img').data('type');
+            let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
+            if(dropSlotType!=dragSlotType){
+                let message = (dragSlotType=='gallery')?`The photo you selected is not a Banner image. Please select a Banner image from your repository.`:`The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
+                swal.fire('Media', message, 'error');
+                return false;
             }
-            else{
-               target = $(".modalPopup .item2 img[data-id='" + meidaId + "']").closest(".item2");
+            $(this).trigger('click');
+            let meidaId = dragSlot.data('id');
+            let target;
+            switch(dragSlotType){
+                case 'gallery':{
+                    target = $(".modalPopup .item4 img[data-id='" + meidaId + "']").closest(".item4");
+                } break;
+                case 'banner':{
+                    target = $(".modalPopup .item2 img[data-id='" + meidaId + "']").closest(".item2");
+                } break;
             }
             target.trigger('click');
            }

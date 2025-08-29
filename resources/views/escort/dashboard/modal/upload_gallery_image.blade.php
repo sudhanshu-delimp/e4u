@@ -34,7 +34,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="plate"><label class="newbtn">
                                                         <img id="blah9" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
-                                                        <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
+                                                        <input name="img[9]" id="uploadImage9" class="pis" onchange="readImageURL(this);" type="file" accept="image/*" >
                                                         <input type="hidden" name="position[]" id="mediaId9">
                                                         </label>
                                                     </div>
@@ -42,7 +42,7 @@
                                                 <div class="col-lg-6">
                                                     <div class="plate"><label class="newbtn">
                                                         <img id="blah10" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
-                                                        <input name="img[10]" id="pic10" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
+                                                        <input name="img[10]" id="uploadImage10" class="pis" onchange="readImageURL(this);" type="file" accept="image/*" >
                                                         <input type="hidden" name="position[]" id="mediaId10">
                                                         </label>
                                                     </div>
@@ -63,7 +63,7 @@
                                         <div class="col-6">
                                             <div class="plate" style="position: relative;top: 30%;"><label class="newbtn">
                                                 <img class="img-fluid" id="blah8" src="{{ asset($path->findByposition(auth()->user()->id,8)['path']) }}" style="height: 138px;object-fit: cover;width: 370px;">
-                                                <input name="img[8]" id="pic8" data-id="8" class="pis" onchange="readURL(this);" type="file">
+                                                <input name="img[8]" id="pic8" data-id="8" class="pis" onchange="readImageURL(this);" type="file">
                                                 <input type="hidden" name="selected_files[]" value="8">
                                                 </label>
                                             </div>

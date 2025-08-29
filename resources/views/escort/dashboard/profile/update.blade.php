@@ -250,11 +250,13 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
       </div>
    </div>
 </div>
+@include('escort.dashboard.modal.upload_gallery_image');
 @if (Session::has('message'))
 <div class="alert alert-info">{{ Session::get('message') }}</div>
 @endif
 @endsection
 @push('script')
+<script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
     <script>
         $(document).on('keypress', 'form input', function(event) {
             return event.keyCode !== 13;
@@ -306,8 +308,7 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
             }
         });
         $('#select2_country').select2();
-    </script>
-    <script>
+    
         @if (request()->segment(2) == 'profile' && request()->segment(3))
             //$('#read_more').parsley({});
             $('#LocationInformation').parsley({});

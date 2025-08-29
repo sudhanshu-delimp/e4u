@@ -376,7 +376,7 @@
         </div>
     </div>
 </div>
-@include('escort.dashboard.modal.upload_gallery_image');
+@include('escort.dashboard.modal.upload_gallery_image')
 <div class="modal" id="photo_gallery" style="display: none">
    <div class="modal-dialog modal-dialog-centered">
        <div class="modal-content custome_modal_max_width">
@@ -478,7 +478,7 @@
         </div>
     </div>
 </div>
-@include('escort.dashboard.profile.modal.remvoe_gallary_image');
+@include('escort.dashboard.modal.remove_gallary_image')
 @endsection
 @push('script')
 <script src="https://foliotek.github.io/Croppie/croppie.js"></script>
@@ -488,62 +488,7 @@
 <script src="{{ asset('assets/plugins/ajax/libs/jquery/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
 <script>
-    var updatePosition = 0;
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-
-
-                var image = new Image();
-                image.src = e.target.result;
-
-                    image.onload = function () {
-                        var height = image.height;
-                        var width = image.width;
-                        if(input.id.includes('9') && (height < 470 || width < 1921)) {
-                            Swal.fire("Banner Media", "Please upload an image with a minimum size of 1921×470 pixels", "warning");
-                            return false;
-
-                        }
-                        if(input.id.includes('10') && (height < 627 || width < 855)){
-                            Swal.fire("Pin Up Media", "Please upload an image with a minimum size of 855×627 pixels", "warning");
-                            return false;
-                        }
-                        $(`#${input.id}`).prev().attr('src', e.target.result);
-                    };
-            };
-
-            reader.readAsDataURL(input.files[0]);
-
-        }
-            console.log("file = "+input.id[3]);
-
-    }
-    function preview_image()
-    {
-        $(".rm").hide();
-        var total_file=document.getElementById("upload_file").files.length;
-        for(var i=0;i<total_file;i++)
-        {
-
-            var num = i+1;
-            var oFile =document.getElementById("upload_file").files[i];
-
-            var imgkbytes = Math.round(parseInt(oFile.size)/1024);
-            var imgMB = Math.round(parseInt(imgkbytes)/1024);
-           if(imgMB <= 2 ) {
-            $('#image_preview').append("<a href='#'><div class='five_column_content_top img-title-sec justify-content-between wish_span rm_"+num+"' style='z-index: 1;'><span class='card_tit' style=''>Photo.img</span><i class='fa fa-trash deleteId' data-id='"+num+"'></i></div><label class='newbtn rm_"+num+"'><img id='blah"+num+"' class='item' src='"+URL.createObjectURL(event.target.files[i])+"'>" +
-                "<input type='hidden' name='selected_files[]' value='"+i+"'></label><div style='margin-top: -34px;'></div></a>");
-            } else {
-               swal.fire('', "Can't upload more than 2 MB size", 'error');
-            }
-        }
-        $(document).on('click','.deleteId', function(){
-        var mid = $(this).attr('data-id');
-        $(".rm_"+mid).remove();
-        });
-    }
+    var updatePosition = 0; 
 
     $("body").on('click','.cropEdit',function(){
         var id = $(this).attr('id');
@@ -553,59 +498,6 @@
         console.log("val = " +src);
     });
 
-    $("body").on('submit','#mulitiImage',function(e){
-        e.preventDefault();
-        var form = $(this);
-        var url = form.attr('action');
-        var data = new FormData($('#mulitiImage')[0]);
-
-        for (let [key, value] of data) {
-         console.log(key, value)
-        }
-
-
-        $.ajax({
-            type: 'POST',
-            url:url,
-            data:data,
-            contentType: false,
-            processData: false,
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            success: function (data) {
-                console.log(data.my_data.status);
-                if(data.my_data.status == 200){
-                    swal.fire('', 'Uploaded', 'success');
-                    window.location.href = data.my_data.url;
-                    $('#comman_modal').on('hidden.bs.modal', function () {
-                        window.location.href = data.my_data.url;
-                    });
-                } else if(data.my_data.status == 405) {
-                    swal.fire('', "", 'error');
-                    swal.fire('', "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>", 'error');
-                    
-                    $("#exampleModal").modal('hide');
-                }
-                 else {
-                    window.location.href = data.my_data.url;
-                }
-
-            },
-            error: function (data) {
-
-                var errors = $.parseJSON(data.responseText);
-                var errorMsg = errors.message;
-              
-                Swal.fire(
-                    'Error occurred',
-                    'File upload failed : ' + errorMsg,
-                    'error'
-                )
-
-            }
-        });
-    });
-</script>
-<script type="text/javascript">
    $(".useDefault").hide();
    $(function () {
        $("#dvSource img").draggable({
@@ -627,11 +519,6 @@
                var sourceImagePosition = $(ui.draggable).data('position');
                var meidaId = ui.draggable.data('id');
                 $("#pos_"+id.slice(3,4)).val(ui.draggable.data('id'));
-
-               console.log("sourcePosition :"+ sourceImagePosition);
-               console.log("destinationPosition :"+ position);
-               console.log("meidaId :"+ meidaId);
-               console.log("1198");
                updateDefaultImage(position, meidaId, img_target, ui.draggable.attr('src'));
            }
 
@@ -655,10 +542,9 @@
                    img_target.attr('src', media_src);
                } else {
                    swal.fire('', "<p>"+data.msg+"</p>", 'error');
-                   // $('.comman_msg').html();
-                   // $("#comman_modal").modal('show');
+                   
                    $('#comman_modal').on('hidden.bs.modal', function () {
-                       // location.reload();
+                       
                    });
                }
            }
@@ -676,26 +562,16 @@
            method: form.attr('method'),
            url:url,
            data:data,
-           // contentType: false,
-           // processData: false,
            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
            success: function (data) {
                console.log(data);
                if(data.error == true) {
                    var msg = "Saved";
-                   // var url = "{{asset('avatars/name')}}";
-                   // url = url.replace('name',data.avatarName);
                    swal.fire('', msg, 'success');
-                   // $('.comman_msg').text(msg);
-                   // $("#comman_modal").modal('show');
 
                } else {
                    var msg = "Something wrong...";
                    swal.fire('', msg, 'error');
-                   // $('.comman_msg').text(msg);
-                   //$("#my_account_modal").show();
-                   //$("#comman_modal").modal('show');
-                   //location.reload();
                }
            },
            error: function (data) {
