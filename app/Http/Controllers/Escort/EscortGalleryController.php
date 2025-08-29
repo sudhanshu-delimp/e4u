@@ -69,6 +69,7 @@ class EscortGalleryController extends AppController
         $path = $this->media;
         return view('escort.dashboard.archives.archive-view-photos',compact('media','path'/*,'media_withoutPosition','media_withPosition'*/));
     }
+
     public function videoGalleries()
     {
         $media = $this->media->get_videos(auth()->user()->id);
@@ -543,5 +544,22 @@ class EscortGalleryController extends AppController
             $type = 2;  //2=>image; 3=>video (banner)
         }
         return [$type, 'attatchment/'.$str];
+    }
+
+    public function getAccountMediaGallery(Request $request){
+        try {
+            $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [8]);
+            $path = $this->media;
+            $response = [];
+            $response['success'] = true;
+            $response['html'] = view('escort\dashboard\profile\partials\media_gallary_container',compact('media','path'))->render();
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
 }

@@ -392,8 +392,8 @@
                                 <div class="row ">
                                     <div class="col-4">                                          
                                         <h2 class="banner-sub-heading my-2">Thumbnail</h2>
-                                        <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
-                                        <img class="img-fluid upld-img profile-gallery" id="img1" src="{{asset($escort->imagePosition(1))}}" style="height: 220px;object-fit: cover;width: 167px;">
+                                        <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
+                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img1" src="{{asset($escort->imagePosition(1))}}" style="height: 220px;object-fit: cover;width: 167px;">
                                             </label>
                                         </div>
                                     </div>
@@ -403,40 +403,40 @@
                                                 <h2 class="banner-sub-heading my-2">Default Image</h2>
                                             </div>
                                             <div class="col">
-                                                <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
-                                                        <img class="img-fluid upld-img profile-gallery" id="img2" src="{{asset($escort->imagePosition(2))}}">
+                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img2" src="{{asset($escort->imagePosition(2))}}">
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(3)">
-                                                        <img class="img-fluid upld-img profile-gallery" id="img3" src="{{asset($escort->imagePosition(3))}}">
+                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(3)">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img3" src="{{asset($escort->imagePosition(3))}}">
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(4)">
-                                                        <img class="img-fluid upld-img profile-gallery" id="img4" src="{{asset($escort->imagePosition(4))}}">
+                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(4)">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img4" src="{{asset($escort->imagePosition(4))}}">
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row" style="">
                                             <div class="col">
-                                                <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(5)">
-                                                        <img class="img-fluid upld-img profile-gallery" id="img5" src="{{asset($escort->imagePosition(5))}}">
+                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(5)">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img5" src="{{asset($escort->imagePosition(5))}}">
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(6)">
-                                                        <img class="img-fluid upld-img profile-gallery" id="img6" src="{{asset($escort->imagePosition(6))}}">
+                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(6)">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img6" src="{{asset($escort->imagePosition(6))}}">
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="col">
-                                                <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(7)">
-                                                        <img class="img-fluid upld-img profile-gallery" id="img7" src="{{asset($escort->imagePosition(7))}}">
+                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(7)">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img7" src="{{asset($escort->imagePosition(7))}}">
                                                     </label>
                                                 </div>
                                             </div>
@@ -446,15 +446,15 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <h2 class="banner-sub-heading my-2">Banner Image</h2>
-                                        <label class="newbtn" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
-                                            <img class="img-fluid profile-gallery"  id="img9" src="{{asset($escort->imagePosition(9))}}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
+                                        <label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
+                                            <img class="img-fluid profile-gallery" data-type="banner"  id="img9" src="{{asset($escort->imagePosition(9))}}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
                                         </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="col-lg-8">
+                        <div class="col-lg-8" id="js_profile_media_gallery">
                             <div class="photo-top-header">
                                 <div class="photo-header border-0">
                                     <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
@@ -499,42 +499,41 @@
                                             <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
                 
                                             </li>
-                                            <li class="page-item  active" id="pageItem_0" data-id="0">
-                                               <a data-target="#carouselExampleIndicators" data-slide-to="0" class="page-link" href="#">1</a>
+                                            @for($i = 0; $i < ceil(count($media)/10); $i++ )
+                                            <li class="page-item" id="pageItem_{{$i}}" data-id="{{$i}}">
+                                               <a data-target="#carouselExampleIndicators" data-slide-to="{{$i}}" class="page-link" href="#">{{$i + 1}}</a>
                                             </li>
-                                            <li class="page-item " id="pageItem_1" data-id="1">
-                                               <a data-target="#carouselExampleIndicators" data-slide-to="1" class="page-link" href="#">2</a>
-                                            </li>
-                                                                        <li class="page-item " id="pageItem_2" data-id="2">
-                                               <a data-target="#carouselExampleIndicators" data-slide-to="2" class="page-link" href="#">3</a>
-                                            </li>
-                                            
+                                            @endfor
                                             <li class="page-item nextOne">
                                             <a class="page-link" href="#carouselExampleIndicators" id="nextId">››</a>
                                             </li>
                                          </ul>
                                          <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
                                             <div class="carousel-inner" id="view_all">
-                                                <div class="carousel-item active" id="cItem_0" data-id="0">
-                                                  <div class="grid-container" id="dvSource">
-                                                                                                                            
-                                                        <div class="item4" id="dm_760">
-                                                            <img class="img-thumbnail defult-image ui-draggable" src="http://127.0.0.1:8000/escorts/images/203/3e4f5b4696fa7d6346476a73c.jpg" alt=" " data-id="760" data-position="9">
-                                                            <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
-                                                                                                <span class="badge badge-red">Banner</span>
+                                            @foreach($media->chunk(10)  as $keyId => $images)
+                                                <div class="carousel-item" id="cItem_{{$loop->index}}" data-id="{{$loop->index}}">
+                                                  <div class="grid-container" id="dvSource">  
+                                                  @foreach($images as $image)    
+                                                  @if(!in_array($image->position, [8])/*$image->position != 8*/)                                               
+                                                        <div class="item4" id="dm_{{$image->id}}">
+                                                            <img class="img-thumbnail defult-image ui-draggable" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
+                                                            <i class="fa fa-trash deleteimg" data-id="{{$image->id}}" title="Remove this media"></i>                                        
+                                                            @switch($image->position)
+                                                                @case(9)
+                                                                    <span class="badge badge-red">Banner</span>
+                                                                @break
+                                                                @case(10)
+                                                                    <span class="badge badge-red">Pin Up</span>
+                                                                @break
+                                                                @default
+                                                                    <span class="badge badge-red">Gallery</span>
+                                                            @endswitch
                                                         </div>
+                                                    @endif    
+                                                    @endforeach   
                                                     </div>
                                                 </div>
-                
-                                                <div class="carousel-item" id="cItem_1" data-id="1">
-                                                  <div class="grid-container" id="dvSource">
-                                                        <div class="item4" id="dm_802">
-                                                            <img class="img-thumbnail defult-image ui-draggable" src="http://127.0.0.1:8000/escorts/images/203/82894e8c00df224c31749890d.jpg" alt=" " data-id="802" data-position="">
-                                                            <i class="fa fa-trash deleteimg" data-id="802" title="Remove this media"></i>                                        
-                                                                                                    <span class="badge badge-red">Gallery</span>
-                                                        </div>
-                                                    </div>
-                                                </div>                      
+                                            @endforeach                     
                                             </div>
                                             <!--.Carousel-->
                                         </div>
@@ -820,21 +819,6 @@
                 </form>
             @endif
         </div>
-        <!-- <div class="about_me_drop_down_info profile-sec p-3">
-            <div class="about_me_drop_down_info ">
-                <label class="newbtn" data-toggle="modal" data-target="#upload-sec-banner">
-                <img class="img-fluid" id="img0" src="{{ asset('assets/app/img/upload-3.png') }}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
-                </label>
-            </div>
-        </div>
-        <div class="about_me_drop_down_info profile-sec p-3">
-            <div class="about_me_drop_down_info ">
-                <label class="newbtn" data-toggle="modal" data-target="#upload-sec-banner">
-                <img class="img-fluid" id="img0" src="{{ asset('assets/app/img/upload-7.png') }}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
-                </label>
-            </div>
-        </div> -->
-        <!-- add banner image -->
 
         <div class="about_me_drop_down_info profile-sec">
             <div class="padding_20_all_side p-2 pb-4">
@@ -1602,24 +1586,8 @@
                         <div class="col-sm-4">
                                         <span id="covidreport-errors"></span>
                         </div>
-                        {{--<div class="add_banner_or_image_bg pt-2 mb-4" @if(!in_array($escort->covidreport, [1,2])) style="display: none" @endif id="covid-file-block">--}}
-                        {{--
-                        <div class="add_banner_or_image_bg pt-2 mb-4" style="display: none" id="covid-file-block">
-                            <div class="row">
-                                <div class="col manage_upload_btn">
-                                    <div class="banner_reco_font">
-                                        <label for="file-upload" class="custom-file-upload">
-                                        <i class="fas fa-plus-circle"></i>
-                                        </label>
-                                        <input id="file-upload" type="file" name="covid_report_file">
-                                        <p>Upload Vaccination Passport / Certificate</p>
-                                        <p class="site_red_color text-center">No file Selected</p>
-                                        <img id="covid-image-preview" src="/{{ $escort->covidReport ? $escort->covidReport->path : null }}" class="attach-img">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        --}}
+                        
+                        
                     </div>
                 </div>
                 <div class="row">
@@ -1631,7 +1599,6 @@
                 </div>
             </div>
         </div>
-    {{-- </form> --}}
 
     <div class="about_me_drop_down_info profile-sec pl-4 pr-4 p-2 pt-4">
         <div class="about_me_heading_in_first_tab fill_profile_headings_global text-capitalize">
@@ -1702,7 +1669,7 @@
             </div>
             <div class="modal-body">
                 <div class="grid-container modalPopup" id="profile_images" style="max-height: 500px; overflow-y:scroll;">
-                    {{--                   <div class="col-sm-12">--}}
+                    
                     @foreach($media  as $keyId => $image)
                         @if(!in_array($image->position, [8, 9, 10])/*$image->position != 8*/)
                             <div class="item4">
@@ -1710,12 +1677,9 @@
                             </div>
                         @endif
                     @endforeach
-                    {{--                   </div>--}}
                 </div>
             </div>
-            {{--<div class="modal-footer" style="justify-content: center;">
-                <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-            </div>--}}
+            
         </div>
     </div>
 </div>
@@ -1740,103 +1704,54 @@
             </div>
         </div>
     </div>
-
-
-
-
-    
-<div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document"> {{--NOTE:: use  modal-dialog-scrollable instead of modal-dialog to make body scrollable only--}}
-        <div class="modal-content" style="width: 900px;position: absolute;">
-            {{-- {{ route('escort.upload.gallery') }} --}}
-            <form id="mulitiImage" method="POST" action="{{route('escort.upload.gallery')}}" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-content border-0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle"><img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Upload Photos</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="container p-0">
-                                    <div class="row p-0">
-                                        <div class="col-12 p-0">
-                                            <div class="photo-sec-popup custom-upload-photo"  id="image_preview">
-                                                <a href="#">
-                                                    <div class="five_column_content_top img-title-sec justify-content-between wish_span rm" style="z-index: 1;">
-                                                      
-                                                    </div>
-                                                    <label class="newbtn rm">
-                                                        <img id="blah" class="item" src="{{ asset('assets/app/img/upload-thum-1.png')}}">
-                                                        
-                                                        <input name="img[]" id="upload_file" class="pis" onchange="preview_image(this);" type="file" multiple accept="image/*">
-                                                    </label>
-                                                    <div style="margin-top: -34px;">
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="row mt-2">
-                                                <div class="col-lg-6">
-                                                    <div class="plate"><label class="newbtn">
-                                                        <img id="blah9" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
-                                                        <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
-                                                        <input type="hidden" name="position[]" id="mediaId9">
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-6">
-                                                    <div class="plate"><label class="newbtn">
-                                                        <img id="blah10" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
-                                                        <input name="img[10]" id="pic10" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
-                                                        <input type="hidden" name="position[]" id="mediaId10">
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-4 pt-1" style="border: 1px dotted;">
-                                        <div class="col-6 pt-4 pb-4">
-                                            <h4>Verify these Photos</h4>
-
-                                            <ul style="text-align: justify;">
-                                              <li>Two (2) selfies with your User Name and Membership ID printed (can be handwritten) on a sheet of paper held up to the side of you and not obscuring any part of you</li>
-                                              <li>A drivers licence which matches your User Name and Home State</li>
-                                              <li>A passport which matches your User Name and Home State</li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="plate" style="position: relative;top: 30%;"><label class="newbtn">
-                                                <img class="img-fluid" id="blah8" src="{{-- {{ asset($path->findByposition(auth()->user()->id,8)['path']) }} --}}" style="height: 138px;object-fit: cover;width: 370px;">
-                                                <input name="img[8]" id="pic8" data-id="8" class="pis" onchange="readURL(this);" type="file">
-                                                <input type="hidden" name="selected_files[]" value="8">
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="submit" class="btn-success-modal">Verify Media</button>
-                        <button type="submit" class="btn-success-modal">Upload</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 @push('script')
 <script>
-  
-    // $('.newbtn').bind("click" , function () {
-    //        $('#pic').click();
-    //        console.log($(this).attr('id'));
-    // });
+    function initDragDrop(){
+        $("#dvSource img").draggable({
+           revert: "invalid",
+           helper: 'clone',
+           appendTo: ".upload-banner",
+           refreshPositions: false,
+           drag: function (event, ui) {
+               
+           },
+           stop: function (event, ui) {
+           }
+       });
+       
+       $(".dvDest").droppable({
+           drop: function (event, ui) {
+            let dropSlot = $(this);
+            let dragSlot = ui.draggable;
+            let dropSlotType = dropSlot.find('img').data('type');
+            let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
+            if(dropSlotType!=dragSlotType){
+                let message = (dragSlotType=='gallery')?`The photo you selected is not a Banner image. Please select a Banner image from your repository.`:`The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
+                swal.fire('Media', message, 'error');
+                return false;
+            }
+            else{
+            $(this).trigger('click');
+            let meidaId = dragSlot.data('id');
+            let target;
+            switch(dragSlotType){
+                case 'gallery':{
+                    target = $(".modalPopup .item4 img[data-id='" + meidaId + "']").closest(".item4");
+                } break;
+                case 'banner':{
+                    target = $(".modalPopup .item2 img[data-id='" + meidaId + "']").closest(".item2");
+                } break;
+            }
+            target.trigger('click');
+            }
+            
+           }
+       });
+    }
+
+  $(function () {
+    initDragDrop();
+  });
 
     var updatePosition = 0;
     $(document).ready(function(e) {
@@ -1990,20 +1905,9 @@
                     .attr('src', src);
             $("#upload-sec").modal('hide');
             console.log("file = "+input.id[3]);
-            //consoleAge.log("src = "+src);
         })
 
     }
-
-
-
-    /*$("body").on("click","#save_change",function(){
-        let field = $("#trigger-element").val();
-        let value = $("#current").val();
-        update_escort_default($(this), {
-            [field] : value
-        });
-    });*/
 
     $("body").on("keyup change",".stageNameOnBlank",function(){
         let $this = $(this);

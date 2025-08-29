@@ -211,6 +211,7 @@ Route::post('delete-videos/{id}', [EscortGalleryController ::class, 'videosDelet
 //     return view('escort.dashboard.archives.archive-view-photos');
 // });
 Route::get('archive-view-videos',[EscortGalleryController ::class, 'videoGalleries'])->name('escort.archive-view-videos');
+Route::get('get-account-media-gallery',[EscortGalleryController ::class, 'getAccountMediaGallery'])->name('escort.account.gallery');
 // Route::get('archive-view-videos',function(){
 //     return view('escort.dashboard.archives.archive-view-videos');
 // });
