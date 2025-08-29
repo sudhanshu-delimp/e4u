@@ -73,7 +73,7 @@ class AgentRepository extends BaseRepository implements AgentInterface
     }
 
 
-    public function updateAgent(array $data)
+    public function addUpdateAgent(array $data)
     {
         
        try 

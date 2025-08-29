@@ -644,6 +644,7 @@
 
             <div class="col-6 mb-3">
             <input type="text" class="form-control rounded-0" placeholder="Business Name" name="business_name" id="business_name">
+            <span class="text-danger error-business_name"></span>
             </div>
             <div class="col-6 mb-3">
             <input type="text" class="form-control rounded-0" placeholder="ABN" name="abn" id="abn">
@@ -653,12 +654,15 @@
             </div>
             <div class="col-6 mb-3">
             <input type="text" class="form-control rounded-0" placeholder="Business Number" name="business_number" id="business_number">
+             <span class="text-danger error-business_number"></span>
             </div>
             <div class="col-6 mb-3">
             <input type="text" class="form-control rounded-0" placeholder="Point of Contact" name="contact_person" id="contact_person">
+             <span class="text-danger error-contact_person"></span>
             </div>
             <div class="col-6 mb-3">
             <input type="text" class="form-control rounded-0" placeholder="Mobile" name="phone" id="phone">
+             <span class="text-danger error-phone"></span>
             </div>
             <div class="col-6 mb-3">
             <input type="email" class="form-control rounded-0" placeholder="Private Email"  name="email" id="email">
@@ -695,6 +699,7 @@
             </div>
             <div class="col-6 mb-3">
             <input type="date" class="form-control rounded-0"  name="agreement_date" id="agreement_date">
+            <span class="text-danger error-agreement_date"></span>
             </div>
             <div class="col-6 mb-3">
             <input type="text" class="form-control rounded-0" placeholder="Term"  name="term" id="term" >
@@ -736,6 +741,63 @@
 
             $('#addNewAgent').html(new_agent_modal);
             $('#addNewAgent').modal({backdrop: 'static',  keyboard: false});          
+      });
+
+      $(document).on('submit', 'form[name="add_agent"]', function(e) 
+      {
+            e.preventDefault(); 
+
+            let form = $(this);
+            let formData = new FormData(this);
+
+            $('.error-email2').text('');
+            $('.error-email').text('');
+
+            swal_waiting_popup({'title':'Validating email..'});
+            $.ajax({
+               url: "{{ route('admin.check-agent-email') }}", 
+               method: "POST",
+               data: formData,
+               contentType: false,
+               processData: false,
+               success: function(res) {
+                     if (res.status) {
+                        swal_waiting_popup({'title':'Updating agent details..'});
+                        $.ajax({
+                           url: "{{ route('admin.add-agent') }}",
+                           method: 'POST',
+                           data: formData,
+                           contentType: false,
+                           processData: false, 
+                           success: function(response) {
+                                 table.ajax.reload(null, false); 
+                                 Swal.close();
+                                 $('#viewAgentdetails').modal('hide');
+                                 swal_success_popup(response.message);
+                           },
+                           error: function(xhr) {
+                              
+                                 Swal.close();
+                                 $('#viewAgentdetails').modal('hide');
+                                 swal_error_popup(xhr.responseJSON.message);
+                           }
+                        });
+                     }
+               },
+                  error: function(xhr) {
+                        Swal.close();
+                        console.log(xhr);
+                        if (xhr.status === 422) {
+                        $('span.text-danger').text('');
+                        let errors = xhr.responseJSON.errors;
+                        $.each(errors, function(field, messages) {
+                        $('.error-' + field).text(messages[0]); 
+                        });
+                        } else {
+                        swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                        }
+                  }
+            });
       });
     
 

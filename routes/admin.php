@@ -162,6 +162,7 @@ Route::get('management/manage-suppliers',function(){
 Route::get('/management/agent',[AgentController::class,'agent_list'])->name('admin.agent');
 Route::post('/suspend-agent',[AgentController::class,'suspend_agent'])->name('admin.suspend-agent');
 Route::post('/update-agent',[AgentController::class,'update_agent'])->name('admin.update-agent');
+Route::post('/add-agent',[AgentController::class,'add_agent'])->name('admin.add-agent');
 Route::post('/check-agent-email',[AgentController::class,'check_agent_email'])->name('admin.check-agent-email');
 Route::post('/approve-agent-account',[AgentController::class,'approve_agent_account'])->name('admin.approve-agent-account');
 

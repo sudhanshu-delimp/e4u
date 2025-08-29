@@ -171,11 +171,34 @@ class AgentController extends BaseController
 
 
 
+    public function add_agent(Request $request)
+    {
+
+
+        $request->validate([
+            'business_name'   => 'required|string|max:255',
+            'business_number' => 'required|string|max:255',
+            'contact_person'  => 'required|string|max:255',
+            'phone'           => 'required|string|max:20',
+            'email'           => 'required|email|max:255',
+            'state_id'        => 'required|integer|exists:states,id',
+            'agreement_date'  => 'required|date',
+        ]);
+
+
+        $data = $request->all();
+        $resposne = $this->agentRepo->addUpdateAgent($data);
+        if($resposne['status'])
+        return $this->successResponse($resposne['message']);
+        else
+        return $this->validationError($resposne['message']);
+    }
+
     public function update_agent(Request $request)
     {
 
         $data = $request->all();
-        $resposne = $this->agentRepo->updateAgent($data);
+        $resposne = $this->agentRepo->addUpdateAgent($data);
         if($resposne['status'])
         return $this->successResponse($resposne['message']);
         else
