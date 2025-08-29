@@ -180,8 +180,21 @@ class AgentController extends BaseController
         return $this->successResponse($resposne['message']);
         else
         return $this->validationError($resposne['message']);
-
     }
+
+    public function approve_agent_account(Request $request)
+    {
+
+        $data = $request->all();
+        $resposne = $this->agentRepo->change_user_status($data);
+        if($resposne['status'])
+        return $this->successResponse($resposne['message']);
+        else
+        return $this->validationError($resposne['message']);
+    }
+
+
+    
 
     
 

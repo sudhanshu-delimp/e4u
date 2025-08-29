@@ -28,23 +28,47 @@ class AgentRepository extends BaseRepository implements AgentInterface
 
     public function check_agent_email(array $data)
     {
+
         $errors = [];
-        if (!empty($data['email'])) {
-            $existsEmail =$this->agent->where('email', $data['email'])->where('id', '!=', $data['user_id'])->exists();
-            if ($existsEmail) {
-                $errors['email'] = ['This email is already taken.'];
+        if(isset($data['user_id']) && $data['user_id']!="")
+        {
+            if (!empty($data['email'])) {
+                $existsEmail =$this->agent->where('email', $data['email'])->where('id', '!=', $data['user_id'])->exists();
+                if ($existsEmail) {
+                    $errors['email'] = ['This email is already taken.'];
+                }
             }
-        }
 
        
-        if (!empty($data['email2'])) {
-            $existsEmail2 =$this->agent->where('email2', $data['email2'])->where('id', '!=', $data['user_id'])->exists();
+            if (!empty($data['email2'])) {
+                $existsEmail2 =$this->agent->where('email2', $data['email2'])->where('id', '!=', $data['user_id'])->exists();
 
-            if ($existsEmail2) {
-                $errors['email2'] = ['This email is already taken.'];
+                if ($existsEmail2) {
+                    $errors['email2'] = ['This email is already taken.'];
+                }
             }
-        }
 
+        }
+        else
+        {
+            if (!empty($data['email'])) {
+                $existsEmail =$this->agent->where('email', $data['email'])->exists();
+                if ($existsEmail) {
+                    $errors['email'] = ['This email is already taken.'];
+                }
+            }
+
+       
+            if (!empty($data['email2'])) {
+                $existsEmail2 =$this->agent->where('email2', $data['email2'])->exists();
+
+                if ($existsEmail2) {
+                    $errors['email2'] = ['This email is already taken.'];
+                }
+            }
+
+        }
+       
         return $errors;
     }
 
@@ -72,7 +96,23 @@ class AgentRepository extends BaseRepository implements AgentInterface
                 ]);
 
             /// Update agent detail
+
             $agent = $user->agent_detail ?? $user->agent_detail()->create([]);
+
+            if (!empty($data['agreement_file'])) {
+                $file = $data['agreement_file'];
+                $filename = time().'.'.$file->getClientOriginalExtension();
+                $file_path = 'agent_files/' . $filename; 
+                $file->storeAs('public/agent_files', $filename);
+                $agent->update(['agreement_file' => $file_path]);
+                $agrement_file = $file_path;
+            }
+
+            else{
+                $agrement_file  = $agent->agreement_file;
+            }
+
+          
             $agent->update([
                 'agreement_date' => !empty($data['agreement_date'])? date('Y-m-d', strtotime($data['agreement_date'])): null,
                 'term' => $data['term'] ?? null,
@@ -80,15 +120,11 @@ class AgentRepository extends BaseRepository implements AgentInterface
                 'option_exercised' => $data['option_exercised'] ?? null,
                 'commission_advertising_percent' => $data['commission_advertising_percent'] ?? null,
                 'commission_registration_amount' => $data['commission_registration_amount'] ?? null,
+                'agreement_file' => $agrement_file,
             ]);
 
             /// Handle file upload
-            if (!empty($data['agreement_file'])) {
-                $file = $data['agreement_file'];
-                $filename = time().'.'.$file->getClientOriginalExtension();
-                $file->storeAs('public/agent_files', $filename);
-                $agent->update(['agreement_file' => $filename]);
-            }
+            
 
             });
 
@@ -101,5 +137,23 @@ class AgentRepository extends BaseRepository implements AgentInterface
          return $this->response;
        }
     }
+
+
+    public function change_user_status(array $data)
+    {
+         $user = $this->agent->where('id',$data['user_id'])->firstOrFail(); 
+         if($user && $data['status']!="")
+         {
+             $user->update(['status' =>  $data['status']]);
+             return $this->response = ['status' => true,'message' => 'Approved Successfully'];
+         }
+         else
+         {
+             return $this->response = ['status' => true,'message' => 'Error occured while approving the user'];
+         }
+
+    }
+
+   
 
 }

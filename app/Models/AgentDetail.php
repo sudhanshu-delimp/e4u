@@ -17,6 +17,7 @@ class AgentDetail extends Model
         'option_exercised',
         'commission_advertising_percent',
         'commission_registration_amount',
+         'agreement_file',
         
     ];
 }

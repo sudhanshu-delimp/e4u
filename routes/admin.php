@@ -163,5 +163,6 @@ Route::get('/management/agent',[AgentController::class,'agent_list'])->name('adm
 Route::post('/suspend-agent',[AgentController::class,'suspend_agent'])->name('admin.suspend-agent');
 Route::post('/update-agent',[AgentController::class,'update_agent'])->name('admin.update-agent');
 Route::post('/check-agent-email',[AgentController::class,'check_agent_email'])->name('admin.check-agent-email');
+Route::post('/approve-agent-account',[AgentController::class,'approve_agent_account'])->name('admin.approve-agent-account');
 
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');
