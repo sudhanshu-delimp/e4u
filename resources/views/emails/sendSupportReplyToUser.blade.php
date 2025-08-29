@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Support Ticket Reply : Escorts4u</title>
+    <title>Support Ticket Reply : Escorts4U</title>
 </head>
 
 <body style="margin:0; padding:0; background-color:#f4f4f4;">
@@ -58,7 +58,7 @@
                     style="background-color:#0c223d; padding: 15px 30px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
                     <tr>
                         <td style="line-height: 21px;">
-                            This is an automatically generated email by the Escorts4u Operations Centre.<br>
+                            This is an automatically generated email by the Escorts4U Operations Centre.<br>
                             &copy; Copyright 2025 Blackbox Tech Pty Ltd. All rights reserved.
                         </td>
                     </tr>

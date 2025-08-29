@@ -323,3 +323,31 @@ Route::post('agent-request',[AgentRequestController::class, 'agentRequest'])->na
 
 Route::get('get-notification', [NotificationController::class, 'getNotification'])->name('center.get-notification');
 Route::post('notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('center.notification-seen');
+
+Route::get('editmyaccount',function(){
+    return view('center.dashboard.HowisDone.editmyaccount');
+})->name('center.editmyaccount');
+
+Route::get('profile-information',function(){
+    return view('center.dashboard.HowisDone.profile-information');
+})->name('center.profile-information');
+
+Route::get('listings',function(){
+    return view('center.dashboard.HowisDone.listings');
+})->name('center.listings');
+
+Route::get('profiles-centre',function(){
+    return view('center.dashboard.HowisDone.profiles-centre');
+})->name('center.profiles-centre');
+
+Route::get('media-centre',function(){
+    return view('center.dashboard.HowisDone.media-centre');
+})->name('center.media-centre');
+
+Route::get('profiles-masseurs',function(){
+    return view('center.dashboard.HowisDone.profiles-masseurs');
+})->name('center.profiles-masseurs');
+
+Route::get('media-masseurs',function(){
+    return view('center.dashboard.HowisDone.media-masseurs');
+})->name('center.media-masseurs');
