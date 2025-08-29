@@ -52,16 +52,53 @@
             </div>
          </div>
       </div> --}}
+      {{-- Our Business --}}
       <div class="about_me_drop_down_info profile-sec p-4">
          <div class="fill_profile_headings_global">
             <h2 class="m-0">Our Business</h2>
          </div>
          <div class="row">
-            <div class="col-md-6" style="border-right: 10px solid #eee;">
+            <div class="col-md-6">
                <div class="col-lg-12">
                   <div class="row">
-                     <div class="col-lg-8 pl-1">
-                        <div class="about-me-box-one-name stage_name pt-3" style={{ $escort->name ? '' : "color:#9A9B9C;" }} >
+                     <div class="col-lg-12 my-4">
+                        <div class="form-group row tab-about-me-row-padding">
+                           <label class="col-sm-5 font-weight-500" for="profile_name">
+                           Profile Name:</label>
+                           <div class="col-sm-7">
+                              <input type="text" name="profile_name" class="form-control form-control-sm select_tag_remove_box_sadow" id="profile_name" required data-parsley-required-message="Enter profile name" data-parsley-group="goup_one">
+                           </div>
+                        </div>
+
+                        <div class="form-group row tab-about-me-row-padding">
+                           <label class="col-sm-5 font-weight-500" for="business_name">
+                           Business Name:</label>
+                           <div class="col-sm-7">
+                              <input type="text" name="business_name" class="form-control form-control-sm select_tag_remove_box_sadow" id="business_name" required data-parsley-required-message="Enter business name" data-parsley-group="goup_one">
+                           </div>
+                        </div>
+                        <div class="form-group row tab-about-me-row-padding">
+                           <label class="col-sm-5 font-weight-500" for="address">
+                          Address:</label>
+                           <div class="col-sm-7">
+                              <input type="text" name="address" class="form-control form-control-sm select_tag_remove_box_sadow" id="address" required data-parsley-required-message="Enter address" data-parsley-group="goup_one">
+                           </div>
+                        </div>
+                        <div class="form-group row tab-about-me-row-padding">
+                           <label class="col-sm-5 font-weight-500" for="business_no">
+                           Business No:</label>
+                           <div class="col-sm-7">
+                              <input type="text" name="business_no" class="form-control form-control-sm select_tag_remove_box_sadow" id="business_no" required data-parsley-required-message="Enter business number" data-parsley-group="goup_one">
+                           </div>
+                        </div>
+                        <div class="form-group row tab-about-me-row-padding">
+                           <label class="col-sm-5 font-weight-500" for="mobile_no">
+                           Mobile No:</label>
+                           <div class="col-sm-7">
+                              <input type="text" name="mobile_no" class="form-control form-control-sm select_tag_remove_box_sadow" id="mobile_no" required data-parsley-required-message="Enter mobile number" data-parsley-group="goup_one">
+                           </div>
+                        </div>
+                        {{-- <div class="about-me-box-one-name stage_name pt-3" style={{ $escort->name ? '' : "color:#9A9B9C;" }} >
                             {{$escort->name ? $escort->name  : 'Stage Name'}}
                            
                         </div>
@@ -70,13 +107,13 @@
                           
                                 <input type="text" name="name" class="form-control form-control-sm select_tag_remove_box_sadow" placeholder="Enter Your Stage Name" value="{{$escort->name ? $escort->name : '' }}">
                        
-                        </div>
-                        <span id="stageName-errors"></span> 
+                        </div> --}}
+                        {{-- <span id="stageName-errors"></span> 
                         <div class="about-me-box-one-number mobile_num" style={{ $escort->city ? '' : "color:#C4C4C4;" }}>
                             {{ $escort->city ? $escort->city->name : "Location -"}}{{$escort->phone ? ' - '.$escort->phone : auth()->user()->phone}}
                         
-                        </div>
-                        <div class="about-me-box-one-number show_input_box" style="display: none">
+                        </div> --}}
+                        {{-- <div class="about-me-box-one-number show_input_box" style="display: none">
                             <select class="form-control form-control-sm select_tag_remove_box_sadow" id="state_id" name="state_id" required="" data-parsley-required-message="-select location-" data-parsley-group="goup_one" data-parsley-errors-container="#locationState-errors">
                               
                                 <option value="" selected="">-- Select States--</option>
@@ -111,9 +148,9 @@
                             </select>
                          
                             <input type="text" name="phone" class="form-control form-control-sm select_tag_remove_box_sadow mt-2" value="{{$escort->phone ? $escort->phone : auth()->user()->phone  }}" placeholder="Mobile Number">
-                        </div>
+                        </div> --}}
                         
-                        <div class="about-me-box-one-map add_class" style={{ $escort->
+                        {{-- <div class="about-me-box-one-map add_class" style={{ $escort->
                             state ? '' : "color:#C4C4C4;" }}>
                             <svg width="14" height="21" viewBox="0 0 14 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7 10C6.33696 10 5.70107 9.73661 5.23223 9.26777C4.76339 8.79893 4.5 8.16304 4.5 7.5C4.5 6.83696 4.76339 6.20107 5.23223 5.73223C5.70107 5.26339 6.33696 5 7 5C7.66304 5 8.29893 5.26339 8.76777 5.73223C9.23661 6.20107 9.5 6.83696 9.5 7.5C9.5 7.8283 9.43534 8.15339 9.3097 8.45671C9.18406 8.76002 8.99991 9.03562 8.76777 9.26777C8.53562 9.49991 8.26002 9.68406 7.95671 9.8097C7.65339 9.93534 7.3283 10 7 10V10ZM7 0.5C5.14348 0.5 3.36301 1.2375 2.05025 2.55025C0.737498 3.86301 0 5.64348 0 7.5C0 12.75 7 20.5 7 20.5C7 20.5 14 12.75 14 7.5C14 5.64348 13.2625 3.86301 11.9497 2.55025C10.637 1.2375 8.85652 0.5 7 0.5V0.5Z" fill="#FF3C5F" />
@@ -122,14 +159,14 @@
                         </div>
                         <div class="about-me-box-one-name show_input_box mt-3"  style="display: none">
                             <input type="text" name="address" placeholder="Where are you staying" class="form-control form-control-sm select_tag_remove_box_sadow" value="{{$escort->address }}">
-                        </div>
-                        <div class="about-md-box-social">@if(!empty($escort->social_links)) @foreach($escort->social_links as $key=>$val)
+                        </div> --}}
+                        {{-- <div class="about-md-box-social">@if(!empty($escort->social_links)) @foreach($escort->social_links as $key=>$val)
                             <a href="{{ $val }}">
                             <img src="{{ asset('assets/dashboard/img/'.$key.'.svg') }}" />
                             </a>@endforeach @endif
-                        </div>
-                    </div>
-                     <div class="col-lg-4">
+                        </div> --}}
+                    </div>    
+                     {{-- <div class="col-lg-4">
                         <div class="pull-right pt-5" style="text-align: end;">
                            <a href="#" id="new_saveProfilename">
                               <span class="pr-2">Edit</span> 
@@ -138,11 +175,21 @@
                               </svg>
                            </a>
                         </div>
-                     </div>
+                     </div> --}}
                   </div>
                </div>
             </div>
-            <div class="col-md-6" style="padding-right: 25px;">
+         </div>
+      </div>
+      {{-- media --}}
+      
+      <div class="about_me_drop_down_info profile-sec p-4">
+         <div class="fill_profile_headings_global">
+            <h2 class="m-0">Media</h2>
+         </div>
+         <div class="row">
+           
+            <div class="col-md-4" style="padding-right: 25px;">
                <div class="container p-0">
                   <div class="row pt-3">
                      <div class="col-4 pr-0 full_height_pic">
@@ -205,7 +252,7 @@
             </div>
          </div>
       </div>
-      <!-- upload video blow about me -->
+      {{-- about us--}}
       <div class="about_me_drop_down_info profile-sec p-4">
          <div class="fill_profile_headings_global mb-4">
             <h2>About Us</h2>
@@ -276,7 +323,7 @@
                                  <div class="col-lg-4 col-md-12 col-sm-12">
                                     <div class="form-group row tab-about-me-row-padding">
                                        <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">
-                                       Shower<span style="color:red">*</span></label>
+                                       Shower</label>
                                        <div class="col-sm-8">
                                           <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="" name="shower" required="">
                                              <option value="" selected="">-- Not Set --</option>
@@ -356,7 +403,7 @@
                                        </div>
                                     </div>
                                  </div>
-                                 <div class="col-lg-4 col-md-12 col-sm-12" style="margin-top: -20px;">
+                                 <div class="col-lg-4 col-md-12 col-sm-12">
                                     <div class="form-group row tab-about-me-row-padding">
                                        <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Languages
                                        </label>
@@ -371,7 +418,7 @@
                                              <div class='selecated_languages'>
                                                 @if(!empty($escort->language)) 
                                                 @foreach($escort->language as $language)
-                                                <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!}</span>
+                                                <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!}<small class="remove-lang">×</small></span>
                                                 <input type='hidden' name='language[]' value="{{$language}}">
                                                 @endforeach
                                                 @endif
@@ -396,9 +443,10 @@
             </div>
          </div>
       </div>
+      {{-- who are we --}}
       <div class="about_me_drop_down_info profile-sec p-4">
          <div class="fill_profile_headings_global">
-            <h2>Who are we ?</h2>
+            <h2>Who are We ?</h2>
          </div>
          <div class="padding_20_all_side">
             <input type="text" name="about_title" value="{{$escort->about_title ? $escort->about_title : null }}" class="whoiamtitle mb-3" placeholder="Enter Your Title Here">
@@ -416,12 +464,13 @@
                   </div>
                </div>
       </div>
+
       </div>
-      <div class="tab_btm_btns_preview_and_next">
+      <div class="tab_btm_btns_preview_and_next py-3">
          <div class="row pt-3 pb-2">
             <div class="col-md-12 text-right mb-2 a_text_white_hover">
                {{-- <a href="#" class="save_profile_btn" >Preview</a> --}}
-               <a href="#services" class="nex_sterp_btn" id="profile-tab" data-toggle="tab" href="#services" role="tab" aria-controls="profile" aria-selected="false">Next Step
+               <a href="#services" class="nex_sterp_btn" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">Next Step
                <i class="fas fa-arrow-right"></i>
                </a>
             </div>

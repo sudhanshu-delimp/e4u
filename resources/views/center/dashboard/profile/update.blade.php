@@ -96,14 +96,14 @@
                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#services" role="tab" aria-controls="profile" aria-selected="false">Services &amp; Rates</a>
                                 </li>
                                 <li class="nav-item m-0">
+                                   <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available" role="tab" aria-controls="contact" aria-selected="false">Open Times</a>
+                                </li>
+                                <li class="nav-item m-0">
                                    <a class="nav-link" id="massuers-tab" data-toggle="tab" href="#massuers" role="tab" aria-controls="massuers" aria-selected="false">Massuers</a>
                                 </li>
-                                <li class="nav-item m-0">
-                                   <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available" role="tab" aria-controls="contact" aria-selected="false">Open times</a>
-                                </li>
-                                <li class="nav-item m-0">
+                                {{-- <li class="nav-item m-0">
                                    <a class="nav-link" id="pricing-tab" data-toggle="tab" href="#pricing" role="tab" aria-controls="contact" aria-selected="false">Check fee summary and pay</a>
-                                </li>
+                                </li> --}}
                                 
                                 
                             </ul>
@@ -638,7 +638,7 @@ $(document).ready(function() {
     //$(this).is(':checked') ? $('#show_playType').show() : $('#'+val).hide();
     if($(this).is(':checked'))
     {
-        $("#show_playType").append("<div class='selecated_languages playT' style='display: inline-block' id='"+val+"'><span class='languages_choosed_from_drop_down'>"+ name +" </span> </div> ")
+        $("#show_playType").append("<div class='selecated_languages playT' style='display: inline-block' id='"+val+"'><span class='languages_choosed_from_drop_down'>"+ name +" <small class="remove-lang">×</small></span> </div> ")
     } 
     else 
     {
