@@ -1,5 +1,5 @@
 $(() => {
-    $('#cItem_0').addClass('active');
+        $('#cItem_0').addClass('active');
         $('#pageItem_0').addClass('active');
         $("body").on('click','.page-link', function(e){
             e.preventDefault();
@@ -45,7 +45,8 @@ $(() => {
             $('#pageItem_'+id).addClass(' active');
         });
 
-        $('body').on('click','.deleteimg', function () {
+        $('body').on('click','.deleteimg', function (e) {
+        e.preventDefault();
         var id = $(this).data('id');
         $('#deleteId').val(id);
         var msg = "Delete";
@@ -60,6 +61,7 @@ $(() => {
                     if(data.error == true) {
                         $("#delete_img").modal('hide');
                         $("#dm_"+id).remove();
+                        getAccountMediaGallery();
                     } else {
                         var msg = "Sumthing wrong...";
                         $('.img_comman_msg').text(msg);
@@ -147,11 +149,9 @@ function preview_image()
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             success: function (data) {
                 if(data.my_data.status == 200){
+                    $("#exampleModal").modal('hide');
                     swal.fire('', 'Uploaded', 'success');
-                    location.reload();
-                    $('#comman_modal').on('hidden.bs.modal', function () {
-                        location.reload();
-                    });
+                    getAccountMediaGallery();
                 } else if(data.my_data.status == 405) {
                     swal.fire('', "", 'error');
                     swal.fire('', "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>", 'error');
@@ -177,3 +177,19 @@ function preview_image()
             }
         });
     });
+
+    var getAccountMediaGallery = function(){
+        $.ajax({
+            url: "/escort-dashboard/get-account-media-gallery",
+            type: "GET",
+            success: function (response) {
+                $("#js_profile_media_gallery").html(response.html);
+                $('#cItem_0').addClass('active');
+                $('#pageItem_0').addClass('active');
+                initDragDrop();
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }

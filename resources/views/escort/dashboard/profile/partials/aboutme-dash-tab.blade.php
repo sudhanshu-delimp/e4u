@@ -454,7 +454,7 @@
                             </div>
                         </div>
                         
-                        <div class="col-lg-8">
+                        <div class="col-lg-8" id="js_profile_media_gallery">
                             <div class="photo-top-header">
                                 <div class="photo-header border-0">
                                     <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
@@ -1586,24 +1586,8 @@
                         <div class="col-sm-4">
                                         <span id="covidreport-errors"></span>
                         </div>
-                        {{--<div class="add_banner_or_image_bg pt-2 mb-4" @if(!in_array($escort->covidreport, [1,2])) style="display: none" @endif id="covid-file-block">--}}
-                        {{--
-                        <div class="add_banner_or_image_bg pt-2 mb-4" style="display: none" id="covid-file-block">
-                            <div class="row">
-                                <div class="col manage_upload_btn">
-                                    <div class="banner_reco_font">
-                                        <label for="file-upload" class="custom-file-upload">
-                                        <i class="fas fa-plus-circle"></i>
-                                        </label>
-                                        <input id="file-upload" type="file" name="covid_report_file">
-                                        <p>Upload Vaccination Passport / Certificate</p>
-                                        <p class="site_red_color text-center">No file Selected</p>
-                                        <img id="covid-image-preview" src="/{{ $escort->covidReport ? $escort->covidReport->path : null }}" class="attach-img">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        --}}
+                        
+                        
                     </div>
                 </div>
                 <div class="row">
@@ -1615,7 +1599,6 @@
                 </div>
             </div>
         </div>
-    {{-- </form> --}}
 
     <div class="about_me_drop_down_info profile-sec pl-4 pr-4 p-2 pt-4">
         <div class="about_me_heading_in_first_tab fill_profile_headings_global text-capitalize">
@@ -1686,7 +1669,7 @@
             </div>
             <div class="modal-body">
                 <div class="grid-container modalPopup" id="profile_images" style="max-height: 500px; overflow-y:scroll;">
-                    {{--                   <div class="col-sm-12">--}}
+                    
                     @foreach($media  as $keyId => $image)
                         @if(!in_array($image->position, [8, 9, 10])/*$image->position != 8*/)
                             <div class="item4">
@@ -1694,12 +1677,9 @@
                             </div>
                         @endif
                     @endforeach
-                    {{--                   </div>--}}
                 </div>
             </div>
-            {{--<div class="modal-footer" style="justify-content: center;">
-                <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-            </div>--}}
+            
         </div>
     </div>
 </div>
@@ -1724,11 +1704,10 @@
             </div>
         </div>
     </div>
-@include('escort.dashboard.modal.remove_gallary_image');
 @push('script')
 <script>
-  $(function () {
-    $("#dvSource img").draggable({
+    function initDragDrop(){
+        $("#dvSource img").draggable({
            revert: "invalid",
            helper: 'clone',
            appendTo: ".upload-banner",
@@ -1739,6 +1718,7 @@
            stop: function (event, ui) {
            }
        });
+       
        $(".dvDest").droppable({
            drop: function (event, ui) {
             let dropSlot = $(this);
@@ -1750,6 +1730,7 @@
                 swal.fire('Media', message, 'error');
                 return false;
             }
+            else{
             $(this).trigger('click');
             let meidaId = dragSlot.data('id');
             let target;
@@ -1762,8 +1743,14 @@
                 } break;
             }
             target.trigger('click');
+            }
+            
            }
        });
+    }
+
+  $(function () {
+    initDragDrop();
   });
 
     var updatePosition = 0;

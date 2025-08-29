@@ -259,7 +259,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-8" id="js_profile_media_gallery">
             <div class="photo-top-header">
                 <div class="photo-header border-0">
                     <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
@@ -499,8 +499,9 @@
     });
 
    $(".useDefault").hide();
-   $(function () {
-       $("#dvSource img").draggable({
+
+   function initDragDrop(){
+    $("#dvSource img").draggable({
            revert: "invalid",
            helper: 'clone',
             appendTo: ".upload-photo-sec",
@@ -523,6 +524,10 @@
            }
 
        });
+   }
+
+   $(function () {
+    initDragDrop();
    });
 
    function updateDefaultImage(position, meidaId, img_target, media_src) {
