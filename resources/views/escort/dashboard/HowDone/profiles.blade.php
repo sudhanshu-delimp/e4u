@@ -129,8 +129,6 @@ details[open] > summary:first-of-type {
 .card {
     background: #ffffff;
     border: 1px solid #e5e7eb;
-    border-radius: 18px;
-    box-shadow: 0 10px 24px rgba(2, 6, 23, .06);
     padding: 0;
 }
 .callout {
@@ -160,6 +158,16 @@ details[open] > summary:first-of-type {
             <h1 class="h1">Profiles</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
         </div>
+        
+        <div class="col-md-12 mb-4">
+          <div class="card collapse" id="notes" style="">
+              <div class="card-body">
+                 <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                 <ol>
+                 </ol>
+              </div>
+           </div>
+      </div>
     </div>
             <div class="row">
                <div class="col-md-12 mt-2 mb-5">
