@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Laravel\Ui\Presets\React;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\BaseController;
+use App\Http\Requests\Agent\AddNewAgent;
 use App\Repositories\Agent\AgentInterface;
 
 class AgentController extends BaseController
@@ -171,20 +172,8 @@ class AgentController extends BaseController
 
 
 
-    public function add_agent(Request $request)
+    public function add_agent(AddNewAgent $request)
     {
-
-
-        $request->validate([
-            'business_name'   => 'required|string|max:255',
-            'business_number' => 'required|string|max:255',
-            'contact_person'  => 'required|string|max:255',
-            'phone'           => 'required|string|max:20',
-            'email'           => 'required|email|max:255',
-            'state_id'        => 'required|integer|exists:states,id',
-            'agreement_date'  => 'required|date',
-        ]);
-
 
         $data = $request->all();
         $resposne = $this->agentRepo->addUpdateAgent($data);

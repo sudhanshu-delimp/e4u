@@ -64,8 +64,8 @@
                             <th>Priority</th>
                             <th>Service Type</th>
                             <th>Subject</th>
-                            <th>Message</th>
                             <th>Date Created</th>
+                            <th>Document</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -146,16 +146,15 @@
                }
            },
            columns: [
-               { data: 'ref_number', name: 'ref_number', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'service_type', name: 'service_type', searchable: false, orderable:true ,defaultContent: 'NA'},
-               { data: 'subject', name: 'start_date', searchable: true, orderable:true,defaultContent: 'NA' },
-               { data: 'message', name: 'enabled', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'created_on', name: 'date_created', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'status_mod', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
-               { data: 'id', visible: false },
+            { data: 'ref_number', name: 'ref_number', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'service_type', name: 'service_type', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'subject', name: 'start_date', searchable: true, orderable:true,defaultContent: 'NA' },
+            { data: 'created_on', name: 'created_on', searchable: false, orderable:true,defaultContent: 'NA' },
+            { data: 'file', name: 'file', orderable: true, defaultContent: 'No Documents' },
+            { data: 'status_mod', name: 'status_mod', orderable: true, defaultContent: 'NA' },
+            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
            ],
            order: [6, 'desc'],
        });
