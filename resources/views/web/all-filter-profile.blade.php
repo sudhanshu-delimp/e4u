@@ -191,7 +191,7 @@
                                 <select class="custome_form_control_border_radus padding_five_px" id="select2-dropdown"
                                     name="gender">
 
-                                    <option value="" selected>Gender</option>
+                                    <option value="" selected>All Genders</option>
                                     <option value="1"
                                         {{ $filterGenderId == '1' || request()->segment(2) == 'Male' ? 'selected' : '' }}>
                                         Male</option>
@@ -243,7 +243,7 @@
                             <div class="display_inline_block mb-1 mr-2">
                                 <select class="custome_form_control_border_radus padding_five_px with_eight_em"
                                     id="" name="duration_price" value="{{ request()->get('duration_price') }}">
-                                    <option value="0">All services</option>
+                                    <option value="0">All Services</option>
                                     <option value="incall_price"
                                         {{ request()->get('duration_price') == 'incall_price' ? 'selected' : '' }}>
                                         In-calls</option>
