@@ -52,20 +52,21 @@ $(() => {
         var msg = "Delete";
         $('.img_comman_msg').text(msg);
         $("#delete_img").modal('show');
-        $('#dImg').click(function () {
+        $(document).on('click','#dImg', function(){
+                e.preventDefault();
+                let eLmt = $(this);
                 $.ajax({
                 type: "POST",
                 url:`/escort-dashboard/delete-photos/${id}`,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                beforeSend: function (){
+                    $(".img_comman_msg").text('Deleting...');
+                },
                 success: function (data) {
-                    if(data.error == true) {
+                    getAccountMediaGallery().then(function () {
                         $("#delete_img").modal('hide');
-                        $("#dm_"+id).remove();
-                        getAccountMediaGallery();
-                    } else {
-                        var msg = "Sumthing wrong...";
-                        $('.img_comman_msg').text(msg);
-                    }
+                        $(".img_comman_msg").text('Delete');
+                    });
                 },
                 error: function (data) {
                     var errors = $.parseJSON(data.responseText);
@@ -187,27 +188,30 @@ function preview_image()
         });
     });
 
-    var getAccountMediaGallery = function(){
-        $.ajax({
+    var getAccountMediaGallery = function() {
+        return $.ajax({
             url: "/escort-dashboard/get-account-media-gallery",
             type: "GET",
-            dataType: "json",
-            success: function (response) {
-                if(response.success){
+            dataType: "json"
+        }).done(function (response) {
+            if (response.success) {
                 let activePage = $("#carouselExampleIndicators .page-item.active").attr('id');
                 let activeContainer = $("#carouselExampleIndicators .carousel-item.active").attr('id');
-
+    
                 $("#js_profile_media_gallery").html(response.gallery_container_html);
                 $("#profile_images").html(response.gallery_modal_container_html);
                 $("#banner_images").html(response.banner_modal_container_html);
-                
-                $(`#${activePage}`).addClass('active');
-                $(`#${activeContainer}`).addClass('active');
-                initDragDrop();
+    
+                if (activePage && activeContainer) {
+                    $(`#${activePage}`).addClass('active');
+                    $(`#${activeContainer}`).addClass('active');
+                } else {
+                    $(`#pageItem_0`).addClass('active');
+                    $(`#cItem_0`).addClass('active');
                 }
-            },
-            error: function (xhr, status, error) {
-                console.error("Error:", error);
+                initDragDrop();
             }
+        }).fail(function (xhr, status, error) {
+            console.error("Error:", error);
         });
     }
