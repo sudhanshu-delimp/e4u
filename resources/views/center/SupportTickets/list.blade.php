@@ -104,9 +104,9 @@
                 <div class="reply-wrapper p-3 ">
                     <form id="sendMessage">
                        <div class="reply-message-box">
-                        <textarea class="messageBox" name="message" id="message" rows="2" required></textarea>
+                        <textarea class="messageBox" name="message" id="message" rows="4" required></textarea>
                        
-                        <button class="btn-success-modal py-3" id="submit_message">Send</button>
+                        <button class="btn-cancel-modal py-3" id="submit_message">Send</button>
                        </div>
                     </form>
                 </div>
