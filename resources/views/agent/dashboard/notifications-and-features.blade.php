@@ -29,105 +29,97 @@
    <!-- Main Content -->
    <div id="content">
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-    <!--middle content start here-->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="v-main-heading h3">Upload your avatar</div>
+    <div class="row">    
+        <div class="custom-heading-wrapper col-md-12">
+           <h1 class="h1">Notifications & Features</h1>
+           <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
-        <div class="col-md-12 mt-4" id="profile_and_tour_options">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card border-0">
-                        <div class="card-body">
-                            <h2 class="primery_color normal_heading"><b>Notes:</b></h2>
-                            <ul>
-                                <li>You don't have to have an avatar, it is entirely up to you</li>
-                                <li>Your avatar will not be displayed publicly</li>
-                                <li>You can remove or change your avatar anytime</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card border-0">
-                        <div class="card-body">
-                            <h2 class="primery_color normal_heading">File types</h2>
-                            <p>When selecting your avatar, please be mindful of the following:</p>
-                            <ul>
-                                <li>Yes you can use a photo, but we do not recommend it</li>
-                                <li>Acceptable formats include; .jpg, .gif or .png</li>
-                                <li>.pdf, .psd, .tff, and .doc files are not compatible</li>
-                            </ul>
-                            <div class="row">
-                                <div class="col-lg-4 mt-4">
-                                    <h2 class="primery_color normal_heading">Upload your avatar</h2>
-                                    <form id="my_avatar" action="{{ route('center.save.avatar',auth()->user()->id)}}" method="POST" enctype="multipart/form-data">
-                                        <div class="file-upload">
-                                            <div class="image-upload-wrap">
-                                                <input class="file-upload-input gambar item-img" name="avatar_img" type="file" onchange="readURL(this);" accept="image/*">
-                                                <div class="drag-text">
-                                                    <h3>Drag and drop a file or select add Image</h3>
-                                                </div>
-                                            </div>
-                                            <div class="file-upload-content">
-                                                <img class="file-upload-image item-img" src="#" alt="your image" id="item-img-output">
-                                                <div class="image-title-wrap">
-                                                    
-                                                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-                                                    <button type="submit" class="remove-image crop_image">Save <span class="image-title">Uploaded Image</span></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-lg-4 mt-4 current-avatar">
-                                    
-                                    <h2 class="primery_color normal_heading">Current Avatar</h2><!-- <i class="fab fa-twitter delete_avatar"></i> -->
-                                    @if(auth()->user()->avatar_img)
-                                    <button type="button" class="avatar close delete_avatar" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                    @endif
-                                    <img src="{{ !auth()->user()->avatar_img ? asset('assets/app/img/service-provider/Frame-408.png') :asset('avatars/'.auth()->user()->avatar_img) }}" alt="" class="img-rounded avatarName">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col-md-12 mt-4">
-                    <div id="accordion" class="myacording-design mb-5">
-                        <div class="card">
-                            <div class="card-header">
-                                <a class="card-link" data-toggle="collapse" href="#File_name" aria-expanded="false">
-                                Additional Upload Information
-                                </a>
-                            </div>
-                            <div id="File_name" class="collapse" data-parent="#accordion" style="">
-                                <div class="card-body">
-                                    <p style="font-size: 20px;"><b>File name</b> </p>
-                                    <p>Only use letters, numbers, underscores, and hyphens in file names.</p>
-                                    <p style="font-size: 20px;"><b>File size</b> </p>
-                                    <p>We recommend using image files of less than 500 KB for best results, though the limit for an individual image upload is 2 MB.</p>
-                                    <p style="font-size: 20px;"><b>Resolution</b> </p>
-                                    <p>There is an image resolution limit of 60 MP (megapixels).</p>
-                                    <p style="font-size: 20px;"><b>Colour mode</b> </p>
-                                    <p>Save images in RGB color mode. Print mode (CMYK) won't render in most browsers.
-                                    </p>
-                                    <p style="font-size: 20px;"><b>Colour profile</b> </p>
-                                    <p>Save images in the sRGB color profile. If images don't look right on mobile devices, it's probably because they don't have an sRGB color profile.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-12 mb-4">
+           <div class="card collapse" id="notes" style="">
+              <div class="card-body">
+                 <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                 <ol>
+                      <li>Use this feature to enable and disable your notification and feature preferences.</li>
+                      <li>Please note that for an Escort to receive any of your Requests or Notifications, the
+                        Escort must have enabled the corresponding feature in their preference settings.</li>
+                      <li>Note also the default setting for 2FA authentification.</li> 
+                 </ol>
+              </div>
+           </div>
         </div>
+        <div class="col-md-12" id="profile_and_tour_options">
+  
+           <form class="v-form-design" id="profile_notification_options" action="http://127.0.0.1:8000/escort-dashboard/notification-update" method="POST">
+               <div class="row">
+                   <div class="col-md-12">
+                       <div class="form-group notification_checkbox_div">
+                           <h3 class="h3">Features</h3>
+                           <div class="custom-control custom-switch">
+                             <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+                             <label class="custom-control-label" for="customSwitch1">Receive Alert Notifications from Advertisers</label>
+                           </div>
+  
+                           <div class="custom-control custom-switch">
+                             <input type="checkbox" class="custom-control-input" id="customSwitch2" checked>
+                             <label class="custom-control-label" for="customSwitch2">Participate in direct chatting with Advertisers</label>
+                           </div>
+                           <div class="pt-1"><i>These features are enabled by default unless you disable them.</i></div>
+                       </div>
+  
+                       <div class="form-group">
+                          <h3 class="h3">Alert notifications</h3>
+
+                          <p class="my-3">From an Advertiser:</p>
+  
+                          <div class="custom-control custom-switch">
+                             <input type="checkbox" class="custom-control-input" id="alert-email">
+                             <label class="custom-control-label" for="alert-email">Email (A-Alert)</label>
+                           </div>
+  
+                           <div class="custom-control custom-switch">
+                             <input type="checkbox" class="custom-control-input" id="text" checked>
+                             <label class="custom-control-label" for="text">Text</label>
+                           </div>
+                           <div class="pt-1"><i>How an Advertisers will communicate with you.</i></div>
+
+                           <p class="my-3">By Escorts4U:</p>
+
+                           <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="email">
+                            <label class="custom-control-label" for="email">Email</label>
+                          </div>
+ 
+                          <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="alert-text" checked>
+                            <label class="custom-control-label" for="alert-text">Text [default]</label>
+                          </div>
+
+                          <div class="custom-control custom-switch">
+                           <input type="checkbox" class="custom-control-input" id="call-me">
+                           <label class="custom-control-label" for="call-me">Call me</label>
+                         </div>
+                          <div class="pt-1"><i>How Escorts4U will communicate with you.</i></div>
+
+
+                       </div>
+                       <div class="form-group">
+                          <h3 class="h3">2FA Authentification</h3>
+                           <div class="form-check">
+                               <input class="form-check-input" type="checkbox" name="auth" id="auth" value="1">
+                               <label class="form-check-label" for="auth">Email</label>
+                           </div>
+                           <div class="form-check">
+                               <input class="form-check-input" name="auth" checked type="checkbox" id="auth" value="2" checked="">
+                               <label class="form-check-label" for="auth">Text [default]</label>
+                           </div>
+                           <div class="pt-1"><i>How your authentification code will be sent to you.</i></div>
+                       </div>
+                   </div>
+               </div>
+               <input type="submit" value="save" class="btn btn-primary shadow-none float-right" name="submit">
+           </form>
+       </div>
     </div>
-    <!--middle content end here-->
 </div>
    </div>
    <!-- End of Main Content -->
