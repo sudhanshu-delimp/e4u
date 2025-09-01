@@ -743,56 +743,6 @@
 
             var stateId = $.cookie('state-id');
 
-            // $("#defaultCheck1").click(function(){
-            //     if (this.checked) {
-            //         $(".agree").prop('disabled',false); // If checked enable item
-            //    } else {
-            //         $('#msg').html("<font color='red'>Please agree</font>");
-            //         $('.agree').prop('disabled', true); // If checked disable item
-            //     }
-
-            //     console.log("working");
-            // })
-
-
-
-            // $("body").on('click', '.close', function() {
-
-            //     $.cookie('onloadpopup', 'cooki-policy', {
-            //         expires: 5
-            //     });
-
-            //     if ($('#customSwitch_1').is(":checked")) {
-            //         $.cookie('Performance-Cookies', 'on', {
-            //             expires: 5
-            //         });
-            //     } else {
-
-            //         $.cookie('Performance-Cookies', 'off', {
-            //             expires: 5
-            //         });
-            //     }
-
-            //     if ($('#customSwitch_2').is(":checked")) {
-            //         $.cookie('Functional-Cookies', 'on', {
-            //             expires: 5
-            //         });
-            //     } else {
-
-            //         $.cookie('Functional-Cookies', 'off', {
-            //             expires: 5
-            //         });
-            //     }
-
-            //     $("#myFrontpop").modal("hide");
-
-
-            //     $("#onloadpopup").modal('hide');
-            //     $("#cookies-notice").modal('hide');
-
-
-            // });
-
             $("body").on('click', '.acceptCookies', function() {
 
 
@@ -832,61 +782,6 @@
 
 
             });
-
-            // $("body").on('click', '#closeCookies', function() {
-            //     $.removeCookie("onloadpopup");
-            //     $.removeCookie("Performance-Cookies");
-            //     $.removeCookie("Functional-Cookies");
-
-            //     window.location.href = "https://www.google.com/";
-            // });
-
-            // $("body").on('click', '#saveAllCookies', function() {
-
-
-
-            //     $.cookie('onloadpopup', 'cooki-policy', {
-            //         expires: 5
-            //     });
-
-            //     if ($('#customSwitch_1').is(":checked")) {
-            //         $.cookie('Performance-Cookies', 'on', {
-            //             expires: 5
-            //         });
-            //     } else {
-
-            //         $.cookie('Performance-Cookies', 'off', {
-            //             expires: 5
-            //         });
-            //     }
-
-            //     if ($('#customSwitch_2').is(":checked")) {
-            //         $.cookie('Functional-Cookies', 'on', {
-            //             expires: 5
-            //         });
-            //     } else {
-
-            //         $.cookie('Functional-Cookies', 'off', {
-            //             expires: 5
-            //         });
-            //     }
-
-            //     $("#myFrontpop").modal("hide");
-
-
-            //     $("#onloadpopup").modal('hide');
-
-            //     $("#manage-consent").modal('hide');
-            //     $("#cookies-notice").modal('hide');
-
-
-            // });
-
-            // if ($.cookie('onloadpopup') === 'cooki-policy') {
-            //     $("#onloadpopup").modal('hide');
-            // } else {
-            //     $("#onloadpopup").modal('show');
-            // }
 
             $("body").on('click', '.agree', function() {
 
@@ -1030,6 +925,7 @@
         $('.custom--cookie--popup .close-btn').click(function() {
             $('.custom--cookie--popup').removeClass('cookie--activate');
         });
+
         $('a.cook--seting').click(function() {
             $('.custom--cookie--popup').addClass('cookie--activate');
 
@@ -1082,6 +978,42 @@
         saveAllCookies('reject');
     });
 
+    /* if Targeting Cookies is enabled, then enable impact on the webiste store browswer info for future*/
+    function targetCookieInfoGetUserDeviceDetails() {
+        let targetData = {
+            userAgent: navigator.userAgent,
+            language: navigator.language,
+            platform: navigator.platform,
+            screenWidth: window.screen.width,
+            screenHeight: window.screen.height,
+        };
+        return targetData;
+    }
+
+    /* if functionalCookie Cookies is enabled, then enable impact on the webiste store browswer info for future*/
+    function functionalCookieInfoGetUserDeviceDetails() {
+        let functionalData = {
+            language: navigator.language || "en",
+            theme: "dark",
+            lastVisitedPage: window.location.pathname,
+            conciergeEnabled: true
+        };
+        return functionalData;
+    }
+
+    /* if performanceCookie Cookies is enabled, then enable impact on the webiste store browswer info for future*/
+    function performanceCookieInfoGetUserDeviceDetails() {
+        let performanceData = {
+            sessionId: crypto.randomUUID(),
+            visitCount: (parseInt(localStorage.getItem("visitCount") || 0) + 1),
+            lastVisitedPage: document.referrer || null,
+            currentPage: window.location.pathname,
+            timeStamp: new Date().toISOString()
+        };
+
+        return performanceData;
+    }
+
     function saveAllCookies(savingType) {
 
         $.cookie('onloadpopup', 'cooki-policy', {
@@ -1092,9 +1024,19 @@
             $.cookie('Performance-Cookies', 'on', {
                 expires: 5
             });
+
+            // save user browser details to cookies on browser if Performance cookies is allowed
+            $.cookie('Performance-Cookies-info', JSON.stringify(performanceCookieInfoGetUserDeviceDetails()), {
+                expires: 5
+            });
+
         } else {
 
             $.cookie('Performance-Cookies', 'off', {
+                expires: 5
+            });
+
+            $.cookie('Performance-Cookies-info', 'empty', {
                 expires: 5
             });
         }
@@ -1103,8 +1045,18 @@
             $.cookie('Functional-Cookies', 'on', {
                 expires: 5
             });
+
+            // save user browser details to cookies on browser if functional Cookie is allowed
+            $.cookie('Functional-Cookies-info', JSON.stringify(functionalCookieInfoGetUserDeviceDetails()), {
+                expires: 5
+            });
+
         } else {
             $.cookie('Functional-Cookies', 'off', {
+                expires: 5
+            });
+
+            $.cookie('Functional-Cookies-info', 'empty', {
                 expires: 5
             });
         }
@@ -1113,8 +1065,18 @@
             $.cookie('Targeting-Cookies', 'on', {
                 expires: 5
             });
+
+            // save user browser details to cookies on browser if targeting cookies is allowed
+            $.cookie('Targeting-Cookies-info', JSON.stringify(targetCookieInfoGetUserDeviceDetails()), {
+                expires: 5
+            });
+
         } else {
             $.cookie('Targeting-Cookies', 'off', {
+                expires: 5
+            });
+
+             $.cookie('Targeting-Cookies-info', 'empty', {
                 expires: 5
             });
         }
