@@ -7,13 +7,18 @@ use Illuminate\Http\Request;
 
 use Laravel\Ui\Presets\React;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
+use App\Repositories\Agent\AgentInterface;
 
-class AgentController extends Controller
+class AgentController extends BaseController
 {
     protected $current_date_time;
-    public function __construct()
+     protected $agentRepo;
+
+    public function __construct(AgentInterface $agentRepo)
     {
         $this->current_date_time = date('Y-m-d H:i:s');
+        $this->agentRepo = $agentRepo;
     }
 
 
@@ -48,7 +53,9 @@ class AgentController extends Controller
 
     public function agent_data_pagination($start, $limit, $order_key, $dir)
     {
-        $agent = User::with('state')->where('type','5');
+        $agent = User::with('state','agent_detail')->where('type','5');
+
+      
         
         $search = request()->input('search.value');
 
@@ -81,6 +88,11 @@ class AgentController extends Controller
 
         $total_agents = $agent->count();
         $agents = $agent->offset($start)->limit($limit)->get();
+
+
+         
+
+
         $i = 1;
                 //dd($agents);
         foreach($agents as $key => $item) {
@@ -125,29 +137,89 @@ class AgentController extends Controller
             $user = User::where('id',$request->id)->first();
             if($user->status && $user->status=='Suspended')
             {
-                return response()->json(['success' => true,'message'=>'This Account Already Suspended']);
-                exit;
+                return $this->successResponse('This Account Already Suspended'); 
             }
             
-
             $user->status = '3';
             $response = $user->save();
 
             if($response)
-            {
-                return response()->json(['success' => true,'message'=>'Account Suspended Successfully']);
-            }    
-            
+            return $this->successResponse('Account Suspended Successfully'); 
             else
-            {
-                return response()->json(['success' => false,'message'=>'Error Occurred while Account Suspending']); 
-            }
+            return $this->successResponse('Error Occurred while Account Suspending');
         }
         else
         {
-            return response()->json(['success' => false,'message'=>'Unknown Input Found']);  
+            return $this->successResponse('Unknown Input Found');
+             
         }
          
     }
+
+
+    public function check_agent_email(Request $request)
+    {
+        $data = $request->all();
+        $errors = $this->agentRepo->check_agent_email($data);
+
+        if (!empty($errors)) 
+        return $this->validationError('Email Validation',$errors);
+        else
+        return $this->successResponse('Email(s) are available');
+        
+    }
+
+
+
+    public function add_agent(Request $request)
+    {
+
+
+        $request->validate([
+            'business_name'   => 'required|string|max:255',
+            'business_number' => 'required|string|max:255',
+            'contact_person'  => 'required|string|max:255',
+            'phone'           => 'required|string|max:20',
+            'email'           => 'required|email|max:255',
+            'state_id'        => 'required|integer|exists:states,id',
+            'agreement_date'  => 'required|date',
+        ]);
+
+
+        $data = $request->all();
+        $resposne = $this->agentRepo->addUpdateAgent($data);
+        if($resposne['status'])
+        return $this->successResponse($resposne['message']);
+        else
+        return $this->validationError($resposne['message']);
+    }
+
+    public function update_agent(Request $request)
+    {
+
+        $data = $request->all();
+        $resposne = $this->agentRepo->addUpdateAgent($data);
+        if($resposne['status'])
+        return $this->successResponse($resposne['message']);
+        else
+        return $this->validationError($resposne['message']);
+    }
+
+    public function approve_agent_account(Request $request)
+    {
+
+        $data = $request->all();
+        $resposne = $this->agentRepo->change_user_status($data);
+        if($resposne['status'])
+        return $this->successResponse($resposne['message']);
+        else
+        return $this->validationError($resposne['message']);
+    }
+
+
+    
+
+    
+
     
 }

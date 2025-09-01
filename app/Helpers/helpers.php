@@ -375,6 +375,21 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
         }
         
     }
+
+
+    if (!function_exists('logErrorLocal')) 
+    {
+    function logErrorLocal($error)
+    {
+        if (app()->environment('local')) {
+            if ($error instanceof \Exception) {
+                Log::error($error->getMessage(), ['trace' => $error->getTraceAsString()]);
+            } else {
+                Log::error($error);
+            }
+        }
+    }
+}
      
 }
 
