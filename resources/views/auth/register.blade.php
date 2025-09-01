@@ -1,4 +1,14 @@
 @extends('layouts.web')
+
+<style>
+    
+    p{
+        text-align: justify !important;
+    }
+    table tr td, th{
+        text-align: justify;
+    }
+</style>
 @section('content')
 <section class="section_bg_color padding_ninty_top_ninty_px padding_bottom_eight_px angle_bg_image viewer-registration">
     <div class="container">
@@ -171,19 +181,19 @@
                     <div class="accodien_manage_padding_content">
                         <p>You determine how much information you want to disclose in your personal Account
                             information. The only mandatory information we require is your:</p>
-                        <ul class="font_size_forteenpx" style="color:#686a6c;">
+                        <ul class="font_size_forteenpx text-justify" style="color:#686a6c;">
                            <li>Mobile number (for SMS 2FA verification), and notifications if you have your mobile
                                number selected for that purpose</li>
                            <li>Email address (for notifications - when enabled)</li>
                            <li>Your Location (city)</li>
                         </ul>
-                        <span class="text_decoration_for_a custome_span_color">
+                        <span class="text_decoration_for_a custome_span_color text-justify">
                             To have access to the Viewer benefits, you will need to disclose some additional
                             information in your Account settings. That does not include your name. We never request
                             your name to be disclosed.
                         </span>
 
-                        <div class="mt-3">
+                        <div class="mt-3 text-justify">
                             <b>Changes to this Guide</b><br>
                             <span>This Guide was last updated on 02-2024.</span>
                         </div>
@@ -210,7 +220,7 @@
                 <div class="content">
                     <div class="accodien_manage_padding_content">
                         <p></p>
-                        <table class="table table-borderless table_border_remove">
+                        <table class="table table-borderless table_border_remove text-justify">
                           <thead>
                             <tr>
                               <th scope="col" class="accordien_color_table">Features</th>

@@ -1,4 +1,9 @@
 @extends('layouts.web')
+<style>    
+    p{
+        text-align: justify !important;
+    }
+</style>
 @section('content')
 <section class="section_bg_color padding_ninty_top_ninty_px padding_ninty_btm_ninty_px angle_bg_image">
     <div class="container">
@@ -166,7 +171,7 @@
          <i class="fa fa-angle-down"></i>
          </a>
          <div class="content">
-            <div class="accodien_manage_padding_content">
+            <div class="accodien_manage_padding_content text-justify">
                 <p><b>Q: How do I apply to become an Agent?</b></p>
                 <ul style="list-style:none;" class="mb-1 pl-3">
                     <li>Step 1. When you land on the Website hover over “Register” located at the top right hand corner and click “Lodge Enquiry”. </li>
