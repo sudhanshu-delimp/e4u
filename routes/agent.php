@@ -168,6 +168,11 @@ Route::get('view-planner',function(){
     return view('agent.dashboard.view-planner');
 })->name('agent.view-planner');
 
+
+Route::get('notifications-and-features',function(){
+    return view('agent.dashboard.notifications-and-features');
+})->name('agent.notifications-and-features');
+
 Route::get('agent-task-list',[AgentTaskController::class,'index'])->name('agent.task-list'); 
 
 # Agent tasks
