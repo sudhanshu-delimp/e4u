@@ -391,8 +391,8 @@
 
                const selectedValues = Array.isArray(viewerContactType) ? viewerContactType.map(String) : [];
                const agent_details = (rowData.agent_detail && Object.keys(rowData.agent_detail).length > 0) ? rowData.agent_detail : null; 
-               const agreement_file = agent_details.agreement_file 
-                  ? `<a href="{{ asset('storage') }}/${agent_details.agreement_file}" target="_blank">Download Agreement</a>` 
+               const agreement_file = agent_details?.agreement_file 
+                    ? `<a href="{{ asset('storage') }}/${agent_details.agreement_file}" target="_blank">Download Agreement</a>` 
                   : '';
                
                   let viewer_contact_type_1 = false;
@@ -745,59 +745,44 @@
 
       $(document).on('submit', 'form[name="add_agent"]', function(e) 
       {
-            e.preventDefault(); 
+         e.preventDefault(); 
+         let form = $(this);
+         let formData = new FormData(this);
 
-            let form = $(this);
-            let formData = new FormData(this);
-
-            $('.error-email2').text('');
-            $('.error-email').text('');
-
-            swal_waiting_popup({'title':'Validating email..'});
-            $.ajax({
-               url: "{{ route('admin.check-agent-email') }}", 
-               method: "POST",
+          swal_waiting_popup({'title':'Saving Agent Details'});
+          return false
+       
+         $.ajax({
+               url: "{{ route('admin.add-agent') }}",
+               method: 'POST',
                data: formData,
                contentType: false,
-               processData: false,
-               success: function(res) {
-                     if (res.status) {
-                        swal_waiting_popup({'title':'Updating agent details..'});
-                        $.ajax({
-                           url: "{{ route('admin.add-agent') }}",
-                           method: 'POST',
-                           data: formData,
-                           contentType: false,
-                           processData: false, 
-                           success: function(response) {
-                                 table.ajax.reload(null, false); 
-                                 Swal.close();
-                                 $('#viewAgentdetails').modal('hide');
-                                 swal_success_popup(response.message);
-                           },
-                           error: function(xhr) {
-                              
-                                 Swal.close();
-                                 $('#viewAgentdetails').modal('hide');
-                                 swal_error_popup(xhr.responseJSON.message);
-                           }
-                        });
-                     }
+               processData: false, 
+               success: function(response) {
+                     table.ajax.reload(null, false); 
+                     Swal.close();
+                     //$('#viewAgentdetails').modal('hide');
+                     //swal_success_popup(response.message);
                },
-                  error: function(xhr) {
-                        Swal.close();
-                        console.log(xhr);
-                        if (xhr.status === 422) {
-                        $('span.text-danger').text('');
-                        let errors = xhr.responseJSON.errors;
-                        $.each(errors, function(field, messages) {
-                        $('.error-' + field).text(messages[0]); 
-                        });
-                        } else {
-                        swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
-                        }
-                  }
-            });
+               error: function(xhr) {
+                  
+                     Swal.close();
+                     console.log(xhr);
+                     if (xhr.status === 422) {
+                     $('span.text-danger').text('');
+                     let errors = xhr.responseJSON.errors;
+                     $.each(errors, function(field, messages) {
+                     $('.error-' + field).text(messages[0]); 
+                     });
+                     } else {
+                     swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+                     }
+
+                     // Swal.close();
+                     // $('#viewAgentdetails').modal('hide');
+                     // swal_error_popup(xhr.responseJSON.message);
+               }
+         });
       });
     
 
