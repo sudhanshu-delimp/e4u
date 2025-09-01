@@ -2,6 +2,91 @@
 <script type="text/javascript" src="{{ asset('assets/richtexteditor/rte.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/richtexteditor/plugins/all_plugins.js') }}"></script>
 <style>
+    .parsley-errors-list {
+    list-style: none;
+    color: rgb(248, 0, 0)
+    }
+    .modalPopup > .item4 {
+        cursor: pointer;
+    }
+    .modalPopup > .item2 {
+        cursor: pointer;
+    }
+    .ui-draggable-dragging {
+        width: 82px !important;
+        height: 82px !important;
+        opacity: 0.8;
+    }
+    .draggable
+    {
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+    }
+    .dropped
+    {
+    position: static !important;
+    }
+    .pis{
+    display: none;
+    }
+    .newbtn{
+    cursor: pointer;
+    }
+    .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    }
+    .grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    }
+    .item1 {
+    grid-column: 3 / span 3;
+    }
+    .item4{
+        width: 100%;
+        object-fit: cover;
+    }
+    img.img-thumbnail.defult-image {
+        width: 190px;
+        height: 135px;
+        object-fit: cover;
+    }
+    img.img-thumbnail.defult-image-3 {
+    width: 585px;
+    height: 202px;
+    object-fit: cover;
+    position: absolute;
+    }
+    img#blah8 {
+    width: 425px !important;
+    }
+    .leftLst.over {
+    pointer-events: none;
+}
+    .item4 .fa-trash {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        color: #e73b3b;
+        display: none;
+    }
+    .item4:hover .fa-trash {
+         display: block;
+     }
+    .item4 {
+        position: relative;
+    }
+    .item2{
+        height: 100% !important;
+        width: 100%;
+    }
+    .item2 img{
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+    }
+
    textarea {
    resize: none;
    }
@@ -187,14 +272,16 @@
          <div class="fill_profile_headings_global">
             <h2 class="m-0">Media</h2>
          </div>
-         <div class="row">
-           
+         <div class="row  mt-3">
+            <div class="col-md-12 mb-3 d-flex justify-content-end">
+               <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
+           </div>
             <div class="col-md-4" style="padding-right: 25px;">
-               <div class="container p-0">
-                  <div class="row pt-3">
-                     <div class="col-4 pr-0 full_height_pic">
+               <div class="upload-banner">
+                  <div class="row p-3">
+                     <div class="col-lg-4 px-0 full_height_pic">
                         <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
-                           <img class="img-fluid" id="img1" src="{{ asset($escort->imagePosition(1)) }}" style="height: 284px;object-fit: cover;width: 167px;">
+                           <img class="img-fluid" id="img1" src="{{ asset($escort->imagePosition(1)) }}">
                            </label>
                         </div>
                      </div>
@@ -241,8 +328,8 @@
                         </div>
                      </div>
                   </div>
-                  <div class="row pt-3">
-                     <div class="about_me_drop_down_info add_banner_pic">
+                  <div class="row">
+                     <div class="about_me_drop_down_info add_banner_pic col-lg-12 p-3">
                         <label class="newbtn" data-toggle="modal" data-target="#upload-sec-banner">
                         <img class="img-fluid"  id="img9" src="{{  asset($escort->imagePosition(9)) }}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
                         </label>
@@ -250,6 +337,105 @@
                   </div>
                </div>
             </div>
+            <div class="col-lg-8">
+               <div class="photo-top-header">
+                   <div class="photo-header border-0">
+                       <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
+                           <div class="row">
+                               <div class="col-md-8">
+                                   <ul class="nav nav-tabs border-0">
+                                       <li class="nav-item">
+                                           <a class="nav-link show" id="menu_all" data-toggle="tab" href="#home">All</a>
+                                       </li>
+                                       <li class="nav-item">
+                                           <a class="nav-link" id="menu_varified" data-toggle="tab" href="#menu1">Verified</a>
+                                       </li>
+                                       <li class="nav-item">
+                                           <a class="nav-link active" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
+                                       </li>
+                                   </ul>
+                               </div>
+                               <div class="col-md-2 pt-1">
+                                   <div class="progress">
+                                       <div class="progress-bar bg-success" role="progressbar" style="width: 72.6%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                   </div>
+                               </div>
+                               <div class="col-md-2">
+                                   <div style="display: flex;gap: 15px;">
+                                       <p>22/30</p>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               <div class="archive-photo-sec">
+                   <div class="row">
+                      <div class="col-md-12">
+                         <div id="pagination-container"></div>
+                         <div id="carouselExampleIndicators" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
+                         
+                            <ul class="pagination ml-2 pl-1">
+                               <!-- Declare the item in the group -->
+                               <li class="page-item preview">
+                                  <!-- Declare the link of the item -->
+                               <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
+   
+                               </li>
+                               <li class="page-item  active" id="pageItem_0" data-id="0">
+                                  <a data-target="#carouselExampleIndicators" data-slide-to="0" class="page-link" href="#">1</a>
+                               </li>
+                               <li class="page-item " id="pageItem_1" data-id="1">
+                                  <a data-target="#carouselExampleIndicators" data-slide-to="1" class="page-link" href="#">2</a>
+                               </li>
+                                                           <li class="page-item " id="pageItem_2" data-id="2">
+                                  <a data-target="#carouselExampleIndicators" data-slide-to="2" class="page-link" href="#">3</a>
+                               </li>
+                               
+                               <li class="page-item nextOne">
+                               <a class="page-link" href="#carouselExampleIndicators" id="nextId">››</a>
+                               </li>
+                            </ul>
+                            <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
+                               <div class="carousel-inner" id="view_all">
+                                   <div class="carousel-item active" id="cItem_0" data-id="0">
+                                     <div class="grid-container" id="dvSource">
+                                                                                                               
+                                           <div class="item4" id="dm_760">
+                                               <img class="img-thumbnail defult-image ui-draggable" src="http://127.0.0.1:8000/escorts/images/203/3e4f5b4696fa7d6346476a73c.jpg" alt=" " data-id="760" data-position="9">
+                                               <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
+                                                                                   <span class="badge badge-red">Banner</span>
+                                           </div>
+                                       </div>
+                                   </div>
+   
+                                   <div class="carousel-item" id="cItem_1" data-id="1">
+                                     <div class="grid-container" id="dvSource">
+                                           <div class="item4" id="dm_802">
+                                               <img class="img-thumbnail defult-image ui-draggable" src="http://127.0.0.1:8000/escorts/images/203/82894e8c00df224c31749890d.jpg" alt=" " data-id="802" data-position="">
+                                               <i class="fa fa-trash deleteimg" data-id="802" title="Remove this media"></i>                                        
+                                                                                       <span class="badge badge-red">Gallery</span>
+                                           </div>
+                                       </div>
+                                   </div>  
+                                   
+                                   <div class="carousel-item" id="cItem_2" data-id="2">
+                                    <div class="grid-container" id="dvSource">
+                                          <div class="item4" id="dm_802">
+                                              <img class="img-thumbnail defult-image ui-draggable" src="http://127.0.0.1:8000/escorts/images/203/82894e8c00df224c31749890d.jpg" alt=" " data-id="802" data-position="">
+                                              <i class="fa fa-trash deleteimg" data-id="802" title="Remove this media"></i>                                        
+                                                                                      <span class="badge badge-red">Gallery</span>
+                                          </div>
+                                      </div>
+                                  </div>  
+                               </div>
+                               <!--.Carousel-->
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           </div>
          </div>
       </div>
       {{-- about us--}}
@@ -429,6 +615,9 @@
                                        </div>
                                     </div>
                                  </div>
+
+
+                                 
                               </div>
                               <div class="row">
                                  <div class="col-md-12 text-right">
@@ -483,9 +672,10 @@
       <div class="modal-content" style="width: 800px;position: absolute;">
          <div class="modal-content">
             <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLongTitle">Manage Photos</h5>
+               <h5 class="modal-title" id="exampleModalLongTitle"> <img class="custompopicon" src="{{  asset('assets/dashboard/img/upload-photos.png') }}"> Manage Photos</h5>               
+
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-               <span aria-hidden="true"><img src="{{ asset('assets/app/img/cross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+               <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                </button>
             </div>
             <div class="modal-body">
@@ -575,8 +765,8 @@
                </div>
             </div>
             <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" id="defaultImg">Use Default</button>
-               <button type="button" class="btn btn-primary" id="manageImgId">Save</button>
+               <button type="button" class="btn-success-modal" id="defaultImg">Use Default</button>
+               <button type="button" class="btn-success-modal" id="manageImgId">Save</button>
             </div>
          </div>
       </div>
@@ -586,9 +776,9 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Manage Banner</h5>
+            <h5 class="modal-title" style="color: white;" id="exampleModalLongTitle"> <img src="{{ asset('assets/dashboard/img/banner.png')}}" class="custompopicon">Manage Banner</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><img src="{{ asset('assets/app/img/cross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
          </div>
          <div class="modal-body">
@@ -624,12 +814,101 @@
             </div>
          </div>
          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" id="defaultImg2">Use Default</button>
-            <button type="button" class="btn btn-primary" id="manageImgId">Save</button>
+            <button type="button" class="btn-success-modal" id="defaultImg2">Use Default</button>
+            <button type="button" class="btn-success-modal" id="manageImgId">Save</button>
          </div>
       </div>
    </div>
 </div>
+
+
+
+<div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-scrollable" role="document"> {{--NOTE:: use  modal-dialog-scrollable instead of modal-dialog to make body scrollable only--}}
+       <div class="modal-content" style="width: 900px;position: absolute;">
+           {{-- {{ route('escort.upload.gallery') }} --}}
+           <form id="mulitiImage" method="POST" action="{{route('escort.upload.gallery')}}" enctype="multipart/form-data">
+               @csrf
+               <div class="modal-content border-0">
+                   <div class="modal-header">
+                       <h5 class="modal-title" id="exampleModalLongTitle"><img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Upload Photos</h5>
+                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                       </button>
+                   </div>
+                   <div class="modal-body">
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="container p-0">
+                                   <div class="row p-0">
+                                       <div class="col-12 p-0">
+                                           <div class="photo-sec-popup custom-upload-photo"  id="image_preview">
+                                               <a href="#">
+                                                   <div class="five_column_content_top img-title-sec justify-content-between wish_span rm" style="z-index: 1;">
+                                                     
+                                                   </div>
+                                                   <label class="newbtn rm">
+                                                       <img id="blah" class="item" src="{{ asset('assets/app/img/upload-thum-1.png')}}">
+                                                       
+                                                       <input name="img[]" id="upload_file" class="pis" onchange="preview_image(this);" type="file" multiple accept="image/*">
+                                                   </label>
+                                                   <div style="margin-top: -34px;">
+                                                   </div>
+                                               </a>
+                                           </div>
+                                           <div class="row mt-2">
+                                               <div class="col-lg-6">
+                                                   <div class="plate"><label class="newbtn">
+                                                       <img id="blah9" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                       <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
+                                                       <input type="hidden" name="position[]" id="mediaId9">
+                                                       </label>
+                                                   </div>
+                                               </div>
+                                               <div class="col-lg-6">
+                                                   <div class="plate"><label class="newbtn">
+                                                       <img id="blah10" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                       <input name="img[10]" id="pic10" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
+                                                       <input type="hidden" name="position[]" id="mediaId10">
+                                                       </label>
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="row mt-4 pt-1" style="border: 1px dotted;">
+                                       <div class="col-6 pt-4 pb-4">
+                                           <h4>Verify these Photos</h4>
+
+                                           <ul style="text-align: justify;">
+                                             <li>Two (2) selfies with your User Name and Membership ID printed (can be handwritten) on a sheet of paper held up to the side of you and not obscuring any part of you</li>
+                                             <li>A drivers licence which matches your User Name and Home State</li>
+                                             <li>A passport which matches your User Name and Home State</li>
+                                           </ul>
+                                       </div>
+                                       <div class="col-6">
+                                           <div class="plate" style="position: relative;top: 30%;"><label class="newbtn">
+                                               <img class="img-fluid" id="blah8" src="{{--- {{ asset($path->findByposition(auth()->user()->id,8)['path']) }} --}}" style="height: 138px;object-fit: cover;width: 370px;">
+                                               <input name="img[8]" id="pic8" data-id="8" class="pis" onchange="readURL(this);" type="file">
+                                               <input type="hidden" name="selected_files[]" value="8">
+                                               </label>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="modal-footer">
+                     <button type="submit" class="btn-success-modal">Verify Media</button>
+                       <button type="submit" class="btn-success-modal">Upload</button>
+                   </div>
+               </div>
+           </form>
+       </div>
+   </div>
+</div>
+
 <script>
    
    function readURL(input) {

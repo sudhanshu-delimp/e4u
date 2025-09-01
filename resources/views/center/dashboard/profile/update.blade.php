@@ -21,7 +21,7 @@
             <!--middle content-->
             <div class="row">
                 <div class="custom-heading-wrapper col-md-12">
-                    <h1 class="h1">New Profile</h1>
+                    <h1 class="h1">New Profile ddd</h1>
                     <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
                 </div>
                 <div class="col-md-12 mb-4">
@@ -45,34 +45,34 @@
                             <p>About us</p>
                          </div>
                       </div>
-                      <div class="col-lg-2">
+                      <div class="col-lg-3">
                          <div class="form_process">
                             <div class="steps_to_filled_from">Step 2</div>
                             <p>Services &amp; Rates</p>
                          </div>
                       </div>
+                    
+                      <div class="col-lg-3">
+                        <div class="form_process">
+                           <div class="steps_to_filled_from">Step 3</div>
+                           <p>Open times</p>
+                        </div>
+                     </div>
                       
-                      
-                      <div class="col-lg-2">
+                      <div class="col-lg-3">
                          <div class="form_process">
-                            <div class="steps_to_filled_from">Step 3</div>
+                            <div class="steps_to_filled_from">Step 4</div>
                             <p>Massure</p>
                          </div>
                       </div>
-                      <div class="col-lg-2">
-                         <div class="form_process">
-                            <div class="steps_to_filled_from">Step 4</div>
-                            <p>Open times</p>
-                         </div>
-                      </div>
-                      <div class="col-lg-3">
+                      {{-- <div class="col-lg-3">
                          <div class="form_process">
                             <div class="steps_to_filled_from">Step 5</div>
                             <p>Check fee summary and pay</p>
                          </div>
-                      </div>
+                      </div> --}}
                       <div class="col-lg-1">
-                        <p id="percent" style="font-size: 48px;font-weight: 700;">20%</p>
+                        <p id="percent" style="font-size: 48px;font-weight: 700;">25%</p>
                       </div>
                    </div>
                    <div class="manage_process_bar_padding">
