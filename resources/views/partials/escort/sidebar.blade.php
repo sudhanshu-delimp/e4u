@@ -464,7 +464,7 @@
 
                     <a id="myAnchor" class="collapse-item show" href="{{ route('escort.num-tips') }}">
                         <img src="{{ asset('assets/app/img/tips.png')}}">
-                        <span style="{{ request()->segment(2) == 'num-tips' ? 'color: #e5365a;' : ''}}">NUM (Tips)</span>
+                        <span style="{{ request()->segment(2) == 'num-tips' ? 'color: #e5365a;' : ''}}">Screening Tips</span>
                     </a>
 
                 </div>

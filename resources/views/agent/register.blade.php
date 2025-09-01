@@ -5,17 +5,17 @@
         <div class="row">
             <div class="col-lg-7 col-md-7 adverti_reg_page_padingto_bt">
                 <div class="reg_info agent-registration">
-                    <h2>Registration - Agent</h2>
-                    <div class="pl-4 pt-2 pb-5">
+                    {{-- <h2>Registration - Agent</h2> --}}
+                    <div class=" pt-2 pb-5">
                         <h1 class="text-uppercase">Agent Registration</h1>
                         <h2>Lodge your enquiry with us here</h2>
-                        <p>If you have industry experience or you are well connected to Advertisers, then
+                        <p class="taxt-justify">If you have industry experience or you are well connected to Advertisers, then
                             becoming an Escorts4U Agent may be for you.  Earn additional income as an</br> Agent. We will assist you in every regard to earn.
                             </br></br>
                             Register and we will be in touch to go over what being an Agent can do for you.
                             </br>
                             </br>
-                            See also <span ><a href="{{ url('help-for-agents')}}" class="termsandconditions_text_color" style="font-size: 16px;">Help for Agent</a></span> for more information about benefits and your obligations.
+                            See also <span ><a href="{{ url('help-for-agents')}}" class="termsandconditions_text_color" style="font-size: 16px;">Help for Agent</a></span> and <a href="https://www.agencymanagement.com.au" style="font-size: 16px;" target="_blank" class="termsandconditions_text_color">Agency Management</a> for more information about benefits and your obligations.
                         </p>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                             <strong>{{ $message }}</strong>
                             @enderror
                         </div>
-                        <div class="form-check pt-2 pb-1" style="margin-left: 5px;">
+                        <div class="form-check pt-2 pb-1 form-check-inline" style="margin-left: 5px;">
                             <input type="checkbox" data-parsley-errors-container=".check-tc" class="form-check-input" id="termsandconditions" required data-parsley-required-message="@lang('errors/validation/required.checkbox')">
                             <label class="form-check-label" for="termsandconditions">I have read and agree to the <a href="terms-conditions" class="termsandconditions_text_color" style="font-size: 13px;">Terms and Conditions</a></label>
                         </div>
