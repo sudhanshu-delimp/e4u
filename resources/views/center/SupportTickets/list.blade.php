@@ -107,6 +107,7 @@
                         <textarea class="messageBox" name="message" id="message" rows="4" required></textarea>
                        
                         <button class="btn-cancel-modal py-3" id="submit_message">Send</button>
+                         <input type="hidden" name="ticketId"  id="ticketId" value="">
                        </div>
                     </form>
                 </div>
@@ -155,6 +156,7 @@
             { data: 'file', name: 'file', orderable: true, defaultContent: 'No Documents' },
             { data: 'status_mod', name: 'status_mod', orderable: true, defaultContent: 'NA' },
             { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
+            { data: 'id', name: 'id', visible: false,searchable: false }
            ],
            order: [6, 'desc'],
        });
@@ -204,6 +206,7 @@
                        }
                    });
                    $("#conv-main").html(html);
+                   $("#ticketId").val(ticketId);
                }
            })
        });
@@ -216,7 +219,7 @@
             method: "POST",
             dataType: "json",
             data: {
-                ticketId: ticketId,
+                ticketId: $("#ticketId").val(),
                 message: message
             },
             url: "{{ route('support-ticket.saveMessage') }}",
