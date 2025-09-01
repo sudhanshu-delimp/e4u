@@ -260,7 +260,7 @@
                             </div>
                             
                             <div class="display_inline_block mb-1 mr-2">
-                                <select class="custome_form_control_border_radus with_eight_em"
+                                <select class="custome_form_control_border_radus with_eight_em" disabled
                                     id="" name="duration_price" value="{{ request()->get('duration_price') }}">
                                     <option value="0">Playmate Status</option>
                                     <option value="with_playmates">With Playmates</option>
