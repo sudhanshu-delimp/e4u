@@ -6176,10 +6176,12 @@ span.card_tit {
 }
 
 .img-title-sec i {
-    font-size: 8px;
-    position: relative;
-    top: 5px;
+    font-size: 14px;
+    position: absolute;
+    top: 45px;
+    right: 5px;
     cursor: pointer;
+    color: #ff3c5f;
 }
 
 button.short-list.btn.btn-primary {

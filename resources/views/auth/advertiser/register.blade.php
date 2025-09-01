@@ -19,6 +19,7 @@
         padding: 0.75rem;
         vertical-align: top;
         border-top: 1px solid #dee2e6;
+        text-align: justify;
     }
     .table2 thead {
         border-bottom: 2px solid #000000;
@@ -30,6 +31,9 @@
     }
     .table2 td:first-child {
         font-weight: bold;
+    }
+    p{
+        text-align: justify !important;
     }
 </style>
 @section('content')
