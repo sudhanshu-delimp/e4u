@@ -260,6 +260,14 @@
                             </div>
                             
                             <div class="display_inline_block mb-1 mr-2">
+                                <select class="custome_form_control_border_radus with_eight_em"
+                                    id="" name="duration_price" value="{{ request()->get('duration_price') }}">
+                                    <option value="0">Playmate Status</option>
+                                    <option value="with_playmates">With Playmates</option>
+                                    <option value="without_playmates">Without Playmates</option>
+                                </select>
+                            </div>
+                            <div class="display_inline_block mb-1 mr-2">
                                 <button type="button" class="btn verified_btn_bg_color verified_text_color"
                                     data-toggle="tooltip" title="">
                                     <img src="{{ asset('assets/img/e4u-verified-dark.png') }}">
