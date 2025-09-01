@@ -713,16 +713,8 @@ Route::get('/admin-dashboard/management/punterbox-reports',function(){
 
 //Route::get('/admin-dashboard/reports/agent-requests', [AgentRequestController::class, 'allAgentRequests'])->name('admin.agent-requests');
 
-Route::get('/admin-dashboard/reports/agent-requests',function(){
-    return view('admin.reports.agent-requests');
-})->name('admin.agent-requests');
 
-Route::get('/admin-dashboard/reports/transaction-summary',function(){
-    return view('admin.reports.transaction-summary');
-})->name('admin.transaction-summary');
 
-Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
-Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('admin.send-notiification');
 
 
 
