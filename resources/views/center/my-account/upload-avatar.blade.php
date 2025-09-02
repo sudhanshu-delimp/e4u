@@ -474,12 +474,36 @@
         });
     });
 
+    function getBase64SizeBytes(base64) {
+        try {
+            if (!base64 || base64.indexOf(',') === -1) return 0;
+            var b64 = base64.split(',')[1];
+            var padding = (b64.match(/=+$/) || [''])[0].length;
+            return Math.floor((b64.length * 3) / 4) - padding;
+        } catch (e) { return 0; }
+    }
+
     $("#my_avatar").on('submit', function(e) {
         e.preventDefault();
         var form = $(this);
         $("#modal-title").text("Upload Your Avatar");
         $("#modal-icon").attr("src", "/assets/dashboard/img/upload-photos.png");
         var src = $("#item-img-output").attr('src');
+        // Client-side 2MB check before sending AJAX
+        var maxBytes = 2 * 1024 * 1024;
+        var inputEl = $('.file-upload-input')[0];
+        var oversize = false;
+        if (inputEl && inputEl.files && inputEl.files[0]) {
+            oversize = inputEl.files[0].size > maxBytes;
+        } else if (src && src.indexOf('data:image/') === 0) {
+            oversize = getBase64SizeBytes(src) > maxBytes;
+        }
+        if (oversize) {
+            $('.comman_msg').text('Image must be 2MB or less.');
+            $("#comman_modal").modal('show');
+            try { removeUpload(); } catch (e) {}
+            return false;
+        }
         var url = form.attr('action');
         var data = new FormData($('#my_avatar')[0]);
         data.append('src', src);
@@ -521,12 +545,44 @@
 
 
     function errorModuleShow(data = null) {
-        var msg = "Something went wrong. Please try again.";
+        var msg = "";
+        try {
+            var resp = null;
+            if (data && data.responseJSON) {
+                resp = data.responseJSON;
+            } else if (data && data.responseText) {
+                try { resp = JSON.parse(data.responseText); } catch (e) {}
+            } else {
+                resp = data;
+            }
+
+            if (resp) {
+                if (typeof resp === 'string') {
+                    msg = resp;
+                } else if (resp.message) {
+                    msg = resp.message;
+                } else if (resp.errors) {
+                    var errors = resp.errors;
+                    var first = null;
+                    if (Array.isArray(errors)) {
+                        first = errors[0];
+                    } else if (errors.src) {
+                        first = Array.isArray(errors.src) ? errors.src[0] : errors.src;
+                    } else if (errors.avatar_img) {
+                        first = Array.isArray(errors.avatar_img) ? errors.avatar_img[0] : errors.avatar_img;
+                    } else if (errors.file) {
+                        first = Array.isArray(errors.file) ? errors.file[0] : errors.file;
+                    }
+                    if (first) msg = first;
+                }
+            }
+        } catch (e) {}
+
         $('.comman_msg').text(msg);
         $("#comman_modal").modal('show');
         $(".delete_avatar").hide();
-
     }
+
 
     $('#confirmDelete').on('click', function(e) {
         e.preventDefault();
