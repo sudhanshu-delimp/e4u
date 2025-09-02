@@ -2,32 +2,35 @@
 
 namespace App\Http\Controllers\Agent;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\Service;
 use App\Models\Duration;
-use App\Repositories\Agent\AgentEscortInterface;
-use App\Repositories\Escort\EscortInterface;
-use App\Repositories\Escort\AvailabilityInterface;
-use App\Http\Requests\Escort\StoreTourRequest;
-use App\Repositories\Service\ServiceInterface;
-use App\Repositories\User\UserInterface;
-use App\Http\Requests\Escort\StoreRequest;
-use App\Http\Requests\Escort\StoreServiceRequest;
-use App\Http\Requests\UpdateEscortRequest;
-use App\Http\Requests\Escort\UpdateRequestAboutMe;
-use App\Http\Requests\Escort\UpdateRequestPolicy;
-use App\Http\Requests\Escort\UpdateRequestReadMore;
-use App\Http\Requests\Escort\UpdateRequestAbout;
-use App\Http\Requests\Escort\StoreRateRequest;
-use App\Http\Requests\Escort\StoreAvailabilityRequest;
-use App\Repositories\Duration\DurationInterface;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use App\Traits\ResizeImage;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use App\Repositories\Escort\EscortMediaInterface;
 use App\Repositories\Tour\TourInterface;
+use App\Repositories\User\UserInterface;
+use App\Http\Requests\Escort\StoreRequest;
+use App\Http\Requests\UpdateEscortRequest;
+use App\Repositories\Escort\EscortInterface;
+use App\Http\Requests\Escort\StoreRateRequest;
+use App\Http\Requests\Escort\StoreTourRequest;
+use App\Http\Requests\StoreAvatarMediaRequest;
+use App\Repositories\Service\ServiceInterface;
+use App\Http\Requests\Escort\UpdateRequestAbout;
+use App\Repositories\Agent\AgentEscortInterface;
+use App\Repositories\Duration\DurationInterface;
+use App\Http\Requests\Escort\StoreServiceRequest;
+use App\Http\Requests\Escort\UpdateRequestPolicy;
+use App\Repositories\Escort\EscortMediaInterface;
+use App\Http\Requests\Escort\UpdateRequestAboutMe;
+use App\Repositories\Escort\AvailabilityInterface;
+use App\Http\Requests\Escort\UpdateRequestReadMore;
+use App\Http\Requests\Escort\StoreAvailabilityRequest;
 
 class AgentController extends Controller
 {
@@ -140,18 +143,18 @@ class AgentController extends Controller
         $time = explode(':',$array);
 
     }
-    public function updateProfile($id)
-    {
-        $escort = $this->escort->find($id);
-        list($service_one, $service_two, $service_three) = $this->service->findByCategory([1,2,3]);
-        $durations = $this->duration->all();
-        $availability = $escort->availability;
-        $service = $this->service;
-        //$time = $this->service->getHourMinetTime($availability->friday_from);
-        //echo "</pre>"; print_r($time); dd("sdhflk");
-        //dd($escort->services()->where('category_id', 2)->get());
-        return view('agent.dashboard.profile.update',compact('service','availability','escort','service_one','service_two','service_three','durations'));
-    }
+    // public function updateProfile($id)
+    // {
+    //     $escort = $this->escort->find($id);
+    //     list($service_one, $service_two, $service_three) = $this->service->findByCategory([1,2,3]);
+    //     $durations = $this->duration->all();
+    //     $availability = $escort->availability;
+    //     $service = $this->service;
+    //     //$time = $this->service->getHourMinetTime($availability->friday_from);
+    //     //echo "</pre>"; print_r($time); dd("sdhflk");
+    //     //dd($escort->services()->where('category_id', 2)->get());
+    //     return view('agent.dashboard.profile.update',compact('service','availability','escort','service_one','service_two','service_three','durations'));
+    // }
     ///////////////////
     public function updatePolicy(UpdateRequestPolicy $request, $id)
     {
@@ -668,5 +671,58 @@ class AgentController extends Controller
         //return response()->json(compact('find_tour'));
     }
     
-    ////////////////////
+    public function uploadAvatar(){
+       return view('agent.dashboard.upload-avatar');
+    }
+
+    public function agentSaveAvatar(StoreAvatarMediaRequest $request, $id){
+        //dd($request->all());
+
+    
+          $extension = explode('/', mime_content_type($request->src))[1];
+          $data = $request->src;
+  
+          list($type, $data)  = explode(';', $data);
+          list(, $data)       = explode(',', $data);
+          $data               = base64_decode($data);
+          $avatar_owner       = Auth::user()->id;
+  
+          $avatarName          = time(). '-' .$avatar_owner .'.'.$extension;
+          $avatar_uri          = file_put_contents(public_path() . '/avatars/' . $avatarName, $data);
+  
+          //dd($avatar_uri);
+          $user = $this->user->find($id);
+          $user->avatar_img = $avatarName;
+  
+          $user->save();
+          $type = 0;
+  
+  
+          return response()->json(compact('type','avatarName'));
+    }
+
+    public function agentRemoveAvatar(){
+        try {
+            $user = $this->user->find(auth()->user()->id);
+            
+            if (!$user) {
+                return response()->json([ 'type' => 1,'message' => 'User not found'], 404);
+            }
+            $path =  public_path('/avatars/' . $user->avatar_img);
+            if(File::exists($path)){
+                File::delete($path);
+                $user->avatar_img = null;
+                $user->save();
+            }else{
+                return response()->json(['type' => 1, 'message' => 'Image not found!']);
+            }
+            $defaultImg = asset(config('constants.agent_default_icon'));
+            return response()->json(['type' => 0, 'message' => 'Avatar removed successfully', 'img' => $defaultImg]);
+            
+        } catch (\Exception $e) {
+            \Log::error('Error removing avatar: ' . $e->getMessage());
+            return response()->json([ 'type' => 1,'message' => 'An error occurred while removing avatar. Please try again.' ], 500);
+        }
+
+    }
 }

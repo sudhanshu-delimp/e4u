@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Center;
 
 use Auth;
-use File;
+
 use FFMpeg;
 use Carbon\Carbon;
 use App\Models\User;
@@ -11,7 +11,9 @@ use App\Models\Service;
 use App\Models\Duration;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\User\UserInterface;
@@ -29,6 +31,7 @@ use App\Http\Requests\Escort\UpdateRequestReadMore;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
 use App\Repositories\MassageProfile\MassageProfileInterface;
+
 
 class CenterController extends Controller
 {
@@ -146,6 +149,7 @@ class CenterController extends Controller
     }
     public function storeMyAvatar(StoreAvatarMediaRequest $request,$id)
     {
+    
 
         // $attachment = $request->file('avatar_img');
         // list($width, $height) = getimagesize($attachment);
@@ -170,6 +174,7 @@ class CenterController extends Controller
         $extension = explode('/', mime_content_type($request->src))[1];
         $data = $request->src;
 
+
         list($type, $data)  = explode(';', $data);
         list(, $data)       = explode(',', $data);
         $data               = base64_decode($data);
@@ -188,11 +193,27 @@ class CenterController extends Controller
     }
     public function removeMyAvatar()
     {
+        try {
             $user = $this->user->find(auth()->user()->id);
-            $user->avatar_img = null;
-            $user->save();
-            $type = 1;
-        return response()->json(compact('type'));
+            
+            if (!$user) {
+                return response()->json([ 'type' => 1,'message' => 'User not found'], 404);
+            }
+            $path =  public_path('/avatars/' . $user->avatar_img);
+            if(File::exists($path)){
+                File::delete($path);
+                $user->avatar_img = null;
+                $user->save();
+            }else{
+                return response()->json(['type' => 1, 'message' => 'Image not found!']);
+            }
+            $defaultImg = asset(config('constants.massage_default_icon'));
+            return response()->json(['type' => 0, 'message' => 'Avatar removed successfully', 'img' => $defaultImg]);
+            
+        } catch (\Exception $e) {
+            \Log::error('Error removing avatar: ' . $e->getMessage());
+            return response()->json([ 'type' => 1,'message' => 'An error occurred while removing avatar. Please try again.' ], 500);
+        }
     }
     public function edit()
     {
