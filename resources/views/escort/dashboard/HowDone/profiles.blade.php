@@ -151,6 +151,13 @@ details[open] > summary:first-of-type {
 .steps ul {
     margin: 8px 0 8px 8px;
 }
+.how-it-done p {
+    margin-bottom: 0.8rem !important;
+}
+
+.how-it-done h5 {
+    font-weight: 500;
+}
 </style>
 @endsection
 @section('content')
@@ -161,200 +168,148 @@ details[open] > summary:first-of-type {
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
         </div>
     </div>
-            <div class="row">
-               <div class="col-md-12 mt-2 mb-5">
-                 <div id="accordion" class="myacording-design">
-             
-                   <!-- Overview -->
-                   <div class="card">
-                     <div class="card-header" id="headingOverview">
-                       <h5 class="mb-0">
-                        <a class="card-link collapsed" data-toggle="collapse" href="#collapseOverview" aria-expanded="false">
-                           New
-                         </a>
-                       </h5>
-                     </div>
-                     <div id="collapseOverview" class="collapse show" aria-labelledby="headingOverview" data-parent="#accordion">
-                       <div class="card-body">
-                        <h5 class="d_sub_heading">Overview</h5>
-                         <p>Use this feature to create your Profiles for all of your Locations (particularly if you Tour). You can edit any of the pre-loaded data along the way. The Profile Creator will ask you if you want to update your My Information or not. If you choose No, your default settings will stay the same, and the data setting you have changed will only apply to the Profile you are creating.</p>
-                         <h5 class="mt-4 d_sub_heading">Features</h5>
-                         <ol class="pl-3">
-                           <li>About Me</li>
-                           <li>My Services & Rates</li>
-                           <li>My Availability</li>
-                           <li>Playmates</li>
-                        </ol>
-                        <h5 class="mt-4 d_sub_heading">How is it done</h5>
-                        <p>The Profile Creator completes your information in four steps. You can change any pre-loaded data along the way and the Creator will ask you if you want to update your settings. If you say Yes the data is updated, if you say No, your settings remain the same and the changes you made are only applied to the Profile you are creating.</p>
-                        </div>
-                     </div>
-                   </div>
-             
-                   <!-- Features -->
-                   <div class="card">
-                     <div class="card-header" id="headingFeatures">
-                       <h5 class="mb-0">
-                        <a class="card-link collapsed" data-toggle="collapse" href="#collapseFeatures" aria-expanded="false">
-                          Step 1 - About Me
-                         </a>
-                       </h5>
-                     </div>
-                     <div id="collapseFeatures" class="collapse" aria-labelledby="headingFeatures" data-parent="#accordion">
-                       <div class="card-body">
-                         <p>This step requires the most input. If you have already completed your data under <a href="/escort-dashboard/profile-information" class="custom_links_design">My Information</a>, then the data will have pre-loaded. Check that every field, or at the very least the fields that you want to be published in your Profile, are complete.</p>
-                         <p class="mt-4 d_sub_heading"> <b>About Me is divided into four parts:</b></p>
-                         <h5 class="mt-3 d_sub_heading"> Location Information</h5>
-                         <p>Some of these fields are pre-loaded with your data. You will need to complete the following:</p>
-                         <ol class="pl-3">
-                           <li><h5 class="mt-3 d_sub_heading">Profile Name.</h5>
-                            <div class="d-flex align-items-center">
-                              <div class="pr-3">
-                                <p>
-                                  It would be helpful if you are consistent when naming your Profiles. 
-                                  We recommend you adapt a protocol that relates to the Location. 
-                                  For example, if you are creating a Profile for the Location NSW, then 
-                                  you could name the Profile <b>Sydney01</b> and the second Profile, 
-                                  if you create a second for the Location NSW, <b>Sydney02</b>, and so on.
-                                </p>
-                              </div>
-                              <div>
-                                <img class="img-fluid rounded shadow-sm" 
-                                     src="{{ asset('assets/app/img/11.png')}}" 
-                                     alt="Profile Naming Guide" 
-                                     style="max-width: 300px;">
-                              </div>
-                            </div>
-                            
-                          </li>
-                          <li>
-                            <h5 class="mt-3 d_sub_heading"> Stage Name </h5>
-                            <div class="d-flex align-items-center">
-                              <div class="pr-3">
-                                <p>
-                                  This is your name you will use for your Profile. You can select a Stage Name from your existing list or create a new Stage Name. Any new Stage Name you create will be added to your list of Stage Names. Any Stage Names that are currently in use, for the Location, will not appear in the list.
-                                </p>
-                              </div>
-                              
-                            </div>
-                          </li>
-                          <li>
-                            <h5 class="mt-3 d_sub_heading"> Location </h5>
-                            <div class="d-flex align-items-center">
-                              <div class="pr-3">
-                                <p>
-                                  The Location, by default, will be your Home State. If you are presently in another Location, and that is where you want to list your Profile, then change the Location to where you are, like Victoria for example. Always remember, to List a Profile, you must have a Profile/s saved for the Location you intent to create a Listing for.
-                                </p>
-                              </div>
-                              
-                            </div>
-                          </li>
-                          <li>
-                            <h5 class="mt-3 d_sub_heading"> City </h5>
-                            <div class="d-flex align-items-center">
-                              <div class="pr-3">
-                                <p>
-                                  The city name will load by default according to the Location you have selected.
-                                </p>
-                              </div>
-                              
-                            </div>
-                          </li>
-                          <li>
-                            <h5 class="mt-3 d_sub_heading"> Street Address  </h5>
-                            <div class="d-flex align-items-center">
-                              <div class="pr-3">
-                                <p>
-                                  This is optional. We recommend you include the address you are staying at but without the street number. This is particularly helpful to your clients so that they have an idea about where in the city you are staying, which helps them with timing and importantly where to park.
-                                </p>
-                              </div>
-                              
-                            </div>
-                          </li>
-                          <li>
-                            <h5 class="mt-3 d_sub_heading"> Mobile  </h5>
-                            <div class="d-flex align-items-center">
-                              <div class="pr-3">
-                                <p>
-                                  Your mobile number will pre-load from your My Account settings.
-                                </p>
-                              </div>
-                              
-                            </div>
-                          </li>
-                        </ol>
-                        <h5 class="mt-4 d_sub_heading">Features</h5>
-                        </div>
-                     </div>
-                   </div>
-             
-                   <!-- How is it done -->
-                   <div class="card">
-                     <div class="card-header" id="headingHow">
+            <div class="row how-it-done">
+              <div class="col-md-12 mt-2 mb-5">
+                <div id="accordion" class="myacording-design">
+              
+                  <!-- + New -->
+                  <div class="card">
+                    <div class="card-header" id="headingNew">
                       <h5 class="mb-0">
-                        <a class="card-link collapsed" data-toggle="collapse" href="#collapseMedia" aria-expanded="false">
-                          Media - Photos
-                         </a>
-                       </h5>
-                     </div>
-                     <div id="collapseMedia" class="collapse" aria-labelledby="headingMedia" data-parent="#accordion">
-                      <div class="card-body">
-                        <p>There are two mandatory sets of photos required for your Profile, your Banner image, which appears across the top of your Profile, and your Thumbnail and supporting images. If you have set up your <a href="/escort-dashboard/archive-view-photos" class="custom_links_design">Media</a> [Media > Photos], it will pre-load. If you have not set up your default Media, you can do so from the Creator, and you will be asked if you want to update your default Media. The Creator will also permit you to clip images.</p>
-                       
-                        <ol class="pl-3">
-                          <li><h5 class="mt-3 d_sub_heading">Thumbnail</h5>
-                           <div class="d-flex align-items-center">
-                             <div class="pr-3">
-                               <p>
-                                You can change any of your images from your default images. The Creator will ask you if you want to update your default images if you have made any changes. If you answer Yes, your default images will update. If you answer NO, your default images will remain unchanged, but the new image/s you selected will be attached to the Profile you are creating.
-                               </p>
-                             </div>
-                             <div>
-                               <img class="img-fluid rounded shadow-sm" 
-                                    src="{{ asset('assets/app/img/12.png')}}" 
-                                    alt="Profile Naming Guide" 
-                                    style="max-width: 300px;">
-                             </div>
-                           </div>
-                           <p>Your Thumbnail image is what will appear in the Listings and is the default image on your Profile. Viewers can scroll through your images, as well as click and view from a pop up.</p>
-                           
-                         </li>
-                         <li>
-                           <h5 class="mt-3 d_sub_heading"> Banner </h5>
-                           <div class="d-flex align-items-center">
-                             <div class="pr-3">
-                               <p>
-                                Your Banner image sits across the top of your Profile. We recommend you select an image that is landscape in nature. If you do not have an image, your can select from our template images. The images represent a range of erotic lingerie.
-                               </p>
-                             </div>
-                             
-                           </div>
-                         </li>
-                        
-                       </ol>
-                       </div>
-                    </div>
-                   </div>
-
-                   <div class="card">
-                    <div class="card-header" id="headingHow">
-                     <h5 class="mb-0">
-                       <a class="card-link collapsed" data-toggle="collapse" href="#collapseVideo" aria-expanded="false">
-                        Media - Video
+                        <a class="card-link collapsed" data-toggle="collapse" href="#collapseNew" aria-expanded="false">
+                          + New
                         </a>
                       </h5>
                     </div>
-                    <div id="collapseVideo" class="collapse" aria-labelledby="headingVideo" data-parent="#accordion">
-                     <div class="card-body">
-                       <p>You can load up to six videos into your Media. The default video, three in total, will pre-load in the Creator. You cab change any of your videos within the Creator. Where you change a video the Creator will ask you if you want to update your default video. If you say Yes the data is updated, if you say No, your settings remain the same and the change/s you made are only applied to the Profile you are creating.</p>
-                      <p class="mt-2">Your video is displayed in the Media pop up on your profile. If you have video available to Viewers, your Profile will also display a camera indicating that video is available for viewing.</p>
-                      
+                    <div id="collapseNew" class="collapse" aria-labelledby="headingNew" data-parent="#accordion">
+                      <div class="card-body">
+              
+                        <h2>Overview</h2>
+                        <p>
+                          Use this feature to create a New Tour. You can create as many Locations within the Tour as you like, and also as many Profiles for each Location you will be visiting.
+                        </p>
+                        <p>
+                          If you want to be a Pin Up in any of the Locations, if the Pin Up week is available during the days you are at that Location, then you can also add the Pin Up feature to the Location.
+                        </p>
+              
+                        <h2>Features</h2>
+                        <ul>
+                          <li>Create an entire Tour in the one process</li>
+                          <li>Easy to follow</li>
+                          <li>Multiple Profile Listings for each Location</li>
+                          <li>Include the Pin Up if it is available</li>
+                        </ul>
+              
+                        <h2>How is it done</h2>
+                        <hr>
+                        <h5>Tour name</h5>
+                        <p>
+                          To create a Tour you must first give the Tour a name. It is up to you how you label your Tour, but we recommend whatever you decide, you then maintain it. For example you could name a Tour: August2025 (no spaces).
+                        </p>
+              
+                        <h5>Location</h5>
+                        <p>
+                          The next step is to select your first Location, where the Tour starts from. Click the Location button and by default your Home State will load. You can change the Location to any Location, provided you have created Profiles for the Location you select.
+                        </p>
+                        <p>
+                          The next step is to select the start date and end date for that Location. You can insert the dates manually, or use the calendar pop up.
+                        </p>
+                        <p>
+                          Next, add the Profile you have created for that Location. You can change the Stage Name if you want. If you change the Stage Name you will be asked if you want to save the change to the Profile. If you answer Yes the Profile will update, if you answer No, the Profile will remain unchanged but the new Stage Name will be applied to the Profile for the Tour.
+                        </p>
+                        <p>
+                          Lastly, select the Membership Type you want for the profile. Platinum Membership will load by default.
+                        </p>
+                        <p>
+                          You have now completed your first Location. If you want you can add additional Profiles to the Location by clicking the Add Profile button, and repeating the process. To save the setting, click Add Location, and the next Location will appear. Repeat the procedure until you have completed all the Locations and Profiles for those Locations. As you add a Location, the Tour Creator will auto-fill the start date for the next Location.
+                        </p>
+                        <p>
+                          When you have completed the Tour, click Save.
+                        </p>
+              
+                        <h5>Pin Up</h5>
+                        <p>
+                          If you want to add the Pin Up feature to any of the Locations, go to Profiles Listed [> Profiles > Listed] and follow the procedure to List Pin Up.
+                        </p>
+              
                       </div>
-                   </div>
+                    </div>
                   </div>
-             
-                 </div>
-               </div>
+              
+                  <!-- + Current -->
+                  <div class="card">
+                    <div class="card-header" id="headingCurrent">
+                      <h5 class="mb-0">
+                        <a class="card-link collapsed" data-toggle="collapse" href="#collapseCurrent" aria-expanded="false">
+                          + Current
+                        </a>
+                      </h5>
+                    </div>
+                    <div id="collapseCurrent" class="collapse" aria-labelledby="headingCurrent" data-parent="#accordion">
+                      <div class="card-body">
+              
+                        <h2>Overview</h2>
+                        <p>
+                          A comprehensive report summarising your Current Tours. You can create short or long Tours. It is entirely up to you, but you must have a minimum of two Locations in the Tour. 
+                          You can manage your Tours from the Dashboard My Tour Schedule [> Dashboard > My Tour Schedule] as well as from your Current Tours [> Tours > Current] report.
+                        </p>
+              
+                        <h2>Features</h2>
+                        <ul>
+                          <li>Manage your current Tour/s from the one location</li>
+                          <li>Comprehensive summary of your Tour schedule</li>
+                        </ul>
+              
+                        <h2>How is it done</h2>
+                        <p>
+                          You can view in detail all the particulars associated with your current Tour. You can also action a Tour from the Action list, such as Edit, Cancel, View and Tour Summary.
+                        </p>
+                        <p>
+                          The edit feature is particularly helpful for changing any Profile's start or finish date, Membership Type or to remove a Profile from the Tour. Any changes to the Tour will automatically adjust your Fee to reflect the changes, including any refund. Refunds will be added to your Account as a Credit to be used for future listings and Tours.
+                        </p>
+                        <p>
+                          The Tour Summary also displays the Fees paid for the Tour.
+                        </p>
+              
+                      </div>
+                    </div>
+                  </div>
+              
+                  <!-- + Past -->
+                  <div class="card">
+                    <div class="card-header" id="headingPast">
+                      <h5 class="mb-0">
+                        <a class="card-link collapsed" data-toggle="collapse" href="#collapsePast" aria-expanded="false">
+                          + Past
+                        </a>
+                      </h5>
+                    </div>
+                    <div id="collapsePast" class="collapse" aria-labelledby="headingPast" data-parent="#accordion">
+                      <div class="card-body">
+              
+                        <h2>Overview</h2>
+                        <p>
+                          All of your completed Tours are retained and can be reactivated as a new Tour.
+                        </p>
+              
+                        <h2>Features</h2>
+                        <ul>
+                          <li>Historical record of completed Tours</li>
+                          <li>Reactivate a Tour</li>
+                        </ul>
+              
+                        <h2>How is it done</h2>
+                        <p>
+                          View any completed Tour to see a summary of the components to the Tour. If you have a past Tour that has the Locations and Profiles that you want to use in a New Tour, then select from the Action list ‘New Tour’ and the Tour will load for you. Change the start and end dates for Each Location and Save.
+                        </p>
+              
+                      </div>
+                    </div>
+                  </div>
+              
+                </div>
+              </div>
+              
              </div>
              
          </div>
