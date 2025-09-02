@@ -24,6 +24,7 @@
    padding: 0px;
 }
 </style>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -116,19 +117,19 @@
         },
 
         columns: [
-            { data: 'ref_number', name: 'ref_number', orderable: false, defaultContent: 'NA' },
+            { data: 'ref_number', name: 'ref_number', orderable: true, defaultContent: 'NA' },
             { data: 'requested_at', name: 'requested_at', orderable: true, defaultContent: 'NA' },
             { data: 'user_member_id', name: 'user_member_id', orderable: true, defaultContent: 'NA' },
             { data: 'phone', name: 'phone', orderable: true, defaultContent: 'NA' },
-            { data: 'country_code', name: 'country_code', orderable: false, defaultContent: 'NA' },
-           
+            { data: 'country_code', name: 'country_code', orderable: true, defaultContent: 'NA' },
             { data: 'view_status', name: 'view_status', orderable: false, defaultContent: 'NA' },
-            { data: 'accepted_date', name: 'accepted_date', orderable: true, defaultContent: 'NA' },
+            { data: 'accepted_date', name: 'accepted_date', orderable: false, defaultContent: 'NA' },
             { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
         ],
 
         
         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+        order: [[1, 'desc']],
         pageLength: 10,
     });
 

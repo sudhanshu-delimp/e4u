@@ -248,6 +248,8 @@
     
 
    function _load_conversations(tId) {
+
+      const resolved = "";
        $("#conv-main").html('');
        $.ajax({
            method: "GET",
@@ -257,6 +259,12 @@
                if(data.status_id == 3 || data.status_id == 4) {
                    $("#sendMessage").parent().hide();
                }
+
+               if(data.status=='Resolved')
+               {
+                resolved = `<div class="row text-center mt-3"><div class="col-sm-12 text-center complete_ticket">This Ticket is now resolved</div></div>`
+               }
+
                var modalHeading = "<b>"+data.subject+'</b> - '+ date_time_format(data.created_on) +'<br>';
                // "<span>"+data.user.name+'</span> ( '+ data.user.member_id +')';
                $("#ticket_name").html(modalHeading);
@@ -293,6 +301,7 @@
                    }
                });
                $("#conv-main").html(html);
+               $('.my-custom-modal-body').append(resolved);
                $("#ticketId").val(tId);
 
                console.log(tId);

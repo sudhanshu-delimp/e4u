@@ -327,11 +327,22 @@ class AgentRequestController extends Controller
 
     public function dataTable()
     {
+
+        $order = request()->get('order');
+        $order_column = null;
+        $order_dir = null;
+
+        if (!empty($order) && isset($order[0]['column']) && isset($order[0]['dir'])) {
+            $order_column = $order[0]['column'];
+            $order_dir    = $order[0]['dir'];
+        }
+
+
         list($result, $count) = $this->paginatedList(
             request()->get('start'),
             request()->get('length'),
-            (request()->get('order')[0]['column']),
-            request()->get('order')[0]['dir']
+            $order_column,
+            $order_dir
         );
         $data = array(
             "draw"            => intval(request()->input('draw')),
@@ -358,6 +369,9 @@ class AgentRequestController extends Controller
                    $q->where('id', '>', 0);
                 },
             ]);
+            $query->leftJoin('users', 'users.id', '=', 'advertiser_agent_requests.user_id')
+                    ->leftJoin('states', 'states.id', '=', 'users.state_id')
+                    ->select('advertiser_agent_requests.*');
         
             
             $search = request()->input('search.value');
@@ -373,12 +387,32 @@ class AgentRequestController extends Controller
 
             switch ($order_key) {
 
-                    case 1:
-                    $query->orderBy('created_at', $dir)->orderBy('created_at', 'ASC');
+                    case 0:
+                    $query->orderBy('ref_number', $dir);
                     break;
 
-                default:
-                    $query->orderBy('id', 'desc');
+                    case 1:
+                    $query->orderBy('created_at', $dir);
+                    break;
+
+                    case 2:
+                    $query->orderBy('users.member_id', $dir);
+                    break;
+
+                    case 3:
+                    $query->orderBy('users.phone', $dir);
+                    break;
+
+                    case 4:
+                    $query->orderBy('states.iso2', $dir); 
+                    break;
+
+                    case 6:
+                    $query->orderBy('states.iso2', $dir); 
+                    break;
+
+                    default:
+                    $query->orderBy('id', 'asc');
                     break;
             }
 
