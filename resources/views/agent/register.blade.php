@@ -61,7 +61,7 @@
                            <select class="form-control" id="location_state" name="state_id" required data-parsley-required-message="Select Location">
                            <option value="">Select your Home State (if not already identified)</option>
                             @foreach($state as $name)
-                                <option value="{{$name->id}}" {{ request()->ipinfo->country_name != null && request()->ipinfo->region == $name->name ? request()->ipinfo->region : '' }}>{{$name->name}}</option>
+                                <option value="{{$name->id}}" {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $name->name ? request()->ipinfo->region : '' }}>{{$name->name}}</option>
                             @endforeach
                            </select>
                         </div>

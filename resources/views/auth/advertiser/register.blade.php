@@ -109,7 +109,7 @@
                                     <option value="">Select your Home State (if not already identified)</option>
                                     @foreach(config('escorts.profile.states') as $key => $state)
                                         <option style="font-weight: 500;"
-                                                value="{{$key}}" {{ request()->ipinfo->country_name != null && request()->ipinfo->region == $state['stateName'] ? request()->ipinfo->region : '' }}> {{$state['stateName']}} </option>
+                                                value="{{$key}}" {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $state['stateName'] ? request()->ipinfo->region : '' }}> {{$state['stateName']}} </option>
                                     @endforeach
                                     {{-- @foreach($state as $name)
                                        <option value="{{$name->id}}">{{$name->name}}</option>
