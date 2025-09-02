@@ -89,9 +89,9 @@
                         <div class="col-lg-4 mt-4 current-avatar">
 
                             <h2 class="primery_color normal_heading">Current Avatar</h2>
-                            
+
                             @if(auth()->user()->hasUploadedAvatar())
-                            
+
                             <button type="button" class="avatar close delete_avatar" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
@@ -470,12 +470,28 @@
 
     function errorModuleShow(data = null) {
         var msg = "Something went wrong. Please try again.";
+        try {
+            var resp = data && data.responseJSON ? data.responseJSON : data;
+            if (resp) {
+                if (resp.message) {
+                    msg = resp.message;
+                } else if (resp.errors) {
+                    // Prefer src (base64 image) or avatar_img errors
+                    var err = resp.errors.src || resp.errors.avatar_img || resp.errors.file || null;
+                    if (Array.isArray(err) && err.length) {
+                        msg = err[0];
+                    } else if (typeof err === 'string') {
+                        msg = err;
+                    }
+                }
+            }
+        } catch (e) {}
+
         $('.comman_msg').text(msg);
         $("#comman_modal").modal('show');
-        location.reload();
         $(".delete_avatar").hide();
-
     }
+
 
     $('#confirmDelete').on('click', function(e) {
         e.preventDefault();

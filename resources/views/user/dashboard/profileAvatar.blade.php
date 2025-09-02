@@ -460,7 +460,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(data) {
-                console
                 if (data.type == 0) {
                     var msg = "Avatar uploaded successfully!";
                     var url = "{{asset('avatars/name')}}";
@@ -490,11 +489,26 @@
 
     function errorModuleShow(data = null) {
         var msg = "Something went wrong. Please try again.";
+        try {
+            var resp = data && data.responseJSON ? data.responseJSON : data;
+            if (resp) {
+                if (resp.message) {
+                    msg = resp.message;
+                } else if (resp.errors) {
+                    // Prefer src (base64 image) or avatar_img errors
+                    var err = resp.errors.src || resp.errors.avatar_img || resp.errors.file || null;
+                    if (Array.isArray(err) && err.length) {
+                        msg = err[0];
+                    } else if (typeof err === 'string') {
+                        msg = err;
+                    }
+                }
+            }
+        } catch (e) {}
+
         $('.comman_msg').text(msg);
         $("#comman_modal").modal('show');
-        location.reload();
         $(".delete_avatar").hide();
-
     }
 
     $('#confirmDelete').on('click', function(e) {

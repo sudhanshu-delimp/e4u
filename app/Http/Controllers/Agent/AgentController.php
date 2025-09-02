@@ -676,29 +676,55 @@ class AgentController extends Controller
     }
 
     public function agentSaveAvatar(StoreAvatarMediaRequest $request, $id){
-        //dd($request->all());
+        try {
+            if ((int) Auth::id() !== (int) $id) {
+                return response()->json(['type' => 1, 'message' => 'Unauthorized'], 403);
+            }
 
-    
-          $extension = explode('/', mime_content_type($request->src))[1];
-          $data = $request->src;
-  
-          list($type, $data)  = explode(';', $data);
-          list(, $data)       = explode(',', $data);
-          $data               = base64_decode($data);
-          $avatar_owner       = Auth::user()->id;
-  
-          $avatarName          = time(). '-' .$avatar_owner .'.'.$extension;
-          $avatar_uri          = file_put_contents(public_path() . '/avatars/' . $avatarName, $data);
-  
-          //dd($avatar_uri);
-          $user = $this->user->find($id);
-          $user->avatar_img = $avatarName;
-  
-          $user->save();
-          $type = 0;
-  
-  
-          return response()->json(compact('type','avatarName'));
+            $src = $request->input('src');
+
+            $semicolonPos = strpos($src, ';');
+            $mime = substr($src, 5, $semicolonPos - 5); // image/jpeg
+            $extension = explode('/', $mime)[1] ?? 'png';
+            $extension = strtolower($extension) === 'jpeg' ? 'jpg' : strtolower($extension);
+
+            $commaPos = strpos($src, ',');
+            $base64 = substr($src, $commaPos + 1);
+            $binary = base64_decode($base64, true);
+
+            $dir = public_path('avatars');
+            if (!File::exists($dir)) {
+                File::makeDirectory($dir, 0755, true);
+            }
+
+            $avatarOwner = Auth::id();
+            $avatarName = time() . '-' . $avatarOwner . '.' . $extension;
+            $fullPath = $dir . DIRECTORY_SEPARATOR . $avatarName;
+            if (File::put($fullPath, $binary) === false) {
+                throw new \RuntimeException('Failed to save avatar file');
+            }
+
+            $user = $this->user->find($id);
+            if (!$user) {
+                return response()->json(['type' => 1, 'message' => 'User not found'], 404);
+            }
+
+            if (!empty($user->avatar_img)) {
+                $oldPath = $dir . DIRECTORY_SEPARATOR . $user->avatar_img;
+                if (File::exists($oldPath)) {
+                    @File::delete($oldPath);
+                }
+            }
+
+            $user->avatar_img = $avatarName;
+            $user->save();
+
+            $type = 0;
+            return response()->json(compact('type','avatarName'));
+        } catch (\Throwable $e) {
+            \Log::error('Error saving avatar for user ' . $id . ': ' . $e->getMessage());
+            return response()->json(['type' => 1, 'message' => $e->getMessage()], 500);
+        }
     }
 
     public function agentRemoveAvatar(){
