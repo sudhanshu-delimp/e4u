@@ -22,7 +22,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\LastOnlineAt::class,
-        \ipinfo\ipinfolaravel\ipinfolaravel::class
+        //\ipinfo\ipinfolaravel\ipinfolaravel::class
     ];
 
     /**
@@ -77,7 +77,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'ipinfo' => \ipinfo\ipinfolaravel\ipinfolaravel::class,
+        //'ipinfo' => \ipinfo\ipinfolaravel\ipinfolaravel::class,
         'escort' => \App\Http\Middleware\EscortAuth::class,
         'agent' => \App\Http\Middleware\AgentAuth::class,
         'admin' => \App\Http\Middleware\AdminAuth::class,
