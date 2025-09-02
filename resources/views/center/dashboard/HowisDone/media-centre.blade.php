@@ -15,7 +15,7 @@
    <!--middle content start here-->
    <div class="row">
          <div class="custom-heading-wrapper col-lg-12">
-            <h1 class="h1">Media Center</h1>
+            <h1 class="h1">Media Centre</h1>
              <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
          </div>
       <div class="col-md-12 ">

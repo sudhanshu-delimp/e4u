@@ -563,7 +563,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="grid-container modalPopup" id="banner_images" style="max-height: 500px; overflow-y:scroll; grid-template-columns: 1fr 1fr 1fr;">
-                                {{--                   <div class="col-sm-12">--}}
+                               
                                 @foreach($media  as $keyId => $image)
                                     @if(in_array($image->position, [9,10])/*$image->position != 8*/)
                                         <div class="item2">
@@ -571,12 +571,9 @@
                                         </div>
                                     @endif
                                 @endforeach
-                                {{--                   </div>--}}
+
                             </div>
                         </div>
-                        {{--<div class="modal-footer" style="justify-content: center;">
-                            <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -1772,26 +1769,14 @@
             $("#photo_gallery_banner").modal("hide");
         });
 
-      
-        
-        $(".modalPopup .item2").on('click', function(e) {
-            let imageSrc = $(this).find('img').attr('src');
-            let mediaId = $(this).find('img').data('id');
-            $("#blah9").attr('src',imageSrc);
-            $("#img9").attr('src',imageSrc);
-            $("#mediaId9").val(mediaId);
-
-            $("#photo_gallery_banner").modal("hide");
-        });
     });
 
     let profile_selected_images = [];
     let default_image_icons = ['img-11.png','img-12.png','img-13.png'];
-    $(".modalPopup .item4, .modalPopup .item2").on('click', function(e) {
+    $(document).on('click','.modalPopup .item4, .modalPopup .item2', function(e) {
        let imageSrc = $(this).find('img').attr('src');
        let mediaId = $(this).find('img').data('id');
        let img_target = $("#img"+updatePosition);
-       let media_image_length = $(".upld-img").length;
        let targetImageSrc = img_target.attr('src');
        let targetImageName = targetImageSrc.split("/").pop();
        /**
@@ -1829,6 +1814,7 @@
             }
        }
        $("#photo_gallery").modal("hide");
+       $("#photo_gallery_banner").modal("hide");
    });
 
     function setAsDefultImages(){
