@@ -223,7 +223,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('state-name', [App\Http\Controllers\HomeController::class, 'getGioLocation'])->name('web.state.name');
 
-//Route::post('/ip-state', [HomeController::class,'ipTrack'])->name('home.ip.track')->middleware(['ipinfo']);
+//Route::post('/ip-state', [HomeController::class,'ipTrack'])->name('home.ip.track');
 // Auth::routes();
 
 
@@ -245,7 +245,7 @@ Route::post('contact-us-send', [ContactUsController::class,'sendContact'])->name
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/login', [LoginController::class,'login'])->name('login')->middleware(['ipinfo']);
+Route::post('/login', [LoginController::class,'login'])->name('login');
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'intendedRedirect'])->name('dashboard');
 
 Route::get('country-list',[App\Http\Controllers\CountryController::class,'countryList'])->name('country.list');
@@ -287,7 +287,7 @@ Route::get('/advertiser-forgot/{token?}', [AdvertiserLoginController::class,'esc
 //Route::post('/reset-forgot', [AdvertiserLoginController::class,'viewerResetPassword'])->name('web.reset.password.viewer');
 Route::post('/reset-forgot', [App\Http\Controllers\SendForgotPasswordController::class,'viewerResetPassword'])->name('web.reset.password.viewer');
 
-Route::post('/advertiser-login', [AdvertiserLoginController::class, 'login'])->middleware(['ipinfo']);
+Route::post('/advertiser-login', [AdvertiserLoginController::class, 'login']);
 Route::post('/advertiser-logout', [AdvertiserLoginController::class,'logout'])->name('advertiser.logout');
 Route::get('/all-escorts-list', [App\Http\Controllers\WebController::class,'allEscortList'])->name('find.all');
 // Route::get('/all-escorts-list/{gender?}', [App\Http\Controllers\WebController::class,'allEscortList'])->name('find.all');
@@ -301,7 +301,7 @@ Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class,'grid
 
 /********** ADMIN **********/
 Route::get('admin-login', [App\Http\Controllers\Admin\AuthController::class,'showLoginForm'])->name('admin.login');
-Route::post('/admin-login', [App\Http\Controllers\Admin\AuthController::class, 'login'])->middleware(['ipinfo']);
+Route::post('/admin-login', [App\Http\Controllers\Admin\AuthController::class, 'login']);
 Route::post('/admin-logout', [App\Http\Controllers\Admin\AuthController::class,'logout'])->name('admin.logout');
 // shortlist
 Route::post('/shortlist', [App\Http\Controllers\WebController::class,'saveShortList'])->name('web.save.shortlist');
