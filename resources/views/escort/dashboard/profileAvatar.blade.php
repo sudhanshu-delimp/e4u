@@ -557,14 +557,45 @@
     });
 
     // Function to show error message
-    function showErrorMessage(message) {
-        $("#modal-title").text("Error");
-        $("#modal-icon").attr("src", "/assets/dashboard/img/remove-image.png");
-        $('.comman_msg').text(message);
+    function errorModuleShow(data = null) {
+        var msg = "";
+        try {
+            var resp = null;
+            if (data && data.responseJSON) {
+                resp = data.responseJSON;
+            } else if (data && data.responseText) {
+                try { resp = JSON.parse(data.responseText); } catch (e) {}
+            } else {
+                resp = data;
+            }
 
-        // Show modal
+            if (resp) {
+                if (typeof resp === 'string') {
+                    msg = resp;
+                } else if (resp.message) {
+                    msg = resp.message;
+                } else if (resp.errors) {
+                    var errors = resp.errors;
+                    var first = null;
+                    if (Array.isArray(errors)) {
+                        first = errors[0];
+                    } else if (errors.src) {
+                        first = Array.isArray(errors.src) ? errors.src[0] : errors.src;
+                    } else if (errors.avatar_img) {
+                        first = Array.isArray(errors.avatar_img) ? errors.avatar_img[0] : errors.avatar_img;
+                    } else if (errors.file) {
+                        first = Array.isArray(errors.file) ? errors.file[0] : errors.file;
+                    }
+                    if (first) msg = first;
+                }
+            }
+        } catch (e) {}
+
+        $('.comman_msg').text(msg);
         $("#comman_modal").modal('show');
+        $(".delete_avatar").hide();
     }
+
 
     // Bind delete avatar event to show confirmation modal
     $(document).on('click', '.delete_avatar', function() {

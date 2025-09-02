@@ -494,20 +494,35 @@
 
 
     function errorModuleShow(data = null) {
-        var msg = "Something went wrong. Please try again.";
+        var msg = "";
         try {
-            var resp = data && data.responseJSON ? data.responseJSON : data;
+            var resp = null;
+            if (data && data.responseJSON) {
+                resp = data.responseJSON;
+            } else if (data && data.responseText) {
+                try { resp = JSON.parse(data.responseText); } catch (e) {}
+            } else {
+                resp = data;
+            }
+
             if (resp) {
-                if (resp.message) {
+                if (typeof resp === 'string') {
+                    msg = resp;
+                } else if (resp.message) {
                     msg = resp.message;
                 } else if (resp.errors) {
-                    // Prefer src (base64 image) or avatar_img errors
-                    var err = resp.errors.src || resp.errors.avatar_img || resp.errors.file || null;
-                    if (Array.isArray(err) && err.length) {
-                        msg = err[0];
-                    } else if (typeof err === 'string') {
-                        msg = err;
+                    var errors = resp.errors;
+                    var first = null;
+                    if (Array.isArray(errors)) {
+                        first = errors[0];
+                    } else if (errors.src) {
+                        first = Array.isArray(errors.src) ? errors.src[0] : errors.src;
+                    } else if (errors.avatar_img) {
+                        first = Array.isArray(errors.avatar_img) ? errors.avatar_img[0] : errors.avatar_img;
+                    } else if (errors.file) {
+                        first = Array.isArray(errors.file) ? errors.file[0] : errors.file;
                     }
+                    if (first) msg = first;
                 }
             }
         } catch (e) {}
@@ -516,6 +531,7 @@
         $("#comman_modal").modal('show');
         $(".delete_avatar").hide();
     }
+
 
     $('#confirmDelete').on('click', function(e) {
         e.preventDefault();
