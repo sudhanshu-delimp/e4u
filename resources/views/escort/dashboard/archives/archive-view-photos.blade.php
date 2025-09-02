@@ -123,13 +123,15 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="upload-photo-sec">
-                {{-- <div class="photo-top-header">                    
-                    <div class="custom-img-filter-header">
+                <div class="photo-top-header">                    
+                    <div class="custom-img-filter-header border-0">
                         <div class="row">
-                           
+                            <div class="col-lg-12">
+                                <h3 class="gallery-head">Your Default Images</h3>
+                            </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
                 <div class="container">
                     <form id="defaultImage" method="post" enctype="multipart/form-data" action="{{ route('escort.default.images')}}">
                         @csrf
