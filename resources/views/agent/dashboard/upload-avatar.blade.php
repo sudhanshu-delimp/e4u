@@ -444,6 +444,16 @@
     });
 
 
+    function getBase64SizeBytes(base64) {
+        try {
+            if (!base64 || base64.indexOf(',') === -1) return 0;
+            var b64 = base64.split(',')[1];
+            var padding = (b64.match(/=+$/) || [''])[0].length;
+            return Math.floor((b64.length * 3) / 4) - padding;
+        } catch (e) { return 0; }
+    }
+
+
     //SHS
 
     $("#my_avatar").on('submit', function(e) {
@@ -452,6 +462,27 @@
         $("#modal-title").text("Upload Your Avatar");
         $("#modal-icon").attr("src", "/assets/dashboard/img/upload-photos.png");
         var src = $("#item-img-output").attr('src');
+
+
+        // Client-side 2MB check before sending AJAX
+        var maxBytes = 2 * 1024 * 1024;
+        var inputEl = $('.file-upload-input')[0];
+        var oversize = false;
+        if (inputEl && inputEl.files && inputEl.files[0]) {
+            oversize = inputEl.files[0].size > maxBytes;
+        } else if (src && src.indexOf('data:image/') === 0) {
+            oversize = getBase64SizeBytes(src) > maxBytes;  
+        }
+        if (oversize) {
+            $('.comman_msg').text('Image must be 2MB or less.');
+            $("#comman_modal").modal('show');
+            try {
+                removeUpload();
+            } catch (e) {}
+            return false;
+        }
+
+
         var url = form.attr('action');
         var data = new FormData($('#my_avatar')[0]);
         data.append('src', src);
@@ -465,7 +496,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(data) {
-             
+
                 if (data.type == 0) {
                     var msg = "Avatar uploaded successfully!";
                     var url = "{{asset('avatars/name')}}";
@@ -500,7 +531,9 @@
             if (data && data.responseJSON) {
                 resp = data.responseJSON;
             } else if (data && data.responseText) {
-                try { resp = JSON.parse(data.responseText); } catch (e) {}
+                try {
+                    resp = JSON.parse(data.responseText);
+                } catch (e) {}
             } else {
                 resp = data;
             }
