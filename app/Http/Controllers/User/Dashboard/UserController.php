@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\User\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\User\UserInterface;
-use App\Http\Requests\StoreAvatarMediaRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use App\Models\MyLegbox;
-use App\Models\MyMassageLegbox;
 use Auth;
 use Carbon\Carbon;
+use App\Models\MyLegbox;
+use Illuminate\Http\Request;
+use App\Models\MyMassageLegbox;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use App\Repositories\User\UserInterface;
+use App\Http\Requests\StoreAvatarMediaRequest;
 
 class UserController extends Controller
 {
@@ -325,11 +326,27 @@ class UserController extends Controller
     }
     public function removeMyAvatar()
     {
+        try {
             $user = $this->user->find(auth()->user()->id);
-            $user->avatar_img = null;
-            $user->save();
-            $type = 1;
-        return response()->json(compact('type'));
+            
+            if (!$user) {
+                return response()->json([ 'type' => 1,'message' => 'User not found'], 404);
+            }
+            $path =  public_path('/avatars/' . $user->avatar_img);
+            if(File::exists($path)){
+                File::delete($path);
+                $user->avatar_img = null;
+                $user->save();
+            }else{
+                return response()->json(['type' => 1, 'message' => 'Image not found!']);
+            }
+           $defaultImg = asset(config('constants.viewer_default_icon')); //for viewer
+            return response()->json(['type' => 0, 'message' => 'Avatar removed successfully', 'img' => $defaultImg ]);
+            
+        } catch (\Exception $e) {
+            \Log::error('Error removing avatar: ' . $e->getMessage());
+            return response()->json([ 'type' => 1,'message' => 'An error occurred while removing avatar. Please try again.' ], 500);
+        }
     }
     public function notificationsFeatures()
     {

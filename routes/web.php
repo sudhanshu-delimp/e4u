@@ -508,9 +508,9 @@ Route::get('/agent-dashboard/classification-laws',function(){
     return view('agent.dashboard.Community.classification-laws');
 })->name('agent.classification-laws');
 
-Route::get('/agent-dashboard/upload-avatar',function(){
-    return view('agent.dashboard.upload-avatar');
-})->name('upload-avatar');
+// Route::get('/agent-dashboard/upload-avatar',function(){
+//     return view('agent.dashboard.upload-avatar');
+// })->name('upload-avatar');
 
 Route::get('/agent-dashboard/notifications-features',function(){
     return view('agent.dashboard.notifications-features');
