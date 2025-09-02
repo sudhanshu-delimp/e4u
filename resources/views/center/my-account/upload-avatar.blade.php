@@ -122,12 +122,12 @@
                                 <div class="col-lg-4 mt-4 current-avatar">
 
                                     <h2 class="primery_color normal_heading">Current Avatar</h2><!-- <i class="fab fa-twitter delete_avatar"></i> -->
-                                    @if(auth()->user()->avatar_img)
+                                    @if(auth()->user()->hasUploadedAvatar())
                                     <button type="button" class="avatar close delete_avatar" aria-label="Close">
                                         <span aria-hidden="true">×</span>
                                     </button>
                                     @endif
-                                    <img src="{{ !auth()->user()->avatar_img ? asset('assets/app/img/service-provider/Frame-408.png') :asset('avatars/'.auth()->user()->avatar_img) }}" alt="" class="img-rounded avatarName">
+                                    <img src="{{ asset(auth()->user()->avatar_url) }}" alt="" class="img-rounded avatarName">
                                 </div>
                             </div>
                         </div>
@@ -493,7 +493,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function(data) {
-                console
                 if (data.type == 0) {
                     var msg = "Avatar uploaded successfully!";
                     var url = "{{asset('avatars/name')}}";
@@ -551,7 +550,7 @@
                         if (data.type == 0) {
 
                             // Update avatar image to default
-                            $(".avatarName").attr('src', "{{ asset('assets/app/img/service-provider/Frame-408.png') }}");
+                            $(".avatarName").attr('src', data.img);
 
                             // Hide delete button
                             $(".delete_avatar").hide();

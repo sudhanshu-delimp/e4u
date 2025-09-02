@@ -205,8 +205,8 @@ class CenterController extends Controller
             }else{
                 return response()->json(['type' => 1, 'message' => 'Image not found!']);
             }
-           
-            return response()->json(['type' => 0, 'message' => 'Avatar removed successfully' ]);
+            $defaultImg = asset(config('constants.massage_default_icon'));
+            return response()->json(['type' => 0, 'message' => 'Avatar removed successfully', 'img' => $defaultImg]);
             
         } catch (\Exception $e) {
             \Log::error('Error removing avatar: ' . $e->getMessage());

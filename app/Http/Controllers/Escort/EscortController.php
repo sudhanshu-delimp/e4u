@@ -721,12 +721,27 @@ class EscortController extends Controller
     }
     public function removeMyAvatar()
     {
-        $user = $this->user->find(auth()->user()->id);
-        unlink(public_path() . '/avatars/' . $user->avatar_img);
-        $user->avatar_img = null;
-        $user->save();
-        $type = 1;
-        return response()->json(compact('type'));
+        try {
+            $user = $this->user->find(auth()->user()->id);
+            
+            if (!$user) {
+                return response()->json([ 'type' => 1,'message' => 'User not found'], 404);
+            }
+            $path =  public_path('/avatars/' . $user->avatar_img);
+            if(File::exists($path)){
+                File::delete($path);
+                $user->avatar_img = null;
+                $user->save();
+            }else{
+                return response()->json(['type' => 1, 'message' => 'Image not found!']);
+            }
+           $defaultImg = asset(config('constants.escort_default_icon'));
+            return response()->json(['type' => 0, 'message' => 'Avatar removed successfully', 'img' => $defaultImg ]);
+            
+        } catch (\Exception $e) {
+            \Log::error('Error removing avatar: ' . $e->getMessage());
+            return response()->json([ 'type' => 1,'message' => 'An error occurred while removing avatar. Please try again.' ], 500);
+        }
     }
     public function notificationsFeatures()
     {
