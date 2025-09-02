@@ -23,6 +23,12 @@
 
    padding: 0px;
 }
+.dataTables_processing{   
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
 </style>
 @endsection
 @section('content')
@@ -116,18 +122,18 @@
         },
 
         columns: [
-            { data: 'ref_number', name: 'ref_number', orderable: true, defaultContent: 'NA' },
+            { data: 'ref_number', name: 'ref_number', orderable: false, defaultContent: 'NA' },
             { data: 'requested_at', name: 'requested_at', orderable: true, defaultContent: 'NA' },
             { data: 'user_member_id', name: 'user_member_id', orderable: true, defaultContent: 'NA' },
             { data: 'phone', name: 'phone', orderable: true, defaultContent: 'NA' },
-            { data: 'country_code', name: 'country_code', orderable: true, defaultContent: 'NA' },
+            { data: 'country_code', name: 'country_code', orderable: false, defaultContent: 'NA' },
            
-            { data: 'view_status', name: 'view_status', orderable: true, defaultContent: 'NA' },
+            { data: 'view_status', name: 'view_status', orderable: false, defaultContent: 'NA' },
             { data: 'accepted_date', name: 'accepted_date', orderable: true, defaultContent: 'NA' },
             { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
         ],
 
-        order: [[1, 'desc']],
+        
         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
         pageLength: 10,
     });

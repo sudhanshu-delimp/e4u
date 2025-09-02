@@ -147,7 +147,7 @@
                                        
                                     </div>
                                  </div>
-                                 <div class="col-md-12">
+                                 {{-- <div class="col-md-12">
                                     <div class="form-group custom--contact">
                                        <label for="mobile">Method of contact:</label>
                                        <div class="form-check-inline">
@@ -180,7 +180,7 @@
                                           </label>
                                         </div>
                                     </div>
-                                 </div>
+                                 </div> --}}
                               </div>
                            </div>
                         </div>

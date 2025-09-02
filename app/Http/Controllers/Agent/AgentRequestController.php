@@ -345,7 +345,7 @@ class AgentRequestController extends Controller
 
     private function paginatedList($start, $limit, $order_key, $dir)
     {
-            
+        
            $total_accepted = 0;
            $query = AdvertiserAgentRequest::whereHas('agent_request_users', function ($q) {
                 $q->where('id', '>', 0);
@@ -372,12 +372,13 @@ class AgentRequestController extends Controller
             }
 
             switch ($order_key) {
-                case 1:
-                    $query->orderBy('ref_number', $dir);
+
+                    case 1:
+                    $query->orderBy('created_at', $dir)->orderBy('created_at', 'ASC');
                     break;
 
                 default:
-                    $query->orderBy('created_at', 'DESC')->orderBy('created_at', 'ASC');
+                    $query->orderBy('id', 'desc');
                     break;
             }
 

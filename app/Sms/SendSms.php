@@ -5,7 +5,8 @@ use  App\Sms\Provider\MessageMedia;
 class SendSms {
     public function send($phone,$text) {
         $send = new MessageMedia();
+        return true;
        
-        return $send->sendMessages($phone, $text);
+         //return $send->sendMessages($phone, $text);
     }
 }

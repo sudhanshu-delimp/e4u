@@ -127,7 +127,7 @@ class CreateController extends Controller
         $availability = $escort->availability;
         $service = $this->service;
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [8]);
-        $path = $this->media->findByVideoposition(auth()->user()->id,1)['path'];
+        $path = $this->media;
         
         return view('escort.dashboard.profile.update',compact('defaultServiceIds','media', 'path','escort','service','availability','service_one','service_two','service_three','durations','user'));
     }

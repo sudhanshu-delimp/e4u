@@ -19,6 +19,7 @@
         padding: 0.75rem;
         vertical-align: top;
         border-top: 1px solid #dee2e6;
+        text-align: justify;
     }
     .table2 thead {
         border-bottom: 2px solid #000000;
@@ -31,6 +32,9 @@
     .table2 td:first-child {
         font-weight: bold;
     }
+    p{
+        text-align: justify !important;
+    }
 </style>
 @section('content')
     <section
@@ -39,11 +43,11 @@
             <div class="row">
                 <div class="col-lg-7 col-md-7 adverti_reg_page_padingto_bt-new">
                     <div class="reg_info advertiser-registration">
-                        <h2>Registration - Escort</h2>
-                        <div class="pl-4 pt-2 pb-5">
+                        {{-- <h2>Registration - Escort</h2> --}}
+                        <div class="pt-2 pb-5">
                             <h1 class="text-uppercase">Advertiser Registration</h1>
                             <h2>Registration with us is free</h2>
-                            <p>There are no Fees when you create an Account. Fees only apply when you post a Profile or Tour
+                            <p class="text-justify">There are no Fees when you create an Account. Fees only apply when you post a Profile or Tour
                                 where you are charged according to the number of days and the Membership Type you select.
                                 See also <span><a href="{{ url('help-for-advertisers')}}"
                                                                                 class="termsandconditions_text_color">Help for Advertisers</a></span>
@@ -52,7 +56,7 @@
                                 for more information on Package benefits, Profiles & Tours, Fees and your obligations.</p>
                         </div>
                         <h4>Alert:</h4>
-                        <ol class="pl-3">
+                        <ol class="pl-4 text-justify">
                             <li>Victorian Advertisers can voluntarily provide their SWA exception number or license number, like for
                                 example, SWA20188XE. The license number will be displayed on any Profile you publish.
                             </li>
@@ -185,7 +189,7 @@
                                 <strong>{{ $message }}</strong>
                                 @enderror
                             </div>
-                            <div class="form-check pt-2 pb-1" style="margin-left: 4px;">
+                            <div class="form-check form-check-inline pb-0" style="margin-left: 4px;">
                                 <input type="checkbox" data-parsley-errors-container=".check-tc"
                                        class="form-check-input" id="termsandconditions" required
                                        data-parsley-required-message="@lang('errors/validation/required.checkbox')">
