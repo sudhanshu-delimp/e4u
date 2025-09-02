@@ -381,6 +381,37 @@
         </div>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ugly" aria-expanded="true" aria-controls="collapseten">
+            <img src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png')}}">
+            <span >NUM</span>
+        </a>
+            <div id="ugly" class=" collapse  @if(request()->segment(2) == 'numdashboard' || request()->segment(2) == 'add-report' || request()->segment(2) == 'my-reports' || request()->segment(2) == 'num-tips' ) show @endif;" aria-labelledby="headingten" data-parent="#accordionSidebar">
+                <div class="py-0 collapse-inner rounded mb-2">
+
+                    <a id="myAnchor" class="collapse-item show" href="{{ route('center.numdashboard') }}">
+                        <img src="{{ asset('assets/img/dashboard-24.png')}}">
+                        <span style="{{ request()->segment(2) == 'numdashboard' ? 'color: #e5365a;' : ''}}">dashboard</span>
+                    </a>
+
+                    <a id="myAnchor" class="collapse-item show" href="{{ route('center.add-report') }}">
+                        <img src="{{ asset('assets/img/report-24.png')}}">
+                        <span style="{{ request()->segment(2) == 'add-report' ? 'color: #e5365a;' : ''}}">Add Report</span>
+                    </a>
+
+                    <a id="myAnchor" class="collapse-item show" href="{{ route('center.my-reports') }}">
+                        <img src="{{ asset('assets/img/8report-24.png')}}">
+                        <span style="{{ request()->segment(2) == 'my-reports' ? 'color: #e5365a;' : ''}}">My Reports</span>
+                    </a>
+
+                    <a id="myAnchor" class="collapse-item show" href="{{ route('center.num-tips') }}">
+                        <img src="{{ asset('assets/app/img/tips.png')}}">
+                        <span style="{{ request()->segment(2) == 'num-tips' ? 'color: #e5365a;' : ''}}">NUM (Tips)</span>
+                    </a>
+                </div>
+            </div>
+        </li>
+
     {{-- Reviews --}}
     {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reviews"
@@ -430,7 +461,7 @@
         </div>
     </li>
     {{-- Ugly Mugs Register --}}
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ugly" aria-expanded="true" aria-controls="collapseten">
              <img src="{{ asset('assets/dashboard/img/menu-icon/Vector.png')}}">
              <span >Ugly Mugs Register</span>
@@ -454,7 +485,7 @@
 
             </div>
         </div>
-    </li>
+    </li> --}}
 
     {{-- <li class="nav-item v-last-setting v-divider">
         <a class="nav-link py-0" href="#">

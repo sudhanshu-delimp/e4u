@@ -1305,6 +1305,9 @@ a#new_saveProfilename {
     padding: 0px 75px 0px 0px;
 }
 
+span.active-text {
+    color: #e5365a;
+}
 
 /*tab css end* /
 
