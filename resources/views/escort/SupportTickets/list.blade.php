@@ -226,6 +226,7 @@
 
 
    function _load_conversations(tId) {
+        let resolved = "";
        $("#conv-main").html('');
        $.ajax({
            method: "GET",
@@ -235,6 +236,24 @@
                if(data.status_id == 3 || data.status_id == 4) {
                    $("#sendMessage").parent().hide();
                }
+                else
+                {
+                $("#sendMessage").parent().show();
+                }
+
+                if(data.status=='Resolved' || data.status=='Withdrawn')
+                {
+                    if(data.status=='Resolved')
+                    {
+                        message = 'This Ticket is now resolved';
+                    }
+                    else
+                    {
+                       message = 'This Ticket has been withdrawn'; 
+                    }
+
+                    resolved = `<div class="col-sm-12 text-center complete_ticket mt-3" style="font-weight: 700; font-size: 20px;color: green;"> ${message}</div>`
+                }
                var modalHeading = "<b>"+data.subject+'</b> - '+ date_time_format(data.created_on) +'<br>';
                // "<span>"+data.user.name+'</span> ( '+ data.user.member_id +')';
                $("#ticket_name").html(modalHeading);
@@ -269,7 +288,11 @@
                    }
                });
                $("#conv-main").html(html);
-                $("#ticketId").val(tId);
+               $("#ticketId").val(tId);
+                if(data.status=='Resolved' || data.status=='Withdrawn')
+                {
+                $('#conv-main').append(resolved);
+                }
            }
        })
    }

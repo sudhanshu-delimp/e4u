@@ -249,21 +249,37 @@
 
    function _load_conversations(tId) {
 
-      const resolved = "";
+      let resolved = "";
        $("#conv-main").html('');
+       
        $.ajax({
            method: "GET",
            url: "{{ route('support-ticket.conversations') }}" + '/' + tId,
            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
            success: function (data) {
+
+               console.log(data.status_id);
                if(data.status_id == 3 || data.status_id == 4) {
                    $("#sendMessage").parent().hide();
                }
-
-               if(data.status=='Resolved')
+               else
                {
-                resolved = `<div class="row text-center mt-3"><div class="col-sm-12 text-center complete_ticket">This Ticket is now resolved</div></div>`
+                   $("#sendMessage").parent().show();
                }
+
+              if(data.status=='Resolved' || data.status=='Withdrawn')
+              {
+                    if(data.status=='Resolved')
+                    {
+                        message = 'This Ticket is now resolved';
+                    }
+                    else
+                    {
+                       message = 'This Ticket has been withdrawn'; 
+                    }
+
+                    resolved = `<div class="col-sm-12 text-center complete_ticket mt-3" style="font-weight: 700; font-size: 20px;color: green;"> ${message}</div>`
+                }
 
                var modalHeading = "<b>"+data.subject+'</b> - '+ date_time_format(data.created_on) +'<br>';
                // "<span>"+data.user.name+'</span> ( '+ data.user.member_id +')';
@@ -301,10 +317,14 @@
                    }
                });
                $("#conv-main").html(html);
-               $('.my-custom-modal-body').append(resolved);
                $("#ticketId").val(tId);
+               if(data.status=='Resolved' || data.status=='Withdrawn')
+                {
+                $('#conv-main').append(resolved);
+                }
+              
 
-               console.log(tId);
+               
            }
        })
    }
