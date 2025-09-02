@@ -149,6 +149,7 @@ class CenterController extends Controller
     }
     public function storeMyAvatar(StoreAvatarMediaRequest $request,$id)
     {
+    
 
         // $attachment = $request->file('avatar_img');
         // list($width, $height) = getimagesize($attachment);
@@ -172,6 +173,7 @@ class CenterController extends Controller
 
         $extension = explode('/', mime_content_type($request->src))[1];
         $data = $request->src;
+
 
         list($type, $data)  = explode(';', $data);
         list(, $data)       = explode(',', $data);

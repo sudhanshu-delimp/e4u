@@ -524,7 +524,6 @@
         var msg = "Something went wrong. Please try again.";
         $('.comman_msg').text(msg);
         $("#comman_modal").modal('show');
-        location.reload();
         $(".delete_avatar").hide();
 
     }

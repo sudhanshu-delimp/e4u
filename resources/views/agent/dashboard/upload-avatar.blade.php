@@ -3,153 +3,154 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 <link rel="stylesheet" type="text/css" href="https://foliotek.github.io/Croppie/croppie.css">
 <style>
-   .swal-button {
-   background-color: #242a2c;
-   }
-   label.cabinet input.file{
-	position: relative;
-	height: 100%;
-	width: auto;
-	opacity: 0;
-	-moz-opacity: 0;
-  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
-  margin-top:-30px;
-}
+    .swal-button {
+        background-color: #242a2c;
+    }
 
-#upload-demo{
-	width: 250px;
-	height: 250px;
-  padding-bottom:25px;
-}
+    label.cabinet input.file {
+        position: relative;
+        height: 100%;
+        width: auto;
+        opacity: 0;
+        -moz-opacity: 0;
+        filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+        margin-top: -30px;
+    }
+
+    #upload-demo {
+        width: 250px;
+        height: 250px;
+        padding-bottom: 25px;
+    }
 </style>
 @stop
 @section('content')
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
-   <!-- Main Content -->
-   <div id="content">
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-    <!--middle content start here-->
-    {{-- Page Heading   --}}
-    <div class="row">
-        <div class="custom-heading-wrapper col-lg-12">
-           <h1 class="h1">Upload your avatar</h1>
-           <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
-        </div>
-        <div class="col-md-12 my-2">
-           <div class="card collapse" id="notes" style="">
-              <div class="card-body">
-                 <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                 <ol>
-                    <li>You don't have to have an avatar, it is entirely up to you.</li>
-                    <li>Your avatar will not be displayed publicly.</li>
-                    <li>You can remove or change your avatar anytime.</li>
-                 </ol>
-              </div>
-           </div>
-        </div>
-     </div>
-     {{-- end --}}
-    <div class="row">
-        <div class="col-md-12" id="profile_and_tour_options">
-            
+    <!-- Main Content -->
+    <div id="content">
+        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+            <!--middle content start here-->
+            {{-- Page Heading   --}}
             <div class="row">
-                <div class="col-md-12">
-                    <div class="card border-0">
+                <div class="custom-heading-wrapper col-lg-12">
+                    <h1 class="h1">Upload your avatar</h1>
+                    <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+                </div>
+                <div class="col-md-12 my-2">
+                    <div class="card collapse" id="notes" style="">
                         <div class="card-body">
-                            <h2 class="primery_color normal_heading">File types</h2>
-                            <p>When selecting your avatar, please be mindful of the following:</p>
-                            <ul>
-                                <li>Yes you can use a photo, but we do not recommend it</li>
-                                <li>Acceptable formats include; .jpg, .gif or .png .pdf, .psd, .tff, and .doc files are not compatible</li>
-                            </ul>
-                            <div class="row">
-                                <div class="col-lg-4 mt-4">
-                                    <h2 class="primery_color normal_heading">Upload your avatar</h2>
-                                    <form id="my_avatar" action="{{ route('center.save.avatar',auth()->user()->id)}}" method="POST" enctype="multipart/form-data">
-                                        <div class="file-upload">
-                                            <div class="image-upload-wrap">
-                                                <input class="file-upload-input gambar item-img" name="avatar_img" type="file" onchange="readURL(this);" accept="image/*">
-                                                <div class="drag-text">
-                                                    <h3>Drag and drop a file or select add Image</h3>
-                                                </div>
-                                            </div>
-                                            <div class="file-upload-content">
-                                                <img class="file-upload-image item-img" src="#" alt="your image" id="item-img-output">
-                                                <div class="image-title-wrap">
-                                                    
-                                                    <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-                                                    <button type="submit" class="remove-image crop_image">Save <span class="image-title">Uploaded Image</span></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-lg-4 mt-4 current-avatar">
-                                    
-                                    <h2 class="primery_color normal_heading">Current Avatar</h2><!-- <i class="fab fa-twitter delete_avatar"></i> -->
-                                    @if(auth()->user()->avatar_img)
-                                    <button type="button" class="avatar close delete_avatar" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                    @endif
-                                    <img src="{{ !auth()->user()->avatar_img ? asset('assets/app/img/service-provider/Frame-408.png') :asset('avatars/'.auth()->user()->avatar_img) }}" alt="" class="img-rounded avatarName">
-                                </div>
-                            </div>
+                            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                            <ol>
+                                <li>You don't have to have an avatar, it is entirely up to you.</li>
+                                <li>Your avatar will not be displayed publicly.</li>
+                                <li>You can remove or change your avatar anytime.</li>
+                            </ol>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row mt-4">
-                <div class="col-md-12 mt-4">
-                    <div id="accordion" class="myacording-design mb-5">
-                        <div class="card">
-                            <div class="card-header">
-                                <a class="card-link" data-toggle="collapse" href="#File_name" aria-expanded="false">
-                                Additional Upload Information
-                                </a>
-                            </div>
-                            <div id="File_name" class="collapse" data-parent="#accordion" style="">
+            {{-- end --}}
+            <div class="row">
+                <div class="col-md-12" id="profile_and_tour_options">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card border-0">
                                 <div class="card-body">
-                                    <p style="font-size: 20px;"><b>File name</b> </p>
-                                    <p>Only use letters, numbers, underscores, and hyphens in file names.</p>
-                                    <p style="font-size: 20px;"><b>File size</b> </p>
-                                    <p>We recommend using image files of less than 500 KB for best results, though the limit for an individual image upload is 2 MB.</p>
-                                    <p style="font-size: 20px;"><b>Resolution</b> </p>
-                                    <p>There is an image resolution limit of 60 MP (megapixels).</p>
-                                    <p style="font-size: 20px;"><b>Colour mode</b> </p>
-                                    <p>Save images in RGB color mode. Print mode (CMYK) won't render in most browsers.
-                                    </p>
-                                    <p style="font-size: 20px;"><b>Colour profile</b> </p>
-                                    <p>Save images in the sRGB color profile. If images don't look right on mobile devices, it's probably because they don't have an sRGB color profile.</p>
+                                    <h2 class="primery_color normal_heading">File types</h2>
+                                    <p>When selecting your avatar, please be mindful of the following:</p>
+                                    <ul>
+                                        <li>Yes you can use a photo, but we do not recommend it</li>
+                                        <li>Acceptable formats include; .jpg, .gif or .png .pdf, .psd, .tff, and .doc files are not compatible</li>
+                                    </ul>
+                                    <div class="row">
+                                        <div class="col-lg-4 mt-4">
+                                            <h2 class="primery_color normal_heading">Upload your avatar</h2>
+                                            <form id="my_avatar" action="{{ route('agent.save.avatar', auth()->user()->id)}}" method="POST" enctype="multipart/form-data">
+                                                <div class="file-upload">
+                                                    <div class="image-upload-wrap">
+                                                        <input class="file-upload-input gambar item-img" name="avatar_img" type='file' onchange="readURL(this);" accept="image/*" />
+                                                        <div class="drag-text">
+                                                            <h3>Drag and drop a file or select add Image</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="file-upload-content">
+                                                        <img class="file-upload-image item-img" src="#" alt="your image" id="item-img-output" />
+                                                        <div class="image-title-wrap">
+
+                                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                                            <button type="submit" class="remove-image crop_image">Save <span class="image-title">Uploaded Image</span></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-lg-4 mt-4 current-avatar">
+
+                                            <h2 class="primery_color normal_heading">Current Avatar</h2><!-- <i class="fab fa-twitter delete_avatar"></i> -->
+                                            @if(auth()->user()->hasUploadedAvatar())
+                                            <button type="button" class="avatar close delete_avatar" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            @endif
+                                            <img src="{{ asset(auth()->user()->avatar_url) }}" alt="" class="img-rounded avatarName">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-md-12 mt-4">
+                            <div id="accordion" class="myacording-design mb-5">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <a class="card-link" data-toggle="collapse" href="#File_name" aria-expanded="false">
+                                            Additional Upload Information
+                                        </a>
+                                    </div>
+                                    <div id="File_name" class="collapse" data-parent="#accordion" style="">
+                                        <div class="card-body">
+                                            <p style="font-size: 20px;"><b>File name</b> </p>
+                                            <p>Only use letters, numbers, underscores, and hyphens in file names.</p>
+                                            <p style="font-size: 20px;"><b>File size</b> </p>
+                                            <p>We recommend using image files of less than 500 KB for best results, though the limit for an individual image upload is 2 MB.</p>
+                                            <p style="font-size: 20px;"><b>Resolution</b> </p>
+                                            <p>There is an image resolution limit of 60 MP (megapixels).</p>
+                                            <p style="font-size: 20px;"><b>Colour mode</b> </p>
+                                            <p>Save images in RGB color mode. Print mode (CMYK) won't render in most browsers.
+                                            </p>
+                                            <p style="font-size: 20px;"><b>Colour profile</b> </p>
+                                            <p>Save images in the sRGB color profile. If images don't look right on mobile devices, it's probably because they don't have an sRGB color profile.</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!--middle content end here-->
         </div>
     </div>
-    <!--middle content end here-->
-</div>
-   </div>
-   <!-- End of Main Content -->
-   <!-- Footer -->
-   <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-         <div class="copyright text-center my-auto">
-            <span> </span>
-         </div>
-      </div>
-   </footer>
-   <!-- End of Footer -->
+    <!-- End of Main Content -->
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span> </span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
 </div>
 <!-- End of Content Wrapper -->
 </div>
 <!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
-<i class="fas fa-angle-up"></i>
+    <i class="fas fa-angle-up"></i>
 </a>
 <div class="modal fade" id="cropImagePop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
@@ -158,21 +159,50 @@
                 <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/crop-image.png') }}" class="custompopicon"> Crop Photo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                    
+
                 </button>
-                
+
             </div>
             <div class="modal-body">
                 <div id="upload-demo" class="center-block">
                     {{-- <div class="cr-boundary" aria-dropeffect="none">
                         <img src="{{ asset('assets/app/img/service-provider/Frame-408.png')}}" alt="" class="img-rounded" >
-                    </div>
-                    <div class="cr-slider-wrap"><input class="cr-slider" type="range" step="0.0001" aria-label="zoom" min="0.0000" max="1.5000" aria-valuenow="0.0913"></div> --}}
                 </div>
+                <div class="cr-slider-wrap"><input class="cr-slider" type="range" step="0.0001" aria-label="zoom" min="0.0000" max="1.5000" aria-valuenow="0.0913"></div> --}}
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
-                <button type="button" id="cropImageBtn" class="btn-success-modal">Crop</button>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+            <button type="button" id="cropImageBtn" class="btn-success-modal">Crop</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="modal" id="conformation_modal" style="display: none">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color border-0">
+                <h5 class="modal-title text-white">
+                    <img src="{{ asset('assets/dashboard/img/remove-image.png') }}" class="custompopicon" id="modal-icon">
+                    <span style="color:white" id="modal-title">Remove Avatar</span>
+                </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                    <span id="comman_str">Are you sure you want to delete your avatar?</span>
+                    <!-- <span class="comman_msg"></span> -->
+                </h1>
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button type="submit" class="btn-success-modal" id="confirmDelete" data-dismiss="modal" id="close">Yes</button>
+                <button type="submit" class="btn-cancel-modal" id="cancelDelete" data-dismiss="modal" id="close">NO</button>
             </div>
         </div>
     </div>
@@ -187,17 +217,17 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript">
     $('#userProfile').parsley({
-    
+
     });
-    
-    
-    
+
+
+
     $('#userProfile').on('submit', function(e) {
         e.preventDefault();
-    
-        var form = $(this); 
+
+        var form = $(this);
         if (form.parsley().isValid()) {
-    
+
             var url = form.attr('action');
             var data = new FormData(form[0]);
             $.ajax({
@@ -219,7 +249,7 @@
                             position: 'top-right', // Change it to false to disable loader
                             loaderBg: '#9EC600' // To change the background
                         });
-    
+
                     } else {
                         $.toast({
                             heading: 'Error',
@@ -229,19 +259,19 @@
                             position: 'top-right', // Change it to false to disable loader
                             loaderBg: '#9EC600' // To change the background
                         });
-    
+
                     }
                 },
-    
+
             });
         }
     });
     $('#city').select2({
         allowClear: true,
-        placeholder :'Select City',
+        placeholder: 'Select City',
         createTag: function(params) {
             var term = $.trim(params.term);
-    
+
             if (term === '') {
                 return null;
             }
@@ -269,7 +299,7 @@
             processResults: function(data) {
                 return {
                     results: $.map(data, function(item) {
-    
+
                         return {
                             text: item.name,
                             id: item.id
@@ -279,13 +309,13 @@
             }
         }
     });
-    
+
     $('#state').select2({
         allowClear: true,
-        placeholder :'Select State',
+        placeholder: 'Select State',
         createTag: function(params) {
             var term = $.trim(params.term);
-    
+
             if (term === '') {
                 return null;
             }
@@ -313,7 +343,7 @@
             processResults: function(data) {
                 return {
                     results: $.map(data, function(item) {
-    
+
                         return {
                             text: item.name,
                             id: item.id
@@ -323,83 +353,61 @@
             }
         }
     });
-    
-    
+
+
     $('#country').on('change', function(e) {
-        if($(this).val()) {
+        if ($(this).val()) {
             $('#state').prop('disabled', false);
             $('#state').select2('open');
         } else {
             $('#state').prop('disabled', true);
         }
     });
-    
+
     $('#state').on('change', function(e) {
-        if($(this).val()) {
+        if ($(this).val()) {
             $('#city').prop('disabled', false);
             $('#city').select2('open');
         } else {
             $('#city').prop('disabled', true);
         }
     });
-    
-    
 </script>
+
+
+
 <script>
-    // function readURL(input) {
-    // if (input.files && input.files[0]) {
-    
-    // var reader = new FileReader();
-    
-    // reader.onload = function(e) {
-    //   $('.image-upload-wrap').hide();
-    
-    //   $('.file-upload-image').attr('src', e.target.result);
-    //   $('.file-upload-content').show();
-    
-    //   $('.image-title').html(input.files[0].name);
-    // };
-    
-    // reader.readAsDataURL(input.files[0]);
-    
-    // } else {
-    // removeUpload();
-    // }
-    // }
-    
     function removeUpload() {
-    $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-    $('.file-upload-content').hide();
-    $('.image-upload-wrap').show();
+        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
     }
-    $('.image-upload-wrap').bind('dragover', function () {
+    $('.image-upload-wrap').bind('dragover', function() {
         $('.image-upload-wrap').addClass('image-dropping');
     });
-    $('.image-upload-wrap').bind('dragleave', function () {
+    $('.image-upload-wrap').bind('dragleave', function() {
         $('.image-upload-wrap').removeClass('image-dropping');
     });
     $(".gambar").attr("src");
     var $uploadCrop,
-    tempFilename,
-    rawImg,
-    imageId;
+        tempFilename,
+        rawImg,
+        imageId;
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-            reader.onload = function (e) {
+            reader.onload = function(e) {
                 $('.upload-demo').addClass('ready');
                 $('#cropImagePop').modal('show');
                 rawImg = e.target.result;
-                
+
             }
             reader.readAsDataURL(input.files[0]);
-        }
-        else {
+        } else {
             removeUpload();
         }
     }
-    
-
     $uploadCrop = $('#upload-demo').croppie({
         viewport: {
             width: 150,
@@ -409,147 +417,167 @@
         enableExif: true
     });
 
-    
-
-
-    $('#cropImagePop').on('shown.bs.modal', function(){
+    $('#cropImagePop').on('shown.bs.modal', function() {
         // alert('Shown pop');
         $uploadCrop.croppie('bind', {
             url: rawImg
-        }).then(function(){
-            console.log( '1jQuery bind complete');
+        }).then(function() {
+            console.log('1jQuery bind complete');
         });
     });
 
-
-
-    // $('.item-img').on('change', function () {
-    //     imageId = $(this).data('id');
-    //     tempFilename = $(this).val();
-    //     $('#cancelCropBtn').data('id', imageId); readFile(this); 
-    //     console.log('id = '+imageId);
-    // });
-
-    // $('.gambar').on('change', function(){
-        
-    //     reader.onload = function (event) {
-    //     $uploadCrop.croppie('bind', {
-    //     url: event.target.result
-    //     }).then(function(){
-    //     console.log('jQuery complete');
-    //     });
-    //     }
-    //     reader.readAsDataURL(this.files[0]);
-    //     console.log('jQuery'+reader.readAsDataURL(this.files[0]) );
-    
-    // });
-
-    $('#cropImageBtn').on('click', function (ev) {
+    $('#cropImageBtn').on('click', function(ev) {
         $uploadCrop.croppie('result', {
             type: 'base64',
             format: 'jpeg',
-            size: {width: 150, height: 200}
-        }).then(function (resp) { 
+            size: {
+                width: 150,
+                height: 200
+            }
+        }).then(function(resp) {
             $('.file-upload-content').show();
             $('#item-img-output').attr('src', resp);
             //$('.file-upload-image').attr('src', e.target.result);
-           
+
             $('#cropImagePop').modal('hide');
         });
     });
-    // $('.crop_image').click(function(event){
-    //     $uploadCrop.croppie('result', {
-    //     type: 'canvas',
-    //     size: 'viewport'
-    //     }).then(function(response){
-    //     $.ajax({
-    //     url:'{{ route('escort.save.avatar',auth()->user()->id)}}",
-    //     type:'POST',
-    //     data:{"image":response},
-    //     success:function(data){
-    //     $('#imageModel').modal('hide');
-    //     alert('Crop image has been uploaded');
-    //     }
-    //     })
-    //     });
-    // });
-    $("#my_avatar").on('submit',function(e){
-        e.preventDefault();        
-        var form = $(this);        
+
+
+    //SHS
+
+    $("#my_avatar").on('submit', function(e) {
+        e.preventDefault();
+        var form = $(this);
         $("#modal-title").text("Upload Your Avatar");
         $("#modal-icon").attr("src", "/assets/dashboard/img/upload-photos.png");
         var src = $("#item-img-output").attr('src');
         var url = form.attr('action');
-        //console.log("hii"+ src);
         var data = new FormData($('#my_avatar')[0]);
-        data.append('src',src);
+        data.append('src', src);
         $.ajax({
-                method: form.attr('method'),
-                url:url,
-                data:data,
-                contentType: false,
-                processData: false,
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                success: function (data) {
-                    console.log(data);
-                    if(data.type == 0){
-                        var msg = "Saved";
-                        var url = "{{asset('avatars/name')}}";
-                        url = url.replace('name',data.avatarName);
-                        $('.comman_msg').text(msg);
-                        $("#comman_modal").modal('show');
-                        $(".avatarName").attr('src',url);
-                        $(".file-upload-content").hide();
-                        location.reload();
-                        
+            method: form.attr('method'),
+            url: url,
+            data: data,
+            contentType: false,
+            processData: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(data) {
+             
+                if (data.type == 0) {
+                    var msg = "Avatar uploaded successfully!";
+                    var url = "{{asset('avatars/name')}}";
+                    url = url.replace('name', data.avatarName);
+                    $('.comman_msg').text(msg);
+                    //$("#my_account_modal").show();
+                    $("#comman_modal").modal('show');
+                    $(".avatarName").attr('src', url);
+                    $(".file-upload-content").hide();
+
+                    // Show the delete button since avatar is now uploaded
+                    if ($(".delete_avatar").length === 0) {
+                        $(".current-avatar h2").after(`<button type="button" class="avatar close delete_avatar" aria-label="Close"><span aria-hidden="true">×</span></button>`);
                     } else {
-                        var msg = "Something is wrong...";
-                        $('.comman_msg').text(msg);
-                        $("#comman_modal").modal('show');
+                        $(".delete_avatar").show();
+                    }
+                } else {
+                    errorModuleShow(data);
+                }
+            },
+            error: function(data) {
+                errorModuleShow(data);
+            }
+        });
+    });
+
+
+    function errorModuleShow(data = null) {
+        var msg = "Something went wrong. Please try again.";
+        $('.comman_msg').text(msg);
+        $("#comman_modal").modal('show');
+        location.reload();
+        $(".delete_avatar").hide();
+
+    }
+
+    $('#confirmDelete').on('click', function(e) {
+        e.preventDefault();
+
+        try {
+            // Show loading state on delete button
+            var deleteBtn = $(".delete_avatar");
+            var originalText = deleteBtn.html();
+            deleteBtn.html('<i class="fas fa-spinner fa-spin"></i>');
+            deleteBtn.prop('disabled', true);
+
+            $.ajax({
+                method: 'POST',
+                url: "{{ route('agent.avatar.remove') }}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                    try {
+                        if (data.type == 0) {
+
+                            // Update avatar image to default
+                            $(".avatarName").attr('src', data.img);
+
+                            // Hide delete button
+                            $(".delete_avatar").hide();
+                        } else {
+                            // Error - show error message
+                            showErrorMessage(data.message || "Something went wrong. Please try again.");
+                        }
+                    } catch (error) {
+                        showErrorMessage("Error processing server response. Please try again.");
                     }
                 },
-                error: function (data) {
-                    
-                    $.toast({
-                        heading: 'Error!',
-                        text: data.responseJSON.message,
-                        icon: 'error',
-                        loader: true,
-                        position: 'top-right',      // Change it to false to disable loader
-                        loaderBg: '#9EC600'  // To change the background
-                    });
-                    
+                error: function(xhr, status, error) {
+                    let errorMsg = "Error occurred while removing avatar.";
+                    showErrorMessage(errorMsg);
+                },
+                complete: function() {
+                    try {
+                        // Reset button state
+                        deleteBtn.html(originalText);
+                        deleteBtn.prop('disabled', false);
+                    } catch (error) {
+                        console.error('Error resetting button state:', error);
+                    }
                 }
             });
+        } catch (error) {
+            console.error('Error in confirmDelete click handler:', error);
+            showErrorMessage("An unexpected error occurred. Please try again.");
+
+            // Reset button state
+            var deleteBtn = $(".delete_avatar");
+            deleteBtn.html('×');
+            deleteBtn.prop('disabled', false);
+        }
     });
-    $(".delete_avatar").click(function()
-    {
-        
-        $("#modal-title").text("Remove Avatar");
+
+    $('#cancelDelete').on('click', function() {
+        // Just close the modal - no action needed
+        $("#conformation_modal").modal('hide');
+    });
+
+    // Function to show error message
+    function showErrorMessage(message) {
+        $("#modal-title").text("Error");
         $("#modal-icon").attr("src", "/assets/dashboard/img/remove-image.png");
-        $.post({
-                    type: 'POST',
-                    url: "{{ route('center.avatar.remove') }}",
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                }).done(function (data) {
-                    if(data.type == 0) {
-                        var msg = "Saved";
-                        $('.comman_msg').text(msg);
-                        $("#comman_modal").modal('show');
-                        console.log("Oops..");
-                    } else {
-                        var msg = "Removed";
-                        $('.comman_msg').text(msg);
-                        $("#comman_modal").show();
-                        console.log("ok");
-                    }
-                });
-       
-    });
-    $("#close").click(function()
-    {
-        $("#my_account_modal").hide();
-        location.reload();
+        $('.comman_msg').text(message);
+
+        // Show modal
+        $("#comman_modal").modal('show');
+    }
+
+    // Bind delete avatar event to show confirmation modal
+    $(document).on('click', '.delete_avatar', function() {
+        $("#conformation_modal").modal('show');
     });
 </script>
 @endpush
