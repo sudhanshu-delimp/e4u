@@ -200,12 +200,14 @@
         </div>
     </li>
 
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('escort.archive-myplaybox') }}">
             <img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}"/>
-           <span>My Playbox</span>
+            <span class="{{ request()->routeIs('escort.archive-myplaybox') ? 'active-text' : '' }}">
+                My Playbox
+            </span>
         </a>
-    </li>
+    </li>    
 
     <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;"></li>
 
