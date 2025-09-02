@@ -43,7 +43,7 @@
    
    <div class="row">
       <div class="col-md-12 custom-heading-wrapper">
-         <h1 class="h1">Screening Tips - NUM</h1>
+         <h1 class="h1">Screening Tips</h1>
          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
       </div>
       <div class="col-md-12 mb-4">

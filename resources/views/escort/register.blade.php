@@ -1,4 +1,11 @@
 @extends('layouts.web')
+
+<style>
+    
+   p{
+       text-align: justify !important;
+   }
+</style>
 @section('content')
 <section class="section_bg_color padding_ninty_top_ninty_px padding_ninty_btm_ninty_px angle_bg_image">
    <div class="container">

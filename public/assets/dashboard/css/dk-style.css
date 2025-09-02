@@ -6076,6 +6076,11 @@ ul#accordionSidebar {
 
 .carousel-inner .remove-video-icon:hover .deleteimg {
     display: block;
+    cursor: pointer;
+}
+
+.deleteimg {
+    cursor: pointer;
 }
 
 .carousel-inner .remove-video-icon .deleteimg {
@@ -6084,6 +6089,7 @@ ul#accordionSidebar {
     bottom: 148px;
     color: var(--peach);
     display: none;
+    cursor: pointer;
 }
 
 
@@ -6176,10 +6182,12 @@ span.card_tit {
 }
 
 .img-title-sec i {
-    font-size: 8px;
-    position: relative;
-    top: 5px;
+    font-size: 14px;
+    position: absolute;
+    top: 45px;
+    right: 5px;
     cursor: pointer;
+    color: #ff3c5f;
 }
 
 button.short-list.btn.btn-primary {
