@@ -581,23 +581,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="row pt-3">
+                {{-- <div class="row pt-3">
                     <div class="col-11 text-right">
                         <button id="my_abilities" type="button" class="save_profile_btn">Save</button>
                     </div>
-                </div>
+                </div> --}}
             {{-- </form> --}}
         </div>
     </div>
-    <div class="tab_btm_btns_preview_and_next">
+    <div class="tab_btm_btns_preview_and_next py-3">
         <div class="row pt-3 pb-3">
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 a_text_white_hover previous_bt_center_in_sm">
                 <a class="nex_sterp_btn btn_width_hundred"id="profile-tab" data-toggle="tab" href="#services" role="tab" aria-controls="home" aria-selected="true">
                 <i class="fas fa-arrow-left"></i>Previous Step</a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right a_text_white_hover previous_bt_center_in_sm">
-                <a href="#" class="save_profile_btn">Preview</a>
-                <a href="#pricing" class="nex_sterp_btn" id="pricing-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Next Step
+               
+                <a class=" nex_sterp_btn" id="massuers-tab" data-toggle="tab" href="#massuers" role="tab" aria-controls="massuers" aria-selected="false">Next Step
                 <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
