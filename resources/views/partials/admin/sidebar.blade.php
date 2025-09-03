@@ -634,14 +634,14 @@
             src="{{ asset('assets/dashboard/img/menu-icon/reportings.png') }}">
         <span>Reporting </span>
     </a>
-    <div id="Reportings" class="collapse @if (request()->is('*reporting*') || request()->is('*advertiser-reports*') || request()->is('*advertiser-reviews*')) show @endif;"
+    <div id="Reportings" class="collapse @if (request()->is('*registrations-reports*') || request()->is('*advertiser-reports*') || request()->is('*advertiser-reviews*')) show @endif;"
         aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
         <div class="py-0 collapse-inner rounded mb-2">
-            {{-- <a class="nav-link collapsed" href="{{ route('admin.reporting') }}">
+            <a class="nav-link collapsed" href="{{ route('admin.registrations-reports') }}">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
-                <span style="{{ request()->is('*reporting*') ? 'color: #e5365a;' : '' }}">Reporting</span>
-            </a> --}}
+                <span style="{{ request()->is('*registrations-reports*') ? 'color: #e5365a;' : '' }}">Registrations</span>
+            </a>
 
             <a class="nav-link collapsed" href="{{ route('admin.advertiser-reports') }}">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"

@@ -1309,6 +1309,7 @@ span.active-text {
     color: #e5365a;
 }
 
+
 /*tab css end* /
 
 .bg-first {
@@ -5287,6 +5288,49 @@ img.img-thumbnail.defult-image-3 {
 align-items: center;*/
 }
 
+.custom-photo-header {
+    height: unset !important;
+    padding: 20px 15px 0px;
+}
+
+.custom-img-filter-header {
+    background-color: var(--blue--text);
+    border-top: 1px solid #fff;
+    padding: 10px 8px 0px 7px;
+}
+
+.custom-img-filter-header .nav.nav-tabs {
+    padding-left: 20px;
+}
+
+.custom-img-filter-header .nav.nav-tabs .nav-item {
+    margin-bottom: 0;
+}
+
+.custom-img-filter-header .nav.nav-tabs .nav-item a {
+    color: #fff;
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.custom-img-filter-header .nav.nav-tabs .nav-item:hover a {
+    color: var(--peach);
+}
+
+.custom-img-filter-header .nav.nav-tabs .nav-item .nav-link.active {
+    color: var(--peach);
+    background-color: #fff !important;
+    font-weight: bold;
+}
+
+.custom-img-filter-header .gallery-head {
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    padding: 10px;
+    font-weight: 500;
+}
+
 .photo-header .nav-tabs .nav-link {
     padding: 0 25px;
     border: 0 !important;
@@ -5309,10 +5353,7 @@ div#exampleModal .nav-tabs .nav-item.show .nav-link {
 }
 
 .photo-top-header {
-    padding-left: 15px;
-    padding-right: 15px;
     box-shadow: 0px -2px 4px rgb(0 0 0 / 25%);
-    padding-top: 25px;
 }
 
 .file-upload-2 {

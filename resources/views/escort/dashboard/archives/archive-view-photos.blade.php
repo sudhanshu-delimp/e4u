@@ -123,6 +123,15 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="upload-photo-sec">
+                <div class="photo-top-header">                    
+                    <div class="custom-img-filter-header border-0">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h3 class="gallery-head">Your Default Images</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="container">
                     <form id="defaultImage" method="post" enctype="multipart/form-data" action="{{ route('escort.default.images')}}">
                         @csrf
@@ -140,7 +149,7 @@
                             <div class="col-8">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <h2 class="banner-sub-heading my-2">Default Image</h2>
+                                        <h2 class="banner-sub-heading my-2">Gallery Image</h2>
                                     </div>
                                 </div>
                                 <div class="row" style="">
@@ -261,33 +270,48 @@
         </div>
         <div class="col-lg-8" id="js_profile_media_gallery">
             <div class="photo-top-header">
-                <div class="photo-header border-0">
-                    <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
-                        <div class="row">
-                            <div class="col-md-8">
-                                <ul class="nav nav-tabs border-0">
-                                    <li class="nav-item">
-                                        <a class="nav-link show" id="menu_all" data-toggle="tab" href="#home">All</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="menu_varified" data-toggle="tab" href="#menu1">Verified</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-md-2 pt-1">
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{$media->count() * 3.3}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div style="display: flex;gap: 15px;">
-                                    <p>{{ $media->count() }}/30</p>
-                                </div>
+                <div class="photo-header custom-photo-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <ul class="nav nav-tabs border-0">
+                                <li class="nav-item">
+                                    <a class="nav-link show" id="menu_all" data-toggle="tab" href="#home">All</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="menu_varified" data-toggle="tab" href="#menu1">Verified</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-2 pt-1">
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: {{$media->count() * 3.3}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
+                        <div class="col-md-2">
+                            <div style="display: flex;gap: 15px;">
+                                <p>{{ $media->count() }}/30</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="custom-img-filter-header">
+                    <div class="row">
+                        <ul class="nav nav-tabs border-0">
+                           
+                            <li class="nav-item">
+                                <a class="nav-link active" id="gallery_img" data-toggle="tab" href="#Gallery">Gallery</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " id="banner_img" data-toggle="tab" href="#Banner">Banner</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pinup_img" data-toggle="tab" href="#Pinup">Pinup</a>
+                            </li>
+                            
+                        </ul>
                     </div>
                 </div>
             </div>
