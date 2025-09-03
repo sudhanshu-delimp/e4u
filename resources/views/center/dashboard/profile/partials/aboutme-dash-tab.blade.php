@@ -98,6 +98,10 @@
    .fill_profile_headings_global{
       border-bottom: 1px solid #0c223d;
    }
+   
+   .upld-img {
+      height: 82px !important;
+      }
 </style>
 <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
       <div class="col-lg-12">
@@ -276,30 +280,43 @@
             <div class="col-md-12 mb-3 d-flex justify-content-end">
                <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
            </div>
-            <div class="col-md-4" style="padding-right: 25px;">
-               <div class="upload-banner">
+            <div class="col-md-4">
+               <div class="upload-banner p-0">
+                  <div class="photo-top-header">                    
+                     <div class="custom-img-filter-header border-0">
+                         <div class="row">
+                             <div class="col-lg-12">
+                                 <h3 class="gallery-head">Your Default Images</h3>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
                   <div class="row p-3">
-                     <div class="col-lg-4 px-0 full_height_pic">
+                     <div class="col-lg-4">
+                        <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                         <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
-                           <img class="img-fluid" id="img1" src="{{ asset($escort->imagePosition(1)) }}">
+                           <img class="img-fluid" id="img1" src="{{ asset($escort->imagePosition(1)) }}" style="object-fit: cover;width: 167px;height: 172px;">
                            </label>
                         </div>
                      </div>
-                     <div class="col-8 half_heght_pic">
+                     <div class="col-8">
                         <div class="row" style="">
-                           <div class="col-4 pr-0">
+                           <div class="col-lg-12">                                            
+                              <h2 class="banner-sub-heading my-2">Gallery Image</h2>
+                          </div>
+                           <div class="col">
                               <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
                                  <img class="img-fluid upld-img" id="img2" src="{{  asset($escort->imagePosition(2))  }}">
                                  </label>
                               </div>
                            </div>
-                           <div class="col-4 pr-0">
+                           <div class="col">
                               <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
                                  <img class="img-fluid upld-img"  id="img3" src="{{ asset($escort->imagePosition(3))   }}">
                                  </label>
                               </div>
                            </div>
-                           <div class="col-4 pr-0">
+                           <div class="col">
                               <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
                                  <img class="img-fluid upld-img"  id="img4" src="{{ asset($escort->imagePosition(4))   }}">
                                  </label>
@@ -307,19 +324,19 @@
                            </div>
                         </div>
                         <div class="row" style="">
-                           <div class="col-4 pr-0">
+                           <div class="col">
                               <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
                                  <img class="img-fluid upld-img"  id="img5" src="{{ asset($escort->imagePosition(5))  }}">
                                  </label>
                               </div>
                            </div>
-                           <div class="col-4 pr-0">
+                           <div class="col">
                               <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
                                  <img class="img-fluid upld-img"  id="img6" src="{{ asset($escort->imagePosition(6)) }}">
                                  </label>
                               </div>
                            </div>
-                           <div class="col-4 pr-0">
+                           <div class="col">
                               <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
                                  <img class="img-fluid upld-img"  id="img7" src="{{ asset($escort->imagePosition(7)) }}">
                                  </label>
@@ -328,8 +345,9 @@
                         </div>
                      </div>
                   </div>
-                  <div class="row">
-                     <div class="about_me_drop_down_info add_banner_pic col-lg-12 p-3">
+                  <div class="row px-3">
+                     <div class="about_me_drop_down_info add_banner_pic col-lg-12">
+                        <h2 class="banner-sub-heading my-2">Banner Image</h2>
                         <label class="newbtn" data-toggle="modal" data-target="#upload-sec-banner">
                         <img class="img-fluid"  id="img9" src="{{  asset($escort->imagePosition(9)) }}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
                         </label>
@@ -339,35 +357,52 @@
             </div>
             <div class="col-lg-8">
                <div class="photo-top-header">
-                   <div class="photo-header border-0">
-                       <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
-                           <div class="row">
-                               <div class="col-md-8">
-                                   <ul class="nav nav-tabs border-0">
-                                       <li class="nav-item">
-                                           <a class="nav-link show" id="menu_all" data-toggle="tab" href="#home">All</a>
-                                       </li>
-                                       <li class="nav-item">
-                                           <a class="nav-link" id="menu_varified" data-toggle="tab" href="#menu1">Verified</a>
-                                       </li>
-                                       <li class="nav-item">
-                                           <a class="nav-link active" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
-                                       </li>
-                                   </ul>
-                               </div>
-                               <div class="col-md-2 pt-1">
-                                   <div class="progress">
-                                       <div class="progress-bar bg-success" role="progressbar" style="width: 72.6%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                   </div>
-                               </div>
-                               <div class="col-md-2">
-                                   <div style="display: flex;gap: 15px;">
-                                       <p>22/30</p>
-                                   </div>
-                               </div>
-                           </div>
-                       </div>
-                   </div>
+                  <div class="photo-top-header">
+                     <div class="photo-header custom-photo-header">
+                         <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
+                             <div class="row">
+                                 <div class="col-md-8">
+                                     <ul class="nav nav-tabs border-0">
+                                         <li class="nav-item">
+                                             <a class="nav-link active" id="menu_all" data-toggle="tab" href="#home">All</a>
+                                         </li>
+                                         <li class="nav-item">
+                                             <a class="nav-link" id="menu_varified" data-toggle="tab" href="#menu1">Verified</a>
+                                         </li>
+                                         <li class="nav-item">
+                                             <a class="nav-link" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
+                                         </li>
+                                     </ul>
+                                 </div>
+                                 <div class="col-md-2 pt-1">
+                                     <div class="progress">
+                                         <div class="progress-bar bg-success" role="progressbar" style="width: 72.6%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                     </div>
+                                 </div>
+                                 <div class="col-md-2">
+                                     <div style="display: flex;gap: 15px;">
+                                         <p>22/30</p>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="custom-img-filter-header">
+                         <div class="row">
+                             <ul class="nav nav-tabs border-0">
+                                
+                                 <li class="nav-item">
+                                     <a class="nav-link active" id="gallery_img" data-toggle="tab" href="#Gallery">Gallery</a>
+                                 </li>
+                                 <li class="nav-item">
+                                     <a class="nav-link " id="banner_img" data-toggle="tab" href="#Banner">Banner</a>
+                                 </li>
+                                
+                                 
+                             </ul>
+                         </div>
+                     </div>
+                 </div>
                </div>
                <div class="archive-photo-sec">
                    <div class="row">
@@ -684,7 +719,7 @@
                         <div class="row pr-2 modal_inner_area">
                            <div class="col-4 full_pic">
                               <div class="plate"><label class="newbtn">
-                                 <img id="blah1" class="img-fluid" src="{{ asset($escort->imagefrontPosition(1))  }}" style="width: 171px;object-fit: cover;height: 284px;">
+                                 <img id="blah1" class="img-fluid" src="{{ asset($escort->imagefrontPosition(1))  }}" style="width: 171px;object-fit: cover;height: 308px;">
                                  <input name="img[1]" id="pic1" data-id="1" class="pis" onchange="readURL(this);" type="file">
                                  <input type="hidden" name="position[]" id="mediaId1">
                                  </label>
