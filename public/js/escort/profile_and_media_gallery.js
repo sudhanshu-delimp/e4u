@@ -95,7 +95,7 @@ function preview_image()
             var imgkbytes = Math.round(parseInt(oFile.size)/1024);
             var imgMB = Math.round(parseInt(imgkbytes)/1024);
            if(imgMB <= 2 ) {
-            $('#image_preview').append("<a href='#'><div class='five_column_content_top img-title-sec justify-content-between wish_span rm_"+num+"' style='z-index: 1;'><span class='card_tit' style=''>Photo.img</span><i class='fa fa-trash deleteId' data-id='"+num+"'></i></div><label class='newbtn rm_"+num+"'><img id='blah"+num+"' class='item' src='"+URL.createObjectURL(event.target.files[i])+"'>" +
+            $('#image_preview').append("<a href='#'><div class='five_column_content_top img-title-sec justify-content-between wish_span rm_"+num+"' style='z-index: 1;'><span class='card_tit' style=''>Photo.img</span><i class='fa fa-trash deleteId' data-id='"+num+"'></i></div><label class='newbtn rm_"+num+"'><img class='item js_galleryMedia' src='"+URL.createObjectURL(event.target.files[i])+"'>" +
                 "<input type='hidden' name='selected_files[]' value='"+i+"'></label><div style='margin-top: -34px;'></div></a>");
             } else {
                swal.fire('Media', "Can't upload more than 2 MB size", 'error');
@@ -145,6 +145,12 @@ function preview_image()
     
     $("body").on('submit','#mulitiImage',function(e){
         e.preventDefault();
+        let selectedImagesCount = parseInt(countSelectedImages());
+        let existingImagesCount = parseInt($("input[name='media_count']").val());
+        if((existingImagesCount+selectedImagesCount) > 15){
+            swal.fire('Media', "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>", 'error');
+            return false;
+        }
         var form = $(this);
         var url = form.attr('action');
         var data = new FormData($('#mulitiImage')[0]);
@@ -156,15 +162,9 @@ function preview_image()
             processData: false,
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             success: function (data) {
-                if(data.my_data.status == 200){
-                    $('#image_preview a:not(:first)').remove();
-                    $(".js_bannerDefaultImage").attr('src',bannerDefaultImage);
-                    $(".js_pinupDefaultImage").attr('src',pinupDefaultImage);
-                    $("#exampleModal").modal('hide');
-                    swal.fire('Media', 'Uploaded', 'success');
-                    form[0].reset();
-                    getAccountMediaGallery();
-                } else if(data.my_data.status == 405) {
+                if(data.status == 200){
+                    resetAddPhotoFrom(form);
+                } else if(data.status == 405) {
                     swal.fire('Media', "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>", 'error');
                     $("#exampleModal").modal('hide');
                 }
@@ -173,20 +173,52 @@ function preview_image()
                 }
 
             },
-            error: function (data) {
-
-                var errors = $.parseJSON(data.responseText);
-                var errorMsg = errors.message;
-              
-                Swal.fire(
-                    'Error occurred',
-                    'File upload failed : ' + errorMsg,
-                    'error'
-                )
+            error: function (xhr) {
+                if (xhr.status === 422) {
+                    let messages = Object.values(JSON.parse(xhr.responseText).errors).flat().join('<br>');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Validation Error',
+                        html: messages
+                    });
+                } else {
+                    let message = xhr.status === 500 ?JSON.parse(xhr.responseText).message:xhr.responseText;
+                    Swal.fire({
+                        icon: 'error',
+                        title: xhr.statusText,
+                        text: message || 'Something went wrong.'
+                    });
+                    if(xhr.status===200){
+                        resetAddPhotoFrom(form);
+                    }
+                }
 
             }
         });
     });
+
+    var resetAddPhotoFrom = function(form){
+            $('#image_preview a:not(:first)').remove();
+            $(".js_bannerDefaultImage").attr('src',bannerDefaultImage);
+            $(".js_pinupDefaultImage").attr('src',pinupDefaultImage);
+            $("#exampleModal").modal('hide');
+            form[0].reset();
+            getAccountMediaGallery();
+    }
+
+    var countSelectedImages = function(){
+        let excludeList = ['upload-thum-1.png', 'upload-3.png', 'add-pinup-banner-full.png'];
+        let imageNames = [];
+        $('.js_galleryMedia').each(function () {
+            let src = $(this).attr('src');
+            if (!src) return;
+            let fileNameWithExt = src.split('/').pop();
+            if (!excludeList.includes(fileNameWithExt)) {
+                imageNames.push(fileNameWithExt);
+            }
+        });
+        return imageNames.length;
+    }
 
     var getAccountMediaGallery = function() {
         return $.ajax({

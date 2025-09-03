@@ -23,6 +23,7 @@
                 <div class="col-md-2">
                     <div style="display: flex;gap: 15px;">
                         <p>{{ $media->count() }}/30</p>
+                        <input type="hidden" name="media_count" value="{{$media->count()}}">
                     </div>
                 </div>
             </div>
