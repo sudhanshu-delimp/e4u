@@ -14,75 +14,86 @@
 @endsection
 @section('content')
 
-<div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
-    <div class="row">    
-       <div class="custom-heading-wrapper col-md-12">
-          <h1 class="h1">Social Media</h1>
-          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-       </div>
-       <div class="col-md-12 mb-4">
-          <div class="card collapse" id="notes" style="">
-             <div class="card-body">
-                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                <ol class="mb-0">
-                    <li>By completing these settings, the information set out under My Social Media will by default be included and appear in your Profile when posted.
-                    </li>
-                    <li>You can over ride these settings when creating a Profile, provided you have enabled the feature (see My Account - Profile & Tour options).
-                    </li>
-                    </ol>
-             </div>
-          </div>
-       </div>
-    </div>
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    
+        
     <div class="row">
-        <div class="card custom-help-contain help-note-toggle" style="width: 100%;">
-            <div id="my_social_media" class="collapse show" data-parent="#accordion" style="">
-               <div class="card-body" style="
-                  ">
-                  <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="profile-tab" style="
-                     ">
-                     <form id="socials_link" action="#" method="POST" enctype="multipart/form-data" novalidate="" style="
-                        ">
-                        <div class="padding_20_all_side pb-0">
-                           <div class="row">
-                              <div class="col-lg-6">
-                                 <div class="form-group row align-items-center">
-                                    <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><i class="fab fa-facebook-f"></i></span></label>
-                                    <div class="col-sm-7 col-lg-7 col-md-7 col-10">
-                                       <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Facebook" name="social_links[facebook]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="">
-                                    </div>
-                                 </div>
-                                 <div class="form-group row align-items-center">
-                                    <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><i class="fab fa-instagram"></i></span></label>
-                                    <div class="col-sm-7 col-lg-7 col-md-7 col-10">
-                                       <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Instagram" name="social_links[insta]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="">
-                                    </div>
-                                 </div>
-                              </div>
-                              <div class="col-lg-6">
-                                 <div class="form-group row align-items-center">
-                                    <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1">
-                                       <span class="manage_social_profile_icons">
-                                          <div class="custom-x-link"> <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/twitter-x.png" class="twitter-x-logo" alt="logo"> </div>
-                                       </span>
-                                    </label>
-                                    <div class="col-sm-7 col-lg-7 col-md-7 col-10">
-                                       <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="X" name="social_links[twitter]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="">
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="row">
-                              <div class="col-md-12 text-right"><button type="submit" class="save_profile_btn" id="escort-form-submit-btn">Save</button></div>
-                           </div>
-                        </div>
-                     </form>
-                  </div>
-               </div>
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1">Social Media</h1>
+            <span class="helpNoteLink font-weight-bold collapsed" data-toggle="collapse" data-target="#notes" aria-expanded="false">Help?</span>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes" style="">
+            <div class="card-body">
+                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                <ol></ol>
             </div>
-         </div>
+            </div>
+        </div>
     </div>
- </div>
+    
+    
+   
+    
+  
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive-xl">
+                <table id="socialMediaTable" class="table table-bordered display dataTable no-footer" width="100%">
+                    <thead class="bg-first">
+                    <tr>
+                            <th>Social Icon</th>
+                            <th>Social Platform</th>
+                            <th class="text-center">Clicks Today</th>
+                            <th class="text-center">Clicks This Week</th>
+                            <th class="text-center">Year to Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr role="row">
+                            <td><div class="statistics-icon">
+                                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/dashboard/img/twitter-icon.png" alt="icon">
+                            </div></td>
+                            <td>X</td>
+                            <td class="text-center">25</td>
+                            <td class="text-center">125</td>
+                            <td class="text-center">1,500</td>
+                        </tr>
+                        <tr role="row">
+                            <td><div class="statistics-icon">
+                                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/dashboard/img/instagram-icon.png" alt="icon">
+                            </div></td>
+                            <td>Instagram</td>
+                            <td class="text-center">25</td>
+                            <td class="text-center">125</td>
+                            <td class="text-center">1,500</td>
+                        </tr>
+                        <tr role="row">
+                            <td><div class="statistics-icon">
+                                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/dashboard/img/facebook-icon.png" alt="icon">
+                            </div></td>
+                            <td>Facebook</td>
+                            <td class="text-center">25</td>
+                            <td class="text-center">125</td>
+                            <td class="text-center">1,500</td>
+                        </tr>
+                        <tr>
+                            <td><div class="statistics-icon">
+                                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/dashboard/img/click.png" alt="icon">
+                            </div></td>
+                            <td class="text-right font-weight-bold" colspan="3">Total Clicks</td>
+                            <td class="text-center font-weight-bold">4,500</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> 
+        </div>
+    </div>
+  
+
+    
+
+</div>
 @endsection
 @push('script')
 <!-- file upload plugin start here -->

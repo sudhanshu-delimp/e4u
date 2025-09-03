@@ -384,12 +384,12 @@
                 <span>Global Monitoring </span>
             </a>
             <div id="Monitoring" class="collapse @if (request()->is('*global-monitoring*') ||
-                    request()->is('*logged-in-users*') ||
-                    request()->is('*escort-listings*') ||
-                    request()->is('*massage-centre-listings*') ||
-                    request()->is('*visitors*') ||
-                    request()->is('*pinup-listings*')) show @endif"
-                aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                request()->is('*logged-in-users*') ||
+                request()->is('*escort-listings*') ||
+                request()->is('*massage-centre-listings*') ||
+                request()->is('*visitors*') ||
+                request()->is('*pinup-listings*')) show @endif"
+            aria-labelledby="headingTwo" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
                     {{-- <a class="collapse-item" href="{{ route('admin.global-monitoring') }}">
 

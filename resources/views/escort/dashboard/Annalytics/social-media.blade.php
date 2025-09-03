@@ -53,7 +53,7 @@
                                 <td><div class="statistics-icon">
                                     <img src="{{ asset('assets/dashboard/img/twitter-icon.png') }}" alt="icon">
                                 </div></td>
-                                <td>Twitter</td>
+                                <td>X</td>
                                 <td class="text-center">25</td>
                                 <td class="text-center">125</td>
                                 <td class="text-center">1,500</td>

@@ -41,7 +41,7 @@
                     <div class="form-group row align-items-center">
                         <label class="col-sm-2 col-lg-2 col-md-2 col-2" for="exampleFormControlSelect1"><span class="manage_social_profile_icons"><img src="{{ asset('assets/img/twitter-new.png') }}" alt="" class="cutom-social-icon"></span></label>
                         <div class="col-sm-7 col-lg-7 col-md-7 col-10">
-                            <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="Twitter" name="social_links[twitter]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ $massage_profile->social_links ? $massage_profile->social_links['twitter'] : null }}">
+                            <input type="text" class="form-control form-control-sm removebox_shdow" placeholder="X" name="social_links[twitter]" data-parsley-type="url" data-parsley-type-message="Please provide a valid url" value="{{ $massage_profile->social_links ? $massage_profile->social_links['twitter'] : null }}">
                         </div>
                     </div>
                 </div>
