@@ -62,7 +62,7 @@
                       <div class="col-lg-3">
                          <div class="form_process">
                             <div class="steps_to_filled_from">Step 4</div>
-                            <p>Massure</p>
+                            <p>Masseurs</p>
                          </div>
                       </div>
                       {{-- <div class="col-lg-3">
@@ -99,7 +99,7 @@
                                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available" role="tab" aria-controls="contact" aria-selected="false">Open Times</a>
                                 </li>
                                 <li class="nav-item m-0">
-                                   <a class="nav-link" id="massuers-tab" data-toggle="tab" href="#massuers" role="tab" aria-controls="massuers" aria-selected="false">Massuers</a>
+                                   <a class="nav-link" id="massuers-tab" data-toggle="tab" href="#massuers" role="tab" aria-controls="massuers" aria-selected="false">Masseurs</a>
                                 </li>
                                 {{-- <li class="nav-item m-0">
                                    <a class="nav-link" id="pricing-tab" data-toggle="tab" href="#pricing" role="tab" aria-controls="contact" aria-selected="false">Check fee summary and pay</a>
