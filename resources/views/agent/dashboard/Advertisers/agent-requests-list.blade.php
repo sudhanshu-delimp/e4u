@@ -28,11 +28,11 @@
                                     </div>
                                     <div class="ms-3">
                                         <h5 class="primery_color normal_heading mb-0">
-                                            <b>{{$list->first_name.' '.$list->last_name  }} </b>
+                                            <b>Agent Request</b>
                                         </h5>
                                         <h6 class="text-muted mb-0 small">
                                             Member ID : {{$list->user->member_id}}
-
+                                           
                                             <span class="pl-3">Ref : {{$list->ref_number}}</span> <br>
                                             <span>Request Date : {{date('d-m-Y',strtotime($list->created_at))}}</span>
                                           
@@ -47,6 +47,10 @@
                            
                             <div class="row mt-3">
                                 <div class="col-md-12 list-sec pt-1">
+
+                               
+
+                                   <h6><b>Advertiser :</b> <span class="ml-2"> {{ $list->user->name }} </span></h6>
                                     <h6><b>Mobile :</b> <span class="ml-2"> {{$list->mobile_number}}</span></h6>
 
                                     <h6><b>Email :</b> <span class="ml-2"> {{$list->email}}</span></h6>

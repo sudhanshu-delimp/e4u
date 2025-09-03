@@ -46,10 +46,12 @@
 
                     <div>
                         <h6 class="mb-1"><b>Member ID :</b> <span style="color: #333;">{{$list->user->member_id}}</span></h6>
-                        <h6 class="mb-1"><b>Ref ID :</b> <span style="color: #333;">{{$list->ref_number}}</span></h6>
-                        <h6 class="mb-1"><b>Name :</b> <span style="color: #333;"> {{$list->first_name.' '.$list->last_name  }}</span></h6>
-                        <br>
-                        <h6 class="{{$color}} font-weight-bold">Date  {{$status}} : <span>{{date('d-m-Y',strtotime($list->created_at))}}</span></h6>
+                        <h6 class="mb-1"><b>Member Name :</b> <span style="color: #333;"> {{$list->first_name.' '.$list->last_name  }}</span></h6>
+                        <!-- <h6 class="mb-1"><b>Ref ID :</b> <span style="color: #333;">{{$list->ref_number}}</span></h6> -->
+                         <h6 class="{{$color}} font-weight-bold">Date  {{$status}} : <span>{{date('d-m-Y',strtotime($list->created_at))}}</span></h6>
+                       
+                       
+                       
                     </div>
 
                     <div>
@@ -66,7 +68,7 @@
 
 
    <!-- ================ Modal Popup ================================ -->
-    <div class="modal fade upload-modal" id="agent_modal_{{$list->id}}" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true">
+    <div class="modal fade upload-modal" id="agent_modal_{{$list->id}}" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false" >
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
@@ -95,8 +97,9 @@
                               <h5 class="primery_color normal_heading mb-0" data-toggle="modal" data-target="#Agent_Name"><a class="collapse-item" href="#"><b>{{$list->user->name ? $list->user->name : 'NA'}}</b></a></h5>
                               <h6 class="text-muted mb-0 small">
                                  Member ID : {{$list->user->member_id}}
-                                 <span class="px-3">Ref : {{$list->ref_number}}</span>
-                                 <span>Request Date : {{date('d-m-Y',strtotime($list->created_at))}}</span>
+                                 <span class="px-3" >Ref : {{$list->ref_number}}</span>
+                                 <span >Request Date : {{date('d-m-Y',strtotime($list->created_at))}}</span>
+                                
 
                               </h6>
                            </div>
