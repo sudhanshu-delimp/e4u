@@ -619,11 +619,11 @@
 
                                  
                               </div>
-                              <div class="row">
+                              {{-- <div class="row">
                                  <div class="col-md-12 text-right">
                                     <button id="read-more" type="button" class="save_profile_btn">Update</button>
                                  </div>
-                              </div>
+                              </div> --}}
                            </div>
                         </div>
                      </div>
@@ -647,20 +647,19 @@
                
                </div>
 
-               <div class="row pt-3">
+               {{-- <div class="row pt-3">
                   <div class="col-md-12 text-right" style="padding-right: 1.8rem;">
                         <button id="update_who_am_i" type="button" class="save_profile_btn who_am_i">Update</button>
                   </div>
-               </div>
+               </div> --}}
       </div>
 
       </div>
       <div class="tab_btm_btns_preview_and_next py-3">
          <div class="row pt-3 pb-2">
             <div class="col-md-12 text-right mb-2 a_text_white_hover">
-               {{-- <a href="#" class="save_profile_btn" >Preview</a> --}}
-               <a href="#services" class="nex_sterp_btn" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="false">Next Step
-               <i class="fas fa-arrow-right"></i>
+               <a class="nex_sterp_btn" id="profile-tab" data-toggle="tab" href="#services" role="tab" aria-controls="profile" aria-selected="false">              
+                  Next Step <i class="fas fa-arrow-right"></i>
                </a>
             </div>
          </div>
