@@ -113,24 +113,29 @@
             </div>
             <!-- end col -->
 
-            <div class="col-md-12 text-right">
+            {{-- <div class="col-md-12 text-right">
                 <button type="btn" class="save_profile_btn">Save</button>   
-            </div>
+            </div> --}}
             <!-- end col -->
 
         </div>
         
     </div>
-    {{-- <div class="tab_btm_btns_preview_and_next">
+   
+    <!-- check out btns -->
+    <div class="tab_btm_btns_preview_and_next">
         <div class="row pt-3 pb-3">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-12 previous_bt_center_in_sm text-right a_text_white_hover">
-                <a href="{{ route('profile.description',$escort->id)}}" class="save_profile_btn">Preview</a>
-                <a href="#pricing" class="nex_sterp_btn" id="massuers-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Next Step
-                <i class="fas fa-arrow-right"></i>
-                </a>
+            <div class="col-lg-9 col-md-12 col-sm-12 col-12 a_text_white_hover previous_bt_center_in_sm margin_for_check_out">
+                <a href="#available" class="nex_sterp_btn" id="contact-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">
+                <i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Previous Step</a>
+                {{-- <a href="#" class="nex_sterp_btn btn_width_hundred">Save Profile</a> --}}
+                <button type="submit" id="submitForm" class=" btn_width_hundred save_profile_btn">Save Profile</button>
+                <a href="#" class="save_profile_btn">Preview Profile</a>
             </div>
+           
+            
         </div>
-    </div> --}}
+    </div>
 </div>
 
 
@@ -358,7 +363,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLongTitle"> <img src="{{ asset('assets/dashboard/img/add-mass.png') }}" class="custompopicon"> Change Masseurs Profile</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true"><img src="{{ asset('assets/app/img/cross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
+                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
             </div>
             <div class="modal-body p-0 pt-4 pb-3">
