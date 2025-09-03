@@ -681,52 +681,79 @@ class EscortController extends Controller
     }
     public function storeMyAvatar(StoreAvatarMediaRequest $request, $id)
     {
-        $attachment = $request->file('avatar_img');
-        $extension = $attachment->getClientOriginalExtension();
-        //$extension = explode('/', mime_content_type($request->src))[1];
-        $data = $request->src;
+        try {
+            if ((int) Auth::id() !== (int) $id) {
+                return response()->json(['type' => 1, 'message' => 'Unauthorized'], 403);
+            }
 
-        list($type, $data)  = explode(';', $data);
-        list(, $data)       = explode(',', $data);
-        $data               = base64_decode($data);
-        $avatar_owner       = Auth::user()->id;
+            $src = $request->input('src');
 
-        $avatarName          = time() . '-' . $avatar_owner . '.' . $extension;
-        $avatar_uri          = file_put_contents(public_path() . '/avatars/' . $avatarName, $data);
+            $semicolonPos = strpos($src, ';');
+            $mime = substr($src, 5, $semicolonPos - 5); // image/jpeg
+            $extension = explode('/', $mime)[1] ?? 'png';
+            $extension = strtolower($extension) === 'jpeg' ? 'jpg' : strtolower($extension);
 
-        //dd($avatar_uri);
-        $user = $this->user->find($id);
-        $user->avatar_img = $avatarName;
+            $commaPos = strpos($src, ',');
+            $base64 = substr($src, $commaPos + 1);
+            $binary = base64_decode($base64, true);
 
-        $user->save();
-        $type = 0;
+            $dir = public_path('avatars');
+            if (!File::exists($dir)) {
+                File::makeDirectory($dir, 0755, true);
+            }
 
-        // list($width, $height) = getimagesize($attachment);
-        // $mime = $attachment->getMimeType();
-        // if(strstr($mime, "video/")){
-        //     $prefix = 'videos/';
-        //     $type = 1;  //0=>image; 1=>video
-        // } else {
-        //     $prefix = 'images/';
-        //     $type = 0;
-        //     //$file_path = $prefix.$id.'/'.Str::slug(pathinfo($attachment->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$attachment->getClientOriginalExtension();
-        //     $file_path = $attachment->getClientOriginalName();
-        //     Storage::disk('avatars')->put($file_path, file_get_contents($attachment));
-        //     dd($attachment->getClientOriginalName());
-        //     $user = $this->user->find($id);
-        //     $user->avatar_img = $attachment->getClientOriginalName();
-        //     $user->save();
-        // }
-        return response()->json(compact('type', 'avatarName'));
+            $avatarOwner = Auth::id();
+            $avatarName = time() . '-' . $avatarOwner . '.' . $extension;
+            $fullPath = $dir . DIRECTORY_SEPARATOR . $avatarName;
+            if (File::put($fullPath, $binary) === false) {
+                throw new \RuntimeException('Failed to save avatar file');
+            }
+
+            $user = $this->user->find($id);
+            if (!$user) {
+                return response()->json(['type' => 1, 'message' => 'User not found'], 404);
+            }
+
+            if (!empty($user->avatar_img)) {
+                $oldPath = $dir . DIRECTORY_SEPARATOR . $user->avatar_img;
+                if (File::exists($oldPath)) {
+                    @File::delete($oldPath);
+                }
+            }
+
+            $user->avatar_img = $avatarName;
+            $user->save();
+
+            $type = 0;
+            return response()->json(compact('type','avatarName'));
+        } catch (\Throwable $e) {
+            \Log::error('Error saving avatar for user ' . $id . ': ' . $e->getMessage());
+            return response()->json(['type' => 1, 'message' => $e->getMessage()], 500);
+        }
     }
     public function removeMyAvatar()
     {
-        $user = $this->user->find(auth()->user()->id);
-        unlink(public_path() . '/avatars/' . $user->avatar_img);
-        $user->avatar_img = null;
-        $user->save();
-        $type = 1;
-        return response()->json(compact('type'));
+        try {
+            $user = $this->user->find(auth()->user()->id);
+            
+            if (!$user) {
+                return response()->json([ 'type' => 1,'message' => 'User not found'], 404);
+            }
+            $path =  public_path('/avatars/' . $user->avatar_img);
+            if(File::exists($path)){
+                File::delete($path);
+                $user->avatar_img = null;
+                $user->save();
+            }else{
+                return response()->json(['type' => 1, 'message' => 'Image not found!']);
+            }
+           $defaultImg = asset(config('constants.escort_default_icon'));
+            return response()->json(['type' => 0, 'message' => 'Avatar removed successfully', 'img' => $defaultImg ]);
+            
+        } catch (\Exception $e) {
+            \Log::error('Error removing avatar: ' . $e->getMessage());
+            return response()->json([ 'type' => 1,'message' => 'An error occurred while removing avatar. Please try again.' ], 500);
+        }
     }
     public function notificationsFeatures()
     {

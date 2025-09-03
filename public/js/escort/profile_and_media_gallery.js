@@ -52,21 +52,21 @@ $(() => {
         var msg = "Delete";
         $('.img_comman_msg').text(msg);
         $("#delete_img").modal('show');
-        $('#dImg').click(function () {
+        $(document).on('click','#dImg', function(){
+                e.preventDefault();
+                let eLmt = $(this);
                 $.ajax({
                 type: "POST",
                 url:`/escort-dashboard/delete-photos/${id}`,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                beforeSend: function (){
+                    $(".img_comman_msg").text('Deleting...');
+                },
                 success: function (data) {
-                    if(data.error == true) {
+                    getAccountMediaGallery().then(function () {
                         $("#delete_img").modal('hide');
-                        $("#dm_"+id).remove();
-                        getAccountMediaGallery();
-                    } else {
-                        var msg = "Sumthing wrong...";
-                        $('.img_comman_msg').text(msg);
-
-                    }
+                        $(".img_comman_msg").text('Delete');
+                    });
                 },
                 error: function (data) {
                     var errors = $.parseJSON(data.responseText);
@@ -80,9 +80,11 @@ $(() => {
    });
 });
 
+var bannerDefaultImage;
+var pinupDefaultImage;
+
 function preview_image()
     {
-        $(".rm").hide();
         var total_file=document.getElementById("upload_file").files.length;
         for(var i=0;i<total_file;i++)
         {
@@ -96,9 +98,10 @@ function preview_image()
             $('#image_preview').append("<a href='#'><div class='five_column_content_top img-title-sec justify-content-between wish_span rm_"+num+"' style='z-index: 1;'><span class='card_tit' style=''>Photo.img</span><i class='fa fa-trash deleteId' data-id='"+num+"'></i></div><label class='newbtn rm_"+num+"'><img id='blah"+num+"' class='item' src='"+URL.createObjectURL(event.target.files[i])+"'>" +
                 "<input type='hidden' name='selected_files[]' value='"+i+"'></label><div style='margin-top: -34px;'></div></a>");
             } else {
-               swal.fire('', "Can't upload more than 2 MB size", 'error');
+               swal.fire('Media', "Can't upload more than 2 MB size", 'error');
             }
         }
+
         $(document).on('click','.deleteId', function(){
         var mid = $(this).attr('data-id');
         $(".rm_"+mid).remove();
@@ -107,10 +110,15 @@ function preview_image()
 
     function readImageURL(input) {
         if (input.files && input.files[0]) {
+            var $img = $(input).siblings('img');
+            if($img.hasClass('js_bannerDefaultImage')){
+                bannerDefaultImage = $img.attr('src');
+            }
+            if($img.hasClass('js_pinupDefaultImage')){
+                pinupDefaultImage = $img.attr('src');
+            }
             var reader = new FileReader();
             reader.onload = function (e) {
-
-
                 var image = new Image();
                 image.src = e.target.result;
 
@@ -149,17 +157,19 @@ function preview_image()
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             success: function (data) {
                 if(data.my_data.status == 200){
+                    $('#image_preview a:not(:first)').remove();
+                    $(".js_bannerDefaultImage").attr('src',bannerDefaultImage);
+                    $(".js_pinupDefaultImage").attr('src',pinupDefaultImage);
                     $("#exampleModal").modal('hide');
-                    swal.fire('', 'Uploaded', 'success');
+                    swal.fire('Media', 'Uploaded', 'success');
+                    form[0].reset();
                     getAccountMediaGallery();
                 } else if(data.my_data.status == 405) {
-                    swal.fire('', "", 'error');
-                    swal.fire('', "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>", 'error');
-                    
+                    swal.fire('Media', "<p>Can't upload more than 30 Images, try after deleting images from gallery</p>", 'error');
                     $("#exampleModal").modal('hide');
                 }
                  else {
-                    location.reload();
+                    swal.fire('Media', 'Please choose atleast one image', 'error');
                 }
 
             },
@@ -178,18 +188,30 @@ function preview_image()
         });
     });
 
-    var getAccountMediaGallery = function(){
-        $.ajax({
+    var getAccountMediaGallery = function() {
+        return $.ajax({
             url: "/escort-dashboard/get-account-media-gallery",
             type: "GET",
-            success: function (response) {
-                $("#js_profile_media_gallery").html(response.html);
-                $('#cItem_0').addClass('active');
-                $('#pageItem_0').addClass('active');
+            dataType: "json"
+        }).done(function (response) {
+            if (response.success) {
+                let activePage = $("#carouselExampleIndicators .page-item.active").attr('id');
+                let activeContainer = $("#carouselExampleIndicators .carousel-item.active").attr('id');
+    
+                $("#js_profile_media_gallery").html(response.gallery_container_html);
+                $("#profile_images").html(response.gallery_modal_container_html);
+                $("#banner_images").html(response.banner_modal_container_html);
+    
+                if (activePage && activeContainer) {
+                    $(`#${activePage}`).addClass('active');
+                    $(`#${activeContainer}`).addClass('active');
+                } else {
+                    $(`#pageItem_0`).addClass('active');
+                    $(`#cItem_0`).addClass('active');
+                }
                 initDragDrop();
-            },
-            error: function (xhr, status, error) {
-                console.error("Error:", error);
             }
+        }).fail(function (xhr, status, error) {
+            console.error("Error:", error);
         });
     }

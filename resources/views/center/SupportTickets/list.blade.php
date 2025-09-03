@@ -165,6 +165,7 @@
        $(document).on('click', ".view_ticket", function() {
            var rowData = table.row($(this).closest('tr')).data();
            var ticketId = rowData.id;
+            let resolved = "";
            $.ajax({
                method: "GET",
                url: "{{ route('support-ticket.conversations') }}" + '/' + ticketId,
@@ -172,6 +173,24 @@
                success: function (data) {
                     if(data.status_id == 3 || data.status_id == 4) {
                     $("#sendMessage").parent().hide();
+                    }
+                    else
+                    {
+                    $("#sendMessage").parent().show();
+                    }
+
+                    if(data.status=='Resolved' || data.status=='Withdrawn')
+                    {
+                        if(data.status=='Resolved')
+                        {
+                            message = 'This Ticket is now resolved';
+                        }
+                        else
+                        {
+                        message = 'This Ticket has been withdrawn'; 
+                        }
+
+                        resolved = `<div class="col-sm-12 text-center complete_ticket mt-3" style="font-weight: 700; font-size: 20px;color: green;"> ${message}</div>`
                     }
 
                    $("#ticket_name").html(data.subject);
@@ -207,6 +226,10 @@
                    });
                    $("#conv-main").html(html);
                    $("#ticketId").val(ticketId);
+                    if(data.status=='Resolved' || data.status=='Withdrawn')
+                    {
+                    $('#conv-main').append(resolved);
+                    }
                }
            })
        });

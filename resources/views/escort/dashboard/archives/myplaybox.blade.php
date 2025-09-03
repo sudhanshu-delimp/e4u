@@ -12,6 +12,7 @@
     .playbox-icon {
         display: block;
         margin: 30px auto;
+        width: clamp(15%, 5vw, 25%);
     }
 </style>
 @endsection
@@ -59,7 +60,7 @@
                 </p>
 
                 <!-- Centered Playbox Icon -->
-                <img src="{{ asset('assets/dashboard/img/menu-icon/play-100.png') }}" alt="Playbox Icon" class="playbox-icon">
+                <img src="{{ asset('assets/dashboard/img/boxicon/icon_myplaybox.png') }}" alt="Playbox Icon" class="playbox-icon">
                 <!-- Replace the image path above with the actual path -->
             </div>
         </div>

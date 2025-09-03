@@ -31,22 +31,24 @@
                                                 </a>
                                             </div>
                                             <div class="row mt-2">
-                                                <div class="col-lg-6">
+                                                <div class="{{request()->segment(2) == 'archive-view-photos'?'col-lg-6':'col-lg-12'}}">
                                                     <div class="plate"><label class="newbtn">
-                                                        <img id="blah9" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                        <img id="blah9" class="img-fluid pl-2 pr-2 js_bannerDefaultImage" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
                                                         <input name="img[9]" id="uploadImage9" class="pis" onchange="readImageURL(this);" type="file" accept="image/*" >
                                                         <input type="hidden" name="position[]" id="mediaId9">
                                                         </label>
                                                     </div>
                                                 </div>
+                                                @if(request()->segment(2) == 'archive-view-photos')
                                                 <div class="col-lg-6">
                                                     <div class="plate"><label class="newbtn">
-                                                        <img id="blah10" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                        <img id="blah10" class="img-fluid pl-2 pr-2 js_pinupDefaultImage" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
                                                         <input name="img[10]" id="uploadImage10" class="pis" onchange="readImageURL(this);" type="file" accept="image/*" >
                                                         <input type="hidden" name="position[]" id="mediaId10">
                                                         </label>
                                                     </div>
                                                 </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

@@ -169,7 +169,7 @@
         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
         pageLength: 10,
     });
-    // ✅ Add placeholder to search input
+   
     $('#supportTicketsTable').on('init.dt', function () {
         $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search By Ticket ID');
     });
@@ -182,6 +182,7 @@
 
    function _load_conversations(tId) {
        $("#conv-main").html('');
+       let resolved = "";
        $.ajax({
            method: "GET",
            url: "{{ route('support-ticket.conversations') }}" + '/' + tId,
@@ -190,6 +191,24 @@
                if(data.status_id == 3 || data.status_id == 4) {
                    $("#sendMessage").parent().hide();
                }
+                else
+                {
+                $("#sendMessage").parent().show();
+                }
+
+                if(data.status=='Resolved' || data.status=='Withdrawn')
+                {
+                    if(data.status=='Resolved')
+                    {
+                    message = 'This Ticket is now resolved';
+                    }
+                    else
+                    {
+                    message = 'This Ticket has been withdrawn'; 
+                    }
+
+                    resolved = `<div class="col-sm-12 text-center complete_ticket mt-3" style="font-weight: 700; font-size: 20px;color: green;"> ${message}</div>`
+                }
                var modalHeading = "<b>"+data.subject+'</b> - '+ date_time_format(data.created_on) +'<br>';
                // "<span>"+data.user.name+'</span> ( '+ data.user.member_id +')';
                $("#ticket_name").html(modalHeading);
@@ -225,6 +244,10 @@
                });
                $("#conv-main").html(html);
                 $("#ticketId").val(tId);
+                if(data.status=='Resolved' || data.status=='Withdrawn')
+                {
+                $('#conv-main').append(resolved);
+                }
            }
        })
    }

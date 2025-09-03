@@ -384,23 +384,33 @@
                         </div>
                       <div class="row  mt-3">
                         
-        <div class="col-md-12 mb-3 d-flex justify-content-end">
-            <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
-        </div>
+                        <div class="col-md-12 mb-3 d-flex justify-content-end">
+                            <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
+                        </div>
+                        
                         <div class="col-lg-4">
-                            <div class="upload-banner">
-                                <div class="row ">
+                            <div class="upload-banner p-0">
+                                <div class="photo-top-header">                    
+                                    <div class="custom-img-filter-header border-0">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <h3 class="gallery-head">Your Default Images</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row p-3">
                                     <div class="col-4">                                          
                                         <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                                         <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
-                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img1" src="{{asset($escort->imagePosition(1))}}" style="height: 220px;object-fit: cover;width: 167px;">
+                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img1" src="{{asset($escort->imagePosition(1))}}" style="object-fit: cover;width: 167px;height: 172px;">
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-8">
                                         <div class="row">
                                             <div class="col-lg-12">                                            
-                                                <h2 class="banner-sub-heading my-2">Default Image</h2>
+                                                <h2 class="banner-sub-heading my-2">Gallery Image</h2>
                                             </div>
                                             <div class="col">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
@@ -443,7 +453,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row px-3 pb-2">
                                     <div class="col-lg-12">
                                         <h2 class="banner-sub-heading my-2">Banner Image</h2>
                                         <label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
@@ -456,19 +466,19 @@
                         
                         <div class="col-lg-8" id="js_profile_media_gallery">
                             <div class="photo-top-header">
-                                <div class="photo-header border-0">
+                                <div class="photo-header custom-photo-header">
                                     <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
                                         <div class="row">
                                             <div class="col-md-8">
                                                 <ul class="nav nav-tabs border-0">
                                                     <li class="nav-item">
-                                                        <a class="nav-link show" id="menu_all" data-toggle="tab" href="#home">All</a>
+                                                        <a class="nav-link active" id="menu_all" data-toggle="tab" href="#home">All</a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" id="menu_varified" data-toggle="tab" href="#menu1">Verified</a>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link active" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
+                                                        <a class="nav-link" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -483,6 +493,23 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="custom-img-filter-header">
+                                    <div class="row">
+                                        <ul class="nav nav-tabs border-0">
+                                           
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="gallery_img" data-toggle="tab" href="#Gallery">Gallery</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link " id="banner_img" data-toggle="tab" href="#Banner">Banner</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="pinup_img" data-toggle="tab" href="#Pinup">Pinup</a>
+                                            </li>
+                                            
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -563,7 +590,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="grid-container modalPopup" id="banner_images" style="max-height: 500px; overflow-y:scroll; grid-template-columns: 1fr 1fr 1fr;">
-                                {{--                   <div class="col-sm-12">--}}
+                               
                                 @foreach($media  as $keyId => $image)
                                     @if(in_array($image->position, [9,10])/*$image->position != 8*/)
                                         <div class="item2">
@@ -571,12 +598,9 @@
                                         </div>
                                     @endif
                                 @endforeach
-                                {{--                   </div>--}}
+
                             </div>
                         </div>
-                        {{--<div class="modal-footer" style="justify-content: center;">
-                            <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -1772,26 +1796,14 @@
             $("#photo_gallery_banner").modal("hide");
         });
 
-      
-        
-        $(".modalPopup .item2").on('click', function(e) {
-            let imageSrc = $(this).find('img').attr('src');
-            let mediaId = $(this).find('img').data('id');
-            $("#blah9").attr('src',imageSrc);
-            $("#img9").attr('src',imageSrc);
-            $("#mediaId9").val(mediaId);
-
-            $("#photo_gallery_banner").modal("hide");
-        });
     });
 
     let profile_selected_images = [];
     let default_image_icons = ['img-11.png','img-12.png','img-13.png'];
-    $(".modalPopup .item4, .modalPopup .item2").on('click', function(e) {
+    $(document).on('click','.modalPopup .item4, .modalPopup .item2', function(e) {
        let imageSrc = $(this).find('img').attr('src');
        let mediaId = $(this).find('img').data('id');
        let img_target = $("#img"+updatePosition);
-       let media_image_length = $(".upld-img").length;
        let targetImageSrc = img_target.attr('src');
        let targetImageName = targetImageSrc.split("/").pop();
        /**
@@ -1829,6 +1841,7 @@
             }
        }
        $("#photo_gallery").modal("hide");
+       $("#photo_gallery_banner").modal("hide");
    });
 
     function setAsDefultImages(){
