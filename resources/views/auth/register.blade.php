@@ -1,17 +1,27 @@
 @extends('layouts.web')
+
+<style>
+    
+    p{
+        text-align: justify !important;
+    }
+    table tr td, th{
+        text-align: justify;
+    }
+</style>
 @section('content')
 <section class="section_bg_color padding_ninty_top_ninty_px padding_bottom_eight_px angle_bg_image viewer-registration">
     <div class="container">
         <div class="row">
             <div class="col-lg-7 col-md-7 adverti_reg_page_padingto_bt-new">
                 <div class="reg_info viewer-registration">
-                    <h2>Registration - Viewer</h2>
+                    {{-- <h2>Registration - Viewer</h2> --}}
                     <div class="pl-4 pt-2 pb-5">
                         <h1 class="text-uppercase">viewer Registration</h1>
                         <h2>Registration with us is free</h2>
-                        <p>You do not have to register to view a Profile or Tour however, if you register you will recieve the following benefits:</p>
+                        <p class="text-justify">You do not have to register to view a Profile or Tour however, if you register you will recieve the following benefits:</p>
                         <div class="">
-                            <ul class="pl-4">
+                            <ul class="pl-4 text-justify">
                                 <li>Flag a Profile and produce a short list of your preferred Advertisers</li>
                                 <li>View at any time your favourite Profiles (Legbox)</li>
                                 <li>Receive Alerts when your favourite Escort is visiting your Location</li>
@@ -20,7 +30,7 @@
                                 <li>Complete a private Note (Notebox) about your experience with an Advertiser (from your Dashboard)</li>
                             </ul>
                         </div>
-                        <p>See also <span><a href="{{ url('help-for-viewers') }}" class="termsandconditions_text_color">Help for Viewers</a></span> for more information on Membership benefits and your obligations.</p>
+                        <p class="text-justify">See also <span><a href="{{ url('help-for-viewers') }}" class="termsandconditions_text_color">Help for Viewers</a></span> for more information on Membership benefits and your obligations.</p>
                     </div>
                 </div>
             </div>
@@ -62,7 +72,7 @@
                           <select class="form-control" id="location_state" name="state_id" required data-parsley-required-message="Select Location">
                           <option value="">Select your Home State (if not already identified)</option>
                           @foreach($state as $name)
-                            <option value="{{$name->id}}" {{ request()->ipinfo->country_name != null && request()->ipinfo->region == $name->name ? request()->ipinfo->region : '' }}>{{$name->name}}</option>
+                            <option value="{{$name->id}}" {{ isset(request()->ipinfo->country_name) && request()->ipinfo->country_name != null && request()->ipinfo->region == $name->name ? request()->ipinfo->region : '' }}>{{$name->name}}</option>
                           @endforeach
                           </select>
                        </div>
@@ -103,7 +113,7 @@
                                     <!-- error sms here -->
                                 </div>
                             </div>
-                        <div class="form-check pt-2 pb-1" style="margin-left: 3px;">
+                        <div class="form-check form-check-inline pb-0">
                             <input type="checkbox" data-parsley-errors-container=".check-tc" class="form-check-input" id="termsandconditions" required data-parsley-required-message="@lang('errors/validation/required.checkbox')">
                             <label class="form-check-label" for="termsandconditions">I have read and agree to the <a href="terms-conditions" class="termsandconditions_text_color" style="font-size: 13px;">Terms and Conditions</a></label>
                         </div>
@@ -171,19 +181,19 @@
                     <div class="accodien_manage_padding_content">
                         <p>You determine how much information you want to disclose in your personal Account
                             information. The only mandatory information we require is your:</p>
-                        <ul class="font_size_forteenpx" style="color:#686a6c;">
+                        <ul class="font_size_forteenpx text-justify" style="color:#686a6c;">
                            <li>Mobile number (for SMS 2FA verification), and notifications if you have your mobile
                                number selected for that purpose</li>
                            <li>Email address (for notifications - when enabled)</li>
                            <li>Your Location (city)</li>
                         </ul>
-                        <span class="text_decoration_for_a custome_span_color">
+                        <span class="text_decoration_for_a custome_span_color text-justify">
                             To have access to the Viewer benefits, you will need to disclose some additional
                             information in your Account settings. That does not include your name. We never request
                             your name to be disclosed.
                         </span>
 
-                        <div class="mt-3">
+                        <div class="mt-3 text-justify">
                             <b>Changes to this Guide</b><br>
                             <span>This Guide was last updated on 02-2024.</span>
                         </div>
@@ -210,7 +220,7 @@
                 <div class="content">
                     <div class="accodien_manage_padding_content">
                         <p></p>
-                        <table class="table table-borderless table_border_remove">
+                        <table class="table table-borderless table_border_remove text-justify">
                           <thead>
                             <tr>
                               <th scope="col" class="accordien_color_table">Features</th>

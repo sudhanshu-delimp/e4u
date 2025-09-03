@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\AgentController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
@@ -122,6 +124,10 @@ Route::get('advertiser-reviews',function(){
     return view('admin.advertiser-reviews');
 })->name('admin.advertiser-reviews');
 
+Route::get('registrations-reports',function(){
+    return view('admin.registrations');
+})->name('admin.registrations-reports');
+
 
 Route::get('commission-statements',function(){
     return view('admin.management.operator.commission-statements');
@@ -159,6 +165,27 @@ Route::get('management/manage-suppliers',function(){
     return view('admin.management/manage-suppliers');
 })->name('admin.manage-suppliers');
 
+
+Route::get('reports/agent-requests',function(){
+    return view('admin.reports.agent-requests');
+})->name('admin.agent-requests');
+
+Route::get('reports/transaction-summary',function(){
+    return view('admin.reports.transaction-summary');
+})->name('admin.transaction-summary');
+
+Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
+Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('admin.send-notiification');
+
+
+
 Route::get('/management/agent',[AgentController::class,'agent_list'])->name('admin.agent');
 Route::post('/suspend-agent',[AgentController::class,'suspend_agent'])->name('admin.suspend-agent');
+Route::post('/update-agent',[AgentController::class,'update_agent'])->name('admin.update-agent');
+Route::post('/add-agent',[AgentController::class,'add_agent'])->name('admin.add-agent');
+Route::post('/check-agent-email',[AgentController::class,'check_agent_email'])->name('admin.check-agent-email');
+Route::post('/approve-agent-account',[AgentController::class,'approve_agent_account'])->name('admin.approve-agent-account');
+
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');
+
+

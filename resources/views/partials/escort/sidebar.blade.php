@@ -200,12 +200,14 @@
         </div>
     </li>
 
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="{{ route('escort.archive-myplaybox') }}">
             <img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}"/>
-           <span>My Playbox</span>
+            <span class="{{ request()->routeIs('escort.archive-myplaybox') ? 'active-text' : '' }}">
+                My Playbox
+            </span>
         </a>
-    </li>
+    </li>    
 
     <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; margin-top: 10px;margin-bottom: 15px;"></li>
 
@@ -383,33 +385,33 @@
              <img src="{{ asset('assets/dashboard/img/menu-icon/how-quest.png')}}">
              <span>How is it Done</span>
         </a>
-        <div id="masseurs" class="collapse ;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="masseurs" class="collapse @if(request()->segment(2) == 'editmyaccount' || request()->segment(2) == 'my-information' || request()->segment(2) == 'listings' || request()->segment(2) == 'media' || request()->segment(2) == 'profiles' || request()->segment(2) == 'tours')  show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-            <a class="collapse-item" href="#">
+            <a class="collapse-item" href="{{ route('escort.editmyaccount') }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/icons-account.png')}}">
-                <span style="">Edit My Account</span>
+                <span  style="{{request()->segment(2) == 'editmyaccount' ? 'color: #e5365a;' : ''}}">Edit My Account</span>
             </a>
-             <a class="collapse-item" href="#">
+             <a class="collapse-item" href="{{ route('escort.my-information') }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/information-24.png')}}">
-                <span style="">My Information</span>
+                <span  style="{{request()->segment(2) == 'my-information' ? 'color: #e5365a;' : ''}}">My Information</span>
             </a>
 
-            <a class="collapse-item" href="#">
+            <a class="collapse-item" href="{{ route('escort.listings') }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/listing-24.png')}}">
-                <span style="">Listings</span>
+                <span  style="{{request()->segment(2) == 'listings' ? 'color: #e5365a;' : ''}}">Listings</span>
             </a>
            
-            <a class="collapse-item" href="#">
+            <a class="collapse-item" href="{{ route('escort.media') }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/media-24.png')}}">
-                <span style="">Media</span>
+                <span style="{{request()->segment(2) == 'media' ? 'color: #e5365a;' : ''}}">Media</span>
             </a>
-            <a class="collapse-item" href="{{ route('escort.how_is_it_done.profile') }}">
+            <a class="collapse-item" href="{{ route('escort.profiles') }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/add-administrator-24.png')}}">
-                <span style="">Profiles</span>
+                <span  style="{{request()->segment(2) == 'profiles' ? 'color: #e5365a;' : ''}}">Profiles</span>
             </a>
-            <a class="collapse-item" href="#">
+            <a class="collapse-item" href="{{ route('escort.tours') }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/tour-24.png')}}">
-                <span style="">Tours</span>
+                <span  style="{{request()->segment(2) == 'tours' ? 'color: #e5365a;' : ''}}">Tours</span>
             </a>
             </div>
         </div>
@@ -464,7 +466,7 @@
 
                     <a id="myAnchor" class="collapse-item show" href="{{ route('escort.num-tips') }}">
                         <img src="{{ asset('assets/app/img/tips.png')}}">
-                        <span style="{{ request()->segment(2) == 'num-tips' ? 'color: #e5365a;' : ''}}">NUM (Tips)</span>
+                        <span style="{{ request()->segment(2) == 'num-tips' ? 'color: #e5365a;' : ''}}">Screening Tips</span>
                     </a>
 
                 </div>

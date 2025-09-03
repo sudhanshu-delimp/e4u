@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\AgentDetail;
+use App\Models\AgentBankDetail;
+use App\Models\PasswordSecurity;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
-use App\Models\PasswordSecurity;
-use App\Models\AgentBankDetail;
 
 class User extends Authenticatable
 {
@@ -21,7 +22,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $guarded = ['id'];
-     /*
+    /*
         $fillable = [
         'name',
         'email',
@@ -72,9 +73,9 @@ class User extends Authenticatable
 
     public function getOnlineAttribute()
     {
-        if(!$this->last_online_at) return false;
+        if (!$this->last_online_at) return false;
 
-        if($this->last_online_at->diffInMinutes(now()) < 2 ) {
+        if ($this->last_online_at->diffInMinutes(now()) < 2) {
             return true;
         }
         return false;
@@ -157,8 +158,6 @@ class User extends Authenticatable
                 return "Agents";
                 break;
         }
-
-
     }
     public function getUserTypeAttribute()
     {
@@ -189,8 +188,6 @@ class User extends Authenticatable
                 return "A";
                 break;
         }
-
-
     }
     public function getLevelTypeAttribute()
     {
@@ -223,8 +220,6 @@ class User extends Authenticatable
                 return 4;
                 break;
         }
-
-
     }
     public function agentBankDetail()
     {
@@ -256,10 +251,11 @@ class User extends Authenticatable
         //return strtoupper(substr(config('escorts.profile.statesName')[$this->state->name],0,2));
     }
     public function ContactType($val)
-    {     $arr = [];
+    {
+        $arr = [];
         $arrs = [];
 
-        if(isset($val)) {
+        if (isset($val)) {
             // if(in_array( 1, $val)){
             //     $arr += ["Message"];
             // }
@@ -267,21 +263,19 @@ class User extends Authenticatable
             //     $arr += ["Text"];
             // }
             $i = 1;
-            foreach($val as $number)
-            {
+            foreach ($val as $number) {
                 $arrs[] += $i;
                 //echo "</br>i=".$i;
-                if ($number == 1){
+                if ($number == 1) {
                     $arr[] = "Message";
-
                 }
-                if ($number == 2){
+                if ($number == 2) {
                     $arr[] = "Text";
                 }
-                if ($number == 3){
+                if ($number == 3) {
                     $arr[] = "Email";
                 }
-                if ($number == 4){
+                if ($number == 4) {
                     $arr[] = "Call me";
                 }
                 $i++;
@@ -294,38 +288,35 @@ class User extends Authenticatable
     public function getContactTypeAttribute22(array $val)
     {
         $arr = [];
-        foreach($val as $number)
-        {
-        switch ($number) {
+        foreach ($val as $number) {
+            switch ($number) {
 
 
 
-            case (1):
-                $arr += "Message";
-                break;
+                case (1):
+                    $arr += "Message";
+                    break;
 
-            case (2):
+                case (2):
 
-                $arr += "Text";
-                break;
+                    $arr += "Text";
+                    break;
 
-            case (3):
-                $arr += "Email";
-                break;
+                case (3):
+                    $arr += "Email";
+                    break;
 
-            case (4):
-                $arr += "Call me";
-                break;
-
-
-        }
+                case (4):
+                    $arr += "Call me";
+                    break;
+            }
         }
 
 
 
 
         //dd($arr);
-         return $arr;
+        return $arr;
     }
     public function setMemberIdAttribute($value)
     {
@@ -340,31 +331,31 @@ class User extends Authenticatable
 
     public function generateMemberId()
     {
-        if($this->type == 1) {
-            return 'S'.config('escorts.profile.statesName')[$this->state->name].sprintf("%04d",$this->id);
+        if ($this->type == 1) {
+            return 'S' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
-        if($this->type == 2) {
-            return 'SU'.config('escorts.profile.statesName')[$this->state->name].sprintf("%04d",$this->id);
+        if ($this->type == 2) {
+            return 'SU' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
-        if($this->type == 0) {
-            return 'V'.config('escorts.profile.statesName')[$this->state->name].sprintf("%04d",$this->id);
+        if ($this->type == 0) {
+            return 'V' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
-        if($this->type == 3) {
-            return 'E'.config('escorts.profile.statesName')[$this->state->name].sprintf("%04d",$this->id);
+        if ($this->type == 3) {
+            return 'E' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
-        if($this->type == 5) {
-            return 'A'.config('escorts.profile.statesName')[$this->state->name].sprintf("%04d",$this->id);
+        if ($this->type == 5) {
+            return 'A' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id);
         }
-        if($this->type == 4) {
-            return 'M'.config('escorts.profile.statesName')[$this->state->name].sprintf("%04d",$this->id).':001';
+        if ($this->type == 4) {
+            return 'M' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id) . ':001';
         }
-        if($this->type == 9) {
-            return 'UP'.config('escorts.profile.statesName')[$this->state->name].sprintf("%04d",$this->id).':001';
+        if ($this->type == 9) {
+            return 'UP' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id) . ':001';
         }
-        if($this->type == 10) {
-            return 'DL'.config('escorts.profile.statesName')[$this->state->name].sprintf("%04d",$this->id).':001';
+        if ($this->type == 10) {
+            return 'DL' . config('escorts.profile.statesName')[$this->state->name] . sprintf("%04d", $this->id) . ':001';
         }
-        
+
         return null;
     }
 
@@ -402,7 +393,7 @@ class User extends Authenticatable
 
     public function escortViewerInteraction()
     {
-        return $this->hasOne(EscortViewerInteractions::class, 'viewer_id','id');
+        return $this->hasOne(EscortViewerInteractions::class, 'viewer_id', 'id');
     }
     // public function massageProfiles()
     // {
@@ -412,12 +403,17 @@ class User extends Authenticatable
 
     public function city()
     {
-        return $this->belongsTo('App\Models\City','city_id');
+        return $this->belongsTo('App\Models\City', 'city_id');
     }
 
     public function state()
     {
-        return $this->belongsTo('App\Models\State','state_id');
+        return $this->belongsTo('App\Models\State', 'state_id');
+    }
+
+    public function currentState()
+    {
+        return $this->belongsTo('App\Models\State', 'current_state_id');
     }
 
     public function pages()
@@ -431,7 +427,7 @@ class User extends Authenticatable
     }
     public function escortsAgents()
     {
-        return $this->belongsToMany('App\Models\User', 'agent_escorts', 'escort_id','agent_id')->where('type', 5)->where('enabled', 1);
+        return $this->belongsToMany('App\Models\User', 'agent_escorts', 'escort_id', 'agent_id')->where('type', 5)->where('enabled', 1);
     }
     public function myLegBox()
     {
@@ -443,23 +439,24 @@ class User extends Authenticatable
     }
     public function getEscortsAgentAttribute()
     {
-        if($agent = $this->escortsAgents) {
+        if ($agent = $this->escortsAgents) {
             return $agent->first();
         }
         return false;
     }
 
 
-  
-    
+
+
     public function my_agent()
     {
         return $this->belongsTo(User::class, 'assigned_agent_id', 'id');
     }
 
-    public function defaultPinupImage(){
+    public function defaultPinupImage()
+    {
         return $this->hasOne(EscortMedia::class)
-        ->where(['default'=>1,'position'=>10]);
+            ->where(['default' => 1, 'position' => 10]);
     }
 
     public function shortList()
@@ -468,20 +465,62 @@ class User extends Authenticatable
     }
 
 
-    public function getAvatarImgAttribute($value)
-    {
-        if($value!="")
-        return $value;
+    // public function getAvatarImgAttribute($value)
+    // {
+    //     if ($value != "")
+    //         return $value;
 
+    //     switch ($this->type) {
+    //         case 3: //for escort
+    //             return config('constants.escort_default_icon');
+    //         case 4: // fro massage center
+    //             return config('constants.massage_escort_default_icon');
+    //         case 5: //for agent
+    //             return config('constants.agent_default_icon');
+    //         case 0: // For Viewers
+    //             return config('constants.viewer_default_icon');
+    //         default:
+    //             return $value;
+    //     }
+    // }
+
+    /**
+     * Check if user has uploaded avatar (not default)
+     */
+    public function hasUploadedAvatar()
+    {
+        return !empty($this->attributes['avatar_img']);
+    }
+
+  
+
+    /**
+     * Get avatar URL (uploaded or default)
+     */
+    public function getAvatarUrlAttribute($value)
+    {
+        if ($this->hasUploadedAvatar()) {
+            return asset('avatars/' . $this->avatar_img);
+        }
+       
+        // Return default image based on user type
         switch ($this->type) {
-        case 3:
-            return config('constants.escort_default_icon');
-        case 4:
-            return config('constants.massage_escort_default_icon');
-        default:
-            return $value;
+            case 3: //for escort
+                return config('constants.escort_default_icon');
+            case 4: // fro massage center
+                return config('constants.massage_default_icon');
+            case 5: //for agent
+                return config('constants.agent_default_icon');
+            case 0: // For Viewers
+                return config('constants.viewer_default_icon');
+            default:
+                return $value;
         }
     }
-    
 
+
+    public function agent_detail()
+    {
+        return $this->belongsTo(AgentDetail::class,  'id', 'agent_id');
+    }
 }

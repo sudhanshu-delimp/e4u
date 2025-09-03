@@ -64,8 +64,8 @@
                             <th>Priority</th>
                             <th>Service Type</th>
                             <th>Subject</th>
-                            <th>Message</th>
                             <th>Date Created</th>
+                            <th>Document</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -104,9 +104,10 @@
                 <div class="reply-wrapper p-3 ">
                     <form id="sendMessage">
                        <div class="reply-message-box">
-                        <textarea class="messageBox" name="message" id="message" rows="2" required></textarea>
+                        <textarea class="messageBox" name="message" id="message" rows="4" required></textarea>
                        
-                        <button class="btn-success-modal py-3" id="submit_message">Send</button>
+                        <button class="btn-cancel-modal py-3" id="submit_message">Send</button>
+                         <input type="hidden" name="ticketId"  id="ticketId" value="">
                        </div>
                     </form>
                 </div>
@@ -146,16 +147,16 @@
                }
            },
            columns: [
-               { data: 'ref_number', name: 'ref_number', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
-               { data: 'service_type', name: 'service_type', searchable: false, orderable:true ,defaultContent: 'NA'},
-               { data: 'subject', name: 'start_date', searchable: true, orderable:true,defaultContent: 'NA' },
-               { data: 'message', name: 'enabled', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'created_on', name: 'date_created', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'status_mod', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
-               { data: 'action', name: 'edit', searchable: false, orderable:false, defaultContent: 'NA' },
-               { data: 'id', visible: false },
+            { data: 'ref_number', name: 'ref_number', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'department', name: 'department', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'priority', name: 'priority', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'service_type', name: 'service_type', searchable: false, orderable:true ,defaultContent: 'NA'},
+            { data: 'subject', name: 'start_date', searchable: true, orderable:true,defaultContent: 'NA' },
+            { data: 'created_on', name: 'created_on', searchable: false, orderable:true,defaultContent: 'NA' },
+            { data: 'file', name: 'file', orderable: true, defaultContent: 'No Documents' },
+            { data: 'status_mod', name: 'status_mod', orderable: true, defaultContent: 'NA' },
+            { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
+            { data: 'id', name: 'id', visible: false,searchable: false }
            ],
            order: [6, 'desc'],
        });
@@ -164,6 +165,7 @@
        $(document).on('click', ".view_ticket", function() {
            var rowData = table.row($(this).closest('tr')).data();
            var ticketId = rowData.id;
+            let resolved = "";
            $.ajax({
                method: "GET",
                url: "{{ route('support-ticket.conversations') }}" + '/' + ticketId,
@@ -171,6 +173,24 @@
                success: function (data) {
                     if(data.status_id == 3 || data.status_id == 4) {
                     $("#sendMessage").parent().hide();
+                    }
+                    else
+                    {
+                    $("#sendMessage").parent().show();
+                    }
+
+                    if(data.status=='Resolved' || data.status=='Withdrawn')
+                    {
+                        if(data.status=='Resolved')
+                        {
+                            message = 'This Ticket is now resolved';
+                        }
+                        else
+                        {
+                        message = 'This Ticket has been withdrawn'; 
+                        }
+
+                        resolved = `<div class="col-sm-12 text-center complete_ticket mt-3" style="font-weight: 700; font-size: 20px;color: green;"> ${message}</div>`
                     }
 
                    $("#ticket_name").html(data.subject);
@@ -205,6 +225,11 @@
                        }
                    });
                    $("#conv-main").html(html);
+                   $("#ticketId").val(ticketId);
+                    if(data.status=='Resolved' || data.status=='Withdrawn')
+                    {
+                    $('#conv-main').append(resolved);
+                    }
                }
            })
        });
@@ -217,7 +242,7 @@
             method: "POST",
             dataType: "json",
             data: {
-                ticketId: ticketId,
+                ticketId: $("#ticketId").val(),
                 message: message
             },
             url: "{{ route('support-ticket.saveMessage') }}",

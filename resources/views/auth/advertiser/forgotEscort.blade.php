@@ -67,7 +67,7 @@
                      
                  </div>
                  <div class="modal-footer" style="justify-content: center;">
-                     <a href="{{route('advertiser.login')}}" class="btn main_bg_color site_btn_primary">Click Hear To Login</button>
+                     <a href="{{route('advertiser.login')}}" class="btn main_bg_color site_btn_primary">Click Hear To Login</a>
                  </div>
              </div>
          </div>

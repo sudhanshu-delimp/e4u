@@ -1207,7 +1207,7 @@
             @endphp
             <b>When texting me please say:</b>
             <p class="profile_description_contect_pera">
-                <b><i>Hi {{ $escort->name }}, I found you on Escorts4u ...</i></b>
+                <b><i>Hi {{ $escort->name }}, I found you on Escorts4U ...</i></b>
                 @php
                     /* $contactTypes = $escort->user->viewer_contact_type ?? [];
                     $hasPhone = in_array(1, $contactTypes) || in_array(2, $contactTypes);
@@ -1230,7 +1230,7 @@
                 @endif
             </p>
             {{-- <p class="profile_description_contect_pera">
-                    "<b><i>Hi {{ $escort->name }}, I found you on Escorts4u ...</i></b>" 
+                    "<b><i>Hi {{ $escort->name }}, I found you on Escorts4U ...</i></b>" 
                     @if(!empty($escort->user->viewer_contact_type)) 
                     @if(in_array(1, $escort->user->viewer_contact_type) || in_array(2, $escort->user->viewer_contact_type)) @if(in_array(3,
                     $escort->user->viewer_contact_type)) on my number {{ preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $number)) }} or email {{ $escort->user->email ?? '' }} @else on my number {{

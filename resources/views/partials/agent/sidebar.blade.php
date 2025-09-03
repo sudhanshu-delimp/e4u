@@ -34,6 +34,7 @@
         </a>
         <div id="collapseTwo" class="collapse @if (request()->segment(2) == 'update-account' ||
                 request()->segment(2) == 'change-password' ||
+                request()->segment(2) == 'notifications-and-features' ||
                 request()->segment(2) == 'upload-avatar' ||
                 request()->segment(2) == 'bank_account') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -51,6 +52,13 @@
                     <span
                         style="{{ request()->segment(2) == 'change-password' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">Change
                         password</span>
+                </a>
+
+                <a class="collapse-item" href="{{ route('agent.notifications-and-features') }}">
+                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                        src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png') }}">
+                    <span
+                        style="{{ request()->segment(2) == 'notifications-and-features' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : '' }}">Notifications & Features</span>
                 </a>
                 <a class="collapse-item" href="{{ route('upload-avatar') }}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"

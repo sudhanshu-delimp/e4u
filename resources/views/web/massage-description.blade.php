@@ -1077,7 +1077,7 @@
                             <br>
                             <b>When texting me please say:</b>
                             <p class="profile_description_contect_pera">
-                                <b><i>Hi Alina, I found you on Escorts4u ...</i></b>
+                                <b><i>Hi Alina, I found you on Escorts4U ...</i></b>
 
                                 on my number 1438 028 743
                             </p>

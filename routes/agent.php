@@ -168,7 +168,14 @@ Route::get('view-planner',function(){
     return view('agent.dashboard.view-planner');
 })->name('agent.view-planner');
 
+
+Route::get('notifications-and-features',function(){
+    return view('agent.dashboard.notifications-and-features');
+})->name('agent.notifications-and-features');
+
 Route::get('agent-task-list',[AgentTaskController::class,'index'])->name('agent.task-list'); 
+
+
 
 # Agent tasks
 Route::get('/agent/task-fetch',[AgentTaskController::class,'fetchTask'])->name('agent.dashboard.ajax-fetch-task');
@@ -213,3 +220,9 @@ Route::get('profileByAgent-paymentUrl-status-FailureURL/{id}',[EscortPolyPayment
 Route::get('profileByAgent-paymentUrl-status-CancellationURL/{id}',[EscortPolyPaymentController::class,'CancellationURL_ByAgent'])->name('agent.poly.paymentUrl.status.CancellationURL');
 Route::get('profileByAgent-paymentUrl-status-NotificationURL/{id}',[EscortPolyPaymentController::class,'NotificationURL_ByAgent'])->name('agent.poly.paymentUrl.status.NotificationURL');
 Route::post('get-default-photos/{id}', [EscortGalleryController ::class, 'agentgetDefaultImages'])->name('agent.get.default.images');
+
+
+// Upload the avatar
+Route::get('upload-avatar', [AgentController::class, 'uploadAvatar'])->name('upload-avatar');
+Route::post('agent-save-avatar/{id}', [AgentController::class, 'agentSaveAvatar'])->name('agent.save.avatar');
+Route::post('remove-avatar',[AgentController::class, 'agentRemoveAvatar'])->name('agent.avatar.remove');

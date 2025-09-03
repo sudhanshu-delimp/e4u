@@ -42,14 +42,13 @@ function swal_error_popup(message) {
 
 function swal_waiting_popup(data) {
 
-    Swal.fire({
-        title: (data.title) ? data.title : 'Processing...',
-        text: (data.message) ? data.message : 'Please wait.',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        didOpen: () => {
-            Swal.showLoading();
-        }
+    let gif_img = `<img src="../../assets/img/wait_loader.gif" alt="loading..." style="width:80px; margin-top:10px;">`;
+    let my_html  = (data.title) ? '<p>'+data.title+'</p>'+gif_img  :  '<p>Processing your request...</p>'+gif_img;
+        Swal.fire({
+        title: 'Please wait...',
+        html: my_html,
+        showConfirmButton: false,
+        allowOutsideClick: false
     });
 }
 
@@ -88,3 +87,5 @@ function ajaxRequest({
         error: error
     });
 }
+
+
