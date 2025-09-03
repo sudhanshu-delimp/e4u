@@ -115,6 +115,42 @@
     </div>
 </div>
 
+    <!-- Change Status Popup Popup -->
+    <div class="modal fade upload-modal" id="statusConfirmModal" tabindex="-1" role="dialog" aria-labelledby="statusConfirmModallabel"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/complete-appointment.png') }}" alt="Change Status Popup" class="custompopicon"> Change Status</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0 agent-tour">
+                    <form method="post" id="task_form" action="#">
+                        <div class="row" id="task_form_button">
+                            <div class="col-md-12 mb-3">
+                                <h4 id="task_desc">Are you sure you want to change the status?</h4>                        
+            
+                                <div class="form-group">
+                                    <div class="d-flex align-items-center justify-content-end">
+                                                                    
+                                        <div>                                        
+                                            <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close" id="cancel_button">No</button>
+                                            <button type="submit" class="btn-success-modal" id="confirmYes" >Yes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>  
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{{-- end --}}
 @endsection
 @push('script')
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -317,6 +353,10 @@
         change_status(id, status);
     }
     });
+
+
+    
+
 
     function change_status(id, status_id) {
         $.ajax({

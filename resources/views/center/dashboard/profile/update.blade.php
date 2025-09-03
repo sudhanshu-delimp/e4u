@@ -88,7 +88,7 @@
                     <!-- Begin Page Content -->
                     <div class="row">
                         <div class="col-md-12 remove_padding_in_ph" id="tabs">
-                            <ul class="dk-tab nav gap_between_btns" id="myTab" role="tablist">
+                            <ul class="dk-tab nav gap_between_btns mb-3" id="myTab" role="tablist">
                                 <li class="nav-item m-0">
                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#aboutme" role="tab" aria-controls="home" aria-selected="true">About us</a>
                                 </li>
