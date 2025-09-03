@@ -124,6 +124,10 @@ Route::get('advertiser-reviews',function(){
     return view('admin.advertiser-reviews');
 })->name('admin.advertiser-reviews');
 
+Route::get('registrations-reports',function(){
+    return view('admin.registrations');
+})->name('admin.registrations-reports');
+
 
 Route::get('commission-statements',function(){
     return view('admin.management.operator.commission-statements');
