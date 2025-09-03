@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-12">
                    <div class="row">
                       <div class="col-lg-2">
                          <div class="form_process">
@@ -45,34 +45,34 @@
                             <p>About us</p>
                          </div>
                       </div>
-                      <div class="col-lg-2">
+                      <div class="col-lg-3">
                          <div class="form_process">
                             <div class="steps_to_filled_from">Step 2</div>
                             <p>Services &amp; Rates</p>
                          </div>
                       </div>
+                    
+                      <div class="col-lg-3">
+                        <div class="form_process">
+                           <div class="steps_to_filled_from">Step 3</div>
+                           <p>Open times</p>
+                        </div>
+                     </div>
                       
-                      
-                      <div class="col-lg-2">
+                      <div class="col-lg-3">
                          <div class="form_process">
-                            <div class="steps_to_filled_from">Step 3</div>
+                            <div class="steps_to_filled_from">Step 4</div>
                             <p>Massure</p>
                          </div>
                       </div>
-                      <div class="col-lg-2">
-                         <div class="form_process">
-                            <div class="steps_to_filled_from">Step 4</div>
-                            <p>Open times</p>
-                         </div>
-                      </div>
-                      <div class="col-lg-3">
+                      {{-- <div class="col-lg-3">
                          <div class="form_process">
                             <div class="steps_to_filled_from">Step 5</div>
                             <p>Check fee summary and pay</p>
                          </div>
-                      </div>
+                      </div> --}}
                       <div class="col-lg-1">
-                        <p id="percent" style="font-size: 48px;font-weight: 700;">20%</p>
+                        <p id="percent" style="font-size: 48px;font-weight: 700;">25%</p>
                       </div>
                    </div>
                    <div class="manage_process_bar_padding">
@@ -84,7 +84,7 @@
                 </div>
              </div>
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-lg-12">
                     <!-- Begin Page Content -->
                     <div class="row">
                         <div class="col-md-12 remove_padding_in_ph" id="tabs">
@@ -96,14 +96,14 @@
                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#services" role="tab" aria-controls="profile" aria-selected="false">Services &amp; Rates</a>
                                 </li>
                                 <li class="nav-item m-0">
+                                   <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available" role="tab" aria-controls="contact" aria-selected="false">Open Times</a>
+                                </li>
+                                <li class="nav-item m-0">
                                    <a class="nav-link" id="massuers-tab" data-toggle="tab" href="#massuers" role="tab" aria-controls="massuers" aria-selected="false">Massuers</a>
                                 </li>
-                                <li class="nav-item m-0">
-                                   <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available" role="tab" aria-controls="contact" aria-selected="false">Open times</a>
-                                </li>
-                                <li class="nav-item m-0">
+                                {{-- <li class="nav-item m-0">
                                    <a class="nav-link" id="pricing-tab" data-toggle="tab" href="#pricing" role="tab" aria-controls="contact" aria-selected="false">Check fee summary and pay</a>
-                                </li>
+                                </li> --}}
                                 
                                 
                             </ul>
@@ -126,46 +126,32 @@
         </div>
     </div>
 </div>
-<!-- End of Content Wrapper -->
-{{-- <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header">
-        <!--<img src="..." class="rounded mr-2" alt="...">-->
-        <strong class="mr-auto">Bootstrap</strong>
-        <small>11 mins ago</small>
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="toast-body">Hello, world! This is a toast message.</div>
-</div> --}}
-<!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
-
-    <div class="modal programmatic" id="change_all" style="display: none">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    {{-- <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5> --}}
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                    </span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="current" name="current">
-                    <input type="hidden" id="previous" name="previous">
-                    <input type="hidden" id="label" name="label">
-                    <input type="hidden" id="trigger-element">
-                    <h3 class="mb-4 mt-5"><span id="Lname"></span> </h3>
-                    <h3 class="mb-4 mt-5"><span id="log"></span> </h3>
-                    <div class="modal-footer">
-                        <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal" value="close" id="close_change">Close</button>
-                        <button type="button" class="btn main_bg_color site_btn_primary" id="save_change">save</button>
-                    </div>
+<div class="modal programmatic" id="change_all" style="display: none">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color border-0">
+                {{-- <h5 class="modal-title" id="exampleModalLabel" style="color:white">Logout</h5> --}}
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">
+                    <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                </span>
+                </button>
+            </div>
+            <div class="modal-body">    
+                <input type="hidden" id="current" name="current">
+                <input type="hidden" id="previous" name="previous">
+                <input type="hidden" id="label" name="label">
+                <input type="hidden" id="trigger-element">
+                <h3 class="mb-4 mt-5"><span id="Lname"></span> </h3>
+                <h3 class="mb-4 mt-5"><span id="log"></span> </h3>
+                <div class="modal-footer">
+                    <button type="button" class="btn main_bg_color site_btn_primary" data-dismiss="modal" value="close" id="close_change">Close</button>
+                    <button type="button" class="btn main_bg_color site_btn_primary" id="save_change">save</button>
                 </div>
             </div>
         </div>
     </div>
+</div>
     @if (Session::has('message'))
         <div class="alert alert-info">{{ Session::get('message') }}</div>
     @endif
@@ -652,7 +638,7 @@ $(document).ready(function() {
     //$(this).is(':checked') ? $('#show_playType').show() : $('#'+val).hide();
     if($(this).is(':checked'))
     {
-        $("#show_playType").append("<div class='selecated_languages playT' style='display: inline-block' id='"+val+"'><span class='languages_choosed_from_drop_down'>"+ name +" </span> </div> ")
+        $("#show_playType").append("<div class='selecated_languages playT' style='display: inline-block' id='"+val+"'><span class='languages_choosed_from_drop_down'>"+ name +" <small class="remove-lang">×</small></span> </div> ")
     } 
     else 
     {
