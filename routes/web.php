@@ -743,3 +743,5 @@ Route::post('/notification-seen', [NotificationController::class, 'makeNotificat
 
 Route::get('/send-password-expire', [DemoController::class, 'sendPasswordExpire']);
 
+Route::post('/save-user-loggged-details', [WebController::class, 'userLoggedDetailStore'])->name('user.log-details');
+

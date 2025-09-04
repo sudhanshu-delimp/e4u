@@ -90,6 +90,7 @@ Route::get('/data-table-escort-single-listing/{id?}', [GlobalMonitoringControlle
 # Logged in users monitoring routes
 Route::get('logged-in-users', [GlobalMonitoringLoggedInController::class, "index"])->name('admin.logged-in-users');
 Route::get('get-logged-in-users-by-ajax', [GlobalMonitoringLoggedInController::class, "getLoggedInUserDataTableListingAjax"])->name('admin.get-logged-in-users-by-ajax');
+Route::get('get-logged-in-single-user-deatils-ajax/{id}', [GlobalMonitoringLoggedInController::class, "getLoggedInSingleUserDetailsAjax"])->name('admin.get-logged-in-single-user-detail-with-ajax');
 
 
 // Route::get('logged-in-users', function(){

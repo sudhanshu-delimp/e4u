@@ -19,6 +19,7 @@ use App\Models\EscortLike;
 use App\Models\MassageLike;
 use App\Models\EscortBrb;
 use App\Models\EscortViewerInteractions;
+use App\Models\LoginAttempt;
 use App\Models\ReportEscortProfile;
 use App\Models\Reviews;
 use App\Models\State;
@@ -1382,6 +1383,37 @@ class WebController extends Controller
         })->first();
 
         return $result;
+    }
+
+    public function userLoggedDetailStore(Request $request)
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+             $data = [
+                'user_id' => $user->id,
+                'email' => $user->email,
+                'ip_address' => $request->ip(),
+                'device' => $request->browser,
+                'country' => null,
+                'city' => null,
+                'type' => 1,
+                'online' => 'yes',
+                'page' => $request->lastVisitedPage,
+            ];
+
+            $loginAttempt = LoginAttempt::where('user_id', $user->id); 
+
+            if($loginAttempt->first() != null){
+                $loginAttempt->update($data);
+            }else{
+                LoginAttempt::Create($data);
+            }
+            LoginAttempt::Create($data);
+        }else{
+            return response()->json(['status' => 'User logged not yet.'], 401);
+        }
+
+        return response()->json(['status' => 'Login Successfully.']);
     }
 
 

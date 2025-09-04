@@ -70,7 +70,7 @@ display: contents;
 
                             </th>
                             <th scope="col">
-                                Ip Adrress
+                                IP Adrress
                             </th>
                             <th scope="col">
                                 Platform
@@ -94,6 +94,54 @@ display: contents;
                 <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
                 <nav aria-label="Page navigation example" class="customPagination">
                 </nav>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="my-account-card" style="display: none;">
+            <div class="card-head">                  
+                   
+                <h2>My Account details </h2>
+                    <button class="print-btn" onclick="window.print()">🖨️ Print Report</button>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <label>Member ID</label>
+                        <span class="account_member_id">M60178</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Member</label>
+                        <span class="account_member_name">Lins Massage</span>
+                    </div>
+                    <div class="info-item">
+                        <label>IP Address</label>
+                        <span class="account_ip_address">123.176.113.164</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Platform</label>
+                        <span class="account_platform">Firefox</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Page</label>
+                        <span class="account_visit_page">/escort-dashboard</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Listed Profiles (Escort)</label>
+                        <span class="account_listed_profile_count">08</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Published Masseurs (Massage Centre)</label>
+                        <span class="account_masseurs_count">02</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Listed Advertisers (For Agent)</label>
+                        <span class="account_list_adervtiser_count">01</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Legboxes (Viewer)</label>
+                        <span class="account_legbox_count">04</span>
+                    </div>
+                </div>
             </div>
         </div>
        
@@ -175,15 +223,8 @@ display: contents;
                 url: "{{ route('admin.get-logged-in-users-by-ajax') }}",
                 type: "GET",
                 dataSrc: function(json) {
-                    console.log('json.data');
-                    console.log(json.data);
-                    //$(".customePaginationShow").html($("#listings_info").html()+$("#listings_paginate").html());
-                    // buildCustomPagination(json.recordsTotal);
                     var totalRows = json.recordsTotal || json.recordsFiltered; 
                     $(".totalListing").text(totalRows);
-                    console.log(json, json.per_page, json.current_page);
-                    //buildCustomPagination(json.recordsTotal, 3, 1);
-                    // buildCustomPagination(json.recordsTotal, json.per_page, json.current_page);
                     return json.data;
                 }
             },
@@ -219,13 +260,53 @@ display: contents;
                 url: '{{route("escort.current.single-list.dataTableListing")}}/' + escortId, // replace with your actual route
                 method: 'GET',
                 success: function(response) {
-                    console.log('response');
-                    console.log(response);
 
                     $("#escortPopupModalBodyIframe").attr('src', response.profileurl)
                 },
                 error: function(xhr) {
-                    console.error('Failed to fetch data');
+                    $('#view-listing .modal-body').html('<p class="text-danger">Error loading data...</p>');
+                }
+            });
+        });
+
+        $(document).on('click', '.viewLoggedUserDetails', function(e) {
+            e.preventDefault(); // prevent default link behavior
+
+            const userId = $(this).attr('data-user-id');
+            console.log('View Logged User Details clicked ', userId);
+
+            $.ajax({
+                url: '{{route("admin.get-logged-in-single-user-detail-with-ajax","_id")}}'.replace('_id', userId) , // replace with your actual route
+                method: 'GET',
+                success: function(response) {
+                    console.log('Response from server: ', response);
+                    $(".my-account-card").slideDown();
+                    
+                    console.log('Response from server jiten : ', response.userDetails);
+ 
+                    if(response.status == 'success'){
+                        var userDetails = response.userDetails;
+                        var loginAttempts = userDetails.login_attempts;
+                        var playmates = userDetails.playmates;
+                        var escorts = userDetails.escorts;
+                        var myLegBox = userDetails.my_leg_box;
+                        var massageCenterLegBox = userDetails.massage_center_leg_box;
+                        var masseursProfile = userDetails.massage_center_leg_box;
+
+                        console.log('Response from loginAttempts : ', loginAttempts);
+
+                        $(".account_member_id").text(userDetails.member_id);
+                        $(".account_member_name").text(userDetails.name);
+                        $(".account_ip_address").text(loginAttempts.ip_address);
+                        $(".account_platform").text(loginAttempts.device);
+                        $(".account_visit_page").text(loginAttempts.page);
+                        $(".account_listed_profile_count").text(escorts.length);
+                        $(".account_masseurs_count").text(massageCenterLegBox.length);
+                        $(".account_list_adervtiser_count").text(escorts.length);
+                        $(".account_legbox_count").text(myLegBox.length);
+                    }
+                },
+                error: function(xhr) {
                     $('#view-listing .modal-body').html('<p class="text-danger">Error loading data...</p>');
                 }
             });
