@@ -247,8 +247,8 @@
  
     
 
-   function _load_conversations(tId) {
-
+   function _load_conversations(tId) 
+   {
       let resolved = "";
        $("#conv-main").html('');
        
@@ -393,8 +393,6 @@
         });
         // $("#sendMessage").reset();
     });
-
-
 
 </script>
 @endpush

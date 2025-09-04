@@ -82,118 +82,181 @@ class EscortGalleryController extends AppController
     }
     public function uploadGallery(StoreGalleryMediaRequest $request)
     {
-        try {
-            $userId = auth()->user()->id;
-        $response['status'] = '';
-        $prefix = 'images/';
-        $type = 0;
-        $file_path = $prefix.$userId;
-        if($request->hasFile('img')){
-            if ($request->hasFile('img')) {
-                foreach($request->file('img') as $key => $image){
-                    $encryptedFileName = $this->_generateUniqueFilename($image->getClientOriginalName());
-                    $destination_path = $file_path.'/gallery_'.$encryptedFileName;
-                    Storage::disk('escorts')->put($destination_path, file_get_contents($image));
-                    if(!$media = $this->media->findByPath('escorts/'.$destination_path)) {
-                    $data = [
-                    'user_id' => $userId,
-                    'type' => $type,
-                    'path' => 'escorts/'.$destination_path,
-                    ];
-                    $response['status'] = 200;
-                    $media = $this->media->store($data);
+        $userId = auth()->user()->id;
+        $my_data['status'] = '';
+        if($request->hasFile('img'))
+        {
+            $names = [];
+            $media_arr = [];
+            $total_Img_count = $this->media->get_user_row(auth()->user()->id, [])->count();
+            $noOfUploadsAllowed = 30 - $total_Img_count;
+            $i = 1;
+            foreach($request->file('img') as $key => $image)
+            {
+                $mime = $image->getMimeType();
+                if(strstr($mime, "video/")){
+                    $prefix = 'videos/';
+                    $type = 1;  //0=>image; 1=>video
+                } else {
+                    $prefix = 'images/';
+                    $type = 0;
+                }
+                list($width, $height) = getimagesize($image);
+                $encryptedFileName = $this->_generateUniqueFilename($image->getClientOriginalName());
+                $file_path = $prefix.$userId.'/'.$encryptedFileName;
+
+                if(in_array($key, $request->selected_files)) {
+                   
+                    if($key == 8 || $noOfUploadsAllowed > 0) {
+                        Storage::disk('escorts')->put($file_path, file_get_contents($image));
+                        if(!$media = $this->media->findByPath('escorts/'.$file_path)) {
+                            $data = [
+                                'user_id' => $userId,
+                                'type' => $type,
+                                //'position' => $position,
+                                'path' => 'escorts/'.$file_path,
+                            ];
+                            if($key == 8) {
+                                $data['position'] = $key;
+                                $data['default'] = 1;
+                            }
+
+                            //We are not counting verification image
+                            $my_data['status'] = 200;
+                            if($key == 8) {
+                                //We are not counting verification image as total file upload
+                                $mediaRecordId = null;
+                                if($verificationMedia = EscortMedia::where('position', '=', 8)->where('user_id', '=', auth()->user()->id)->first()) {
+                                    @unlink(Storage::disk('escorts')->path("../".$verificationMedia->path));
+                                    //EscortMedia::destroy($verificationMedia->id);
+                                    $mediaRecordId = $verificationMedia->id;
+                                }
+                                $media = $this->media->store($data, $mediaRecordId);
+                            } else {
+                                $media = $this->media->store($data);
+                                $noOfUploadsAllowed--;
+                            }
+
+                        } else {
+
+                            if($key == 8) {
+
+                                $this->media->nullPosition($userId,$key);
+                                $media->position = $key;
+                                $media->default = 1;
+                                $media->save();
+                            }
+                            $my_data['status'] = 200;
+                            
+                        }
+                    } else {
+                        $my_data['status'] = 405; // Can't upload more then 30 Images
+                        $my_data['count'] = $noOfUploadsAllowed;
+                    }
+                } else {
+                    $manager = new ImageManager(new GdDriver());
+                    $extension = strtolower($image->getClientOriginalExtension());
+                    $orgImage = $manager->read($image->getPathname());
+                    if($key == 9) {
+                        if($noOfUploadsAllowed > 0) {
+                            $resizeImage = $orgImage->scaleDown(width: 1920, height: 469);
+                            $encoded = match ($extension) {
+                                'jpg', 'jpeg' => $resizeImage->toJpeg(quality: 90),
+                                'png'         => $resizeImage->toPng(),
+                                default       => throw new \Exception('Unsupported image format')
+                            };
+                            Storage::disk('escorts')->put($file_path, (string) $encoded);
+                            if(!$media = $this->media->findByPath('escorts/'.$file_path)) {
+
+                                $mediaRecordId = null;
+                                if($bannerImages = EscortMedia::where('position', '=', 9)->where('user_id', '=', auth()->user()->id)->get()) {
+                                    foreach ($bannerImages as $bannerImage) {
+                                        $bannerImage->default = 0;
+                                        $bannerImage->save();
+                                    }
+                                }
+
+                                $data = [
+                                    'user_id' => $userId,
+                                    'type' => $type,
+                                    'position' => $key,
+                                    'path' => 'escorts/'.$file_path
+                                ];
+
+                                $media = $this->media->store($data);
+                                $my_data['status'] = 200;
+                                $noOfUploadsAllowed--;
+
+                            } else {
+
+                                $this->media->nullPosition($userId,$key);
+                                $media->position = $key;
+                                $media->save();
+                                $my_data['status'] = 200;
+                            }
+
+                        } else {
+                            $my_data['status'] = 400;
+                        }
+                    }
+                    else if($key == 10) {
+                        if($noOfUploadsAllowed > 0) {
+                            $resizeImage = $orgImage->scaleDown(width: 855, height: 627);
+                            $encoded = match ($extension) {
+                                'jpg', 'jpeg' => $resizeImage->toJpeg(quality: 90),
+                                'png'         => $resizeImage->toPng(),
+                                default       => throw new \Exception('Unsupported image format')
+                            };
+                            Storage::disk('escorts')->put($file_path, (string) $encoded);
+                            if(!$media = $this->media->findByPath('escorts/'.$file_path)) {
+
+                                $mediaRecordId = null;
+                                if($bannerImages = EscortMedia::where('position', '=', 10)->where('user_id', '=', auth()->user()->id)->get()) {
+                                    foreach ($bannerImages as $bannerImage) {
+                                        $bannerImage->default = 0;
+                                        $bannerImage->save();
+                                    }
+                                }
+
+                                $data = [
+                                    'user_id' => $userId,
+                                    'type' => $type,
+                                    'position' => $key,
+                                    'path' => 'escorts/'.$file_path,
+                                ];
+
+                                $media = $this->media->store($data);
+                                $my_data['status'] = 200;
+                                $noOfUploadsAllowed--;
+
+                            } else {
+
+                                $this->media->nullPosition($userId,$key);
+                                $media->position = $key;
+                                $media->save();
+                                $my_data['status'] = 200;
+                            }
+
+                        } else {
+                            $my_data['status'] = 400;
+                        }
                     }
                     else {
-                        $response['status'] = 200;
+                        $my_data['status'] = 405; // Can't upload more then 30 Images
+                        $my_data['count'] = $noOfUploadsAllowed;
                     }
+
                 }
+
+                $i++;
+
             }
         }
-        if($request->hasFile('banner')){
-            $key = 9;
-            $image = $request->file('banner');
-            $encryptedFileName = $this->_generateUniqueFilename($image->getClientOriginalName());
-            $destination_path = $file_path.'/banner_'.$encryptedFileName;
-            $manager = new ImageManager(new GdDriver());
-            $extension = strtolower($image->getClientOriginalExtension());
-            $orgImage = $manager->read($image->getPathname());
-            $resizeImage = $orgImage->scaleDown(width: 1920, height: 469);
-            $encoded = match ($extension) {
-                'jpg', 'jpeg' => $resizeImage->toJpeg(quality: 90),
-                'png'         => $resizeImage->toPng(),
-                default       => throw new \Exception('Unsupported image format')
-            };
-            Storage::disk('escorts')->put($destination_path, (string) $encoded);
-            if(!$media = $this->media->findByPath('escorts/'.$destination_path)) {
-                $mediaRecordId = null;
-                if($bannerImages = EscortMedia::where('position', '=', 9)->where('user_id', '=', auth()->user()->id)->get()) {
-                    foreach ($bannerImages as $bannerImage) {
-                        $bannerImage->default = 0;
-                        $bannerImage->save();
-                    }
-                }
-                $data = [
-                'user_id' => $userId,
-                'type' => $type,
-                'position' => $key,
-                'path' => 'escorts/'.$destination_path
-                ];
-                $media = $this->media->store($data);
-                $response['status'] = 200;
-            } else {
-                $this->media->nullPosition($userId,$key);
-                $media->position = $key;
-                $media->save();
-                $response['status'] = 200;
-            }
-        }
-        if($request->hasFile('pinup'))
-        {
-            $key = 10;
-            $image = $request->file('pinup');
-            $encryptedFileName = $this->_generateUniqueFilename($image->getClientOriginalName());
-            $extension = strtolower($image->getClientOriginalExtension());
-            $destination_path = $file_path.'/pinup_'.$encryptedFileName;
-            $manager = new ImageManager(new GdDriver());
-            $orgImage = $manager->read($image->getPathname());
-            $resizeImage = $orgImage->scaleDown(width: 855, height: 627);
-            $encoded = match ($extension) {
-                'jpg', 'jpeg' => $resizeImage->toJpeg(quality: 90),
-                'png'         => $resizeImage->toPng(),
-                default       => throw new \Exception('Unsupported image format')
-            };
-            Storage::disk('escorts')->put($destination_path, (string) $encoded);
-            if(!$media = $this->media->findByPath('escorts/'.$destination_path)) {
-                $mediaRecordId = null;
-                if($pinupImages = EscortMedia::where('position', '=', 10)->where('user_id', '=', auth()->user()->id)->get()) {
-                    foreach ($pinupImages as $pinupImage) {
-                        $pinupImage->default = 0;
-                        $pinupImage->save();
-                    }
-                }
-                $data = [
-                'user_id' => $userId,
-                'type' => $type,
-                'position' => $key,
-                'path' => 'escorts/'.$destination_path
-                ];
-                $media = $this->media->store($data);
-                $response['status'] = 200;
-            } else {
-                $this->media->nullPosition($userId,$key);
-                $media->position = $key;
-                $media->save();
-                $response['status'] = 200;
-            }
-        }
-        } catch (Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Something went wrong.',
-                'error' => $e->getMessage(),
-            ], 500);
-        }
-        return response()->json($response);
+        $my_data['url'] = route('escort.archive-view-photos');
+        $my_data['selected_file'] = json_encode($request->selected_file);
+
+
+        return response()->json(compact('my_data'));
     }
     public function uploadVideosGaller(Request $request)
     {

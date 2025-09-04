@@ -231,7 +231,7 @@
         var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
                            <div class="modal-content">
                               <div class="modal-header">
-                                 <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/create-notification.png')}}" style="width:40px; margin-right:10px;" alt="Request Accepted"> Follow-up Notification</h5>
+                                 <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/create-notification.png')}}" class="custompopicon" alt="Request Accepted"> Follow-up Notification</h5>
                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                  <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                                  </button>
@@ -239,8 +239,7 @@
                               <div class="modal-body pb-0">
                                     <div class="row">
                                        <div class="col-12 my-2 text-center">
-                                             <p>Notification Send successfully</p>
-                                                
+                                             <h4 id="task_desc">Notification Send successfully</h4>           
                                        </div>
                                     </div>
                               </div>

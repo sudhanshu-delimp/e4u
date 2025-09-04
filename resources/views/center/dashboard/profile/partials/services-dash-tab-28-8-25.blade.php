@@ -9,7 +9,7 @@
     </div>
     <div class="about_me_drop_down_info profile-sec p-4">
         <div class="fill_profile_headings_global">
-            <h2>Our Service (Tags)</h2>
+            <h2>Our services (tags)</h2>
         </div>
         <div class="padding_20_all_side">
            
@@ -104,11 +104,11 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="row">
+                            <div class="row">
                                 <div class="col-md-12 text-right">
                                     <button id="my_services" type="button" class="save_profile_btn">Update</button>
                                 </div>
-                            </div> --}}
+                            </div>
                         {{-- </form> --}}
                     
             {{-- <form id="myServices" action="{{ route('center.store.services',[$escort->id]) }}" method="POST">
@@ -295,28 +295,25 @@
                 </div>
             </form> --}}
             <div class="row">
-                <div class="col-lg-8 col-md-12 col-sm-12 full-width-for-ipad-select horizontal-scroll-rates pt-5">
+                <div class="col-lg-8 col-md-12 col-sm-12 full-width-for-ipad-select horizontal-scroll-rates">
                     <div class="rate_first_row row">
                         <div class="col-3">
                         </div>
-                        <div class="col-3 rate-img-center rate-tooltip">
-                            <img src="{{asset('assets/dashboard/img/massage-only.png')}}" class="w-50">
-                            <span class="tooltip-info">Massage only</span>
+                        <div class="col-3 rate-img-center">
+                            <img src="{{asset('assets/img/hand-icon.png')}}">
                         </div>
-                        <div class="col-3 rate-img-center rate-tooltip">
-                            <img src="{{asset('assets/dashboard/img/massage-with2.png')}}" class="w-50">
-                            <span class="tooltip-info">Massage with Extras, 2 hands.</span>
+                        <div class="col-3 rate-img-center">
+                            <img src="{{asset('assets/img/advertiser-copy.png')}}">
                         </div>
-                        <div class="col-3 rate-img-center rate-tooltip">
-                            <img src="{{asset('assets/dashboard/img/massage-with4.png')}}" class="w-50">
-                            <span class="tooltip-info">Massage with Extras, 2 hands.</span>
+                        <div class="col-3 rate-img-center">
+                            <img src="{{asset('assets/img/masseurs%202-plus.png')}}">
                         </div>
                     </div>
-                    @foreach($durations->whereIn('id',[2,3,4,5,6]) as $duration)
+                    @foreach($durations->whereIn('id',[2,3,4]) as $duration)
                     <div class="rate_first_row">
                         <input type="hidden" name="duration_id[]" value="{{ $duration->id}}">
                         <div class="form-group row">
-                            <label class="col-3" for="exampleFormControlSelect1">{{ $duration->name == "1 Hour" ? '1 Hour' :  $duration->name}}:</label>
+                            <label class="col-3" for="exampleFormControlSelect1">{{ $duration->name == "1 Hour" ? '60 Minutes' :  $duration->name}}:</label>
                             <div class="col-3">
                                 <div class="service_rate_dolor_symbol form-group">
                                     <span>$</span>
@@ -340,26 +337,25 @@
                     @endforeach
                 </div>
             </div>
-            
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button id="store_rate" type="button" class="save_profile_btn">Update</button>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="tab_btm_btns_preview_and_next py-3">
+    <div class="tab_btm_btns_preview_and_next">
         <div class="row pt-3 pb-3">
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 a_text_white_hover previous_bt_center_in_sm">
-                <a class="nex_sterp_btn btn_width_hundred" id="home-tab" data-toggle="tab" href="#aboutme" role="tab" aria-controls="home" aria-selected="true">
+                <a class="nex_sterp_btn btn_width_hundred"id="home-tab" data-toggle="tab" href="#aboutme" role="tab" aria-controls="home" aria-selected="true">
                 <i class="fas fa-arrow-left"></i>Previous Step</a>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right a_text_white_hover previous_bt_center_in_sm">
-                <a class="nex_sterp_btn" id="contact-tab" data-toggle="tab" href="#available" role="tab" aria-controls="contact" aria-selected="false">
-                    Next Step <i class="fas fa-arrow-right"></i>
+                <a href="#" class="save_profile_btn">Preview</a>
+                <a href="#available" class="nex_sterp_btn" id="contact-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">Next Step
+                <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
         </div>
     </div>
 </div>
-<style>
-.rate-tooltip .tooltip-info {
-    top: -28px !important;
-    left: 70% !important;
-}
-</style>

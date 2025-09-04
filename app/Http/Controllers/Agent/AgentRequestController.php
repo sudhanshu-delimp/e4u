@@ -112,6 +112,7 @@ class AgentRequestController extends Controller
                 });
             }
             $lists = $query->orderBy('id', 'desc')->paginate(3);
+            
             ///dd(json_decode(json_encode($lists),true));
             if ($request->ajax()) {
                 return view('agent.dashboard.Advertisers.agent-requests-list', compact('lists'))->render();
