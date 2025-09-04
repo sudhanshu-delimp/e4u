@@ -31,6 +31,9 @@ table td,th{
 .table-report-info tr td{
     border: 0;
 }
+.table-report-info th{
+    border-top: 0px solid #dee2e6 !important;
+}
 
 .popu_heading_style {
     font-family: Poppins;
@@ -453,8 +456,6 @@ $(document).ready(function() {
                 'status':reportData.status,
             },
             success: function(response) {
-                console.log('response');
-                console.log(response);
                 if(response.error == false){
                     if(response.member_status == 'resolved'){
                         $(".success-modal-title").text('Resolved');
@@ -466,7 +467,6 @@ $(document).ready(function() {
                     }
 
                     $('#AdvertiserReportTable').DataTable().ajax.reload(null, false);
-                    console.log($("#success_popup").html());
                     // $("#success_popup").modal('show');
                     var myModal = new bootstrap.Modal(document.getElementById('success_popup'));
                     myModal.show();

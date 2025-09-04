@@ -32,11 +32,7 @@
     .newbtn{
     cursor: pointer;
     }
-    .grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    gap: 10px;
-    }
+
     .grid-container > div {
     background-color: rgba(255, 255, 255, 0.8);
     }
@@ -102,15 +98,35 @@
    .upld-img {
       height: 82px !important;
       }
+      
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr); /* default 5 columns */
+      gap: 10px;
+      }
+
+
+      @media (min-width:600px) and (max-width: 1024px) {
+      .grid-container {
+         grid-template-columns: repeat(3, 1fr);
+      }
+      }
+
+
+      @media (max-width: 600px) {
+      .grid-container {
+         grid-template-columns: repeat(2, 1fr);
+      }
+      }
 </style>
 <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
       <div class="col-lg-12">
-         <div class="member-id pl-0 pb-2 pt-3">
+         <div class="member-id pl-0 pl-0 pb-2 pt-3">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="#C2CFE0"></path>
+                <path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="#C2CFE0"></path>
             </svg>
-            <span>Member ID: {{auth()->user()->member_id}} </span>
-         </div>
+            <span>Member ID: M60218:001</span>
+        </div>
       </div>
       {{-- <div class="about_me_drop_down_info profile-sec">
          <div class="row tab-input- pl-2 pt-4">            
@@ -143,144 +159,56 @@
       </div> --}}
       {{-- Our Business --}}
       <div class="about_me_drop_down_info profile-sec p-4">
-         <div class="fill_profile_headings_global">
-            <h2 class="m-0">Our Business</h2>
+         <div class="fill_profile_headings_global">          
+            <h2>Our Business</h2>
          </div>
-         <div class="row">
-            <div class="col-md-6">
-               <div class="col-lg-12">
-                  <div class="row">
-                     <div class="col-lg-12 my-4">
-                        <div class="form-group row tab-about-me-row-padding">
-                           <label class="col-sm-5 font-weight-500" for="profile_name">
-                           Profile Name:</label>
-                           <div class="col-sm-7">
-                              <input type="text" name="profile_name" class="form-control form-control-sm select_tag_remove_box_sadow" id="profile_name" required data-parsley-required-message="Enter profile name" data-parsley-group="goup_one">
-                           </div>
-                        </div>
-
-                        <div class="form-group row tab-about-me-row-padding">
-                           <label class="col-sm-5 font-weight-500" for="business_name">
-                           Business Name:</label>
-                           <div class="col-sm-7">
-                              <input type="text" name="business_name" class="form-control form-control-sm select_tag_remove_box_sadow" id="business_name" required data-parsley-required-message="Enter business name" data-parsley-group="goup_one">
-                           </div>
-                        </div>
-                        <div class="form-group row tab-about-me-row-padding">
-                           <label class="col-sm-5 font-weight-500" for="address">
-                          Address:</label>
-                           <div class="col-sm-7">
-                              <input type="text" name="address" class="form-control form-control-sm select_tag_remove_box_sadow" id="address" required data-parsley-required-message="Enter address" data-parsley-group="goup_one">
-                           </div>
-                        </div>
-                        <div class="form-group row tab-about-me-row-padding">
-                           <label class="col-sm-5 font-weight-500" for="business_no">
-                           Business No:</label>
-                           <div class="col-sm-7">
-                              <input type="text" name="business_no" class="form-control form-control-sm select_tag_remove_box_sadow" id="business_no" required data-parsley-required-message="Enter business number" data-parsley-group="goup_one">
-                           </div>
-                        </div>
-                        <div class="form-group row tab-about-me-row-padding">
-                           <label class="col-sm-5 font-weight-500" for="mobile_no">
-                           Mobile No:</label>
-                           <div class="col-sm-7">
-                              <input type="text" name="mobile_no" class="form-control form-control-sm select_tag_remove_box_sadow" id="mobile_no" required data-parsley-required-message="Enter mobile number" data-parsley-group="goup_one">
-                           </div>
-                        </div>
-                        {{-- <div class="about-me-box-one-name stage_name pt-3" style={{ $escort->name ? '' : "color:#9A9B9C;" }} >
-                            {{$escort->name ? $escort->name  : 'Stage Name'}}
-                           
-                        </div>
-                        
-                        <div class="about-me-box-one-name show_input_box mt-3"  style="display: none">
-                          
-                                <input type="text" name="name" class="form-control form-control-sm select_tag_remove_box_sadow" placeholder="Enter Your Stage Name" value="{{$escort->name ? $escort->name : '' }}">
-                       
-                        </div> --}}
-                        {{-- <span id="stageName-errors"></span> 
-                        <div class="about-me-box-one-number mobile_num" style={{ $escort->city ? '' : "color:#C4C4C4;" }}>
-                            {{ $escort->city ? $escort->city->name : "Location -"}}{{$escort->phone ? ' - '.$escort->phone : auth()->user()->phone}}
-                        
-                        </div> --}}
-                        {{-- <div class="about-me-box-one-number show_input_box" style="display: none">
-                            <select class="form-control form-control-sm select_tag_remove_box_sadow" id="state_id" name="state_id" required="" data-parsley-required-message="-select location-" data-parsley-group="goup_one" data-parsley-errors-container="#locationState-errors">
-                              
-                                <option value="" selected="">-- Select States--</option>
-                               
-                                @foreach(config('escorts.profile.states') as $key => $state)
-                                <option style="font-weight: 500;" value="{{$key}}"
-                                @if($escort->state_id != null)
-                                    {{ $escort->state_id != null && $escort->state_id == $key ? 'selected' : '' }} 
-                                @else 
-                                    {{ auth()->user()->state_id == $key ? 'selected' : '' }} 
-                                @endif
-                                 > {{$state['stateName']}} </option>
-                                @endforeach
-                                
-                            </select>
-                        </div>
-                        <span id="locationState-errors"></span>
-                        <div class="about-me-box-one-number show_input_box" style="display: none">
-                            <select class="form-control form-control-sm select_tag_remove_box_sadow" id="city_id" name="city_id" required="" data-parsley-required-message="-select city-" data-parsley-group="goup_one" data-parsley-errors-container="#locationName-errors">
-                             
-                                @if($escort->city_id)
-                                <option id="{{$escort->city_id}}" value="{{$escort->city_id}}" selected>{{$escort->city->name}}</option>
-                                @else 
-                               
-                                @foreach(config('escorts.profile.states')[auth()->user()->state_id]['cities'] as $key =>$city)
-                                <option id="{{$key}}" value="{{$key}}"  selected >{{$city['cityName']}}</option>
-                                @endforeach 
-                                
-                                
-                               
-                                @endif
-                            </select>
-                         
-                            <input type="text" name="phone" class="form-control form-control-sm select_tag_remove_box_sadow mt-2" value="{{$escort->phone ? $escort->phone : auth()->user()->phone  }}" placeholder="Mobile Number">
-                        </div> --}}
-                        
-                        {{-- <div class="about-me-box-one-map add_class" style={{ $escort->
-                            state ? '' : "color:#C4C4C4;" }}>
-                            <svg width="14" height="21" viewBox="0 0 14 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7 10C6.33696 10 5.70107 9.73661 5.23223 9.26777C4.76339 8.79893 4.5 8.16304 4.5 7.5C4.5 6.83696 4.76339 6.20107 5.23223 5.73223C5.70107 5.26339 6.33696 5 7 5C7.66304 5 8.29893 5.26339 8.76777 5.73223C9.23661 6.20107 9.5 6.83696 9.5 7.5C9.5 7.8283 9.43534 8.15339 9.3097 8.45671C9.18406 8.76002 8.99991 9.03562 8.76777 9.26777C8.53562 9.49991 8.26002 9.68406 7.95671 9.8097C7.65339 9.93534 7.3283 10 7 10V10ZM7 0.5C5.14348 0.5 3.36301 1.2375 2.05025 2.55025C0.737498 3.86301 0 5.64348 0 7.5C0 12.75 7 20.5 7 20.5C7 20.5 14 12.75 14 7.5C14 5.64348 13.2625 3.86301 11.9497 2.55025C10.637 1.2375 8.85652 0.5 7 0.5V0.5Z" fill="#FF3C5F" />
-                            </svg>
-                            {{ $escort->address ? $escort->address.',' : "Address" }} {{ $escort->state ? $escort->state->name : null }} {{ $escort->pincode }}
-                        </div>
-                        <div class="about-me-box-one-name show_input_box mt-3"  style="display: none">
-                            <input type="text" name="address" placeholder="Where are you staying" class="form-control form-control-sm select_tag_remove_box_sadow" value="{{$escort->address }}">
-                        </div> --}}
-                        {{-- <div class="about-md-box-social">@if(!empty($escort->social_links)) @foreach($escort->social_links as $key=>$val)
-                            <a href="{{ $val }}">
-                            <img src="{{ asset('assets/dashboard/img/'.$key.'.svg') }}" />
-                            </a>@endforeach @endif
-                        </div> --}}
-                    </div>    
-                     {{-- <div class="col-lg-4">
-                        <div class="pull-right pt-5" style="text-align: end;">
-                           <a href="#" id="new_saveProfilename">
-                              <span class="pr-2">Edit</span> 
-                              <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path d="M13.5325 3.77992C13.825 3.48742 13.825 2.99992 13.5325 2.72242L11.7775 0.967422C11.5 0.674922 11.0125 0.674922 10.72 0.967422L9.34 2.33992L12.1525 5.15242L13.5325 3.77992ZM0.25 11.4374V14.2499H3.0625L11.3575 5.94742L8.545 3.13492L0.25 11.4374Z" fill="#90A0B7"></path>
-                              </svg>
-                           </a>
-                        </div>
-                     </div> --}}
-                  </div>
-               </div>
+         <div class="business-info-field pt-4">
+            <div class="form-group business-field">
+               <label for="profile_name">Profile Name:</label>
+                  <input type="text" name="profile_name" class="form-control" id="profile_name" required data-parsley-required-message="Enter profile name" data-parsley-group="goup_one">
+               
             </div>
+
+            <div class="form-group business-field">
+               <label for="business_name">
+                  Business Name:</label>
+                  <input type="text" name="business_name" class="form-control" id="business_name" required data-parsley-required-message="Enter business name" data-parsley-group="goup_one">
+            </div>           
+
+            <div class="form-group business-field">
+               <label for="business_no">
+                  Business No:</label>
+                  <input type="text" name="business_no" class="form-control" id="business_no" required data-parsley-required-message="Enter business number" data-parsley-group="goup_one">               
+            </div>
+
+            <div class="form-group business-field">
+               <label for="mobile_no">
+                  Mobile No:</label>
+               <input type="text" name="mobile_no" class="form-control" id="mobile_no" required data-parsley-required-message="Enter mobile number" data-parsley-group="goup_one">           
+            </div>
+
+            <div class="form-group business-field">
+               <label for="address">Address:</label>
+               <textarea name="address" rows="3" class="form-control" id="address" required ></textarea>              
+            </div>
+
          </div>
       </div>
       {{-- media --}}
       
       <div class="about_me_drop_down_info profile-sec p-4">
          <div class="fill_profile_headings_global">
-            <h2 class="m-0">Media</h2>
+            <h2 class="common-tooltip">Media <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}" class="tooltip-icon">
+               <span class="tooltip-text" style="left: 90%; bottom:90%;">
+                  You can move your photos into any order you like by picking up and dropping into the preferred position.
+               </span>
+            </h2>
          </div>
-         <div class="row  mt-3">
-            <div class="col-md-12 mb-3 d-flex justify-content-end">
+         <div class="row mt-3">
+            <div class="col-md-12 my-3 d-flex justify-content-end">
                <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
            </div>
-            <div class="col-md-4">
+            <div class="col-lg-4 col-sm-12">
                <div class="upload-banner p-0">
                   <div class="photo-top-header">                    
                      <div class="custom-img-filter-header border-0">
@@ -292,51 +220,49 @@
                      </div>
                  </div>
                   <div class="row p-3">
-                     <div class="col-lg-4">
+                     <div class="col-lg-4 col-sm-12">
                         <h2 class="banner-sub-heading my-2">Thumbnail</h2>
                         <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
                            <img class="img-fluid" id="img1" src="{{ asset($escort->imagePosition(1)) }}" style="object-fit: cover;width: 167px;height: 172px;">
                            </label>
                         </div>
                      </div>
-                     <div class="col-8">
+                     <div class="col-lg-8 col-sm-12">
                         <div class="row" style="">
                            <div class="col-lg-12">                                            
-                              <h2 class="banner-sub-heading my-2">Gallery Image</h2>
+                              <h2 class="banner-sub-heading my-2">Gallery Images</h2>
                           </div>
-                           <div class="col">
+                           <div class="col-lg-4 col-sm-6">
                               <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
                                  <img class="img-fluid upld-img" id="img2" src="{{  asset($escort->imagePosition(2))  }}">
                                  </label>
                               </div>
                            </div>
-                           <div class="col">
+                           <div class="col-lg-4 col-sm-6">
                               <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
                                  <img class="img-fluid upld-img"  id="img3" src="{{ asset($escort->imagePosition(3))   }}">
                                  </label>
                               </div>
                            </div>
-                           <div class="col">
+                           <div class="col-lg-4 col-sm-6">
                               <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
                                  <img class="img-fluid upld-img"  id="img4" src="{{ asset($escort->imagePosition(4))   }}">
                                  </label>
                               </div>
                            </div>
-                        </div>
-                        <div class="row" style="">
-                           <div class="col">
+                           <div class="col-lg-4 col-sm-6">
                               <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
                                  <img class="img-fluid upld-img"  id="img5" src="{{ asset($escort->imagePosition(5))  }}">
                                  </label>
                               </div>
                            </div>
-                           <div class="col">
+                           <div class="col-lg-4 col-sm-6">
                               <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
                                  <img class="img-fluid upld-img"  id="img6" src="{{ asset($escort->imagePosition(6)) }}">
                                  </label>
                               </div>
                            </div>
-                           <div class="col">
+                           <div class="col-lg-4 col-sm-6">
                               <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
                                  <img class="img-fluid upld-img"  id="img7" src="{{ asset($escort->imagePosition(7)) }}">
                                  </label>
@@ -355,7 +281,7 @@
                   </div>
                </div>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-8 col-sm-12">
                <div class="photo-top-header">
                   <div class="photo-top-header">
                      <div class="photo-header custom-photo-header">
@@ -475,191 +401,143 @@
       </div>
       {{-- about us--}}
       <div class="about_me_drop_down_info profile-sec p-4">
-         <div class="fill_profile_headings_global mb-4">
+         <div class="fill_profile_headings_global mb-3">
             <h2>About Us</h2>
          </div>
          <div class="">
             <div class="card" style="border: #90A0B7 solid 0px;padding: 0;margin-top: -10px;">
                <div>
-                  <div class="card-body pb-0">
+                  <div class="card-body p-0">
                      <div>
                         <!-- upload video  -->
                         <div class="about_me_drop_down_info ">
-                           <div class="padding_20_all_side pb-0">
-                              <!--New Row from here-->
-                              <div class="row">
-                                 <div class="col-lg-4 col-md-12 col-sm-12">
-                                    <div class="form-group row tab-about-me-row-padding">
-                                       <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">
-                                       Building<span style="color:red">*</span></label>
-                                       <div class="col-sm-8">
-                                          <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="" name="building" required="">
-                                             <option value="" selected="">-- Not Set --</option>
-                                             @foreach(config('escorts.profile.Building') as $key =>$buldingName)
-                                             <option value="{{$key}}" {{ ($escort->building == $key)? 'selected' : ''}}>{{$buldingName}}</option>
-                                             @endforeach
-                                          </select>
-                                       </div>
-                                    </div>
+
+                              <div class="business-info-field pt-3">
+                                 <div class="form-group business-field">
+                                    <label for="exampleFormControlSelect1">
+                                       Building<span style="color:red">*</span>
+                                    </label>                                       
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="" name="building" required="">
+                                       <option value="" selected="">-- Not Set --</option>
+                                       @foreach(config('escorts.profile.Building') as $key =>$buldingName)
+                                       <option value="{{$key}}" {{ ($escort->building == $key)? 'selected' : ''}}>{{$buldingName}}</option>
+                                       @endforeach
+                                    </select>
+                                    
                                  </div>
-                                 <div class="col-lg-4 col-md-12 col-sm-12">
-                                    <div class="form-group row tab-about-me-row-padding">
-                                       <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Parking</label>
-                                       <div class="col-sm-8">
-                                          <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="parking" name="parking">
-                                             <option value="" selected="">-- Not Set --</option>
-                                             @foreach(config('escorts.profile.Parking') as $key =>$ParkingName)
-                                             <option value="{{$key}}" {{ ($escort->parking == $key)? 'selected' : ''}} >{{$ParkingName}}</option>
-                                             @endforeach
-                                          </select>
-                                       </div>
-                                    </div>
+                                 <div class="form-group business-field">
+                                    <label for="exampleFormControlSelect1">Parking</label>
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="parking" name="parking">
+                                       <option value="" selected="">-- Not Set --</option>
+                                       @foreach(config('escorts.profile.Parking') as $key =>$ParkingName)
+                                       <option value="{{$key}}" {{ ($escort->parking == $key)? 'selected' : ''}} >{{$ParkingName}}</option>
+                                       @endforeach
+                                    </select>
                                  </div>
-                                 <div class="col-lg-4 col-md-12 col-sm-12">
-                                    <div class="form-group row tab-about-me-row-padding">
-                                       <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Entry</label>
-                                       <div class="col-sm-8">
-                                          <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="entry" name="entry">
-                                             <option value="" selected="">-- Not Set --</option>
-                                             @foreach(config('escorts.profile.Entry') as $key =>$EntryName)
-                                             <option value="{{$key}}" {{ ($escort->entry == $key)? 'selected' : ''}}>{{$EntryName}}</option>
-                                             @endforeach
-                                          </select>
-                                       </div>
-                                    </div>
+                                 <div class="form-group business-field">
+                                    <label for="exampleFormControlSelect1">Entry</label>
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="entry" name="entry">
+                                       <option value="" selected="">-- Not Set --</option>
+                                       @foreach(config('escorts.profile.Entry') as $key =>$EntryName)
+                                       <option value="{{$key}}" {{ ($escort->entry == $key)? 'selected' : ''}}>{{$EntryName}}</option>
+                                       @endforeach
+                                    </select>
                                  </div>
-                                 <div class="col-lg-4 col-md-12 col-sm-12">
-                                    <div class="form-group row tab-about-me-row-padding">
-                                       <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Type</label>
-                                       <div class="col-sm-8">
-                                          <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="Type" name="furniture_types">
-                                             <option value="" selected="">-- Not Set --</option>
-                                             @foreach(config('escorts.profile.furniture_types') as $key =>$furniture_type)
-                                             <option value="{{$key}}" {{ ($escort->furniture_types == $key)? 'selected' : ''}} >{{$furniture_type}}</option>
-                                             @endforeach
-                                          </select>
-                                       </div>
-                                    </div>
+                                 <div class="form-group business-field">
+                                    <label for="exampleFormControlSelect1">Type</label>
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="Type" name="furniture_types">
+                                       <option value="" selected="">-- Not Set --</option>
+                                       @foreach(config('escorts.profile.furniture_types') as $key =>$furniture_type)
+                                       <option value="{{$key}}" {{ ($escort->furniture_types == $key)? 'selected' : ''}} >{{$furniture_type}}</option>
+                                       @endforeach
+                                    </select>
                                  </div>
-                                 <div class="col-lg-4 col-md-12 col-sm-12">
-                                    <div class="form-group row tab-about-me-row-padding">
-                                       <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">
-                                       Shower</label>
-                                       <div class="col-sm-8">
-                                          <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="" name="shower" required="">
-                                             <option value="" selected="">-- Not Set --</option>
-                                             @foreach(config('escorts.profile.Shower') as $key =>$Type)
-                                             <option value="{{$key}}" {{ ($escort->shower == $key)? 'selected' : ''}} >{{$Type}}</option>
-                                             @endforeach
-                                          </select>
-                                       </div>
-                                    </div>
+                                 <div class="form-group business-field">
+                                    <label for="exampleFormControlSelect1">
+                                    Shower</label>
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="" name="shower" required="">
+                                       <option value="" selected="">-- Not Set --</option>
+                                       @foreach(config('escorts.profile.Shower') as $key =>$Type)
+                                       <option value="{{$key}}" {{ ($escort->shower == $key)? 'selected' : ''}} >{{$Type}}</option>
+                                       @endforeach
+                                    </select>
                                  </div>
-                                 <div class="col-lg-4 col-md-12 col-sm-12">
-                                    <div class="form-group row tab-about-me-row-padding">
-                                       <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Ambiance</label>
-                                       <div class="col-sm-8">
-                                          <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="ambiance" name="ambiance">
-                                             <option value="" selected="">-- Not Set --</option>
-                                             @foreach(config('escorts.profile.Ambiance') as $key =>$AmbianceName)
-                                             <option value="{{$key}}" {{ ($escort->ambiance == $key)? 'selected' : ''}} >{{$AmbianceName}}</option>
-                                             @endforeach
-                                          </select>
-                                       </div>
-                                    </div>
+                                 <div class="form-group business-field">
+                                    <label for="exampleFormControlSelect1">Ambiance</label>
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="ambiance" name="ambiance">
+                                       <option value="" selected="">-- Not Set --</option>
+                                       @foreach(config('escorts.profile.Ambiance') as $key =>$AmbianceName)
+                                       <option value="{{$key}}" {{ ($escort->ambiance == $key)? 'selected' : ''}} >{{$AmbianceName}}</option>
+                                       @endforeach
+                                    </select>
                                  </div>
-                              </div>
-                              <div class="row">
-                                 <div class="col-lg-4 col-md-12 col-sm-12">
-                                    <div class="form-group row tab-about-me-row-padding">
-                                       <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Security</label>
-                                       <div class="col-sm-8">
-                                          <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="security" name="security">
-                                             <option value="" selected="">-- Not Set --</option>
-                                             @foreach(config('escorts.profile.Security') as $key =>$SecurityName)
-                                             <option value="{{$key}}" {{ ($escort->security == $key)? 'selected' : ''}} data-name="{{$SecurityName}}">{{$SecurityName}}</option>
-                                             @endforeach
-                                          </select>
-                                       </div>
-                                      
-                                    </div>
+
+                                 <div class="form-group business-field">
+                                    <label for="exampleFormControlSelect1">Security</label>
+                                    
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="security" name="security">
+                                       <option value="" selected="">-- Not Set --</option>
+                                       @foreach(config('escorts.profile.Security') as $key =>$SecurityName)
+                                       <option value="{{$key}}" {{ ($escort->security == $key)? 'selected' : ''}} data-name="{{$SecurityName}}">{{$SecurityName}}</option>
+                                       @endforeach
+                                    </select>
                                  </div>
-                                 <div class="col-lg-4 col-md-12 col-sm-12">
-                                    <div class="form-group row tab-about-me-row-padding">
-                                       <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Payment</label>
-                                       <div class="col-sm-8">
-                                          <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="payment" name="payment">
-                                             <option value="" selected="">-- Not Set --</option>
-                                             @foreach(config('escorts.profile.Payments') as $key =>$PaymentType)
-                                             <option value="{{$key}}" {{ ($escort->payment == $key)? 'selected' : ''}} data-name="{{$PaymentType}}">{{$PaymentType}}</option>
-                                             @endforeach>
-                                          </select>
-                                       </div>
-                                       @if(!empty($escort->payment)) 
-                                       <div class='select_pay'>
-                                           <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.payments.$escort->payment") !!}</span>
-                                       </div>
-                                       @endif
-                                      
-                                       <div class="col-sm-12">
-                                       
-                                           <div id="show_payment_type" style="display:none">
-                                               <div class='select_pay' style='display: inline-block'>
-                                                   <span class='languages_choosed_from_drop_down'> </span> </div>
-                                           </div>
-                                       </div>
+                                 <div class="form-group business-field">
+                                    <label for="exampleFormControlSelect1">Payment</label>                                       
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="payment" name="payment">
+                                       <option value="" selected="">-- Not Set --</option>
+                                       @foreach(config('escorts.profile.Payments') as $key =>$PaymentType)
+                                       <option value="{{$key}}" {{ ($escort->payment == $key)? 'selected' : ''}} data-name="{{$PaymentType}}">{{$PaymentType}}</option>
+                                       @endforeach>
+                                    </select>
+                                    @if(!empty($escort->payment)) 
+                                    <div class='select_pay'>
+                                          <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.payments.$escort->payment") !!}</span>
                                     </div>
-                                 </div>
-                                 <div class="col-lg-4 col-md-12 col-sm-12">
-                                    <div class="form-group row tab-about-me-row-padding">
-                                       <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Loyalty program
-                                       </label>
-                                       <div class="col-sm-8">
-                                          <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="loyalty" name="loyalty">
-                                             <option value="" selected="">-- Not Set --</option>
-                                             @foreach(config('escorts.profile.Loyalty') as $key =>$LoyaltyType)
-                                             <option value="{{$key}}" {{ ($escort->loyalty == $key)? 'selected' : ''}} >{{$LoyaltyType}}</option>
-                                             @endforeach>
-                                          </select>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="col-lg-4 col-md-12 col-sm-12">
-                                    <div class="form-group row tab-about-me-row-padding">
-                                       <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Languages
-                                       </label>
-                                       <div class="col-sm-8">
-                                          <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="language" >
-                                             <option value="" selected="">-- Not Set --</option>
-                                             @foreach(config('escorts.profile.languages') as $key =>$language)
-                                             <option value="{{$key}}"  @if(!empty($massage_profile->language)) @if(in_array($key ,$escort->language)) selected @endif @endif data-name="{{ $language }}">{{$language}}</option>
-                                             @endforeach>
-                                          </select>
-                                          <div id="show_language">
-                                             <div class='selecated_languages'>
-                                                @if(!empty($escort->language)) 
-                                                @foreach($escort->language as $language)
-                                                <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!}<small class="remove-lang">×</small></span>
-                                                <input type='hidden' name='language[]' value="{{$language}}">
-                                                @endforeach
-                                                @endif
-                                             </div>
-                                             <div id="container_language">
+                                    @endif                                      
+                                    <div class="col-sm-12">                                       
+                                          <div id="show_payment_type" style="display:none">
+                                             <div class='select_pay' style='display: inline-block'>
+                                                <span class='languages_choosed_from_drop_down'> </span>
                                              </div>
                                           </div>
+                                    </div>
+                                 </div>
+                                 <div class="form-group business-field">
+                                    <label for="exampleFormControlSelect1">Loyalty program
+                                    </label>
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="loyalty" name="loyalty">
+                                       <option value="" selected="">-- Not Set --</option>
+                                       @foreach(config('escorts.profile.Loyalty') as $key =>$LoyaltyType)
+                                       <option value="{{$key}}" {{ ($escort->loyalty == $key)? 'selected' : ''}} >{{$LoyaltyType}}</option>
+                                       @endforeach>
+                                    </select>
+                                 </div>
+
+                                 <div class="form-group business-field">
+                                    <label for="exampleFormControlSelect1">Languages
+                                    </label>
+                                    
+                                    <select class="change_default form-control form-control-sm select_tag_remove_box_sadow" id="language" >
+                                       <option value="" selected="">-- Not Set --</option>
+                                       @foreach(config('escorts.profile.languages') as $key =>$language)
+                                       <option value="{{$key}}"  @if(!empty($massage_profile->language)) @if(in_array($key ,$escort->language)) selected @endif @endif data-name="{{ $language }}">{{$language}}</option>
+                                       @endforeach>
+                                    </select>
+                                    <div id="show_language">
+                                       <div class='selecated_languages'>
+                                          @if(!empty($escort->language)) 
+                                          @foreach($escort->language as $language)
+                                          <span class='languages_choosed_from_drop_down'>{!!config("escorts.profile.languages.$language") !!}<small class="remove-lang">×</small></span>
+                                          <input type='hidden' name='language[]' value="{{$language}}">
+                                          @endforeach
+                                          @endif
+                                       </div>
+                                       <div id="container_language">
                                        </div>
                                     </div>
                                  </div>
-
-
-                                 
                               </div>
-                              {{-- <div class="row">
-                                 <div class="col-md-12 text-right">
-                                    <button id="read-more" type="button" class="save_profile_btn">Update</button>
-                                 </div>
-                              </div> --}}
-                           </div>
                         </div>
                      </div>
                   </div>
@@ -673,7 +551,7 @@
             <h2>Who are We ?</h2>
          </div>
          <div class="padding_20_all_side">
-            <input type="text" name="about_title" value="{{$escort->about_title ? $escort->about_title : null }}" class="whoiamtitle mb-3" placeholder="Enter Your Title Here">
+            <input type="text" name="about_title" value="{{$escort->about_title ? $escort->about_title : null }}" class="whoiamtitle mc-whoiam-title mb-3" placeholder="Enter Your Title Here">
                <div class="row">
                   <div class="col-12">
                      <textarea id="editor1" name="about" data-parsley-maxlength="257" data-parsley-maxlength-message="You can't enter more than 250 characters .." data-parsley-group="ckeditor">@if(!empty($escort->about)) {{ $escort->about}} @endif</textarea>
