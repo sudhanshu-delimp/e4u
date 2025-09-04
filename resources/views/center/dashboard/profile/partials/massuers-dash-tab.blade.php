@@ -26,40 +26,28 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="table-responsive pl-2 pt-3 list-sec" id="sailorTableArea">
+                <div class="table-responsive pt-3 list-sec" id="sailorTableArea">
                     <table id="sailorTable" class="table table-striped" width="100%">
                         <thead>
                             <tr>
-                                <!-- <th>
-                                    <div class="ckbox">
-                                        <input type="checkbox" id="checkbox1"> </div>
-                                </th> -->
-                                <th>Profile Name <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 20px;">
+                                <th>Profile <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 20px;">
                                         <path d="M13.6139 15.125L10.4473 11.9583H12.8223V4.04167H10.4473L13.6139 0.875L16.7806 4.04167H14.4056V11.9583H16.7806L13.6139 15.125ZM0.947266 13.5417V11.9583H8.86393V13.5417H0.947266ZM0.947266 8.79167V7.20833H6.48893V8.79167H0.947266ZM0.947266 4.04167V2.45833H4.11393V4.04167H0.947266Z" fill="white"></path>
                                     </svg></th>
                                 <th>Available Time</th>
                                 <th>Available Days</th>
-                                <th>Types</th>
+                                <th> Ethnicity</th>
                                 <th>Nationality</th>
-                                <!-- <th>Subscription Status</th> -->
-                                <th>Date Joined</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                            
-                            <tr class="tr-sec">
-                                <!-- <td>
-                                    <div class="ckbox">
-                                        <input type="checkbox" id="checkbox1"> </div>
-                                </td> -->
-                                <td><img src="{{ asset('avatars/imageuser.png') }}" class="img-profile rounded-circle">&nbsp;&nbsp; Masseurs 001</td>
+                            <tr>
+                                <td><img src="{{ asset('assets/dashboard/img/avatar.png') }}" class="custompopicon"></td>
                                 <td>8am - 7pm</td>
                                 <td><span class="available_d"><span style="color:red;">M</span>T<span style="color:red;">W</span>THF</span></td>
+                                <td>Australian </td>
                                 <td>Thai</td>
-                                <td>Australian</td>
-                               <!-- <td>Active</td> -->
-                                <td>10/05/2022</td>
                                
                                 <td>
                                     <div class="edit_option">
@@ -77,18 +65,12 @@
                             </tr>
                             <!-- end tr -->
 
-                            <tr class="tr-third">
-                                <!-- <td>
-                                    <div class="ckbox">
-                                        <input type="checkbox" id="checkbox1"> </div>
-                                </td> -->
-                                <td><img src="{{ asset('avatars/imageuser.png') }}" class="img-profile rounded-circle">&nbsp;&nbsp; Masseurs 002</td>
+                            <tr>
+                                <td><img src="{{ asset('assets/dashboard/img/avatar.png') }}" class="custompopicon"></td>
                                 <td>8am - 7pm</td>
                                 <td><span class="available_d"><span style="color:red;">M</span>T<span style="color:red;">W</span>THF</span></td>
+                                <td>Australian </td>
                                 <td>Thai</td>
-                                <td>Australian</td>
-                               <!-- <td>Active</td> -->
-                                <td>10/05/2022</td>
                                
                                 <td>
                                 <div class="edit_option">
@@ -112,39 +94,33 @@
                 </div>
             </div>
             <!-- end col -->
-
-            {{-- <div class="col-md-12 text-right">
-                <button type="btn" class="save_profile_btn">Save</button>   
-            </div> --}}
-            <!-- end col -->
-
         </div>
         
     </div>
    
     <!-- check out btns -->
     <div class="tab_btm_btns_preview_and_next">
-        <div class="row pt-3 pb-3">
-            <div class="col-lg-9 col-md-12 col-sm-12 col-12 a_text_white_hover previous_bt_center_in_sm margin_for_check_out">
+        <div class="row py-3">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12 a_text_white_hover previous_bt_center_in_sm">
                 <a href="#available" class="nex_sterp_btn" id="contact-tab" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="false">
                 <i class="fas fa-arrow-left"></i>&nbsp;&nbsp;Previous Step</a>
-                {{-- <a href="#" class="nex_sterp_btn btn_width_hundred">Save Profile</a> --}}
-                <button type="submit" id="submitForm" class=" btn_width_hundred save_profile_btn">Save Profile</button>
-                <a href="#" class="save_profile_btn">Preview Profile</a>
             </div>
-           
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12 text-right a_text_white_hover previous_bt_center_in_sm">                
+                <a href="#" class="save_profile_btn">Preview Profile</a>                
+                <button type="submit" id="submitForm" class=" btn_width_hundred save_profile_btn">Save Profile</button>
+            </div>
             
         </div>
     </div>
 </div>
 
 
-<!-- modal -->
+<!-- modal add masseurs -->
 <div class="modal fade upload-modal create_n_p" id="create_new_profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle"> <img src="{{ asset('assets/dashboard/img/add-mass.png') }}" class="custompopicon"> Create New Masseurs New Profile</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle"> <img src="{{ asset('assets/dashboard/img/add-mass.png') }}" class="custompopicon"> Create New Masseurs Profile</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
@@ -336,7 +312,8 @@
 
                         <div class="form-group">
                             <div class="col-sm-12 text-right">
-                                <button type="button" class="btn btn-primary px-4">Save</button>
+                                <button type="button" class="btn-cancel-modal" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                                <button type="button" class="btn-success-modal">Save</button>
                             </div>
                         </div>
                     </form>
@@ -353,10 +330,10 @@
         </div>
     </div>
 </div>
-<!-- end modal box popup -->
+<!-- end-->
 
 
-<!-- modal2 -->
+<!-- modal change profile -->
 <div class="modal fade upload-modal create_n_p" id="select_profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -366,108 +343,102 @@
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
             </div>
-            <div class="modal-body p-0 pt-4 pb-3">
-                       
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive pl-0 pt-3 list-sec" id="sailorTableArea">
-                        <table id="sailorTable" class="table table-striped" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <div class="ckbox">
-                                            <input type="checkbox" id="checkbox1"> </div>
-                                    </th>
-                                    <th>Profile Name <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 20px;">
-                                            <path d="M13.6139 15.125L10.4473 11.9583H12.8223V4.04167H10.4473L13.6139 0.875L16.7806 4.04167H14.4056V11.9583H16.7806L13.6139 15.125ZM0.947266 13.5417V11.9583H8.86393V13.5417H0.947266ZM0.947266 8.79167V7.20833H6.48893V8.79167H0.947266ZM0.947266 4.04167V2.45833H4.11393V4.04167H0.947266Z" fill="white"></path>
-                                        </svg></th>
-                                    <th>Available Time</th>
-                                    <th>Available Days</th>
-                                    <th>Types</th>
-                                    <th>Nationality</th>
-                                    <th>Subscription Status</th>
-                                    <th>Date Joined</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            
-                                <tr class="tr-sec">
-                                    <td>
-                                        <div class="ckbox">
-                                            <input type="checkbox" id="checkbox1"> </div>
-                                    </td>
-                                    <td><img src="{{ asset('avatars/imageuser.png') }}" class="img-profile rounded-circle">&nbsp;&nbsp; Masseurs 001</td>
-                                    <td>8am - 7pm</td>
-                                    <td><span class="available_d"><span style="color:red;">M</span>T<span style="color:red;">W</span>THF</span></td>
-                                    <td>Thai</td>
-                                    <td>Australian</td>
-                                <td>Active</td>
-                                    <td>10/05/2022</td>
-                                
-                                    <td>
-                                        <div class="dropdown no-arrow archive-dropdown">
-                                            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                                                <a class="dropdown-item d-flex justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-pen"></i> Edit</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-trash"></i> Delete</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-clone"></i> Duplicate</a>
+            <div class="modal-body">                       
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive py-3 list-sec" id="sailorTableArea">
+                            <table id="sailorTable" class="table table-striped" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <div class="ckbox">
+                                                <input type="checkbox" id="checkbox1">
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- end tr -->
-
-                                <tr class="tr-third">
-                                    <td>
-                                        <div class="ckbox">
-                                            <input type="checkbox" id="checkbox1"> </div>
-                                    </td>
-                                    <td><img src="{{ asset('avatars/imageuser.png') }}" class="img-profile rounded-circle">&nbsp;&nbsp; Masseurs 002</td>
-                                    <td>8am - 7pm</td>
-                                    <td><span class="available_d"><span style="color:red;">M</span>T<span style="color:red;">W</span>THF</span></td>
-                                    <td>Thai</td>
-                                    <td>Australian</td>
-                                <td>Active</td>
-                                    <td>10/05/2022</td>
+                                        </th>
+                                        <th>Profile
+                                            <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 20px;">
+                                                <path d="M13.6139 15.125L10.4473 11.9583H12.8223V4.04167H10.4473L13.6139 0.875L16.7806 4.04167H14.4056V11.9583H16.7806L13.6139 15.125ZM0.947266 13.5417V11.9583H8.86393V13.5417H0.947266ZM0.947266 8.79167V7.20833H6.48893V8.79167H0.947266ZM0.947266 4.04167V2.45833H4.11393V4.04167H0.947266Z" fill="white"></path>
+                                            </svg>
+                                        </th>
+                                        <th>Available Time</th>
+                                        <th>Available Days</th>
+                                        <th>Ethnicity</th>
+                                        <th>Nationality</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                 
-                                    <td>
-                                        <div class="dropdown no-arrow archive-dropdown">
-                                            <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
-                                                <a class="dropdown-item d-flex justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-pen"></i> Edit</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-trash"></i> Delete</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-clone"></i> Duplicate</a>
+                                    <tr>
+                                        <td>
+                                            <div class="ckbox">
+                                                <input type="checkbox" id="checkbox1">
                                             </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- end tr -->
+                                        </td>
+                                        <td><img src="{{ asset('assets/dashboard/img/avatar.png') }}" class="custompopicon"></td>
+                                        <td>8am - 7pm</td>
+                                        <td><span class="available_d"><span style="color:red;">M</span>T<span style="color:red;">W</span>THF</span></td>
+                                        <td>Australian</td>
+                                        <td>Thai</td>
+                                    
+                                        <td>
+                                            <div class="dropdown no-arrow archive-dropdown">
+                                                <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
+                                                    <a class="dropdown-item d-flex justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-pen"></i> Edit</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item d-flex justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-trash"></i> Delete</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item d-flex justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-clone"></i> Duplicate</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- end tr -->
+
+                                    <tr>
+                                        <td>
+                                            <div class="ckbox">
+                                                <input type="checkbox" id="checkbox1">
+                                            </div>
+                                        </td>
+                                        <td><img src="{{ asset('assets/dashboard/img/avatar.png') }}" class="custompopicon"></td>
+                                        <td>8am - 7pm</td>
+                                        <td><span class="available_d"><span style="color:red;">M</span>T<span style="color:red;">W</span>THF</span></td>
+                                        <td>Australian</td>
+                                        <td>Thai</td>
+                                    
+                                        <td>
+                                            <div class="dropdown no-arrow archive-dropdown">
+                                                <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="">
+                                                    <a class="dropdown-item d-flex justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-pen"></i> Edit</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item d-flex justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-trash"></i> Delete</a>
+                                                    <div class="dropdown-divider"></div>
+                                                    <a class="dropdown-item d-flex justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-clone"></i> Duplicate</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!-- end tr -->
 
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                <!-- end col -->
+                    <!-- end col -->
 
-                <div class="col-md-12 text-right pr-4">
-                    <button type="btn" class="save_profile_btn">Save</button>   
-                </div>
-                <!-- end col -->
+                    <div class="col-md-12 text-right pr-4">
+                        <button type="btn" class="btn-cancel-modal"  class="close" data-dismiss="modal" aria-label="Close">Close</button>   
+                        <button type="btn" class="btn-success-modal">Save</button>   
+                    </div>
+                    <!-- end col -->
 
-            </div>                
-            </div>
-
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="manageImgId">Save</button>
-                </div> -->
+                </div>                
             </div>
         </div>
     </div>
 </div>
-<!-- end modal2 box popup -->
+<!-- end -->
