@@ -50,7 +50,7 @@
 
                                
 
-                                   <h6><b>Advertiser :</b> <span class="ml-2"> {{ $list->user->name }} </span></h6>
+                                   <h6><b>Advertiser :</b> <span class="ml-2"> {{ $list->first_name.' ' .$list->last_name  }} </span></h6>
                                     <h6><b>Mobile :</b> <span class="ml-2"> {{$list->mobile_number}}</span></h6>
 
                                     <h6><b>Email :</b> <span class="ml-2"> {{$list->email}}</span></h6>
