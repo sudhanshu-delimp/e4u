@@ -2544,6 +2544,13 @@ button.btn:focus {
     color: #0C223D;
 }
 
+.label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #0C223D;
+}
+
 .business-field {
     flex: 1 1 calc(25% - 20px);
     display: flex;

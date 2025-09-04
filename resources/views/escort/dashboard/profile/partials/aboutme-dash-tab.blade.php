@@ -410,7 +410,7 @@
                                     <div class="col-lg-8">
                                         <div class="row">
                                             <div class="col-lg-12">                                            
-                                                <h2 class="banner-sub-heading my-2">Gallery Image</h2>
+                                                <h2 class="banner-sub-heading my-2">Gallery Images</h2>
                                             </div>
                                             <div class="col">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">

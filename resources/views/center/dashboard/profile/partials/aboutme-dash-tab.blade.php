@@ -121,12 +121,12 @@
 </style>
 <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
       <div class="col-lg-12">
-         <div class="member-id">
+         <div class="member-id pl-0 pl-0 pb-2 pt-3">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-               <path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="#C2CFE0"></path>
+                <path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="#C2CFE0"></path>
             </svg>
-            <span>Member ID: {{auth()->user()->member_id}} </span>
-         </div>
+            <span>Member ID: M60218:001</span>
+        </div>
       </div>
       {{-- <div class="about_me_drop_down_info profile-sec">
          <div class="row tab-input- pl-2 pt-4">            
@@ -160,7 +160,7 @@
       {{-- Our Business --}}
       <div class="about_me_drop_down_info profile-sec p-4">
          <div class="fill_profile_headings_global">          
-            <h2 class="m-0">Our Business</h2>
+            <h2>Our Business</h2>
          </div>
          <div class="business-info-field pt-4">
             <div class="form-group business-field">
@@ -198,7 +198,7 @@
       
       <div class="about_me_drop_down_info profile-sec p-4">
          <div class="fill_profile_headings_global">
-            <h2 class="m-0 common-tooltip">Media <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}" class="tooltip-icon">
+            <h2 class="common-tooltip">Media <img src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}" class="tooltip-icon">
                <span class="tooltip-text" style="left: 90%; bottom:90%;">
                   You can move your photos into any order you like by picking up and dropping into the preferred position.
                </span>

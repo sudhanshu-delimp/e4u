@@ -149,7 +149,7 @@
                             <div class="col-8">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <h2 class="banner-sub-heading my-2">Gallery Image</h2>
+                                        <h2 class="banner-sub-heading my-2">Gallery Images</h2>
                                     </div>
                                 </div>
                                 <div class="row" style="">
