@@ -109,7 +109,7 @@
                             </ul>
                             <form id="my_massage_profile" action="{{ route('center.setting.profile',request()->segment(3) ) }}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                <div class="tab-content tab-content-bg" id="myTabContent">
+                                <div class="tab-content custom-tab-bg-mc" id="myTabContent">
                                     
                                     @include('center.dashboard.profile.partials.aboutme-dash-tab')
                                     @include('center.dashboard.profile.partials.services-dash-tab')
