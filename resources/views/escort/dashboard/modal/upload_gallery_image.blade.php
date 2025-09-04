@@ -24,7 +24,7 @@
                                                     <label class="newbtn rm">
                                                         <img id="blah" class="item" src="{{ asset('assets/app/img/upload-thum-1.png')}}">
                                                         
-                                                        <input name="img[]" id="upload_file" class="pis" onchange="preview_image(this);" type="file" multiple accept="image/*">
+                                                        <input name="img[]" id="upload_file" class="pis" onchange="preview_image(event);" type="file" multiple accept="image/*">
                                                     </label>
                                                     <div style="margin-top: -34px;">
                                                     </div>

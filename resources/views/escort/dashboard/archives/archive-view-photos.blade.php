@@ -321,7 +321,6 @@
                    <div class="col-md-12">
                       <div id="pagination-container"></div>
                       <div id="carouselExampleIndicators" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
-                      {{-- <div id="carouselExampleIndicators" class="carousel slide" data-interval="false"> --}}
                          <ul class="pagination ml-2 pl-1">
                             <!-- Declare the item in the group -->
                             <li class="page-item preview">
