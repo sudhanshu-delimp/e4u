@@ -762,7 +762,7 @@ class UpdateController extends AppController
             $availability = $escort->availability;
             $service = $this->service;
             $path = $this->media;
-            $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [8], $id);
+            $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [], $id);
             $users_for_available_playmate = $this->user->findPlaymates(auth()->user()->id);
             $defaultImages = $this->media->findDefaultMedia($user->id, 0);
             $escortDefault = $this->escort->findDefault(auth()->user()->id, 1);
