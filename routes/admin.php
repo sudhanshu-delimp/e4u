@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
+use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 
@@ -87,10 +88,15 @@ Route::get('escort-listings',[GlobalMonitoringController::class,'escortListing']
 Route::get('/data-table-escort-listing/{type?}', [GlobalMonitoringController::class, 'dataTableEscortListingAjax'])->name('escort.current.list.escort-dataTableListing');
 Route::get('/data-table-escort-single-listing/{id?}', [GlobalMonitoringController::class, 'dataTableEscortSingleListingAjax'])->name('escort.current.single-list.escort-dataTableListing');
   
- 
-Route::get('logged-in-users', function(){
-    return view('admin.logged-in-users');
-})->name('admin.logged-in-users');
+# Logged in users monitoring routes
+Route::get('logged-in-users', [GlobalMonitoringLoggedInController::class, "index"])->name('admin.logged-in-users');
+Route::get('get-logged-in-users-by-ajax', [GlobalMonitoringLoggedInController::class, "getLoggedInUserDataTableListingAjax"])->name('admin.get-logged-in-users-by-ajax');
+Route::get('get-logged-in-single-user-deatils-ajax/{id}', [GlobalMonitoringLoggedInController::class, "getLoggedInSingleUserDetailsAjax"])->name('admin.get-logged-in-single-user-detail-with-ajax');
+
+
+// Route::get('logged-in-users', function(){
+//     return view('admin.logged-in-users');
+// })->name('admin.logged-in-users');
  
 Route::get('visitors', function(){
     return view('admin.visitors');

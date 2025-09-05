@@ -18,4 +18,9 @@ class ReportEscortProfile extends Model
         return $this->hasOne(Escort::class, 'id', 'escort_id');
     }
 
+    public function viewer()
+    {
+        return $this->hasOne(User::class, 'id', 'viewer_id');
+    }
+
 }
