@@ -156,6 +156,7 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
+    var table;
     var ticketId = 0;
     $.ajaxSetup({
         headers: {
@@ -165,7 +166,7 @@
 
 
    $(document).ready( function () {
-       var table = $("#supportTicketsTable").DataTable({
+        table = $("#supportTicketsTable").DataTable({
            "language": {
                "zeroRecords": "No record(s) found.",
                "searchPlaceholder": "Search by Ticket ID",
@@ -322,32 +323,13 @@
         });
         // $("#sendMessage").reset();
     });
-   /*$(document).on('click','.delete-center', function(e){
-       e.preventDefault();
-       var $this = $(this);
-       $("#Lname").html("<p>Would you like to Delete?</p>");
-
-       $('#delete_profile').modal('show');
-
-       $("#save_change").click(function(e){
-           console.log($this.attr('href'));
-           $.ajax({
-                   method: "POST",
-                   url:$this.attr('href'),
-                   contentType: false,
-                   processData: false,
-                   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                   success: function (data) {
-                       location.reload();
-                   }
-
-           })
-       });*/
 
 
-    $(document).on('click', '.change-status-btn', function(e) {
+
+
+    $(document).on('click', '.change-status-btn', async function(e) {
     e.preventDefault();
-    if (confirm('Are you sure you want to change the status?')) {
+     if (await isConfirm({ 'title' : 'NA','action': 'Change ','text':'Are you sure to change the status ?'})) { 
         let id = $(this).data('id');
         let status = $(this).data('status');
         change_status(id, status);
@@ -367,10 +349,8 @@
             success: function (data) {
             if(data.status == "success") 
             {
-                Swal.fire('Ticket Status!', data.message, 'success');
-                setTimeout(function() {
-                location.reload();
-                }, 3000);
+                Swal.fire('Ticket Status!', 'Changed as ' + data.message, 'success');
+                table.ajax.reload(null, false);
             } 
             else 
             {
@@ -380,5 +360,8 @@
         });
         return false;
     }
+
+
+
 </script>
 @endpush
