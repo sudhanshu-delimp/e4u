@@ -600,6 +600,35 @@
 </div>
 @endsection
 @section('script')
+
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script></script>
+<script>
+
+   
+   // save logged user details on escord dashboard on page load
+    document.addEventListener("DOMContentLoaded", function () {
+        let platform = navigator.platform;
+        let browser = navigator.userAgent;
+        let lastPage = document.referrer;
+        let lastVisitedPage= window.location.pathname;
+
+        console.log("platform jiten: " + platform);
+
+        fetch("{{ route('user.log-details') }}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({
+                platform: platform,
+                browser: browser,
+                last_page: lastPage,
+                lastVisitedPage: lastVisitedPage
+            })
+        }).then(response => response.json())
+        .then(data => console.log("Log Saved:", data))
+        .catch(error => console.error("Error:", error));
+    });
+</script>
 @endsection

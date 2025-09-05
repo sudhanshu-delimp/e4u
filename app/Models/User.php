@@ -523,4 +523,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(AgentDetail::class,  'id', 'agent_id');
     }
+
+    public function loginAttempts()
+    {
+        return $this->hasOne(LoginAttempt::class,  'user_id', 'id')->where('online','yes')->orderBy('id','desc');
+    }
 }

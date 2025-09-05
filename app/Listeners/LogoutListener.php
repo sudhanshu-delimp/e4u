@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Route;
 use App\Models\LoginAttempt;
+use Illuminate\Support\Facades\Auth;
 
 class LogoutListener
 {
@@ -28,6 +29,7 @@ class LogoutListener
      */
     public function handle(Logout $event)
     {
-        //
+        LoginAttempt::where('user_id', $event->user->id)->update(['online' => 'no']); 
+
     }
 }

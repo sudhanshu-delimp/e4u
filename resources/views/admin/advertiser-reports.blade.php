@@ -3,7 +3,6 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <style type="text/css">
 .parsley-errors-list {
     list-style: none;
@@ -170,25 +169,27 @@ table td,th{
                                   <td class="report_date">14-05-2025</td>
                                 </tr>
                                 <tr>
-                                  <th>Member ID:</th>
+                                  <th>Advertiser ID:</th>
                                   <td class="report_member_id">14-05-2025</td>
-                                  <th>Escort ID:</th>
-                                  <td class="report_escort_id">14-05-2025</td>
+                                  <th>Viewer ID:</th>
+                                  <td class="report_viewer_id">14-05-2025</td>
+                                  {{-- <td class="report_escort_id">14-05-2025</td> --}}
                                   
                                 </tr>
                                 <tr>
-                                    <th>Viewer ID:</th>
-                                  <td class="report_viewer_id">WA - Perth</td>
+                                  <th>Mobile :</th>
+                                  <td class="report_mobile">WA - Perth</td>
                                   <th>Mobile:</th>
-                                  <td class="report_mobile">Adrian Weinstein</td>
+                                  <td class="report_viewer_mobile">Adrian Weinstein</td>
                                   
                                 </tr>
                               
                                 <tr>
-                                    <th>Status:</th>
-                                  <td class="report_status">Current</td>
+                                  
                                   <th>Home State:</th>
-                                  <td colspan="3" class="report_home_state">WA</td>
+                                  <td  class="report_home_state">WA</td>
+                                  <th>Status:</th>
+                                  <td colspan="3" class="report_status">Current</td>
                                 </tr>
                                 <tr>
                                   <th>Comments:</th>
@@ -225,10 +226,10 @@ table td,th{
                         </tr>
 
                         <tr>
-                            <td style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:175px;" colspan="1">Name:</td>
-                            <td colspan="2" style="border:1px solid #000; padding:25px 12px; width:200px"></td>
-                            <td style="border:1px solid #000; padding:25px 12px; font-weight:bold;">Signature:</td>
-                            <td colspan="1" style="border:1px solid #000; padding:25px 12px;"></td>
+                            <td colspan="1" style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:110px;" colspan="1">Name:</td>
+                            <td colspan="2" style="border:1px solid #000; padding:25px 12px;"></td>
+                            <td colspan="1" style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:120px">Signature:</td>
+                            <td colspan="2" style="border:1px solid #000; padding:25px 12px;"></td>
                         </tr>
                     </table>
 
@@ -377,8 +378,8 @@ table td,th{
 
 @endsection
 @push('script')
-<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}
-    "></script>
+
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     
@@ -495,8 +496,6 @@ $(document).ready(function() {
                 'report_id':report_id
             },
             success: function(response) {
-                console.log('response');
-                console.log(response);
                 if(response.error == false){
                     let status = (response.data.report_status == 'pending') ? 'Current' : response.data.report_status;
                     $(".report_ref").text('#'+response.data.id +''+ response.data.escort_id);
@@ -505,12 +504,11 @@ $(document).ready(function() {
                     $(".report_escort_id").text(response.data.escort_id);
                     $(".report_viewer_id").text(response.data.viewer_id);
                     $(".report_status").text(capitalizeFirstLetter(status));
-                    $(".report_home_state").text(response.data.escort.user.home_state);
+                    $(".report_home_state").text(response.data.escort.user.state_id);
                     $(".report_comment").text(capitalizeFirstLetter(response.data.report_desc));
                     $(".report_mobile").text(response.data.escort.user.phone);
+                    $(".report_viewer_mobile").text(response.data.viewer.phone);
                 }
-
-                //$("#escortPopupModalBodyIframe").attr('src', response.profileurl)
             },
             error: function(xhr) {
                 console.error('Failed to fetch data');
@@ -524,6 +522,10 @@ $(document).ready(function() {
     function ajaxReload(tableId, ajaxUrl, method)
     {
         var table = $('#'+tableId).DataTable({
+            language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Member ID..."
+            },
             processing: true,
             serverSide: true,
             paging: true,

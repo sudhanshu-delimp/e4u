@@ -767,7 +767,7 @@ class UpdateController extends AppController
             $defaultImages = $this->media->findDefaultMedia($user->id, 0);
             $escortDefault = $this->escort->findDefault(auth()->user()->id, 1);
             $defaultServiceIds = $escortDefault->services()->pluck('service_id')->toArray();
-            return view('escort.dashboard.profile.update', compact('defaultServiceIds','defaultImages', 'media', 'users_for_available_playmate', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'user'));
+            return view('escort.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'users_for_available_playmate', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'user'));
         }
     }
     public function agentUpdateProfile($id, $uid)
