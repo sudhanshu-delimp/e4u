@@ -308,7 +308,7 @@
                             </li>
 
 
-                            @for($i = 0; $i < ceil(count($mediaCategory)/10); $i++ )
+                            @for($i = 0; $i < ceil(collect($media)->whereNotIn('position',[9,10])->count()/10); $i++ )
                             <li class="page-item " id="pageItem_{{$i}}" data-id="{{$i}}">
                                <a data-target="#carouselExampleIndicators" data-slide-to="{{$i}}"  class="page-link" href="#">{{$i + 1}}</a>
                             </li>
@@ -321,7 +321,7 @@
                          <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
                             <div class="carousel-inner" id="view_all">
 
-                               @foreach($mediaCategory->chunk(10)  as $keyId => $images)
+                               @foreach(collect($media)->whereNotIn('position',[9,10])->chunk(10)  as $keyId => $images)
                                <div class="carousel-item" id="cItem_{{$loop->index}}" data-id="{{$loop->index}}">
                                   <div class="grid-container" id="dvSource">
                                     @foreach($images as $image)
@@ -393,7 +393,7 @@
            <div class="modal-body">
                <div id="gallery_modal_container" class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
                    @foreach($media  as $keyId => $image)
-                       @if(!in_array($image->position, [8, 9, 10])/*$image->position != 8*/)
+                       @if(!in_array($image->position, [9, 10])/*$image->position != 8*/)
                            <div class="item4">
                                <img class="img-thumbnail defult-image select_image" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                            </div>
