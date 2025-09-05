@@ -76,10 +76,10 @@ $(() => {
     });
 });
 
-
 var bannerDefaultImage;
 var pinupDefaultImage;
 var allFiles = [];
+
 function preview_image(event)
     {
         const input = document.getElementById("upload_file");
@@ -119,6 +119,13 @@ function preview_image(event)
         $(`.rm_${index}`).remove();
     });
 
+    $(document).on('click','.js_gallery_category .nav-link', function(e){
+        e.preventDefault();
+        getAccountMediaGallery();
+        $('#cItem_0').addClass('active');
+        $('#pageItem_0').addClass('active');
+    });
+
     function readImageURL(input) {
         if (input.files && input.files[0]) {
             var $img = $(input).siblings('img');
@@ -136,12 +143,12 @@ function preview_image(event)
                     image.onload = function () {
                         var height = image.height;
                         var width = image.width;
-                        if(input.id.includes('9') && (height < 469 || width < 1920)) {
+                        if(input.id=='upload_banner' && (height < 469 || width < 1920)) {
                             Swal.fire("Banner Media", "Please upload an image with a minimum size of 1920×469 pixels", "warning");
                             return false;
 
                         }
-                        if(input.id.includes('10') && (height < 627 || width < 855)){
+                        if(input.id=='upload_pinup' && (height < 627 || width < 855)){
                             Swal.fire("Pin Up Media", "Please upload an image with a minimum size of 855×627 pixels", "warning");
                             return false;
                         }
@@ -260,9 +267,11 @@ function preview_image(event)
         });
         return imageNames.length;
     }
+
     var getAccountMediaGallery = function() {
+        let activeGalleryTab = $(".js_gallery_category .nav-link.active").attr('data-type');
         return $.ajax({
-            url: "/escort-dashboard/get-account-media-gallery",
+            url: `/escort-dashboard/get-account-media-gallery/${activeGalleryTab}`,
             type: "GET",
             dataType: "json"
         }).done(function (response) {
@@ -271,9 +280,14 @@ function preview_image(event)
                 let activeContainer = $("#carouselExampleIndicators .carousel-item.active").attr('id');
     
                 $("#js_profile_media_gallery").html(response.gallery_container_html);
-                $("#profile_images").html(response.gallery_modal_container_html);
-                $("#banner_images").html(response.banner_modal_container_html);
-    
+                $("#gallery_modal_container").html(response.gallery_modal_container_html);
+                $("#banner_modal_container").html(response.banner_modal_container_html);
+                if($("#pinup_modal_container").length > 0){
+                    $("#pinup_modal_container").html(response.pinup_modal_container_html);
+                }
+                else{
+                    $(".js_gallery_category li:nth-child(3)").remove();
+                }
                 if (activePage && activeContainer) {
                     $(`#${activePage}`).addClass('active');
                     $(`#${activeContainer}`).addClass('active');

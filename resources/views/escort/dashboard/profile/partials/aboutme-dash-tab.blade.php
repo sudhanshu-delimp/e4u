@@ -125,8 +125,6 @@
     }*/
 @endphp
 <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
-    {{-- <form id="update_about_me" action="{{ route('escort.about.me',[$escort->id])}}" method="POST" enctype="multipart/form-data">
-        @csrf   --}}
         <div class="row pl-3">
         <div class="col-lg-3">
             <div class="member-id pl-0 pb-2 pt-3">
@@ -134,21 +132,15 @@
                     <path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="#C2CFE0" />
                 </svg>
                 <span>Member ID: {{auth()->user()->member_id}}</span>
-
-                {{-- @if(!empty($escort->available_to)) @if(in_array($key , $escort->available_to)) checked @endif @endif --}}
             </div>
         </div>
         <div class="col-lg-6">
 
             <div class="member-id pl-0 pb-2 pt-3">
 
-{{--                <span>Save as Draft : </span><input type="checkbox" class="form-check-input draft mt-0" id="draftId" name="draft" @if(!empty($escort->enabled)) @if($escort->enabled == 2)) checked @endif @endif>--}}
-
-                {{-- @if(!empty($escort->available_to)) @if(in_array($key , $escort->available_to)) checked @endif @endif --}}
             </div>
         </div>
     </div>
-
         <div class="about_me_drop_down_info profile-sec">
             <div class="row">
                 <div class="col-md-12">
@@ -497,18 +489,14 @@
                                 </div>
                                 <div class="custom-img-filter-header">
                                     <div class="row">
-                                        <ul class="nav nav-tabs border-0">
+                                        <ul class="nav nav-tabs border-0 js_gallery_category">
                                            
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="gallery_img" data-toggle="tab" href="#Gallery">Gallery</a>
+                                                <a class="nav-link active" data-type="gallery" data-toggle="tab" href="#Gallery">Gallery</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link " id="banner_img" data-toggle="tab" href="#Banner">Banner</a>
+                                                <a class="nav-link" data-type="banner" data-toggle="tab" href="#Banner">Banner</a>
                                             </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="pinup_img" data-toggle="tab" href="#Pinup">Pinup</a>
-                                            </li>
-                                            
                                         </ul>
                                     </div>
                                 </div>
@@ -589,10 +577,10 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div class="grid-container modalPopup" id="banner_images" style="max-height: 500px; overflow-y:scroll; grid-template-columns: 1fr 1fr 1fr;">
+                            <div id="banner_modal_container" class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll; grid-template-columns: 1fr 1fr 1fr;">
                                
                                 @foreach($media  as $keyId => $image)
-                                    @if(in_array($image->position, [9,10])/*$image->position != 8*/)
+                                    @if(in_array($image->position, [9]))
                                         <div class="item2">
                                             <img class="img-thumbnail defult-image select_image" style="height: 150px;" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                                         </div>
@@ -1692,10 +1680,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="grid-container modalPopup" id="profile_images" style="max-height: 500px; overflow-y:scroll;">
+                <div id="gallery_modal_container" class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
                     
                     @foreach($media  as $keyId => $image)
-                        @if(!in_array($image->position, [8, 9, 10])/*$image->position != 8*/)
+                        @if(!in_array($image->position, [8, 9, 10]))
                             <div class="item4">
                                 <img class="img-thumbnail defult-image select_image" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                             </div>

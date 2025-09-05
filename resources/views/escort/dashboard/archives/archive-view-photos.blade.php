@@ -275,13 +275,13 @@
                         <div class="col-md-8">
                             <ul class="nav nav-tabs border-0">
                                 <li class="nav-item">
-                                    <a class="nav-link show" id="menu_all" data-toggle="tab" href="#home">All</a>
+                                    <a class="nav-link active" id="menu_all"  href="#home">All</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="menu_varified" data-toggle="tab" href="#menu1">Verified</a>
+                                    <a class="nav-link" id="menu_varified"  href="#menu1">Verified</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
+                                    <a class="nav-link" id="menu_unverified"  href="#menu2">Unverified</a>
                                 </li>
                             </ul>
                         </div>
@@ -300,16 +300,16 @@
                 </div>
                 <div class="custom-img-filter-header">
                     <div class="row">
-                        <ul class="nav nav-tabs border-0">
+                        <ul class="nav nav-tabs border-0 js_gallery_category">
                            
                             <li class="nav-item">
-                                <a class="nav-link active" id="gallery_img" data-toggle="tab" href="#Gallery">Gallery</a>
+                                <a class="nav-link active" data-type="gallery" data-toggle="tab" href="#Gallery">Gallery</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " id="banner_img" data-toggle="tab" href="#Banner">Banner</a>
+                                <a class="nav-link" data-type="banner" data-toggle="tab" href="#Banner">Banner</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pinup_img" data-toggle="tab" href="#Pinup">Pinup</a>
+                                <a class="nav-link" data-type="pinup" data-toggle="tab" href="#Pinup">Pinup</a>
                             </li>
                             
                         </ul>
@@ -330,7 +330,7 @@
                             </li>
 
 
-                            @for($i = 0; $i < ceil(count($media)/10); $i++ )
+                            @for($i = 0; $i < ceil(count($mediaCategory)/10); $i++ )
                             <li class="page-item " id="pageItem_{{$i}}" data-id="{{$i}}">
                                <a data-target="#carouselExampleIndicators" data-slide-to="{{$i}}"  class="page-link" href="#">{{$i + 1}}</a>
                             </li>
@@ -343,7 +343,7 @@
                          <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
                             <div class="carousel-inner" id="view_all">
 
-                               @foreach($media->chunk(10)  as $keyId => $images)
+                               @foreach($mediaCategory->chunk(10)  as $keyId => $images)
                                <div class="carousel-item" id="cItem_{{$loop->index}}" data-id="{{$loop->index}}">
                                   <div class="grid-container" id="dvSource">
                                     @foreach($images as $image)
@@ -413,7 +413,7 @@
                </button>
            </div>
            <div class="modal-body">
-               <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
+               <div id="gallery_modal_container" class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
                    @foreach($media  as $keyId => $image)
                        @if(!in_array($image->position, [8, 9, 10])/*$image->position != 8*/)
                            <div class="item4">
@@ -439,10 +439,10 @@
                </button>
            </div>
            <div class="modal-body">
-               <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll; grid-template-columns: 1fr 1fr 1fr;">
+               <div id="banner_modal_container" class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll; grid-template-columns: 1fr 1fr 1fr;">
                   
                    @foreach($media  as $keyId => $image)
-                       @if(in_array($image->position, [9])/*$image->position != 8*/)
+                       @if(in_array($image->position, [9]))
                            <div class="item2">
                                <img class="img-thumbnail defult-image select_image" style="" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                            </div>
@@ -466,10 +466,10 @@
                </button>
            </div>
            <div class="modal-body">
-               <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll; grid-template-columns: 1fr 1fr 1fr;">
+               <div id="pinup_modal_container" class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll; grid-template-columns: 1fr 1fr 1fr;">
                   
                    @foreach($media  as $keyId => $image)
-                       @if(in_array($image->position, [10])/*$image->position != 8*/)
+                       @if(in_array($image->position, [10]))
                            <div class="item2">
                                <img class="img-thumbnail defult-image select_image" style="" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                            </div>
@@ -512,8 +512,7 @@
 <script src="{{ asset('assets/plugins/ajax/libs/jquery/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
 <script>
-    var updatePosition = 0; 
-
+    var updatePosition = 0;
     $("body").on('click','.cropEdit',function(){
         var id = $(this).attr('id');
         var val = $(this).attr('value');
@@ -555,7 +554,6 @@
    });
 
    function updateDefaultImage(position, meidaId, img_target, media_src) {
-    console.log({position:position,meidaId:meidaId});
        var url = "{{ route('escort.default.images') }} ";
        $.ajax({
            type: 'POST',
@@ -585,7 +583,6 @@
 
    var form = $(this);
    var url = form.attr('action');
-   //console.log("hii"+ src);
    var data = new FormData($('#defaultImage')[0]);
        $.ajax({
            method: form.attr('method'),
@@ -624,40 +621,30 @@
        });
    })
 
-   $("body").on('click','#menu_varified', function(e){
-        $("#view_all").hide();
-        $("#carouselExampleIndicators").hide();
-   });
-   $("body").on('click','#menu_unverified', function(e){
-        $("#view_all").show();
-        $("#carouselExampleIndicators").show();
-   });
-   $("body").on('click','#menu_all', function(e){
-        $("#view_all").show();
-        $("#carouselExampleIndicators").show();
-   });
+//    $("body").on('click','#menu_varified', function(e){
+//         $("#view_all").hide();
+//         $("#carouselExampleIndicators").hide();
+//    });
+//    $("body").on('click','#menu_unverified', function(e){
+//         $("#view_all").show();
+//         $("#carouselExampleIndicators").show();
+//    });
+//    $("body").on('click','#menu_all', function(e){
+//         $("#view_all").show();
+//         $("#carouselExampleIndicators").show();
+//    });
 
    function positionToUpdate(position) {
        console.log("positionToUpdate",position);
        updatePosition = position;
        return true;
    }
-   $(".modalPopup .item4").on('click', function(e) {
+
+   $(document).on('click','.modalPopup .item2,.modalPopup .item4', function(e) {
        let imageSrc = $(this).find('img').attr('src');
        let mediaId = $(this).find('img').data('id');
        let img_target = $("#img"+updatePosition);
-       console.log("1458");
        updateDefaultImage(updatePosition, mediaId, img_target, imageSrc);
-
-       $("#photo_gallery").modal("hide");
-   });
-   $(".modalPopup .item2").on('click', function(e) {
-       let imageSrc = $(this).find('img').attr('src');
-       let mediaId = $(this).find('img').data('id');
-       let img_target = $("#img"+updatePosition);
-       console.log("1467");
-       updateDefaultImage(updatePosition, mediaId, img_target, imageSrc);
-
        $(`#${$(this).parents('.modal').attr('id')}`).modal("hide");
    });
 </script>

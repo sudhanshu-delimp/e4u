@@ -56,8 +56,9 @@ class EscortGalleryController extends AppController
     public function photoGalleries()
     {
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
+        $mediaCategory = $media->whereNull('position');
         $path = $this->media;
-        return view('escort.dashboard.archives.archive-view-photos',compact('media','path'/*,'media_withoutPosition','media_withPosition'*/));
+        return view('escort.dashboard.archives.archive-view-photos',compact('mediaCategory','media','path'));
     }
 
     public function videoGalleries()
@@ -449,15 +450,22 @@ class EscortGalleryController extends AppController
         return [$type, 'attatchment/'.$str];
     }
 
-    public function getAccountMediaGallery(Request $request){
+    public function getAccountMediaGallery(Request $request, $category=null){
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
+            $mediaCategory = match ($category) {
+                'gallery' => $media->whereNull('position'),
+                'banner'  => $media->whereIn('position',[9]),
+                'pinup'   => $media->whereIn('position',[10]),
+            };
             $path = $this->media;
             $response = [];
             $response['success'] = true;
-            $response['gallery_container_html'] = view('escort.dashboard.profile.partials.media_gallery_container',compact('media','path'))->render();
+            $response['category'] = $category;
+            $response['gallery_container_html'] = view('escort.dashboard.profile.partials.media_gallery_container',compact('mediaCategory','media','path','category'))->render();
             $response['gallery_modal_container_html'] = view('escort.dashboard.profile.partials.gallery_modal_container',compact('media','path'))->render();
             $response['banner_modal_container_html'] = view('escort.dashboard.profile.partials.banner_modal_container',compact('media','path'))->render();
+            $response['pinup_modal_container_html'] = view('escort.dashboard.profile.partials.pinup_modal_container',compact('media','path'))->render();
             return response()->json($response);
         } catch (Exception $e) {
             return response()->json([
