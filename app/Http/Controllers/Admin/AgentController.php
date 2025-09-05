@@ -188,7 +188,7 @@ class AgentController extends BaseController
 
         $data = $request->all();
         $resposne = $this->agentRepo->addUpdateAgent($data);
-        if($resposne['status'])
+        if(isset($resposne['status']) && $resposne['status'])
         return $this->successResponse($resposne['message']);
         else
         return $this->validationError($resposne['message']);

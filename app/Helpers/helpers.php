@@ -383,9 +383,9 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
     {
         if (app()->environment('local')) {
             if ($error instanceof \Exception) {
-                Log::error($error->getMessage(), ['trace' => $error->getTraceAsString()]);
+                Log::info($error->getMessage());
             } else {
-                Log::error($error);
+               Log::info($error->getMessage());
             }
         }
     }

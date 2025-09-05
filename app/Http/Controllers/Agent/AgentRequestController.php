@@ -19,9 +19,13 @@ class AgentRequestController extends Controller
 {
     
         protected $notification;
+        protected $notification_title;
+
         public function __construct()
         {
             $this->notification = new Notification;
+            $this->notification_title = 'A request to appoint an Agent in your Territory remains outstanding.
+             Please visit <a href="'.config('app.url').'/agent-dashboard/Advertisers/new-requests">New Requests</a> to acknowledge.';
         }
 
         public function agentRequest(AgentRequest $request)
@@ -45,7 +49,9 @@ class AgentRequestController extends Controller
             {
 
                 $refNumber = random_string();
-                DB::transaction(function () use ($request, $agent_users,$refNumber) {
+                $resposne_message = "";
+                $resposne_status = "";
+                DB::transaction(function () use ($request, $agent_users,$refNumber,&$resposne_message,&$resposne_status) {
                     $agentData = [
                         'user_id' => auth()->user()->id,
                         'state_id' => auth()->user()->state_id,
@@ -62,24 +68,65 @@ class AgentRequestController extends Controller
                     ];
 
                    
-                    $agentRequest = AdvertiserAgentRequest::create($agentData);
-
                     $advertiser_agent_request_users = [];
-                    foreach ($agent_users as $userId) {
-                        $advertiser_agent_request_users[] = [
-                            'advertiser_agent_requests_id' => $agentRequest->id,
-                            'advertiser_user_id' => auth()->user()->id,
-                            'receiver_agent_id' => $userId,
-                            'status' => 0,
-                            'created_at' => date('Y-m-d H:i:s')
-                        ];
-                    }
+                    $agent_id = [] ;
+        
+                    $receiverAgentIds = AdvertiserAgentRequestUser::where('advertiser_user_id', auth()->user()->id)
+                    ->where('status', '0')
+                    ->whereIn('receiver_agent_id', $agent_users)
+                    ->pluck('receiver_agent_id')
+                    ->toArray();
 
-                    AdvertiserAgentRequestUser::insert($advertiser_agent_request_users);
+
+                    if (count($receiverAgentIds) === 0) 
+                    {
+
+                            $agentRequest = AdvertiserAgentRequest::create($agentData);
+
+                            foreach ($agent_users as $userId) 
+                            {
+                                {
+                                    $advertiser_agent_request_users[] = [
+                                    'advertiser_agent_requests_id' => $agentRequest->id,
+                                    'advertiser_user_id' => auth()->user()->id,
+                                    'receiver_agent_id' => $userId,
+                                    'status' => 0,
+                                    'created_at' => date('Y-m-d H:i:s')
+                                    ];
+                                } 
+                                
+                                $agent_id[] = $userId;
+                                
+                            }
+
+                            AdvertiserAgentRequestUser::insert($advertiser_agent_request_users);
+                            $resposne_message = 'Request submitted successfully.';
+                            $resposne_status = true;
+
+                    } 
+                    else
+                    {
+                        $agent_id = array_unique($receiverAgentIds);
+                        $refNumber = "";
+                        $resposne_message = 'You already have a Request for a Support Agent logged.';
+                        $resposne_status = false;
+                    }   
+
+                        $data['to_user'] = $agent_id;
+                        $data['notification_type'] = 'agent_follow_up';
+                        $data['notification_listing_type'] = 2;
+                        $data['title'] = $this->notification_title;
+                        $data['message'] = '';
+                        $this->notification->sendNotification($data);
+                         
                 });
 
-                return redirect()->back()->with('req_ref_number', $refNumber)->with('agent_success', 'Request submitted successfully.');
-            } catch (Exception $e) {
+                return redirect()->back()
+                    ->with('resposne_status', $resposne_status)
+                    ->with('req_ref_number', $refNumber)
+                    ->with('agent_success', $resposne_message);
+            } 
+            catch (Exception $e) {
                 return redirect()->back()->with('error', 'An error occurred while submitting the request.');
             }
         }

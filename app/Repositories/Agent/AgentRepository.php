@@ -7,6 +7,7 @@ namespace App\Repositories\Agent;
 
 use Exception;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Agent;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
@@ -76,66 +77,87 @@ class AgentRepository extends BaseRepository implements AgentInterface
     public function addUpdateAgent(array $data)
     {
         
-       try 
-       {
-            DB::transaction(function () use ($data) 
+      return  DB::transaction(function () use ($data) 
+        {
+            try 
             {
-                $user = $this->agent->where('id',$data['user_id'])->firstOrFail(); 
+                $agentData  =  [
+                        'business_name'       => $data['business_name'] ?? null,
+                        'abn'                 => $data['abn'] ?? null,
+                        'business_address'    => $data['business_address'] ?? null,
+                        'business_number'     => $data['business_number'] ?? null,
+                        'contact_person'      => $data['contact_person'] ?? null,
+                        'phone'               => $data['phone'] ?? null,
+                        'email'               => $data['email'] ?? null,
+                        'email2'              => $data['email2'] ?? null,
+                        'state_id'            => $data['state_id'] ?? null,
+                        'viewer_contact_type' => isset($data['viewer_contact_type'])  ? json_encode($data['viewer_contact_type']): null,
+                    ];
 
-                $user->update([
-                'business_name' => $data['business_name'] ?? null,
-                'abn' => $data['abn'] ?? null,
-                'business_address' => $data['business_address'] ?? null,
-                'business_number' => $data['business_number'] ?? null,
-                'contact_person' => $data['contact_person'] ?? null,
-                'phone' => $data['phone'] ?? null,
-                'email' => $data['email'] ?? null,
-                'email2' => $data['email2'] ?? null,
-                'state_id' => $data['state_id'] ?? null,
-                'viewer_contact_type' => isset($data['viewer_contact_type']) ? json_encode($data['viewer_contact_type']) : null,
-                ]);
+                if (isset($data['user_id']) && (!empty($data['user_id']))) 
+                {
+                    $user = $this->agent->where('id', $data['user_id'])->first();
+                    if ($user) 
+                    {
+                        $user->update($agentData);
+                        $message = 'agent updated successfully';
+                    } 
+                    else 
+                    {
+                        $this->response = ['status' => false,'message' => 'agent not found'];
+                        return $this->response;
+                    }
+                } 
+                else 
+                {
+                    $agentData['enabled'] = 1;
+                    $agentData['type'] = 5;
+                    $message = 'New agent added successfully';
+                    $user = User::create($agentData);
+                  
+                }
 
-            /// Update agent detail
+            
+                 /// Update agent detail
+                $agent = $user->agent_detail ?? $user->agent_detail()->create([]);
+                if (!empty($data['agreement_file'])) {
+                    $file = $data['agreement_file'];
+                    $filename = time().'.'.$file->getClientOriginalExtension();
+                    $file_path = 'agent_files/' . $filename; 
+                    $file->storeAs('public/agent_files', $filename);
+                    $agent->update(['agreement_file' => $file_path]);
+                    $agrement_file = $file_path;
+                }
 
-            $agent = $user->agent_detail ?? $user->agent_detail()->create([]);
-
-            if (!empty($data['agreement_file'])) {
-                $file = $data['agreement_file'];
-                $filename = time().'.'.$file->getClientOriginalExtension();
-                $file_path = 'agent_files/' . $filename; 
-                $file->storeAs('public/agent_files', $filename);
-                $agent->update(['agreement_file' => $file_path]);
-                $agrement_file = $file_path;
-            }
-
-            else{
-                $agrement_file  = $agent->agreement_file;
-            }
+                else
+                {
+                    $agrement_file  = $agent->agreement_file;
+                }
 
           
-            $agent->update([
-                'agreement_date' => !empty($data['agreement_date'])? date('Y-m-d', strtotime($data['agreement_date'])): null,
-                'term' => $data['term'] ?? null,
-                'option_peroid' => $data['option_peroid'] ?? null,
-                'option_exercised' => $data['option_exercised'] ?? null,
-                'commission_advertising_percent' => $data['commission_advertising_percent'] ?? null,
-                'commission_registration_amount' => $data['commission_registration_amount'] ?? null,
-                'agreement_file' => $agrement_file,
-            ]);
+                $agent->update([
+                    'agreement_date' => !empty($data['agreement_date'])? date('Y-m-d', strtotime($data['agreement_date'])): null,
+                    'term' => $data['term'] ?? null,
+                    'option_peroid' => $data['option_peroid'] ?? null,
+                    'option_exercised' => $data['option_exercised'] ?? null,
+                    'commission_advertising_percent' => $data['commission_advertising_percent'] ?? null,
+                    'commission_registration_amount' => $data['commission_registration_amount'] ?? null,
+                    'agreement_file' => $agrement_file,
+                ]);
 
-            /// Handle file upload
+
+                 $this->response = ['status' => true,'message' => $message];
+                 return $this->response;
             
+             } 
+                catch (Exception $e) {
+                logErrorLocal($e);
+                  $this->response = ['status' => false,'message' => 'Error occured while making request...'];
+                  return $this->response;
+            
+            }
 
-            });
-
-            $this->response = ['status' => true,'message' => 'Agent Updated Successfully'];
-            return $this->response;
-       } 
-       catch (Exception $e) {
-         logErrorLocal($e);
-         $this->response['message'] = 'Error occured while updating agent...';
-         return $this->response;
-       }
+        });
     }
 
 

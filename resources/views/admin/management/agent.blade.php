@@ -460,6 +460,7 @@
                                  </div>
                               <div class="col-6 mb-3">
                                  <select class="form-control rounded-0" name="state_id" id="state_id">${optionsHtml}</select>
+                                 
                               </div>
 
                            
@@ -648,6 +649,7 @@
             </div>
             <div class="col-6 mb-3">
             <input type="text" class="form-control rounded-0" placeholder="ABN" name="abn" id="abn">
+               <span class="text-danger error-abn"></span>
             </div>
             <div class="col-6 mb-3">
             <input type="text" class="form-control rounded-0" placeholder="Business Address" name="business_address" id="business_address">
@@ -674,6 +676,7 @@
             </div>
             <div class="col-6 mb-3">
             <select class="form-control rounded-0" name="state_id" id="state_id">${optionsHtml}</select>
+            <span class="text-danger error-state_id"></span>
             </div>
 
 
@@ -749,8 +752,8 @@
          let form = $(this);
          let formData = new FormData(this);
 
-          swal_waiting_popup({'title':'Saving Agent Details'});
-          return false
+         //  swal_waiting_popup({'title':'Saving Agent Details'});
+         //  return false
        
          $.ajax({
                url: "{{ route('admin.add-agent') }}",
@@ -761,8 +764,9 @@
                success: function(response) {
                      table.ajax.reload(null, false); 
                      Swal.close();
-                     //$('#viewAgentdetails').modal('hide');
-                     //swal_success_popup(response.message);
+                     $('span.text-danger').text('');
+                     $('#addNewAgent').modal('hide');
+                     swal_success_popup(response.message);
                },
                error: function(xhr) {
                   
@@ -777,10 +781,6 @@
                      } else {
                      swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
                      }
-
-                     // Swal.close();
-                     // $('#viewAgentdetails').modal('hide');
-                     // swal_error_popup(xhr.responseJSON.message);
                }
          });
       });
