@@ -28,7 +28,7 @@
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css') }}" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/app/css/bootstrap.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('assets/app/css/bootstrap.min.css') }}"> --}}
     <!-- jquery ui cdn -->
     {{-- <!--<link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.css') }}"/>
     <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.structure.min.css') }}"/> --}}

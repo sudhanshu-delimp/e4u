@@ -39,14 +39,14 @@
      </div>
     <div class="col-md-12">        
         <div class="table-responsive membership--inner">
-            <table class="table table-bordered text-center" id="transactionSummaryTable">
+            <table class="table table-bordered text-center" id="advertiserSuspenstionTable">
                  <thead class="table-bg">
                    <tr>
                     <th>ID</th>
                     <th>Member ID</th>
                     <th>Start Date</th>
                     <th>End Date</th>
-                    <th>Date</th>
+                    <th>Days</th>
                     <th>Location</th>
                     <th class="text-center">Action</th>
                    </tr>
@@ -64,7 +64,7 @@
                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                            </a>
-                           <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                           <div class="dot-dropdown dropdown-menu  dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                               
                               
                               <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#view-profile" > <i class="fa fa-eye"></i> View</a>
@@ -105,21 +105,15 @@
             <div class="row">
                 <div class="col-12">
                     <!-- iframe inside modal -->
-                    <iframe 
-                        src="" 
-                        width="100%" 
-                        height="400" 
-                        frameborder="0" 
-                        style="border-radius: 8px;">
-                    </iframe>
+                    <iframe src="" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen=""></iframe>
                 </div>
                 <!-- Footer Buttons -->
                 <div class="col-lg-12">
                   <div class="d-flex justify-content-end mb-3">
                     
-                     <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">
+                     {{-- <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">
                         Close
-                     </button>
+                     </button> --}}
                   </div>
                 </div>
             </div>
@@ -135,23 +129,59 @@
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
+
+   // admin.advertiser-suspensions-list-ajax
    $(document).ready(function() {
-    var table = $("#transactionSummaryTable").DataTable({
-         language: {
+      ajaxDatatableReload();
+
+      $(document).on('click', '.viewEscortSuspendedProfile', function(e) {
+            e.preventDefault(); // prevent default link behavior
+
+            const escortId = $(this).attr('data-escort-id');
+            var profileUrl = '{{route("profile.description","_id")}}'.replace('_id',escortId);
+
+            $("#escortPopupModalBodyIframe").attr('src', profileUrl)
+        });
+
+   });
+
+   function ajaxDatatableReload()
+   {
+      var table = $('#advertiserSuspenstionTable').DataTable({
+            language: {
             search: "Search: _INPUT_",
             searchPlaceholder: "Search by Member ID..."
+         },   
+         info: true,
+         lengthChange: true,
+         searching: true,
+         bStateSave: true,
+         order: [[1, 'desc']],
+         processing: true,
+         serverSide: true,
+         paging: true,
+         ajax: {
+               url: "{{ route('admin.advertiser-suspensions-list-ajax') }}", 
+               type: "GET",
+               dataSrc: function(json) {
+                  // var totalRows = json.data.length; 
+                  var totalRows = json.recordsTotal || json.recordsFiltered; 
+                  $(".totalListing").text(totalRows);
+                  console.log(json, json.per_page, json.current_page);
+                  return json.data;
+               }
          },
-        processing: true,
-        serverSide: false,
-        paging: true, 
-        lengthChange: true,
-        searching: true,
-        bStateSave: true,
-        order: [[1, 'desc']],
-        lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-        pageLength: 10,
-    });
-});
+         columns: [
+               { data: 'escort_id', name: 'escort_id' },
+               { data: 'member_id', name: 'member_id' },
+               { data: 'start_date', name: 'start_date' },
+               { data: 'end_date', name: 'end_date' },
+               { data: 'days', name: 'days' },
+               { data: 'location', name: 'location' },
+               { data: 'action', name: 'action', orderable: false }
+         ]
+      });
+   }
 
  </script>
 

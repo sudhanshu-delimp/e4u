@@ -170,14 +170,14 @@ table td,th{
                                   <td class="report_date">14-05-2025</td>
                                 </tr>
                                 <tr>
-                                  <th>Member ID:</th>
+                                  <th>Advertiser ID:</th>
                                   <td class="report_member_id">14-05-2025</td>
-                                  <th>Escort ID:</th>
+                                  <th>Viewer ID:</th>
                                   <td class="report_escort_id">14-05-2025</td>
                                   
                                 </tr>
                                 <tr>
-                                    <th>Viewer ID:</th>
+                                  <th>Mobile:</th>
                                   <td class="report_viewer_id">WA - Perth</td>
                                   <th>Mobile:</th>
                                   <td class="report_mobile">Adrian Weinstein</td>
@@ -185,10 +185,11 @@ table td,th{
                                 </tr>
                               
                                 <tr>
-                                    <th>Status:</th>
-                                  <td class="report_status">Current</td>
+                                  
                                   <th>Home State:</th>
-                                  <td colspan="3" class="report_home_state">WA</td>
+                                  <td  class="report_home_state">WA</td>
+                                  <th>Status:</th>
+                                  <td colspan="3" class="report_status">Current</td>
                                 </tr>
                                 <tr>
                                   <th>Comments:</th>
@@ -225,10 +226,10 @@ table td,th{
                         </tr>
 
                         <tr>
-                            <td style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:175px;" colspan="1">Name:</td>
-                            <td colspan="2" style="border:1px solid #000; padding:25px 12px; width:200px"></td>
-                            <td style="border:1px solid #000; padding:25px 12px; font-weight:bold;">Signature:</td>
-                            <td colspan="1" style="border:1px solid #000; padding:25px 12px;"></td>
+                            <td colspan="1" style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:110px;" colspan="1">Name:</td>
+                            <td colspan="2" style="border:1px solid #000; padding:25px 12px;"></td>
+                            <td colspan="1" style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:120px">Signature:</td>
+                            <td colspan="2" style="border:1px solid #000; padding:25px 12px;"></td>
                         </tr>
                     </table>
 

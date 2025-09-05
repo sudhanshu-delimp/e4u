@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
+use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 
 Route::get('', 'DashboardController@index')->name('admin.index');
@@ -174,9 +175,11 @@ Route::get('reports/transaction-summary',function(){
     return view('admin.reports.transaction-summary');
 })->name('admin.transaction-summary');
 
-Route::get('reports/advertiser-suspensions',function(){
-    return view('admin.reports.advertiser-suspensions');
-})->name('admin.advertiser-suspensions');
+// Route::get('reports/advertiser-suspensions',function(){
+//     return view('admin.reports.advertiser-suspensions');
+// })->name('admin.advertiser-suspensions');
+Route::get('reports/advertiser-suspensions',[ReportAdvertiserSuspensionContoller::class,'index'])->name('admin.advertiser-suspensions');
+Route::get('reports/advertiser-suspensions-list-ajax',[ReportAdvertiserSuspensionContoller::class,'advertiserSuspensionDataTableListingAjax'])->name('admin.advertiser-suspensions-list-ajax');
 
 Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
 Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('admin.send-notiification');

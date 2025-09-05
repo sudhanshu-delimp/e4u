@@ -366,25 +366,9 @@ CKEDITOR.replace('editor1', {
                 url: '{{route("escort.current.single-list.escort-dataTableListing")}}/' + escortId, // replace with your actual route
                 method: 'GET',
                 success: function(response) {
-                    console.log('response');
-                    console.log(response);
-                    // populate modal with response data
-                    // $(".pop_member_id").text(response.member_id);
-                    // $(".pop_member").text(response.member);
-                    // $(".pop_listing").text(response.listing);
-                    // $(".pop_profile_name").text(response.profile_name);
-                    // $(".pop_masseurs").text(response.type);
-                    // $(".pop_listed_date").text(response.start_date);
-                    // $(".pop_de_listed").text(response.end_date);
-                    // $(".pop_day").text(response.days);
-                    // $(".pop_day_left").text(response.left_days);
-
-                    console.log('heys ');
                     console.log(response.profileurl);
 
                     $("#escortPopupModalBodyIframe").attr('src', response.profileurl)
-
-                    //$('#view-listing .modal-body').html(response); // assuming modal has a .modal-body
                 },
                 error: function(xhr) {
                     console.error('Failed to fetch data');
