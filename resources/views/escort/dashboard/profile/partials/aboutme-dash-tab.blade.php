@@ -106,6 +106,16 @@
         height: 100% !important;
         object-fit: cover;
     }
+    .modal-tab {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+    .my-custompop-tabs .nav-item{
+        margin-bottom: 0px !important;
+    }
+    .my-custompop-tabs .nav-item .nav-link.active{
+    color: #fff;
+    }
 </style>
 
 @php
@@ -402,7 +412,7 @@
                                     <div class="col-lg-8">
                                         <div class="row">
                                             <div class="col-lg-12">                                            
-                                                <h2 class="banner-sub-heading my-2">Gallery Image</h2>
+                                                <h2 class="banner-sub-heading my-2">Gallery Images</h2>
                                             </div>
                                             <div class="col">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
@@ -562,36 +572,78 @@
                 </div>
             </div>
 
-            <div class="modal" id="photo_gallery_banner" style="display: none">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content custome_modal_max_width">
-                        <div class="modal-header main_bg_color border-0">
-                            <h5 class="modal-title" style="color: white;"> <img src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon">  Select Banner</h5>
-                            <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 200px;">
-                                <button type="button" data-toggle="modal" data-target="empty" class="btn-cancel-modal" style=" padding: 5px 10px;">Upload from device</button>
-                            </div>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">
-                                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                                </span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div id="banner_modal_container" class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll; grid-template-columns: 1fr 1fr 1fr;">
-                               
-                                @foreach($media  as $keyId => $image)
-                                    @if(in_array($image->position, [9]))
-                                        <div class="item2">
-                                            <img class="img-thumbnail defult-image select_image" style="height: 150px;" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
-                                        </div>
-                                    @endif
-                                @endforeach
-
-                            </div>
-                        </div>
-                    </div>
+            
+<div class="modal" id="photo_gallery_banner" style="display: none">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color border-0">
+                <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Banner</h5>
+               
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">
+             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+             </span>
+                </button>
+            </div>
+            <div class="modal-body">
+             <!-- Nav tabs -->
+             <ul class="nav nav-tabs my-custompop-tabs" id="myTab" role="tablist">
+                 
+                 <li class="nav-item">
+                     <a class="nav-link active" id="upload-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="upload" aria-selected="false">
+                         Upload Banner
+                     </a>
+                     </li>
+                 <li class="nav-item">
+                 <a class="nav-link" id="default-tab" data-toggle="tab" href="#default" role="tab" aria-controls="default" aria-selected="true">
+                     Default Template
+                 </a>
+                 </li>
+             </ul>
+                <div class="modalPopup" style="max-height: 500px; overflow-y:scroll;">
+                     
+                     <div class="tab-content mt-3">
+                         <!-- Tab panes -->
+                         <div class="tab-pane fade show active" id="upload" role="tabpanel" aria-labelledby="upload-tab">
+                             <div class="modal-tab">
+                                 @foreach($media  as $keyId => $image)
+                                     @if(in_array($image->position, [9])/*$image->position != 8*/)                                    
+                                     <!-- upload Template Tab -->
+                                             <div class="item2">
+                                                 <img class="img-thumbnail defult-image select_image"
+                                                     src="{{ asset($image->path) }}"
+                                                     alt=" "
+                                                     data-id="{{$image->id}}"
+                                                     data-position="{{$image->position ? $image->position : ''}}">
+                                             </div>              
+                                                 
+                                     @endif
+                                 @endforeach                                     
+                             </div>                           
+                         </div>     
+                         <!-- default Banner Tab -->
+                         <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
+                             <div class="modal-tab">
+                                 <div class="item2">
+                                     <img src="{{ asset('assets/app/img/blog-8.png') }}" class="img-thumbnail defult-image select_image">
+                                 </div>
+                                 <div class="item2">
+                                     <img src="{{ asset('assets/app/img/blog-9.png') }}" class="img-thumbnail defult-image select_image">
+                                 </div>
+                                 <div class="item2">
+                                     <img src="{{ asset('assets/app/img/blog-10.png') }}" class="img-thumbnail defult-image select_image">
+                                 </div>
+                                 <div class="item2">
+                                    <img src="{{ asset('assets/app/img/blog-13.png') }}" class="img-thumbnail defult-image select_image">
+                                </div>
+                             </div>
+                         </div>
+                     </div>    
                 </div>
             </div>
+        </div>
+    </div>
+ </div>
             <div class="modal fade upload-modal" id="upload-sec" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">

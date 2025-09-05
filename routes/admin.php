@@ -174,6 +174,10 @@ Route::get('reports/transaction-summary',function(){
     return view('admin.reports.transaction-summary');
 })->name('admin.transaction-summary');
 
+Route::get('reports/advertiser-suspensions',function(){
+    return view('admin.reports.advertiser-suspensions');
+})->name('admin.advertiser-suspensions');
+
 Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
 Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('admin.send-notiification');
 
