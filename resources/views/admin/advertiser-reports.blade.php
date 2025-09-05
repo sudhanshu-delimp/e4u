@@ -172,14 +172,15 @@ table td,th{
                                   <th>Advertiser ID:</th>
                                   <td class="report_member_id">14-05-2025</td>
                                   <th>Viewer ID:</th>
-                                  <td class="report_escort_id">14-05-2025</td>
+                                  <td class="report_viewer_id">14-05-2025</td>
+                                  {{-- <td class="report_escort_id">14-05-2025</td> --}}
                                   
                                 </tr>
                                 <tr>
+                                  <th>Mobile :</th>
+                                  <td class="report_mobile">WA - Perth</td>
                                   <th>Mobile:</th>
-                                  <td class="report_viewer_id">WA - Perth</td>
-                                  <th>Mobile:</th>
-                                  <td class="report_mobile">Adrian Weinstein</td>
+                                  <td class="report_viewer_mobile">Adrian Weinstein</td>
                                   
                                 </tr>
                               
@@ -495,8 +496,6 @@ $(document).ready(function() {
                 'report_id':report_id
             },
             success: function(response) {
-                console.log('response');
-                console.log(response);
                 if(response.error == false){
                     let status = (response.data.report_status == 'pending') ? 'Current' : response.data.report_status;
                     $(".report_ref").text('#'+response.data.id +''+ response.data.escort_id);
@@ -505,12 +504,11 @@ $(document).ready(function() {
                     $(".report_escort_id").text(response.data.escort_id);
                     $(".report_viewer_id").text(response.data.viewer_id);
                     $(".report_status").text(capitalizeFirstLetter(status));
-                    $(".report_home_state").text(response.data.escort.user.home_state);
+                    $(".report_home_state").text(response.data.escort.user.state_id);
                     $(".report_comment").text(capitalizeFirstLetter(response.data.report_desc));
                     $(".report_mobile").text(response.data.escort.user.phone);
+                    $(".report_viewer_mobile").text(response.data.viewer.phone);
                 }
-
-                //$("#escortPopupModalBodyIframe").attr('src', response.profileurl)
             },
             error: function(xhr) {
                 console.error('Failed to fetch data');

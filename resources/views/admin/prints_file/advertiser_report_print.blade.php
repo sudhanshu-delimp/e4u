@@ -149,8 +149,8 @@
     </div>
 
     <div class="row">
-        <div class="col-6"><strong>Mobile:</strong> {{$report->viewer_id}}</div>
         <div class="col-6"><strong>Mobile:</strong> {{$report->escort->user->phone}}</div>
+        <div class="col-6"><strong>Mobile:</strong> {{$report->viewer->phone}}</div>
     </div>
 
     <div class="row">
