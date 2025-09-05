@@ -297,66 +297,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-                                {{--<div class="about-me-box-one-number mobile_num" style={{ $escort->city ? '' : "color:#C4C4C4;" }}>
-                                    {{ $escort->city ? $escort->city->name : "Location -"}}{{$escort->phone ? ' - '.$escort->phone : auth()->user()->phone}}
-
-                                </div>--}}
-                                {{-- {{  dd(config('escorts.profile.states')[3910]['cities']) }} --}}
-
-                                {{--<div class="about-me-box-one-map add_class" style={{ $escort->
-                                    state ? '' : "color:#C4C4C4;" }}>
-                                    --}}{{-- @php //if($escort->address || $escort->state || $escort->pincode) { @endphp --}}{{--
-                                    <svg width="14" height="21" viewBox="0 0 14 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M7 10C6.33696 10 5.70107 9.73661 5.23223 9.26777C4.76339 8.79893 4.5 8.16304 4.5 7.5C4.5 6.83696 4.76339 6.20107 5.23223 5.73223C5.70107 5.26339 6.33696 5 7 5C7.66304 5 8.29893 5.26339 8.76777 5.73223C9.23661 6.20107 9.5 6.83696 9.5 7.5C9.5 7.8283 9.43534 8.15339 9.3097 8.45671C9.18406 8.76002 8.99991 9.03562 8.76777 9.26777C8.53562 9.49991 8.26002 9.68406 7.95671 9.8097C7.65339 9.93534 7.3283 10 7 10V10ZM7 0.5C5.14348 0.5 3.36301 1.2375 2.05025 2.55025C0.737498 3.86301 0 5.64348 0 7.5C0 12.75 7 20.5 7 20.5C7 20.5 14 12.75 14 7.5C14 5.64348 13.2625 3.86301 11.9497 2.55025C10.637 1.2375 8.85652 0.5 7 0.5V0.5Z" fill="#FF3C5F" />
-                                    </svg>
-                                    --}}{{-- @php  } @endphp --}}{{--
-                                    {{ $escort->address ? $escort->address.',' : "Address" }} {{ $escort->state ? $escort->state->name : null }} {{ $escort->pincode }}
-                                </div>--}}
-
-
-                                {{--<div class="mt-5"   style="display: block">
-                                    <input type="checkbox" class="form-controll" value="Y" id="playmate" name="playmate" @php echo (($escort->playmate == 'Y') ? "checked" : '' ) @endphp/> <label for="playmate" style="display: inline;">I am available as a playmate</label>
-                                </div>--}}
-
-                                {{--<div class="about-md-box-social">
-                                    @if(!empty($escort->social_links))
-                                        @foreach($escort->social_links as $key=>$val)
-                                        <a href="{{ $val }}">
-                                            <img src="{{ asset('assets/dashboard/img/'.$key.'.svg') }}"/>
-                                        </a>
-                                        @endforeach
-                                    @endif
-                                </div>--}}
-                            {{--<div class="col-lg-4">
-                                <div class="pull-right pt-5" style="text-align: end;">
-                                    <a href="#" id="new_saveProfilename">
-                                        <span class="pr-2">Edit</span>
-                                        <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13.5325 3.77992C13.825 3.48742 13.825 2.99992 13.5325 2.72242L11.7775 0.967422C11.5 0.674922 11.0125 0.674922 10.72 0.967422L9.34 2.33992L12.1525 5.15242L13.5325 3.77992ZM0.25 11.4374V14.2499H3.0625L11.3575 5.94742L8.545 3.13492L0.25 11.4374Z" fill="#90A0B7"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>--}}
-                            {{--<div class="col-lg-12 pt-5 p-0 pb-3">
-                                <div class="plate">
-                                    <label class="newbtn p-0 m-0 d-flex">
-                                    --}}{{-- <img id="blah1" class="img-fluid" src="{{ asset('assets/app/img/new-upload.png')}}" style="width: 100%;object-fit: cover;height: 188px;"> --}}{{--
-                                    --}}{{-- <input name="img[10]" id="imgx" class="pis" onchange="readURL(this);" type="file"> --}}{{--
-                                    <input type="hidden" name="position[]" value="1">
-
-                                    --}}{{--<video poster="{{ asset('assets/app/img/video-play-button.jpg') }}" controls="" style="background: #0000006b;width: 520px;height: 190px;object-fit: cover;" id="akhVideo">
-                                    <source id="imgx" src="{{ asset('assets/app/img/mov_bbb.mp4') }}" type="video/mp4">
-                                    </video>--}}{{--
-
-                                    <!-- <video width="100%" height="240" controls>
-                                    <source id="imgx" src="{{ asset($escort->imagePosition(10)) }}" type="video/mp4">
-                                        <source id="imgx" src="{{ asset($escort->imagePosition(10)) }}" type="video/mp4">
-                                    </video> -->
-                                </div>
-                            </div>--}}
-
                              @if(request()->segment(2) == 'profile' && request()->segment(3))
                                   <div class="col-md-12 text-right">
                                 <button id="location-info" type="submit" class="save_profile_btn">Update</button>
@@ -524,7 +464,7 @@
                                             <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
                 
                                             </li>
-                                            @for($i = 0; $i < ceil(count($media)/10); $i++ )
+                                            @for($i = 0; $i < ceil(count($mediaCategory)/10); $i++ )
                                             <li class="page-item" id="pageItem_{{$i}}" data-id="{{$i}}">
                                                <a data-target="#carouselExampleIndicators" data-slide-to="{{$i}}" class="page-link" href="#">{{$i + 1}}</a>
                                             </li>
@@ -535,11 +475,11 @@
                                          </ul>
                                          <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
                                             <div class="carousel-inner" id="view_all">
-                                            @foreach($media->chunk(10)  as $keyId => $images)
+                                            @foreach($mediaCategory->chunk(10)  as $keyId => $images)
                                                 <div class="carousel-item" id="cItem_{{$loop->index}}" data-id="{{$loop->index}}">
                                                   <div class="grid-container" id="dvSource">  
                                                   @foreach($images as $image)    
-                                                  @if(!in_array($image->position, [8])/*$image->position != 8*/)                                               
+                                                  @if(!in_array($image->position, [8]))                                               
                                                         <div class="item4" id="dm_{{$image->id}}">
                                                             <img class="img-thumbnail defult-image ui-draggable" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                                                             <i class="fa fa-trash deleteimg" data-id="{{$image->id}}" title="Remove this media"></i>                                        
@@ -722,22 +662,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{--<div class="row row pr-2 pt-2">
-                                                <div class="col-12 pr-0">
-                                                    <div class="plate">
-                                                        <label class="newbtn">
-
-                                                        --}}{{-- <img id="blahx" class="img-fluid" style="width:870px; height:147px;object-fit: cover;"src="{{ asset($escort->imagefrontPosition(10)) }}"> --}}{{--
-                                                        <input name="img[11]" id="picx" class="pis" onchange="readURL(this);" type="file" accept="video/*">
-
-                                                        <video class="img-fluid" id="blahx" controls="" src="" style="width:870px; height:147px;object-fit: cover;">
-                                                            <source id="akhVideo" src="" type="video/mp4" >
-                                                        </video>
-                                                        <input type="hidden" name="position[]" id="mediaIdx">
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>--}}
                                             <div class="row mt-3 pt-1" style="border: 1px dotted;">
                                                 <div class="col-6 pt-4 pb-4">
                                                         <h4>Verify these Photos</h4>
@@ -787,28 +711,13 @@
                                             <div class="col-12">
                                                 <div class="plate"><label class="newbtn">
                                                     <img id="blah9" class="img-fluid" src="{{ asset($escort->imagefrontPosition(9))}}" style="height: 118px;object-fit: cover;width: 618px;">
-                                                    {{-- <img id="blah9" class="img-fluid" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 118px;object-fit: cover;width: 618px;"> --}}
+                                                   
                                                     <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*">
                                                     <input type="hidden" name="position[9]" id="mediaId9">
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{--<div class="row mt-3" style="border: 1px dotted;">
-                                            <div class="col-6 pt-4 pb-4">
-                                                <h4>Verify these photos</h4>
-                                                <p>Upload a picture of your ID with your most recent photo for verification.</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img class="img-fluid cl_blash10" id="blah10" src="{{ asset($escort->imagefrontPosition(10))}}" style="height: 138px;object-fit: cover;width: 291px;">
-                                                    --}}{{-- <img class="img-fluid" id="blah0" src="{{ asset('assets/app/img/upload-6.png')}}" style="height: 138px;object-fit: cover;width: 291px;"> --}}{{--
-                                                    <input name="img[10]" id="pic10" class="pis" onchange="readURL(this);" type="file" accept="image/*">
-                                                    <input type="hidden" name="position[]" id="mediaIdx">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>--}}
                                     </div>
                                 </div>
                             </div>
@@ -921,15 +830,6 @@
                                                     <label class="col-sm-4 font-weight-500"
                                                            for="exampleFormControlSelect1">Nationality:</label>
                                                     <div class="col-sm-8">
-                                                        <!--select style="border: 1px solid #d5d7e5 !important;"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow nationality-sec change_default"
-                                                                id="select2-dropdown"
-                                                                data-parsley-required-message="Select nationality"
-                                                                name="nationality_id"
-                                                                data-parsley-errors-container="#nationality-errors">
-                                                            <option
-                                                                value="{{ old('nationality_id',$escort->nationality_id)}}">{{($escort->nation) ? $escort->nation->name : ''}}</option>
-                                                        </select-->
 
                                                         <select style="border: 1px solid #d5d7e5 !important;"
                                                                 class="form-control form-control-sm select_tag_remove_box_sadow nationality-sec change_default" id="select2_country" data-parsley-required-message="Select nationality"
