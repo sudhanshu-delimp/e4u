@@ -545,7 +545,7 @@
                      <div class="tab-content mt-3">
                          <!-- Tab panes -->
                          <div class="tab-pane fade show active" id="upload" role="tabpanel" aria-labelledby="upload-tab">
-                             <div class="modal-tab">
+                             <div id="banner_modal_container" class="modal-tab">
                                  @foreach($media  as $keyId => $image)
                                      @if(in_array($image->position, [9])/*$image->position != 8*/)                                    
                                      <!-- upload Template Tab -->
