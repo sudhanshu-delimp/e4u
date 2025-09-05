@@ -56,9 +56,8 @@ class EscortGalleryController extends AppController
     public function photoGalleries()
     {
         $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
-        $mediaCategory = $media->whereNull('position');
         $path = $this->media;
-        return view('escort.dashboard.archives.archive-view-photos',compact('mediaCategory','media','path'));
+        return view('escort.dashboard.archives.archive-view-photos',compact('media','path'));
     }
 
     public function videoGalleries()
@@ -454,7 +453,7 @@ class EscortGalleryController extends AppController
         try {
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
             $mediaCategory = match ($category) {
-                'gallery' => $media->whereNull('position'),
+                'gallery' => $media->whereNotIn('position',[9,10]),
                 'banner'  => $media->whereIn('position',[9]),
                 'pinup'   => $media->whereIn('position',[10]),
             };
