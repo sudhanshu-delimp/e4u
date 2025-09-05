@@ -2575,6 +2575,25 @@ button.btn:focus {
     padding: 0px 10px;
 }
 
+.profiles-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.create-massuer-profile {
+    flex: 1 1 calc(50% - 20px);
+    display: flex;
+    flex-direction: column;
+    padding: 0px 15px;
+}
+
+.create-massuer-profile label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #0C223D;
+}
+
 @media screen and (max-width: 600px) {
     .business-field {
         flex: 1 1 100%;
