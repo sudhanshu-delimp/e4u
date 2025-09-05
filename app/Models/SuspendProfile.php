@@ -20,4 +20,14 @@ class SuspendProfile extends Model
         'note',
         'status',
     ];
+
+    public function escort()
+    {
+        return $this->belongsTo(Escort::class,'escort_profile_id','id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+    }
 }
