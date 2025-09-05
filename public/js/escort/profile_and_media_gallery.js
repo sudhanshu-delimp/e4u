@@ -144,12 +144,12 @@ function preview_image(event)
                         var height = image.height;
                         var width = image.width;
                         if(input.id=='upload_banner' && (height < 469 || width < 1920)) {
-                            Swal.fire("Banner Media", "Please upload an image with a minimum size of 1920×469 pixels", "warning");
+                            Swal.fire("Banner Media", "The image you have selected is too small.<br>Please upload an image with a minimum size of 1920×469 pixels", "warning");
                             return false;
 
                         }
                         if(input.id=='upload_pinup' && (height < 627 || width < 855)){
-                            Swal.fire("Pin Up Media", "Please upload an image with a minimum size of 855×627 pixels", "warning");
+                            Swal.fire("Pin Up Media", "The image you have selected is too small.<br>Please upload an image with a minimum size of 855×627 pixels", "warning");
                             return false;
                         }
                         $(`#${input.id}`).prev().attr('src', e.target.result);
@@ -288,7 +288,7 @@ function preview_image(event)
                 else{
                     $(".js_gallery_category li:nth-child(3)").remove();
                 }
-                if (activePage && activeContainer) {
+                if (activePage && activeContainer && $(`#${activeContainer} img`).length > 0) {
                     $(`#${activePage}`).addClass('active');
                     $(`#${activeContainer}`).addClass('active');
                 } else {

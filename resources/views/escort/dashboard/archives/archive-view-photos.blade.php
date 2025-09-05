@@ -242,36 +242,6 @@
                         <div class="col-md-2" style="padding-left: 7rem;">
                             <button type="submit" class="btn btn-primary create-tour-sec useDefault">Use Default</button>
                         </div>
-
-                        {{-- <div id="usedf"> --}}
-
-                        {{-- <div class="row" style="">
-                           <div class="col-4 pr-0">
-                              <div class="plate">
-                                 <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
-                                 <img class="img-fluid"  id="img5" src="{{ asset($path->findByposition(auth()->user()->id,5)['path'])}}">
-                                 <input type="hidden" id="pos_5" name="position[5]" value="">
-                                 </label>
-                              </div>
-                           </div>
-                           <div class="col-4 pr-0">
-                              <div class="plate">
-                                 <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
-                                 <img class="img-fluid"  id="img6" src="{{ asset($path->findByposition(auth()->user()->id,6)['path'])}}">
-                                 <input type="hidden" id="pos_6" name="position[6]" value="">
-                                 </label>
-                              </div>
-                           </div>
-                           <div class="col-4 pr-0">
-                              <div class="plate">
-                                 <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec">
-                                 <img class="img-fluid"  id="img7" src="{{ asset($path->findByposition(auth()->user()->id,7)['path'])}}">
-                                 <input type="hidden" id="pos_7" name="position[7]" value="">
-                                 </label>
-                              </div>
-                           </div>
-
-                        </div> --}}
                     </form>
                 </div>
             </div>
@@ -672,19 +642,6 @@
            positionToFill = $(this);
        });
    })
-
-//    $("body").on('click','#menu_varified', function(e){
-//         $("#view_all").hide();
-//         $("#carouselExampleIndicators").hide();
-//    });
-//    $("body").on('click','#menu_unverified', function(e){
-//         $("#view_all").show();
-//         $("#carouselExampleIndicators").show();
-//    });
-//    $("body").on('click','#menu_all', function(e){
-//         $("#view_all").show();
-//         $("#carouselExampleIndicators").show();
-//    });
 
    function positionToUpdate(position) {
        console.log("positionToUpdate",position);

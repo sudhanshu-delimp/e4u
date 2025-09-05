@@ -70,7 +70,7 @@
                     <div class="carousel-item" id="cItem_{{$loop->index}}" data-id="{{$loop->index}}">
                         <div class="grid-container" id="dvSource">  
                         @foreach($images as $image)    
-                        @if(!in_array($image->position, [8])/*$image->position != 8*/)                                               
+                        @if(!in_array($image->position, [8]))                                               
                             <div class="item4" id="dm_{{$image->id}}">
                                 <img class="img-thumbnail defult-image ui-draggable" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                                 <i class="fa fa-trash deleteimg" data-id="{{$image->id}}" title="Remove this media"></i>                                        

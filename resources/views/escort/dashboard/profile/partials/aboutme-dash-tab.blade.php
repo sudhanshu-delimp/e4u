@@ -667,60 +667,6 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                {{-- <div class="col-8 pl-0">
-                                                    <div class="row" style="">
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah2" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[2]" id="pic2" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="2">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah3" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[3]" id="pic3" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="3">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah4" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[4]" id="pic4" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="4">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row" style="">
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah5" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[5]" id="pic5" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="5">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah6" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[6]" id="pic6" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="6">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah7" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[7]" id="pic7" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="7">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
                                                 <div class="col-8 pl-0">
                                                     <div class="row" style="">
                                                         <div class="col-4 pr-0">
@@ -890,60 +836,6 @@
                 <!--New Row end here-->
                 <div class="row mt-4">
                     <div class="col-md-12">
-                        {{--<div>
-                            <div class="border_covid covid_heading ">
-                                <h2>Playmates</h2>
-                            </div>
-                            <div class="card-body pb-0">
-                                <div class="card-body border-0 pt-0 mt-2">
-                                    <form class="at-sec" method="post" action="" id="playmate_search" style="display: none;">
-                                        <div class="at-lable">
-                                            <label for="Student">Search for playmate</label>
-                                            <input  name="q" placeholder="Search by name / Member ID" autocomplete="off" class="" id="search-playmate-input">
-                                            <input type="hidden" name="h_escort_id" id="h_escort_id" value="{{auth()->user()->id}}">
-                                            <ul class="results showPlaymates">
-                                                --}}{{-- {{ dd(auth()->user()->playmates()->pluck('playmate_id'))}} --}}{{--
-                                                @foreach($users_for_available_playmate as $allUser)
-                                                    @if(!is_null($allUser->escorts))
-                                                        @foreach($allUser->escorts as $escort)
-                                                            @if(!in_array($escort->id,auth()->user()->playmates()->pluck('playmate_id')->toArray()))
-                                                                @if($escort->membership != null && $escort->start_date != null)
-                                                                    --}}{{-- @if($escort->membership == 4 && Carbon\Carbon::parse($escort->start_date)->diffInDays(Carbon\Carbon::parse(now())) <= 14) --}}{{--
-                                                                    --}}{{-- {{ dd($escort->DefaultImage )}} --}}{{--
-                                                                    <li  id="list_{{$escort->id}}">
-
-                                                                        <img src="{{ $escort->DefaultImage }}" class="img-profile rounded-circle playmats-img " >
-                                                                        {{ $escort->name }}
-                                                                        <span class="playmates_id" value="{{$escort->id}}" data-path="{{$escort->DefaultImage}}" data-name="{{$escort->name}}">Add</span>
-                                                                        --}}{{-- <span>{{Carbon\Carbon::parse($escort->start_date)->format('d/m/Y')}}</span>
-                                                                        <span>{{Carbon\Carbon::now()->format('d/m/Y')}}</span> --}}{{--
-
-                                                                    </li>
-                                                                    --}}{{-- @endif  --}}{{--
-                                                                @endif
-                                                            @endif
-                                                        @endforeach
-                                                    @endif
-                                                @endforeach
-                                                --}}{{-- @foreach($allEscorts as $escort)
-                                                <li>
-
-                                                   <img src="{{ $escort->default_image }}" class="img-profile rounded-circle playmats-img" >
-                                                   {{ $escort->name }} <span class="playmates_id2" value="{{$escort->id}}">Add</span>
-
-                                                </li>
-                                                @endforeach --}}{{--
-                                            </ul>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>--}}
-
-
-
-
- 
                         <div class="border_covid covid_heading ">
                             <h2>About Me</h2>
                         </div>
