@@ -125,22 +125,22 @@
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
             </div>
-            <div class="modal-body pb-0">
-                        
+            <div class="modal-body pb-0">                        
                 <div class="row">
                     <div class="col-12 col-sm-12 col-lg-5 col-md-5">
                             
                                 <div class="row">
-                                    <div class="col-8 pr-0">
-                                        <div class="plate"><label class="newbtn">                                            
-                                            <img class="img-fluid w-100" id="img1" src="{{ asset('assets/app/img/frame_profile_c.png') }}">
-                                            
-                                            <input name="img[1]" id="pic1" data-id="1" class="pis" onchange="readURL(this);" type="file">
-                                            <input type="hidden" name="position[]" id="mediaId1">
-                            </label>
+                                    <div class="col-lg-12">
+                                        <div class="plate">
+                                            <label class="newbtn w-100">                                            
+                                                <img class="img-fluid w-100" id="img1" src="{{ asset('assets/app/img/new-frame_profile_c.png') }}">
+                                                
+                                                <input name="img[1]" id="pic1" data-id="1" class="pis" onchange="readURL(this);" type="file">
+                                                <input type="hidden" name="position[]" id="mediaId1">
+                                            </label>
                                         </div>
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-lg-12 d-flex justify-content-between mt-2">
                                         <div class="plate">
                                             <label class="newbtn">
                                             <img class="img-fluid w-100" id="img2" src="{{ asset('assets/app/img/create_2.png') }}">
@@ -174,158 +174,105 @@
                         </div>
                         <!-- end col -->
                     <div class="col-12 col-lg-7 col-sm-12 col-md-7 p-lg-0 create_new_profile_form">
-                    <form>
-                        <div class="form-group row">
-                            <div class="col-sm-7 row my-auto">
-                                <div class="col-12 col-lg-5 col-sm-5 col-md-5 p-0 pr-1 pl-1">
-                                <label class="new_style2">Stage Name:</label>
-                                </div>
-                                <!-- end col -->
-                                <div class="col-sm-7 p-0">
-                                <input type="text" class="form-control" placeholder="Stage Name">
-                                </div>
-                                <!-- end col  -->
-                            </div>
-                           <!-- <div class="col-sm-5 row pt-2">
-                                <div class="col-12 col-lg-5 col-sm-5 col-md-5 p-0 pr-1 pl-1 text-right mt-auto mb-auto">
-                                <img src="{{ asset('assets/app/img/handwithhart.png') }}">
-                                </div>
-                                <!-- end col -->
-                               <!-- <div class="col-sm-7 p-0">
-                                <label class="new_style">Massage:</label>
-                                
-                                <input type="text" class="form-control" placeholder="Enter Rate">
-                                </div>
-                                <!-- end col  --> 
-                           <!-- </div> --> 
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-6 row">
-                                <div class="col-12 col-lg-2 col-sm-2 col-md-2 p-0 pr-1 pl-1 my-auto">
-                                <label class="new_style2">AGE:</label>
-                                </div>
-                                <!-- end col -->
-                                <div class="col-sm-7 p-0">
-                                <input type="text" class="form-control" placeholder="Enter Age">
-                                </div>
-                                <!-- end col  -->
-                            </div>    
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-6 row">
-                                <div class="col-12 col-lg-5 col-sm-5 col-md-5 p-0 pr-1 pl-1">
-                                <label>Availabe Time:</label>
-                                </div>
-                                <!-- end col -->
-                                <div class="col-sm-7 p-0">
-                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
-                                    <option value="" selected="" disable=""></option>
-                                    
-                                </select>
-                                </div>
-                                <!-- end col  -->
-                            </div>
-                            <div class="col-sm-6 row">
-                                <div class="col-12 col-lg-5 col-sm-5 col-md-5 p-0 pr-1 pl-1">
-                                <label>Nationality:</label>
-                                </div>
-                                <!-- end col -->
-                                <div class="col-sm-7 p-0">
-                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
-                                    <option value="" selected="" disable=""></option>
-                                </select>
-                                </div>
-                                <!-- end col  -->
-                            </div>
-                            
-                            <div class="col-sm-6 row">
-                                <div class="col-12 col-lg-5 col-sm-5 col-md-5 p-0 pr-1 pl-1">
-                                <label>Types:</label>
-                                   
-                                </div>
-                                <!-- end col -->
-                                <div class="col-sm-7 p-0">
-                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
-                                    @foreach(@config('escorts.profile.masseur-types') as $key =>$value)
-                                        <option value="{{$key}}" {{ (request()->get('masseur_types') ==$key) ? 'selected' : '' }}>{{$value}}</option>
-                                    @endforeach
-                                </select>
-                                </div>
-                                <!-- end col  -->
-                            </div>
-                            
-                            <div class="col-sm-6 row">
-                                <div class="col-12 col-lg-5 col-sm-5 col-md-5 p-0 pr-1 pl-1">
-                                <label>Availabe Days:</label>
-                                </div>
-                                <!-- end col -->
-                                <div class="col-sm-7 p-0">
-                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
-                                    <option value="" selected="" disable=""></option>
-                                </select>
-                                </div>
-                                <!-- end col  -->
-                            </div>
-                            <div class="col-sm-6 row">
-                                <div class="col-12 col-lg-5 col-sm-5 col-md-5 p-0 pr-1 pl-1">
-                                <label>Mobile Number:</label>
-                                </div>
-                                <!-- end col -->
-                                <div class="col-sm-7 p-0">
-                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
-                                    <option value="" selected="" disable=""></option>
-                                </select>
-                                </div>
-                                <!-- end col  -->
-                            </div>
-
-                            <div class="col-sm-6 row">
-                                <div class="col-12 col-lg-5 col-sm-5 col-md-5 p-0 pr-1 pl-1">
-                                <label>Vaccinated:</label>
-                                </div>
-                                <!-- end col -->
-                                <div class="col-sm-7 p-0">
-                                <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
-                                    <option value="" selected="" disable=""></option>
-                                </select>
-                                </div>
-                                <!-- end col  -->
-                            </div>
-                            
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-sm-12 row">
-                                <textarea id="editor2" class="form-control" rows="2">
-                                </textarea> 
-                            </div>
+                        <form>
                             <div class="col-lg-12">
                                 <div class="member-id pl-0 pl-0 pb-2 pt-3">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="#FF3C5F" />
                                     </svg>
-                                    <!-- <span>Member ID: {{auth()->user()->member_id}}</span> -->
-                                    <span>Member ID: E4U208</span>
+                                    <span>Member ID: {{auth()->user()->member_id}}</span>
+                                
                                 </div>
                             </div>
-                        </div>
+                            <div class="profiles-wrapper">
+                                <div class="create-massuer-profile">
+                                    <div class="form-group">
+                                        <label for="Stage Name">Stage Name:</label>
+                                        <input type="text" class="form-control" placeholder="Stage Name">
+                                    </div> 
+                                </div>
+                            
+                                <div class="create-massuer-profile">                                 
+                                    <div class="form-group">
+                                        <label for="Age">AGE:</label>
+                                        <input type="text" class="form-control" placeholder="Enter Age">
+                                    </div> 
+                                </div>
 
-                        <div class="form-group">
-                            <div class="col-sm-12 text-right">
-                                <button type="button" class="btn-cancel-modal" class="close" data-dismiss="modal" aria-label="Close">Close</button>
-                                <button type="button" class="btn-success-modal">Save</button>
+                                <div class="create-massuer-profile">                                 
+                                    <div class="form-group">
+                                        <label for="Availabe Time">Availabe Time:</label>
+                                        <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
+                                            <option value="" selected="" disable=""></option>
+                                            
+                                        </select>
+                                    </div> 
+                                </div>
+
+                                <div class="create-massuer-profile">                                 
+                                    <div class="form-group">
+                                        <label for="Nationality">Nationality:</label>
+                                        <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
+                                            <option value="" selected="" disable=""></option>
+                                        </select>
+                                    </div> 
+                                </div>
+
+                                <div class="create-massuer-profile">                                 
+                                    <div class="form-group">
+                                        <label for="type">Types:</label>
+                                        <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
+                                            @foreach(@config('escorts.profile.masseur-types') as $key =>$value)
+                                                <option value="{{$key}}" {{ (request()->get('masseur_types') ==$key) ? 'selected' : '' }}>{{$value}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div> 
+                                </div>
+
+                                <div class="create-massuer-profile">                                 
+                                    <div class="form-group">
+                                        <label for="Availabe Days">Availabe Days:</label>
+                                        <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
+                                            <option value="" selected="" disable=""></option>
+                                        </select>
+                                    </div> 
+                                </div>
+
+                                <div class="create-massuer-profile">                                 
+                                    <div class="form-group">
+                                        <label for="Mobile Number">Mobile Number:</label>
+                                        <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
+                                            <option value="" selected="" disable=""></option>
+                                        </select>
+                                    </div> 
+                                </div>
+
+                                <div class="create-massuer-profile">                                 
+                                    <div class="form-group">
+                                        <label for="Vaccinated">Vaccinated:</label>
+                                        <select class="form-control form-control-sm select_tag_remove_box_sadow" id="service_id_one">
+                                            <option value="" selected="" disable=""></option>
+                                        </select>
+                                    </div> 
+                                </div>
+                                <div class="create-massuer-profile">                                 
+                                    <div class="form-group">
+                                        <label for="message">Message:</label>
+                                        <textarea id="editor2" class="form-control" rows="2">
+                                        </textarea>
+                                    </div> 
+                                </div>
+
                             </div>
-                        </div>
-                    </form>
+                            <div class="form-group">
+                                <div class="col-sm-12 text-right">
+                                    <button type="button" class="btn-cancel-modal" class="close" data-dismiss="modal" aria-label="Close">Close</button>
+                                    <button type="button" class="btn-success-modal">Save</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                    <!-- end col -->
-
                 </div>
-            </div>
-
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="manageImgId">Save</button>
-                </div> -->
             </div>
         </div>
     </div>
