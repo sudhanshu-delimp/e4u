@@ -161,15 +161,15 @@
              <span>Masseurs</span>
         </a>
         
-        <div id="profilesMasseurs" class="collapse @if(request()->segment(3) == 'add-profile' || request()->segment(3) == 'current-profile' || request()->segment(3) == 'past-profile' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="profilesMasseurs" class="collapse @if(request()->segment(3) == 'add-profile' || request()->segment(3) == 'add-media' || request()->segment(3) == 'past-profile' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
             <a class="collapse-item" href="{{ route('center.add-profile') }}">
             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png')}}">
             <span style="{{request()->segment(3) == 'add-profile' ? 'color: #e5365a;' : ''}}">Profiles</span>
             </a>
-            <a class="collapse-item" href="{{ route('center.current-profile') }}">
+            <a class="collapse-item" href="{{ route('center.add-media') }}">
             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
-            <span style="{{request()->segment(3) == 'current-profile' ? 'color: #e5365a;' : ''}}">Media</span>
+            <span style="{{request()->segment(3) == 'add-media' ? 'color: #e5365a;' : ''}}">Media</span>
             </a>
             {{-- <a class="collapse-item" href="{{ route('center.past-profile') }}">
             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png')}}">

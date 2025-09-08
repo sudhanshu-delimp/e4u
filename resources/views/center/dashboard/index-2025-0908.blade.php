@@ -4,207 +4,24 @@
    <!-- Page Heading -->
    
    <div class="row">
-      <div class="col-md-12 custom-heading-wrapper"><h1 class="h1">Dashboard</h1>
-          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-    </div>
-    <div class="col-md-12 mb-4">
-          <div class="card collapse" id="notes" style="">
-             <div class="card-body">
-                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                <p></p>
-                <ol>
-                     <li>Click the card to view information.</li> 
-                     <li>
-                        Some features can be changed here as well as from the relevant subject page. Where
-                        you make a change, the relevant subject page will be updated.
-                     </li>
-                </ol>
-             </div>
-          </div>
-    </div>
-  </div>
-  <div class="row">
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm mt-0">
-              <a href="{{ route('center.dashboard.centre-statistics') }}">
-                  <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/center/centre-statistics.png') }}" class="my-svg-icons" alt="Centre Statistics">
-                  </div>
-                  <h2>
-                     Centre Statistics
-                  </h2>
-              </a>
-
-          </div>
+      <div class="custom-heading-wrapper col-md-12 ">
+         <h1 class="h1">Dashboard</h1>
+         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
       </div>
-      {{-- end --}}
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm mt-0">
-              <a href="{{ route('center.dashboard.legbox-viewer') }}">
-                  <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/center/legbox-viewers.png') }}" class="my-svg-icons" alt=" Legbox Viewers">
-                  </div>
-                  <h2>
-                     Legbox Viewers
-                  </h2>
-              </a>
-
-          </div>
+      <div class="col-md-12 mb-4">
+         <div class="collapse" id="notes">
+            <div class="card">
+                <div class="card-body">
+                  <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                  <ol>
+                     
+                  </ol>
+                </div>
+            </div>
+        </div>
       </div>
-      {{-- end --}}
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm mt-0">
-              <a href="{{ route('center.dashboard.our-spend') }}">
-                  <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/center/our-spend.png') }}" class="my-svg-icons" alt="My Spend">
-                  </div>
-                  <h2>
-                     Our Spend
-                  </h2>
-              </a>
-
-          </div>
-      </div>
-      {{-- end --}}
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
-              <a href="{{ route('center.dashboard.our-statistics') }}">
-                  <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/center/our-statistics.png') }}" class="my-svg-icons" alt="Our Statistics">
-                  </div>
-                  <h2>
-                     Our Statistics
-                  </h2>
-              </a>
-
-          </div>
-      </div>
-      {{-- end --}}
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
-              <a href="{{ route('center.dashboard.task-list') }}">
-                  <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/center/task-list.png') }}" class="my-svg-icons" alt="Task List">
-                  </div>
-                  <h2>
-                      Task List
-                  </h2>
-              </a>
-
-          </div>
-      </div>
-      {{-- end --}}
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
-              <a href="{{ route('center.dashboard.manage-masseurs') }}">
-                  <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/center/manage-masseurs.png') }}" class="my-svg-icons" alt="Tour Schedule">
-                  </div>
-                  <h2>
-                     Manage Masseurs
-                  </h2>
-              </a>
-
-          </div>
-      </div>
-      {{-- end --}}
-
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
-              <a href="{{ route('center.dashboard.manage-media') }}">
-                  <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/center/manage-media.png') }}" alt="Manage Media">
-                  </div>
-                  <h2>
-                     Manage Media
-                  </h2>
-              </a>
-
-          </div>
-      </div>
-      {{-- end --}}
-
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-         <div class="my-custom-box shadow-sm">
-             <a href="{{ route('center.dashboard.masseurs-statistics') }}">
-                 <div class="box-icon">
-                     <img src="{{ asset('assets/dashboard/img/boxicon/center/masseurs-statistics.png') }}" alt="Masseurs Statistics">
-                 </div>
-                 <h2>
-                  Masseurs Statistics
-                 </h2>
-             </a>
-
-         </div>
-     </div>
-     {{-- end --}}
-
-     {{-- box start --}}
-     <div class="col-lg-4 box-wrapper">
-      <div class="my-custom-box shadow-sm">
-          <a href="{{ route('center.dashboard.logs-and-status') }}">
-              <div class="box-icon">
-                  <img src="{{ asset('assets/dashboard/img/boxicon/center/logs-and-status.png') }}" alt="Logs & Status">
-              </div>
-              <h2>
-               Logs & Status
-              </h2>
-          </a>
-
-      </div>
-  </div>
-  {{-- end --}}
-
-
-  <!-- ########## Customise Dashboard ################ -->
-  <?php
-   $viewers = config('constants.dashboard_viewer.escort');
-   if(!empty($viewers))
-   {
-       $my_view = isset($viewer_array->my_view) ? $viewer_array->my_view : [];
-       foreach($viewers as $view) :
-       $checked = (  isset($my_view[$view['key']]) && $my_view[$view['key']])? true : false ; 
-       if(!$checked)
-       continue;
-   ?>
-          <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
-              <a href="{{ url($view['link'])}}">
-                  <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/'.$view['icon'].'')}}" class="my-svg-icons" alt="{{$view['name']}}">
-                  </div>
-                  <h2>
-                     {{$view['name']}}
-                  </h2>
-              </a>
-
-          </div>
-          </div>
-
-      <?php
-       endforeach;
-      } 
-      ?>
-  <!-- ########## End Customise Dashboard ################ -->
-
-  </div>
-  <div class="row my-3">
-      <div class="col-lg-12">
-          <div class="d-flex align-items-center justify-content-end custom-dash-btn">
-              <a href="{{ route('center.dashboard.customise-dashboard') }}">Customise Dashboard <i class="fas fa-cog "></i>
-              </a>
-          </div>
-      </div>
-  </div>
-   <div class="row agent-dash d-none">
+   </div>
+   <div class="row agent-dash">
       <div class="col-lg-8 pr-2">
          <div class="sec-one">
             <h2 class="h5 mt-2 mb-4 text-gray-800 font-weight-bold">My Statistics</h2>
@@ -316,7 +133,7 @@
          </div>
       </div>
    </div>
-   <div class="row mt-3 mb-5 d-none">
+   <div class="row mt-3 mb-5">
       <!-- Area Chart -->
       <div class="col-xl-8 col-lg-7 pr-2">
          <div class="card shadow mb-3">
@@ -461,7 +278,7 @@
             <div class="col-lg-12">
                <div class="sec-one pb-1 rounded" style="background: #5D6D7E;">
                   <h2 class="h5 mt-2 mb-4 text-white">Massuers Statistics</h2>
-                  <div class="card mb-4">
+<div class="card mb-4">
                      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between border-0">
                         <h2 class="h5 text-gray-800 font-weight-bold">Currently Posted</h2>
                         <h2 class="h5 text-gray-800">5</h2>
