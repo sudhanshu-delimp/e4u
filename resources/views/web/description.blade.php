@@ -1627,7 +1627,7 @@
                     <span id="Lname">Message Me is only available to Viewers.
                         Please log in or Register to access Message Me.</span>
                 </h6>
-                <div class="modal-footer text-center justify-content-center" >
+                <div class="modal-footer text-center justify-content-center pt-0" >
                 <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>
                 <a href="{{ route('register') }}" type="button" class="site_btn_primary" id="regUrl" style="text-decoration: none;">Register</a>
                 </div>
@@ -2074,7 +2074,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="messageMe">Message Me</h5>
+                    <h5 class="modal-title" id="messageMe"><img src="{{ asset('assets/app/img/replaysmsicon.png') }}" class=" "> Message Me</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>

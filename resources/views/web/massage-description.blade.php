@@ -1254,8 +1254,7 @@
         <div class="modal-content custome_modal_max_width">
             <div class="modal-header main_bg_color">
                 <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon">
-                
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Message Me </h5>
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"><img src="{{ asset('assets/app/img/replaysmsicon.png') }}" class="img-fluid"> Message Me </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
@@ -1284,7 +1283,7 @@
                     <span id="Lname">Message Me is only available to Viewers.
                         Please log in or Register to access Message Me.</span>
                 </h6>
-                <div class="modal-footer text-center justify-content-center" >
+                <div class="modal-footer text-center justify-content-center pt-0" >
                 <a href="{{ route('viewer.login') }}" type="button" class="btn btn-danger site_btn_primary" id="loginUrl" >Login</a>
                 <a href="{{ route('register') }}" type="button" class="btn btn-danger site_btn_primary" id="regUrl">Register</a>
                 </div>
@@ -1462,7 +1461,7 @@
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color">
                     <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="icustompopicon">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Send New Harmony Nature Massage a
+                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="img-fluid"> Send New Harmony Nature Massage a
                         message</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -1598,7 +1597,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">My Legbox</h5>
+                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/my-legbox.png') }}" class="img-fluid"> My Legbox</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png') }}"

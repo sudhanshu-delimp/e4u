@@ -378,18 +378,17 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Monitoring"
-                aria-expanded="false" aria-controls="collapseTwo">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
-                <span>Global Monitoring </span>
-            </a>
-            <div id="Monitoring" class="collapse @if (request()->is('*global-monitoring*') ||
-                request()->is('*logged-in-users*') ||
-                request()->is('*escort-listings*') ||
-                request()->is('*massage-centre-listings*') ||
-                request()->is('*visitors*') ||
-                request()->is('*pinup-listings*')) show @endif"
-            aria-labelledby="headingTwo" style="">
+        aria-expanded="false" aria-controls="collapseMonitoring">
+        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/chart.png') }}">
+        <span>Global Monitoring </span>
+    </a>
+    <div id="Monitoring" 
+         class="collapse @if (request()->is('*global-monitoring*') ||
+              request()->is('*logged-in-users*') ||
+              request()->is('*escort-listings*') ||
+              request()->is('*massage-centre-listings*') ||
+              request()->is('*visitors*') ||
+              request()->is('*pinup-listings*')) show @endif">
                 <div class="py-0 collapse-inner rounded mb-2">
                     {{-- <a class="collapse-item" href="{{ route('admin.global-monitoring') }}">
 
@@ -1077,4 +1076,35 @@
         </li>
     @endif
 </ul>
+
+<script>
+ document.addEventListener("DOMContentLoaded", function () {
+    var monitoring = document.getElementById("Monitoring");
+    var toggle = document.querySelector('[data-target="#Monitoring"]');
+
+    // Hamesha open rakho by default
+    if (!monitoring.classList.contains("show")) {
+        monitoring.classList.add("show");
+    }
+
+    // Prevent auto close (jab dusra menu click ho)
+    $('#Monitoring').on('hide.bs.collapse', function (e) {
+        if (!toggle.classList.contains("force-close")) {
+            e.preventDefault();
+        }
+    });
+
+    // Sirf jab Global Monitoring pe click ho tab hi band karo
+    toggle.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (monitoring.classList.contains("show")) {
+            toggle.classList.add("force-close");
+            $('#Monitoring').collapse('hide');
+            setTimeout(() => toggle.classList.remove("force-close"), 300);
+        } else {
+            $('#Monitoring').collapse('show');
+        }
+    });
+});
+    </script>
 <!-- End of Sidebar -->
