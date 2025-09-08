@@ -420,7 +420,7 @@
                   var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content basic-modal">
                      <div class="modal-header">
-                        <h5 class="modal-title" id="edit_agent_data"> <img src="{{ asset('assets/dashboard/img/update-agent.png')}}" class="custompopicon"> Update Agent Details </h5>
+                        <h5 class="modal-title" id="edit_agent_data"> <img src="{{ asset('assets/dashboard/img/update-agent.png')}}" class="custompopicon"> Update Agent (${rowData.member_id}) </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                         </button>
