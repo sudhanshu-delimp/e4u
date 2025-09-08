@@ -272,9 +272,18 @@ class EscortGalleryController extends AppController
         }
         else {
             $this->media->nullPosition(auth()->user()->id, $request->position);
-            $media->position = $request->position;
-            $media->default = 1;
-            $media->save();
+            EscortMedia::where(['template'=>'1','user_id'=>auth()->user()->id])->delete();
+            if($media->template){
+                $copy = $media->replicate();
+                $copy->user_id = auth()->user()->id;
+                $copy->default = 1;
+                $copy->save();
+            }
+            else{
+                $media->position = $request->position;
+                $media->default = 1;
+                $media->save();
+            }
             $error = true;
         }
         return response()->json(compact('error','msg'));

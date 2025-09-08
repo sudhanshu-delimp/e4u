@@ -106,7 +106,7 @@
     {{--
     <div class="profile_description_banner" style="background: url({{$escort->banner_image ? $escort->banner_image : asset('assets/app/img/profiledescrition.png')}});">
         --}}
-        <div class="container profile_pic_holder p-0 custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: cover;">
+        <div class="container profile_pic_holder p-0 custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: cover;background-position:center;">
         <div class="container">
             <div class="row">
                 <div class="overlay">
