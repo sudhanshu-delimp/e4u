@@ -9,6 +9,8 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Agent;
+use App\Models\AccountSetting;
+use App\Events\AgentRegistered;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
 use App\Repositories\Agent\AgentInterface;
@@ -17,11 +19,13 @@ class AgentRepository extends BaseRepository implements AgentInterface
 {
     
     protected $agent;
+    protected $setting;
     public $response = [];
     
-    public function __construct(Agent $agent)
+    public function __construct(Agent $agent, AccountSetting $setting)
     {
         $this->agent = $agent;
+        $this->setting = $setting;
         $this->response = ['status' => false,'message' => ''];
        
     }
@@ -111,9 +115,23 @@ class AgentRepository extends BaseRepository implements AgentInterface
                 else 
                 {
                     $agentData['enabled'] = 1;
+                    $agentData['status'] = 2;
                     $agentData['type'] = 5;
                     $message = 'New agent added successfully';
                     $user = User::create($agentData);
+
+                    $userDataForEvent = [
+                        'id' => $user->id,
+                        'name' => $user->name,
+                        'phone' => $user->phone,
+                        'email' => $data['email'],
+                        'location' => config('escorts.profile.states')[$user->state_id]['stateName'] ?? null,
+                        'agent_id'  => $user->member_id,
+                        'create_at' => Carbon::now()->format('j F'),
+                    ];
+       
+                    event(new AgentRegistered($userDataForEvent));
+                    //$this->setting->create_account_setting($user);
                   
                 }
 

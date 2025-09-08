@@ -245,7 +245,7 @@
       },
       columns: [
       { data: 'agent_id', name: 'agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
-      { data: 'name', name: 'name', searchable: true, orderable:false ,defaultContent: 'NA'},
+      { data: 'business_name', name: 'business_name', searchable: true, orderable:false ,defaultContent: 'NA'},
       { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
       { data: 'phone', name: 'phone', searchable: true, orderable:true ,defaultContent: 'NA'},
       { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
@@ -445,7 +445,7 @@
                                  <input type="text" class="form-control rounded-0" placeholder="Business Number" name="business_number" id="business_number" value="${(rowData.business_number ? rowData.business_number : '')}">
                               </div>
                               <div class="col-6 mb-3">
-                                 <input type="text" class="form-control rounded-0" placeholder="Point of Contact" name="contact_person" id="contact_person" value="${(rowData.contact_person ? rowData.contact_person : '')}">
+                                 <input type="text" class="form-control rounded-0" placeholder="Contact Person" name="contact_person" id="contact_person" value="${(rowData.contact_person ? rowData.contact_person : '')}">
                               </div>
                               <div class="col-6 mb-3">
                                  <input type="text" class="form-control rounded-0" placeholder="Mobile" name="phone" id="phone" value="${(rowData.	phone ? rowData.	phone : '')}">
@@ -659,7 +659,7 @@
              <span class="text-danger error-business_number"></span>
             </div>
             <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Point of Contact" name="contact_person" id="contact_person">
+            <input type="text" class="form-control rounded-0" placeholder="Contact Person" name="contact_person" id="contact_person">
              <span class="text-danger error-contact_person"></span>
             </div>
             <div class="col-6 mb-3">
@@ -752,7 +752,7 @@
          let form = $(this);
          let formData = new FormData(this);
 
-         //  swal_waiting_popup({'title':'Saving Agent Details'});
+         swal_waiting_popup({'title':'Saving Agent Details'});
          //  return false
        
          $.ajax({
