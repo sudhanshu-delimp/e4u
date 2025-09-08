@@ -6247,6 +6247,12 @@ ul#accordionSidebar {
     width: 100%;
 }
 
+.plate .newbtn {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
 .half_heght_pic {
     display: flex;
     flex-direction: column;
