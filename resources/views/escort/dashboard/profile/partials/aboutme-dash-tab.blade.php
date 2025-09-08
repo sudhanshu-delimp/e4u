@@ -547,7 +547,7 @@
                          <div class="tab-pane fade show active" id="upload" role="tabpanel" aria-labelledby="upload-tab">
                              <div id="banner_modal_container" class="modal-tab">
                                  @foreach($media  as $keyId => $image)
-                                     @if(in_array($image->position, [9])/*$image->position != 8*/)                                    
+                                     @if(!$image->template && in_array($image->position, [9])/*$image->position != 8*/)                                    
                                      <!-- upload Template Tab -->
                                              <div class="item2">
                                                  <img class="img-thumbnail defult-image select_image"

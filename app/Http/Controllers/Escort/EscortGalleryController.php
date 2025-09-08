@@ -463,7 +463,7 @@ class EscortGalleryController extends AppController
             $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
             $mediaCategory = match ($category) {
                 'gallery' => $media->whereNotIn('position',[9,10]),
-                'banner'  => $media->whereIn('position',[9]),
+                'banner'  => $media->whereIn('position',[9])->where('template','0'),
                 'pinup'   => $media->whereIn('position',[10]),
             };
             $path = $this->media;
