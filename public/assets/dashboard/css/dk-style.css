@@ -2548,7 +2548,7 @@ button.btn:focus {
     font-weight: 600;
     margin-bottom: 6px;
     font-size: 14px;
-    color: #0C223D;
+    /* color: #0C223D; */
 }
 
 .business-field {
