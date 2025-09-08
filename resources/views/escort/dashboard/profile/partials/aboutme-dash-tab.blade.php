@@ -106,6 +106,16 @@
         height: 100% !important;
         object-fit: cover;
     }
+    .modal-tab {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+    .my-custompop-tabs .nav-item{
+        margin-bottom: 0px !important;
+    }
+    .my-custompop-tabs .nav-item .nav-link.active{
+    color: #fff;
+    }
 </style>
 
 @php
@@ -125,8 +135,6 @@
     }*/
 @endphp
 <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
-    {{-- <form id="update_about_me" action="{{ route('escort.about.me',[$escort->id])}}" method="POST" enctype="multipart/form-data">
-        @csrf   --}}
         <div class="row pl-3">
         <div class="col-lg-3">
             <div class="member-id pl-0 pb-2 pt-3">
@@ -134,21 +142,15 @@
                     <path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="#C2CFE0" />
                 </svg>
                 <span>Member ID: {{auth()->user()->member_id}}</span>
-
-                {{-- @if(!empty($escort->available_to)) @if(in_array($key , $escort->available_to)) checked @endif @endif --}}
             </div>
         </div>
         <div class="col-lg-6">
 
             <div class="member-id pl-0 pb-2 pt-3">
 
-{{--                <span>Save as Draft : </span><input type="checkbox" class="form-check-input draft mt-0" id="draftId" name="draft" @if(!empty($escort->enabled)) @if($escort->enabled == 2)) checked @endif @endif>--}}
-
-                {{-- @if(!empty($escort->available_to)) @if(in_array($key , $escort->available_to)) checked @endif @endif --}}
             </div>
         </div>
     </div>
-
         <div class="about_me_drop_down_info profile-sec">
             <div class="row">
                 <div class="col-md-12">
@@ -295,66 +297,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-                                {{--<div class="about-me-box-one-number mobile_num" style={{ $escort->city ? '' : "color:#C4C4C4;" }}>
-                                    {{ $escort->city ? $escort->city->name : "Location -"}}{{$escort->phone ? ' - '.$escort->phone : auth()->user()->phone}}
-
-                                </div>--}}
-                                {{-- {{  dd(config('escorts.profile.states')[3910]['cities']) }} --}}
-
-                                {{--<div class="about-me-box-one-map add_class" style={{ $escort->
-                                    state ? '' : "color:#C4C4C4;" }}>
-                                    --}}{{-- @php //if($escort->address || $escort->state || $escort->pincode) { @endphp --}}{{--
-                                    <svg width="14" height="21" viewBox="0 0 14 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M7 10C6.33696 10 5.70107 9.73661 5.23223 9.26777C4.76339 8.79893 4.5 8.16304 4.5 7.5C4.5 6.83696 4.76339 6.20107 5.23223 5.73223C5.70107 5.26339 6.33696 5 7 5C7.66304 5 8.29893 5.26339 8.76777 5.73223C9.23661 6.20107 9.5 6.83696 9.5 7.5C9.5 7.8283 9.43534 8.15339 9.3097 8.45671C9.18406 8.76002 8.99991 9.03562 8.76777 9.26777C8.53562 9.49991 8.26002 9.68406 7.95671 9.8097C7.65339 9.93534 7.3283 10 7 10V10ZM7 0.5C5.14348 0.5 3.36301 1.2375 2.05025 2.55025C0.737498 3.86301 0 5.64348 0 7.5C0 12.75 7 20.5 7 20.5C7 20.5 14 12.75 14 7.5C14 5.64348 13.2625 3.86301 11.9497 2.55025C10.637 1.2375 8.85652 0.5 7 0.5V0.5Z" fill="#FF3C5F" />
-                                    </svg>
-                                    --}}{{-- @php  } @endphp --}}{{--
-                                    {{ $escort->address ? $escort->address.',' : "Address" }} {{ $escort->state ? $escort->state->name : null }} {{ $escort->pincode }}
-                                </div>--}}
-
-
-                                {{--<div class="mt-5"   style="display: block">
-                                    <input type="checkbox" class="form-controll" value="Y" id="playmate" name="playmate" @php echo (($escort->playmate == 'Y') ? "checked" : '' ) @endphp/> <label for="playmate" style="display: inline;">I am available as a playmate</label>
-                                </div>--}}
-
-                                {{--<div class="about-md-box-social">
-                                    @if(!empty($escort->social_links))
-                                        @foreach($escort->social_links as $key=>$val)
-                                        <a href="{{ $val }}">
-                                            <img src="{{ asset('assets/dashboard/img/'.$key.'.svg') }}"/>
-                                        </a>
-                                        @endforeach
-                                    @endif
-                                </div>--}}
-                            {{--<div class="col-lg-4">
-                                <div class="pull-right pt-5" style="text-align: end;">
-                                    <a href="#" id="new_saveProfilename">
-                                        <span class="pr-2">Edit</span>
-                                        <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13.5325 3.77992C13.825 3.48742 13.825 2.99992 13.5325 2.72242L11.7775 0.967422C11.5 0.674922 11.0125 0.674922 10.72 0.967422L9.34 2.33992L12.1525 5.15242L13.5325 3.77992ZM0.25 11.4374V14.2499H3.0625L11.3575 5.94742L8.545 3.13492L0.25 11.4374Z" fill="#90A0B7"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>--}}
-                            {{--<div class="col-lg-12 pt-5 p-0 pb-3">
-                                <div class="plate">
-                                    <label class="newbtn p-0 m-0 d-flex">
-                                    --}}{{-- <img id="blah1" class="img-fluid" src="{{ asset('assets/app/img/new-upload.png')}}" style="width: 100%;object-fit: cover;height: 188px;"> --}}{{--
-                                    --}}{{-- <input name="img[10]" id="imgx" class="pis" onchange="readURL(this);" type="file"> --}}{{--
-                                    <input type="hidden" name="position[]" value="1">
-
-                                    --}}{{--<video poster="{{ asset('assets/app/img/video-play-button.jpg') }}" controls="" style="background: #0000006b;width: 520px;height: 190px;object-fit: cover;" id="akhVideo">
-                                    <source id="imgx" src="{{ asset('assets/app/img/mov_bbb.mp4') }}" type="video/mp4">
-                                    </video>--}}{{--
-
-                                    <!-- <video width="100%" height="240" controls>
-                                    <source id="imgx" src="{{ asset($escort->imagePosition(10)) }}" type="video/mp4">
-                                        <source id="imgx" src="{{ asset($escort->imagePosition(10)) }}" type="video/mp4">
-                                    </video> -->
-                                </div>
-                            </div>--}}
-
                              @if(request()->segment(2) == 'profile' && request()->segment(3))
                                   <div class="col-md-12 text-right">
                                 <button id="location-info" type="submit" class="save_profile_btn">Update</button>
@@ -410,7 +352,7 @@
                                     <div class="col-lg-8">
                                         <div class="row">
                                             <div class="col-lg-12">                                            
-                                                <h2 class="banner-sub-heading my-2">Gallery Image</h2>
+                                                <h2 class="banner-sub-heading my-2">Gallery Images</h2>
                                             </div>
                                             <div class="col">
                                                 <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
@@ -497,18 +439,14 @@
                                 </div>
                                 <div class="custom-img-filter-header">
                                     <div class="row">
-                                        <ul class="nav nav-tabs border-0">
+                                        <ul class="nav nav-tabs border-0 js_gallery_category">
                                            
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="gallery_img" data-toggle="tab" href="#Gallery">Gallery</a>
+                                                <a class="nav-link active" data-type="gallery" data-toggle="tab" href="#Gallery">Gallery</a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link " id="banner_img" data-toggle="tab" href="#Banner">Banner</a>
+                                                <a class="nav-link" data-type="banner" data-toggle="tab" href="#Banner">Banner</a>
                                             </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="pinup_img" data-toggle="tab" href="#Pinup">Pinup</a>
-                                            </li>
-                                            
                                         </ul>
                                     </div>
                                 </div>
@@ -526,7 +464,7 @@
                                             <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
                 
                                             </li>
-                                            @for($i = 0; $i < ceil(count($media)/10); $i++ )
+                                            @for($i = 0; $i < ceil(collect($media)->whereNotIn('position',[9, 10])->count()/10); $i++ )
                                             <li class="page-item" id="pageItem_{{$i}}" data-id="{{$i}}">
                                                <a data-target="#carouselExampleIndicators" data-slide-to="{{$i}}" class="page-link" href="#">{{$i + 1}}</a>
                                             </li>
@@ -537,11 +475,11 @@
                                          </ul>
                                          <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
                                             <div class="carousel-inner" id="view_all">
-                                            @foreach($media->chunk(10)  as $keyId => $images)
+                                            @foreach(collect($media)->whereNotIn('position',[9, 10])->chunk(10)  as $keyId => $images)
                                                 <div class="carousel-item" id="cItem_{{$loop->index}}" data-id="{{$loop->index}}">
                                                   <div class="grid-container" id="dvSource">  
                                                   @foreach($images as $image)    
-                                                  @if(!in_array($image->position, [8])/*$image->position != 8*/)                                               
+                                                  @if(!in_array($image->position, [8]))                                               
                                                         <div class="item4" id="dm_{{$image->id}}">
                                                             <img class="img-thumbnail defult-image ui-draggable" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                                                             <i class="fa fa-trash deleteimg" data-id="{{$image->id}}" title="Remove this media"></i>                                        
@@ -574,36 +512,78 @@
                 </div>
             </div>
 
-            <div class="modal" id="photo_gallery_banner" style="display: none">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content custome_modal_max_width">
-                        <div class="modal-header main_bg_color border-0">
-                            <h5 class="modal-title" style="color: white;"> <img src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon">  Select Banner</h5>
-                            <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 200px;">
-                                <button type="button" data-toggle="modal" data-target="empty" class="btn-cancel-modal" style=" padding: 5px 10px;">Upload from device</button>
-                            </div>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">
-                                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                                </span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="grid-container modalPopup" id="banner_images" style="max-height: 500px; overflow-y:scroll; grid-template-columns: 1fr 1fr 1fr;">
-                               
-                                @foreach($media  as $keyId => $image)
-                                    @if(in_array($image->position, [9,10])/*$image->position != 8*/)
-                                        <div class="item2">
-                                            <img class="img-thumbnail defult-image select_image" style="height: 150px;" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
-                                        </div>
-                                    @endif
-                                @endforeach
-
-                            </div>
-                        </div>
-                    </div>
+            
+<div class="modal" id="photo_gallery_banner" style="display: none">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color border-0">
+                <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Banner</h5>
+               
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">
+             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+             </span>
+                </button>
+            </div>
+            <div class="modal-body">
+             <!-- Nav tabs -->
+             <ul class="nav nav-tabs my-custompop-tabs" id="myTab" role="tablist">
+                 
+                 <li class="nav-item">
+                     <a class="nav-link active" id="upload-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="upload" aria-selected="false">
+                         Upload Banner
+                     </a>
+                     </li>
+                 <li class="nav-item">
+                 <a class="nav-link" id="default-tab" data-toggle="tab" href="#default" role="tab" aria-controls="default" aria-selected="true">
+                     Default Template
+                 </a>
+                 </li>
+             </ul>
+                <div class="modalPopup" style="max-height: 500px; overflow-y:scroll;">
+                     
+                     <div class="tab-content mt-3">
+                         <!-- Tab panes -->
+                         <div class="tab-pane fade show active" id="upload" role="tabpanel" aria-labelledby="upload-tab">
+                             <div id="banner_modal_container" class="modal-tab">
+                                 @foreach($media  as $keyId => $image)
+                                     @if(in_array($image->position, [9])/*$image->position != 8*/)                                    
+                                     <!-- upload Template Tab -->
+                                             <div class="item2">
+                                                 <img class="img-thumbnail defult-image select_image"
+                                                     src="{{ asset($image->path) }}"
+                                                     alt=" "
+                                                     data-id="{{$image->id}}"
+                                                     data-position="{{$image->position ? $image->position : ''}}">
+                                             </div>              
+                                                 
+                                     @endif
+                                 @endforeach                                     
+                             </div>                           
+                         </div>     
+                         <!-- default Banner Tab -->
+                         <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
+                             <div class="modal-tab">
+                                 <div class="item2">
+                                     <img src="{{ asset('assets/app/img/blog-8.png') }}" class="img-thumbnail defult-image select_image">
+                                 </div>
+                                 <div class="item2">
+                                     <img src="{{ asset('assets/app/img/blog-9.png') }}" class="img-thumbnail defult-image select_image">
+                                 </div>
+                                 <div class="item2">
+                                     <img src="{{ asset('assets/app/img/blog-10.png') }}" class="img-thumbnail defult-image select_image">
+                                 </div>
+                                 <div class="item2">
+                                    <img src="{{ asset('assets/app/img/blog-13.png') }}" class="img-thumbnail defult-image select_image">
+                                </div>
+                             </div>
+                         </div>
+                     </div>    
                 </div>
             </div>
+        </div>
+    </div>
+ </div>
             <div class="modal fade upload-modal" id="upload-sec" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
@@ -627,60 +607,6 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                {{-- <div class="col-8 pl-0">
-                                                    <div class="row" style="">
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah2" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[2]" id="pic2" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="2">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah3" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[3]" id="pic3" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="3">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah4" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[4]" id="pic4" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="4">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row" style="">
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah5" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[5]" id="pic5" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="5">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah6" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[6]" id="pic6" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="6">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah7" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[7]" id="pic7" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="7">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
                                                 <div class="col-8 pl-0">
                                                     <div class="row" style="">
                                                         <div class="col-4 pr-0">
@@ -736,22 +662,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{--<div class="row row pr-2 pt-2">
-                                                <div class="col-12 pr-0">
-                                                    <div class="plate">
-                                                        <label class="newbtn">
-
-                                                        --}}{{-- <img id="blahx" class="img-fluid" style="width:870px; height:147px;object-fit: cover;"src="{{ asset($escort->imagefrontPosition(10)) }}"> --}}{{--
-                                                        <input name="img[11]" id="picx" class="pis" onchange="readURL(this);" type="file" accept="video/*">
-
-                                                        <video class="img-fluid" id="blahx" controls="" src="" style="width:870px; height:147px;object-fit: cover;">
-                                                            <source id="akhVideo" src="" type="video/mp4" >
-                                                        </video>
-                                                        <input type="hidden" name="position[]" id="mediaIdx">
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>--}}
                                             <div class="row mt-3 pt-1" style="border: 1px dotted;">
                                                 <div class="col-6 pt-4 pb-4">
                                                         <h4>Verify these Photos</h4>
@@ -801,28 +711,13 @@
                                             <div class="col-12">
                                                 <div class="plate"><label class="newbtn">
                                                     <img id="blah9" class="img-fluid" src="{{ asset($escort->imagefrontPosition(9))}}" style="height: 118px;object-fit: cover;width: 618px;">
-                                                    {{-- <img id="blah9" class="img-fluid" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 118px;object-fit: cover;width: 618px;"> --}}
+                                                   
                                                     <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*">
                                                     <input type="hidden" name="position[9]" id="mediaId9">
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{--<div class="row mt-3" style="border: 1px dotted;">
-                                            <div class="col-6 pt-4 pb-4">
-                                                <h4>Verify these photos</h4>
-                                                <p>Upload a picture of your ID with your most recent photo for verification.</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img class="img-fluid cl_blash10" id="blah10" src="{{ asset($escort->imagefrontPosition(10))}}" style="height: 138px;object-fit: cover;width: 291px;">
-                                                    --}}{{-- <img class="img-fluid" id="blah0" src="{{ asset('assets/app/img/upload-6.png')}}" style="height: 138px;object-fit: cover;width: 291px;"> --}}{{--
-                                                    <input name="img[10]" id="pic10" class="pis" onchange="readURL(this);" type="file" accept="image/*">
-                                                    <input type="hidden" name="position[]" id="mediaIdx">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>--}}
                                     </div>
                                 </div>
                             </div>
@@ -850,60 +745,6 @@
                 <!--New Row end here-->
                 <div class="row mt-4">
                     <div class="col-md-12">
-                        {{--<div>
-                            <div class="border_covid covid_heading ">
-                                <h2>Playmates</h2>
-                            </div>
-                            <div class="card-body pb-0">
-                                <div class="card-body border-0 pt-0 mt-2">
-                                    <form class="at-sec" method="post" action="" id="playmate_search" style="display: none;">
-                                        <div class="at-lable">
-                                            <label for="Student">Search for playmate</label>
-                                            <input  name="q" placeholder="Search by name / Member ID" autocomplete="off" class="" id="search-playmate-input">
-                                            <input type="hidden" name="h_escort_id" id="h_escort_id" value="{{auth()->user()->id}}">
-                                            <ul class="results showPlaymates">
-                                                --}}{{-- {{ dd(auth()->user()->playmates()->pluck('playmate_id'))}} --}}{{--
-                                                @foreach($users_for_available_playmate as $allUser)
-                                                    @if(!is_null($allUser->escorts))
-                                                        @foreach($allUser->escorts as $escort)
-                                                            @if(!in_array($escort->id,auth()->user()->playmates()->pluck('playmate_id')->toArray()))
-                                                                @if($escort->membership != null && $escort->start_date != null)
-                                                                    --}}{{-- @if($escort->membership == 4 && Carbon\Carbon::parse($escort->start_date)->diffInDays(Carbon\Carbon::parse(now())) <= 14) --}}{{--
-                                                                    --}}{{-- {{ dd($escort->DefaultImage )}} --}}{{--
-                                                                    <li  id="list_{{$escort->id}}">
-
-                                                                        <img src="{{ $escort->DefaultImage }}" class="img-profile rounded-circle playmats-img " >
-                                                                        {{ $escort->name }}
-                                                                        <span class="playmates_id" value="{{$escort->id}}" data-path="{{$escort->DefaultImage}}" data-name="{{$escort->name}}">Add</span>
-                                                                        --}}{{-- <span>{{Carbon\Carbon::parse($escort->start_date)->format('d/m/Y')}}</span>
-                                                                        <span>{{Carbon\Carbon::now()->format('d/m/Y')}}</span> --}}{{--
-
-                                                                    </li>
-                                                                    --}}{{-- @endif  --}}{{--
-                                                                @endif
-                                                            @endif
-                                                        @endforeach
-                                                    @endif
-                                                @endforeach
-                                                --}}{{-- @foreach($allEscorts as $escort)
-                                                <li>
-
-                                                   <img src="{{ $escort->default_image }}" class="img-profile rounded-circle playmats-img" >
-                                                   {{ $escort->name }} <span class="playmates_id2" value="{{$escort->id}}">Add</span>
-
-                                                </li>
-                                                @endforeach --}}{{--
-                                            </ul>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>--}}
-
-
-
-
- 
                         <div class="border_covid covid_heading ">
                             <h2>About Me</h2>
                         </div>
@@ -989,15 +830,6 @@
                                                     <label class="col-sm-4 font-weight-500"
                                                            for="exampleFormControlSelect1">Nationality:</label>
                                                     <div class="col-sm-8">
-                                                        <!--select style="border: 1px solid #d5d7e5 !important;"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow nationality-sec change_default"
-                                                                id="select2-dropdown"
-                                                                data-parsley-required-message="Select nationality"
-                                                                name="nationality_id"
-                                                                data-parsley-errors-container="#nationality-errors">
-                                                            <option
-                                                                value="{{ old('nationality_id',$escort->nationality_id)}}">{{($escort->nation) ? $escort->nation->name : ''}}</option>
-                                                        </select-->
 
                                                         <select style="border: 1px solid #d5d7e5 !important;"
                                                                 class="form-control form-control-sm select_tag_remove_box_sadow nationality-sec change_default" id="select2_country" data-parsley-required-message="Select nationality"
@@ -1692,10 +1524,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="grid-container modalPopup" id="profile_images" style="max-height: 500px; overflow-y:scroll;">
+                <div id="gallery_modal_container" class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
                     
                     @foreach($media  as $keyId => $image)
-                        @if(!in_array($image->position, [8, 9, 10])/*$image->position != 8*/)
+                        @if(!in_array($image->position, [9, 10]))
                             <div class="item4">
                                 <img class="img-thumbnail defult-image select_image" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                             </div>

@@ -25,12 +25,21 @@ class AddNewAgent extends FormRequest
     {
         return [
             'business_name'   => 'required|string|max:255',
-            'business_number' => 'required|string|max:255',
+            'business_number' => 'required|digits_between:10,15',
             'contact_person'  => 'required|string|max:255',
-            'phone'           => 'required|email|max:255|unique:users,phone',
+            'phone'           => 'required|min:10|max:14|unique:users,phone',
             'email'           => 'required|email|max:255|unique:users,email',
-            'state_id'        => 'required|integer|exists:states,id',
+            'state_id'        => 'required|exists:states,id',
             'agreement_date'  => 'required|date',
+            'abn'  =>   'nullable|digits_between:10,20',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'state_id.required'  => 'please select your territory.',
+            'state_id.exists'  => 'please select your territory.',
         ];
     }
 }

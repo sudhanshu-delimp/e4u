@@ -810,34 +810,31 @@
 @push('scripts')
     <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
     <script>
-        // var skipSliderage = document.getElementById("skipstepage");
-        // var skipValuesage = [
-        // document.getElementById("skip-value-lower-age"),
-        // document.getElementById("skip-value-upper-age")
-        // ];
+        // save logged user details on escord dashboard on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            let platform = navigator.platform;
+            let browser = navigator.userAgent;
+            let lastPage = document.referrer;
+            let lastVisitedPage= window.location.pathname;
 
-        // noUiSlider.create(skipSliderage, {
-        // start: [0, 30],
-        // connect: true,
-        // behaviour: "drag",
-        // step: 1,
-        // range: {
-        //    min: 18,
-        //    max: 60
-        // },
-        // format: {
-        //    from: function (value) {
-        //       return parseInt(value);
-        //    },
-        //    to: function (value) {
-        //       return parseInt(value);
-        //    }
-        // }
-        // });
+            console.log("platform jiten: " + platform);
 
-        // skipSliderage.noUiSlider.on("update", function (values, handle) {
-        // skipValuesage[handle].innerHTML = values[handle];
-        // });
+            fetch("{{ route('user.log-details') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({
+                    platform: platform,
+                    browser: browser,
+                    last_page: lastPage,
+                    lastVisitedPage: lastVisitedPage
+                })
+            }).then(response => response.json())
+            .then(data => console.log("Log Saved:", data))
+            .catch(error => console.error("Error:", error));
+        });
     </script>
 
     <script>
@@ -1404,6 +1401,8 @@
                 });
             }
         });
+
+        
 
         // disable the radio buttons when the page is not fully loaded added
         // $('input[name="locationByRadio"]').prop('disabled', true); 

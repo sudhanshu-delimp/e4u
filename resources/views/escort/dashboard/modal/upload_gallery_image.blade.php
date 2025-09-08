@@ -24,7 +24,7 @@
                                                     <label class="newbtn rm">
                                                         <img id="blah" class="item" src="{{ asset('assets/app/img/upload-thum-1.png')}}">
                                                         
-                                                        <input name="img[]" id="upload_file" class="pis" onchange="preview_image(this);" type="file" multiple accept="image/*">
+                                                        <input name="img[]" id="upload_file" class="pis" onchange="preview_image(event);" type="file" multiple accept="image/*">
                                                     </label>
                                                     <div style="margin-top: -34px;">
                                                     </div>
@@ -33,18 +33,18 @@
                                             <div class="row mt-2">
                                                 <div class="{{request()->segment(2) == 'archive-view-photos'?'col-lg-6':'col-lg-12'}}">
                                                     <div class="plate"><label class="newbtn">
-                                                        <img id="blah9" class="img-fluid pl-2 pr-2 js_bannerDefaultImage" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
-                                                        <input name="img[9]" id="uploadImage9" class="pis" onchange="readImageURL(this);" type="file" accept="image/*" >
-                                                        <input type="hidden" name="position[]" id="mediaId9">
+                                                        <img id="blah9" class="img-fluid pl-2 pr-2 js_bannerDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                        <input name="banner" id="upload_banner" class="pis galleryMedia" onchange="readImageURL(this);" type="file" accept="image/*" >
+                                                        <input type="hidden" name="position[]" id="mediaBanner">
                                                         </label>
                                                     </div>
                                                 </div>
                                                 @if(request()->segment(2) == 'archive-view-photos')
                                                 <div class="col-lg-6">
                                                     <div class="plate"><label class="newbtn">
-                                                        <img id="blah10" class="img-fluid pl-2 pr-2 js_pinupDefaultImage" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
-                                                        <input name="img[10]" id="uploadImage10" class="pis" onchange="readImageURL(this);" type="file" accept="image/*" >
-                                                        <input type="hidden" name="position[]" id="mediaId10">
+                                                        <img id="blah10" class="img-fluid pl-2 pr-2 js_pinupDefaultImage js_galleryMedia" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                        <input name="pinup" id="upload_pinup" class="pis" onchange="readImageURL(this);" type="file" accept="image/*" >
+                                                        <input type="hidden" name="position[]" id="mediaPinup">
                                                         </label>
                                                     </div>
                                                 </div>
@@ -52,7 +52,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row mt-4 pt-1" style="border: 1px dotted;">
+                                    <!-- <div class="row mt-4 pt-1" style="border: 1px dotted;">
                                         <div class="col-6 pt-4 pb-4">
                                             <h4>Verify these Photos</h4>
 
@@ -70,7 +70,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

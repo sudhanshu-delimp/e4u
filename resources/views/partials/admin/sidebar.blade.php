@@ -668,7 +668,7 @@
             src="{{ asset('assets/dashboard/img/menu-icon/reports.png') }}">
         <span>Reports </span>
     </a>
-    <div id="Reports" class="collapse @if (request()->is('*credit*') || request()->is('*agent-requests*') || request()->is('*transaction-summary*')) show @endif;"
+    <div id="Reports" class="collapse @if (request()->is('*credit*') || request()->is('*agent-requests*') || request()->is('*transaction-summary*') || request()->is('*advertiser-suspensions*')) show @endif;"
         aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
         <div class="py-0 collapse-inner rounded mb-2">
             <a class="nav-link collapsed" href="{{ route('admin.agent-requests') }}">
@@ -685,6 +685,11 @@
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
                 <span style="{{ request()->is('*transaction-summary*') ? 'color: #e5365a;' : '' }}">Transaction Summary</span>
+            </a>
+            <a class="nav-link collapsed" href="{{ route('admin.advertiser-suspensions') }}">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                    src="{{ asset('assets/dashboard/img/menu-icon/suspension.png') }}">
+                <span style="{{ request()->is('*advertiser-suspensions*') ? 'color: #e5365a;' : '' }}">Advertiser Suspensions</span>
             </a>
         </div>
     </div>

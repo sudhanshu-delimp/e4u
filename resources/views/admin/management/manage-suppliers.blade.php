@@ -341,7 +341,7 @@
          <!-- Header -->
          <div class="modal-header">
             <h5 class="modal-title" id="view_merchant_dataLabel">
-               <img src="{{asset('assets/dashboard/img/view-merchant.png')}}" style="width:40px; margin-right:10px;" alt="View Merchant">
+               <img src="{{asset('assets/dashboard/img/view-merchant.png')}}" class="custompopicon" alt="View Merchant">
                View Account
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">

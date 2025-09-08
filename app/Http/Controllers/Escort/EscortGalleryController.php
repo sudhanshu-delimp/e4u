@@ -27,6 +27,8 @@ use App\Traits\ResizeImage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\EscortMedia;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 
 use App\Models\EscortCovidReport;
 //use Illuminate\Http\Request;
@@ -45,213 +47,145 @@ class EscortGalleryController extends AppController
      *
      * @return \Illuminate\Http\Response
      */
-    // public function __construct(MassageProfileInterface $massage_profile, UserInterface $user,EscortInterface $escort, MassageAvailabilityInterface $massage_availability,  ServiceInterface $service, DurationInterface $duration, MassageMediaInterface $media)
     public function __construct(EscortInterface $escort, EscortMediaInterface $media)
     {
         $this->escort = $escort;
         $this->media = $media;
-        // $this->thumbnail = $thumbnail;
-        // $this->service = $service;
-        // $this->duration = $duration;
-
-        // $this->escort = $escort;
-        // $this->massage_availability = $massage_availability;
-        // $this->service = $service;
-        // $this->duration = $duration;
-        // $this->user = $user;
-        // $this->media = $media;
-        // $this->massage_profile = $massage_profile;
     }
 
     public function photoGalleries()
     {
-        $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [8]);
+        $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
         $path = $this->media;
-        return view('escort.dashboard.archives.archive-view-photos',compact('media','path'/*,'media_withoutPosition','media_withPosition'*/));
+        return view('escort.dashboard.archives.archive-view-photos',compact('media','path'));
     }
 
     public function videoGalleries()
     {
         $media = $this->media->get_videos(auth()->user()->id);
         $path = $this->media->findByVideoposition(auth()->user()->id,1)['path'];
-        //dd($media);
 
         return view('escort.dashboard.archives.archive-view-videos',compact('path','media'));
     }
     public function uploadGallery(StoreGalleryMediaRequest $request)
     {
+        try {
         $userId = auth()->user()->id;
-       // dd($request->file('img'));
-        $my_data['status'] = '';
-
-        if($request->hasFile('img'))
-        {
-            $names = [];
-            $media_arr = [];
-            $total_Img_count = $this->media->get_user_row(auth()->user()->id, [8])->count();
-            $noOfUploadsAllowed = 30 - $total_Img_count;
-            $i = 1;
-            foreach($request->file('img') as $key => $image)
-            {
-                $mime = $image->getMimeType();
-                if(strstr($mime, "video/")){
-                    $prefix = 'videos/';
-                    $type = 1;  //0=>image; 1=>video
-                } else {
-                    $prefix = 'images/';
-                    $type = 0;
-                }
-                list($width, $height) = getimagesize($image);
-                $encryptedFileName = $this->_generateUniqueFilename($image->getClientOriginalName());
-                $file_path = $prefix.$userId.'/'.$encryptedFileName;
-
-                if(in_array($key, $request->selected_files)) {
-
-
-                    if($key == 8 || $noOfUploadsAllowed > 0) {
-                        Storage::disk('escorts')->put($file_path, file_get_contents($image));
-
-                        if(!$media = $this->media->findByPath('escorts/'.$file_path)) {
-                            $data = [
-                                'user_id' => $userId,
-                                'type' => $type,
-                                //'position' => $position,
-                                'path' => 'escorts/'.$file_path,
-                            ];
-                            if($key == 8) {
-                                $data['position'] = $key;
-                                $data['default'] = 1;
-                            }
-
-                            //We are not counting verification image
-                            $my_data['status'] = 200;
-                            if($key == 8) {
-                                //We are not counting verification image as total file upload
-                                $mediaRecordId = null;
-                                if($verificationMedia = EscortMedia::where('position', '=', 8)->where('user_id', '=', auth()->user()->id)->first()) {
-                                    @unlink(Storage::disk('escorts')->path("../".$verificationMedia->path));
-                                    //EscortMedia::destroy($verificationMedia->id);
-                                    $mediaRecordId = $verificationMedia->id;
-                                }
-                                $media = $this->media->store($data, $mediaRecordId);
-                            } else {
-                                $media = $this->media->store($data);
-                                $noOfUploadsAllowed--;
-                            }
-
-                        } else {
-
-                            if($key == 8) {
-
-                                $this->media->nullPosition($userId,$key);
-                                $media->position = $key;
-                                $media->default = 1;
-                                $media->save();
-                            }
-                            $my_data['status'] = 200;
-                        }
-                    } else {
-                        $my_data['status'] = 405; // Can't upload more then 30 Images
-                        $my_data['count'] = $noOfUploadsAllowed;
-                    }
-                } else {
-
-                    if($key == 9) {
-                        if($noOfUploadsAllowed > 0) {
-                            Storage::disk('escorts')->put($file_path, file_get_contents($image));
-                            if(!$media = $this->media->findByPath('escorts/'.$file_path)) {
-
-                                $mediaRecordId = null;
-                                if($bannerImages = EscortMedia::where('position', '=', 9)->where('user_id', '=', auth()->user()->id)->get()) {
-                                    foreach ($bannerImages as $bannerImage) {
-                                        $bannerImage->default = 0;
-                                        $bannerImage->save();
-                                    }
-                                }
-
-                                $data = [
-                                    'user_id' => $userId,
-                                    'type' => $type,
-                                    'position' => $key,
-                                    'path' => 'escorts/'.$file_path,
-                                    //'default' => 1,
-                                ];
-
-                                $media = $this->media->store($data);
-                                $my_data['status'] = 200;
-                                $noOfUploadsAllowed--;
-                                // $media = $this->media->updateOrCreate($data,$userId,$position = null);
-                                //$media_arr[]  = $media['id'];
-
-                            } else {
-
-                                $this->media->nullPosition($userId,$key);
-                                $media->position = $key;
-                                $media->save();
-                                $my_data['status'] = 200;
-                            }
-
-                        } else {
-                            $my_data['status'] = 400;
-                        }
-                    }
-                    else if($key == 10) {
-                        if($noOfUploadsAllowed > 0) {
-                            Storage::disk('escorts')->put($file_path, file_get_contents($image));
-                            if(!$media = $this->media->findByPath('escorts/'.$file_path)) {
-
-                                $mediaRecordId = null;
-                                if($bannerImages = EscortMedia::where('position', '=', 10)->where('user_id', '=', auth()->user()->id)->get()) {
-                                    foreach ($bannerImages as $bannerImage) {
-                                        $bannerImage->default = 0;
-                                        $bannerImage->save();
-                                    }
-                                }
-
-                                $data = [
-                                    'user_id' => $userId,
-                                    'type' => $type,
-                                    'position' => $key,
-                                    'path' => 'escorts/'.$file_path,
-                                ];
-
-                                $media = $this->media->store($data);
-                                $my_data['status'] = 200;
-                                $noOfUploadsAllowed--;
-
-                            } else {
-
-                                $this->media->nullPosition($userId,$key);
-                                $media->position = $key;
-                                $media->save();
-                                $my_data['status'] = 200;
-                            }
-
-                        } else {
-                            $my_data['status'] = 400;
-                        }
+        $response['status'] = '';
+        $prefix = 'images/';
+        $type = 0;
+        $file_path = $prefix.$userId;
+        if($request->hasFile('img')){
+            if ($request->hasFile('img')) {
+                foreach($request->file('img') as $key => $image){
+                    $encryptedFileName = $this->_generateUniqueFilename($image->getClientOriginalName());
+                    $destination_path = $file_path.'/gallery_'.$encryptedFileName;
+                    Storage::disk('escorts')->put($destination_path, file_get_contents($image));
+                    if(!$media = $this->media->findByPath('escorts/'.$destination_path)) {
+                    $data = [
+                    'user_id' => $userId,
+                    'type' => $type,
+                    'path' => 'escorts/'.$destination_path,
+                    ];
+                    $response['status'] = 200;
+                    $media = $this->media->store($data);
                     }
                     else {
-                        $my_data['status'] = 405; // Can't upload more then 30 Images
-                        $my_data['count'] = $noOfUploadsAllowed;
+                        $response['status'] = 200;
                     }
-
                 }
-
-                $i++;
-
             }
         }
-        $my_data['url'] = route('escort.archive-view-photos');
-
-
-        return response()->json(compact('my_data'));
+        if($request->hasFile('banner')){
+            $key = 9;
+            $image = $request->file('banner');
+            $encryptedFileName = $this->_generateUniqueFilename($image->getClientOriginalName());
+            $destination_path = $file_path.'/banner_'.$encryptedFileName;
+            $manager = new ImageManager(new GdDriver());
+            $extension = strtolower($image->getClientOriginalExtension());
+            $orgImage = $manager->read($image->getPathname());
+            $resizeImage = $orgImage->scaleDown(width: 1920, height: 469);
+            $encoded = match ($extension) {
+                'jpg', 'jpeg' => $resizeImage->toJpeg(quality: 90),
+                'png'         => $resizeImage->toPng(),
+                default       => throw new \Exception('Unsupported image format')
+            };
+            Storage::disk('escorts')->put($destination_path, (string) $encoded);
+            if(!$media = $this->media->findByPath('escorts/'.$destination_path)) {
+                $mediaRecordId = null;
+                if($bannerImages = EscortMedia::where('position', '=', 9)->where('user_id', '=', auth()->user()->id)->get()) {
+                    foreach ($bannerImages as $bannerImage) {
+                        $bannerImage->default = 0;
+                        $bannerImage->save();
+                    }
+                }
+                $data = [
+                'user_id' => $userId,
+                'type' => $type,
+                'position' => $key,
+                'path' => 'escorts/'.$destination_path
+                ];
+                $media = $this->media->store($data);
+                $response['status'] = 200;
+            } else {
+                $this->media->nullPosition($userId,$key);
+                $media->position = $key;
+                $media->save();
+                $response['status'] = 200;
+            }
+        }
+        if($request->hasFile('pinup'))
+        {
+            $key = 10;
+            $image = $request->file('pinup');
+            $encryptedFileName = $this->_generateUniqueFilename($image->getClientOriginalName());
+            $extension = strtolower($image->getClientOriginalExtension());
+            $destination_path = $file_path.'/pinup_'.$encryptedFileName;
+            $manager = new ImageManager(new GdDriver());
+            $orgImage = $manager->read($image->getPathname());
+            $resizeImage = $orgImage->scaleDown(width: 855, height: 627);
+            $encoded = match ($extension) {
+                'jpg', 'jpeg' => $resizeImage->toJpeg(quality: 90),
+                'png'         => $resizeImage->toPng(),
+                default       => throw new \Exception('Unsupported image format')
+            };
+            Storage::disk('escorts')->put($destination_path, (string) $encoded);
+            if(!$media = $this->media->findByPath('escorts/'.$destination_path)) {
+                $mediaRecordId = null;
+                if($pinupImages = EscortMedia::where('position', '=', 10)->where('user_id', '=', auth()->user()->id)->get()) {
+                    foreach ($pinupImages as $pinupImage) {
+                        $pinupImage->default = 0;
+                        $pinupImage->save();
+                    }
+                }
+                $data = [
+                'user_id' => $userId,
+                'type' => $type,
+                'position' => $key,
+                'path' => 'escorts/'.$destination_path
+                ];
+                $media = $this->media->store($data);
+                $response['status'] = 200;
+            } else {
+                $this->media->nullPosition($userId,$key);
+                $media->position = $key;
+                $media->save();
+                $response['status'] = 200;
+            }
+        }
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+        return response()->json($response);
     }
     public function uploadVideosGaller(Request $request)
     {
 
         $userId = auth()->user()->id;
-        //dd($request->file('videos'));
         $my_data['status'] = '';
 
         if($request->hasFile('videos'))
@@ -263,8 +197,6 @@ class EscortGalleryController extends AppController
             $upload_videos_count = count($request->file('videos'));
             $upload_count = 6 - $total_Img_count;
 
-            // echo "count :".$this->media->all()->count();
-            // dd();
             $i = 1;
             foreach($request->file('videos') as $key => $video)
             {
@@ -277,18 +209,17 @@ class EscortGalleryController extends AppController
                     $type = 0;
                 }
                 list($width, $height) = getimagesize($video);
-                //list($type, $prefix) = $this->getPrefix($image);
+                
                 $file_path = $prefix.$userId.'/'.Str::slug(pathinfo($video->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$video->getClientOriginalExtension();
 
 
-                    //dd($file_path);
+                  
                     Storage::disk('escorts')->put($file_path, file_get_contents($video));
 
                     if(!$media = $this->media->findByPath('escorts/'.$file_path)) {
                         $data = [
                             'user_id' => $userId,
                             'type' => $type,
-                            //'position' => $position,
                             'path' => 'escorts/'.$file_path,
                         ];
                         if($key == 8) {
@@ -303,8 +234,7 @@ class EscortGalleryController extends AppController
                             $my_data['status'] = 405; // Can't upload more then 30 Images
                             $my_data['count'] = $upload_count;
                         }
-                        // $media = $this->media->updateOrCreate($data,$userId,$position = null);
-                        //$media_arr[]  = $media['id'];
+                        
 
                     } else {
 
@@ -375,9 +305,6 @@ class EscortGalleryController extends AppController
     {
 
         $error = true;
-        //$result = $this->media->imageswithoutnull(auth()->user()->id);
-        //.dd($result);//$path->
-        //dd($this->media->findByposition(auth()->user()->id,1)['id']);
         $path = [
             1 => [
                 'path' => asset($this->media->findByposition(auth()->user()->id, 1, 1)['path']),
@@ -420,25 +347,13 @@ class EscortGalleryController extends AppController
                 'id' => $this->media->findByVideoposition(auth()->user()->id, 10, 1)['id']
             ],
         ];
-        // dd($path);
-        // $path[1] = asset($this->media->findByposition(auth()->user()->id,1));
-        // $path[2] = asset($this->media->findByposition(auth()->user()->id,2));
-        // $path[3] = asset($this->media->findByposition(auth()->user()->id,3));
-        // $path[4] = asset($this->media->findByposition(auth()->user()->id,4));
-        // $path[5] = asset($this->media->findByposition(auth()->user()->id,5));
-        // $path[6] = asset($this->media->findByposition(auth()->user()->id,6));
-        // $path[7] = asset($this->media->findByposition(auth()->user()->id,7));
-        // $path[8] = asset($this->media->findByposition(auth()->user()->id,8));
-        // $path[9] = asset($this->media->findByposition(auth()->user()->id,9));
         return response()->json(compact('error','path'));
     }
     public function agentgetDefaultImages($id)
     {
 
         $error = true;
-        //$result = $this->media->imageswithoutnull(auth()->user()->id);
-        //.dd($result);//$path->
-        //dd($this->media->findByposition(auth()->user()->id,1)['id']);
+        
         $path = [];
         $path = [
             1 => ['path' => asset($this->media->findByposition($id,1)['path']),
@@ -488,8 +403,6 @@ class EscortGalleryController extends AppController
     }
     public function videosDelete(Request $request, $id)
     {
-
-        //dd($request->all());
         $error = false;
         $this->media->nullVedioPosition(auth()->user()->id,$request->position);
         if($media = $this->media->find($id)) {
@@ -536,15 +449,22 @@ class EscortGalleryController extends AppController
         return [$type, 'attatchment/'.$str];
     }
 
-    public function getAccountMediaGallery(Request $request){
+    public function getAccountMediaGallery(Request $request, $category=null){
         try {
-            $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [8]);
+            $media = $this->media->with_Or_withoutPosition(auth()->user()->id, []);
+            $mediaCategory = match ($category) {
+                'gallery' => $media->whereNotIn('position',[9,10]),
+                'banner'  => $media->whereIn('position',[9]),
+                'pinup'   => $media->whereIn('position',[10]),
+            };
             $path = $this->media;
             $response = [];
             $response['success'] = true;
-            $response['gallery_container_html'] = view('escort.dashboard.profile.partials.media_gallery_container',compact('media','path'))->render();
+            $response['category'] = $category;
+            $response['gallery_container_html'] = view('escort.dashboard.profile.partials.media_gallery_container',compact('mediaCategory','media','path','category'))->render();
             $response['gallery_modal_container_html'] = view('escort.dashboard.profile.partials.gallery_modal_container',compact('media','path'))->render();
             $response['banner_modal_container_html'] = view('escort.dashboard.profile.partials.banner_modal_container',compact('media','path'))->render();
+            $response['pinup_modal_container_html'] = view('escort.dashboard.profile.partials.pinup_modal_container',compact('media','path'))->render();
             return response()->json($response);
         } catch (Exception $e) {
             return response()->json([

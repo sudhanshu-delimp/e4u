@@ -115,11 +115,48 @@
     </div>
 </div>
 
+    <!-- Change Status Popup Popup -->
+    <div class="modal fade upload-modal" id="statusConfirmModal" tabindex="-1" role="dialog" aria-labelledby="statusConfirmModallabel"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/complete-appointment.png') }}" alt="Change Status Popup" class="custompopicon"> Change Status</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0 agent-tour">
+                    <form method="post" id="task_form" action="#">
+                        <div class="row" id="task_form_button">
+                            <div class="col-md-12 mb-3">
+                                <h4 id="task_desc">Are you sure you want to change the status?</h4>                        
+            
+                                <div class="form-group">
+                                    <div class="d-flex align-items-center justify-content-end">
+                                                                    
+                                        <div>                                        
+                                            <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close" id="cancel_button">No</button>
+                                            <button type="submit" class="btn-success-modal" id="confirmYes" >Yes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>  
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{{-- end --}}
 @endsection
 @push('script')
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
+    var table;
     var ticketId = 0;
     $.ajaxSetup({
         headers: {
@@ -129,7 +166,7 @@
 
 
    $(document).ready( function () {
-       var table = $("#supportTicketsTable").DataTable({
+        table = $("#supportTicketsTable").DataTable({
            "language": {
                "zeroRecords": "No record(s) found.",
                "searchPlaceholder": "Search by Ticket ID",
@@ -286,37 +323,22 @@
         });
         // $("#sendMessage").reset();
     });
-   /*$(document).on('click','.delete-center', function(e){
-       e.preventDefault();
-       var $this = $(this);
-       $("#Lname").html("<p>Would you like to Delete?</p>");
-
-       $('#delete_profile').modal('show');
-
-       $("#save_change").click(function(e){
-           console.log($this.attr('href'));
-           $.ajax({
-                   method: "POST",
-                   url:$this.attr('href'),
-                   contentType: false,
-                   processData: false,
-                   headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                   success: function (data) {
-                       location.reload();
-                   }
-
-           })
-       });*/
 
 
-    $(document).on('click', '.change-status-btn', function(e) {
+
+
+    $(document).on('click', '.change-status-btn', async function(e) {
     e.preventDefault();
-    if (confirm('Are you sure you want to change the status?')) {
+     if (await isConfirm({ 'title' : 'NA','action': 'Change ','text':'Are you sure to change the status ?'})) { 
         let id = $(this).data('id');
         let status = $(this).data('status');
         change_status(id, status);
     }
     });
+
+
+    
+
 
     function change_status(id, status_id) {
         $.ajax({
@@ -327,10 +349,8 @@
             success: function (data) {
             if(data.status == "success") 
             {
-                Swal.fire('Ticket Status!', data.message, 'success');
-                setTimeout(function() {
-                location.reload();
-                }, 3000);
+                Swal.fire('Ticket Status!', 'Changed as ' + data.message, 'success');
+                table.ajax.reload(null, false);
             } 
             else 
             {
@@ -340,5 +360,8 @@
         });
         return false;
     }
+
+
+
 </script>
 @endpush

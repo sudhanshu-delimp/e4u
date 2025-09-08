@@ -144,18 +144,19 @@
     </div>
 
     <div class="row">
-        <div class="col-6"><strong>Member ID:</strong> {{$report->escort->user->member_id}}</div>
-        <div class="col-6"><strong>Escort ID:</strong> {{$report->escort_id}}</div>
+        <div class="col-6"><strong>Advertiser ID:</strong> {{$report->escort->user->member_id}}</div>
+        <div class="col-6"><strong>Viewer ID:</strong> {{$report->escort_id}}</div>
     </div>
 
     <div class="row">
-        <div class="col-6"><strong>Viewer ID:</strong> {{$report->viewer_id}}</div>
         <div class="col-6"><strong>Mobile:</strong> {{$report->escort->user->phone}}</div>
+        <div class="col-6"><strong>Mobile:</strong> {{$report->viewer->phone}}</div>
     </div>
 
     <div class="row">
-        <div class="col-6"><strong>Status:</strong> {{$report->report_status == 'pending' ? 'Current' : 'Resolved'}}</div>
+        
         <div class="col-6"><strong>Home State:</strong> {{$report->escort->user->home_state}}</div>
+        <div class="col-6"><strong>Status:</strong> {{$report->report_status == 'pending' ? 'Current' : 'Resolved'}}</div>
     </div>
 
     <div class="row">
@@ -169,18 +170,19 @@
         <div></div>
         <div></div>
         <div></div>
+        <div></div>
     </div>
 
     <div class="checkbox-group " style="margin-top:7%" >
         <table style="width:100%; border-collapse:collapse;">
                         <tr>
                             <td colspan="2" style="border:1px solid #000; padding:8px; padding-top:3%; padding-bottom:3%; font-weight:bold;">Management only:</td>
-                            <td colspan="2" style="border:1px solid #000; padding:8px;">
+                            <td colspan="2" style="border:1px solid #000; padding:8px; width:500px; ">
                             <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
                                 <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Cancel Membership</span>
                             </label>
                             </td>
-                            <td colspan="2" style="border:1px solid #000; padding:8px;">
+                            <td colspan="2" style="border:1px solid #000; padding:8px; width:500px;">
                             <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
                                 <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Re-instate Membership</span>
                             </label>
@@ -188,9 +190,9 @@
                         </tr>
 
                         <tr>
-                            <td style="border:1px solid #000; padding:40px 12px; font-weight:bold; width:175px;" colspan="1">Name:</td>
+                            <td style="border:1px solid #000; padding:40px 12px; font-weight:bold; width:75px;" colspan="1">Name:</td>
                             <td colspan="2" style="border:1px solid #000; padding:25px 12px; width:200px"></td>
-                            <td style="border:1px solid #000; padding:25px 12px; font-weight:bold;">Signature:</td>
+                            <td style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:100px;">Signature:</td>
                             <td colspan="1" style="border:1px solid #000; padding:25px 12px;"></td>
                         </tr>
                     </table>
