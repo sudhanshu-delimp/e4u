@@ -13,7 +13,7 @@ class AddTemplateToEscortMediaTable extends Migration
      */
     public function up()
     {
-        Schema::table('escort_medias', function (Blueprint $table) {
+        Schema::table('escorts_medias', function (Blueprint $table) {
             $table->enum('template', ['0', '1'])
               ->default('0')
               ->after('type');
@@ -27,7 +27,7 @@ class AddTemplateToEscortMediaTable extends Migration
      */
     public function down()
     {
-        Schema::table('escort_medias', function (Blueprint $table) {
+        Schema::table('escorts_medias', function (Blueprint $table) {
             $table->dropColumn('template');
         });
     }
