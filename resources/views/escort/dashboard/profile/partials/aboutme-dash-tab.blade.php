@@ -563,19 +563,17 @@
                          </div>     
                          <!-- default Banner Tab -->
                          <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
-                             <div class="modal-tab">
-                                 <div class="item2">
-                                     <img src="{{ asset('assets/app/img/blog-8.png') }}" class="img-thumbnail defult-image select_image">
-                                 </div>
-                                 <div class="item2">
-                                     <img src="{{ asset('assets/app/img/blog-9.png') }}" class="img-thumbnail defult-image select_image">
-                                 </div>
-                                 <div class="item2">
-                                     <img src="{{ asset('assets/app/img/blog-10.png') }}" class="img-thumbnail defult-image select_image">
-                                 </div>
-                                 <div class="item2">
-                                    <img src="{{ asset('assets/app/img/blog-13.png') }}" class="img-thumbnail defult-image select_image">
-                                </div>
+                            @php  
+                            $bannerTemplates = getBannerTemplates();
+                            @endphp 
+                            <div class="modal-tab">
+                                @if(!empty($bannerTemplates))
+                                    @foreach($bannerTemplates as $keyId => $image)
+                                        <div class="item2">
+                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
+                                        </div>
+                                    @endforeach
+                                @endif
                              </div>
                          </div>
                      </div>    
