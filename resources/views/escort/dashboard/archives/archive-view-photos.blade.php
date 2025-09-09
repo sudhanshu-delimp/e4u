@@ -436,9 +436,9 @@
                     <div class="tab-content mt-3">
                         <!-- Tab panes -->
                         <div class="tab-pane fade show active" id="upload" role="tabpanel" aria-labelledby="upload-tab">
-                            <div class="modal-tab">
+                            <div id="banner_modal_container" class="modal-tab">
                                 @foreach($media  as $keyId => $image)
-                                    @if(in_array($image->position, [9])/*$image->position != 8*/)                                    
+                                    @if(in_array($image->position, [9]))                                    
                                     <!-- upload Template Tab -->
                                             <div class="item2">
                                                 <img class="img-thumbnail defult-image select_image"
@@ -454,19 +454,17 @@
                         </div>     
                         <!-- default Banner Tab -->
                         <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
+                            @php  
+                            $bannerTemplates = getBannerTemplates();
+                            @endphp
                             <div class="modal-tab">
+                                @if(!empty($bannerTemplates))
+                                @foreach($bannerTemplates as $keyId => $image)
                                 <div class="item2">
-                                    <img src="{{ asset('assets/app/img/blog-8.png') }}" class="img-thumbnail defult-image select_image">
+                                    <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
                                 </div>
-                                <div class="item2">
-                                    <img src="{{ asset('assets/app/img/blog-9.png') }}" class="img-thumbnail defult-image select_image">
-                                </div>
-                                <div class="item2">
-                                    <img src="{{ asset('assets/app/img/blog-10.png') }}" class="img-thumbnail defult-image select_image">
-                                </div>
-                                <div class="item2">
-                                    <img src="{{ asset('assets/app/img/blog-13.png') }}" class="img-thumbnail defult-image select_image">
-                                </div>
+                                @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>    

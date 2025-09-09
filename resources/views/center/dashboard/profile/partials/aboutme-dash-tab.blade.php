@@ -1,123 +1,139 @@
 <link rel="stylesheet" href="{{ asset('assets/richtexteditor/rte_theme_default.css') }}" />
 <script type="text/javascript" src="{{ asset('assets/richtexteditor/rte.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/richtexteditor/plugins/all_plugins.js') }}"></script>
-<style>
-    .parsley-errors-list {
-    list-style: none;
-    color: rgb(248, 0, 0)
-    }
-    .modalPopup > .item4 {
-        cursor: pointer;
-    }
-    .modalPopup > .item2 {
-        cursor: pointer;
-    }
-    .ui-draggable-dragging {
-        width: 82px !important;
-        height: 82px !important;
-        opacity: 0.8;
-    }
-    .draggable
-    {
-    filter: alpha(opacity=60);
-    opacity: 0.6;
-    }
-    .dropped
-    {
-    position: static !important;
-    }
-    .pis{
-    display: none;
-    }
-    .newbtn{
-    cursor: pointer;
-    }
-
-    .grid-container > div {
-    background-color: rgba(255, 255, 255, 0.8);
-    }
-    .item1 {
-    grid-column: 3 / span 3;
-    }
-    .item4{
-        width: 100%;
-        object-fit: cover;
-    }
-    img.img-thumbnail.defult-image {
-        width: 190px;
-        height: 135px;
-        object-fit: cover;
-    }
-    img.img-thumbnail.defult-image-3 {
-    width: 585px;
-    height: 202px;
-    object-fit: cover;
-    position: absolute;
-    }
-    img#blah8 {
-    width: 425px !important;
-    }
-    .leftLst.over {
-    pointer-events: none;
+<style>.parsley-errors-list {
+   list-style: none;
+   color: rgb(248, 0, 0)
 }
-    .item4 .fa-trash {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        color: #e73b3b;
-        display: none;
-    }
-    .item4:hover .fa-trash {
-         display: block;
-     }
-    .item4 {
-        position: relative;
-    }
-    .item2{
-        height: 100% !important;
-        width: 100%;
-    }
-    .item2 img{
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover;
-    }
 
-   textarea {
+.modalPopup>.item4 {
+   cursor: pointer;
+}
+
+.modalPopup>.item2 {
+   cursor: pointer;
+}
+
+.ui-draggable-dragging {
+   width: 82px !important;
+   height: 82px !important;
+   opacity: 0.8;
+}
+
+.draggable {
+   filter: alpha(opacity=60);
+   opacity: 0.6;
+}
+
+.dropped {
+   position: static !important;
+}
+
+.pis {
+   display: none;
+}
+
+.newbtn {
+   cursor: pointer;
+}
+
+.grid-container>div {
+   background-color: rgba(255, 255, 255, 0.8);
+}
+
+.item1 {
+   grid-column: 3 / span 3;
+}
+
+.item4 {
+   width: 100%;
+   object-fit: cover;
+}
+
+img.img-thumbnail.defult-image {
+   width: 190px;
+   height: 135px;
+   object-fit: cover;
+}
+
+img.img-thumbnail.defult-image-3 {
+   width: 585px;
+   height: 202px;
+   object-fit: cover;
+   position: absolute;
+}
+
+img#blah8 {
+   width: 425px !important;
+}
+
+.leftLst.over {
+   pointer-events: none;
+}
+
+.item4 .fa-trash {
+   position: absolute;
+   right: 10px;
+   top: 10px;
+   color: #e73b3b;
+   display: none;
+}
+
+.item4:hover .fa-trash {
+   display: block;
+}
+
+.item4 {
+   position: relative;
+}
+
+.item2 {
+   height: 100% !important;
+   width: 100%;
+}
+
+.item2 img {
+   width: 100% !important;
+   height: 100% !important;
+   object-fit: cover;
+}
+
+textarea {
    resize: none;
-   }
-   #count_message {
+}
+
+#count_message {
    background-color: smoke;
    margin-top: -20px;
    margin-right: 5px;
+}
+
+.fill_profile_headings_global {
+   border-bottom: 1px solid #0c223d;
+}
+
+.upld-img {
+   height: 82px !important;
+}
+
+.grid-container {
+   display: grid;
+   grid-template-columns: repeat(5, 1fr);
+   /* default 5 columns */
+   gap: 10px;
+}
+
+@media (min-width:600px) and (max-width: 1024px) {
+   .grid-container {
+       grid-template-columns: repeat(3, 1fr);
    }
-   .fill_profile_headings_global{
-      border-bottom: 1px solid #0c223d;
+}
+
+@media (max-width: 600px) {
+   .grid-container {
+       grid-template-columns: repeat(2, 1fr);
    }
-   
-   .upld-img {
-      height: 82px !important;
-      }
-      
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr); /* default 5 columns */
-      gap: 10px;
-      }
-
-
-      @media (min-width:600px) and (max-width: 1024px) {
-      .grid-container {
-         grid-template-columns: repeat(3, 1fr);
-      }
-      }
-
-
-      @media (max-width: 600px) {
-      .grid-container {
-         grid-template-columns: repeat(2, 1fr);
-      }
-      }
+}
 </style>
 <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
       <div class="col-lg-12">
@@ -222,7 +238,7 @@
                   <div class="row p-3">
                      <div class="col-lg-4 col-sm-12">
                         <h2 class="banner-sub-heading my-2">Thumbnail</h2>
-                        <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
+                        <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
                            <img class="img-fluid" id="img1" src="{{ asset($escort->imagePosition(1)) }}" style="object-fit: cover;width: 167px;height: 172px;">
                            </label>
                         </div>
@@ -233,37 +249,37 @@
                               <h2 class="banner-sub-heading my-2">Gallery Images</h2>
                           </div>
                            <div class="col-lg-4 col-sm-6">
-                              <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
+                              <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
                                  <img class="img-fluid upld-img" id="img2" src="{{  asset($escort->imagePosition(2))  }}">
                                  </label>
                               </div>
                            </div>
                            <div class="col-lg-4 col-sm-6">
-                              <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
+                              <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
                                  <img class="img-fluid upld-img"  id="img3" src="{{ asset($escort->imagePosition(3))   }}">
                                  </label>
                               </div>
                            </div>
                            <div class="col-lg-4 col-sm-6">
-                              <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
+                              <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
                                  <img class="img-fluid upld-img"  id="img4" src="{{ asset($escort->imagePosition(4))   }}">
                                  </label>
                               </div>
                            </div>
                            <div class="col-lg-4 col-sm-6">
-                              <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
+                              <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
                                  <img class="img-fluid upld-img"  id="img5" src="{{ asset($escort->imagePosition(5))  }}">
                                  </label>
                               </div>
                            </div>
                            <div class="col-lg-4 col-sm-6">
-                              <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
+                              <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
                                  <img class="img-fluid upld-img"  id="img6" src="{{ asset($escort->imagePosition(6)) }}">
                                  </label>
                               </div>
                            </div>
                            <div class="col-lg-4 col-sm-6">
-                              <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#upload-sec">
+                              <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
                                  <img class="img-fluid upld-img"  id="img7" src="{{ asset($escort->imagePosition(7)) }}">
                                  </label>
                               </div>
@@ -817,6 +833,33 @@
                    </div>
                </div>
            </form>
+       </div>
+   </div>
+</div>
+
+
+<div class="modal fade upload-modal" id="photoGallery" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+       <div class="modal-content custome_modal_max_width">
+           <div class="modal-header main_bg_color border-0">
+               <h5 class="modal-title" style="color: white;"><img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Photo</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                    <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                    </span>
+               </button>
+           </div>
+           <div class="modal-body">
+               <div class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
+                   {{-- @foreach($media  as $keyId => $image)
+                       @if(!in_array($image->position, [8, 9, 10])/*$image->position != 8*/)
+                           <div class="item4">
+                               <img class="img-thumbnail defult-image select_image" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
+                           </div>
+                       @endif
+                   @endforeach --}}
+               </div>
+           </div>
        </div>
    </div>
 </div>
