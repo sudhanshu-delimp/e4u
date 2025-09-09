@@ -30,21 +30,20 @@ class LoginFailedListener
      */
     public function handle(Failed $event)
     {
+        $ip = request()->ip() ?? (optional(request()->ipinfo)->ip);
+        $device = request()->userAgent();
+        $country = optional(request()->ipinfo)->country_name;
+        $city = optional(request()->ipinfo)->city;
+        
+        $data = [
+            'email' => ($event->credentials['email']) ?? ($event->credentials['phone'] ?? null),
+            'ip_address' => $ip,
+            'device' => $device,
+            'country' => $country,
+            'city' => $city,
+            'type' => 0,
+        ];
 
-        if(in_array('ipinfo', Route::current()->gatherMiddleware())) {
-
-            $data = [
-                'email' => ($event->credentials['email']) ?? $event->credentials['phone'] ,
-                'ip_address' => request()->ipinfo->ip,
-                'device' => request()->userAgent(),
-                'country' => @request()->ipinfo->country_name,
-                'city' => @request()->ipinfo->city,
-                'type' => 0,
-                //'last_online_at' => $event->user->last_online_at,
-                //'user_id' => $event->user->id,
-            ];
-
-            LoginAttempt::Create($data);
-        }
+        LoginAttempt::Create($data);
     }
 }

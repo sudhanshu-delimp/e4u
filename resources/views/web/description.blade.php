@@ -64,12 +64,18 @@
         color: red;
         padding-top: 5%;
     }
+
+  
 @endif
 
 
 .fa-thumbs-down, .fa-thumbs-up {
     pointer-events: none;
 }
+
+.save-my-legbox-btn {
+         color: #fff;
+    }
 
 </style>
 
@@ -300,7 +306,7 @@
                                       data-name="{{$escort->name}}"><i class="fa fa-heart-o"
                                                                        aria-hidden="true"></i></span>
                             @endif
-                            <span class="label">
+                            <span class="label save-my-legbox-btn">
                                 @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
                             </span>
                         </button>
