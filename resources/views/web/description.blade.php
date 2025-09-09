@@ -140,13 +140,17 @@
         </div>
             <div>
                 <div class="profile_page_title px-3">
-                    @if($escort->membership == 1)
-                    <img src="{{ asset('assets/app/img/profile/image36.png') }}">
-                    @elseif($escort->membership == 2)
-                    <img src="{{ asset('assets/app/img/img_gold.png') }}">
-                    @elseif($escort->membership == 3)
-                    <img src="{{ asset('assets/app/img/img_silver.png') }}">
-                    @else
+                    @php  
+                    $membershipImage = match ($escort->membership) {
+                        '1' => $escort->currentActivePinup?asset('images/platinum_membership_pin.png'):asset('images/platinum_membership.png'),
+                        '2' => $escort->currentActivePinup?asset('images/gold_membership_pin.png'): asset('images/gold_membership.png'),
+                        '3'  => $escort->currentActivePinup?asset('images/silver_membership_pin.png'):asset('images/silver_membership.png'),
+                        default => false
+                    };
+                    @endphp
+
+                    @if($membershipImage)
+                        <img src="{{ $membershipImage }}">
                     @endif
 
                     @if(strlen($escort->name) <= 250)
