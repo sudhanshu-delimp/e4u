@@ -17,6 +17,9 @@
 #listings_paginate span{
 display: contents;
 }
+.d-none{
+    display: none !important;
+}
 </style>
 @endsection
 @section('content')
@@ -97,49 +100,73 @@ display: contents;
             </div>
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-12 " id="printArea">
             <div class="my-account-card" style="display: none;">
             <div class="card-head">                  
                    
                 <h2>My Account details </h2>
-                    <button class="print-btn" onclick="window.print()">🖨️ Print Report</button>
+                    <input type="hidden" id="user_type" >
+                    <form action="{{route('print.logged.user.single-details')}}" method="post">
+                        {{ csrf_field() }}
+                        <input name="user_id" type="hidden" id="user_print_id" >
+                        <input name="user_data" type="hidden" id="user_print_data">
+                        <input name="common_print_data" type="hidden" id="common_print_data">
+                        <button type="submit" class="print-btn" >🖨️ Print Report</button>
+                    </form>
+                    
                 </div>
                 <div class="info-grid">
-                    <div class="info-item">
+                    <div class="info-item d-none">
                         <label>Member ID</label>
                         <span class="account_member_id">M60178</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-item d-none">
                         <label>Member</label>
                         <span class="account_member_name">Lins Massage</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-item d-none">
                         <label>IP Address</label>
                         <span class="account_ip_address">123.176.113.164</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-item d-none">
                         <label>Platform</label>
                         <span class="account_platform">Firefox</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-item d-none">
                         <label>Page</label>
                         <span class="account_visit_page">/escort-dashboard</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-item d-none">
                         <label>Listed Profiles (Escort)</label>
                         <span class="account_listed_profile_count">08</span>
                     </div>
-                    <div class="info-item">
+                    <div class="info-item d-none">
                         <label>Published Masseurs (Massage Centre)</label>
                         <span class="account_masseurs_count">02</span>
                     </div>
-                    <div class="info-item">
-                        <label>Listed Advertisers (For Agent)</label>
+                    <div class="info-item d-none">
+                        <label>Massage Legboxes (Massage Centre)</label>
+                        <span class="account_massage_legbox">02</span>
+                    </div>
+                    <div class="info-item d-none">
+                        <label>List Advertisers (Escort)</label>
                         <span class="account_list_adervtiser_count">01</span>
                     </div>
-                    <div class="info-item">
-                        <label>Legboxes (Viewer)</label>
+                    <div class="info-item d-none">
+                        <label>Escort Legboxes (Viewer)</label>
                         <span class="account_legbox_count">04</span>
+                    </div>
+                    <div class="info-item d-none">
+                        <label>Playmates</label>
+                        <span class="account_escort_playmates">04</span>
+                    </div>
+                    <div class="info-item d-none">
+                        <label>Reffered By Advertisers</label>
+                        <span class="account_refer_by_advertiser_agent">04</span>
+                    </div>
+                    <div class="info-item d-none">
+                        <label>Reffered By Massage Centers</label>
+                        <span class="account_refer_by_massage_center_agent">04</span>
                     </div>
                 </div>
             </div>
@@ -182,6 +209,7 @@ display: contents;
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
     <script type="text/javascript">
+
         $(document).ready(function(e) {
             ajaxReload();
             let countdown = 15;
@@ -203,7 +231,6 @@ display: contents;
 
         function ajaxReload()
         {
-
             var table = $('#listings').DataTable({
                 language: {
                 search: "Search: _INPUT_",
@@ -274,7 +301,13 @@ display: contents;
 
             const userId = $(this).attr('data-user-id');
             console.log('View Logged User Details clicked ', userId);
+            viewSingleLoggedUserAjaxRequest(userId);
 
+            
+        });
+
+        function viewSingleLoggedUserAjaxRequest(userId)
+        {
             $.ajax({
                 url: '{{route("admin.get-logged-in-single-user-detail-with-ajax","_id")}}'.replace('_id', userId) , // replace with your actual route
                 method: 'GET',
@@ -285,32 +318,144 @@ display: contents;
                     console.log('Response from server jiten : ', response.userDetails);
  
                     if(response.status == 'success'){
-                        var userDetails = response.userDetails;
-                        var loginAttempts = userDetails.login_attempts;
-                        var playmates = userDetails.playmates;
-                        var escorts = userDetails.escorts;
-                        var myLegBox = userDetails.my_leg_box;
-                        var massageCenterLegBox = userDetails.massage_center_leg_box;
-                        var masseursProfile = userDetails.massage_center_leg_box;
 
-                        console.log('Response from loginAttempts : ', loginAttempts);
-
-                        $(".account_member_id").text(userDetails.member_id);
-                        $(".account_member_name").text(userDetails.name);
-                        $(".account_ip_address").text(loginAttempts.ip_address);
-                        $(".account_platform").text(loginAttempts.device);
-                        $(".account_visit_page").text(loginAttempts.page);
-                        $(".account_listed_profile_count").text(escorts.length);
-                        $(".account_masseurs_count").text(massageCenterLegBox.length);
-                        $(".account_list_adervtiser_count").text(escorts.length);
-                        $(".account_legbox_count").text(myLegBox.length);
+                        viewSpecificLoggedUserDetails(response.userDetails);
                     }
                 },
                 error: function(xhr) {
                     $('#view-listing .modal-body').html('<p class="text-danger">Error loading data...</p>');
                 }
             });
-        });
+        }
+
+        function viewSpecificLoggedUserDetails(user)
+        {
+            $(".info-item").addClass('d-none');
+
+            console.log('user details new : ', user);
+            var userDetails = user;
+            var loginAttempts = userDetails.login_attempts;
+
+            $(".account_member_id").text(userDetails.member_id ?? '-');
+            $(".account_member_name").text(userDetails.name);
+            $(".account_ip_address").text(loginAttempts.ip_address);
+            $(".account_platform").text(loginAttempts.device);
+            $(".account_visit_page").text(loginAttempts.page);
+
+            $("#user_print_id").val(user.id);
+            $("#user_type").val(user.type);
+
+            var commonData = {
+                'account_member_id' : userDetails.member_id ?? '-',
+                'account_member_name' : userDetails.name ?? '-',
+                'account_ip_address' : loginAttempts.ip_address ?? '-',
+                'account_platform' : loginAttempts.device ?? '-',
+                'account_visit_page' : loginAttempts.page ?? '-',
+            };
+
+            $("#common_print_data").val(JSON.stringify(commonData));
+
+            $(".account_member_id").parent().removeClass('d-none');
+            $(".account_member_name").parent().removeClass('d-none');
+            $(".account_ip_address").parent().removeClass('d-none');
+            $(".account_platform").parent().removeClass('d-none');
+            $(".account_visit_page").parent().removeClass('d-none');
+            
+            console.log('user details : ', user);
+
+            switch (user.type) {
+                case 0:
+                    // user
+                    var myLegBox = userDetails.my_leg_box;
+                    var escortsMylegbox = userDetails.escorts;
+                    var massageMylegbox = userDetails.massage_center_leg_box;
+                    var shortlistedMassage = '4';
+
+                    let veiwerData = {
+                        'account_legbox_count' : myLegBox.length,
+                        'account_massage_legbox' : massageMylegbox.length,
+                    }
+
+                    $("#user_print_data").val(JSON.stringify(veiwerData))
+
+                    $(".account_legbox_count").text(myLegBox.length);
+                    $(".account_massage_legbox").text(massageMylegbox.length);
+
+                    $(".account_legbox_count").parent().removeClass('d-none');
+                    $(".account_massage_legbox").parent().removeClass('d-none');
+
+                    break;
+                case 2:
+                    // sub-admin
+                    break;
+                case 3:
+                    // escort
+                    var escorts = userDetails.escorts;
+                    var escortsListedProfile = userDetails.listed_escorts;
+                    var playmates = userDetails.playmates;
+                    var legboxViewer = userDetails.viewerLegBoxCount;
+
+                    let escortData = {
+                        'account_list_adervtiser_count' : escorts.length,
+                        'account_listed_profile_count' : escortsListedProfile.length,
+                        'account_escort_playmates' : playmates.length,
+                        'account_legbox_count' : userDetails.viewerLegBoxCount,
+                    }
+
+                    $("#user_print_data").val(JSON.stringify(escortData));
+
+                    $(".account_list_adervtiser_count").text(escorts.length);
+                    $(".account_listed_profile_count").text(escortsListedProfile.length);
+                    $(".account_escort_playmates").text(playmates.length);
+                    $(".account_legbox_count").text(userDetails.viewerLegBoxCount);
+
+                    $(".account_list_adervtiser_count").parent().removeClass('d-none');
+                    $(".account_listed_profile_count").parent().removeClass('d-none');
+                    $(".account_escort_playmates").parent().removeClass('d-none');
+                    $(".account_legbox_count").parent().removeClass('d-none');
+
+                    break;
+                case 4:
+                    // masssage center
+                    var massageCenterLegBox = userDetails.massage_center_leg_box;
+                    var masseursProfile = userDetails.refer_by_massage_center;
+
+                    let massageData = {
+                        'account_masseurs_count' : massageCenterLegBox.length,
+                    }
+
+                    $("#user_print_data").val(JSON.stringify(massageData));
+
+                    $(".account_masseurs_count").text(massageCenterLegBox.length);
+                    
+
+                    $(".account_masseurs_count").parent().removeClass('d-none');
+
+                    break;
+                case 5:
+                    // agent
+                    var agentCount = userDetails.refer_by_agent;
+                    var masseursCount = userDetails.refer_by_massage_center;
+
+                    let agentData = {
+                        'account_refer_by_advertiser_agent' : agentCount.length,
+                        'account_refer_by_massage_center_agent' : masseursCount.length,
+                    }
+
+                    $("#user_print_data").val(JSON.stringify(agentData));
+
+                    $(".account_refer_by_advertiser_agent").text(agentCount.length);
+                    $(".account_refer_by_massage_center_agent").text(masseursCount.length);
+
+                    $(".account_refer_by_advertiser_agent").parent().removeClass('d-none');
+                    $(".account_refer_by_massage_center_agent").parent().removeClass('d-none');
+                    break;
+            
+                default:
+                    // its user deafult 0
+                    break;
+            }
+        }
 
         $(document).ready(function () {
             function checkAndApplyResponsive() {
