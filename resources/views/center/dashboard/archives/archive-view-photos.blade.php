@@ -6,48 +6,139 @@
 <link rel="stylesheet" type="text/css" href="https://foliotek.github.io/Croppie/croppie.css">
 <link href="{{ asset('assets/plugins/ajax/libs/jquery/jquery-ui.css') }} " rel="stylesheet" type="text/css" />
 <style type="text/css">
-    .parsley-errors-list {
+.parsley-errors-list {
     list-style: none;
     color: rgb(248, 0, 0)
-    }
-    .item4 .fa-trash {
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        color: #e73b3b;
-        display: none;
-    }
-    .item4:hover .fa-trash {
-        display: block;
-    }
-    .item4 {
-        position: relative;
-    }
-    img.img-thumbnail.defult-image {
+}
+
+.modalPopup>.item4 {
+    cursor: pointer;
+}
+
+.modalPopup>.item2 {
+    cursor: pointer;
+}
+
+.ui-draggable-dragging {
+    width: 82px !important;
+    height: 82px !important;
+    opacity: 0.8;
+}
+
+.draggable {
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+}
+
+.dropped {
+    position: static !important;
+}
+
+.pis {
+    display: none;
+}
+
+.newbtn {
+    cursor: pointer;
+}
+
+.grid-container>div {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.item1 {
+    grid-column: 3 / span 3;
+}
+
+.item4 {
+    width: 100%;
+    object-fit: cover;
+}
+
+img.img-thumbnail.defult-image {
     width: 190px;
     height: 135px;
     object-fit: cover;
 }
-    .grid-container {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+
+img.img-thumbnail.defult-image-3 {
+    width: 585px;
+    height: 202px;
+    object-fit: cover;
+    position: absolute;
+}
+
+img#blah8 {
+    width: 425px !important;
+}
+
+.leftLst.over {
+    pointer-events: none;
+}
+
+.item4 .fa-trash {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #e73b3b;
+    display: none;
+}
+
+.item4:hover .fa-trash {
+    display: block;
+}
+
+.item4 {
+    position: relative;
+}
+
+.item2 {
+    height: 100% !important;
+    width: 100%;
+}
+
+.item2 img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+}
+
+textarea {
+    resize: none;
+}
+
+#count_message {
+    background-color: smoke;
+    margin-top: -20px;
+    margin-right: 5px;
+}
+
+.fill_profile_headings_global {
+    border-bottom: 1px solid #0c223d;
+}
+
+.upld-img {
+    height: 82px !important;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    /* default 5 columns */
     gap: 10px;
 }
-    .draggable
-    {
-        filter: alpha(opacity=60);
-        opacity: 0.6;
+
+@media (min-width:600px) and (max-width: 1024px) {
+    .grid-container {
+        grid-template-columns: repeat(3, 1fr);
     }
-    .dropped
-    {
-        position: static !important;
+}
+
+@media (max-width: 600px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
     }
-    .pis{
-    display: none;
-    }
-    .newbtn{
-    cursor: pointer;
-    }
+}
 </style>
 @endsection
 @section('content')
@@ -73,156 +164,200 @@
            </div>
         </div>
     </div>
-        <div class="row">
-            <div class="col-md-12 mb-3 d-flex justify-content-end">
-                <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
-            </div>
+    <div class="row mt-3">
+        <div class="col-md-12 my-3 d-flex justify-content-end">
+           <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
+       </div>
+        <div class="col-lg-4 col-sm-12">
+           <div class="upload-banner p-0">
+              <div class="photo-top-header">                    
+                 <div class="custom-img-filter-header border-0">
+                     <div class="row">
+                         <div class="col-lg-12">
+                             <h3 class="gallery-head">Your Default Images</h3>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+              <div class="row p-3">
+                 <div class="col-lg-4 col-sm-12">
+                    <h2 class="banner-sub-heading my-2">Thumbnail</h2>
+                    <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
+                       <img class="img-fluid" id="img1" src="{{ asset('assets/app/img/upload-thum-1.png')}}" style="object-fit: cover;width: 167px;height: 172px;">
+                       </label>
+                    </div>
+                 </div>
+                 <div class="col-lg-8 col-sm-12">
+                    <div class="row" style="">
+                       <div class="col-lg-12">                                            
+                          <h2 class="banner-sub-heading my-2">Gallery Images</h2>
+                      </div>
+                       <div class="col-lg-4 col-sm-6">
+                          <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
+                             <img class="img-fluid upld-img" id="img2" src="{{ asset('assets/app/img/frame-main-thum.png')}}">
+                             </label>
+                          </div>
+                       </div>
+                       <div class="col-lg-4 col-sm-6">
+                          <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
+                             <img class="img-fluid upld-img"  id="img3" src="{{ asset('assets/app/img/frame-main-thum.png')}}">
+                             </label>
+                          </div>
+                       </div>
+                       <div class="col-lg-4 col-sm-6">
+                          <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
+                             <img class="img-fluid upld-img"  id="img4" src="{{ asset('assets/app/img/frame-main-thum.png')}}">
+                             </label>
+                          </div>
+                       </div>
+                       <div class="col-lg-4 col-sm-6">
+                          <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
+                             <img class="img-fluid upld-img"  id="img5" src="{{ asset('assets/app/img/frame-main-thum.png')}}">
+                             </label>
+                          </div>
+                       </div>
+                       <div class="col-lg-4 col-sm-6">
+                          <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
+                             <img class="img-fluid upld-img"  id="img6" src="{{ asset('assets/app/img/frame-main-thum.png')}}">
+                             </label>
+                          </div>
+                       </div>
+                       <div class="col-lg-4 col-sm-6">
+                          <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
+                             <img class="img-fluid upld-img"  id="img7" src="{{ asset('assets/app/img/frame-main-thum.png')}}">
+                             </label>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+              <div class="row px-3">
+                 <div class="about_me_drop_down_info add_banner_pic col-lg-12">
+                    <h2 class="banner-sub-heading my-2">Banner Image</h2>
+                    <label class="newbtn" data-toggle="modal" data-target="#upload-sec-banner">
+                    <img class="img-fluid"  id="img9" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
+                    </label>
+                 </div>
+              </div>
+           </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="upload-photo-sec">
-                    <div class="container">
-                        <div class="d-sm-flex align-items-center justify-content-between pt-4">
-                        </div>
-                        <form id="defaultImage" method="post" enctype="multipart/form-data" action="{{ route('center.default.images')}}">
-                            @csrf
-                            <div class="row pt-3">
-                                
-                                <div class="col-4 pr-0 pl-0">
-                                    <h2 class="banner-sub-heading my-2 font-weight-bold">Thumbnail</h2>
-                                    <div class="plate">
-                                        <label class="newbtn dvDest" data-toggle="modal" data-target="#photoGallery" id="dvDest">
-                                            <img class="img-fluid" id="img1" src="{{ asset($path->findByposition(auth()->user()->id,1)['path']) }}" style="object-fit: cover;width: 167px;height: 172px;">
-                                            <input type="hidden" id="pos_1" name="position[1]" value="">
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-8">
-                                    <div class="row" style="">
-                                        <div class="col-lg-12">
-                                            <h2 class="banner-sub-heading my-2 font-weight-bold">Default Image</h2>
-                                        </div>
-                                        <div class="col-4 pr-0">
-                                            <div class="plate">
-                                                <label class="newbtn dvDest" data-toggle="modal" data-target="#photoGallery">
-                                                    <img class="img-fluid" id="img2" src="{{ asset($path->findByposition(auth()->user()->id,2)['path'])}}">
-                                                    <input type="hidden" id="pos_2" name="position[2]" value="">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-4 pr-0">
-                                            <div class="plate">
-                                                <label class="newbtn dvDest" data-toggle="modal" data-target="#photoGallery">
-                                                    <img class="img-fluid"  id="img3" src="{{ asset($path->findByposition(auth()->user()->id,3)['path'])}}">
-                                                    <input type="hidden" id="pos_3" name="position[3]" value="">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-4 pr-0">
-                                            <div class="plate">
-                                                <label class="newbtn dvDest" data-toggle="modal" data-target="#photoGallery">
-                                                    <img class="img-fluid"  id="img4" src="{{ asset($path->findByposition(auth()->user()->id,4)['path'])}}">
-                                                    <input type="hidden" id="pos_4" name="position[4]" value="">
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{-- <div class="about_me_drop_down_info pt-2">
-                                    <label class="newbtn dvDest" data-toggle="modal" data-target="#upload-sec-banner">
-                                        <img class="img-fluid pl-2 pr-2" id="img9" src="{{ asset($path->findByposition(auth()->user()->id,9)['path'])}}" style="width: 460px;height: 138px;object-fit: cover;">
-                                        <input  type="hidden"  id="pos_9" name="position[9]" value="">
-                                    </label>
-                                </div> --}}
-
-                            </div>
-                            <div class="col-md-2" style="padding-left: 7rem;">
-                                <button type="submit" class="btn btn-primary create-tour-sec useDefault">Use Deafult</button>
-                            </div>
-                            <div id="usedf">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="photo-top-header" style="">
-                    <div class="photo-header border-0">
-                        <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <ul class="nav nav-tabs border-0">
-                                        <li class="nav-item">
-                                            <a class="nav-link show" id=" " data-toggle="tab" href="#home">All</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="menu1-tab" data-toggle="tab" href="#menu1">Verified</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="menu2-tab" data-toggle="tab" href="#menu2">Unverified</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-2 pt-1">
-                                    <div class="progress">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{$media->count() * 3.3}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div style="display: flex;gap: 15px;">
-                                        <p>{{$media->count()}}/6</p>
-                                        <img src="{{ asset('assets/app/img/Vector-2.png')}}" style="height: 21px;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="archive-photo-sec">
-                    <div class="row">
-                    <div class="col-md-12">
-                            <div id="pagination-container"></div>
-                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
+        <div class="col-lg-8 col-sm-12">
+           <div class="photo-top-header">
+              <div class="photo-top-header">
+                 <div class="photo-header custom-photo-header">
+                     <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
+                         <div class="row">
+                             <div class="col-md-8">
+                                 <ul class="nav nav-tabs border-0">
+                                     <li class="nav-item">
+                                         <a class="nav-link active" id="menu_all" data-toggle="tab" href="#home">All</a>
+                                     </li>
+                                     <li class="nav-item">
+                                         <a class="nav-link" id="menu_varified" data-toggle="tab" href="#menu1">Verified</a>
+                                     </li>
+                                     <li class="nav-item">
+                                         <a class="nav-link" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
+                                     </li>
+                                 </ul>
+                             </div>
+                             <div class="col-md-2 pt-1">
+                                 <div class="progress">
+                                     <div class="progress-bar bg-success" role="progressbar" style="width: 72.6%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                 </div>
+                             </div>
+                             <div class="col-md-2">
+                                 <div style="display: flex;gap: 15px;">
+                                     <p>22/30</p>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="custom-img-filter-header">
+                     <div class="row">
+                         <ul class="nav nav-tabs border-0">
                             
-                                <ul class="pagination ml-2 pl-1">
-                                    <!-- Declare the item in the group -->
-                                    <li class="page-item preview">
-                                    <!-- Declare the link of the item -->
-                                        <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
-                                    </li>
-                                    <li class="page-item  active" id="pageItem_0" data-id="0">
-                                    <a data-target="#carouselExampleIndicators" data-slide-to="0" class="page-link" href="#">1</a>
-                                    </li>
-                                    {{-- <li class="page-item " id="pageItem_1" data-id="1">
-                                        <a data-target="#carouselExampleIndicators" data-slide-to="1" class="page-link" href="#">2</a>
-                                    </li>
-                                    <li class="page-item " id="pageItem_2" data-id="2">
-                                        <a data-target="#carouselExampleIndicators" data-slide-to="2" class="page-link" href="#">3</a>
-                                    </li> --}}
-                                    <li class="page-item nextOne">
-                                    <a class="page-link" href="#carouselExampleIndicators" id="nextId">››</a>
-                                    </li>
-                                </ul>
-                                <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
-                                    <div class="carousel-inner" id="view_all">
-                                        <div class="carousel-item active" id="cItem_0" data-id="0">
-                                            <div class="grid-container" id="dvSource">
-                                                <div class="item4" id="dm_142">
-                                                    <img class="img-thumbnail defult-image ui-draggable" src="http://127.0.0.1:8000/escorts/images/104/perth-landscape.jpg" alt=" " data-id="142" data-position="3">
-                                                    <i class="fa fa-trash deleteimg" data-id="142" title="Remove this media"></i>                                        
-                                                    <span class="badge badge-red">Gallery</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--.Carousel-->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                             <li class="nav-item">
+                                 <a class="nav-link active" id="gallery_img" data-toggle="tab" href="#Gallery">Gallery</a>
+                             </li>
+                             <li class="nav-item">
+                                 <a class="nav-link " id="banner_img" data-toggle="tab" href="#Banner">Banner</a>
+                             </li>
+                            
+                             
+                         </ul>
+                     </div>
+                 </div>
+             </div>
+           </div>
+           <div class="archive-photo-sec">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div id="pagination-container"></div>
+                     <div id="carouselExampleIndicators" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
+                     
+                        <ul class="pagination ml-2 pl-1">
+                           <!-- Declare the item in the group -->
+                           <li class="page-item preview">
+                              <!-- Declare the link of the item -->
+                           <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
+
+                           </li>
+                           <li class="page-item  active" id="pageItem_0" data-id="0">
+                              <a data-target="#carouselExampleIndicators" data-slide-to="0" class="page-link" href="#">1</a>
+                           </li>
+                           <li class="page-item " id="pageItem_1" data-id="1">
+                              <a data-target="#carouselExampleIndicators" data-slide-to="1" class="page-link" href="#">2</a>
+                           </li>
+                                                       <li class="page-item " id="pageItem_2" data-id="2">
+                              <a data-target="#carouselExampleIndicators" data-slide-to="2" class="page-link" href="#">3</a>
+                           </li>
+                           
+                           <li class="page-item nextOne">
+                           <a class="page-link" href="#carouselExampleIndicators" id="nextId">››</a>
+                           </li>
+                        </ul>
+                        <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
+                           <div class="carousel-inner" id="view_all">
+                               <div class="carousel-item active" id="cItem_0" data-id="0">
+                                 <div class="grid-container" id="dvSource">
+                                                                                                           
+                                       <div class="item4" id="dm_760">
+                                           <img class="img-thumbnail defult-image ui-draggable" src="{{asset('escorts/images/203/3e4f5b4696fa7d6346476a73c.jpg')}}" alt=" " data-id="760" data-position="9">
+                                           <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
+                                                                               <span class="badge badge-red">Banner</span>
+                                       </div>
+                                   </div>
+                               </div>
+
+                               <div class="carousel-item" id="cItem_1" data-id="1">
+                                 <div class="grid-container" id="dvSource">
+                                       <div class="item4" id="dm_802">
+                                           <img class="img-thumbnail defult-image ui-draggable" src="{{asset('escorts/images/203/82894e8c00df224c31749890d.jpg')}}" alt=" " data-id="802" data-position="">
+                                           <i class="fa fa-trash deleteimg" data-id="802" title="Remove this media"></i>                                        
+                                                                                   <span class="badge badge-red">Gallery</span>
+                                       </div>
+                                   </div>
+                               </div>  
+                               
+                               <div class="carousel-item" id="cItem_2" data-id="2">
+                                <div class="grid-container" id="dvSource">
+                                      <div class="item4" id="dm_802">
+                                          <img class="img-thumbnail defult-image ui-draggable" src="{{asset('escorts/images/203/82894e8c00df224c31749890d.jpg')}}" alt=" " data-id="802" data-position="">
+                                          <i class="fa fa-trash deleteimg" data-id="802" title="Remove this media"></i>                                        
+                                                                                  <span class="badge badge-red">Gallery</span>
+                                      </div>
+                                  </div>
+                              </div>  
+                           </div>
+                           <!--.Carousel-->
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       </div>
+     </div>
 
 </div>
 <div class="modal delete" id="pesrmissionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -250,162 +385,148 @@
         </div>
     </div>
 </div>
-<div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style="width: 900px;position: absolute;">
-            <form id="mulitiImage" method="POST" action="{{ route('center.upload.gallery')}}" enctype="multipart/form-data">
-            @csrf
-            <div class="modal-content border-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle"><img src="{{ asset('assets/dashboard/img/upload-photos.png')}}" class="custompopicon"> Upload Photos</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="container p-0">
-                                <div class="row p-0">
-                                    <div class="col-12 p-0">
-                                        <div class="photo-sec-popup massage-photo-popup"  id="image_preview">
-                                            <a href="#">
-                                                <div class="five_column_content_top img-title-sec justify-content-between wish_span rm" style="z-index: 1;">
-                                                   
-                                                </div>
-                                                <label class="newbtn rm">
-                                                    <img id="blah" class="item" src="{{ asset('assets/app/img/upload-1.png')}}">
-                                                    <input name="img[]" id="upload_file" class="pis" onchange="preview_image(this);" type="file" multiple>
 
-                                                </label>
-                                                <div style="margin-top: -34px;">
+{{-- manage banner popup --}}
+<div class="modal fade upload-modal" id="upload-sec-banner" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" style="color: white;" id="exampleModalLongTitle"> <img src="{{ asset('assets/dashboard/img/banner.png')}}" class="custompopicon">Manage Banner</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <div class="row">
+                <div class="col-md-12">
+                   <div class="container p-0">
+                      <div class="row">
+                         <div class="col-12">
+                            <div class="plate"><label class="newbtn">
+                               <img id="blah9" class="img-fluid" src="{{ asset('assets/app/img/upload-3.png') }}" style="height: 118px;object-fit: cover;width: 618px;">
+                               <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file">
+                               <input type="hidden" name="position[]" id="mediaId9">
+                               </label>
+                            </div>
+                         </div>
+                      </div>
+                      <div class="row mt-3" style="border: 1px dotted;">
+                         <div class="col-6 pt-4 pb-4">
+                            <h4>Verify these photos</h4>
+                            <p>Upload a picture of your ID with your most recent photo for verification.</p>
+                         </div>
+                         <div class="col-6">
+                            <div class="plate"><label class="newbtn">
+                               <img class="img-fluid" id="blah0" src="{{  asset('assets/app/img/upload-6.png') }}" style="height: 138px;object-fit: cover;width: 291px;">
+                               <input name="img[10]" id="pic0" class="pis" onchange="readURL(this);" type="file">
+                               <input type="hidden" name="position[]" id="mediaId10">
+                               </label>
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+             </div>
+          </div>
+          <div class="modal-footer">
+             <button type="button" class="btn-success-modal" id="defaultImg2">Use Default</button>
+             <button type="button" class="btn-success-modal" id="manageImgId">Save</button>
+          </div>
+       </div>
+    </div>
+ </div>
+ {{-- end manage bannber --}}
+
+ {{-- Upload Photos popup --}}
+<div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content" style="width: 900px;position: absolute;">
+            {{-- {{ route('escort.upload.gallery') }} --}}
+            <form id="mulitiImage" method="POST" action="{{route('escort.upload.gallery')}}" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-content border-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle"><img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Upload Photos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="container p-0">
+                                    <div class="row p-0">
+                                        <div class="col-12 p-0">
+                                            <div class="photo-sec-popup custom-upload-photo"  id="image_preview">
+                                                <a href="#">
+                                                    <div class="five_column_content_top img-title-sec justify-content-between wish_span rm" style="z-index: 1;">
+                                                      
+                                                    </div>
+                                                    <label class="newbtn rm">
+                                                        <img id="blah" class="item" src="{{ asset('assets/app/img/upload-thum-1.png')}}">
+                                                        
+                                                        <input name="img[]" id="upload_file" class="pis" onchange="preview_image(this);" type="file" multiple accept="image/*">
+                                                    </label>
+                                                    <div style="margin-top: -34px;">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-lg-6">
+                                                    <div class="plate"><label class="newbtn">
+                                                        <img id="blah9" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                        <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
+                                                        <input type="hidden" name="position[]" id="mediaId9">
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                            </a>
-                                            {{-- @foreach($media as $key => $img)
-                                            <a href="#">
-                                                <div class="five_column_content_top img-title-sec d-flex justify-content-between wish_span" style="z-index: 1;">
-                                                    <span class="card_tit" style="">Photo.img</span>
-                                                    <i class="fa fa-trash deleteId" data-id="{{$img->id}}"></i>
+                                                <div class="col-lg-6">
+                                                    <div class="plate"><label class="newbtn">
+                                                        <img id="blah10" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
+                                                        <input name="img[10]" id="pic10" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
+                                                        <input type="hidden" name="position[]" id="mediaId10">
+                                                        </label>
+                                                    </div>
                                                 </div>
-                                                <label class="newbtn">
-                                                    <img id="blah1" class="item" src="{{ asset($img->path) }}">
-                                                    <figcaption>Edit</figcaption>
-                                                    <input type="hidden" name="position[]" value="{{$img->position}}">
-                                                </label>
-                                                <div style="margin-top: -34px;">
-                                                </div>
-                                            </a>
-                                             @endforeach --}}
-                                           {{--  <a href="#">
-                                                <div class="five_column_content_top img-title-sec d-flex justify-content-between wish_span" style="z-index: 1;">
-                                                    <span class="card_tit" style="">Photo.img</span>
-                                                    <i class="fa fa-trash"></i>
-                                                </div>
-                                                <label class="newbtn">
-                                                    <img id="blah1" class="item" src="{{ asset('escorts/attatchment/images/70/girl4.jpg')}}">
-                                                    <figcaption>Edit</figcaption>
-                                                    <input name="img[1]" id="pic1" class="pis" onchange="readURL(this);" type="file">
-                                                    <input type="hidden" name="position[]" value="1">
-                                                </label>
-                                                <div style="margin-top: -34px;">
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="five_column_content_top img-title-sec d-flex justify-content-between wish_span" style="z-index: 1;">
-                                                    <span class="card_tit" style="">Photo.img</span>
-                                                    <i class="fa fa-trash"></i>
-                                                </div>
-                                                <label class="newbtn">
-                                                    <img id="blah1" class="item" src="{{ asset('escorts/attatchment/images/70/girl4.jpg')}}">
-                                                    <figcaption>Edit</figcaption>
-                                                    <input name="img[1]" id="pic1" class="pis" onchange="readURL(this);" type="file">
-                                                    <input type="hidden" name="position[]" value="1">
-                                                </label>
-                                                <div style="margin-top: -34px;">
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="five_column_content_top img-title-sec d-flex justify-content-between wish_span" style="z-index: 1;">
-                                                    <span class="card_tit" style="">Photo.img</span>
-                                                    <i class="fa fa-trash"></i>
-                                                </div>
-                                                <label class="newbtn">
-                                                    <img id="blah1" class="item" src="{{ asset('escorts/attatchment/images/70/girl4.jpg')}}">
-                                                    <figcaption>Edit</figcaption>
-                                                    <input name="img[1]" id="pic1" class="pis" onchange="readURL(this);" type="file">
-                                                    <input type="hidden" name="position[]" value="1">
-                                                </label>
-                                                <div style="margin-top: -34px;">
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="five_column_content_top img-title-sec d-flex justify-content-between wish_span" style="z-index: 1;">
-                                                    <span class="card_tit" style="">Photo.img</span>
-                                                    <i class="fa fa-trash"></i>
-                                                </div>
-                                                <label class="newbtn">
-                                                    <img id="blah1" class="item" src="{{ asset('escorts/attatchment/images/70/girl4.jpg')}}">
-                                                    <figcaption>Edit</figcaption>
-                                                    <input name="img[1]" id="pic1" class="pis" onchange="readURL(this);" type="file">
-                                                    <input type="hidden" name="position[]" value="1">
-                                                </label>
-                                                <div style="margin-top: -34px;">
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="five_column_content_top img-title-sec d-flex justify-content-between wish_span" style="z-index: 1;">
-                                                    <span class="card_tit" style="">Photo.img</span>
-                                                    <i class="fa fa-trash"></i>
-                                                </div>
-                                                <label class="newbtn">
-                                                    <img id="blah1" class="item" src="{{ asset('escorts/attatchment/images/70/girl4.jpg')}}">
-                                                    <figcaption>Edit</figcaption>
-                                                    <input name="img[1]" id="pic1" class="pis" onchange="readURL(this);" type="file">
-                                                    <input type="hidden" name="position[]" value="1">
-                                                </label>
-                                                <div style="margin-top: -34px;">
-                                                </div>
-                                            </a> --}}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row mt-4 pt-1" style="border: 1px dotted;">
-                                    <div class="col-6 pt-4 pb-4">
-                                        <h4>Verify these Photos</h4>
-                                        <p>Upload a picture of your ID with your most recent photo for verification.</p>
-                                    </div>
-                                    {{-- <div class="col-6">
-                                        <div class="plate">
-                                            <label class="newbtn rm">
-                                                <img class="img-fluid" id="blah8" src="{{ asset('escorts/attatchment/images/70/girl4.jpg')}}" style="width: 420px;height: 143px;object-fit: cover;">
-                                                <input name="img[8]" id="pic8" class="pis" onchange="readURL(this);" type="file">
-                                                <input type="hidden" name="position[]" value="8">
-                                            </label>
+                                    <div class="row mt-4 pt-1" style="border: 1px dotted;">
+                                        <div class="col-6 pt-4 pb-4">
+                                            <h4>Verify these Photos</h4>
+ 
+                                            <ul style="text-align: justify;">
+                                              <li>Two (2) selfies with your User Name and Membership ID printed (can be handwritten) on a sheet of paper held up to the side of you and not obscuring any part of you</li>
+                                              <li>A drivers licence which matches your User Name and Home State</li>
+                                              <li>A passport which matches your User Name and Home State</li>
+                                            </ul>
                                         </div>
-                                    </div> --}}
-                                    <div class="col-6">
-                                        <div class="plate"><label class="newbtn">
-                                        <img class="img-fluid" id="blah8" src="{{ asset($path->findByposition(auth()->user()->id,8)['path']) }}" style="height: 138px;object-fit: cover;width: 370px;">
-                                            <input name="img[8]" id="pic8" data-id="8" class="pis" onchange="readURL(this);" type="file">
-                                            {{-- <input type="hidden" name="position[]" id="mediaId8"> --}}
-                                            <input type="hidden" name="selected_files[]" value="8">
-                                            </label>
+                                        <div class="col-6">
+                                            <div class="plate" style="position: relative;top: 30%;"><label class="newbtn">
+                                                <img class="img-fluid" id="blah8" src="{{--- {{ asset($path->findByposition(auth()->user()->id,8)['path']) }} --}}" style="height: 138px;object-fit: cover;width: 370px;">
+                                                <input name="img[8]" id="pic8" data-id="8" class="pis" onchange="readURL(this);" type="file">
+                                                <input type="hidden" name="selected_files[]" value="8">
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn-success-modal">Verify Media</button>
+                        <button type="submit" class="btn-success-modal">Upload</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn-success-modal">Verify Media</button>
-                    <button type="submit" class="btn-success-modal">Upload</button>
-                </div>
-            </div>
             </form>
         </div>
     </div>
-</div>
+ </div>
+{{-- end --}}
+
+
+
 <div class="modal" id="comman_modal" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
