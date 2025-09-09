@@ -16,8 +16,8 @@
                 </div>
                 <!-- end col -->
                 <div class="col-lg-6 text-right">
-                <button type="button"  data-toggle="modal" data-target="#select_profile" class="save_profile_btn">Change Profile</button>
-                <button type="button" data-toggle="modal" data-target="#create_new_profile" class="save_profile_btn">Add Masseurs</button>
+                <button type="button"  data-toggle="modal" data-target="#select_profile" class="save_profile_btn">Change Masseurs</button>
+                {{-- <button type="button" data-toggle="modal" data-target="#create_new_profile" class="save_profile_btn">Add Masseurs</button> --}}
                 </div>
             </div>
             <!-- end row -->
@@ -35,8 +35,8 @@
                                     </svg></th>
                                 <th>Available Time</th>
                                 <th>Available Days</th>
-                                <th> Ethnicity</th>
                                 <th>Nationality</th>
+                                <th> Ethnicity</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -285,7 +285,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle"> <img src="{{ asset('assets/dashboard/img/add-mass.png') }}" class="custompopicon"> Change Masseurs Profile</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle"> <img src="{{ asset('assets/dashboard/img/add-mass.png') }}" class="custompopicon"> Change Masseurs</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
