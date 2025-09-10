@@ -1131,7 +1131,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end py-3">
-                                    <button type="button" class="btn-save-profile">Save Profile</button>
+                                    <button type="button" class="btn-common">Save</button>
                                 </div>
                             </form>
                         </div>
