@@ -3,19 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-use App\Http\Controllers\AppController;
-
-class BaseController extends AppController
-{
-        public function validationError($message, $errors = [], $statusCode = 422)
-        {
-            return response()->json([
-                'message' => $message,
-                'errors'  => $errors
-            ], $statusCode);
-        }
-=======
 
 class BaseController extends Controller
 {
@@ -40,5 +27,4 @@ class BaseController extends Controller
                 'message' => $message,
             ], $statusCode);
      }
->>>>>>> 9fd996d5dbf8e4b85ea1defefbf40dd28cde915a
 }

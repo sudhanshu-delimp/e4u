@@ -3,21 +3,14 @@
 namespace App\Http\Controllers\User\Dashboard;
 
 use Auth;
-<<<<<<< HEAD
 use Exception;
-use Carbon\Carbon;
 use App\Models\User;
-=======
 use Carbon\Carbon;
->>>>>>> 9fd996d5dbf8e4b85ea1defefbf40dd28cde915a
 use App\Models\MyLegbox;
 use Illuminate\Http\Request;
 use App\Models\MyMassageLegbox;
 use App\Http\Controllers\Controller;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Facades\File;
->>>>>>> 9fd996d5dbf8e4b85ea1defefbf40dd28cde915a
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
