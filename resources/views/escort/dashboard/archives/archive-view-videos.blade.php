@@ -171,13 +171,13 @@
         
         <div class="col-md-12 my-4">
             <div class="upload-photo-sec">
-                <div class="d-sm-flex align-items-center justify-content-between pt-4 pl-2">
-                    <h1 class="h3 text-gray-800 mb-2 ml-2">Default Video</h1>
+                <div class="d-sm-flex align-items-center justify-content-between p-3 custom-img-filter-header">
+                    <h4 class="text-white">Default Video</h4>
                 </div>
                 {{-- <form id="my_avatar" action="#" method="POST" enctype="multipart/form-data">
                     <img class="img-fluid p-2" src="{{ asset('assets/app/img/img-14.png')}}">
                 </form> --}}
-                <div class="d-flex justify-content-start gap-10 mt-2">
+                <div class="d-flex justify-content-start gap-10 mt-3">
                     <label class="newbtn dvDest" id="dvDest">
                         <video class="videoUp" id="img1" controls="" src="{{ asset($path)}}" controls poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
                             <source id="akhVideo" src="{{ asset($path)}}" type="video/mp4" >

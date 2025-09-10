@@ -156,7 +156,10 @@
                     @endphp
 
                     @if($membershipImage)
-                        <img src="{{ $membershipImage }}">
+                       <div class="pinup-wrapper">
+                            <img src="{{ $membershipImage }}">
+                            <div class="pinup-tooltip">I am your Pin Up this week!</div>
+                       </div> 
                     @endif
 
                     @if(strlen($escort->name) <= 250)
