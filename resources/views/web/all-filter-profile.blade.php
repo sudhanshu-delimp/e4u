@@ -525,7 +525,7 @@
                 <div class="otherliste" style="display: none;">
                     @if ($grouped->has('1'))
                         <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
-                            <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
+                            <div class="bod_image"><img src="{{ asset('images/platinum_membership.png') }}"
                                     data-toggle="tooltip"
                                     title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
                                 {{ $memberTotalCount[1] }}
@@ -544,7 +544,7 @@
                     @endif
                     @if ($grouped->has('2'))
                         <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
-                            <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png') }}"
+                            <div class="bod_image"><img src="{{ asset('images/gold_membership.png') }}"
                                     data-toggle="tooltip"
                                     title="Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}">
                                 {{ $memberTotalCount[2] }}
@@ -563,7 +563,7 @@
                     @endif
                     @if ($grouped->has('3'))
                         <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
-                            <div class="bod_image"><img src="{{ asset('assets/app/img/dark_silver.png') }}"
+                            <div class="bod_image"><img src="{{ asset('images/silver_membership.png') }}"
                                     data-toggle="tooltip"
                                     title="Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}">
                                 {{ $memberTotalCount[3] }}
@@ -603,7 +603,7 @@
                 <div class="grid list-view list-view-div" style="display: none;">
                     @if ($grouped->has('1'))
                         <div class="platinum-sec">
-                            <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
+                            <div class="bod_image"><img src="{{ asset('images/platinum_membership.png') }}"
                                     data-toggle="tooltip"
                                     title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
                                 {{ $memberTotalCount[1] }}
@@ -622,7 +622,7 @@
                     @endif
                     @if ($grouped->has('2'))
                         <div class="platinum-sec gold">
-                            <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png') }}"
+                            <div class="bod_image"><img src="{{ asset('images/gold_membership.png') }}"
                                     data-toggle="tooltip"
                                     title="Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}">
                                 {{ $memberTotalCount[2] }}
@@ -640,7 +640,7 @@
                     @endif
                     @if ($grouped->has('3'))
                         <div class="listview_each_section_border_btm silver_card">
-                            <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/dark_silver.png') }}"
+                            <div class="bod_image custom-mb"><img src="{{ asset('images/silver_membership.png') }}"
                                     data-toggle="tooltip"
                                     title="Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}">{{ $memberTotalCount[3] }}<span
                                     class="bordertopp">{{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>

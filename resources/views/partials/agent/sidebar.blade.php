@@ -170,7 +170,7 @@
             <img src="{{ asset('assets/app/img/folded-booklet.png') }}">
             <span>Marketing</span>
         </a>
-        <div id="marketing" class=" collapse  @if (request()->segment(3) == 'create-information-package' || request()->segment(3) == 'create-prospect') show @endif;"
+        <div id="marketing" class=" collapse  @if (request()->segment(3) == 'create-information-package' || request()->segment(3) == 'create-prospect' || request()->segment(3) == 'database-centers' || request()->segment(3) == 'saved-reports') show @endif;"
             aria-labelledby="headingten" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
                 <a class="collapse-item" href="{{ route('marketing.create-information-package') }}">
@@ -183,6 +183,14 @@
                     <img src="{{ asset('assets/app/img/create.png') }}">
                     <span style="{{ request()->segment(3) == 'create-prospect' ? 'color: #e5365a;' : '' }}">Prospect
                         List</span>
+                </a>
+                <a class="collapse-item" href="{{ route('agent.database-centers') }}">
+                    <img src="{{ asset('assets/app/img/create.png') }}">
+                    <span style="{{ request()->segment(3) == 'database-centers' ? 'color: #e5365a;' : '' }}">Database (Centres)</span>
+                </a>
+                <a class="collapse-item" href="{{ route('agent.saved-reports') }}">
+                    <img src="{{ asset('assets/app/img/create.png') }}">
+                    <span style="{{ request()->segment(3) == 'saved-reports' ? 'color: #e5365a;' : '' }}">Saved Reports</span>
                 </a>
 
             </div>

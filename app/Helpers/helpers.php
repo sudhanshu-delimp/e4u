@@ -411,3 +411,18 @@ if (!function_exists('logErrorLocal')) {
         }
     }
 }
+
+if (!function_exists('CheckExpireDate')) {
+    function CheckExpireDate($data)
+    {
+        $map = [
+            0 => 'Never',
+            30 => 'Renew every 30 days',
+            60 => 'Renew every 60 days',
+            90 => 'Renew every 90 days',
+        ];
+
+        return $map[$data] ?? null;
+    }
+}
+

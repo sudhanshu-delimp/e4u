@@ -18,7 +18,7 @@
                         @endif 
                         <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
                             class="img-fluid height_for_siliver" title="View Profile">
-                        <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/img_silver.png') }}"></div>
+                        <div class="siliver_logo_icon"><img src="{{ asset('images/silver_membership.png') }}"></div>
                         </a>
                         <div class="add_to_fab_list_view_each_sec">
                             @if (auth()->user())
