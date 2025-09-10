@@ -14,6 +14,26 @@ class AccountSetting extends Model
         'password_updated_date',
         'password_expiry_days',
         'is_text_notificaion_on',
-        'is_email_notificaion_on'
+        'is_email_notificaion_on',
+        'is_first_login'
      ];
+
+
+
+     public function create_account_setting($user)
+     {
+
+         self::create([
+               'user_id'  => $user->id,
+               'password_updated_date' => date('Y-m-d H:i:s'),
+               'password_expiry_days'   => '30',
+               'is_text_notificaion_on' => '0',
+               'is_email_notificaion_on' => '0',
+               'is_first_login' => '1',
+         ]);
+
+         return true;
+
+     }
 }
+
