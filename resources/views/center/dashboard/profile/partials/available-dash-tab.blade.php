@@ -107,14 +107,14 @@
             
             <div class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
                 <div style="width:100px;">
-                    <label class="col-0 label" for="monday">Tuesday:
+                    <label class="col-0 label" for="tuesday">Tuesday:
                     </label>
-                    <input type="hidden" value="monday">
+                    <input type="hidden" value="tuesday">
                 </div>
 
                 <div class="service_rate_dolor_symbol form-group mb-0"
                     @disabled(true)="">
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_from" id="mon_hh_from" data-parsley-gt="#mon_hh_to">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow tuesday" name="mon_hh_from" id="mon_hh_from" data-parsley-gt="#mon_hh_to">
                         <option value="" selected>H:M</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i . ':00' }}"
@@ -125,10 +125,10 @@
                                 {{ sprintf('%02d', $i) }}:30</option>
                         @endfor
                     </select>
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_from">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow tuesday" id="" name="mon_time_from">
                         <option value="" selected >--</option>
-                        <option value="AM" {{( "AM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>AM</option>
-                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>PM</option>
+                        <option value="AM" {{( "AM"== $escort->availabilityFromA('tuesday')) ? "selected" : ''}}>AM</option>
+                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('tuesday')) ? "selected" : ''}}>PM</option>
                     </select>
                 </div>
 
@@ -137,7 +137,7 @@
                 </div>
 
                 <div class="service_rate_dolor_symbol form-group mb-0">
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_to" id="mon_hh_to">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow tuesday" name="mon_hh_to" id="mon_hh_to">
                        <option value="" selected>H:M</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i . ':00' }}"
@@ -148,48 +148,48 @@
                                 {{ sprintf('%02d', $i) }}:30</option>
                         @endfor
                     </select>
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_from">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow tuesday" id="" name="mon_time_from">
                         <option value="" selected >--</option>
-                        <option value="AM" {{( "AM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>AM</option>
-                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>PM</option>
+                        <option value="AM" {{( "AM"== $escort->availabilityFromA('tuesday')) ? "selected" : ''}}>AM</option>
+                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('tuesday')) ? "selected" : ''}}>PM</option>
                     </select>
                 </div>
 
                 <div class="">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_til_ate" value="til_ate"
+                        <input class="form-check-input tuesday" type="radio"
+                            name="availability_time[tuesday]" id="tuesday_til_ate" value="til_ate"
                             data-parsley-multiple="covidreport" availability_time_key="mon">
-                        <label class="form-check-label" for="monday_til_ate">... Til late</label>
+                        <label class="form-check-label" for="tuesday_til_ate">... Til late</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_appointment"
+                        <input class="form-check-input tuesday" type="radio"
+                            name="availability_time[tuesday]" id="tuesday_appointment"
                             value="By Appointment" data-parsley-multiple="covidreport"
                             availability_time_key="mon">
-                        <label class="form-check-label" for="monday_appointment">By
+                        <label class="form-check-label" for="tuesday_appointment">By
                             Appointment</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_avail_24_hours"
+                        <input class="form-check-input tuesday" type="radio"
+                            name="availability_time[tuesday]" id="tuesday_avail_24_hours"
                             value="Available 24 hours" data-parsley-multiple="covidreport">
-                        <label class="form-check-label" for="monday_avail_24_hours">Available 24
+                        <label class="form-check-label" for="tuesday_avail_24_hours">Available 24
                             hours</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_unavailable"
+                        <input class="form-check-input tuesday" type="radio"
+                            name="availability_time[tuesday]" id="tuesday_unavailable"
                             value="unavailable" data-parsley-multiple="covidreport"
                             checked="" availability_time_key="mon">
                         <label class="form-check-label"
-                            for="monday_unavailable">Unavailable</label>
+                            for="tuesday_unavailable">Unavailable</label>
                     </div>
                 </div>
 
                 <div class="resetdays-icon">
-                    <input type="button" value="Reset" class="resetdays" data-day="monday"
-                        id="resetMonday">
+                    <input type="button" value="Reset" class="resetdays" data-day="tuesday"
+                        id="resetTuesday">
                 </div>
             </div>
 
@@ -203,7 +203,7 @@
 
                 <div class="service_rate_dolor_symbol form-group mb-0"
                     @disabled(true)="">
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_from" id="mon_hh_from" data-parsley-gt="#mon_hh_to">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow wednesday" name="mon_hh_from" id="mon_hh_from" data-parsley-gt="#mon_hh_to">
                         <option value="" selected>H:M</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i . ':00' }}"
@@ -214,10 +214,10 @@
                                 {{ sprintf('%02d', $i) }}:30</option>
                         @endfor
                     </select>
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_from">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow wednesday" id="" name="mon_time_from">
                         <option value="" selected >--</option>
-                        <option value="AM" {{( "AM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>AM</option>
-                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>PM</option>
+                        <option value="AM" {{( "AM"== $escort->availabilityFromA('wednesday')) ? "selected" : ''}}>AM</option>
+                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('wednesday')) ? "selected" : ''}}>PM</option>
                     </select>
                 </div>
 
@@ -226,7 +226,7 @@
                 </div>
 
                 <div class="service_rate_dolor_symbol form-group mb-0">
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_to" id="mon_hh_to">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow wednesday" name="mon_hh_to" id="mon_hh_to">
                        <option value="" selected>H:M</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i . ':00' }}"
@@ -237,48 +237,48 @@
                                 {{ sprintf('%02d', $i) }}:30</option>
                         @endfor
                     </select>
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_from">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow wednesday" id="" name="mon_time_from">
                         <option value="" selected >--</option>
-                        <option value="AM" {{( "AM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>AM</option>
-                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>PM</option>
+                        <option value="AM" {{( "AM"== $escort->availabilityFromA('wednesday')) ? "selected" : ''}}>AM</option>
+                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('wednesday')) ? "selected" : ''}}>PM</option>
                     </select>
                 </div>
 
                 <div class="">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_til_ate" value="til_ate"
+                        <input class="form-check-input wednesday" type="radio"
+                            name="availability_time[wednesday]" id="wednesday_til_ate" value="til_ate"
                             data-parsley-multiple="covidreport" availability_time_key="mon">
-                        <label class="form-check-label" for="monday_til_ate">... Til late</label>
+                        <label class="form-check-label" for="wednesday_til_ate">... Til late</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_appointment"
+                        <input class="form-check-input wednesday" type="radio"
+                            name="availability_time[wednesday]" id="wednesday_appointment"
                             value="By Appointment" data-parsley-multiple="covidreport"
                             availability_time_key="mon">
-                        <label class="form-check-label" for="monday_appointment">By
+                        <label class="form-check-label" for="wednesday_appointment">By
                             Appointment</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_avail_24_hours"
+                        <input class="form-check-input wednesday" type="radio"
+                            name="availability_time[wednesday]" id="wednesday_avail_24_hours"
                             value="Available 24 hours" data-parsley-multiple="covidreport">
-                        <label class="form-check-label" for="monday_avail_24_hours">Available 24
+                        <label class="form-check-label" for="wednesday_avail_24_hours">Available 24
                             hours</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_unavailable"
+                        <input class="form-check-input wednesday" type="radio"
+                            name="availability_time[wednesday]" id="wednesday_unavailable"
                             value="unavailable" data-parsley-multiple="covidreport"
                             checked="" availability_time_key="mon">
                         <label class="form-check-label"
-                            for="monday_unavailable">Unavailable</label>
+                            for="wednesday_unavailable">Unavailable</label>
                     </div>
                 </div>
 
                 <div class="resetdays-icon">
-                    <input type="button" value="Reset" class="resetdays" data-day="monday"
-                        id="resetMonday">
+                    <input type="button" value="Reset" class="resetdays" data-day="wednesday"
+                        id="resetWednesday">
                 </div>
             </div>
 
@@ -291,7 +291,7 @@
 
                 <div class="service_rate_dolor_symbol form-group mb-0"
                     @disabled(true)="">
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_from" id="mon_hh_from" data-parsley-gt="#mon_hh_to">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow thursday" name="mon_hh_from" id="mon_hh_from" data-parsley-gt="#mon_hh_to">
                         <option value="" selected>H:M</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i . ':00' }}"
@@ -302,10 +302,10 @@
                                 {{ sprintf('%02d', $i) }}:30</option>
                         @endfor
                     </select>
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_from">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow thursday" id="" name="mon_time_from">
                         <option value="" selected >--</option>
-                        <option value="AM" {{( "AM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>AM</option>
-                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>PM</option>
+                        <option value="AM" {{( "AM"== $escort->availabilityFromA('thursday')) ? "selected" : ''}}>AM</option>
+                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('thursday')) ? "selected" : ''}}>PM</option>
                     </select>
                 </div>
 
@@ -314,7 +314,7 @@
                 </div>
 
                 <div class="service_rate_dolor_symbol form-group mb-0">
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_to" id="mon_hh_to">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow thursday" name="mon_hh_to" id="mon_hh_to">
                        <option value="" selected>H:M</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i . ':00' }}"
@@ -325,48 +325,48 @@
                                 {{ sprintf('%02d', $i) }}:30</option>
                         @endfor
                     </select>
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_from">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow thursday" id="" name="mon_time_from">
                         <option value="" selected >--</option>
-                        <option value="AM" {{( "AM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>AM</option>
-                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>PM</option>
+                        <option value="AM" {{( "AM"== $escort->availabilityFromA('thursday')) ? "selected" : ''}}>AM</option>
+                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('thursday')) ? "selected" : ''}}>PM</option>
                     </select>
                 </div>
 
                 <div class="">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_til_ate" value="til_ate"
+                        <input class="form-check-input thursday" type="radio"
+                            name="availability_time[thursday]" id="thursday_til_ate" value="til_ate"
                             data-parsley-multiple="covidreport" availability_time_key="mon">
-                        <label class="form-check-label" for="monday_til_ate">... Til late</label>
+                        <label class="form-check-label" for="thursday_til_ate">... Til late</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_appointment"
+                        <input class="form-check-input thursday" type="radio"
+                            name="availability_time[thursday]" id="thursday_appointment"
                             value="By Appointment" data-parsley-multiple="covidreport"
                             availability_time_key="mon">
-                        <label class="form-check-label" for="monday_appointment">By
+                        <label class="form-check-label" for="thursday_appointment">By
                             Appointment</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_avail_24_hours"
+                        <input class="form-check-input thursday" type="radio"
+                            name="availability_time[thursday]" id="thursday_avail_24_hours"
                             value="Available 24 hours" data-parsley-multiple="covidreport">
-                        <label class="form-check-label" for="monday_avail_24_hours">Available 24
+                        <label class="form-check-label" for="thursday_avail_24_hours">Available 24
                             hours</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_unavailable"
+                        <input class="form-check-input thursday" type="radio"
+                            name="availability_time[thursday]" id="thursday_unavailable"
                             value="unavailable" data-parsley-multiple="covidreport"
                             checked="" availability_time_key="mon">
                         <label class="form-check-label"
-                            for="monday_unavailable">Unavailable</label>
+                            for="thursday_unavailable">Unavailable</label>
                     </div>
                 </div>
 
                 <div class="resetdays-icon">
-                    <input type="button" value="Reset" class="resetdays" data-day="monday"
-                        id="resetMonday">
+                    <input type="button" value="Reset" class="resetdays" data-day="thursday"
+                        id="resetThursday">
                 </div>
             </div>
 
@@ -379,7 +379,7 @@
 
                 <div class="service_rate_dolor_symbol form-group mb-0"
                     @disabled(true)="">
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_from" id="mon_hh_from" data-parsley-gt="#mon_hh_to">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow friday" name="mon_hh_from" id="mon_hh_from" data-parsley-gt="#mon_hh_to">
                         <option value="" selected>H:M</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i . ':00' }}"
@@ -390,10 +390,10 @@
                                 {{ sprintf('%02d', $i) }}:30</option>
                         @endfor
                     </select>
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_from">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow friday" id="" name="mon_time_from">
                         <option value="" selected >--</option>
-                        <option value="AM" {{( "AM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>AM</option>
-                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>PM</option>
+                        <option value="AM" {{( "AM"== $escort->availabilityFromA('friday')) ? "selected" : ''}}>AM</option>
+                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('friday')) ? "selected" : ''}}>PM</option>
                     </select>
                 </div>
 
@@ -402,7 +402,7 @@
                 </div>
 
                 <div class="service_rate_dolor_symbol form-group mb-0">
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_to" id="mon_hh_to">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow friday" name="mon_hh_to" id="mon_hh_to">
                        <option value="" selected>H:M</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i . ':00' }}"
@@ -413,48 +413,48 @@
                                 {{ sprintf('%02d', $i) }}:30</option>
                         @endfor
                     </select>
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_from">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow friday" id="" name="mon_time_from">
                         <option value="" selected >--</option>
-                        <option value="AM" {{( "AM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>AM</option>
-                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>PM</option>
+                        <option value="AM" {{( "AM"== $escort->availabilityFromA('friday')) ? "selected" : ''}}>AM</option>
+                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('friday')) ? "selected" : ''}}>PM</option>
                     </select>
                 </div>
 
                 <div class="">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_til_ate" value="til_ate"
+                        <input class="form-check-input friday" type="radio"
+                            name="availability_time[friday]" id="friday_til_ate" value="til_ate"
                             data-parsley-multiple="covidreport" availability_time_key="mon">
-                        <label class="form-check-label" for="monday_til_ate">... Til late</label>
+                        <label class="form-check-label" for="friday_til_ate">... Til late</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_appointment"
+                        <input class="form-check-input friday" type="radio"
+                            name="availability_time[friday]" id="friday_appointment"
                             value="By Appointment" data-parsley-multiple="covidreport"
                             availability_time_key="mon">
-                        <label class="form-check-label" for="monday_appointment">By
+                        <label class="form-check-label" for="friday_appointment">By
                             Appointment</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_avail_24_hours"
+                        <input class="form-check-input friday" type="radio"
+                            name="availability_time[friday]" id="friday_avail_24_hours"
                             value="Available 24 hours" data-parsley-multiple="covidreport">
-                        <label class="form-check-label" for="monday_avail_24_hours">Available 24
+                        <label class="form-check-label" for="friday_avail_24_hours">Available 24
                             hours</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_unavailable"
+                        <input class="form-check-input friday" type="radio"
+                            name="availability_time[friday]" id="friday_unavailable"
                             value="unavailable" data-parsley-multiple="covidreport"
                             checked="" availability_time_key="mon">
                         <label class="form-check-label"
-                            for="monday_unavailable">Unavailable</label>
+                            for="friday_unavailable">Unavailable</label>
                     </div>
                 </div>
 
                 <div class="resetdays-icon">
-                    <input type="button" value="Reset" class="resetdays" data-day="monday"
-                        id="resetMonday">
+                    <input type="button" value="Reset" class="resetdays" data-day="friday"
+                        id="resetFriday">
                 </div>
             </div>
 
@@ -478,10 +478,10 @@
                                 {{ sprintf('%02d', $i) }}:30</option>
                         @endfor
                     </select>
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_from">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow saturday" id="" name="mon_time_from">
                         <option value="" selected >--</option>
-                        <option value="AM" {{( "AM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>AM</option>
-                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>PM</option>
+                        <option value="AM" {{( "AM"== $escort->availabilityFromA('saturday')) ? "selected" : ''}}>AM</option>
+                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('saturday')) ? "selected" : ''}}>PM</option>
                     </select>
                 </div>
 
@@ -490,7 +490,7 @@
                 </div>
 
                 <div class="service_rate_dolor_symbol form-group mb-0">
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_to" id="mon_hh_to">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow saturday" name="mon_hh_to" id="mon_hh_to">
                        <option value="" selected>H:M</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i . ':00' }}"
@@ -501,48 +501,48 @@
                                 {{ sprintf('%02d', $i) }}:30</option>
                         @endfor
                     </select>
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_from">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow saturday" id="" name="mon_time_from">
                         <option value="" selected >--</option>
-                        <option value="AM" {{( "AM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>AM</option>
-                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>PM</option>
+                        <option value="AM" {{( "AM"== $escort->availabilityFromA('saturday')) ? "selected" : ''}}>AM</option>
+                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('saturday')) ? "selected" : ''}}>PM</option>
                     </select>
                 </div>
 
                 <div class="">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_til_ate" value="til_ate"
+                        <input class="form-check-input saturday" type="radio"
+                            name="availability_time[saturday]" id="saturday_til_ate" value="til_ate"
                             data-parsley-multiple="covidreport" availability_time_key="mon">
-                        <label class="form-check-label" for="monday_til_ate">... Til late</label>
+                        <label class="form-check-label" for="saturday_til_ate">... Til late</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_appointment"
+                        <input class="form-check-input saturday" type="radio"
+                            name="availability_time[saturday]" id="saturday_appointment"
                             value="By Appointment" data-parsley-multiple="covidreport"
                             availability_time_key="mon">
-                        <label class="form-check-label" for="monday_appointment">By
+                        <label class="form-check-label" for="saturday_appointment">By
                             Appointment</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_avail_24_hours"
+                        <input class="form-check-input saturday" type="radio"
+                            name="availability_time[saturday]" id="saturday_avail_24_hours"
                             value="Available 24 hours" data-parsley-multiple="covidreport">
-                        <label class="form-check-label" for="monday_avail_24_hours">Available 24
+                        <label class="form-check-label" for="saturday_avail_24_hours">Available 24
                             hours</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_unavailable"
+                        <input class="form-check-input saturday" type="radio"
+                            name="availability_time[saturday]" id="saturday_unavailable"
                             value="unavailable" data-parsley-multiple="covidreport"
                             checked="" availability_time_key="mon">
                         <label class="form-check-label"
-                            for="monday_unavailable">Unavailable</label>
+                            for="saturday_unavailable">Unavailable</label>
                     </div>
                 </div>
 
                 <div class="resetdays-icon">
-                    <input type="button" value="Reset" class="resetdays" data-day="monday"
-                        id="resetMonday">
+                    <input type="button" value="Reset" class="resetdays" data-day="saturday"
+                        id="resetSaturday">
                 </div>
             </div>
 
@@ -555,7 +555,7 @@
 
                 <div class="service_rate_dolor_symbol form-group mb-0"
                     @disabled(true)="">
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_from" id="mon_hh_from" data-parsley-gt="#mon_hh_to">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow sunday" name="mon_hh_from" id="mon_hh_from" data-parsley-gt="#mon_hh_to">
                         <option value="" selected>H:M</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i . ':00' }}"
@@ -566,10 +566,10 @@
                                 {{ sprintf('%02d', $i) }}:30</option>
                         @endfor
                     </select>
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_from">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow sunday" id="" name="mon_time_from">
                         <option value="" selected >--</option>
-                        <option value="AM" {{( "AM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>AM</option>
-                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>PM</option>
+                        <option value="AM" {{( "AM"== $escort->availabilityFromA('sunday')) ? "selected" : ''}}>AM</option>
+                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('sunday')) ? "selected" : ''}}>PM</option>
                     </select>
                 </div>
 
@@ -578,7 +578,7 @@
                 </div>
 
                 <div class="service_rate_dolor_symbol form-group mb-0">
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" name="mon_hh_to" id="mon_hh_to">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow sunday" name="mon_hh_to" id="mon_hh_to">
                        <option value="" selected>H:M</option>
                         @for ($i = 1; $i <= 12; $i++)
                             <option value="{{ $i . ':00' }}"
@@ -589,48 +589,48 @@
                                 {{ sprintf('%02d', $i) }}:30</option>
                         @endfor
                     </select>
-                    <select class="form-control form-control-sm select_tag_remove_box_sadow monday" id="" name="mon_time_from">
+                    <select class="form-control form-control-sm select_tag_remove_box_sadow sunday" id="" name="mon_time_from">
                         <option value="" selected >--</option>
-                        <option value="AM" {{( "AM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>AM</option>
-                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('monday')) ? "selected" : ''}}>PM</option>
+                        <option value="AM" {{( "AM"== $escort->availabilityFromA('sunday')) ? "selected" : ''}}>AM</option>
+                        <option vlaue="PM" {{( "PM"== $escort->availabilityFromA('sunday')) ? "selected" : ''}}>PM</option>
                     </select>
                 </div>
 
                 <div class="">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_til_ate" value="til_ate"
+                        <input class="form-check-input sunday" type="radio"
+                            name="availability_time[sunday]" id="sunday_til_ate" value="til_ate"
                             data-parsley-multiple="covidreport" availability_time_key="mon">
-                        <label class="form-check-label" for="monday_til_ate">... Til late</label>
+                        <label class="form-check-label" for="sunday_til_ate">... Til late</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_appointment"
+                        <input class="form-check-input sunday" type="radio"
+                            name="availability_time[sunday]" id="sunday_appointment"
                             value="By Appointment" data-parsley-multiple="covidreport"
                             availability_time_key="mon">
-                        <label class="form-check-label" for="monday_appointment">By
+                        <label class="form-check-label" for="sunday_appointment">By
                             Appointment</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_avail_24_hours"
+                        <input class="form-check-input sunday" type="radio"
+                            name="availability_time[sunday]" id="sunday_avail_24_hours"
                             value="Available 24 hours" data-parsley-multiple="covidreport">
-                        <label class="form-check-label" for="monday_avail_24_hours">Available 24
+                        <label class="form-check-label" for="sunday_avail_24_hours">Available 24
                             hours</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input monday" type="radio"
-                            name="availability_time[monday]" id="monday_unavailable"
+                        <input class="form-check-input sunday" type="radio"
+                            name="availability_time[sunday]" id="sunday_unavailable"
                             value="unavailable" data-parsley-multiple="covidreport"
                             checked="" availability_time_key="mon">
                         <label class="form-check-label"
-                            for="monday_unavailable">Unavailable</label>
+                            for="sunday_unavailable">Unavailable</label>
                     </div>
                 </div>
 
                 <div class="resetdays-icon">
-                    <input type="button" value="Reset" class="resetdays" data-day="monday"
-                        id="resetMonday">
+                    <input type="button" value="Reset" class="resetdays" data-day="sunday"
+                        id="resetSunday">
                 </div>
             </div>
         </div>

@@ -401,20 +401,20 @@
                                     <div
                                         class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
                                         <div style="width:100px;">
-                                            <label class="col-0 label" for="monday">Tuesday:
+                                            <label class="col-0 label" for="tuesday">Tuesday:
                                             </label>
-                                            <input type="hidden" value="monday">
+                                            <input type="hidden" value="tuesday">
                                         </div>
 
                                         <div class="service_rate_dolor_symbol form-group mb-0">
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date tuesday p-0 change_default"
                                                 name="mon_from" id="monfrom" data-parsley-gt="#mon_to"
                                                 day_key_from="mon">
                                                 <option value="" selected="">H:M</option>
                                             </select>
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow tuesday p-0 change_default"
                                                 id="monfromtime" name="mon_time_from" day_key_from="mon"
                                              >
                                                 <option value="" selected="">--</option>
@@ -431,12 +431,12 @@
 
                                         <div class="service_rate_dolor_symbol form-group mb-0">
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date tuesday p-0 change_default"
                                                 name="mon_to" id="mon_to" day_key_to="mon">
                                                 <option value="" selected="">H:M</option>
                                             </select>
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow tuesday p-0 change_default"
                                                 id="mon_time_to" name="mon_time_to" day_key_to="mon"
                                              >
                                                 <option value="" selected="">--</option>
@@ -449,60 +449,60 @@
 
                                         <div class="">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_til_ate" value="til_ate"
+                                                <input class="form-check-input tuesday" type="radio"
+                                                    name="availability_time[tuesday]" id="tuesday_til_ate" value="til_ate"
                                                     data-parsley-multiple="covidreport" availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_til_ate">... Til late</label>
+                                                <label class="form-check-label" for="tuesday_til_ate">... Til late</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_appointment"
+                                                <input class="form-check-input tuesday" type="radio"
+                                                    name="availability_time[tuesday]" id="tuesday_appointment"
                                                     value="By Appointment" data-parsley-multiple="covidreport"
                                                     availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_appointment">By
+                                                <label class="form-check-label" for="tuesday_appointment">By
                                                     Appointment</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_avail_24_hours"
+                                                <input class="form-check-input tuesday" type="radio"
+                                                    name="availability_time[tuesday]" id="tuesday_avail_24_hours"
                                                     value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                <label class="form-check-label" for="monday_avail_24_hours">Available 24
+                                                <label class="form-check-label" for="tuesday_avail_24_hours">Available 24
                                                     hours</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_unavailable"
+                                                <input class="form-check-input tuesday" type="radio"
+                                                    name="availability_time[tuesday]" id="tuesday_unavailable"
                                                     value="unavailable" data-parsley-multiple="covidreport"
                                                     checked="" availability_time_key="mon">
                                                 <label class="form-check-label"
-                                                    for="monday_unavailable">Unavailable</label>
+                                                    for="tuesday_unavailable">Unavailable</label>
                                             </div>
                                         </div>
 
                                         <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="monday"
-                                                id="resetMonday">
+                                            <input type="button" value="Reset" class="resetdays" data-day="tuesday"
+                                                id="resetTuesday">
                                         </div>
                                     </div>
 
                                     <div
                                         class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
                                         <div style="width:100px;">
-                                            <label class="col-0 label" for="monday">Wednesday:
+                                            <label class="col-0 label" for="wednesday">Wednesday:
 
                                             </label>
-                                            <input type="hidden" value="monday">
+                                            <input type="hidden" value="wednesday">
                                         </div>
 
                                         <div class="service_rate_dolor_symbol form-group mb-0">
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date wednesday p-0 change_default"
                                                 name="mon_from" id="monfrom" data-parsley-gt="#mon_to"
                                                 day_key_from="mon">
                                                 <option value="" selected="">H:M</option>
                                             </select>
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow wednesday p-0 change_default"
                                                 id="monfromtime" name="mon_time_from" day_key_from="mon"
                                              >
                                                 <option value="" selected="">--</option>
@@ -519,12 +519,12 @@
 
                                         <div class="service_rate_dolor_symbol form-group mb-0">
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date wednesday p-0 change_default"
                                                 name="mon_to" id="mon_to" day_key_to="mon">
                                                 <option value="" selected="">H:M</option>
                                             </select>
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow wednesday p-0 change_default"
                                                 id="mon_time_to" name="mon_time_to" day_key_to="mon"
                                              >
                                                 <option value="" selected="">--</option>
@@ -537,61 +537,61 @@
 
                                         <div class="">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_til_ate" value="til_ate"
+                                                <input class="form-check-input wednesday" type="radio"
+                                                    name="availability_time[wednesday]" id="wednesday_til_ate" value="til_ate"
                                                     data-parsley-multiple="covidreport" availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_til_ate">... Til late</label>
+                                                <label class="form-check-label" for="wednesday_til_ate">... Til late</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_appointment"
+                                                <input class="form-check-input wednesday" type="radio"
+                                                    name="availability_time[wednesday]" id="wednesday_appointment"
                                                     value="By Appointment" data-parsley-multiple="covidreport"
                                                     availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_appointment">By
+                                                <label class="form-check-label" for="wednesday_appointment">By
                                                     Appointment</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_avail_24_hours"
+                                                <input class="form-check-input wednesday" type="radio"
+                                                    name="availability_time[wednesday]" id="wednesday_avail_24_hours"
                                                     value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                <label class="form-check-label" for="monday_avail_24_hours">Available 24
+                                                <label class="form-check-label" for="wednesday_avail_24_hours">Available 24
                                                     hours</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_unavailable"
+                                                <input class="form-check-input wednesday" type="radio"
+                                                    name="availability_time[wednesday]" id="wednesday_unavailable"
                                                     value="unavailable" data-parsley-multiple="covidreport"
                                                     checked="" availability_time_key="mon">
                                                 <label class="form-check-label"
-                                                    for="monday_unavailable">Unavailable</label>
+                                                    for="wednesday_unavailable">Unavailable</label>
                                             </div>
                                         </div>
 
                                         <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="monday"
-                                                id="resetMonday">
+                                            <input type="button" value="Reset" class="resetdays" data-day="wednesday"
+                                                id="resetWednesday">
                                         </div>
                                     </div>
 
                                     <div
                                         class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
                                         <div style="width:100px;">
-                                            <label class="col-0 label" for="monday">Thursday:
+                                            <label class="col-0 label" for="thursday">Thursday:
 
 
                                             </label>
-                                            <input type="hidden" value="monday">
+                                            <input type="hidden" value="thursday">
                                         </div>
 
                                         <div class="service_rate_dolor_symbol form-group mb-0">
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date thursday p-0 change_default"
                                                 name="mon_from" id="monfrom" data-parsley-gt="#mon_to"
                                                 day_key_from="mon">
                                                 <option value="" selected="">H:M</option>
                                             </select>
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow thursday p-0 change_default"
                                                 id="monfromtime" name="mon_time_from" day_key_from="mon"
                                              >
                                                 <option value="" selected="">--</option>
@@ -608,12 +608,12 @@
 
                                         <div class="service_rate_dolor_symbol form-group mb-0">
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date thursday p-0 change_default"
                                                 name="mon_to" id="mon_to" day_key_to="mon">
                                                 <option value="" selected="">H:M</option>
                                             </select>
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow thursday p-0 change_default"
                                                 id="mon_time_to" name="mon_time_to" day_key_to="mon"
                                              >
                                                 <option value="" selected="">--</option>
@@ -626,62 +626,62 @@
 
                                         <div class="">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_til_ate" value="til_ate"
+                                                <input class="form-check-input thursday" type="radio"
+                                                    name="availability_time[thursday]" id="thursday_til_ate" value="til_ate"
                                                     data-parsley-multiple="covidreport" availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_til_ate">... Til late</label>
+                                                <label class="form-check-label" for="thursday_til_ate">... Til late</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_appointment"
+                                                <input class="form-check-input thursday" type="radio"
+                                                    name="availability_time[thursday]" id="thursday_appointment"
                                                     value="By Appointment" data-parsley-multiple="covidreport"
                                                     availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_appointment">By
+                                                <label class="form-check-label" for="thursday_appointment">By
                                                     Appointment</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_avail_24_hours"
+                                                <input class="form-check-input thursday" type="radio"
+                                                    name="availability_time[thursday]" id="thursday_avail_24_hours"
                                                     value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                <label class="form-check-label" for="monday_avail_24_hours">Available 24
+                                                <label class="form-check-label" for="thursday_avail_24_hours">Available 24
                                                     hours</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_unavailable"
+                                                <input class="form-check-input thursday" type="radio"
+                                                    name="availability_time[thursday]" id="thursday_unavailable"
                                                     value="unavailable" data-parsley-multiple="covidreport"
                                                     checked="" availability_time_key="mon">
                                                 <label class="form-check-label"
-                                                    for="monday_unavailable">Unavailable</label>
+                                                    for="thursday_unavailable">Unavailable</label>
                                             </div>
                                         </div>
 
                                         <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="monday"
-                                                id="resetMonday">
+                                            <input type="button" value="Reset" class="resetdays" data-day="thursday"
+                                                id="resetThursday">
                                         </div>
                                     </div>
 
                                     <div
                                         class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
                                         <div style="width:100px;">
-                                            <label class="col-0 label" for="monday">Friday:
+                                            <label class="col-0 label" for="friday">Friday:
 
 
 
                                             </label>
-                                            <input type="hidden" value="monday">
+                                            <input type="hidden" value="friday">
                                         </div>
 
                                         <div class="service_rate_dolor_symbol form-group mb-0">
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date friday p-0 change_default"
                                                 name="mon_from" id="monfrom" data-parsley-gt="#mon_to"
                                                 day_key_from="mon">
                                                 <option value="" selected="">H:M</option>
                                             </select>
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow friday p-0 change_default"
                                                 id="monfromtime" name="mon_time_from" day_key_from="mon"
                                              >
                                                 <option value="" selected="">--</option>
@@ -698,12 +698,12 @@
 
                                         <div class="service_rate_dolor_symbol form-group mb-0">
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date friday p-0 change_default"
                                                 name="mon_to" id="mon_to" day_key_to="mon">
                                                 <option value="" selected="">H:M</option>
                                             </select>
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow friday p-0 change_default"
                                                 id="mon_time_to" name="mon_time_to" day_key_to="mon"
                                              >
                                                 <option value="" selected="">--</option>
@@ -716,39 +716,39 @@
 
                                         <div class="">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_til_ate" value="til_ate"
+                                                <input class="form-check-input friday" type="radio"
+                                                    name="availability_time[friday]" id="friday_til_ate" value="til_ate"
                                                     data-parsley-multiple="covidreport" availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_til_ate">... Til late</label>
+                                                <label class="form-check-label" for="friday_til_ate">... Til late</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_appointment"
+                                                <input class="form-check-input friday" type="radio"
+                                                    name="availability_time[friday]" id="friday_appointment"
                                                     value="By Appointment" data-parsley-multiple="covidreport"
                                                     availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_appointment">By
+                                                <label class="form-check-label" for="friday_appointment">By
                                                     Appointment</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_avail_24_hours"
+                                                <input class="form-check-input friday" type="radio"
+                                                    name="availability_time[friday]" id="friday_avail_24_hours"
                                                     value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                <label class="form-check-label" for="monday_avail_24_hours">Available 24
+                                                <label class="form-check-label" for="friday_avail_24_hours">Available 24
                                                     hours</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_unavailable"
+                                                <input class="form-check-input friday" type="radio"
+                                                    name="availability_time[friday]" id="friday_unavailable"
                                                     value="unavailable" data-parsley-multiple="covidreport"
                                                     checked="" availability_time_key="mon">
                                                 <label class="form-check-label"
-                                                    for="monday_unavailable">Unavailable</label>
+                                                    for="friday_unavailable">Unavailable</label>
                                             </div>
                                         </div>
 
                                         <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="monday"
-                                                id="resetMonday">
+                                            <input type="button" value="Reset" class="resetdays" data-day="friday"
+                                                id="resetFriday">
                                         </div>
                                     </div>
 
@@ -756,22 +756,22 @@
                                     <div
                                         class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
                                         <div style="width:100px;">
-                                            <label class="col-0 label" for="monday">Saturday:
+                                            <label class="col-0 label" for="saturday">Saturday:
 
 
                                             </label>
-                                            <input type="hidden" value="monday">
+                                            <input type="hidden" value="saturday">
                                         </div>
 
                                         <div class="service_rate_dolor_symbol form-group mb-0">
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date saturday p-0 change_default"
                                                 name="mon_from" id="monfrom" data-parsley-gt="#mon_to"
                                                 day_key_from="mon">
                                                 <option value="" selected="">H:M</option>
                                             </select>
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow saturday p-0 change_default"
                                                 id="monfromtime" name="mon_time_from" day_key_from="mon"
                                              >
                                                 <option value="" selected="">--</option>
@@ -788,12 +788,12 @@
 
                                         <div class="service_rate_dolor_symbol form-group mb-0">
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date saturday p-0 change_default"
                                                 name="mon_to" id="mon_to" day_key_to="mon">
                                                 <option value="" selected="">H:M</option>
                                             </select>
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow saturday p-0 change_default"
                                                 id="mon_time_to" name="mon_time_to" day_key_to="mon"
                                              >
                                                 <option value="" selected="">--</option>
@@ -806,62 +806,62 @@
 
                                         <div class="">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_til_ate" value="til_ate"
+                                                <input class="form-check-input saturday" type="radio"
+                                                    name="availability_time[saturday]" id="saturday_til_ate" value="til_ate"
                                                     data-parsley-multiple="covidreport" availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_til_ate">... Til late</label>
+                                                <label class="form-check-label" for="saturday_til_ate">... Til late</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_appointment"
+                                                <input class="form-check-input saturday" type="radio"
+                                                    name="availability_time[saturday]" id="saturday_appointment"
                                                     value="By Appointment" data-parsley-multiple="covidreport"
                                                     availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_appointment">By
+                                                <label class="form-check-label" for="saturday_appointment">By
                                                     Appointment</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_avail_24_hours"
+                                                <input class="form-check-input saturday" type="radio"
+                                                    name="availability_time[saturday]" id="saturday_avail_24_hours"
                                                     value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                <label class="form-check-label" for="monday_avail_24_hours">Available 24
+                                                <label class="form-check-label" for="saturday_avail_24_hours">Available 24
                                                     hours</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_unavailable"
+                                                <input class="form-check-input saturday" type="radio"
+                                                    name="availability_time[saturday]" id="saturday_unavailable"
                                                     value="unavailable" data-parsley-multiple="covidreport"
-                                                    checked="" availability_time_key="mon">
+                                                    checked="" availability_time_key="saturday">
                                                 <label class="form-check-label"
-                                                    for="monday_unavailable">Unavailable</label>
+                                                    for="saturday_unavailable">Unavailable</label>
                                             </div>
                                         </div>
 
                                         <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="monday"
-                                                id="resetMonday">
+                                            <input type="button" value="Reset" class="resetdays" data-day="saturday"
+                                                id="resetSaturday">
                                         </div>
                                     </div>
 
                                     <div
                                         class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
                                         <div style="width:100px;">
-                                            <label class="col-0 label" for="monday">Sunday:
+                                            <label class="col-0 label" for="sunday">Sunday:
 
 
 
                                             </label>
-                                            <input type="hidden" value="monday">
+                                            <input type="hidden" value="sunday">
                                         </div>
 
                                         <div class="service_rate_dolor_symbol form-group mb-0">
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date sunday p-0 change_default"
                                                 name="mon_from" id="monfrom" data-parsley-gt="#mon_to"
                                                 day_key_from="mon">
                                                 <option value="" selected="">H:M</option>
                                             </select>
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow sunday p-0 change_default"
                                                 id="monfromtime" name="mon_time_from" day_key_from="mon"
                                              >
                                                 <option value="" selected="">--</option>
@@ -878,12 +878,12 @@
 
                                         <div class="service_rate_dolor_symbol form-group mb-0">
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow custom-serve-date sunday p-0 change_default"
                                                 name="mon_to" id="mon_to" day_key_to="mon">
                                                 <option value="" selected="">H:M</option>
                                             </select>
                                             <select
-                                                class="form-control form-control-sm select_tag_remove_box_sadow monday p-0 change_default"
+                                                class="form-control form-control-sm select_tag_remove_box_sadow sunday p-0 change_default"
                                                 id="mon_time_to" name="mon_time_to" day_key_to="mon"
                                              >
                                                 <option value="" selected="">--</option>
@@ -896,39 +896,39 @@
 
                                         <div class="">
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_til_ate" value="til_ate"
+                                                <input class="form-check-input sunday" type="radio"
+                                                    name="availability_time[sunday]" id="sunday_til_ate" value="til_ate"
                                                     data-parsley-multiple="covidreport" availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_til_ate">... Til late</label>
+                                                <label class="form-check-label" for="sunday_til_ate">... Til late</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_appointment"
+                                                <input class="form-check-input sunday" type="radio"
+                                                    name="availability_time[sunday]" id="sunday_appointment"
                                                     value="By Appointment" data-parsley-multiple="covidreport"
                                                     availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_appointment">By
+                                                <label class="form-check-label" for="sunday_appointment">By
                                                     Appointment</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_avail_24_hours"
+                                                <input class="form-check-input sunday" type="radio"
+                                                    name="availability_time[sunday]" id="sunday_avail_24_hours"
                                                     value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                <label class="form-check-label" for="monday_avail_24_hours">Available 24
+                                                <label class="form-check-label" for="sunday_avail_24_hours">Available 24
                                                     hours</label>
                                             </div>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_unavailable"
+                                                <input class="form-check-input sunday" type="radio"
+                                                    name="availability_time[sunday]" id="sunday_unavailable"
                                                     value="unavailable" data-parsley-multiple="covidreport"
                                                     checked="" availability_time_key="mon">
                                                 <label class="form-check-label"
-                                                    for="monday_unavailable">Unavailable</label>
+                                                    for="sunday_unavailable">Unavailable</label>
                                             </div>
                                         </div>
 
                                         <div class="resetdays-icon">
-                                            <input type="button" value="Reset" class="resetdays" data-day="monday"
-                                                id="resetMonday">
+                                            <input type="button" value="Reset" class="resetdays" data-day="sunday"
+                                                id="resetSunday">
                                         </div>
                                     </div>
                                 </div>
