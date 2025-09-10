@@ -7,9 +7,7 @@
                     </button>
                     {{-- logged in user data --}}
                     <div class="topbar-logged-in-user-data d-flex">
-                        {{-- <div class="pr-5">
-                            <img src="{{ asset('assets/app/img/logo.svg') }}" alt="">
-                        </div> --}}
+                       
                         <div class="d-user-info">
                             <div class="gap-b escort_header_top_menu" style="display: grid; grid-template-columns: 1fr 1fr; font-size: 14px;">
                                 <span>
@@ -129,7 +127,7 @@
                             <a class="nav-link dropdown-toggle pr-0" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span> -->
-                                <img src="{{ !auth()->user()->avatar_img ? asset('assets/dashboard/img/undraw_profile.svg') : asset('avatars/'.auth()->user()->avatar_img) }}" class="img-profile rounded-circle avatarName">
+                                <img src="{{ asset(auth()->user()->avatar_url)}}" class="img-profile rounded-circle avatarName">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

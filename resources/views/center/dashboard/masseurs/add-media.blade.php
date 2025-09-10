@@ -172,129 +172,129 @@ textarea {
          
          {{-- media --}}
          <div class="row">
-         <div class="col-md-12 my-3 d-flex justify-content-end">
-            <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
-         </div>
-         <div class="col-lg-4 col-sm-12">
-            <div class="upload-banner p-0">
-               <div class="photo-top-header">                    
-                  <div class="custom-img-filter-header border-0">
-                     <div class="row">
-                        <div class="col-lg-12">
-                              <h3 class="gallery-head">Your Default Images</h3>
-                        </div>
-                     </div>
-                  </div>
+            <div class="col-md-12 my-3 d-flex justify-content-end">
+                <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
             </div>
-               <div class="row p-3">
-                  <div class="col-lg-4 col-sm-12">
-                     <h2 class="banner-sub-heading my-2">Thumbnail</h2>
-                     <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
-                        <img class="img-fluid" id="img1" src="{{ asset('assets/app/img/upload-thum-1.png')}}" style="object-fit: cover;width: 167px;height: 172px;">
-                        </label>
-                     </div>
-                  </div>
-                  <div class="col-lg-8 col-sm-12">
-                     <div class="row" style="">
-                        <div class="col-lg-12">                                            
-                           <h2 class="banner-sub-heading my-2">Gallery Images</h2>
-                     </div>
-                        <div class="col-lg-4 col-sm-6">
-                           <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
-                              <img class="img-fluid upld-img" id="img2"src="{{ asset('assets/app/img/frame-main-thum.png')}}">
-                              </label>
-                           </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                           <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
-                              <img class="img-fluid upld-img"  id="img3"src="{{ asset('assets/app/img/frame-main-thum.png')}}">
-                              </label>
-                           </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6">
-                           <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
-                              <img class="img-fluid upld-img"  id="img4"src="{{ asset('assets/app/img/frame-main-thum.png')}}">
-                              </label>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div class="col-lg-8 col-sm-12">
-            <div class="photo-top-header">
-               <div class="photo-top-header">
-                  <div class="photo-header custom-photo-header">
-                     <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
+            <div class="col-lg-4 col-sm-12">
+                <div class="upload-banner p-0">
+                <div class="photo-top-header">                    
+                    <div class="custom-img-filter-header border-0">
                         <div class="row">
-                              <div class="col-md-8">
-                                 <ul class="nav nav-tabs border-0">
-                                    <li class="nav-item">
-                                          <a class="nav-link active" id="menu_all" data-toggle="tab" href="#home">All</a>
-                                    </li>
-                                    <li class="nav-item">
-                                          <a class="nav-link" id="menu_varified" data-toggle="tab" href="#menu1">Verified</a>
-                                    </li>
-                                    <li class="nav-item">
-                                          <a class="nav-link" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
-                                    </li>
-                                 </ul>
-                              </div>
-                              <div class="col-md-2 pt-1">
-                                 <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="16.16" aria-valuemin="0" aria-valuemax="100"></div>
-                                 </div>
-                              </div>
-                              <div class="col-md-2">
-                                 <div style="display: flex;gap: 15px;">
-                                    <p>6/6</p>
-                                 </div>
-                              </div>
+                            <div class="col-lg-12">
+                                <h3 class="gallery-head">Your Default Images</h3>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-               </div>
+                    </div>
+                </div>
+                <div class="row p-3">
+                    <div class="col-lg-4 col-sm-12">
+                        <h2 class="banner-sub-heading my-2">Thumbnail</h2>
+                        <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
+                            <img class="img-fluid" id="img1" src="{{ asset('assets/app/img/upload-thum-1.png')}}" style="object-fit: cover;width: 167px;height: 172px;">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-sm-12">
+                        <div class="row" style="">
+                            <div class="col-lg-12">                                            
+                            <h2 class="banner-sub-heading my-2">Gallery Images</h2>
+                        </div>
+                            <div class="col-lg-4 col-sm-6">
+                            <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
+                                <img class="img-fluid upld-img" id="img2"src="{{ asset('assets/app/img/frame-main-thum.png')}}">
+                                </label>
+                            </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                            <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
+                                <img class="img-fluid upld-img"  id="img3"src="{{ asset('assets/app/img/frame-main-thum.png')}}">
+                                </label>
+                            </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6">
+                            <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photoGallery">
+                                <img class="img-fluid upld-img"  id="img4"src="{{ asset('assets/app/img/frame-main-thum.png')}}">
+                                </label>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
-            <div class="archive-photo-sec">
-               <div class="row">
-                  <div class="col-md-12">
-                     <div class="grid-container p-2" id="dvSource">                                                                                                                        
-                        <div class="item4 pt-1" id="dm_760">
-                           <img class="img-thumbnail defult-image ui-draggable" src="{{ asset('assets/app/img/banner/mcc1.jpg')}}" alt=" " data-id="760" data-position="9">
-                           <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
-                              <span class="badge badge-red">Gallery</span>
+            <div class="col-lg-8 col-sm-12">
+                <div class="photo-top-header">
+                <div class="photo-top-header">
+                    <div class="photo-header custom-photo-header">
+                        <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <ul class="nav nav-tabs border-0">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="menu_all" data-toggle="tab" href="#home">All</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="menu_varified" data-toggle="tab" href="#menu1">Verified</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-2 pt-1">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="16.16" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div style="display: flex;gap: 15px;">
+                                        <p>6/6</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="item4 pt-1" id="dm_760">
-                           <img class="img-thumbnail defult-image ui-draggable" src="{{ asset('assets/app/img/banner/mcc2.jpg')}}" alt=" " data-id="760" data-position="9">
-                           <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
-                              <span class="badge badge-red">Gallery</span>
+                    </div>
+                </div>
+                </div>
+                <div class="archive-photo-sec">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="grid-container p-2" id="dvSource">                                                                                                                        
+                            <div class="item4 pt-1" id="dm_760">
+                            <img class="img-thumbnail defult-image ui-draggable" src="{{ asset('assets/app/img/banner/mcc1.jpg')}}" alt=" " data-id="760" data-position="9">
+                            <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
+                                <span class="badge badge-red">Gallery</span>
+                            </div>
+                            <div class="item4 pt-1" id="dm_760">
+                            <img class="img-thumbnail defult-image ui-draggable" src="{{ asset('assets/app/img/banner/mcc2.jpg')}}" alt=" " data-id="760" data-position="9">
+                            <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
+                                <span class="badge badge-red">Gallery</span>
+                            </div>
+                            <div class="item4 pt-1" id="dm_760">
+                            <img class="img-thumbnail defult-image ui-draggable" src="{{ asset('assets/app/img/banner/mcc3.jpg')}}" alt=" " data-id="760" data-position="9">
+                            <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
+                                <span class="badge badge-red">Gallery</span>
+                            </div>
+                            <div class="item4 pt-1" id="dm_760">
+                            <img class="img-thumbnail defult-image ui-draggable" src="{{ asset('assets/app/img/banner/mcc4.jpg')}}" alt=" " data-id="760" data-position="9">
+                            <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
+                                <span class="badge badge-red">Gallery</span>
+                            </div>
+                            <div class="item4 pt-1" id="dm_760">
+                            <img class="img-thumbnail defult-image ui-draggable" src="{{ asset('assets/app/img/banner/mcc5.jpg')}}" alt=" " data-id="760" data-position="9">
+                            <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
+                                <span class="badge badge-red">Gallery</span>
+                            </div>
+                            <div class="item4 pt-1" id="dm_760">
+                            <img class="img-thumbnail defult-image ui-draggable" src="{{ asset('assets/app/img/banner/mcc6.jpg')}}" alt=" " data-id="760" data-position="9">
+                            <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
+                                <span class="badge badge-red">Gallery</span>
+                            </div>
                         </div>
-                        <div class="item4 pt-1" id="dm_760">
-                           <img class="img-thumbnail defult-image ui-draggable" src="{{ asset('assets/app/img/banner/mcc3.jpg')}}" alt=" " data-id="760" data-position="9">
-                           <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
-                              <span class="badge badge-red">Gallery</span>
-                        </div>
-                        <div class="item4 pt-1" id="dm_760">
-                           <img class="img-thumbnail defult-image ui-draggable" src="{{ asset('assets/app/img/banner/mcc4.jpg')}}" alt=" " data-id="760" data-position="9">
-                           <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
-                              <span class="badge badge-red">Gallery</span>
-                        </div>
-                        <div class="item4 pt-1" id="dm_760">
-                           <img class="img-thumbnail defult-image ui-draggable" src="{{ asset('assets/app/img/banner/mcc5.jpg')}}" alt=" " data-id="760" data-position="9">
-                           <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
-                              <span class="badge badge-red">Gallery</span>
-                        </div>
-                        <div class="item4 pt-1" id="dm_760">
-                           <img class="img-thumbnail defult-image ui-draggable" src="{{ asset('assets/app/img/banner/mcc6.jpg')}}" alt=" " data-id="760" data-position="9">
-                           <i class="fa fa-trash deleteimg" data-id="760" title="Remove this media"></i>                                        
-                              <span class="badge badge-red">Gallery</span>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+                    </div>
+                </div>
+                </div>
             </div>
-         </div>
       </div>
    </div>
 </div>

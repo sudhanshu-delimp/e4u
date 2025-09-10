@@ -171,6 +171,11 @@ Route::get('masseurs/add-profile', function()
 	return view('center.dashboard.masseurs.add-profile');
 })->name('center.add-profile');
 
+Route::get('masseurs/massuers-profiles', function()
+{
+	return view('center.dashboard.masseurs.massuers-profiles');
+})->name('center.massuers-profiles');
+
 
 Route::get('masseurs/add-media', function()
 {
