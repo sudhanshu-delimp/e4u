@@ -492,19 +492,26 @@ class UserRepository extends BaseRepository implements UserInterface
 
     public function changeUserPassword($data)
     {
-        $user = auth()->user();
-        if($user->account_setting && $user->account_setting->is_first_login=='1')
+        if(auth()->user())
         {
-           $user->account_setting->is_first_login = '0';
-           
-        }    
+            $user = auth()->user();
+            if($user->account_setting && $user->account_setting->is_first_login=='1')
+            {
+            $user->account_setting->is_first_login = '0';
+            
+            }    
 
-        $user->account_setting->password_updated_date = date('Y-m-d H:i:s');
-        $user->account_setting->save();
+            $user->account_setting->password_updated_date = date('Y-m-d H:i:s');
+            $user->account_setting->save();
 
-        $user->password = Hash::make($data['new_password']);
-        $user->save();
-        return $this->response = ['status' => true,'message' => 'Password changed successfully!'];
-
+            $user->password = Hash::make($data['new_password']);
+            $user->save();
+            return $this->response = ['status' => true,'message' => 'Password changed successfully!'];
+        }
+        else
+        {
+            return $this->response = ['status' => false,'message' => 'Error occured while updating password!'];
+        }
+    
     }
 }
