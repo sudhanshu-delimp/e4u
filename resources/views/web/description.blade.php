@@ -146,17 +146,21 @@
         </div>
             <div>
                 <div class="profile_page_title px-3">
-                    @php  
+                    @php 
+                    $isPinupActive = $escort->currentActivePinup;
                     $membershipImage = match ($escort->membership) {
-                        '1' => $escort->currentActivePinup?asset('images/platinum_membership_pin.png'):asset('images/platinum_membership.png'),
-                        '2' => $escort->currentActivePinup?asset('images/gold_membership_pin.png'): asset('images/gold_membership.png'),
-                        '3'  => $escort->currentActivePinup?asset('images/silver_membership_pin.png'):asset('images/silver_membership.png'),
+                        '1' => $isPinupActive?asset('images/platinum_membership_pin.png'):asset('images/platinum_membership.png'),
+                        '2' => $isPinupActive?asset('images/gold_membership_pin.png'): asset('images/gold_membership.png'),
+                        '3' => $isPinupActive?asset('images/silver_membership_pin.png'):asset('images/silver_membership.png'),
                         default => false
                     };
                     @endphp
 
                     @if($membershipImage)
-                        <img src="{{ $membershipImage }}">
+                       <div class="{{($isPinupActive)?'pinup-wrapper':''}}">
+                            <img src="{{ $membershipImage }}">
+                            <div class="pinup-tooltip">I am your Pin Up this week!</div>
+                       </div> 
                     @endif
 
                     @if(strlen($escort->name) <= 250)
