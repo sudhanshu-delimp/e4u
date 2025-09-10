@@ -11,8 +11,11 @@ use App\Models\User;
 use App\Models\Agent;
 use App\Models\AccountSetting;
 use App\Events\AgentRegistered;
+use App\Mail\agentApprovalEmail;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Repositories\Agent\AgentInterface;
 
 class AgentRepository extends BaseRepository implements AgentInterface
@@ -130,8 +133,8 @@ class AgentRepository extends BaseRepository implements AgentInterface
                         'create_at' => Carbon::now()->format('j F'),
                     ];
        
-                    event(new AgentRegistered($userDataForEvent));
-                    //$this->setting->create_account_setting($user);
+                    //event(new AgentRegistered($userDataForEvent));
+                    $this->setting->create_account_setting($user);
                   
                 }
 
@@ -184,7 +187,9 @@ class AgentRepository extends BaseRepository implements AgentInterface
          $user = $this->agent->where('id',$data['user_id'])->firstOrFail(); 
          if($user && $data['status']!="")
          {
-             $user->update(['status' =>  $data['status']]);
+             $password  = random_string($type = 'alnum', $len = 8);
+             $user->update(['status' =>  $data['status'],'password'=> Hash::make($password)]);
+             $this->sendApprovalEmail($user,$password);
              return $this->response = ['status' => true,'message' => 'Approved Successfully'];
          }
          else
@@ -192,6 +197,16 @@ class AgentRepository extends BaseRepository implements AgentInterface
              return $this->response = ['status' => true,'message' => 'Error occured while approving the user'];
          }
 
+    }
+
+
+    public function sendApprovalEmail($user,$plainPassword)
+    {
+        $user['plainPassword'] = $plainPassword;
+
+        logErrorLocal($user);
+        Mail::to($user->email)->send(new agentApprovalEmail($user));
+        
     }
 
    

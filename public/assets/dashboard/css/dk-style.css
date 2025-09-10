@@ -2548,7 +2548,7 @@ button.btn:focus {
     font-weight: 600;
     margin-bottom: 6px;
     font-size: 14px;
-    color: #0C223D;
+    /* color: #0C223D; */
 }
 
 .business-field {
@@ -6245,6 +6245,12 @@ ul#accordionSidebar {
 .half_heght_pic .plate .newbtn {
     height: 100%;
     width: 100%;
+}
+
+.plate .newbtn {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .half_heght_pic {

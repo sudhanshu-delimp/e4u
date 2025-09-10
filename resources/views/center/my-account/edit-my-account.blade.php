@@ -62,7 +62,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="Display Name" class="common_help_icon common-tooltip">Display Name
-                                                              <img class="delay_tooltip tooltip-icon" src="http://127.0.0.1:8000/assets/app/img/home/quationmarkblue.svg">
+                                                              <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
                                                               <span class="tooltip-text">Insert here the trading / business name of the Business.</span>
                                                                 
                                                             </label>
@@ -72,7 +72,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                           <label for="Entity Name" class="common_help_icon common-tooltip">Entity Name
-                                                            <img class="delay_tooltip tooltip-icon" src="http://127.0.0.1:8000/assets/app/img/home/quationmarkblue.svg">
+                                                            <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
                                                           <span class="tooltip-text">What is the name of the corporate entity that owns the Business Name, like ABC Pty Ltd</span>
                                                             
                                                           </label>
@@ -93,7 +93,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email">Business No.</label>
+                                                            <label for="Business No.">Business No.</label>
                                                             <label type="text" class="form-control form-back" placeholder=" " name="phone" aria-describedby="emailHelp" value="{{ $escort->phone }}">{{ $escort->phone }}</label>
                                                         </div>
                                                     </div>
@@ -111,7 +111,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="Gender" class="my-agent common_help_icon common-tooltip">Home State
-                                                              <img class="delay_tooltip tooltip-icon" src="http://127.0.0.1:8000/assets/app/img/home/quationmarkblue.svg">
+                                                              <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
                                                               <span class="tooltip-text">This is the State you reside in. If you created your Account while you were in another State, log a <a href="{{ url('submit_ticket') }}">Support Ticket</a> and we will correct your setting.</span>
                                                             </label>
                                                             <label  class="form-control form-back" placeholder="Western Australia" aria-describedby="emailHelp" id="stateNew" name="state_id" value="{{$escort->state_id}}">
@@ -164,18 +164,18 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                       <div class="form-group">
-                                                         <label for="email" class="common_help_icon common-tooltip">PayID Name
-                                                            <img class="delay_tooltip tooltip-icon" src="http://127.0.0.1:8000/assets/app/img/home/quationmarkblue.svg">
+                                                         <label for="PayID Name" class="common_help_icon common-tooltip">PayID Name
+                                                            <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
                                                          <span class="tooltip-text">Complete this information if you use PayID with your clients.</span>
                                                             
                                                          </label>
-                                                         <input type="email" class="form-control" name="email" placeholder="Insert your Bank Account name" aria-describedby="emailHelp">
+                                                         <input type="text" class="form-control" name="payID_name" placeholder="Insert your Bank Account name">
                                                       </div>
                                                    </div>
                                                    <div class="col-md-6">
                                                     <div class="form-group">
-                                                       <label for="email">PayID Number</label>
-                                                       <input type="email" class="form-control" name="email" placeholder="Insert your PayID Number" aria-describedby="emailHelp">
+                                                       <label for="PayID Number">PayID Number</label>
+                                                       <input type="text" class="form-control" name="paID_no" placeholder="Insert your PayID Number">
                                                     </div>
                                                  </div>
                                                 </div>

@@ -173,18 +173,18 @@
                                  {{-- new field added --}}
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label for="email" class="common_help_icon common-tooltip">PayID Name
+                                       <label for="PayID Name" class="common_help_icon common-tooltip">PayID Name
                                           <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}">
                                        <span class="tooltip-text">Complete this information if you use PayID with your clients.</span>
                                           
                                        </label>
-                                       <input type="email" class="form-control" name="email" placeholder="Insert your Bank Account name" aria-describedby="emailHelp">
+                                       <input type="text" class="form-control" name="PayID_Name" placeholder="Insert your Bank Account name" aria-describedby="Help">
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label for="email">PayID Number</label>
-                                       <input type="email" class="form-control" name="email" placeholder="Insert your PayID Number" aria-describedby="emailHelp">
+                                       <label for="PayID Number">PayID Number</label>
+                                       <input type="text" class="form-control" name="PayID_NO" placeholder="Insert your PayID Number" aria-describedby="Help">
                                     </div>
                                  </div>
                                  {{-- end --}}

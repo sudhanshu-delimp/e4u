@@ -545,7 +545,7 @@ class UpdateController extends AppController
             foreach ($request->position as $position => $mediaId) {
                 if ($mediaId) {
                     $media_arr[$position]  = [
-                        'escort_media_id' => $mediaId,
+                        'escort_media_id' => isGalleryTemplate($mediaId),
                         'position' => $position,
                     ];
                 }
@@ -620,9 +620,6 @@ class UpdateController extends AppController
                 $gallery->created_at = date('Y-m-d H:i:s');
                 $gallery->save();
             }
-            //            $return = $escort->gallary()->syncWithoutDetaching($media_arr);
-
-            //$my_data['poliLink'] = route('escort.poli.paymentUrl', [$escortId]);
             if ($errors) {
                 return redirect()->route('escort.update.profile', $id)->with('error', $errors);
             } else {

@@ -597,7 +597,7 @@
       ///////// Approve Agent //////////////////////////////
       $(document).on('click', '.approve_account', function(e) {
 
-         console.log($(this).attr('data-id'));
+         swal_waiting_popup({'title':'Approving Account'});
          $.ajax({
                url: "{{ route('admin.approve-agent-account') }}",
                method: 'POST',
@@ -751,6 +751,7 @@
          e.preventDefault(); 
          let form = $(this);
          let formData = new FormData(this);
+         $('span.text-danger').text('');
 
          swal_waiting_popup({'title':'Saving Agent Details'});
          //  return false

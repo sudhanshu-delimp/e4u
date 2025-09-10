@@ -11,6 +11,7 @@ use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Escort\PlaymateController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Escort\EscortAccountController;
+use App\Http\Controllers\Escort\EscortDashboardController;
 use App\Http\Controllers\Escort\EscortGalleryController;
 use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
@@ -394,6 +395,11 @@ Route::post('customise-dashboard', [EscortController::class, 'updateCustomiseDas
 // })->name('escort.dashboard.customise-dashboard');
 
 // Route::get('profile', [HowIsItDoneController::class, 'profile'])->name('escort.how_is_it_done.profile');
+
+
+//Escort DashBorad Route And Controller
+Route::get('logs-and-status', [EscortDashboardController::class, 'LogAndStatus'])->name('logs.and.status');
+Route::post('update-password-duration', [EscortDashboardController::class, 'updatePasswordDuration'])->name('update.password.duration');
 
 Route::get('editmyaccount',function(){
     return view('escort.dashboard.HowDone.editmyaccount');
