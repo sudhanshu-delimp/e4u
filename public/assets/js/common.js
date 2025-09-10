@@ -18,25 +18,47 @@ function date_time_format(dateString) {
 console.log(date_time_format("2025-08-21 08:03:12")); 
 console.log(date_time_format("2025-08-21 08:15:52")); 
 
+function swal_success_popup(message) {
 
+      Swal.fire({
+      title: (message) ? message : 'Action Performed',
+      icon: "success",
+      draggable: true,
+      allowOutsideClick: false,
+        allowEscapeKey: false,
+    });
+}
+
+function swal_error_popup(message) {
+
+      Swal.fire({
+      title: (message) ? message : 'Action could not performed',
+      icon: "error",
+      draggable: true,
+      allowOutsideClick: false,
+        allowEscapeKey: false,
+    });
+}
 
 function swal_waiting_popup(data) {
 
-    Swal.fire({
-        title: (data.title) ? data.title : 'Processing...',
-        text: (data.message) ? data.message : 'Please wait.',
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        didOpen: () => {
-            Swal.showLoading();
-        }
+    let gif_img = `<img src="../../assets/img/wait_loader.gif" alt="loading..." style="width:80px; margin-top:10px;">`;
+    let my_html  = (data.title) ? '<p>'+data.title+'</p>'+gif_img  :  '<p>Processing your request...</p>'+gif_img;
+        Swal.fire({
+        title: 'Please wait...',
+        html: my_html,
+        showConfirmButton: false,
+        allowOutsideClick: false
     });
 }
 
 
 async function isConfirm(data = {}) {
+
+    console.log(data?.title);
+
     const result = await Swal.fire({
-        title: "Are you sure?",
+        title: (data?.title == 'NA' ? "" : "Are you sure ?"),
         text: (data.text ? data.text : ''),
         icon: "warning",
         showCancelButton: true,
@@ -68,3 +90,5 @@ function ajaxRequest({
         error: error
     });
 }
+
+

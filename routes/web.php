@@ -33,6 +33,8 @@ use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
+use App\Http\Controllers\Escort\MyPlaymatesContoller;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
 
 /*
@@ -221,7 +223,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('state-name', [App\Http\Controllers\HomeController::class, 'getGioLocation'])->name('web.state.name');
 
-//Route::post('/ip-state', [HomeController::class,'ipTrack'])->name('home.ip.track')->middleware(['ipinfo']);
+//Route::post('/ip-state', [HomeController::class,'ipTrack'])->name('home.ip.track');
 // Auth::routes();
 
 
@@ -243,7 +245,7 @@ Route::post('contact-us-send', [ContactUsController::class,'sendContact'])->name
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/login', [LoginController::class,'login'])->name('login')->middleware(['ipinfo']);
+Route::post('/login', [LoginController::class,'login'])->name('login');
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'intendedRedirect'])->name('dashboard');
 
 Route::get('country-list',[App\Http\Controllers\CountryController::class,'countryList'])->name('country.list');
@@ -285,7 +287,7 @@ Route::get('/advertiser-forgot/{token?}', [AdvertiserLoginController::class,'esc
 //Route::post('/reset-forgot', [AdvertiserLoginController::class,'viewerResetPassword'])->name('web.reset.password.viewer');
 Route::post('/reset-forgot', [App\Http\Controllers\SendForgotPasswordController::class,'viewerResetPassword'])->name('web.reset.password.viewer');
 
-Route::post('/advertiser-login', [AdvertiserLoginController::class, 'login'])->middleware(['ipinfo']);
+Route::post('/advertiser-login', [AdvertiserLoginController::class, 'login']);
 Route::post('/advertiser-logout', [AdvertiserLoginController::class,'logout'])->name('advertiser.logout');
 Route::get('/all-escorts-list', [App\Http\Controllers\WebController::class,'allEscortList'])->name('find.all');
 // Route::get('/all-escorts-list/{gender?}', [App\Http\Controllers\WebController::class,'allEscortList'])->name('find.all');
@@ -299,7 +301,7 @@ Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class,'grid
 
 /********** ADMIN **********/
 Route::get('admin-login', [App\Http\Controllers\Admin\AuthController::class,'showLoginForm'])->name('admin.login');
-Route::post('/admin-login', [App\Http\Controllers\Admin\AuthController::class, 'login'])->middleware(['ipinfo']);
+Route::post('/admin-login', [App\Http\Controllers\Admin\AuthController::class, 'login']);
 Route::post('/admin-logout', [App\Http\Controllers\Admin\AuthController::class,'logout'])->name('admin.logout');
 // shortlist
 Route::post('/shortlist', [App\Http\Controllers\WebController::class,'saveShortList'])->name('web.save.shortlist');
@@ -366,7 +368,7 @@ Route::get('/faqs', function() { return view('web.pages.faqs'); });
 Route::get('/parent-control', function() { return view('web.pages.parent-control'); });
 Route::get('/feedback', function() { return view('web.pages.feedback'); });
 Route::get('/thankyou', function() { return view('web.pages.thankyou'); })->name('feedback.thankyou');
-Route::get('/help-for-escorts', function() { return view('web.pages.help-for-advertisers'); });
+Route::get('/help-for-escorts', function() { return view('web.pages.help-for-advertisers'); })->name('web.help-for-advertisers');
 Route::get('/help-for-agents', function() { return view('web.pages.help-for-agents'); });
 Route::get('/help-for-massage-centres', function() { return view('web.pages.help-for-massage-centres'); });
 Route::get('/help-for-viewers', function() { return view('web.pages.help-for-viewers'); });
@@ -385,7 +387,7 @@ Route::get('/travel', function() { return view('web.pages.travel'); });
 Route::get('/blogs', function() { return view('web.pages.blogs'); });
 // Route::get('/blogsingle', function() { return view('web.pages.blogs'); });
 Route::get('/visa-migration', function() { return view('web.pages.visa-migration'); });
-Route::get('/cookie-policy', function() { return view('web.pages.cookie-policy'); });
+Route::get('/cookie-policy', function() { return view('web.pages.cookie-policy'); })->name('web.cookie-policy');
 Route::get('/pin-up/{escort_id}', [PinUpsController::class,'index'])->name('web.pinup');
 // Route::post('/blogs',[BlogsController::class, 'index'])->name('blogs.index');
 Route::get('/blogs-single',[BlogsController::class, 'blogsSingle'])->name('blogs.single');
@@ -445,10 +447,6 @@ Route::get('/escort-dashboard/escorts-statistics',function(){
 })->name('escort.dashboard.escorts-statistics');
 
 
-Route::get('/escort-dashboard/my-playmates',function(){
-    return view('escort.dashboard.my-playmates');
-})->name('escort.dashboard.my-playmates');
-
 Route::get('/escort-dashboard/my-playbox',function(){
     return view('escort.dashboard.my-playbox');
 })->name('escort.dashboard.my-playbox');
@@ -483,9 +481,7 @@ Route::get('/escort-dashboard/tour-schedule',function(){
     return view('escort.dashboard.tour-schedule');
 })->name('escort.dashboard.tour-schedule');
 
-Route::get('/escort-dashboard/logs-and-status',function(){
-    return view('escort.dashboard.logs-and-status');
-})->name('escort.dashboard.logs-and-status');
+
 
 
 Route::get('/escort-dashboard/help',function(){
@@ -510,9 +506,9 @@ Route::get('/agent-dashboard/classification-laws',function(){
     return view('agent.dashboard.Community.classification-laws');
 })->name('agent.classification-laws');
 
-Route::get('/agent-dashboard/upload-avatar',function(){
-    return view('agent.dashboard.upload-avatar');
-})->name('upload-avatar');
+// Route::get('/agent-dashboard/upload-avatar',function(){
+//     return view('agent.dashboard.upload-avatar');
+// })->name('upload-avatar');
 
 Route::get('/agent-dashboard/notifications-features',function(){
     return view('agent.dashboard.notifications-features');
@@ -715,16 +711,8 @@ Route::get('/admin-dashboard/management/punterbox-reports',function(){
 
 //Route::get('/admin-dashboard/reports/agent-requests', [AgentRequestController::class, 'allAgentRequests'])->name('admin.agent-requests');
 
-Route::get('/admin-dashboard/reports/agent-requests',function(){
-    return view('admin.reports.agent-requests');
-})->name('admin.agent-requests');
 
-Route::get('/admin-dashboard/reports/transaction-summary',function(){
-    return view('admin.reports.transaction-summary');
-})->name('admin.transaction-summary');
 
-Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
-Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('admin.send-notiification');
 
 
 
@@ -749,4 +737,9 @@ Route::get('/delete', function(){
 
 Route::get('/get-notification', [NotificationController::class, 'getNotification'])->name('user.get-notification');
 Route::post('/notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('user.notification-seen');
+
+
+Route::get('/send-password-expire', [DemoController::class, 'sendPasswordExpire']);
+
+Route::post('/save-user-loggged-details', [WebController::class, 'userLoggedDetailStore'])->name('user.log-details');
 

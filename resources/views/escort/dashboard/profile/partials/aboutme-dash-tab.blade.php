@@ -20,6 +20,102 @@
         cursor: pointer;
     }
     .media-profile{margin-bottom: 20px}
+
+
+    .parsley-errors-list {
+    list-style: none;
+    color: rgb(248, 0, 0)
+    }
+    .modalPopup > .item4 {
+        cursor: pointer;
+    }
+    .modalPopup > .item2 {
+        cursor: pointer;
+    }
+    .ui-draggable-dragging {
+        width: 82px !important;
+        height: 82px !important;
+        opacity: 0.8;
+    }
+    .draggable
+    {
+    filter: alpha(opacity=60);
+    opacity: 0.6;
+    }
+    .dropped
+    {
+    position: static !important;
+    }
+    .pis{
+    display: none;
+    }
+    .newbtn{
+    cursor: pointer;
+    }
+    .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    }
+    .grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    }
+    .item1 {
+    grid-column: 3 / span 3;
+    }
+    .item4{
+        width: 100%;
+        object-fit: cover;
+    }
+    img.img-thumbnail.defult-image {
+        width: 190px;
+        height: 135px;
+        object-fit: cover;
+    }
+    img.img-thumbnail.defult-image-3 {
+    width: 585px;
+    height: 202px;
+    object-fit: cover;
+    position: absolute;
+    }
+    img#blah8 {
+    width: 425px !important;
+    }
+    .leftLst.over {
+    pointer-events: none;
+}
+    .item4 .fa-trash {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        color: #e73b3b;
+        display: none;
+    }
+    .item4:hover .fa-trash {
+         display: block;
+     }
+    .item4 {
+        position: relative;
+    }
+    .item2{
+        height: 100% !important;
+        width: 100%;
+    }
+    .item2 img{
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+    }
+    .modal-tab {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+    .my-custompop-tabs .nav-item{
+        margin-bottom: 0px !important;
+    }
+    .my-custompop-tabs .nav-item .nav-link.active{
+    color: #fff;
+    }
 </style>
 
 @php
@@ -39,8 +135,6 @@
     }*/
 @endphp
 <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
-    {{-- <form id="update_about_me" action="{{ route('escort.about.me',[$escort->id])}}" method="POST" enctype="multipart/form-data">
-        @csrf   --}}
         <div class="row pl-3">
         <div class="col-lg-3">
             <div class="member-id pl-0 pb-2 pt-3">
@@ -48,24 +142,18 @@
                     <path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="#C2CFE0" />
                 </svg>
                 <span>Member ID: {{auth()->user()->member_id}}</span>
-
-                {{-- @if(!empty($escort->available_to)) @if(in_array($key , $escort->available_to)) checked @endif @endif --}}
             </div>
         </div>
         <div class="col-lg-6">
 
             <div class="member-id pl-0 pb-2 pt-3">
 
-{{--                <span>Save as Draft : </span><input type="checkbox" class="form-check-input draft mt-0" id="draftId" name="draft" @if(!empty($escort->enabled)) @if($escort->enabled == 2)) checked @endif @endif>--}}
-
-                {{-- @if(!empty($escort->available_to)) @if(in_array($key , $escort->available_to)) checked @endif @endif --}}
             </div>
         </div>
     </div>
-
         <div class="about_me_drop_down_info profile-sec">
             <div class="row">
-                <div class="col-md-12" style="border-right: 10px solid #eee;">
+                <div class="col-md-12">
                     <div class="col-lg-12  padding_20_all_side p-2 pb-2">
                         <div class="border_covid covid_heading  ">
                             <h2>Location Information</h2>
@@ -77,7 +165,7 @@
                                 @csrf
                             @endif
 
-                            <div class="col-lg-12 pl-1 pt-4">
+                            <div class="col-lg-12 pt-4">
                                 <div class="form-group row tab-about-me-row-padding">
                                     <label class="col-sm-2 font-weight-500 small-icon" for="profile_name">
                                         Profile Name:
@@ -147,8 +235,7 @@
                                         <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="This is the Location you want the Profile to be saved to, like Western Australia, Victoria etc. Make sure the Profile Name matches up." data-boundary="window">
                                     </label>
                                     <div class="col-sm-6">
-                                        <select class="form-control form-control-sm select_tag_remove_box_sadow change_default" id="state_id" name="state_id" required="required" data-parsley-required-message="-select location-" data-parsley-group="group_one" data-parsley-errors-container="#locationState-errors">
-                                            {{-- <required data-parsley-required-message="-select city-" data-parsley-group="group_one"> --}}
+                                        <select class="form-control form-control-sm select_tag_remove_box_sadow change_default {{$routeIsNewprofile?'js_profile_current_location':''}}" id="state_id" name="state_id" required="required" data-parsley-required-message="-select location-" data-parsley-group="group_one" data-parsley-errors-container="#locationState-errors">
                                             <option value="" selected="">-- Select States--</option>
                                             @foreach(config('escorts.profile.states') as $key => $state)
                                                 <option style="font-weight: 500;" value="{{$key}}"
@@ -210,66 +297,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-                                {{--<div class="about-me-box-one-number mobile_num" style={{ $escort->city ? '' : "color:#C4C4C4;" }}>
-                                    {{ $escort->city ? $escort->city->name : "Location -"}}{{$escort->phone ? ' - '.$escort->phone : auth()->user()->phone}}
-
-                                </div>--}}
-                                {{-- {{  dd(config('escorts.profile.states')[3910]['cities']) }} --}}
-
-                                {{--<div class="about-me-box-one-map add_class" style={{ $escort->
-                                    state ? '' : "color:#C4C4C4;" }}>
-                                    --}}{{-- @php //if($escort->address || $escort->state || $escort->pincode) { @endphp --}}{{--
-                                    <svg width="14" height="21" viewBox="0 0 14 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M7 10C6.33696 10 5.70107 9.73661 5.23223 9.26777C4.76339 8.79893 4.5 8.16304 4.5 7.5C4.5 6.83696 4.76339 6.20107 5.23223 5.73223C5.70107 5.26339 6.33696 5 7 5C7.66304 5 8.29893 5.26339 8.76777 5.73223C9.23661 6.20107 9.5 6.83696 9.5 7.5C9.5 7.8283 9.43534 8.15339 9.3097 8.45671C9.18406 8.76002 8.99991 9.03562 8.76777 9.26777C8.53562 9.49991 8.26002 9.68406 7.95671 9.8097C7.65339 9.93534 7.3283 10 7 10V10ZM7 0.5C5.14348 0.5 3.36301 1.2375 2.05025 2.55025C0.737498 3.86301 0 5.64348 0 7.5C0 12.75 7 20.5 7 20.5C7 20.5 14 12.75 14 7.5C14 5.64348 13.2625 3.86301 11.9497 2.55025C10.637 1.2375 8.85652 0.5 7 0.5V0.5Z" fill="#FF3C5F" />
-                                    </svg>
-                                    --}}{{-- @php  } @endphp --}}{{--
-                                    {{ $escort->address ? $escort->address.',' : "Address" }} {{ $escort->state ? $escort->state->name : null }} {{ $escort->pincode }}
-                                </div>--}}
-
-
-                                {{--<div class="mt-5"   style="display: block">
-                                    <input type="checkbox" class="form-controll" value="Y" id="playmate" name="playmate" @php echo (($escort->playmate == 'Y') ? "checked" : '' ) @endphp/> <label for="playmate" style="display: inline;">I am available as a playmate</label>
-                                </div>--}}
-
-                                {{--<div class="about-md-box-social">
-                                    @if(!empty($escort->social_links))
-                                        @foreach($escort->social_links as $key=>$val)
-                                        <a href="{{ $val }}">
-                                            <img src="{{ asset('assets/dashboard/img/'.$key.'.svg') }}"/>
-                                        </a>
-                                        @endforeach
-                                    @endif
-                                </div>--}}
-                            {{--<div class="col-lg-4">
-                                <div class="pull-right pt-5" style="text-align: end;">
-                                    <a href="#" id="new_saveProfilename">
-                                        <span class="pr-2">Edit</span>
-                                        <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13.5325 3.77992C13.825 3.48742 13.825 2.99992 13.5325 2.72242L11.7775 0.967422C11.5 0.674922 11.0125 0.674922 10.72 0.967422L9.34 2.33992L12.1525 5.15242L13.5325 3.77992ZM0.25 11.4374V14.2499H3.0625L11.3575 5.94742L8.545 3.13492L0.25 11.4374Z" fill="#90A0B7"></path>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>--}}
-                            {{--<div class="col-lg-12 pt-5 p-0 pb-3">
-                                <div class="plate">
-                                    <label class="newbtn p-0 m-0 d-flex">
-                                    --}}{{-- <img id="blah1" class="img-fluid" src="{{ asset('assets/app/img/new-upload.png')}}" style="width: 100%;object-fit: cover;height: 188px;"> --}}{{--
-                                    --}}{{-- <input name="img[10]" id="imgx" class="pis" onchange="readURL(this);" type="file"> --}}{{--
-                                    <input type="hidden" name="position[]" value="1">
-
-                                    --}}{{--<video poster="{{ asset('assets/app/img/video-play-button.jpg') }}" controls="" style="background: #0000006b;width: 520px;height: 190px;object-fit: cover;" id="akhVideo">
-                                    <source id="imgx" src="{{ asset('assets/app/img/mov_bbb.mp4') }}" type="video/mp4">
-                                    </video>--}}{{--
-
-                                    <!-- <video width="100%" height="240" controls>
-                                    <source id="imgx" src="{{ asset($escort->imagePosition(10)) }}" type="video/mp4">
-                                        <source id="imgx" src="{{ asset($escort->imagePosition(10)) }}" type="video/mp4">
-                                    </video> -->
-                                </div>
-                            </div>--}}
-
                              @if(request()->segment(2) == 'profile' && request()->segment(3))
                                   <div class="col-md-12 text-right">
                                 <button id="location-info" type="submit" class="save_profile_btn">Update</button>
@@ -288,117 +315,273 @@
                     @CSRF
             @endif
             <div class="row">
-                <div class="col-md-12" style="border-right: 10px solid #eee;">
-                    <div class="col-lg-12  padding_20_all_side p-2 pb-2">
-                        <div class="border_covid covid_heading  ">
+                <div class="col-md-12">
+                    <div class="col-lg-12 py-3">
+                        <div class="border_covid covid_heading ">
                             <h2>Media
                                 <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"  data-toggle="tooltip" data-html="true" data-placement="top" title="You can move your photos into any order you like by picking up and dropping into the preferred position." data-boundary="window">
-{{--                                <span style='color:red'>*</span>--}}
-                            </h2>
-                        </div>
-                        <div class="col-lg-8 pl-1">
-                            <div class="row pt-3">
-                                <div class="col-2 pr-0 ">                                          
-                                        <h2 class="banner-sub-heading my-2">Thumbnail</h2>
-                                    <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
-                                            {{-- <img class="img-fluid modal-image-first" id="img1" src="{{ asset('assets/app/img/upload-1.png')}}" style="height: 284px;object-fit: cover;"> --}}
 
-                                            <img class="img-fluid upld-img profile-gallery" id="img1" src="{{asset($escort->imagePosition(1))}}" style="height: 220px;object-fit: cover;width: 167px;">
+                            </h2>
+                            
+                        </div>
+                      <div class="row  mt-3">
+                        
+                        <div class="col-md-12 mb-3 d-flex justify-content-end">
+                            <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Photos</button>
+                        </div>
+                        
+                        <div class="col-lg-4">
+                            <div class="upload-banner p-0">
+                                <div class="photo-top-header">                    
+                                    <div class="custom-img-filter-header border-0">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <h3 class="gallery-head">Your Default Images</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row p-3">
+                                    <div class="col-4">                                          
+                                        <h2 class="banner-sub-heading my-2">Thumbnail</h2>
+                                        <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(1)">
+                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img1" src="{{asset($escort->imagePosition(1))}}" style="object-fit: cover;width: 167px;height: 172px;">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="row">
+                                            <div class="col-lg-12">                                            
+                                                <h2 class="banner-sub-heading my-2">Gallery Images</h2>
+                                            </div>
+                                            <div class="col">
+                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img2" src="{{asset($escort->imagePosition(2))}}">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(3)">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img3" src="{{asset($escort->imagePosition(3))}}">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(4)">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img4" src="{{asset($escort->imagePosition(4))}}">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" style="">
+                                            <div class="col">
+                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(5)">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img5" src="{{asset($escort->imagePosition(5))}}">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(6)">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img6" src="{{asset($escort->imagePosition(6))}}">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="plate"><label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(7)">
+                                                        <img class="img-fluid upld-img profile-gallery" data-type="gallery" id="img7" src="{{asset($escort->imagePosition(7))}}">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row px-3 pb-2">
+                                    <div class="col-lg-12">
+                                        <h2 class="banner-sub-heading my-2">Banner Image</h2>
+                                        <label class="newbtn dvDest" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
+                                            <img class="img-fluid profile-gallery" data-type="banner"  id="img9" src="{{asset($escort->imagePosition(9))}}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="row" style="">
-                                        <div class="col-12">                                            
-                                            <h2 class="banner-sub-heading my-2">Default Image</h2>
-                                        </div>
-                                        <div class="col-3 pr-0">
-                                            <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(2)">
-                                                    <img class="img-fluid upld-img profile-gallery" id="img2" src="{{asset($escort->imagePosition(2))}}">
-                                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-8" id="js_profile_media_gallery">
+                            <div class="photo-top-header">
+                                <div class="photo-header custom-photo-header">
+                                    <div class="modal-header border-0 p-0" style="display: block;position: relative;top: 30%;">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <ul class="nav nav-tabs border-0">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active" id="menu_all" data-toggle="tab" href="#home">All</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="menu_varified" data-toggle="tab" href="#menu1">Verified</a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" id="menu_unverified" data-toggle="tab" href="#menu2">Unverified</a>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                        </div>
-                                        <div class="col-3 pr-0">
-                                            <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(3)">
-                                                    <img class="img-fluid upld-img profile-gallery" id="img3" src="{{asset($escort->imagePosition(3))}}">
-                                                </label>
+                                            <div class="col-md-2 pt-1">
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{$media->count() * 3.3}}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-3 pr-0">
-                                            <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(4)">
-                                                    <img class="img-fluid upld-img profile-gallery" id="img4" src="{{asset($escort->imagePosition(4))}}">
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row" style="">
-                                        <div class="col-3 pr-0">
-                                            <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(5)">
-                                                    <img class="img-fluid upld-img profile-gallery" id="img5" src="{{asset($escort->imagePosition(5))}}">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-3 pr-0">
-                                            <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(6)">
-                                                    <img class="img-fluid upld-img profile-gallery" id="img6" src="{{asset($escort->imagePosition(6))}}">
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-3 pr-0">
-                                            <div class="plate"><label class="newbtn" data-toggle="modal" data-target="#photo_gallery" onclick="positionToUpdate(7)">
-                                                    <img class="img-fluid upld-img profile-gallery" id="img7" src="{{asset($escort->imagePosition(7))}}">
-                                                </label>
+                                            <div class="col-md-2">
+                                                <div style="display: flex;gap: 15px;">
+                                                    <p>{{ $media->count() }}/30</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="custom-img-filter-header">
+                                    <div class="row">
+                                        <ul class="nav nav-tabs border-0 js_gallery_category">
+                                           
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-type="gallery" data-toggle="tab" href="#Gallery">Gallery</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-type="banner" data-toggle="tab" href="#Banner">Banner</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="row pt-2">
-                                <div class="about_me_drop_down_info add_banner_pic pb-0 col-7">
-                                    <h2 class="banner-sub-heading my-2">Banner Image</h2>
-                                    <label class="newbtn" data-toggle="modal" data-target="#photo_gallery_banner" onclick="positionToUpdate(9)">
-                                        <img class="img-fluid profile-gallery"  id="img9" src="{{asset($escort->imagePosition(9))}}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
-                                    </label>
+                            <div class="archive-photo-sec">
+                                <div class="row">
+                                   <div class="col-md-12">
+                                      <div id="pagination-container"></div>
+                                      <div id="carouselExampleIndicators" class="carousel slide" data-bs-wrap="false" data-bs-ride="carousel">
+                                      
+                                         <ul class="pagination ml-2 pl-1">
+                                            <!-- Declare the item in the group -->
+                                            <li class="page-item preview">
+                                               <!-- Declare the link of the item -->
+                                            <a class="page-link" href="#carouselExampleIndicators" id="preId">‹‹</a>
+                
+                                            </li>
+                                            @for($i = 0; $i < ceil(collect($media)->whereNotIn('position',[9, 10])->count()/10); $i++ )
+                                            <li class="page-item" id="pageItem_{{$i}}" data-id="{{$i}}">
+                                               <a data-target="#carouselExampleIndicators" data-slide-to="{{$i}}" class="page-link" href="#">{{$i + 1}}</a>
+                                            </li>
+                                            @endfor
+                                            <li class="page-item nextOne">
+                                            <a class="page-link" href="#carouselExampleIndicators" id="nextId">››</a>
+                                            </li>
+                                         </ul>
+                                         <div class="container pt-2" style="padding-left: 0.75rem;padding-right: 0.75rem;">
+                                            <div class="carousel-inner" id="view_all">
+                                            @foreach(collect($media)->whereNotIn('position',[9, 10])->chunk(10)  as $keyId => $images)
+                                                <div class="carousel-item" id="cItem_{{$loop->index}}" data-id="{{$loop->index}}">
+                                                  <div class="grid-container" id="dvSource">  
+                                                  @foreach($images as $image)    
+                                                  @if(!in_array($image->position, [8]))                                               
+                                                        <div class="item4" id="dm_{{$image->id}}">
+                                                            <img class="img-thumbnail defult-image ui-draggable" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
+                                                            <i class="fa fa-trash deleteimg" data-id="{{$image->id}}" title="Remove this media"></i>                                        
+                                                            @switch($image->position)
+                                                                @case(9)
+                                                                    <span class="badge badge-red">Banner</span>
+                                                                @break
+                                                                @case(10)
+                                                                    <span class="badge badge-red">Pin Up</span>
+                                                                @break
+                                                                @default
+                                                                    <span class="badge badge-red">Gallery</span>
+                                                            @endswitch
+                                                        </div>
+                                                    @endif    
+                                                    @endforeach   
+                                                    </div>
+                                                </div>
+                                            @endforeach                     
+                                            </div>
+                                            <!--.Carousel-->
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>
 
-            <div class="modal" id="photo_gallery_banner" style="display: none">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content custome_modal_max_width">
-                        <div class="modal-header main_bg_color border-0">
-                            <h5 class="modal-title" style="color: white;"> <img src="{{ asset('assets/dashboard/img/banner.png') }}" class="custompopicon">  Select Banner</h5>
-                            <div class="uploadModalTrigger" style="display: inline-block;position: absolute;right: 200px;">
-                                <button type="button" data-toggle="modal" data-target="empty" class="btn-cancel-modal" style=" padding: 5px 10px;">Upload from device</button>
-                            </div>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">
-                                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                                </span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="grid-container modalPopup" id="banner_images" style="max-height: 500px; overflow-y:scroll; grid-template-columns: auto;">
-                                {{--                   <div class="col-sm-12">--}}
-                                @foreach($media  as $keyId => $image)
-                                    @if(in_array($image->position, [9,10])/*$image->position != 8*/)
+            
+<div class="modal" id="photo_gallery_banner" style="display: none">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custome_modal_max_width">
+            <div class="modal-header main_bg_color border-0">
+                <h5 class="modal-title" style="color: white;"> <img src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross"> Select Banner</h5>
+               
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">
+             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+             </span>
+                </button>
+            </div>
+            <div class="modal-body">
+             <!-- Nav tabs -->
+             <ul class="nav nav-tabs my-custompop-tabs" id="myTab" role="tablist">
+                 
+                 <li class="nav-item">
+                     <a class="nav-link active" id="upload-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="upload" aria-selected="false">
+                         Upload Banner
+                     </a>
+                     </li>
+                 <li class="nav-item">
+                 <a class="nav-link" id="default-tab" data-toggle="tab" href="#default" role="tab" aria-controls="default" aria-selected="true">
+                     Default Template
+                 </a>
+                 </li>
+             </ul>
+                <div class="modalPopup" style="max-height: 500px; overflow-y:scroll;">
+                     
+                     <div class="tab-content mt-3">
+                         <!-- Tab panes -->
+                         <div class="tab-pane fade show active" id="upload" role="tabpanel" aria-labelledby="upload-tab">
+                             <div id="banner_modal_container" class="modal-tab">
+                                 @foreach($media  as $keyId => $image)
+                                     @if(!$image->template && in_array($image->position, [9])/*$image->position != 8*/)                                    
+                                     <!-- upload Template Tab -->
+                                             <div class="item2">
+                                                 <img class="img-thumbnail defult-image select_image"
+                                                     src="{{ asset($image->path) }}"
+                                                     alt=" "
+                                                     data-id="{{$image->id}}"
+                                                     data-position="{{$image->position ? $image->position : ''}}">
+                                             </div>              
+                                                 
+                                     @endif
+                                 @endforeach                                     
+                             </div>                           
+                         </div>     
+                         <!-- default Banner Tab -->
+                         <div class="tab-pane fade" id="default" role="tabpanel" aria-labelledby="default-tab">
+                            @php  
+                            $bannerTemplates = getBannerTemplates();
+                            @endphp 
+                            <div class="modal-tab">
+                                @if(!empty($bannerTemplates))
+                                    @foreach($bannerTemplates as $keyId => $image)
                                         <div class="item2">
-                                            <img class="img-thumbnail defult-image select_image" style="height: 150px;" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
+                                            <img src="{{ asset($image->path) }}" data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}" class="img-thumbnail defult-image select_image">
                                         </div>
-                                    @endif
-                                @endforeach
-                                {{--                   </div>--}}
-                            </div>
-                        </div>
-                        {{--<div class="modal-footer" style="justify-content: center;">
-                            <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-                        </div>--}}
-                    </div>
+                                    @endforeach
+                                @endif
+                             </div>
+                         </div>
+                     </div>    
                 </div>
             </div>
+        </div>
+    </div>
+ </div>
             <div class="modal fade upload-modal" id="upload-sec" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
@@ -422,60 +605,6 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                {{-- <div class="col-8 pl-0">
-                                                    <div class="row" style="">
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah2" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[2]" id="pic2" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="2">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah3" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[3]" id="pic3" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="3">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah4" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[4]" id="pic4" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="4">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row" style="">
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah5" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[5]" id="pic5" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="5">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah6" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[6]" id="pic6" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="6">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-4 pr-0">
-                                                            <div class="plate"><label class="newbtn">
-                                                                <img id="blah7" class="img-fluid modal-image_2" src="{{ asset('assets/app/img/upload-manage-1.png') }}">
-                                                                <input name="img[7]" id="pic7" class="pis" onchange="readURL(this);" type="file">
-                                                                <input type="hidden" name="position[]" value="7">
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
                                                 <div class="col-8 pl-0">
                                                     <div class="row" style="">
                                                         <div class="col-4 pr-0">
@@ -531,22 +660,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{--<div class="row row pr-2 pt-2">
-                                                <div class="col-12 pr-0">
-                                                    <div class="plate">
-                                                        <label class="newbtn">
-
-                                                        --}}{{-- <img id="blahx" class="img-fluid" style="width:870px; height:147px;object-fit: cover;"src="{{ asset($escort->imagefrontPosition(10)) }}"> --}}{{--
-                                                        <input name="img[11]" id="picx" class="pis" onchange="readURL(this);" type="file" accept="video/*">
-
-                                                        <video class="img-fluid" id="blahx" controls="" src="" style="width:870px; height:147px;object-fit: cover;">
-                                                            <source id="akhVideo" src="" type="video/mp4" >
-                                                        </video>
-                                                        <input type="hidden" name="position[]" id="mediaIdx">
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>--}}
                                             <div class="row mt-3 pt-1" style="border: 1px dotted;">
                                                 <div class="col-6 pt-4 pb-4">
                                                         <h4>Verify these Photos</h4>
@@ -596,28 +709,13 @@
                                             <div class="col-12">
                                                 <div class="plate"><label class="newbtn">
                                                     <img id="blah9" class="img-fluid" src="{{ asset($escort->imagefrontPosition(9))}}" style="height: 118px;object-fit: cover;width: 618px;">
-                                                    {{-- <img id="blah9" class="img-fluid" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 118px;object-fit: cover;width: 618px;"> --}}
+                                                   
                                                     <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*">
                                                     <input type="hidden" name="position[9]" id="mediaId9">
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{--<div class="row mt-3" style="border: 1px dotted;">
-                                            <div class="col-6 pt-4 pb-4">
-                                                <h4>Verify these photos</h4>
-                                                <p>Upload a picture of your ID with your most recent photo for verification.</p>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="plate"><label class="newbtn">
-                                                    <img class="img-fluid cl_blash10" id="blah10" src="{{ asset($escort->imagefrontPosition(10))}}" style="height: 138px;object-fit: cover;width: 291px;">
-                                                    --}}{{-- <img class="img-fluid" id="blah0" src="{{ asset('assets/app/img/upload-6.png')}}" style="height: 138px;object-fit: cover;width: 291px;"> --}}{{--
-                                                    <input name="img[10]" id="pic10" class="pis" onchange="readURL(this);" type="file" accept="image/*">
-                                                    <input type="hidden" name="position[]" id="mediaIdx">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>--}}
                                     </div>
                                 </div>
                             </div>
@@ -638,21 +736,6 @@
                 </form>
             @endif
         </div>
-        <!-- <div class="about_me_drop_down_info profile-sec p-3">
-            <div class="about_me_drop_down_info ">
-                <label class="newbtn" data-toggle="modal" data-target="#upload-sec-banner">
-                <img class="img-fluid" id="img0" src="{{ asset('assets/app/img/upload-3.png') }}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
-                </label>
-            </div>
-        </div>
-        <div class="about_me_drop_down_info profile-sec p-3">
-            <div class="about_me_drop_down_info ">
-                <label class="newbtn" data-toggle="modal" data-target="#upload-sec-banner">
-                <img class="img-fluid" id="img0" src="{{ asset('assets/app/img/upload-7.png') }}" style="height: 167.578px;width: 1066.640px;object-fit: cover;">
-                </label>
-            </div>
-        </div> -->
-        <!-- add banner image -->
 
         <div class="about_me_drop_down_info profile-sec">
             <div class="padding_20_all_side p-2 pb-4">
@@ -660,60 +743,6 @@
                 <!--New Row end here-->
                 <div class="row mt-4">
                     <div class="col-md-12">
-                        {{--<div>
-                            <div class="border_covid covid_heading ">
-                                <h2>Playmates</h2>
-                            </div>
-                            <div class="card-body pb-0">
-                                <div class="card-body border-0 pt-0 mt-2">
-                                    <form class="at-sec" method="post" action="" id="playmate_search" style="display: none;">
-                                        <div class="at-lable">
-                                            <label for="Student">Search for playmate</label>
-                                            <input  name="q" placeholder="Search by name / Member ID" autocomplete="off" class="" id="search-playmate-input">
-                                            <input type="hidden" name="h_escort_id" id="h_escort_id" value="{{auth()->user()->id}}">
-                                            <ul class="results showPlaymates">
-                                                --}}{{-- {{ dd(auth()->user()->playmates()->pluck('playmate_id'))}} --}}{{--
-                                                @foreach($users_for_available_playmate as $allUser)
-                                                    @if(!is_null($allUser->escorts))
-                                                        @foreach($allUser->escorts as $escort)
-                                                            @if(!in_array($escort->id,auth()->user()->playmates()->pluck('playmate_id')->toArray()))
-                                                                @if($escort->membership != null && $escort->start_date != null)
-                                                                    --}}{{-- @if($escort->membership == 4 && Carbon\Carbon::parse($escort->start_date)->diffInDays(Carbon\Carbon::parse(now())) <= 14) --}}{{--
-                                                                    --}}{{-- {{ dd($escort->DefaultImage )}} --}}{{--
-                                                                    <li  id="list_{{$escort->id}}">
-
-                                                                        <img src="{{ $escort->DefaultImage }}" class="img-profile rounded-circle playmats-img " >
-                                                                        {{ $escort->name }}
-                                                                        <span class="playmates_id" value="{{$escort->id}}" data-path="{{$escort->DefaultImage}}" data-name="{{$escort->name}}">Add</span>
-                                                                        --}}{{-- <span>{{Carbon\Carbon::parse($escort->start_date)->format('d/m/Y')}}</span>
-                                                                        <span>{{Carbon\Carbon::now()->format('d/m/Y')}}</span> --}}{{--
-
-                                                                    </li>
-                                                                    --}}{{-- @endif  --}}{{--
-                                                                @endif
-                                                            @endif
-                                                        @endforeach
-                                                    @endif
-                                                @endforeach
-                                                --}}{{-- @foreach($allEscorts as $escort)
-                                                <li>
-
-                                                   <img src="{{ $escort->default_image }}" class="img-profile rounded-circle playmats-img" >
-                                                   {{ $escort->name }} <span class="playmates_id2" value="{{$escort->id}}">Add</span>
-
-                                                </li>
-                                                @endforeach --}}{{--
-                                            </ul>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>--}}
-
-
-
-
- 
                         <div class="border_covid covid_heading ">
                             <h2>About Me</h2>
                         </div>
@@ -799,15 +828,6 @@
                                                     <label class="col-sm-4 font-weight-500"
                                                            for="exampleFormControlSelect1">Nationality:</label>
                                                     <div class="col-sm-8">
-                                                        <!--select style="border: 1px solid #d5d7e5 !important;"
-                                                                class="form-control form-control-sm select_tag_remove_box_sadow nationality-sec change_default"
-                                                                id="select2-dropdown"
-                                                                data-parsley-required-message="Select nationality"
-                                                                name="nationality_id"
-                                                                data-parsley-errors-container="#nationality-errors">
-                                                            <option
-                                                                value="{{ old('nationality_id',$escort->nationality_id)}}">{{($escort->nation) ? $escort->nation->name : ''}}</option>
-                                                        </select-->
 
                                                         <select style="border: 1px solid #d5d7e5 !important;"
                                                                 class="form-control form-control-sm select_tag_remove_box_sadow nationality-sec change_default" id="select2_country" data-parsley-required-message="Select nationality"
@@ -1420,24 +1440,8 @@
                         <div class="col-sm-4">
                                         <span id="covidreport-errors"></span>
                         </div>
-                        {{--<div class="add_banner_or_image_bg pt-2 mb-4" @if(!in_array($escort->covidreport, [1,2])) style="display: none" @endif id="covid-file-block">--}}
-                        {{--
-                        <div class="add_banner_or_image_bg pt-2 mb-4" style="display: none" id="covid-file-block">
-                            <div class="row">
-                                <div class="col manage_upload_btn">
-                                    <div class="banner_reco_font">
-                                        <label for="file-upload" class="custom-file-upload">
-                                        <i class="fas fa-plus-circle"></i>
-                                        </label>
-                                        <input id="file-upload" type="file" name="covid_report_file">
-                                        <p>Upload Vaccination Passport / Certificate</p>
-                                        <p class="site_red_color text-center">No file Selected</p>
-                                        <img id="covid-image-preview" src="/{{ $escort->covidReport ? $escort->covidReport->path : null }}" class="attach-img">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        --}}
+                        
+                        
                     </div>
                 </div>
                 <div class="row">
@@ -1449,7 +1453,6 @@
                 </div>
             </div>
         </div>
-    {{-- </form> --}}
 
     <div class="about_me_drop_down_info profile-sec pl-4 pr-4 p-2 pt-4">
         <div class="about_me_heading_in_first_tab fill_profile_headings_global text-capitalize">
@@ -1519,27 +1522,21 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="grid-container modalPopup" id="profile_images" style="max-height: 500px; overflow-y:scroll;">
-                    {{--                   <div class="col-sm-12">--}}
+                <div id="gallery_modal_container" class="grid-container modalPopup" style="max-height: 500px; overflow-y:scroll;">
+                    
                     @foreach($media  as $keyId => $image)
-                        @if(!in_array($image->position, [8, 9, 10])/*$image->position != 8*/)
+                        @if(!in_array($image->position, [9, 10]))
                             <div class="item4">
                                 <img class="img-thumbnail defult-image select_image" src="{{  asset($image->path) }}" alt=" " data-id="{{$image->id}}" data-position="{{$image->position ? $image->position : ''}}">
                             </div>
                         @endif
                     @endforeach
-                    {{--                   </div>--}}
                 </div>
             </div>
-            {{--<div class="modal-footer" style="justify-content: center;">
-                <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-            </div>--}}
+            
         </div>
     </div>
 </div>
-<style>
-</style>
-
 <div class="modal programmatic" id="setAsDefaultForMainAccount" style="display: none">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
@@ -1563,11 +1560,52 @@
     </div>
 @push('script')
 <script>
-  
-    // $('.newbtn').bind("click" , function () {
-    //        $('#pic').click();
-    //        console.log($(this).attr('id'));
-    // });
+    function initDragDrop(){
+        $("#dvSource img").draggable({
+           revert: "invalid",
+           helper: 'clone',
+           appendTo: ".upload-banner",
+           refreshPositions: false,
+           drag: function (event, ui) {
+               
+           },
+           stop: function (event, ui) {
+           }
+       });
+       
+       $(".dvDest").droppable({
+           drop: function (event, ui) {
+            let dropSlot = $(this);
+            let dragSlot = ui.draggable;
+            let dropSlotType = dropSlot.find('img').data('type');
+            let dragSlotType = dragSlot.closest(".item4").find('span').text().toLowerCase();
+            if(dropSlotType!=dragSlotType){
+                let message = (dragSlotType=='gallery')?`The photo you selected is not a Banner image. Please select a Banner image from your repository.`:`The photo you selected is not a Gallery image. Please select a Gallery image from your repository.`;
+                swal.fire('Media', message, 'error');
+                return false;
+            }
+            else{
+            $(this).trigger('click');
+            let meidaId = dragSlot.data('id');
+            let target;
+            switch(dragSlotType){
+                case 'gallery':{
+                    target = $(".modalPopup .item4 img[data-id='" + meidaId + "']").closest(".item4");
+                } break;
+                case 'banner':{
+                    target = $(".modalPopup .item2 img[data-id='" + meidaId + "']").closest(".item2");
+                } break;
+            }
+            target.trigger('click');
+            }
+            
+           }
+       });
+    }
+
+  $(function () {
+    initDragDrop();
+  });
 
     var updatePosition = 0;
     $(document).ready(function(e) {
@@ -1588,26 +1626,14 @@
             $("#photo_gallery_banner").modal("hide");
         });
 
-      
-        
-        $(".modalPopup .item2").on('click', function(e) {
-            let imageSrc = $(this).find('img').attr('src');
-            let mediaId = $(this).find('img').data('id');
-            $("#blah9").attr('src',imageSrc);
-            $("#img9").attr('src',imageSrc);
-            $("#mediaId9").val(mediaId);
-
-            $("#photo_gallery_banner").modal("hide");
-        });
     });
 
     let profile_selected_images = [];
     let default_image_icons = ['img-11.png','img-12.png','img-13.png'];
-    $(".modalPopup .item4, .modalPopup .item2").on('click', function(e) {
+    $(document).on('click','.modalPopup .item4, .modalPopup .item2', function(e) {
        let imageSrc = $(this).find('img').attr('src');
        let mediaId = $(this).find('img').data('id');
        let img_target = $("#img"+updatePosition);
-       let media_image_length = $(".upld-img").length;
        let targetImageSrc = img_target.attr('src');
        let targetImageName = targetImageSrc.split("/").pop();
        /**
@@ -1645,6 +1671,7 @@
             }
        }
        $("#photo_gallery").modal("hide");
+       $("#photo_gallery_banner").modal("hide");
    });
 
     function setAsDefultImages(){
@@ -1721,20 +1748,9 @@
                     .attr('src', src);
             $("#upload-sec").modal('hide');
             console.log("file = "+input.id[3]);
-            //consoleAge.log("src = "+src);
         })
 
     }
-
-
-
-    /*$("body").on("click","#save_change",function(){
-        let field = $("#trigger-element").val();
-        let value = $("#current").val();
-        update_escort_default($(this), {
-            [field] : value
-        });
-    });*/
 
     $("body").on("keyup change",".stageNameOnBlank",function(){
         let $this = $(this);

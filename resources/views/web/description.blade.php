@@ -64,12 +64,18 @@
         color: red;
         padding-top: 5%;
     }
+
+  
 @endif
 
 
 .fa-thumbs-down, .fa-thumbs-up {
     pointer-events: none;
 }
+
+.save-my-legbox-btn {
+         color: #fff;
+    }
 
 </style>
 
@@ -106,7 +112,7 @@
     {{--
     <div class="profile_description_banner" style="background: url({{$escort->banner_image ? $escort->banner_image : asset('assets/app/img/profiledescrition.png')}});">
         --}}
-        <div class="container profile_pic_holder p-0 custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: cover;">
+        <div class="container profile_pic_holder p-0 custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: cover;background-position:center;">
         <div class="container">
             <div class="row">
                 <div class="overlay">
@@ -140,13 +146,21 @@
         </div>
             <div>
                 <div class="profile_page_title px-3">
-                    @if($escort->membership == 1)
-                    <img src="{{ asset('assets/app/img/profile/image36.png') }}">
-                    @elseif($escort->membership == 2)
-                    <img src="{{ asset('assets/app/img/img_gold.png') }}">
-                    @elseif($escort->membership == 3)
-                    <img src="{{ asset('assets/app/img/img_silver.png') }}">
-                    @else
+                    @php 
+                    $isPinupActive = $escort->currentActivePinup;
+                    $membershipImage = match ($escort->membership) {
+                        '1' => $isPinupActive?asset('images/platinum_membership_pin.png'):asset('images/platinum_membership.png'),
+                        '2' => $isPinupActive?asset('images/gold_membership_pin.png'): asset('images/gold_membership.png'),
+                        '3' => $isPinupActive?asset('images/silver_membership_pin.png'):asset('images/silver_membership.png'),
+                        default => false
+                    };
+                    @endphp
+
+                    @if($membershipImage)
+                       <div class="{{($isPinupActive)?'pinup-wrapper':''}}">
+                            <img src="{{ $membershipImage }}">
+                            <div class="pinup-tooltip">I am your Pin Up this week!</div>
+                       </div> 
                     @endif
 
                     @if(strlen($escort->name) <= 250)
@@ -300,7 +314,7 @@
                                       data-name="{{$escort->name}}"><i class="fa fa-heart-o"
                                                                        aria-hidden="true"></i></span>
                             @endif
-                            <span class="label">
+                            <span class="label save-my-legbox-btn">
                                 @if(is_object($user_type) && in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'Remove from Legbox'}}@else{{'Save to My Legbox'}}@endif
                             </span>
                         </button>
@@ -1207,7 +1221,7 @@
             @endphp
             <b>When texting me please say:</b>
             <p class="profile_description_contect_pera">
-                <b><i>Hi {{ $escort->name }}, I found you on Escorts4u ...</i></b>
+                <b><i>Hi {{ $escort->name }}, I found you on Escorts4U ...</i></b>
                 @php
                     /* $contactTypes = $escort->user->viewer_contact_type ?? [];
                     $hasPhone = in_array(1, $contactTypes) || in_array(2, $contactTypes);
@@ -1230,7 +1244,7 @@
                 @endif
             </p>
             {{-- <p class="profile_description_contect_pera">
-                    "<b><i>Hi {{ $escort->name }}, I found you on Escorts4u ...</i></b>" 
+                    "<b><i>Hi {{ $escort->name }}, I found you on Escorts4U ...</i></b>" 
                     @if(!empty($escort->user->viewer_contact_type)) 
                     @if(in_array(1, $escort->user->viewer_contact_type) || in_array(2, $escort->user->viewer_contact_type)) @if(in_array(3,
                     $escort->user->viewer_contact_type)) on my number {{ preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $number)) }} or email {{ $escort->user->email ?? '' }} @else on my number {{

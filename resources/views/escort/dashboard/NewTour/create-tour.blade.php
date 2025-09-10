@@ -27,8 +27,8 @@
             </div>
         </div>
     </div>
-    <div class="row justify-content-center tour-dashrow">
-        <div class="col-md-8 tour-dashcol">
+    <div class="row tour-dashrow">
+        <div class="col-md-9">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <form id="locationForm">

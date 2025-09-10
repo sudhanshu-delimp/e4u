@@ -1,17 +1,14 @@
 @component('mail::message')
-    <h2>Hello {{$body['name']}},</h2>
-    <p>The email is a sample email for Laravel Tutorial: How to Send an Email using Laravel 8 from @component('mail::button', ['url' => $body['url']])
-            Bacancy Technology
-        @endcomponent</p>
+# Hello {{ $body['name'] }},
 
-    <p>Visit @component('mail::button', ['url' => $body['url']])
-            For create new password
-        @endcomponent </p>
+We received a request to reset your password. Click the button below to create a new password for your account.
 
+@component('mail::button', ['url' => $body['url']])
+Create New Password
+@endcomponent
 
-    Happy coding!<br>
+If you did not request a password reset, no further action is required.
 
-    Thanks,<br>
-    {{ config('app.name') }}<br>
-    Laravel Team.
+Thanks,
+{{ config('app.name') }}
 @endcomponent

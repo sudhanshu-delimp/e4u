@@ -16,6 +16,34 @@ table td,th{
     border-top: 0px !important;
     border: none;
 }
+.manage-table table tr:first-child td{
+    border-top: 1px solid #000 !important;
+}
+table td,th{
+    border-top: 0px !important;
+    border: none;
+}
+.paging_simple_numbers{
+    margin-top: 18px;
+ }
+ .dataTables_info{
+    margin-top: 18px;
+ }
+.table-report-info tr td{
+    border: 0;
+}
+.table-report-info th{
+    border-top: 0px solid #dee2e6 !important;
+}
+
+.popu_heading_style {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 29px;
+    color: #0C223D;
+}
 </style>
 @endsection
 @section('content')
@@ -222,18 +250,28 @@ table td,th{
                 <div class="lines"></div>
                 <div class="lines"></div>
 
-                <div class="manage-table table-responsive">
-                    <table>
+                <div class="manage-table mt-5 table-responsive">
+                    
+                    <table style="width:100%; border-collapse:collapse;">
                         <tr>
-                            <th colspan="1" style="width: 30%;">Management only:</th>
-                            <th colspan="2" style="width: 30%;"><input type="checkbox"> Reject Review</th>
-                            <th colspan="2" style="width: 30%;"><input type="checkbox"> Publish Review</th>
+                            <td colspan="2" style="padding:8px; font-weight:bold;">Management only:</td>
+                            <td colspan="2" style="padding:8px;">
+                            <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
+                                <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Reject Review</span>
+                            </label>
+                            </td>
+                            <td colspan="2" style="padding:8px;">
+                            <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
+                                <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Publish Review</span>
+                            </label>
+                            </td>
                         </tr>
+
                         <tr>
-                            <td style="width: 25%;">Name:</td>
-                            <td style="width: 25%;"></td>
-                            <td style="width: 25%;">Signature:</td>
-                            <td style="width: 25%;"></td>
+                            <td colspan="1" style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:110px;" colspan="1">Name:</td>
+                            <td colspan="2" style="border:1px solid #000; padding:25px 12px;"></td>
+                            <td colspan="1" style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:120px">Signature:</td>
+                            <td colspan="2" style="border:1px solid #000; padding:25px 12px;"></td>
                         </tr>
                     </table>
                 </div>

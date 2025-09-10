@@ -10,6 +10,19 @@
    .swal-button {
    background-color: #242a2c;
    }
+   
+   .toggle-password {
+    position: absolute;
+    top: 28px;
+    right: 15px;
+    cursor: pointer;
+    z-index: 2;
+    color: #6c757d;
+}
+
+form.v-form-design label {
+    font-weight: 500;
+}
 </style>
 @stop
 @section('content')
@@ -44,16 +57,22 @@
                 <div class="col-md-6">
                   <div class="row">
                     <div class="col-md-12">
-                      <div class="form-group">
+                      <div class="form-group position-relative">
                         <label for="current_password">Current password</label>
-                        <input type="password" class="form-control" name="password" placeholder="Current password" data-parsley-required-message="Current password is required" required="">
+                        <input type="password" class="form-control" name="password" id="passwordN" placeholder="Current password" data-parsley-required-message="Current password is required" required="">
+                        <span class="toggle-password" toggle="#passwordN">
+                          <i class="fa fa-eye"></i>
+                      </span>
                         <small id="emailHelp" class="form-text text-muted">Case sensative</small>
                       </div>
                     </div>
                     <div class="col-md-12">
-                      <div class="form-group">
+                      <div class="form-group position-relative">
                         <label for="new_password">New password</label>
                         <input type="password" class="form-control" name="new_password" id="new_password" placeholder="New password" aria-describedby="emailHelp" required="" autocomplete="new-password" data-parsley-required-message="Password is required" data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&amp;*?])[A-Za-z\d#$@!%&amp;*?]{8,30}$/" data-parsley-pattern-message="Password must be of at least 8 character, must contain both upper-case and lower-case character, at least one number and special character">
+                        <span class="toggle-password" toggle="#new_password">
+                          <i class="fa fa-eye"></i>
+                      </span>
                         <div class="termsandconditions_text_color">
                           <!-- error sms here -->
                                             </div>
@@ -61,9 +80,12 @@
                       </div>
                     </div>
                     <div class="col-md-12">
-                      <div class="form-group">
+                      <div class="form-group position-relative">
                         <label for="confirm_password">Confirm password</label>
                         <input type="password" class="form-control" placeholder="Confirm password" id="confirm_password" aria-describedby="emailHelp" name="password_confirmation" data-parsley-equalto="#new_password" data-parsley-equalto-message="Confirm password should be the same password." required="" autocomplete="new-password" data-parsley-required-message="Confirm password is required">
+                        <span class="toggle-password" toggle="#confirm_password">
+                          <i class="fa fa-eye"></i>
+                      </span>
                         <div class="termsandconditions_text_color">
                           <!-- error sms here -->
                         </div>
@@ -108,6 +130,29 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 
+<script>
+  document.querySelectorAll('.toggle-password').forEach(function (el) {
+       el.addEventListener('click', function () {
+           var selector = this.getAttribute('toggle');
+           var input = document.querySelector(selector);
+           if (!input) {
+               console.error("Invalid selector:", selector);
+               return;
+           }
+           var icon = this.querySelector('i');
+           if (input.type === "password") {
+               input.type = "text";
+               icon.classList.remove("fa-eye");
+               icon.classList.add("fa-eye-slash");
+           } else {
+               input.type = "password";
+               icon.classList.remove("fa-eye-slash");
+               icon.classList.add("fa-eye");
+           }
+       });
+   });
+
+ </script>
 
 <script type="text/javascript">
 

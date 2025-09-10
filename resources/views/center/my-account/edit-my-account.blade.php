@@ -45,21 +45,43 @@
                                         <div class="row">
                                             <div class="col-md-10 px-0">
                                                 <div class="row">
+                                                  <div class="col-md-6">
+                                                    <div class="form-group">
+                                                       <label for="membership_num">Membership Number</label>
+                                                       <span class="form-control form-back">E60104</span>
+                                                       
+                                                    </div>
+                                                 </div>
+                                                 <div class="col-md-6">
+                                                  <div class="form-group">
+                                                     <label for="membership_num form-back">Date Joined</label>
+                                                     
+                                                     <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">24/06/2023</label>
+                                                  </div>
+                                               </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email">Display name</label>
+                                                            <label for="Display Name" class="common_help_icon common-tooltip">Display Name
+                                                              <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
+                                                              <span class="tooltip-text">Insert here the trading / business name of the Business.</span>
+                                                                
+                                                            </label>
                                                             <input type="text" class="form-control" placeholder=" " name="name" aria-describedby="emailHelp" value="{{ $escort->name }}">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email" class="my-agent">Business name</label>
-                                                            <input type="text" class="form-control" placeholder=" " name="" aria-describedby="emailHelp" value="">
-                                                        </div>
+                                                          <label for="Entity Name" class="common_help_icon common-tooltip">Entity Name
+                                                            <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
+                                                          <span class="tooltip-text">What is the name of the corporate entity that owns the Business Name, like ABC Pty Ltd</span>
+                                                            
+                                                          </label>
+                                                          <input type="text" class="form-control" placeholder=" " name="" aria-describedby="emailHelp" value="">
+                                                      </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email" class="my-agent">Your address </label>
+                                                            <label for="email" class="my-agent">Our Address </label>
                                                             <input type="text" class="form-control" placeholder=" " name="" aria-describedby="emailHelp" value="">
                                                         </div>
                                                     </div>
@@ -71,7 +93,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="email">Business No.</label>
+                                                            <label for="Business No.">Business No.</label>
                                                             <label type="text" class="form-control form-back" placeholder=" " name="phone" aria-describedby="emailHelp" value="{{ $escort->phone }}">{{ $escort->phone }}</label>
                                                         </div>
                                                     </div>
@@ -88,7 +110,10 @@
                                                     
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="Gender" class="my-agent">Home State <img src="{{ asset('assets/app/img/home/quationmarkblue.svg')}}"></label>
+                                                            <label for="Gender" class="my-agent common_help_icon common-tooltip">Home State
+                                                              <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
+                                                              <span class="tooltip-text">This is the State you reside in. If you created your Account while you were in another State, log a <a href="{{ url('submit_ticket') }}">Support Ticket</a> and we will correct your setting.</span>
+                                                            </label>
                                                             <label  class="form-control form-back" placeholder="Western Australia" aria-describedby="emailHelp" id="stateNew" name="state_id" value="{{$escort->state_id}}">
                                                               {{ $escort->state_id ? config('escorts.profile.states')[$escort->state_id]['stateName'] : ''}}
                                                           </label>
@@ -136,7 +161,23 @@
                                                             <label class="form-check-label" for="Method_call_me">Call me</label>
                                                         </div>
                                                       </div>
-                                                  </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                      <div class="form-group">
+                                                         <label for="PayID Name" class="common_help_icon common-tooltip">PayID Name
+                                                            <img class="delay_tooltip tooltip-icon" src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
+                                                         <span class="tooltip-text">Complete this information if you use PayID with your clients.</span>
+                                                            
+                                                         </label>
+                                                         <input type="text" class="form-control" name="payID_name" placeholder="Insert your Bank Account name">
+                                                      </div>
+                                                   </div>
+                                                   <div class="col-md-6">
+                                                    <div class="form-group">
+                                                       <label for="PayID Number">PayID Number</label>
+                                                       <input type="text" class="form-control" name="paID_no" placeholder="Insert your PayID Number">
+                                                    </div>
+                                                 </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -158,7 +199,22 @@
 
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="form-group">
+                                              <div class="form-group">
+                                                <label for="email">Profile creator settings</label><br>
+                                                <div class="form-check form-check-inline">
+                                                   <input name="profile_creator[]" class="form-check-input" type="checkbox" id="Method_Message" value="1" checked="">
+                                                   <label class="form-check-label" for="Method_Message">Include Profile Information</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                   <input name="profile_creator[]" class="form-check-input" type="checkbox" id="Method_Text" value="2">
+                                                   <label class="form-check-label" for="Method_Text">Include Profile Information and allow to over ride</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                   <input name="profile_creator[]" class="form-check-input" type="checkbox" id="Method_Email" value="3" checked="">
+                                                   <label class="form-check-label" for="Method_Email">Include social media information</label>
+                                                </div>
+                                             </div>
+                                                {{-- <div class="form-group">
                                                     <label for="email">How can Viewers contact me</label>
                                                     <div class="switch-sec">
                                                         <label class="switch">
@@ -169,7 +225,7 @@
                                                     <div class="pt-1"><i>When creating a Massage Profile, your Profile settings are by default set to your My Account information. You can over ride those settings in the Profile creator, or disable them here.
                                                         </i>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <div class="form-group">
                                                     <label for="email">How can Viewers contact us</label><br>
                                                     <div class="form-check form-check-inline">
@@ -177,13 +233,18 @@
                                                         <label class="form-check-label" for="Method_Message">Call us</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
+                                                      <input class="form-check-input" name="viewer_contact_type[]" type="checkbox" id="Method_Email" value="3">
+                                                      <label class="form-check-label" for="Method_Email">Email us (only for private communications with a Viewer)</label>
+                                                   </div>
+                                                    <div class="form-check form-check-inline">
                                                         <input name="viewer_contact_type[]" class="form-check-input" type="checkbox" id="Method_Text" value="2" @if(!empty($escort->viewer_contact_type)) {{(in_array(2 , $escort->viewer_contact_type)) ? 'checked' : null }} @endif>
                                                         <label class="form-check-label" for="Method_Text">Text us</label>
                                                     </div>
-                                                    <div class="pt-1"><i>You can select both options if you want.</i></div>
+                                                    {{-- <div class="pt-1"><i>You can select both options if you want.</i></div> --}}
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         <input type="submit" value="Save" class="btn btn-primary shadow-none float-right" name="submit">
                                     </form>
                                 </div>

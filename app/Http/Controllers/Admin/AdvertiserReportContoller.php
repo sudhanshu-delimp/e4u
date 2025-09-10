@@ -26,62 +26,52 @@ class AdvertiserReportContoller extends Controller
     {
         [$advertiserReports, $reports] = $this->getAdvertiserReports();
 
-        $advertiserReports = $advertiserReports->map(function ($row) {
-            return [
-                'ref'        => $row->id . $row->escort->id,
-                'date'       => date('d-m-Y', strtotime($row->created_at)),
-                'member_id'  => $row->escort->user->member_id ?? '-',
-                'mobile'     => $row->escort->user->phone ?? '-',
-                'home_state' => City::where('state_id', $row->escort->user->state_id)->value('state_code') ?? '-',
-                'status'     => $row->report_status == 'pending' ? 'Current' : 'Resolved',
-                'action'     => '<div class="dropdown no-arrow ml-3">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink">
-                                        
-                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" data-id='.$row->id.' data-val="pending" href="#">
-                                        
-                                            <i class="fa fa-hourglass-half text-dark" ></i> Current 
-                                        </a>
-
-                                        <div class="dropdown-divider"></div>
-
-                                        <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" data-id='.$row->id.' data-val="resolved" href="#"  data-toggle="modal" data-target="#confirm-popup" >
-                                            
-                                            <i class="fa fa-check-circle text-dark"></i>Resolved 
-                                        </a>
-
-                                        <div class="dropdown-divider"></div>
-
-                                        <a class="view_member_report dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-id='.$row->id.'>
-                                        
-                                            <i class="fa fa-eye text-dark"></i> View 
-                                        </a>
-                                        
-                                    </div>
-
-                                    </div>
-                                </div>',
-            ];
-        });
-        
-        return DataTables::of($advertiserReports)
-            ->addColumn('ref', fn($row) => $row['ref'])
-            ->addColumn('date', fn($row) =>  $row['date'])
-            ->addColumn('member_id', fn($row) => $row['member_id'])
-            ->addColumn('mobile', fn($row) => $row['mobile'])
-            ->addColumn('home_state', function($row) {
-                
-                return $row['home_state'];
-            })
-            ->addColumn('status', fn($row) => $row['status'] )
+        $advertiserReports = ReportEscortProfile::with('escort.user')
+            ->orderByRaw("CASE WHEN report_status = 'pending' THEN 1 WHEN report_status = 'resolved' THEN 2 END")
+            ->orderBy('updated_at', 'desc');
             
-            ->addColumn('action', fn($row) => $row['action'])
-            ->rawColumns(['action']) 
+        return DataTables::of($advertiserReports)
+            ->addColumn('ref', fn($row) => $row->id . ($row->escort->id ?? ''))
+            ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
+            ->addColumn('member_id', fn($row) => $row->escort->user->member_id ?? '-')
+            ->addColumn('mobile', fn($row) => $row->escort->user->phone ?? '-')
+            ->addColumn('home_state', fn($row) => $row->escort->user->home_state ?? '-')
+            ->addColumn('status', fn($row) => $row->report_status == 'pending' ? 'Current' : 'Resolved')
+            ->addColumn('action', function ($row) {
+                $statusActionHtml = '
+                    <a title="Mark status as current" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
+                    data-toggle="modal" data-target="#confirm-popup" 
+                    data-id="'.$row->id.'" data-val="pending" href="#">
+                    <i class="fa fa-hourglass-half text-dark"></i> Current
+                    </a>';
+
+                if ($row->report_status == 'pending') {
+                    $statusActionHtml = '
+                        <a title="Mark status as resolved" class="dropdown-item d-flex justify-content-start gap-10 align-items-center update-member-status" 
+                        data-toggle="modal" data-target="#confirm-popup" 
+                        data-id="'.$row->id.'" data-val="resolved" href="#">
+                        <i class="fa fa-check-circle text-dark"></i> Resolved
+                        </a>';
+                }
+
+                return '
+                    <div class="dropdown no-arrow ml-3">
+                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuLink">
+                            '.$statusActionHtml.'
+                            <div class="dropdown-divider"></div>
+                            <a class="view_member_report dropdown-item d-flex justify-content-start gap-10 align-items-center" 
+                            href="#" data-id="'.$row->id.'">
+                            <i class="fa fa-eye text-dark"></i> View
+                            </a>
+                        </div>
+                    </div>';
+            })
+            ->rawColumns(['action'])
             ->with([
                 'reports' => $reports
             ])
@@ -124,23 +114,26 @@ class AdvertiserReportContoller extends Controller
     {
         $user = Auth::user();
         if (!($user && $user->id)) {
-           $data = array(
+            $data = array(
                 "status"     => 404,
                 "error"     => true,
                 "message"    => "You are not authorized user!",
                 "data" => [],
             );
-        }else{
+        } else {
 
             $report = ReportEscortProfile::where('id', $request->report_id)
-            ->with([
-                'escort:id,user_id',
-                'escort.user:id,member_id,phone,state_id',
+                ->with([
+                    'escort:id,user_id,city_id,state_id',
+                    'escort.user:id,member_id,phone,state_id,city_id',
+                    'viewer:id,email,phone',
                 ])
-            ->first();
+                ->first();
 
+                
             if ($report) {
                 $report->formatted_created_at = $report->created_at->format('d-m-Y');
+                $report->escort->user->state_id = $report->escort->user->home_state;
             }
 
             $data = array(
@@ -152,7 +145,6 @@ class AdvertiserReportContoller extends Controller
         }
 
         return response()->json($data);
-
     }
 
     public function printSingleMemberEscortReport(Request $request)
@@ -160,7 +152,7 @@ class AdvertiserReportContoller extends Controller
         $report_id = $request->report_id;
         $user = Auth::user();
         if (!($user && $user->id)) {
-           $data = array(
+            $data = array(
                 "status"     => 404,
                 "error"     => true,
                 "message"    => "You are not authorized user!",
@@ -168,27 +160,18 @@ class AdvertiserReportContoller extends Controller
             );
 
             //return $data;
-        }else{
+        } else {
 
             $report = ReportEscortProfile::where('id', $report_id)
-            ->with([
-                'escort:id,user_id',
-                'escort.user:id,member_id,phone,state_id',
+                ->with([
+                    'escort:id,user_id',
+                    'escort.user:id,member_id,phone,state_id',
+                    'viewer:id,email,phone'
                 ])
-            ->first();
+                ->first();
 
-            // $html = view('admin.prints_file.advertiser_report_print', ['report' => $report])->render();
-
-            // $data = array(
-            //     "status"     => 200,
-            //     "error"     => false,
-            //     "message"    => "Page printed sucessfully.",
-            //     "data" => $html,
-            // );
-            return view('admin.prints_file.advertiser_report_print', ['report'=>$report]);
+            return view('admin.prints_file.advertiser_report_print', ['report' => $report]);
         }
-
-        // return response()->json($data);
 
     }
 
@@ -199,7 +182,7 @@ class AdvertiserReportContoller extends Controller
 
         $user = Auth::user();
         if (!($user && $user->id)) {
-           $data = array(
+            $data = array(
                 "status"     => 404,
                 "error"     => true,
                 "message"    => "You are not authorized user!",
@@ -207,14 +190,17 @@ class AdvertiserReportContoller extends Controller
             );
 
             return $data;
-        }else{
+        } else {
 
             $reportStatus = ReportEscortProfile::where('id', $report_id)->update([
-                'report_status'=>$status
+                'report_status' => $status,
+                'action_message' => $status == 'resolved' ? 'registered' : null,
+                'admin_id' => $user->id
             ]);
 
             $data = array(
                 "status"     => 200,
+                "member_status"     => $status,
                 "error"     => false,
                 "message"    => "Member report status updated successfully.",
                 "data" => $reportStatus != null ? $reportStatus : null,
@@ -222,8 +208,5 @@ class AdvertiserReportContoller extends Controller
         }
 
         return response()->json($data);
-
     }
-
-
 }

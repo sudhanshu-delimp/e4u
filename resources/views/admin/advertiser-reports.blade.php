@@ -3,7 +3,6 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <style type="text/css">
 .parsley-errors-list {
     list-style: none;
@@ -30,6 +29,18 @@ table td,th{
  }
 .table-report-info tr td{
     border: 0;
+}
+.table-report-info th{
+    border-top: 0px solid #dee2e6 !important;
+}
+
+.popu_heading_style {
+    font-family: Poppins;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 29px;
+    color: #0C223D;
 }
 </style>
 @endsection
@@ -158,25 +169,27 @@ table td,th{
                                   <td class="report_date">14-05-2025</td>
                                 </tr>
                                 <tr>
-                                  <th>Member ID:</th>
+                                  <th>Advertiser ID:</th>
                                   <td class="report_member_id">14-05-2025</td>
-                                  <th>Escort ID:</th>
-                                  <td class="report_escort_id">14-05-2025</td>
+                                  <th>Viewer ID:</th>
+                                  <td class="report_viewer_id">14-05-2025</td>
+                                  {{-- <td class="report_escort_id">14-05-2025</td> --}}
                                   
                                 </tr>
                                 <tr>
-                                    <th>Viewer ID:</th>
-                                  <td class="report_viewer_id">WA - Perth</td>
+                                  <th>Mobile :</th>
+                                  <td class="report_mobile">WA - Perth</td>
                                   <th>Mobile:</th>
-                                  <td class="report_mobile">Adrian Weinstein</td>
+                                  <td class="report_viewer_mobile">Adrian Weinstein</td>
                                   
                                 </tr>
                               
                                 <tr>
-                                    <th>Status:</th>
-                                  <td class="report_status">Current</td>
+                                  
                                   <th>Home State:</th>
-                                  <td colspan="3" class="report_home_state">WA</td>
+                                  <td  class="report_home_state">WA</td>
+                                  <th>Status:</th>
+                                  <td colspan="3" class="report_status">Current</td>
                                 </tr>
                                 <tr>
                                   <th>Comments:</th>
@@ -196,20 +209,32 @@ table td,th{
                     <div class="lines"></div>
                     <div class="lines"></div>
     
-                    <div class="manage-table table-responsive">
-                        <table>
-                            <tr style="">
-                                <th colspan="1" style="width: 30%;" class="pb-3">Management only:</th>
-                                <th colspan="2" style="width: 30%;" class="pb-3"><input type="checkbox"> Cancel Membership</th>
-                                <th colspan="2" style="width: 30%;" class="pb-3"><input type="checkbox"> Re-instate Membership</th>
-                            </tr>
-                            <tr>
-                                <td style="width: 25%;">Name:</td>
-                                <td style="width: 25%;"></td>
-                                <td style="width: 25%;">Signature:</td>
-                                <td style="width: 25%;"></td>
-                            </tr>
-                        </table>
+                    <div class="mt-5 table-responsive">
+                    <table style="width:100%; border-collapse:collapse;">
+                        <tr>
+                            <td colspan="2" style="border:1px solid #000; padding:8px; font-weight:bold;">Management only:</td>
+                            <td colspan="2" style="border:1px solid #000; padding:8px;">
+                            <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
+                                <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Cancel Membership</span>
+                            </label>
+                            </td>
+                            <td colspan="2" style="border:1px solid #000; padding:8px;">
+                            <label style="display:inline-flex; align-items:center; gap:6px; margin:0;">
+                                <input type="checkbox" style="margin:0;"> <span style="font-weight:600;">Re-instate Membership</span>
+                            </label>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="1" style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:110px;" colspan="1">Name:</td>
+                            <td colspan="2" style="border:1px solid #000; padding:25px 12px;"></td>
+                            <td colspan="1" style="border:1px solid #000; padding:25px 12px; font-weight:bold; width:120px">Signature:</td>
+                            <td colspan="2" style="border:1px solid #000; padding:25px 12px;"></td>
+                        </tr>
+                    </table>
+
+
+
                     </div>
     
                 </div>
@@ -229,9 +254,11 @@ table td,th{
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content basic-modal">
             <div class="modal-header border-0">
+                <input type="hidden" id="status_data_id">
+                <input type="hidden" id="status_data_value">
                 <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
-                    <img src="{{ asset('assets/dashboard/img/unblock.png') }}" alt="resolved"  class="custompopicon">
-                    Resolved
+                    <img src="{{ asset('assets/dashboard/img/question-mark.png') }}" alt="resolved"  class="custompopicon">
+                    <span>Confirmation</span>
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
@@ -240,17 +267,51 @@ table td,th{
                 </button>
             </div>
 
-            <div class="modal-body text-center">
-                <p style="font-size: 16px; color: #333; font-weight: 500;">We’re happy to inform you that your query has been <br> successfully resolved.</p>
+            <div class="modal-body pb-0 teop-text text-center">
+                <h6 class="popu_heading_style mt-2">
+                    <span id="Lname">Are you sure you want to perform this action.</span>
+                </h6>
 
             </div>
 
             <div class="modal-footer justify-content-center border-0 pb-4">
-                <button type="button" class="btn btn-danger px-4" data-dismiss="modal" aria-label="Close">OK</button>
+                <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Cancel</button>
+                <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal" aria-label="Close">Save</button>
             </div>
         </div>
     </div>
 </div>
+
+<div class="modal fade upload-modal" id="success_popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content basic-modal">
+            <div class="modal-header border-0">
+                <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
+                    <img src="{{ asset('assets/dashboard/img/unblock.png') }}" alt="resolved"  class="custompopicon">
+                    <span class="success-modal-title">Resolved</span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                    </span>
+                </button>
+            </div>
+
+            <div class="modal-body pb-0 teop-text text-center">
+                <h6 class="popu_heading_style mt-2">
+                    <span class="Lname success-modal-text">We’re happy to inform you that your query has been <br> successfully resolved.</span>
+                </h6>
+
+            </div>
+
+            <div class="modal-footer justify-content-center border-0 pb-4">
+                <button type="button" class="btn-success-modal" data-dismiss="modal" aria-label="Close">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
  {{-- add notes  --}}
 <div class="modal fade upload-modal" id="add-note-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel"
@@ -317,12 +378,13 @@ table td,th{
 
 @endsection
 @push('script')
-<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}
-    "></script>
+
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    
 <script>
-
+$(document).ready(function() {
     $(document).on('click', '.print-btns', function(e) {
         e.preventDefault();
         
@@ -357,12 +419,28 @@ table td,th{
 
     $(document).on('click', '.update-member-status', function(e) {
         e.preventDefault();
-        const reportId = $(this).data('id');
-        const status = $(this).data('val');
+        let reportId = $(this).data('id');
+        let status = $(this).data('val');
+
+        $('#status_data_id').val(reportId);
+        $('#status_data_value').val(status);
+
+        //$("#success-popup").modal('show');
+
+        console.log(reportId, status);
+        
+        
+    });
+
+    $(document).on('click', '.saveStatus', function(e) {
+        e.preventDefault();
+        let reportId = $('#status_data_id').val();
+        let status = $('#status_data_value').val();
         var reportData = {
             'reportId' :reportId,
             'status' :status,
         }
+        
         var url = "{{route('admin.advertiser.report-status')}}";
         updateMemberReportStatus(reportData, url);
     });
@@ -379,10 +457,21 @@ table td,th{
                 'status':reportData.status,
             },
             success: function(response) {
-                console.log('response');
-                console.log(response);
                 if(response.error == false){
+                    if(response.member_status == 'resolved'){
+                        $(".success-modal-title").text('Resolved');
+                        $(".success-modal-text").text('We’re happy to inform you that your query has been successfully resolved.');
+
+                    }else{
+                        $(".success-modal-title").text('Current');
+                        $(".success-modal-text").text('We’re happy to inform you that we are currently working on your report.');
+                    }
+
                     $('#AdvertiserReportTable').DataTable().ajax.reload(null, false);
+                    // $("#success_popup").modal('show');
+                    var myModal = new bootstrap.Modal(document.getElementById('success_popup'));
+                    myModal.show();
+                    // alert('sdfd');
                 }
             },
             error: function(xhr) {
@@ -407,8 +496,6 @@ table td,th{
                 'report_id':report_id
             },
             success: function(response) {
-                console.log('response');
-                console.log(response);
                 if(response.error == false){
                     let status = (response.data.report_status == 'pending') ? 'Current' : response.data.report_status;
                     $(".report_ref").text('#'+response.data.id +''+ response.data.escort_id);
@@ -417,12 +504,11 @@ table td,th{
                     $(".report_escort_id").text(response.data.escort_id);
                     $(".report_viewer_id").text(response.data.viewer_id);
                     $(".report_status").text(capitalizeFirstLetter(status));
-                    $(".report_home_state").text(response.data.escort.user.home_state);
+                    $(".report_home_state").text(response.data.escort.user.state_id);
                     $(".report_comment").text(capitalizeFirstLetter(response.data.report_desc));
                     $(".report_mobile").text(response.data.escort.user.phone);
+                    $(".report_viewer_mobile").text(response.data.viewer.phone);
                 }
-
-                //$("#escortPopupModalBodyIframe").attr('src', response.profileurl)
             },
             error: function(xhr) {
                 console.error('Failed to fetch data');
@@ -436,12 +522,17 @@ table td,th{
     function ajaxReload(tableId, ajaxUrl, method)
     {
         var table = $('#'+tableId).DataTable({
+            language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Member ID..."
+            },
             processing: true,
             serverSide: true,
             paging: true,
             info: true,
             searching: true,
             bStateSave: true,
+           // ordering: false,
             ajax: {
                 url: ajaxUrl,
                 type: method,
@@ -457,11 +548,13 @@ table td,th{
                 { data: 'member_id', name: 'member_id' },
                 { data: 'mobile', name: 'mobile' },
                 { data: 'home_state', name: 'home_state' },
-                { data: 'status', name: 'status' },
+                { data: 'status', name: 'status'},
                 { data: 'action', name: 'action', orderable: false }
             ]
         });
     }
+
+});
     
 </script>
 @endpush

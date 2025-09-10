@@ -14,24 +14,86 @@
 @endsection
 @section('content')
 
-<div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
-    <div class="row">    
-       <div class="custom-heading-wrapper col-md-12">
-          <h1 class="h1">Social Media</h1>
-          <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-       </div>
-       <div class="col-md-12 mb-4">
-          <div class="card collapse" id="notes" style="">
-             <div class="card-body">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    
+        
+    <div class="row">
+        <div class="col-md-12 custom-heading-wrapper">
+            <h1 class="h1">Social Media</h1>
+            <span class="helpNoteLink font-weight-bold collapsed" data-toggle="collapse" data-target="#notes" aria-expanded="false">Help?</span>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes" style="">
+            <div class="card-body">
                 <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                <ol>
-                      
-                </ol>
-             </div>
-          </div>
-       </div>
+                <ol></ol>
+            </div>
+            </div>
+        </div>
     </div>
- </div>
+    
+    
+   
+    
+  
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive-xl">
+                <table id="socialMediaTable" class="table table-bordered display dataTable no-footer" width="100%">
+                    <thead class="bg-first">
+                    <tr>
+                            <th>Social Icon</th>
+                            <th>Social Platform</th>
+                            <th class="text-center">Clicks Today</th>
+                            <th class="text-center">Clicks This Week</th>
+                            <th class="text-center">Year to Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr role="row">
+                            <td><div class="statistics-icon">
+                                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/dashboard/img/twitter-icon.png" alt="icon">
+                            </div></td>
+                            <td>X</td>
+                            <td class="text-center">25</td>
+                            <td class="text-center">125</td>
+                            <td class="text-center">1,500</td>
+                        </tr>
+                        <tr role="row">
+                            <td><div class="statistics-icon">
+                                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/dashboard/img/instagram-icon.png" alt="icon">
+                            </div></td>
+                            <td>Instagram</td>
+                            <td class="text-center">25</td>
+                            <td class="text-center">125</td>
+                            <td class="text-center">1,500</td>
+                        </tr>
+                        <tr role="row">
+                            <td><div class="statistics-icon">
+                                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/dashboard/img/facebook-icon.png" alt="icon">
+                            </div></td>
+                            <td>Facebook</td>
+                            <td class="text-center">25</td>
+                            <td class="text-center">125</td>
+                            <td class="text-center">1,500</td>
+                        </tr>
+                        <tr>
+                            <td><div class="statistics-icon">
+                                <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/dashboard/img/click.png" alt="icon">
+                            </div></td>
+                            <td class="text-right font-weight-bold" colspan="3">Total Clicks</td>
+                            <td class="text-center font-weight-bold">4,500</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> 
+        </div>
+    </div>
+  
+
+    
+
+</div>
 @endsection
 @push('script')
 <!-- file upload plugin start here -->

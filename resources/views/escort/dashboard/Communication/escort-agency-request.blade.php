@@ -42,7 +42,7 @@
 
     @if(auth()->user()->is_agent_assign=='1' && auth()->user()->assigned_agent_id!=null)
      <div class="row">
-        <div class="col-md-12 my-4">
+        <div class="col-md-12 add-punterbox-report my-4">
              <p class="mb-0" style="font-size: 20px;color:red"><b>Note : You have already been assigned an Agent.</b> </p>
         </div>
      </div>
@@ -55,25 +55,25 @@
                 <form action="{{route('escort.agent-request')}}" method="post" name="agent_request_frm" id="agent_request_frm">
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-9">
 
-                            <div class="form-group w-50">
+                            <div class="form-group ">
                                 <label for="email"><b>First Name</b> </label>
                                 <input id="name" placeholder="First Name" name="first_name" type="text" class="form-control" required="">
                             </div>
-                            <div class="form-group w-50">
+                            <div class="form-group ">
                                 <label for="email"><b>Last Name</b> </label>
                                 <input id="name" placeholder="Last Name" name="last_name" type="text" class="form-control" >
 
                             </div>
 
-                            <div class="form-group w-50">
+                            <div class="form-group ">
                                 <label for="email"><b>Email</b></label>
                                 <input id="name" placeholder="Email Address" name="email" type="text" class="form-control" required>
 
                             </div>
 
-                            <div class="form-group w-50">
+                            <div class="form-group ">
                                 <label for="email"><b>Mobile Number</b> </label>
                                 <input id="name" placeholder="Mobile Number" name="mobile_number" type="text" class="form-control" required>
                             </div>
@@ -97,7 +97,7 @@
                                     <label class="form-check-label" for="Method_Text">Contact me by mobile</label>
                                 </div>
                             </div>
-                            <div class="form-group w-50">
+                            <div class="form-group ">
                                 <label for="exampleFormControlTextarea1">
                                     <b>Comments</b> (please provide any additional information to assist us)
                                 </label>
@@ -127,7 +127,14 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
        <div class="modal-content">
           <div class="modal-header">
-             <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/request-submit.png')}}" style="width:32px; margin-right:10px;" alt="Agent Request Submitted"> Agent Request Submitted</h5>
+             <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/request-submit.png')}}" style="width:32px; margin-right:10px;">
+             @if(session('resposne_status') === true)
+             {{ 'Agent Request Submitted' }}
+             @else
+              {{ 'Request Notification'}}
+            @endif
+            
+            </h5>
              <button type="button" class="close close_request_modal" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
              </button>
@@ -135,7 +142,10 @@
           <div class="modal-body pb-0">
                 <div class="row">
                    <div class="col-12 mb-3">
-                        <p>Your Request for a Support Agent has been submitted. A Support Agent will be in touch
+
+                    @if(session('resposne_status') === true)
+
+                            <p>Your Request for a Support Agent has been submitted. A Support Agent will be in touch
                             with you according to your preferred method.</p>
                             <p>If a Support Agent has not contacted you within 24 hours, please raise a Support Ticket
                                 quoting the following reference : 
@@ -143,6 +153,13 @@
                                 {{ session('req_ref_number') }}.
                                 @endif
                             </p>
+
+                     @else
+                           <p>{{ session('agent_success') }}</p> 
+
+                    @endif
+                                
+                        
                    </div>
                 </div>
           </div>

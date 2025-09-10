@@ -23,7 +23,14 @@
 
    padding: 0px;
 }
+.dataTables_processing{   
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}
 </style>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -121,14 +128,14 @@
             { data: 'user_member_id', name: 'user_member_id', orderable: true, defaultContent: 'NA' },
             { data: 'phone', name: 'phone', orderable: true, defaultContent: 'NA' },
             { data: 'country_code', name: 'country_code', orderable: true, defaultContent: 'NA' },
-           
-            { data: 'view_status', name: 'view_status', orderable: true, defaultContent: 'NA' },
-            { data: 'accepted_date', name: 'accepted_date', orderable: true, defaultContent: 'NA' },
+            { data: 'view_status', name: 'view_status', orderable: false, defaultContent: 'NA' },
+            { data: 'accepted_date', name: 'accepted_date', orderable: false, defaultContent: 'NA' },
             { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: 'NA' },
         ],
 
-        order: [[1, 'desc']],
+        
         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+        order: [[1, 'desc']],
         pageLength: 10,
     });
 
@@ -224,7 +231,7 @@
         var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
                            <div class="modal-content">
                               <div class="modal-header">
-                                 <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/create-notification.png')}}" style="width:40px; margin-right:10px;" alt="Request Accepted"> Follow-up Notification</h5>
+                                 <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/create-notification.png')}}" class="custompopicon" alt="Request Accepted"> Follow-up Notification</h5>
                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                  <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                                  </button>
@@ -232,8 +239,7 @@
                               <div class="modal-body pb-0">
                                     <div class="row">
                                        <div class="col-12 my-2 text-center">
-                                             <p>Notification Send successfully</p>
-                                                
+                                             <h4 id="task_desc">Notification Send successfully</h4>           
                                        </div>
                                     </div>
                               </div>

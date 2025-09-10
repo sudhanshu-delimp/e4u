@@ -545,7 +545,7 @@ class UpdateController extends AppController
             foreach ($request->position as $position => $mediaId) {
                 if ($mediaId) {
                     $media_arr[$position]  = [
-                        'escort_media_id' => $mediaId,
+                        'escort_media_id' => isGalleryTemplate($mediaId),
                         'position' => $position,
                     ];
                 }
@@ -620,9 +620,6 @@ class UpdateController extends AppController
                 $gallery->created_at = date('Y-m-d H:i:s');
                 $gallery->save();
             }
-            //            $return = $escort->gallary()->syncWithoutDetaching($media_arr);
-
-            //$my_data['poliLink'] = route('escort.poli.paymentUrl', [$escortId]);
             if ($errors) {
                 return redirect()->route('escort.update.profile', $id)->with('error', $errors);
             } else {
@@ -751,7 +748,6 @@ class UpdateController extends AppController
 
     public function updateProfile($id)
     {
-        // dd($id);
         $escort = $this->escort->find($id);
         if ($escort->user_id != auth()->user()->id) {
             return redirect()->route('escort.list', 'current')->with('error', "This profile doesn't belongs to you");
@@ -762,13 +758,13 @@ class UpdateController extends AppController
             $durations = $this->duration->all();
             $availability = $escort->availability;
             $service = $this->service;
-            $path = $this->media->findByVideoposition(auth()->user()->id, 1)['path'];
-            $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [8, 10], $id);
+            $path = $this->media;
+            $media = $this->media->with_Or_withoutPosition(auth()->user()->id, [], $id);
             $users_for_available_playmate = $this->user->findPlaymates(auth()->user()->id);
             $defaultImages = $this->media->findDefaultMedia($user->id, 0);
             $escortDefault = $this->escort->findDefault(auth()->user()->id, 1);
             $defaultServiceIds = $escortDefault->services()->pluck('service_id')->toArray();
-            return view('escort.dashboard.profile.update', compact('defaultServiceIds','defaultImages', 'media', 'users_for_available_playmate', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'user'));
+            return view('escort.dashboard.profile.update', compact('defaultServiceIds','defaultImages','media', 'users_for_available_playmate', 'path', 'escort', 'service', 'availability', 'service_one', 'service_two', 'service_three', 'durations', 'user'));
         }
     }
     public function agentUpdateProfile($id, $uid)

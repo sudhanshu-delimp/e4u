@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Center;
 
 use Auth;
-use File;
+
 use FFMpeg;
 use Carbon\Carbon;
 use App\Models\User;
@@ -11,7 +11,9 @@ use App\Models\Service;
 use App\Models\Duration;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\User\UserInterface;
@@ -29,6 +31,7 @@ use App\Http\Requests\Escort\UpdateRequestReadMore;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
 use App\Repositories\MassageProfile\MassageProfileInterface;
+
 
 class CenterController extends Controller
 {
@@ -51,7 +54,7 @@ class CenterController extends Controller
     public function index()
     {
 
-        
+
         $escorts = $this->escort->all();
 
         return view('center.dashboard.index', compact('escorts'));
@@ -106,23 +109,22 @@ class CenterController extends Controller
     public function editPassword()
     {
         $user = $this->user->find(auth()->user()->id);
-        return view('center.my-account.change-password',compact('user'));
+        return view('center.my-account.change-password', compact('user'));
     }
     public function updatePassword(UpdateEscortRequest $request)
     {
 
         $user = $this->user->find(auth()->user()->id);
         $error = true;
-        if(!Hash::check($request->password, $user->password)){
-           //'Return error with current passowrd is not match';
-           $error = false;
-        }else{
+        if (!Hash::check($request->password, $user->password)) {
+            //'Return error with current passowrd is not match';
+            $error = false;
+        } else {
             //'Write here your update password code';
             $data = [
                 'password' => Hash::make($request->new_password),
             ];
             $this->user->store($data, auth()->user()->id);
-
         }
 
         return response()->json(compact('error'));
@@ -132,71 +134,97 @@ class CenterController extends Controller
         $user = $this->user->find(auth()->user()->id);
         $error = true;
 
-            //'Write here your update password code';
-            $user->passwordSecurity->password_expiry_days = $request->password_expiry_days;
-            $user->passwordSecurity->password_notification = $request->password_notification;
-            $user->passwordSecurity->password_updated_at = Carbon::now();
-            $user->passwordSecurity->save();
-            // dd( $request->all());
+        //'Write here your update password code';
+        $user->passwordSecurity->password_expiry_days = $request->password_expiry_days;
+        $user->passwordSecurity->password_notification = $request->password_notification;
+        $user->passwordSecurity->password_updated_at = Carbon::now();
+        $user->passwordSecurity->save();
+        // dd( $request->all());
         return response()->json(compact('error'));
     }
     public function uploadAvatar()
     {
         return view('center.my-account.upload-avatar');
     }
-    public function storeMyAvatar(StoreAvatarMediaRequest $request,$id)
+    public function storeMyAvatar(StoreAvatarMediaRequest $request, $id)
     {
 
-        // $attachment = $request->file('avatar_img');
-        // list($width, $height) = getimagesize($attachment);
-        // $mime = $attachment->getMimeType();
-        // if(strstr($mime, "video/")){
-        //     $prefix = 'videos/';
-        //     $type = 1;  //0=>image; 1=>video
-        // } else {
-        //     $prefix = 'images/';
-        //     $type = 0;
-        //     //$file_path = $prefix.$id.'/'.Str::slug(pathinfo($attachment->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$attachment->getClientOriginalExtension();
-        //     $file_path = $attachment->getClientOriginalName();
-        //     Storage::disk('avatars')->put($file_path, file_get_contents($attachment));
-        //     //dd($attachment->getClientOriginalName());
-        //     $user = $this->user->find($id);
-        //     $user->avatar_img = $attachment->getClientOriginalName();
-        //     $user->save();
-        //     //dd($user);
-        // }
-        // return response()->json(compact('type'));
+        try {
+            if ((int) Auth::id() !== (int) $id) {
+                return response()->json(['type' => 1, 'message' => 'Unauthorized'], 403);
+            }
 
-        $extension = explode('/', mime_content_type($request->src))[1];
-        $data = $request->src;
+            $src = $request->input('src');
 
-        list($type, $data)  = explode(';', $data);
-        list(, $data)       = explode(',', $data);
-        $data               = base64_decode($data);
-        $avatar_owner       = Auth::user()->id;
+            $semicolonPos = strpos($src, ';');
+            $mime = substr($src, 5, $semicolonPos - 5); // image/jpeg
+            $extension = explode('/', $mime)[1] ?? 'png';
+            $extension = strtolower($extension) === 'jpeg' ? 'jpg' : strtolower($extension);
 
-        $avatarName          = time(). '-' .$avatar_owner .'.'.$extension;
-        $avatar_uri          = file_put_contents(public_path() . '/avatars/' . $avatarName, $data);
+            $commaPos = strpos($src, ',');
+            $base64 = substr($src, $commaPos + 1);
+            $binary = base64_decode($base64, true);
 
-        //dd($avatar_uri);
-        $user = $this->user->find($id);
-        $user->avatar_img = $avatarName;
+            $dir = public_path('avatars');
+            if (!File::exists($dir)) {
+                File::makeDirectory($dir, 0755, true);
+            }
 
-        $user->save();
-        $type = 0;
-        return response()->json(compact('type','avatarName'));
+            $avatarOwner = Auth::id();
+            $avatarName = time() . '-' . $avatarOwner . '.' . $extension;
+            $fullPath = $dir . DIRECTORY_SEPARATOR . $avatarName;
+            if (File::put($fullPath, $binary) === false) {
+                throw new \RuntimeException('Failed to save avatar file');
+            }
+
+            $user = $this->user->find($id);
+            if (!$user) {
+                return response()->json(['type' => 1, 'message' => 'User not found'], 404);
+            }
+
+            if (!empty($user->avatar_img)) {
+                $oldPath = $dir . DIRECTORY_SEPARATOR . $user->avatar_img;
+                if (File::exists($oldPath)) {
+                    @File::delete($oldPath);
+                }
+            }
+
+            $user->avatar_img = $avatarName;
+            $user->save();
+
+            $type = 0;
+            return response()->json(compact('type', 'avatarName'));
+        } catch (\Throwable $e) {
+            \Log::error('Error saving avatar for user ' . $id . ': ' . $e->getMessage());
+            return response()->json(['type' => 1, 'message' => $e->getMessage()], 500);
+        }
     }
     public function removeMyAvatar()
     {
+        try {
             $user = $this->user->find(auth()->user()->id);
-            $user->avatar_img = null;
-            $user->save();
-            $type = 1;
-        return response()->json(compact('type'));
+
+            if (!$user) {
+                return response()->json(['type' => 1, 'message' => 'User not found'], 404);
+            }
+            $path =  public_path('/avatars/' . $user->avatar_img);
+            if (File::exists($path)) {
+                File::delete($path);
+                $user->avatar_img = null;
+                $user->save();
+            } else {
+                return response()->json(['type' => 1, 'message' => 'Image not found!']);
+            }
+            $defaultImg = asset(config('constants.massage_default_icon'));
+            return response()->json(['type' => 0, 'message' => 'Avatar removed successfully', 'img' => $defaultImg]);
+        } catch (\Exception $e) {
+            \Log::error('Error removing avatar: ' . $e->getMessage());
+            return response()->json(['type' => 1, 'message' => $e->getMessage()], 500);
+        }
     }
     public function edit()
     {
-        $escort = User::where('id',auth()->user()->id)->first();
+        $escort = User::where('id', auth()->user()->id)->first();
         return view('center.my-account.edit-my-account', compact('escort'));
     }
     public function update(UpdateEscortRequest $request)
@@ -204,19 +232,19 @@ class CenterController extends Controller
         //dd($request->all());
         $data = [];
         $data = [
-                'name' => $request->name,
-                // 'gender' => $request->gender,
-                // 'contact_type' => $request->contact_type,
-                'phone' => $request->phone,
-                //'city_id'=>$request->city_id,
-                //'country_id'=>$request->country_id,
-                // 'state_id'=>$request->state_id,
-                // 'email'=>$request->email ? $request->email : null,
-                //'social_links'=>$request->social_links,
+            'name' => $request->name,
+            // 'gender' => $request->gender,
+            // 'contact_type' => $request->contact_type,
+            'phone' => $request->phone,
+            //'city_id'=>$request->city_id,
+            //'country_id'=>$request->country_id,
+            // 'state_id'=>$request->state_id,
+            // 'email'=>$request->email ? $request->email : null,
+            //'social_links'=>$request->social_links,
         ];
 
         $error = true;
-        if($this->user->store($data, auth()->user()->id)) {
+        if ($this->user->store($data, auth()->user()->id)) {
             $error = false;
         }
         return response()->json(compact('error'));
@@ -224,8 +252,7 @@ class CenterController extends Controller
 
     public function timeConvert($array)
     {
-        $time = explode(':',$array);
-
+        $time = explode(':', $array);
     }
 
     ///////////////////

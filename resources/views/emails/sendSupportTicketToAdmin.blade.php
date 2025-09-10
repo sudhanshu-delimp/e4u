@@ -38,7 +38,7 @@
                             <p style="font-size: 18px; margin: 0 0 15px 0;"><b>Attention Operations</b></p>
 
                              <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                A member has submit a support ticket with the below deatils:
+                                A member has submitted a support ticket with the below deatils:
                             </p>
 
                             <!-- Info Table -->
@@ -86,7 +86,7 @@
                     style="background-color:#0c223d; padding: 15px 30px; font-family:Arial, sans-serif; color:#ffffff; font-size:12px; text-align:center;">
                     <tr>
                         <td style="line-height: 21px;">
-                            This is an automatically generated email by the Escorts4u Operations Centre.<br>
+                            This is an automatically generated email by the Escorts4U Operations Centre.<br>
                             &copy; Copyright 2025 Blackbox Tech Pty Ltd. All rights reserved.
                         </td>
                     </tr>

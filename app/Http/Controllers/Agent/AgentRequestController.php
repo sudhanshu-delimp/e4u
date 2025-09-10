@@ -19,9 +19,13 @@ class AgentRequestController extends Controller
 {
     
         protected $notification;
+        protected $notification_title;
+
         public function __construct()
         {
             $this->notification = new Notification;
+            $this->notification_title = 'A request to appoint an Agent in your Territory remains outstanding.
+             Please visit <a href="'.config('app.url').'/agent-dashboard/Advertisers/new-requests">New Requests</a> to acknowledge.';
         }
 
         public function agentRequest(AgentRequest $request)
@@ -45,7 +49,9 @@ class AgentRequestController extends Controller
             {
 
                 $refNumber = random_string();
-                DB::transaction(function () use ($request, $agent_users,$refNumber) {
+                $resposne_message = "";
+                $resposne_status = "";
+                DB::transaction(function () use ($request, $agent_users,$refNumber,&$resposne_message,&$resposne_status) {
                     $agentData = [
                         'user_id' => auth()->user()->id,
                         'state_id' => auth()->user()->state_id,
@@ -62,24 +68,65 @@ class AgentRequestController extends Controller
                     ];
 
                    
-                    $agentRequest = AdvertiserAgentRequest::create($agentData);
-
                     $advertiser_agent_request_users = [];
-                    foreach ($agent_users as $userId) {
-                        $advertiser_agent_request_users[] = [
-                            'advertiser_agent_requests_id' => $agentRequest->id,
-                            'advertiser_user_id' => auth()->user()->id,
-                            'receiver_agent_id' => $userId,
-                            'status' => 0,
-                            'created_at' => date('Y-m-d H:i:s')
-                        ];
-                    }
+                    $agent_id = [] ;
+        
+                    $receiverAgentIds = AdvertiserAgentRequestUser::where('advertiser_user_id', auth()->user()->id)
+                    ->where('status', '0')
+                    ->whereIn('receiver_agent_id', $agent_users)
+                    ->pluck('receiver_agent_id')
+                    ->toArray();
 
-                    AdvertiserAgentRequestUser::insert($advertiser_agent_request_users);
+
+                    if (count($receiverAgentIds) === 0) 
+                    {
+
+                            $agentRequest = AdvertiserAgentRequest::create($agentData);
+
+                            foreach ($agent_users as $userId) 
+                            {
+                                {
+                                    $advertiser_agent_request_users[] = [
+                                    'advertiser_agent_requests_id' => $agentRequest->id,
+                                    'advertiser_user_id' => auth()->user()->id,
+                                    'receiver_agent_id' => $userId,
+                                    'status' => 0,
+                                    'created_at' => date('Y-m-d H:i:s')
+                                    ];
+                                } 
+                                
+                                $agent_id[] = $userId;
+                                
+                            }
+
+                            AdvertiserAgentRequestUser::insert($advertiser_agent_request_users);
+                            $resposne_message = 'Request submitted successfully.';
+                            $resposne_status = true;
+
+                    } 
+                    else
+                    {
+                        $agent_id = array_unique($receiverAgentIds);
+                        $refNumber = "";
+                        $resposne_message = 'You already have a Request for a Support Agent logged.';
+                        $resposne_status = false;
+                    }   
+
+                        $data['to_user'] = $agent_id;
+                        $data['notification_type'] = 'agent_follow_up';
+                        $data['notification_listing_type'] = 2;
+                        $data['title'] = $this->notification_title;
+                        $data['message'] = '';
+                        $this->notification->sendNotification($data);
+                         
                 });
 
-                return redirect()->back()->with('req_ref_number', $refNumber)->with('agent_success', 'Request submitted successfully.');
-            } catch (Exception $e) {
+                return redirect()->back()
+                    ->with('resposne_status', $resposne_status)
+                    ->with('req_ref_number', $refNumber)
+                    ->with('agent_success', $resposne_message);
+            } 
+            catch (Exception $e) {
                 return redirect()->back()->with('error', 'An error occurred while submitting the request.');
             }
         }
@@ -112,6 +159,7 @@ class AgentRequestController extends Controller
                 });
             }
             $lists = $query->orderBy('id', 'desc')->paginate(3);
+            
             ///dd(json_decode(json_encode($lists),true));
             if ($request->ajax()) {
                 return view('agent.dashboard.Advertisers.agent-requests-list', compact('lists'))->render();
@@ -327,11 +375,22 @@ class AgentRequestController extends Controller
 
     public function dataTable()
     {
+
+        $order = request()->get('order');
+        $order_column = null;
+        $order_dir = null;
+
+        if (!empty($order) && isset($order[0]['column']) && isset($order[0]['dir'])) {
+            $order_column = $order[0]['column'];
+            $order_dir    = $order[0]['dir'];
+        }
+
+
         list($result, $count) = $this->paginatedList(
             request()->get('start'),
             request()->get('length'),
-            (request()->get('order')[0]['column']),
-            request()->get('order')[0]['dir']
+            $order_column,
+            $order_dir
         );
         $data = array(
             "draw"            => intval(request()->input('draw')),
@@ -345,7 +404,7 @@ class AgentRequestController extends Controller
 
     private function paginatedList($start, $limit, $order_key, $dir)
     {
-            
+        
            $total_accepted = 0;
            $query = AdvertiserAgentRequest::whereHas('agent_request_users', function ($q) {
                 $q->where('id', '>', 0);
@@ -358,6 +417,9 @@ class AgentRequestController extends Controller
                    $q->where('id', '>', 0);
                 },
             ]);
+            $query->leftJoin('users', 'users.id', '=', 'advertiser_agent_requests.user_id')
+                    ->leftJoin('states', 'states.id', '=', 'users.state_id')
+                    ->select('advertiser_agent_requests.*');
         
             
             $search = request()->input('search.value');
@@ -372,12 +434,33 @@ class AgentRequestController extends Controller
             }
 
             switch ($order_key) {
-                case 1:
+
+                    case 0:
                     $query->orderBy('ref_number', $dir);
                     break;
 
-                default:
-                    $query->orderBy('created_at', 'DESC')->orderBy('created_at', 'ASC');
+                    case 1:
+                    $query->orderBy('created_at', $dir);
+                    break;
+
+                    case 2:
+                    $query->orderBy('users.member_id', $dir);
+                    break;
+
+                    case 3:
+                    $query->orderBy('users.phone', $dir);
+                    break;
+
+                    case 4:
+                    $query->orderBy('states.iso2', $dir); 
+                    break;
+
+                    case 6:
+                    $query->orderBy('states.iso2', $dir); 
+                    break;
+
+                    default:
+                    $query->orderBy('id', 'asc');
                     break;
             }
 

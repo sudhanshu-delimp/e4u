@@ -60,5 +60,5 @@
 
 @include('partials.center.footer')
 
-<!--@section('script')
-@show-->
+@section('script')
+@show

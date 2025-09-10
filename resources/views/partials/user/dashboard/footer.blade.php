@@ -72,7 +72,7 @@
                             {   
                                 if(alert_notifications.is_new)
                                 {
-                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
+                                $('.alert_notify_bell').html('<i class="top-icon-bg fas fa-bell fa-fw"></i><span class="badge badge-danger badge-counter"> '+alert_notifications?.data?.length+'</span>');
                                 }
                             
                                 alert_notifications.data.forEach((notification) => {
@@ -108,7 +108,7 @@
                              
                                 if(support_notifications.is_new)
                                 {
-                                $('.support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i><span class="badge badge-danger badge-counter"> </span>');
+                                $('.support_notify_bell').html('<i class="top-icon-bg fas fa-ticket-alt fa-fw"></i><span class="badge badge-danger badge-counter">'+support_notifications?.data?.length+'</span>');
                                 }
                             
                                 support_notifications.data.forEach((notification) => {

@@ -11,6 +11,15 @@
    .swal-button {
       background-color: #242a2c;
    }
+   
+   .toggle-password {
+    position: absolute;
+    top: 28px;
+    right: 15px;
+    cursor: pointer;
+    z-index: 2;
+    color: #6c757d;
+}
 </style>
 @stop
 

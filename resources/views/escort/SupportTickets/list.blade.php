@@ -14,7 +14,7 @@
 {{-- Page Heading   --}}
 <div class="row">
     <div class="col-md-12 custom-heading-wrapper">
-        <h1 class="h1">View & Reply Ticket</h1>
+        <h1 class="h1">View & Reply</h1>
         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
     </div>
     <div class="col-md-12 mb-4">
@@ -87,9 +87,9 @@
                 <div class="reply-wrapper p-3 ">
                     <form id="sendMessage">
                        <div class="reply-message-box">
-                        <textarea class="messageBox" name="message" id="message" rows="2" required></textarea>
+                        <textarea class="messageBox" name="message" id="message" rows="4" required></textarea>
                         <input type="hidden" name="ticketId"  id="ticketId" value="">
-                        <button class="btn-success-modal py-3" id="submit_message">Send</button>
+                        <button class="btn-cancel-modal py-3" id="submit_message">Send</button>
                        </div>
                     </form>
                 </div>
@@ -172,7 +172,7 @@
     $(document).on('click', ".cancelTicket", function () {
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "You won't be able to reverse this!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -226,6 +226,7 @@
 
 
    function _load_conversations(tId) {
+        let resolved = "";
        $("#conv-main").html('');
        $.ajax({
            method: "GET",
@@ -235,6 +236,24 @@
                if(data.status_id == 3 || data.status_id == 4) {
                    $("#sendMessage").parent().hide();
                }
+                else
+                {
+                $("#sendMessage").parent().show();
+                }
+
+                if(data.status=='Resolved' || data.status=='Withdrawn')
+                {
+                    if(data.status=='Resolved')
+                    {
+                        message = 'This Ticket is now resolved';
+                    }
+                    else
+                    {
+                       message = 'This Ticket has been withdrawn'; 
+                    }
+
+                    resolved = `<div class="col-sm-12 text-center complete_ticket mt-3" style="font-weight: 700; font-size: 20px;color: green;"> ${message}</div>`
+                }
                var modalHeading = "<b>"+data.subject+'</b> - '+ date_time_format(data.created_on) +'<br>';
                // "<span>"+data.user.name+'</span> ( '+ data.user.member_id +')';
                $("#ticket_name").html(modalHeading);
@@ -269,7 +288,11 @@
                    }
                });
                $("#conv-main").html(html);
-                $("#ticketId").val(tId);
+               $("#ticketId").val(tId);
+                if(data.status=='Resolved' || data.status=='Withdrawn')
+                {
+                $('#conv-main').append(resolved);
+                }
            }
        })
    }

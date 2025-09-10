@@ -5,7 +5,10 @@ namespace App\Providers;
 use App\Events\EscortRegister;
 use App\Events\AgentRegistered;
 use App\Events\MassageRegister;
+use App\Listeners\LoginListener;
+use App\Listeners\LogoutListener;
 use Illuminate\Support\Facades\Event;
+use App\Listeners\LoginFailedListener;
 use Illuminate\Auth\Events\Registered;
 use App\Listeners\Agent\SendAgentWelcomeEmail;
 use App\Listeners\CreateDefaultAccountSettings;
@@ -47,13 +50,13 @@ class EventServiceProvider extends ServiceProvider
         ],
        
         'Illuminate\Auth\Events\Login' => [
-            'App\Listeners\LoginListener',
+            LoginListener::class
         ],
         'Illuminate\Auth\Events\Logout' => [
-            'App\Listeners\LogoutListener',
+            LogoutListener::class,
         ],
         'Illuminate\Auth\Events\Failed' => [
-            'App\Listeners\LoginFailedListener',
+            LoginFailedListener::class,
         ],
     ];
 

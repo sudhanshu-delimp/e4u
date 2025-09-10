@@ -116,7 +116,7 @@
             {{-- box start --}}
             <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('escort.dashboard.logs-and-status') }}">
+                    <a href="{{ route('logs.and.status') }}">
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/boxicon/agent/logs-and-statistics.png') }}" alt="Logs & Status">
                         </div>
@@ -994,6 +994,31 @@
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script>
+
+    // save logged user details on escord dashboard on page load
+    document.addEventListener("DOMContentLoaded", function () {
+        let platform = navigator.platform;
+        let browser = navigator.userAgent;
+        let lastPage = document.referrer;
+        let lastVisitedPage= window.location.pathname;
+
+        fetch("{{ route('user.log-details') }}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({
+                platform: platform,
+                browser: browser,
+                last_page: lastPage,
+                lastVisitedPage: lastVisitedPage
+            })
+        }).then(response => response.json())
+        .then(data => console.log("Log Saved:", data))
+        .catch(error => console.error("Error:", error));
+    });
+
         $(document).ready(function() {
 
             $(".showDateLabel").hide();

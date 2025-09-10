@@ -105,13 +105,13 @@
         </div>
     </li>
 
-    {{-- profile center --}}
+    {{-- Profile Management --}}
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pachive" aria-expanded="false" aria-controls="collapseTwo">
              <img src="{{ asset('assets/dashboard/img/menu-icon/add-profile-centre.png')}}">
-             <span >Profiles Centre</span>
+             <span >Profile Management</span>
         </a>
-        <div id="pachive" class=" collapse  @if(request()->segment(2) == 'create-profile' || request()->segment(2) == 'profile' || request()->segment(2) == 'list' || request()->segment(2) == 'view-archives' || request()->segment(2) == 'archive-medias' || request()->segment(2) == 'archive-view-photos') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+        <div id="pachive" class=" collapse  @if(request()->segment(2) == 'create-profile' || request()->segment(2) == 'profile' || request()->segment(2) == 'list' || request()->segment(2) == 'view-archives' || request()->segment(2) == 'archive-medias' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
             <div class="py-0 collapse-inner rounded mb-2">
             {{-- <a class="collapse-item" href="{{ route('center.profile-info.create-profile')}}"> --}}
             <a class="collapse-item" href="{{ route('center.profile')}}">
@@ -120,13 +120,13 @@
             </a>
              <a class="collapse-item" href="{{ route('center.list')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
-                <span style="{{ request()->segment(2) == 'list' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : ''}}">Edit Profile</span>
+                <span style="{{ request()->segment(2) == 'list' || request()->segment(2) == 'profile' ? 'color: #e5365a;' : ''}}">Our Profiles</span>
             </a>
 
-            <a class="collapse-item" href="{{ url('center-dashboard/view-archives') }}">
+            {{-- <a class="collapse-item" href="{{ url('center-dashboard/view-archives') }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png')}}">
                 <span style="{{request()->segment(2) == 'view-archives' || request()->segment(2) == 'archive-medias' || request()->segment(2) == 'archive-view-photos' ? 'color: #e5365a;' : ''}}">View Archives</span>
-            </a>
+            </a> --}}
 
             </div>
         </div>
@@ -137,13 +137,13 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#mediaCentre" aria-expanded="false" aria-controls="collapseTwo">
             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/media-centre.png')}}">
 
-             <span>Media Centre</span>
+             <span>Media</span>
         </a>
-        <div id="mediaCentre" class="collapse @if(request()->segment(3) == 'photos' || request()->segment(3) == 'videos' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="mediaCentre" class="collapse @if(request()->segment(2) == 'archive-view-photos' || request()->segment(3) == 'videos' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-            <a class="collapse-item" href="{{ route('center.photos') }}">
+            <a class="collapse-item" href="{{ route('cen.archive-view-photos') }}">
             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/photo.png')}}">
-            <span style="{{request()->segment(3) == 'photos' ? 'color: #e5365a;' : ''}}">Photos</span>
+            <span style="{{request()->segment(2) == 'archive-view-photos' ? 'color: #e5365a;' : ''}}">Photos</span>
             </a>
             <a class="collapse-item" href="{{ route('center.videos') }}">
             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/video.png')}}">
@@ -153,34 +153,34 @@
         </div>
     </li>
 
-     {{-- Profiles Masseurs --}}
+     {{-- Masseurs --}}
      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#profilesMasseurs" aria-expanded="false" aria-controls="collapseTwo">
             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/masseur-profile.png')}}">
 
-             <span>Profiles Masseurs</span>
+             <span>Masseurs</span>
         </a>
         
-        <div id="profilesMasseurs" class="collapse @if(request()->segment(3) == 'add-profile' || request()->segment(3) == 'current-profile' || request()->segment(3) == 'past-profile' ) show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="profilesMasseurs" class="collapse @if(request()->segment(3) == 'massuers-profiles' || request()->segment(3) == 'add-media' || request()->segment(3) == 'add-profile') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-            <a class="collapse-item" href="{{ route('center.add-profile') }}">
+            <a class="collapse-item" href="{{ route('center.massuers-profiles') }}">
             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/account-multiple-plus.png')}}">
-            <span style="{{request()->segment(3) == 'add-profile' ? 'color: #e5365a;' : ''}}">New</span>
+            <span style="{{request()->segment(3) == 'massuers-profiles' ? 'color: #e5365a;' : ''}}">Profiles</span>
             </a>
-            <a class="collapse-item" href="{{ route('center.current-profile') }}">
+            <a class="collapse-item" href="{{ route('center.add-media') }}">
             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
-            <span style="{{request()->segment(3) == 'current-profile' ? 'color: #e5365a;' : ''}}">Current</span>
+            <span style="{{request()->segment(3) == 'add-media' ? 'color: #e5365a;' : ''}}">Media</span>
             </a>
-            <a class="collapse-item" href="{{ route('center.past-profile') }}">
+            {{-- <a class="collapse-item" href="{{ route('center.past-profile') }}">
             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png')}}">
             <span style="{{request()->segment(3) == 'past-profile' ? 'color: #e5365a;' : ''}}">Past</span>
-            </a>
+            </a> --}}
             </div>
         </div>
     </li>
     
     {{-- Media Masseurs --}}
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#mediaMasseurs" aria-expanded="false" aria-controls="collapseTwo">
             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/media-masseur.png')}}">
 
@@ -198,7 +198,7 @@
             </a>
             </div>
         </div>
-    </li>
+    </li> --}}
     {{-- devider --}}
     <li style="border-bottom:1px solid rgba(255,255,255,0.8);margin:0px 30px 0 15px; /*padding:20px 0;*/"></li>
     {{-- Analytics --}}
@@ -340,30 +340,77 @@
         </div>
 
     </li>
-    {{-- Masseurs Profile --}}
-    {{-- <li class="nav-item">
+    {{-- How is it Done --}}
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#masseurs" aria-expanded="true" aria-controls="collapseTwo">
-             <img src="{{ asset('assets/app/img/massage-table.png')}}">
-             <span>Masseurs Profile</span>
+             <img src="{{ asset('assets/dashboard/img/menu-icon/how-quest.png')}}">
+             <span>How is it Done</span>
         </a>
-        <div id="masseurs" class="collapse ;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="masseurs" class="collapse @if(request()->segment(2) == 'editmyaccount' || request()->segment(2) == 'profile-information' || request()->segment(2) == 'listings' || request()->segment(2) == 'profiles-centre' || request()->segment(2) == 'media-centre' || request()->segment(2) == 'profiles-masseurs' || request()->segment(2) == 'media-masseurs')  show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
-            <a class="collapse-item" href="#">
-                <img src="{{ asset('assets/app/img/profile.png')}}">
-                <span style="">Add Profile</span>
+            <a class="collapse-item" href="{{ route('center.editmyaccount') }}">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/icons-account.png')}}">
+                <span style="{{request()->segment(2) == 'editmyaccount' ? 'color: #e5365a;' : ''}}">Edit My Account</span>
             </a>
-             <a class="collapse-item" href="#">
-                <img src="{{ asset('assets/app/img/media.png')}}">
-                <span style="">Add Media</span>
+             <a class="collapse-item" href="{{ route('center.profile-information') }}">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/information-24.png')}}">
+                <span style="{{request()->segment(2) == 'profile-information' ? 'color: #e5365a;' : ''}}">Profile Information</span>
             </a>
 
-            <a class="collapse-item" href="#">
-                <img src="{{ asset('assets/app/img/summary-list.png')}}">
-                <span style="">Profiles Summary</span>
+            <a class="collapse-item" href="{{ route('center.listings') }}">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/listing-24.png')}}">
+                <span style="{{request()->segment(2) == 'listings' ? 'color: #e5365a;' : ''}}">Listings</span>
+            </a>
+            <a class="collapse-item" href="{{ route('center.profiles-centre') }}">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/center-24.png')}}">
+                <span style="{{request()->segment(2) == 'profiles-centre' ? 'color: #e5365a;' : ''}}">Profiles Centre</span>
+            </a>
+            <a class="collapse-item" href="{{ route('center.media-centre') }}">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/media-24.png')}}">
+                <span style="{{request()->segment(2) == 'media-centre' ? 'color: #e5365a;' : ''}}">Media Centre</span>
+            </a>
+            <a class="collapse-item" href="{{ route('center.profiles-masseurs') }}">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/wooden-massage-table-24.png')}}">
+                <span style="{{request()->segment(2) == 'profiles-masseurs' ? 'color: #e5365a;' : ''}}">Profiles Masseurs</span>
+            </a>
+            <a class="collapse-item" href="{{ route('center.media-masseurs') }}">
+                <img src="{{ asset('assets/dashboard/img/menu-icon/masseur-24.png')}}">
+                <span style="{{request()->segment(2) == 'media-masseurs' ? 'color: #e5365a;' : ''}}">Media Masseurs</span>
             </a>
             </div>
         </div>
-    </li> --}}
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ugly" aria-expanded="true" aria-controls="collapseten">
+            <img src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png')}}">
+            <span >NUM</span>
+        </a>
+            <div id="ugly" class=" collapse  @if(request()->segment(2) == 'numdashboard' || request()->segment(2) == 'add-report' || request()->segment(2) == 'my-reports' || request()->segment(2) == 'num-tips' ) show @endif;" aria-labelledby="headingten" data-parent="#accordionSidebar">
+                <div class="py-0 collapse-inner rounded mb-2">
+
+                    <a id="myAnchor" class="collapse-item show" href="{{ route('center.numdashboard') }}">
+                        <img src="{{ asset('assets/img/dashboard-24.png')}}">
+                        <span style="{{ request()->segment(2) == 'numdashboard' ? 'color: #e5365a;' : ''}}">dashboard</span>
+                    </a>
+
+                    <a id="myAnchor" class="collapse-item show" href="{{ route('center.add-report') }}">
+                        <img src="{{ asset('assets/img/report-24.png')}}">
+                        <span style="{{ request()->segment(2) == 'add-report' ? 'color: #e5365a;' : ''}}">Add Report</span>
+                    </a>
+
+                    <a id="myAnchor" class="collapse-item show" href="{{ route('center.my-reports') }}">
+                        <img src="{{ asset('assets/img/8report-24.png')}}">
+                        <span style="{{ request()->segment(2) == 'my-reports' ? 'color: #e5365a;' : ''}}">My Reports</span>
+                    </a>
+
+                    <a id="myAnchor" class="collapse-item show" href="{{ route('center.num-tips') }}">
+                        <img src="{{ asset('assets/app/img/tips.png')}}">
+                        <span style="{{ request()->segment(2) == 'num-tips' ? 'color: #e5365a;' : ''}}">NUM (Tips)</span>
+                    </a>
+                </div>
+            </div>
+        </li>
 
     {{-- Reviews --}}
     {{-- <li class="nav-item">
@@ -414,7 +461,7 @@
         </div>
     </li>
     {{-- Ugly Mugs Register --}}
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ugly" aria-expanded="true" aria-controls="collapseten">
              <img src="{{ asset('assets/dashboard/img/menu-icon/Vector.png')}}">
              <span >Ugly Mugs Register</span>
@@ -438,7 +485,7 @@
 
             </div>
         </div>
-    </li>
+    </li> --}}
 
     {{-- <li class="nav-item v-last-setting v-divider">
         <a class="nav-link py-0" href="#">

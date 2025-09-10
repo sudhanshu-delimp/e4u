@@ -11,6 +11,7 @@ use App\Repositories\Escort\AvailabilityInterface;
 use App\Repositories\Page\PageInterface;
 use App\Models\Add_to_list;
 use App\Models\Add_to_massage_shortlist;
+use App\Models\AttemptLogin;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Escort;
@@ -19,6 +20,7 @@ use App\Models\EscortLike;
 use App\Models\MassageLike;
 use App\Models\EscortBrb;
 use App\Models\EscortViewerInteractions;
+use App\Models\LoginAttempt;
 use App\Models\ReportEscortProfile;
 use App\Models\Reviews;
 use App\Models\State;
@@ -1324,7 +1326,13 @@ class WebController extends Controller
     }
     public function likeDislike(Request $request)
     {
+        
         $userId = !empty(auth()->user()) ? auth()->user()->id : NULL;
+        if(!$userId){
+            return response()->json(['error' => true ]);
+        }
+        $ipAddress = AttemptLogin::Where('user_id', $userId)->first();
+       
         $escort_id = $request->escortId;
         $like = $request->vote;
         //request()->post('userId');
@@ -1332,9 +1340,9 @@ class WebController extends Controller
             'user_id' => $userId,
             'escort_id' => $escort_id,
             'like' => $like,
-            'ip_address' => $request->ipinfo->ip,
+            'ip_address' => $ipAddress->ip_address,
         ];
-        $todayVote = $this->_getUserLikeDislike($escort_id, $request->ipinfo->ip, $userId);
+        $todayVote = $this->_getUserLikeDislike($escort_id, $ipAddress->ip_address, $userId);
 
         $error = 0;
         if($todayVote) {
@@ -1382,6 +1390,37 @@ class WebController extends Controller
         })->first();
 
         return $result;
+    }
+
+    public function userLoggedDetailStore(Request $request)
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+             $data = [
+                'user_id' => $user->id,
+                'email' => $user->email,
+                'ip_address' => $request->ip(),
+                'device' => $request->browser,
+                'country' => null,
+                'city' => null,
+                'type' => 1,
+                'online' => 'yes',
+                'page' => $request->lastVisitedPage,
+            ];
+
+            $loginAttempt = LoginAttempt::where('user_id', $user->id); 
+
+            if($loginAttempt->first() != null){
+                $loginAttempt->update($data);
+            }else{
+                LoginAttempt::Create($data);
+            }
+           // LoginAttempt::Create($data);
+        }else{
+            return response()->json(['status' => 'User logged not yet.'], 401);
+        }
+
+        return response()->json(['status' => 'Login Successfully.']);
     }
 
 

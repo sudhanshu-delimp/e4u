@@ -102,11 +102,55 @@ Route::post('settings-socials-link',[CenterProfileInformationController::class,'
 //////////////end settings
 /////////////end
 
-// add Listings Route
+Route::get('customise-dashboard',function(){
+    return view('center.dashboard.customise-dashboard');
+})->name('center.dashboard.customise-dashboard');
+
+
+Route::get('centre-statistics',function(){
+    return view('center.dashboard.centre-statistics');
+})->name('center.dashboard.centre-statistics');
+
+Route::get('legbox-viewer',function(){
+    return view('center.dashboard.legbox-viewer');
+})->name('center.dashboard.legbox-viewer');
+
+
+Route::get('our-spend',function(){
+    return view('center.dashboard.our-spend');
+})->name('center.dashboard.our-spend');
+
+Route::get('our-statistics',function(){
+    return view('center.dashboard.our-statistics');
+})->name('center.dashboard.our-statistics');
+
+Route::get('task-list',function(){
+    return view('center.dashboard.task-list');
+})->name('center.dashboard.task-list');
+
+Route::get('manage-masseurs',function(){
+    return view('center.dashboard.manage-masseurs');
+})->name('center.dashboard.manage-masseurs');
+
+Route::get('manage-media',function(){
+    return view('center.dashboard.manage-media');
+})->name('center.dashboard.manage-media');
+
+Route::get('masseurs-statistics',function(){
+    return view('center.dashboard.masseurs-statistics');
+})->name('center.dashboard.masseurs-statistics');
+
+Route::get('logs-and-status',function(){
+    return view('center.dashboard.logs-and-status');
+})->name('center.dashboard.logs-and-status');
+
+
+
 Route::get('listing/add-listing', function()
 {
 	return view('center.dashboard.listing.add-listing');
 })->name('center.add-listing');
+
 
 
 Route::get('listing/current', function()
@@ -122,21 +166,26 @@ Route::get('listing/past', function()
 
 
 // add Masseurs Profle Route
-Route::get('profile-masseurs/add-profile', function()
+Route::get('masseurs/add-profile', function()
 {
-	return view('center.dashboard.profile-masseurs.add-profile');
+	return view('center.dashboard.masseurs.add-profile');
 })->name('center.add-profile');
 
-
-Route::get('profile-masseurs/current-profile', function()
+Route::get('masseurs/massuers-profiles', function()
 {
-	return view('center.dashboard.profile-masseurs.current');
-})->name('center.current-profile');
+	return view('center.dashboard.masseurs.massuers-profiles');
+})->name('center.massuers-profiles');
 
 
-Route::get('profile-masseurs/past-profile', function()
+Route::get('masseurs/add-media', function()
 {
-	return view('center.dashboard.profile-masseurs.past');
+	return view('center.dashboard.masseurs.add-media');
+})->name('center.add-media');
+
+
+Route::get('masseurs/past-profile', function()
+{
+	return view('center.dashboard.masseurs.past');
 })->name('center.past-profile');
 
 
@@ -323,3 +372,47 @@ Route::post('agent-request',[AgentRequestController::class, 'agentRequest'])->na
 
 Route::get('get-notification', [NotificationController::class, 'getNotification'])->name('center.get-notification');
 Route::post('notification-seen', [NotificationController::class, 'makeNotificationSeen'])->name('center.notification-seen');
+
+Route::get('editmyaccount',function(){
+    return view('center.dashboard.HowisDone.editmyaccount');
+})->name('center.editmyaccount');
+
+Route::get('profile-information',function(){
+    return view('center.dashboard.HowisDone.profile-information');
+})->name('center.profile-information');
+
+Route::get('listings',function(){
+    return view('center.dashboard.HowisDone.listings');
+})->name('center.listings');
+
+Route::get('profiles-centre',function(){
+    return view('center.dashboard.HowisDone.profiles-centre');
+})->name('center.profiles-centre');
+
+Route::get('media-centre',function(){
+    return view('center.dashboard.HowisDone.media-centre');
+})->name('center.media-centre');
+
+Route::get('profiles-masseurs',function(){
+    return view('center.dashboard.HowisDone.profiles-masseurs');
+})->name('center.profiles-masseurs');
+
+Route::get('media-masseurs',function(){
+    return view('center.dashboard.HowisDone.media-masseurs');
+})->name('center.media-masseurs');
+
+Route::get('numdashboard',function(){
+    return view('center.numdash.numdashboard');
+})->name('center.numdashboard');
+
+Route::get('add-report',function(){
+    return view('center.numdash.add-report');
+})->name('center.add-report');
+
+Route::get('my-reports',function(){
+    return view('center.numdash.my-reports');
+})->name('center.my-reports');
+
+Route::get('num-tips',function(){
+    return view('center.numdash.num-tips');
+})->name('center.num-tips');

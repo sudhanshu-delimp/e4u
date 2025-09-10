@@ -13,6 +13,7 @@ use App\Models\Escort;
 use App\Models\PinUps;
 use App\Models\Pricing;
 use App\Models\Purchase;
+use App\Models\PasswordHistory;
 use App\Models\EscortPinup;
 use Illuminate\Support\Str;
 use MongoDB\Driver\Session;
@@ -95,22 +96,22 @@ class EscortController extends Controller
 
     function add_listing()
     {
-        $today = Carbon::today()->toDateString();        
-        $excludedEscortIds = DB::table('purchase')
-            ->select('escort_id')
-            ->groupBy('escort_id')
-            ->havingRaw('MAX(end_date) >= ?', [$today])
-            ->pluck('escort_id');
+        // $today = Carbon::today()->toDateString();        
+        // $excludedEscortIds = DB::table('purchase')
+        //     ->select('escort_id')
+        //     ->groupBy('escort_id')
+        //     ->havingRaw('MAX(end_date) >= ?', [$today])
+        //     ->pluck('escort_id');
 
-        $escorts = Escort::whereNotIn('id', $excludedEscortIds)
-            ->whereNotNull('profile_name')
-            ->where('user_id', auth()->id())
-            ->get();
-        if (empty($escorts->toArray())) {
-            return redirect()->route('escort.profile')->with('info', 'Create at-least one profile');
-        }
+        // $escorts = Escort::whereNotIn('id', $excludedEscortIds)
+        //     ->whereNotNull('profile_name')
+        //     ->where('user_id', auth()->id())
+        //     ->get();
+        // if (empty($escorts->toArray())) {
+        //     return redirect()->route('escort.profile')->with('info', 'Create at-least one profile');
+        // }
 
-        return view('escort.dashboard.add_listing', compact('escorts'));
+        return view('escort.dashboard.add_listing');
     }
 
 
@@ -535,19 +536,62 @@ class EscortController extends Controller
     public function updatePassword(UpdateEscortRequest $request)
     {
         $user = $this->user->find(auth()->user()->id);
-        $error = true;
+        $msg = true;
+
+        // verify current password
         if (!Hash::check($request->password, $user->password)) {
-            //'Return error with current passowrd is not match';
-            $error = false;
-        } else {
-            //'Write here your update password code';
-            $data = [
-                'password' => Hash::make($request->new_password),
-            ];
-            $this->user->store($data, auth()->user()->id);
+            $msg = false;
+            $message = 'Invalid current password';
+            return response()->json(compact('msg', 'message'));
         }
 
-        return response()->json(compact('error'));
+        // check new password against current and last 5 previous passwords
+        $newPassword = $request->new_password;
+
+        // Collect last 5 password hashes
+        $previousHashes = PasswordHistory::where('user_id', $user->id)
+            ->orderByDesc('created_at')
+            ->limit(5)
+            ->pluck('password')
+            ->all();
+
+        // Also include current hash to prevent reusing current
+        $hashesToCheck = array_merge([$user->password], $previousHashes);
+
+
+        foreach ($hashesToCheck as $oldHash) {
+            if (Hash::check($newPassword, $oldHash)) {
+                $msg = false;
+                $message = 'You cannot reuse any of your last 5 passwords.';
+                return response()->json(compact('msg', 'message'));
+            }
+        }
+
+        // Store current password to history BEFORE updating
+        if (!empty($user->password)) {
+            PasswordHistory::create([
+                'user_id' => $user->id,
+                'password' => $user->password,
+            ]);
+        }
+
+        // Update to new password
+        $this->user->store([
+            'password' => Hash::make($newPassword),
+        ], $user->id);
+
+        // Trim history to last 5 (delete older ones)
+        $historyIdsToKeep = PasswordHistory::where('user_id', $user->id)
+            ->orderByDesc('created_at')
+            ->limit(5)
+            ->pluck('id')
+            ->all();
+
+        PasswordHistory::where('user_id', $user->id)
+            ->whereNotIn('id', $historyIdsToKeep)
+            ->delete();
+
+        return response()->json(compact('msg'));
     }
     public function updatePasswordExpiry(UpdateEscortRequest $request)
     {
@@ -637,55 +681,140 @@ class EscortController extends Controller
     }
     public function storeMyAvatar(StoreAvatarMediaRequest $request, $id)
     {
-        $attachment = $request->file('avatar_img');
-        $extension = $attachment->getClientOriginalExtension();
-        //$extension = explode('/', mime_content_type($request->src))[1];
-        $data = $request->src;
+        try {
+            if ((int) Auth::id() !== (int) $id) {
+                return response()->json(['type' => 1, 'message' => 'Unauthorized'], 403);
+            }
 
-        list($type, $data)  = explode(';', $data);
-        list(, $data)       = explode(',', $data);
-        $data               = base64_decode($data);
-        $avatar_owner       = Auth::user()->id;
+            $src = $request->input('src');
 
-        $avatarName          = time() . '-' . $avatar_owner . '.' . $extension;
-        $avatar_uri          = file_put_contents(public_path() . '/avatars/' . $avatarName, $data);
+            $semicolonPos = strpos($src, ';');
+            $mime = substr($src, 5, $semicolonPos - 5); // image/jpeg
+            $extension = explode('/', $mime)[1] ?? 'png';
+            $extension = strtolower($extension) === 'jpeg' ? 'jpg' : strtolower($extension);
 
-        //dd($avatar_uri);
-        $user = $this->user->find($id);
-        $user->avatar_img = $avatarName;
+            $commaPos = strpos($src, ',');
+            $base64 = substr($src, $commaPos + 1);
+            $binary = base64_decode($base64, true);
 
-        $user->save();
-        $type = 0;
+            $dir = public_path('avatars');
+            if (!File::exists($dir)) {
+                File::makeDirectory($dir, 0755, true);
+            }
 
-        // list($width, $height) = getimagesize($attachment);
-        // $mime = $attachment->getMimeType();
-        // if(strstr($mime, "video/")){
-        //     $prefix = 'videos/';
-        //     $type = 1;  //0=>image; 1=>video
-        // } else {
-        //     $prefix = 'images/';
-        //     $type = 0;
-        //     //$file_path = $prefix.$id.'/'.Str::slug(pathinfo($attachment->getClientOriginalName(), PATHINFO_FILENAME)).'.'.$attachment->getClientOriginalExtension();
-        //     $file_path = $attachment->getClientOriginalName();
-        //     Storage::disk('avatars')->put($file_path, file_get_contents($attachment));
-        //     dd($attachment->getClientOriginalName());
-        //     $user = $this->user->find($id);
-        //     $user->avatar_img = $attachment->getClientOriginalName();
-        //     $user->save();
-        // }
-        return response()->json(compact('type', 'avatarName'));
+            $avatarOwner = Auth::id();
+            $avatarName = time() . '-' . $avatarOwner . '.' . $extension;
+            $fullPath = $dir . DIRECTORY_SEPARATOR . $avatarName;
+            if (File::put($fullPath, $binary) === false) {
+                throw new \RuntimeException('Failed to save avatar file');
+            }
+
+            $user = $this->user->find($id);
+            if (!$user) {
+                return response()->json(['type' => 1, 'message' => 'User not found'], 404);
+            }
+
+            if (!empty($user->avatar_img)) {
+                $oldPath = $dir . DIRECTORY_SEPARATOR . $user->avatar_img;
+                if (File::exists($oldPath)) {
+                    @File::delete($oldPath);
+                }
+            }
+
+            $user->avatar_img = $avatarName;
+            $user->save();
+
+            $type = 0;
+            return response()->json(compact('type','avatarName'));
+        } catch (\Throwable $e) {
+            \Log::error('Error saving avatar for user ' . $id . ': ' . $e->getMessage());
+            return response()->json(['type' => 1, 'message' => $e->getMessage()], 500);
+        }
     }
     public function removeMyAvatar()
     {
-        $user = $this->user->find(auth()->user()->id);
-        unlink(public_path() . '/avatars/' . $user->avatar_img);
-        $user->avatar_img = null;
-        $user->save();
-        $type = 1;
-        return response()->json(compact('type'));
+        try {
+            $user = $this->user->find(auth()->user()->id);
+            
+            if (!$user) {
+                return response()->json([ 'type' => 1,'message' => 'User not found'], 404);
+            }
+            $path =  public_path('/avatars/' . $user->avatar_img);
+            if(File::exists($path)){
+                File::delete($path);
+                $user->avatar_img = null;
+                $user->save();
+            }else{
+                return response()->json(['type' => 1, 'message' => 'Image not found!']);
+            }
+           $defaultImg = asset(config('constants.escort_default_icon'));
+            return response()->json(['type' => 0, 'message' => 'Avatar removed successfully', 'img' => $defaultImg ]);
+            
+        } catch (\Exception $e) {
+            \Log::error('Error removing avatar: ' . $e->getMessage());
+            return response()->json([ 'type' => 1,'message' => 'An error occurred while removing avatar. Please try again.' ], 500);
+        }
     }
     public function notificationsFeatures()
     {
         return view('escort.dashboard.profileNotifications');
+    }
+    public function getGeoLocationProfiles(Request $request){
+        try {
+            $response['success'] = false;
+            $state_id = $request->state;
+            $profiles = Escort::where(['user_id'=>auth()->user()->id,'state_id'=>$state_id])
+                ->whereNotNull('profile_name')
+                ->whereDoesntHave('purchase', function ($query) {
+                    $query->where('utc_end_time', '>=', Carbon::now());
+                })
+                ->get(['id','name','profile_name','state_id']);
+            if($profiles->isNotEmpty()){
+                $response['success'] = true;
+                $response['profiles'] = $profiles;
+                $response['message'] = "Profiles are available.";
+            }
+            else{
+                $response['message'] = "You need to create at least one Profile for the Location.";
+            }
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function validateDateRange(Request $request){
+        try {
+            $response['success'] = false;
+            $startDate = $request->startDate;
+            $endDate = $request->endDate;
+            $escortId = $request->escortId;
+            $escort = $this->escort->find($escortId);
+
+            $conflictExists = Purchase::overlapping($startDate, $endDate)
+                ->whereHas('escort', function ($q) use ($escort) {
+                $q->where('user_id',auth()->user()->id);
+                $q->where('state_id', '<>', $escort->state_id);
+            })
+            ->with('escort:id,state_id')
+            ->orderByDesc('end_date')
+            ->first()?->escort?->state?->name;
+
+            if($conflictExists){
+                $response['success'] = true;
+                $response['message'] = "You have a Current or Upcomming Listing in {$conflictExists}. To create multiple Listings across Locations, use the Tour creator.";
+            }
+
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }

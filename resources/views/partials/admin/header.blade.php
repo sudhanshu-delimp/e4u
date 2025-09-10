@@ -28,18 +28,18 @@
     <link href="{{ asset('assets/dashboard/css/dk-responsive.css') }}" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <!--<link rel="stylesheet" href="{{ asset('assets/app/css/bootstrap.min.css') }}">-->
+    {{-- <link rel="stylesheet" href="{{ asset('assets/app/css/bootstrap.min.css') }}"> --}}
     <!-- jquery ui cdn -->
-    <!--<link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.css') }}"/>
-    <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.structure.min.css') }}"/>-->
+    {{-- <!--<link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('assets/app/css/jquery-ui.structure.min.css') }}"/> --}}
     <!-- jquery ui cdn -->
     <!-- google fonts -->
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Quicksand&display=swap" rel="stylesheet">
     <!-- google fonts -->
     <!-- font awsome -->
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css') }}">-->
+    {{--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/css/style.css') }}">--}}
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     @section('style')

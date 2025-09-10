@@ -11,12 +11,15 @@ use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Escort\PlaymateController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Escort\EscortAccountController;
+use App\Http\Controllers\Escort\EscortDashboardController;
 use App\Http\Controllers\Escort\EscortGalleryController;
 use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
 use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\EscortTourPaymentController;
 use App\Http\Controllers\Escort\EscortSuspendProfileController;
+use App\Http\Controllers\Escort\MyPlaymatesContoller;
+use App\Http\Controllers\Escort\HowIsItDoneController;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
 
 //remove before prod
@@ -50,6 +53,8 @@ Route::get('/list/data-table-listing/{type?}', [EscortController::class, 'dataTa
 Route::get('/add-listing', [EscortController::class, 'add_listing'])->name('escort.account.add-listing');
 Route::get('/listings/{type}', [EscortController::class, 'listings'])->name('escort.dashboard.listings');
 Route::post('/listing-checkout', [EscortController::class, 'listing_checkout'])->name('escort.account.listing_checkout');
+Route::post('/get-geo-location-profiles', [EscortController::class, 'getGeoLocationProfiles'])->name('listing.get_geo_location_profiles');
+Route::post('/listing/validate-date-range', [EscortController::class, 'validateDateRange'])->name('listing.validate_date_range');
 Route::get('/update-account', [EscortController::class, 'edit'])->name('escort.account.edit');
 Route::post('/update-account', [EscortController::class, 'update'])->name('escort.account.update');
 Route::post('/notification-update', [EscortController::class, 'notificationUpdate'])->name('escort.notification.update');
@@ -207,6 +212,7 @@ Route::post('delete-videos/{id}', [EscortGalleryController ::class, 'videosDelet
 //     return view('escort.dashboard.archives.archive-view-photos');
 // });
 Route::get('archive-view-videos',[EscortGalleryController ::class, 'videoGalleries'])->name('escort.archive-view-videos');
+Route::get('get-account-media-gallery/{category?}',[EscortGalleryController ::class, 'getAccountMediaGallery'])->name('escort.account.gallery');
 // Route::get('archive-view-videos',function(){
 //     return view('escort.dashboard.archives.archive-view-videos');
 // });
@@ -355,6 +361,11 @@ Route::get('code-of-conduct',function(){
     return view('escort.dashboard.UglyMugsRegister.code-of-conduct');
 })->name('escort.code-of-conduct');
 
+Route::get('/escort-dashboard/my-playmates',[MyPlaymatesContoller::class,'index'])->name('escort.dashboard.my-playmates');
+Route::get('/escort-dashboard/my-user-playmates-ajax',[MyPlaymatesContoller::class,'dashboardUserPlaymatesListAjax'])->name('escort.get.user-playmates-by-ajax');
+Route::post('/escort-dashboard/my-playmates-ajax',[MyPlaymatesContoller::class,'getPlaymatesDataByAjax'])->name('escort.get.my-playmates-by-ajax');
+Route::post('/escort-dashboard/remove-my-playmates-ajax',[MyPlaymatesContoller::class,'removePlaymatesByAjax'])->name('escort.remove.my-playmates-by-ajax');
+
 Route::get('home-state/',[EscortController::class, 'homeState'])->name('escort.home-state');
 Route::post('add-playmate/{id}',[ProfileInformationController::class, 'savePlaymate'])->name('escort.add.playmate');
 Route::post('remove-playmate/{id}',[ProfileInformationController::class, 'removePlaymate'])->name('escort.remove.playmate');
@@ -382,3 +393,34 @@ Route::post('customise-dashboard', [EscortController::class, 'updateCustomiseDas
 // Route::get('customise-dashboard',function(){
 //     return view('escort.dashboard.customise-dashboard');
 // })->name('escort.dashboard.customise-dashboard');
+
+// Route::get('profile', [HowIsItDoneController::class, 'profile'])->name('escort.how_is_it_done.profile');
+
+
+//Escort DashBorad Route And Controller
+Route::get('logs-and-status', [EscortDashboardController::class, 'LogAndStatus'])->name('logs.and.status');
+Route::post('update-password-duration', [EscortDashboardController::class, 'updatePasswordDuration'])->name('update.password.duration');
+
+Route::get('editmyaccount',function(){
+    return view('escort.dashboard.HowDone.editmyaccount');
+})->name('escort.editmyaccount');
+
+Route::get('my-information',function(){
+    return view('escort.dashboard.HowDone.my-information');
+})->name('escort.my-information');
+
+Route::get('listings',function(){
+    return view('escort.dashboard.HowDone.listings');
+})->name('escort.listings');
+
+Route::get('media',function(){
+    return view('escort.dashboard.HowDone.media');
+})->name('escort.media');
+
+Route::get('profiles',function(){
+    return view('escort.dashboard.HowDone.profiles');
+})->name('escort.profiles');
+
+Route::get('tours',function(){
+    return view('escort.dashboard.HowDone.tours');
+})->name('escort.tours');

@@ -97,10 +97,9 @@
                                 </div>
                                 <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Account Protection</strong></h4>
                                 <ol class="pb-2 pl-3 text-justify">
-                                    <li>To help keep your account safe, E4U wants to make sure it is really you trying to
-                                        log in.</li>
-                                    <li>We have sent you your verification code according to your preference, please
-                                        insert your verification code.</li>
+                                    <li>To help keep your account safe, E4U wants to make sure it is really you trying to sign in.</li>
+                                    <li>Your six digit authentification code has been sent to your mobile. {{--  [setting] (insert mobile or email
+                                        address, according to the account settings - 2FA Authentification).]  --}}</li>
                                 </ol>
                                 <div class="d-flex align-items-center justify-content-between gap-10">
                                     <input type="password" maxlength="4" required class="form-control w-75" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required">
@@ -134,7 +133,7 @@
                     <form id="forgotPasswordSend" method="post" action="" >
                         @csrf
                         <div class="modal-header main_bg_color border-0">
-                            <h5 class="modal-title text-white">Reset Password</h5>
+                            <h5 class="modal-title text-white"><img src="{{ asset('assets/app/img/2fa.png') }}" class="custompopicon" alt="logo"> Reset Password</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
                             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -172,6 +171,7 @@
             <div class="modal-dialog modal-dialog-centered">
                <div class="modal-content custome_modal_max_width">
                   <div class="modal-header main_bg_color border-0">
+                  <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/unblock.png') }}" class="custompopicon" alt="logo"> Reset Password</h5>
                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">
                      <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">

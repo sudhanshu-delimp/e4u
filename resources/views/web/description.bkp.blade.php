@@ -1256,7 +1256,7 @@
 
                     <b>When texting me please say:</b>
                     <p class="profile_description_contect_pera">
-                        " <b><i>Hi {{ $escort->name}}, I found you on Escorts4u ...</i></b>"
+                        " <b><i>Hi {{ $escort->name}}, I found you on Escorts4U ...</i></b>"
                             @if(!empty($escort->user->viewer_contact_type))
                                 @if(in_array(1, $escort->user->viewer_contact_type) || in_array(2, $escort->user->viewer_contact_type) )
                                     @if(in_array(3, $escort->user->viewer_contact_type))

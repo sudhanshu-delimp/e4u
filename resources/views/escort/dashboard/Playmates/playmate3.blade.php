@@ -133,7 +133,7 @@
             <div class="card-body border-0 pt-0 mt-2">
                <form class="at-sec" method="post" action="">
                   <div class="at-lable">
-                     <label for="Student">Search for playmate</label>
+                     <label for="Student">Search for Playmate</label>
                      <input  name="q" placeholder="Search by name / Member ID" autocomplete="off" class="" id="search-playmate-input">
                      <input type="hidden" name="h_escort_id" id="h_escort_id" value="{{auth()->user()->id}}">
                      <ul class="results showPlaymates">

@@ -1,8 +1,10 @@
 <?php
 
 return [
-    'massage_default_icon' => 'default/default_massage.png',
-    'escort_default_icon' => 'default/default_escort.png',
+    'massage_default_icon' => 'avatars/default/default_massage.png',
+    'escort_default_icon' => 'avatars/default/default_escort.png',
+    'viewer_default_icon' => 'avatars/default/need_image.png',
+    'agent_default_icon' => 'avatars/default/need_image.png',
     'socket_url' => (env('APP_ENV') === 'production' ? 'https' : 'http') . '://' .env('SOCKET_HOST').':'.env('SOCKET_PORT'),
 
 

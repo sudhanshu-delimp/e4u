@@ -10,12 +10,6 @@
     color: rgb(248, 0, 0)
 }
 
-.dataTables_filter label {
-    display: none;
-}
-.dataTables_length{
-    display: none;
-}
 
 #cke_1_contents {
     height: 150px !important;
@@ -121,131 +115,18 @@ display: contents;
    <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
       <div class="modal-content basic-modal modal-lg">
          <div class="modal-header">
-            <h5 class="modal-title" id="emailReport">Listing</h5>
+            <h5 class="modal-title" id="emailReport"> <img src="{{ asset('assets/dashboard/img/view-listing.png')}}" class="custompopicon"> Listing</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
          </div>
          <div class="modal-body" id="escortPopupModalBody">
             <iframe src="" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>
-            {{-- <table border="1" cellpadding="10" cellspacing="0" width="100%" style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-                <!-- Header Row -->
-                <tr style="background-color: #0c223d; color: white;">
-                    <td colspan="5" style="font-weight: bold; text-align: center;">Post Office Report: [date & time]</td>
-                </tr>
-
-                <!-- Table Headings -->
-                <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
-                    <td style="text-align:center;">Date & Time</td>
-                    <td style="text-align:center;" >Member ID</td>
-                    <td style="text-align:center;" >Member</td>
-                    <td style="text-align:center;" >Subject</td>
-                    <td style="text-align:center;" >Result</td>
-                </tr>
-
-                <!-- Row 1 -->
-                <tr>
-                    <td style="text-align:center;">2025-06-09 8:36:54</td>
-                    <td style="text-align:center;">E60123</td>
-                    <td style="text-align:center;">Joy</td>
-                    <td style="text-align:center;">National Ugly Mugs Feature</td>
-                    <td style="color: green; font-weight: bold; text-align:center;">Sent</td>
-                </tr>
-
-                <!-- Row 2 -->
-                <tr>
-                    <td style="text-align:center;">2025-06-09 8:36:54</td>
-                    <td style="text-align:center;">E20158</td>
-                    <td style="text-align:center;">Mary</td>
-                    <td style="text-align:center;">National Ugly Mugs Feature</td>
-                    <td style="color: green; font-weight: bold;text-align:center;">Sent</td>
-                </tr>
-
-                <!-- Footer Row -->
-                <tr>
-                    <td colspan="4" style="background-color: #0c2340; color: white; font-weight: bold;">Sent: 156</td>
-                    <td style="background-color: red; text-align: center;">
-                        <a href="#" style="color: white; text-decoration: none; font-weight: bold;">Print Report</a>
-                    </td>
-                </tr>
-            </table> --}}
-
          </div>
       </div>
    </div>
 </div>
 <!-- end -->
-
-{{-- <div class="modal fade upload-modal" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="view-listingLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content basic-modal">
-            <div class="modal-header">
-                <h5 class="modal-title" id="view-listing"><img src="{{ asset('assets/app/img/data-listing.png')}}" alt="alert" style="width:29px;">
-                    Listing
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
-                            class="img-fluid img_resize_in_smscreen"></span>
-                </button>
-            </div>
-            <div class="modal-body pb-0">
-                <form>
-                    <div class="row">
-                        <div class="col-12 mb-3">
-                            <div id="listingModalContent">
-                            <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-                                <tbody class="escortPopupModalBody" class="modal-body" id="escortPopupModalBody">
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Member ID</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_member_id">M60178</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Member</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_member">Lins Massage</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Listing</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_listing">Perth</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Profile Name</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_profile_name">Perth 01</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Masseurs</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_masseurs">4</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Listed Date</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_listed_date">23-05-2025</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>De-listed Date</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_de_listed">17-06-2025</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Days</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_day">14</td>
-                                    </tr>
-                                    <tr>
-                                    <td style="border: 1px solid #ccc; padding: 8px;"><strong>Days Left</strong></td>
-                                    <td style="border: 1px solid #ccc; padding: 8px; text-align:right;" class="pop_day_left">15</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- <div class="modal-footer pb-4 mb-2">
-                <button type="button" class="btn btn-primary">Publish</button>
-            </div> -->
-        </div>
-    </div>
-</div> --}}
 
 @endsection
 @push('script')
@@ -276,10 +157,16 @@ display: contents;
 
         function ajaxReload()
         {
+
             var table = $('#listings').DataTable({
+                language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Member ID..."
+            },
             processing: true,
             serverSide: true,
             paging: true,
+            lengthChange: true,
             info: true,
             searching: true,
             bStateSave: true,
@@ -339,7 +226,7 @@ display: contents;
                         $(".serverTime").text(row.server_time);
                         $(".uptimeClass").html(row.upTime);
                         return `
-                            <div class="dropdown no-arrow ml-3">
+                            <div class="dropdown no-arrow text-center">
                                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>

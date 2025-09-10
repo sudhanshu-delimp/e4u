@@ -1,241 +1,241 @@
 @extends('layouts.escort')
 @section('style')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js?v1.1') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <style type="text/css">
-        .parsley-errors-list {
-            list-style: none;
-            color: rgb(248, 0, 0);
-            padding: 0;
-        }
-
-        .parsley-errors-list li {
-            font-size: 14px;
-            line-height: 18px;
-            margin-top: 6px;
-        }
-    </style>
-    <script>
-        function _displayGenderDependentFields(genderVal) {
-            if (['1', '3'].indexOf(genderVal) <= -1) {
-                $(".femaleFields").show();
-                $(".maleFields").hide();
-            } else if (['6', '3'].indexOf(genderVal) <= -1) {
-                $(".maleFields").show();
-                $(".femaleFields").hide();
-            } else {
-                $(".maleFields").show();
-                $(".femaleFields").show();
-            }
-        }
-
-        function formatEscortList(data) {
-            return $(
-                '<span><img class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed" src="' +
-                data.text + '"> ' + data.name + ' || ' + data.member_id + '</span>');
-        }
-
-        function selectEscortList(data) {
-            return $('<span><i class="fas fa-search fa-sm" style="color: #999;"></i>  Search by name OR Member ID </span>');
-        }
-    </script>
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js?v1.1') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<style type="text/css">
+   .parsley-errors-list {
+   list-style: none;
+   color: rgb(248, 0, 0);
+   padding: 0;
+   }
+   .parsley-errors-list li {
+   font-size: 14px;
+   line-height: 18px;
+   margin-top: 6px;
+   }
+</style>
+<script>
+   function _displayGenderDependentFields(genderVal) {
+       if (['1', '3'].indexOf(genderVal) <= -1) {
+           $(".femaleFields").show();
+           $(".maleFields").hide();
+       } else if (['6', '3'].indexOf(genderVal) <= -1) {
+           $(".maleFields").show();
+           $(".femaleFields").hide();
+       } else {
+           $(".maleFields").show();
+           $(".femaleFields").show();
+       }
+   }
+   
+   function formatEscortList(data) {
+       return $(
+           '<span><img class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed" src="' +
+           data.text + '"> ' + data.name + ' || ' + data.member_id + '</span>');
+   }
+   
+   function selectEscortList(data) {
+       return $('<span><i class="fas fa-search fa-sm" style="color: #999;"></i>  Search by name OR Member ID </span>');
+   }
+</script>
 @endsection
 @section('content')
-    @php  
-    $existDefaultService = $escort->services()->exists();
-    $existAvailability = $escort->availability()->exists();
-    $editMode = request()->segment(2) == 'profile' ? true:false;
-    @endphp
-    <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-        <div class="row">
-            <div class="col-md-12 custom-heading-wrapper">
-                @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
-                    <h1 class="h1">New Profile</h1>
-                @else
-                    <h1 class="h1">Update Profile</h1>
-                @endif
-                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+@php  
+$existDefaultService = $escort->services()->exists();
+$existAvailability = $escort->availability()->exists();
+$editMode = request()->segment(2) == 'profile' ? true:false;
+@endphp
+<div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+   <div class="row">
+      <div class="col-md-12 custom-heading-wrapper">
+         @if (request()->getPathInfo() == '/escort-dashboard/create-profile')
+         <h1 class="h1">New Profile</h1>
+         @else
+         <h1 class="h1">Update Profile</h1>
+         @endif
+         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+      </div>
+      <div class="col-md-12 mb-4" id="profile_and_tour_options">
+         <div class="card collapse" id="notes">
+            <div class="card-body">
+               <h3 class="NotesHeader"><b>Notes:</b> </h3>
+               <ol>
+                  <li>Use this feature to create your Profiles. You can create as many Profiles as you
+                     like for as many Locations as you like.
+                  </li>
+                  <li>The Profiles you create will be used to create Tours.</li>
+                  <li>Each time you create a Profile, it will be pre-populated with your <a
+                     href="/escort-dashboard/profile-informations"
+                     class="custom_links_design">Profile Information</a> you have set. Take the time
+                     to set up your <a href="/escort-dashboard/profile-informations"
+                        class="custom_links_design">Profile Information</a> and <a
+                        href="/escort-dashboard/archive-medias" class="custom_links_design">Media</a>.
+                     Any changes you make in the Profile Creator will only apply to that Profile unless
+                     you click the ‘Update’ button for the section you have changed. Otherwise your
+                     Profile Information settings will not change.
+                  </li>
+               </ol>
             </div>
-            <div class="col-md-12 mb-4" id="profile_and_tour_options">
-                <div class="card collapse" id="notes">
-                    <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol>
-                            <li>Use this feature to create your Profiles. You can create as many Profiles as you
-                                like for as many Locations as you like.</li>
-                            <li>The Profiles you create will be used to create Tours.</li>
-                            <li>Each time you create a Profile, it will be pre-populated with your <a
-                                    href="/escort-dashboard/profile-informations"
-                                    class="custom_links_design">Profile Information</a> you have set. Take the time
-                                to set up your <a href="/escort-dashboard/profile-informations"
-                                    class="custom_links_design">Profile Information</a> and <a
-                                    href="/escort-dashboard/archive-medias" class="custom_links_design">Media</a>.
-                                Any changes you make in the Profile Creator will only apply to that Profile unless
-                                you click the ‘Update’ button for the section you have changed. Otherwise your
-                                Profile Information settings will not change.</li>
-                        </ol>
-                    </div>
-                </div>
+         </div>
+      </div>
+   </div>
+   <div id="content">
+      <div class="container-fluid p-0">
+         <!--middle content-->
+         <div class="row">
+            <div class="col-md-12">
+               <div class="row">
+                  <div class="col-lg-4">
+                     <div class="form_process">
+                        <div class="steps_to_filled_from">Step 1</div>
+                        <p>About me</p>
+                     </div>
+                  </div>
+                  <div class="col-lg-4">
+                     <div class="form_process">
+                        <div class="steps_to_filled_from">Step 2</div>
+                        <p>My Services & Rates</p>
+                     </div>
+                  </div>
+                  <div class="col-lg-3">
+                     <div class="form_process">
+                        <div class="steps_to_filled_from">Step 3</div>
+                        <p>My Availability</p>
+                     </div>
+                  </div>
+                  {{-- 
+                  <div class="col-lg-3">
+                     <div class="form_process">
+                        <div class="steps_to_filled_from">Step 4</div>
+                        <p>Check fee summary and pay</p>
+                     </div>
+                  </div>
+                  --}}
+                  <div class="col-lg-1">
+                     <div id="percent" style="font-size: 48px;font-weight: 700;">40%</div>
+                  </div>
+               </div>
+               <div class="manage_process_bar_padding">
+                  <div class="progress define_process_bar_width">
+                     <div class="progress-bar define_process_bar_color" role="progressbar" style="width: 40%"
+                        aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                     </div>
+                  </div>
+               </div>
             </div>
-        </div>
-        <div id="content">
-            <div class="container-fluid p-0">
-                <!--middle content-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="form_process">
-                                    <div class="steps_to_filled_from">Step 1</div>
-                                    <p>About me</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form_process">
-                                    <div class="steps_to_filled_from">Step 2</div>
-                                    <p>My Services & Rates</p>
-                                </div>
-                            </div>
-                            <div class="col-lg-3">
-                                <div class="form_process">
-                                    <div class="steps_to_filled_from">Step 3</div>
-                                    <p>My Availability</p>
-                                </div>
-                            </div>
-                            {{-- <div class="col-lg-3">
-                            <div class="form_process">
-                                <div class="steps_to_filled_from">Step 4</div>
-                                <p>Check fee summary and pay</p>
-                            </div>
-                        </div> --}}
-                            <div class="col-lg-1">
-                                <div id="percent" style="font-size: 48px;font-weight: 700;">40%</div>
-                            </div>
+         </div>
+         <div class="row">
+            <div class="col-lg-12">
+               <!-- Begin Page Content -->
+               <div class="row">
+                  <div class="col-md-12 remove_padding_in_ph">
+                     <ul class="dk-tab nav gap_between_btns" id="myTab" role="tablist">
+                        <li class="nav-item">
+                           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#aboutme"
+                              role="tab" aria-controls="home" aria-selected="true">About me</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" id="profile-tab" data-toggle="tab" href="#services"
+                              role="tab" aria-controls="profile" aria-selected="false">My Services &
+                           Rates</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available"
+                              role="tab" aria-controls="contact" aria-selected="false">My Availability</a>
+                     </ul>
+                     </li>
+                     {{-- 
+                     <li class="nav-item">
+                        <a class="nav-link" id="pricing-tab" data-toggle="tab" href="#pricing" role="tab" aria-controls="contact" aria-selected="false">Check fee summary and pay</a>
+                     </li>
+                     --}}
+                     @if (request()->segment(2) == 'profile' && request()->segment(3))
+                     <form id="my_escort_profile"
+                        action="{{ route('escort.setting.profile', request()->segment(3)) }}" method="post"
+                        enctype="multipart/form-data">
+                        @csrf
+                     </form>
+                     <input type="hidden" name="user_startDate" id="user_startDate"
+                        value="{{ date('Y-m-d', strtotime(auth()->user()->created_at)) }}">
+                     <div class="tab-content tab-content-bg" id="myTabContent">
+                        @include('escort.dashboard.profile.partials.aboutme-dash-tab', [
+                        'profile_type' => 'updated',
+                        ])
+                        @include('escort.dashboard.profile.partials.services-dash-tab')
+                        @include('escort.dashboard.profile.partials.available-dash-tab')
+                        {{-- @include('escort.dashboard.profile.partials.pricing-dash-tab') --}}
+                     </div>
+                     @else
+                     <form id="my_escort_profile"
+                        action="{{ route('escort.setting.profile', request()->segment(3)) }}" method="post"
+                        enctype="multipart/form-data" data-parsley-validate>
+                        @csrf
+                        <input type="hidden" name="user_startDate" id="user_startDate"
+                           value="{{ date('Y-m-d', strtotime(auth()->user()->created_at)) }}">
+                        <div class="tab-content tab-content-bg" id="myTabContent">
+                           @include('escort.dashboard.profile.partials.aboutme-dash-tab', [
+                           'profile_type' => 'updated',
+                           ])
+                           @include('escort.dashboard.profile.partials.services-dash-tab')
+                           @include('escort.dashboard.profile.partials.available-dash-tab')
+                           {{-- @include('escort.dashboard.profile.partials.pricing-dash-tab') --}}
                         </div>
-                        <div class="manage_process_bar_padding">
-                            <div class="progress define_process_bar_width">
-                                <div class="progress-bar define_process_bar_color" role="progressbar" style="width: 40%"
-                                    aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <!-- Begin Page Content -->
-                        <div class="row">
-                            <div class="col-md-12 remove_padding_in_ph">
-                                <ul class="dk-tab nav gap_between_btns" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#aboutme"
-                                            role="tab" aria-controls="home" aria-selected="true">About me</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#services"
-                                            role="tab" aria-controls="profile" aria-selected="false">My Services &
-                                            Rates</a>
-                                    </li>
-
-
-
-
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available"
-                                            role="tab" aria-controls="contact" aria-selected="false">My Availability</a>
-                                </ul>
-                                </li>
-                                {{-- <li class="nav-item">
-                                <a class="nav-link" id="pricing-tab" data-toggle="tab" href="#pricing" role="tab" aria-controls="contact" aria-selected="false">Check fee summary and pay</a>
-                            </li> --}}
-                                @if (request()->segment(2) == 'profile' && request()->segment(3))
-                                    <form id="my_escort_profile"
-                                        action="{{ route('escort.setting.profile', request()->segment(3)) }}" method="post"
-                                        enctype="multipart/form-data">
-                                        @csrf</form>
-                                    <input type="hidden" name="user_startDate" id="user_startDate"
-                                        value="{{ date('Y-m-d', strtotime(auth()->user()->created_at)) }}">
-                                    <div class="tab-content tab-content-bg" id="myTabContent">
-                                        @include('escort.dashboard.profile.partials.aboutme-dash-tab', [
-                                            'profile_type' => 'updated',
-                                        ])
-                                        @include('escort.dashboard.profile.partials.services-dash-tab')
-                                        @include('escort.dashboard.profile.partials.available-dash-tab')
-                                        {{-- @include('escort.dashboard.profile.partials.pricing-dash-tab') --}}
-                                    </div>
-                                @else
-                                    <form id="my_escort_profile"
-                                        action="{{ route('escort.setting.profile', request()->segment(3)) }}" method="post"
-                                        enctype="multipart/form-data" data-parsley-validate>
-                                        @csrf
-                                        <input type="hidden" name="user_startDate" id="user_startDate"
-                                            value="{{ date('Y-m-d', strtotime(auth()->user()->created_at)) }}">
-                                        <div class="tab-content tab-content-bg" id="myTabContent">
-                                            @include('escort.dashboard.profile.partials.aboutme-dash-tab', [
-                                                'profile_type' => 'updated',
-                                            ])
-                                            @include('escort.dashboard.profile.partials.services-dash-tab')
-                                            @include('escort.dashboard.profile.partials.available-dash-tab')
-                                            {{-- @include('escort.dashboard.profile.partials.pricing-dash-tab') --}}
-                                        </div>
-                                    </form>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                     </form>
+                     @endif
+                  </div>
+               </div>
             </div>
-        </div>
-    </div>
-    <!-- End of Content Wrapper -->
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-            <!--<img src="..." class="rounded mr-2" alt="...">-->
-            <strong class="mr-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
-            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- End of Content Wrapper -->
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+   <div class="toast-header">
+      <!--<img src="..." class="rounded mr-2" alt="...">-->
+      <strong class="mr-auto">Bootstrap</strong>
+      <small>11 mins ago</small>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+   </div>
+   <div class="toast-body">Hello, world! This is a toast message.</div>
+</div>
+<!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
+<div class="modal programmatic" id="change_all" style="display: none">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content custome_modal_max_width">
+         <div class="modal-header main_bg_color border-0">
+            <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">
+            <img src="{{ asset('assets/app/img/newcross.png') }}"
+               class="img-fluid img_resize_in_smscreen">
+            </span>
             </button>
-        </div>
-        <div class="toast-body">Hello, world! This is a toast message.</div>
-    </div>
-    <!-- <div class="modal show" id="add_wishlist" style="display: block;"> -->
-
-    <div class="modal programmatic" id="change_all" style="display: none">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content custome_modal_max_width">
-                <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title" id="exampleModalLabel" style="color:white"> <img src="{{ asset('assets/dashboard/img/save-info.png') }}" class="custompopicon"> Update My Information</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" id="current" name="current">
-                    <input type="hidden" id="previous" name="previous">
-                    <input type="hidden" id="label" name="label">
-                    <input type="hidden" id="trigger-element">
-                    <input type="hidden" id="trigger-element2">
-                    <h3 class="my-2"><span id="Lname"></span> </h3>
-                    <h3 class="my-2"><span id="log"></span> </h3>
-                    <div class="modal-footer">
-                        <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                            value="close" id="close_change">No</button>
-                        <button type="button" class="btn-success-modal" id="save_change">Yes</button>
-                    </div>
-                </div>
+         </div>
+         <div class="modal-body">
+            <input type="hidden" id="current" name="current">
+            <input type="hidden" id="previous" name="previous">
+            <input type="hidden" id="label" name="label">
+            <input type="hidden" id="trigger-element">
+            <input type="hidden" id="trigger-element2">
+            <h3 class="my-2"><span id="Lname"></span> </h3>
+            <h3 class="my-2"><span id="log"></span> </h3>
+            <div class="modal-footer">
+               <button type="button" class="btn-cancel-modal" data-dismiss="modal"
+                  value="close" id="close_change">No</button>
+               <button type="button" class="btn-success-modal" id="save_change">Yes</button>
             </div>
-        </div>
-    </div>
-
-    <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
+         </div>
+      </div>
+   </div>
+</div>
+<div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
       <div class="modal-content basic-modal modal-lg">
          <div class="modal-header">
@@ -246,17 +246,18 @@
          </div>
          <div class="modal-body" id="escortPopupModalBody">
             <iframe src="{{ route('profile.description',$escort->id ? $escort->id : '' )}}" id="escortPopupModalBodyIframe" frameborder="0" style="width:100%; height:80vh;" allowfullscreen></iframe>
-
          </div>
       </div>
    </div>
 </div>
-
-    @if (Session::has('message'))
-        <div class="alert alert-info">{{ Session::get('message') }}</div>
-    @endif
+@include('escort.dashboard.modal.upload_gallery_image');
+@include('escort.dashboard.modal.remove_gallary_image');
+@if (Session::has('message'))
+<div class="alert alert-info">{{ Session::get('message') }}</div>
+@endif
 @endsection
 @push('script')
+<script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
     <script>
         $(document).on('keypress', 'form input', function(event) {
             return event.keyCode !== 13;
@@ -308,8 +309,7 @@
             }
         });
         $('#select2_country').select2();
-    </script>
-    <script>
+    
         @if (request()->segment(2) == 'profile' && request()->segment(3))
             //$('#read_more').parsley({});
             $('#LocationInformation').parsley({});
@@ -528,7 +528,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         success: function(data) {
-                            console.log(data);
+                            
                             if (!data.error) {
                                 Swal.fire('Updated', '', 'success');
                                 $('#aboutMeBtn').prop('disabled', false);
@@ -573,7 +573,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(data) {
-                        console.log(data);
+                       
                         if (!data.error) {
                             Swal.fire('Updated', '', 'success');
                             $('#update_who_am_i').prop('disabled', false);
@@ -606,7 +606,7 @@
                     $('#my_abilities').html('<div class="spinner-border"></div>');
                     var url = form.attr('action');
                     var data = new FormData($('#myability')[0]);
-                    console.log(data);
+                    
 
                     $.ajax({
                         method: form.attr('method'),
@@ -692,7 +692,7 @@
                     $('#mediaProfileBtn').html('<div class="spinner-border"></div>');
                     var url = form.attr('action');
                     var data = new FormData($('#myProfileMediaForm')[0]);
-                    console.log(data);
+                    
 
                     $.ajax({
                         method: form.attr('method'),
@@ -1045,7 +1045,7 @@
 
             for (const input of allInputs) {
             const val = parseFloat(input.value);
-            console.log(val);
+            
             if (!isNaN(val) && val > 0) {
                 isValid = true;
                 break;
@@ -1113,7 +1113,7 @@
             const editorId = 'editor1';
             // Check if CKEditor instance exists
             if (CKEDITOR.instances[editorId]) {
-                console.log("CKEditor instance found, updating...");
+                
                 CKEDITOR.instances[editorId].updateElement(); // Push content to textarea
             } else {
                 console.warn("CKEditor instance NOT found for #editor1");
@@ -1121,7 +1121,7 @@
 
             // Debug: Show the updated textarea value
             const content = document.getElementById(editorId).value.trim();
-            console.log('Textarea value after update:', content);
+            
             showManualRequiredError(editorId);
             return (!content) ? false : true;
         }
@@ -1166,14 +1166,7 @@
                 } break;
                 case 'contact-tab': {
                      let existRates = checkRates();
-                     //let existService = checkServicePrice();
                      let editMode = '{{$editMode}}';
-                    //  if (!existService && !editMode) {
-                    //     Swal.fire('My Services',
-                    //         'You must complete all selected service value to proceed.',
-                    //         'warning');
-                    //     return false;
-                    // }
                     if (!existRates && !editMode) {
                         Swal.fire('Rates',
                             'You must complete at least one rate value to proceed.',
@@ -1257,7 +1250,7 @@
                         var day_key = $(this).attr('day_key_from');
                         var dayFrom = $("#" + day_key + "from").val();
                         var dayFromTime = $("#" + day_key + "fromtime").val();
-                        //console.log(day_key, dayFrom, dayFromTime);
+                        
                         if (dayFrom != "" && dayFromTime != "") {
                             Current = dayFrom + " " + dayFromTime;
                             $('#current').val(Current);
@@ -1475,7 +1468,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(data) {
-                    console.log(data);
+                    
                     if (data.error == true) {
 
                         $("#img9").attr('src', data.path[9]['path']);
@@ -1542,7 +1535,7 @@
                 const nextGroup = tabGroupMap[tabId];        // e.g. 'group_one'
                 const $target   = $(e.target)
 
-                console.log("e target id: ", e.target.id);
+                
                 
                 if (!nextGroup) {
                     allowTabChange = true;
@@ -1803,28 +1796,7 @@
             config.removeButtons =
                 'Underline,Subscript,Superscript,PasteText,PasteFromWord,Scayt,Anchor,Unlink,Image,Table,HorizontalRule,SpecialChar,Maximize,About,RemoveFormat,Strike';
         };
-        let editor = CKEDITOR.replace(textarea);
-        // editor.on('instanceReady', function() {
-        //     $.each(CKEDITOR.instances, function(instance) {
-        //         CKEDITOR.instances[instance].on("change", function(e) {
-        //             var desc = CKEDITOR.instances['editor1'].getData();
-        //             for (instance in CKEDITOR.instances) {
-        //                 CKEDITOR.instances[instance].updateElement();
-
-        //                 let validateee = $('#my_escort_profile').parsley().validate({
-        //                     group: 'ckeditor'
-        //                 });
-        //                 if (validateee != true) {
-        //                     $(".who_am_i").attr('id', "who_am_i");
-        //                 }
-        //                 if (validateee == true) {
-        //                     $(".who_am_i").attr('id', "update_who_am_i");
-        //                 }
-        //             }
-        //         });
-        //     });
-        // });
-        
+        let editor = CKEDITOR.replace(textarea); 
         let deleteKey = 46;
         let backspaceKey = 8;
         let leftArrowKey = 37;
