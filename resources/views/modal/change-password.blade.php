@@ -4,10 +4,7 @@ use Carbon\Carbon;
 $open_pop_up = false;
 $password_updated_date = "";
 $password_expiry_days = "";
-
 $submit_url = "";
-
-$inin = 1;
 
 if (auth()->check()) {
     $user = auth()->user(); 
@@ -18,12 +15,10 @@ if (auth()->check()) {
     $password_updated_date = $user?->account_setting?->password_updated_date;
     $password_expiry_days = $user?->account_setting?->password_expiry_days;
 
-    if ($open_pop_up != 1 && $password_updated_date && $password_expiry_days)
+    if ($open_pop_up === false  && $password_updated_date && ($password_expiry_days!='never'))
     {
         $updatedDate = Carbon::parse($password_updated_date); 
         $expiryDate = $updatedDate->copy()->addDays($password_expiry_days); 
-      
-
         if (Carbon::now()->greaterThan($expiryDate)) {
             $open_pop_up = true;
             
