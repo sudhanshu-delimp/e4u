@@ -169,6 +169,15 @@ Route::get('view-planner',function(){
 })->name('agent.view-planner');
 
 
+Route::get('Marketing/database-centers',function(){
+    return view('agent.dashboard.Marketing.database-centers');
+})->name('agent.database-centers');
+
+Route::get('Marketing/saved-reports',function(){
+    return view('agent.dashboard.Marketing.saved-reports');
+})->name('agent.saved-reports');
+
+
 Route::get('notifications-and-features',function(){
     return view('agent.dashboard.notifications-and-features');
 })->name('agent.notifications-and-features');

@@ -173,7 +173,7 @@
                                     <div class="col-md-3">
                                        <div class="section_wise_level_icon_img">
                                        <img src="{{ asset('assets/app/img/profile/list.png')}}" class="img-fluid">
-                                       <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/profile/image36.png')}}"></div>
+                                       <div class="siliver_logo_icon"><img src="{{ asset('images/platinum_membership.png')}}"></div>
                                        <div class="add_to_fab_list_view_each_sec">
                                           <span class="add_to_favrate">
                                              <i class="fa fa-heart" aria-hidden="true"></i>
@@ -327,7 +327,7 @@
                                     <div class="col-md-3">
                                        <div class="section_wise_level_icon_img">
                                        <img src="{{ asset('assets/app/img/profile/list.png')}}" class="img-fluid">
-                                       <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/profile/image36.png')}}"></div>
+                                       <div class="siliver_logo_icon"><img src="{{ asset('images/platinum_membership.png')}}"></div>
                                        <div class="add_to_fab_list_view_each_sec">
                                           <span class="add_to_favrate">
                                              <i class="fa fa-heart" aria-hidden="true"></i>
@@ -479,7 +479,7 @@
                                  <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                                  <div class="section_wise_level_icon_img">
                                     <img src="{{ asset('assets/app/img/profile/list.png')}}" class="img-fluid">
-                                    <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/profile/image36.png')}}"></div>
+                                    <div class="siliver_logo_icon"><img src="{{ asset('images/platinum_membership.png')}}"></div>
                                     <div class="add_to_fab_list_view_each_sec">
                                     <span class="add_to_favrate">
                                           <i class="fa fa-heart" aria-hidden="true"></i>

@@ -2902,7 +2902,11 @@ i.fa.fa-heart-o{
     .siliver_logo_icon {
         position: absolute;
         top: 0px;
-        left: 0px;
+        left: -4px;
+    }
+    
+    .siliver_logo_icon img {
+        width: 35px !important;
     }
     
     .add_to_fab_list_view_each_sec {
