@@ -14,6 +14,8 @@ use App\Sms\SendSms;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
+
 class LoginController extends Controller
 {
     /*
@@ -65,12 +67,24 @@ class LoginController extends Controller
             if($user == null || $user->type != 0) {
                 return $this->sendFailedLoginResponse($request);
             }
+            if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+            
+                throw ValidationException::withMessages([
+                    'phone' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                ]);
+            }
         }
         if(! is_null($request->email)) {
             $user = User::where('email','=',$request->email)->first();
 
             if($user == null || $user->type != 0) {
                 return $this->sendFailedLoginResponse($request);
+                }
+                if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+                
+                    throw ValidationException::withMessages([
+                        'email' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                    ]);
                 }
         }
 

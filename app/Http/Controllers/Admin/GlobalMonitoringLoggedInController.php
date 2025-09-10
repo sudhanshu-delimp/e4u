@@ -26,7 +26,7 @@ class GlobalMonitoringLoggedInController extends Controller
         $loggedInUsers = LoginAttempt::where('type', 1)
             ->where('online', 'yes')
             ->whereNotNull('user_id')
-            ->with(['user:id,member_id,name,type'])
+            ->with(['user:id,member_id,name,type,status'])
             ->select('id', 'user_id', 'ip_address', 'device', 'type', 'page') // only columns from login_attempts table
             ->get()
             ->unique('user_id')
@@ -66,6 +66,9 @@ class GlobalMonitoringLoggedInController extends Controller
             ->addColumn('platform', fn($row) => $row->device ?? '-')
             ->addColumn('page', fn($row) => $row->page ?? '-')
             ->addColumn('action', function ($row) {
+                $status = $row->user->status == 'Suspended' ? 'Active' : 'Suspend';
+                $icon = $row->user->status == 'Suspended' ? 'circle' : 'ban';
+
                 $actionButtons = '<div class="dropdown no-arrow text-center">
                                     <a class="dropdown-toggle " href="#" role="button" id="dropdownMenuLink"
                                         data-toggle="dropdown" data-user-type="' . $row->user->type . '" data-user-id="' . $row->user_id . '" aria-haspopup="true" aria-expanded="false">
@@ -75,7 +78,7 @@ class GlobalMonitoringLoggedInController extends Controller
                                         aria-labelledby="dropdownMenuLink" style="">
                                         <a class="viewLoggedUserDetails dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-user-type="' . $row->user->type . '" data-user-id="' . $row->user_id . '"> <i class="fa fa-eye"></i> View Listing </a>
                                                 <div class="dropdown-divider"></div>
-                                        <a class="suspendLoggedUser dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-user-id="' . $row->user_id . '"> <i class="fa fa-trash"></i> Suspend  </a>
+                                        <a class="suspendLoggedUser dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-user-id="' . $row->user_id . '" data-status="'.$row->user->status.'"> <i class="fa fa-'.$icon.'"></i> '.$status.' </a>
                                     </div>
                                 </div>';
 
@@ -202,5 +205,25 @@ class GlobalMonitoringLoggedInController extends Controller
         }
 
         return response()->json(['status' => 'success', 'userDetails' => $userDetails], 200);
+    }
+
+    public function loggedUserStatusUpdate($id)
+    {
+        $user = User::where('id',$id)->first();
+
+        if ($user == null) {
+            return response()->json(['status' => 'error', 'message' => 'User ID is required.'], 400);
+        }
+        
+
+        $res = User::where('id',$id)->update([
+            'status'=> $user->status == 'Suspended' ? 1 : 3, // its showing suspended profile
+        ]);
+
+        return response()->json([
+            'status' => $res ? 'success' : 'error',
+            'message'=> 'Profile suspended successfully.'
+        ],200);
+
     }
 }

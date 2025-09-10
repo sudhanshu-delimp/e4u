@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\JsonResponse;
 use Carbon\Carbon;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends AppController
 {
@@ -61,11 +62,23 @@ class LoginController extends AppController
                 if($user == null || $user->type != 5) {
                     return $this->sendFailedLoginResponse($request);
                 }
+                if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+            
+                    throw ValidationException::withMessages([
+                        'phone' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                    ]);
+                }
             }
             if(! is_null($request->email)) {
                 $user = User::where('email','=',$request->email)->first();
                 if($user == null || $user->type != 5) {
                     return $this->sendFailedLoginResponse($request);
+                }
+                if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+            
+                    throw ValidationException::withMessages([
+                        'email' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                    ]);
                 }
             }
         }
@@ -81,6 +94,13 @@ class LoginController extends AppController
                     return $this->sendFailedLoginResponse($request);
                 }
             }
+            
+            if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+            
+                throw ValidationException::withMessages([
+                    'phone' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                ]);
+            }
         }
         if(! is_null($request->email)) {
             $user = User::where('email','=',$request->email)->first();
@@ -89,6 +109,12 @@ class LoginController extends AppController
                 if($user->type == 0 || $user->type == 1 || $user->type == 2 ) {
                     return $this->sendFailedLoginResponse($request);
                 }
+            }
+            if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+            
+                throw ValidationException::withMessages([
+                    'email' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                ]);
             }
         }
 

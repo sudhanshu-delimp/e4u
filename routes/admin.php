@@ -93,6 +93,7 @@ Route::get('logged-in-users', [GlobalMonitoringLoggedInController::class, "index
 Route::get('get-logged-in-users-by-ajax', [GlobalMonitoringLoggedInController::class, "getLoggedInUserDataTableListingAjax"])->name('admin.get-logged-in-users-by-ajax');
 Route::get('get-logged-in-single-user-deatils-ajax/{id}', [GlobalMonitoringLoggedInController::class, "getLoggedInSingleUserDetailsAjax"])->name('admin.get-logged-in-single-user-detail-with-ajax');
 Route::post('print-logged-in-single-user-deatils', [GlobalMonitoringLoggedInController::class, "printLoggedInUserSingleDetails"])->name('print.logged.user.single-details');
+Route::get('logged-user-status-update/{id}', [GlobalMonitoringLoggedInController::class, "loggedUserStatusUpdate"])->name('logged-user-status-update');
 
 
 // Route::get('logged-in-users', function(){
