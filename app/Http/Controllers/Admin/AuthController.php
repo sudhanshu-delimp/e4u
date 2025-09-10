@@ -22,10 +22,12 @@ class AuthController extends Controller
      */
     //protected $redirectTo = RouteServiceProvider::AdminDashboard;
     protected $redirectTo = RouteServiceProvider::Dashboard;
+    protected $user;
 
-    public function __construct()
+    public function __construct(User $user)
     {
         $this->middleware('guest')->except('logout');
+         $this->user = $user;
     }
 
     /**
@@ -72,7 +74,7 @@ class AuthController extends Controller
             if (true) {
                 $error = 1;
                 $phone = $user->phone;
-                $otp = $this->generateOTP();
+                $otp = $this->user->generateOTP();
                 $user->otp = $otp;
                 $user->save();
                 $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";

@@ -60,7 +60,7 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
     Route::get('/change-password', [AgentAccountController::class, 'editPassword'])->name('agent.change.password');
     Route::post('/change-password', [AgentAccountController::class, 'updatePassword'])->name('agent.update.password');
     Route::post('/change-password-expiry', [AgentAccountController::class, 'updatePasswordExpiry'])->name('agent.update.password.expiry');
-
+    Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('agent.update-password');
     /*end aget account */
 
     Route::post('policy/{id}',[AgentController::class,'updatePolicy'])->name('agent.update.policy');

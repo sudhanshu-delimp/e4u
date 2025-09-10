@@ -6,5 +6,5 @@ use App\Repositories\BaseRepositoryInterface;
 
 interface UserInterface extends BaseRepositoryInterface
 {
-
+    public function changeUserPassword($data);
 }

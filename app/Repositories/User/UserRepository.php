@@ -2,22 +2,26 @@
 
 namespace App\Repositories\User;
 
-use App\Repositories\BaseRepository;
-use App\Traits\DataTablePagination;
+use Schema;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Escort;
 use App\Models\MassageProfile;
-use Carbon\Carbon;
-use Schema;
+use App\Traits\DataTablePagination;
+use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository implements UserInterface
 {
     use DataTablePagination;
+    public $response = [];
+
     public function __construct(User $model, Escort $escort ,MassageProfile $massage_profile)
     {
         $this->model = $model;
         $this->escort = $escort;
         $this->massage_profile = $massage_profile;
+        $this->response = ['status' => false,'message' => ''];
     }
     public function paginatedByUsers($start, $limit, $order_key, $dir, $columns, $search = null)
 	{
@@ -483,5 +487,24 @@ class UserRepository extends BaseRepository implements UserInterface
             $i++;
         }
         return $result;
+    }
+
+
+    public function changeUserPassword($data)
+    {
+        $user = auth()->user();
+        if($user->account_setting && $user->account_setting->is_first_login=='1')
+        {
+           $user->account_setting->is_first_login = '0';
+           
+        }    
+
+        $user->account_setting->password_updated_date = date('Y-m-d H:i:s');
+        $user->account_setting->save();
+
+        $user->password = Hash::make($data['new_password']);
+        $user->save();
+        return $this->response = ['status' => true,'message' => 'Password changed successfully!'];
+
     }
 }

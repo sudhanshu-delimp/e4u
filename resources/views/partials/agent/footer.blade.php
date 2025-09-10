@@ -31,6 +31,13 @@
                 </div>
             </div>
         </div>
+
+
+    
+
+
+
+
         <!-- Bootstrap core JavaScript-->
         <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -216,6 +223,12 @@
             e.stopPropagation(); 
         });
 
+
+
+         
+
+
         </script>    
+         @include('modal.change-password')
         </body>
         </html>

@@ -149,7 +149,7 @@
                                  insert your verification code.</li>
                            </ol>
                            <div class="d-flex align-items-center justify-content-between gap-10">
-                              <input type="password" maxlength="4" required class="form-control w-75" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required">
+                              <input type="password" maxlength="6" required class="form-control w-75" name="otp" id="otp" aria-describedby="emailHelp" placeholder="Enter One Time Password" data-parsley-required-message="One Time Password is required">
                               <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
                           </div>
                           <div class="termsandconditions_text_color">
