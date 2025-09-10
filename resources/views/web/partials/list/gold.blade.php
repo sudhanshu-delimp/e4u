@@ -21,7 +21,7 @@
                                 <img src="{{ $escort->default_image ? $escort->default_image : asset('assets/app/img/service-provider/Frame-408.png') }}"
                                     class="img-fluid" title="View Profile">
                             </a>
-                            <div class="siliver_logo_icon"><img src="{{ asset('assets/app/img/img_gold.png') }}"></div>
+                            <div class="siliver_logo_icon"><img src="{{ asset('images/gold_membership.png') }}"></div>
                             <div class="add_to_fab_list_view_each_sec">
                                 @if (auth()->user())
                                     @if (auth()->user()->type == 0)
