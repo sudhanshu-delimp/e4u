@@ -40,7 +40,7 @@
 
                     <img width="16" height="17" viewBox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/account-edit.png') }}">
 
-                    <span style="{{request()->segment(2) == 'update-account' ? 'color: #e5365a;' : ''}}">Edit my account</span></a>
+                    <span style="{{request()->segment(2) == 'update-account' ? 'color: #e5365a;' : ''}}">Edit Our Account</span></a>
                    <a class="collapse-item" href="{{ route('center.profile.information')}}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png')}}">
 
