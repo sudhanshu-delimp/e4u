@@ -218,7 +218,7 @@
             </img>
              <span>Analytics</span>
         </a>
-        <div id="Analytics" class="collapse @if(request()->segment(2) == 'profiles-tours' || request()->segment(2) == 'social-media') show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="Analytics" class="collapse @if(request()->segment(2) == 'profiles-tours' || request()->segment(2) == 'social-media' || request()->segment(2) == 'feedback' || request()->segment(2) == 'criticalinformation') show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
             <a class="collapse-item" href="{{url('escort-dashboard/profiles-tours')}}">
             <img width="16" height="17" viewBox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/bed.png') }}">
@@ -227,6 +227,14 @@
             <a class="collapse-item" href="{{url('escort-dashboard/social-media')}}">
             <img width="16" height="17" viewBox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/at.png') }}">
             </img><span style="{{request()->segment(2) == 'social-media' ? 'color: #e5365a;' : ''}}">Social Media</span>
+            </a>
+            <a class="collapse-item" href="{{url('escort-dashboard/feedback')}}">
+                <img width="16" height="17" viewBox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/feedback-22.png') }}">
+                </img><span style="{{request()->segment(2) == 'feedback' ? 'color: #e5365a;' : ''}}">Feedback</span>
+                </a>
+                <a class="collapse-item" href="{{url('escort-dashboard/criticalinformation')}}">
+                    <img width="16" height="17" viewBox="0 0 16 17" fill="none" src="{{asset('assets/dashboard/img/menu-icon/important-file-22.png') }}">
+                    </img><span style="{{request()->segment(2) == 'criticalinformation' ? 'color: #e5365a;' : ''}}">Critical Information</span>
             </a>
             </div>
         </div>

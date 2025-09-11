@@ -1876,8 +1876,9 @@ color: #B9B9B9;
 .custom-select {
     background: #fff url(../img/dropdown-arrow.png) right 0.15rem center/18px 8px no-repeat !important;
     padding: .375rem 2.75rem .375rem .75rem !important;
-    border-radius: 0;
+    border-radius: 3px !important;
     color: #B9B9B9;
+    font-size: 0.875rem;
 }
 
 .card-body {
@@ -4659,6 +4660,13 @@ white-space: nowrap;
 
 .sidebar .nav-item .collapse-inner .collapse-item img {
     /*width: 18px;*/
+}
+
+.menu-icon {
+    width: 25px;
+    height: 25px;
+    object-fit: contain; /* image distort na ho */
+    filter: invert(60%) sepia(80%) saturate(7123%) hue-rotate(336deg) brightness(120%) contrast(110%);
 }
 
 select.membership_type {

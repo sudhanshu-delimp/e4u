@@ -134,7 +134,7 @@
     }
 
 </style>
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="container-fluid p-2">
     <div class="row">
         <div class="col-md-12  fill_profile_headings_global custom--social-head">
             <h2>My Playmates</h2>
@@ -177,7 +177,7 @@
                     </ol>
                 </div>
             </div>--}}
-            <div class="card-body border-0 pt-0 mt-2">
+            <div class="card-body border-0 pt-0 mt-2 p-0">
                 <div class="mb-5">
                     @php
                         $playmate = auth()->user()->available_playmate
@@ -194,46 +194,11 @@
                         <input name="q" placeholder="Search by name / Member ID" autocomplete="off" class=""
                                id="search-playmate-input">
                         <input type="hidden" name="h_escort_id" id="h_escort_id" value="{{auth()->user()->id}}">
-                        {{--<ul class="results showPlaymates">
-                            --}}{{-- {{ dd(auth()->user()->playmates()->pluck('playmate_id'))}} --}}{{--
-                            @foreach($users_for_available_playmate as $allUser)
-                                @if(!is_null($allUser->escorts))
-                                    @foreach($allUser->escorts as $escort)
-                                        @if(!in_array($escort->id,auth()->user()->playmates()->pluck('playmate_id')->toArray()))
-                                            @if($escort->membership != null && $escort->start_date != null)
-                                                --}}{{-- @if($escort->membership == 4 && Carbon\Carbon::parse($escort->start_date)->diffInDays(Carbon\Carbon::parse(now())) <= 14) --}}{{--
-                                                --}}{{-- {{ dd($escort->DefaultImage )}} --}}{{--
-                                                <li id="list_{{$escort->id}}">
-
-                                                    <img src="{{ $escort->DefaultImage }}"
-                                                         class="img-profile rounded-circle playmats-img ">
-                                                    {{ $escort->name }}
-                                                    <span class="playmates_id" value="{{$escort->id}}"
-                                                          data-path="{{$escort->DefaultImage}}"
-                                                          data-name="{{$escort->name}}">Add</span>
-                                                    --}}{{-- <span>{{Carbon\Carbon::parse($escort->start_date)->format('d/m/Y')}}</span>
-                                                    <span>{{Carbon\Carbon::now()->format('d/m/Y')}}</span> --}}{{--
-
-                                                </li>
-                                                --}}{{-- @endif  --}}{{--
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                @endif
-                            @endforeach
-                            --}}{{-- @foreach($allEscorts as $escort)
-                            <li>
-
-                               <img src="{{ $escort->default_image }}" class="img-profile rounded-circle playmats-img" >
-                               {{ $escort->name }} <span class="playmates_id2" value="{{$escort->id}}">Add</span>
-
-                            </li>
-                            @endforeach --}}{{--
-                        </ul>--}}
+                        
                     </div>
                 </form>
             </div>
-            <div class="card-body active-play border-0 pt-0 mt-1" id="active_playmates"
+            <div class="card-body active-play border-0 pt-0 mt-1 p-0" id="active_playmates"
                  style="display: none;" {{(($playmate) ? "" : 'hidden' )}}>
                 <div class="at-lable  mt-0">
                     <h2 class="primery_color normal_heading">My Active Playmates</h2>

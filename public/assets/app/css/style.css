@@ -1197,11 +1197,12 @@
         color: #fff;
         font-family: Poppins;
         font-weight: 600;
-        font-size: 18px;
+        font-size: 16px;
         line-height: 27px;
         background-color: var(--blue--text);
         border-color: var(--blue--text);
         margin: 0px 10px 10px 0px;
+        padding: 8px 20px;
     }
     
     .btn_become_pin_up:hover {
@@ -3366,14 +3367,14 @@ i.fa.fa-heart-o{
     }
     
     .if_data_not_available {
-        color: var(--peach);
-        background: rgba(255 60 95 / 27%);
-        font-family: Inter;
+        color: #ff3c5fd6;
+        background: rgba(255 60 95 / 20%);
+        font-family: 'Poppins';
         font-style: normal;
-        font-weight: 500;
-        font-size: 10px;
-        line-height: 20px;
-        padding: 4px 9px;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 1.5;
+        padding: 5px 15px;
         text-align: center;
         border-radius: 30px;
     }
@@ -4225,12 +4226,12 @@ i.fa.fa-heart-o{
     }
     
     .popu_heading_style {
-        font-family: Poppins;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 1.5;
-        color: #0C223D;
+        font-family: Poppins !important;
+        font-style: normal !important;
+        font-weight: 500 !important;
+        font-size: 20px !important;
+        line-height: 1.5 !important;
+        color: #0C223D !important;
     }
     
     .popupsecond_style_heading {
@@ -7184,6 +7185,7 @@ background-image:none;
         .btn_become_pin_up {
             font-size: 14px;
             line-height: 24px;
+            padding: 8px 20px;
         }
         .point_of_diff {
             padding: 25px 20px;

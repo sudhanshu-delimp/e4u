@@ -27,6 +27,13 @@
                   <li class="nav-item">
                      <a class="nav-link" href="{{ route('find.massage.centre') }}">Find Massage Centre</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#myPlayboxModal">
+                        <img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}" 
+                             alt="My Playbox" width="18" height="18" class="menu-icon mr-1"/>
+                        <span>My Playbox</span>
+                    </a>
+                </li>
                   <!-- <li class="nav-item dropdown">
                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Find Massage Center
@@ -131,6 +138,36 @@
             </div>
          </div>
       </nav>
+
+      <!-- My Playbox Modal -->
+<div class="modal defult-modal fade" id="myPlayboxModal" tabindex="-1" role="dialog" aria-labelledby="myPlayboxModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content custome_modal_max_width">
+           <!-- Modal body -->
+           <div class="modal-body p-0">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <img src="{{ asset('assets/app/img/newcross.png') }}" class=" ">
+              </button>
+              <h3><img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}" class="custompopicon menu-icon"> My Playbox</h3>
+              <div class="modal-sec pb-0">
+                <h1 class="popu_heading_style mb-3 mt-3" style="text-align: center;">
+                    <span id="Lname " class="my_legbox_title">Full My Playbox content is only available to <strong>Viewers</strong>.</span>
+                    </h1>
+                <h1 class="popu_heading_style mb-3 mt-3" style="text-align: center;">
+                    <span id="Lname " class="my_legbox_title">Please <a href="{{route('viewer.login')}}" style="color: var(--peach);">Log in</a> or <a href="{{url('/register')}}" style="color: var(--peach);">Register</a> to access My Playbox.</span>
+                
+                    <h1 class="popu_heading_style mb-4 mt-3" style="text-align: center;">    
+                    <span id="Lname " class="my_legbox_title">Or to view an Escort’s Playbox, click the icon on the Escort’s Profile, if it has been made available.</span>
+                    </h1>
+                </div>
+           </div>
+           <div class="modal-footer justify-content-center pt-3">
+            <a href="{{route('viewer.login')}}" class="btn btn_advertiser">Login</a>
+            <a href="{{url('/register')}}" class="btn  btn_become_pin_up">Register</a>
+          </div>
+        </div>
+     </div>
+  </div>
 
 </div>
 @push('scripts')
