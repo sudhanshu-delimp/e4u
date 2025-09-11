@@ -27,8 +27,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#myPlayboxModal">
-                        <img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}" 
-                             alt="My Playbox" width="18" height="18" class="menu-icon mr-1"/>
                         <span>My Playbox</span>
                     </a>
                 </li>
@@ -137,7 +135,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <img src="{{ asset('assets/app/img/newcross.png') }}" class=" ">
               </button>
-              <h3><img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}" class="custompopicon menu-icon"> My Playbox</h3>
+              <h3><img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}" class="custompopicon menu-icon my--play"> My Playbox</h3>
               <div class="modal-sec pb-0">
                 <h1 class="popu_heading_style mb-3 mt-3" style="text-align: center;">
                     <span id="Lname " class="my_legbox_title">Full My Playbox content is only available to <strong>Viewers</strong>.</span>

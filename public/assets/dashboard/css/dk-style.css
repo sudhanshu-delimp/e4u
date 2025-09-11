@@ -8132,6 +8132,10 @@ padding-left: 5px;
         border: 1px solid var(--blue--text);
     }
     
+    .my--play {
+        filter: brightness(0) saturate(100%) invert(38%) sepia(23%) saturate(5317%) hue-rotate(326deg) brightness(99%) contrast(107%);
+    }
+
     .my-account-card {
         background-color: #fff;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
