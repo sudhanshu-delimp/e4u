@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\Escort;
 use App\Models\Country;
 use App\Models\State;
+use App\Models\EscortMedia;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -374,11 +375,31 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
             return $parms;
         }
         
+    }     
+}
+
+if (!function_exists('getDefaultBannerTemplates')) {
+    function getBannerTemplates(){
+        return EscortMedia::where(['type'=>0,'position'=>9])
+        ->whereNull('user_id')
+        ->get();
     }
+}
 
+if (!function_exists('isGalleryTemplate')) {
+    function isGalleryTemplate($media_id=0){
+        $media = EscortMedia::where(['id'=>$media_id])->first();
+        if($media->template){
+            $template = EscortMedia::where(['user_id'=>NULL,'template'=>'1','path'=>$media->path])->first('id');
+            return $template->id;
+        }
+        else{
+            return $media_id;
+        }
+    }
+}
 
-    if (!function_exists('logErrorLocal')) 
-    {
+if (!function_exists('logErrorLocal')) {
     function logErrorLocal($error)
     {
         if (app()->environment('local')) {
@@ -390,6 +411,18 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
         }
     }
 }
-     
+
+if (!function_exists('CheckExpireDate')) {
+    function CheckExpireDate($data)
+    {
+        $map = [
+            0 => 'Never',
+            30 => 'Renew every 30 days',
+            60 => 'Renew every 60 days',
+            90 => 'Renew every 90 days',
+        ];
+
+        return $map[$data] ?? null;
+    }
 }
 

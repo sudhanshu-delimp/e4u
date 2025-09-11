@@ -481,9 +481,7 @@ Route::get('/escort-dashboard/tour-schedule',function(){
     return view('escort.dashboard.tour-schedule');
 })->name('escort.dashboard.tour-schedule');
 
-Route::get('/escort-dashboard/logs-and-status',function(){
-    return view('escort.dashboard.logs-and-status');
-})->name('escort.dashboard.logs-and-status');
+
 
 
 Route::get('/escort-dashboard/help',function(){

@@ -86,7 +86,8 @@ class EscortMediaRepository extends BaseRepository implements EscortMediaInterfa
         $result = $this->model
             ->where('user_id',$user_id)
 //            ->where('position', null)
-            ->where('type','=', 0);
+            ->where('type','=', 0)
+            ->where('template','0');
             /*->where(function($q) {
                 $q
                     ->orWhere('position','!=',9)

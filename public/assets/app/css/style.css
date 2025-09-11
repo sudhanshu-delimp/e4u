@@ -1470,6 +1470,52 @@
         line-height: 24px;
         color: #90a0b7;
     }
+    
+    .pinup-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .pinup-wrapper img {
+        display: block;
+        max-width: 100%;
+    }
+    /* Tooltip by default hidden */
+    
+    .pinup-tooltip {
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        /* image ke right side */
+        transform: translateY(-50%);
+        background: var(--peach);
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 14px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+    }
+    /* Tooltip arrow */
+    
+    .pinup-tooltip::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%) translateX(-100%);
+        border-width: 6px;
+        border-style: solid;
+        border-color: transparent var(--peach) transparent transparent;
+    }
+    /* Hover pe show */
+    
+    .pinup-wrapper:hover .pinup-tooltip {
+        opacity: 1;
+        visibility: visible;
+    }
     /*pinup profile page end here*/
     /*accordion style start here*/
     
@@ -2859,7 +2905,11 @@ i.fa.fa-heart-o{
     .siliver_logo_icon {
         position: absolute;
         top: 0px;
-        left: 0px;
+        left: -4px;
+    }
+    
+    .siliver_logo_icon img {
+        width: 35px !important;
     }
     
     .add_to_fab_list_view_each_sec {
