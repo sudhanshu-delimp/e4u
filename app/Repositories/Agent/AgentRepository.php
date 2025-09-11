@@ -209,6 +209,17 @@ class AgentRepository extends BaseRepository implements AgentInterface
         
     }
 
+
+    public function update_agent_account_setting($user, $data)
+    {
+       
+        $resposne =  $this->setting->create_account_setting($user,$data);
+        if($resposne)
+        return $this->response = ['status' => true,'message' => 'Updated Successfully'];
+        else
+        return $this->response = ['status' => true,'message' => 'Error occured while updating'];
+    }
+
    
 
 }

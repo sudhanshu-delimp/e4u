@@ -86,19 +86,19 @@
                               <label for="confirm_password">Password Expiry </label>
                            </div>
                            <div class="form-radio">
-                              <input class="" name="password_expiry_days"  type="radio" value="0" {{ $user->account_setting->password_expiry_days == 0 ? ' checked' : null }} >
+                              <input class="" name="password_expiry_days"  type="radio" value="0" {{ $user->account_setting && $user->account_setting->password_expiry_days == 0 ? ' checked' : null }} >
                               <label class="form-check-label" for="flexCheckDefault">Never</label>
                            </div>
                            <div class="form-radio">
-                              <input class="" name="password_expiry_days"  type="radio" {{ $user->account_setting->password_expiry_days == 30 ? ' checked' : null }} value="30" >
+                              <input class="" name="password_expiry_days"  type="radio" {{ $user->account_setting && $user->account_setting->password_expiry_days == 30 ? ' checked' : null }} value="30" >
                               <label class="form-check-label" for="flexCheckDefault">Renew every 30 days</label>
                            </div>
                            <div class="form-radio">
-                              <input class="" name="password_expiry_days" {{ $user->account_setting->password_expiry_days == 60 ? 'checked' : null }} type="radio" value="60" >
+                              <input class="" name="password_expiry_days" {{ $user->account_setting && $user->account_setting->password_expiry_days == 60 ? 'checked' : null }} type="radio" value="60" >
                               <label class="form-check-label" for="flexCheckDefault">Renew every 60 days</label>
                            </div>
                            <div class="form-radio">
-                              <input class="" name="password_expiry_days" type="radio" {{ $user->account_setting->password_expiry_days == 90 ? ' checked' : null }} value="90" >
+                              <input class="" name="password_expiry_days" type="radio" {{ $user->account_setting && $user->account_setting->password_expiry_days == 90 ? ' checked' : null }} value="90" >
                               <label class="form-check-label" for="flexCheckDefault">Renew every 90 days</label>
                            </div>
                            <small id="emailHelp" class="form-text text-muted">Unless you set your preferred Password Expiry, by default your password will renew every 30 days.</small>
