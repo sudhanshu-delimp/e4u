@@ -49,9 +49,9 @@
                     <div class="col-lg-12">
                         <div class="add-mcc-section">
                             <form action="">
-                              {{-- About Us --}}
+                              {{-- About The Masseur --}}
                                 <div class="mcc-form-tab">
-                                    <h2 class="mcc-heading">About Masseur</h2>
+                                    <h2 class="mcc-heading">About The Masseur</h2>
                                     <div class="business-info-field pt-4">
                                         <!-- Personal Info -->
                                         <div class="form-group business-field">

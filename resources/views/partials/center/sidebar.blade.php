@@ -169,7 +169,7 @@
                 <span style="{{request()->segment(3) == 'new-listing' ? 'color: #e5365a;' : ''}}">New</span>
             </a>
             <a class="collapse-item" href="{{ route('center.archives-listing') }}">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/account-edit.png')}}">
+                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/viewachi.png')}}">
                 <span style="{{request()->segment(3) == 'archives-listing' ? 'color: #e5365a;' : ''}}">Archives</span>
             </a>
             {{-- <a class="collapse-item" href="{{ route('center.past-profile') }}">
