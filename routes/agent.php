@@ -10,10 +10,11 @@ use App\Http\Controllers\Agent\AgentTaskController;
 use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
+use App\Http\Controllers\User\Dashboard\UserController;
 use App\Http\Controllers\Agent\AgentDashboardController;
 use App\Http\Controllers\Escort\EscortGalleryController;
-use App\Http\Controllers\Escort\Profile\CreateController;
 
+use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
 use App\Http\Controllers\Agent\AgentTourPaymentController;
 use App\Http\Controllers\Escort\EscortPolyPaymentController;
@@ -59,9 +60,11 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
     Route::get('/update-account', [AgentAccountController::class, 'edit'])->name('agent.account.edit');
     Route::post('/update-account', [AgentAccountController::class, 'update'])->name('agent.account.update');
     Route::get('/change-password', [AgentAccountController::class, 'editPassword'])->name('agent.change.password');
-    Route::post('/change-password', [AgentAccountController::class, 'updatePassword'])->name('agent.update.password');
-    Route::post('/change-password-expiry', [AgentAccountController::class, 'updatePasswordExpiry'])->name('agent.update.password.expiry');
+    
     Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('agent.update-password');
+
+    Route::post('/change-password', [UserController::class, 'updatePassword'])->name('agent.update.password');
+    Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('agent.update.password.expiry');
     /*end aget account */
 
     Route::post('policy/{id}',[AgentController::class,'updatePolicy'])->name('agent.update.policy');

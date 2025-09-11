@@ -22,11 +22,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     protected $user;
+     public $user;
      public function __construct(UserInterface $user)
      {
         $this->user = $user;
      }
+
     public function index()
     {
 
@@ -273,19 +274,16 @@ class UserController extends Controller
         $response = [];
         try 
         {
-                $user = $user = User::with('account_setting')->where('id',auth()->user()->id)->first();
-                if(!Hash::check($request->password, $user->password)){
+                $current_user  = User::with('account_setting')->where('id',auth()->user()->id)->first();
+                if(!Hash::check($request->password, $current_user->password)){
                     $response = ['error' => true ,'message'=>'Your current password is incorrect.'];
                 }
                 else
-                {
-                $data = ['password' => Hash::make($request->new_password)];
-                $this->user->store($data, auth()->user()->id);
-                if ($user->account_setting) {
-                $user->account_setting->password_updated_date = date('Y-m-d H:i:s');
-                $user->account_setting->save();
-                }
-                $response = ['error' => false ,'message'=>'Password Changed Successfully'];
+                {   
+                    
+                    $data = $request->all();
+                    $this->user->changeUserPassword($data);    
+                    $response = ['error' => false ,'message'=>'Password Changed Successfully'];
                 }
                 return response()->json($response);
         } 
@@ -295,18 +293,10 @@ class UserController extends Controller
     }
 
 
-
     public function updatePasswordExpiry(Request $request)
     {
-        $user = $user = User::with('account_setting')->where('id',auth()->user()->id)->first();
-
-        if($request->password_expiry_days)
-        $user->account_setting->password_expiry_days = $request->password_expiry_days;  
-
-        $user->account_setting->is_text_notificaion_on = ($request->is_text_notificaion_on) ? '1' : '0'; 
-        $user->account_setting->is_email_notificaion_on = ($request->is_email_notificaion_on) ? '1' : '0';
-
-        $user->account_setting->save();
+        $data = $request->all();
+        $this->user->update_account_setting($data); 
         return response()->json(['error' => false ,'message'=>'Password Settings Updated Successfully']);
     
     }

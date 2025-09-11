@@ -138,7 +138,7 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
-                                    User Name: {{auth()->user()->name }}
+                                    User Name: {{auth()->user()->business_name }}
                                 </a>
                                         <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('agent.account.edit') }}">

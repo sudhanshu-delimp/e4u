@@ -23,12 +23,13 @@ class AgentRepository extends BaseRepository implements AgentInterface
     
     protected $agent;
     protected $setting;
+    public $user_model;
     public $response = [];
     
-    public function __construct(Agent $agent, AccountSetting $setting)
+    public function __construct(Agent $agent, User $user_model, AccountSetting $setting)
     {
         $this->agent = $agent;
-        $this->setting = $setting;
+        $this->user_model = $user_model;
         $this->response = ['status' => false,'message' => ''];
        
     }
@@ -134,7 +135,7 @@ class AgentRepository extends BaseRepository implements AgentInterface
                     ];
        
                     //event(new AgentRegistered($userDataForEvent));
-                    $this->setting->create_account_setting($user);
+                    $this->user_model->create_account_setting($user);
                   
                 }
 
@@ -210,16 +211,6 @@ class AgentRepository extends BaseRepository implements AgentInterface
     }
 
 
-    public function update_agent_account_setting($user, $data)
-    {
-       
-        $resposne =  $this->setting->create_account_setting($user,$data);
-        if($resposne)
-        return $this->response = ['status' => true,'message' => 'Updated Successfully'];
-        else
-        return $this->response = ['status' => true,'message' => 'Error occured while updating'];
-    }
 
-   
 
 }

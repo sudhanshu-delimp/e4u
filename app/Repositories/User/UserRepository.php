@@ -6,6 +6,7 @@ use Schema;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Escort;
+use App\Models\AccountSetting;
 use App\Models\MassageProfile;
 use App\Traits\DataTablePagination;
 use App\Repositories\BaseRepository;
@@ -15,10 +16,15 @@ class UserRepository extends BaseRepository implements UserInterface
 {
     use DataTablePagination;
     public $response = [];
+    public $model;
+    public $escort;
+    public $massage_profile;
+    public $user_model;
 
     public function __construct(User $model, Escort $escort ,MassageProfile $massage_profile)
     {
         $this->model = $model;
+        $this->user_model = $model;
         $this->escort = $escort;
         $this->massage_profile = $massage_profile;
         $this->response = ['status' => false,'message' => ''];
@@ -495,15 +501,28 @@ class UserRepository extends BaseRepository implements UserInterface
         if(auth()->user())
         {
             $user = auth()->user();
-            if($user->account_setting && $user->account_setting->is_first_login=='1')
+            if($user->account_setting)
             {
-            $user->account_setting->is_first_login = '0';
-            
-            }    
-
-            $user->account_setting->password_updated_date = date('Y-m-d H:i:s');
-            $user->account_setting->save();
-
+                if($user->account_setting->is_first_login=='1')
+                {
+                    $user->account_setting->is_first_login = '0';
+                }    
+              
+                $user->account_setting->password_updated_date = date('Y-m-d H:i:s');
+                $user->account_setting->save();
+            }
+            else
+            {
+                AccountSetting::create([
+                    'user_id'  => $user->id,
+                    'password_updated_date' =>   date('Y-m-d H:i:s'),
+                    'password_expiry_days'   => '30',
+                    'is_text_notificaion_on' => '0',
+                    'is_email_notificaion_on' => '0',
+                    'is_first_login' => '0',
+                ]);
+            }
+                
             $user->password = Hash::make($data['new_password']);
             $user->save();
             return $this->response = ['status' => true,'message' => 'Password changed successfully!'];
@@ -514,4 +533,43 @@ class UserRepository extends BaseRepository implements UserInterface
         }
     
     }
+
+
+    
+    public function update_account_setting($data)
+    {
+        if(auth()->user())
+        {
+             $user = auth()->user();
+            if($user->account_setting)
+            {
+                if(isset($data['password_expiry_days']) && $data['password_expiry_days']!="")
+                $user->account_setting->password_expiry_days = $data['password_expiry_days']; 
+
+                $user->account_setting->is_text_notificaion_on = isset($data['is_text_notificaion_on']) ? '1' : '0'; 
+                $user->account_setting->is_email_notificaion_on = isset($data['is_email_notificaion_on']) ? '1' : '0';
+                $user->account_setting->save();
+            }
+            else
+            {
+                 AccountSetting::create([
+                    'user_id'  => $user->id,
+                    'password_updated_date' =>  date('Y-m-d H:i:s'),
+                    'password_expiry_days'   => $data['password_expiry_days'] ,
+                    'is_text_notificaion_on' => isset($data['is_text_notificaion_on']) ? '1' : '0',
+                    'is_email_notificaion_on' => isset($data['is_email_notificaion_on']) ? '1' : '0',
+                    'is_first_login' => '0',
+                ]);
+            }
+
+            return $this->response = ['status' => true,'message' => 'Updated Successfully'];
+        }
+        else
+        {
+           return $this->response = ['status' => false,'message' => 'Error occured while updating setting!']; 
+        }
+      
+    }
+
+
 }
