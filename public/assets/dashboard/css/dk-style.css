@@ -2878,7 +2878,7 @@ color: #B9B9B9;
     
     .myacording-design {
         width: 100%;
-        max-width: 900px;
+        /* max-width: 900px; */
     }
     /* New css 11march 2025 end */
     /*first tab about me section*/
@@ -7447,6 +7447,20 @@ padding-left: 5px;
         cursor: pointer;
     }
     
+    .inn_help_icon {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--blue--text);
+        margin: 15px 0px;
+    }
+    
+    .inn_help_icon span {
+        color: var(--peach);
+        font-size: 14px;
+        padding-left: 10px;
+        cursor: pointer;
+    }
+    
     .timer_section {
         background: #0c223d;
         padding: 12px 10px;
@@ -9126,6 +9140,14 @@ border-top: 5px solid var(--peach);
         background-color: #e5365a;
         border-radius: 15%;
         padding: 0 5px;
+    }
+    
+    .grant-access sup {
+        background: #ff3c5f;
+        padding: 3px;
+        color: #fff;
+        border-radius: 5px;
+        top: -12px !important;
     }
     
     .listing-tag-tooltip {

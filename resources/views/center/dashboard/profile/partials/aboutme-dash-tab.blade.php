@@ -181,31 +181,31 @@ textarea {
          <div class="business-info-field pt-4">
             <div class="form-group business-field">
                <label for="profile_name">Profile Name:</label>
-                  <input type="text" name="profile_name" class="form-control" id="profile_name" required data-parsley-required-message="Enter profile name" data-parsley-group="goup_one">
+                  <input type="text" name="profile_name" class="form-control" id="profile_name" required placeholder="Enter Profile Name " data-parsley-required-message="Enter profile name" data-parsley-group="goup_one">
                
             </div>
 
             <div class="form-group business-field">
                <label for="business_name">
                   Business Name:</label>
-                  <input type="text" name="business_name" class="form-control" id="business_name" required data-parsley-required-message="Enter business name" data-parsley-group="goup_one">
+                  <input type="text" name="business_name" class="form-control" id="business_name" placeholder="Enter Business Name" required data-parsley-required-message="Enter business name" data-parsley-group="goup_one">
             </div>           
 
             <div class="form-group business-field">
                <label for="business_no">
                   Business No:</label>
-                  <input type="text" name="business_no" class="form-control" id="business_no" required data-parsley-required-message="Enter business number" data-parsley-group="goup_one">               
+                  <input type="text" name="business_no" class="form-control" id="business_no" placeholder="Enter Business Number" required data-parsley-required-message="Enter business number" data-parsley-group="goup_one">               
             </div>
 
             <div class="form-group business-field">
                <label for="mobile_no">
                   Mobile No:</label>
-               <input type="text" name="mobile_no" class="form-control" id="mobile_no" required data-parsley-required-message="Enter mobile number" data-parsley-group="goup_one">           
+               <input type="text" name="mobile_no" class="form-control" id="mobile_no" placeholder="Enter Mobile Number" required data-parsley-required-message="Enter mobile number" data-parsley-group="goup_one">           
             </div>
 
             <div class="form-group business-field">
                <label for="address">Address:</label>
-               <textarea name="address" rows="3" class="form-control" id="address" required ></textarea>              
+               <textarea name="address" rows="3" class="form-control" id="address" placeholder="Enter Address" required ></textarea>              
             </div>
 
          </div>
