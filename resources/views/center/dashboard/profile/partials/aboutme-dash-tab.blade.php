@@ -753,7 +753,7 @@ textarea {
 
 <div class="modal fade upload-modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
    <div class="modal-dialog modal-dialog-scrollable" role="document"> {{--NOTE:: use  modal-dialog-scrollable instead of modal-dialog to make body scrollable only--}}
-       <div class="modal-content" style="width: 900px;position: absolute;">
+       <div class="modal-content">
            {{-- {{ route('escort.upload.gallery') }} --}}
            <form id="mulitiImage" method="POST" action="{{route('escort.upload.gallery')}}" enctype="multipart/form-data">
                @csrf
@@ -785,7 +785,7 @@ textarea {
                                                </a>
                                            </div>
                                            <div class="row mt-2">
-                                               <div class="col-lg-6">
+                                               <div class="col-lg-12">
                                                    <div class="plate"><label class="newbtn">
                                                        <img id="blah9" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/upload-3.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
                                                        <input name="img[9]" id="pic9" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
@@ -793,14 +793,7 @@ textarea {
                                                        </label>
                                                    </div>
                                                </div>
-                                               <div class="col-lg-6">
-                                                   <div class="plate"><label class="newbtn">
-                                                       <img id="blah10" class="img-fluid pl-2 pr-2" src="{{ asset('assets/app/img/add-pinup-banner-full.png')}}" style="height: 150px;object-fit: cover;width: 100%;">
-                                                       <input name="img[10]" id="pic10" class="pis" onchange="readURL(this);" type="file" accept="image/*" >
-                                                       <input type="hidden" name="position[]" id="mediaId10">
-                                                       </label>
-                                                   </div>
-                                               </div>
+                                              
                                            </div>
                                        </div>
                                    </div>

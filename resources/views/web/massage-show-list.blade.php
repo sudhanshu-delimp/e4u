@@ -617,7 +617,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">My Legbox</h5>
+                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"><img src="{{ asset('assets/app/img/my-legbox.png') }}" class="img-fluid"> My Legbox</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
@@ -641,7 +641,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Add To Shortlist</h5>
+                    <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"><img src="{{ asset('assets/app/img/short-list-profile.png') }}" class="img-fluid"> Add To Shortlist</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
                     <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">

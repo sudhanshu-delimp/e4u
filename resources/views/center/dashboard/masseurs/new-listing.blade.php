@@ -23,7 +23,7 @@
             <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
                 <div class="row">
                     <div class="custom-heading-wrapper col-md-12">
-                        <h1 class="h1">Add Masseur</h1>
+                        <h1 class="h1">Add New Masseur</h1>
                         <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
                             aria-expanded="true"><b>Help?</b></span>
                     </div>
@@ -33,8 +33,8 @@
                                 <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                                 <ol>
                                     <li>Use these help pages for explanations and guidance on managing all of your Masseur
-                                        Profiles.</li>
-                                    <li>You can upload four photos for each Masseur. Designate one as the Masseur's
+                                        Photos.</li>
+                                    <li>You can upload four photos for each Masseur. Designate one as the Masseur’s
                                         Thumbnail.</li>
                                     <li>Activate up to eight Masseur Profiles at any one time to appear the Massage Centre
                                         Profile.</li>
@@ -49,9 +49,9 @@
                     <div class="col-lg-12">
                         <div class="add-mcc-section">
                             <form action="">
-                              {{-- About Us --}}
+                              {{-- About The Masseur --}}
                                 <div class="mcc-form-tab">
-                                    <h2 class="mcc-heading">About Us</h2>
+                                    <h2 class="mcc-heading">About The Masseur</h2>
                                     <div class="business-info-field pt-4">
                                         <!-- Personal Info -->
                                         <div class="form-group business-field">

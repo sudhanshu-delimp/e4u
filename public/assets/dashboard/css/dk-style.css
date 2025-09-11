@@ -2319,7 +2319,6 @@ color: #B9B9B9;
         box-shadow: none;
     }
     
-    // Chatting pannel end
     /* width */
     
     ul.custom-chat-list::-webkit-scrollbar,
@@ -5362,6 +5361,19 @@ align-items: center;*/
         font-weight: 500;
     }
     
+    .video-header {
+        background-color: var(--blue--text);
+        padding: 10px;
+    }
+    
+    .media-head {
+        color: #fff;
+        font-size: 18px;
+        padding: 10px;
+        font-weight: 500;
+        margin-bottom: 0px;
+    }
+    
     .photo-header .nav-tabs .nav-link {
         padding: 0 25px;
         border: 0 !important;
@@ -8120,6 +8132,10 @@ padding-left: 5px;
         border: 1px solid var(--blue--text);
     }
     
+    .my--play {
+        filter: brightness(0) saturate(100%) invert(38%) sepia(23%) saturate(5317%) hue-rotate(326deg) brightness(99%) contrast(107%);
+    }
+
     .my-account-card {
         background-color: #fff;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);

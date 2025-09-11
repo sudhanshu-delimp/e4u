@@ -170,7 +170,7 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#notebox"
             aria-expanded="false" aria-controls="notebox">
             <img class="mr-2 pl-1 cstm--icon"
-                src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyNotebox-light.png') }}">
+                src="{{ asset('assets/dashboard/img/MyNotebox.png') }}" style="filter: brightness(0) saturate(100%) invert(99%) sepia(5%) saturate(0%) hue-rotate(101deg) brightness(110%) contrast(100%);">
             <span>Notebox</span>
         </a>
         <div id="notebox" class="collapse @if (request()->segment(3) == 'list' || request()->segment(3) == 'new') show @endif"

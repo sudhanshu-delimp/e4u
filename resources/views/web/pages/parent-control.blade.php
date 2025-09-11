@@ -22,7 +22,7 @@
 </style>
 @endsection
 @section('content')
-<section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
+<section class="padding_top_eight_px padding_bottom_eight_px footer-links-si text-justify">
    <div class="container">
       <h1 class="home_heading_first margin_btm_twenty_px page-title">Parent Control </h1>
        <p>

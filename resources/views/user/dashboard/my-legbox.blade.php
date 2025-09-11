@@ -224,7 +224,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-0">
                 <div class="modal-body text-center">
-                    <h3 class="mb-4 mt-5"><span id="Lname">Are you sure want to remove?</span> </h3>
+                    <h3 class="mb-4 mt-5"><span id="Lname"><img src="{{ asset('assets/app/img/alert.png') }}" class="img-fluid">Are you sure want to remove?</span> </h3>
                     <input type="hidden" id="escortId" value="">
                     <button type="button" class="btn btn-success" id="save_change">OK</button>
 
