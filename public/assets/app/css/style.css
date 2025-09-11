@@ -3417,8 +3417,8 @@ i.fa.fa-heart-o{
     }
     
     .if_data_not_available {
-        color: #ff3c5f69;
-        background: rgba(255 60 95 / 20%);
+        color: #ff3c5f40;
+        background: rgb(255 60 95 / 9%);
         font-family: 'Poppins';
         font-style: normal;
         font-weight: 600;
