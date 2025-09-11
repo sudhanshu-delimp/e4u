@@ -967,22 +967,10 @@ class WebController extends Controller
     public function profileDescription(Request $request, $id, $city=null, $membershipId =null, $viewType='grid')
     {
         $escort = Escort::where('id',$id)->with('reviews','reviews.user')->first();
-        //dd($escort);
         $media = $this->escortMedia->get_videos($escort->user_id);
         $path = $this->escortMedia->findByVideoposition($escort->user_id,1)['path'];
-        if(! $escort) {
-            //list($next, $previous) = $this->escort->getlinks($id);
-            //dd($escort);
-        }
-        //dd($escort);
-        //'enabled'=>0,'membership'
 
-        if(!empty($escort) && $escort->enabled == 0 && $escort->membership == null) {
-           // dd($escort);
-        }
-        // $mytime = Carbon::now()->format('Y-m-d');
-        // $escort = Escort::whereDate('end_date','<',$mytime)->where('id',$id)->update(['enabled'=>0]);
-        //
+
         $escortId =[];
 
         $filterEscortsParams = session('search_escort_filters');
@@ -1024,7 +1012,6 @@ class WebController extends Controller
             $backToSearchButton = session('search_shorlisting_escort_filters_url');
         }
 
-        // $filterEscorts = $this->escort->findByPlan($limit, $filterEscortsParams, $user_id = null, $escortId, $userId = null , 'profile_details');
 
         $location = request()->get('location');
 
@@ -1057,13 +1044,6 @@ class WebController extends Controller
             $backToSearchButton = preg_replace('/view_type=(grid|list)/', 'view_type=grid', $backToSearchButton);
         }
 
-        // dd($backToSearchButton);
-
-        // if($filterEscortsParams['view_type'] == 'list'){
-        //     $viewType = 'list';
-        //     $next = $next. '?'.$viewType;
-        //     $previous = $previous. '?'.$viewType;
-        // }
 
         $services1 = $this->servicesById($id, 1);
 
@@ -1139,34 +1119,6 @@ class WebController extends Controller
             $cat3_services_three = $services3[2];
         }
 
-        //dd($cat1_services_one->pivot->price);
-
-        /*end functionality*/
-
-
-        //$escort->services()->where('category_id', 1)->get() as $value
-        // $cid1 = 1;
-        // $servicesByCategory1 = $this->services->CategoryByServices($cid1,$escort);
-
-        // $cat1_services_one = $servicesByCategory1[0];
-        // $cat1_services_two = $servicesByCategory1[1];
-        // $cat1_services_three = $servicesByCategory1[2];
-        // $cid2 = 2;
-        // $servicesByCategory2 = $this->services->CategoryByServices($cid2,$escort);
-
-        // $cat2_services_one = $servicesByCategory2[0];
-        // $cat2_services_two = $servicesByCategory2[1];
-        // $cat2_services_three = $servicesByCategory2[2];
-        // $cid3 = 3;
-        // $servicesByCategory3 = $this->services->CategoryByServices($cid3,$escort);
-
-        // $cat3_services_one = $servicesByCategory3[0];
-        // $cat3_services_two = $servicesByCategory3[1];
-        // $cat3_services_three = $servicesByCategory3[2];
-
-
-
-      //  dd($services_one);
         $user_type = null;
         $escortLike = null;
         $userId = !empty(auth()->user()) ? auth()->user()->id : NULL;
@@ -1187,9 +1139,6 @@ class WebController extends Controller
             $dp = 0;
         }
 
-        
-
-        
 
         $reviews = Reviews::where('escort_id',$id)->where('status','approved')->with('user')->get()->unique('user_id');
         //dd($viewType);
