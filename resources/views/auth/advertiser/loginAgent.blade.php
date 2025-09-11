@@ -179,6 +179,8 @@
 <script>
 
 $(document).ready(function() {
+
+
    $("body").on("click","#forgotpassword",function(e){
             
       e.preventDefault();
@@ -245,7 +247,7 @@ $(document).ready(function() {
    
       e.preventDefault();
       
-
+      swal_waiting_popup({});
       var form = $(this);
       var url = form.attr('action');
       var formData = new FormData($("#escort_login")[0]);
@@ -263,8 +265,8 @@ $(document).ready(function() {
                'X-CSRF-Token': token
          },
             success: function(data) {
-               
-                $('#formerror').html('');
+               Swal.close();
+               $('#formerror').html('');
                var ph = data.phone;
                $("#phoneId").attr('value',ph);
                if(data.error == 1) {
@@ -273,6 +275,8 @@ $(document).ready(function() {
                      $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>");
                   });
                   $("#sendOtp_modal").modal('show');//
+
+
                   $("body").on("submit","#SendOtp",function(e){
                         e.preventDefault();
                         var form = $(this);
@@ -327,6 +331,8 @@ $(document).ready(function() {
                }
          },
          error: function(data) {
+
+                Swal.close();
                console.log("error: ", data.responseJSON.errors);
                $.each(data.responseJSON.errors, function(key, value) {
                  errorsHtml = '<div class="alert alert-danger"><ul>';

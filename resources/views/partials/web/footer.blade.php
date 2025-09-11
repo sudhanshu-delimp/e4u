@@ -615,6 +615,9 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/app/js/jqueryuijs.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js"></script>
+<script src="{{ asset('assets/plugins/sweetalert/sweetalert2@11.js') }}"></script>
+ <script src="{{ asset('assets/js/common.js') }}"></script>
+
 <script>
     $('#agreeMyForm').parsley({
 

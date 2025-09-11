@@ -308,10 +308,8 @@
         var loginForm = $("#escort_login");
    
         loginForm.submit(function(e) {
-        
             e.preventDefault();
-           
-
+            swal_waiting_popup({});
             var form = $(this);
             var url = form.attr('action');
             var formData = new FormData($("#escort_login")[0]);
@@ -329,7 +327,8 @@
                    'X-CSRF-Token': token
                },
                 success: function(data) {
-                   
+
+                   Swal.close();
                    $('#formerror').html('');
                     var ph = data.phone;
                     $("#phoneId").attr('value',ph);
@@ -398,9 +397,8 @@
                     }
                },
                error: function(data) {
-   
+                Swal.close();
                 console.log("error: b", data.responseJSON.errors);
-                  
                   var errorsHtml = '';
                    $.each(data.responseJSON.errors, function(key, value) {
                      errorsHtml = '<div class="alert alert-danger"><ul>';

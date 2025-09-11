@@ -299,7 +299,7 @@
     var loginFormViewer = $("#loginFormViewer");
 
     loginFormViewer.submit(function(e) {
-
+      swal_waiting_popup({}); 
       e.preventDefault();
       var form = $(this);
       var url = form.attr('action');
@@ -319,6 +319,7 @@
          },
             success: function(data) {
                 $('#formerror').html('');
+                 Swal.close();
                 if(data.escort_id != null) {
 
                 }
@@ -411,6 +412,7 @@
 
          },
          error: function(data) {
+               Swal.close();
                $.each(data.responseJSON.errors, function(key, value) {
                 errorsHtml = '<div class="alert alert-danger"><ul>';
                 errorsHtml += '<li>' + value + '</li>'; 
