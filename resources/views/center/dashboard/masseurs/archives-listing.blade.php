@@ -64,7 +64,7 @@
       <div class="container-fluid  pl-3 pl-lg-5 pr-3 pr-lg-5">
          <div class="row">    
             <div class="custom-heading-wrapper col-md-12">
-               <h1 class="h1">Profiles</h1>
+               <h1 class="h1">Archives</h1>
                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
             <div class="col-md-12 mb-4">
@@ -74,7 +74,7 @@
                      <ol>
                            <li>Use these help pages for explanations and guidance on managing all of your Masseur
                               Profiles.</li>
-                           <li>You can upload four photos for each Masseur. Designate one as the Masseur's
+                           <li>You can upload four photos for each Masseur. Designate one as the Masseur’s
                               Thumbnail.</li>
                            <li>Activate up to eight Masseur Profiles at any one time to appear the Massage Centre
                               Profile.</li>
@@ -95,12 +95,12 @@
                            <div class="row pb-3">
 
                               <div class="col-md-12 col-sm-12">
-                                 <div class="bothsearch-form d-flex align-items-center justify-content-between" style="gap: 10px;">
+                                 <div class="bothsearch-form d-flex align-items-center justify-content-end" style="gap: 10px;">
                                     <div class="total_listing">
                                        <div><span>Current Active : </span></div>
                                        <div><span id="totalViewerLegboxList">1</span></div>
                                     </div>
-                                    <a href="{{route('center.add-profile')}}" class="create-tour-sec dctour text-white">Add Masseur</a>
+                                    
                                  </div>
                               </div>
                            </div>
