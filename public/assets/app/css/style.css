@@ -1030,21 +1030,23 @@
         font-family: Poppins;
         font-size: 18px;
         font-style: normal;
-        font-weight: 600;
+        font-weight: 500;
         line-height: 21.69px;
         text-align: left;
         background: #0C223D;
         color: #fff;
         padding: 1rem;
+        margin-bottom: 0;
     }
     
     div.defult-modal .modal-body p {
         font-family: 'Poppins';
-        font-size: 16px;
+        font-size: 1rem;
         font-style: normal;
-        line-height: 21.69px;
-        letter-spacing: -0.015em;
+        line-height: 1.5;
         text-align: left;
+        color: #212529;
+        font-weight: 400;
     }
     
     div.defult-modal .modal-body ol li {
@@ -1052,7 +1054,7 @@
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
-        line-height: 19.28px;
+        line-height: 1.5;
         letter-spacing: -0.015em;
         margin-bottom: 14px;
     }
@@ -1195,11 +1197,12 @@
         color: #fff;
         font-family: Poppins;
         font-weight: 600;
-        font-size: 18px;
+        font-size: 16px;
         line-height: 27px;
         background-color: var(--blue--text);
         border-color: var(--blue--text);
         margin: 0px 10px 10px 0px;
+        padding: 8px 20px;
     }
     
     .btn_become_pin_up:hover {
@@ -1466,6 +1469,52 @@
         font-size: 20px;
         line-height: 24px;
         color: #90a0b7;
+    }
+    
+    .pinup-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .pinup-wrapper img {
+        display: block;
+        max-width: 100%;
+    }
+    /* Tooltip by default hidden */
+    
+    .pinup-tooltip {
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        /* image ke right side */
+        transform: translateY(-50%);
+        background: var(--peach);
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 14px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+    }
+    /* Tooltip arrow */
+    
+    .pinup-tooltip::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%) translateX(-100%);
+        border-width: 6px;
+        border-style: solid;
+        border-color: transparent var(--peach) transparent transparent;
+    }
+    /* Hover pe show */
+    
+    .pinup-wrapper:hover .pinup-tooltip {
+        opacity: 1;
+        visibility: visible;
     }
     /*pinup profile page end here*/
     /*accordion style start here*/
@@ -2450,6 +2499,8 @@ i.fa.fa-heart-o{
     
     .single-prof-btn img {
         padding: 0px 10px;
+        max-width: 60px;
+        width: 100%;
     }
     
     .single-prof-btn {
@@ -2630,7 +2681,7 @@ i.fa.fa-heart-o{
     }
     
     img.custompopicon {
-        max-width: 30px;
+        max-width: 28px;
         margin-right: 0.5rem;
     }
     /*profile end*/
@@ -2856,7 +2907,11 @@ i.fa.fa-heart-o{
     .siliver_logo_icon {
         position: absolute;
         top: 0px;
-        left: 0px;
+        left: -4px;
+    }
+    
+    .siliver_logo_icon img {
+        width: 35px !important;
     }
     
     .add_to_fab_list_view_each_sec {
@@ -3364,14 +3419,14 @@ i.fa.fa-heart-o{
     }
     
     .if_data_not_available {
-        color: var(--peach);
-        background: rgba(255 60 95 / 27%);
-        font-family: Inter;
+        color: #ff3c5f40;
+        background: rgb(255 60 95 / 9%);
+        font-family: 'Poppins';
         font-style: normal;
-        font-weight: 500;
-        font-size: 10px;
-        line-height: 20px;
-        padding: 4px 9px;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 1.5;
+        padding: 5px 15px;
         text-align: center;
         border-radius: 30px;
     }
@@ -4218,17 +4273,17 @@ i.fa.fa-heart-o{
         font-style: normal;
         font-weight: 500;
         font-size: 25px;
-        line-height: 30px;
+        line-height: 1.5;
         color: #000000;
     }
     
     .popu_heading_style {
-        font-family: Poppins;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 29px;
-        color: #0C223D;
+        font-family: Poppins !important;
+        font-style: normal !important;
+        font-weight: 500 !important;
+        font-size: 20px !important;
+        line-height: 1.5 !important;
+        color: #0C223D !important;
     }
     
     .popupsecond_style_heading {
@@ -4236,17 +4291,16 @@ i.fa.fa-heart-o{
         font-style: normal;
         font-weight: 500;
         font-size: 11px;
-        line-height: 16px;
+        line-height: 1.5;
         color: #2C3E50;
     }
     
     .popup_modal_title_new {
         color: white;
         font-family: Poppins;
-        font-weight: 600;
+        font-weight: 500;
         font-size: 18px;
-        padding: 0px 5px;
-        line-height: 27px;
+        line-height: 1.5;
     }
     
     .popup_modal_pera {
@@ -4254,7 +4308,7 @@ i.fa.fa-heart-o{
         font-style: normal;
         font-weight: 500;
         font-size: 16px;
-        line-height: 20px;
+        line-height: 1.5;
         color: #000000;
     }
     
@@ -4263,7 +4317,7 @@ i.fa.fa-heart-o{
         font-style: normal;
         font-weight: normal;
         font-size: 13px;
-        line-height: 19px;
+        line-height: 1.5;
         color: #000000;
     }
     
@@ -6808,12 +6862,6 @@ i.fa.fa-heart-o{
             padding-left: 10px;
             padding-right: 10px;
         }
-        div.defult-modal .modal-body p {
-            font-size: 12px;
-        }
-        div.defult-modal .modal-body h3 {
-            font-size: 16px;
-        }
         /*.navbar-collapse {
     height: 100vh;
     overflow: scroll;
@@ -7189,6 +7237,7 @@ background-image:none;
         .btn_become_pin_up {
             font-size: 14px;
             line-height: 24px;
+            padding: 8px 20px;
         }
         .point_of_diff {
             padding: 25px 20px;

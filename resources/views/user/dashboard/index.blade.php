@@ -125,6 +125,21 @@
             </div>
         </div>
         {{-- end --}}
+        {{-- box start --}}
+        <div class="col-lg-4 box-wrapper">
+            <div class="my-custom-box shadow-sm">
+                <a href="{{ route('user.list') }}">
+                    <div class="box-icon">
+                        <img src="{{ asset('assets/dashboard/img/MyNotebox.png') }}" alt="Logs & Status">
+                    </div>
+                    <h2>
+                        My Notebox
+                    </h2>
+                </a>
+
+            </div>
+        </div>
+        {{-- end --}}
     </div>
 
     

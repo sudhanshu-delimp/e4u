@@ -349,7 +349,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title text-white" id="manage_consent">Manage Consent Preferences</h5>
+                    <h5 class="modal-title text-white" id="manage_consent"><img src="{{ asset('assets/app/img/aeroupimg.png')}}" class="custompopicon"> Manage Consent Preferences</h5>
                     <button type="button" class="main_bg_color border-0" data-dismiss="modal" aria-label="Close">
                         <img src="{{ asset('assets/app/img/newcross.png') }}"
                             class="img-fluid img_resize_in_smscreen">
@@ -441,10 +441,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <img src="{{ asset('assets/app/img/logo.png') }}" class="img-fluid">
-                    <!-- <img src="http://localhost/e4u2/public/assets/app/img/logo.png" class="img-fluid"> -->
                 </div>
                 <div class="modal-body">
-                    <h5 class="modal-title">User Agreement</h5>
+                    <h5 class="modal-title"><img src="{{ asset('assets/app/img/block-user.png') }}" class="img-fluid"> User Agreement</h5>
                     <p>This Website contains sexually explicit material (<b>Explicit Material</b>). Do NOT continue if:
                     </p>
                     <ol class="pl-3">

@@ -543,4 +543,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(LoginAttempt::class,  'user_id', 'id')->where('online','yes')->orderBy('id','desc');
     }
+
+    public function LoginStatus(){
+        return $this->hasOne(LoginAttempt::class,  'user_id', 'id');
+    }
+
+    
 }

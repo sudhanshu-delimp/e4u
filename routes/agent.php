@@ -8,12 +8,14 @@ use App\Http\Controllers\Agent\EscortController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Agent\AgentTaskController;
 use App\Http\Controllers\Escort\ArchivesController;
+use App\Http\Controllers\Agent\AppointmentController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
+use App\Http\Controllers\Agent\AgentDashboardController;
 use App\Http\Controllers\Escort\EscortGalleryController;
+
 use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
-
 use App\Http\Controllers\Agent\AgentTourPaymentController;
 use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\MyAdvertiser\ListAdvertiserController;
@@ -121,6 +123,10 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
     return view('agent.dashboard.Annalytics.prospets-memberships');
 })->name('agent.prospets-memberships');
 
+// Route::get('toursummary',function(){
+//     return view('agent.dashboard.Annalytics.toursummary');
+// })->name('agent.prospets-memberships');
+
 
     Route::get('Marketing/create-prospect',function(){
     return view('agent.dashboard.Marketing.create-prospect');
@@ -155,18 +161,22 @@ Route::get('advertisers',function(){
     return view('agent.dashboard.advertisers');
 })->name('agent.advertisers');
 
-Route::get('logs-and-status',function(){
-    return view('agent.dashboard.logs-and-status');
-})->name('agent.logs-and-status');
 
-Route::get('my-appointments',function(){
-    return view('agent.dashboard.my-appointments');
-})->name('agent.my-appointments');
+
 
 
 Route::get('view-planner',function(){
     return view('agent.dashboard.view-planner');
 })->name('agent.view-planner');
+
+
+Route::get('Marketing/database-centers',function(){
+    return view('agent.dashboard.Marketing.database-centers');
+})->name('agent.database-centers');
+
+Route::get('Marketing/saved-reports',function(){
+    return view('agent.dashboard.Marketing.saved-reports');
+})->name('agent.saved-reports');
 
 
 Route::get('notifications-and-features',function(){
@@ -226,3 +236,14 @@ Route::post('get-default-photos/{id}', [EscortGalleryController ::class, 'agentg
 Route::get('upload-avatar', [AgentController::class, 'uploadAvatar'])->name('upload-avatar');
 Route::post('agent-save-avatar/{id}', [AgentController::class, 'agentSaveAvatar'])->name('agent.save.avatar');
 Route::post('remove-avatar',[AgentController::class, 'agentRemoveAvatar'])->name('agent.avatar.remove');
+
+
+
+Route::get('logs-and-status', [AgentDashboardController::class, 'LogsAndStatus'])->name('agent.logs-and-status');
+Route::post('agent-update-password-duration', [AgentDashboardController::class, 'updatePasswordDuration'])->name('agent.update.password.duration');
+
+//Appointment Planner
+Route::get('my-appointments', [AppointmentController::class, 'index'])->name('agent.my.appointment.list');
+//Route::post('save-appointment-planner', [AgentDashboardController::class, 'Save AppointmentPlanner'])->name('agent.save.appointment-planner');
+
+

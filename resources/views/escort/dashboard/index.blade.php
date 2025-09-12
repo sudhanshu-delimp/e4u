@@ -1,5 +1,5 @@
 @extends('layouts.escort')
-@section('content')
+@section('content') 
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <!-- Page Heading -->
         <div class="row">
@@ -116,7 +116,7 @@
             {{-- box start --}}
             <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('escort.dashboard.logs-and-status') }}">
+                    <a href="{{ route('logs.and.status') }}">
                         <div class="box-icon">
                             <img src="{{ asset('assets/dashboard/img/boxicon/agent/logs-and-statistics.png') }}" alt="Logs & Status">
                         </div>

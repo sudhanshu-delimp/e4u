@@ -71,7 +71,7 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.my-appointments') }}">
+              <a href="{{ route('agent.my.appointment.list') }}">
                   <div class="box-icon">
                       <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-appointments.png') }}" alt="My Appointments">
                   </div>

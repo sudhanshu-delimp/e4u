@@ -28,36 +28,33 @@ class LoginListener
      */
     public function handle(Login $event)
     {
-        if(in_array('ipinfo', Route::current()->gatherMiddleware())) {
+        $loginAttempt = LoginAttempt::where([
+            'user_id' => $event->user->id,
+            'email'   => $event->user->email ?? $event->user->phone,
+        ])->first();
 
-            LoginAttempt::updateOrCreate(
-                [
-                    'user_id' => $event->user->id,   // unique condition
-                    'email'    => $event->user->email ?? $event->user->phone,                  // you can include type if needed
-                ],
-                [
-                    'type'          => 1,
-                    'ip_address'     => request()->ip(),
-                    'device'         => request()->header('User-Agent'),
-                    'online'         => 'yes',
-                    'country'        => null,
-                    'city'           => null,
-                ]
-            );
-            
-            // $data = [
-            //     'last_online_at' => $event->user->last_online_at,
-            //     'user_id' => $event->user->id,
-            //     'email' => ($event->user->email) ?? $event->user->phone,
-            //     'ip_address' => @request()->ipinfo->ip,
-            //     'device' => request()->userAgent(),
-            //     'country' => @request()->ipinfo->country_name,
-            //     'city' => @request()->ipinfo->city,
-            //     'type' => 1,
-            // ];
-            //echo "datetime = ".$data['last_online_at'];
-            //dd($data['last_online_at']);
-            // LoginAttempt::updateOrCreate($data);
+
+        if ($loginAttempt) {
+            $loginAttempt->login_count = $loginAttempt->login_count + 1;
+            $loginAttempt->ip_address = request()->ip();
+            $loginAttempt->device = request()->header('User-Agent');
+            $loginAttempt->online = 'yes';
+            $loginAttempt->type = 1;
+            $loginAttempt->country =  null;
+            $loginAttempt->city = null;
+            $loginAttempt->save();
+        } else {
+            LoginAttempt::create([
+                'user_id'       => $event->user->id,
+                'email'         => $event->user->email ?? $event->user->phone,
+                'type'          => 1,
+                'ip_address'    => request()->ip(),
+                'device'        => request()->header('User-Agent'),
+                'online'        => 'yes',
+                'country'       => null,
+                'city'          => null,
+                'login_count'   => 1,
+            ]);
         }
 
     }

@@ -31,6 +31,7 @@
    <div class="row mt-4"> 
     
     <!-- Logs & Status -->
+    @if($logAndStatus)
     <div class="col-md-6 mb-4">
       <div class="table-responsive">
         <table class="table table-bordered">
@@ -41,32 +42,33 @@
             <tr>
               <td class="icon-col"><i class="fas fa-sign-in-alt"></i></td>
               <td>Login count</td>
-              <td class="text-center" colspan="2">526</td>
+              <td class="text-center" colspan="2">{{$logAndStatus->login_count ?? ''}}</td>
             </tr>
             <tr>
                 <td class="icon-col"><i class="fas fa-clock"></i></td>
                 <td>Last login</td>
-                <td class="text-center" colspan="2">20-06-2025 | 12:32:02 PM
+                <td class="text-center" colspan="2">{{$logAndStatus->updated_at->format('d-m-Y | h:i:s A') ?? ''}}
                 </td>
               </tr>
             <tr>
               <td class="icon-col"><i class="fas fa-map"></i></td>
               <td>Territory</td>
-              <td class="text-center" colspan="2">Western Australia
+              <td class="text-center" colspan="2">{{$state ?? ''}}
             </td>
             </tr>
             <tr>
               <td class="icon-col"><i class="fas fa-key"></i></td>
               <td>Password expiry</td>
-              <td class="text-center">Never</td>
+              <td class="text-center" id="passwordExpiryText">{{$passwordExpiryText ?? ''}}</td>
               <td class="text-center">
                 <button type="submit" class="save_profile_btn"  data-target="#resetPasswordDate" data-toggle="modal">Change</button>
-            </td>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+    @endif
 </div>
 </div> 
 
@@ -92,29 +94,29 @@ aria-hidden="true" data-backdrop="static">
             </button>
         </div>
         <div class="modal-body pb-0 agent-tour">
-            <form method="post"  action="#">
+            <form method="POST"  id="passwordExpiry" action="{{route('agent.update.password.duration')}}" >
                 <!-- Password Expiry Options -->
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <label><strong>Password Expiry</strong></label><br>
             
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="password_expiry" id="expiry_never" value="never">
+                        <input class="form-check-input" type="radio" name="password_expiry" id="expiry_never"  value="never" @if($passwirdExpire['password_expiry_days'] == '0') checked @endif>
                             <label class="form-check-label" for="expiry_never">Never</label>
                         </div>
             
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="password_expiry" id="expiry_30" value="30" checked>
+                        <input class="form-check-input" type="radio" name="password_expiry" id="expiry_30" value="30" @if($passwirdExpire['password_expiry_days'] == '30') checked @endif>
                             <label class="form-check-label" for="expiry_30">Renew every 30 days</label>
                         </div>
             
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="password_expiry" id="expiry_60" value="60">
+                        <input class="form-check-input" type="radio" name="password_expiry" id="expiry_60" value="60" @if($passwirdExpire['password_expiry_days'] == '60') checked @endif>
                             <label class="form-check-label" for="expiry_60">Renew every 60 days</label>
                         </div>
             
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="password_expiry" id="expiry_90" value="90">
+                        <input class="form-check-input" type="radio" name="password_expiry" id="expiry_90" value="90" @if($passwirdExpire['password_expiry_days'] == '90') checked @endif>
                             <label class="form-check-label" for="expiry_90">Renew every 90 days</label>
                         </div>
                         <hr>
@@ -128,7 +130,7 @@ aria-hidden="true" data-backdrop="static">
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <div class="form-group">
-                            <button type="submit" class="btn-success-modal float-right ml-2" id="save_button">Save</button>
+                        <button type="submit" class="btn-success-modal float-right ml-2" id="save_button">Save</button>
                         </div>
                     </div>
                 </div>
@@ -141,35 +143,9 @@ aria-hidden="true" data-backdrop="static">
 {{-- end --}}
 
 
-{{--reset password expiry date confirmations popup modal  --}}
-<div class="modal fade upload-modal" id="resetPasswordSaved" tabindex="-1" role="dialog" aria-labelledby="resetPasswordSavedlabel"
-aria-hidden="true" data-backdrop="static">
-<div class="modal-dialog modal-dialog-centered" role="document">
-  <div class="modal-content">
-      <div class="modal-header">
-          <h5 class="modal-title">
-              <img src="{{ asset('assets/dashboard/img/reset-password.png')}}" style="width:45px; padding-right:10px;">
-              <span class="text-white">Password Expiry</span>                        
-          </h5>
-        
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
-                      class="img-fluid img_resize_in_smscreen"></span>
-          </button>
-      </div>
-      <div class="modal-body">
-          <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
-          <span id="comman_str"></span>
-          <span class="comman_msg">Saved</span>
-          </h1>
-      </div>
-      <div class="modal-footer" style="justify-content: center;">
-          <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
-      </div>
-  </div>
-</div>
-</div>  
-{{-- end --}}
 @endsection
 @section('script')
+<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/for_multiple_console/logs_and_status_blade.js') }}"></script>
+
 @endsection

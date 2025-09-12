@@ -166,10 +166,15 @@ Route::get('listing/past', function()
 
 
 // add Masseurs Profle Route
-Route::get('masseurs/add-profile', function()
+Route::get('masseurs/new-listing', function()
 {
-	return view('center.dashboard.masseurs.add-profile');
-})->name('center.add-profile');
+	return view('center.dashboard.masseurs.new-listing');
+})->name('center.new-listing');
+
+Route::get('masseurs/archives-listing', function()
+{
+	return view('center.dashboard.masseurs.archives-listing');
+})->name('center.archives-listing');
 
 
 Route::get('masseurs/add-media', function()

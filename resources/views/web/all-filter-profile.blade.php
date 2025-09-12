@@ -260,9 +260,9 @@
                             </div>
                             
                             <div class="display_inline_block mb-1 mr-2">
-                                <select class="custome_form_control_border_radus with_eight_em" disabled
-                                    id="" name="duration_price" value="{{ request()->get('duration_price') }}">
-                                    <option value="0">Playmate Status</option>
+                                <select class="custome_form_control_border_radus with_eight_em" 
+                                    id="playmate_status" name="playmate_status" value="{{ request()->get('playmate_status') }}">
+                                    <option value="none">Playmate Status</option>
                                     <option value="with_playmates">With Playmates</option>
                                     <option value="without_playmates">Without Playmates</option>
                                 </select>
@@ -484,7 +484,7 @@
                             </button>
                             <h3><img src="{{ asset('assets/app/img/help.png') }}" class="custompopicon"> Help</h3>
                             <div class="modal-sec">
-                                <p><b class="pb-4">Search Filters</b></p>
+                                <p class="popu_heading_style">Search Filters</p>
                                 <p>
                                     Your Geolocation will automatically determine your Location and list
                                     Profiles according to that Location. You can:
@@ -499,7 +499,7 @@
                                     </li>
                                 </ol>
 
-                                <p><b>Service Tags</b></p>
+                                <p class="popu_heading_style">Service Tags</p>
                                 <p> Selected Service Tags will be listed in the Service Tag list which will
                                     appear below the tags. You can remove any Service Tag by clicking the
                                     'X' located on the tag, or all of the Service Tags by clicking the 'Clear Tags'
@@ -525,7 +525,7 @@
                 <div class="otherliste" style="display: none;">
                     @if ($grouped->has('1'))
                         <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
-                            <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
+                            <div class="bod_image"><img src="{{ asset('images/platinum_membership.png') }}"
                                     data-toggle="tooltip"
                                     title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
                                 {{ $memberTotalCount[1] }}
@@ -544,7 +544,7 @@
                     @endif
                     @if ($grouped->has('2'))
                         <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
-                            <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png') }}"
+                            <div class="bod_image"><img src="{{ asset('images/gold_membership.png') }}"
                                     data-toggle="tooltip"
                                     title="Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}">
                                 {{ $memberTotalCount[2] }}
@@ -563,7 +563,7 @@
                     @endif
                     @if ($grouped->has('3'))
                         <div class="space_between_row" style="display:{{$viewType == 'grid' ? 'block' : 'none'}}">
-                            <div class="bod_image"><img src="{{ asset('assets/app/img/dark_silver.png') }}"
+                            <div class="bod_image"><img src="{{ asset('images/silver_membership.png') }}"
                                     data-toggle="tooltip"
                                     title="Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}">
                                 {{ $memberTotalCount[3] }}
@@ -603,7 +603,7 @@
                 <div class="grid list-view list-view-div" style="display: none;">
                     @if ($grouped->has('1'))
                         <div class="platinum-sec">
-                            <div class="bod_image"><img src="{{ asset('assets/app/img/silver_platinum.png') }}"
+                            <div class="bod_image"><img src="{{ asset('images/platinum_membership.png') }}"
                                     data-toggle="tooltip"
                                     title="Platinum Members - {{ $memberTotalCount[1] }} {{ $memberTotalCount[1] == 1 ? 'Listing' : 'Listings' }}">
                                 {{ $memberTotalCount[1] }}
@@ -622,7 +622,7 @@
                     @endif
                     @if ($grouped->has('2'))
                         <div class="platinum-sec gold">
-                            <div class="bod_image"><img src="{{ asset('assets/app/img/gold_dis.png') }}"
+                            <div class="bod_image"><img src="{{ asset('images/gold_membership.png') }}"
                                     data-toggle="tooltip"
                                     title="Gold Members - {{ $memberTotalCount[2] }} {{ $memberTotalCount[2] == 1 ? 'Listing' : 'Listings' }}">
                                 {{ $memberTotalCount[2] }}
@@ -640,7 +640,7 @@
                     @endif
                     @if ($grouped->has('3'))
                         <div class="listview_each_section_border_btm silver_card">
-                            <div class="bod_image custom-mb"><img src="{{ asset('assets/app/img/dark_silver.png') }}"
+                            <div class="bod_image custom-mb"><img src="{{ asset('images/silver_membership.png') }}"
                                     data-toggle="tooltip"
                                     title="Silver Members - {{ $memberTotalCount[3] }} {{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}">{{ $memberTotalCount[3] }}<span
                                     class="bordertopp">{{ $memberTotalCount[3] == 1 ? 'Listing' : 'Listings' }}</span>
@@ -731,7 +731,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                    <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
                         <span id="Lname " class="my_legbox_title">My Legbox is only available to Viewers. Please log in or Register to access your Legbox.</span>
                     </h1>
                 </div>
@@ -758,13 +758,13 @@
                         </span>
                     </button>
                 </div>
-                <div class="modal-body" style="padding: 15px 0px;">
-                    <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                <div class="modal-body pb-0" style="padding: 15px 0px;">
+                    <h1 class="popu_heading_style mb-4 mt-4" style="text-align: center;">
                         <span id="Lname"></span>
                         <span class="class_msg"></span>
                     </h1>
                 </div>
-                <div class="modal-footer" style="justify-content: center;">
+                <div class="modal-footer pt-0" style="justify-content: center;">
                     <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
                         id="close">Ok</button>
                 </div>
