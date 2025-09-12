@@ -305,27 +305,26 @@
                                             <table class="table mb-3" id="add_centre_table">
                                                 <thead class="table-bg">
                                                     <tr>
-                                                        <th scope="col">Member
-                                                            ID</th>
-                                                        <th scope="col">Display Name</th>
-                                                        <th scope="col">Entity Name</th>
-                                                        <th scope="col">Address</th>
-                                                        <th scope="col">Business No.</th>
-                                                        <th scope="col">Mobile No.</th>
-                                                        <th scope="col">Email</th>
-                                                        <th scope="col" class="text-center">Action</th>
+                                                        <th colspan="1" style="width: 75px;">Member ID</th>
+                                                        <th colspan="2">Display Name</th>
+                                                        <th colspan="2">Entity Name</th>
+                                                        <th colspan="2">Address</th>
+                                                        <th colspan="2">Business No.</th>
+                                                        <th colspan="2">Mobile No.</th>
+                                                        <th colspan="1">Email</th>
+                                                        <th colspan="1" class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-content">
                                                     <tr>
-                                                        <td>01</td>
-                                                        <td style="width: 100px"><span class="grant-access">Marianne Smith <sup>Accessed</sup></span></td>
-                                                        <td>ABC Pvt Ltd</td>
-                                                        <td>Wanka Puri</td>
-                                                        <td>0438 028 728</td>
-                                                        <td>0438 028 728</td>
-                                                        <td>info@center.au.com</td>
-                                                        <td class="text-center">
+                                                        <td colspan="1">01</td>
+                                                        <td colspan="2"><span class="grant-access">Marianne Smith <sup>Accessed</sup></span></td>
+                                                        <td colspan="2">infocomnet Pvt Ltd</td>
+                                                        <td colspan="2">456 Elm Road, Perth, WA 6000 </td>
+                                                        <td colspan="2">0438 028 728</td>
+                                                        <td colspan="2">0438 028 728</td>
+                                                        <td colspan="1">info@center.au.com</td>
+                                                        <td colspan="1" class="text-center">
                                                             <div class="dropdown no-arrow">
                                                                 <a class="dropdown-toggle" href="#" role="button"
                                                                     id="dropdownMenuLink" data-toggle="dropdown"
@@ -361,14 +360,14 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>02</td>
-                                                        <td style="width: 100px"><span class="grant-access">Well Chalse</span></td>
-                                                        <td>DEF Pvt Ltd</td>
-                                                        <td>Wanika Sangar</td>
-                                                        <td>0438 028 728</td>
-                                                        <td>0438 028 728</td>
-                                                        <td>info@center.au.com</td>
-                                                        <td class="text-center">
+                                                        <td colspan="1">02</td>
+                                                        <td colspan="2"><span class="grant-access">Well Chalse</span></td>
+                                                        <td colspan="2">DEF Pvt Ltd</td>
+                                                        <td colspan="2">Green Street, Manning</td>
+                                                        <td colspan="2">0438 028 728</td>
+                                                        <td colspan="2">0438 028 728</td>
+                                                        <td colspan="1">info@center.au.com</td>
+                                                        <td colspan="1" class="text-center">
                                                             <div class="dropdown no-arrow">
                                                                 <a class="dropdown-toggle" href="#" role="button"
                                                                     id="dropdownMenuLink" data-toggle="dropdown"
