@@ -886,10 +886,7 @@
                               <th>Access Granted</th>
                               <td>Yes</td>
                           </tr>
-                          <tr>
-                              <th>A subtle line</th>
-                              <td>Some detail here...</td>
-                          </tr>
+                         
                           <tr>
                               <th>Date Joined</th>
                               <td>30-06-2025</td>
