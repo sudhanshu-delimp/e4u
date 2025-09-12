@@ -8,12 +8,13 @@ use App\Http\Controllers\Agent\EscortController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Agent\AgentTaskController;
 use App\Http\Controllers\Escort\ArchivesController;
+use App\Http\Controllers\Agent\AppointmentController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Agent\AgentDashboardController;
 use App\Http\Controllers\Escort\EscortGalleryController;
-use App\Http\Controllers\Escort\Profile\CreateController;
 
+use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
 use App\Http\Controllers\Agent\AgentTourPaymentController;
 use App\Http\Controllers\Escort\EscortPolyPaymentController;
@@ -162,9 +163,6 @@ Route::get('advertisers',function(){
 
 
 
-Route::get('my-appointments',function(){
-    return view('agent.dashboard.my-appointments');
-})->name('agent.my-appointments');
 
 
 Route::get('view-planner',function(){
@@ -243,3 +241,9 @@ Route::post('remove-avatar',[AgentController::class, 'agentRemoveAvatar'])->name
 
 Route::get('logs-and-status', [AgentDashboardController::class, 'LogsAndStatus'])->name('agent.logs-and-status');
 Route::post('agent-update-password-duration', [AgentDashboardController::class, 'updatePasswordDuration'])->name('agent.update.password.duration');
+
+//Appointment Planner
+Route::get('my-appointments', [AppointmentController::class, 'index'])->name('agent.my.appointment.list');
+//Route::post('save-appointment-planner', [AgentDashboardController::class, 'Save AppointmentPlanner'])->name('agent.save.appointment-planner');
+
+

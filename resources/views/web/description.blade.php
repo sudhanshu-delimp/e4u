@@ -109,9 +109,7 @@
 
 <div class="profile_description_banner overlay_parent custom--overlay custom--brb-overlay" style="background: none;">
    
-    {{--
-    <div class="profile_description_banner" style="background: url({{$escort->banner_image ? $escort->banner_image : asset('assets/app/img/profiledescrition.png')}});">
-        --}}
+
         <div class="container profile_pic_holder p-0 custom--profile"  style="background-color: #ff3c5f; background: url({{ $escort->imagePosition(9) ? asset($escort->imagePosition(9)) : asset('assets/app/img/profiledescrition.png')}}); background-repeat: no-repeat; background-size: cover;background-position:center;">
         <div class="container">
             <div class="row">
@@ -234,7 +232,7 @@
     </div> 
     <div class="container profile_contain">
         <div class="row">
-            <!-- ffffffffff -->
+           
             <div class="col-md-8 col-xl-8 col-sm-12 col-12">
                 <div class="row">
                     <div class="col-md-12 col-xl-8 col-sm-12 col-12">
@@ -250,9 +248,7 @@
                                             <h4>
                                                 {{$escort->durations()->where('name','=','1 Hour')->first() ? $escort->durations()->where('name','=','1 Hour')->first()->pivot->massage_price : '' }}/hr
                                             </h4>
-                                            {{--
-                                            <h4>{{$escort->durations->pluck('pivot')->max('massage_price')}}/hr</h4>
-                                            --}}
+
                                         </div>
                                     </div>
                                 </div>
@@ -265,9 +261,7 @@
                                             <h4>Incalls</h4>
                                         </div>
                                         <div class="profile_hr">
-                                            {{--
-                                            <h4>{{$escort->durations->pluck('pivot')->max('incall_price')}}/hr</h4>
-                                            --}}
+
                                             <h4>{{$escort->durations()->where('name','=','1 Hour')->first() ? $escort->durations()->where('name','=','1 Hour')->first()->pivot->incall_price : ''}}/hr</h4>
                                         </div>
                                     </div>
@@ -282,9 +276,7 @@
                                         </div>
                                         <div class="profile_hr">
                                             <h4>{{$escort->durations()->where('name','=','1 Hour')->first() ? $escort->durations()->where('name','1 Hour')->first()->pivot->outcall_price : ''}}/hr</h4>
-                                            {{--
-                                            <h4>{{$escort->durations->pluck('pivot')->max('outcall_price')}}/hr</h4>
-                                            --}}
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -462,9 +454,7 @@
                     <div class="profile_card_border profile_page_box_heading">
                         <h2>Statistics</h2>
                     </div>
-<!--                    --><?php
-//                    dd($escort->user->contact_type);
-//                    ?>
+
                     
                     <div class="padding_20_tob_btm_side">
                         <div class="row">
@@ -874,38 +864,7 @@
                         <div class="col-12 px-0">
                             <div id="carouselExampleInterval" class="carousel slide" data-ride="carousel" data-interval="false">
                                 <div class="carousel-inner">
-                                    {{-- @if(count($escort->medias) == 0 || $escort->membership == 4)
-                                    <div class="carousel-item active " data-interval="10000">
-                                        <div class="row">
-                                            <div class="col-12 remove_padding_for_carousel">
-                                                <img src="{{asset('assets/app/img/service-provider/Frame-408.png') }}" class="d-block w-100" alt="..." data-toggle="modal" data-target="#exampleModal">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endif
-                                    @if($escort->membership != 4)
-                                    @foreach($escort->medias as $key=>$media)
-                                    @if($media->type == 0)
-                                    <div class="carousel-item {{($key == 0) ? "active" : ""}}" data-interval="10000">
-                                    <div class="row">
-                                        <div class="col-12 remove_padding_for_carousel">
-                                            <img src="{{ asset($media->path) }}" class="d-block w-100" alt="..." data-toggle="modal" data-target="#exampleModal">
-                                        </div>
-                                    </div>
-                                </div>
-                                @else
-                                <div class="carousel-item {{($key == 0) ? "active" : ""}}" data-interval="10000">
-                                <div class="row">
-                                    <div class="col-12 remove_padding_for_carousel">
-                                        <video width="100%" height="144" controls>
-                                            <source  src="{{ asset($media->path) }}" class="d-block w-100" alt="..." data-toggle="modal" data-target="#exampleModal">
-                                        </video>
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
-                            @endforeach
-                            @endif --}}
+
                             @if($escort->gallary->isNotEmpty())
                             @foreach($escort->gallary()->wherePivotIn('position',[1,2,3,4,5,6,7])->get() as $key=>$media)
                             <div class="carousel-item {{($key == 0) ? "active" : ""}} " data-interval="10000">
@@ -976,116 +935,11 @@
                                                             </video>
                                                         </a>
                                                     </div>
-                                                    {{-- <div class="col-md-4" id="dm_3">
-                                                        <a href="#">
-                                                            <video style="z-index: 1" controls="" data-id="3" data-position="" id="videoId_3" src="{{ asset('escorts/videos/8/shuttle.mp4') }}">
-                                                                <source src="{{ asset('escorts/videos/8/shuttle.mp4') }}" type="video/mp4">
-                                                            </video>
-                                                        </a>
-                                                    </div>
-                                                    <div class="col-md-4" id="dm_4">
-                                                        <a href="#">
-                                                            <video style="z-index: 1" controls="" data-id="4" data-position="" id="videoId_4" src="{{ asset('escorts/videos/8/movie.mp4') }}">
-                                                                <source src="{{ asset('escorts/videos/8/movie.mp4') }}" type="video/mp4">
-                                                            </video>
-                                                        </a>
-                                                    </div> --}}
+
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="row">
-                                            <div class="col-sm-12 col-md-12 col-lg-12 tab1">
-                                                <div class="row tab-pane fade  active show" id="home">
-                                                    @foreach($escort->medias as $key=>$media)
-                                                    @if($media->type == 0)
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 d-flex no-padding">
-                                                        <div><img src="{{ asset($media->path)}}" class="img-fluid full-img"></div>
-                                                    </div>
-                                                    @else
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 d-flex no-padding">
-                                                        <div>
-                                                            <video width="248" height="250" controls>
-                                                            <source  src="{{ asset($media->path) }}" class="d-block w-100">
-                                                            </video>
-                                                        </div>
-                                                    </div>
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-12 col-lg-12 tab2">
-                                                <div class="row tab-pane fade" id="menu1">
-                                                    @foreach($escort->medias as $key=>$media)
-                                                    @if($media->type == 0)
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 d-flex no-padding">
-                                                        <div><img src="{{ asset($media->path)}}" class="img-fluid full-img"></div>
-                                                    </div>
 
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-12 col-lg-12 tab3">
-                                                <div class="row tab-pane fade" id="menu2">
-                                                    @foreach($escort->medias as $key=>$media)
-
-
-                                                    @if($media->type == 1)
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 d-flex no-padding">
-                                                        <div>
-                                                            <video width="248" height="250" controls>
-                                                            <source  src="{{ asset($media->path) }}" class="d-block w-100">
-                                                            </video>
-                                                        </div>
-                                                    </div>
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-
-                                                {{-- <div class="row" id="home">
-                                                    @foreach($escort->medias as $key=>$media)
-                                                    @if($media->type == 0)
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 d-flex no-padding">
-                                                        <div><img src="{{ asset($media->path)}}" class="img-fluid full-img"></div>
-                                                    </div>
-                                                    @else
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 d-flex no-padding">
-                                                        <div>
-                                                            <video width="248" height="250" controls>
-                                                            <source  src="{{ asset($media->path) }}" class="d-block w-100">
-                                                            </video>
-                                                        </div>
-                                                    </div>
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-                                                <div class="row" id="menu1">
-                                                    @foreach($escort->medias as $key=>$media)
-                                                    @if($media->type == 0)
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 d-flex no-padding">
-                                                        <div><img src="{{ asset($media->path)}}" class="img-fluid full-img"></div>
-                                                    </div>
-
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-                                                <div class="row" id="menu2">
-                                                    @foreach($escort->medias as $key=>$media)
-
-
-                                                    @if($media->type == 1)
-                                                    <div class="col-sm-4 col-md-4 col-lg-4 d-flex no-padding">
-                                                        <div>
-                                                            <video width="248" height="250" controls>
-                                                            <source  src="{{ asset($media->path) }}" class="d-block w-100">
-                                                            </video>
-                                                        </div>
-                                                    </div>
-                                                    @endif
-                                                    @endforeach
-                                                </div> --}}
-                                            </div>
-                                            </div> -->
                                     </div>
                                 </div>
                             </div>
@@ -1107,7 +961,7 @@
     <div class="row pt-2 eqal-bx">
         <div class="col-xl-5 col-sm-12 my-1 text-center">
             <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#mysendmessage">
-            <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Me</button>
+            <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Us</button>
         </div>
         <div class="col-xl-7 col-sm-12 my-1 text-center">
             <button type="button" class="btn profile_message_btn_cc" id="reportAdvertiserBtn" data-toggle="modal"><img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Report Advertiser</button>
@@ -1137,7 +991,7 @@
         <div class="like_img">
             {{-- {{ dd($escortLike)}} --}}
             <i id="like" class="{{ $escortLike && $escortLike->like == 1 ? 'fa fa-thumbs-up' : 'fa fa-thumbs-o-up'}}" title="Like" aria-hidden="true"></i>
-        <!-- <img class="likeImg" id="like" value='1' src="{{ asset('assets/app/img/like.png') }}"> -->
+
         </div>
     </div>
 
@@ -1179,7 +1033,7 @@
         <div class="padding_20_tob_btm_side reduse_pad">
             <span class="span_display_block connecting_me_chat_phone">
                 You can contact me by:
-               <!-- Tooltip for WeChat Icon -->
+
                     @php
                         $contactType = $escort->contact != null ? $escort->contact : '';
                     @endphp
@@ -1210,9 +1064,8 @@
             </br>
             @php
 
-            //print_r($escort->user->viewer_contact_type);
+
             $from = $escort->phone;
-            //$to = sprintf("%s-%s-%s",
             $number = sprintf("%s-%s-%s",
             substr($from, 0, 3),
             substr($from, 3, 3),
@@ -1223,11 +1076,7 @@
             <p class="profile_description_contect_pera">
                 <b><i>Hi {{ $escort->name }}, I found you on Escorts4U ...</i></b>
                 @php
-                    /* $contactTypes = $escort->user->viewer_contact_type ?? [];
-                    $hasPhone = in_array(1, $contactTypes) || in_array(2, $contactTypes);
-                    $hasEmail = in_array(3, $contactTypes); */
                     $formattedNumber = preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $number));
-                    //dd($formattedNumber); 
                     $contactTypes = $escort->contact != null ? $escort->contact : '';
                 @endphp
 
@@ -1243,14 +1092,7 @@
                     on my number {{$formattedNumber != '' ? $formattedNumber : '--'}}
                 @endif
             </p>
-            {{-- <p class="profile_description_contect_pera">
-                    "<b><i>Hi {{ $escort->name }}, I found you on Escorts4U ...</i></b>" 
-                    @if(!empty($escort->user->viewer_contact_type)) 
-                    @if(in_array(1, $escort->user->viewer_contact_type) || in_array(2, $escort->user->viewer_contact_type)) @if(in_array(3,
-                    $escort->user->viewer_contact_type)) on my number {{ preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $number)) }} or email {{ $escort->user->email ?? '' }} @else on my number {{
-                    preg_replace('/^(\d{4})(\d{3})(\d{3})$/', '$1 $2 $3', preg_replace('/\D/', '', $number)) }} @endif @elseif(in_array(3, $escort->user->viewer_contact_type)) on my email {{ $escort->user->email ?? '' }} @else on my number -- @endif @else
-                    on my number -- @endif
-            </p> --}}
+
         </div>
     </div>
     <div class="vax-btn">
@@ -1263,7 +1105,6 @@
         @endif
     </div>
 
-    <!-- accordien start here -->
     <div class="accordion-container-new">
         <div class="set">
             <a class="pb-1 pt-1">
@@ -1272,7 +1113,6 @@
             </a>
             <div class="content">
                 <div class="accodien_manage_padding_content">
-                    {{-- $escort->pricing_policy --}}
                     <p>
                         Prices are all inclusive unless an extra is listed in My Serices. For Outcalls, price is rate + taxi to and from my location.
                     </p>
@@ -1293,26 +1133,10 @@
             </div>
         </div>
     </div>
-    <!-- accordien end here -->
-    <!-- tip section start here -->
     <div class="box_shadow padding_twelve_px">
         <div class="profile_card_border profile_description_contect position-relative">
             <h2><img src="{{ asset('assets/app/img/tips.svg') }}">Tips</h2>
-            <!-- Carousel controls start-->
-        {{--
-        <div class="arroww_tip_crousal">
-            <a class="carousel-control-prev manage_oprcity next-01" href="#tipcrousal" data-slide="prev" id="prev">
-            <i class="fa fa-arrow-left text-white" aria-hidden="true"></i>
-            </a>
-            <!--number indicatert start here -->
-            <div class="num-01 indicator_align_between_aero_center"></div>
-            <!--number indicatert end here -->
-            <a class="carousel-control-next manage_oprcity prev-01" href="#tipcrousal" data-slide="next" id="next">
-            <i class="fa fa-arrow-right text-white" aria-hidden="true"></i>
-            </a>
-        </div>
-        --}}
-        <!-- Carousel controls end-->
+
         </div>
         <div class="pt-2">
             <div id="tipcrousal" class="carousel slide carousel_remove_in_tip" data-ride="carousel" data-interval="2500">
@@ -1351,258 +1175,129 @@
     </div>
     <!-- tip section end here -->
 
-    {{--- Ye Old wala hai 
+                <!---  new review card -->
     <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
         <div class="profile_card_border profile_page_box_heading">
             <h2 class="custom--review"><img src="/assets/app/img/review-custom.png"> Reviews</h2>
         </div>
+        @php
+            $reviewAlreadyExist = false;
+            $reviewExistsMessage = '';
+            $reviewExistsStarRating = 0;
+        @endphp
+        @if(count($reviews) > 0)
         <div class="padding_20_tob_btm_side">
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <!-- Wrapper for carousel items -->
-                            <div class="carousel-inner">
-                                <div class="carousel-item carousel-item-next carousel-item-left">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-6 d-none">
-                                            <div class="d-flex align-items-center gap_between_text_and_img">
-                                                <div class="manage_testimonials_profile_img">
-                                                    <img src="{{ asset('assets/app/img/profile/testmonialbyimg.png') }}">
-                                                </div>
-                                                <div class="testimonial_by">Sierra-1</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="star-rating">
-                                                <div class="testimonial_by">Sierra-1</div>
-                                                <ul class="list-inline mb-0">
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><b class="">3.5</b></li>
-                                                </ul>
-                                                <p class="mb-0">Reviewed [19-05-2025]</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum idac nisl bibendum scelerisque non non.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item active carousel-item-left">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-6 d-none">
-                                            <div class="d-flex align-items-center gap_between_text_and_img">
-                                                <div class="manage_testimonials_profile_img d-none">
-                                                    <img src="{{ asset('assets/app/img/profile/testmonialbyimg.png') }}">
-                                                </div>
-                                                <div class="testimonial_by">Sierra</div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                        <div class="star-rating">
-                                                <div class="testimonial_by">Sierra</div>
-                                                <ul class="list-inline mb-0">
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
-                                                    <li class="list-inline-item testi_icon_color"><b class="">3.5</b></li>
-                                                </ul>
-                                                <p class="mb-0">Reviewed [19-05-2025]</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Vestibulum idac nisl bibendum scelerisque non non.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Carousel controls -->
-                            
-                            <div class="row " >
-                                <div class="col-md-12 mb-4">
-                                    @if(auth()->user())
-                                        @if(auth()->user()->type == 0)
-                                            <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
-                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                                Add Reviews
-                                            </button>
-                                        @endif
-                                    @else
-                                        <button type="button" class="btn add_reviews_btn all_btn_flx">
-                                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                            <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
-                                        </button>
-                                    @endif
-                                </div>
-                                <div class="col-md-12 custom-review-arrow">
-                                    <div class="arroww next_prev">
-                                        <a class="carousel-control-prev manage_oprcity custom-prev" href="#myCarousel" data-slide="prev">
-                                        <img src="{{ asset('assets/app/img/prev.svg') }}">
-                                        </a>
-                                        <a class="carousel-control-next manage_oprcity custom-next" href="#myCarousel" data-slide="next">
-                                        <img src="{{ asset('assets/app/img/next.svg') }}"> 
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--- if escort has no review then show this section -->
-                    <div class="py-3 row d-none">
-                        <div class="col-md-12">
-                            <p class="testimonial">
-                                Sierra has no Reviews. Why don’t you give <strong>Sierra</strong> their first Review?’ 
-                            </p>
-                        </div>
-                        <div class="col-md-12 mb-4">
-                            @if(auth()->user())
-                                @if(auth()->user()->type == 0)
-                                    <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
-                                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                        Add Reviews
-                                    </button>
-                                @endif
-                                @else
-                                     <button type="button" class="btn add_reviews_btn all_btn_flx">
-                                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
-                                    </button>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                 end --}}
-
-                <!---  new review card -->
-                <div class="box_shadow manage_padding_margin_bg_color box_shad_pad">
-                    <div class="profile_card_border profile_page_box_heading">
-                        <h2 class="custom--review"><img src="/assets/app/img/review-custom.png"> Reviews</h2>
-                    </div>
-                    @php
-                        $reviewAlreadyExist = false;
-                        $reviewExistsMessage = '';
-                        $reviewExistsStarRating = 0;
-                    @endphp
-                    @if(count($reviews) > 0)
-                    <div class="padding_20_tob_btm_side">
-                        <!-- new-review-card -->
-                        <div class="review-card mx-auto position-relative">
-                            <!-- Carousel -->
-                            <div id="reviewCarousel" class="carousel slide carousel-slide " data-bs-ride="carousel">
-                                <div class="carousel-inner">                              
-                                    @foreach($reviews as $key => $review)
-                                    <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
-                                        @php
-                                            if($review->user && auth()->user() && auth()->user()->id == $review->user_id){
-                                                $reviewAlreadyExist = true;
-                                                $reviewExistsMessage = $review->description;
-                                                $reviewExistsStarRating = $review->star_rating;
-                                            }
-                                        @endphp
-                                        <h5>
-                                            @if (!empty($review->user->name))
-                                                {{ Str::title($review->user->name) }}
-                                            @elseif (!empty($review->user->email))
-                                                {{ Str::title(explode('@', $review->user->email)[0]) }}
-                                            @else
-                                                Username
-                                            @endif
-                                        </h5>
-                                        <ul class="list-inline mb-0">
-                                            @for($i=1; $i<= 5; $i++)
-                                                @if($i <= $review->star_rating)
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
-                                                @else
-                                                    <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
-                                                @endif
-                                            @endfor
-                                            <li class="list-inline-item testi_icon_color"><b class="">{{$review->star_rating}}</b></li>
-                                        </ul>
-                                        <p class="custome-text-date">Reviewed [{{$review->created_at->format('d-m-Y')}}]</p>
-                                        <div class="review-text">
-                                            {{ $review->description }}
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                    
-                                </div>
-
-                                <!-- Custom Nav Buttons -->
-                                <div class="d-flex justify-content-start my-3 carousel-nav-btn-wrapper">
-                                    <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
-                                    <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
-                                </div>
-                            </div>
-                            <!-- Carousel controls -->
-                            <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
-                                <div class="col-md-12 mb-4">
-                                @if(auth()->user())
-                                        @if(auth()->user()->type == 0)
-                                            @if(!$reviewAlreadyExist)
-                                                <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
-                                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                                Add Reviews
-                                            </button>
-                                            @else
-                                                <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
-                                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                                    Edit Reviews
-                                                </button>
-                                            @endif
-                                            
-                                        @endif
-                                    @else
-                                        <button type="button" class="btn add_reviews_btn all_btn_flx">
-                                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                            <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
-                                        </button>
-                                    @endif
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    @endif
-                    <!--- if escort has no review then show this section -->
-                    <div class="py-3 row {{count($reviews) == 0 ? '': 'd-none'}}">
-                        <div class="col-md-12">
-                            @php 
-                                $mesageForViewer = true;
-                                if(auth()->user() && auth()->user()->type != 0){
-                                    $mesageForViewer = false;
+            <!-- new-review-card -->
+            <div class="review-card mx-auto position-relative">
+                <!-- Carousel -->
+                <div id="reviewCarousel" class="carousel slide carousel-slide " data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        @foreach($reviews as $key => $review)
+                        <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
+                            @php
+                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id){
+                                    $reviewAlreadyExist = true;
+                                    $reviewExistsMessage = $review->description;
+                                    $reviewExistsStarRating = $review->star_rating;
                                 }
                             @endphp
-                            <p class="testimonial">
-                                <strong>{{ $escort->name}}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $escort->name}}</strong> their first Review?’ @php } @endphp
-                            </p>
+                            <h5>
+                                @if (!empty($review->user->name))
+                                    {{ Str::title($review->user->name) }}
+                                @elseif (!empty($review->user->email))
+                                    {{ Str::title(explode('@', $review->user->email)[0]) }}
+                                @else
+                                    Username
+                                @endif
+                            </h5>
+                            <ul class="list-inline mb-0">
+                                @for($i=1; $i<= 5; $i++)
+                                    @if($i <= $review->star_rating)
+                                        <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                    @else
+                                        <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
+                                    @endif
+                                @endfor
+                                <li class="list-inline-item testi_icon_color"><b class="">{{$review->star_rating}}</b></li>
+                            </ul>
+                            <p class="custome-text-date">Reviewed [{{$review->created_at->format('d-m-Y')}}]</p>
+                            <div class="review-text">
+                                {{ $review->description }}
+                            </div>
                         </div>
-                        <div class="col-md-12 mb-4">
-                        @if(auth()->user())
-                                @if(auth()->user()->type == 0)
+                        @endforeach
+
+                    </div>
+
+                    <!-- Custom Nav Buttons -->
+                    <div class="d-flex justify-content-start my-3 carousel-nav-btn-wrapper">
+                        <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="prev"><i class="fa fa-angle-left text-white"></i></button>
+                        <button class="carousel-nav-btn" data-bs-target="#reviewCarousel" data-bs-slide="next"><i class="fa fa-angle-right text-white"></i></button>
+                    </div>
+                </div>
+                <!-- Carousel controls -->
+                <div class="row {{(auth()->user() && auth()->user()->type != 0) ? 'd-none': ''}}">
+                    <div class="col-md-12 mb-4">
+                    @if(auth()->user())
+                            @if(auth()->user()->type == 0)
+                                @if(!$reviewAlreadyExist)
+                                    <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                    Add Reviews
+                                </button>
+                                @else
                                     <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
                                         <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                        Add Reviews
+                                        Edit Reviews
                                     </button>
                                 @endif
-                            @else
-                                <button type="button" class="btn add_reviews_btn all_btn_flx">
-                                    <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                    <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
-                                </button>
+
                             @endif
-                        </div>
+                        @else
+                            <button type="button" class="btn add_reviews_btn all_btn_flx">
+                                <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                                <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
+                            </button>
+                        @endif
                     </div>
-                    <!-- end -->
-                </div> 
+                </div>
+
+            </div>
+        </div>
+        @endif
+        <!--- if escort has no review then show this section -->
+        <div class="py-3 row {{count($reviews) == 0 ? '': 'd-none'}}">
+            <div class="col-md-12">
+                @php
+                    $mesageForViewer = true;
+                    if(auth()->user() && auth()->user()->type != 0){
+                        $mesageForViewer = false;
+                    }
+                @endphp
+                <p class="testimonial">
+                    <strong>{{ $escort->name}}</strong> has no Reviews. @php if($mesageForViewer != false){ @endphp Why don’t you give <strong>{{ $escort->name}}</strong> their first Review?’ @php } @endphp
+                </p>
+            </div>
+            <div class="col-md-12 mb-4">
+            @if(auth()->user())
+                    @if(auth()->user()->type == 0)
+                        <button type="button" class="btn add_reviews_btn all_btn_flx" data-toggle="modal" data-target="#add_reviews">
+                            <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                            Add Reviews
+                        </button>
+                    @endif
+                @else
+                    <button type="button" class="btn add_reviews_btn all_btn_flx">
+                        <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
+                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
+                    </button>
+                @endif
+            </div>
+        </div>
+        <!-- end -->
+    </div>
 </div>
-<!-- sssssssssssssssss -->
+
 </div>
 </div>
 <!-- model start here 1-->
@@ -1612,7 +1307,7 @@
             <div class="modal-header main_bg_color">
                
                 
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Me </h5>
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Us </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
@@ -1639,7 +1334,7 @@
             <div class="modal-body pb-0 teop-text" >
                 <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
                     <span id="Lname">Message Me is only available to Viewers.
-                        Please log in or Register to access Message Me.</span>
+                        Please log in or Register to access Message Us.</span>
                 </h6>
                 <div class="modal-footer text-center justify-content-center pt-0" >
                 <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>
@@ -1795,19 +1490,6 @@
         </div>
     </div>
 </div>
- 
-<!-- Trigger Button -->
-{{-- <button type="button" class="btn btn-outline-danger mt-3" data-toggle="modal" data-target="#reportLogedIn">
-   Viewer Loged In
-</button>
-
- <button type="button" class="btn btn-outline-danger mt-3" data-toggle="modal" data-target="#reportAdvertiserNew">
- login popup
- </button> --}}
-
-
-
-
 
 <!-- model start here 3-->
 <div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1997,68 +1679,6 @@
     </div>
 </div>
 <!-- model start here 3-->
-{{--<div class="modal fade add_reviews" id="newmodal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">--}}
-{{--    <div class="modal-dialog modal-dialog-centered" role="document">--}}
-{{--        <div class="modal-content custome_modal_max_width">--}}
-{{--            <div class="modal-header main_bg_color">--}}
-{{--                <img src="{{ asset('assets/app/img/feedbackicon.png') }}" class="custompopicon">--}}
-{{--                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel">Add review for Carla Brasil--}}
-{{--                </h5>--}}
-{{--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">--}}
-{{--                <span aria-hidden="true">--}}
-{{--                <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">--}}
-{{--                </span>--}}
-{{--                </button>--}}
-{{--            </div>--}}
-{{--            <form id="reviewAdvertiser" action="{{ route('review.advertiser',[$escort->id])}}" method="post">--}}
-{{--                @csrf--}}
-{{--                <div class="modal-body">--}}
-{{--                    <p class="popu_heading_style">Notes</p>--}}
-{{--                    <div class="row">--}}
-{{--                        <div class="col teop-text">--}}
-{{--                            <ul>--}}
-{{--                                <li>Only review if you had direct contact with the Escort.</li>--}}
-{{--                                <li>Do not write fake or abusive reviews, as they will not be published.</li>--}}
-{{--                                <li>To contact this Escort click on Message Me.</li>--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="row">--}}
-{{--                        <div class="col">--}}
-{{--                            <div class="form-group popup_massage_box">--}}
-{{--                                <label for="exampleFormControlTextarea1">Tell us about your experience:</label>--}}
-{{--                                <textarea id="review_textarea" name="description" class="form-control popup_massage_box" rows="3" placeholder="Message (250 characters)"></textarea>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="revew-myratings">--}}
-{{--                        <p class="mb-0">Rating:</p>--}}
-{{--                        <div class="rating">--}}
-{{--                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">--}}
-{{--                                <path d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z" stroke="#FF3C5F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>--}}
-{{--                            </svg>--}}
-{{--                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">--}}
-{{--                                <path d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z" stroke="#FF3C5F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>--}}
-{{--                            </svg>--}}
-{{--                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">--}}
-{{--                                <path d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z" stroke="#FF3C5F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>--}}
-{{--                            </svg>--}}
-{{--                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">--}}
-{{--                                <path d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z" stroke="#FF3C5F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>--}}
-{{--                            </svg>--}}
-{{--                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">--}}
-{{--                                <path d="M10.0922 2.9718C10.4494 2.1963 11.5515 2.1963 11.9088 2.9718L13.8812 7.25376C14.0267 7.56974 14.326 7.78737 14.6715 7.8284L19.3497 8.38398C20.1967 8.48456 20.5371 9.53115 19.9113 10.1107L16.4507 13.3157C16.1958 13.5518 16.0817 13.9032 16.1493 14.244L17.0679 18.8725C17.2341 19.7097 16.3426 20.3568 15.5981 19.9395L11.4894 17.6366C11.1857 17.4663 10.8153 17.4663 10.5116 17.6366L6.40286 19.9395C5.65835 20.3568 4.76691 19.7097 4.93306 18.8725L5.85163 14.2441C5.91928 13.9033 5.80515 13.5518 5.55019 13.3157L2.08904 10.1107C1.4632 9.53124 1.80356 8.48455 2.65055 8.38398L7.32946 7.82839C7.67493 7.78737 7.97426 7.56974 8.11981 7.25375L10.0922 2.9718Z" stroke="#FF3C5F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>--}}
-{{--                            </svg>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--                <div class="modal-footer">--}}
-{{--                    <button type="submit" class="btn main_bg_color site_btn_primary">Post Reviews</button>--}}
-{{--                </div>--}}
-{{--            </form>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
 
 <div class="modal" id="my_legbox" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
@@ -2135,7 +1755,7 @@ let carousel = new bootstrap.Carousel(myCarousel, {
             vote = 1;
         }
         var currentDislikeClickBtn = $(this);
-        //var url = '/escort-dashboard/escort-like/vote';
+
         var url = "{{ route('web.likeDislike') }}";
         $.ajax({
             method: 'POST',
@@ -2182,13 +1802,11 @@ let carousel = new bootstrap.Carousel(myCarousel, {
             $.ajax({
                 method: 'POST',
                 url: url,
-                // dataType: "json",
-                // data: {'review' : $("#review_textarea").val(), 'rating' : $('#star_rating').val()},
+
                 data: data,
                 contentType: false,
                 processData: false,
                 headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
-                //headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function (data) {
                     $('#reviewAdvertiser')[0].reset();
                     $('#add_reviews').modal("hide");
