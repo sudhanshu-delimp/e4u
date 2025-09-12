@@ -69,18 +69,6 @@
                                             <input type="text" id="masseurMobile" class="form-control rounded-0"
                                                 placeholder="Enter Mobile" required>
                                         </div>
-                                        <div class="form-group business-field">
-                                            <label for="masseurEmail" class="mb-1">Email</label>
-                                            <input type="email" id="masseurEmail" class="form-control rounded-0"
-                                                placeholder="Enter Email" required>
-                                        </div>
-
-                                        <div class="form-group business-field">
-                                            <label for="massageRate" class="mb-1">Massage Rate</label>
-                                            <select id="rate" class="form-control rounded-0" required>
-                                                <option value="">-Not Set-</option>
-                                            </select>
-                                        </div>
 
                                         <div class="form-group business-field">
                                             <label for="nationality" class="mb-1">Nationality</label>
@@ -101,9 +89,6 @@
                                             <input type="number" id="age" class="form-control rounded-0"
                                                 placeholder="Enter Age">
                                         </div>
-
-                                    </div>
-                                    <div class="">
                                         <div class="form-group">
                                             <label class="label">Vaccination</label>
                                             <div class="d-flex justify-content-start gap-10">
@@ -130,6 +115,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="">
+                                       
                                         <!-- Commentary -->
                                         <div class="form-group">
                                             <label for="commentary" class="label">Commentary</label>
@@ -312,7 +300,7 @@
                                 <div class="mcc-form-tab">
                                     <h2>My Availability</h2>
                                     <div
-                                        class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
+                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
                                         <div style="width:100px;">
                                             <label class="col-0 label" for="monday">Monday:
                                             </label>
@@ -367,21 +355,7 @@
                                                     data-parsley-multiple="covidreport" availability_time_key="mon">
                                                 <label class="form-check-label" for="monday_til_ate">... Til late</label>
                                             </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_appointment"
-                                                    value="By Appointment" data-parsley-multiple="covidreport"
-                                                    availability_time_key="mon">
-                                                <label class="form-check-label" for="monday_appointment">By
-                                                    Appointment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input monday" type="radio"
-                                                    name="availability_time[monday]" id="monday_avail_24_hours"
-                                                    value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                <label class="form-check-label" for="monday_avail_24_hours">Available 24
-                                                    hours</label>
-                                            </div>
+                                            
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input monday" type="radio"
                                                     name="availability_time[monday]" id="monday_unavailable"
@@ -399,7 +373,7 @@
                                     </div>
 
                                     <div
-                                        class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
+                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
                                         <div style="width:100px;">
                                             <label class="col-0 label" for="tuesday">Tuesday:
                                             </label>
@@ -456,21 +430,6 @@
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input tuesday" type="radio"
-                                                    name="availability_time[tuesday]" id="tuesday_appointment"
-                                                    value="By Appointment" data-parsley-multiple="covidreport"
-                                                    availability_time_key="mon">
-                                                <label class="form-check-label" for="tuesday_appointment">By
-                                                    Appointment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input tuesday" type="radio"
-                                                    name="availability_time[tuesday]" id="tuesday_avail_24_hours"
-                                                    value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                <label class="form-check-label" for="tuesday_avail_24_hours">Available 24
-                                                    hours</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input tuesday" type="radio"
                                                     name="availability_time[tuesday]" id="tuesday_unavailable"
                                                     value="unavailable" data-parsley-multiple="covidreport"
                                                     checked="" availability_time_key="mon">
@@ -486,7 +445,7 @@
                                     </div>
 
                                     <div
-                                        class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
+                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
                                         <div style="width:100px;">
                                             <label class="col-0 label" for="wednesday">Wednesday:
 
@@ -544,21 +503,6 @@
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input wednesday" type="radio"
-                                                    name="availability_time[wednesday]" id="wednesday_appointment"
-                                                    value="By Appointment" data-parsley-multiple="covidreport"
-                                                    availability_time_key="mon">
-                                                <label class="form-check-label" for="wednesday_appointment">By
-                                                    Appointment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input wednesday" type="radio"
-                                                    name="availability_time[wednesday]" id="wednesday_avail_24_hours"
-                                                    value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                <label class="form-check-label" for="wednesday_avail_24_hours">Available 24
-                                                    hours</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input wednesday" type="radio"
                                                     name="availability_time[wednesday]" id="wednesday_unavailable"
                                                     value="unavailable" data-parsley-multiple="covidreport"
                                                     checked="" availability_time_key="mon">
@@ -574,7 +518,7 @@
                                     </div>
 
                                     <div
-                                        class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
+                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
                                         <div style="width:100px;">
                                             <label class="col-0 label" for="thursday">Thursday:
 
@@ -633,21 +577,6 @@
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input thursday" type="radio"
-                                                    name="availability_time[thursday]" id="thursday_appointment"
-                                                    value="By Appointment" data-parsley-multiple="covidreport"
-                                                    availability_time_key="mon">
-                                                <label class="form-check-label" for="thursday_appointment">By
-                                                    Appointment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input thursday" type="radio"
-                                                    name="availability_time[thursday]" id="thursday_avail_24_hours"
-                                                    value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                <label class="form-check-label" for="thursday_avail_24_hours">Available 24
-                                                    hours</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input thursday" type="radio"
                                                     name="availability_time[thursday]" id="thursday_unavailable"
                                                     value="unavailable" data-parsley-multiple="covidreport"
                                                     checked="" availability_time_key="mon">
@@ -663,7 +592,7 @@
                                     </div>
 
                                     <div
-                                        class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
+                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
                                         <div style="width:100px;">
                                             <label class="col-0 label" for="friday">Friday:
 
@@ -723,21 +652,6 @@
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input friday" type="radio"
-                                                    name="availability_time[friday]" id="friday_appointment"
-                                                    value="By Appointment" data-parsley-multiple="covidreport"
-                                                    availability_time_key="mon">
-                                                <label class="form-check-label" for="friday_appointment">By
-                                                    Appointment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input friday" type="radio"
-                                                    name="availability_time[friday]" id="friday_avail_24_hours"
-                                                    value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                <label class="form-check-label" for="friday_avail_24_hours">Available 24
-                                                    hours</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input friday" type="radio"
                                                     name="availability_time[friday]" id="friday_unavailable"
                                                     value="unavailable" data-parsley-multiple="covidreport"
                                                     checked="" availability_time_key="mon">
@@ -754,7 +668,7 @@
 
 
                                     <div
-                                        class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
+                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
                                         <div style="width:100px;">
                                             <label class="col-0 label" for="saturday">Saturday:
 
@@ -813,21 +727,6 @@
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input saturday" type="radio"
-                                                    name="availability_time[saturday]" id="saturday_appointment"
-                                                    value="By Appointment" data-parsley-multiple="covidreport"
-                                                    availability_time_key="mon">
-                                                <label class="form-check-label" for="saturday_appointment">By
-                                                    Appointment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input saturday" type="radio"
-                                                    name="availability_time[saturday]" id="saturday_avail_24_hours"
-                                                    value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                <label class="form-check-label" for="saturday_avail_24_hours">Available 24
-                                                    hours</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input saturday" type="radio"
                                                     name="availability_time[saturday]" id="saturday_unavailable"
                                                     value="unavailable" data-parsley-multiple="covidreport"
                                                     checked="" availability_time_key="saturday">
@@ -843,7 +742,7 @@
                                     </div>
 
                                     <div
-                                        class="d-flex align-items-center justify-content-between flex-wrap gap-10 my-3 parent-row">
+                                        class="d-flex align-items-center justify-content-start flex-wrap gap-20 my-3 parent-row">
                                         <div style="width:100px;">
                                             <label class="col-0 label" for="sunday">Sunday:
 
@@ -900,21 +799,6 @@
                                                     name="availability_time[sunday]" id="sunday_til_ate" value="til_ate"
                                                     data-parsley-multiple="covidreport" availability_time_key="mon">
                                                 <label class="form-check-label" for="sunday_til_ate">... Til late</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input sunday" type="radio"
-                                                    name="availability_time[sunday]" id="sunday_appointment"
-                                                    value="By Appointment" data-parsley-multiple="covidreport"
-                                                    availability_time_key="mon">
-                                                <label class="form-check-label" for="sunday_appointment">By
-                                                    Appointment</label>
-                                            </div>
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input sunday" type="radio"
-                                                    name="availability_time[sunday]" id="sunday_avail_24_hours"
-                                                    value="Available 24 hours" data-parsley-multiple="covidreport">
-                                                <label class="form-check-label" for="sunday_avail_24_hours">Available 24
-                                                    hours</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input sunday" type="radio"
@@ -1214,7 +1098,7 @@
                                        <div class="col-12 p-0">
                                            <div class="photo-sec-popup custom-upload-photo"  id="image_preview">
                                                <a href="#">
-                                                   <div class="five_column_content_top img-title-sec justify-content-between wish_span rm" style="z-index: 1;">
+                                                   <div class="five_column_content_top img-title-sec justify-content-start wish_span rm" 2tyle="z-index: 1;">
                                                      
                                                    </div>
                                                    <label class="newbtn rm">
