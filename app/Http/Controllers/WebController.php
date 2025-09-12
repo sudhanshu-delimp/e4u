@@ -76,10 +76,14 @@ class WebController extends Controller
         ->where('utc_end_date', '>=', Carbon::now('UTC'))
         ->pluck('escort_profile_id')
         ->unique();
-        
+
+        # Suspend by admin console through report by viewers
         $query = $query
                 ->with('suspendProfile')
-                ->whereNotIn('id', $suspendProfileIds);
+                ->whereHas('user', function($q) {
+                    $q->where('status', 1);
+                })
+            ->whereNotIn('id', $suspendProfileIds);  
 
         // show playmate status with escort profile
         if(isset($str['playmate_status']) && $str['playmate_status'] == 'with_playmates'){
@@ -239,6 +243,7 @@ class WebController extends Controller
                     $q->whereIn('services.id', $services);
                 });
             }
+
             return $query;
         // };
     }
