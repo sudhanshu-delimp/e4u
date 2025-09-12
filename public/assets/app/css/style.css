@@ -2499,6 +2499,8 @@ i.fa.fa-heart-o{
     
     .single-prof-btn img {
         padding: 0px 10px;
+        max-width: 60px;
+        width: 100%;
     }
     
     .single-prof-btn {

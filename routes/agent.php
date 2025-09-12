@@ -122,6 +122,10 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
     return view('agent.dashboard.Annalytics.prospets-memberships');
 })->name('agent.prospets-memberships');
 
+Route::get('toursummary',function(){
+    return view('agent.dashboard.Annalytics.toursummary');
+})->name('agent.prospets-memberships');
+
 
     Route::get('Marketing/create-prospect',function(){
     return view('agent.dashboard.Marketing.create-prospect');
