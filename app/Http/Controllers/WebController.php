@@ -86,6 +86,14 @@ class WebController extends Controller
             $query = $query
                 ->with(['suspendProfile', 'user.playmates']) // eager load relations
                 ->whereHas('user.playmates');
+        }
+
+        if(isset($str['playmate_status']) && $str['playmate_status'] == 'without_playmates'){
+           $query = $query
+            ->with(['suspendProfile', 'user.playmates']) // eager load relations
+            ->whereDoesntHave('user', function ($q) {
+                $q->whereHas('playmates');
+            });
         } 
        
         # Not show specific profile to viewer if specific viewer is blocked by escort
