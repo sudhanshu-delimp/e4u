@@ -422,12 +422,12 @@
                 
                 <li class="nav-item">
                     <a class="nav-link active" id="upload-tab" data-toggle="tab" href="#upload" role="tab" aria-controls="upload" aria-selected="false">
-                        Upload Banner
+                        Uploaded
                     </a>
                     </li>
                 <li class="nav-item">
                 <a class="nav-link" id="default-tab" data-toggle="tab" href="#default" role="tab" aria-controls="default" aria-selected="true">
-                    Default Template
+                    Templates
                 </a>
                 </li>
             </ul>

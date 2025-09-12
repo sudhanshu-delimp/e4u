@@ -241,6 +241,12 @@ Route::get('profiles-tours',function(){
 Route::get('social-media',function(){
     return view('escort.dashboard.Annalytics.social-media');
 });
+Route::get('feedback',function(){
+    return view('escort.dashboard.Annalytics.feedback');
+});
+Route::get('criticalinformation',function(){
+    return view('escort.dashboard.Annalytics.criticalinformation');
+});
 Route::get('credit-my-account',function(){
     return view('escort.dashboard.Bookkeeping.credit-my-account');
 });

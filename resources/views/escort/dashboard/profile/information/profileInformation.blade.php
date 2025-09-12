@@ -199,7 +199,7 @@
                   </a>
                </div>
                <div id="my_playmates" class="collapse" data-parent="#accordion">
-                  <div class="card-body pb-0">
+                  <div class="card-body pb-0 pl-0 pr-0">
                      @include('escort.dashboard.Playmates.partials.playmates')
                   </div>
                </div>

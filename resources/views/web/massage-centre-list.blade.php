@@ -339,10 +339,8 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div class="tab-pane p-3 active show" id="tabs-1" role="tabpanel">
-                                        <p>Your Geolocation will automatically determine your Location and list Profiles
-                                            according to that
-                                            Location. You can:</p>
-                                        <ol>
+                                        <p><b>Your Geolocation will automatically determine your Location and list Profiles according to that Location. You can:</b></p>
+                                        <ol class="pl-3">
                                             <li>Filter the search criteria by selecting your preferred filter and then
                                                 selecting the refresh button ‘Apply Filters’.</li>
                                             <li>Change your Location by selecting your preferred city.</li>
@@ -352,7 +350,7 @@
                                         </ol>
                                     </div>
                                     <div class="tab-pane p-3" id="tabs-2" role="tabpanel">
-                                        <ol>
+                                        <ol class="pl-3">
                                             <li>You can undertake a search for an Escort [for Escort page] Massage Centre
                                                 [for Massage
                                                 Centre page] within your Location, which is the default, or Australia wide
@@ -361,8 +359,8 @@
                                         </ol>
                                     </div>
                                     <div class="tab-pane p-3" id="tabs-3" role="tabpanel">
-                                        <p>The Shortlist feature will only remain current for the session. You can:</p>
-                                        <ol>
+                                        <p><b>The Shortlist feature will only remain current for the session. You can:</b></p>
+                                        <ol class="pl-3">
                                             <li>Add or remove Profiles by clicking the Short List button displayed on the
                                                 Profile.</li>
                                             <li>To view your Shortlist, click the List tally that is located in the Search
@@ -372,7 +370,7 @@
                                         </ol>
                                     </div>
                                     <div class="tab-pane p-3" id="tabs-4" role="tabpanel">
-                                        <ol>
+                                        <ol class="pl-3">
                                             <li>Your selected Service Tags will be listed below the Service Tag selection
                                                 list in the panel.</li>
                                             <li>You can remove any Service Tag you selected by clicking the ‘X’ located on

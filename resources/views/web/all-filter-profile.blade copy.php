@@ -277,9 +277,9 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <img src="{{ asset('assets/app/img/newcross.png')}}" class=" ">
                         </button>
-                        <h3>Help</h3>
+                        <h3><img src="{{ asset('assets/app/img/help.png') }}" class="custompopicon">Help</h3>
                         <div class="modal-sec">
-                            <p><b class="pb-4">Search Filters</b></p>
+                            <p class="popu_heading_style">Search Filters</p>
                             <p>
                                 Your Geolocation will automatically determine your Location and list
                                 Profiles according to that Location. You can:
@@ -294,7 +294,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                                 </li>
                             </ol>
 
-                            <p><b>Service Tags</b></p>
+                            <p class="popu_heading_style">Service Tags</p>
                             <p> Selected Service Tags will be listed in the Service Tag list which will
                                 appear below the tags. You can remove any Service Tag by clicking the
                                 ‘X’ located on the tag, or all of the Service Tags by clicking the ‘Clear Tags’

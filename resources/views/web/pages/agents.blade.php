@@ -47,7 +47,7 @@
     <p>
         An Agent is a business or person who organises an Advertiser's Profile and / or Tour on
         their behalf, and generally looks after their Account. We put Agents in contact with
-        Advertisers when the Advertiser has requested help (see also <a class="termsandconditions_text_color" href="{{ url('help-for-advertisers')}}" class="e4ulinks">Help for Advertisers</a>).
+        Advertisers when the Advertiser has requested help (see also <a class="termsandconditions_text_color" href="{{ url('help-for-escorts')}}" class="e4ulinks">Help for Advertisers</a>).
     </p>
     <h2 class="primery_color normal_heading">How does an Agent get rewarded?</h2>
     <p>
