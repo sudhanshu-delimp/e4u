@@ -81,6 +81,12 @@ class WebController extends Controller
                 ->with('suspendProfile')
                 ->whereNotIn('id', $suspendProfileIds);
 
+        // show playmate status with escort profile
+        if(isset($str['playmate_status']) && $str['playmate_status'] == 'with_playmates'){
+            $query = $query
+                ->with(['suspendProfile', 'user.playmates']) // eager load relations
+                ->whereHas('user.playmates');
+        } 
        
         # Not show specific profile to viewer if specific viewer is blocked by escort
         if(Auth::user()){
@@ -288,6 +294,7 @@ class WebController extends Controller
             'view_type'=> request()->get('view_type'),
             'search_by_radio'=> request()->get('search_by_radio') ,
             'locationByRadio'=> request()->get('locationByRadio') ,
+            'playmate_status'=> request()->get('playmate_status') ,
         ];
 
         $radio_location_filter = session('radio_location_filter');
