@@ -8805,6 +8805,10 @@ border-top: 5px solid var(--peach);
         gap: 10px;
     }
     
+    .gap-20 {
+        gap: 20px;
+    }
+    
     .gap-5 {
         gap: 5px;
     }
