@@ -105,8 +105,8 @@
                             </div>
                             <div class="text-center small d-flex justify-content-end align-items-center gap-5 flex-wrap">
                                 <a href="{{ route('agent.view-planner') }}" class="btn-common text-white">View Planner</a>
-                                <button type="button" class="btn-common" data-toggle="modal"
-                                    data-target="#new_appointment">New Appointment</button>
+                                <button type="button" class="btn-common" data-toggle="modal" id="new_appointment">New
+                                    Appointment</button>
                             </div>
                         </div>
                     </div>
@@ -183,7 +183,7 @@
         </div>
     </div>
     <!-- New appointment Popup -->
-    <div class="modal fade upload-modal" id="new_appointment" tabindex="-1" role="dialog"
+    <div class="modal fade upload-modal" id="new_appointment_model" tabindex="-1" role="dialog"
         aria-labelledby="new_appointmentlabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -196,15 +196,14 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" id="task_form" action="#">
+                    <form method="post" action="#">
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
-                                 <!-- Advertiser -->
+                                <!-- Advertiser -->
                                 <div class="form-group">
                                     <label for="advertiser"><b>Advertiser</b><span class="text-danger">*</span></label>
-                                    <select id="advertiser" name="advertiser" class="form-control" required>
+                                    <select id="new_advertiser" name="new_advertiser" class="form-control" required>
                                         <option value="">Select Advertiser</option>
-                                        <!-- Populate dynamically from Agent's Advertiser List -->
                                     </select>
                                     <small class="form-text text-muted">Select from agent's advertiser list.</small>
                                 </div>
@@ -212,30 +211,38 @@
                                 <!-- Date -->
                                 <div class="form-group">
                                     <label for="appointment_date"><b>Date</b><span class="text-danger">*</span></label>
-                                    <input id="appointment_date" name="appointment_date" type="date"
-                                        class="form-control" required>
+                                    <input 
+                                        id="new_appointment_date" 
+                                        name="new_appointment_date" 
+                                        type="date"
+                                        class="form-control" 
+                                        required
+                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                       
+                                    >
                                 </div>
 
                                 <!-- Time -->
                                 <div class="form-group">
-                                    <label for="appointment_time"><b>Time</b><span class="text-danger">*</span></label>
-                                    <input id="appointment_time" name="appointment_time" type="time"
-                                        class="form-control" required>
+                                    <label for="appointment_time"><b>Time Slot</b><span class="text-danger">*</span></label>
+                                    <select id="new_appointment_time_slot" name="new_appointment_time_slot" class="form-control" required>
+                                        <option value="">Select Time Slot</option>
+                                    </select>
                                 </div>
 
-                               
+
 
                                 <!-- Address with Google Maps integration -->
                                 <div class="form-group">
                                     <label for="address"><b>Address</b><span class="text-danger">*</span></label>
-                                    <input id="address" name="address" type="text" class="form-control"
+                                    <input id="new_address" name="new_address" type="text" class="form-control"
                                         placeholder="Search or enter address" required>
                                     <small class="form-text text-muted">Start typing to search address or add
                                         manually.</small>
 
                                     <!-- Hidden fields for latitude and longitude -->
-                                    <input type="hidden" id="latitude" name="latitude">
-                                    <input type="hidden" id="longitude" name="longitude">
+                                    <input type="hidden" id="new_latitude" name="new_latitude">
+                                    <input type="hidden" id="new_longitude" name="new_longitude">
 
                                     <!-- Google Map Preview -->
                                     <div id="map"
@@ -247,21 +254,21 @@
                                 <div class="form-group d-none" id="poc-field">
                                     <label for="poc"><b>Point of Contact</b><span
                                             class="text-danger">*</span></label>
-                                    <input id="poc" name="poc" type="text" class="form-control"
+                                    <input id="new_poc" name="new_poc" type="text" class="form-control"
                                         placeholder="Enter contact name">
                                 </div>
 
                                 <!-- Mobile (Edit/View only) -->
                                 <div class="form-group d-none" id="mobile-field">
                                     <label for="mobile"><b>Mobile</b></label>
-                                    <input id="mobile" name="mobile" type="tel" class="form-control"
+                                    <input id="new_mobile" name="new_mobile" type="tel" class="form-control"
                                         placeholder="Enter mobile number">
                                 </div>
 
                                 <!-- Appointment Summary (Edit/View only) -->
                                 <div class="form-group d-none" id="summary-field">
                                     <label for="summary"><b>Appointment Summary</b></label>
-                                    <textarea id="summary" name="summary" class="form-control" rows="3" maxlength="500"
+                                    <textarea id="new_summary" name="new_summary" class="form-control" rows="3" maxlength="500"
                                         placeholder="Enter summary (max 500 characters)"></textarea>
                                 </div>
 
@@ -278,30 +285,29 @@
                                 <div class="pt-2 pb-3">
                                     <label><b>Importance</b><span class="text-danger">*</span></label><br>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority"
-                                            id="editinlineRadio1" value="high">
+                                        <input class="form-check-input task_priority" type="radio"
+                                            name="new_task_priority" value="high">
                                         <label class="form-check-label" for="editinlineRadio1">High</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority"
-                                            id="editinlineRadio2" value="medium" checked>
+                                        <input class="form-check-input task_priority" type="radio"
+                                            name="new_task_priority" value="medium" checked>
                                         <label class="form-check-label" for="editinlineRadio2">Medium</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority"
-                                            id="editinlineRadio3" value="low">
+                                        <input class="form-check-input task_priority" type="radio"
+                                            name="new_task_priority" value="low">
                                         <label class="form-check-label" for="editinlineRadio3">Low</label>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <p class="m-0">Date Created: 02-09-2025.</p>
+                                        <p class="m-0">Date Created: {{ date('m-d-Y') }}.</p>
                                         <div>
                                             <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                                                aria-label="Close" id="cancel_button">Cancel</button>
-                                            <button type="submit" class="btn-success-modal"
-                                                id="save_button">Add</button>
+                                                aria-label="Close">Cancel</button>
+                                            <button type="submit" class="btn-success-modal">Add</button>
                                         </div>
                                     </div>
                                 </div>
@@ -331,7 +337,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" id="task_form" action="#">
+                    <form method="post" action="#">
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
                                 <!-- Date -->
@@ -353,9 +359,8 @@
                                         <p class="m-0">Date Created: 02-09-2025.</p>
                                         <div>
                                             <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                                                aria-label="Close" id="cancel_button">Cancel</button>
-                                            <button type="submit" class="btn-success-modal"
-                                                id="save_button">Reschedule</button>
+                                                aria-label="Close">Cancel</button>
+                                            <button type="submit" class="btn-success-modal">Reschedule</button>
                                         </div>
                                     </div>
                                 </div>
@@ -383,7 +388,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" id="task_form" action="#">
+                    <form method="post" action="#">
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
                                 <h4 id="task_desc">Are you sure you want to mark selected appointment as completed?</h4>
@@ -393,9 +398,8 @@
 
                                         <div>
                                             <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                                                aria-label="Close" id="cancel_button">No</button>
-                                            <button type="submit" class="btn-success-modal"
-                                                id="save_button">Yes</button>
+                                                aria-label="Close">No</button>
+                                            <button type="submit" class="btn-success-modal">Yes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -423,7 +427,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" id="task_form" action="#">
+                    <form method="post" action="#">
                         <div class="row" id="task_form_button">
                             <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
                                 <div class="col-md-12 card shadow-sm rounded-3">
@@ -512,17 +516,17 @@
                                             <label><b>Importance</b><span class="text-danger">*</span></label><br>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" id="editinlineRadio1" value="high">
+                                                    name="task_priority" value="high">
                                                 <label class="form-check-label" for="editinlineRadio1">High</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" id="editinlineRadio2" value="medium" checked>
+                                                    name="task_priority" value="medium" checked>
                                                 <label class="form-check-label" for="editinlineRadio2">Medium</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" id="editinlineRadio3" value="low">
+                                                    name="task_priority" value="low">
                                                 <label class="form-check-label" for="editinlineRadio3">Low</label>
                                             </div>
                                         </div>
@@ -537,9 +541,8 @@
                                         <p class="m-0">Date Created: 02-09-2025.</p>
                                         <div>
                                             <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                                                aria-label="Close" id="cancel_button">Cancel</button>
-                                            <button type="submit" class="btn-success-modal"
-                                                id="save_button">Update</button>
+                                                aria-label="Close">Cancel</button>
+                                            <button type="submit" class="btn-success-modal">Update</button>
                                         </div>
                                     </div>
                                 </div>
@@ -566,7 +569,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" id="task_form" action="#">
+                    <form method="post" action="#">
                         <div class="row" id="task_form_button">
                             <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
                                 <div class="col-md-12 card shadow-sm rounded-3">
@@ -656,18 +659,17 @@
                                             <label><b>Importance</b><span class="text-danger">*</span></label><br>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" id="editinlineRadio1" value="high">
+                                                    name="task_priority" value="high">
                                                 <label class="form-check-label" for="editinlineRadio1">High</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" id="editinlineRadio2" value="medium"
-                                                    checked="">
+                                                    name="task_priority" value="medium" checked="">
                                                 <label class="form-check-label" for="editinlineRadio2">Medium</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" id="editinlineRadio3" value="low">
+                                                    name="task_priority" value="low">
                                                 <label class="form-check-label" for="editinlineRadio3">Low</label>
                                             </div>
                                         </div>
@@ -681,9 +683,8 @@
 
                                         <div>
                                             <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                                                aria-label="Close" id="cancel_button">Close</button>
-                                            <button type="submit" class="btn-success-modal"
-                                                id="save_button">Print</button>
+                                                aria-label="Close">Close</button>
+                                            <button type="submit" class="btn-success-modal">Print</button>
                                         </div>
                                     </div>
                                 </div>
@@ -712,7 +713,7 @@
                     <div class="py-4 text-center" id="success_form_html">
                         <h4 id="success_msg">Are you sure you want to mark this Appointment as completed?</h4>
                         <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal"
-                            aria-label="Close" id="cancel_button">OK</button>
+                            aria-label="Close">OK</button>
                     </div>
 
                 </div>
@@ -758,55 +759,98 @@
             </div>
         </div>
     </div>
-@endsection
-@section('script')
+
+
+    <div id="manage-route"
+    data-get-adverser="{{ route('get.adverser') }}"
+    data-get-slot-list="{{ route('get.slot.list') }}"
+     >
+    @endsection
+    @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+
     <script>
-        
-        let table = new DataTable('#taskList', {
-          //  dom: 't', // This removes the search box and pagination dropdown
+    $(document).ready(function() {
+        const mmRoot = $('#manage-route');
+        endpoint = {
+            get_adverser: mmRoot.data('get-adverser'),
+            get_slot_list: mmRoot.data('get-slot-list'),
+        }
+        // get Advertiser List data and append inside the option list
+        $('#new_appointment').on('click', function() {
+            $('#new_appointment_model').modal('show');
+            ajaxRequest(endpoint.get_adverser, {}, 'GET', successPopulateAdvisorDropdown,  errorPopulateAdvisorDropdown);
         });
 
-
-        // ajax function
-        /**
- * Reusable AJAX function
- * @param {string} url - The API endpoint
- * @param {object} data - Data to send (default empty)
- * @param {string} method - HTTP method (GET, POST, etc.)
- * @param {function} successCallback - Function to run on success
- * @param {function} errorCallback - Function to run on error
- */
-
-function ajaxRequest(url, data= {}, method='GET', successCallback = null, errorCallback = null){
-    $.ajax({
-        url: url,
-        type: type,
-        dateType: 'json',
-        success: function(response){
-            if(typeof successCallback === 'function'){
-                successCallback(response);
-            }
-        },
-        error: function(xhr,status, error){
-            if(typeof errorCallback === 'function'){
-                errorCallback(xhr,status, error);
-            }else{
-                console.log('Ajax Error', status, error);
+        function successPopulateAdvisorDropdown(response) {
+            let dropdown = $('#new_advertiser');
+            dropdown.empty().append('<option value="">Select Advisor</option>');
+            if (response.data && Array.isArray(response.data)) {
+                response.data.forEach(function(advisor) {
+                    let displayText = advisor.name ? advisor.name + ' (' + advisor.member_id + ')' : advisor.member_id;
+                    dropdown.append(`<option value="${advisor.id}">${displayText}</option>`);
+                });
             }
         }
+        // Error: Handle failure
+        function errorPopulateAdvisorDropdown(response) {
+            let dropdown = $('#advisor');
+            ropdown.empty().append('<option >Something is worng!!</option>');
+            console.error("❌ AJAX Error:", status, error);
+        }
+
+        //Advisor on change
+        $('#new_advertiser, #new_appointment_date').on('change', function() {
+            let advertiserId = $('#new_advertiser').val();
+            let date = $('#new_appointment_date').val();
+            console.log(advertiserId,date);
+
+            if (advertiserId && date) {
+                ajaxRequest(endpoint.get_slot_list, {}, 'GET', successPopulateTimeSlot, errorResponseForNewAppointment);
+            }
+        });
+
+        function successPopulateTimeSlot(response) {
+            const dropdown = $('#new_appointment_time_slot');
+            dropdown.empty().append('<option value="">Select Time Slot</option>');
+            response.data.forEach(function(slot) {
+                dropdown.append(`<option value="${slot}">${slot}</option>`);
+            });
+        }
+
+        let table = new DataTable('#taskList', {
+
+        });
+
+        function ajaxRequest(url, data = {}, method = 'GET', successCallback = null, errorCallback = null) {
+            $.ajax({
+                url: url,
+                type: method,
+                dateType: 'json',
+                success: function(response) {
+                    if (typeof successCallback === 'function') {
+                        successCallback(response);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    if (typeof errorCallback === 'function') {
+                        errorCallback(xhr, status, error);
+                    } else {
+                        console.log('Ajax Error', status, error);
+                    }
+                }
+            });
+        }
+
+        function successResponseForMewAppointment(response) {
+            $('#success_msg').text(response.message);
+            $('#successModal').modal('show');
+        }
+
+        function errorResponseForNewAppointment(xhr, status, error) {
+            alert('Error: ' + error);
+        }
+
     });
-}
-
-function successResponseForMewAppointment(response){
-    $('#success_msg').text(response.message);
-    $('#successModal').modal('show');   
-}
-
-function errorResponseForNewAppointment(xhr, status, error){
-    alert('Error: ' + error);   
-}
-
-
     </script>
-@endsection
+    @endsection
