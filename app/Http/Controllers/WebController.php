@@ -1365,25 +1365,25 @@ class WebController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
-             $data = [
-                'user_id' => $user->id,
-                'email' => $user->email,
-                'ip_address' => $request->ip(),
-                'device' => $request->browser,
-                'country' => null,
-                'city' => null,
-                'type' => 1,
-                'online' => 'yes',
-                'page' => $request->lastVisitedPage,
-            ];
+            //  $data = [
+            //     'user_id' => $user->id,
+            //     'email' => $user->email,
+            //     'ip_address' => $request->ip(),
+            //     'device' => $request->browser,
+            //     'country' => null,
+            //     'city' => null,
+            //     'type' => 1,
+            //     'online' => 'yes',
+            //     'page' => $request->lastVisitedPage,
+            // ];
 
-            $loginAttempt = LoginAttempt::where('user_id', $user->id); 
+            // $loginAttempt = LoginAttempt::where('user_id', $user->id); 
 
-            if($loginAttempt->first() != null){
-                $loginAttempt->update($data);
-            }else{
-                LoginAttempt::Create($data);
-            }
+            // if($loginAttempt->first() != null){
+            //     $loginAttempt->update($data);
+            // }else{
+            //     LoginAttempt::Create($data);
+            // }
            // LoginAttempt::Create($data);
         }else{
             return response()->json(['status' => 'User logged not yet.'], 401);

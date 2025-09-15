@@ -22,6 +22,8 @@ use App\Http\Controllers\Escort\MyPlaymatesContoller;
 use App\Http\Controllers\Escort\HowIsItDoneController;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
 
+####### Track user info like device last page visit city ip address etc ########
+Route::middleware(['TrackLoginUserInfo'])->group(function () { 
 //remove before prod
 Route::post('/test-paymentUrl', [EscortController::class, 'pinup_test_payment'])->name('escort.payment');
 
@@ -430,3 +432,5 @@ Route::get('profiles',function(){
 Route::get('tours',function(){
     return view('escort.dashboard.HowDone.tours');
 })->name('escort.tours');
+
+});

@@ -12,6 +12,10 @@ use App\Http\Controllers\Center\Profile\UpdateController;
 use App\Http\Controllers\Center\CenterProfileInformationController;
 use App\Http\Controllers\Center\MassageViewerInteractionController;
 
+####### Track user info like device last page visit city ip address etc ########
+Route::middleware(['TrackLoginUserInfo'])->group(function () {  
+
+
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
 Route::get('/list', [CenterController::class, 'escortList'])->name('center.list');
 Route::get('/list/data-table', [CenterController::class, 'dataTable'])->name('center.list.dataTable');
@@ -416,3 +420,6 @@ Route::get('my-reports',function(){
 Route::get('num-tips',function(){
     return view('center.numdash.num-tips');
 })->name('center.num-tips');
+
+
+});
