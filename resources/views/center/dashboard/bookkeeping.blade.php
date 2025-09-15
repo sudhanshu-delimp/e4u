@@ -755,5 +755,149 @@
                   updateDisplay();
                 });
                 </script>
-                                 
+                   <script>
+                     $(document).ready(function(){
+                     
+                         // -------------------
+                         // Variables
+                         // -------------------
+                         let correctPIN = "1234"; // default, backend से fetch करना चाहिए
+                         let pin = "";
+                         let eftTrigger = false;
+                         let payIdTrigger = false;
+                     
+                         // -------------------
+                         // Helpers
+                         // -------------------
+                         function updateDisplay() {
+                             if(pin.length === 0){
+                                 $('#pinDisplay').addClass('empty').text('');
+                             } else {
+                                 $('#pinDisplay').removeClass('empty').text(pin);
+                             }
+                         }
+                     
+                         function resetPinEntry(){
+                             pin = '';
+                             updateDisplay();
+                         }
+                     
+                         // -------------------
+                         // Keypad Input
+                         // -------------------
+                         $(document).on('click', '.input_value', function(){
+                             if(pin.length < 4){
+                                 pin += $(this).text();
+                                 updateDisplay();
+                             }
+                         });
+                     
+                         // Clear buttons
+                         $('#clear, #clearBtn').click(function(){
+                             resetPinEntry();
+                         });
+                     
+                         // -------------------
+                         // EFT Client Trigger
+                         // -------------------
+                         $(document).on('click', '.eftClientOption', function(e){
+                             e.preventDefault();
+                             eftTrigger = true;
+                             resetPinEntry();
+                             $('#SetPinModal').modal('show');
+                         });
+                     
+                         // -------------------
+                         // PayID Trigger (PIN protected)
+                         // -------------------
+                         $(document).on('click', '#payid', function(e){
+                             e.preventDefault();
+                             payIdTrigger = true;
+                             resetPinEntry();
+                             $('#SetPinModal').modal('show');
+                         });
+                     
+                         // -------------------
+                         // Save / Verify PIN
+                         // -------------------
+                         $('#savePinBtn').click(function(){
+                     
+                             if(pin.length === 4){
+                     
+                                 // EFT & PayID verification check
+                                 if(eftTrigger || payIdTrigger){
+                                     if(pin !== correctPIN){
+                                         alert("❌ Incorrect PIN, please try again.");
+                                         resetPinEntry();
+                                         return;
+                                     }
+                                 }
+                     
+                                 $('#SetPinModal').modal('hide');
+                     
+                                 $('#SetPinModal').on('hidden.bs.modal', function () {
+                                     if(eftTrigger){
+                                         $('#EFTInstructions').modal('show');
+                                         eftTrigger = false;
+                                     } 
+                                     else if(payIdTrigger){
+                                         $('#AddPayId').modal('show');
+                                         payIdTrigger = false;
+                                     } 
+                                     else {
+                                         // Normal Change PIN flow → पहले OTP
+                                         $('#sendOtp_modal').modal('show');
+                     
+                                         // जब OTP verify होगा तब ही PIN reset होगा
+                                         $('#sendOtpSubmit').off('click').on('click', function(e){
+                                             e.preventDefault();
+                                             let otp = $('#otp').val();
+                                             if(otp.length === 4){ 
+                                                 $('#sendOtp_modal').modal('hide');
+                                                 $('#pinResetMsg').text(
+                                                     `Your PIN Number has been reset to: ${pin}. Do not disclose your PIN to anyone else.`
+                                                 );
+                                                 $('#PinResetConfirm').modal('show');
+                                                 correctPIN = pin; // ✅ backend call से save करना होगा
+                                                 resetPinEntry();
+                                             } else {
+                                                 alert("Enter valid 4-digit OTP");
+                                             }
+                                         });
+                                     }
+                                     $(this).off('hidden.bs.modal');
+                                 });
+                     
+                             } else {
+                                 alert('Enter 4 digits to set PIN');
+                             }
+                         });
+                     
+                         // -------------------
+                         // Add New Account → OTP flow
+                         // -------------------
+                         $('#commission-report .btn-success-modal').click(function(e){
+                             e.preventDefault();
+                             $('#commission-report').modal('hide');
+                             $('#sendOtp_modal').modal('show');
+                     
+                             $('#sendOtpSubmit').off('click').on('click', function(ev){
+                                 ev.preventDefault();
+                                 let otp = $('#otp').val();
+                                 if(otp.length === 4){
+                                     $('#sendOtp_modal').modal('hide');
+                                     $('#AddNewAccountConfirm').modal('show');
+                                 } else {
+                                     alert("Enter valid 4-digit OTP");
+                                 }
+                             });
+                         });
+                     
+                         // -------------------
+                         // Init
+                         // -------------------
+                         updateDisplay();
+                     
+                     });
+                     </script>              
 @endpush
