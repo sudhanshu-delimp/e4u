@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers\Agent;
 
-use App\Http\Controllers\Controller;
-use App\Repositories\Escort\EscortInterface;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use App\Repositories\User\UserInterface;
-use App\Repositories\AgentBank\AgentBankDetailInterface;
-use App\Http\Requests\StoreEscortRequest;
-use App\Http\Requests\UpdateEscortRequest;
-use App\Http\Requests\StoreAgentBankDetailRequest;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\Hash;
+use Auth;
 use Carbon\Carbon;
 use App\Sms\SendSms;
+use Illuminate\Http\Request;
 use App\Models\PasswordSecurity;
 use Illuminate\Http\JsonResponse;
-use Auth;
-class AgentAccountController extends Controller
+use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\BaseController;
+use App\Repositories\User\UserInterface;
+use App\Http\Requests\StoreEscortRequest;
+use App\Http\Requests\UpdateEscortRequest;
+use App\Http\Requests\ChangePasswordRequest;
+use App\Repositories\Escort\EscortInterface;
+use App\Http\Requests\StoreAgentBankDetailRequest;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Repositories\AgentBank\AgentBankDetailInterface;
+
+
+class AgentAccountController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -509,5 +514,18 @@ class AgentAccountController extends Controller
         );
 
         return response()->json($data);
+    }
+
+
+
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $data = $request->all();
+        $resposne = $this->user->changeUserPassword($data);
+
+        if($resposne['status'])
+        return $this->successResponse($resposne['message']);
+        else
+        return $this->validationError($resposne['message']);
     }
 }

@@ -11,7 +11,7 @@
                         <div class="d-user-info">
                             <div class="gap-b escort_header_top_menu" style="display: grid; grid-template-columns: 1fr 1fr; font-size: 14px;">
                                 <span>
-                                    <b>Welcome back :  </b><span class="user-values">{{Str::title(auth()->user()->name) }}</span> <span class="separator">|</span> 
+                                    <b>Welcome back :  </b><span class="user-values">{{Str::title(auth()->user()->business_name) }}</span> <span class="separator">|</span> 
                                 </span>
                                 <span>
                                     <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator"></span>
@@ -138,7 +138,7 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
-                                    User Name: {{auth()->user()->name }}
+                                    User Name: {{auth()->user()->business_name }}
                                 </a>
                                         <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('agent.account.edit') }}">

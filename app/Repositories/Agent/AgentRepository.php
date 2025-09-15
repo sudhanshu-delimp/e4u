@@ -9,19 +9,27 @@ use Exception;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Agent;
+use App\Models\AccountSetting;
+use App\Events\AgentRegistered;
+use App\Mail\agentApprovalEmail;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use App\Repositories\Agent\AgentInterface;
 
 class AgentRepository extends BaseRepository implements AgentInterface
 {
     
     protected $agent;
+    protected $setting;
+    public $user_model;
     public $response = [];
     
-    public function __construct(Agent $agent)
+    public function __construct(Agent $agent, User $user_model, AccountSetting $setting)
     {
         $this->agent = $agent;
+        $this->user_model = $user_model;
         $this->response = ['status' => false,'message' => ''];
        
     }
@@ -111,9 +119,23 @@ class AgentRepository extends BaseRepository implements AgentInterface
                 else 
                 {
                     $agentData['enabled'] = 1;
+                    $agentData['status'] = 2;
                     $agentData['type'] = 5;
                     $message = 'New agent added successfully';
                     $user = User::create($agentData);
+
+                    $userDataForEvent = [
+                        'id' => $user->id,
+                        'name' => $user->name,
+                        'phone' => $user->phone,
+                        'email' => $data['email'],
+                        'location' => config('escorts.profile.states')[$user->state_id]['stateName'] ?? null,
+                        'agent_id'  => $user->member_id,
+                        'create_at' => Carbon::now()->format('j F'),
+                    ];
+       
+                    //event(new AgentRegistered($userDataForEvent));
+                    $this->user_model->create_account_setting($user);
                   
                 }
 
@@ -166,7 +188,9 @@ class AgentRepository extends BaseRepository implements AgentInterface
          $user = $this->agent->where('id',$data['user_id'])->firstOrFail(); 
          if($user && $data['status']!="")
          {
-             $user->update(['status' =>  $data['status']]);
+             $password  = random_string($type = 'alnum', $len = 8);
+             $user->update(['status' =>  $data['status'],'password'=> Hash::make($password)]);
+             $this->sendApprovalEmail($user,$password);
              return $this->response = ['status' => true,'message' => 'Approved Successfully'];
          }
          else
@@ -176,6 +200,17 @@ class AgentRepository extends BaseRepository implements AgentInterface
 
     }
 
-   
+
+    public function sendApprovalEmail($user,$plainPassword)
+    {
+        $user['plainPassword'] = $plainPassword;
+
+        logErrorLocal($user);
+        Mail::to($user->email)->send(new agentApprovalEmail($user));
+        
+    }
+
+
+
 
 }

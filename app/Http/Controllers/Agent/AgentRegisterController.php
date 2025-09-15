@@ -75,7 +75,7 @@ class AgentRegisterController extends Controller
     protected function create($data)
     {
         return User::create([
-            'name' => $data['name'],
+            'business_name' => $data['name'],
             'state_id' => $data['state_id'],
             'email' => $data['email'],
             'phone' => $data['phone'],

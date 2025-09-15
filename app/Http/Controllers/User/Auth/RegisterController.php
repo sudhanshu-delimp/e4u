@@ -44,10 +44,16 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+
+    protected $user;
+    public function __construct(User $user)
     {
         $this->middleware('guest');
+        $this->user = $user;
     }
+
+   
+
 
     public function index(){
 
@@ -114,14 +120,12 @@ class RegisterController extends Controller
     public function register(StoreUserRequest $request)
     {
         
-       
         event(new Registered($user = $this->create($request->all())));
 
-        //dd($user);
         if($user) {
             $error = 1;
             $phone = $user->phone;
-            $otp = $this->generateOTP();
+            $otp = $this->user->generateOTP();
             $user->otp = $otp;
             $user->member_id = $user->memberId;
             $user->save();
@@ -148,7 +152,7 @@ class RegisterController extends Controller
         }
        
         
-            $otp = $this->generateOTP();
+            $otp = $this->user->generateOTP();
             $user->otp = $otp;
             $phone = $user->phone;
             
@@ -163,10 +167,7 @@ class RegisterController extends Controller
         
         
     }
-    public function generateOTP(){
-        $otp = mt_rand(1000,9999);
-        return $otp;
-    }
+   
     // public function register(StoreUserRequest $request)
     // {   
        

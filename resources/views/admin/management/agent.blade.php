@@ -245,7 +245,7 @@
       },
       columns: [
       { data: 'agent_id', name: 'agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
-      { data: 'name', name: 'name', searchable: true, orderable:false ,defaultContent: 'NA'},
+      { data: 'business_name', name: 'business_name', searchable: true, orderable:false ,defaultContent: 'NA'},
       { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
       { data: 'phone', name: 'phone', searchable: true, orderable:true ,defaultContent: 'NA'},
       { data: 'email', name: 'email', searchable: false, orderable:true ,defaultContent: 'NA'},
@@ -420,7 +420,7 @@
                   var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content basic-modal">
                      <div class="modal-header">
-                        <h5 class="modal-title" id="edit_agent_data"> <img src="{{ asset('assets/dashboard/img/update-agent.png')}}" class="custompopicon"> Update Agent Details </h5>
+                        <h5 class="modal-title" id="edit_agent_data"> <img src="{{ asset('assets/dashboard/img/update-agent.png')}}" class="custompopicon"> Update Agent (${rowData.member_id}) </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                         </button>
@@ -445,7 +445,7 @@
                                  <input type="text" class="form-control rounded-0" placeholder="Business Number" name="business_number" id="business_number" value="${(rowData.business_number ? rowData.business_number : '')}">
                               </div>
                               <div class="col-6 mb-3">
-                                 <input type="text" class="form-control rounded-0" placeholder="Point of Contact" name="contact_person" id="contact_person" value="${(rowData.contact_person ? rowData.contact_person : '')}">
+                                 <input type="text" class="form-control rounded-0" placeholder="Contact Person" name="contact_person" id="contact_person" value="${(rowData.contact_person ? rowData.contact_person : '')}">
                               </div>
                               <div class="col-6 mb-3">
                                  <input type="text" class="form-control rounded-0" placeholder="Mobile" name="phone" id="phone" value="${(rowData.	phone ? rowData.	phone : '')}">
@@ -597,7 +597,7 @@
       ///////// Approve Agent //////////////////////////////
       $(document).on('click', '.approve_account', function(e) {
 
-         console.log($(this).attr('data-id'));
+         swal_waiting_popup({'title':'Approving Account'});
          $.ajax({
                url: "{{ route('admin.approve-agent-account') }}",
                method: 'POST',
@@ -659,7 +659,7 @@
              <span class="text-danger error-business_number"></span>
             </div>
             <div class="col-6 mb-3">
-            <input type="text" class="form-control rounded-0" placeholder="Point of Contact" name="contact_person" id="contact_person">
+            <input type="text" class="form-control rounded-0" placeholder="Contact Person" name="contact_person" id="contact_person">
              <span class="text-danger error-contact_person"></span>
             </div>
             <div class="col-6 mb-3">
@@ -751,8 +751,9 @@
          e.preventDefault(); 
          let form = $(this);
          let formData = new FormData(this);
+         $('span.text-danger').text('');
 
-         //  swal_waiting_popup({'title':'Saving Agent Details'});
+         swal_waiting_popup({'title':'Saving Agent Details'});
          //  return false
        
          $.ajax({

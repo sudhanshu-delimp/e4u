@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Auth\Advertiser;
 
-use App\Http\Controllers\AppController;
-use App\Models\Escort;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\User;
-use App\Models\PasswordSecurity;
 use App\Sms\SendSms;
+use App\Models\Escort;
+use Illuminate\Http\Request;
+use App\Models\PasswordSecurity;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\JsonResponse;
-use Carbon\Carbon;
+use App\Providers\RouteServiceProvider;
+use App\Http\Controllers\BaseController;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class LoginController extends AppController
+class LoginController extends BaseController
 {
     /*
     |--------------------------------------------------------------------------
@@ -44,17 +45,18 @@ class LoginController extends AppController
      *
      * @return void
      */
-    public function __construct()
+   
+
+    protected $user;
+    public function __construct(User $user)
     {
         $this->middleware('guest')->except('logout');
+        $this->user = $user;
     }
-    public function generateOTP(){
-        $otp = mt_rand(1000,9999);
-        return $otp;
-    }
+
     public function login(Request $request)
     {
-        //dd($request->all());
+        
         if(isset($request->type)) {
 
            if(! is_null($request->phone)) {
@@ -118,26 +120,26 @@ class LoginController extends AppController
             }
         }
 
-        //TODO::Enable
-        if(isset($user->id) && !isset($user->passwordSecurity)) {
-            PasswordSecurity::create([
-                'user_id' => $user->id,
-                'password_expiry_days' =>0,
-                //'status' =>1,
-                'password_updated_at' => Carbon::now(),
-            ]);
-        }
+      
+        // if(isset($user->id) && !isset($user->passwordSecurity)) {
+        //     PasswordSecurity::create([
+        //         'user_id' => $user->id,
+        //         'password_expiry_days' =>0,
+        //         //'status' =>1,
+        //         'password_updated_at' => Carbon::now(),
+        //     ]);
+        // }
+
         if($count === 1){
 
 
             $hasher = app('hash');
             $error = 0;
-            //if (Hash::check($request->password, $user->password)) { //TODO::Enable
-            if (1) {
+            if (Hash::check($request->password, $user->password)) { 
                 $pwd = $request->password;
                 $error = 1;
                 $phone = $user->phone;
-                $otp = $this->generateOTP();
+                $otp = $this->user->generateOTP();
                 $user->otp = $otp;
                 $user->save();
                 $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
@@ -157,13 +159,21 @@ class LoginController extends AppController
                 return response()->json(compact('error','phone'));
 
 
-            } else {
-                return $this->sendFailedLoginResponse($request);
-                //dd("hellog user");
+            } 
+            else 
+            {
+                return $this->validationError(
+                'Wrong Password.',['credentials' => ['Error : Invalid Mobile Number or Password.']],
+                401 
+                );
             }
-        } else {
-            return $this->sendFailedLoginResponse($request);
-            //dd("hellog user");
+        } 
+        else 
+        {
+             return $this->validationError(
+                'Login failed.',['credentials' => ['Error : Invalid Mobile Number or Password.']],
+                401 
+            );
         }
 
 
@@ -196,7 +206,7 @@ class LoginController extends AppController
     protected function checkOTP(Request $request)
     {
         // echo "agent";
-        // dd($request->all());
+        
         if(! is_null($request->phone)) {
             $user = User::where('phone','=',$request->phone)->first();
         }
@@ -208,9 +218,9 @@ class LoginController extends AppController
 
         //dd($user->otp);
 
-        //TODO::Enable
-        //if($user->otp == (int)$request->otp) {
-        if(1) {
+        
+        if($user->otp == (int)$request->otp) {
+       
             // if($user->email_verified_at == NULL && ($user->type == 3 || $user->type == 4)) {
             //     $this->_sendRegisterSuccessEmail($user);
             // }
@@ -232,15 +242,16 @@ class LoginController extends AppController
             $error = true;
             $this->guard()->user();
             return response()->json(compact('error','type'));
-            //return $this->sendLoginResponse($request);
-        } else {
-
-            return $this->sendFailedLoginResponse($request);
+           
+        } 
+        else 
+        {
+            return $this->validationError(
+                'OTP verification failed.',['otp' => ['Your have entered invalid otp.']],
+                401 
+            );
+      
         }
-        // $req = $request->only($this->username(), 'password','type');
-        //$req = $request->only($this->username(), 'password','type');
-        // dd($req);
-        //return $request->only($this->username(), 'password','type');
     }
 
 

@@ -9,17 +9,18 @@ use App\Http\Controllers\Escort\PinUpsController;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Escort\PlaymateController;
+use App\Http\Controllers\Escort\MyPlaymatesContoller;
 use App\Http\Controllers\Agent\AgentRequestController;
+use App\Http\Controllers\Escort\HowIsItDoneController;
+use App\Http\Controllers\User\Dashboard\UserController;
 use App\Http\Controllers\Escort\EscortAccountController;
-use App\Http\Controllers\Escort\EscortDashboardController;
 use App\Http\Controllers\Escort\EscortGalleryController;
 use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
+use App\Http\Controllers\Escort\EscortDashboardController;
 use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\EscortTourPaymentController;
 use App\Http\Controllers\Escort\EscortSuspendProfileController;
-use App\Http\Controllers\Escort\MyPlaymatesContoller;
-use App\Http\Controllers\Escort\HowIsItDoneController;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
 
 ####### Track user info like device last page visit city ip address etc ########
@@ -62,8 +63,10 @@ Route::post('/update-account', [EscortController::class, 'update'])->name('escor
 Route::post('/notification-update', [EscortController::class, 'notificationUpdate'])->name('escort.notification.update');
 Route::post('/profile-&-tour-permission', [EscortController::class, 'profileTourPermissionUpdate'])->name('escort.account.profile.tour.update');
 Route::get('/change-password', [EscortController::class, 'editPassword'])->name('escort.change.password');
-Route::post('/change-password', [EscortController::class, 'updatePassword'])->name('escort.update.password');
-Route::post('/change-password-expiry', [EscortController::class, 'updatePasswordExpiry'])->name('escort.update.password.expiry');
+
+Route::post('/change-password', [UserController::class, 'updatePassword'])->name('escort.update.password');
+Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('escort.update.password.expiry');
+
 //Route::get('/profile-information', [EscortController::class, 'ProfileInformation'])->name('escort.profile.information');
 Route::get('/notifications-features', [EscortController::class, 'notificationsFeatures'])->name('escort.profile.notifications');
 Route::get('/upload-my-avatar', [EscortController::class, 'uploadAvatar'])->name('escort.profile.avatar');

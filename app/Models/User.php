@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\AccountSetting;
 use App\Models\AgentDetail;
 use App\Models\AgentBankDetail;
 use App\Models\PasswordSecurity;
@@ -547,6 +547,20 @@ class User extends Authenticatable
     public function LoginStatus(){
         return $this->hasOne(LoginAttempt::class,  'user_id', 'id');
     }
+
+    public function account_setting()
+    {
+      return $this->belongsTo(AccountSetting::class, 'id','user_id');
+    }
+
+
+     public function generateOTP(){
+        $otp = '123456';
+        //$otp = mt_rand(1000,9999);
+        return $otp;
+    }
+
+    
 
     
 }

@@ -31,45 +31,6 @@
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card border-0">
-                            <div class="card-body">
-                              <div class="v-main-heading h5">File types</div>
-                              <p>When selecting your avatar, please be mindful of the following:</p>
-                              <ul>
-                                  <li>Yes you can use a photo, but we do not recommend it</li>
-                                  <li>Acceptable formats include; .jpg, .gif or .png</li>
-                                  <li>.pdf, .psd, .tff, and .doc files are not compatible</li>
-                              </ul>
-                             <div class="row mt-4">
-  <div class="col-lg-4 mt-4"><div class="v-main-heading h5">Upload your avatar</div>
-<div class="file-upload">
- 
-
-  <div class="image-upload-wrap">
-    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
-    <div class="drag-text">
-      <h3>Drag and drop a file or select add Image</h3>
-    </div>
-  </div>
-  <div class="file-upload-content">
-    <img class="file-upload-image" src="#" alt="your image" />
-    <div class="image-title-wrap">
-      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-    </div>
-  </div>
-</div>
-</div>
-  <div class="col-lg-4 mt-4"><div class="v-main-heading h5">Current Avatar</div>
-  <img src="{{ asset('assets/dashboard/img/1556626889.jpg') }}" alt="" class="img-rounded">
-
-</div>
-  
-</div>
-=======
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -108,41 +69,10 @@
                                     <div class="v-main-heading h5">Current Avatar</div>
                                     <img src="{{ asset('assets/dashboard/img/1556626889.jpg') }}" alt="" class="img-rounded">
                                 </div>
->>>>>>> c19d5b5e344da923c8e1aa9048b5111896c889b5
                             </div>
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
-
-<div class="row mt-4">
-           
-            <div class="col-md-12 mt-2">
-<div id="accordion" class="myacording-design mb-5">
-
-                  <div class="card">
-                    <div class="card-header">
-                      <a class="card-link" data-toggle="collapse" href="#File_name" aria-expanded="true">
-                        Additional Upload Information
-                      </a>
-                    </div>
-                    <div id="File_name" class="collapse show" data-parent="#accordion" style="">
-                      <div class="card-body">
-                        <p style="font-size: 20px;"><b>File name</b> </p>
-                        <p>Only use letters, numbers, underscores, and hyphens in file names.</p>
-                        
-    <p style="font-size: 20px;"><b>File size</b> </p>
-                        <p>We recommend using image files of less than 500 KB for best results, though the limit for an individual image upload is 2 MB.</p>
-    <p style="font-size: 20px;"><b>Resolution</b> </p>
-                        <p>There is an image resolution limit of 60 MP (megapixels).</p>
-                      
-    <p style="font-size: 20px;"><b>Colour mode</b> </p>
-                        <p>Save images in RGB color mode. Print mode (CMYK) won't render in most browsers.
-                       </p>
-     <p style="font-size: 20px;"><b>Colour profile</b> </p>
-                         <p>Save images in the sRGB color profile. If images don't look right on mobile devices, it's probably because they don't have an sRGB color profile.</p>
-                      </div>
-=======
             </div>
             <div class="row mt-4">
                 <div class="col-md-12 mt-4">
@@ -169,7 +99,6 @@
                                 </div>
                             </div>
                         </div>
->>>>>>> c19d5b5e344da923c8e1aa9048b5111896c889b5
                     </div>
                 </div>
             </div>

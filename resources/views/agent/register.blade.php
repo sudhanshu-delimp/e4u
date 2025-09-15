@@ -28,7 +28,7 @@
                     <form id="escort_registration" action="{{ route('agent.register')}}" method="post">
                         @csrf
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Name</label>
+                            <label for="exampleInputEmail1">Business Name</label>
                             <input  type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="Name" data-parsley-required-message="Your Name is required" data-parsley-pattern="/^([a-z ])+([ a-z ])+([ 0-9a-z ]+)$/i">
                             <div class="termsandconditions_text_color">
                                 @error('name')

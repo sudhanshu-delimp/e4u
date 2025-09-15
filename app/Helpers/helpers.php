@@ -406,7 +406,7 @@ if (!function_exists('logErrorLocal')) {
             if ($error instanceof \Exception) {
                 Log::info($error->getMessage());
             } else {
-               Log::info($error->getMessage());
+               Log::info($error);
             }
         }
     }

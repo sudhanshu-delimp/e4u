@@ -95,45 +95,48 @@
         <input type="submit" value="Save Password" class="btn btn-primary shadow-none" name="submit">
     </form>
     
-      <form class="v-form-design" id="passwordExpiry" action="{{ route('user.update.password.expiry')}}" method="POST">          
-        <div class="col-md-12 p-0 mt-4">
-           <div class="form-group mb-0">
-              <label for="confirm_password">Password Expiry </label>
-           </div>
-           <div class="form-radio">
-              <input class="" name="password_expiry_days"  type="radio" value="0" {{ $user->passwordSecurity->password_expiry_days == 0 ? ' checked' : null }} >
-              <label class="form-check-label" for="flexCheckDefault">Never</label>
-           </div>
-           <div class="form-radio">
-              <input class="" name="password_expiry_days"  type="radio" {{ $user->passwordSecurity->password_expiry_days == 30 ? ' checked' : null }} value="30" >
-              <label class="form-check-label" for="flexCheckDefault">Renew every 30 days</label>
-           </div>
-           <div class="form-radio">
-              <input class="" name="password_expiry_days" {{ $user->passwordSecurity->password_expiry_days == 60 ? 'checked' : null }} type="radio" value="60" >
-              <label class="form-check-label" for="flexCheckDefault">Renew every 60 days</label>
-           </div>
-           <div class="form-radio">
-              <input class="" name="password_expiry_days" type="radio" {{ $user->passwordSecurity->password_expiry_days == 90 ? ' checked' : null }} value="90" >
-              <label class="form-check-label" for="flexCheckDefault">Renew every 90 days</label>
-           </div>
-           <small id="emailHelp" class="form-text text-muted">Unless you set your preferred Password Expiry, by default your password will renew every30 days.</small>
-        </div>
-        <div class="col-md-12 p-0 mt-4">
-           <div class="form-group mb-0">
-              <label for="confirm_password">Notification</label>
-           </div>
-           <div class="form-check m-0">
-              <input class="form-check-input" name="password_notification[]" type="checkbox" id="flexCheckDefault" value="1" @if(isset($user->passwordSecurity->password_notification) && in_array(1,$user->passwordSecurity->password_notification)) checked @endif>
-              <label class="form-check-label" for="flexCheckDefault">Text</label>
-           </div>
-           <div class="form-check m-0">
-              <input class="form-check-input" name="password_notification[]" type="checkbox" id="flexCheckDefault" value="2" @if(isset($user->passwordSecurity->password_notification) && in_array(2,$user->passwordSecurity->password_notification)) checked  @endif>
-              <label class="form-check-label" for="flexCheckDefault">Email</label>
-           </div>
-           <small id="emailHelp" class="form-text text-muted">If you select to be notified of your impending password expiry by Text or Email, you will receive a notification 24 hours prior to expiry date.</small>
-        </div>
-        <input type="submit" value="Save" class="btn btn-primary shadow-none mt-4" name="submit">
-     </form>
+
+            <form class="v-form-design" id="passwordExpiry" action="{{ route('user.update.password.expiry')}}" method="POST">          
+              <div class="col-md-12 p-0 mt-4">
+                <div class="form-group mb-0">
+                    <label for="confirm_password">Password Expiry </label>
+                </div>
+                <div class="form-radio">
+                    <input class="" name="password_expiry_days"  type="radio" value="never" @if($user->account_setting && $user->account_setting->password_expiry_days=='never') {{  'checked'  }}  @endif>
+                    <label class="form-check-label" for="flexCheckDefault">Never</label>
+                </div>
+                <div class="form-radio">
+                    <input class="" name="password_expiry_days"  type="radio" value="30"  @if($user->account_setting && $user->account_setting->password_expiry_days=='30') {{  'checked'  }}  @endif >
+                    <label class="form-check-label" for="flexCheckDefault">Renew every 30 days</label>
+                </div>
+                <div class="form-radio">
+                    <input class="" name="password_expiry_days" type="radio" value="60"  @if($user->account_setting && $user->account_setting->password_expiry_days=='60') {{  'checked'  }}  @endif  >
+                    <label class="form-check-label" for="flexCheckDefault">Renew every 60 days</label>
+                </div>
+                <div class="form-radio">
+                    <input class="" name="password_expiry_days"  type="radio" value="90" @if($user->account_setting && $user->account_setting->password_expiry_days=='90') {{  'checked'  }}  @endif  >
+                    <label class="form-check-label" for="flexCheckDefault">Renew every 90 days</label>
+                </div>
+                <small id="emailHelp" class="form-text text-muted">Unless you set your preferred Password Expiry, by default your password will renew every30 days.</small>
+              </div>
+              <div class="col-md-12 p-0 mt-4">
+                <div class="form-group mb-0">
+                    <label for="confirm_password">Notification</label>
+                </div>
+                <div class="form-check m-0">
+                    <input class="form-check-input" name="is_text_notificaion_on" type="checkbox" id="flexCheckDefault" value="1" @if($user->account_setting && $user->account_setting->is_text_notificaion_on=='1') {{  'checked'  }}  @endif>
+                    <label class="form-check-label" for="flexCheckDefault">Text</label>
+                </div>
+                <div class="form-check m-0">
+                    <input class="form-check-input" name="is_email_notificaion_on" type="checkbox" id="flexCheckDefault" value="1" @if($user->account_setting && $user->account_setting->is_email_notificaion_on=='1') {{  'checked'  }}  @endif>
+                    <label class="form-check-label" for="flexCheckDefault">Email</label>
+                </div>
+                <small id="emailHelp" class="form-text text-muted">If you select to be notified of your impending password expiry by Text or Email, you will receive a notification 24 hours prior to expiry date.</small>
+              </div>
+              <input type="submit" value="Save" class="btn btn-primary shadow-none mt-4" name="submit">
+          </form>
+
+
     </div>
   </div>
 
@@ -202,21 +205,20 @@
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        success: function(data) {
-          if (data.error == true) {
-            var msg = "Saved";
-            $('.comman_msg').text(msg);
-            //$("#my_account_modal").show();
-            $("#comman_modal").modal('show');
-            $('input[type=password]').each(function() {
-            $(this).val('');
-            });
-            //location.reload();
+        success: function(data) 
+        {
+          if (data.error != true) {
+          $('input[type=password]').each(function() {
+          $(this).val('');
+          });
 
-          } else {
-            $('.comman_msg').html("Please enter your correct current password");
-                        $("#comman_modal").modal('show');
-
+          swal_success_popup(data.message);
+          setTimeout(function () {
+            location.reload();
+          }, 3000); 
+          } 
+          else {
+          swal_error_popup(data.message);
           }
         },
 
@@ -227,12 +229,10 @@
   $('#passwordExpiry').on('submit', function(e) {
     e.preventDefault();
 
-    var form = $(this);
-    
-    $("#modal-title").text("Renew Password Expiry");
-    $("#modal-icon").attr("src", "/assets/dashboard/img/renew.png");
-    if (form.parsley().isValid()) {
-
+      var form = $(this);
+      $("#modal-title").text("Renew Password Expiry");
+      $("#modal-icon").attr("src", "/assets/dashboard/img/renew.png");
+   
       var url = form.attr('action');
       var data = new FormData(form[0]);
       $.ajax({
@@ -244,26 +244,25 @@
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        success: function(data) {
-          if (data.error == true) {
-            var msg = "Saved";
-            $('.comman_msg').text(msg);
-            //$("#my_account_modal").show();
-            $("#comman_modal").modal('show');
-            $('input[type=password]').each(function() {
-            $(this).val('');
-            });
-            //location.reload();
+        success: function(data) 
+               {
+                     if (data.error != true) {
+                        $('input[type=password]').each(function() {
+                        $(this).val('');
+                        });
 
-          } else {
-            $('.comman_msg').html("Please enter your correct current password");
-                        $("#comman_modal").modal('show');
-
-          }
-        },
+                        swal_success_popup(data.message);
+                        setTimeout(function () {
+                           location.reload();
+                        }, 3000); 
+                     } 
+                     else {
+                     swal_error_popup(data.message);
+                     }
+          },
 
       });
-    }
+    
   });
 
 
