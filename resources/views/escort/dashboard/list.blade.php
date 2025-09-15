@@ -93,6 +93,7 @@
                                     data-target="#add_brb" id="btn_add_brb">Add BRB</button>
                                 <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                     data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
+                                <button style="padding: 10px;" class="btn btn-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile </button>
                                 </div>
                                 <div class="pinup-tooltip-wrapper">
                                     <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
@@ -133,6 +134,119 @@
         <!--right side bar start from here-->
     </div>
     
+    <!-- extend profile modal start here -->
+    <div class="modal fade upload-modal" id="extend_profile" tabindex="-1" role="dialog" aria-labelledby="extendProfileTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <form id="extend_form">
+            <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
+              <div class="modal-header">
+                <h5 class="modal-title">
+                  <img src="/assets/app/img/extend-30.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
+                  Extend Profile
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">
+                    <img id="modal_close_extend" src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                  </span>
+                </button>
+              </div>
+      
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="container p-0">
+      
+                      <!-- Profile select -->
+                      <div class="form-group row">
+                        <label class="col-sm-3" for="">Profile:</label>
+                        <div class="col-sm-8 pr-2">
+                          <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
+                                  id="extendProfileId"
+                                  name="extend_profile_id"
+                                  data-parsley-errors-container="#extend-profile-errors"
+                                  required
+                                  data-parsley-required-message="Select Profile">
+                            <option value="">Select Profile</option>
+                            @foreach ($suspended_escorts as $profile)
+                              <option data-membership="{{ $profile['membership'] }}" 
+                                      value="{{ $profile['id'] }}" 
+                                      profile_name="{{ $profile['profile_name'] }}">
+                                {{ $profile['id'] }} - {{ $profile['name'] }}
+                                @if (isset($profile['state']['name']))
+                                  - {{ $profile['state']['name'] }}
+                                @endif
+                              </option>
+                            @endforeach
+                          </select>
+                          <span id="extend-profile-errors"></span>
+                        </div>
+                      </div>
+      
+                      <!-- Extend Period -->
+                      <div class="form-group row extend--profile">
+                        <label class="col-sm-3">Extend Period:</label>
+                        <div class="col-sm-9 row">
+                          <div class="col-sm-6">
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay1" value="1">
+                              <label class="form-check-label" for="extendDay1">1 day</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay5" value="5">
+                              <label class="form-check-label" for="extendDay5">5 days</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay10" value="10">
+                              <label class="form-check-label" for="extendDay10">10 days</label>
+                            </div>
+                          </div>
+                          <div class="col-sm-5 pr-1">
+                            <input type="date" id="extendDate" class="form-control form-control-sm removebox_shdow"
+                                   name="extend_date"
+                                   min="{{ \Carbon\Carbon::now()->addDay()->format('Y-m-d') }}"
+                                   value="{{ \Carbon\Carbon::now()->addDay()->format('Y-m-d') }}">
+                          </div>
+                        </div>
+                      </div>
+      
+                      <!-- Fee -->
+                      <div class="form-group row">
+                        <label class="col-sm-3 col-form-label" for="">Fee:</label>
+                        <div class="col-sm-4">
+                          <div class="input-group input-group-sm">
+                            <span class="input-group-text" style="border-radius: 0rem; font-size:0.8rem;padding: 0px 10px;">$</span>
+                            <span class="form-control" id="extendFeeLive" style="background-color: #e9ecef; border: 1px solid #ced4da;">0.00</span>
+                          </div>
+                        </div>
+                      </div>
+      
+                      <hr style="background-color: #0C223D" class="mt-4">
+      
+                      <!-- Notes -->
+                      <div class="form-group row">
+                        <div class="col-lg-12">
+                          <p class="mb-1"><b>Notes:</b></p>
+                          <ol class="pl-4">
+                            <li>The Fee is calculated according to the Membership Type.</li>
+                            <li>You agree to your Card being debited the Fee.</li>
+                            <li>Details of this transaction can be viewed in the Transaction Summary.</li>
+                          </ol>
+                        </div>
+                      </div>
+      
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="modal-footer" style="text-align: center; display: block;">
+                <button type="submit" class="btn-success-modal">Proceed</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>      
+  <!-- end extend profile modal -->  
 
     <!-- suspend profile modal start here -->
     <div class="modal fade upload-modal" id="suspend_profile" tabindex="-1" role="dialog"
@@ -980,6 +1094,7 @@
             }
             return true;
         }
+        
     </script>
     <script src="{{ asset('js/escort/pinup.js') }}"></script>
 @endpush
