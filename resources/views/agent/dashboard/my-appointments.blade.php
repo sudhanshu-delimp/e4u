@@ -36,6 +36,10 @@
         .btn-primary {
             border-color: unset !important;
         }
+
+        .pac-container {
+             z-index: 2000 !important; 
+        }
     </style>
 @endsection
 @section('content')
@@ -411,6 +415,9 @@
             </div>
         </div>
     </div>
+    {{-- <input id="new_oneaddress" name="new_oneaddress" type="text" class="form-control"  > --}}
+    <input id="new_oneaddress" name="new_address" type="text" class="form-control" placeholder="Search or enter address" required="">
+   
     {{-- end --}}
 
     <!-- Edit appointment Popup -->
@@ -767,9 +774,32 @@
      >
     @endsection
     @section('script')
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrDJA0TAg9Q9MThHqRe9tGCsNsU4vMrcQ&libraries=places&callback=initAutocomplete"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 
     <script>
+    // Simple Google Places Autocomplete for New Appointment address
+    function initAutocomplete() {
+        try {
+            var input = document.getElementById('new_address');
+            if (!input || !google || !google.maps || !google.maps.places) { return; }
+            if (input.getAttribute('data-gpa-init') === '1') { return; }
+            var autocomplete = new google.maps.places.Autocomplete(input, {
+                types: ['address'],
+                fields: ['geometry']
+            });
+            input.setAttribute('data-gpa-init', '1');
+            autocomplete.addListener('place_changed', function () {
+                var place = autocomplete.getPlace();
+                if (place && place.geometry && place.geometry.location) {
+                    document.getElementById('new_latitude').value = place.geometry.location.lat();
+                    document.getElementById('new_longitude').value = place.geometry.location.lng();
+                }
+            });
+        } catch (e) {
+            console.error('Autocomplete init error', e);
+        }
+    }
     $(document).ready(function() {
         const mmRoot = $('#manage-route');
         endpoint = {
@@ -778,8 +808,17 @@
         }
         // get Advertiser List data and append inside the option list
         $('#new_appointment').on('click', function() {
+            initAutocomplete();
             $('#new_appointment_model').modal('show');
             ajaxRequest(endpoint.get_adverser, {}, 'GET', successPopulateAdvisorDropdown,  errorPopulateAdvisorDropdown);
+        });
+
+        // Initialize autocomplete after modal is visible (ensures input has size)
+        $('#new_appointment_model').on('shown.bs.modal', function() {
+            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+                initAutocomplete();
+            }
+            $('#new_address').trigger('focus');
         });
 
         function successPopulateAdvisorDropdown(response) {
@@ -798,6 +837,11 @@
             ropdown.empty().append('<option >Something is worng!!</option>');
             console.error("❌ AJAX Error:", status, error);
         }
+
+        // Focus address when modal opens (helps show suggestions quickly)
+        $('#new_appointment_model').on('shown.bs.modal', function() {
+            $('#new_address').trigger('focus');
+        });
 
         //Advisor on change
         $('#new_advertiser, #new_appointment_date').on('change', function() {
@@ -850,6 +894,8 @@
         function errorResponseForNewAppointment(xhr, status, error) {
             alert('Error: ' + error);
         }
+
+        
 
     });
     </script>
