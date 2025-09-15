@@ -48,7 +48,7 @@
                                         <input type="hidden" maxlength="6" required class="form-control w-75" name="otp" id="otp">
                                         
 
-                                        <img src="http://e4u.local/assets/app/img/circle-loader.gif" class="wait-loader" style="width: 60px;margin-bottom:18px;display:none;" alt="face-lock verification">
+                                        <img src="{{asset('assets/app/img/circle-loader.gif')}}" class="wait-loader" style="width: 60px;margin-bottom:18px;display:none;" alt="face-lock verification">
                                         <button type="submit" class="otp-verify-btn w-25" id="sendOtpSubmit">Verify</button>
                                     </div>
 
