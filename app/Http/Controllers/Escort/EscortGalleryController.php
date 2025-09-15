@@ -62,10 +62,8 @@ class EscortGalleryController extends AppController
 
     public function videoGalleries()
     {
-        $media = $this->media->get_videos(auth()->user()->id);
         $path = $this->media->findByVideoposition(auth()->user()->id,1)['path'];
-
-        return view('escort.dashboard.archives.archive-view-videos',compact('path','media'));
+        return view('escort.dashboard.archives.archive-view-videos',compact('path'));
     }
     public function uploadGallery(StoreGalleryMediaRequest $request)
     {
@@ -290,12 +288,10 @@ class EscortGalleryController extends AppController
     }
     public function defaultVideos(Request $request)
     {
-       // dd("DefaultImages");
-        //dd($request->all());
         $error = false;
         $msg = '';
 
-        $media = $this->media->find($request->meidaId);
+        $media = $this->media->find($request->mediaId);
 
         $this->media->nullVedioPosition(auth()->user()->id,$request->position);
         if($media->count() > 0) {
@@ -304,10 +300,6 @@ class EscortGalleryController extends AppController
             $media->save();
             $error = true;
         }
-
-
-
-
         return response()->json(compact('error','msg'));
     }
     public function getDefaultImages()
@@ -482,5 +474,92 @@ class EscortGalleryController extends AppController
                 'error' => $e->getMessage(),
             ], 500);
         }
+    }
+
+    public function getAccountVideoGallery(Request $request){
+        try {
+            $media = $this->media->get_videos(auth()->user()->id);
+            $response = [];
+            $response['success'] = true;
+            $response['total_count'] = $media->count();
+            $response['video_container_html'] = view('escort.dashboard.profile.partials.video_gallery_container',compact('media'))->render();
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function uploadChunk(Request $request)
+    {
+        $file = $request->file('file');
+        $chunkIndex = $request->input('chunkIndex');
+        $fileName = $request->input('fileName');
+
+        $chunkPath = "chunks/{$fileName}/chunk_{$chunkIndex}";
+        Storage::disk('escorts')->put($chunkPath, file_get_contents($file));
+
+        return response()->json(['status' => 'chunk_received']);
+    }
+
+    public function mergeChunks(Request $request)
+    {
+        $prefix = 'videos/';
+        $userId = auth()->user()->id;
+        $fileName = $request->input('fileName');
+        $originalName = $fileName;
+        $extension = pathinfo($originalName, PATHINFO_EXTENSION);
+        $baseName = pathinfo($originalName, PATHINFO_FILENAME);
+        $slug = Str::slug($baseName);
+        $uniqueFileName = $slug . '-' . Str::uuid() . '.' . $extension;
+        
+        $totalChunks = (int) $request->input('totalChunks');
+
+        // This will be the final merged file location: public/escorts/videos/{filename}
+        $finalFilePath = "{$prefix}{$userId}/{$uniqueFileName}";
+
+        $finalFullPath = public_path("escorts/{$finalFilePath}");
+
+        // Ensure the 'videos' directory exists
+        if (!file_exists(dirname($finalFullPath))) {
+            mkdir(dirname($finalFullPath), 0777, true);
+        }
+
+        $finalStream = fopen($finalFullPath, 'ab');
+
+        for ($i = 0; $i < $totalChunks; $i++) {
+            $chunkPath = "chunks/{$fileName}/chunk_{$i}";
+
+            if (Storage::disk('escorts')->exists($chunkPath)) {
+                $chunkStream = Storage::disk('escorts')->readStream($chunkPath);
+                stream_copy_to_stream($chunkStream, $finalStream);
+                fclose($chunkStream);
+
+                // Delete the chunk
+                Storage::disk('escorts')->delete($chunkPath);
+            } else {
+                fclose($finalStream);
+                return response()->json(['error' => "Missing chunk {$i}"], 400);
+            }
+        }
+
+        fclose($finalStream);
+
+        // Optionally clean up the chunk directory
+        Storage::disk('escorts')->deleteDirectory("chunks/{$fileName}");
+        $data = [
+            'user_id' => $userId,
+            'type' => 1,
+            'path' => "escorts/{$finalFilePath}",
+        ];
+        $media = $this->media->store($data);
+
+        return response()->json([
+            'status' => 'file_merged',
+            'url' => asset("escorts/{$finalFilePath}") // Returns public URL
+        ]);
     }
 }

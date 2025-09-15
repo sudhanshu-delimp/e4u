@@ -74,6 +74,7 @@ $(() => {
             }
         });
     });
+
 });
 
 var bannerDefaultImage;
@@ -301,3 +302,61 @@ function preview_image(event)
             console.error("Error:", error);
         });
     }
+    
+    var initVideoDragDrop = function(){
+        console.log('initVideoDragDrop');
+        $(".videoDraggable").draggable({
+            revert: "invalid",
+            helper: 'clone',
+            appendTo: ".upload-photo-sec",
+            refreshPositions: false,
+            drag: function (event, ui) {
+            },
+            stop: function (event, ui) {
+
+            }
+          });
+
+          $(".videoDroppable").droppable({
+            accept: ".videoDraggable",
+            drop: function(event, ui) {
+                let dropElement = $(this).find('video');
+                let dragElement = ui.draggable.find('video');
+                let mediaId = dragElement.attr('data-id');
+                let mediaUrl = dragElement.attr('src');
+                let position = $(".videoDroppable").index(this)+1;
+                dropElement.attr('src',mediaUrl).attr('poster','').find('source').attr('src',mediaUrl);
+                $.ajax({
+                    type: 'POST',
+                    url: `/escort-dashboard/default-videos`,
+                    data: {
+                        position: position,
+                        mediaId: mediaId
+                    },
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    success : function (data) {
+
+                    }
+                });
+            }
+          });
+    }
+    var getAccountVideoGallery = function() {
+        return $.ajax({
+            url: `/escort-dashboard/get-account-video-gallery`,
+            type: "GET",
+            dataType: "json"
+        }).done(function (response) {
+            if (response.success) {
+                $("#js_profile_video_gallery").html(response.video_container_html);
+                $("#js_profile_video_gallery_count").html(`${response.total_count}/6`);
+                $("#js_profile_video_gallery_progressbar").css("width", `${Math.round(100 * response.total_count / 6)}%`);
+                $(`#pageItemVideo_0`).addClass('active');
+                $(`#cItemVideo_0`).addClass('active');
+                initVideoDragDrop();
+            }
+        }).fail(function (xhr, status, error) {
+            console.error("Error:", error);
+        });
+    }
+    getAccountVideoGallery();
