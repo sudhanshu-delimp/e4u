@@ -332,8 +332,6 @@ class MassageProfileRepository extends BaseRepository implements MassageProfileI
             $age_min = $age[0][0];
             $age_max = $age[0][1];
         }
-        
-        
       
         
         $mytime = Carbon::now()->format('d-m-Y');

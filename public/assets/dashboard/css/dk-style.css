@@ -7343,6 +7343,26 @@ padding-left: 5px;
         font-size: 20px;
     }
     
+    .status-appointed {
+        color: red;
+        font-size: 10px;
+    }
+    
+    .status-active {
+        color: orange;
+        font-size: 10px;
+    }
+    
+    .status-open {
+        color: brown;
+        font-size: 10px;
+    }
+    
+    .status-unavailable {
+        color: green;
+        font-size: 10px;
+    }
+    
     .taski {
         font-size: 16px;
     }
@@ -8786,6 +8806,10 @@ border-top: 5px solid var(--peach);
     
     .gap-10 {
         gap: 10px;
+    }
+    
+    .gap-20 {
+        gap: 20px;
     }
     
     .gap-5 {

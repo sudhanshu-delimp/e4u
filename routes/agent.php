@@ -8,6 +8,7 @@ use App\Http\Controllers\Agent\EscortController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Agent\AgentTaskController;
 use App\Http\Controllers\Escort\ArchivesController;
+use App\Http\Controllers\Agent\AppointmentController;
 use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\User\Dashboard\UserController;
@@ -125,6 +126,10 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
     return view('agent.dashboard.Annalytics.prospets-memberships');
 })->name('agent.prospets-memberships');
 
+// Route::get('toursummary',function(){
+//     return view('agent.dashboard.Annalytics.toursummary');
+// })->name('agent.prospets-memberships');
+
 
     Route::get('Marketing/create-prospect',function(){
     return view('agent.dashboard.Marketing.create-prospect');
@@ -161,9 +166,6 @@ Route::get('advertisers',function(){
 
 
 
-Route::get('my-appointments',function(){
-    return view('agent.dashboard.my-appointments');
-})->name('agent.my-appointments');
 
 
 Route::get('view-planner',function(){
@@ -242,3 +244,9 @@ Route::post('remove-avatar',[AgentController::class, 'agentRemoveAvatar'])->name
 
 Route::get('logs-and-status', [AgentDashboardController::class, 'LogsAndStatus'])->name('agent.logs-and-status');
 Route::post('agent-update-password-duration', [AgentDashboardController::class, 'updatePasswordDuration'])->name('agent.update.password.duration');
+
+//Appointment Planner
+Route::get('my-appointments', [AppointmentController::class, 'index'])->name('agent.my.appointment.list');
+//Route::post('save-appointment-planner', [AgentDashboardController::class, 'Save AppointmentPlanner'])->name('agent.save.appointment-planner');
+
+

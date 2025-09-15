@@ -89,6 +89,11 @@ class Escort extends Model
                 ->where('user_id', auth()->id());
     }
 
+    public function viewerLegBox()
+    {
+        return $this->hasOne(MyLegbox::class, 'escort_id', 'id');
+    }
+
     public function purchase()
     {
         return $this->hasMany(Purchase::class, 'escort_id','id');

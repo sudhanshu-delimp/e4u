@@ -9,11 +9,12 @@ use App\Models\Escort;
 use Illuminate\Http\Request;
 use App\Models\PasswordSecurity;
 use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\AppController;
 use App\Providers\RouteServiceProvider;
 use App\Http\Controllers\BaseController;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends BaseController
@@ -63,11 +64,23 @@ class LoginController extends BaseController
                 if($user == null || $user->type != 5) {
                     return $this->sendFailedLoginResponse($request);
                 }
+                if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+            
+                    throw ValidationException::withMessages([
+                        'phone' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                    ]);
+                }
             }
             if(! is_null($request->email)) {
                 $user = User::where('email','=',$request->email)->first();
                 if($user == null || $user->type != 5) {
                     return $this->sendFailedLoginResponse($request);
+                }
+                if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+            
+                    throw ValidationException::withMessages([
+                        'email' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                    ]);
                 }
             }
         }
@@ -83,6 +96,13 @@ class LoginController extends BaseController
                     return $this->sendFailedLoginResponse($request);
                 }
             }
+            
+            if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+            
+                throw ValidationException::withMessages([
+                    'phone' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                ]);
+            }
         }
         if(! is_null($request->email)) {
             $user = User::where('email','=',$request->email)->first();
@@ -91,6 +111,12 @@ class LoginController extends BaseController
                 if($user->type == 0 || $user->type == 1 || $user->type == 2 ) {
                     return $this->sendFailedLoginResponse($request);
                 }
+            }
+            if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
+            
+                throw ValidationException::withMessages([
+                    'email' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                ]);
             }
         }
 

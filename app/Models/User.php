@@ -386,6 +386,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Escort', 'user_id');
     }
 
+    public function listedEscorts()
+    {
+        return $this->hasMany('App\Models\Escort', 'user_id')->where('enabled',1);
+    }
+
     public function interest()
     {
         return $this->hasOne(ViewerInterest::class, 'user_id');
@@ -451,6 +456,16 @@ class User extends Authenticatable
     public function my_agent()
     {
         return $this->belongsTo(User::class, 'assigned_agent_id', 'id');
+    }
+
+    public function referByMassageCenter()
+    {
+        return $this->hasMany(User::class, 'assigned_agent_id');
+    }
+
+    public function referByAgent()
+    {
+        return $this->hasMany(User::class, 'referred_by_agent_id');
     }
 
     public function defaultPinupImage()
