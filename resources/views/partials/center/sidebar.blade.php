@@ -315,7 +315,7 @@
             </a>
             <a class="collapse-item" href="{{ route('center.email-hosting') }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/emailhosting.png')}}">
-                <span style="{{request()->segment(2) == 'email-hosting' ? 'color: #e5365a;' : ''}}">Email Hosting</span>
+                <span style="{{request()->segment(2) == 'email-hosting' ? 'color: #e5365a;' : ''}}">Email Account</span>
             </a>
 
             <a class="collapse-item" href="{{ route('center.mobile-read-sim') }}">
@@ -325,7 +325,7 @@
 
             <a class="collapse-item" href="{{ route('center.professional-products') }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/pro-pro.png')}}">
-                <span style="{{request()->segment(2) == 'professional-products' ? 'color: #e5365a;' : ''}}">Professional Products</span>
+                <span style="{{request()->segment(2) == 'professional-products' ? 'color: #e5365a;' : ''}}">Products</span>
             </a>
 
             <a class="collapse-item" href="{{ route('center.travel') }}">

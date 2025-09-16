@@ -17,7 +17,7 @@
     <!--middle content start here-->
     <div class="row">                                   
         <div class="custom-heading-wrapper col-lg-12">
-            <h1 class="h1">Professional Products</h1>
+            <h1 class="h1">Products</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
         <div class="col-md-12 mb-4">
@@ -26,7 +26,15 @@
                 <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                 <p></p>
                 <ol>
-                        
+                    <li>Order your products here for delivery to your door or by post.</li>
+                    <li>Please ensure:
+                        <ol class="level-2">
+                            <li>your order is complete and the details are correct</li>
+                            <li>there is access to your stay if we are delivering</li>
+                            <li>you have you mobile nearby. We will call you 15 minutes out</li>
+                        </ol>
+                    </li>
+                    <li>SMS 2FA applies to payment.</li>    
                 </ol>
             </div>
             </div>
