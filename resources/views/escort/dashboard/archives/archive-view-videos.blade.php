@@ -77,27 +77,33 @@
                     <h4 class="text-white">Default Video</h4>
                 </div>
                 
-                <div class="d-flex justify-content-start gap-10 mt-3">
-                    <label class="newbtn videoDroppable" id="videoDroppable_1">
-                        <video class="videoUp" id="img1" controls="" src="" controls poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                            <source id="" src="" type="video/mp4" >
-                        </video>
-                        <input  type="hidden"  id="pos_1" name="position[1]" value="">
-                    </label>
+                <div class="row mt-3">
+                    <div class="col-lg-4">
+                        <label class="newbtn videoDroppable w-100" id="videoDroppable_1">
+                            <video class="videoUp" id="img1" controls="" src="" controls poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                <source id="" src="" type="video/mp4" >
+                            </video>
+                            <input  type="hidden"  id="pos_1" name="position[1]" value="">
+                        </label>
+                    </div>
     
-                    <label class="newbtn videoDroppable" id="videoDroppable_2">
-                        <video class="videoUp" id="img2" controls="" src="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                            <source id="" src="" type="video/mp4" >
-                        </video>
-                        <input  type="hidden"  id="pos_2" name="position[2]" value="">
-                    </label>
+                    <div class="col-lg-4">
+                        <label class="newbtn videoDroppable w-100" id="videoDroppable_2">
+                            <video class="videoUp" id="img2" controls="" src="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                <source id="" src="" type="video/mp4" >
+                            </video>
+                            <input  type="hidden"  id="pos_2" name="position[2]" value="">
+                        </label>
+                    </div>
     
-                    <label class="newbtn videoDroppable" id="videoDroppable_3">
+                   <div class="col-lg-4">
+                    <label class="newbtn videoDroppable w-100" id="videoDroppable_3">
                         <video class="videoUp" id="img3" controls="" src="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
                             <source id="" src="" type="video/mp4" >
                         </video>
                         <input  type="hidden"  id="pos_3" name="position[3]" value="">
                     </label>
+                   </div>
                 </div>
             </div>
         </div>
@@ -115,18 +121,19 @@
                     </div>
                     <div class="modal-body ">
                         <div class="row text-center">
-                            <div class="video-sec-popup" id="image_preview">                               
-                                        <div class="col-md-6 mx-auto" id="img_for_showing">
-                                            <label class="newbtn">
-                                                <img class="img-fluid" id="videonp" src="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                                <input name="video_upload" id="video_upload" class="pis" onchange="previewVideo();" type="file" accept="video/*" >
-                                            </label>
-                                            <video class="videoUp" id="videoPreview" controls="" style="display:none">
+                                                          
+                                <div class="col-md-6 mx-auto" id="img_for_showing">
+                                    <div class="video-sec-popup mb-2" id="image_preview"> 
+                                        <label class="newbtn">
+                                            <img class="img-fluid" id="videonp" src="{{ asset('assets/dashboard/img/add-video.png') }}">
+                                            <input name="video_upload" id="video_upload" class="pis" onchange="previewVideo();" type="file" accept="video/*" >
+                                        </label>
+                                        <video class="videoUp" id="videoPreview" controls="" style="display:none">
 
-                                            </video>
-                                        </div>
-                                        <div class="mb-0"><p>You can upload one video at a time.</p></div>
-                            </div>
+                                        </video>
+                                    </div>
+                                    <div class="mb-0"><p>You can upload one video at a time.</p></div>
+                                </div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-center pt-0">

@@ -5439,6 +5439,7 @@ align-items: center;*/
         margin-left: 0;
         accent-color: #ff3c5f;
     }
+    
     .arrive--depart th {
         text-align: center;
     }
@@ -5446,6 +5447,7 @@ align-items: center;*/
     .arrive--depart td {
         text-align: center;
     }
+    
     .extend--profile label.form-check-label {
         font-family: 'Poppins';
         font-size: 14px;
@@ -6174,14 +6176,26 @@ margin-left: 10px;
         cursor: pointer;
     }
     
-    .carousel-inner .remove-video-icon .deleteimg {
+    .videoDraggable {
+        position: relative;
+    }
+    
+    .videoDraggable .deleteimg {
+        position: absolute;
+        right: 10px;
+        bottom: 235px;
+        color: var(--peach);
+        display: none;
+        cursor: pointer;
+    }
+    /* .carousel-inner .remove-video-icon .deleteimg {
         position: absolute;
         right: 5px;
         bottom: 148px;
         color: var(--peach);
         display: none;
         cursor: pointer;
-    }
+    } */
     /* .videoUp {
    width: 470px;
    height: 442px;
