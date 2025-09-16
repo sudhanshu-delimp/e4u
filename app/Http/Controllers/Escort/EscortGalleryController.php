@@ -62,8 +62,7 @@ class EscortGalleryController extends AppController
 
     public function videoGalleries()
     {
-        $path = $this->media->findByVideoposition(auth()->user()->id,1)['path'];
-        return view('escort.dashboard.archives.archive-view-videos',compact('path'));
+        return view('escort.dashboard.archives.archive-view-videos');
     }
     public function uploadGallery(StoreGalleryMediaRequest $request)
     {
@@ -483,6 +482,22 @@ class EscortGalleryController extends AppController
             $response['success'] = true;
             $response['total_count'] = $media->count();
             $response['video_container_html'] = view('escort.dashboard.profile.partials.video_gallery_container',compact('media'))->render();
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Something went wrong.',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getDefaultVideos(){
+        try {
+            $media = $this->media->findDefaultMedia(auth()->user()->id,1);
+            $response = [];
+            $response['success'] = true;
+            $response['media'] = $media;
             return response()->json($response);
         } catch (Exception $e) {
             return response()->json([

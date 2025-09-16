@@ -33,7 +33,7 @@
         </div>
         <div class="col-md-12 mb-3">    
             <div class="d-flex justify-content-end">
-                <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Videos</button>
+                <button id="add_video_button" type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#exampleModal">Add Videos</button>
             </div>
         </div>
     </div>
@@ -79,22 +79,22 @@
                 
                 <div class="d-flex justify-content-start gap-10 mt-3">
                     <label class="newbtn videoDroppable" id="videoDroppable_1">
-                        <video class="videoUp" id="img1" controls="" src="{{ asset($path)}}" controls poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                            <source id="" src="{{ asset($path)}}" type="video/mp4" >
+                        <video class="videoUp" id="img1" controls="" src="" controls poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                            <source id="" src="" type="video/mp4" >
                         </video>
                         <input  type="hidden"  id="pos_1" name="position[1]" value="">
                     </label>
     
                     <label class="newbtn videoDroppable" id="videoDroppable_2">
-                        <video class="videoUp" id="img2" controls="" src="{{ asset($path)}}" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                            <source id="" src="{{ asset($path)}}" type="video/mp4" >
+                        <video class="videoUp" id="img2" controls="" src="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                            <source id="" src="" type="video/mp4" >
                         </video>
                         <input  type="hidden"  id="pos_2" name="position[2]" value="">
                     </label>
     
                     <label class="newbtn videoDroppable" id="videoDroppable_3">
-                        <video class="videoUp" id="img3" controls="" src="{{ asset($path)}}" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                            <source id="" src="{{ asset($path)}}" type="video/mp4" >
+                        <video class="videoUp" id="img3" controls="" src="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                            <source id="" src="" type="video/mp4" >
                         </video>
                         <input  type="hidden"  id="pos_3" name="position[3]" value="">
                     </label>
@@ -138,124 +138,11 @@
     </div>
 
 </div>
-<div class="modal" id="videoModel" style="display: none">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/delete-video.png')}}" class="custompopicon"> Delete Video</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">
-                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                </span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
-                    <span id="img_comman_str"></span>
-                    <span class="img_comman_msg"></span>
-                </h1>
-            </div>
-            <div class="modal-footer" style="justify-content: center;">
-                <button type="submit" class="btn-cancel-modal d_img" data-dismiss="modal" id="close">Cancel</button>
-                <button type="submit" class="btn-success-modal d_img" id="dImg">Ok</button>
-            </div>
-        </div>
-    </div>
-</div>
+@include('escort.dashboard.modal.remove_gallary_video')
 @endsection
 @push('script')
 <script src="{{ asset('assets/plugins/ajax/libs/jquery/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
-<script>
-const CHUNK_SIZE = 1024 * 1024;
-function previewVideo() {
-    const input = document.getElementById('video_upload');
-    const preview = document.getElementById('videoPreview');
-    const file = input.files[0];
-
-    if (file && file.type.startsWith('video/')) {
-        const url = URL.createObjectURL(file);
-        preview.src = url;
-        preview.style.display = 'block';
-        input.previousElementSibling.style.display = 'none';
-    } else {
-        preview.src = '';
-        preview.style.display = 'none';
-        Swal.fire('Media', 'Please select a valid video file.', 'error');
-    }
-}
-
-async function uploadVideo() {
-    const fileInput = document.getElementById('video_upload');
-    const preview = document.getElementById('videoPreview');
-    const file = fileInput.files[0];
-
-    if (!file) {
-        Swal.fire('Media', 'Please choose atleast one file', 'error');
-        return;
-    }
-
-    const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
-    const fileName = file.name;
-    let uploadedChunks = 0;
-
-    Swal.fire({
-        title: 'Uploading...',
-        html: `<div style="display: flex; flex-direction: column; align-items: center;">
-            <div class="swal-spinner" style="margin: 10px;">
-                <div class="custom-spinner"></div>
-            </div>
-            <div id="uploadPercent" style="font-weight: bold;">0%</div>
-        </div>`,
-        allowOutsideClick: false,
-        didOpen: () => {
-            
-        }
-    });
-
-    for (let i = 0; i < totalChunks; i++) {
-        const start = i * CHUNK_SIZE;
-        const end = Math.min(file.size, start + CHUNK_SIZE);
-        const chunk = file.slice(start, end);
-
-        const formData = new FormData();
-        formData.append("file", chunk);
-        formData.append("chunkIndex", i);
-        formData.append("fileName", fileName);
-
-        await fetch("{{route('gallery.uploadChunk')}}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: formData
-        });
-        uploadedChunks++;
-        const percent = Math.floor((uploadedChunks / totalChunks) * 100);
-        document.getElementById('uploadPercent').innerText = `${percent}%`;
-    }
-
-    // After uploading all chunks, request merge
-    const mergeData = new FormData();
-    mergeData.append("fileName", fileName);
-    mergeData.append("totalChunks", totalChunks);
-
-    await fetch("{{route('gallery.mergeChunks')}}", {
-        method: "POST",     
-        headers: {
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
-        },
-        body: mergeData
-    });
-
-    Swal.fire("Success", "Upload complete!", "success").then(() => {
-        fileInput.previousElementSibling.style.display = 'block';
-        fileInput.value = '';
-        preview.src = '';
-        preview.style.display = 'none';
-    });
-}
-</script>
 <style>
     .pis{
     display: none;

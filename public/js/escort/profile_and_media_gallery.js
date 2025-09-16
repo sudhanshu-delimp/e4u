@@ -48,9 +48,16 @@ $(() => {
         $('body').on('click','.deleteimg', function (e) {
             e.preventDefault();
             let id = $(this).data('id');
-            $('#dImg').attr('remove_media_id',id);
+            let prevTag = $(this).prev()[0]?.tagName;
             $('.img_comman_msg').text("Delete");
-            $("#delete_img").modal('show');
+            if(prevTag=='VIDEO'){
+                $('#dVideo').attr('remove_media_id',id);
+                $("#delete_video").modal('show');
+            }
+            else{
+                $('#dImg').attr('remove_media_id',id);
+                $("#delete_img").modal('show');
+            }
         });
 
         $('body').on('click','#dImg', function(e){
@@ -75,8 +82,31 @@ $(() => {
         });
     });
 
+    $('body').on('click','#dVideo', function(e){
+        e.preventDefault();
+        $.ajax({
+        type: "POST",
+        url:`/escort-dashboard/delete-videos/${$(this).attr('remove_media_id')}`,
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        beforeSend: function (){
+            $(".img_comman_msg").text('Deleting...');
+        },
+        success: function (data) {
+            getAccountVideoGallery().then(function () {
+                $("#delete_video").modal('hide');
+                $(".img_comman_msg").text('Delete');
+            });
+        },
+        error: function (data) {
+            var errors = $.parseJSON(data.responseText);
+            swal.fire('', "<p>"+errors.message+"</p>", 'error');
+        }
+    });
 });
 
+});
+
+const CHUNK_SIZE = 1024 * 1024;
 var bannerDefaultImage;
 var pinupDefaultImage;
 var allFiles = [];
@@ -351,6 +381,7 @@ function preview_image(event)
                 $("#js_profile_video_gallery").html(response.video_container_html);
                 $("#js_profile_video_gallery_count").html(`${response.total_count}/6`);
                 $("#js_profile_video_gallery_progressbar").css("width", `${Math.round(100 * response.total_count / 6)}%`);
+                response.total_count>= 6 ? $("#add_video_button").hide():$("#add_video_button").show();
                 $(`#pageItemVideo_0`).addClass('active');
                 $(`#cItemVideo_0`).addClass('active');
                 initVideoDragDrop();
@@ -359,4 +390,124 @@ function preview_image(event)
             console.error("Error:", error);
         });
     }
+
+    var getAccountDefaultVideo = function() {
+        return $.ajax({
+            url: `/escort-dashboard/get-default-videos`,
+            type: "GET",
+            dataType: "json"
+        }).done(function (response) {
+            if (response.success) {
+                if(response.media.length > 0){
+                    response.media.map((item,index)=>{
+                        console.log(item, index);
+                        let target = $(".videoDroppable").eq(item.position - 1).find("video");
+                        if (target.length) {
+                          target.attr("src", `${window.App.baseUrl}${item.path}`);
+                          target.attr("poster", ``);
+                          target.find("source").attr("src", `${window.App.baseUrl}${item.path}`);
+                          target.load();
+                        }
+                    })
+                }
+            }
+        }).fail(function (xhr, status, error) {
+            console.error("Error:", error);
+        });
+    }
+
+function previewVideo() {
+    const input = document.getElementById('video_upload');
+    const preview = document.getElementById('videoPreview');
+    const file = input.files[0];
+    if($(".videoDraggable").length>=6){
+        swal.fire('Media', "<p>Can't upload more than 6 Videos, try after deleting videos from gallery</p>", 'error');
+        return false;
+    }
+    
+    if (file && file.type.startsWith('video/')) {
+        const url = URL.createObjectURL(file);
+        preview.src = url;
+        preview.style.display = 'block';
+        input.previousElementSibling.style.display = 'none';
+    } else {
+        preview.src = '';
+        preview.style.display = 'none';
+        Swal.fire('Media', 'Please select a valid video file.', 'error');
+    }
+}
+
+async function uploadVideo() {
+    const fileInput = document.getElementById('video_upload');
+    const preview = document.getElementById('videoPreview');
+    const file = fileInput.files[0];
+
+    if (!file) {
+        Swal.fire('Media', 'Please choose atleast one file', 'error');
+        return;
+    }
+
+    const totalChunks = Math.ceil(file.size / CHUNK_SIZE);
+    const fileName = file.name;
+    let uploadedChunks = 0;
+
+    Swal.fire({
+        title: 'Uploading...',
+        html: `<div style="display: flex; flex-direction: column; align-items: center;">
+            <div class="swal-spinner" style="margin: 10px;">
+                <div class="custom-spinner"></div>
+            </div>
+            <div id="uploadPercent" style="font-weight: bold;">0%</div>
+        </div>`,
+        allowOutsideClick: false,
+        didOpen: () => {
+            
+        }
+    });
+
+    for (let i = 0; i < totalChunks; i++) {
+        const start = i * CHUNK_SIZE;
+        const end = Math.min(file.size, start + CHUNK_SIZE);
+        const chunk = file.slice(start, end);
+
+        const formData = new FormData();
+        formData.append("file", chunk);
+        formData.append("chunkIndex", i);
+        formData.append("fileName", fileName);
+
+        await fetch("/escort-dashboard/upload-chunk", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: formData
+        });
+        uploadedChunks++;
+        const percent = Math.floor((uploadedChunks / totalChunks) * 100);
+        document.getElementById('uploadPercent').innerText = `${percent}%`;
+    }
+
+    // After uploading all chunks, request merge
+    const mergeData = new FormData();
+    mergeData.append("fileName", fileName);
+    mergeData.append("totalChunks", totalChunks);
+
+    await fetch("/escort-dashboard/merge-chunks", {
+        method: "POST",     
+        headers: {
+            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: mergeData
+    });
+
+    Swal.fire("Success", "Upload complete!", "success").then(() => {
+        fileInput.previousElementSibling.style.display = 'block';
+        fileInput.value = '';
+        preview.src = '';
+        preview.style.display = 'none';
+        getAccountVideoGallery();
+    });
+}
+
+    getAccountDefaultVideo();
     getAccountVideoGallery();
