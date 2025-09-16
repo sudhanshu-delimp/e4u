@@ -15,7 +15,10 @@ use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 
-Route::get('', 'DashboardController@index')->name('admin.index');
+####### Track user info like device last page visit city ip address etc ########
+Route::middleware(['TrackLoginUserInfo'])->group(function () {  
+    Route::get('', 'DashboardController@index')->name('admin.index');
+});
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
 Route::post('/update-account', [DashboardController::class, 'update'])->name('admin.account.update');
 Route::get('/change-password', [DashboardController::class, 'editPassword'])->name('admin.change.password');
