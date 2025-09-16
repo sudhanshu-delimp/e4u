@@ -93,7 +93,7 @@
                                     data-target="#add_brb" id="btn_add_brb">Add BRB</button>
                                 <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                     data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
-                                <button style="padding: 10px;" class="btn btn-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile </button>
+                                <button style="padding: 10px;" class="btn btn-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
                                 </div>
                                 <div class="pinup-tooltip-wrapper">
                                     <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
