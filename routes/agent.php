@@ -23,8 +23,6 @@ use App\Http\Controllers\MyAdvertiser\ListAdvertiserController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Escort\EscortController as DataTableController;
 
-####### Track user info like device last page visit city ip address etc ########
-Route::middleware(['TrackLoginUserInfo'])->group(function () { 
 
     Route::get('/', [AgentController::class, 'index'])->name('agent.dashboard');
    
@@ -251,5 +249,3 @@ Route::post('agent-update-password-duration', [AgentDashboardController::class, 
 //Appointment Planner
 Route::get('my-appointments', [AppointmentController::class, 'index'])->name('agent.my.appointment.list');
 //Route::post('save-appointment-planner', [AgentDashboardController::class, 'Save AppointmentPlanner'])->name('agent.save.appointment-planner');
-
-});

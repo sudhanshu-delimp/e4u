@@ -34,11 +34,11 @@ class TrackLastPageVisitMiddlware
             $path = $request->path();
 
             if (Str::contains($path, 'get-notification') || Str::contains($path, 'get-geolocation-data') || Str::contains($path, 'state-name') || Str::contains($path, 'web.state.name') ) {
-                return;
+                return $next($request);
             }
 
             if ($request->ajax() || $request->isMethod('post')) {
-                return;
+                return $next($request);
             }
 
             if($state != null){
