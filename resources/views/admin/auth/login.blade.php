@@ -273,7 +273,12 @@ $(document).ready(function() {
                         $('#senderror').html("<p class='text-center text-success'> Your verification code has been resent to your nominated preference. "+data.phone+"</p>");
                      });
                      
-                    $("#sendOtp_modal").modal({backdrop: 'static',keyboard: false});
+                   
+                     setTimeout(() => {
+                     $("#sendOtp_modal").modal({backdrop: 'static', keyboard: false});
+                     }, 300);
+
+                     
                     $("body").on("submit","#SendOtp",function(e){
                         e.preventDefault();
                         var form = $(this);

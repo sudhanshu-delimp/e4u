@@ -342,7 +342,9 @@
                     });
 
 
-                    $("#sendOtp_modal").modal({backdrop: 'static',keyboard: false});
+                    setTimeout(() => {
+                    $("#sendOtp_modal").modal({backdrop: 'static', keyboard: false});
+                    }, 300); 
 
                     $("body").on("submit","#SendOtp",function(e){
                         e.preventDefault();

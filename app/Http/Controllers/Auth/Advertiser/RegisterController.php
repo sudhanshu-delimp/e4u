@@ -39,15 +39,18 @@ class RegisterController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::Dashboard;
     protected $state;
+    protected $user;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(StateInterface $state)
+    public function __construct(User $user, StateInterface $state)
     {
         $this->middleware('guest');
         $this->state = $state;
+        $this->user = $user;
+
     }
 
     public function index()
@@ -153,7 +156,7 @@ class RegisterController extends Controller
             $error = 1;
             $phone = $user->phone;
             $pwd = $user->password;
-            $otp = $this->generateOTP();
+            $otp = $this->user->generateOTP();
             $user->otp = $otp;
             $user->member_id = $user->memberId;
             $user->save();
@@ -177,10 +180,7 @@ class RegisterController extends Controller
 
 
     }
-    public function generateOTP(){
-        $otp = mt_rand(1000,9999);
-        return $otp;
-    }
+    
     // public function register(StoreAdvertiserRegisterRequest $request)
     // {
     //     dd($request->all());

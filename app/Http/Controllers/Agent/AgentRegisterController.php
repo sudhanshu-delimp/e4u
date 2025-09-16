@@ -46,10 +46,13 @@ class AgentRegisterController extends Controller
      * @return void
     */
     protected $state;
-    public function __construct(StateInterface $state)
+    protected $user;
+    public function __construct(User $user, StateInterface $state)
     {
         $this->middleware('guest');
         $this->state = $state;
+        $this->user = $user;
+        
     }
 
     public function index()
@@ -94,49 +97,46 @@ class AgentRegisterController extends Controller
 
     public function register(StoreAgentRegisterRequest $request)
     {
-        $user = $this->create($request->all());
+            $user = $this->create($request->all());
+            $userDataForEvent = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'phone' => $user->phone,
+                'email' => $request->email,
+                'location' => config('escorts.profile.states')[$user->state_id]['stateName'] ?? null,
+                'agent_id'  => $user->member_id,
+                'create_at' => Carbon::now()->format('j F'),
+            ];
+        
+            event(new AgentRegistered($userDataForEvent));
 
-        $userDataForEvent = [
-            'id' => $user->id,
-            'name' => $user->name,
-            'phone' => $user->phone,
-            'email' => $request->email,
-            'location' => config('escorts.profile.states')[$user->state_id]['stateName'] ?? null,
-            'agent_id'  => $user->member_id,
-            'create_at' => Carbon::now()->format('j F'),
-        ];
-       
-        event(new AgentRegistered($userDataForEvent));
+            if($user) {
+                $error = 1;
+                $phone = $user->phone;
+                $otp = $this->user->generateOTP();
+                $user->otp = $otp;
+                $user->save();
+                PasswordSecurity::create([
+                    'user_id' => $user->id,
+                    'password_expiry_days' =>30,
+                    //'status' =>1,
+                    'password_updated_at' => Carbon::now(),
+                ]);
+                $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
 
-        if($user) {
-            $error = 1;
-            $phone = $user->phone;
-            $otp = $this->generateOTP();
-            $user->otp = $otp;
-            $user->save();
-            PasswordSecurity::create([
-                'user_id' => $user->id,
-                'password_expiry_days' =>30,
-                //'status' =>1,
-                'password_updated_at' => Carbon::now(),
-            ]);
-            $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
-
-            $sendotp = new SendSms();
-            $output = $sendotp->send($phone,$msg);
-            //TODO:: don't send otp in the response, remove from bellow compact function
-            return response()->json(compact('error','phone','otp'));
-        } else {
-            $error = 0;
-            return response()->json(compact('error'));
-        }
-
+                $sendotp = new SendSms();
+                $output = $sendotp->send($phone,$msg);
+                //TODO:: don't send otp in the response, remove from bellow compact function
+                return response()->json(compact('error','phone'));
+            } else {
+                $error = 0;
+                return response()->json(compact('error'));
+            }
 
     }
-    public function generateOTP(){
-        $otp = mt_rand(1000,9999);
-        return $otp;
-    }
+   
+
+
     // public function register(StoreAgentRegisterRequest $request)
     // {
     //     event(new Registered($user = $this->create($request->all())));
