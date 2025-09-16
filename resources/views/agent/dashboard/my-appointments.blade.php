@@ -697,8 +697,9 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="success_task_title">
-                        <img id="image_icon" src="#"></h5>
+                    <h5 class="modal-title">
+                        <img id="image_icon" class="custompopicon" src="#"> <span id="success_task_title"></span>
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -896,23 +897,23 @@
 
         function successAppointmentCreate(request){
             $('#success_msg').text(request.message || 'Saved successfully');
+            $('#success_task_title').text('Success');
+            $("#image_icon").attr("src", endpoint.success_image);
             $('#newAppointmentForm')[0].reset(); 
             $('#new_appointment_model').modal('hide');
-            $("#image_icon").attr("src", endpoint.success_image);
             $('#successModal').modal('show');
             setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);     
-               
         }
 
         function errorAppointmentCreate(xhr, status, error){
+            console.log(error);
             let msg = 'Something went wrong';
             if (xhr.responseJSON && xhr.responseJSON.message) { msg = xhr.responseJSON.message; }
             $("#image_icon").attr("src", endpoint.error_image);
-            $('#success_msg').text(msg);
             $('#success_task_title').text('Error');
+            $('#success_msg').text(msg);
             $('#successModal').modal('show');
             
-            //alert(msg);
         }
 
 

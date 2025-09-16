@@ -84,8 +84,17 @@ class AppointmentController extends Controller
 
 			$validated = $validator->validated();
 
+			// Prevent duplicate appointment for same advertiser, date and time
+			$alreadyExists = Appointment::where('advertiser_id', $validated['new_advertiser'])
+				->whereDate('date', $validated['new_appointment_date'])
+				->where('time', $validated['new_appointment_time_slot'])
+				->exists();
+			if ($alreadyExists) {
+				return error_response('An appointment already exists for this advertiser at the selected date and time.', 422);
+			}
+
 			$appointment = Appointment::create([
-				//'advertiser_id' => $validated['new_advertiser'],
+				'advertiser_id' => $validated['new_advertiser'],
 				'date' => $validated['new_appointment_date'],
 				'time' => $validated['new_appointment_time_slot'],
 				'address' => $validated['new_address'],
@@ -99,7 +108,6 @@ class AppointmentController extends Controller
 
 			return success_response($appointment, 'Appointment created successfully', 200);
 		} catch (\Throwable $e) {
-            dd($e);
 			return error_response('Something went wrong while creating the appointment.', 500);
 		}
     }
