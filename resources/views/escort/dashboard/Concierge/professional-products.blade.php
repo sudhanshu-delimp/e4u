@@ -63,23 +63,24 @@
 
         </div>
         <!-- Progress Bar -->
-        <div class="row">
-            <ul class="list-unstyled multi-steps">
-                <li id="pro-step-1" class="is-active">Order<div class="progress-bar progress-bar--success">
-                        <div class="progress-bar__bar"></div>
-                </li>
-                <li id="pro-step-2">Shipping<div class="progress-bar progress-bar--success">
-                        <div class="progress-bar__bar"></div>
-                </li>
-                <li id="pro-step-3">Payment<div class="progress-bar progress-bar--success">
-                        <div class="progress-bar__bar"></div>
-                </li>
-                <li id="pro-step-4">Finish</li>
-            </ul>
-        </div>
+            <div class="row mx-1">
+                <ul class="list-unstyled multi-steps">
+                    <li id="pro-step-1" class="is-active">Order
+                        <div class="progress-bar progress-bar--success">
+                            <div class="progress-bar__bar" id="bar1"></div>
+                        </div>
+                    </li>
+                    <li id="pro-step-2">Shipping
+                        <div class="progress-bar progress-bar--success">
+                            <div class="progress-bar__bar" id="bar2"></div>
+                        </div>
+                    </li>
+                    <li id="pro-step-3">Payment</li>
+                </ul>
+            </div>
 
         <!-- Step 1 -->
-        <div id="step1">
+        <div id="step1" class="step-content active">
             {{-- step 1 --}}
             <div class="row mt-4">
 
@@ -107,13 +108,14 @@
                             <tbody class="table-content">
 
                                 <tr class="">
-                                    <td class="theme-color">
-                                        <div class="img_modal text-center" data-toggle="modal" data-target="#imageModal">
-                                            <img src="{{ asset('assets/app/img/condom.png') }}">
-                                            <span class="tooltip-desc">Click to enlarge</span>
+                                    <td class="theme-color sorting_1">
+                                        <div class="form-check d-flex align-items-center img_modal text-center">
+                                            <input class="form-check-input mr-2" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault"></label>
+                                            <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/condom.png" data-toggle="modal" data-target="#imageModal">
                                         </div>
+        
                                     </td>
-
                                     <td class="theme-color">FSCF</td>
                                     <td class="theme-color"><b>Four Seasons - Close Fitting</b><br>
                                         Naked closer fitting condoms for a secure fit with less chance of
@@ -154,13 +156,13 @@
                 </div>
             </div>
             <div class="text-right">
-                <button class="btn-common" onClick=next() onclick="goToStep(2)">Proceed to Checkout <i
+                <button class="btn-common" onclick="next()">Proceed to Checkout <i
                         class="fas fa-arrow-right text-white pl-2"></i></button>
             </div>
         </div>
 
         <!-- Step 2 -->
-        <div id="step2">
+        <div id="step2" class="step-content">
             {{-- step 2 --}}
             <div class="row mt-5">
 
@@ -261,16 +263,19 @@
             <div class="text-right">
                 {{-- <button class="btn-common mt-3" onclick="goToStep(1)"> <i class="fas fa-arrow-left text-white pr-2"></i>
                     Back</button> --}}
-                <button class="btn-common mt-3" onclick="goToStep(3)">Place Order</button>
+                {{-- <button class="btn-common mt-3" onclick="goToStep(3)"></button> --}}
+                <button onclick="prev()" class="btn-common"> <i class="fas fa-arrow-left text-white pr-2"></i> Back</button>
+                <button onclick="next()" class="btn-common">Place Order</button>
             </div>
 
         </div>
 
         <!-- Step 3 -->
-        <div id="step3" style="display:none;">
-            <h2>Order Completed ✅</h2>
+        <div id="step3" class="step-content text-center py-5">
+            <h2>Order Completed</h2>
             <p>Thank you for your purchase!</p>
-            <button class="btn btn-secondary mt-3" onclick="goToStep(2)">Back</button>
+            <button onclick="prev()" class="btn-common"> <i class="fas fa-arrow-left text-white pr-2"></i> Back</button>
+            <button onclick="finish()" class="btn-common">Finish</button>
         </div>
 
 
@@ -331,7 +336,7 @@
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     {{-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script> --}}
-    <script>
+    {{-- <script>
         let step = 'step1';
 
         const step1 = document.getElementById('pro-step-1');
@@ -361,6 +366,68 @@
                 step = 'complete';
                 step4.classList.remove("is-active");
             }
+        }
+    </script> --}}
+
+    <script>
+        let step = 1;
+    
+        const step1 = document.getElementById('pro-step-1');
+        const step2 = document.getElementById('pro-step-2');
+        const step3 = document.getElementById('pro-step-3');
+        const bar1 = document.getElementById('bar1');
+        const bar2 = document.getElementById('bar2');
+    
+        function showStep() {
+            document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+            document.getElementById("step" + step).classList.add("active");
+        }
+    
+        function next() {
+            if (step === 1) {
+                step = 2;
+                step1.classList.remove("is-active");
+                bar1.style.width = "100%"; // fill progress bar
+                step2.classList.add("is-active");
+            } else if (step === 2) {
+                step = 3;
+                step2.classList.remove("is-active");
+                bar2.style.width = "100%"; // fill progress bar
+                step3.classList.add("is-active");
+            }
+            showStep();
+        }
+    
+        function prev() {
+            if (step === 2) {
+                step = 1;
+                step2.classList.remove("is-active");
+                step1.classList.add("is-active");
+                bar1.style.width = "0%"; // reset bar
+            } else if (step === 3) {
+                step = 2;
+                step3.classList.remove("is-active");
+                step2.classList.add("is-active");
+                bar2.style.width = "0%"; // reset bar
+            }
+            showStep();
+        }
+    
+        function finish() {
+            alert("Process Completed!");
+            reset();
+        }
+    
+        function reset() {
+            step = 1;
+            step1.classList.add("is-active");
+            step2.classList.remove("is-active");
+            step3.classList.remove("is-active");
+    
+            bar1.style.width = "0%";
+            bar2.style.width = "0%";
+    
+            showStep();
         }
     </script>
 

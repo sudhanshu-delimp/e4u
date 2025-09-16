@@ -9293,13 +9293,32 @@ border-top: 5px solid var(--peach);
             width: 100%;
         }
     }
+    /* Progress line */
+    
+    .progress-bar {
+        background-color: var(--blue--text);
+        height: 7px;
+        overflow: hidden;
+        position: absolute;
+        top: 18px;
+        left: 50%;
+        width: 100%;
+        right: 0;
+        z-index: -1;
+    }
+    
+    .progress-bar__bar {
+        background-color: var(--peach);
+        height: 100%;
+        width: 0%;
+        transition: width 0.5s ease-out;
+    }
     
     .progress-bar {
         cursor: pointer;
         user-select: none;
     }
-    
-    .progress-bar {
+    /*.progress-bar {
         background-color: var(--peach);
         height: 7px;
         overflow: hidden;
@@ -9322,6 +9341,34 @@ border-top: 5px solid var(--peach);
         right: 0;
         top: 0;
         transition: all 500ms ease-out;
+    } */
+    /* Step content */
+    
+    .step-content {
+        display: none;
+        padding: 20px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    
+    .step-content.active {
+        display: block;
+    }
+    
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        background: #0c223d;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    button:disabled {
+        background: #ccc;
+        cursor: not-allowed;
     }
     /* end */
     
