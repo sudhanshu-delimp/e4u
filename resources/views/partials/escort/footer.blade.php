@@ -51,6 +51,12 @@
                     jQuery.browser.version = RegExp.$1;
                 }
             })();
+
+        window.App = {
+            userId: {{ auth()->id() }},
+            csrfToken: "{{ csrf_token() }}",
+            baseUrl: "{{ asset('') }}"
+        };
         </script>
         <script>
             $(document).ready(function(){
