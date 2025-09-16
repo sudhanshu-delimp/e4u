@@ -21,4 +21,9 @@ class Appointment extends Model
         'status',
         'summary',
     ];
+
+
+    public function advertiser() {
+        return $this->belongsTo(User::class, 'advertiser_id', 'id');
+    }
 }

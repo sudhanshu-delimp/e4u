@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class AppointmentController extends Controller
 {
@@ -62,6 +63,141 @@ class AppointmentController extends Controller
         // 4) Return only remaining slots
         return success_response($slots, 'get all slots');
        
+    }
+
+    public function datatable(Request $request)
+    {
+        $query = Appointment::query()
+            ->select(['appointments.*']);
+           // ->with(['advertiser:id,name']);
+
+        return DataTables::of($query)
+            ->addColumn('appointment_list', function ($row) {
+                $source = strtolower($row->source ?? 'database');
+                $color = '#ff0000';
+                if ($source === 'referral') { $color = '#ff8c00'; }
+                if ($source === 'cold') { $color = '#8b4513'; }
+
+                $name = $row->name ?? null;
+                $label = $name ? ($name.' ('.$row->advertiser_id.')') : $row->advertiser_id;
+                $dateTime = (\Carbon\Carbon::parse($row->time)->format('h:i a')).' | '.(\Carbon\Carbon::parse($row->date)->format('d-m-Y'));
+                return '<label class="mb-0 cursor-pointer"><i class="fas fa-circle mr-2" style="color: '.$color.'"></i>'.e($label).'</label> <small class="text-muted"> ( '.$dateTime.' ) </small>';
+            })
+            ->addColumn('map', function ($row) {
+                return view('agent.dashboard.partials.datatable-map', ['appointment' => $row])->render();
+            })
+            ->addColumn('status_badge', function ($row) {
+                $status = $row->status ?? 'open';
+                $map = [
+                    'completed' => ['label' => 'completed', 'bg' => '#1cc88a'],
+                    'in_progress' => ['label' => 'in progress', 'bg' => '#f6c23e'],
+                    'open' => ['label' => 'open', 'bg' => '#36b9cc'],
+                ];
+                $cfg = $map[$status] ?? $map['open'];
+                return '<span class="badge badge-danger-lighten task-1" style="background: '.$cfg['bg'].'; padding:5px 10px; max-width:120px; width:100%;">'.e($cfg['label']).'</span>';
+            })
+            ->addColumn('actions', function ($row) {
+                return view('agent.dashboard.partials.datatable-actions', ['appointment' => $row])->render();
+            })
+            ->rawColumns(['appointment_list', 'map', 'status_badge', 'actions'])
+            ->make(true);
+    }
+
+    public function show($id)
+    {
+        $appointment = Appointment::with(['advertiser:id,name'])->find($id);
+        if (!$appointment) {
+            return error_response('Appointment not found', 404);
+        }
+        return success_response($appointment, 'Appointment details');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $appointment = Appointment::find($id);
+        if (!$appointment) {
+            return error_response('Appointment not found', 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'date' => 'required|date',
+            'time' => 'required',
+            'advertiser_id' => 'required|exists:users,id',
+            'address' => 'required|string|max:255',
+            'lat' => 'nullable|numeric',
+            'long' => 'nullable|numeric',
+            'source' => 'required|in:database,referral,cold',
+            'importance' => 'required|in:high,medium,low',
+            'point_of_contact' => 'required|string|max:255',
+            'mobile' => 'nullable|string|max:30',
+            'summary' => 'nullable|string|max:500',
+        ]);
+
+        if ($validator->fails()) {
+            return error_response($validator->errors()->first(), 422, $validator->errors());
+        }
+
+        $data = $validator->validated();
+
+        // prevent duplicate for same advertiser/date/time (excluding current)
+        $exists = Appointment::where('advertiser_id', $data['advertiser_id'])
+            ->whereDate('date', $data['date'])
+            ->where('time', $data['time'])
+            ->where('id', '!=', $appointment->id)
+            ->exists();
+        if ($exists) {
+            return error_response('An appointment already exists for this advertiser at the selected date and time.', 422);
+        }
+
+        $appointment->fill($data);
+        $appointment->save();
+
+        return success_response($appointment, 'Appointment updated');
+    }
+
+    public function reschedule(Request $request, $id)
+    {
+        $appointment = Appointment::find($id);
+        if (!$appointment) {
+            return error_response('Appointment not found', 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'date' => 'required|date',
+            'time' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return error_response($validator->errors()->first(), 422, $validator->errors());
+        }
+        $data = $validator->validated();
+
+        $exists = Appointment::where('advertiser_id', $appointment->advertiser_id)
+            ->whereDate('date', $data['date'])
+            ->where('time', $data['time'])
+            ->where('id', '!=', $appointment->id)
+            ->exists();
+        if ($exists) {
+            return error_response('Another appointment exists at the selected date and time.', 422);
+        }
+
+        $appointment->date = $data['date'];
+        $appointment->time = $data['time'];
+        $appointment->status = 'rescheduled';
+        $appointment->save();
+
+        return success_response($appointment, 'Appointment rescheduled');
+    }
+
+    public function complete($id)
+    {
+        $appointment = Appointment::find($id);
+        if (!$appointment) {
+            return error_response('Appointment not found', 404);
+        }
+        // enum has a typo 'comleted' in migration; use the same to avoid SQL error
+        $appointment->status = 'comleted';
+        $appointment->save();
+        return success_response($appointment, 'Appointment marked as completed');
     }
 
     public function store(Request $request)

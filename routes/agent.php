@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Http\Request;
@@ -250,6 +251,11 @@ Route::get('my-appointments', [AppointmentController::class, 'index'])->name('ag
 Route::get('get-advertiser',[AppointmentController::class, 'getAdverser'])->name('get.adverser');
 Route::get('/get-slots', [AppointmentController::class, 'getSlotList'])->name('get.slot.list');
 Route::post('/appointments', [AppointmentController::class, 'store'])->name('agent.appointments.store');
+Route::get('/appointments/datatable', [AppointmentController::class, 'datatable'])->name('agent.appointments.datatable');
+Route::get('/appointments/{id}', [AppointmentController::class, 'show'])->name('agent.appointments.show');
+Route::post('/appointments/{id}', [AppointmentController::class, 'update'])->name('agent.appointments.update');
+Route::post('/appointments/{id}/reschedule', [AppointmentController::class, 'reschedule'])->name('agent.appointments.reschedule');
+Route::post('/appointments/{id}/complete', [AppointmentController::class, 'complete'])->name('agent.appointments.complete');
 //Route::post('save-appointment-planner', [AgentDashboardController::class, 'Save AppointmentPlanner'])->name('agent.save.appointment-planner');
 
 

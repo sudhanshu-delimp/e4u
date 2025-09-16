@@ -132,57 +132,7 @@
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-
-                                        <td class=" task-color">
-                                            <label for="task_checkbox_33" class="mb-0 cursor-pointer">
-                                                <i class="fas fa-circle text-medium taski mr-2"></i>zdfgaf
-                                            </label> <small class="text-muted"> ( 09:30 am | 27-07-2025 ) </small>
-                                        </td>
-                                        <td class="text-center" data-toggle="modal" data-target="#openMapmodal"> <img
-                                                src="http://e4u.test/assets/dashboard/img/map.png"
-                                                style="width:45px; padding-right:10px;cursor:pointer" title="view Location">
-                                        </td>
-                                        <td class="td-actions text-center ">
-                                            <span class="badge badge-danger-lighten task-1"
-                                                style="background: #1cc88a; padding:5px 10px; max-width:120px; width:100%;">completed</span>
-                                        </td>
-                                        <td class="theme-color text-center bg-white ">
-                                            <div class="dropdown no-arrow">
-                                                <a class="dropdown-toggle" href="#" role="button"
-                                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                </a>
-                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                    aria-labelledby="dropdownMenuLink" style="">
-                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown"
-                                                        href="#" data-target="#edit_appointment" data-toggle="modal">
-                                                        <i class="fa fa-pen"></i>Edit Appointment</a>
-
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown"
-                                                        href="#" data-target="#reschedule_appointment"
-                                                        data-toggle="modal"> <i class="fa fa-calendar"></i>Reschedule
-                                                        Appointment</a>
-
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown"
-                                                        href="#" data-target="#complete_appointment"
-                                                        data-toggle="modal"> <i class="fa fa-check-circle"></i>Completed
-                                                        Appointment</a>
-
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown"
-                                                        href="#" data-target="#view_appointment"
-                                                        data-toggle="modal"> <i class="fa fa-eye"></i>View Appointment</a>
-
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
                         <div class="d-flex justify-content-end mt-4 custome_paginator">
@@ -403,7 +353,7 @@
         </div>
     </div>
     {{-- <input id="new_oneaddress" name="new_oneaddress" type="text" class="form-control"  > --}}
-    <input id="new_oneaddress" name="new_address" type="text" class="form-control" placeholder="Search or enter address" required="">
+    
    
     {{-- end --}}
 
@@ -433,9 +383,6 @@
 
                                     <div class="task-form-body p-2" style="display: block; height:350px; overflow:auto;">
                                         <!-- Hidden Task ID -->
-                                        <input name="task_id" value="`+taskId+`" type="hidden">
-
-
 
                                         <!-- Date -->
                                         <div class="form-group">
@@ -764,6 +711,10 @@
     data-scrf-token="{{csrf_token()}}"
     data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
     data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
+    data-show-appointment="{{ route('agent.appointments.show', ['id' => '__ID__']) }}"
+    data-update-appointment="{{ route('agent.appointments.update', ['id' => '__ID__']) }}"
+    data-reschedule-appointment="{{ route('agent.appointments.reschedule', ['id' => '__ID__']) }}"
+    data-complete-appointment="{{ route('agent.appointments.complete', ['id' => '__ID__']) }}"
      >
     @endsection
     @section('script')
@@ -802,8 +753,13 @@
             csrf_token: mmRoot.data('scrf-token'),
             success_image : mmRoot.data('success-image'),
             error_image : mmRoot.data('error-image'),
+            show_tpl: mmRoot.data('show-appointment'),
+            update_tpl: mmRoot.data('update-appointment'),
+            reschedule_tpl: mmRoot.data('reschedule-appointment'),
+            complete_tpl: mmRoot.data('complete-appointment'),
             
         }
+        function urlFor(tpl, id){ return (tpl || '').replace('__ID__', id); }
         // get Advertiser List data and append inside the option list
         $('#new_appointment').on('click', function() {
             initAutocomplete();
@@ -858,8 +814,22 @@
             });
         }
 
-        let table = new DataTable('#taskList', {
-
+        let table = $('#taskList').DataTable({
+            processing: true,
+            serverSide: true,
+            lengthChange: false,
+            searching: false,
+            
+            ajax: {
+                url: "{{ route('agent.appointments.datatable') }}",
+                type: 'GET'
+            },
+            columns: [
+                { data: 'appointment_list', name: 'appointment_list' },
+                { data: 'map', name: 'map', orderable: false, searchable: false, className: 'text-center' },
+                { data: 'status_badge', name: 'status', orderable: true, searchable: true, className: 'text-center' },
+                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-center' },
+            ]
         });
 
         function ajaxRequest(url, data = {}, method = 'GET', token = null, successCallback = null, errorCallback = null) {
@@ -884,6 +854,15 @@
             });
         }
 
+        // Open map modal with row address
+        $(document).on('click', '#taskList tbody td:nth-child(2) [data-toggle="modal"]', function(){
+            var addr = $(this).find('.address-text').text() || '';
+            if (addr) {
+                var enc = encodeURIComponent(addr);
+                $('#openMapmodal iframe').attr('src', 'https://www.google.com/maps?q='+enc+'&output=embed');
+            }
+        });
+
         // Submit New Appointment via AJAX with Parsley validation
         $('#newAppointmentForm').on('submit', function(e) {
             e.preventDefault();
@@ -901,20 +880,147 @@
             $("#image_icon").attr("src", endpoint.success_image);
             $('#newAppointmentForm')[0].reset(); 
             $('#new_appointment_model').modal('hide');
-            $('#successModal').modal('show');
-            setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);     
+                $('#successModal').modal('show');
+                setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
         }
 
         function errorAppointmentCreate(xhr, status, error){
             console.log(error);
-            let msg = 'Something went wrong';
-            if (xhr.responseJSON && xhr.responseJSON.message) { msg = xhr.responseJSON.message; }
+                let msg = 'Something went wrong';
+                if (xhr.responseJSON && xhr.responseJSON.message) { msg = xhr.responseJSON.message; }
             $("#image_icon").attr("src", endpoint.error_image);
             $('#success_task_title').text('Error');
             $('#success_msg').text(msg);
             $('#successModal').modal('show');
             
         }
+
+        // Action dropdown handlers
+        var currentAppointmentId = null;
+        $(document).on('click', '[data-target="#edit_appointment"][data-toggle="modal"]', function(){
+            console.log('edit app');
+            currentAppointmentId = $(this).data('id');
+            ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
+                var a = resp.data || {};
+                $('#edit_date').val(a.date);
+                $('#edit_time').val(a.time);
+                $('#edit_advertiser').val(a.advertiser_id);
+                $('#edit_address').val(a.address);
+                $('#edit_latitude').val(a.lat);
+                $('#edit_longitude').val(a.long);
+                $('#edit_poc').val(a.point_of_contact);
+                $('#edit_mobile').val(a.mobile);
+                $('#edit_summary').val(a.summary);
+                $('#edit_source').val((a.source || '').charAt(0).toUpperCase()+ (a.source || '').slice(1));
+                $("#edit_appointment .task_priority[value="+ (a.importance || 'medium') + "]").prop('checked', true);
+            }, function(xhr){ console.log('load edit failed', xhr); });
+        });
+
+        $(document).on('click', '[data-target="#view_appointment"][data-toggle="modal"]', function(){
+            currentAppointmentId = $(this).data('id');
+            ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
+                var a = resp.data || {};
+                $('#view_date').val(a.date);
+                $('#view_time').val(a.time);
+                $('#view_advertiser').val(a.advertiser_id);
+                $('#view_address').val(a.address);
+                $('#view_latitude').val(a.lat);
+                $('#view_longitude').val(a.long);
+                $('#view_poc').val(a.point_of_contact);
+                $('#view_mobile').val(a.mobile);
+                $('#view_summary').val(a.summary);
+                $('#view_source').val((a.source || '').charAt(0).toUpperCase()+ (a.source || '').slice(1));
+            }, function(xhr){ console.log('load view failed', xhr); });
+        });
+
+        $(document).on('click', '[data-target="#reschedule_appointment"][data-toggle="modal"]', function(){
+            currentAppointmentId = $(this).data('id');
+            ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
+                var a = resp.data || {};
+                $('#reschedule_appointment #appointment_date').val(a.date);
+                $('#reschedule_appointment #appointment_time').val(a.time);
+            }, function(xhr){ console.log('load reschedule failed', xhr); });
+        });
+
+        // Submit Edit Appointment
+        $('#edit_appointment form').on('submit', function(e){
+            e.preventDefault();
+            if (!currentAppointmentId) { return; }
+            var payload = {
+                date: $('#edit_date').val(),
+                time: $('#edit_time').val(),
+                advertiser_id: $('#edit_advertiser').val(),
+                address: $('#edit_address').val(),
+                lat: $('#edit_latitude').val(),
+                long: $('#edit_longitude').val(),
+                source: ($('#edit_source').val()||'').toString().toLowerCase(),
+                importance: $("#edit_appointment .task_priority:checked").val(),
+                point_of_contact: $('#edit_poc').val(),
+                mobile: $('#edit_mobile').val(),
+                summary: $('#edit_summary').val()
+            };
+            ajaxRequest(urlFor(endpoint.update_tpl, currentAppointmentId), payload, 'POST', endpoint.csrf_token, function(resp){
+                $('#edit_appointment').modal('hide');
+                $('#success_task_title').text('Success');
+                $('#image_icon').attr('src', endpoint.success_image);
+                $('#success_msg').text(resp.message || 'Appointment updated');
+                $('#successModal').modal('show');
+                setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
+                $('#taskList').DataTable().ajax.reload(null, false);
+            }, function(xhr){
+                var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Update failed';
+                $('#success_task_title').text('Error');
+                $('#image_icon').attr('src', endpoint.error_image);
+                $('#success_msg').text(msg);
+                $('#successModal').modal('show');
+            });
+        });
+
+        // Submit Reschedule
+        $('#reschedule_appointment form').on('submit', function(e){
+            e.preventDefault();
+            if (!currentAppointmentId) { return; }
+            var payload = {
+                date: $('#reschedule_appointment #appointment_date').val(),
+                time: $('#reschedule_appointment #appointment_time').val()
+            };
+            ajaxRequest(urlFor(endpoint.reschedule_tpl, currentAppointmentId), payload, 'POST', endpoint.csrf_token, function(resp){
+                $('#reschedule_appointment').modal('hide');
+                $('#success_task_title').text('Success');
+                $('#image_icon').attr('src', endpoint.success_image);
+                $('#success_msg').text(resp.message || 'Appointment rescheduled');
+                $('#successModal').modal('show');
+                setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
+                $('#taskList').DataTable().ajax.reload(null, false);
+            }, function(xhr){
+                var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Reschedule failed';
+                $('#success_task_title').text('Error');
+                $('#image_icon').attr('src', endpoint.error_image);
+                $('#success_msg').text(msg);
+                $('#successModal').modal('show');
+            });
+        });
+
+        // Submit Completed (Yes button inside form)
+        $('#complete_appointment form').on('submit', function(e){
+            e.preventDefault();
+            if (!currentAppointmentId) { return; }
+            ajaxRequest(urlFor(endpoint.complete_tpl, currentAppointmentId), {}, 'POST', endpoint.csrf_token, function(resp){
+                $('#complete_appointment').modal('hide');
+                $('#success_task_title').text('Success');
+                $('#image_icon').attr('src', endpoint.success_image);
+                $('#success_msg').text(resp.message || 'Appointment completed');
+                $('#successModal').modal('show');
+                setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
+                $('#taskList').DataTable().ajax.reload(null, false);
+            }, function(xhr){
+                var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Complete failed';
+                $('#success_task_title').text('Error');
+                $('#image_icon').attr('src', endpoint.error_image);
+                $('#success_msg').text(msg);
+                $('#successModal').modal('show');
+            });
+        });
 
 
 
