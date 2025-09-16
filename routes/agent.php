@@ -249,6 +249,7 @@ Route::post('agent-update-password-duration', [AgentDashboardController::class, 
 Route::get('my-appointments', [AppointmentController::class, 'index'])->name('agent.my.appointment.list');
 Route::get('get-advertiser',[AppointmentController::class, 'getAdverser'])->name('get.adverser');
 Route::get('/get-slots', [AppointmentController::class, 'getSlotList'])->name('get.slot.list');
+Route::post('/appointments', [AppointmentController::class, 'store'])->name('agent.appointments.store');
 //Route::post('save-appointment-planner', [AgentDashboardController::class, 'Save AppointmentPlanner'])->name('agent.save.appointment-planner');
 
 

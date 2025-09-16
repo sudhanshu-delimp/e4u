@@ -24,7 +24,10 @@ class CreateAppointmentsTable extends Migration
             $table->enum('source', ['database', 'referral', 'cold'])->default('database');
             $table->enum('importance', ['high', 'medium', 'low'])->default('medium');
             $table->enum('status', ['in_progress', 'comleted', 'cancelled', 'rescheduled'])->default('in_progress');
+            $table->string('point_of_contact')->nullable();
+            $table->string('mobile')->nullable();
             $table->text('summary')->nullable();
+            $table->unsignedBigInteger('agent_id')->index();
             $table->timestamps();
         });
     }

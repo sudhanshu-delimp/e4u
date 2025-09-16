@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AppointmentController extends Controller
 {
@@ -18,7 +19,7 @@ class AppointmentController extends Controller
     public function getAdverser(){
         //type 4 means onley get Massage center
         $auth = Auth::user();
-       
+
         $user = User::where([
             ['is_agent_assign', '=', '1'],
             ['assigned_agent_id', '=', $auth->id],
@@ -26,17 +27,9 @@ class AppointmentController extends Controller
        
         
         if(!$user || $user->isEmpty()){
-            return response()->json([
-                'status' => false,
-                'message' => 'No advertisers found',
-                'data' => null
-            ], 404);
+            return error_response('No advertisers found', 404);
         }
-        return response()->json([
-            'status' => true,
-            'message' => 'get all advertisers',
-            'data' => $user
-        ], 200);
+        return success_response($user, 'get all advertisers');
         
     }
 
@@ -44,6 +37,7 @@ class AppointmentController extends Controller
     {
         $advertiserId = $request->advertiser_id;
         $date = $request->date; // Format: Y-m-d
+
 
         // 1) Fetch already booked slots for that advertiser & date
         $bookedSlots = Appointment::where('advertiser_id', $advertiserId)
@@ -65,13 +59,48 @@ class AppointmentController extends Controller
             }
             $start->addMinutes(30);
         }
-
         // 4) Return only remaining slots
-        return response()->json([
-            'status' => true,
-            'message' => 'get all slots',
-            'data' => $slots
-        ], 200);
+        return success_response($slots, 'get all slots');
        
+    }
+
+    public function store(Request $request)
+    {
+		try {
+			$validator = Validator::make($request->all(), [
+				'new_advertiser' => 'required|exists:users,id',
+				'new_appointment_date' => 'required|date',
+				'new_appointment_time_slot' => 'required',
+				'new_address' => 'required|string|max:255',
+				'new_latitude' => 'nullable|numeric',
+				'new_longitude' => 'nullable|numeric',
+				'new_source' => 'required|string',
+				'new_task_priority' => 'nullable',
+			]);
+
+			if ($validator->fails()) {
+				return error_response($validator->errors()->first(), 422, $validator->errors());
+			}
+
+			$validated = $validator->validated();
+
+			$appointment = Appointment::create([
+				//'advertiser_id' => $validated['new_advertiser'],
+				'date' => $validated['new_appointment_date'],
+				'time' => $validated['new_appointment_time_slot'],
+				'address' => $validated['new_address'],
+				'lat' => $request->input('new_latitude'),
+				'long' => $request->input('new_longitude'),
+				'source' => $validated['new_source'],
+				'importance' => $validated['new_task_priority'] ?? 'medium',
+				'agent_id' => Auth::id(),
+				'status' => 'in_progress',
+			]);
+
+			return success_response($appointment, 'Appointment created successfully', 200);
+		} catch (\Throwable $e) {
+            dd($e);
+			return error_response('Something went wrong while creating the appointment.', 500);
+		}
     }
 }

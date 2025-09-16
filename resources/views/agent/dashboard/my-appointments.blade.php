@@ -40,6 +40,13 @@
         .pac-container {
              z-index: 2000 !important; 
         }
+
+        li.parsley-required {
+         list-style: none;
+        }
+        .parsley-errors-list{
+            padding-left: 0px;
+        }
     </style>
 @endsection
 @section('content')
@@ -200,7 +207,8 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" action="#">
+                    <form id="newAppointmentForm" method="post" action="{{ route('agent.appointments.store') }}" data-parsley-validate>
+                        @csrf
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
                                 <!-- Advertiser -->
@@ -254,35 +262,14 @@
                                     </div>
                                 </div>
 
-                                <!-- Point of Contact (Edit/View only) -->
-                                <div class="form-group d-none" id="poc-field">
-                                    <label for="poc"><b>Point of Contact</b><span
-                                            class="text-danger">*</span></label>
-                                    <input id="new_poc" name="new_poc" type="text" class="form-control"
-                                        placeholder="Enter contact name">
-                                </div>
-
-                                <!-- Mobile (Edit/View only) -->
-                                <div class="form-group d-none" id="mobile-field">
-                                    <label for="mobile"><b>Mobile</b></label>
-                                    <input id="new_mobile" name="new_mobile" type="tel" class="form-control"
-                                        placeholder="Enter mobile number">
-                                </div>
-
-                                <!-- Appointment Summary (Edit/View only) -->
-                                <div class="form-group d-none" id="summary-field">
-                                    <label for="summary"><b>Appointment Summary</b></label>
-                                    <textarea id="new_summary" name="new_summary" class="form-control" rows="3" maxlength="500"
-                                        placeholder="Enter summary (max 500 characters)"></textarea>
-                                </div>
-
+                              
                                 <!-- Source -->
                                 <div class="form-group">
                                     <label for="source"><b>Source</b><span class="text-danger">*</span></label>
-                                    <select id="source" name="source" class="form-control" required>
-                                        <option value="Database" style="color:red;" selected>Database</option>
-                                        <option value="Referral" style="color:orange;">Referral</option>
-                                        <option value="Cold" style="color:brown;">Cold</option>
+                                    <select id="new_source" name="new_source" class="form-control" required>
+                                        <option value="database" style="color:red;" selected>Database</option>
+                                        <option value="referral" style="color:orange;">Referral</option>
+                                        <option value="cold" style="color:brown;">Cold</option>
                                     </select>
                                 </div>
                                 <!-- Importance -->
@@ -710,7 +697,8 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="success_task_title">Task</h5>
+                    <h5 class="modal-title" id="success_task_title">
+                        <img id="image_icon" src="#"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -771,6 +759,10 @@
     <div id="manage-route"
     data-get-adverser="{{ route('get.adverser') }}"
     data-get-slot-list="{{ route('get.slot.list') }}"
+    data-save-appointment="{{ route('agent.appointments.store') }}"
+    data-scrf-token="{{csrf_token()}}"
+    data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
+    data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
      >
     @endsection
     @section('script')
@@ -805,12 +797,17 @@
         endpoint = {
             get_adverser: mmRoot.data('get-adverser'),
             get_slot_list: mmRoot.data('get-slot-list'),
+            save_appointment: mmRoot.data('save-appointment'),
+            csrf_token: mmRoot.data('scrf-token'),
+            success_image : mmRoot.data('success-image'),
+            error_image : mmRoot.data('error-image'),
+            
         }
         // get Advertiser List data and append inside the option list
         $('#new_appointment').on('click', function() {
             initAutocomplete();
             $('#new_appointment_model').modal('show');
-            ajaxRequest(endpoint.get_adverser, {}, 'GET', successPopulateAdvisorDropdown,  errorPopulateAdvisorDropdown);
+            ajaxRequest(endpoint.get_adverser, {}, 'GET',null , successPopulateAdvisorDropdown,  errorPopulateAdvisorDropdown);
         });
 
         // Initialize autocomplete after modal is visible (ensures input has size)
@@ -832,9 +829,9 @@
             }
         }
         // Error: Handle failure
-        function errorPopulateAdvisorDropdown(response) {
-            let dropdown = $('#advisor');
-            ropdown.empty().append('<option >Something is worng!!</option>');
+        function errorPopulateAdvisorDropdown(xhr, status, error) {
+            let dropdown = $('#new_advertiser');
+            dropdown.empty().append('<option >Something is worng!!</option>');
             console.error("❌ AJAX Error:", status, error);
         }
 
@@ -847,10 +844,8 @@
         $('#new_advertiser, #new_appointment_date').on('change', function() {
             let advertiserId = $('#new_advertiser').val();
             let date = $('#new_appointment_date').val();
-            console.log(advertiserId,date);
-
             if (advertiserId && date) {
-                ajaxRequest(endpoint.get_slot_list, {}, 'GET', successPopulateTimeSlot, errorResponseForNewAppointment);
+                ajaxRequest(endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(advertiserId)}&date=${encodeURIComponent(date)}`, {}, 'GET', null, successPopulateTimeSlot, errorResponseForNewAppointment);
             }
         });
 
@@ -866,11 +861,13 @@
 
         });
 
-        function ajaxRequest(url, data = {}, method = 'GET', successCallback = null, errorCallback = null) {
+        function ajaxRequest(url, data = {}, method = 'GET', token = null, successCallback = null, errorCallback = null) {
             $.ajax({
                 url: url,
                 type: method,
-                dateType: 'json',
+                _token: token,
+                dataType: 'json',
+                data: data,
                 success: function(response) {
                     if (typeof successCallback === 'function') {
                         successCallback(response);
@@ -886,12 +883,43 @@
             });
         }
 
-        function successResponseForMewAppointment(response) {
-            $('#success_msg').text(response.message);
+        // Submit New Appointment via AJAX with Parsley validation
+        $('#newAppointmentForm').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            if (!form.parsley().isValid()) {
+                form.parsley().validate();
+                return;
+            }
+            ajaxRequest(endpoint.save_appointment, form.serialize(), 'POST', endpoint.csrf_token, successAppointmentCreate, errorAppointmentCreate);
+        });
+
+        function successAppointmentCreate(request){
+            $('#success_msg').text(request.message || 'Saved successfully');
+            $('#newAppointmentForm')[0].reset(); 
+            $('#new_appointment_model').modal('hide');
+            $("#image_icon").attr("src", endpoint.success_image);
             $('#successModal').modal('show');
+            setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);     
+               
         }
 
+        function errorAppointmentCreate(xhr, status, error){
+            let msg = 'Something went wrong';
+            if (xhr.responseJSON && xhr.responseJSON.message) { msg = xhr.responseJSON.message; }
+            $("#image_icon").attr("src", endpoint.error_image);
+            $('#success_msg').text(msg);
+            $('#success_task_title').text('Error');
+            $('#successModal').modal('show');
+            
+            //alert(msg);
+        }
+
+
+
+
         function errorResponseForNewAppointment(xhr, status, error) {
+            console.log(error, 'error');
             alert('Error: ' + error);
         }
 
