@@ -33,6 +33,10 @@ class TrackLastPageVisitMiddlware
                 return;
             }
 
+            if ($request->ajax() || $request->isMethod('post')) {
+                return;
+            }
+
             if($state != null){
                 $city = City::where('state_id',$state)->first();
                 $cityId = $city->id;
