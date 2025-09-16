@@ -210,7 +210,7 @@
     }
     
     .nav-item {
-        padding: 5px 15px;
+        padding: 5px 5px;
     }
     
     .dropdown-menu .dropdown-item {
@@ -4376,6 +4376,9 @@ i.fa.fa-heart-o{
     
     .blue_and_white_nav_blue_in_small .navbar-nav .nav-link {
         color: #0C223D;
+        font-size: clamp(12px, 1vw, 16px);
+    padding-left: clamp(5px, 1vw, 10px);
+    padding-right: clamp(5px, 1vw, 8px);
     }
     
     .nav_center_blue_line {
