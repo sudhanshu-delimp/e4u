@@ -5440,7 +5440,13 @@ align-items: center;*/
         margin-left: 0;
         accent-color: #ff3c5f;
     }
+    .arrive--depart th {
+        text-align: center;
+    }
     
+    .arrive--depart td {
+        text-align: center;
+    }
     .extend--profile label.form-check-label {
         font-family: 'Poppins';
         font-size: 14px;
