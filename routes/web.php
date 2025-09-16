@@ -50,6 +50,8 @@ use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
 
 //Route::get('/', [RegisterController::class,'home'])->name('home');
 
+####### Track user info like device last page visit city ip address etc ########
+Route::middleware(['TrackLoginUserInfo'])->group(function () {
 
 ############## Guest Url ####################
 Route::middleware('guest')->group(function () {
@@ -743,3 +745,5 @@ Route::get('/send-password-expire', [DemoController::class, 'sendPasswordExpire'
 
 Route::post('/save-user-loggged-details', [WebController::class, 'userLoggedDetailStore'])->name('user.log-details');
 
+
+});

@@ -117,7 +117,9 @@
                         <input name="user_data" type="hidden" id="user_print_data">
                         <input name="common_print_data" type="hidden" id="common_print_data">
                         <button type="submit" class="print-btn">🖨️ Print Report</button>
+                        <button type="button" class="btn-cancel-modal" id="cancel_print_report">Close</button>
                     </form>
+                    
 
                 </div>
                 <div class="info-grid">
@@ -367,6 +369,10 @@
             });
 
         }
+
+        $(document).on('click', '#cancel_print_report', function(e) {
+            $(".my-account-card").slideUp();
+        });
 
         $(document).on('click', '.suspendLoggedUser', function(e) {
             e.preventDefault(); // prevent default link behavior
