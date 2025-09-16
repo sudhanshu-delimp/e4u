@@ -19,35 +19,40 @@
             <div class="row">
                 <div class="custom-heading-wrapper col-lg-12">
                     <h1 class="h1">Email Account</h1>
-                    <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
+                    <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes"
+                        aria-expanded="true">Help?</span>
                 </div>
                 <div class="col-md-12 mb-4">
                     <div class="card collapse" id="notes" style="">
-                    <div class="card-body">
-                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                        <ol class=" pl-5">
-                            <li>This form will be pre-populated with your details according to what you have
-                                entered in <a href="{{ route('escort.profile.information') }}" class="custom_links_design">My Account</a>. You can alter any of the information.</li>
-                            
-                            <li>will be established within 24 hours of this request;</li>
-                            <li>has been activated; and</li>
-                            <li>can be accessed through a browser or by installing the Email account of your device.</li>
-                        </ol>
-                    </div>
+                        <div class="card-body">
+                            <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                            <ol class=" pl-5">
+                                <li>This form will be pre-populated with your details according to what you have entered
+                                    in <a href="{{ route('center.account.edit') }}" class="custom_links_design">My
+                                        Account</a>. You can alter any of the information.</li>
+
+                                <li>Payment is based on the monthly Fee for the Email service.</li>
+                                <li>Complete the form to request the Email service. When completing the form please
+                                    ensure all of the details are correct and you have selected the correct option for
+                                    communications.</li>
+                            </ol>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-               
-                <div class="col-md-12">
+
+                <div class="col-md-9 add-punterbox-report">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12">
                                     <h2 class="pb-2"><b>Partnership</b> </h2>
-                                    <p>Escorts4U has partnered with a leading email services supplier to be able to provide email
-                                        services under the domain name @e4u.com.au.</p>
+                                    <p>Escorts4U has partnered with a leading email services supplier to be able to provide
+                                        email
+                                        services under the domain <a href="" class="custom_links_design">
+                                            MemberID@e4u.com.au.</a></p>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +63,7 @@
                             <div class="col-md-12">
 
                                 <h2 class="pb-2 pt-2"><b>Order Email Service</b> </h2>
-                                <div class="form-group w-50">
+                                <div class="form-group">
                                     <div><label for="preference"><b>Your contact preference</b> </label></div>
                                     <div class="form-check form-check-inline">
                                         <input name="contact_pref_email" class="form-check-input" type="checkbox"
@@ -74,24 +79,25 @@
 
                                 <b>Your details:</b>
                                 <div class="mt-2">
-                                    <div class="form-group w-50">
-                                        <label for="email"><b>First Name</b><span class="text-danger">*</span> </label>
-                                        <input id="name" value="{{ old('first_name') }}" placeholder="First Name"
-                                            name="first_name" type="text" class="form-control" required>
-                                        @error('first_name')
+                                    <div class="form-group">
+                                        <label for="Business Name"><b>Business Name</b> <span class="text-danger">*</span>
+                                        </label>
+                                        <input id="name" value="" placeholder="Business Name"
+                                            name="business_name" type="text" class="form-control" required>
+                                        @error('business_name')
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group w-50">
-                                        <label for="email"><b>Last Name</b> </label>
-                                        <input id="name" placeholder="Last Name" name="last_name" type="text"
+                                    <div class="form-group">
+                                        <label for="Point of Contact"><b>Point of Contact</b></label>
+                                        <input id="name" placeholder="Business Name" name="p_contact" type="text"
                                             class="form-control">
-                                        @error('last_name')
+                                        @error('p_contact')
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group w-50">
-                                        <label for="email"><b>Email</b><span class="text-danger">*</span>
+                                    <div class="form-group">
+                                        <label for="email"><b>Email</b> <span class="text-danger">*</span>
                                         </label>
                                         <input id="email" value="{{ old('email') }}" required
                                             placeholder="Email Address" name="email" type="text" class="form-control">
@@ -99,7 +105,7 @@
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    <div class="form-group w-50">
+                                    <div class="form-group">
                                         <label for="email"><b>Mobile Number</b> <span class="text-danger">*</span>
                                         </label>
                                         <input id="mobile" value="{{ old('mobile') }}" placeholder="Mobile Number"
@@ -108,56 +114,31 @@
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    {{-- <div class="form-group w-50">
-                                        <label for="email"><b> Delivery address
-                                            </b> <span class="text-danger">*</span> </label>
-                                        <input id="delivery_address" value="{{ old('delivery_address') }}"
-                                            placeholder="Your address" name="delivery_address" type="text"
-                                            class="form-control" required>
-                                        @error('delivery_address')
-                                            <div class="text-danger text-sm">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group w-50">
-                                        <label for="period_required"><b>Period required</b><span
-                                                class="text-danger">*</span></label>
-                                        <div class="input-group">
-                                            <input type="number" value="{{ old('period_required') }}" required
-                                                class="form-control" name="period_required" id="period_required"
-                                                placeholder="Enter months" min="1">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">Months</span>
-                                            </div>
-                                        </div>
-                                    </div> --}}
-                                    <div class="form-group w-50">
+                                    <div class="form-group ">
                                         <label for="exampleFormControlTextarea1"><b>Comments</b> (<i>please provide any
                                                 additional information to assist us</i>)
                                         </label>
-                                        <textarea class="form-control" name="comments" id="exampleFormControlTextarea1" rows="5"
-                                             placeholder="Up to 300 character">{{ old('comments') }}</textarea>
+                                        <textarea class="form-control common_textarea" name="comments" id="exampleFormControlTextarea1" rows="5"
+                                            placeholder="Up to 300 character">{{ old('comments') }}</textarea>
                                     </div>
-                                    {{-- <div class="form-group w-50">
+                                    <div class="form-group w-50">
                                         <div class="form-check form-check-inline">
                                             <input name="auth" class="form-check-input" type="checkbox"
                                                 id="auth">
-                                            <label class="form-check-label" for="auth"> I authorise E4U to debit my
+                                            <label class="form-check-label" for="auth">I authorise E4U to debit my
                                                 nominated Card.</label>
                                         </div>
-                                        @error('auth') 
+                                        @error('auth')
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
-                                    </div> --}}
-                                    <div class="form-group w-50">
+                                    </div>
+                                    <div class="form-group">
                                         <div class="form-check form-check-inline">
                                             <input name="terms" class="form-check-input" type="checkbox"
                                                 id="pref_terms">
-                                                <label class="form-check-label" for="pref_terms"> I have read and agree to the
-                                                    <a href="#" class="custom_links_design">Terms.</a></label>
-                                            {{-- <label class="form-check-label" for="pref_terms"> I have read and agree to the
+                                            <label class="form-check-label" for="pref_terms"> I have read and agree to the
                                                 <a href="{{ route('pages.terms-conditions') }}#mobile-sim"
-                                                    target="_blank" class="custom_links_design">Terms.</a></label> --}}
-
+                                                    target="_blank" class="custom_links_design">Terms.</a></label>
                                         </div>
                                         @error('terms')
                                             <div class="text-danger text-sm">{{ $message }}</div>
@@ -168,7 +149,7 @@
                                         Place Order
                                     </button>
                                 </div>
-                               
+
                             </div>
                         </div>
                     </form>
@@ -184,7 +165,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content" style="border: 2px solid;">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="new-ban"><b>Email service Order Confirmation         </b></h5>
+                        <h5 class="modal-title" id="new-ban"><b>Email service Order Confirmation </b></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                     class="img-fluid img_resize_in_smscreen"></span>
@@ -193,9 +174,9 @@
                     <div class="modal-body pb-0">
                         <p>
                             Your Request for an Email account has been received. You will also receive an A-Alert
-confirming your request with a reference. If you have not received notification of the
-Email account activation within 24 hours, please raise a Support Ticket quoting the
-reference.
+                            confirming your request with a reference. If you have not received notification of the
+                            Email account activation within 24 hours, please raise a Support Ticket quoting the
+                            reference.
                         </p>
                         <p>Date Sent:<span class="ml-1 sent_date"
                                 style="">{{ isset($simData) && $simData != null ? $simData->created_at->format('d-m-Y') : '' }}</span>
@@ -223,5 +204,4 @@ reference.
                 $('#new-ban').show();
             @endif
         </script>
-
     @endpush

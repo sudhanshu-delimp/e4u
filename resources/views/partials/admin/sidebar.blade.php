@@ -468,15 +468,15 @@
                 <div class="py-0 collapse-inner rounded mb-2">
                     <a class="collapse-item" href="{{ route('email-service-request')}}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/at.png')}}">
-                    <span style="{{request()->segment(3) == 'email-service-request' ? 'color: #e5365a;' : ''}}">Email Service Request</span>
+                    <span style="{{request()->segment(3) == 'email-service-request' ? 'color: #e5365a;' : ''}}">Email Requests</span>
                     </a>
                     <a class="collapse-item" href="{{ route('mobile-sim-request')}}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/cellphone-text.png')}}">
-                    <span style="{{request()->segment(3) == 'mobile-sim-request' ? 'color: #e5365a;' : ''}}">Mobile SIM Request</span>
+                    <span style="{{request()->segment(3) == 'mobile-sim-request' ? 'color: #e5365a;' : ''}}">SIM Requests</span>
                     </a>
                     <a class="collapse-item" href="{{ route('product-request')}}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/cart-variant.png')}}">
-                    <span style="{{request()->segment(3) == 'product-request' ? 'color: #e5365a;' : ''}}">Product Request</span>
+                    <span style="{{request()->segment(3) == 'product-request' ? 'color: #e5365a;' : ''}}">Product Orders</span>
                     </a>
                     <a class="collapse-item" href="{{ route('visa-migration-request')}}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/Migration.png')}}">
@@ -485,13 +485,24 @@
                 </div>
             </div>
         </li>
-
         <li class="nav-item">
-            <a class="nav-link" href="{{ route('admin.database') }}">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                    src="{{ asset('assets/dashboard/img/menu-icon/database.png') }}">
-                <span>Database</span>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Database" aria-expanded="false" aria-controls="collapseTwo">
+            <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/database.png')}}">
+            <span>Database</span>
             </a>
+            <div id="Database" class="collapse @if(request()->segment(3) == 'manage-emails' || request()->segment(3) == 'manage-sims') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+                <div class="py-0 collapse-inner rounded mb-2">
+                    <a class="collapse-item" href="{{ route('manage-emails')}}">
+                    <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/at.png')}}">
+                    <span style="{{request()->segment(3) == 'manage-emails' ? 'color: #e5365a;' : ''}}">Manage Emails</span>
+                    </a>
+
+                    <a class="collapse-item" href="{{ route('manage-sims')}}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/at.png')}}">
+                        <span style="{{request()->segment(3) == 'manage-sims' ? 'color: #e5365a;' : ''}}">Manage SIMs</span>
+                    </a>
+                </div>
+            </div>
         </li>
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#logs"
