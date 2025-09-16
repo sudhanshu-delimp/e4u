@@ -68,6 +68,7 @@ class LoginController extends BaseController
             
                     throw ValidationException::withMessages([
                         'phone' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                        
                     ]);
                 }
             }
