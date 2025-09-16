@@ -19,7 +19,7 @@ class TrackLastPageVisitMiddlware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user() != null) {
+        if(auth()->user() != null && auth()->user()->type != 1) {
             $attempt = AttemptLogin::where('user_id', auth()->id())
                 ->latest()
                 ->first();
