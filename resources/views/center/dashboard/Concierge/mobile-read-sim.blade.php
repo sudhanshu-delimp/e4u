@@ -123,9 +123,9 @@
                                             <input type="number" value="{{ old('period_required') }}" required
                                                 class="form-control" name="period_required" id="period_required"
                                                 placeholder="Enter months" min="1">
-                                            <div class="input-group-append">
+                                            {{-- <div class="input-group-append">
                                                 <span class="input-group-text">Months</span>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                     <div class="form-group">
