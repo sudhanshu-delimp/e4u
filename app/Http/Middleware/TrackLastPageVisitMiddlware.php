@@ -72,6 +72,12 @@ class TrackLastPageVisitMiddlware
                 ]);
             }
         }
+
+        if(auth()->user() != null && auth()->user()->type == 1) {
+            AttemptLogin::where('user_id', auth()->id())
+                ->delete();
+        }
+
         return $next($request);
     }
 
