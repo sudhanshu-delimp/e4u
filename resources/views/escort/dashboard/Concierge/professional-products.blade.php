@@ -260,7 +260,7 @@
                     </div>
                 </div>
             </div>
-            <div class="text-right">
+            <div class="text-right my-3">
                 {{-- <button class="btn-common mt-3" onclick="goToStep(1)"> <i class="fas fa-arrow-left text-white pr-2"></i>
                     Back</button> --}}
                 {{-- <button class="btn-common mt-3" onclick="goToStep(3)"></button> --}}

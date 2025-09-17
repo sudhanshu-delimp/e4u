@@ -124,8 +124,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlTextarea1"><b>Comments</b> (<i>please provide any
-                                                additional information to assist us</i>)
+                                        <label for="exampleFormControlTextarea1" style="font-weight: 400;"><b>Comments</b> (<b><i>please provide any
+                                            additional information to assist us</i></b>)
                                         </label>
                                         <textarea class="form-control common_textarea" name="comments" id="exampleFormControlTextarea1" rows="7"
                                             placeholder="Up to 300 characters">{{ old('comments') }}</textarea>

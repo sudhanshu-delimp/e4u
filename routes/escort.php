@@ -209,14 +209,19 @@ Route::post('upload-galleries',[EscortGalleryController::class,'uploadGallery'])
 Route::post('upload-videos-galleries',[EscortGalleryController::class,'uploadVideosGaller'])->name('escort.upload.videos.gallery');
 Route::post('default_photos', [EscortGalleryController ::class, 'defaultImages'])->name('escort.default.images');
 Route::post('default-videos', [EscortGalleryController ::class, 'defaultVideos'])->name('escort.default.video');
+Route::get('get-default-videos', [EscortGalleryController ::class, 'getDefaultVideos'])->name('escort.get.default.vedios');
 Route::post('get-default-photos', [EscortGalleryController ::class, 'getDefaultImages'])->name('escort.get.default.images');
 Route::post('delete-photos/{id}', [EscortGalleryController ::class, 'ImagesDelete'])->name('escort.delete.gallery');
 Route::post('delete-videos/{id}', [EscortGalleryController ::class, 'videosDelete'])->name('escort.delete.vedio.gallery');
+
+Route::post('upload-chunk', [EscortGalleryController::class, 'uploadChunk'])->name('gallery.uploadChunk');
+Route::post('merge-chunks', [EscortGalleryController::class, 'mergeChunks'])->name('gallery.mergeChunks');
 // ,function(){
 //     return view('escort.dashboard.archives.archive-view-photos');
 // });
 Route::get('archive-view-videos',[EscortGalleryController ::class, 'videoGalleries'])->name('escort.archive-view-videos');
 Route::get('get-account-media-gallery/{category?}',[EscortGalleryController ::class, 'getAccountMediaGallery'])->name('escort.account.gallery');
+Route::get('get-account-video-gallery',[EscortGalleryController ::class, 'getAccountVideoGallery'])->name('escort.account.video_gallery');
 // Route::get('archive-view-videos',function(){
 //     return view('escort.dashboard.archives.archive-view-videos');
 // });

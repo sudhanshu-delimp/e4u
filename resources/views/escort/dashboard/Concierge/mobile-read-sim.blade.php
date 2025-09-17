@@ -124,7 +124,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlTextarea1"><b>Comments</b> (<i>please provide any
+                                        <label for="exampleFormControlTextarea1" style="font-weight: 400;"><b>Comments</b> (<i>please provide any
                                                 additional information to assist us</i>)
                                         </label>
                                         <textarea class="form-control common_textarea" name="comments" id="exampleFormControlTextarea1" rows="7"

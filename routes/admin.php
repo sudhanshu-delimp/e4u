@@ -178,6 +178,16 @@ Route::get('management/manage-suppliers',function(){
 })->name('admin.manage-suppliers');
 
 
+Route::get('database/manage-emails',function(){
+    return view('admin.database.manage-emails');
+})->name('manage-emails');
+
+
+Route::get('database/manage-sims',function(){
+    return view('admin.database.manage-sims');
+})->name('manage-sims');
+
+
 Route::get('reports/agent-requests',function(){
     return view('admin.reports.agent-requests');
 })->name('admin.agent-requests');
