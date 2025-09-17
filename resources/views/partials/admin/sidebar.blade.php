@@ -490,16 +490,16 @@
             <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/database.png')}}">
             <span>Database</span>
             </a>
-            <div id="Database" class="collapse @if(request()->segment(3) == 'manage-emails' || request()->segment(3) == 'manage-sims') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
+            <div id="Database" class="collapse @if(request()->segment(3) == 'manage-email' || request()->segment(3) == 'manage-sim') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="collapse-item" href="{{ route('manage-emails')}}">
+                    <a class="collapse-item" href="{{ route('manage-email')}}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/at.png')}}">
-                    <span style="{{request()->segment(3) == 'manage-emails' ? 'color: #e5365a;' : ''}}">Manage Emails</span>
+                    <span style="{{request()->segment(3) == 'manage-email' ? 'color: #e5365a;' : ''}}">Email Management</span>
                     </a>
 
-                    <a class="collapse-item" href="{{ route('manage-sims')}}">
+                    <a class="collapse-item" href="{{ route('manage-sim')}}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/at.png')}}">
-                        <span style="{{request()->segment(3) == 'manage-sims' ? 'color: #e5365a;' : ''}}">Manage SIMs</span>
+                        <span style="{{request()->segment(3) == 'manage-sim' ? 'color: #e5365a;' : ''}}">SIM Management</span>
                     </a>
                 </div>
             </div>
@@ -908,8 +908,8 @@
 
             </a>
 
-            <div id="Management"
-                class="collapse @if (request()->segment(3) == 'email-management' ||
+            <div id="Management" class="collapse @if (request()->segment(3) == 'email-management' ||
+                        request()->segment(3) == 'sim-management' ||
                         request()->segment(3) == 'logs-staff' ||
                         request()->segment(3) == 'marketing-templates-e4u' ||
                         request()->segment(3) == 'marketing-templates-agents' ||
@@ -980,14 +980,8 @@
                                 style="{{ request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Profile</span>
                         </a>
                     </div>
-
-
-                    {{-- <a class="collapse-item" href="#">
-                <img width="16" height="17" viewBox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png')}}">
-                <span>Dashboard</span></a> --}}
-                    {{-- <a class="collapse-item" href="#">
-                <img width="16" height="17" viewbox="0 0 16 17" fill="none" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png')}}">
-                <span>Dashboard - Search</span></a> --}}
+                    {{-- end statistics --}}
+                    
 
                     <a class="collapse-item" href="#">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
@@ -997,8 +991,13 @@
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                         <span
-                            style="{{ request()->segment(3) == 'email-management' ? 'color: #e5365a;' : '' }}">Email
-                            Management</span>
+                            style="{{ request()->segment(3) == 'email-management' ? 'color: #e5365a;' : '' }}">Email Management</span>
+                    </a>
+                    <a class="collapse-item" href="{{ route('sim-management') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                        <span
+                            style="{{ request()->segment(3) == 'sim-management' ? 'color: #e5365a;' : '' }}">SIM Management</span>
                     </a>
                     <a class="collapse-item" href="#">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"

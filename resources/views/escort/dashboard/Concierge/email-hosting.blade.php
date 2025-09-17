@@ -157,7 +157,7 @@
                                         @enderror
                                     </div>
 
-                                    <button type="submit" class="new-btn-sec ml-0">
+                                    <button type="submit" class="btn-common ml-0">
                                         Place Order
                                     </button>
                                 </div>

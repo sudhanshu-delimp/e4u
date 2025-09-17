@@ -129,7 +129,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlTextarea1"><b>Comments</b> (<i>please provide any
+                                        <label for="exampleFormControlTextarea1" style="font-weight: 400;"><b>Comments</b> (<i>please provide any
                                                 additional information to assist us</i>)
                                         </label>
                                         <textarea class="form-control" name="comments" id="exampleFormControlTextarea1" rows="5"
@@ -160,7 +160,7 @@
                                         @enderror
                                     </div>
 
-                                    <button type="submit" class="new-btn-sec btn btn-primary shadow-none">
+                                    <button type="submit" class="btn-common ml-0">
                                         Place Order
                                     </button>
                                 </div>

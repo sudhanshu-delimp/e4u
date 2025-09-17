@@ -13,11 +13,10 @@
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <!--middle content start here-->
-   
     <!-- Page Heading -->
     <div class="row">
       <div class="custom-heading-wrapper col-md-12">
-          <h1 class="h1">My Noteboxes</h1>
+          <h1 class="h1">Edit Notebox</h1>
           <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
       </div>
       <div class="col-md-12 mb-4">
@@ -25,17 +24,18 @@
             <div class="card-body">
                 <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                 <ol>
-                  <li>You can view all of your Noteboxes here. Simply search the Notebox you are looking
-                     for by searching the mobile number. Or scroll through the pages.</li>
-                  <li>You can also select a Notebox you wish to edit or remove from your register by clicking
-                     the appropriate button. Any Notebox you remove from your register will be permanently
-                     removed.</li>
-                  <li>New Noteboxes when created or edited, are listed here.</li>
+                  <li>The Notebox register (<b>Notebox</b>) is a free service to all Viewers. You can use the
+                     Notebox service at any time.</li>
+                  <li>Edit any of the information you have set out in this Notebox. Once you have completed
+                     your changes, click the ‘Update Notebox’ button.
+                  </li>
+                  <li>Noteboxes are closed publications for Viewers only. Each Notebox contains personal
+                     information about the Escort. E4U does not make Noteboxes available to other Punters.</li>
                 </ol>
             </div>
           </div>
       </div>
-   </div>
+  </div>
   <!-- Page Heading -->
    <div class="row">
       <div class="col-md-12">
