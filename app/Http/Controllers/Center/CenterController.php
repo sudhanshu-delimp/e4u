@@ -224,7 +224,9 @@ class CenterController extends Controller
     }
     public function edit()
     {
-        $escort = User::where('id', auth()->user()->id)->first();
+        $escort = User::find(auth()->id());
+    
+
         return view('center.my-account.edit-my-account', compact('escort'));
     }
     public function update(UpdateEscortRequest $request)
