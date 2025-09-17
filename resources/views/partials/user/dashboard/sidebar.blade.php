@@ -179,13 +179,13 @@
                 <a class="collapse-item" href="{{ route('user.list') }}">
                     <img src="{{ asset('assets/app/img/icons-list.png') }}">
                     <span class="pl-3"
-                        style="{{ request()->segment(3) == 'list' ? 'color: #e5365a;' : '' }}">List</span>
+                        style="{{ request()->segment(3) == 'list' ? 'color: #e5365a;' : '' }}">My Noteboxes</span>
                 </a>
 
                 <a class="collapse-item" href="{{ route('user.new') }}">
                     <img src="{{ asset('assets/app/img/icons-bug.png') }}">
                     <span class="pl-3"
-                        style="{{ request()->segment(3) == 'new' ? 'color: #e5365a;' : '' }}">New</span>
+                        style="{{ request()->segment(3) == 'new' ? 'color: #e5365a;' : '' }}">Add Notebox</span>
                 </a>
             </div>
         </div>

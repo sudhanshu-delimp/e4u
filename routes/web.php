@@ -193,6 +193,10 @@ Route::middleware('auth')->group(function () {
             return view('user.dashboard.notebox.list');
         })->name('user.list');
 
+        Route::get('/notebox/edit',function(){
+            return view('user.dashboard.notebox.edit-notebox');
+        })->name('user.edit-notebox');
+
         Route::get('/punterbox/dashboard',function(){
             return view('user.dashboard.punterbox.dashboard');
         })->name('user.punterbox.dashboard');
@@ -526,12 +530,12 @@ Route::get('admin-dashboard/alerts/new', function(){
     })->name('new');
 
     
-Route::get('admin-dashboard/database/email-management',function(){
-    return view('admin.database.email-management');
+Route::get('admin-dashboard/management/email-management',function(){
+    return view('admin.management.email-management');
 })->name('email-management');
   
-Route::get('admin-dashboard/database/sim-management',function(){
-    return view('admin.database.sim-management');
+Route::get('admin-dashboard/management/sim-management',function(){
+    return view('admin.management.sim-management');
 })->name('sim-management');
 
 
