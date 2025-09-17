@@ -332,7 +332,9 @@ function preview_image(event)
             console.error("Error:", error);
         });
     }
-    
+    /**
+     * Video Gallery Module
+     */
     var initVideoDragDrop = function(){
         console.log('initVideoDragDrop');
         $(".videoDraggable").draggable({
@@ -355,7 +357,11 @@ function preview_image(event)
                 let mediaId = dragElement.attr('data-id');
                 let mediaUrl = dragElement.attr('src');
                 let position = $(".videoDroppable").index(this)+1;
-                dropElement.attr('src',mediaUrl).attr('poster','').find('source').attr('src',mediaUrl);
+                if($(`.videoDroppable video[data-id=${mediaId}]`).length > 0){
+                    swal.fire('Media', "<p>The video you selected is already set as the default. Please select other video from your repository.</p>", 'error');
+                    return false;
+                }
+                dropElement.attr('src',mediaUrl).attr('data-id',mediaId).attr('poster','').find('source').attr('src',mediaUrl);
                 $.ajax({
                     type: 'POST',
                     url: `/escort-dashboard/default-videos`,
@@ -371,6 +377,7 @@ function preview_image(event)
             }
           });
     }
+
     var getAccountVideoGallery = function() {
         return $.ajax({
             url: `/escort-dashboard/get-account-video-gallery`,
@@ -400,11 +407,11 @@ function preview_image(event)
             if (response.success) {
                 if(response.media.length > 0){
                     response.media.map((item,index)=>{
-                        console.log(item, index);
                         let target = $(".videoDroppable").eq(item.position - 1).find("video");
                         if (target.length) {
                           target.attr("src", `${window.App.baseUrl}${item.path}`);
                           target.attr("poster", ``);
+                          target.attr("data-id", item.id);
                           target.find("source").attr("src", `${window.App.baseUrl}${item.path}`);
                           target.load();
                         }
@@ -509,5 +516,18 @@ async function uploadVideo() {
     });
 }
 
-    getAccountDefaultVideo();
-    getAccountVideoGallery();
+async function initVideos() {
+    await getAccountVideoGallery();
+    await getAccountDefaultVideo();
+    let videos = document.querySelectorAll("video");
+    videos.forEach(video => {
+        video.addEventListener("play", () => {
+            videos.forEach(v => {
+                if (v !== video) {
+                    v.pause();
+                }
+            });
+        });
+    });
+}
+initVideos();
