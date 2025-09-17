@@ -6,10 +6,11 @@ use App\Models\User;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class AppointmentController extends Controller
 {
@@ -107,7 +108,13 @@ class AppointmentController extends Controller
 
     public function show($id)
     {
-        $appointment = Appointment::with(['advertiser:id,name'])->find($id);
+        // Custom query for the 'time' column example:
+        $appointment = Appointment::with(['advertiser:id,name'])
+            ->select([
+                'appointments.*', // select all columns
+                DB::raw("DATE_FORMAT(appointments.time, '%H:%i') as formatted_time")
+            ])
+            ->find($id);
         if (!$appointment) {
             return error_response('Appointment not found', 404);
         }

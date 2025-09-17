@@ -197,7 +197,7 @@
                                 <!-- Address with Google Maps integration -->
                                 <div class="form-group">
                                     <label for="address"><b>Address</b><span class="text-danger">*</span></label>
-                                    <input id="new_address" name="new_address" type="text" class="form-control new_address"
+                                    <input id="new_address" name="new_address" type="text" class="form-control"
                                         placeholder="Search or enter address" required>
                                     <small class="form-text text-muted">Start typing to search address or add
                                         manually.</small>
@@ -384,6 +384,16 @@
                                     <div class="task-form-body p-2" style="display: block; height:350px; overflow:auto;">
                                         <!-- Hidden Task ID -->
 
+                                        <!-- Advertiser -->
+                                        <div class="form-group">
+                                            <label for="edit_advertiser"><b>Advertiser</b><span
+                                                    class="text-danger">*</span></label>
+                                            <select id="edit_advertiser" name="advertiser" class="form-control" required>
+                                                <option value="">Select Advertiser</option>
+                                                <!-- Populate dynamically -->
+                                            </select>
+                                        </div>
+
                                         <!-- Date -->
                                         <div class="form-group">
                                             <label for="edit_date"><b>Date</b><span class="text-danger">*</span></label>
@@ -399,21 +409,13 @@
                                             </select>
                                         </div>
 
-                                        <!-- Advertiser -->
-                                        <div class="form-group">
-                                            <label for="edit_advertiser"><b>Advertiser</b><span
-                                                    class="text-danger">*</span></label>
-                                            <select id="edit_advertiser" name="advertiser" class="form-control" required>
-                                                <option value="">Select Advertiser</option>
-                                                <!-- Populate dynamically -->
-                                            </select>
-                                        </div>
+                                        
 
                                         <!-- Address + Google Maps -->
                                         <div class="form-group">
                                             <label for="edit_address"><b>Address</b><span
                                                     class="text-danger">*</span></label>
-                                            <input id="edit_address" name="address" type="text" class="form-control new_address"
+                                            <input id="edit_address" name="address" type="text" class="form-control"
                                                 placeholder="Search or enter address" required>
                                             <input type="hidden" id="edit_latitude" name="latitude">
                                             <input type="hidden" id="edit_longitude" name="longitude">
@@ -723,11 +725,11 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 
     <script>
-    // Simple Google Places Autocomplete for New Appointment address
-    function initAutocomplete() {
+    // Generic Google Places Autocomplete initializer
+    function initPlacesAutocomplete(inputId, latId, lngId) {
         try {
-            var input = document.getElementsByClassName('new_address');
-            if (!input || !google || !google.maps || !google.maps.places) { return; }
+            var input = document.getElementById(inputId);
+            if (!input || !window.google || !google.maps || !google.maps.places) { return; }
             if (input.getAttribute('data-gpa-init') === '1') { return; }
             var autocomplete = new google.maps.places.Autocomplete(input, {
                 types: ['address'],
@@ -737,35 +739,19 @@
             autocomplete.addListener('place_changed', function () {
                 var place = autocomplete.getPlace();
                 if (place && place.geometry && place.geometry.location) {
-                    document.getElementById('new_latitude').value = place.geometry.location.lat();
-                    document.getElementById('new_longitude').value = place.geometry.location.lng();
+                    var latEl = document.getElementById(latId);
+                    var lngEl = document.getElementById(lngId);
+                    if (latEl) { latEl.value = place.geometry.location.lat(); }
+                    if (lngEl) { lngEl.value = place.geometry.location.lng(); }
                 }
             });
         } catch (e) {
-            console.error('Autocomplete init error', e);
+            console.error('Places autocomplete init error', e);
         }
     }
-    // Google Places Autocomplete for Edit Appointment address
-    function initEditAutocomplete() {
-        try {
-            var input = document.getElementById('edit_address');
-            if (!input || !google || !google.maps || !google.maps.places) { return; }
-            if (input.getAttribute('data-gpa-init') === '1') { return; }
-            var autocomplete = new google.maps.places.Autocomplete(input, {
-                types: ['address'],
-                fields: ['geometry']
-            });
-            input.setAttribute('data-gpa-init', '1');
-            autocomplete.addListener('place_changed', function () {
-                var place = autocomplete.getPlace();
-                if (place && place.geometry && place.geometry.location) {
-                    document.getElementById('edit_latitude').value = place.geometry.location.lat();
-                    document.getElementById('edit_longitude').value = place.geometry.location.lng();
-                }
-            });
-        } catch (e) {
-            console.error('Edit autocomplete init error', e);
-        }
+    // Google script callback - initialize for New Appointment field by default
+    function initAutocomplete() {
+        initPlacesAutocomplete('new_address', 'new_latitude', 'new_longitude');
     }
     $(document).ready(function() {
         const mmRoot = $('#manage-route');
@@ -793,7 +779,7 @@
         // Initialize autocomplete after modal is visible (ensures input has size)
         $('#new_appointment_model').on('shown.bs.modal', function() {
             if (typeof google !== 'undefined' && google.maps && google.maps.places) {
-                initAutocomplete();
+                initPlacesAutocomplete('new_address', 'new_latitude', 'new_longitude');
             }
             $('#new_address').trigger('focus');
         });
@@ -801,24 +787,27 @@
         // Initialize Edit autocomplete after modal is visible
         $('#edit_appointment').on('shown.bs.modal', function() {
             if (typeof google !== 'undefined' && google.maps && google.maps.places) {
-                initAutocomplete();
+                initPlacesAutocomplete('edit_address', 'edit_latitude', 'edit_longitude');
             }
             $('#edit_address').trigger('focus');
         });
 
-        function successPopulateAdvisorDropdown(response) {
-            let dropdown = $('#new_advertiser');
+        function successPopulateAdvisorDropdown(response, targetSelector = '#new_advertiser', selectedId = null) {
+            let dropdown = $(targetSelector);
             dropdown.empty().append('<option value="">Select Advisor</option>');
-            if (response.data && Array.isArray(response.data)) {
+            if (response && response.data && Array.isArray(response.data)) {
                 response.data.forEach(function(advisor) {
                     let displayText = advisor.name ? advisor.name + ' (' + advisor.member_id + ')' : advisor.member_id;
                     dropdown.append(`<option value="${advisor.id}">${displayText}</option>`);
                 });
             }
+            if (selectedId !== null && selectedId !== undefined) {
+                dropdown.val(String(selectedId));
+            }
         }
         // Error: Handle failure
-        function errorPopulateAdvisorDropdown(xhr, status, error) {
-            let dropdown = $('#new_advertiser');
+        function errorPopulateAdvisorDropdown(xhr, status, error, targetSelector = '#new_advertiser') {
+            let dropdown = $(targetSelector);
             dropdown.empty().append('<option >Something is worng!!</option>');
             console.error("❌ AJAX Error:", status, error);
         }
@@ -837,12 +826,17 @@
             }
         });
 
-        function successPopulateTimeSlot(response) {
-            const dropdown = $('#new_appointment_time_slot');
+        function successPopulateTimeSlot(response, targetSelector = '#new_appointment_time_slot', selectedValue = null) {
+            const dropdown = $(targetSelector);
             dropdown.empty().append('<option value="">Select Time Slot</option>');
-            response.data.forEach(function(slot) {
-                dropdown.append(`<option value="${slot}">${slot}</option>`);
-            });
+            if (response && response.data && Array.isArray(response.data)) {
+                response.data.forEach(function(slot) {
+                    dropdown.append(`<option value="${slot}">${slot}</option>`);
+                });
+            }
+            if (selectedValue !== null && selectedValue !== undefined) {
+                dropdown.val(String(selectedValue));
+            }
         }
 
         let table = $('#taskList').DataTable({
@@ -916,9 +910,8 @@
         }
 
         function errorAppointmentCreate(xhr, status, error){
-            console.log(error);
-                let msg = 'Something went wrong';
-                if (xhr.responseJSON && xhr.responseJSON.message) { msg = xhr.responseJSON.message; }
+            let msg = 'Something went wrong';
+            if (xhr.responseJSON && xhr.responseJSON.message) { msg = xhr.responseJSON.message; }
             $("#image_icon").attr("src", endpoint.error_image);
             $('#success_task_title').text('Error');
             $('#success_msg').text(msg);
@@ -929,32 +922,18 @@
         // Action dropdown handlers
         var currentAppointmentId = null;
         $(document).on('click', '[data-target="#edit_appointment"][data-toggle="modal"]', function(){
-            console.log('edit app');
             currentAppointmentId = $(this).data('id');
             ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
                 var a = resp.data || {};
                 $('#edit_date').val(a.date);
                 // Populate advertisers first, then set selected
                 ajaxRequest(endpoint.get_adverser, {}, 'GET', null, function(resAdv){
-                    let dd = $('#edit_advertiser');
-                    dd.empty().append('<option value="">Select Advertiser</option>');
-                    if (resAdv.data && Array.isArray(resAdv.data)) {
-                        resAdv.data.forEach(function(advisor){
-                            let displayText = advisor.name ? advisor.name + ' (' + advisor.member_id + ')' : advisor.member_id;
-                            dd.append(`<option value="${advisor.id}">${displayText}</option>`);
-                        });
-                    }
-                    dd.val(a.advertiser_id || '');
+                    successPopulateAdvisorDropdown(resAdv, '#edit_advertiser', a.advertiser_id || '');
                 });
                 // Populate time slots for current advertiser/date
                 if (a.advertiser_id && a.date) {
                     ajaxRequest(endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(a.advertiser_id)}&date=${encodeURIComponent(a.date)}`, {}, 'GET', null, function(r){
-                        const dropdown = $('#edit_appointment_time_slot');
-                        dropdown.empty().append('<option value="">Select Time Slot</option>');
-                        (r.data || []).forEach(function(slot){
-                            dropdown.append(`<option value="${slot}">${slot}</option>`);
-                        });
-                        dropdown.val(a.time || '');
+                        successPopulateTimeSlot(r, '#edit_appointment_time_slot', a.formatted_time || '');
                     });
                 } else {
                     $('#edit_appointment_time_slot').empty().append('<option value="">Select Time Slot</option>');
@@ -983,15 +962,10 @@
             let advertiserId = $('#edit_advertiser').val();
             let date = $('#edit_date').val();
             if (advertiserId && date) {
+                const dropdown = $('#edit_appointment_time_slot');
+                const prev = dropdown.val();
                 ajaxRequest(endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(advertiserId)}&date=${encodeURIComponent(date)}`, {}, 'GET', null, function(response){
-                    const dropdown = $('#edit_appointment_time_slot');
-                    let prev = dropdown.val();
-                    dropdown.empty().append('<option value="">Select Time Slot</option>');
-                    (response.data || []).forEach(function(slot){
-                        dropdown.append(`<option value="${slot}">${slot}</option>`);
-                    });
-                    // Keep selection if exists
-                    if (prev) { dropdown.val(prev); }
+                    successPopulateTimeSlot(response, '#edit_appointment_time_slot', prev || null);
                 });
             }
         });
@@ -1114,6 +1088,8 @@
 
     });
     </script>
+
+
 
 
     @endsection
