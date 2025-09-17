@@ -23,7 +23,7 @@ class CreateAppointmentsTable extends Migration
             $table->decimal('long',10,7)->nullable(); // longitude
             $table->enum('source', ['database', 'referral', 'cold'])->default('database');
             $table->enum('importance', ['high', 'medium', 'low'])->default('medium');
-            $table->enum('status', ['in_progress', 'comleted', 'cancelled', 'rescheduled'])->default('in_progress');
+            $table->enum('status', ['in_progress', 'over_due', 'completed'])->default('in_progress');
             $table->string('point_of_contact')->nullable();
             $table->string('mobile')->nullable();
             $table->text('summary')->nullable();

@@ -91,7 +91,7 @@
  
                           <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="alert-text" checked>
-                            <label class="custom-control-label" for="alert-text">Text [default]</label>
+                            <label class="custom-control-label" for="alert-text">Text </label>
                           </div>
 
                           <div class="custom-control custom-switch">
@@ -110,7 +110,7 @@
                            </div>
                            <div class="form-check">
                                <input class="form-check-input" name="auth" checked type="checkbox" id="auth" value="2" checked="">
-                               <label class="form-check-label" for="auth">Text [default]</label>
+                               <label class="form-check-label" for="auth">Text </label>
                            </div>
                            <div class="pt-1"><i>How your authentification code will be sent to you.</i></div>
                        </div>

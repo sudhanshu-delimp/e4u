@@ -56,26 +56,26 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/admin.php'));
 
             Route::prefix('escort-dashboard')
-                ->middleware(['web', 'escort', 'HeaderInfo'])
+                ->middleware(['web', 'escort', 'HeaderInfo','TrackLoginUserInfo'])
                 ->namespace('App\Http\Controllers\Escort')
                 ->group(base_path('routes/escort.php'));
 
             Route::prefix('/')
-                ->middleware(['web', 'user', 'HeaderInfo'])
+                ->middleware(['web', 'user', 'HeaderInfo','TrackLoginUserInfo'])
                 //->namespace('App\Http\Controllers\User')
                 ->group(base_path('routes/web.php'));
 
             Route::prefix('agent-dashboard')
-                ->middleware(['web', 'agent', 'HeaderInfo'])
+                ->middleware(['web', 'agent', 'HeaderInfo','TrackLoginUserInfo'])
                 ->namespace('App\Http\Controllers\Agent')
                 ->group(base_path('routes/agent.php'));
 
             Route::prefix('center-dashboard')
-                ->middleware(['web', 'center', 'HeaderInfo'])
+                ->middleware(['web', 'center', 'HeaderInfo','TrackLoginUserInfo'])
                 ->namespace('App\Http\Controllers\Center')
                 ->group(base_path('routes/center.php'));
 
-            Route::middleware('web')
+            Route::middleware(['web','TrackLoginUserInfo'])
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
 

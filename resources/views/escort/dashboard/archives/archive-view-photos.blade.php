@@ -99,7 +99,6 @@
     .my-custompop-tabs .nav-item .nav-link.active{
     color: #fff;
     }
-    
 </style>
 @endsection
 @section('content')

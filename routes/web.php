@@ -50,7 +50,6 @@ use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
 
 //Route::get('/', [RegisterController::class,'home'])->name('home');
 
-
 ############## Guest Url ####################
 Route::middleware('guest')->group(function () {
     

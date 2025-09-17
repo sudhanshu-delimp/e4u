@@ -68,8 +68,8 @@ class AppointmentController extends Controller
     public function datatable(Request $request)
     {
         $query = Appointment::query()
-            ->select(['appointments.*']);
-           // ->with(['advertiser:id,name']);
+            ->select(['appointments.*'])
+            ->with(['advertiser:id,name,member_id']);
 
         return DataTables::of($query)
             ->addColumn('appointment_list', function ($row) {
@@ -78,22 +78,22 @@ class AppointmentController extends Controller
                 if ($source === 'referral') { $color = '#ff8c00'; }
                 if ($source === 'cold') { $color = '#8b4513'; }
 
-                $name = $row->name ?? null;
-                $label = $name ? ($name.' ('.$row->advertiser_id.')') : $row->advertiser_id;
-                $dateTime = (\Carbon\Carbon::parse($row->time)->format('h:i a')).' | '.(\Carbon\Carbon::parse($row->date)->format('d-m-Y'));
+                $name = $row->advertiser->name ?? null;
+                $label = $name ? ($name.' ('.$row->advertiser->member_id.')') : $row->advertiser->member_id;
+                $dateTime = (Carbon::parse($row->time)->format('h:i a')).' | '.(Carbon::parse($row->date)->format('d-m-Y'));
                 return '<label class="mb-0 cursor-pointer"><i class="fas fa-circle mr-2" style="color: '.$color.'"></i>'.e($label).'</label> <small class="text-muted"> ( '.$dateTime.' ) </small>';
             })
             ->addColumn('map', function ($row) {
                 return view('agent.dashboard.partials.datatable-map', ['appointment' => $row])->render();
             })
             ->addColumn('status_badge', function ($row) {
-                $status = $row->status ?? 'open';
+                $status = $row->status;
                 $map = [
-                    'completed' => ['label' => 'completed', 'bg' => '#1cc88a'],
-                    'in_progress' => ['label' => 'in progress', 'bg' => '#f6c23e'],
-                    'open' => ['label' => 'open', 'bg' => '#36b9cc'],
+                    'in_progress' => ['label' => 'In Progress', 'bg' => '#36b9cc'],   // Blue for in progress
+                    'over_due'    => ['label' => 'Overdue',     'bg' => '#e74a3b'],   // Red for overdue
+                    'completed'   => ['label' => 'Completed',   'bg' => '#1cc88a'],   // Green for completed
                 ];
-                $cfg = $map[$status] ?? $map['open'];
+                $cfg = $map[$status];
                 return '<span class="badge badge-danger-lighten task-1" style="background: '.$cfg['bg'].'; padding:5px 10px; max-width:120px; width:100%;">'.e($cfg['label']).'</span>';
             })
             ->addColumn('actions', function ($row) {
@@ -101,6 +101,8 @@ class AppointmentController extends Controller
             })
             ->rawColumns(['appointment_list', 'map', 'status_badge', 'actions'])
             ->make(true);
+
+        
     }
 
     public function show($id)

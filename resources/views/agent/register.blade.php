@@ -3,6 +3,10 @@
     p{
         text-align: justify !important;
     }
+    .reg_info ul li, p {
+        text-align: center !important;
+    }
+
 </style>
 @section('content')
 <section class="section_bg_color padding_ninty_top_ninty_px padding_ninty_btm_ninty_px angle_bg_image">
@@ -240,7 +244,9 @@
 
    </div>
  </div>
- <div class="modal" id="sendOtp_modal" style="display: none">
+
+
+ <!-- <div class="modal" id="sendOtp_modal" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
             <form id="SendOtp" method="post" action="" >
@@ -283,7 +289,10 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
+
+   @include('modal.two-step-verification')
+
 <div class="modal" id="comman_modal" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custome_modal_max_width">
@@ -324,6 +333,8 @@
         </div>
     </div>
 </div>
+
+
 </section>
 @endsection
 @section('script')
@@ -352,6 +363,8 @@
 <script>
 $(function() {
 
+   
+
     $('#escort_registration').parsley({
 
     });
@@ -359,11 +372,13 @@ $(function() {
 
     AgentRegistrationForm.submit(function(e) {
 
+        
       e.preventDefault();
       var form = $(this);
       var url = form.attr('action');
       var formData = new FormData($("#escort_registration")[0]);
       var token = $('input[name="_token"]').attr('value');
+      swal_waiting_popup({'title' : 'Your registration is currently being processed.'});
       $.ajax({
                url: url,
                type: 'POST',
@@ -375,85 +390,90 @@ $(function() {
                    'X-CSRF-Token': token
                },
                 success: function(data) {
-
+                 Swal.close();
                   console.log(data);
                   var ph = data.phone;
                   $("#phoneId").attr('value',ph);
-                  if(data.error == 1) {
 
-                    $('body').on("click","#resendOtpSubmit",function(){
-                        var token = $('input[name="_token"]').attr('value');
-                        $.post({
-                           type: 'POST',
-                           url: "{{ route('web.resend.otp') }}",
-                           headers: {
-                              'X-CSRF-Token': token
-                           },
-                           data: {
-                              phone: data.phone,
-                           },
-                        }).done(function (data) {
-                           $('#senderror').html("<p> Verification code sent to "+data.phone+"</p>");
-                           console.log(data);
-                        })
-                    });
+                  if(data.error == 1) 
+                  {
+                        setTimeout(() => {
+                            $("#sendOtp_modal").modal({backdrop: 'static', keyboard: false});
+                        }, 300); 
 
-                     $("#sendOtp_modal").modal('show');//
-                     $("body").on("submit","#SendOtp",function(e){
-                     e.preventDefault();
-                     var form = $(this);
+                        $('body').on("click","#resendOtpSubmit",function(){
+                            var token = $('input[name="_token"]').attr('value');
+                            $.post({
+                            type: 'POST',
+                            url: "{{ route('web.resend.otp') }}",
+                            headers: {
+                                'X-CSRF-Token': token
+                            },
+                            data: {
+                                phone: data.phone,
+                            },
+                            }).done(function (data) {
+                            $('#senderror').html("<p> Verification code sent to "+data.phone+"</p>");
+                            console.log(data);
+                            })
+                        });
 
-                     console.log(ph);
-                     // var url = form.attr('action');
-                     var url = "{{ route('web.checkOTP')}}";
+                    
+                        $("body").on("submit","#SendOtp",function(e)
+                        {
+                            e.preventDefault();
+                            var form = $(this);
 
-                     var data = new FormData($('#SendOtp')[0]);
-                     var phone = data.phone;
-                     //data.append("phone",phone );
-                     console.log("url="+url);
-                     var token = $('input[name="_token"]').attr('value');
+                            console.log(ph);
+                            // var url = form.attr('action');
+                            var url = "{{ route('web.checkOTP')}}";
 
-                     $.ajax({
-                        url: url,
-                        type: 'POST',
-                        data: data,
-                        dataType: "JSON",
-                        contentType: false,
-                        processData: false,
-                        headers: {
-                           'X-CSRF-Token': token
-                        },
-                        success: function(data) {
-                           console.log(data);
+                            var data = new FormData($('#SendOtp')[0]);
+                            var phone = data.phone;
+                            //data.append("phone",phone );
+                            console.log("url="+url);
+                            var token = $('input[name="_token"]').attr('value');
 
-                           if(data.error == true) {
-                           //console.log(data);
-                           window.location.href = "{{ route('agent.dashboard') }}";
+                            $.ajax({
+                                url: url,
+                                type: 'POST',
+                                data: data,
+                                dataType: "JSON",
+                                contentType: false,
+                                processData: false,
+                                headers: {
+                                'X-CSRF-Token': token
+                                },
+                                success: function(data) {
+                                console.log(data);
 
-                           }
+                                if(data.error == true) {
+                                //console.log(data);
+                                window.location.href = "{{ route('agent.dashboard') }}";
 
-                        },
-                        error: function(data) {
+                                }
 
-                           console.log("error: a", data.responseJSON.errors);
-                           var errorsHtml = '<ul><li>';
-                           $.each(data.responseJSON.errors, function(key, value) {
-                                 errorsHtml = '<div class="alert alert-danger"><ul>';
-                                 errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
-                           });
+                                },
+                                error: function(data) {
 
-                           errorsHtml += '</ul></li>';
-                           $('#senderror').html(errorsHtml);
-                        }
-                     });
+                                console.log("error: a", data.responseJSON.errors);
+                                var errorsHtml = '<ul><li>';
+                                $.each(data.responseJSON.errors, function(key, value) {
+                                        errorsHtml = '<div class="alert alert-danger"><ul>';
+                                        errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
+                                });
 
-                     });
-                  }
+                                errorsHtml += '</ul></li>';
+                                $('#senderror').html(errorsHtml);
+                                }
+                            });
+
+                        });
+                    }
                },
                error: function(data) {
-
-                   console.log("error: b", data.responseJSON.errors);
-
+                Swal.close();
+                console.log("error: b", data.responseJSON.errors);
                   var errorsHtml = '<ul><li>';
                    $.each(data.responseJSON.errors, function(key, value) {
                     console.log("key=", key);
@@ -472,7 +492,7 @@ $(function() {
                    //$('#senderror').html(errorsHtml);
                }
            });
-      console.log("AjentRegistration with us");
+        
    });
 });
 

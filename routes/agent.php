@@ -24,6 +24,7 @@ use App\Http\Controllers\MyAdvertiser\ListAdvertiserController;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Escort\EscortController as DataTableController;
 
+
     Route::get('/', [AgentController::class, 'index'])->name('agent.dashboard');
    
 
@@ -257,5 +258,3 @@ Route::post('/appointments/{id}', [AppointmentController::class, 'update'])->nam
 Route::post('/appointments/{id}/reschedule', [AppointmentController::class, 'reschedule'])->name('agent.appointments.reschedule');
 Route::post('/appointments/{id}/complete', [AppointmentController::class, 'complete'])->name('agent.appointments.complete');
 //Route::post('save-appointment-planner', [AgentDashboardController::class, 'Save AppointmentPlanner'])->name('agent.save.appointment-planner');
-
-

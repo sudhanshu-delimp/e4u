@@ -391,11 +391,12 @@
                                                 class="form-control" required>
                                         </div>
 
-                                        <!-- Time -->
+                                        <!-- Time Slot -->
                                         <div class="form-group">
-                                            <label for="edit_time"><b>Time</b><span class="text-danger">*</span></label>
-                                            <input id="edit_time" name="appointment_time" type="time"
-                                                class="form-control" required>
+                                            <label for="edit_appointment_time_slot"><b>Time Slot</b><span class="text-danger">*</span></label>
+                                            <select id="edit_appointment_time_slot" name="appointment_time" class="form-control" required>
+                                                <option value="">Select Time Slot</option>
+                                            </select>
                                         </div>
 
                                         <!-- Advertiser -->
@@ -479,7 +480,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <p class="m-0">Date Created: 02-09-2025.</p>
+                                        <p class="m-0">Date Created: <span id="edit_date_created_text">--</span>.</p>
                                         <div>
                                             <button type="button" class="btn-cancel-modal" data-dismiss="modal"
                                                 aria-label="Close">Cancel</button>
@@ -718,7 +719,7 @@
      >
     @endsection
     @section('script')
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCrDJA0TAg9Q9MThHqRe9tGCsNsU4vMrcQ&libraries=places&callback=initAutocomplete"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{config('services.google_map.api_key')}}&libraries=places&callback=initAutocomplete"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 
     <script>
@@ -742,6 +743,28 @@
             });
         } catch (e) {
             console.error('Autocomplete init error', e);
+        }
+    }
+    // Google Places Autocomplete for Edit Appointment address
+    function initEditAutocomplete() {
+        try {
+            var input = document.getElementById('edit_address');
+            if (!input || !google || !google.maps || !google.maps.places) { return; }
+            if (input.getAttribute('data-gpa-init') === '1') { return; }
+            var autocomplete = new google.maps.places.Autocomplete(input, {
+                types: ['address'],
+                fields: ['geometry']
+            });
+            input.setAttribute('data-gpa-init', '1');
+            autocomplete.addListener('place_changed', function () {
+                var place = autocomplete.getPlace();
+                if (place && place.geometry && place.geometry.location) {
+                    document.getElementById('edit_latitude').value = place.geometry.location.lat();
+                    document.getElementById('edit_longitude').value = place.geometry.location.lng();
+                }
+            });
+        } catch (e) {
+            console.error('Edit autocomplete init error', e);
         }
     }
     $(document).ready(function() {
@@ -773,6 +796,14 @@
                 initAutocomplete();
             }
             $('#new_address').trigger('focus');
+        });
+
+        // Initialize Edit autocomplete after modal is visible
+        $('#edit_appointment').on('shown.bs.modal', function() {
+            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+                initEditAutocomplete();
+            }
+            $('#edit_address').trigger('focus');
         });
 
         function successPopulateAdvisorDropdown(response) {
@@ -903,8 +934,31 @@
             ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
                 var a = resp.data || {};
                 $('#edit_date').val(a.date);
-                $('#edit_time').val(a.time);
-                $('#edit_advertiser').val(a.advertiser_id);
+                // Populate advertisers first, then set selected
+                ajaxRequest(endpoint.get_adverser, {}, 'GET', null, function(resAdv){
+                    let dd = $('#edit_advertiser');
+                    dd.empty().append('<option value="">Select Advertiser</option>');
+                    if (resAdv.data && Array.isArray(resAdv.data)) {
+                        resAdv.data.forEach(function(advisor){
+                            let displayText = advisor.name ? advisor.name + ' (' + advisor.member_id + ')' : advisor.member_id;
+                            dd.append(`<option value="${advisor.id}">${displayText}</option>`);
+                        });
+                    }
+                    dd.val(a.advertiser_id || '');
+                });
+                // Populate time slots for current advertiser/date
+                if (a.advertiser_id && a.date) {
+                    ajaxRequest(endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(a.advertiser_id)}&date=${encodeURIComponent(a.date)}`, {}, 'GET', null, function(r){
+                        const dropdown = $('#edit_appointment_time_slot');
+                        dropdown.empty().append('<option value="">Select Time Slot</option>');
+                        (r.data || []).forEach(function(slot){
+                            dropdown.append(`<option value="${slot}">${slot}</option>`);
+                        });
+                        dropdown.val(a.time || '');
+                    });
+                } else {
+                    $('#edit_appointment_time_slot').empty().append('<option value="">Select Time Slot</option>');
+                }
                 $('#edit_address').val(a.address);
                 $('#edit_latitude').val(a.lat);
                 $('#edit_longitude').val(a.long);
@@ -913,7 +967,33 @@
                 $('#edit_summary').val(a.summary);
                 $('#edit_source').val((a.source || '').charAt(0).toUpperCase()+ (a.source || '').slice(1));
                 $("#edit_appointment .task_priority[value="+ (a.importance || 'medium') + "]").prop('checked', true);
+                // Created at text if available
+                if (a.created_at_formatted) {
+                    $('#edit_date_created_text').text(a.created_at_formatted);
+                } else if (a.created_at) {
+                    $('#edit_date_created_text').text(a.created_at);
+                } else {
+                    $('#edit_date_created_text').text('--');
+                }
             }, function(xhr){ console.log('load edit failed', xhr); });
+        });
+
+        // On change of advertiser/date in edit modal, reload time slots
+        $('#edit_advertiser, #edit_date').on('change', function(){
+            let advertiserId = $('#edit_advertiser').val();
+            let date = $('#edit_date').val();
+            if (advertiserId && date) {
+                ajaxRequest(endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(advertiserId)}&date=${encodeURIComponent(date)}`, {}, 'GET', null, function(response){
+                    const dropdown = $('#edit_appointment_time_slot');
+                    let prev = dropdown.val();
+                    dropdown.empty().append('<option value="">Select Time Slot</option>');
+                    (response.data || []).forEach(function(slot){
+                        dropdown.append(`<option value="${slot}">${slot}</option>`);
+                    });
+                    // Keep selection if exists
+                    if (prev) { dropdown.val(prev); }
+                });
+            }
         });
 
         $(document).on('click', '[data-target="#view_appointment"][data-toggle="modal"]', function(){
@@ -948,7 +1028,7 @@
             if (!currentAppointmentId) { return; }
             var payload = {
                 date: $('#edit_date').val(),
-                time: $('#edit_time').val(),
+                time: $('#edit_appointment_time_slot').val(),
                 advertiser_id: $('#edit_advertiser').val(),
                 address: $('#edit_address').val(),
                 lat: $('#edit_latitude').val(),

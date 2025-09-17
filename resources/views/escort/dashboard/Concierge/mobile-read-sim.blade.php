@@ -22,16 +22,18 @@
                     <h1 class="h1">Mobile SIM</h1>
                     <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                 </div>
-                <div class="col-md-12 my-4">
+                <div class="col-md-12 mb-4">
                     <div class="card collapse" id="notes" style="">
                     <div class="card-body">
                         <p class="mb-1" style="font-size: 20px;"><b>Notes:</b> </p>
                         <ol>
-                            <li>This form will be pre-populated with your details according to what you have
-                                entered in <a href="{{ route('escort.profile.information') }}" class="custom_links_design">My Account</a>.
-                                You can alter any of the information.</li>
+                            <li>This form will be pre-populated with your details according to what you have entered
+                                in <a href="{{ route('escort.account.edit') }}" class="custom_links_design">My Account</a>.
+                                ou can alter any of the information.</li>
                             <li>Payment is based on the period you have selected for the Mobile SIM.</li>
-                            <li>Complete the form to request the Mobile SIM. When completing the form please ensure all of the details are correct and you have selected the correct option for communications.
+                            <li>Complete the form to request the Mobile SIM. When completing the form please
+                                ensure all of the details are correct and you have selected the correct option for
+                                communications.
                             </li>
                         </ol>  
                     </div>
@@ -41,23 +43,20 @@
 
             <div class="row">   
                
-                <div class="col-md-12">
+                <div class="col-md-12 add-punterbox-report">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <h2 class="pb-2"><b>Partnership</b> </h2>
-                                    <p>Escorts4U has partnered with a leading supplier of telecommunication services to be
-                                        able
-                                        to supply a mobile SIM, delivered to your nominated address.</p>
-                                </div>
-                            </div>
+                        <div class="col-md-9">
+                            <h2 class="pb-2"><b>Partnership</b> </h2>
+                            <p>
+                                Escorts4U has partnered with a leading supplier of telecommunication services to be able to
+                                supply a mobile SIM, delivered to your nominated address.
+                            </p>
                         </div>
                     </div>
                     <form class="" id="simOrderForm" action="{{ route('mobile-read-sim') }}" method="POST">
                         {{ csrf_field() }}
                         <div class="row">
-                            <div class="col-md-9 add-punterbox-report">
+                            <div class="col-md-9">
 
                                 <h2 class="pb-2 pt-2"><b>Order Mobile SIM</b> </h2>
                                 <div class="form-group">
@@ -77,23 +76,15 @@
                                 <b>Your details:</b>
                                 <div class="mt-2">
                                     <div class="form-group">
-                                        <label for="email"><b>Your Name</b><span class="text-danger">*</span> </label>
+                                        <label for="email"><b>Your Name</b><span class="text-danger"> *</span> </label>
                                         <input id="name" value="{{ old('first_name') }}" placeholder="Birth Name"
                                             name="first_name" type="text" class="form-control" required>
                                         @error('first_name')
                                             <div class="text-danger text-sm">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                    {{-- <div class="form-group w-50">
-                                        <label for="email"><b>Last Name</b> </label>
-                                        <input id="name" placeholder="Last Name" name="last_name" type="text"
-                                            class="form-control">
-                                        @error('last_name')
-                                            <div class="text-danger text-sm">{{ $message }}</div>
-                                        @enderror
-                                    </div> --}}
                                     <div class="form-group">
-                                        <label for="email"><b>Email Address</b><span class="text-danger">*</span>
+                                        <label for="email"><b>Email Address</b><span class="text-danger"> *</span>
                                         </label>
                                         <input id="email" value="{{ old('email') }}" required
                                             placeholder="Email Address" name="email" type="text" class="form-control">
@@ -102,7 +93,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="email"><b>Mobile Number</b> <span class="text-danger">*</span>
+                                        <label for="email"><b>Mobile Number</b> <span class="text-danger"> *</span>
                                         </label>
                                         <input id="mobile" value="{{ old('mobile') }}" placeholder="Mobile Number"
                                             name="mobile" type="number" class="form-control" required>
@@ -122,21 +113,21 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="period_required"><b>Period required</b><span
-                                                class="text-danger">*</span></label>
+                                                class="text-danger"> *</span></label>
                                         <div class="input-group">
                                             <input type="number" value="{{ old('period_required') }}" required
                                                 class="form-control" name="period_required" id="period_required"
                                                 placeholder="Enter months" min="1">
-                                            <div class="input-group-append">
+                                            {{-- <div class="input-group-append">
                                                 <span class="input-group-text">Months</span>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleFormControlTextarea1"><b>Comments</b> (<i>please provide any
+                                        <label for="exampleFormControlTextarea1" style="font-weight: 400;"><b>Comments</b> (<i>please provide any
                                                 additional information to assist us</i>)
                                         </label>
-                                        <textarea class="form-control" name="comments" id="exampleFormControlTextarea1" rows="5"
+                                        <textarea class="form-control common_textarea" name="comments" id="exampleFormControlTextarea1" rows="7"
                                              placeholder="Up to 300 character">{{ old('comments') }}</textarea>
                                     </div>
                                     <div class="form-group">
@@ -225,40 +216,6 @@
         </script>
 
         <script>
-            // $(document).ready(function () {
-            //     $('#simOrderForm').on('submit', function (e) {
-            //         e.preventDefault();
-
-            //         let formData = new FormData(this);
-
-            //         $.ajax({
-            //             url: $(this).attr('action'),
-            //             method: 'POST',
-            //             data: formData,
-            //             processData: false,
-            //             contentType: false,
-            //             headers: {
-            //                 'X-CSRF-TOKEN': $('input[name="_token"]').val()
-            //             },
-            //             success: function (response) {
-
-            //                 $(".sent_date").text(response.data.created_at)
-            //                 $('#new-ban').show();
-            //                 //alert('Order submitted successfully!');
-            //                 // Optionally reset the form or redirect
-            //                 $('#simOrderForm')[0].reset();
-            //             },
-            //             error: function (xhr) {
-            //                 if (xhr.status === 422) {
-            //                     let errors = xhr.responseJSON.errors;
-            //                     let errorMessages = Object.values(errors).map(msg => msg[0]).join('\n');
-            //                     alert('Validation Error:\n' + errorMessages);
-            //                 } else {
-            //                     alert('Something went wrong. Please try again.');
-            //                 }
-            //             }
-            //         });
-            //     });
-            // });
+           
         </script>
     @endpush

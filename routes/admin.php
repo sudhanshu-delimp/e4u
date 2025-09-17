@@ -15,7 +15,10 @@ use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 
-Route::get('', 'DashboardController@index')->name('admin.index');
+####### Track user info like device last page visit city ip address etc ########
+Route::middleware(['TrackLoginUserInfo'])->group(function () {  
+    Route::get('', 'DashboardController@index')->name('admin.index');
+});
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
 Route::post('/update-account', [DashboardController::class, 'update'])->name('admin.account.update');
 Route::get('/change-password', [DashboardController::class, 'editPassword'])->name('admin.change.password');
@@ -173,6 +176,16 @@ Route::get('pricingsummaries-datatable',[PricingsummariesController::class ,'Pri
 Route::get('management/manage-suppliers',function(){
     return view('admin.management/manage-suppliers');
 })->name('admin.manage-suppliers');
+
+
+Route::get('database/manage-emails',function(){
+    return view('admin.database.manage-emails');
+})->name('manage-emails');
+
+
+Route::get('database/manage-sims',function(){
+    return view('admin.database.manage-sims');
+})->name('manage-sims');
 
 
 Route::get('reports/agent-requests',function(){

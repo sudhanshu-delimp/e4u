@@ -12,6 +12,7 @@ use App\Http\Controllers\Center\Profile\UpdateController;
 use App\Http\Controllers\Center\CenterProfileInformationController;
 use App\Http\Controllers\Center\MassageViewerInteractionController;
 
+
 Route::get('/', [CenterController::class, 'index'])->name('center.dashboard');
 Route::get('/list', [CenterController::class, 'escortList'])->name('center.list');
 Route::get('/list/data-table', [CenterController::class, 'dataTable'])->name('center.list.dataTable');
@@ -416,3 +417,4 @@ Route::get('my-reports',function(){
 Route::get('num-tips',function(){
     return view('center.numdash.num-tips');
 })->name('center.num-tips');
+

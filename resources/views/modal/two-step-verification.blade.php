@@ -36,7 +36,7 @@
 
                                     <div class="d-flex flex-column align-items-center gap-3">
                                         <div class="d-flex gap-2 mb-4">
-                                            <input type="text" maxlength="1" class="form-control otp-input text-center" />
+                                            <input type="text" maxlength="1" class="form-control otp-input text-center first_input" autofocus/>
                                             <input type="text" maxlength="1" class="form-control otp-input text-center ml-1" />
                                             <input type="text" maxlength="1" class="form-control otp-input text-center ml-1" />
                                             <input type="text" maxlength="1" class="form-control otp-input text-center ml-1" />
@@ -95,6 +95,8 @@
 const otpInputs = document.querySelectorAll(".otp-input");
 const hiddenOtp = document.getElementById("otp");
 
+console.log('otpInputs',otpInputs);
+
 function updateHiddenOtp() {
     let otp = "";
     otpInputs.forEach(input => otp += input.value);
@@ -122,14 +124,25 @@ otpInputs.forEach((input, index) => {
 });  
 
 document.addEventListener("DOMContentLoaded", function () {
+
     const timerEl = document.getElementById("otpTimerMsg");
     const resendEl = document.getElementById("resendLine");
+
+    $('#sendOtp_modal').on('shown.bs.modal', focusFirstOtpInput);
+    
 
     let seconds = 120; 
 
     function startOtpTimer() {
         resendEl.style.display = "none";
         timerEl.style.display = "block";
+
+        $('#sendOtp_modal').one('shown.bs.modal', function () {
+        const otpInputs = document.querySelectorAll(".otp-input");
+        if (otpInputs.length > 0) {
+            otpInputs[0].focus();
+        }
+        });
 
         const timer = setInterval(function () {
             const min = String(Math.floor(seconds / 60)).padStart(2, '0');
@@ -152,6 +165,10 @@ document.addEventListener("DOMContentLoaded", function () {
         $('#resendLine').css({'display':'none'});
         seconds = 120;
         startOtpTimer();
+
+        focusFirstOtpInput();
+
+      
     });
 });
 
@@ -174,4 +191,13 @@ otpInputs.forEach((input, index) => {
         }
     });
 });
+
+function focusFirstOtpInput() {
+    const otpInputs = document.querySelectorAll(".otp-input");
+    if (otpInputs.length > 0) {
+        otpInputs.forEach(input => input.value = "");
+        otpInputs[0].focus();
+    }
+}
+
 </script>
