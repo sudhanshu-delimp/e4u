@@ -14,11 +14,25 @@ class GlobalMonitoringLoggedInController extends Controller
 {
     function index()
     {
+        # get users who are online but inactive for more than 6 hours
+        $inactiveUsers = LoginAttempt::where('type', 1)
+            ->where('online', 'yes')
+            ->where('updated_at', '<', Carbon::now()->subHours(6))
+            ->get();
+
+        if ($inactiveUsers->count() > 0) {
+            foreach ($inactiveUsers as $user) {
+                $user->online = 'no';
+                $user->save();
+            }
+        }
+
         return view('admin.logged-in-users');
     }
 
     public function getLoggedInUserDataTableListingAjax($type = NULL, $callbyFunc = false)
     {
+        
 
         $search = request()->get('search')['value'];
         $dataTableData = [];
@@ -31,7 +45,6 @@ class GlobalMonitoringLoggedInController extends Controller
             ->get()
             ->unique('user_id')
             ->values();
-
 
         $dataTableData = [];
         $serverTime = [
