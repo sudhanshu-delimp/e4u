@@ -48,7 +48,7 @@ $(() => {
         $('body').on('click','.deleteimg', function (e) {
             e.preventDefault();
             let id = $(this).data('id');
-            let prevTag = $(this).prev()[0]?.tagName;
+            let prevTag = $(this).prev().children().first()[0]?.tagName;
             $('.img_comman_msg').text("Delete");
             if(prevTag=='VIDEO'){
                 $('#dVideo').attr('remove_media_id',id);
@@ -342,7 +342,19 @@ function preview_image(event)
             helper: 'clone',
             appendTo: ".upload-photo-sec",
             refreshPositions: false,
+            start: function (event, ui) {
+                ui.helper.css({
+                    width: "150px",   // shrink preview
+                    height: "auto",
+                    "z-index": 9999
+                });
+                ui.helper.find("video").css({
+                    width: "100%",
+                    height: "auto"
+                });
+            },
             drag: function (event, ui) {
+                
             },
             stop: function (event, ui) {
 
@@ -362,6 +374,7 @@ function preview_image(event)
                     return false;
                 }
                 dropElement.attr('src',mediaUrl).attr('data-id',mediaId).attr('poster','').find('source').attr('src',mediaUrl);
+                dropElement.next().val(mediaId);
                 $.ajax({
                     type: 'POST',
                     url: `/escort-dashboard/default-videos`,
@@ -413,6 +426,7 @@ function preview_image(event)
                           target.attr("poster", ``);
                           target.attr("data-id", item.id);
                           target.find("source").attr("src", `${window.App.baseUrl}${item.path}`);
+                          target.next().val(item.id);
                           target.load();
                         }
                     })
