@@ -74,7 +74,22 @@
         .d-none{
             display: none !important;
         }
-
+        .btn-cancel-modal {
+            background-color: #ff3c5f;
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+        }
+        .print-btn {
+            background-color: #0c223d;
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+        }
         @media print {
             body {
                 background: none;
@@ -96,9 +111,13 @@
     <div class="container">
         <div class="col-md-12 " id="printArea">
             <div class="my-account-card">
-                <div class="card-head">
+                <div class="card-head" style="display: flex; justify-content:space-between;align-items:center;">
 
                     <h2>My Account details </h2>
+                    <form >
+                        <button type="button" class="print-btn" onclick="window.print()"><span style="font-size: 12px;">🖨️</span> Print Report</button>
+                        <a href="{{url()->previous()}}" class="btn-cancel-modal" id="cancel_print_report" style="text-decoration: none;">Close</a>
+                    </form>
 
                 </div>
                 <div class="info-grid">

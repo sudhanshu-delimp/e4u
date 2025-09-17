@@ -50,7 +50,7 @@ h5 {
         <div class="col-lg-12">                
             <div class="row p-4 rounded my-2" style="background-color: #c2cfe052;">                  
                 <div class="col-lg-12">
-                    <h4 class="font-weight-bold" style="color: var(--blue--text);">My Statistics
+                    <h4 class="font-weight-bold" style="color: var(--blue--text);">My Statistics 
                     </h4>
                 </div>
                 <!-- Card Start -->
@@ -58,7 +58,7 @@ h5 {
                     <div class="statistics-card d-flex justify-content-between align-items-center shadow-sm">
                         <div class="statistics-text">
                             <div class="statistics-label">Profile Views Today</div>
-                            <div class="statistics-value">25</div>
+                            <div class="statistics-value">{{$myStatistics['mystatistics_profile_views_today']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/view-profile.png') }}" alt="icon">
@@ -72,7 +72,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Media Views Today
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['mystatistics_media_views_today']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/media-view.png') }}" alt="icon">
@@ -86,7 +86,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Recommendations This Week
                             </div>
-                            <div class="statistics-value">32</div>
+                            <div class="statistics-value">{{$myStatistics['mystatistics_recommendations_this_week']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
@@ -100,7 +100,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Reviews Posted This Week
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['mystatistics_reviews_posted_this_week']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
@@ -125,7 +125,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Profiles Currently Posted
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['critical_information_profile_currenlty_posted']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/add-user.png') }}" alt="icon">
@@ -140,7 +140,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Upcoming Profiles
                             </div>
-                            <div class="statistics-value">35</div>
+                            <div class="statistics-value">{{$myStatistics['critical_information_upcoming_profile']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/followers.png') }}" alt="icon">
@@ -154,7 +154,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">My Playbox Subscriptions
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['critical_information_my_playbox_subscription']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/likes.png') }}" alt="icon">
@@ -179,7 +179,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Profile Views Today
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['profile_statistics_profile_views_today']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/view-profile.png') }}" alt="icon">
@@ -194,7 +194,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Profile Views This Week
                             </div>
-                            <div class="statistics-value">35</div>
+                            <div class="statistics-value">{{$myStatistics['profile_statistics_profile_views_this_week']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/view-profile-time.png') }}" alt="icon">
@@ -208,7 +208,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label"> Year to Date
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['profile_statistics_profile_year_to_date']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
@@ -228,7 +228,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Playbox Views Today
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['profile_statistics_playbox_views_today']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/likes.png') }}" alt="icon">
@@ -243,7 +243,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Playbox Views This Week
                             </div>
-                            <div class="statistics-value">35</div>
+                            <div class="statistics-value">{{$myStatistics['profile_statistics_playbox_views_this_week']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/likes.png') }}" alt="icon">
@@ -257,7 +257,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label"> Year to Date
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['profile_statistics_playbox_year_to_date']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
@@ -284,7 +284,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Media Views Today
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['media_statistics_media_views_today']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/media-view.png') }}" alt="icon">
@@ -299,7 +299,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Media Views This Weeks
                             </div>
-                            <div class="statistics-value">35</div>
+                            <div class="statistics-value">{{$myStatistics['media_statistics_media_views_this_week']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/media-view.png') }}" alt="icon">
@@ -313,7 +313,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Year to Date
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['media_statistics_media_year_to_date']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
@@ -338,7 +338,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Reviews Today
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['feedback_reviews_today']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
@@ -353,7 +353,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Reviews This Week
                             </div>
-                            <div class="statistics-value">35</div>
+                            <div class="statistics-value">{{$myStatistics['feedback_reviews_this_week']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/comment.png') }}" alt="icon">
@@ -367,7 +367,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label"> Year to Date
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['feedback_reviews_year_to_date']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">
@@ -387,7 +387,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Recommendations Today
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['feedback_recommendations_today']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
@@ -402,7 +402,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label">Recommendations This Week
                             </div>
-                            <div class="statistics-value">35</div>
+                            <div class="statistics-value">{{$myStatistics['feedback_recommendations_this_week']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/good-quality.png') }}" alt="icon">
@@ -416,7 +416,7 @@ h5 {
                         <div class="statistics-text">
                             <div class="statistics-label"> Year to Date
                             </div>
-                            <div class="statistics-value">125</div>
+                            <div class="statistics-value">{{$myStatistics['feedback_recommendations_year_to_date']}}</div>
                         </div>
                         <div class="statistics-icon">
                             <img src="{{ asset('assets/dashboard/img/calendar.png') }}" alt="icon">

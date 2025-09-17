@@ -10,6 +10,7 @@ use App\Http\Controllers\Agent\AgentTaskController;
 use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Agent\AppointmentController;
 use App\Http\Controllers\Agent\AgentAccountController;
+use App\Http\Controllers\Agent\AgentAdvertiserListController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\User\Dashboard\UserController;
 use App\Http\Controllers\Agent\AgentDashboardController;
@@ -107,9 +108,10 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
      
      
      
-     Route::get('advertiser-list',function(){
-        return view('agent.dashboard.Advertisers.advertiser-list');
-     })->name('agent.advertiser-list');
+     Route::get('advertiser-list',[AgentAdvertiserListController::class,'index'])->name('agent.advertiser-list');
+    //  Route::get('advertiser-list',function(){
+    //     return view('agent.dashboard.Advertisers.advertiser-list');
+    //  })->name('agent.advertiser-list');
      
      Route::get('/accepted_advertiser_datatable', [AgentRequestController::class, 'accepted_advertiser_datatable'])->name('agent.accepted_advertiser_datatable');
 

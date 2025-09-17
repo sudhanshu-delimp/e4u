@@ -224,7 +224,7 @@
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src="http://127.0.0.1:8000/assets/app/img/newcross.png"
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>

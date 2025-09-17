@@ -35,6 +35,7 @@ use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginContr
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
 use App\Http\Controllers\Escort\MyPlaymatesContoller;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\Escort\EscortStatisticsController;
 use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
 
 /*
@@ -463,10 +464,6 @@ Route::get('/escort-dashboard/viewers-messages',function(){
 Route::get('/user-dashboard/viewer-messages',function(){
     return view('user.dashboard.communication.viewer-messages');
 })->name('user.viewer-messages');
-
-Route::get('/escort-dashboard/my-statistics',function(){
-    return view('escort.dashboard.my-statistics');
-})->name('escort.dashboard.my-statistics');
 
 Route::get('/escort-dashboard/task-list',function(){
     return view('escort.dashboard.task-list');
