@@ -197,7 +197,7 @@
                                 <!-- Address with Google Maps integration -->
                                 <div class="form-group">
                                     <label for="address"><b>Address</b><span class="text-danger">*</span></label>
-                                    <input id="new_address" name="new_address" type="text" class="form-control"
+                                    <input id="new_address" name="new_address" type="text" class="form-control new_address"
                                         placeholder="Search or enter address" required>
                                     <small class="form-text text-muted">Start typing to search address or add
                                         manually.</small>
@@ -413,7 +413,7 @@
                                         <div class="form-group">
                                             <label for="edit_address"><b>Address</b><span
                                                     class="text-danger">*</span></label>
-                                            <input id="edit_address" name="address" type="text" class="form-control"
+                                            <input id="edit_address" name="address" type="text" class="form-control new_address"
                                                 placeholder="Search or enter address" required>
                                             <input type="hidden" id="edit_latitude" name="latitude">
                                             <input type="hidden" id="edit_longitude" name="longitude">
@@ -726,7 +726,7 @@
     // Simple Google Places Autocomplete for New Appointment address
     function initAutocomplete() {
         try {
-            var input = document.getElementById('new_address');
+            var input = document.getElementsByClassName('new_address');
             if (!input || !google || !google.maps || !google.maps.places) { return; }
             if (input.getAttribute('data-gpa-init') === '1') { return; }
             var autocomplete = new google.maps.places.Autocomplete(input, {
@@ -801,7 +801,7 @@
         // Initialize Edit autocomplete after modal is visible
         $('#edit_appointment').on('shown.bs.modal', function() {
             if (typeof google !== 'undefined' && google.maps && google.maps.places) {
-                initEditAutocomplete();
+                initAutocomplete();
             }
             $('#edit_address').trigger('focus');
         });
@@ -1114,4 +1114,6 @@
 
     });
     </script>
+
+
     @endsection

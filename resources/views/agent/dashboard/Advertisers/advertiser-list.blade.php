@@ -368,7 +368,7 @@ $(document).ready(function() {
 
       ajax: {
          url: "{{ route('agent.accepted_advertiser_datatable') }}",
-         type: 'GET',
+         type: 'GET', 
          data: function(d) {
             d.type = 'player';
          }
