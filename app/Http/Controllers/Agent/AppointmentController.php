@@ -237,7 +237,7 @@ class AppointmentController extends Controller
 
         $appointment->date = $data['date'];
         $appointment->time = $data['time'];
-        $appointment->status = 'rescheduled';
+        $appointment->status = 'in_progress';
         $appointment->save();
 
         return success_response($appointment, 'Appointment rescheduled');

@@ -281,18 +281,20 @@
                     <form method="post" action="#">
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
+                                <input type="hidden" id="reschedule_advertiser_id" name="reschedule_advertiser_id" value="">
                                 <!-- Date -->
                                 <div class="form-group">
                                     <label for="appointment_date"><b>Date</b><span class="text-danger">*</span></label>
-                                    <input id="appointment_date" name="appointment_date" type="date"
+                                    <input id="appointment_date" name="appointment_date" type="date"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                         class="form-control" required="">
                                 </div>
 
                                 <!-- Time -->
                                 <div class="form-group">
-                                    <label for="appointment_time"><b>Time</b><span class="text-danger">*</span></label>
-                                    <input id="appointment_time" name="appointment_time" type="time"
-                                        class="form-control" required="">
+                                    <label for="reschedule_time_slot"><b>Time</b><span class="text-danger">*</span></label>
+                                    <select id="reschedule_time_slot" name="reschedule_time_slot" class="form-control" required="">
+                                        <option value="">Select Time Slot</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
@@ -975,9 +977,31 @@
             currentAppointmentId = $(this).data('id');
             ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
                 var a = resp.data || {};
+                $('#reschedule_appointment #reschedule_advertiser_id').val(a.advertiser_id);
                 $('#reschedule_appointment #appointment_date').val(a.date);
-                $('#reschedule_appointment #appointment_time').val(a.time);
+                // Load slots for advertiser/date and preselect current time
+                var advId = a.advertiser_id;
+                var date = a.date;
+                if (advId && date) {
+                    var url = endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(advId)}&date=${encodeURIComponent(date)}&current_id=${encodeURIComponent(currentAppointmentId)}`;
+                    ajaxRequest(url, {}, 'GET', null, function(response){
+                        successPopulateTimeSlot(response, '#reschedule_time_slot', (a.formatted_time || a.time || null));
+                    });
+                }
             }, function(xhr){ console.log('load reschedule failed', xhr); });
+        });
+
+        // Reschedule date change -> reload slots
+        $('#reschedule_appointment #appointment_date').on('change', function(){
+            console.log('yes');
+            var advId = $('#reschedule_advertiser_id').val();
+            var date = $(this).val();
+            if (advId && date) {
+                var url = endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(advId)}&date=${encodeURIComponent(date)}&current_id=${encodeURIComponent(currentAppointmentId)}`;
+                ajaxRequest(url, {}, 'GET', null, function(response){
+                    successPopulateTimeSlot(response, '#reschedule_time_slot', null);
+                });
+            }
         });
 
         // Submit Edit Appointment
@@ -1020,7 +1044,7 @@
             if (!currentAppointmentId) { return; }
             var payload = {
                 date: $('#reschedule_appointment #appointment_date').val(),
-                time: $('#reschedule_appointment #appointment_time').val()
+                time: $('#reschedule_appointment #reschedule_time_slot').val()
             };
             ajaxRequest(urlFor(endpoint.reschedule_tpl, currentAppointmentId), payload, 'POST', endpoint.csrf_token, function(resp){
                 $('#reschedule_appointment').modal('hide');
