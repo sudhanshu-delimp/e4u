@@ -39,7 +39,8 @@ class AppointmentController extends Controller
     {
         $advertiserId = $request->advertiser_id;
         $date = $request->date; // Format: Y-m-d
-
+        $currentId = $request->input('current_id');
+        
 
         // 1) Fetch already booked slots for that advertiser & date
         $bookedSlots = Appointment::where('advertiser_id', $advertiserId)
@@ -61,7 +62,24 @@ class AppointmentController extends Controller
             }
             $start->addMinutes(30);
         }
-        // 4) Return only remaining slots
+       
+        // 4) Ensure current appointment's slot is present if provided
+        if (!empty($currentId)) {
+            $current = Appointment::find($currentId);
+            if ($current && $current->advertiser_id == $advertiserId && Carbon::parse($current->date)->isSameDay(Carbon::parse($date))) {
+                $currentTime = Carbon::parse($current->time)->format('H:i');
+                if (!in_array($currentTime, $slots)) {
+                    $slots[] = $currentTime;
+                }
+            }
+        }
+       
+
+        // 5) Sort slots for stable UI
+        sort($slots, SORT_STRING);
+        
+       
+
         return success_response($slots, 'get all slots');
        
     }
@@ -112,7 +130,8 @@ class AppointmentController extends Controller
         $appointment = Appointment::with(['advertiser:id,name'])
             ->select([
                 'appointments.*', // select all columns
-                DB::raw("DATE_FORMAT(appointments.time, '%H:%i') as formatted_time")
+                DB::raw("DATE_FORMAT(appointments.time, '%H:%i') as formatted_time"),
+                DB::raw("DATE_FORMAT(appointments.created_at, '%m-%d-%Y') as created_at_formatted")
             ])
             ->find($id);
         if (!$appointment) {
@@ -123,6 +142,7 @@ class AppointmentController extends Controller
 
     public function update(Request $request, $id)
     {
+       // dd($request->all());
         $appointment = Appointment::find($id);
         if (!$appointment) {
             return error_response('Appointment not found', 404);
@@ -137,7 +157,7 @@ class AppointmentController extends Controller
             'long' => 'nullable|numeric',
             'source' => 'required|in:database,referral,cold',
             'importance' => 'required|in:high,medium,low',
-            'point_of_contact' => 'required|string|max:255',
+            'point_of_contact' => 'nullable|string|max:255',
             'mobile' => 'nullable|string|max:30',
             'summary' => 'nullable|string|max:500',
         ]);
@@ -148,18 +168,44 @@ class AppointmentController extends Controller
 
         $data = $validator->validated();
 
-        // prevent duplicate for same advertiser/date/time (excluding current)
-        $exists = Appointment::where('advertiser_id', $data['advertiser_id'])
-            ->whereDate('date', $data['date'])
-            ->where('time', $data['time'])
-            ->where('id', '!=', $appointment->id)
-            ->exists();
-        if ($exists) {
-            return error_response('An appointment already exists for this advertiser at the selected date and time.', 422);
+        // Normalize time to canonical format HH:mm
+        try {
+            $data['time'] = Carbon::parse($data['time'])->format('H:i');
+        } catch (\Throwable $e) {
+            return error_response('Invalid time format.', 422);
         }
 
-        $appointment->fill($data);
-        $appointment->save();
+        // Short-circuit: if no change in advertiser/date/time, skip availability check
+        // $noOpTime = (
+        //     (int)$appointment->advertiser_id === (int)$data['advertiser_id'] &&
+        //     Carbon::parse($appointment->date)->isSameDay(Carbon::parse($data['date'])) &&
+        //     Carbon::parse($appointment->time)->format('H:i') === $data['time']
+        // );
+
+       
+        DB::beginTransaction();
+        try {
+            // if (!$noOpTime) {
+            //     // prevent duplicate for same advertiser/date/time (excluding current)
+            //     $exists = Appointment::where('advertiser_id', $data['advertiser_id'])
+            //         ->whereDate('date', $data['date'])
+            //         ->where('time', $data['time'])
+            //         ->where('id', '!=', $appointment->id)
+            //         ->lockForUpdate()
+            //         ->exists();
+            //     if ($exists) {
+            //         DB::rollBack();
+            //         return error_response('An appointment already exists for this advertiser at the selected date and time.', 422);
+            //     }
+            // }
+
+            $appointment->fill($data);
+            $appointment->save();
+            DB::commit();
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return error_response('Failed to update appointment.', 500);
+        }
 
         return success_response($appointment, 'Appointment updated');
     }

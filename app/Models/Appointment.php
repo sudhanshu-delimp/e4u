@@ -17,6 +17,8 @@ class Appointment extends Model
         'long',
         'source',
         'importance',
+        'point_of_contact',
+        'mobile',
         'agent_id',
         'status',
         'summary',

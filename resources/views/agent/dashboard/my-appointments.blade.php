@@ -371,7 +371,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" action="#">
+                    <form method="post" action="#" id="editAppointmentForm" data-parsley-validate>
                         <div class="row" id="task_form_button">
                             <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
                                 <div class="col-md-12 card shadow-sm rounded-3">
@@ -781,7 +781,7 @@
             if (typeof google !== 'undefined' && google.maps && google.maps.places) {
                 initPlacesAutocomplete('new_address', 'new_latitude', 'new_longitude');
             }
-            $('#new_address').trigger('focus');
+           // $('#new_address').trigger('focus');
         });
 
         // Initialize Edit autocomplete after modal is visible
@@ -789,7 +789,7 @@
             if (typeof google !== 'undefined' && google.maps && google.maps.places) {
                 initPlacesAutocomplete('edit_address', 'edit_latitude', 'edit_longitude');
             }
-            $('#edit_address').trigger('focus');
+           // $('#edit_address').trigger('focus');
         });
 
         function successPopulateAdvisorDropdown(response, targetSelector = '#new_advertiser', selectedId = null) {
@@ -812,11 +812,7 @@
             console.error("❌ AJAX Error:", status, error);
         }
 
-        // Focus address when modal opens (helps show suggestions quickly)
-        $('#new_appointment_model').on('shown.bs.modal', function() {
-            $('#new_address').trigger('focus');
-        });
-
+     
         //Advisor on change
         $('#new_advertiser, #new_appointment_date').on('change', function() {
             let advertiserId = $('#new_advertiser').val();
@@ -826,7 +822,7 @@
             }
         });
 
-        function successPopulateTimeSlot(response, targetSelector = '#new_appointment_time_slot', selectedValue = null) {
+        function successPopulateTimeSlot(response, targetSelector = '#new_appointment_time_slot', selectedValue = null, opts = { appendMissing: false }) {
             const dropdown = $(targetSelector);
             dropdown.empty().append('<option value="">Select Time Slot</option>');
             if (response && response.data && Array.isArray(response.data)) {
@@ -932,8 +928,8 @@
                 });
                 // Populate time slots for current advertiser/date
                 if (a.advertiser_id && a.date) {
-                    ajaxRequest(endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(a.advertiser_id)}&date=${encodeURIComponent(a.date)}`, {}, 'GET', null, function(r){
-                        successPopulateTimeSlot(r, '#edit_appointment_time_slot', a.formatted_time || '');
+                    ajaxRequest(endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(a.advertiser_id)}&current_id=${encodeURIComponent(a.id)}&date=${encodeURIComponent(a.date)}`, {}, 'GET', null, function(r){
+                        successPopulateTimeSlot(r, '#edit_appointment_time_slot', a.formatted_time || a.time || '', { appendMissing: true });
                     });
                 } else {
                     $('#edit_appointment_time_slot').empty().append('<option value="">Select Time Slot</option>');
