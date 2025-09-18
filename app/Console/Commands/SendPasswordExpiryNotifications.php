@@ -64,11 +64,12 @@ class SendPasswordExpiryNotifications extends Command
             //password null when user expire
 
             $days = Carbon::parse($now)->diffInDays(Carbon::parse($sec->password_updated_at)->startOfDay());
-            if ($sec->password_expiry_days < $days) {
-                $user = User::find($sec->user_id);
-                $user->password = null;
-                $user->save();
-            }
+            
+            // if ($sec->password_expiry_days < $days) {
+            //     $user = User::find($sec->user_id);
+            //     $user->password = null;
+            //     $user->save();
+            // }
 
 
             $updated = Carbon::parse($sec->password_updated_at)->startOfDay();
