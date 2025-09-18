@@ -109,6 +109,35 @@
                                 
                                 <div class="mt-2"><i>How Escorts4U will communicate with you.</i></div>
                             </div>
+                            
+                            <div class="form-group">
+                                <h3 class="h3">Idle Time Preference</h3>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="idle_time" id="idle_15" value="15">
+                                    <label class="form-check-label" for="idle_15">15 minutes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="idle_time" id="idle_30" value="30" checked>
+                                    <label class="form-check-label" for="idle_30">30 minutes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="idle_time" id="idle_60" value="60">
+                                    <label class="form-check-label" for="idle_60">60 minutes</label>
+                                </div>
+                            
+                            </div>
+                            <div class="form-group">
+                                <h3 class="h3">2FA Authentification</h3>
+                                 <div class="form-check">
+                                     <input class="form-check-input" type="checkbox" name="auth" id="auth" value="1">
+                                     <label class="form-check-label" for="auth">Email</label>
+                                 </div>
+                                 <div class="form-check">
+                                     <input class="form-check-input" name="auth" checked type="checkbox" id="auth" value="2">
+                                     <label class="form-check-label" for="auth">Text </label>
+                                 </div>
+                                 <div class="pt-1"><i>How your authentification code will be sent to you.</i></div>
+                             </div>
                         </div>
                     </div>
                     <input type="submit" value="save" class="btn btn-primary shadow-none float-right" name="submit">

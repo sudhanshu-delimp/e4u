@@ -102,6 +102,23 @@
 
 
                        </div>
+                       
+                       <div class="form-group">
+                            <h3 class="h3">Idle Time Preference</h3>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="idle_time" id="idle_15" value="15">
+                                <label class="form-check-label" for="idle_15">15 minutes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="idle_time" id="idle_30" value="30" checked>
+                                <label class="form-check-label" for="idle_30">30 minutes</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="idle_time" id="idle_60" value="60">
+                                <label class="form-check-label" for="idle_60">60 minutes</label>
+                            </div>
+                        
+                        </div>
                        <div class="form-group">
                           <h3 class="h3">2FA Authentification</h3>
                            <div class="form-check">
