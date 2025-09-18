@@ -23,7 +23,7 @@
                             @if(auth()->user()->my_agent)
                                 {{  \Illuminate\Support\Str::limit(Str::title(auth()->user()->my_agent->name), 8, '..') }}
                             @else
-                                <a href="{{url('/escort-dashboard/escort-agency-request') }}"> Request one</a>
+                                <a href="{{url('/escort-dashboard/escort-agency-request') }}" class="request-active"> Request one</a>
                             @endif
                         </span>
                     </span>
@@ -156,7 +156,7 @@
                                         @if(auth()->user()->my_agent)
                                         My Agent :  {{ auth()->user()->my_agent->member_id }}
                                         @else
-                                           My Agent ID : <span style="color:var(--peach)"> Request one</span>
+                                           My Agent ID : <span class="request-active"> Request one</span>
                                         @endif
                                         
                                 </a>

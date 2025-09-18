@@ -28,7 +28,7 @@
                                     @if(auth()->user()->my_agent)
                                     {{ Str::title(auth()->user()->my_agent->name) }}
                                     @else
-                                        <a href="{{url('/center-dashboard/agent-request') }}"> Request one</a>
+                                        <a href="{{url('/center-dashboard/agent-request') }}" class="request-active"> Request one</a>
                                     @endif
                                     
                                 
@@ -172,7 +172,7 @@
                                         @if(auth()->user()->my_agent)
                                            My Agent ID :   {{ auth()->user()->my_agent->member_id }}
                                         @else
-                                           My Agent ID : <span style="color:var(--peach)"> Request one</span>
+                                           My Agent ID : <span style="color:var(--peach)" class="request-active"> Request one</span>
                                         @endif
                                         
                                 </a>
