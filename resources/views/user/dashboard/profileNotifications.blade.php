@@ -17,7 +17,7 @@
     <!--middle content start here-->
     <!-- Page Heading -->
     <div class="row">
-        <div class="custom-heading-wrapper col-md-12"><h1 class="h1">Notifications & Features</h1>
+        <div class="custom-heading-wrapper col-md-12"><h1 class="h1">Notifications</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
         </div>
         <div class="col-md-12 mb-4">
@@ -25,18 +25,72 @@
                 <div class="card-body">
                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                     <ol>
-                        <li>Enable and disable your notification and feature preferences.</li>
-                        <li>For a Viewer or Escort Agency to receive your Notifications, the Viewer or Escort Agency has to have enabled the feature.</li>
+                        <li>Use this feature to enable and disable your notification preferences..</li>
+                        <li>Please note that for an Advertiser to receive any of your Requests, the Advertiser
+                            must have enabled the corresponding feature in their preference settings.</li>
+                            <li>Legbox Notifications from Escorts are an Alert that the Escort is on Tour and will be
+                                visiting your Location the day after you receive the Notification. To receive the
+                                Notification you must have this feature enabled.</li>
+                            <li>Note also the default setting for 2FA authentification.</li>
                     </ol>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        
-    <form class="v-form-design">
+    <div class="row">        
+        <form class="v-form-design">
         <div class="col-md-12">
-            <div class="form-group notification_checkbox_div">
+            <div class="form-group">
+                <h3 class="h3">Alert notifications</h3>
+            
+                <p class="my-3">From an Advertiser:</p>
+            
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="alert-email">
+                    <label class="custom-control-label" for="alert-email">Email</label>
+                </div>
+            
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="text" checked>
+                    <label class="custom-control-label" for="text">Text</label>
+                </div>
+            
+                <div class="mt-2">
+                    <i>How an Escort or Massage Centre will communicate with you, including when on Tour.</i>
+                </div>
+            
+                <p class="my-3">By Escorts4U:</p>
+            
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="email">
+                    <label class="custom-control-label" for="email">Email</label>
+                </div>
+            
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="alert-text" checked>
+                    <label class="custom-control-label" for="alert-text">Text</label>
+                </div>
+            
+                <div class="mt-2">
+                    <i>How Escorts4U will communicate with you.</i>
+                </div>
+            </div>
+            
+            
+             <div class="form-group">
+                <h3 class="h3">2FA Authentification</h3>
+                 <div class="form-check">
+                     <input class="form-check-input" type="checkbox" name="auth" id="auth" value="1">
+                     <label class="form-check-label" for="auth">Email</label>
+                 </div>
+                 <div class="form-check">
+                     <input class="form-check-input" name="auth" checked type="checkbox" id="auth" value="2">
+                     <label class="form-check-label" for="auth">Text </label>
+                 </div>
+                 <div class="pt-1"><i>How your authentification code will be sent to you.</i></div>
+             </div>
+
+            {{-- <div class="form-group notification_checkbox_div">
                 <label for="email">Features</label><br>
 
                 <div class="form-check form-check-inline">
@@ -62,7 +116,7 @@
                 <div class="pt-1"><i>Some features are enabled by default unless you disable them.</i></div>
             </div>
 
-            {{-- <div class="form-group">
+             <div class="form-group">
                 <label for="email">Features <!-- (enabled by default) --></label><br>
                 <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="Method_Message" value="viewer_notification" checked>
@@ -81,7 +135,7 @@
                 <label class="form-check-label " for="Method_Email">I’m available as a playmate</label>
                 </div>
                 <div class="pt-1"><i>Some features are enabled by default unless you disable them.</i></div>
-            </div> --}}
+            </div> 
             <div class="form-group">
                 <label for="email">Escort Agency</label><br>
                 <div class="form-check">
@@ -105,11 +159,60 @@
                 <label class="form-check-label" for="Method_Text">Text</label>
                 </div>
                 <div class="pt-1"><i>How Escorts4U will communicate with you.</i></div>
-            </div>
+            </div> --}}
             <input type="submit" value="save" class="btn btn-primary shadow-none" name="submit">
         </div>
         
-    </form>
+        </form>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-12">
+            <h3 class="h3 mb-4">Set Legbox Notifications </h3>
+            <div class="table-responsive">
+                <table id="userNotificationList" class="table table-bordered display" width="100%">
+                    <thead class="bg-first">
+                    <tr>
+                        <th>Member ID</th>
+                        <th>Stage Name / Business name</th>
+                        <th>Notification</th>                       
+                        <th class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <td>E60587</td>
+                        <td>Western Australia</td>
+                        <td>Joanne </td>
+                        
+                        <td class="theme-color text-center bg-white">
+                            <div class="dropdown no-arrow">
+                                <a class="dropdown-toggle" href="#" role="button"
+                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <i
+                                        class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                </a>
+                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                     aria-labelledby="dropdownMenuLink">
+                                     
+                                     <div class="custom-tooltip-container">
+                                         <a class="dropdown-item align-item-custom" href="#"> <i class="fa fa-bell"></i> Enable</a>
+                                        
+                                         <div class="dropdown-divider"></div>
+                                     </div>
+                                     <div class="custom-tooltip-container">
+                                         <a class="dropdown-item align-item-custom" href="#"> <i class="fa fa-bell-slash" aria-hidden="true"></i>
+                                            Disable</a>
+                                     </div>
+                                 </div>
+ 
+                            </div>
+                        </td> 
+                    
+                    </tbody>
+              </table>
+            </div>
+        </div>
     </div>
     <!--middle content end here-->
 </div>
@@ -125,6 +228,24 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+<script>
+   $(document).ready(function() {
+       $('#userNotificationList').DataTable({
+           responsive: true,
+           language: {
+               search: "Search: _INPUT_",
+               searchPlaceholder: "Search by Member ID...",
+               lengthMenu: "Show _MENU_ entries",
+               zeroRecords: "No matching records found",
+               info: "Showing _START_ to _END_ of _TOTAL_ entries",
+               infoEmpty: "No entries available",
+               infoFiltered: "(filtered from _MAX_ total entries)"
+           },
+           paging: true,
+       });
+   });
+ </script>
 
 <script type="text/javascript">
 
