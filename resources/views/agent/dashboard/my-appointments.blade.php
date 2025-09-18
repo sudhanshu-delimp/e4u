@@ -513,7 +513,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" action="#">
+                    <form method="post" action="#" >
                         <div class="row" id="task_form_button">
                             <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
                                 <div class="col-md-12 card shadow-sm rounded-3">
@@ -527,41 +527,30 @@
                                         <!-- Hidden Task ID -->
                                         <input name="task_id" value="31" type="hidden">
 
-
+                                        <div class="form-group">
+                                            <label for="view_advertiser"><b>Advertiser</b><span class="text-danger">*</span></label>
+                                            <input id="view_advertiser" name="view_advertiser" type="text" class="form-control" readonly>
+                                        </div>
 
                                         <!-- Date -->
                                         <div class="form-group">
                                             <label for="view_date"><b>Date</b><span class="text-danger">*</span></label>
-                                            <input id="view_date" name="appointment_date" type="date"
-                                                class="form-control" required="">
+                                            <input id="view_date" name="view_date" type="text"  class="form-control" readonly>
                                         </div>
 
                                         <!-- Time -->
                                         <div class="form-group">
                                             <label for="view_time"><b>Time</b><span class="text-danger">*</span></label>
-                                            <input id="view_time" name="appointment_time" type="time"
-                                                class="form-control" required="">
+                                            <input id="view_time" name="appointment_time" type="text" class="form-control" readonly>
                                         </div>
-
                                         <!-- Advertiser -->
-                                        <div class="form-group">
-                                            <label for="view_advertiser"><b>Advertiser</b><span
-                                                    class="text-danger">*</span></label>
-                                            <select id="view_advertiser" name="advertiser" class="form-control"
-                                                required="">
-                                                <option value="">Select Advertiser</option>
-                                                <!-- Populate dynamically -->
-                                            </select>
-                                        </div>
-
                                         <!-- Address + Google Maps -->
                                         <div class="form-group">
                                             <label for="view_address"><b>Address</b><span
                                                     class="text-danger">*</span></label>
-                                            <input id="view_address" name="address" type="text" class="form-control"
-                                                placeholder="Search or enter address" required="">
-                                            <input type="hidden" id="view_latitude" name="latitude">
-                                            <input type="hidden" id="view_longitude" name="longitude">
+                                            <input id="view_address" name="view_address" type="text" class="form-control" readonly>
+                                            <input type="hidden" id="view_latitude" name="view_latitude">
+                                            <input type="hidden" id="view_longitude" name="view_longitude">
                                             <div id="view_map"
                                                 style="height: 250px; margin-top:10px; border: 1px solid #ccc;display:none">
                                             </div>
@@ -571,33 +560,31 @@
                                         <div class="form-group">
                                             <label for="view_poc"><b>Point of Contact</b><span
                                                     class="text-danger">*</span></label>
-                                            <input id="view_poc" name="poc" type="text" class="form-control"
-                                                placeholder="Enter contact name" required="">
+                                            <input id="view_poc" name="view_poc" type="text" class="form-control"  readonly>
                                         </div>
 
                                         <!-- Mobile -->
                                         <div class="form-group">
                                             <label for="view_mobile"><b>Mobile</b></label>
-                                            <input id="view_mobile" name="mobile" type="tel" class="form-control"
-                                                placeholder="Enter mobile number">
+                                            <input id="view_mobile" type="tel" class="form-control" readonly>
                                         </div>
 
                                         <!-- Appointment Summary -->
                                         <div class="form-group">
                                             <label for="view_summary"><b>Appointment Summary</b></label>
-                                            <textarea id="view_summary" name="summary" class="form-control" rows="3" maxlength="500"
-                                                placeholder="Enter summary (max 500 characters)"></textarea>
+                                            <textarea id="view_summary" class="form-control" rows="3" maxlength="500" readonly></textarea>
                                         </div>
 
                                         <!-- Source -->
                                         <div class="form-group">
                                             <label for="view_source"><b>Source</b><span
                                                     class="text-danger">*</span></label>
-                                            <select id="view_source" name="source" class="form-control" required="">
+                                            <select id="view_source" name="source" class="form-control" readonly>
                                                 <option value="Database" style="color:red;">Database</option>
                                                 <option value="Referral" style="color:orange;">Referral</option>
                                                 <option value="Cold" style="color:brown;">Cold</option>
                                             </select>
+                                            
                                         </div>
                                         <div class="pt-2 pb-3">
                                             <label><b>Importance</b><span class="text-danger">*</span></label><br>
@@ -980,6 +967,7 @@
                 $('#view_mobile').val(a.mobile);
                 $('#view_summary').val(a.summary);
                 $('#view_source').val((a.source || '').charAt(0).toUpperCase()+ (a.source || '').slice(1));
+                $("#view_appointment .task_priority[value="+ (a.importance || 'medium') + "]").prop('checked', true);
             }, function(xhr){ console.log('load view failed', xhr); });
         });
 
