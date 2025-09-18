@@ -230,6 +230,8 @@ Route::get('/notifications-and-features', function()
 	return view('center.my-account.notifications-and-features');
 })->name('centre.notifications-and-features');
 
+Route::post('/update-notifications-and-features',[CenterProfileInformationController ::class, 'updateNotificationsFeatures'] )->name('centre.update.notifications-and-features');
+
 
 Route::get('view-archives',function(){
     return view('center.dashboard.archives.view-archives');

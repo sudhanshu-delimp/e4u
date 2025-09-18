@@ -23,7 +23,7 @@ class TrackLastPageVisitMiddlware
             return $next($request);
         }
         
-        if(auth()->user() != null && auth()->user()->type != 1) {
+        if(auth()->user() != null) {
             $attempt = AttemptLogin::where('user_id', auth()->id())
                 ->latest()
                 ->first();
@@ -71,11 +71,6 @@ class TrackLastPageVisitMiddlware
                     'type' => 1,
                 ]);
             }
-        }
-
-        if(auth()->user() != null && auth()->user()->type == 1) {
-            AttemptLogin::where('user_id', auth()->id())
-                ->delete();
         }
 
         return $next($request);

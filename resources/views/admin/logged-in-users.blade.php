@@ -83,6 +83,8 @@
                             <th scope="col">
                                 Platform
                             </th>
+                            <th scope="col">Idle Preference<br/> Time (Minutes)</th>
+                            {{-- <th scope="col">Idle Time <br/> (Minutes)</th> --}}
                             <th scope="col">Page</th>
                             <th scope="col">Action</th>
                         </tr>
@@ -357,9 +359,18 @@
                         name: 'platform'
                     },
                     {
+                        data: 'idle_preference_time',
+                        name: 'idle_preference_time'
+                    },
+                    // {
+                    //     data: 'idle_time',
+                    //     name: 'idle_time'
+                    // },
+                    {
                         data: 'page',
                         name: 'page'
                     },
+                    
                     {
                         data: 'action',
                         name: 'action',
@@ -454,8 +465,6 @@
                     console.log('Response from server: ', response);
                     $(".my-account-card").slideDown();
 
-                    console.log('Response from server jiten : ', response.userDetails);
-
                     if (response.status == 'success') {
 
                         viewSpecificLoggedUserDetails(response.userDetails);
@@ -523,6 +532,27 @@
                     $(".account_massage_legbox").parent().removeClass('d-none');
 
                     break;
+                // case 1:
+                //     // user
+                //     var myLegBox = userDetails.my_leg_box;
+                //     var escortsMylegbox = userDetails.escorts;
+                //     var massageMylegbox = userDetails.massage_center_leg_box;
+                //     var shortlistedMassage = '4';
+
+                //     let veiwerData = {
+                //         'account_legbox_count': myLegBox.length,
+                //         'account_massage_legbox': massageMylegbox.length,
+                //     }
+
+                //     $("#user_print_data").val(JSON.stringify(veiwerData))
+
+                //     $(".account_legbox_count").text(myLegBox.length);
+                //     $(".account_massage_legbox").text(massageMylegbox.length);
+
+                //     $(".account_legbox_count").parent().removeClass('d-none');
+                //     $(".account_massage_legbox").parent().removeClass('d-none');
+
+                //     break;
                 case 2:
                     // sub-admin
                     break;

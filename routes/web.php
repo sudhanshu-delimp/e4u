@@ -80,6 +80,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/change-password', [UserController::class, 'updatePassword'])->name('user.update.password');
         Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('user.update.password.expiry');
         Route::get('/notifications-features', [UserController::class, 'notificationsFeatures'])->name('user.profile.notifications');
+        Route::post('/update-notifications-features', [UserController::class, 'updateNotificationsFeatures'])->name('user.profile.update.notifications');
         Route::post('upload-avatar/{id}',[UserController::class,'storeMyAvatar'])->name('user.save.avatar');
         Route::post('remove-avatar',[UserController::class,'removeMyAvatar'])->name('user.avatar.remove');
         Route::post('/update-profile/{id}', [UserController::class, 'update'])->name('user.update.profile');

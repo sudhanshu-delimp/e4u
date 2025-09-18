@@ -15,15 +15,18 @@ class GlobalMonitoringLoggedInController extends Controller
     function index()
     {
         # get users who are online but inactive for more than 6 hours
-        $inactiveUsers = LoginAttempt::where('type', 1)
+        $activeUsers = LoginAttempt::where('type', 1)
             ->where('online', 'yes')
-            ->where('updated_at', '<', Carbon::now()->subHours(6))
             ->get();
 
-        if ($inactiveUsers->count() > 0) {
-            foreach ($inactiveUsers as $user) {
-                $user->online = 'no';
-                $user->save();
+        if ($activeUsers->count() > 0) {
+            foreach ($activeUsers as $user) {
+                $minutes = $user->idle_preference_time ?? 30;
+
+                if ($user->updated_at < Carbon::now()->subMinutes($minutes)) {
+                    $user->online = 'no';
+                    $user->save();
+                }
             }
         }
 
@@ -40,8 +43,8 @@ class GlobalMonitoringLoggedInController extends Controller
         $loggedInUsers = LoginAttempt::where('type', 1)
             ->where('online', 'yes')
             ->whereNotNull('user_id')
-            ->with(['user:id,member_id,name,type,status'])
-            ->select('id', 'user_id', 'ip_address', 'device', 'type', 'page') // only columns from login_attempts table
+            ->with(['user:id,member_id,name,type,status,idle_preference_time'])
+            ->select('id', 'user_id', 'ip_address', 'device', 'type', 'page','updated_at') // only columns from login_attempts table
             ->get()
             ->unique('user_id')
             ->values();
@@ -77,6 +80,38 @@ class GlobalMonitoringLoggedInController extends Controller
             ->addColumn('member', fn($row) => $row->user->name ?? '-')
             ->addColumn('ip_adress', fn($row) => $row->ip_address ?? '-')
             ->addColumn('platform', fn($row) => $row->device ?? '-')
+            ->addColumn('idle_preference_time', function($row){
+                if($row->user->type == 1){
+                    return '-';
+                }
+                return $row->user->idle_preference_time ?? '30';
+            })
+            // ->addColumn('idle_time', function ($row) {
+            //     if($row->user->type == 1){
+            //         return '-- : --';
+            //     }
+            //     $idlePref = $row->user->idle_preference_time ?? 30;
+
+            //     // difference in seconds from last activity
+            //     $diffInSeconds = Carbon::now()->diffInSeconds($row->updated_at);
+
+            //     //dd($row->updated_at, Carbon::now(), $diffInSeconds);
+
+            //     if ($diffInSeconds > ($idlePref * 60)) {
+            //         // how long user has been idle after preference time
+            //         $idleSeconds = $diffInSeconds - ($idlePref * 60);
+
+            //         // format into mm:ss
+            //         $minutes = floor($idleSeconds / 60);
+            //         $seconds = $idleSeconds % 60;
+
+                    
+
+            //         return sprintf("%02d:%02d", $minutes, $seconds);
+            //     }
+
+            //     return "00:00"; // not yet idle
+            // })
             ->addColumn('page', fn($row) => $row->page ?? '-')
             ->addColumn('action', function ($row) {
                 $status = $row->user->status == 'Suspended' ? 'Active' : 'Suspend';
@@ -156,10 +191,28 @@ class GlobalMonitoringLoggedInController extends Controller
                         ->with(['loginAttempts','playmates:id','escorts:id','myLegBox:id','massageCenterLegBox:id'])
                         ->first();
                     break;
+                case 1:
+                    # Admin...
+                    $userDetails = User::where('id', $userId)
+                        ->with(['loginAttempts','playmates:id','escorts:id','myLegBox:id','massageCenterLegBox:id'])
+                        ->first();
+                    break;
                 case 2:
                     # code...
+                    $totalAgents = 0;
+                    $toalMassageCenters = 0;
+                    $totalEscort = 0;
+                    $totalListedEscort = 0;
+                    $totalViewers = 0;
+
                     $userDetails = User::where('id', $userId)
-                        ->with('loginAttempts','playmates','escorts','agentEscorts','escortsAgents','myLegBox','massageCenterLegBox','my_agent');
+                        ->with('loginAttempts');
+                        $userDetails->total_agents = $totalAgents;
+                        $userDetails->toal_massage_centers = $toalMassageCenters;
+                        $userDetails->total_escort = $totalEscort;
+                        $userDetails->total_listed_escort = $totalListedEscort;
+                        $userDetails->total_viewers = $totalViewers;
+
                     break;
                 case 3:
                     # escort...

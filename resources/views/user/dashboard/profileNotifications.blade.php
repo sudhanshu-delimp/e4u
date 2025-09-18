@@ -38,7 +38,8 @@
         </div>
     </div>
     <div class="row">        
-        <form class="v-form-design">
+        <form class="v-form-design" action="{{ route('user.profile.update.notifications') }}" method="POST">
+            {{ csrf_field() }}
         <div class="col-md-12">
             <div class="form-group">
                 <h3 class="h3">Alert notifications</h3>
@@ -80,15 +81,15 @@
             <div class="form-group">
                 <h3 class="h3">Idle Time Preference</h3>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="idle_time" id="idle_15" value="15">
+                    <input class="form-check-input" type="radio" name="idle_time" id="idle_15" value="15" {{ (auth()->user() && auth()->user()->idle_preference_time != null && auth()->user()->idle_preference_time == 15) ? 'checked' : '' }}>
                     <label class="form-check-label" for="idle_15">15 minutes</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="idle_time" id="idle_30" value="30" checked>
+                    <input class="form-check-input" type="radio" name="idle_time" id="idle_30" value="30" {{ (auth()->user() && auth()->user()->idle_preference_time != null && auth()->user()->idle_preference_time == 30) ? 'checked' : (auth()->user()->idle_preference_time == null ? 'checked' : '') }}>
                     <label class="form-check-label" for="idle_30">30 minutes</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="idle_time" id="idle_60" value="60">
+                    <input class="form-check-input" type="radio" name="idle_time" id="idle_60" value="60" {{ (auth()->user() && auth()->user()->idle_preference_time != null && auth()->user()->idle_preference_time == 60) ? 'checked' : '' }}>
                     <label class="form-check-label" for="idle_60">60 minutes</label>
                 </div>            
             </div>
@@ -104,77 +105,6 @@
                  </div>
                  <div class="pt-1"><i>How your authentification code will be sent to you.</i></div>
              </div>
-
-            {{-- <div class="form-group notification_checkbox_div">
-                <label for="email">Features</label><br>
-
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="viewer_notification" value="viewer_notification" checked>
-                    <label class="form-check-label">Viewer notifications, forward V-Alerts test</label>
-                </div>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="viewer_ask_question" value="viewer_ask_question" checked>
-                    <label class="form-check-label">Allow Viewers to ask you a question</label>
-                </div>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="viewer_send_text" value="viewer_send_text" checked>
-                    <label class="form-check-label">Allow Viewers to send you a text message</label>
-                </div>
-
-                <div class="form-check">
-                    <input class="form-check-input" name="available_playmate" type="checkbox" value="1" {{ auth()->user()->available_playmate == 1 ? 'checked' : '' }}>
-                    <label class="form-check-label">I’m available as a playmate</label>
-                </div>
-
-                <div class="pt-1"><i>Some features are enabled by default unless you disable them.</i></div>
-            </div>
-
-             <div class="form-group">
-                <label for="email">Features <!-- (enabled by default) --></label><br>
-                <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="Method_Message" value="viewer_notification" checked>
-                <label class="form-check-label" for="Method_Message">Viewer notifications, forward V-Alerts</label>
-                </div>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Method_Text" value="viewer_ask_question" checked>
-                <label class="form-check-label" for="Method_Text">Allow Viewers to ask you a question</label>
-                </div>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Method_Email" value="viewer_send_text" checked>
-                <label class="form-check-label" for="Method_Email">Allow Viewers to send you a text message</label>
-                </div>
-                <div class="form-check">
-                <input class="form-check-input akhplaymate" name="playmate" type="checkbox" id="Method_Email" value="1" {{auth()->user()->available_playmate == 1 ? 'checked' : ''}} >
-                <label class="form-check-label " for="Method_Email">I’m available as a playmate</label>
-                </div>
-                <div class="pt-1"><i>Some features are enabled by default unless you disable them.</i></div>
-            </div> 
-            <div class="form-group">
-                <label for="email">Escort Agency</label><br>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Method_Message" value="option1">
-                <label class="form-check-label" for="Method_Message">Receive communications</label>
-                </div>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
-                <label class="form-check-label" for="Method_Text">Send communications</label>
-                </div>
-                <div class="pt-1"><i>Enable communications between you and your Escort Agency (if applicable).</i></div>
-            </div>
-            <div class="form-group">
-                <label for="email">Alert notifications</label><br>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Method_Message" value="option1">
-                <label class="form-check-label" for="Method_Message">Email (A-Alert)</label>
-                </div>
-                <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="Method_Text" value="option1">
-                <label class="form-check-label" for="Method_Text">Text</label>
-                </div>
-                <div class="pt-1"><i>How Escorts4U will communicate with you.</i></div>
-            </div> --}}
             <input type="submit" value="save" class="btn btn-primary shadow-none" name="submit">
         </div>
         
