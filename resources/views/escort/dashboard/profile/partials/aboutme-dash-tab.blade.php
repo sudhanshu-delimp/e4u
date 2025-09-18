@@ -43,17 +43,6 @@
         cursor: pointer;
     }
 
-    .ui-draggable-dragging {
-        width: 82px !important;
-        height: 82px !important;
-        opacity: 0.8;
-    }
-
-    .draggable {
-        filter: alpha(opacity=60);
-        opacity: 0.6;
-    }
-
     .dropped {
         position: static !important;
     }
@@ -146,23 +135,6 @@
         color: #fff;
     }
 </style>
-
-@php
-    /*$positionImages = [];
-    foreach ($defaultImages as $image) {
-        $positionImages[$image['position']] = $image;
-    }*/
-    /*$mediaLinks = $media->pluck('path', 'id');
-    $imagesToDisplay = [];
-    $positions = [1,2,3,4,5,6,7,9];
-    foreach($positions as $position) {
-        if(isset($mediaLinks[$position]) && $mediaLinks[$position]) {
-            $imagesToDisplay[$position] = $mediaLinks[$position];
-        } else {
-            $imagesToDisplay[$position] = $positionImages[$position]->path;
-        }
-    }*/
-@endphp
 <div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
     <div class="row pl-3">
         <div class="col-lg-3">
@@ -660,7 +632,7 @@
                 {{-- video section start --}}
                 <div class="col-md-12 mb-3">    
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#upload_video_modal">Add Videos</button>
+                        <button id="add_video_button" type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#upload_video_modal">Add Videos</button>
                     </div>
                 </div>
             <div class="col-md-12 py-3">
@@ -671,12 +643,12 @@
                         </div>
                         <div class="col-md-2 my-auto">
                             <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: {{ round(100 * $media->count()/6) }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                <div id="js_profile_video_gallery_progressbar" class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                         <div class="col-md-2 my-auto">
                             <div class="d-flex gap-10">
-                                <p class="m-0 text-white">{{ $media->count()}}/6</p>
+                                <p id="js_profile_video_gallery_count" class="m-0 text-white"></p>
                                 <img src="{{ asset('assets/app/img/Vector-2.png')}}" style="height: 21px;">
                             </div>
                         </div>
@@ -684,34 +656,8 @@
                 </div>
                 <div class="archive-photo-sec">
                     <div class="row blog">
-                        <div class="col-md-12">
-                            <div id="blogCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                                
-                                <!-- Carousel items -->
-                                <div class="carousel-inner">
-                                    @foreach($media->chunk(3)  as $keyId => $medias)
-                                    <div class="carousel-item custom-padding" id="cItem_{{$loop->index}}" data-id="{{$loop->index}}">
-                                        <div class="row" id="dvSource">
-    
-                                            @foreach($medias as $key => $video)
-                                                <div class="col-md-4" id="dm_{{$video->id}}">
-                                                    <a href="#" class="remove-video-icon">
-    
-                                                        <video style="z-index: 1" controls="" data-id="{{$video->id}}" data-position="{{$video->position ? $video->position : ''}}" id="videoId_{{$video->id}}" src="{{ asset($video->path)}}" >
-                                                            <source src="{{ asset($video->path)}}" type="video/mp4" >
-                                                        </video>
-                                                        <i class="fa fa-trash deleteimg" data-id="{{$video->id}}"></i>
-                                                    </a>
-                                                </div>
-                                            @endforeach
-    
-                                        </div>
-    
-                                    </div>
-                                    @endforeach
-                                </div>
-                                <!--.carousel-inner-->
-                            </div>
+                        <div id="js_profile_video_gallery" class="col-md-12">
+                           
                             <!--.Carousel-->
                         </div>
                     </div>
@@ -720,30 +666,37 @@
             
             <div class="col-md-12 my-4">
                 <div class="upload-photo-sec">
-                    <div class="video-header">
-                        <h3 class="media-head">Default Video</h3>
+                    <div class="d-sm-flex align-items-center justify-content-between p-3 custom-img-filter-header">
+                        <h4 class="text-white">Default Video</h4>
                     </div>
-                    <div class="d-flex justify-content-start gap-10 mt-3">
-                        <label class="newbtn dvDest" id="dvDest">
-                            <video class="videoUp" id="img1" controls=""  controls poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                <source id="akhVideo"  type="video/mp4" >
-                            </video>
-                            <input  type="hidden"  id="pos_1" name="position[1]" value="">
-                        </label>
+                    
+                    <div class="row mt-3">
+                        <div class="col-lg-4">
+                            <label class="newbtn videoDroppable w-100" id="videoDroppable_1">
+                                <video class="videoUp" id="img1" controls="" src="" controls poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                    <source id="" src="" type="video/mp4" >
+                                </video>
+                                <input  type="hidden"  id="pos_1" name="video_position[1]" value="">
+                            </label>
+                        </div>
         
-                        <label class="newbtn dvDest" id="dvDest">
-                            <video class="videoUp" id="img2" controls=""  poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                <source id="akhVideo"  type="video/mp4" >
-                            </video>
-                            <input  type="hidden"  id="pos_2" name="position[2]" value="">
-                        </label>
+                        <div class="col-lg-4">
+                            <label class="newbtn videoDroppable w-100" id="videoDroppable_2">
+                                <video class="videoUp" id="img2" controls="" src="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                    <source id="" src="" type="video/mp4" >
+                                </video>
+                                <input  type="hidden"  id="pos_2" name="video_position[2]" value="">
+                            </label>
+                        </div>
         
-                        <label class="newbtn dvDest" id="dvDest">
-                            <video class="videoUp" id="img3" controls=""  poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                <source id="akhVideo"  type="video/mp4" >
+                       <div class="col-lg-4">
+                        <label class="newbtn videoDroppable w-100" id="videoDroppable_3">
+                            <video class="videoUp" id="img3" controls="" src="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                <source id="" src="" type="video/mp4" >
                             </video>
-                            <input  type="hidden"  id="pos_3" name="position[3]" value="">
+                            <input  type="hidden"  id="pos_3" name="video_position[3]" value="">
                         </label>
+                       </div>
                     </div>
                 </div>
             </div>
@@ -1959,84 +1912,6 @@
     </div>
 </div>
 
-
-{{-- upload video modal --}}
-
-
-<div class="modal fade upload-modal" id="upload_video_modal" tabindex="-1" role="dialog" aria-labelledby="upload_video_modalCenterTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <form id="mulitiVideos" method="POST" action="{{ route('escort.upload.videos.gallery')}}" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-content border-0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="upload_video_modalLongTitle">
-                            <img src="/assets/dashboard/img/upload-videos.png" class="custompopicon" alt="cross"> Upload Videos</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="video-sec-popup text-center"  id="image_preview">
-                               
-                                <div class="col-md-6 mx-auto" id="img_for_showing">
-                                    <label class="newbtn">
-
-                                    <img class="img-fluid rounded" id="videonp" src="{{ asset('assets/dashboard/img/add-video.png') }}">
-                                    <input name="videos[]" id="upload_videos" class="pis" onchange="preview_videos(this);" type="file" accept="video/*" multiple>
-
-                                    </label>
-                                    <video class="videoUp" id="blahx" controls="" style="display:none">
-
-
-                                    </video>
-                                    
-                                </div>
-                                <p class="mb-0 mt-2 font-weight-500" style="color:#0c223d;">You can upload only one video at a time.</p>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-center">
-                        
-                        <button type="submit" class="btn-success-modal">Upload</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-</div>
-<div class="modal" id="videoModel" style="display: none">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content custome_modal_max_width">
-            <div class="modal-header main_bg_color border-0">
-                <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/delete-video.png')}}" class="custompopicon"> Delete Video</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">
-                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
-                </span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h1 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
-                    <span id="img_comman_str"></span>
-                    <span class="img_comman_msg"></span>
-                </h1>
-            </div>
-            <div class="modal-footer" style="justify-content: center;">
-                <button type="submit" class="btn-cancel-modal d_img" data-dismiss="modal" id="close">Cancel</button>
-                <button type="submit" class="btn-success-modal d_img" id="dImg">Ok</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- end --}}
-
-
-
 @push('script')
 
     <script>
@@ -2046,6 +1921,17 @@
                 helper: 'clone',
                 appendTo: ".upload-banner",
                 refreshPositions: false,
+                start: function (event, ui) {
+                ui.helper.css({
+                    width: "82px",   // shrink preview
+                    height: "auto",
+                    "z-index": 9999
+                });
+                ui.helper.find("img").css({
+                    width: "100%",
+                    height: "auto"
+                });
+                },
                 drag: function(event, ui) {
 
                 },

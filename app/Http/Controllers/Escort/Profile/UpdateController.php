@@ -340,19 +340,6 @@ class UpdateController extends AppController
             $createOrUpdate = 'U';
         }
 
-        /*if(!empty($id) && $request->membership != 4) {
-
-            $escort_data = $this->escort->find($id);
-            if(Carbon::parse($escort_data->start_date)->format('Y-m-d') != $request->start_date || Carbon::parse($escort_data->end_date)->format('Y-m-d') != $request->end_date || $escort_data->membership != $request->membership) {
-                $my_data['change_amount'] = true;
-                $my_data['start_date'] = $request->start_date;
-                $my_data['end_date'] = $request->end_date;
-                $my_data['membership'] = $request->membership;
-                $my_data['enabled'] = 1;
-                //return redirect()->route('escort.poli.paymentUrl', [$id]);
-            }
-        }*/
-
         $galleryStorageFull = false;
         $escortDefault = $this->escort->findDefault($user->id, 1);
 
@@ -603,7 +590,7 @@ class UpdateController extends AppController
             //********FILE UPLOAD AREA CLOSE**********//
 
 
-            $escortImages = EscortGallery::where('escort_id', $id)->get();
+            $escortImages = EscortGallery::where(['escort_id'=>$id,'type'=>'0'])->get();
             foreach ($escortImages as $escortImage) {
                 if (isset($media_arr[$escortImage->position])) {
                     $escortImage->escort_media_id = $media_arr[$escortImage->position]['escort_media_id'];
@@ -620,6 +607,37 @@ class UpdateController extends AppController
                 $gallery->created_at = date('Y-m-d H:i:s');
                 $gallery->save();
             }
+            /**
+             *  Store Video Gallery
+             */
+            $escortVideos = EscortGallery::where(['escort_id'=>$id,'type'=>'1'])->get();
+            $videoGalleryArray = $request->video_position;
+            if($escortVideos->count() > 0){
+                foreach($escortVideos as $key=>$video){
+                    if(isset($videoGalleryArray[$video->position])){
+                        $video->escort_media_id = $videoGalleryArray[$video->position];
+                        $video->type = '1';
+                        $video->updated_at = date('Y-m-d H:i:s');
+                        $video->save();
+                        unset($videoGalleryArray[$video->position]);
+                    }
+                }
+            }
+
+            if(count($videoGalleryArray) > 0){
+                foreach($videoGalleryArray as $key=>$video){
+                    $gallery = new EscortGallery;
+                    $gallery->escort_id = $id;
+                    $gallery->escort_media_id = $video;
+                    $gallery->position = $key;
+                    $gallery->type = '1';
+                    $gallery->created_at = date('Y-m-d H:i:s');
+                    $gallery->save();
+                }
+            }
+
+
+
             if ($errors) {
                 return redirect()->route('escort.update.profile', $id)->with('error', $errors);
             } else {
@@ -711,13 +729,42 @@ class UpdateController extends AppController
             }
         }
 
-        $escortImages = EscortGallery::where('escort_id', $id)->get();
+        $escortImages = EscortGallery::where(['escort_id'=>$id,'type'=>'0'])->get();
         foreach ($escortImages as $escortImage) {
             if (isset($media_arr[$escortImage->position])) {
                 $escortImage->escort_media_id = $media_arr[$escortImage->position]['escort_media_id'];
                 $escortImage->updated_at = date('Y-m-d H:i:s');
                 $escortImage->save();
                 unset($media_arr[$escortImage->position]);
+            }
+        }
+
+        /**
+         *  Store Video Gallery
+         */
+        $escortVideos = EscortGallery::where(['escort_id'=>$id,'type'=>'1'])->get();
+        $videoGalleryArray = $request->video_position;
+        if($escortVideos->count() > 0){
+            foreach($escortVideos as $key=>$video){
+                if(isset($videoGalleryArray[$video->position])){
+                    $video->escort_media_id = $videoGalleryArray[$video->position];
+                    $video->type = '1';
+                    $video->updated_at = date('Y-m-d H:i:s');
+                    $video->save();
+                    unset($videoGalleryArray[$video->position]);
+                }
+            }
+        }
+
+        if(count($videoGalleryArray) > 0){
+            foreach($videoGalleryArray as $key=>$video){
+                $gallery = new EscortGallery;
+                $gallery->escort_id = $id;
+                $gallery->escort_media_id = $video;
+                $gallery->position = $key;
+                $gallery->type = '1';
+                $gallery->created_at = date('Y-m-d H:i:s');
+                $gallery->save();
             }
         }
 
