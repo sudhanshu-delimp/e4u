@@ -112,7 +112,8 @@
                                         <div class="form-check d-flex align-items-center img_modal text-center">
                                             <input class="form-check-input mr-2" type="checkbox" value="" id="flexCheckDefault">
                                             <label class="form-check-label" for="flexCheckDefault"></label>
-                                            <img src="https://e4udev2.perth-cake1.powerwebhosting.com.au/assets/app/img/condom.png" data-toggle="modal" data-target="#imageModal">
+                                            <img src="{{ asset('assets/app/img/condom.png')}}" data-toggle="modal" data-target="#imageModal">
+                                            <span class="tooltip-desc">Click to enlarge.</span>
                                         </div>
         
                                     </td>

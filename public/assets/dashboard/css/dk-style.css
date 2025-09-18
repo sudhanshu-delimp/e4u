@@ -9415,8 +9415,8 @@ border-top: 5px solid var(--peach);
     .tooltip-desc {
         position: absolute;
         top: -43px;
-        left: 0px;
-        opacity: 0;
+        left: 50%;
+        transform: translate(-50%, -10%);
         background: var(--peach);
         font-size: 10px;
         padding: 10px;
