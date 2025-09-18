@@ -43,63 +43,71 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group notification_checkbox_div">
-                                <label for="email">Features</label><br>
+                                <h3 class="h3">Features</h3>
 
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="notification_feature1" name="notification_feature[]" value="viewer_notification" @if (!empty(auth()->user()->notification_features)) {{ in_array('viewer_notification', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
-                                    <label class="form-check-label" for="notification_feature1">Viewer notifications, forward V-Alerts</label>
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" type="checkbox" id="notification_feature1" name="notification_feature[]" value="viewer_notification"
+                                        @if (!empty(auth()->user()->notification_features)) {{ in_array('viewer_notification', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
+                                    <label class="custom-control-label" for="notification_feature1">Viewer notifications, forward V-Alerts</label>
                                 </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="notification_feature2" name="notification_feature[]" value="viewer_ask_question" @if (!empty(auth()->user()->notification_features)) {{ in_array('viewer_ask_question', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
-                                    <label class="form-check-label" for="notification_feature2">Allow Viewers to ask you a question</label>
+                                
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" type="checkbox" id="notification_feature2" name="notification_feature[]" value="viewer_ask_question"
+                                        @if (!empty(auth()->user()->notification_features)) {{ in_array('viewer_ask_question', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
+                                    <label class="custom-control-label" for="notification_feature2">Allow Viewers to ask you a question</label>
                                 </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input" id="notification_feature3" type="checkbox" name="notification_feature[]" value="viewer_send_text" @if (!empty(auth()->user()->notification_features)) {{ in_array('viewer_send_text', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
-                                    <label class="form-check-label" for="notification_feature3">Allow Viewers to send you a text message</label>
+                                
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" id="notification_feature3" type="checkbox" name="notification_feature[]" value="viewer_send_text"
+                                        @if (!empty(auth()->user()->notification_features)) {{ in_array('viewer_send_text', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
+                                    <label class="custom-control-label" for="notification_feature3">Allow Viewers to send you a text message</label>
                                 </div>
-
-                                <div class="form-check">
-                                    <input class="form-check-input" id="notification_feature4" name="notification_feature[]" value="available_playmate" type="checkbox" @if (!empty(auth()->user()->notification_features)) {{ in_array('available_playmate', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
-                                    <label class="form-check-label" for="notification_feature4">I’m available as a playmate</label>
+                                
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" id="notification_feature4" name="notification_feature[]" value="available_playmate" type="checkbox"
+                                        @if (!empty(auth()->user()->notification_features)) {{ in_array('available_playmate', auth()->user()->notification_features) ? 'checked' : '' }} @endif>
+                                    <label class="custom-control-label" for="notification_feature4">I’m available as a playmate</label>
                                 </div>
+                                
 
-                                <div class="pt-1"><i>Some features are enabled by default unless you disable them.</i></div>
+                                <div class="mt-2"><i>Some features are enabled by default unless you disable them.</i></div>
                             </div>
                             <div class="form-group">
-                                <label for="email">Agent</label><br>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="agent_communications1"
+                                <h3 class="h3">Agent</h3>
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" type="checkbox" id="agent_communications1"
                                         value="1" name="agent_communications[]"
-                                        @if (!empty(auth()->user()->agent_communications)) {{ in_array(1, auth()->user()->agent_communications) ? 'checked' : null }} @endif>
-                                    <label class="form-check-label" for="agent_communications1">Receive
-                                        communications</label>
+                                        @if (!empty(auth()->user()->agent_communications)) {{ in_array(1, auth()->user()->agent_communications) ? 'checked' : '' }} @endif>
+                                    <label class="custom-control-label" for="agent_communications1">Receive communications</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="agent_communications2"
+                                
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" type="checkbox" id="agent_communications2"
                                         value="2" name="agent_communications[]"
-                                        @if (!empty(auth()->user()->agent_communications)) {{ in_array(2, auth()->user()->agent_communications) ? 'checked' : null }} @endif>
-                                    <label class="form-check-label" for="agent_communications2">Send communications</label>
+                                        @if (!empty(auth()->user()->agent_communications)) {{ in_array(2, auth()->user()->agent_communications) ? 'checked' : '' }} @endif>
+                                    <label class="custom-control-label" for="agent_communications2">Send communications</label>
                                 </div>
-                                <div class="pt-1"><i>Enable communications between you and your Escort Agency (if
+                                
+                                <div class="mt-2"><i>Enable communications between you and your Escort Agency (if
                                         applicable).</i></div>
                             </div>
                             <div class="form-group">
-                                <label for="email">Alert notifications</label><br>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="alert_notifications[]"
+                                <h3 class="h3">Alert notifications</h3>
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" type="checkbox" name="alert_notifications[]"
                                         id="alert_notifications1" value="1"
-                                        @if (!empty(auth()->user()->alert_notifications)) {{ in_array(1, auth()->user()->alert_notifications) ? 'checked' : null }} @endif>
-                                    <label class="form-check-label" for="alert_notifications1">Email (A-Alert)</label>
+                                        @if (!empty(auth()->user()->alert_notifications)) {{ in_array(1, auth()->user()->alert_notifications) ? 'checked' : '' }} @endif>
+                                    <label class="custom-control-label" for="alert_notifications1">Email (A-Alert)</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" name="alert_notifications[]" type="checkbox"
+                                
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" type="checkbox" name="alert_notifications[]"
                                         id="alert_notifications2" value="2"
-                                        @if (!empty(auth()->user()->alert_notifications)) {{ in_array(2, auth()->user()->alert_notifications) ? 'checked' : null }} @endif>
-                                    <label class="form-check-label" for="alert_notifications2">Text</label>
+                                        @if (!empty(auth()->user()->alert_notifications)) {{ in_array(2, auth()->user()->alert_notifications) ? 'checked' : '' }} @endif>
+                                    <label class="custom-control-label" for="alert_notifications2">Text</label>
                                 </div>
-                                <div class="pt-1"><i>How Escorts4U will communicate with you.</i></div>
+                                
+                                <div class="mt-2"><i>How Escorts4U will communicate with you.</i></div>
                             </div>
                         </div>
                     </div>

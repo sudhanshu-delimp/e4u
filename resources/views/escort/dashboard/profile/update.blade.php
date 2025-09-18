@@ -250,8 +250,10 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
       </div>
    </div>
 </div>
-@include('escort.dashboard.modal.upload_gallery_image');
-@include('escort.dashboard.modal.remove_gallary_image');
+@include('escort.dashboard.modal.upload_gallery_image')
+@include('escort.dashboard.modal.remove_gallary_image')
+@include('escort.dashboard.modal.upload_gallery_video')
+@include('escort.dashboard.modal.remove_gallary_video')
 @if (Session::has('message'))
 <div class="alert alert-info">{{ Session::get('message') }}</div>
 @endif

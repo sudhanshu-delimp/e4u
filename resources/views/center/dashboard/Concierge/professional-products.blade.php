@@ -13,7 +13,7 @@
 </style>
 @endsection
 @section('content')
-<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5 add-punterbox-report">
     <div class="row">                                   
         <div class="custom-heading-wrapper col-lg-12">
             <h1 class="h1">Products</h1>
@@ -65,13 +65,13 @@
             <div class="row mx-1">
                 <ul class="list-unstyled multi-steps">
                     <li id="pro-step-1" class="is-active">Order
-                        <div class="progress-bar progress-bar--success">
-                            <div class="progress-bar__bar" id="bar1"></div>
+                        <div class="pro-status-bar pro-status-bar--success">
+                            <div class="pro-status-bar__bar" id="bar1"></div>
                         </div>
                     </li>
                     <li id="pro-step-2">Shipping
-                        <div class="progress-bar progress-bar--success">
-                            <div class="progress-bar__bar" id="bar2"></div>
+                        <div class="pro-status-bar pro-status-bar--success">
+                            <div class="pro-status-bar__bar" id="bar2"></div>
                         </div>
                     </li>
                     <li id="pro-step-3">Payment</li>
@@ -246,7 +246,7 @@
                             <p><strong>Need a hand?</strong></p>
                             <p class="small mb-0">
                                 If you need any help with your order you can contact your
-                                Support Agent is appointed, or contact our support centre on <strong>0403 614 211</strong>.
+                                Support Agent if appointed, or contact our support centre on <strong>0403 614 211</strong>.
                             </p>
                         </div>
 
@@ -259,7 +259,7 @@
                     </div>
                 </div>
             </div>
-            <div class="text-right">
+            <div class="text-right my-3">
                 {{-- <button class="btn-common mt-3" onclick="goToStep(1)"> <i class="fas fa-arrow-left text-white pr-2"></i>
                     Back</button> --}}
                 {{-- <button class="btn-common mt-3" onclick="goToStep(3)"></button> --}}

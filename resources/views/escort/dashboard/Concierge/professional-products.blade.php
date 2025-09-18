@@ -66,13 +66,13 @@
             <div class="row mx-1">
                 <ul class="list-unstyled multi-steps">
                     <li id="pro-step-1" class="is-active">Order
-                        <div class="progress-bar progress-bar--success">
-                            <div class="progress-bar__bar" id="bar1"></div>
+                        <div class="pro-status-bar pro-status-bar--success">
+                            <div class="pro-status-bar__bar" id="bar1"></div>
                         </div>
                     </li>
                     <li id="pro-step-2">Shipping
-                        <div class="progress-bar progress-bar--success">
-                            <div class="progress-bar__bar" id="bar2"></div>
+                        <div class="pro-status-bar pro-status-bar--success">
+                            <div class="pro-status-bar__bar" id="bar2"></div>
                         </div>
                     </li>
                     <li id="pro-step-3">Payment</li>
@@ -247,7 +247,7 @@
                             <p><strong>Need a hand?</strong></p>
                             <p class="small mb-0">
                                 If you need any help with your order you can contact your
-                                Support Agent is appointed, or contact our support centre on <strong>0403 614 211</strong>.
+                                Support Agent if appointed, or contact our support centre on <strong>0403 614 211</strong>.
                             </p>
                         </div>
 
@@ -348,19 +348,19 @@
             if (step === 'step1') {
                 step = 'step2';
                 step1.classList.remove("is-active");
-                $(step1).find('.progress-bar__bar').css('transform', 'translateX(100%)');
-                $(step1).find('.progress-bar__bar').css('-webkit-transform', 'translateX(100%)');
+                $(step1).find('.pro-status-bar__bar').css('transform', 'translateX(100%)');
+                $(step1).find('.pro-status-bar__bar').css('-webkit-transform', 'translateX(100%)');
                 step2.classList.add("is-active");
             } else if (step === 'step2') {
                 step = 'step3';
                 step2.classList.remove("is-active");
-                $(step2).find('.progress-bar__bar').css('transform', 'translateX(100%)');
-                $(step2).find('.progress-bar__bar').css('-webkit-transform', 'translateX(100%)');
+                $(step2).find('.pro-status-bar__bar').css('transform', 'translateX(100%)');
+                $(step2).find('.pro-status-bar__bar').css('-webkit-transform', 'translateX(100%)');
                 step3.classList.add("is-active");
             } else if (step === 'step3') {
                 step = 'step4';
                 step3.classList.remove("is-active");
-                $(step3).find('.progress-bar__bar').css('-webkit-transform', 'translateX(100%)');
+                $(step3).find('.pro-status-bar__bar').css('-webkit-transform', 'translateX(100%)');
                 step4.classList.add("is-active");
             } else if (step === 'step4') {
                 step = 'complete';

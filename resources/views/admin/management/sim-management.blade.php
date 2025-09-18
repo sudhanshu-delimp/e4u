@@ -18,40 +18,46 @@
          <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
             <div class="row">
                <div class="custom-heading-wrapper col-md-12">
-                  <h1 class="h1">Manage Advertiser Email Accounts</h1>
+                  <h1 class="h1">SIM Management</h1>
                      <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
                </div>
                <div class="col-md-12 mb-5 collapse" id="notes">
                   <div class="card">
-                        <div class="card-body">
-                           <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                           <ol class="level-1">
-                              <li>Add new Email accounts to the database.</li>
-                              <li>Suspend or renew the term of an Advertiser's Email account.</li>
-                              <li>When actioning an Email, attend to the following:
-                                 <ol class="level-2">
-                                 <li>For a New service:
-                                    <ol class="level-3">
-                                       <li>determine the Email account according to the protocol and enter into the
-                                          record.</li>
-                                       <li>complete the transaction by debiting the Advertiser's Card.</li>
-                                    </ol>
-                                 </li>
-                                 <li class="highlight">When Suspending or Renewing a service update the online portal, if required,
-                                    to activate the Email account (MX file).</li>
-                                 </ol>
+                     <div class="card-body">
+                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                        <ol class="level-1">
+                          <li>Add new SIMs to the database.</li>
+                          <li>Suspend or renew the term of an Advertiser’s SIM.</li>
+                          <li>When actioning a SIM, attend to the following:
+                            <ol class="level-2">
+                              <li>For a New service:
+                                <ol class="level-3">
+                                  <li>acquire the Mobile number from the service provider and update the
+                                    record.</li>
+                                  <li>complete the transaction by debiting the Advertiser’s Card.</li>
+                                  <li>dispatch the SIM via Australia Post, and update the record with the
+                                    tracking number (Operations Console - Admin).</li>
+                                </ol>
                               </li>
-                           </ol>  
-                        </div>
+                              <li class="highlight">When Suspending or Renewing a service update the online portal with the
+                                 service provider (Telco).</li>
+                              <li class="highlight">When replacing a SIM, follow (a) above.</li>
+                            </ol>
+                          </li>
+                        </ol>
+                     </div>
                   </div>
                </div>
             </div>
                 <div class="row my-3">
-                    <div class="col-sm-12 d-flex justify-content-end">
-                        <div class="total_listing">
-                            <div><span>Active Email Accounts : </span></div>
-                            <div><span>2</span></div>
-                        </div>
+                    <div class="col-sm-12 d-flex justify-content-end gap-20">
+                     <div class="total_listing">
+                        <div><span>Available SIMs : </span></div>
+                        <div><span>5</span></div>
+                    </div><div class="total_listing">
+                        <div><span>Active SIMs : </span></div>
+                        <div><span>2</span></div>
+                    </div>
                      </div>
 
                      <div class="col-sm-12 d-flex justify-content-end mt-3">
@@ -64,11 +70,11 @@
                         <table class="table" id="EmailManageTable">
                            <thead class="table-bg">
                               <tr>
-                                 <th scope="col">Server
+                                 <th scope="col">Carrier
                                  </th>
-                                 <th scope="col">Email Account</th>
+                                 <th scope="col">USIM</th>
                                  <th scope="col">
-                                   Notification Address
+                                   Number
                                  </th>
                                  <th scope="col">Activation
                                    Date</th>
@@ -80,32 +86,32 @@
                            </thead>
                            <tbody class="table-content">
                               <tr class="row-color">
-                                 <td class="theme-color">ax.email</td>
-                                 <td class="theme-color"><a href="maleto:julie@e4u.com.au">julie@e4u.com.au</a></td>
-                                 <td class="theme-color"><a href="maleto:julie.1996@gmail.com">julie.1996@gmail.com</a></td>
-                                 <td class="theme-color">11-06-2025 </td>
-                                 <td class="theme-color">E60125</td>
-                                 <td class="theme-color">12 months</td>
-                                 <td class="theme-color">Active</td>
+                                 <td class="theme-color">Optus</td>
+                                 <td class="theme-color">57 23406 36429 2</td>
+                                 <td class="theme-color">-</td>
+                                 <td class="theme-color">-</td>
+                                 <td class="theme-color">-</td>
+                                 <td class="theme-color">-</td>
+                                 <td class="theme-color">Available</td>
                                  <td class="theme-color">
                                     <div class="dropdown no-arrow">
                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Activate   <i class="fa fa-fw fa-check"></i></a>
-                                           <div class="dropdown-divider"></div>
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" data-toggle="modal" data-target="#editEmailModal" >Edit <i class="fa fa-fw fa-pen"></i></a>
-                                           <div class="dropdown-divider"></div>
-                                           
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" data-target="#renewEmailModal" data-toggle="modal" >Renew  <i class="fa fa-sync-alt"></i></a>
-                                           <div class="dropdown-divider"></div>
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Suspend  <i class="fa fa-fw fa-ban" ></i></a>
-                                           <div class="dropdown-divider"></div>
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Deactivate   <i class="fa fa-fw fa-times" ></i></a>
-                                           
-                                           
-                                        </div>
+                                          <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Activate   <i class="fa fa-fw fa-check"></i></a>
+                                          <div class="dropdown-divider"></div>
+                                          <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" data-toggle="modal" data-target="#editSIMModal" >Edit <i class="fa fa-fw fa-pen"></i></a>
+                                          <div class="dropdown-divider"></div>
+                                          
+                                          <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" data-target="#renewSIMModal" data-toggle="modal" >Renew  <i class="fa fa-sync-alt"></i></a>
+                                          <div class="dropdown-divider"></div>
+                                          <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Suspend  <i class="fa fa-fw fa-ban" ></i></a>
+                                          <div class="dropdown-divider"></div>
+                                          <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Deactivate   <i class="fa fa-fw fa-times" ></i></a>
+                                          
+                                          
+                                       </div>
                                     </div>
                                  </td>
                               </tr>
@@ -127,7 +133,7 @@
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="createNotification">  <img src="{{ asset('assets/dashboard/img/add-email.png') }}" style="width:25px"> Add New Record</h5>
+            <h5 class="modal-title" id="createNotification">  <img src="{{ asset('assets/dashboard/img/add-sim.png') }}" style="width:25px"> Add New Record</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
             </button>
@@ -139,17 +145,12 @@
                   
                   <!-- Server Field -->
                   <div class="col-12 mb-3">
-                    <input type="text" class="form-control rounded-0 fw-bold" placeholder="Server" name="server" required>
+                    <input type="text" class="form-control rounded-0 fw-bold" placeholder="Carrier" name="carrier" required>
                   </div>
               
                   <!-- Email Account Field -->
                   <div class="col-12 mb-3">
-                    <input type="email" class="form-control rounded-0" placeholder="Email Account" name="email_account" required>
-                  </div>
-              
-                  <!-- Notification Address Field -->
-                  <div class="col-12 mb-3">
-                    <input type="email" class="form-control rounded-0" placeholder="Notification Address" name="notification_address" required>
+                    <input type="email" class="form-control rounded-0" placeholder="USIM" name="usim" required>
                   </div>
               
                 </div>
@@ -189,14 +190,16 @@
     </div>
  </div>
  
+<!-- End of Page Wrapper -->
+
 <!-- Edit SIM Record Modal -->
-<div class="modal fade upload-modal" id="editEmailModal" tabindex="-1" role="dialog" aria-labelledby="editEmailModalLabel" aria-hidden="true">
+<div class="modal fade upload-modal" id="editSIMModal" tabindex="-1" role="dialog" aria-labelledby="editSIMModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
        <div class="modal-content basic-modal">
           <div class="modal-header">
-             <h5 class="modal-title" id="editEmailModalLabel">
-                <img src="{{ asset('assets/dashboard/img/add-email.png') }}" style="width:25px">
-                Edit Email Record
+             <h5 class="modal-title" id="editSIMModalLabel">
+                <img src="{{ asset('assets/dashboard/img/add-sim.png') }}" style="width:25px">
+                Edit SIM Record
              </h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">
@@ -207,15 +210,14 @@
           <form>
              <div class="modal-body pb-0">
                 <div class="row">
-                   <!-- Email Account Field -->
+                   <!-- USIM Field -->
                    <div class="col-12 mb-3">
-                    <input type="email" class="form-control rounded-0" placeholder="Email Account" name="email_account" required>
-                  </div>
-              
-                  <!-- Notification Address Field -->
-                  <div class="col-12 mb-3">
-                    <input type="email" class="form-control rounded-0" placeholder="Notification Address" name="notification_address" required>
-                  </div>
+                      <input type="text" class="form-control rounded-0 fw-bold" placeholder="USIM" name="usim" required>
+                   </div>
+                   <!-- Mobile Number Field -->
+                   <div class="col-12 mb-3">
+                      <input type="text" class="form-control rounded-0" placeholder="Mobile Number" name="mobile_number" required>
+                   </div>
                 </div>
              </div>
              <div class="modal-footer pr-3">
@@ -228,13 +230,13 @@
  
 
 <!-- Renew SIM Service Modal -->
-<div class="modal fade upload-modal" id="renewEmailModal" tabindex="-1" role="dialog" aria-labelledby="renewEmailModalLabel" aria-hidden="true">
+<div class="modal fade upload-modal" id="renewSIMModal" tabindex="-1" role="dialog" aria-labelledby="renewSIMModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
        <div class="modal-content basic-modal">
           <div class="modal-header">
-             <h5 class="modal-title" id="renewEmailModalLabel">
-                <img src="{{ asset('assets/dashboard/img/add-email.png') }}" style="width:25px">
-                Renew Email Service
+             <h5 class="modal-title" id="renewSIMModalLabel">
+                <img src="{{ asset('assets/dashboard/img/add-sim.png') }}" style="width:25px">
+                Renew SIM Service
              </h5>
              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">
@@ -262,7 +264,9 @@
        </div>
     </div>
  </div>
-<!-- End of Page Wrapper -->
+ 
+
+<!-- Scroll to Top Button-->
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
 <i class="fas fa-angle-up"></i>

@@ -4859,7 +4859,7 @@ list-style: auto;
         font-size: 16px;
         font-style: normal;
         font-weight: 500;
-        line-height: 17px;
+        line-height: 23px;
         letter-spacing: 0.01em;
         text-align: left;
         color: var(--blue--text);
@@ -6176,17 +6176,21 @@ margin-left: 10px;
         cursor: pointer;
     }
     
-    .videoDraggable {
+    .delete_video_icon {
         position: relative;
     }
     
-    .videoDraggable .deleteimg {
+    .delete_video_icon .deleteimg {
         position: absolute;
-        right: 10px;
-        bottom: 235px;
+        right: 20px;
+        top: 25px;
         color: var(--peach);
         display: none;
         cursor: pointer;
+    }
+    
+    .delete_video_icon:hover .deleteimg {
+        display: block;
     }
     /* .carousel-inner .remove-video-icon .deleteimg {
         position: absolute;
@@ -8920,7 +8924,7 @@ border-top: 5px solid var(--peach);
     
     .add-punterbox-report input,
     .add-punterbox-report textarea {
-        border-radius: 5px !important;
+        /* border-radius: 5px !important; */
         border-color: #d1d3e2 !important;
     }
     
@@ -8975,7 +8979,6 @@ border-top: 5px solid var(--peach);
         background-color: var(--blue--text);
         color: #fff;
         border-radius: 0;
-        height: 45px;
         padding: 0 20px;
         border: none;
     }
@@ -9328,7 +9331,7 @@ border-top: 5px solid var(--peach);
     }
     /* Progress line */
     
-    .progress-bar {
+    .pro-status-bar {
         background-color: var(--blue--text);
         height: 7px;
         overflow: hidden;
@@ -9340,18 +9343,18 @@ border-top: 5px solid var(--peach);
         z-index: -1;
     }
     
-    .progress-bar__bar {
+    .pro-status-bar__bar {
         background-color: var(--peach);
         height: 100%;
         width: 0%;
         transition: width 0.5s ease-out;
     }
     
-    .progress-bar {
+    .pro-status-bar {
         cursor: pointer;
         user-select: none;
     }
-    /*.progress-bar {
+    /*.pro-status-bar {
         background-color: var(--peach);
         height: 7px;
         overflow: hidden;
@@ -9362,11 +9365,11 @@ border-top: 5px solid var(--peach);
         z-index: -1;
     }
     
-    .progress-bar--success {
+    .pro-status-bar--success {
         background-color: var(--peach);
     }
     
-    .progress-bar__bar {
+    .pro-status-bar__bar {
         background-color: var(--blue--text);
         bottom: 0;
         left: 0;
