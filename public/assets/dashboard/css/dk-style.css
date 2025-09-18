@@ -4850,6 +4850,10 @@ list-style: auto;
         margin-bottom: 20px;
     }
     
+    .request-active {
+        color: #027f00 !important;
+    }
+    
     form.v-form-design .form-group {
         margin-bottom: 25px;
     }
