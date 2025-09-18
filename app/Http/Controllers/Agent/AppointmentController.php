@@ -175,30 +175,10 @@ class AppointmentController extends Controller
             return error_response('Invalid time format.', 422);
         }
 
-        // Short-circuit: if no change in advertiser/date/time, skip availability check
-        // $noOpTime = (
-        //     (int)$appointment->advertiser_id === (int)$data['advertiser_id'] &&
-        //     Carbon::parse($appointment->date)->isSameDay(Carbon::parse($data['date'])) &&
-        //     Carbon::parse($appointment->time)->format('H:i') === $data['time']
-        // );
-
        
         DB::beginTransaction();
         try {
-            // if (!$noOpTime) {
-            //     // prevent duplicate for same advertiser/date/time (excluding current)
-            //     $exists = Appointment::where('advertiser_id', $data['advertiser_id'])
-            //         ->whereDate('date', $data['date'])
-            //         ->where('time', $data['time'])
-            //         ->where('id', '!=', $appointment->id)
-            //         ->lockForUpdate()
-            //         ->exists();
-            //     if ($exists) {
-            //         DB::rollBack();
-            //         return error_response('An appointment already exists for this advertiser at the selected date and time.', 422);
-            //     }
-            // }
-
+           
             $appointment->fill($data);
             $appointment->save();
             DB::commit();
@@ -225,6 +205,13 @@ class AppointmentController extends Controller
             return error_response($validator->errors()->first(), 422, $validator->errors());
         }
         $data = $validator->validated();
+
+        // Normalize time to 24-hour HH:mm even if frontend submits 12-hour
+        try {
+            $data['time'] = Carbon::parse($data['time'])->format('H:i');
+        } catch (\Throwable $e) {
+            return error_response('Invalid time format.', 422);
+        }
 
         $exists = Appointment::where('advertiser_id', $appointment->advertiser_id)
             ->whereDate('date', $data['date'])

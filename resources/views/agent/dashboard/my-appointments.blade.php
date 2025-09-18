@@ -811,12 +811,25 @@
             }
         });
 
+        function to12HourLabel(hhmm) {
+            try {
+                if (!hhmm) { return ''; }
+                var parts = String(hhmm).split(':');
+                var h = parseInt(parts[0], 10);
+                var m = parts[1] || '00';
+                var ampm = h >= 12 ? 'PM' : 'AM';
+                h = h % 12; if (h === 0) h = 12;
+                return h.toString().padStart(2, '0') + ':' + m + ' ' + ampm;
+            } catch (e) { return hhmm; }
+        }
+
         function successPopulateTimeSlot(response, targetSelector = '#new_appointment_time_slot', selectedValue = null, opts = { appendMissing: false }) {
             const dropdown = $(targetSelector);
             dropdown.empty().append('<option value="">Select Time Slot</option>');
             if (response && response.data && Array.isArray(response.data)) {
                 response.data.forEach(function(slot) {
-                    dropdown.append(`<option value="${slot}">${slot}</option>`);
+                    const label = to12HourLabel(slot);
+                    dropdown.append(`<option value="${slot}">${label}</option>`);
                 });
             }
             if (selectedValue !== null && selectedValue !== undefined) {
