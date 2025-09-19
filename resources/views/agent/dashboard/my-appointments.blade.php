@@ -338,6 +338,7 @@
 
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-end">
+                                        <input type="hidden" name="complete_advertiser_id" id="complete_advertiser_id" value="">
 
                                         <div>
                                             <button type="button" class="btn-cancel-modal" data-dismiss="modal"
@@ -986,6 +987,7 @@
             }, function(xhr){ console.log('load view failed', xhr); });
         });
 
+
         $(document).on('click', '[data-target="#reschedule_appointment"][data-toggle="modal"]', function(){
             currentAppointmentId = $(this).data('id');
             ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
@@ -1006,7 +1008,6 @@
 
         // Reschedule date change -> reload slots
         $('#reschedule_appointment #appointment_date').on('change', function(){
-            console.log('yes');
             var advId = $('#reschedule_advertiser_id').val();
             var date = $(this).val();
             if (advId && date) {
@@ -1077,7 +1078,17 @@
         });
 
         // Submit Completed (Yes button inside form)
+
+        $(document).on('click', '[data-target="#complete_appointment"][data-toggle="modal"]', function(){
+            currentAppointmentId = $(this).data('id');
+            $('#complete_appointment #complete_advertiser_id').val(currentAppointmentId);
+           
+        });
+
+
         $('#complete_appointment form').on('submit', function(e){
+            currentAppointmentId = $('#complete_advertiser_id').val();
+            console.log(currentAppointmentId);
             e.preventDefault();
             if (!currentAppointmentId) { return; }
             ajaxRequest(urlFor(endpoint.complete_tpl, currentAppointmentId), {}, 'POST', endpoint.csrf_token, function(resp){

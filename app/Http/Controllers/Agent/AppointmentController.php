@@ -237,7 +237,7 @@ class AppointmentController extends Controller
             return error_response('Appointment not found', 404);
         }
         // enum has a typo 'comleted' in migration; use the same to avoid SQL error
-        $appointment->status = 'comleted';
+        $appointment->status = 'completed';
         $appointment->save();
         return success_response($appointment, 'Appointment marked as completed');
     }
