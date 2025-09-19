@@ -4,8 +4,10 @@ $(() => {
         $("body").on('click','.page-link', function(e){
             e.preventDefault();
             var id = $(this).attr('data-slide-to');
-            $('.page-item').removeClass('active');
-            $('#pageItem_'+id).addClass('active');
+            var childElement = $(this).parent().attr('id');
+            var parentElement = $(this).parents('.carousel').attr('id');
+            $(`#${parentElement} .page-item`).removeClass('active');
+            $(`#${childElement}`).addClass('active');
             if(id == 0) {
                 $(".preview").addClass('leftLst over');
             } else {
@@ -20,7 +22,8 @@ $(() => {
 
         $("body").on('click','.preview', function(e){
             e.preventDefault();
-            var carouselEl = $(".carousel-inner").carousel('prev');
+            var parentElement = $(this).parents('.carousel').attr('id');
+            var carouselEl = $(`#${parentElement} .carousel-inner`).carousel('prev');
             var carouselItems = carouselEl.find('.carousel-item');
             var id = carouselItems.siblings('.active').index();
             if(id == 0) {
@@ -33,7 +36,8 @@ $(() => {
 
         $("body").on('click','.nextOne', function(e){
             e.preventDefault();
-            var carouselEl = $(".carousel-inner").carousel('next');
+            var parentElement = $(this).parents('.carousel').attr('id');
+            var carouselEl = $(`#${parentElement} .carousel-inner`).carousel('next');
             var carouselItems = carouselEl.find('.carousel-item');
             var id = carouselItems.siblings('.active').index();
             if(id == 2) {
