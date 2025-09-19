@@ -103,15 +103,15 @@
                             <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-5">
                                 <div class="total_listing">
                                     <div><span>In Progress Appointments : </span></div>
-                                    <div><span class="totalInprogressTask">03</span></div>
+                                    <div><span class="totalInProgrssAppointment">0</span></div>
                                 </div>
                                 <div class="total_listing">
-                                    <div><span>Open Appointments : </span></div>
-                                    <div><span class="totalOpenTask">11</span></div>
+                                    <div><span>Over Due Appointments : </span></div>
+                                    <div><span class="totalOverDueAppointment">0</span></div>
                                 </div>
                                 <div class="total_listing">
                                     <div><span>Completed Appointments : </span></div>
-                                    <div><span class="totalCompletedTask">11</span></div>
+                                    <div><span class="totalCompletedAppointment">0</span></div>
                                 </div>
                             </div>
                             <div class="text-center small d-flex justify-content-end align-items-center gap-5 flex-wrap">
@@ -708,6 +708,7 @@
     data-update-appointment="{{ route('agent.appointments.update', ['id' => '__ID__']) }}"
     data-reschedule-appointment="{{ route('agent.appointments.reschedule', ['id' => '__ID__']) }}"
     data-complete-appointment="{{ route('agent.appointments.complete', ['id' => '__ID__']) }}"
+    data-appointment-count="{{ route('agent.appointment.count') }}"
      >
     @endsection
     @section('script')
@@ -744,6 +745,26 @@
         initPlacesAutocomplete('new_address', 'new_latitude', 'new_longitude');
     }
     $(document).ready(function() {
+
+        var table = $('#taskList').DataTable({
+            processing: true,
+            serverSide: true,
+            lengthChange: false,
+            searching: false,
+            order: [[0, 'desc']],
+            
+            ajax: {
+                url: "{{ route('agent.appointments.datatable') }}",
+                type: 'GET'
+            },
+            columns: [
+                { data: 'appointment_list', name: 'appointment_list' },
+                { data: 'map', name: 'map', orderable: false, searchable: false, className: 'text-center' },
+                { data: 'status_badge', name: 'status', orderable: true, searchable: true, className: 'text-center' },
+                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-center' },
+            ]
+        });
+
         const mmRoot = $('#manage-route');
         endpoint = {
             get_adverser: mmRoot.data('get-adverser'),
@@ -756,6 +777,7 @@
             update_tpl: mmRoot.data('update-appointment'),
             reschedule_tpl: mmRoot.data('reschedule-appointment'),
             complete_tpl: mmRoot.data('complete-appointment'),
+            appointment_count: mmRoot.data('appointment-count'),
             
         }
         function urlFor(tpl, id){ return (tpl || '').replace('__ID__', id); }
@@ -838,23 +860,7 @@
             }
         }
 
-        let table = $('#taskList').DataTable({
-            processing: true,
-            serverSide: true,
-            lengthChange: false,
-            searching: false,
-            
-            ajax: {
-                url: "{{ route('agent.appointments.datatable') }}",
-                type: 'GET'
-            },
-            columns: [
-                { data: 'appointment_list', name: 'appointment_list' },
-                { data: 'map', name: 'map', orderable: false, searchable: false, className: 'text-center' },
-                { data: 'status_badge', name: 'status', orderable: true, searchable: true, className: 'text-center' },
-                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-center' },
-            ]
-        });
+       
 
         function ajaxRequest(url, data = {}, method = 'GET', token = null, successCallback = null, errorCallback = null) {
             $.ajax({
@@ -904,6 +910,11 @@
             $("#image_icon").attr("src", endpoint.success_image);
             $('#newAppointmentForm')[0].reset(); 
             $('#new_appointment_model').modal('hide');
+            // reload after added new record
+            table.ajax.reload(null, false);
+             //update new count in the current list page
+             appointmentCountUpdate();
+
                 $('#successModal').modal('show');
                 setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
         }
@@ -970,6 +981,7 @@
         });
 
         $(document).on('click', '[data-target="#view_appointment"][data-toggle="modal"]', function(){
+            appointmentCountUpdate();
             currentAppointmentId = $(this).data('id');
             ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
                 var a = resp.data || {};
@@ -1042,7 +1054,10 @@
                 $('#success_msg').text(resp.message || 'Appointment updated');
                 $('#successModal').modal('show');
                 setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
-                $('#taskList').DataTable().ajax.reload(null, false);
+                table.ajax.reload(null, false);
+               //update new count in the current list page
+               appointmentCountUpdate();
+
             }, function(xhr){
                 var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Update failed';
                 $('#success_task_title').text('Error');
@@ -1066,6 +1081,11 @@
                 $('#image_icon').attr('src', endpoint.success_image);
                 $('#success_msg').text(resp.message || 'Appointment rescheduled');
                 $('#successModal').modal('show');
+                //table reload after uodate table
+                table.ajax.reload(null, false);
+                //update new count in the current list page
+                appointmentCountUpdate();
+
                 setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
                 $('#taskList').DataTable().ajax.reload(null, false);
             }, function(xhr){
@@ -1097,6 +1117,10 @@
                 $('#image_icon').attr('src', endpoint.success_image);
                 $('#success_msg').text(resp.message || 'Appointment completed');
                 $('#successModal').modal('show');
+                //update datetable due to update status
+                table.ajax.reload(null, false); 
+                //update new count in the current list page
+                appointmentCountUpdate();
                 setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
                 $('#taskList').DataTable().ajax.reload(null, false);
             }, function(xhr){
@@ -1110,17 +1134,26 @@
 
 
 
-
         function errorResponseForNewAppointment(xhr, status, error) {
             console.log(error, 'error');
             alert('Error: ' + error);
         }
 
-        
+        function appointmentCountUpdate(){
+            ajaxRequest(endpoint.appointment_count, {}, 'GET', null, function(resp){
+                var countVal  = resp.data || {};
+                $('.totalInProgrssAppointment').text(countVal.in_progress || 0);
+                $('.totalOverDueAppointment').text(countVal.overdue || 0);
+                $('.totalCompletedAppointment').text(countVal.completed || 0);
+            }, function(xhr){ console.log('load view failed', xhr); });
+        }
 
+       
     });
-    </script>
 
+
+
+    </script>
 
 
 

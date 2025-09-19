@@ -88,6 +88,7 @@ class AppointmentController extends Controller
     {
         $query = Appointment::query()
             ->select(['appointments.*'])
+            ->orderBy('created_at', 'DESC')
             ->with(['advertiser:id,name,member_id']);
 
         return DataTables::of($query)
@@ -288,5 +289,28 @@ class AppointmentController extends Controller
 		} catch (\Throwable $e) {
 			return error_response('Something went wrong while creating the appointment.', 500);
 		}
+    }
+
+    public function appointmentCount()
+    {
+        try {
+            $agentId = Auth::id();
+            $result = Appointment::where('agent_id', $agentId)
+                    ->selectRaw(
+                        "COALESCE(SUM(CASE WHEN status = 'in_progress' THEN 1 ELSE 0 END), 0) AS in_progress,\n" .
+                        "COALESCE(SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END), 0) AS completed,\n" .
+                        "COALESCE(SUM(CASE WHEN status = 'over_due' THEN 1 ELSE 0 END), 0) AS overdue",
+                    )
+                    ->first();
+			$data = [
+				'in_progress' => (int) ($result->in_progress ?? 0),
+				'completed' => (int) ($result->completed ?? 0),
+				'overdue' => (int) ($result->overdue ?? 0),
+			];
+
+            return success_response($data, 'Appointment counts fetched successfully');
+        } catch (\Throwable $e) {
+            return error_response('Failed to fetch appointment counts.', 500);
+        }
     }
 }
