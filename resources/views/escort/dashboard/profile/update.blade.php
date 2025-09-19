@@ -698,13 +698,6 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                         return false;
                     }
 
-                    if(!checkProfileDynamicMediaVideo()){
-                        Swal.fire('Media',
-                            'Please attach video to this profile from the Media Repository or upload a new file (All are mendatory)',
-                            'warning');
-                        return false;  
-                    }
-
                 if (form.parsley().isValid()) {
                     $('#mediaProfileBtn').prop('disabled', true);
                     $('#mediaProfileBtn').html('<div class="spinner-border"></div>');
@@ -734,6 +727,53 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                                 });
                                 $('#mediaProfileBtn').prop('disabled', false);
                                 $('#mediaProfileBtn').html('Save');
+                            }
+                        }
+                    });
+                }
+            });
+
+            $('#myProfileMediaVideoForm').on('submit', function(e) {
+                e.preventDefault();
+
+                var form = $(this);
+
+                if(!checkProfileDynamicMediaVideo()){
+                    Swal.fire('Media',
+                        'Please attach video to this profile from the Media Repository or upload a new file (All are mendatory)',
+                        'warning');
+                    return false;  
+                }
+
+                if (form.parsley().isValid()) {
+                    $('#mediaProfileVideoBtn').prop('disabled', true);
+                    $('#mediaProfileVideoBtn').html('<div class="spinner-border"></div>');
+                    var url = form.attr('action');
+                    var data = new FormData($('#myProfileMediaVideoForm')[0]);
+                    
+
+                    $.ajax({
+                        method: form.attr('method'),
+                        url: url,
+                        data: data,
+                        contentType: false,
+                        processData: false,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(data) {
+                            if (!data.error) {
+                                Swal.fire('Updated', '', 'success');
+                                $('#mediaProfileVideoBtn').prop('disabled', false);
+                                $('#mediaProfileVideoBtn').html('Save');
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops.. sumthing wrong Please try again',
+                                    text: data.message
+                                });
+                                $('#mediaProfileVideoBtn').prop('disabled', false);
+                                $('#mediaProfileVideoBtn').html('Save');
                             }
                         }
                     });

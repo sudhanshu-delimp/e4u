@@ -258,4 +258,4 @@ Route::post('/appointments/{id}', [AppointmentController::class, 'update'])->nam
 Route::post('/appointments/{id}/reschedule', [AppointmentController::class, 'reschedule'])->name('agent.appointments.reschedule');
 Route::post('/appointments/{id}/complete', [AppointmentController::class, 'complete'])->name('agent.appointments.complete');
 Route::get('/appointments-count', [AppointmentController::class, 'appointmentCount'])->name('agent.appointment.count');
-//Route::post('save-appointment-planner', [AgentDashboardController::class, 'Save AppointmentPlanner'])->name('agent.save.appointment-planner');
+Route::get('/appointment-pdf-download/{id}', [AppointmentController::class, 'appointmentPdfDownload'])->name('agent.appointment.pdf.download');

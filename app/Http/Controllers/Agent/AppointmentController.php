@@ -87,6 +87,7 @@ class AppointmentController extends Controller
     public function datatable(Request $request)
     {
         $query = Appointment::query()
+            ->where('agent_id', Auth::id())
             ->select(['appointments.*'])
             ->orderBy('created_at', 'DESC')
             ->with(['advertiser:id,name,member_id']);
@@ -295,22 +296,41 @@ class AppointmentController extends Controller
     {
         try {
             $agentId = Auth::id();
+            
+            $today = Carbon::today()->toDateString();
             $result = Appointment::where('agent_id', $agentId)
-                    ->selectRaw(
-                        "COALESCE(SUM(CASE WHEN status = 'in_progress' THEN 1 ELSE 0 END), 0) AS in_progress,\n" .
-                        "COALESCE(SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END), 0) AS completed,\n" .
-                        "COALESCE(SUM(CASE WHEN status = 'over_due' THEN 1 ELSE 0 END), 0) AS overdue",
-                    )
-                    ->first();
-			$data = [
-				'in_progress' => (int) ($result->in_progress ?? 0),
-				'completed' => (int) ($result->completed ?? 0),
-				'overdue' => (int) ($result->overdue ?? 0),
-			];
+                ->selectRaw(
+                    "COALESCE(SUM(CASE WHEN status = 'in_progress' THEN 1 ELSE 0 END), 0) AS in_progress,\n" .
+                    "COALESCE(SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END), 0) AS completed,\n" .
+                    "COALESCE(SUM(CASE WHEN status = 'in_progress' AND date < ? THEN 1 ELSE 0 END), 0) AS overdue",
+                    [$today]
+                )
+                ->first();
+
+            $data = [
+                'in_progress' => (int) ($result->in_progress ?? 0),
+                'completed' => (int) ($result->completed ?? 0),
+                'overdue' => (int) ($result->overdue ?? 0),
+            ];
 
             return success_response($data, 'Appointment counts fetched successfully');
         } catch (\Throwable $e) {
             return error_response('Failed to fetch appointment counts.', 500);
+        }
+    }
+
+
+    public function appointmentPdfDownload($id)
+    {
+        try {
+            $decodedId = (int) base64_decode($id);
+            $date = Appointment::find($decodedId);
+            if (is_null($date)) {
+                abort(404); // Throws a NotFoundHttpException
+            }
+            return view('agent.dashboard.partials.appointment-pdf-download');
+        } catch (\Throwable $e) {
+            abort(404);
         }
     }
 }

@@ -709,6 +709,7 @@
     data-reschedule-appointment="{{ route('agent.appointments.reschedule', ['id' => '__ID__']) }}"
     data-complete-appointment="{{ route('agent.appointments.complete', ['id' => '__ID__']) }}"
     data-appointment-count="{{ route('agent.appointment.count') }}"
+    data-appointment-pdf-download="{{ route('agent.appointment.pdf.download', ['id' => '__ID__']) }}"
      >
     @endsection
     @section('script')
@@ -778,8 +779,10 @@
             reschedule_tpl: mmRoot.data('reschedule-appointment'),
             complete_tpl: mmRoot.data('complete-appointment'),
             appointment_count: mmRoot.data('appointment-count'),
+            pdf_download: mmRoot.data('appointment-pdf-download'),
             
         }
+
         function urlFor(tpl, id){ return (tpl || '').replace('__ID__', id); }
         // get Advertiser List data and append inside the option list
         $('#new_appointment').on('click', function() {
@@ -999,6 +1002,17 @@
             }, function(xhr){ console.log('load view failed', xhr); });
         });
 
+        // Redirect to PDF download on Print
+        $('#view_appointment form').on('submit', function(e){
+            e.preventDefault();
+            if (!currentAppointmentId) { return; }
+            //var url = urlFor(endpoint.pdf_download, encodeURIComponent(currentAppointmentId));
+
+            var encodedId = btoa(String(currentAppointmentId)); // Base64
+            var url = urlFor(endpoint.pdf_download, encodedId);
+            window.open(url, '_blank');
+        });
+
 
         $(document).on('click', '[data-target="#reschedule_appointment"][data-toggle="modal"]', function(){
             currentAppointmentId = $(this).data('id');
@@ -1142,11 +1156,13 @@
         function appointmentCountUpdate(){
             ajaxRequest(endpoint.appointment_count, {}, 'GET', null, function(resp){
                 var countVal  = resp.data || {};
+                console.log('countVal');
                 $('.totalInProgrssAppointment').text(countVal.in_progress || 0);
                 $('.totalOverDueAppointment').text(countVal.overdue || 0);
                 $('.totalCompletedAppointment').text(countVal.completed || 0);
             }, function(xhr){ console.log('load view failed', xhr); });
         }
+        appointmentCountUpdate();
 
        
     });

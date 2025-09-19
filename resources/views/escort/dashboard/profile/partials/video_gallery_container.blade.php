@@ -18,7 +18,9 @@
                             <video style="z-index: 1" controls="" data-id="{{$video->id}}" data-position="{{$video->position ? $video->position : ''}}" id="videoId_{{$video->id}}" src="{{ asset($video->path)}}" >
                                 <source src="{{ asset($video->path)}}" type="video/mp4" >
                             </video>
-                            
+                            <div class="drag-bar">
+                                <i class="fa fa-arrows-alt"></i> Drag Video
+                            </div>
                         </a>
                         <i class="fa fa-trash deleteimg " data-id="{{$video->id}}"></i>
                     </div>
@@ -30,3 +32,25 @@
     </div>
     <!--.carousel-inner-->
 </div>
+<style>
+    .drag-bar {
+    background: #0C223D;
+    color: #fff;
+    padding: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: move;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.drag-bar i {
+    margin-right: 6px;
+    color: #fff;
+}
+
+.drag-bar:hover {
+    background: #e2e6ea;
+    color: #000;
+}
+</style>
