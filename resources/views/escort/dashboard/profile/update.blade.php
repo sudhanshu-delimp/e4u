@@ -253,6 +253,7 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
 @include('escort.dashboard.modal.upload_gallery_image')
 @include('escort.dashboard.modal.remove_gallary_image')
 @include('escort.dashboard.modal.upload_gallery_video')
+@include('escort.dashboard.modal.set_default_video')
 @include('escort.dashboard.modal.remove_gallary_video')
 @if (Session::has('message'))
 <div class="alert alert-info">{{ Session::get('message') }}</div>
@@ -689,6 +690,21 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
 
                 var form = $(this);
 
+                let dynamic_image = checkProfileDynamicMedia();
+                    if (dynamic_image < 8) {
+                        Swal.fire('Media',
+                            'Please attach media to this profile from the Media Repository or upload a new file (All are mendatory)',
+                            'warning');
+                        return false;
+                    }
+
+                    if(!checkProfileDynamicMediaVideo()){
+                        Swal.fire('Media',
+                            'Please attach video to this profile from the Media Repository or upload a new file (All are mendatory)',
+                            'warning');
+                        return false;  
+                    }
+
                 if (form.parsley().isValid()) {
                     $('#mediaProfileBtn').prop('disabled', true);
                     $('#mediaProfileBtn').html('<div class="spinner-border"></div>');
@@ -1026,11 +1042,23 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
             document.querySelectorAll('.profile-gallery').forEach(img => {
                 let src = img.getAttribute('src');
                 let basename = src.substring(src.lastIndexOf('/') + 1);
-                if (!['img-12.png', 'img-11.png', 'img-13.png'].includes(basename)) {
+                if (!['img-12.png', 'img-11.png', 'img-13.png', 'upload-thum-1.png', 'frame_final.png','upload-3.png'].includes(basename)) {
                     dynamic_image++
                 }
             });
             return dynamic_image;
+        }
+
+        function checkProfileDynamicMediaVideo() {
+            let allFilled = true;
+            $("input[name^='video_position']").each(function () {
+                if ($(this).val().trim() === "") {
+                    allFilled = false;
+                    return false; // break out of loop early
+                }
+            });
+
+            return allFilled;
         }
 
         function checkRates(){
@@ -1160,6 +1188,13 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                             'Please attach media to this profile from the Media Repository or upload a new file (All are mendatory)',
                             'warning');
                         return false;
+                    }
+
+                    if(!checkProfileDynamicMediaVideo()){
+                        Swal.fire('Media',
+                            'Please attach video to this profile from the Media Repository or upload a new file (All are mendatory)',
+                            'warning');
+                        return false;  
                     }
 
                     if(!validateWhoAmIContent()){

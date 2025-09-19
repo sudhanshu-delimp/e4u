@@ -1915,6 +1915,7 @@
 @push('script')
 
     <script>
+        var profileId = parseInt('{{request()->segment(2) == "profile"?$escort->id:0}}');
         function initDragDrop() {
             $("#dvSource img").draggable({
                 revert: "invalid",

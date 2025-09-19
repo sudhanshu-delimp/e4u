@@ -27,8 +27,10 @@ use App\Traits\ResizeImage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use App\Models\EscortMedia;
+use App\Models\EscortGallery;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver as GdDriver;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\EscortCovidReport;
 //use Illuminate\Http\Request;
@@ -492,9 +494,21 @@ class EscortGalleryController extends AppController
         }
     }
 
-    public function getDefaultVideos(){
+    public function getDefaultVideos($profileId = 0){
         try {
-            $media = $this->media->findDefaultMedia(auth()->user()->id,1);
+            $user_id = auth()->user()->id;
+            if($profileId){
+                //$accountVideos = EscortMedia::where(['user_id'=>$user_id,'type'=>1,'default'=>1])->orderBy('position','ASC')->get();
+                $media = EscortGallery::where(['escort_id'=>$profileId,'type'=>'1'])->orderBy('position','ASC')->get();
+                foreach($media as $key=>$item){
+                    $media[$key]->id = $item->escort_media_id;
+                    $media[$key]->media = $item->media;
+                }
+            }
+            else{
+                $media = $this->media->findDefaultMedia(auth()->user()->id,1);
+            }
+            
             $response = [];
             $response['success'] = true;
             $response['media'] = $media;
