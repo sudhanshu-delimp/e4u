@@ -209,7 +209,7 @@ Route::post('upload-galleries',[EscortGalleryController::class,'uploadGallery'])
 Route::post('upload-videos-galleries',[EscortGalleryController::class,'uploadVideosGaller'])->name('escort.upload.videos.gallery');
 Route::post('default_photos', [EscortGalleryController ::class, 'defaultImages'])->name('escort.default.images');
 Route::post('default-videos', [EscortGalleryController ::class, 'defaultVideos'])->name('escort.default.video');
-Route::get('get-default-videos', [EscortGalleryController ::class, 'getDefaultVideos'])->name('escort.get.default.vedios');
+Route::get('get-default-videos/{id?}', [EscortGalleryController ::class, 'getDefaultVideos'])->name('escort.get.default.vedios');
 Route::post('get-default-photos', [EscortGalleryController ::class, 'getDefaultImages'])->name('escort.get.default.images');
 Route::post('delete-photos/{id}', [EscortGalleryController ::class, 'ImagesDelete'])->name('escort.delete.gallery');
 Route::post('delete-videos/{id}', [EscortGalleryController ::class, 'videosDelete'])->name('escort.delete.vedio.gallery');
