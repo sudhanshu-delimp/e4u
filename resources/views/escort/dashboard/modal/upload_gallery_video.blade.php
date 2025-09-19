@@ -17,9 +17,7 @@
                                             <img class="img-fluid" id="videonp" src="{{ asset('assets/dashboard/img/add-video.png') }}">
                                             <input name="video_upload" id="video_upload" class="pis" onchange="previewVideo();" type="file" accept="video/*" >
                                         </label>
-                                        <video class="videoUp" id="videoPreview" controls="" style="display:none">
-
-                                        </video>
+                                        <video class="videoUp" id="videoPreview" controls="" style="display:none"></video>
                                     </div>
                                     <div class="mb-0"><p>You can upload one video at a time.</p></div>
                                 </div>

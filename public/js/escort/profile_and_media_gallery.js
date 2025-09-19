@@ -342,8 +342,9 @@ function preview_image(event)
         $(".videoDraggable").draggable({
             revert: "invalid",
             helper: 'clone',
-            appendTo: ".upload-photo-sec",
+            appendTo: "body",
             refreshPositions: false,
+            cancel:'video',
             start: function (event, ui) {
                 ui.helper.css({
                     width: "150px",   // shrink preview
@@ -352,14 +353,12 @@ function preview_image(event)
                 });
                 ui.helper.find("video").css({
                     width: "100%",
-                    height: "auto"
+                    height: "auto",
                 });
             },
             drag: function (event, ui) {
-                
             },
             stop: function (event, ui) {
-
             }
           });
 
@@ -487,6 +486,7 @@ function previewVideo() {
         const url = URL.createObjectURL(file);
         preview.src = url;
         preview.style.display = 'block';
+        preview.insertAdjacentHTML("afterend", '<i class="fa fa-trash remove" style="cursor:pointer; margin-left:8px; color:red;"></i>');
         input.previousElementSibling.style.display = 'none';
     } else {
         preview.src = '';
@@ -494,6 +494,17 @@ function previewVideo() {
         Swal.fire('Media', 'Please select a valid video file.', 'error');
     }
 }
+
+$(document).on('click','#upload_video_modal i.remove', function(){
+    const input = document.getElementById('video_upload');
+    const preview = document.getElementById('videoPreview');
+    preview.src = '';
+    preview.style.display = 'none';
+    this.remove();
+    input.value='';
+    input.previousElementSibling.style.display = 'block';
+    
+})
 
 async function uploadVideo() {
     const fileInput = document.getElementById('video_upload');
@@ -563,6 +574,7 @@ async function uploadVideo() {
         fileInput.value = '';
         preview.src = '';
         preview.style.display = 'none';
+        preview.nextElementSibling.remove();
         getAccountVideoGallery();
     });
 }

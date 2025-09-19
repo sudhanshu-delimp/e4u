@@ -673,8 +673,8 @@
                     <div class="row mt-3">
                         <div class="col-lg-4">
                             <label class="newbtn videoDroppable w-100" id="videoDroppable_1">
-                                <video class="videoUp" id="img1" controls="" src="" controls poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                    <source id="" src="" type="video/mp4" >
+                                <video class="videoUp" id="img1" controls=""  controls poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                    <source id=""  type="video/mp4" >
                                 </video>
                                 <input  type="hidden"  id="pos_1" name="video_position[1]" value="">
                             </label>
@@ -682,8 +682,8 @@
         
                         <div class="col-lg-4">
                             <label class="newbtn videoDroppable w-100" id="videoDroppable_2">
-                                <video class="videoUp" id="img2" controls="" src="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                    <source id="" src="" type="video/mp4" >
+                                <video class="videoUp" id="img2" controls="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                    <source id="" type="video/mp4" >
                                 </video>
                                 <input  type="hidden"  id="pos_2" name="video_position[2]" value="">
                             </label>
@@ -691,8 +691,8 @@
         
                        <div class="col-lg-4">
                         <label class="newbtn videoDroppable w-100" id="videoDroppable_3">
-                            <video class="videoUp" id="img3" controls="" src="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                <source id="" src="" type="video/mp4" >
+                            <video class="videoUp" id="img3" controls="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                <source id="" type="video/mp4" >
                             </video>
                             <input  type="hidden"  id="pos_3" name="video_position[3]" value="">
                         </label>
