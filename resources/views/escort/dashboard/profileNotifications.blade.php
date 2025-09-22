@@ -24,11 +24,23 @@
                     <div class="card-body">
                         <h3 class="NotesHeader"><b>Notes:</b> </h3>
                         <ol>
-                            <li>Use this feature to enable and disable your notification and feature
-                                preferences.</li>
-                            <li>Please note that for a Viewer or Agent to receive your Notifications, the
-                                Viewer or Agent has to have enabled the corresponding feature in their preference
-                                settings.</li>
+                            <li>Enable and disable your notification and feature preferences.</li>
+                            <li>For a Viewer or Agent to receive your Notifications, the Viewer or Agent must have
+                                also enabled the feature.</li>
+                                <li>Please note what features are enabled by default.</li>
+                                <li>Your Auto-Recharge option is ‘No’ by default.
+                                    <ol class="level-2">
+                                        <li>select your preferred option. The preferred option will remain in place until you
+                                            change it. The Top Up will occur when your Credit balance falls below
+                                            $100.00. The Transaction will take place on the day you reach $100.00 or less.</li>
+                                        <li>
+                                            if the Top Up can not be processed, due to your bank rejecting the transaction,
+                                            you will receive an A-Alert Email from us. Please be mindful that a rejection of
+                                            the transaction by your bank may affect any Listing you have or Tour status.
+                                        </li>
+                                    </ol>
+                                </li>
+                                <li>Note also the default setting for 2FA authentification.</li>
                         </ol>
                     </div>
                 </div>
@@ -71,6 +83,30 @@
                                 
 
                                 <div class="mt-2"><i>Some features are enabled by default unless you disable them.</i></div>
+                            </div>
+                            <div class="form-group">
+                                <h3 class="h3">Auto-Recharge options</h3>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked
+                                        name="alert_notifications[]" id="alert_notifications1" value="1">
+                                    <label class="form-check-label" for="alert_notifications1">No</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" name="auto-recharge" type="checkbox"
+                                        id="auto-recharge" value="2">
+                                    <label class="form-check-label" for="auto-recharge">$100.00</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" name="auto-recharge" type="checkbox"
+                                        id="auto-recharge" value="2">
+                                    <label class="form-check-label" for="auto-recharge">$250.00</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" name="auto-recharge" type="checkbox"
+                                        id="auto-recharge" value="2">
+                                    <label class="form-check-label" for="auto-recharge">$500.00</label>
+                                </div>
+                                <div class="pt-1"><i>Select your preferred top up value to be applied to your Credit.</i></div>
                             </div>
                             <div class="form-group">
                                 <h3 class="h3">Agent</h3>
@@ -127,20 +163,54 @@
                             
                             </div>
                             <div class="form-group">
-                                <h3 class="h3">2FA Authentification</h3>
-                                 <div class="form-check">
-                                     <input class="form-check-input" type="checkbox" name="auth" id="auth" value="1">
-                                     <label class="form-check-label" for="auth">Email</label>
-                                 </div>
-                                 <div class="form-check">
-                                     <input class="form-check-input" name="auth" checked type="checkbox" id="auth" value="2">
-                                     <label class="form-check-label" for="auth">Text </label>
-                                 </div>
-                                 <div class="pt-1"><i>How your authentification code will be sent to you.</i></div>
-                             </div>
+                                <h3 class="h3">2FA Authentication</h3>
+                            
+                                <!-- Email Option -->
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="auth" id="auth_email" value="1">
+                                    <label class="form-check-label" for="auth_email">Email</label>
+                                </div>
+                            
+                                <!-- Text Option -->
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="auth" id="auth_text" value="2" checked>
+                                    <label class="form-check-label" for="auth_text">Text</label>
+                                </div>
+                            
+                                <!-- Info -->
+                                <div class="pt-1">
+                                    <i>How your authentication code will be sent to you.</i>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <h3 class="h3">Subscriptions</h3>
+                            
+                                <!-- G NUM Checkbox -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="num" value="NUM">
+                                    <label class="form-check-label" for="num">NUM</label>
+                                </div>
+                            
+                                <!-- Coverage Options (Radio Buttons) -->
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="subscription" id="home_state" value="HS">
+                                    <label class="form-check-label" for="home_state">Home State</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="subscription" id="aus_wide" value="AUS">
+                                    <label class="form-check-label" for="aus_wide">Australia wide</label>
+                                </div>
+                            
+                                <!-- Subscription Info -->
+                                <div class="pt-1">
+                                    <i>Monthly subscriptions. Your card will be automatically debited on the 1st of each month.</i>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
-                    <input type="submit" value="save" class="btn btn-primary shadow-none float-right" name="submit">
+                    <input type="submit" value="save" class="btn-common" name="submit">
                 </form>
             </div>
         </div>

@@ -738,10 +738,11 @@ class UpdateController extends AppController
                 unset($media_arr[$escortImage->position]);
             }
         }
+        return response()->json(compact('error'));
+    }
 
-        /**
-         *  Store Video Gallery
-         */
+    public function saveProfileVideo(Request $request, $id = null){
+        $error = false;
         $escortVideos = EscortGallery::where(['escort_id'=>$id,'type'=>'1'])->get();
         $videoGalleryArray = $request->video_position;
         if($escortVideos->count() > 0){
@@ -770,8 +771,6 @@ class UpdateController extends AppController
 
         return response()->json(compact('error'));
     }
-
-
 
     public function updateBasicProfile($id = null)
     {

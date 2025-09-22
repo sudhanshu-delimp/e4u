@@ -426,3 +426,46 @@ if (!function_exists('CheckExpireDate')) {
     }
 }
 
+if (!function_exists('success_response')) {
+    /**
+     * Unified success JSON response
+     * @param mixed $data
+     * @param string $message
+     * @param int $statusCode
+     * @param array $extra
+     */
+    function success_response($data = null, $message = 'OK', $statusCode = 200, array $extra = [])
+    {
+        $payload = array_merge([
+            'status' => true,
+            'message' => $message,
+            'data' => $data,
+        ], $extra);
+
+        return response()->json($payload, $statusCode);
+    }
+}
+
+if (!function_exists('error_response')) {
+    /**
+     * Unified error JSON response
+     * @param string $message
+     * @param int $statusCode
+     * @param mixed $errors
+     * @param array $extra
+     */
+    function error_response($message = 'Error', $statusCode = 400, $errors = null, array $extra = [])
+    {
+        $payload = array_merge([
+            'status' => false,
+            'message' => $message,
+        ], $extra);
+
+        if (!is_null($errors)) {
+            $payload['errors'] = $errors;
+        }
+
+        return response()->json($payload, $statusCode);
+    }
+}
+

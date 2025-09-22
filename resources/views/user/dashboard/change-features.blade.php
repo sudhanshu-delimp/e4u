@@ -94,26 +94,26 @@
                                     <label class="custom-control-label" for="feature_notebox">Enable My Notebox</label>
                                 </div>
                                 
-                                <div class="mt-2"><i>These features are enabled by default unless you disable them.</i></div>
+                                <div class="pt-1"><i>These features are enabled by default unless you disable them.</i></div>
                             </div>
                              <!-- Listings Preferences -->
                              <div class="form-group">
                                 <h3 class="h3">Listings Preferences</h3>
-                                <div class="form-check">
+                                <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="listView" id="gridView" value="grid" checked>
                                 <label class="form-check-label" for="gridView">
                                     Grid View
                                 </label>
                                 </div>
 
-                                <div class="form-check">
+                                <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="listView" id="listView" value="list">
                                 <label class="form-check-label" for="listView">
                                     List View
                                 </label>
                                 </div>
                                 
-                                <div class="mt-2"><i>Select your preferred option on how you view Advertiser Listings.</i></div>
+                                <div class="pt-1"><i>Select your preferred option on how you view Advertiser Listings.</i></div>
                             </div>
                             <!-- Alert Notifications -->
                             {{-- <div class="form-group">
@@ -165,13 +165,13 @@
                                     <label class="custom-control-label" for="interest_couples">Couples</label>
                                 </div>
                                 
-                              <div class="mt-2"><i>By selecting a particular interest, we can refine your Escorts View page.</i></div>
+                              <div class="pt-1"><i>By selecting a particular interest, we can refine your Escorts View page.</i></div>
                             </div>
 
                         </div>
                     </div>
 
-                    <input type="submit" value="Save" class="btn btn-primary shadow-none" name="submit">
+                    <input type="submit" value="Save" class="btn-common" name="submit">
                 </form>
 
             </div>

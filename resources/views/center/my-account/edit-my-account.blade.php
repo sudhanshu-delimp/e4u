@@ -62,7 +62,8 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="membership_num">Membership Number</label>
-                                                                <span class="form-control form-back">E60104</span>
+                                                                <span
+                                                                    class="form-control form-back">{{ $escort->member_id }}</span>
 
                                                             </div>
                                                         </div>
@@ -71,7 +72,7 @@
                                                                 <label for="membership_num form-back">Date Joined</label>
 
                                                                 <label class="form-control form-back" placeholder=" "
-                                                                    aria-describedby="emailHelp">24/06/2023</label>
+                                                                    aria-describedby="emailHelp">{{Carbon\Carbon::parse($escort->created_at)->format('d/m/Y')}}</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -102,7 +103,7 @@
                                                                 </label>
                                                                 <input type="text" class="form-control" placeholder=" "
                                                                     name="" aria-describedby="emailHelp"
-                                                                    value="">
+                                                                    value="{{ $escort->business_name }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -110,16 +111,16 @@
                                                                 <label for="email" class="my-agent">Our Address </label>
                                                                 <input type="text" class="form-control" placeholder=" "
                                                                     name="" aria-describedby="emailHelp"
-                                                                    value="">
+                                                                    value=" {{ $escort->state_id ? config('escorts.profile.states')[$escort->state_id]['stateName'] : ''}}">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="email">Email</label>
-                                                                <label type="text" class="form-control form-back"
+                                                                <input type="text" class="form-control form-back"
                                                                     placeholder=" " name="email"
                                                                     aria-describedby="emailHelp"
-                                                                    value="{{ $escort->email }}">{{ $escort->email }}</label>
+                                                                    value="{{ $escort->email }}">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
@@ -128,7 +129,7 @@
                                                                 <label type="text" class="form-control form-back"
                                                                     placeholder=" " name="phone"
                                                                     aria-describedby="emailHelp"
-                                                                    value="{{ $escort->phone }}">{{ $escort->phone }}</label>
+                                                                    value="{{ $escort->business_number }}">{{ $escort->business_number }}</label>
                                                             </div>
                                                         </div>
 
@@ -160,7 +161,7 @@
                                                                         setting.</span>
                                                                 </label>
                                                                 <label class="form-control form-back"
-                                                                    placeholder="Western Australia"
+                                                                    placeholder=" "
                                                                     aria-describedby="emailHelp" id="stateNew"
                                                                     name="state_id" value="{{ $escort->state_id }}">
                                                                     {{ $escort->state_id ? config('escorts.profile.states')[$escort->state_id]['stateName'] : '' }}
@@ -318,7 +319,8 @@
                                                 <tbody class="table-content">
                                                     <tr>
                                                         <td colspan="1">01</td>
-                                                        <td colspan="2"><span class="grant-access">Marianne Smith <sup>Accessed</sup></span></td>
+                                                        <td colspan="2"><span class="grant-access">Marianne Smith
+                                                                <sup>Accessed</sup></span></td>
                                                         <td colspan="2">infocomnet Pvt Ltd</td>
                                                         <td colspan="2">456 Elm Road, Perth, WA 6000 </td>
                                                         <td colspan="2">0438 028 728</td>
@@ -335,7 +337,7 @@
                                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                                     aria-labelledby="dropdownMenuLink"
                                                                     x-placement="bottom-end">
-                                                                    
+
                                                                     <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
                                                                         href="#" data-target="#edit_center"
                                                                         data-toggle="modal"> <i class="fa fa-pen"></i>
@@ -348,9 +350,9 @@
                                                                     <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
                                                                         href="#"> <i class="fa fa-times-circle"></i>
                                                                         Suspend</a>
-                                                                        
+
                                                                     <div class="dropdown-divider"></div>
-                                                                        <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center"
+                                                                    <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center"
                                                                         href="#" data-toggle="modal"
                                                                         data-target="#view_center"> <i
                                                                             class="fa fa-eye "></i> View</a>
@@ -361,7 +363,8 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="1">02</td>
-                                                        <td colspan="2"><span class="grant-access">Well Chalse</span></td>
+                                                        <td colspan="2"><span class="grant-access">Well Chalse</span>
+                                                        </td>
                                                         <td colspan="2">DEF Pvt Ltd</td>
                                                         <td colspan="2">Green Street, Manning</td>
                                                         <td colspan="2">0438 028 728</td>
@@ -378,7 +381,7 @@
                                                                 <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                                                     aria-labelledby="dropdownMenuLink"
                                                                     x-placement="bottom-end">
-                                                                    
+
                                                                     <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
                                                                         href="#" data-target="#edit_center"
                                                                         data-toggle="modal"> <i class="fa fa-pen"></i>
@@ -391,9 +394,9 @@
                                                                     <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
                                                                         href="#"> <i class="fa fa-times-circle"></i>
                                                                         Suspend</a>
-                                                                        
+
                                                                     <div class="dropdown-divider"></div>
-                                                                        <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center"
+                                                                    <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center"
                                                                         href="#" data-toggle="modal"
                                                                         data-target="#view_center"> <i
                                                                             class="fa fa-eye "></i> View</a>
@@ -545,33 +548,34 @@
 
                             <!-- Access Granted -->
                             <div class="col-lg-6">
-                              <div class="form-group">
-                                  <label>Access Granted</label>
-                                  <div class="mt-2">
-                                      <div class="form-check form-check-inline">
-                                          <input class="form-check-input" type="radio" name="accessGranted" id="accessYes"
-                                              value="yes" checked>
-                                          <label class="form-check-label" for="accessYes">Yes</label>
-                                      </div>
-                                      <div class="form-check form-check-inline">
-                                          <input class="form-check-input" type="radio" name="accessGranted" id="accessNo"
-                                              value="no">
-                                          <label class="form-check-label" for="accessNo">No</label>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
+                                <div class="form-group">
+                                    <label>Access Granted</label>
+                                    <div class="mt-2">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="accessGranted"
+                                                id="accessYes" value="yes" checked>
+                                            <label class="form-check-label" for="accessYes">Yes</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="accessGranted"
+                                                id="accessNo" value="no">
+                                            <label class="form-check-label" for="accessNo">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                         <!-- Subtle line -->
-                         <hr class="my-3" style="border-top: 1px solid #e0e0e0;">
+                        <!-- Subtle line -->
+                        <hr class="my-3" style="border-top: 1px solid #e0e0e0;">
 
                         <div class="row">
                             <div class="col-lg-6">
                                 <!-- Date Joined -->
-                                <div class="form-group">                                    
-                                  <label>Date Joined</label>
-                                  <input type="text" placeholder="mm/dd/ayyyy"  class="form-control" onfocus="this.type='date'; this.placeholder='';">
+                                <div class="form-group">
+                                    <label>Date Joined</label>
+                                    <input type="text" placeholder="mm/dd/ayyyy" class="form-control"
+                                        onfocus="this.type='date'; this.placeholder='';">
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -702,7 +706,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        <img src="{{ asset('assets/dashboard/img/add-center.png') }}" class="custompopicon" alt="Edit Centre">
+                        <img src="{{ asset('assets/dashboard/img/add-center.png') }}" class="custompopicon"
+                            alt="Edit Centre">
                         Edit Centre
                     </h5>
                     <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
@@ -726,13 +731,13 @@
                                     <label>Access Granted</label>
                                     <div class="mt-2">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="accessGranted" id="accessYes"
-                                                value="yes" checked>
+                                            <input class="form-check-input" type="radio" name="accessGranted"
+                                                id="accessYes" value="yes" checked>
                                             <label class="form-check-label" for="accessYes">Yes</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="accessGranted" id="accessNo"
-                                                value="no">
+                                            <input class="form-check-input" type="radio" name="accessGranted"
+                                                id="accessNo" value="no">
                                             <label class="form-check-label" for="accessNo">No</label>
                                         </div>
                                     </div>
@@ -748,40 +753,41 @@
                                 <!-- Date Joined -->
                                 <div class="form-group">
                                     <label>Date Joined</label>
-                                    <input type="text"  value="30-06-2025"  placeholder="DD-MM-YYYY"  class="form-control" onfocus="this.type='date'; this.placeholder='';">
+                                    <input type="text" value="30-06-2025" placeholder="DD-MM-YYYY"
+                                        class="form-control" onfocus="this.type='date'; this.placeholder='';">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <!-- Display Name -->
 
                                 <div class="form-group">
-                                  <label for="Display Name" class="common_help_icon common-tooltip">Display Name
-                                      <img class="delay_tooltip tooltip-icon"
-                                          src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
-                                      <span class="tooltip-text">Insert here the trading /
-                                          business name of the Business.</span>
+                                    <label for="Display Name" class="common_help_icon common-tooltip">Display Name
+                                        <img class="delay_tooltip tooltip-icon"
+                                            src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
+                                        <span class="tooltip-text">Insert here the trading /
+                                            business name of the Business.</span>
 
-                                  </label>
+                                    </label>
 
-                                  <input type="text" class="form-control" value="Abc Wellness Centre">
+                                    <input type="text" class="form-control" value="Abc Wellness Centre">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-6">
                                 <!-- Entity Name -->
-                              
-                                <div class="form-group">
-                                  <label for="Entity Name" class="common_help_icon common-tooltip">Entity Name
-                                      <img class="delay_tooltip tooltip-icon"
-                                          src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
-                                      <span class="tooltip-text">What is the name of the
-                                          corporate entity that owns the Business Name, like
-                                          ABC Pty Ltd</span>
 
-                                  </label>
-                                  <input type="text" class="form-control" value="Abc Pvt Ltd">
-                              </div>
+                                <div class="form-group">
+                                    <label for="Entity Name" class="common_help_icon common-tooltip">Entity Name
+                                        <img class="delay_tooltip tooltip-icon"
+                                            src="{{ asset('assets/app/img/home/quationmarkblue.svg') }}">
+                                        <span class="tooltip-text">What is the name of the
+                                            corporate entity that owns the Business Name, like
+                                            ABC Pty Ltd</span>
+
+                                    </label>
+                                    <input type="text" class="form-control" value="Abc Pvt Ltd">
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <!-- Address -->
@@ -830,7 +836,8 @@
                         <div class="form-group">
                             <label>Method of contact:</label><br>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="Method_Message" value="1" checked>
+                                <input class="form-check-input" type="checkbox" id="Method_Message" value="1"
+                                    checked>
                                 <label class="form-check-label" for="Method_Message">Message (via Console)</label>
                             </div>
                             <div class="form-check form-check-inline">
@@ -862,74 +869,76 @@
     {{-- End --}}
 
     {{-- Modal: View Centre --}}
-    <div class="modal fade upload-modal" id="view_center" tabindex="-1" aria-labelledby="view_centerLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title">
-                      <img src="{{ asset('assets/dashboard/img/add-center.png') }}" class="custompopicon" alt="View Centre">
-                      Centre Summary
-                  </h5>
-                  <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                      <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                  </button>
-              </div>
-              <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
-                  <table class="table table-bordered">
-                      <tbody>
-                          <tr>
-                              <th width="30%">Membership ID</th>
-                              <td>MC101</td>
-                          </tr>
-                          <tr>
-                              <th>Access Granted</th>
-                              <td>Yes</td>
-                          </tr>
-                         
-                          <tr>
-                              <th>Date Joined</th>
-                              <td>30-06-2025</td>
-                          </tr>
-                          <tr>
-                              <th>Display Name</th>
-                              <td>Example Business</td>
-                          </tr>
-                          <tr>
-                              <th>Entity Name</th>
-                              <td>ABC Pvt Ltd</td>
-                          </tr>
-                          <tr>
-                              <th>Address</th>
-                              <td>123 Business Street</td>
-                          </tr>
-                          <tr>
-                              <th>Point of Contact</th>
-                              <td>John Doe</td>
-                          </tr>
-                          <tr>
-                              <th>Email</th>
-                              <td>example@mail.com</td>
-                          </tr>
-                          <tr>
-                              <th>Business No.</th>
-                              <td>987654321</td>
-                          </tr>
-                          <tr>
-                              <th>Mobile No.</th>
-                              <td>+91 9876543210</td>
-                          </tr>
-                          <tr>
-                              <th>Method of Contact</th>
-                              <td>Message, Email</td>
-                          </tr>
-                      </tbody>
-                  </table>
-              </div>
-              <div class="modal-footer d-flex justify-content-end">
-                  <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
-              </div>
-          </div>
-      </div>
+    <div class="modal fade upload-modal" id="view_center" tabindex="-1" aria-labelledby="view_centerLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <img src="{{ asset('assets/dashboard/img/add-center.png') }}" class="custompopicon"
+                            alt="View Centre">
+                        Centre Summary
+                    </h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
+                    </button>
+                </div>
+                <div class="modal-body" style="max-height: 50vh; overflow-y: auto;">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th width="30%">Membership ID</th>
+                                <td>MC101</td>
+                            </tr>
+                            <tr>
+                                <th>Access Granted</th>
+                                <td>Yes</td>
+                            </tr>
+
+                            <tr>
+                                <th>Date Joined</th>
+                                <td>30-06-2025</td>
+                            </tr>
+                            <tr>
+                                <th>Display Name</th>
+                                <td>Example Business</td>
+                            </tr>
+                            <tr>
+                                <th>Entity Name</th>
+                                <td>ABC Pvt Ltd</td>
+                            </tr>
+                            <tr>
+                                <th>Address</th>
+                                <td>123 Business Street</td>
+                            </tr>
+                            <tr>
+                                <th>Point of Contact</th>
+                                <td>John Doe</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>example@mail.com</td>
+                            </tr>
+                            <tr>
+                                <th>Business No.</th>
+                                <td>987654321</td>
+                            </tr>
+                            <tr>
+                                <th>Mobile No.</th>
+                                <td>+91 9876543210</td>
+                            </tr>
+                            <tr>
+                                <th>Method of Contact</th>
+                                <td>Message, Email</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer d-flex justify-content-end">
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
     {{-- end --}}
 
@@ -937,29 +946,33 @@
 @push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>    
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    </script>
 
-<script>
-   $(document).ready(function() {
-      var table = $("#add_centre_table").DataTable({
-         language: {
-            search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID"            
-         },                
-         processing: false,
-         serverSide: false,
-         paging: true,
-         lengthChange: true,
-         searching: true,
-         bStateSave: true,
-         sorting: false,
-         ordering: false,         
-         lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-         pageLength: 10
-      });
-   });
-</script>
+    <script>
+        $(document).ready(function() {
+            var table = $("#add_centre_table").DataTable({
+                language: {
+                    search: "Search: _INPUT_",
+                    searchPlaceholder: "Search by Member ID"
+                },
+                processing: false,
+                serverSide: false,
+                paging: true,
+                lengthChange: true,
+                searching: true,
+                bStateSave: true,
+                sorting: false,
+                ordering: false,
+                lengthMenu: [
+                    [10, 25, 50, 100],
+                    [10, 25, 50, 100]
+                ],
+                pageLength: 10
+            });
+        });
+    </script>
     <script type="text/javascript">
         $('#userProfile').parsley({
 

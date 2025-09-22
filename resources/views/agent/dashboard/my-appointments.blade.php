@@ -36,6 +36,17 @@
         .btn-primary {
             border-color: unset !important;
         }
+
+        .pac-container {
+             z-index: 2000 !important; 
+        }
+
+        li.parsley-required {
+         list-style: none;
+        }
+        .parsley-errors-list{
+            padding-left: 0px;
+        }
     </style>
 @endsection
 @section('content')
@@ -105,8 +116,8 @@
                             </div>
                             <div class="text-center small d-flex justify-content-end align-items-center gap-5 flex-wrap">
                                 <a href="{{ route('agent.view-planner') }}" class="btn-common text-white">View Planner</a>
-                                <button type="button" class="btn-common" data-toggle="modal"
-                                    data-target="#new_appointment">New Appointment</button>
+                                <button type="button" class="btn-common" data-toggle="modal" id="new_appointment">New
+                                    Appointment</button>
                             </div>
                         </div>
                     </div>
@@ -121,57 +132,7 @@
                                         <th class="text-center">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-
-                                        <td class=" task-color">
-                                            <label for="task_checkbox_33" class="mb-0 cursor-pointer">
-                                                <i class="fas fa-circle text-medium taski mr-2"></i>zdfgaf
-                                            </label> <small class="text-muted"> ( 09:30 am | 27-07-2025 ) </small>
-                                        </td>
-                                        <td class="text-center" data-toggle="modal" data-target="#openMapmodal"> <img
-                                                src="http://e4u.test/assets/dashboard/img/map.png"
-                                                style="width:45px; padding-right:10px;cursor:pointer" title="view Location">
-                                        </td>
-                                        <td class="td-actions text-center ">
-                                            <span class="badge badge-danger-lighten task-1"
-                                                style="background: #1cc88a; padding:5px 10px; max-width:120px; width:100%;">completed</span>
-                                        </td>
-                                        <td class="theme-color text-center bg-white ">
-                                            <div class="dropdown no-arrow">
-                                                <a class="dropdown-toggle" href="#" role="button"
-                                                    id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                    <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                </a>
-                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                    aria-labelledby="dropdownMenuLink" style="">
-                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown"
-                                                        href="#" data-target="#edit_appointment" data-toggle="modal">
-                                                        <i class="fa fa-pen"></i>Edit Appointment</a>
-
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown"
-                                                        href="#" data-target="#reschedule_appointment"
-                                                        data-toggle="modal"> <i class="fa fa-calendar"></i>Reschedule
-                                                        Appointment</a>
-
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown"
-                                                        href="#" data-target="#complete_appointment"
-                                                        data-toggle="modal"> <i class="fa fa-check-circle"></i>Completed
-                                                        Appointment</a>
-
-                                                    <div class="dropdown-divider"></div>
-                                                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown"
-                                                        href="#" data-target="#view_appointment"
-                                                        data-toggle="modal"> <i class="fa fa-eye"></i>View Appointment</a>
-
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                <tbody></tbody>
                             </table>
                         </div>
                         <div class="d-flex justify-content-end mt-4 custome_paginator">
@@ -183,7 +144,7 @@
         </div>
     </div>
     <!-- New appointment Popup -->
-    <div class="modal fade upload-modal" id="new_appointment" tabindex="-1" role="dialog"
+    <div class="modal fade upload-modal" id="new_appointment_model" tabindex="-1" role="dialog"
         aria-labelledby="new_appointmentlabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -196,15 +157,15 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" id="task_form" action="#">
+                    <form id="newAppointmentForm" method="post" action="{{ route('agent.appointments.store') }}" data-parsley-validate>
+                        @csrf
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
-                                 <!-- Advertiser -->
+                                <!-- Advertiser -->
                                 <div class="form-group">
                                     <label for="advertiser"><b>Advertiser</b><span class="text-danger">*</span></label>
-                                    <select id="advertiser" name="advertiser" class="form-control" required>
+                                    <select id="new_advertiser" name="new_advertiser" class="form-control" required>
                                         <option value="">Select Advertiser</option>
-                                        <!-- Populate dynamically from Agent's Advertiser List -->
                                     </select>
                                     <small class="form-text text-muted">Select from agent's advertiser list.</small>
                                 </div>
@@ -212,30 +173,38 @@
                                 <!-- Date -->
                                 <div class="form-group">
                                     <label for="appointment_date"><b>Date</b><span class="text-danger">*</span></label>
-                                    <input id="appointment_date" name="appointment_date" type="date"
-                                        class="form-control" required>
+                                    <input 
+                                        id="new_appointment_date" 
+                                        name="new_appointment_date" 
+                                        type="date"
+                                        class="form-control" 
+                                        required
+                                        min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                       
+                                    >
                                 </div>
 
                                 <!-- Time -->
                                 <div class="form-group">
-                                    <label for="appointment_time"><b>Time</b><span class="text-danger">*</span></label>
-                                    <input id="appointment_time" name="appointment_time" type="time"
-                                        class="form-control" required>
+                                    <label for="appointment_time"><b>Time Slot</b><span class="text-danger">*</span></label>
+                                    <select id="new_appointment_time_slot" name="new_appointment_time_slot" class="form-control" required>
+                                        <option value="">Select Time Slot</option>
+                                    </select>
                                 </div>
 
-                               
+
 
                                 <!-- Address with Google Maps integration -->
                                 <div class="form-group">
                                     <label for="address"><b>Address</b><span class="text-danger">*</span></label>
-                                    <input id="address" name="address" type="text" class="form-control"
+                                    <input id="new_address" name="new_address" type="text" class="form-control"
                                         placeholder="Search or enter address" required>
                                     <small class="form-text text-muted">Start typing to search address or add
                                         manually.</small>
 
                                     <!-- Hidden fields for latitude and longitude -->
-                                    <input type="hidden" id="latitude" name="latitude">
-                                    <input type="hidden" id="longitude" name="longitude">
+                                    <input type="hidden" id="new_latitude" name="new_latitude">
+                                    <input type="hidden" id="new_longitude" name="new_longitude">
 
                                     <!-- Google Map Preview -->
                                     <div id="map"
@@ -243,65 +212,43 @@
                                     </div>
                                 </div>
 
-                                <!-- Point of Contact (Edit/View only) -->
-                                <div class="form-group d-none" id="poc-field">
-                                    <label for="poc"><b>Point of Contact</b><span
-                                            class="text-danger">*</span></label>
-                                    <input id="poc" name="poc" type="text" class="form-control"
-                                        placeholder="Enter contact name">
-                                </div>
-
-                                <!-- Mobile (Edit/View only) -->
-                                <div class="form-group d-none" id="mobile-field">
-                                    <label for="mobile"><b>Mobile</b></label>
-                                    <input id="mobile" name="mobile" type="tel" class="form-control"
-                                        placeholder="Enter mobile number">
-                                </div>
-
-                                <!-- Appointment Summary (Edit/View only) -->
-                                <div class="form-group d-none" id="summary-field">
-                                    <label for="summary"><b>Appointment Summary</b></label>
-                                    <textarea id="summary" name="summary" class="form-control" rows="3" maxlength="500"
-                                        placeholder="Enter summary (max 500 characters)"></textarea>
-                                </div>
-
+                              
                                 <!-- Source -->
                                 <div class="form-group">
                                     <label for="source"><b>Source</b><span class="text-danger">*</span></label>
-                                    <select id="source" name="source" class="form-control" required>
-                                        <option value="Database" style="color:red;" selected>Database</option>
-                                        <option value="Referral" style="color:orange;">Referral</option>
-                                        <option value="Cold" style="color:brown;">Cold</option>
+                                    <select id="new_source" name="new_source" class="form-control" required>
+                                        <option value="database" style="color:red;" selected>Database</option>
+                                        <option value="referral" style="color:orange;">Referral</option>
+                                        <option value="cold" style="color:brown;">Cold</option>
                                     </select>
                                 </div>
                                 <!-- Importance -->
                                 <div class="pt-2 pb-3">
                                     <label><b>Importance</b><span class="text-danger">*</span></label><br>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority"
-                                            id="editinlineRadio1" value="high">
+                                        <input class="form-check-input task_priority" type="radio"
+                                            name="new_task_priority" value="high">
                                         <label class="form-check-label" for="editinlineRadio1">High</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority"
-                                            id="editinlineRadio2" value="medium" checked>
+                                        <input class="form-check-input task_priority" type="radio"
+                                            name="new_task_priority" value="medium" checked>
                                         <label class="form-check-label" for="editinlineRadio2">Medium</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input task_priority" type="radio" name="task_priority"
-                                            id="editinlineRadio3" value="low">
+                                        <input class="form-check-input task_priority" type="radio"
+                                            name="new_task_priority" value="low">
                                         <label class="form-check-label" for="editinlineRadio3">Low</label>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <p class="m-0">Date Created: 02-09-2025.</p>
+                                        <p class="m-0">Date Created: {{ date('m-d-Y') }}.</p>
                                         <div>
                                             <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                                                aria-label="Close" id="cancel_button">Cancel</button>
-                                            <button type="submit" class="btn-success-modal"
-                                                id="save_button">Add</button>
+                                                aria-label="Close">Cancel</button>
+                                            <button type="submit" class="btn-success-modal">Add</button>
                                         </div>
                                     </div>
                                 </div>
@@ -331,21 +278,23 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" id="task_form" action="#">
+                    <form method="post" action="#">
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
+                                <input type="hidden" id="reschedule_advertiser_id" name="reschedule_advertiser_id" value="">
                                 <!-- Date -->
                                 <div class="form-group">
                                     <label for="appointment_date"><b>Date</b><span class="text-danger">*</span></label>
-                                    <input id="appointment_date" name="appointment_date" type="date"
+                                    <input id="appointment_date" name="appointment_date" type="date"  min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
                                         class="form-control" required="">
                                 </div>
 
                                 <!-- Time -->
                                 <div class="form-group">
-                                    <label for="appointment_time"><b>Time</b><span class="text-danger">*</span></label>
-                                    <input id="appointment_time" name="appointment_time" type="time"
-                                        class="form-control" required="">
+                                    <label for="reschedule_time_slot"><b>Time</b><span class="text-danger">*</span></label>
+                                    <select id="reschedule_time_slot" name="reschedule_time_slot" class="form-control" required="">
+                                        <option value="">Select Time Slot</option>
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
@@ -353,9 +302,8 @@
                                         <p class="m-0">Date Created: 02-09-2025.</p>
                                         <div>
                                             <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                                                aria-label="Close" id="cancel_button">Cancel</button>
-                                            <button type="submit" class="btn-success-modal"
-                                                id="save_button">Reschedule</button>
+                                                aria-label="Close">Cancel</button>
+                                            <button type="submit" class="btn-success-modal">Reschedule</button>
                                         </div>
                                     </div>
                                 </div>
@@ -383,19 +331,19 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" id="task_form" action="#">
+                    <form method="post" action="#">
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
                                 <h4 id="task_desc">Are you sure you want to mark selected appointment as completed?</h4>
 
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-end">
+                                        <input type="hidden" name="complete_advertiser_id" id="complete_advertiser_id" value="">
 
                                         <div>
                                             <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                                                aria-label="Close" id="cancel_button">No</button>
-                                            <button type="submit" class="btn-success-modal"
-                                                id="save_button">Yes</button>
+                                                aria-label="Close">No</button>
+                                            <button type="submit" class="btn-success-modal">Yes</button>
                                         </div>
                                     </div>
                                 </div>
@@ -407,6 +355,9 @@
             </div>
         </div>
     </div>
+    {{-- <input id="new_oneaddress" name="new_oneaddress" type="text" class="form-control"  > --}}
+    
+   
     {{-- end --}}
 
     <!-- Edit appointment Popup -->
@@ -423,7 +374,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" id="task_form" action="#">
+                    <form method="post" action="#" id="editAppointmentForm" data-parsley-validate>
                         <div class="row" id="task_form_button">
                             <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
                                 <div class="col-md-12 card shadow-sm rounded-3">
@@ -435,23 +386,6 @@
 
                                     <div class="task-form-body p-2" style="display: block; height:350px; overflow:auto;">
                                         <!-- Hidden Task ID -->
-                                        <input name="task_id" value="`+taskId+`" type="hidden">
-
-
-
-                                        <!-- Date -->
-                                        <div class="form-group">
-                                            <label for="edit_date"><b>Date</b><span class="text-danger">*</span></label>
-                                            <input id="edit_date" name="appointment_date" type="date"
-                                                class="form-control" required>
-                                        </div>
-
-                                        <!-- Time -->
-                                        <div class="form-group">
-                                            <label for="edit_time"><b>Time</b><span class="text-danger">*</span></label>
-                                            <input id="edit_time" name="appointment_time" type="time"
-                                                class="form-control" required>
-                                        </div>
 
                                         <!-- Advertiser -->
                                         <div class="form-group">
@@ -462,6 +396,23 @@
                                                 <!-- Populate dynamically -->
                                             </select>
                                         </div>
+
+                                        <!-- Date -->
+                                        <div class="form-group">
+                                            <label for="edit_date"><b>Date</b><span class="text-danger">*</span></label>
+                                            <input id="edit_date" name="appointment_date" type="date"
+                                                class="form-control" required>
+                                        </div>
+
+                                        <!-- Time Slot -->
+                                        <div class="form-group">
+                                            <label for="edit_appointment_time_slot"><b>Time Slot</b><span class="text-danger">*</span></label>
+                                            <select id="edit_appointment_time_slot" name="appointment_time" class="form-control" required>
+                                                <option value="">Select Time Slot</option>
+                                            </select>
+                                        </div>
+
+                                        
 
                                         <!-- Address + Google Maps -->
                                         <div class="form-group">
@@ -512,17 +463,17 @@
                                             <label><b>Importance</b><span class="text-danger">*</span></label><br>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" id="editinlineRadio1" value="high">
+                                                    name="task_priority" value="high">
                                                 <label class="form-check-label" for="editinlineRadio1">High</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" id="editinlineRadio2" value="medium" checked>
+                                                    name="task_priority" value="medium" checked>
                                                 <label class="form-check-label" for="editinlineRadio2">Medium</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" id="editinlineRadio3" value="low">
+                                                    name="task_priority" value="low">
                                                 <label class="form-check-label" for="editinlineRadio3">Low</label>
                                             </div>
                                         </div>
@@ -534,12 +485,11 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <p class="m-0">Date Created: 02-09-2025.</p>
+                                        <p class="m-0">Date Created: <span id="edit_date_created_text">--</span>.</p>
                                         <div>
                                             <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                                                aria-label="Close" id="cancel_button">Cancel</button>
-                                            <button type="submit" class="btn-success-modal"
-                                                id="save_button">Update</button>
+                                                aria-label="Close">Cancel</button>
+                                            <button type="submit" class="btn-success-modal">Update</button>
                                         </div>
                                     </div>
                                 </div>
@@ -566,7 +516,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="post" id="task_form" action="#">
+                    <form method="post" action="#" >
                         <div class="row" id="task_form_button">
                             <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
                                 <div class="col-md-12 card shadow-sm rounded-3">
@@ -580,41 +530,30 @@
                                         <!-- Hidden Task ID -->
                                         <input name="task_id" value="31" type="hidden">
 
-
+                                        <div class="form-group">
+                                            <label for="view_advertiser"><b>Advertiser</b><span class="text-danger">*</span></label>
+                                            <input id="view_advertiser" name="view_advertiser" type="text" class="form-control" readonly>
+                                        </div>
 
                                         <!-- Date -->
                                         <div class="form-group">
                                             <label for="view_date"><b>Date</b><span class="text-danger">*</span></label>
-                                            <input id="view_date" name="appointment_date" type="date"
-                                                class="form-control" required="">
+                                            <input id="view_date" name="view_date" type="text"  class="form-control" readonly>
                                         </div>
 
                                         <!-- Time -->
                                         <div class="form-group">
                                             <label for="view_time"><b>Time</b><span class="text-danger">*</span></label>
-                                            <input id="view_time" name="appointment_time" type="time"
-                                                class="form-control" required="">
+                                            <input id="view_time" name="appointment_time" type="text" class="form-control" readonly>
                                         </div>
-
                                         <!-- Advertiser -->
-                                        <div class="form-group">
-                                            <label for="view_advertiser"><b>Advertiser</b><span
-                                                    class="text-danger">*</span></label>
-                                            <select id="view_advertiser" name="advertiser" class="form-control"
-                                                required="">
-                                                <option value="">Select Advertiser</option>
-                                                <!-- Populate dynamically -->
-                                            </select>
-                                        </div>
-
                                         <!-- Address + Google Maps -->
                                         <div class="form-group">
                                             <label for="view_address"><b>Address</b><span
                                                     class="text-danger">*</span></label>
-                                            <input id="view_address" name="address" type="text" class="form-control"
-                                                placeholder="Search or enter address" required="">
-                                            <input type="hidden" id="view_latitude" name="latitude">
-                                            <input type="hidden" id="view_longitude" name="longitude">
+                                            <input id="view_address" name="view_address" type="text" class="form-control" readonly>
+                                            <input type="hidden" id="view_latitude" name="view_latitude">
+                                            <input type="hidden" id="view_longitude" name="view_longitude">
                                             <div id="view_map"
                                                 style="height: 250px; margin-top:10px; border: 1px solid #ccc;display:none">
                                             </div>
@@ -624,50 +563,47 @@
                                         <div class="form-group">
                                             <label for="view_poc"><b>Point of Contact</b><span
                                                     class="text-danger">*</span></label>
-                                            <input id="view_poc" name="poc" type="text" class="form-control"
-                                                placeholder="Enter contact name" required="">
+                                            <input id="view_poc" name="view_poc" type="text" class="form-control"  readonly>
                                         </div>
 
                                         <!-- Mobile -->
                                         <div class="form-group">
                                             <label for="view_mobile"><b>Mobile</b></label>
-                                            <input id="view_mobile" name="mobile" type="tel" class="form-control"
-                                                placeholder="Enter mobile number">
+                                            <input id="view_mobile" type="tel" class="form-control" readonly>
                                         </div>
 
                                         <!-- Appointment Summary -->
                                         <div class="form-group">
                                             <label for="view_summary"><b>Appointment Summary</b></label>
-                                            <textarea id="view_summary" name="summary" class="form-control" rows="3" maxlength="500"
-                                                placeholder="Enter summary (max 500 characters)"></textarea>
+                                            <textarea id="view_summary" class="form-control" rows="3" maxlength="500" readonly></textarea>
                                         </div>
 
                                         <!-- Source -->
                                         <div class="form-group">
                                             <label for="view_source"><b>Source</b><span
                                                     class="text-danger">*</span></label>
-                                            <select id="view_source" name="source" class="form-control" required="">
+                                            <select id="view_source" name="source" class="form-control" readonly>
                                                 <option value="Database" style="color:red;">Database</option>
                                                 <option value="Referral" style="color:orange;">Referral</option>
                                                 <option value="Cold" style="color:brown;">Cold</option>
                                             </select>
+                                            
                                         </div>
                                         <div class="pt-2 pb-3">
                                             <label><b>Importance</b><span class="text-danger">*</span></label><br>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" id="editinlineRadio1" value="high">
+                                                    name="task_priority" value="high">
                                                 <label class="form-check-label" for="editinlineRadio1">High</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" id="editinlineRadio2" value="medium"
-                                                    checked="">
+                                                    name="task_priority" value="medium" checked="">
                                                 <label class="form-check-label" for="editinlineRadio2">Medium</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input task_priority" type="radio"
-                                                    name="task_priority" id="editinlineRadio3" value="low">
+                                                    name="task_priority" value="low">
                                                 <label class="form-check-label" for="editinlineRadio3">Low</label>
                                             </div>
                                         </div>
@@ -681,9 +617,8 @@
 
                                         <div>
                                             <button type="button" class="btn-cancel-modal" data-dismiss="modal"
-                                                aria-label="Close" id="cancel_button">Close</button>
-                                            <button type="submit" class="btn-success-modal"
-                                                id="save_button">Print</button>
+                                                aria-label="Close">Close</button>
+                                            <button type="submit" class="btn-success-modal">Print</button>
                                         </div>
                                     </div>
                                 </div>
@@ -702,7 +637,9 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="success_task_title">Task</h5>
+                    <h5 class="modal-title">
+                        <img id="image_icon" class="custompopicon" src="#"> <span id="success_task_title"></span>
+                    </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
@@ -712,7 +649,7 @@
                     <div class="py-4 text-center" id="success_form_html">
                         <h4 id="success_msg">Are you sure you want to mark this Appointment as completed?</h4>
                         <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal"
-                            aria-label="Close" id="cancel_button">OK</button>
+                            aria-label="Close">OK</button>
                     </div>
 
                 </div>
@@ -758,55 +695,433 @@
             </div>
         </div>
     </div>
-@endsection
-@section('script')
+
+
+    <div id="manage-route"
+    data-get-adverser="{{ route('get.adverser') }}"
+    data-get-slot-list="{{ route('get.slot.list') }}"
+    data-save-appointment="{{ route('agent.appointments.store') }}"
+    data-scrf-token="{{csrf_token()}}"
+    data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
+    data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
+    data-show-appointment="{{ route('agent.appointments.show', ['id' => '__ID__']) }}"
+    data-update-appointment="{{ route('agent.appointments.update', ['id' => '__ID__']) }}"
+    data-reschedule-appointment="{{ route('agent.appointments.reschedule', ['id' => '__ID__']) }}"
+    data-complete-appointment="{{ route('agent.appointments.complete', ['id' => '__ID__']) }}"
+     >
+    @endsection
+    @section('script')
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{config('services.google_map.api_key')}}&libraries=places&callback=initAutocomplete"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+
     <script>
-        
-        let table = new DataTable('#taskList', {
-          //  dom: 't', // This removes the search box and pagination dropdown
+    // Generic Google Places Autocomplete initializer
+    function initPlacesAutocomplete(inputId, latId, lngId) {
+        try {
+            var input = document.getElementById(inputId);
+            if (!input || !window.google || !google.maps || !google.maps.places) { return; }
+            if (input.getAttribute('data-gpa-init') === '1') { return; }
+            var autocomplete = new google.maps.places.Autocomplete(input, {
+                types: ['address'],
+                fields: ['geometry']
+            });
+            input.setAttribute('data-gpa-init', '1');
+            autocomplete.addListener('place_changed', function () {
+                var place = autocomplete.getPlace();
+                if (place && place.geometry && place.geometry.location) {
+                    var latEl = document.getElementById(latId);
+                    var lngEl = document.getElementById(lngId);
+                    if (latEl) { latEl.value = place.geometry.location.lat(); }
+                    if (lngEl) { lngEl.value = place.geometry.location.lng(); }
+                }
+            });
+        } catch (e) {
+            console.error('Places autocomplete init error', e);
+        }
+    }
+    // Google script callback - initialize for New Appointment field by default
+    function initAutocomplete() {
+        initPlacesAutocomplete('new_address', 'new_latitude', 'new_longitude');
+    }
+    $(document).ready(function() {
+        const mmRoot = $('#manage-route');
+        endpoint = {
+            get_adverser: mmRoot.data('get-adverser'),
+            get_slot_list: mmRoot.data('get-slot-list'),
+            save_appointment: mmRoot.data('save-appointment'),
+            csrf_token: mmRoot.data('scrf-token'),
+            success_image : mmRoot.data('success-image'),
+            error_image : mmRoot.data('error-image'),
+            show_tpl: mmRoot.data('show-appointment'),
+            update_tpl: mmRoot.data('update-appointment'),
+            reschedule_tpl: mmRoot.data('reschedule-appointment'),
+            complete_tpl: mmRoot.data('complete-appointment'),
+            
+        }
+        function urlFor(tpl, id){ return (tpl || '').replace('__ID__', id); }
+        // get Advertiser List data and append inside the option list
+        $('#new_appointment').on('click', function() {
+            initAutocomplete();
+            $('#new_appointment_model').modal('show');
+            ajaxRequest(endpoint.get_adverser, {}, 'GET',null , successPopulateAdvisorDropdown,  errorPopulateAdvisorDropdown);
+        });
+
+        // Initialize autocomplete after modal is visible (ensures input has size)
+        $('#new_appointment_model').on('shown.bs.modal', function() {
+            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+                initPlacesAutocomplete('new_address', 'new_latitude', 'new_longitude');
+            }
+           // $('#new_address').trigger('focus');
+        });
+
+        // Initialize Edit autocomplete after modal is visible
+        $('#edit_appointment').on('shown.bs.modal', function() {
+            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+                initPlacesAutocomplete('edit_address', 'edit_latitude', 'edit_longitude');
+            }
+           // $('#edit_address').trigger('focus');
+        });
+
+        function successPopulateAdvisorDropdown(response, targetSelector = '#new_advertiser', selectedId = null) {
+            let dropdown = $(targetSelector);
+            dropdown.empty().append('<option value="">Select Advisor</option>');
+            if (response && response.data && Array.isArray(response.data)) {
+                response.data.forEach(function(advisor) {
+                    let displayText = advisor.name ? advisor.name + ' (' + advisor.member_id + ')' : advisor.member_id;
+                    dropdown.append(`<option value="${advisor.id}">${displayText}</option>`);
+                });
+            }
+            if (selectedId !== null && selectedId !== undefined) {
+                dropdown.val(String(selectedId));
+            }
+        }
+        // Error: Handle failure
+        function errorPopulateAdvisorDropdown(xhr, status, error, targetSelector = '#new_advertiser') {
+            let dropdown = $(targetSelector);
+            dropdown.empty().append('<option >Something is worng!!</option>');
+            console.error("❌ AJAX Error:", status, error);
+        }
+
+     
+        //Advisor on change
+        $('#new_advertiser, #new_appointment_date').on('change', function() {
+            let advertiserId = $('#new_advertiser').val();
+            let date = $('#new_appointment_date').val();
+            if (advertiserId && date) {
+                ajaxRequest(endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(advertiserId)}&date=${encodeURIComponent(date)}`, {}, 'GET', null, successPopulateTimeSlot, errorResponseForNewAppointment);
+            }
+        });
+
+        function to12HourLabel(hhmm) {
+            try {
+                if (!hhmm) { return ''; }
+                var parts = String(hhmm).split(':');
+                var h = parseInt(parts[0], 10);
+                var m = parts[1] || '00';
+                var ampm = h >= 12 ? 'PM' : 'AM';
+                h = h % 12; if (h === 0) h = 12;
+                return h.toString().padStart(2, '0') + ':' + m + ' ' + ampm;
+            } catch (e) { return hhmm; }
+        }
+
+        function successPopulateTimeSlot(response, targetSelector = '#new_appointment_time_slot', selectedValue = null, opts = { appendMissing: false }) {
+            const dropdown = $(targetSelector);
+            dropdown.empty().append('<option value="">Select Time Slot</option>');
+            if (response && response.data && Array.isArray(response.data)) {
+                response.data.forEach(function(slot) {
+                    const label = to12HourLabel(slot);
+                    dropdown.append(`<option value="${slot}">${label}</option>`);
+                });
+            }
+            if (selectedValue !== null && selectedValue !== undefined) {
+                dropdown.val(String(selectedValue));
+            }
+        }
+
+        let table = $('#taskList').DataTable({
+            processing: true,
+            serverSide: true,
+            lengthChange: false,
+            searching: false,
+            
+            ajax: {
+                url: "{{ route('agent.appointments.datatable') }}",
+                type: 'GET'
+            },
+            columns: [
+                { data: 'appointment_list', name: 'appointment_list' },
+                { data: 'map', name: 'map', orderable: false, searchable: false, className: 'text-center' },
+                { data: 'status_badge', name: 'status', orderable: true, searchable: true, className: 'text-center' },
+                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-center' },
+            ]
+        });
+
+        function ajaxRequest(url, data = {}, method = 'GET', token = null, successCallback = null, errorCallback = null) {
+            $.ajax({
+                url: url,
+                type: method,
+                _token: token,
+                dataType: 'json',
+                data: data,
+                success: function(response) {
+                    if (typeof successCallback === 'function') {
+                        successCallback(response);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    if (typeof errorCallback === 'function') {
+                        errorCallback(xhr, status, error);
+                    } else {
+                        console.log('Ajax Error', status, error);
+                    }
+                }
+            });
+        }
+
+        // Open map modal with row address
+        $(document).on('click', '#taskList tbody td:nth-child(2) [data-toggle="modal"]', function(){
+            var addr = $(this).find('.address-text').text() || '';
+            if (addr) {
+                var enc = encodeURIComponent(addr);
+                $('#openMapmodal iframe').attr('src', 'https://www.google.com/maps?q='+enc+'&output=embed');
+            }
+        });
+
+        // Submit New Appointment via AJAX with Parsley validation
+        $('#newAppointmentForm').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            if (!form.parsley().isValid()) {
+                form.parsley().validate();
+                return;
+            }
+            ajaxRequest(endpoint.save_appointment, form.serialize(), 'POST', endpoint.csrf_token, successAppointmentCreate, errorAppointmentCreate);
+        });
+
+        function successAppointmentCreate(request){
+            $('#success_msg').text(request.message || 'Saved successfully');
+            $('#success_task_title').text('Success');
+            $("#image_icon").attr("src", endpoint.success_image);
+            $('#newAppointmentForm')[0].reset(); 
+            $('#new_appointment_model').modal('hide');
+                $('#successModal').modal('show');
+                setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
+        }
+
+        function errorAppointmentCreate(xhr, status, error){
+            let msg = 'Something went wrong';
+            if (xhr.responseJSON && xhr.responseJSON.message) { msg = xhr.responseJSON.message; }
+            $("#image_icon").attr("src", endpoint.error_image);
+            $('#success_task_title').text('Error');
+            $('#success_msg').text(msg);
+            $('#successModal').modal('show');
+            
+        }
+
+        // Action dropdown handlers
+        var currentAppointmentId = null;
+        $(document).on('click', '[data-target="#edit_appointment"][data-toggle="modal"]', function(){
+            currentAppointmentId = $(this).data('id');
+            ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
+                var a = resp.data || {};
+                $('#edit_date').val(a.date);
+                // Populate advertisers first, then set selected
+                ajaxRequest(endpoint.get_adverser, {}, 'GET', null, function(resAdv){
+                    successPopulateAdvisorDropdown(resAdv, '#edit_advertiser', a.advertiser_id || '');
+                });
+                // Populate time slots for current advertiser/date
+                if (a.advertiser_id && a.date) {
+                    ajaxRequest(endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(a.advertiser_id)}&current_id=${encodeURIComponent(a.id)}&date=${encodeURIComponent(a.date)}`, {}, 'GET', null, function(r){
+                        successPopulateTimeSlot(r, '#edit_appointment_time_slot', a.formatted_time || a.time || '', { appendMissing: true });
+                    });
+                } else {
+                    $('#edit_appointment_time_slot').empty().append('<option value="">Select Time Slot</option>');
+                }
+                $('#edit_address').val(a.address);
+                $('#edit_latitude').val(a.lat);
+                $('#edit_longitude').val(a.long);
+                $('#edit_poc').val(a.point_of_contact);
+                $('#edit_mobile').val(a.mobile);
+                $('#edit_summary').val(a.summary);
+                $('#edit_source').val((a.source || '').charAt(0).toUpperCase()+ (a.source || '').slice(1));
+                $("#edit_appointment .task_priority[value="+ (a.importance || 'medium') + "]").prop('checked', true);
+                // Created at text if available
+                if (a.created_at_formatted) {
+                    $('#edit_date_created_text').text(a.created_at_formatted);
+                } else if (a.created_at) {
+                    $('#edit_date_created_text').text(a.created_at);
+                } else {
+                    $('#edit_date_created_text').text('--');
+                }
+            }, function(xhr){ console.log('load edit failed', xhr); });
+        });
+
+        // On change of advertiser/date in edit modal, reload time slots
+        $('#edit_advertiser, #edit_date').on('change', function(){
+            let advertiserId = $('#edit_advertiser').val();
+            let date = $('#edit_date').val();
+            if (advertiserId && date) {
+                const dropdown = $('#edit_appointment_time_slot');
+                const prev = dropdown.val();
+                ajaxRequest(endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(advertiserId)}&date=${encodeURIComponent(date)}`, {}, 'GET', null, function(response){
+                    successPopulateTimeSlot(response, '#edit_appointment_time_slot', prev || null);
+                });
+            }
+        });
+
+        $(document).on('click', '[data-target="#view_appointment"][data-toggle="modal"]', function(){
+            currentAppointmentId = $(this).data('id');
+            ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
+                var a = resp.data || {};
+                $('#view_date').val(a.date);
+                $('#view_time').val(a.time);
+                $('#view_advertiser').val(a.advertiser_id);
+                $('#view_address').val(a.address);
+                $('#view_latitude').val(a.lat);
+                $('#view_longitude').val(a.long);
+                $('#view_poc').val(a.point_of_contact);
+                $('#view_mobile').val(a.mobile);
+                $('#view_summary').val(a.summary);
+                $('#view_source').val((a.source || '').charAt(0).toUpperCase()+ (a.source || '').slice(1));
+                $("#view_appointment .task_priority[value="+ (a.importance || 'medium') + "]").prop('checked', true);
+            }, function(xhr){ console.log('load view failed', xhr); });
         });
 
 
-        // ajax function
-        /**
- * Reusable AJAX function
- * @param {string} url - The API endpoint
- * @param {object} data - Data to send (default empty)
- * @param {string} method - HTTP method (GET, POST, etc.)
- * @param {function} successCallback - Function to run on success
- * @param {function} errorCallback - Function to run on error
- */
+        $(document).on('click', '[data-target="#reschedule_appointment"][data-toggle="modal"]', function(){
+            currentAppointmentId = $(this).data('id');
+            ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
+                var a = resp.data || {};
+                $('#reschedule_appointment #reschedule_advertiser_id').val(a.advertiser_id);
+                $('#reschedule_appointment #appointment_date').val(a.date);
+                // Load slots for advertiser/date and preselect current time
+                var advId = a.advertiser_id;
+                var date = a.date;
+                if (advId && date) {
+                    var url = endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(advId)}&date=${encodeURIComponent(date)}&current_id=${encodeURIComponent(currentAppointmentId)}`;
+                    ajaxRequest(url, {}, 'GET', null, function(response){
+                        successPopulateTimeSlot(response, '#reschedule_time_slot', (a.formatted_time || a.time || null));
+                    });
+                }
+            }, function(xhr){ console.log('load reschedule failed', xhr); });
+        });
 
-function ajaxRequest(url, data= {}, method='GET', successCallback = null, errorCallback = null){
-    $.ajax({
-        url: url,
-        type: type,
-        dateType: 'json',
-        success: function(response){
-            if(typeof successCallback === 'function'){
-                successCallback(response);
+        // Reschedule date change -> reload slots
+        $('#reschedule_appointment #appointment_date').on('change', function(){
+            var advId = $('#reschedule_advertiser_id').val();
+            var date = $(this).val();
+            if (advId && date) {
+                var url = endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(advId)}&date=${encodeURIComponent(date)}&current_id=${encodeURIComponent(currentAppointmentId)}`;
+                ajaxRequest(url, {}, 'GET', null, function(response){
+                    successPopulateTimeSlot(response, '#reschedule_time_slot', null);
+                });
             }
-        },
-        error: function(xhr,status, error){
-            if(typeof errorCallback === 'function'){
-                errorCallback(xhr,status, error);
-            }else{
-                console.log('Ajax Error', status, error);
-            }
+        });
+
+        // Submit Edit Appointment
+        $('#edit_appointment form').on('submit', function(e){
+            e.preventDefault();
+            if (!currentAppointmentId) { return; }
+            var payload = {
+                date: $('#edit_date').val(),
+                time: $('#edit_appointment_time_slot').val(),
+                advertiser_id: $('#edit_advertiser').val(),
+                address: $('#edit_address').val(),
+                lat: $('#edit_latitude').val(),
+                long: $('#edit_longitude').val(),
+                source: ($('#edit_source').val()||'').toString().toLowerCase(),
+                importance: $("#edit_appointment .task_priority:checked").val(),
+                point_of_contact: $('#edit_poc').val(),
+                mobile: $('#edit_mobile').val(),
+                summary: $('#edit_summary').val()
+            };
+            ajaxRequest(urlFor(endpoint.update_tpl, currentAppointmentId), payload, 'POST', endpoint.csrf_token, function(resp){
+                $('#edit_appointment').modal('hide');
+                $('#success_task_title').text('Success');
+                $('#image_icon').attr('src', endpoint.success_image);
+                $('#success_msg').text(resp.message || 'Appointment updated');
+                $('#successModal').modal('show');
+                setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
+                $('#taskList').DataTable().ajax.reload(null, false);
+            }, function(xhr){
+                var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Update failed';
+                $('#success_task_title').text('Error');
+                $('#image_icon').attr('src', endpoint.error_image);
+                $('#success_msg').text(msg);
+                $('#successModal').modal('show');
+            });
+        });
+
+        // Submit Reschedule
+        $('#reschedule_appointment form').on('submit', function(e){
+            e.preventDefault();
+            if (!currentAppointmentId) { return; }
+            var payload = {
+                date: $('#reschedule_appointment #appointment_date').val(),
+                time: $('#reschedule_appointment #reschedule_time_slot').val()
+            };
+            ajaxRequest(urlFor(endpoint.reschedule_tpl, currentAppointmentId), payload, 'POST', endpoint.csrf_token, function(resp){
+                $('#reschedule_appointment').modal('hide');
+                $('#success_task_title').text('Success');
+                $('#image_icon').attr('src', endpoint.success_image);
+                $('#success_msg').text(resp.message || 'Appointment rescheduled');
+                $('#successModal').modal('show');
+                setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
+                $('#taskList').DataTable().ajax.reload(null, false);
+            }, function(xhr){
+                var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Reschedule failed';
+                $('#success_task_title').text('Error');
+                $('#image_icon').attr('src', endpoint.error_image);
+                $('#success_msg').text(msg);
+                $('#successModal').modal('show');
+            });
+        });
+
+        // Submit Completed (Yes button inside form)
+
+        $(document).on('click', '[data-target="#complete_appointment"][data-toggle="modal"]', function(){
+            currentAppointmentId = $(this).data('id');
+            $('#complete_appointment #complete_advertiser_id').val(currentAppointmentId);
+           
+        });
+
+
+        $('#complete_appointment form').on('submit', function(e){
+            currentAppointmentId = $('#complete_advertiser_id').val();
+            console.log(currentAppointmentId);
+            e.preventDefault();
+            if (!currentAppointmentId) { return; }
+            ajaxRequest(urlFor(endpoint.complete_tpl, currentAppointmentId), {}, 'POST', endpoint.csrf_token, function(resp){
+                $('#complete_appointment').modal('hide');
+                $('#success_task_title').text('Success');
+                $('#image_icon').attr('src', endpoint.success_image);
+                $('#success_msg').text(resp.message || 'Appointment completed');
+                $('#successModal').modal('show');
+                setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
+                $('#taskList').DataTable().ajax.reload(null, false);
+            }, function(xhr){
+                var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Complete failed';
+                $('#success_task_title').text('Error');
+                $('#image_icon').attr('src', endpoint.error_image);
+                $('#success_msg').text(msg);
+                $('#successModal').modal('show');
+            });
+        });
+
+
+
+
+        function errorResponseForNewAppointment(xhr, status, error) {
+            console.log(error, 'error');
+            alert('Error: ' + error);
         }
+
+        
+
     });
-}
-
-function successResponseForMewAppointment(response){
-    $('#success_msg').text(response.message);
-    $('#successModal').modal('show');   
-}
-
-function errorResponseForNewAppointment(xhr, status, error){
-    alert('Error: ' + error);   
-}
-
-
     </script>
-@endsection
+
+
+
+
+    @endsection
