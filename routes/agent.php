@@ -248,6 +248,7 @@ Route::post('agent-update-password-duration', [AgentDashboardController::class, 
 Route::get('my-appointments', [AppointmentController::class, 'index'])->name('agent.my.appointment.list');
 Route::get('appointment-booking-list', [AppointmentController::class, 'appointmentBookingList'])->name('agent.appointment.booking.list');
 Route::get('appointment-calendar-events', [AppointmentController::class, 'calendarEvents'])->name('agent.appointment.calendar.events');
+Route::get('appointment-count-day-week-month', [AppointmentController::class, 'appointmentcountDayWeekMonth'])->name('agent.appointment.count.day.week.month');
 Route::get('appointment-details/{id}', [AppointmentController::class, 'appointmentDetails'])->name('agent.appointment.details');
 Route::get('get-advertiser',[AppointmentController::class, 'getAdverser'])->name('get.adverser');
 Route::get('/get-slots', [AppointmentController::class, 'getSlotList'])->name('get.slot.list');

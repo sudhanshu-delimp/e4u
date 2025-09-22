@@ -184,5 +184,27 @@
       });
       calendar.render();
     });
+
+
+    // append appointment count date
+    function countAppointmentDate(){
+        $.ajax({
+            url: "{{route('agent.appointment.count.day.week.month')}}",
+            type: "GET",
+            dataType : 'json',
+            success: function(response){
+                console.log();
+                $('#summaryToday').html(response.data.today_count);
+                $('#summaryWeek').html(response.data.month_count);
+                $('#summaryMonth').html(response.data.week_count);
+            },
+            error: function(xhr, status, error){
+                console.error(error);
+            }
+        });
+       
+    }
+    countAppointmentDate();
+
   </script>
 @endsection

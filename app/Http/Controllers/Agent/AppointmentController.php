@@ -22,6 +22,37 @@ class AppointmentController extends Controller
         return view('agent.dashboard.view-planner');
     }
 
+    public function appointmentcountDayWeekMonth(){
+        $today = Carbon::today('UTC');
+        $weekStart = Carbon::now('UTC')->startOfWeek();
+        $monthStart = Carbon::now('UTC')->startOfMonth();
+        
+
+        
+        try{
+         
+            $result = Appointment::where('agent_id', Auth::id())
+                ->selectRaw(
+                    "SUM(CASE WHEN date = ? THEN 1 ELSE 0 END) as today_count, " .
+                    "SUM(CASE WHEN date >= ? THEN 1 ELSE 0 END) as week_count, " .
+                    "SUM(CASE WHEN date >= ? THEN 1 ELSE 0 END) as month_count",
+                    [
+                        $today->toDateString(),
+                        $weekStart->toDateString(),
+                        $monthStart->toDateString()
+                    ]
+                )
+                ->first();
+        return success_response($result, 'Appointment rescheduled');
+        } catch (\Throwable $e) {
+            dd($e);
+            return error_response('Appointment not found', 404);
+        }
+
+       
+
+    }
+
     public function getAdverser(){
         //type 4 means onley get Massage center
         $auth = Auth::user();
