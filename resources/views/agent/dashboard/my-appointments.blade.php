@@ -759,9 +759,15 @@
                 type: 'GET'
             },
             columns: [
-                { data: 'appointment_list', name: 'appointment_list' },
+                { 
+                    data: 'appointment_list', 
+                    name: 'appointment_list',
+                    orderable: false, 
+                    searchable: false, 
+                    searchable: false // explicitly set again for clarity
+                },
                 { data: 'map', name: 'map', orderable: false, searchable: false, className: 'text-center' },
-                { data: 'status_badge', name: 'status', orderable: true, searchable: true, className: 'text-center' },
+                { data: 'status_badge', name: 'status', orderable: false, searchable: false, className: 'text-center' },
                 { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-center' },
             ]
         });

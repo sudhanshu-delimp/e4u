@@ -5,6 +5,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>View Appointment — Details</title>
+    <style>
+        @media print {
+        .no-print {
+            display: none !important;
+        }
+        .print-sheet {
+          box-shadow: none !important;
+        }
+        }
+    </style>
 </head>
 
 <body style="font-family: Arial, Helvetica, sans-serif; background:#f3f4f6; margin:0;">
@@ -31,39 +41,39 @@
                 <table style="width:100%;border-collapse:collapse;font-size:14px;margin-bottom:18px;">
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;width:25%;font-weight:bold;">Date</td>
-                        <td style="border:1px solid #ccc;padding:8px;">Sep 25, 2025</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['date']}}</td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Time</td>
-                        <td style="border:1px solid #ccc;padding:8px;">10:30 AM</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['time']}}</td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Advertiser</td>
-                        <td style="border:1px solid #ccc;padding:8px;">ABC Pvt Ltd</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['advertiser']}}</td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Address</td>
-                        <td style="border:1px solid #ccc;padding:8px;">221B Baker Street, London</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['address']}}</td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Point of Contact</td>
-                        <td style="border:1px solid #ccc;padding:8px;">John Doe</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['point_of_contact']}}</td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Mobile</td>
-                        <td style="border:1px solid #ccc;padding:8px;">+91 98765 43210</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['mobile']}}</td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Summary</td>
-                        <td style="border:1px solid #ccc;padding:8px;">Site visit to inspect plumbing issues and provide estimate for repairs.</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{$pdfDetail['summary']}}</td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Source</td>
-                        <td style="border:1px solid #ccc;padding:8px;">Referral</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{ucfirst($pdfDetail['source'])}}</td>
                     </tr>
                     <tr>
                         <td style="border:1px solid #ccc;padding:8px;font-weight:bold;">Importance</td>
-                        <td style="border:1px solid #ccc;padding:8px;">Medium</td>
+                        <td style="border:1px solid #ccc;padding:8px;">{{ucfirst($pdfDetail['importance'])}}</td>
                     </tr>
                 </table>
 
@@ -71,7 +81,7 @@
                 <div style="margin-bottom:12px;border:1px solid #ececec;border-radius:4px;overflow:hidden;">
                     <div style="font-size:14px;color:#0C223D;padding:10px 12px;border-bottom:1px solid #f0f0f0;font-weight: bold">Map</div>
                     <div style="padding:8px;">
-                        <iframe src="https://www.google.com/maps?q=221B+Baker+Street+London&output=embed" style="width:100%;height:240px;border:0;display:block;" loading="lazy" title="appointment-location"></iframe>
+                        <iframe src="https://www.google.com/maps?q={{ urlencode($pdfDetail['address']) }}&output=embed" style="width:100%;height:240px;border:0;display:block;" loading="lazy" title="appointment-location"></iframe>
                     </div>
                 </div>
 
@@ -89,8 +99,8 @@
 
                 <!-- Footer -->
                 <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:#666;">
-                    <div>Appointment ID: <strong style="color:#111;">APT-20250925-001</strong></div>
-                    <div>Created: Sep 10, 2025</div>
+                    {{-- <div>Appointment ID: <strong style="color:#111;">APT-20250925-001</strong></div> --}}
+                    <div>Created: {{$pdfDetail['create_date']}}</div>
                 </div>
 
             </div>

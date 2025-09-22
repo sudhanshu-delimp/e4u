@@ -86,18 +86,23 @@ class AppointmentController extends Controller
 
     public function datatable(Request $request)
     {
-        $query = Appointment::query()
-            ->where('agent_id', Auth::id())
-            ->select(['appointments.*'])
-            ->orderBy('created_at', 'DESC')
-            ->with(['advertiser:id,name,member_id']);
+		$query = Appointment::query()
+			->where('agent_id', Auth::id())
+			->select(['appointments.*'])
+			->orderByRaw("FIELD(importance, 'high','medium','low')")
+			->orderBy('created_at', 'DESC')
+			->with(['advertiser:id,name,member_id']);
 
         return DataTables::of($query)
+			// Disable server-side filtering for the computed HTML column
+			->filterColumn('appointment_list', function ($query, $keyword) {
+				// no-op: do not change the query for this column
+			})
             ->addColumn('appointment_list', function ($row) {
-                $source = strtolower($row->source ?? 'database');
-                $color = '#ff0000';
-                if ($source === 'referral') { $color = '#ff8c00'; }
-                if ($source === 'cold') { $color = '#8b4513'; }
+                $importance = strtolower($row->importance ?? 'high');
+                $color = '#F31818';
+                if ($importance === 'medium') { $color = '#FFA113'; }
+                if ($importance === 'low') { $color = '#87632C'; }
 
                 $name = $row->advertiser->name ?? null;
                 $label = $name ? ($name.' ('.$row->advertiser->member_id.')') : $row->advertiser->member_id;
@@ -110,8 +115,8 @@ class AppointmentController extends Controller
             ->addColumn('status_badge', function ($row) {
                 $status = $row->status;
                 $map = [
-                    'in_progress' => ['label' => 'In Progress', 'bg' => '#36b9cc'],   // Blue for in progress
-                    'over_due'    => ['label' => 'Overdue',     'bg' => '#e74a3b'],   // Red for overdue
+                    'in_progress' => ['label' => 'In Progress', 'bg' => '#4e73df'],   // Blue for in progress
+                    'over_due'    => ['label' => 'Overdue',     'bg' => '#9d1d08'],   // Red for overdue
                     'completed'   => ['label' => 'Completed',   'bg' => '#1cc88a'],   // Green for completed
                 ];
                 $cfg = $map[$status];
@@ -302,8 +307,8 @@ class AppointmentController extends Controller
                 ->selectRaw(
                     "COALESCE(SUM(CASE WHEN status = 'in_progress' THEN 1 ELSE 0 END), 0) AS in_progress,\n" .
                     "COALESCE(SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END), 0) AS completed,\n" .
-                    "COALESCE(SUM(CASE WHEN status = 'in_progress' AND date < ? THEN 1 ELSE 0 END), 0) AS overdue",
-                    [$today]
+                    "COALESCE(SUM(CASE WHEN status = 'over_due'THEN 1 ELSE 0 END), 0) AS overdue",
+                   
                 )
                 ->first();
 
@@ -320,15 +325,30 @@ class AppointmentController extends Controller
     }
 
 
-    public function appointmentPdfDownload($id)
+	public function appointmentPdfDownload($id)
     {
         try {
             $decodedId = (int) base64_decode($id);
-            $date = Appointment::find($decodedId);
-            if (is_null($date)) {
+			$data = Appointment::with(['advertiser:id,name,member_id'])->find($decodedId);
+            if (is_null($data)) {
                 abort(404); // Throws a NotFoundHttpException
             }
-            return view('agent.dashboard.partials.appointment-pdf-download');
+            $pdfDetail['date'] = Carbon::parse($data->date)->format('M d, Y');
+            $pdfDetail['time'] = Carbon::parse($data->time)->format('h:i A');
+			$name = optional($data->advertiser)->name;
+			$memberId = optional($data->advertiser)->member_id;
+			$label = $memberId ? (trim(($name ?? '').' ('.$memberId.')')) : ($name ?? '');
+            $pdfDetail['advertiser'] = $label;
+            $pdfDetail['address'] = $data->address;
+            $pdfDetail['point_of_contact'] = $data->point_of_contact;
+            $pdfDetail['mobile'] = $data->mobile;
+            $pdfDetail['summary'] = $data->summary;
+            $pdfDetail['source'] = $data->source;
+            $pdfDetail['importance'] = $data->importance;
+            $pdfDetail['map'] = $data->address;
+            $pdfDetail['create_date'] = Carbon::parse($data->created_at)->format('M d, Y');
+
+            return view('agent.dashboard.partials.appointment-pdf-download', compact('data', 'pdfDetail'));
         } catch (\Throwable $e) {
             abort(404);
         }
