@@ -18,6 +18,10 @@ class AppointmentController extends Controller
           return view('agent.dashboard.my-appointments');
     }
 
+    public function appointmentBookingList(){
+        return view('agent.dashboard.view-planner');
+    }
+
     public function getAdverser(){
         //type 4 means onley get Massage center
         $auth = Auth::user();
@@ -353,4 +357,72 @@ class AppointmentController extends Controller
             abort(404);
         }
     }
+
+	public function calendarEvents(Request $request)
+	{
+		$start = $request->query('start'); // ISO date
+		$end = $request->query('end');     // ISO date
+		$agentId = Auth::id();
+
+		$query = Appointment::query()
+			->where('agent_id', $agentId)
+			->when($start, function ($q) use ($start) {
+				$q->whereDate('date', '>=', $start);
+			})
+			->when($end, function ($q) use ($end) {
+				$q->whereDate('date', '<=', $end);
+			})
+			->with(['advertiser:id,name,member_id'])
+			->select(['id','date','time','importance','status','address','advertiser_id']);
+
+		$events = $query->get()->map(function ($apt) {
+			$color = '#F31818';
+			if (($apt->importance ?? 'high') === 'medium') { $color = '#FFA113'; }
+			if (($apt->importance ?? 'high') === 'low') { $color = '#87632C'; }
+			$startDateTime = Carbon::parse($apt->date.' '.$apt->time)->format('Y-m-d\TH:i:s');
+			$titleName = optional($apt->advertiser)->name ?: (optional($apt->advertiser)->member_id ?? 'Appointment');
+			$title = $titleName.' - '.Carbon::parse($apt->time)->format('h:i A'). '-' . Carbon::parse($apt->time)->addMinutes(30)->format('h:i A');
+			return [
+				'id' => $apt->id,
+				'title' => $title,
+				'start' => $startDateTime,
+				'backgroundColor' => $color,
+				'borderColor' => $color,
+				'textColor' => '#ffffff',
+				'extendedProps' => [
+					'importance' => $apt->importance,
+					'status' => $apt->status,
+				],
+			];
+		});
+
+      //  dd($events);
+
+		return response()->json($events);
+	}
+
+	public function appointmentDetails($id)
+	{
+		$appointment = Appointment::with(['advertiser:id,name,member_id'])->find($id);
+		if (!$appointment) {
+			return error_response('Appointment not found', 404);
+		}
+		$detail = [
+			'date' => Carbon::parse($appointment->date)->format('M d, Y'),
+			'time' => Carbon::parse($appointment->time)->format('h:i A'),
+			'advertiser' => (function () use ($appointment) {
+				$name = optional($appointment->advertiser)->name;
+				$memberId = optional($appointment->advertiser)->member_id;
+				return $memberId ? (trim(($name ?? '').' ('.$memberId.')')) : ($name ?? '');
+			})(),
+			'address' => $appointment->address,
+			'point_of_contact' => $appointment->point_of_contact,
+			'mobile' => $appointment->mobile,
+			'summary' => $appointment->summary,
+			'source' => $appointment->source,
+			'importance' => $appointment->importance,
+			'create_date' => Carbon::parse($appointment->created_at)->format('M d, Y'),
+		];
+		return success_response($detail, 'Appointment details');
+	}
 }

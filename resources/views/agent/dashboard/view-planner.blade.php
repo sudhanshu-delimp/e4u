@@ -50,6 +50,36 @@
         <!-- Page Heading -->
     </div>  
 
+    <!-- Appointment Detail Modal -->
+
+    <div class="modal fade upload-modal" id="appointmentDetailModal" tabindex="-1" role="dialog"
+    aria-labelledby="appointmentDetailModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="appointmentDetailModalLabel">Appointment Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                            class="img-fluid img_resize_in_smscreen"></span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="appointmentDetailBody">
+                    <div class="text-center py-4">Loading...</div>
+                </div>
+            </div>
+            <div class="modal-body pb-0 agent-tour">
+                <div class="py-4 text-center" id="success_form_html">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 @section('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
@@ -64,13 +94,55 @@
           right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
         navLinks: true,
-        selectable: true,
-        select: (info) => alert(`Selected: ${info.startStr} → ${info.endStr}`),
-        events: [
-          { title: 'Standup', start: '2025-08-26T10:00:00' },
-          { title: 'Design Review', start: '2025-08-28', end: '2025-08-29' },
-          { title: 'Out of Office', start: '2025-09-02', color: '#999' }
-        ]
+        selectable: false,
+        eventDisplay: 'block',
+        displayEventTime: false,
+        events: {
+          url: '{{ route('agent.appointment.calendar.events') }}',
+          method: 'GET',
+          failure: function() {
+            console.error('Failed to load calendar events.');
+          }
+        },
+        eventClick: function(info) {
+          info.jsEvent.preventDefault();
+          const id = info.event.id;
+          if (!id) return;
+          $('#appointmentDetailBody').html('<div class="text-center py-4">Loading...</div>');
+          $('#appointmentDetailModal').modal('show');
+          var detailUrl = '{{ route('agent.appointment.details', ['id' => '___ID___']) }}'.replace('___ID___', id);
+          $.ajax({
+            url: detailUrl,
+            method: 'GET',
+            dataType: 'json',
+            success: function(resp) {
+                console.log(resp);
+              if (!resp || resp.status !== true) {
+                $('#appointmentDetailBody').html('<div class="text-danger">Failed to load details.</div>');
+                return;
+              }
+              var d = resp.data || {};
+              var ucfirst = function(s){ s = s || ''; return s.charAt(0).toUpperCase() + s.slice(1); };
+              var html = '\
+                <table class="table table-sm table-bordered mb-0">\
+                  <tr><th style="width:30%">Date</th><td>'+(d.date || '')+'</td></tr>\
+                  <tr><th>Time</th><td>'+(d.time || '')+'</td></tr>\
+                  <tr><th>Advertiser</th><td>'+(d.advertiser || '')+'</td></tr>\
+                  <tr><th>Address</th><td>'+(d.address || '')+'</td></tr>\
+                  <tr><th>Point of Contact</th><td>'+(d.point_of_contact || '')+'</td></tr>\
+                  <tr><th>Mobile</th><td>'+(d.mobile || '')+'</td></tr>\
+                  <tr><th>Summary</th><td>'+(d.summary || '')+'</td></tr>\
+                  <tr><th>Source</th><td>'+ucfirst(d.source)+'</td></tr>\
+                  <tr><th>Importance</th><td>'+ucfirst(d.importance)+'</td></tr>\
+                  <tr><th>Created</th><td>'+(d.create_date || '')+'</td></tr>\
+                </table>';
+              $('#appointmentDetailBody').html(html);
+            },
+            error: function() {
+              $('#appointmentDetailBody').html('<div class="text-danger">Failed to load details.</div>');
+            }
+          });
+        }
       });
       calendar.render();
     });

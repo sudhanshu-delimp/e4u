@@ -115,7 +115,7 @@
                                 </div>
                             </div>
                             <div class="text-center small d-flex justify-content-end align-items-center gap-5 flex-wrap">
-                                <a href="{{ route('agent.view-planner') }}" class="btn-common text-white">View Planner</a>
+                                <a href="{{ route('agent.appointment.booking.list') }}" class="btn-common text-white">View Planner</a>
                                 <button type="button" class="btn-common" data-toggle="modal" id="new_appointment">New
                                     Appointment</button>
                             </div>
