@@ -92,18 +92,27 @@
                     <label class="form-check-label" for="idle_60">60 minutes</label>
                 </div>            
             </div>
-             <div class="form-group">
-                <h3 class="h3">2FA Authentification</h3>
-                 <div class="form-check">
-                     <input class="form-check-input" type="checkbox" name="auth" id="auth" value="1">
-                     <label class="form-check-label" for="auth">Email</label>
-                 </div>
-                 <div class="form-check">
-                     <input class="form-check-input" name="auth" checked type="checkbox" id="auth" value="2">
-                     <label class="form-check-label" for="auth">Text </label>
-                 </div>
-                 <div class="pt-1"><i>How your authentification code will be sent to you.</i></div>
-             </div>
+            <div class="form-group">
+                <h3 class="h3">2FA Authentication</h3>
+            
+                <!-- Email Option -->
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="auth" id="auth_email" value="1">
+                    <label class="form-check-label" for="auth_email">Email</label>
+                </div>
+            
+                <!-- Text Option (default selected) -->
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="auth" id="auth_text" value="2" checked>
+                    <label class="form-check-label" for="auth_text">Text</label>
+                </div>
+            
+                <!-- Info -->
+                <div class="pt-1">
+                    <i>How your authentication code will be sent to you.</i>
+                </div>
+            </div>
+            
 
             {{-- <div class="form-group notification_checkbox_div">
                 <label for="email">Features</label><br>
@@ -175,7 +184,7 @@
                 </div>
                 <div class="pt-1"><i>How Escorts4U will communicate with you.</i></div>
             </div> --}}
-            <input type="submit" value="save" class="btn btn-primary shadow-none" name="submit">
+            <input type="submit" value="save" class="btn-common" name="submit">
         </div>
         
         </form>
