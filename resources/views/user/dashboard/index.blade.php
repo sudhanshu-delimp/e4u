@@ -53,7 +53,7 @@
         {{-- box start --}}
         <div class="col-lg-4 box-wrapper">
             <div class="my-custom-box shadow-sm">
-                <a href="{{ route('user.punterbox') }}">
+                <a href="{{ route('user.add-report') }}">
                     <div class="box-icon">
                         <img src="{{ asset('assets/dashboard/img/boxicon/icon_punterbox.png') }}" alt="Punterbox">
                     </div>

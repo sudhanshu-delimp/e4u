@@ -349,7 +349,7 @@
 
                     </div>
                     <div class="col-lg-6 col-md-12 table-width-dk">
-                        <table class="table table_striped mb-0 arrive--depart">
+                        <table class="table table_striped mb-0">
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
                                     <th scope="col">Arriving</th>

@@ -127,7 +127,7 @@
         {{-- escort list legbox --}}
 
         <!-- My massage Legbox -->
-   <div class="row my-2" style="display: {{ $massageDisplayType }}">
+   {{-- <div class="row my-2" style="display: {{ $massageDisplayType }}">
       <div class="col-md-12 mb-4">
          <div class="mb-3 d-flex align-items-center justify-content-between flex-wrap gap-10">
             <h2 class="h2">Massage Center Legbox</h2>
@@ -213,7 +213,7 @@
             </tbody>
          </table>
       </div>
-   </div>
+   </div> --}}
         {{-- end massage list --}}
     </div>
 
