@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
 use App\Http\Controllers\WebController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\BlogsController;
 use App\Mail\sendPlaymateAccountDisableMail;
 use App\Http\Controllers\ContactUsController;
@@ -17,26 +18,26 @@ use App\Http\Controllers\Escort\PinUpsController;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\Escort\ConciergeController;
+use App\Http\Controllers\Escort\MyPlaymatesContoller;
+use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\User\Auth\RegisterController;
 use App\Http\Controllers\Agent\AgentRegisterController;
 use App\Http\Controllers\User\Dashboard\UserController;
+use App\Http\Controllers\AdvertiserSpamReportController;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Viewer\ViewerPrefrenceController;
 use App\Http\Controllers\Admin\ManagePeopleStaffController;
-use App\Http\Controllers\AdvertiserSpamReportController;
+use App\Http\Controllers\Escort\EscortStatisticsController;
 use App\Http\Controllers\GetCurrentUserGeolocationController;
 use App\Http\Controllers\Escort\EscortMyLegboxViewerController;
 use App\Http\Controllers\Escort\EscortViewerInteractionController;
 use App\Http\Controllers\Viewer\ViewerEscortInteractionController;
+use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
 use App\Http\Controllers\Escort\Auth\LoginController as EscortLogin;
 use App\Http\Controllers\Auth\RegisterController  as GuestRegisterController;
 use App\Http\Controllers\Auth\Advertiser\LoginController as AdvertiserLoginController;
 use App\Http\Controllers\Auth\Advertiser\RegisterController as AdvertiserRegisterController;
-use App\Http\Controllers\Escort\MyPlaymatesContoller;
-use App\Http\Controllers\DemoController;
-use App\Http\Controllers\Escort\EscortStatisticsController;
-use App\Http\Controllers\Viewer\ViewerMassageInteractionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -742,4 +743,4 @@ Route::post('/notification-seen', [NotificationController::class, 'makeNotificat
 Route::get('/send-password-expire', [DemoController::class, 'sendPasswordExpire']);
 
 Route::post('/save-user-loggged-details', [WebController::class, 'userLoggedDetailStore'])->name('user.log-details');
-
+Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('update-password');

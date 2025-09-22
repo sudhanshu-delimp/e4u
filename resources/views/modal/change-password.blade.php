@@ -1,3 +1,4 @@
+
 @php
 use Carbon\Carbon;
 
@@ -25,8 +26,17 @@ if (auth()->check()) {
         }
     }
 
-    if( $user->type=5)
+   if( $user->type==5)
     $submit_url  = 'agent.update-password';
+
+    if( $user->type==3)
+    $submit_url  = 'escort.update-password';
+
+    if( $user->type==4)
+    $submit_url  = 'center.update-password';
+
+    if( $user->type=='0')
+    $submit_url  = 'update-password';
 }
 @endphp
 
