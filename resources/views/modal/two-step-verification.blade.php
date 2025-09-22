@@ -23,10 +23,8 @@
                                 </div>
                                 <h4 class="welcome_sub_login_heading text-center pt-4 pb-2"><strong>Account Protection</strong></h4>
                                 <ol class="pb-2 pl-3 text-justify">
-                                    <li>To help keep your account safe, E4U wants to make sure it is really you trying to
-                                        log in.</li>
-                                    <li>We have sent you your verification code according to your preference, please
-                                        insert your verification code.</li>
+                                    <li>To help keep your account safe, E4U wants to make sure it is really you trying to sign in.</li>
+                                    <li>Your six digit authentification code has been sent to your mobile.</li>
                                 </ol>
                                
                                     <!-- <div class="d-flex align-items-center justify-content-between gap-10">
