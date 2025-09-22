@@ -866,7 +866,7 @@
                                 <div class="carousel-inner">
 
                             @if($escort->gallary->isNotEmpty())
-                            @foreach($escort->gallary()->wherePivotIn('position',[1,2,3,4,5,6,7])->get() as $key=>$media)
+                            @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[1,2,3,4,5,6,7])->get() as $key=>$media)
                             <div class="carousel-item {{($key == 0) ? "active" : ""}} " data-interval="10000">
                             {{-- @if($media->pivot->position != 9 && $media->pivot->position != 8 && $media->pivot->position != 10) --}}
                             <div class="row">
@@ -892,9 +892,6 @@
                                 <div class="modal-content border-0">
                                     <div class="modal-header d-flex justify-content-between align-items-center">                                       
                                         <ul class="nav nav-tabs justify-content-center border-0">
-                                            <!--  <li class="nav-item">
-                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home">All</a>
-                                                </li> -->
                                             <li class="nav-item">
                                                 <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">Photos</a>
                                             </li>
@@ -915,9 +912,9 @@
 
                                                             <div class="gallery__item gallery__item--lg">
                                                                 <img src="{{ ($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()) ? asset($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()->path) : ''}}" alt="">
-                                                                {{-- <img src="{{ asset('assets/app/img/profile/profile-2.jpg') }}" alt=""> --}}
+                                                                
                                                             </div>
-                                                            @foreach($escort->gallary()->wherePivotIn('position',[2,3,4,5,6,7])->orderBy('position','asc')->get() as $key=>$media)
+                                                            @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[2,3,4,5,6,7])->orderBy('position','asc')->get() as $key=>$media)
                                                             <div class="gallery__item">
                                                                 <img src="{{ asset($media->path) }}" alt="">
                                                             </div>
@@ -930,9 +927,11 @@
                                                 <div class="row pl-0 ml-0 pr-1 pb-3" id="dvSource">
                                                     <div class="col-md-4" id="dm_2">
                                                         <a href="#">
-                                                            <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset('escorts/videos/8/mov-bbb.mp4') }}">
-                                                                <source src="{{ asset($path) }}" type="video/mp4">
+                                                            @foreach($escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get() as $key=>$media)
+                                                            <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
+                                                                <source src="{{ asset($media->path) }}" type="video/mp4">
                                                             </video>
+                                                            @endforeach
                                                         </a>
                                                     </div>
 
@@ -2122,6 +2121,16 @@ $(document).ready(function() {
         sendReportAjaxCallback(formData, url, 'POST');
     });
 
+    let videos = document.querySelectorAll("video");
+    videos.forEach(video => {
+        video.addEventListener("play", () => {
+            videos.forEach(v => {
+                if (v !== video) {
+                    v.pause();
+                }
+            });
+        });
+    });
     
 });
 

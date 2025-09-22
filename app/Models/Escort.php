@@ -439,6 +439,15 @@ class Escort extends Model
     {
         return $this->belongsToMany('App\Models\EscortMedia','escort_gallery','escort_id','escort_media_id')->withPivot('position');
     }
+
+    // public function imageGallery()
+    // {
+    //     return $this->gallary()
+    //     ->where('escort_gallery.type', 0)
+    //     ->whereBetween('escort_gallery.position', [1, 7])
+    //     ->orderBy('escort_gallery.position', 'asc');
+    // }
+
     public function imagePosition($val, $defaultPositionImages = [])
     {
         if($val == 1){

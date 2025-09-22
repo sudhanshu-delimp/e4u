@@ -79,6 +79,22 @@ class EscortGalleryController extends AppController
                 foreach($request->file('img') as $key => $image){
                     $encryptedFileName = $this->_generateUniqueFilename($image->getClientOriginalName());
                     $destination_path = $file_path.'/gallery_'.$encryptedFileName;
+                    $manager = new ImageManager(new GdDriver());
+                    $extension = strtolower($image->getClientOriginalExtension());
+                    $orgImage = $manager->read($image->getPathname());
+                    //$resizeImage = $orgImage->scaleDown(width: 481, height: 410);
+                    //$resizeImage = $orgImage->cover(width: 481, height: 410, position: 'top');
+
+                    // $resizeImage = $orgImage->resize(481, 410, function ($constraint) {
+                    //     $constraint->aspectRatio();
+                    //     $constraint->upsize();
+                    // })->pad(481, 410, '#ffffff');
+                    // $encoded = match ($extension) {
+                    // 'jpg', 'jpeg' => $resizeImage->toJpeg(quality: 90),
+                    // 'png'         => $resizeImage->toPng(),
+                    // default       => throw new \Exception('Unsupported image format')
+                    // };
+                    //Storage::disk('escorts')->put($destination_path, (string) $encoded);
                     Storage::disk('escorts')->put($destination_path, file_get_contents($image));
                     if(!$media = $this->media->findByPath('escorts/'.$destination_path)) {
                     $data = [
