@@ -10,6 +10,7 @@ use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Escort\PlaymateController;
 use App\Http\Controllers\Escort\MyPlaymatesContoller;
+use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Escort\HowIsItDoneController;
 use App\Http\Controllers\User\Dashboard\UserController;
@@ -18,8 +19,8 @@ use App\Http\Controllers\Escort\EscortGalleryController;
 use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
 use App\Http\Controllers\Escort\EscortDashboardController;
-use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\EscortStatisticsController;
+use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\EscortTourPaymentController;
 use App\Http\Controllers\Escort\EscortSuspendProfileController;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
@@ -405,6 +406,8 @@ Route::post('notification-seen', [NotificationController::class, 'makeNotificati
 
 Route::get('customise-dashboard', [EscortController::class, 'customiseDashboard'])->name('escort.dashboard.customise-dashboard');
 Route::post('customise-dashboard', [EscortController::class, 'updateCustomiseDashboard'])->name('escort.dashboard.customise-dashboard');
+
+ Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('escort.update-password');
 
 // Route::get('customise-dashboard',function(){
 //     return view('escort.dashboard.customise-dashboard');

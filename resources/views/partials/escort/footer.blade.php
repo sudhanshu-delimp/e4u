@@ -415,5 +415,8 @@ function int_datePicker(ele) {
                     @endif
                 @endforeach
 
+
+                 @include('modal.change-password')
+
 </body>
 </html>
