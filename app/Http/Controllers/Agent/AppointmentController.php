@@ -376,9 +376,10 @@ class AppointmentController extends Controller
 			->select(['id','date','time','importance','status','address','advertiser_id']);
 
 		$events = $query->get()->map(function ($apt) {
-			$color = '#F31818';
-			if (($apt->importance ?? 'high') === 'medium') { $color = '#FFA113'; }
-			if (($apt->importance ?? 'high') === 'low') { $color = '#87632C'; }
+            $importance = strtolower($apt->importance ?? 'high');
+            $color = '#F31818';
+            if ($importance == 'medium') { $color = '#FFA113'; }
+            if ($importance == 'low') { $color = '#87632C'; }
 			$startDateTime = Carbon::parse($apt->date.' '.$apt->time)->format('Y-m-d\TH:i:s');
 			$titleName = optional($apt->advertiser)->name ?: (optional($apt->advertiser)->member_id ?? 'Appointment');
 			$title = $titleName.' - '.Carbon::parse($apt->time)->format('h:i A'). '-' . Carbon::parse($apt->time)->addMinutes(30)->format('h:i A');
@@ -421,6 +422,7 @@ class AppointmentController extends Controller
 			'summary' => $appointment->summary,
 			'source' => $appointment->source,
 			'importance' => $appointment->importance,
+            'status' => ucfirst(str_replace("_", " ",$appointment->status)),
 			'create_date' => Carbon::parse($appointment->created_at)->format('M d, Y'),
 		];
 		return success_response($detail, 'Appointment details');
