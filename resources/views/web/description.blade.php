@@ -600,7 +600,7 @@
                         {!! $escort->about_title !!}
                         
                     </div>
-                    <div class="padding_20_tob_btm_side">
+                    <div class="padding_20_tob_btm_side text-justify">
                         {!! $escort->about !!}
                     </div>
                 </div>
