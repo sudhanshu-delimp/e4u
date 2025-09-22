@@ -629,83 +629,8 @@
                         </div>
                     </div>
                 </div>
-                {{-- video section start --}}
-                <div class="col-md-12 mb-3">    
-                    <div class="d-flex justify-content-end">
-                        <button id="add_video_button" type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#upload_video_modal">Add Videos</button>
-                    </div>
-                </div>
-            <div class="col-md-12 py-3">
-                <div class="video-header">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h3 class="media-head">All Videos</h3>
-                        </div>
-                        <div class="col-md-2 my-auto">
-                            <div class="progress">
-                                <div id="js_profile_video_gallery_progressbar" class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 my-auto">
-                            <div class="d-flex gap-10">
-                                <p id="js_profile_video_gallery_count" class="m-0 text-white"></p>
-                                <img src="{{ asset('assets/app/img/Vector-2.png')}}" style="height: 21px;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="archive-photo-sec">
-                    <div class="row blog">
-                        <div id="js_profile_video_gallery" class="col-md-12">
-                           
-                            <!--.Carousel-->
-                        </div>
-                    </div>
-                </div>
             </div>
-            
-            <div class="col-md-12 my-4">
-                <div class="upload-photo-sec">
-                    <div class="d-sm-flex align-items-center justify-content-between p-3 custom-img-filter-header">
-                        <h4 class="text-white">Default Video</h4>
-                    </div>
-                    
-                    <div class="row mt-3">
-                        <div class="col-lg-4">
-                            <label class="newbtn videoDroppable w-100" id="videoDroppable_1">
-                                <video class="videoUp" id="img1" controls="" src="" controls poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                    <source id="" src="" type="video/mp4" >
-                                </video>
-                                <input  type="hidden"  id="pos_1" name="video_position[1]" value="">
-                            </label>
-                        </div>
-        
-                        <div class="col-lg-4">
-                            <label class="newbtn videoDroppable w-100" id="videoDroppable_2">
-                                <video class="videoUp" id="img2" controls="" src="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                    <source id="" src="" type="video/mp4" >
-                                </video>
-                                <input  type="hidden"  id="pos_2" name="video_position[2]" value="">
-                            </label>
-                        </div>
-        
-                       <div class="col-lg-4">
-                        <label class="newbtn videoDroppable w-100" id="videoDroppable_3">
-                            <video class="videoUp" id="img3" controls="" src="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
-                                <source id="" src="" type="video/mp4" >
-                            </video>
-                            <input  type="hidden"  id="pos_3" name="video_position[3]" value="">
-                        </label>
-                       </div>
-                    </div>
-                </div>
-            </div>
-            {{-- end video section --}}
-            </div>
-
-            
         </div>
-
 
         <div class="modal" id="photo_gallery_banner" style="display: none">
             <div class="modal-dialog modal-dialog-centered">
@@ -714,7 +639,7 @@
                         <h5 class="modal-title" style="color: white;"> <img
                                 src="/assets/dashboard/img/upload-photos.png" class="custompopicon" alt="cross">
                             Select Banner</h5>
-
+    
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">
                                 <img src="{{ asset('assets/app/img/newcross.png') }}"
@@ -725,7 +650,7 @@
                     <div class="modal-body">
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs my-custompop-tabs" id="myTab" role="tablist">
-
+    
                             <li class="nav-item">
                                 <a class="nav-link active" id="upload-tab" data-toggle="tab" href="#upload"
                                     role="tab" aria-controls="upload" aria-selected="false">
@@ -740,7 +665,7 @@
                             </li>
                         </ul>
                         <div class="modalPopup" style="max-height: 500px; overflow-y:scroll;">
-
+    
                             <div class="tab-content mt-3">
                                 <!-- Tab panes -->
                                 <div class="tab-pane fade show active" id="upload" role="tabpanel"
@@ -898,7 +823,7 @@
                                         <div class="row mt-3 pt-1" style="border: 1px dotted;">
                                             <div class="col-6 pt-4 pb-4">
                                                 <h4>Verify these Photos</h4>
-
+    
                                                 <ul style="text-align: justify;">
                                                     <li>Two (2) selfies with your User Name and Membership ID printed
                                                         (can be handwritten) on a sheet of paper held up to the side of
@@ -959,7 +884,7 @@
                                                     <img id="blah9" class="img-fluid"
                                                         src="{{ asset($escort->imagefrontPosition(9)) }}"
                                                         style="height: 118px;object-fit: cover;width: 618px;">
-
+    
                                                     <input name="img[9]" id="pic9" class="pis"
                                                         onchange="readURL(this);" type="file" accept="image/*">
                                                     <input type="hidden" name="position[9]" id="mediaId9">
@@ -982,6 +907,97 @@
             <div class="row">
                 <div class="col-md-12 text-right media-profile">
                     <button id="mediaProfileBtn" type="submit" class="save_profile_btn">Update</button>
+                </div>
+            </div>
+            </form>
+        @endif
+                {{-- video section start --}}
+                <hr>
+                @if (request()->segment(2) == 'profile' && request()->segment(3))
+                <form id="myProfileMediaVideoForm" name="myProfileMediaVideoForm"
+                    action="{{ route('escort.profile.video', [$escort->id]) }}" method="POST"
+                    enctype="multipart/form-data">
+                    @CSRF
+            @endif
+                <div class="row">
+                    <div class="col-md-12">
+                <div class="col-md-12 mb-3">    
+                    <div class="d-flex justify-content-end">
+                        <button id="add_video_button" type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#upload_video_modal">Add Videos</button>
+                    </div>
+                </div>
+            <div class="col-md-12 py-3">
+                <div class="video-header">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3 class="media-head">All Videos</h3>
+                        </div>
+                        <div class="col-md-2 my-auto">
+                            <div class="progress">
+                                <div id="js_profile_video_gallery_progressbar" class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 my-auto">
+                            <div class="d-flex gap-10">
+                                <p id="js_profile_video_gallery_count" class="m-0 text-white"></p>
+                                <img src="{{ asset('assets/app/img/Vector-2.png')}}" style="height: 21px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="archive-photo-sec">
+                    <div class="row blog">
+                        <div id="js_profile_video_gallery" class="col-md-12">
+                           
+                            <!--.Carousel-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-12 my-4">
+                <div class="upload-photo-sec">
+                    <div class="d-sm-flex align-items-center justify-content-between p-3 custom-img-filter-header">
+                        <h4 class="text-white">Default Video</h4>
+                    </div>
+                    
+                    <div class="row mt-3">
+                        <div class="col-lg-4">
+                            <label class="newbtn videoDroppable w-100" id="videoDroppable_1">
+                                <video class="videoUp" id="img1" controls=""  controls poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                    <source id=""  type="video/mp4" >
+                                </video>
+                                <input  type="hidden"  id="pos_1" name="video_position[1]" value="">
+                            </label>
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label class="newbtn videoDroppable w-100" id="videoDroppable_2">
+                                <video class="videoUp" id="img2" controls="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                    <source id="" type="video/mp4" >
+                                </video>
+                                <input  type="hidden"  id="pos_2" name="video_position[2]" value="">
+                            </label>
+                        </div>
+        
+                       <div class="col-lg-4">
+                        <label class="newbtn videoDroppable w-100" id="videoDroppable_3">
+                            <video class="videoUp" id="img3" controls="" poster="{{ asset('assets/dashboard/img/video-placeholder.png') }}">
+                                <source id="" type="video/mp4" >
+                            </video>
+                            <input  type="hidden"  id="pos_3" name="video_position[3]" value="">
+                        </label>
+                       </div>
+                    </div>
+                </div>
+            </div>
+            {{-- end video section --}}
+            </div>
+        </div>
+        @if (request()->segment(2) == 'profile' && request()->segment(3))
+            <div class="row">
+                <div class="col-md-12 text-right media-profile">
+                    <button id="mediaProfileVideoBtn" type="submit" class="save_profile_btn">Update</button>
                 </div>
             </div>
             </form>
@@ -1915,6 +1931,7 @@
 @push('script')
 
     <script>
+        var profileId = parseInt('{{request()->segment(2) == "profile"?$escort->id:0}}');
         function initDragDrop() {
             $("#dvSource img").draggable({
                 revert: "invalid",

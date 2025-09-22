@@ -41,7 +41,7 @@ return [
                                 'name'  =>  'Manage Media',
                                 'text'  =>  'Manage all of your photos and video content from here.',
                                 'icon'  =>  'boxicon/icon_manage-media.png',
-                                'link'  =>   '#',
+                                'link'  =>   'escort-dashboard/archive-view-photos',
                             ],
 
                             [

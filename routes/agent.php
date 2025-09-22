@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Http\Request;
@@ -10,7 +11,6 @@ use App\Http\Controllers\Agent\AgentTaskController;
 use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Agent\AppointmentController;
 use App\Http\Controllers\Agent\AgentAccountController;
-use App\Http\Controllers\Agent\AgentAdvertiserListController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\User\Dashboard\UserController;
 use App\Http\Controllers\Agent\AgentDashboardController;
@@ -108,10 +108,9 @@ use App\Http\Controllers\Escort\EscortController as DataTableController;
      
      
      
-     Route::get('advertiser-list',[AgentAdvertiserListController::class,'index'])->name('agent.advertiser-list');
-    //  Route::get('advertiser-list',function(){
-    //     return view('agent.dashboard.Advertisers.advertiser-list');
-    //  })->name('agent.advertiser-list');
+     Route::get('advertiser-list',function(){
+        return view('agent.dashboard.Advertisers.advertiser-list');
+     })->name('agent.advertiser-list');
      
      Route::get('/accepted_advertiser_datatable', [AgentRequestController::class, 'accepted_advertiser_datatable'])->name('agent.accepted_advertiser_datatable');
 
@@ -250,4 +249,12 @@ Route::post('agent-update-password-duration', [AgentDashboardController::class, 
 
 //Appointment Planner
 Route::get('my-appointments', [AppointmentController::class, 'index'])->name('agent.my.appointment.list');
+Route::get('get-advertiser',[AppointmentController::class, 'getAdverser'])->name('get.adverser');
+Route::get('/get-slots', [AppointmentController::class, 'getSlotList'])->name('get.slot.list');
+Route::post('/appointments', [AppointmentController::class, 'store'])->name('agent.appointments.store');
+Route::get('/appointments/datatable', [AppointmentController::class, 'datatable'])->name('agent.appointments.datatable');
+Route::get('/appointments/{id}', [AppointmentController::class, 'show'])->name('agent.appointments.show');
+Route::post('/appointments/{id}', [AppointmentController::class, 'update'])->name('agent.appointments.update');
+Route::post('/appointments/{id}/reschedule', [AppointmentController::class, 'reschedule'])->name('agent.appointments.reschedule');
+Route::post('/appointments/{id}/complete', [AppointmentController::class, 'complete'])->name('agent.appointments.complete');
 //Route::post('save-appointment-planner', [AgentDashboardController::class, 'Save AppointmentPlanner'])->name('agent.save.appointment-planner');

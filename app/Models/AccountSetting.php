@@ -22,7 +22,7 @@ class AccountSetting extends Model
 
      public function create_account_setting($user)
      {
-
+        if (!AccountSetting::where('user_id', $user->id)->exists()) {
          self::create([
                'user_id'  => $user->id,
                'password_updated_date' => date('Y-m-d H:i:s'),
@@ -31,9 +31,9 @@ class AccountSetting extends Model
                'is_email_notificaion_on' => '0',
                'is_first_login' => '1',
          ]);
-
-         return true;
-
+        }
+        
+        return true;
      }
 }
 

@@ -10,6 +10,7 @@ use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\Escort\ArchivesController;
 use App\Http\Controllers\Escort\PlaymateController;
 use App\Http\Controllers\Escort\MyPlaymatesContoller;
+use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Escort\HowIsItDoneController;
 use App\Http\Controllers\User\Dashboard\UserController;
@@ -18,8 +19,8 @@ use App\Http\Controllers\Escort\EscortGalleryController;
 use App\Http\Controllers\Escort\Profile\CreateController;
 use App\Http\Controllers\Escort\Profile\UpdateController;
 use App\Http\Controllers\Escort\EscortDashboardController;
-use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\EscortStatisticsController;
+use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\EscortTourPaymentController;
 use App\Http\Controllers\Escort\EscortSuspendProfileController;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
@@ -92,6 +93,7 @@ Route::get('media-masseurs01/{id?}',[CreateController::class,'archivesMediamasse
 Route::get('create-profile/{id?}',[CreateController::class,'index'])->name('escort.profile');
 Route::post('setting-profile/{id?}',[UpdateController::class,'createBySetting'])->name('escort.setting.profile');
 Route::post('save-profile-media/{id}',[UpdateController::class,'saveProfileMedia'])->name('escort.profile.media');
+Route::post('save-profile-video/{id}',[UpdateController::class,'saveProfileVideo'])->name('escort.profile.video');
 Route::post('duplicate-profile',[UpdateController::class,'duplicateProfile'])->name('escort.duplicate.profile');
 Route::post('update-escort/{id?}',[UpdateController::class,'update_escort'])->name('escort.update_escort');
 Route::post('update_escort_default',[UpdateController::class,'update_escort_default'])->name('escort.update_escort_default');
@@ -209,7 +211,7 @@ Route::post('upload-galleries',[EscortGalleryController::class,'uploadGallery'])
 Route::post('upload-videos-galleries',[EscortGalleryController::class,'uploadVideosGaller'])->name('escort.upload.videos.gallery');
 Route::post('default_photos', [EscortGalleryController ::class, 'defaultImages'])->name('escort.default.images');
 Route::post('default-videos', [EscortGalleryController ::class, 'defaultVideos'])->name('escort.default.video');
-Route::get('get-default-videos', [EscortGalleryController ::class, 'getDefaultVideos'])->name('escort.get.default.vedios');
+Route::get('get-default-videos/{id?}', [EscortGalleryController ::class, 'getDefaultVideos'])->name('escort.get.default.vedios');
 Route::post('get-default-photos', [EscortGalleryController ::class, 'getDefaultImages'])->name('escort.get.default.images');
 Route::post('delete-photos/{id}', [EscortGalleryController ::class, 'ImagesDelete'])->name('escort.delete.gallery');
 Route::post('delete-videos/{id}', [EscortGalleryController ::class, 'videosDelete'])->name('escort.delete.vedio.gallery');
@@ -404,6 +406,8 @@ Route::post('notification-seen', [NotificationController::class, 'makeNotificati
 
 Route::get('customise-dashboard', [EscortController::class, 'customiseDashboard'])->name('escort.dashboard.customise-dashboard');
 Route::post('customise-dashboard', [EscortController::class, 'updateCustomiseDashboard'])->name('escort.dashboard.customise-dashboard');
+
+ Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('escort.update-password');
 
 // Route::get('customise-dashboard',function(){
 //     return view('escort.dashboard.customise-dashboard');

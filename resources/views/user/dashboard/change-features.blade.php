@@ -24,7 +24,12 @@
                 <div class="card collapse" id="notes" style="">
                 <div class="card-body">
                     <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-                    <ol></ol>
+                    <ol>
+                        <li>Use this feature to enable and disable your feature preferences.</li>
+                        <li>Please note that for an Advertiser to participate in any of these features, they must
+                            have enabled the corresponding feature in their preference settings.</li>
+                        <li>Note also the default setting for 2FA authentification.</li>
+                    </ol>
                 </div>
                 </div>
             </div>
@@ -50,7 +55,6 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
-
                           @php
                             $features = $preference && $preference->features ? json_decode($preference->features) : [];
                             $notifications = $preference && $preference->notifications ? json_decode($preference->notifications) : [];
@@ -59,28 +63,60 @@
 
                             <!-- Features -->
                             <div class="form-group">
-                                <label>Features (enabled by default)</label><br>
-                                <div class="form-check">
+                                <h3 class="h3">Features</h3>
+                                {{-- <div class="form-check">
                                     <input class="form-check-input" id="feature_favorites" type="checkbox" {{ in_array('favorites', $features) ? 'checked' : ''}} name="features[]" value="favorites">
                                     <label class="form-check-label" for="feature_favorites">Flag your favorite Escorts and view your Favorites
                                         list</label>
+                                </div> --}}
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="feature_alerts" name="features[]" value="alerts" checked>
+                                    <label class="custom-control-label" for="feature_alerts">Receive Alert Notifications from Escorts</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" {{ in_array('reviews', $features) ? 'checked' : ''}} type="checkbox" id="feature_reviews" name="features[]" value="reviews">
-                                    <label class="form-check-label" for="feature_reviews">Write Reviews</label>
+                                
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="feature_chatting" name="features[]" value="chatting" checked>
+                                    <label class="custom-control-label" for="feature_chatting">Participate in direct chatting with Escorts</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" {{ in_array('alerts', $features) ? 'checked' : ''}} type="checkbox" id="feature_alerts" name="features[]" value="alerts">
-                                    <label class="form-check-label" for="feature_alerts">Receive Alert Notifications</label>
+                                
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="feature_reviews" name="features[]" value="reviews" checked>
+                                    <label class="custom-control-label" for="feature_reviews">Write Reviews</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" {{ in_array('chatting', $features) ? 'checked' : ''}} type="checkbox" id="feature_chatting" name="features[]" value="chatting">
-                                    <label class="form-check-label" for="feature_chatting">Participate in direct chatting with Escorts</label>
+                                
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="feature_legbox" name="features[]" value="legbox" checked>
+                                    <label class="custom-control-label" for="feature_legbox">Enable My Legbox</label>
                                 </div>
+                                
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="feature_notebox" name="features[]" value="notebox" checked>
+                                    <label class="custom-control-label" for="feature_notebox">Enable My Notebox</label>
+                                </div>
+                                
+                                <div class="pt-1"><i>These features are enabled by default unless you disable them.</i></div>
                             </div>
+                             <!-- Listings Preferences -->
+                             <div class="form-group">
+                                <h3 class="h3">Listings Preferences</h3>
+                                <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="listView" id="gridView" value="grid" checked>
+                                <label class="form-check-label" for="gridView">
+                                    Grid View
+                                </label>
+                                </div>
 
+                                <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="listView" id="listView" value="list">
+                                <label class="form-check-label" for="listView">
+                                    List View
+                                </label>
+                                </div>
+                                
+                                <div class="pt-1"><i>Select your preferred option on how you view Advertiser Listings.</i></div>
+                            </div>
                             <!-- Alert Notifications -->
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Alert notifications</label><br>
                                 <div class="form-check">
                                     @php
@@ -93,38 +129,49 @@
                                     <input class="form-check-input" {{ in_array('text', $notifications) ? 'checked' : ''}} type="checkbox" id="notifications_text" name="notifications[]" value="text">
                                     <label class="form-check-label" for="notifications_text">Text</label>
                                 </div>
-                            </div>
+                                <div class="pt-1"><i>These features are enabled by default unless you disable them.</i></div>
+                            </div> --}}
 
                             <!-- Interests -->
                             <div class="form-group">
-                                <label>What are your interests?</label><br>
-                                <div class="form-check">
-                                    <input class="form-check-input" id="inetrest_female" type="checkbox" {{ in_array('6', $interests) ? 'checked' : ''}} name="interests[]" value="6">
-                                    <label class="form-check-label" for="inetrest_female">Female</label>
+                                <h3 class="h3">What are your interests?</h3>
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" id="interest_female" type="checkbox" 
+                                           name="interests[]" value="6" checked>
+                                    <label class="custom-control-label" for="interest_female">Female</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" id="inetrest_male" type="checkbox" {{ in_array('1', $interests) ? 'checked' : ''}} name="interests[]" value="1">
-                                    <label class="form-check-label" for="inetrest_male">Male</label>
+                                
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" id="interest_male" type="checkbox" 
+                                           name="interests[]" value="1" {{ in_array('1', $interests) ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="interest_male">Male</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" {{ in_array('3', $interests) ? 'checked' : ''}} id="inetrest_trans" type="checkbox" name="interests[]" value="3">
-                                    <label class="form-check-label" for="inetrest_trans">Trans</label>
+                                
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" id="interest_trans" type="checkbox" 
+                                           name="interests[]" value="3" {{ in_array('3', $interests) ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="interest_trans">Trans</label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" {{ in_array('5', $interests) ? 'checked' : ''}} id="inetrest_bdsm" type="checkbox" name="interests[]" value="5">
-                                    <label class="form-check-label" for="inetrest_bdsm">BDSM</label>
+                                
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" id="interest_cross" type="checkbox" 
+                                           name="interests[]" value="4" {{ in_array('4', $interests) ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="interest_cross">Cross dresser</label>
                                 </div>
-                                <div class="form-check">
-                                  <input class="form-check-input" {{ in_array('4', $interests) ? 'checked' : ''}} id="inetrest_cross" type="checkbox" name="interests[]" value="4">
-                                  <label class="form-check-label" for="inetrest_cross">Cross dresser</label>
-                              </div>
-                               
+                                
+                                <div class="custom-control custom-switch">
+                                    <input class="custom-control-input" id="interest_couples" type="checkbox" 
+                                           name="interests[]" value="5" {{ in_array('5', $interests) ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="interest_couples">Couples</label>
+                                </div>
+                                
+                              <div class="pt-1"><i>By selecting a particular interest, we can refine your Escorts View page.</i></div>
                             </div>
 
                         </div>
                     </div>
 
-                    <input type="submit" value="Save" class="btn btn-primary shadow-none" name="submit">
+                    <input type="submit" value="Save" class="btn-common" name="submit">
                 </form>
 
             </div>

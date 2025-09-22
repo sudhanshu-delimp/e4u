@@ -4850,6 +4850,10 @@ list-style: auto;
         margin-bottom: 20px;
     }
     
+    .request-active {
+        color: #027f00 !important;
+    }
+    
     form.v-form-design .form-group {
         margin-bottom: 25px;
     }
@@ -4859,7 +4863,7 @@ list-style: auto;
         font-size: 16px;
         font-style: normal;
         font-weight: 500;
-        line-height: 17px;
+        line-height: 23px;
         letter-spacing: 0.01em;
         text-align: left;
         color: var(--blue--text);
@@ -8924,7 +8928,7 @@ border-top: 5px solid var(--peach);
     
     .add-punterbox-report input,
     .add-punterbox-report textarea {
-        border-radius: 5px !important;
+        /* border-radius: 5px !important; */
         border-color: #d1d3e2 !important;
     }
     
@@ -8979,7 +8983,6 @@ border-top: 5px solid var(--peach);
         background-color: var(--blue--text);
         color: #fff;
         border-radius: 0;
-        height: 45px;
         padding: 0 20px;
         border: none;
     }
@@ -9412,8 +9415,8 @@ border-top: 5px solid var(--peach);
     .tooltip-desc {
         position: absolute;
         top: -43px;
-        left: 0px;
-        opacity: 0;
+        left: 50%;
+        transform: translate(-50%, -10%);
         background: var(--peach);
         font-size: 10px;
         padding: 10px;

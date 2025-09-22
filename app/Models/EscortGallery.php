@@ -11,4 +11,9 @@ class EscortGallery extends Model
     
     protected $table = "escort_gallery";
     protected $guarded = ['id'];
+
+    public function media()
+    {
+        return $this->belongsTo(EscortMedia::class, 'escort_media_id', 'id');
+    }
 }

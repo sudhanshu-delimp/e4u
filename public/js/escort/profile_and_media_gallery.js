@@ -4,8 +4,10 @@ $(() => {
         $("body").on('click','.page-link', function(e){
             e.preventDefault();
             var id = $(this).attr('data-slide-to');
-            $('.page-item').removeClass('active');
-            $('#pageItem_'+id).addClass('active');
+            var childElement = $(this).parent().attr('id');
+            var parentElement = $(this).parents('.carousel').attr('id');
+            $(`#${parentElement} .page-item`).removeClass('active');
+            $(`#${childElement}`).addClass('active');
             if(id == 0) {
                 $(".preview").addClass('leftLst over');
             } else {
@@ -20,7 +22,8 @@ $(() => {
 
         $("body").on('click','.preview', function(e){
             e.preventDefault();
-            var carouselEl = $(".carousel-inner").carousel('prev');
+            var parentElement = $(this).parents('.carousel').attr('id');
+            var carouselEl = $(`#${parentElement} .carousel-inner`).carousel('prev');
             var carouselItems = carouselEl.find('.carousel-item');
             var id = carouselItems.siblings('.active').index();
             if(id == 0) {
@@ -33,7 +36,8 @@ $(() => {
 
         $("body").on('click','.nextOne', function(e){
             e.preventDefault();
-            var carouselEl = $(".carousel-inner").carousel('next');
+            var parentElement = $(this).parents('.carousel').attr('id');
+            var carouselEl = $(`#${parentElement} .carousel-inner`).carousel('next');
             var carouselItems = carouselEl.find('.carousel-item');
             var id = carouselItems.siblings('.active').index();
             if(id == 2) {
@@ -107,10 +111,13 @@ $(() => {
 });
 
 const CHUNK_SIZE = 1024 * 1024;
+let currentPageUrl = window.location.href;
 var bannerDefaultImage;
 var pinupDefaultImage;
 var allFiles = [];
 
+let selectedVideoId = null;
+let selectedVideoPosition = null;
 function preview_image(event)
     {
         const input = document.getElementById("upload_file");
@@ -336,12 +343,12 @@ function preview_image(event)
      * Video Gallery Module
      */
     var initVideoDragDrop = function(){
-        console.log('initVideoDragDrop');
         $(".videoDraggable").draggable({
             revert: "invalid",
             helper: 'clone',
-            appendTo: ".upload-photo-sec",
+            appendTo: "body",
             refreshPositions: false,
+            cancel:'video',
             start: function (event, ui) {
                 ui.helper.css({
                     width: "150px",   // shrink preview
@@ -350,14 +357,12 @@ function preview_image(event)
                 });
                 ui.helper.find("video").css({
                     width: "100%",
-                    height: "auto"
+                    height: "auto",
                 });
             },
             drag: function (event, ui) {
-                
             },
             stop: function (event, ui) {
-
             }
           });
 
@@ -366,29 +371,37 @@ function preview_image(event)
             drop: function(event, ui) {
                 let dropElement = $(this).find('video');
                 let dragElement = ui.draggable.find('video');
-                let mediaId = dragElement.attr('data-id');
                 let mediaUrl = dragElement.attr('src');
-                let position = $(".videoDroppable").index(this)+1;
-                if($(`.videoDroppable video[data-id=${mediaId}]`).length > 0){
+
+                selectedVideoId = dragElement.attr('data-id');
+                selectedVideoPosition = $(".videoDroppable").index(this)+1;
+
+                if($(`.videoDroppable video[data-id=${selectedVideoId}]`).length > 0){
                     swal.fire('Media', "<p>The video you selected is already set as the default. Please select other video from your repository.</p>", 'error');
                     return false;
                 }
-                dropElement.attr('src',mediaUrl).attr('data-id',mediaId).attr('poster','').find('source').attr('src',mediaUrl);
-                dropElement.next().val(mediaId);
-                $.ajax({
-                    type: 'POST',
-                    url: `/escort-dashboard/default-videos`,
-                    data: {
-                        position: position,
-                        mediaId: mediaId
-                    },
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                    success : function (data) {
-
-                    }
-                });
+                dropElement.attr('src',mediaUrl).attr('data-id',selectedVideoId).attr('poster','').find('source').attr('src',mediaUrl);
+                dropElement.next().val(selectedVideoId);
+                currentPageUrl.includes('profile')?$("#setAsDefaultVideoForMainAccount").modal('show'):setVideoToDefault();
             }
           });
+    }
+
+    var saveDefaultVideo = function(){
+        setVideoToDefault();
+        $("#setAsDefaultVideoForMainAccount").modal('hide');
+    }
+
+    var setVideoToDefault = function(){
+        $.ajax({
+            type: 'POST',
+            url: `/escort-dashboard/default-videos`,
+            data: {position:selectedVideoPosition,mediaId:selectedVideoId},
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            success : function (data) {
+
+            }
+        });
     }
 
     var getAccountVideoGallery = function() {
@@ -437,6 +450,33 @@ function preview_image(event)
         });
     }
 
+    function getProfileDefaultVideo(){
+        return $.ajax({
+            url: `/escort-dashboard/get-default-videos/${profileId}`,
+            type: "GET",
+            dataType: "json"
+        }).done(function (response) {
+            console.log(response);
+            if (response.success) {
+                if(response.media.length > 0){
+                    response.media.map((item,index)=>{
+                        let target = $(".videoDroppable").eq(item.position - 1).find("video");
+                        if (target.length) {
+                          target.attr("src", `${window.App.baseUrl}${item.media.path}`);
+                          target.attr("poster", ``);
+                          target.attr("data-id", item.id);
+                          target.find("source").attr("src", `${window.App.baseUrl}${item.media.path}`);
+                          target.next().val(item.id);
+                          target.load();
+                        }
+                    })
+                }
+            }
+        }).fail(function (xhr, status, error) {
+            console.error("Error:", error);
+        });
+    }
+
 function previewVideo() {
     const input = document.getElementById('video_upload');
     const preview = document.getElementById('videoPreview');
@@ -450,6 +490,7 @@ function previewVideo() {
         const url = URL.createObjectURL(file);
         preview.src = url;
         preview.style.display = 'block';
+        preview.insertAdjacentHTML("afterend", '<i class="fa fa-trash remove" style="cursor:pointer; margin-left:8px; color:red;"></i>');
         input.previousElementSibling.style.display = 'none';
     } else {
         preview.src = '';
@@ -457,6 +498,17 @@ function previewVideo() {
         Swal.fire('Media', 'Please select a valid video file.', 'error');
     }
 }
+
+$(document).on('click','#upload_video_modal i.remove', function(){
+    const input = document.getElementById('video_upload');
+    const preview = document.getElementById('videoPreview');
+    preview.src = '';
+    preview.style.display = 'none';
+    this.remove();
+    input.value='';
+    input.previousElementSibling.style.display = 'block';
+    
+})
 
 async function uploadVideo() {
     const fileInput = document.getElementById('video_upload');
@@ -526,13 +578,14 @@ async function uploadVideo() {
         fileInput.value = '';
         preview.src = '';
         preview.style.display = 'none';
+        preview.nextElementSibling.remove();
         getAccountVideoGallery();
     });
 }
 
 async function initVideos() {
     await getAccountVideoGallery();
-    await getAccountDefaultVideo();
+    (typeof profileId === "undefined" || profileId===0)?await getAccountDefaultVideo():await getProfileDefaultVideo();
     let videos = document.querySelectorAll("video");
     videos.forEach(video => {
         video.addEventListener("play", () => {

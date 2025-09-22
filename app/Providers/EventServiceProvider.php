@@ -37,16 +37,19 @@ class EventServiceProvider extends ServiceProvider
         EscortRegister::class => [
             RegisterListenerForEscort::class,
             RegisterListenerForAdmin::class,
-            RegisterListenerForAgent::class
+            RegisterListenerForAgent::class,
+            CreateDefaultAccountSettings::class,
         ],
         AgentRegistered::class => [
             SendAgentWelcomeEmail::class,
-            SendAdminAgentRegisteredEmail::class
+            SendAdminAgentRegisteredEmail::class,
+            CreateDefaultAccountSettings::class,
         ],
         MassageRegister::class => [
             RegisterListnerForMassageCentr::class,
             RegisterListnerForAgent::class,
             RegisterListnerForAdmin::class,
+            CreateDefaultAccountSettings::class,
         ],
        
         'Illuminate\Auth\Events\Login' => [
