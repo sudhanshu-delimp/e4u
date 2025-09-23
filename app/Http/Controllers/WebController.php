@@ -1301,6 +1301,12 @@ class WebController extends Controller
             return response()->json(['error' => true ]);
         }
         $ipAddress = AttemptLogin::Where('user_id', $userId)->first();
+
+        if($ipAddress == null){
+           $ipAddress = $this->getUserIP();
+        }else{
+            $ipAddress = $ipAddress->ip_address; 
+        }
        
         $escort_id = $request->escortId;
         $like = $request->vote;
@@ -1309,9 +1315,9 @@ class WebController extends Controller
             'user_id' => $userId,
             'escort_id' => $escort_id,
             'like' => $like,
-            'ip_address' => $ipAddress->ip_address,
+            'ip_address' => $ipAddress,
         ];
-        $todayVote = $this->_getUserLikeDislike($escort_id, $ipAddress->ip_address, $userId);
+        $todayVote = $this->_getUserLikeDislike($escort_id, $ipAddress, $userId);
 
         $error = 0;
         if($todayVote) {

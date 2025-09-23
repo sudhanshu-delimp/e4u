@@ -352,14 +352,14 @@
                         <table class="table table_striped mb-0">
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
-                                    <th scope="col">Arriving</th>
-                                    <th scope="col">Departing</th>
+                                    <th class="text-center" scope="col">Arriving</th>
+                                    <th class="text-center" scope="col">Departing</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{Carbon\Carbon::parse($escort->start_date)->format('d-m-Y')/*->format('jS F Y ')*/ }}</td>
-                                    <td>{{Carbon\Carbon::parse($escort->end_date)->format('d-m-Y')/*->format('jS F Y ')*/}}</td>
+                                    <td class="text-center">{{Carbon\Carbon::parse($escort->start_date)->format('d-m-Y')/*->format('jS F Y ')*/ }}</td>
+                                    <td class="text-center">{{Carbon\Carbon::parse($escort->end_date)->format('d-m-Y')/*->format('jS F Y ')*/}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1777,9 +1777,9 @@ let carousel = new bootstrap.Carousel(myCarousel, {
             success: function(data) {
                 if(data.error) {
                     Swal.fire(
-                        'Oops!',
-                        'Error while saving your feedback',
-                        'error'
+                        'Info!',
+                        'Please login first to like & dislike the profile.',
+                        'info'
                     );
                 } else {
                     if (data.like == 1) {
