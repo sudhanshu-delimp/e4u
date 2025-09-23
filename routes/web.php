@@ -10,6 +10,7 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\BlogsController;
 use App\Mail\sendPlaymateAccountDisableMail;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\NotificationSetting;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Center\CenterController;
@@ -81,6 +82,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/change-password', [UserController::class, 'updatePassword'])->name('user.update.password');
         Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('user.update.password.expiry');
         Route::get('/notifications-features', [UserController::class, 'notificationsFeatures'])->name('user.profile.notifications');
+        
+        Route::get('/update-notification-setting', [NotificationSetting::class, 'viewwer_update_notification_setting'])->name('user.update_notification_setting');
+        
         Route::post('upload-avatar/{id}',[UserController::class,'storeMyAvatar'])->name('user.save.avatar');
         Route::post('remove-avatar',[UserController::class,'removeMyAvatar'])->name('user.avatar.remove');
         Route::post('/update-profile/{id}', [UserController::class, 'update'])->name('user.update.profile');

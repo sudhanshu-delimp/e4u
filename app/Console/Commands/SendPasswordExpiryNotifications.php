@@ -46,77 +46,74 @@ class SendPasswordExpiryNotifications extends Command
     public function handle(): int
     {
 
+        $users = User::whereHas('account_setting')->get();
 
-        $now = Carbon::now('UTC')->startOfDay();
+        
+        $reminderCount = 0;
+        $today = Carbon::today('UTC');
 
-        $securities = PasswordSecurity::query()
-            ->with('user')
-            ->where('password_expiry_days', '>', 0)
-            ->get();
+        foreach ($users as $user) {
+            $setting = $user->account_setting;
 
-        $sent = 0;
-
-        foreach ($securities as $sec) {
-            if (!$sec->password_updated_at) {
-                continue;
+            if (!$setting || !$setting->password_updated_date || !$setting->password_expiry_days) {
+                continue; 
             }
 
-            //password null when user expire
 
-            $days = Carbon::parse($now)->diffInDays(Carbon::parse($sec->password_updated_at)->startOfDay());
+
+            $passwordUpdatedDate = Carbon::parse($setting->password_updated_date);
+            $expiryDays = (int) $setting->password_expiry_days;
+
+           
+            $expiryDate = $passwordUpdatedDate->copy()->addDays($expiryDays);
+
+            // Calculate reminder dates
+            $reminder1 = $expiryDate->copy()->subDays(1);
+            $reminder5 = $expiryDate->copy()->subDays(5);
             
-            // if ($sec->password_expiry_days < $days) {
-            //     $user = User::find($sec->user_id);
-            //     $user->password = null;
-            //     $user->save();
-            // }
 
-
-            $updated = Carbon::parse($sec->password_updated_at)->startOfDay();
-            $expiryDate = $updated->copy()->addDays($sec->password_expiry_days);
-
-            if ($expiryDate->isSameDay(now()->addDays(1))) {
-                $this->notifyUser($sec, 1, $expiryDate);
-                $sent++;
+           
+            if ($today->isSameDay($reminder5)) {
+                $this->notifyUser($user, 5, $expiryDate);
+                $reminderCount++;
             }
 
-            if ($expiryDate->isSameDay(now()->addDays(5))) {
-                $this->notifyUser($sec, 5, $expiryDate);
-                $sent++;
+             if ($today->isSameDay($reminder1)) {
+                $this->notifyUser($user, 1, $expiryDate);
+                $reminderCount++;
             }
         }
 
-        $this->info("Password expiry reminders sent: {$sent}");
+
+        $this->info("Password expiry reminders sent: {$reminderCount}");
         return Command::SUCCESS;
     }
 
 
-    private function notifyUser($sec, int $daysLeft, Carbon $expiryDate): void
+    private function notifyUser($user, int $daysLeft, Carbon $expiryDate): void
     {
 
-        $user = $sec->user;
         if (!$user) {
             return;
         }
 
-        // Notification preferences parse karo
-        $modes = is_string($sec->password_notification) ? json_decode($sec->password_notification) : (is_array($sec->password_notification) ? $sec->password_notification : []);
+        $setting = $user->account_setting;
+        
+        if( $setting->is_text_notificaion_on=='1')
+        $this->sendSms($user, $daysLeft, $expiryDate);
 
+        if( $setting->is_email_notificaion_on=='1')
+        $this->sendEmail($user, $daysLeft, $expiryDate);
 
-        foreach ($modes as $mode) {
-
-            if ($mode == "2") {
-                $this->sendEmail($user, $daysLeft, $expiryDate);
-            }
-            if ($mode == "1") {
-                $this->sendSms($user, $daysLeft, $expiryDate);
-            }
-        }
     }
 
 
     private function sendEmail($user, int $daysLeft, Carbon $expiryDate): void
     {
+
+        Log::info('sendEmail');
+        Log::info($expiryDate);
+        
         try {
             Mail::to($user->email)->queue(new SendPasswordExpiryReminderMail($user, $daysLeft, $expiryDate));
         } catch (\Throwable $e) {
