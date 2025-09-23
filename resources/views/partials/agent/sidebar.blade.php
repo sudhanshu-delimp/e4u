@@ -217,16 +217,15 @@
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                         src="{{ asset('assets/app/img/user.png') }}">
                     <span
-                        style="{{ request()->segment(2) == 'advertiser-profiles' ? 'color: #e5365a;' : '' }}">Advertiser
-                        Profiles</span>
+                        style="{{ request()->segment(2) == 'advertiser-profiles' ? 'color: #e5365a;' : '' }}">Profile Summary</span>
                 </a>
-                <a class="collapse-item" href="{{ route('agent.advertiser-social-media') }}">
+                {{-- <a class="collapse-item" href="{{ route('agent.advertiser-social-media') }}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
                     <span
                         style="{{ request()->segment(2) == 'advertiser-social-media' ? 'color: #e5365a;' : '' }}">Advertiser
                         Social Media</span>
-                </a>
+                </a> --}}
                 <a class="collapse-item" href="{{ route('agent.prospets-memberships') }}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                         src="{{ asset('assets/app/img/membership.png') }}">
