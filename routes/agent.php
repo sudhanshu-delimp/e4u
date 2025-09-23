@@ -170,9 +170,6 @@ Route::get('advertisers',function(){
 
 
 
-Route::get('view-planner',function(){
-    return view('agent.dashboard.view-planner');
-})->name('agent.view-planner');
 
 
 Route::get('Marketing/database-centers',function(){
@@ -249,6 +246,10 @@ Route::post('agent-update-password-duration', [AgentDashboardController::class, 
 
 //Appointment Planner
 Route::get('my-appointments', [AppointmentController::class, 'index'])->name('agent.my.appointment.list');
+Route::get('appointment-booking-list', [AppointmentController::class, 'appointmentBookingList'])->name('agent.appointment.booking.list');
+Route::get('appointment-calendar-events', [AppointmentController::class, 'calendarEvents'])->name('agent.appointment.calendar.events');
+Route::get('appointment-count-day-week-month', [AppointmentController::class, 'appointmentcountDayWeekMonth'])->name('agent.appointment.count.day.week.month');
+Route::get('appointment-details/{id}', [AppointmentController::class, 'appointmentDetails'])->name('agent.appointment.details');
 Route::get('get-advertiser',[AppointmentController::class, 'getAdverser'])->name('get.adverser');
 Route::get('/get-slots', [AppointmentController::class, 'getSlotList'])->name('get.slot.list');
 Route::post('/appointments', [AppointmentController::class, 'store'])->name('agent.appointments.store');
@@ -257,4 +258,6 @@ Route::get('/appointments/{id}', [AppointmentController::class, 'show'])->name('
 Route::post('/appointments/{id}', [AppointmentController::class, 'update'])->name('agent.appointments.update');
 Route::post('/appointments/{id}/reschedule', [AppointmentController::class, 'reschedule'])->name('agent.appointments.reschedule');
 Route::post('/appointments/{id}/complete', [AppointmentController::class, 'complete'])->name('agent.appointments.complete');
-//Route::post('save-appointment-planner', [AgentDashboardController::class, 'Save AppointmentPlanner'])->name('agent.save.appointment-planner');
+Route::get('/appointments-count', [AppointmentController::class, 'appointmentCount'])->name('agent.appointment.count');
+Route::get('/appointment-pdf-download/{id}', [AppointmentController::class, 'appointmentPdfDownload'])->name('agent.appointment.pdf.download');
+
