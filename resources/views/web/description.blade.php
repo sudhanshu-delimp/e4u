@@ -358,8 +358,8 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{Carbon\Carbon::parse($escort->start_date)->format('d-m-Y')/*->format('jS F Y ')*/ }}</td>
-                                    <td>{{Carbon\Carbon::parse($escort->end_date)->format('d-m-Y')/*->format('jS F Y ')*/}}</td>
+                                    <td class="text-center">{{Carbon\Carbon::parse($escort->start_date)->format('d-m-Y')/*->format('jS F Y ')*/ }}</td>
+                                    <td class="text-center">{{Carbon\Carbon::parse($escort->end_date)->format('d-m-Y')/*->format('jS F Y ')*/}}</td>
                                 </tr>
                             </tbody>
                         </table>
