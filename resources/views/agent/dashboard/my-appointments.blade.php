@@ -717,33 +717,149 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 
     <script>
-    // Generic Google Places Autocomplete initializer
-    function initPlacesAutocomplete(inputId, latId, lngId) {
+    // Google Maps helpers with two-way sync between input, map, and hidden lat/lng
+    var E4U_MAPS = {
+        instances: {},
+        geocoder: null
+    };
+
+    function ensureGeocoder() {
+        if (!E4U_MAPS.geocoder) {
+            E4U_MAPS.geocoder = new google.maps.Geocoder();
+        }
+        return E4U_MAPS.geocoder;
+    }
+
+    function reverseGeocodeToInput(latLng, inputEl) {
+        var geocoder = ensureGeocoder();
+        geocoder.geocode({ location: latLng }, function(results, status) {
+            if (status === 'OK' && results && results[0] && inputEl) {
+                inputEl.value = results[0].formatted_address || inputEl.value;
+            }
+        });
+    }
+
+    function initAddressMap(opts) {
         try {
-            var input = document.getElementById(inputId);
-            if (!input || !window.google || !google.maps || !google.maps.places) { return; }
-            if (input.getAttribute('data-gpa-init') === '1') { return; }
-            var autocomplete = new google.maps.places.Autocomplete(input, {
-                types: ['address'],
-                fields: ['geometry']
+            if (!window.google || !google.maps) { return; }
+            var mapId = opts.mapId, inputId = opts.inputId, latId = opts.latId, lngId = opts.lngId;
+            var mapEl = document.getElementById(mapId);
+            var inputEl = document.getElementById(inputId);
+            var latEl = document.getElementById(latId);
+            var lngEl = document.getElementById(lngId);
+            if (!mapEl || !inputEl || !latEl || !lngEl) { return; }
+
+            // Show map container only if we already have coordinates (e.g., Edit flow)
+            // Prevent double init per map element
+            if (E4U_MAPS.instances[mapId]) {
+                // If we re-open modal, also try to recenter using current values
+                var existing = E4U_MAPS.instances[mapId];
+                var lat = parseFloat(latEl.value);
+                var lng = parseFloat(lngEl.value);
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    var ll = { lat: lat, lng: lng };
+                    existing.map.setCenter(ll);
+                    existing.marker.setPosition(ll);
+                    // Ensure map is visible if we now have coordinates (Edit case)
+                    if (mapEl.style.display === 'none') {
+                        mapEl.style.display = 'block';
+                        google.maps.event.trigger(existing.map, 'resize');
+                        existing.map.setCenter(ll);
+                    }
+                }
+                return;
+            }
+
+            var startLat = parseFloat(latEl.value);
+            var startLng = parseFloat(lngEl.value);
+            var hasStart = !isNaN(startLat) && !isNaN(startLng);
+            var defaultCenter = hasStart ? { lat: startLat, lng: startLng } : (opts.defaultCenter || { lat: -23.4042066, lng: 119.9962819 }); // Sydney fallback
+
+            var map = new google.maps.Map(mapEl, {
+                center: defaultCenter,
+                zoom: hasStart ? 15 : 13,
+                streetViewControl: false,
+                mapTypeControl: false
             });
-            input.setAttribute('data-gpa-init', '1');
-            autocomplete.addListener('place_changed', function () {
-                var place = autocomplete.getPlace();
-                if (place && place.geometry && place.geometry.location) {
-                    var latEl = document.getElementById(latId);
-                    var lngEl = document.getElementById(lngId);
-                    if (latEl) { latEl.value = place.geometry.location.lat(); }
-                    if (lngEl) { lngEl.value = place.geometry.location.lng(); }
+
+            var marker = new google.maps.Marker({
+                position: defaultCenter,
+                map: map,
+                draggable: true
+            });
+
+            // If we have starting coordinates, show the map immediately (e.g., Edit modal)
+            if (hasStart) {
+                mapEl.style.display = 'block';
+                google.maps.event.trigger(map, 'resize');
+                map.setCenter(defaultCenter);
+            }
+
+            // Store
+            E4U_MAPS.instances[mapId] = { map: map, marker: marker };
+
+            // Autocomplete binding (guard to avoid double-init)
+            var autocomplete;
+            if (inputEl.getAttribute('data-gpa-init') !== '1') {
+                autocomplete = new google.maps.places.Autocomplete(inputEl, { types: ['address'], fields: ['geometry', 'formatted_address'] });
+                inputEl.setAttribute('data-gpa-init', '1');
+            }
+
+            var updateLatLngFields = function(latLng) {
+                latEl.value = latLng.lat();
+                lngEl.value = latLng.lng();
+            };
+
+            var setMarkerAndCenter = function(latLng, updateAddress) {
+                marker.setPosition(latLng);
+                map.panTo(latLng);
+                updateLatLngFields(latLng);
+                if (updateAddress) {
+                    reverseGeocodeToInput(latLng, inputEl);
+                }
+            };
+
+            if (autocomplete) {
+                autocomplete.addListener('place_changed', function() {
+                    var place = autocomplete.getPlace();
+                    if (place && place.geometry && place.geometry.location) {
+                        // Reveal the map when a place is selected for the first time
+                        if (mapEl.style.display === 'none') {
+                            mapEl.style.display = 'block';
+                            google.maps.event.trigger(map, 'resize');
+                        }
+                        setMarkerAndCenter(place.geometry.location, false);
+                        if (place.formatted_address) {
+                            inputEl.value = place.formatted_address;
+                        }
+                    }
+                });
+            }
+
+            // Hide map if address is cleared
+            inputEl.addEventListener('input', function(){
+                if (!this.value.trim()) {
+                    mapEl.style.display = 'none';
                 }
             });
+
+            map.addListener('click', function(e) {
+                setMarkerAndCenter(e.latLng, true);
+            });
+
+            marker.addListener('dragend', function(e) {
+                setMarkerAndCenter(e.latLng, true);
+            });
+
+            // If no lat/lng preset, do not auto-show via geolocation; keep hidden until user selects an address
         } catch (e) {
-            console.error('Places autocomplete init error', e);
+            console.error('Map init error', e);
         }
     }
-    // Google script callback - initialize for New Appointment field by default
+
+    // Google script callback - initialize New Appointment map by default
     function initAutocomplete() {
-        initPlacesAutocomplete('new_address', 'new_latitude', 'new_longitude');
+        initAddressMap({ mapId: 'map', inputId: 'new_address', latId: 'new_latitude', lngId: 'new_longitude' });
     }
     $(document).ready(function() {
 
@@ -797,20 +913,18 @@
             ajaxRequest(endpoint.get_adverser, {}, 'GET',null , successPopulateAdvisorDropdown,  errorPopulateAdvisorDropdown);
         });
 
-        // Initialize autocomplete after modal is visible (ensures input has size)
+        // Initialize map + autocomplete after modal is visible (ensures container sizes)
         $('#new_appointment_model').on('shown.bs.modal', function() {
-            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
-                initPlacesAutocomplete('new_address', 'new_latitude', 'new_longitude');
+            if (typeof google !== 'undefined' && google.maps) {
+                initAddressMap({ mapId: 'map', inputId: 'new_address', latId: 'new_latitude', lngId: 'new_longitude' });
             }
-           // $('#new_address').trigger('focus');
         });
 
-        // Initialize Edit autocomplete after modal is visible
+        // Initialize Edit map + autocomplete after modal is visible
         $('#edit_appointment').on('shown.bs.modal', function() {
-            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
-                initPlacesAutocomplete('edit_address', 'edit_latitude', 'edit_longitude');
+            if (typeof google !== 'undefined' && google.maps) {
+                initAddressMap({ mapId: 'edit_map', inputId: 'edit_address', latId: 'edit_latitude', lngId: 'edit_longitude' });
             }
-           // $('#edit_address').trigger('focus');
         });
 
         function successPopulateAdvisorDropdown(response, targetSelector = '#new_advertiser', selectedId = null) {
@@ -972,6 +1086,10 @@
                     $('#edit_date_created_text').text(a.created_at);
                 } else {
                     $('#edit_date_created_text').text('--');
+                }
+                // After fields are populated, ensure the edit map is initialized and visible if lat/long exist
+                if (typeof google !== 'undefined' && google.maps) {
+                    initAddressMap({ mapId: 'edit_map', inputId: 'edit_address', latId: 'edit_latitude', lngId: 'edit_longitude' });
                 }
             }, function(xhr){ console.log('load edit failed', xhr); });
         });
