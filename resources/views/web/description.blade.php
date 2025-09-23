@@ -1768,9 +1768,9 @@ let carousel = new bootstrap.Carousel(myCarousel, {
             success: function(data) {
                 if(data.error) {
                     Swal.fire(
-                        'Oops!',
-                        'Error while saving your feedback',
-                        'error'
+                        'Info!',
+                        'Please login first to like & dislike the profile.',
+                        'info'
                     );
                 } else {
                     if (data.like == 1) {
