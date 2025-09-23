@@ -127,43 +127,8 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script src="{{ asset('js/escort/add_listing.js') }}"></script>
-{{-- 3 step bars --}}
-<script>
-    const steps = document.querySelectorAll('.step');
-    const nextBtn = document.getElementById('next');
-    const prevBtn = document.getElementById('prev');
-    let currentStep = 0;
 
-    nextBtn.addEventListener('click', () => {
-        if (currentStep < steps.length - 1) {
-            currentStep++;
-            updateSteps();
-        }
-    });
 
-    prevBtn.addEventListener('click', () => {
-        if (currentStep > 0) {
-            currentStep--;
-            updateSteps();
-        }
-    });
-
-    function updateSteps() {
-        steps.forEach((step, index) => {
-            const circle = step.querySelector('.circle');
-            if (index <= currentStep) {
-                step.classList.add('active');
-                circle.textContent = '✔'; // Add check mark
-            } else {
-                step.classList.remove('active');
-                circle.textContent = ''; // Remove check mark
-            }
-        });
-
-        prevBtn.disabled = currentStep === 0;
-        nextBtn.disabled = currentStep === steps.length - 1;
-    }
-
-    </script>
+   
     
 @endpush
