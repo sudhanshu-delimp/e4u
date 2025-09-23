@@ -141,14 +141,14 @@
                     <table class="table table_striped mb-0 arrive--depart">
                         <thead class="table_heading_bgcolor_color">
                             <tr>
-                                <th scope="col">Arriving</th>
-                                <th scope="col">Departing</th>
+                                <th class="text-center" scope="col">Arriving</th>
+                                <th class="text-center" scope="col">Departing</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>25th May 2019</td>
-                                <td>1st June 2019</td>
+                                <td class="text-center">25th May 2019</td>
+                                <td class="text-center">1st June 2019</td>
                             </tr>
                         </tbody>
                     </table>
