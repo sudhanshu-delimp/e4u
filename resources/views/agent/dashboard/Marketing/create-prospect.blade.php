@@ -1,460 +1,297 @@
 @extends('layouts.agent')
+
 @section('style')
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}">
+<style>
+  .small-muted { font-size: 12px; color: #6c757d; }
+  .card { box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+</style>
 @endsection
+
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-   <!--middle content end here-->{{-- Page Heading   --}}
-   <div class="row">
-      
-      <div class="d-flex align-items-center justify-content-between col-md-12">
-         <div class="custom-heading-wrapper">
-             <h1 class="h1">Create Prospect</h1>
-             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-         </div>
-         <div class="back-to-dashboard">
-             <a href="{{ url()->previous() ?? route('dashboard.home') }}">
-                 <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
-             </a>
-         </div>
-     </div>
-      <div class="col-md-12 mb-4">
-         <div class="card collapse" id="notes" style="">
-            <div class="card-body">
-               <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
-               <ol>
-                  <li>You must create the Prospective Member here before you can create an
-                     Information Package for a Prospective Member.
-                  </li>
-                  <li>All Prospective Members remain in the list even after the Prospective Member
-                     becomes a Member.
-                  </li>
-                  <li>Click the 'View' button under Action to view a summary of the Prospective Member.</li>
-                  <p>
-                     <span>MC = Massage Centre
-                     </span>
-                     <span class="px-3">E = Escort</span>
-                     <span>AR = Agent Request
-                          
-                     </span>
-                     <span class="px-3">C = Cold call</span>
-                     <span>R = Referral</span>
-                     <span class="px-3">PM = Prospective Member</span>
-                     <span> M = Member</span>
-                  </p>
-               </ol>
-            </div>
-         </div>
-      </div>
-   </div>
-   {{-- end --}}
-   <div class="row">
-      <div class="col-md-12">
-         <div class="row">
-            
-            <div class="col-sm-12">
-               <div class="bothsearch-form" style="gap: 10px;">
-                  <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#create-prospect">Create New  Prospect</button>
-               </div>
-            </div>
-         </div>
-         <div class="row mt-4">
-            <div class="col-md-12">
-               <div class="panel with-nav-tabs panel-warning">
-                  <div class="panel-body">
-                     <div class="tab-content">
-                        <div class="tab-pane fade in active show" id="tab1warning">
-                           <div class="table-responsive-xl">
-                              <table class="table" id="createProspectTable">
-                                 <thead class="table-bg">
-                                    <tr>
-                                       <th scope="col">
-                                          Ref
-                                       </th>
-                                       <th scope="col">Date</th>
-                                       <th scope="col">
-                                          Name
-                                       </th>
-                                       <th scope="col">
-                                          Membership Type<sup>(1)</sup>
-                                       </th>
-                                       <th scope="col">Source<sup>(2)</sup></th>
-                                       <th scope="col">Status<sup>(3)</sup></th>
-                                       <th scope="col">Location</th>
-                                       <th scope="col">Action</th>
-                                    </tr>
-                                 </thead>
-                                 <tbody class="table-content">
-                                    <tr class="row-color">
-                                       <td class="theme-color">1234</td>
-                                       <td class="theme-color">30-06-22</td>
-                                       <td class="theme-color">Carla Brasil</td>
-                                       <td class="theme-color">MC</td>
-                                       <td class="theme-color">C</td>
-                                       <td class="theme-color">PM</td>
-                                       <td class="theme-color">WA</td>
-                                       <td>
-                                          <div class="dropdown no-arrow ml-3">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#Edit_Competitor"> <i class="fa fa-fw fa-pen "></i> Reply </a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-trash"></i> Delete </a>
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                     <tr class="row-color">
-                                       <td class="theme-color">1234</td>
-                                       <td class="theme-color">30-06-22</td>
-                                       <td class="theme-color">Carla Brasil</td>
-                                       <td class="theme-color">MC</td>
-                                       <td class="theme-color">C</td>
-                                       <td class="theme-color">PM</td>
-                                       <td class="theme-color">WA</td>
-                                       <td>
-                                          <div class="dropdown no-arrow ml-3">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#Edit_Competitor"> <i class="fa fa-fw fa-pen "></i> Reply </a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-trash"></i> Delete </a>
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                     <tr class="row-color">
-                                       <td class="theme-color">1234</td>
-                                       <td class="theme-color">30-06-22</td>
-                                       <td class="theme-color">Carla Brasil</td>
-                                       <td class="theme-color">MC</td>
-                                       <td class="theme-color">C</td>
-                                       <td class="theme-color">PM</td>
-                                       <td class="theme-color">WA</td>
-                                       <td>
-                                          <div class="dropdown no-arrow ml-3">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#Edit_Competitor"> <i class="fa fa-fw fa-pen "></i> Reply </a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-trash"></i> Delete </a>
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                     <tr class="row-color">
-                                       <td class="theme-color">1234</td>
-                                       <td class="theme-color">30-06-22</td>
-                                       <td class="theme-color">Carla Brasil</td>
-                                       <td class="theme-color">MC</td>
-                                       <td class="theme-color">C</td>
-                                       <td class="theme-color">PM</td>
-                                       <td class="theme-color">WA</td>
-                                       <td>
-                                          <div class="dropdown no-arrow ml-3">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#Edit_Competitor"> <i class="fa fa-fw fa-pen "></i> Reply </a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-trash"></i> Delete </a>
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                     <tr class="row-color">
-                                       <td class="theme-color">1234</td>
-                                       <td class="theme-color">30-06-22</td>
-                                       <td class="theme-color">Carla Brasil</td>
-                                       <td class="theme-color">MC</td>
-                                       <td class="theme-color">C</td>
-                                       <td class="theme-color">PM</td>
-                                       <td class="theme-color">WA</td>
-                                       <td>
-                                          <div class="dropdown no-arrow ml-3">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#Edit_Competitor"> <i class="fa fa-fw fa-pen "></i> Reply </a>
-                                                <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#"> <i class="fa fa-fw fa-trash"></i> Delete </a>
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                 </tbody>
-                              </table>
-                              {{-- <nav aria-label="Page navigation example">
-                                 <ul class="pagination float-right pt-4">
-                                    <li class="page-item">
-                                       <a class="page-link" href="#" aria-label="Previous">
-                                       <span aria-hidden="true">«</span>
-                                       <span class="sr-only">Previous</span>
-                                       </a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                       <a class="page-link" href="#" aria-label="Next">
-                                       <span aria-hidden="true">»</span>
-                                       <span class="sr-only">Next</span>
-                                       </a>
-                                    </li>
-                                 </ul>
-                              </nav> --}}
-                           </div>
-                        </div>
-                        <div class="tab-pane fade" id="tab2warning">
-                           Revenue
-                        </div>
-                        <div class="tab-pane fade" id="tab3warning">
-                           <div class="table-responsive-xl">
-                              Sales
-                           </div>
-                        </div>
-                        <div class="tab-pane fade" id="tab4warning">
-                           <div class="table-responsive-xl">
-                              Advertiser Credit
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      {{-- <div class="col-md-12 mt-4">
-         <div class="row">
-            <div class="col-md-6 mb-2">
-               <div class="card">
-                  <div class="card-body">
 
-                     <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                     <ol>
-                        <li>MC = Massage Centre   E = Escort
-                        </li>
-                        <li>AR = Agent Request      C = Cold call  R = Referral
-                        </li>
-                        <li>PM = Prospective Member M = Member     M = Member</li>
-                     </ol>
-                  </div>
-               </div>
-            </div>
-         </div>
+  {{-- Page Heading --}}
+  <div class="row">
+    <div class="d-flex align-items-center justify-content-between col-md-12">
+      <div class="custom-heading-wrapper">
+        <h1 class="h1">Create Prospect</h1>
+        <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+      </div>
+      {{-- <div class="back-to-dashboard">
+        <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+          <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+        </a>
       </div> --}}
-   </div>
+    </div>
+    <div class="col-md-12 mb-4">
+      <div class="card collapse" id="notes">
+        <div class="card-body">
+          <p class="mb-0" style="font-size: 20px;"><b>Notes:</b></p>
+          <ol>
+            <li>The E4U data list (Data) includes all known Massage Centres located in your Territory. From time to time the Data will be updated. You will be notified when the Data is updated.</li>
+            <li>Use the search feature to create your prospect list (List). Once you have created the List, you can then apply the List in the following manner:
+               <ul style="list-style: lower-alpha;padding-left: 20px;margin-top: 8px;">
+                  <li>merging the List into any of the marketing material provided.</li>
+                  <li>printing the List as a working sheet.</li>
+                  <li>working from the List via your computer screen.</li>
+               </ul>
+            </li>
+            <li>A Massage Centre who becomes a Member will remain in the List.</li>
+            <li>You can access your Lists anytime from the Report List.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- Generate Prospect List --}}
+  <div class="card mb-4">
+   <div class="card-header" style="background: #0c223d;color: #fff;">Generate Prospect List</div>
+    <div class="card-body">
+      <p class="small-muted">Use filters to create a list for your territory.</p>
+
+      <form id="generateForm">
+        <div class="form-row align-items-end">
+          <div class="col-md-4">
+            <label>Filter Type</label>
+            <select class="form-control" id="filterType">
+              <option value="single">Post Code - Single</option>
+              <option value="multiple">Post Code - Multiple</option>
+              <option value="all">All</option>
+            </select>
+          </div>
+
+          <div class="col-md-2" id="singleField">
+            <label>Post Code</label>
+            <input type="text" id="singlePostcode" class="form-control" placeholder="e.g. 6000">
+          </div>
+
+          <div class="col-md-3 d-none" id="rangeField">
+            <label>Post Code Range</label>
+            <div class="input-group">
+              <input type="text" id="fromPostcode" class="form-control" placeholder="From">
+              <input type="text" id="toPostcode" class="form-control" placeholder="To">
+            </div>
+          </div>
+
+          <div class="col-md-2">
+            <label style="margin-bottom: 22px;">Options</label>
+            <div class="custom-control custom-switch">
+              <input type="checkbox" class="custom-control-input" id="trialRunSwitch">
+              <label class="custom-control-label" for="trialRunSwitch">Trial Run Only</label>
+            </div>
+          </div>
+
+          <div class="col-md-1 text-right">
+            <button type="button" id="showRecipients" class="btn-common" disabled>Show</button>
+          </div>
+          <div class="col-md-1 text-right">
+            <button type="button" id="proceedBtn" class="btn-common">Proceed</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {{-- Trial Run Preview --}}
+  <div id="previewCard" class="card mb-4 d-none">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Preview Results</h5>
+        <button class="btn-common" id="closePreview">Close</button>
+      </div>
+      <hr>
+      <div class="table-responsive">
+        <table class="table table-sm table-bordered" id="previewTable">
+          <thead class="bg-first">
+            <tr>
+              <th>ID</th><th>Business Name</th><th>Address</th><th>Post Code</th><th>Mobile</th><th>Business No.</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {{-- Generated Reports --}}
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title pt-0 mb-0">Generated Report List</h5>
+      <div class=" ">
+         <div class="table-responsive-xl">
+            <table class="table table-bordered">
+               <thead class="bg-first">
+                  <tr>
+                     <th>ID</th>
+                     <th>Date</th>
+                     <th>Post Code</th>
+                     <th>Listings</th>
+                     <th>Merged</th>
+                     <th>Action</th>
+                  </tr>
+               </thead>
+               <tbody class="table-content">
+                  <tr class="row-color mt-0">
+                     <td class="font-weight-normal text-muted bg-white">411</td>
+                     <td class="font-weight-normal text-muted bg-white pt-0">9/18/2025</td>
+                     <td class="font-weight-normal text-muted bg-white pt-0">44444</td>
+                     <td class="font-weight-normal text-muted bg-white pt-0">0</td>
+                     <td class="font-weight-normal text-muted bg-white pt-0">No</td>
+                     <td class="font-weight-normal text-muted bg-white pt-0">
+                        <div class="dropdown no-arrow">
+                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                           <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                           </a>
+                           <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#viewModal"> <i class="fa fa-eye"></i> View </a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 viewReportBtn" href="#" data-toggle="modal" data-target="#mergeModal"> <i class="fas fa-atom"></i> Merge</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#printModal"> <i class="fa fa-print"></i> Print</a>
+                           </div>
+                        </div>
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<div class="modal fade upload-modal" id="create-prospect" tabindex="-1" role="dialog" aria-labelledby="CompetitorLabel" aria-hidden="true">
+{{-- Merge Modal --}}
+<div class="modal fade upload-modal" id="mergeModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered"><div class="modal-content basic-modal">
+    <div class="modal-header"><h5 class="modal-title">Merge Report</h5>
+      <button class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body">
+      <label>Select Marketing Document</label>
+      <select class="form-control"><option>Welcome Pack</option><option>Brochure</option></select>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+      <button class="btn btn-primary">Merge</button>
+    </div>
+  </div></div>
+</div>
+
+{{-- View Modal --}}
+<div class="modal fade upload-modal" id="viewModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content basic-modal">
+    <div class="modal-header"><h5 class="modal-title">View Report</h5>
+      <button class="close" data-dismiss="modal">&times;</button></div>
+    <div class="modal-body" id="viewReportBody"></div>
+  </div></div>
+</div>
+
+<div class="modal fade upload-modal" id="printModal" tabindex="-1" aria-modal="true" role="dialog">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
-            <h5 class="modal-title" id="create-prospect"> <img src="{{ asset('assets/dashboard/img/add-prospective.png') }}" style="width:32px; margin-right:10px;" alt="Request Rejected"> Add Prospective Member</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-            </button>
+            <h5 class="modal-title">Print Report</h5>
+            <button type="button" class="close" data-dismiss="modal">×</button>
          </div>
-         <div class="modal-body pb-0">
-
-            <ul class="nav tab-sec" id="myTab" role="tablist" style="gap: 0;">
-               <li class="nav-item">
-                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">General</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Prospect</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Spend</a>
-               </li>
-            </ul>
-               <div class="tab-content" id="myTabContent">
-               <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"> 
-                  <div class="table-responsive">
-                     <table class="table table-nowrap mb-0 w-50">
-                        <tbody class="table-content">
-                           <tr>
-                              <td class="pl-0 border-0"><b>Ref:</b> 1236</td>
-                              <td class="text-right border-0"><b>Date:</b> 12/31/2022</td>
-                           </tr>
-                           
-                        </tbody>
-                     </table>
-                  </div>
-
-                  <div class="row agent-tour pt-2 pb-4">
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <select class="custom-select" name="membership" id="membership">
-                              <option value="">Membership Type</option>
-                              <option value="1">Platinum</option>
-                              <option value="2">Gold</option>
-                              <option value="3">Silver</option>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <select class="custom-select" name="location" id="location">
-                              <option selected="">Source</option>
-                              <option>Source 1</option>
-                              <option>Source 2</option>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <select class="custom-select" name="location" id="location">
-                              <option selected="">Status</option>
-                              <option>Approved</option>
-                              <option>Panding</option>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="form-group">
-                           <select class="custom-select rounded-0" name="location" id="location">
-                              <option selected="">Location</option>
-                              <option>Location 1</option>
-                              <option>Location 2</option>
-                           </select>
-                        </div>
-                     </div>
-                     <div class="col-md-12">
-                        <div class="form-group">
-                           <input type="button" value="Next" class="btn-success-modal float-right" name="submit">
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                  <div class="row agent-tour pt-2 pb-4">
-                  <div class="col-md-12">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Name">
-                     </div>
-                  </div>
-                  
-                  
-                  
-                  
-               <div class="col-md-12">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Address">
-                     </div>
-                  </div><div class="col-md-12">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Business Numner">
-                     </div>
-                  </div><div class="col-md-6">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Mobile">
-                     </div>
-                  </div><div class="col-md-6">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Email">
-                     </div>
-                  </div><div class="col-md-12">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Point of Contact">
-                     </div>
-                  </div><div class="col-md-6">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Mobile">
-                     </div>
-                  </div><div class="col-md-6">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Email">
-                     </div>
-                  </div><div class="col-md-12">
-                     <div class="form-group">
-                        <textarea class="form-control" placeholder="Comment" rows="5"></textarea>
-                     </div>
-                  </div>
-                  <div class="col-md-12">
-                     <div class="form-group">
-                        <input type="button" value="Next" class="btn-success-modal float-right" name="submit">
-                     </div>
-                  </div></div>
-               </div>
-               <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                  <div class="row agent-tour pt-2 pb-4">
-                  
-                  
-                  
-                  
-                  
-               <div class="col-md-6">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Competitor 1">
-                     </div>
-                  </div><div class="col-md-6">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Monthly Spend">
-                     </div>
-                  </div><div class="col-md-6">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Competitor 2">
-                     </div>
-                  </div>
-                  <div class="col-md-6">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Monthly Spend">
-                     </div>
-                  </div><div class="col-md-6">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Competitor 3">
-                     </div>
-                  </div><div class="col-md-6">
-                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Monthly Spend">
-                     </div>
-                  </div><div class="col-md-12">
-                     <div class="form-group">
-                        <input type="button" value="Save" class="btn-success-modal float-right" name="submit">
-                     </div>
-                  </div></div>
-               </div>
-               </div>
+         <div class="modal-body" id="printModalBody">
+            <h6>Report For: Agent Name</h6>
+            <p><strong>Date Generated:</strong> 9/18/2025 <strong>Post Code:</strong> 44444 <strong>Listings:</strong> 0</p>
+            <div class="table-responsive">
+               <table class="table table-sm table-bordered">
+                  <thead>
+                     <tr>
+                        <th>ID</th>
+                        <th>Business Name</th>
+                        <th>Address</th>
+                        <th>Post Code</th>
+                        <th>Mobile</th>
+                        <th>Business No.</th>
+                     </tr>
+                  </thead>
+                  <tbody></tbody>
+               </table>
+            </div>
+            <p><label><input type="checkbox" id="signedCheck"> Signed (tick when converted to member)</label></p>
+         </div>
+         <div class="modal-footer">
+            <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button class="btn btn-success" id="doPrint">Print</button>
          </div>
       </div>
    </div>
 </div>
+
 @endsection
+
 @push('script')
-<!-- file upload plugin start here -->
-<!-- file upload plugin end here -->
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-
+<script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
 <script>
-   $(document).ready(function() {
-       $('#createProspectTable').DataTable({
-           language: {
-               search: "_INPUT_",
-               searchPlaceholder: "Search By Agent Id",
-               sSearch: 'Search:'
-           },
-           paging: true,
-           pageLength: 10,
-           lengthMenu: [10, 25, 50, 100],
-           info: true,
-           searching: true,
-           order: [[1, 'asc']]
-       });
-   });
-   </script>
-   
+$(function(){
+  // Example dataset
+  const SAMPLE = [
+    {id:369,name:'Body Heat Massage',address:'62 Gordon Rd, Perth',postcode:'6000',mobile:'0456 665 012',business:'9236 2587'},
+    {id:256,name:'Healthland',address:'510 Murray St, Perth',postcode:'6000',mobile:'0426 610 881',business:''},
+    {id:147,name:'Esquire Spa',address:'11 Aberdeen St, Perth',postcode:'6000',mobile:'',business:'9325 2011'},
+  ];
+  let reports=[];
 
+  function renderReports(){
+    let tb=$('#reportsTable tbody');tb.empty();
+    reports.forEach(r=>{
+      tb.append(`<tr>
+        <td>${r.id}</td><td>${r.date}</td><td>${r.postcode}</td><td>${r.listings.length}</td>
+        <td>${r.merged?'Yes':'No'}</td>
+        <td>
+          <button class="btn btn-sm btn-info viewBtn" data-id="${r.id}">View</button>
+          <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#mergeModal">Merge</button>
+          <button class="btn btn-sm btn-success">Print</button>
+        </td></tr>`);
+    });
+  }
 
+  function filterData(type,single,from,to){
+    if(type==='all') return SAMPLE;
+    if(type==='single') return SAMPLE.filter(s=>s.postcode===single);
+    let f=parseInt(from),t=parseInt(to);
+    return SAMPLE.filter(s=>+s.postcode>=f && +s.postcode<=t);
+  }
+
+  $('#filterType').on('change',function(){
+    let v=$(this).val();
+    $('#singleField').toggleClass('d-none',v!=='single');
+    $('#rangeField').toggleClass('d-none',v!=='multiple');
+  }).trigger('change');
+
+  $('#trialRunSwitch').on('change',function(){
+    $('#showRecipients').prop('disabled',!this.checked);
+  });
+
+  $('#showRecipients').click(function(){
+    let data=filterData($('#filterType').val(),$('#singlePostcode').val(),$('#fromPostcode').val(),$('#toPostcode').val());
+    let tb=$('#previewTable tbody');tb.empty();
+    data.forEach(d=>tb.append(`<tr><td>${d.id}</td><td>${d.name}</td><td>${d.address}</td><td>${d.postcode}</td><td>${d.mobile}</td><td>${d.business}</td></tr>`));
+    $('#previewCard').removeClass('d-none');
+  });
+
+  $('#closePreview').click(()=>$('#previewCard').addClass('d-none'));
+
+  $('#proceedBtn').click(function(){
+    let type=$('#filterType').val();
+    let data=filterData(type,$('#singlePostcode').val(),$('#fromPostcode').val(),$('#toPostcode').val());
+    let rep={id:Math.floor(Math.random()*1000),date:new Date().toLocaleDateString(),postcode:type, listings:data,merged:false};
+    reports.unshift(rep);renderReports();
+    alert('Report generated!');
+  });
+
+  $('#reportsTable').on('click','.viewBtn',function(){
+    let id=$(this).data('id');
+    let r=reports.find(x=>x.id==id);
+    $('#viewReportBody').html(`<p><b>ID:</b> ${r.id} <b>Date:</b> ${r.date}</p>`);
+    $('#viewModal').modal('show');
+  });
+});
+</script>
 @endpush
