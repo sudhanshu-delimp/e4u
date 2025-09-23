@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Center\CenterController;
 use App\Http\Controllers\Escort\EscortController;
+use App\Http\Controllers\Agent\AgentAccountController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Center\PolyPaymentController;
 use App\Http\Controllers\Center\Profile\CreateController;
@@ -260,6 +261,7 @@ Route::get('archive-view-photos', [CenterProfileInformationController ::class, '
 Route::post('default_photos', [CenterProfileInformationController ::class, 'defaultImages'])->name('center.default.images');
 Route::post('get-default-photos', [CenterProfileInformationController ::class, 'getDefaultImages'])->name('center.get.default.images');
 Route::post('delete-photos/{id}', [CenterProfileInformationController ::class, 'ImagesDelete'])->name('center.delete.gallery');
+ Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('center.update-password');
 
 // function(){
 //     return view('center.dashboard.archives.archive-view-photos');

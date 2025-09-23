@@ -16,10 +16,20 @@
    
     <!-- Page Heading -->
     <div class="row">
-      <div class="custom-heading-wrapper col-md-12">
+      <div class="col-md-12 custom-heading-wrapper justify-content-between">
+         <div class="d-flex align-items-center">
           <h1 class="h1">My Noteboxes</h1>
           <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+         </div>
+          
+          <div class="back-to-dashboard">
+              <a href="{{ url()->previous() ?? route('user-dashboard') }}">
+                  <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+              </a>
+          </div>
       </div>
+  </div>
+    <div class="row">
       <div class="col-md-12 mb-4">
           <div class="card collapse" id="notes" style="">
             <div class="card-body">
