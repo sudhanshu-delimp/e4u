@@ -920,17 +920,20 @@
                                                                 <img src="{{ ($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()) ? asset($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()->path) : ''}}" alt="">
                                                                 
                                                             </div>
+                                                            <div class="small-images">
                                                             @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[2,3,4,5,6,7])->orderBy('position','asc')->get() as $key=>$media)
-                                                            <div class="gallery__item">
-                                                                <img src="{{ asset($media->path) }}" alt="">
-                                                            </div>
+                                                            
+                                                                <div class="gallery__item">
+                                                                    <img src="{{ asset($media->path) }}" alt="">
+                                                                </div>
 
-                                                        @endforeach
+                                                            @endforeach
+                                                        </div>
                                                     @endif
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="contact-tab">
-                                                <div class="row pl-0 ml-0 pr-1 pb-3" id="dvSource">
+                                                <div class="row px-3 pb-2" id="dvSource">
                                                     
                                                             @foreach($galleryVideos as $key=>$media)
                                                                 <div class="col-md-4" id="dm_2">
