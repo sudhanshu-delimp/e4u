@@ -925,15 +925,17 @@
                                             </div>
                                             <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="contact-tab">
                                                 <div class="row pl-0 ml-0 pr-1 pb-3" id="dvSource">
-                                                    <div class="col-md-4" id="dm_2">
-                                                        <a href="#">
+                                                    
                                                             @foreach($escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get() as $key=>$media)
-                                                            <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
-                                                                <source src="{{ asset($media->path) }}" type="video/mp4">
-                                                            </video>
+                                                                <div class="col-md-4" id="dm_2">
+                                                                    <a href="#">
+                                                                        <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">
+                                                                            <source src="{{ asset($media->path) }}" type="video/mp4">
+                                                                        </video>
+                                                                    </a>
+                                                                </div>
                                                             @endforeach
-                                                        </a>
-                                                    </div>
+                                                      
 
                                                 </div>
                                             </div>
