@@ -21,15 +21,18 @@
                 <h1 class="home_heading_first mb-0 pin-head-custom">{{$escort->name}} <span>
                         <div class="pin-age">Age: <span>{{$escort->age}}</span></div>
                     </span>
-                    <div class="custom-video-wraper">
-                        <div class="video--icon">
-                            <a href="#"><img
-                                    src="/assets/app/img/video_play.svg" class=""
-                                    alt="logo">
-                                <span class="custom-icon-hover-tooltip">I have Video</span>
-                            </a>
+                    @php 
+                       $galleryVideos = $escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
+                    @endphp
+                    @if($galleryVideos->count()>0)
+                        <div class="custom-video-wraper">
+                            <div class="video--icon">
+                                <a href="#"><img src="/assets/app/img/video_play.svg" class="" alt="logo">
+                                    <span class="custom-icon-hover-tooltip">I have Video</span>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </h1>
                 <div class="row v-path">
                     <div class="col-md-4">
