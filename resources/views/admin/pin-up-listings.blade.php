@@ -143,6 +143,5 @@
         { data: 'option' },
     ]
 });
-
  </script>
 @endpush

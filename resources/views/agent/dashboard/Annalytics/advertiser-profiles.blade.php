@@ -18,6 +18,11 @@
         span.select2.select2-container.select2-container--default>span.selection>span {
             height: 52px !important;
         }
+
+        .profile_summary table td,
+        th {
+            border: none;
+        }
     </style>
 @endsection
 @section('content')
@@ -73,17 +78,17 @@
                                         </tr>
                                     </thead>
                                     <tbody class="table-content">
-                                        <tr class="row-color">
-                                            <td class="theme-color">E60165</td>
-                                            <td class="theme-color">Jane</td>
-                                            <td class="theme-color">0438 028 728</td>
-                                            <td class="theme-color">01-01-2025</td>
-                                            <td class="theme-color">15-04-2025</td>
-                                            <td class="theme-color">104</td>
-                                            <td class="theme-color">Yes</td>
-                                            <td class="theme-color"> <span class="pr-3">$</span> 1,443.00</td>
-                                            <td class="theme-color"> <span class="pr-3">$</span> 72.15</td>
-                                            <td class="theme-color text-center">
+                                        <tr>
+                                            <td>E60165</td>
+                                            <td>Jane</td>
+                                            <td>0438 028 728</td>
+                                            <td>01-01-2025</td>
+                                            <td>15-04-2025</td>
+                                            <td>104</td>
+                                            <td>Yes</td>
+                                            <td> <span class="pr-3">$</span> 1,443.00</td>
+                                            <td> <span class="pr-3">$</span> 72.15</td>
+                                            <td class="text-center">
                                                 <div class="dropdown no-arrow">
                                                     <a class="dropdown-toggle" href="#" role="button"
                                                         id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
@@ -95,17 +100,20 @@
                                                         aria-labelledby="dropdownMenuLink" style="">
 
                                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                            href="#" data-toggle="modal" data-target="#activity_summary">
+                                                            href="#" data-toggle="modal"
+                                                            data-target="#activity_summary">
                                                             <i class="fa fa-file-alt"></i> Activity Summary</a>
                                                         <div class="dropdown-divider"></div>
                                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                            href="#" data-toggle="modal" data-target="#current_location"> <i
+                                                            href="#" data-toggle="modal"
+                                                            data-target="#current_location"> <i
                                                                 class="fa fa-map-marker"></i> Current Location</a>
                                                         <div class="dropdown-divider"></div>
                                                         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                            href="#" data-toggle="modal" data-target="#profile_summary"> <i
-                                                                class="fa fa-file-alt"></i> Profile Summary</a>
-                                                        
+                                                            href="#" data-toggle="modal"
+                                                            data-target="#profile_summary"> <i class="fa fa-file-alt"></i>
+                                                            Profile Summary</a>
+
                                                     </div>
                                                 </div>
                                             </td>
@@ -124,72 +132,85 @@
     @include('agent.dashboard.partials.playmates-modal')
     <!-- Print Profile Report Modal -->
 
-
     <div class="modal programmatic" id="printReport">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
-
-                    <h5 class="modal-title text-white"><img src="{{ asset('assets/dashboard/img/profile-report.png') }}"
-                            class="custompopicon" alt="cross">Profile Report</h5>
+                    <h5 class="modal-title text-white">
+                        <img src="{{ asset('assets/dashboard/img/profile-report.png') }}" class="custompopicon"
+                            alt="cross">
+                        Profile Report
+                    </h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                         </span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form>
-
                         <div class="row">
                             <div class="col-lg-12">
                                 <!-- Report Type -->
+                                <div class="form-group mb-4">
+                                    <div class="d-flex align-items-center gap-20">
+                                        <p class="mb-2 font-weight-bold">Report Type:</p>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="reportType"
+                                                id="reportAll" value="all">
+                                            <label class="form-check-label" for="reportAll">All</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="reportType"
+                                                id="reportEscort" value="escort">
+                                            <label class="form-check-label" for="reportEscort">Escort</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="reportType"
+                                                id="reportMassage" value="massage">
+                                            <label class="form-check-label" for="reportMassage">Massage Centre</label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group">
-                                    <p class="mb-1 font-weight-bold">Report Type:</p>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="reportType" id="reportAll"
-                                            value="all">
-                                        <label class="form-check-label" for="reportAll">All</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="reportType"
-                                            id="reportEscort" value="escort">
-                                        <label class="form-check-label" for="reportEscort">Escort</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="reportType"
-                                            id="reportMassage" value="massage">
-                                        <label class="form-check-label" for="reportMassage">Massage Centre</label>
+                                    <p class="mb-0 font-weight-bold">Period:</p>
+                                    <div class="d-flex align-items-center gap-20">
+
+                                        <!-- Entire Radio -->
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="period"
+                                                id="periodEntire" value="entire">
+                                            <label class="form-check-label" for="periodEntire">Entire</label>
+                                        </div>
+
+                                        <div class="form-group d-flex align-items-center gap-10 mb-0">
+                                            <label for="fromDate" class="font-weight-medium mb-0">From</label>
+                                            <input type="date" class="form-control" id="fromDate" name="fromDate">
+                                        </div>
+                                        <div class="form-group d-flex align-items-center gap-10 mb-0">
+                                            <label for="toDate" class="font-weight-medium mb-0">To</label>
+                                            <input type="date" class="form-control" id="toDate" name="toDate">
+                                        </div>
                                     </div>
                                 </div>
 
-                                <!-- Period -->
-                                <div class="form-group">
-                                    <p class="mb-1 font-weight-bold">Period:</b></p>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="period" id="periodEntire"
-                                            value="entire">
-                                        <label class="form-check-label" for="periodEntire">Entire</label>
-                                    </div>
-                                    <label>From: <input type="date" class="form-control d-inline-block w-auto"
-                                            name="fromDate"></label>
-                                    <label>To: <input type="date" class="form-control d-inline-block w-auto"
-                                            name="toDate"></label>
-                                </div>
+
+
+
+                                <!-- Footer -->
                                 <div class="modal-footer justify-content-center">
-                                    <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
+                                    <button type="button" class="btn-success-modal" data-dismiss="modal"
                                         id="close_change">View</button>
                                     <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
                                 </div>
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
+
 
     {{-- Current Location --}}
 
@@ -208,15 +229,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <h5 class="text-center">The current Location for Name is: <b>Location</b></h5>
-                                <div class="modal-footer justify-content-center">
-                                    <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
-                                        id="close_change">Ok</button>
-                                </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h5 class="text-center">The current Location for Name is: <b>Location</b></h5>
+                            <div class="modal-footer justify-content-center">
+                                <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
+                                    id="close_change">Ok</button>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -227,40 +248,47 @@
 
     {{-- activity_summary --}}
 
-        <div class="modal fade upload-modal bd-example-modal-lg" id="activity_summary" tabindex="-1" role="dialog" aria-labelledby="activity_summaryLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
+    <div class="modal fade upload-modal bd-example-modal-lg" id="activity_summary" tabindex="-1" role="dialog"
+        aria-labelledby="activity_summaryLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
             <div class="modal-content basic-modal modal-lg">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="activity_summary"><img src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Activity Summary - [Member ID] </h5>
+                    <h5 class="modal-title" id="activity_summary"><img
+                            src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Activity
+                        Summary - Member ID </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <table border="1" cellpadding="10" cellspacing="0" width="100%" style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-                        
-        
+                    <table border="1" cellpadding="10" cellspacing="0" width="100%"
+                        style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+
+
                         <!-- Table Headings -->
                         <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
                             <td style="text-align:center;">Period</td>
-                            <td style="text-align:center;" >Profile Views</td>
-                            <td style="text-align:center;" >Media Views</td>
-                            <td style="text-align:center;" >Playbox Views</td>
-                            <td style="text-align:center;" >Legbox</td>
+                            <td style="text-align:center;">Profile Views</td>
+                            <td style="text-align:center;">Media Views</td>
+                            <td style="text-align:center;">Playbox Views</td>
+                            <td style="text-align:center;">Legbox</td>
                         </tr>
-        
+
                         <!-- Row 1 -->
                         <tr>
-                            <td style="font-weight: bold; text-align:center; background:#0c223d; color:#fff;">This Week:</td>
+                            <td style="font-weight: bold; background:#0c223d; color:#fff;">This Week:
+                            </td>
                             <td style="text-align:center;">15</td>
                             <td style="text-align:center;">12</td>
                             <td style="text-align:center;">10</td>
                             <td style="text-align:center;">2</td>
                         </tr>
-        
+
                         <!-- Row 2 -->
                         <tr>
-                            <td style="font-weight: bold; text-align:center; background:#0c223d; color:#fff;">Year to Date:</td>
+                            <td style="font-weight: bold; background:#0c223d; color:#fff;">Year to Date:
+                            </td>
                             <td style="text-align:center;">259</td>
                             <td style="text-align:center;">198</td>
                             <td style="text-align:center;">201</td>
@@ -269,14 +297,15 @@
                         <!-- Table Headings -->
                         <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
                             <td style="border-bottom:0px"></td>
-                            <td style="text-align:center;" >Recommendations</td>
-                            <td style="text-align:center;" >Reviews</td>
-                            <td style="text-align:center;" >Reports</td>
-                            <td style="text-align:center;" >Social Media</td>
+                            <td style="text-align:center;">Recommendations</td>
+                            <td style="text-align:center;">Reviews</td>
+                            <td style="text-align:center;">Reports</td>
+                            <td style="text-align:center;">Social Media</td>
                         </tr>
                         <!-- Row 1 -->
                         <tr>
-                            <td style="font-weight: bold; text-align:center; background:#0c223d; color:#fff;">This Week:</td>
+                            <td style="font-weight: bold;  background:#0c223d; color:#fff;">This Week:
+                            </td>
                             <td style="text-align:center;">6</td>
                             <td style="text-align:center;">1</td>
                             <td style="text-align:center;">1</td>
@@ -285,13 +314,14 @@
 
                         <!-- Row 2 -->
                         <tr>
-                        <td style="font-weight: bold; text-align:center; background:#0c223d; color:#fff;">Year to Date:</td>
-                        <td style="text-align:center;">84</td>
-                        <td style="text-align:center;">6</td>
-                        <td style="text-align:center;">12</td>
-                        <td style="text-align:center;">125</td>
+                            <td style="font-weight: bold;  background:#0c223d; color:#fff;">Year to Date:
+                            </td>
+                            <td style="text-align:center;">84</td>
+                            <td style="text-align:center;">6</td>
+                            <td style="text-align:center;">12</td>
+                            <td style="text-align:center;">125</td>
                         </tr>
-                        <!-- Footer Row -->                 
+                        <!-- Footer Row -->
                     </table>
                     <div class="modal-footer justify-content-center mt-3">
                         <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
@@ -300,108 +330,118 @@
                     </div>
                 </div>
             </div>
-            </div>
         </div>
+    </div>
     {{-- end --}}
 
 
 
-    {{-- profile_summary--}}
-    <div class="modal fade upload-modal bd-example-modal-lg" id="profile_summary" tabindex="-1" role="dialog" aria-labelledby="profile_summaryLabel" aria-hidden="true">
+    {{-- profile_summary --}}
+    <div class="modal fade upload-modal bd-example-modal-lg" id="profile_summary" tabindex="-1" role="dialog"
+        aria-labelledby="profile_summaryLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
-        <div class="modal-content basic-modal modal-lg">
-            <div class="modal-header">
-                <h5 class="modal-title" id="profile_summary"><img src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Profile Summary - [Member ID]</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <table border="1" cellpadding="8" cellspacing="0" width="100%" 
-                style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-         
-           <!-- Table Headings -->
-           <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
-             <td style="text-align:center;">Masseur ID</td>
-             <td style="text-align:center;">Start Date</td>
-             <td style="text-align:center;">Finish Date</td>
-             <td style="text-align:center;">Days</td>
-             <td style="text-align:center;">Fee</td>
-           </tr>
-         
-           <!-- Main Row -->
-           <tr>
-             <td style="text-align:center; font-weight:bold;">01-01-2025</td>
-             <td style="text-align:center;">01-01-2025</td>
-             <td style="text-align:center;">15-04-2025</td>
-             <td style="text-align:center;">104</td>
-             <td style="text-align:right;">$ 3,120.00</td>
-           </tr>
-         
-           <!-- Sub Rows -->
-           <tr style="background:#f9f9f9;">
-             <td style="text-align:center;">001</td>
-             <td style="text-align:center;">01-01-2025</td>
-             <td style="text-align:center;">28-01-2025</td>
-             <td style="text-align:center;">15</td>
-             <td></td>
-           </tr>
-         
-           <tr>
-             <td style="text-align:center;">002</td>
-             <td style="text-align:center;">29-01-2025</td>
-             <td style="text-align:center;">23-02-2025</td>
-             <td style="text-align:center;">26</td>
-             <td></td>
-           </tr>
-         
-           <tr style="background:#f9f9f9;">
-             <td style="text-align:center;">003</td>
-             <td style="text-align:center;">29-01-2025</td>
-             <td style="text-align:center;">23-02-2025</td>
-             <td style="text-align:center;">26</td>
-             <td></td>
-           </tr>
-         
-           <tr>
-             <td style="text-align:center;">004</td>
-             <td style="text-align:center;">24-02-2025</td>
-             <td style="text-align:center;">05-03-2025</td>
-             <td style="text-align:center;">10</td>
-             <td></td>
-           </tr>
-         
-           <tr style="background:#f9f9f9;">
-             <td style="text-align:center;">005</td>
-             <td style="text-align:center;">06-03-2025</td>
-             <td style="text-align:center;">31-03-2025</td>
-             <td style="text-align:center;">26</td>
-             <td></td>
-           </tr>
-         
-           <tr>
-             <td style="text-align:center;">006</td>
-             <td style="text-align:center;">01-04-2025</td>
-             <td style="text-align:center;">15-04-2025</td>
-             <td style="text-align:center;">15</td>
-             <td></td>
-           </tr>
-         
-           <!-- Footer -->
-           <tr style="font-weight:bold;">
-             <td colspan="3" style="text-align:right;">Total days Masseurs:</td>
-             <td style="text-align:center;">104</td>
-             <td></td>
-           </tr>
-         </table>
-         
-                <div class="modal-footer justify-content-center mt-3">
-                    <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
-                        id="close_change">Ok</button>
-                    <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
+            <div class="modal-content basic-modal modal-lg">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profile_summary"><img
+                            src="{{ asset('assets/dashboard/img/profile-summary.png') }}" class="custompopicon">Profile
+                        Summary - Member ID</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive profile_summary">
+                        <table cellpadding="8" cellspacing="0" width="100%"
+                            style="border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
+
+                            <thead>
+                                <!-- Table Headings -->
+                                <tr style="background-color: #0c223d; color: white; font-weight: bold; text-align:center">
+                                    <td style="text-align:center;">Masseur ID</td>
+                                    <td style="text-align:center;">Start Date</td>
+                                    <td style="text-align:center;">Finish Date</td>
+                                    <td style="text-align:center;">Days</td>
+                                    <td style="text-align:center;">Fee</td>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <!-- Main Row -->
+                                <tr>
+                                    <td style="text-align:center; font-weight:bold;"></td>
+                                    <td style="text-align:center;">01-01-2025</td>
+                                    <td style="text-align:center;">15-04-2025</td>
+                                    <td style="text-align:center;">104</td>
+                                    <td style="text-align:right;">$ 3,120.00</td>
+                                </tr>
+
+                                <!-- Sub Rows -->
+                                <tr style="background:#f9f9f9;">
+                                    <td style="text-align:center;">001</td>
+                                    <td style="text-align:center;">01-01-2025</td>
+                                    <td style="text-align:center;">28-01-2025</td>
+                                    <td style="text-align:center;">15</td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align:center;">002</td>
+                                    <td style="text-align:center;">29-01-2025</td>
+                                    <td style="text-align:center;">23-02-2025</td>
+                                    <td style="text-align:center;">26</td>
+                                    <td></td>
+                                </tr>
+
+                                <tr style="background:#f9f9f9;">
+                                    <td style="text-align:center;">003</td>
+                                    <td style="text-align:center;">29-01-2025</td>
+                                    <td style="text-align:center;">23-02-2025</td>
+                                    <td style="text-align:center;">26</td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align:center;">004</td>
+                                    <td style="text-align:center;">24-02-2025</td>
+                                    <td style="text-align:center;">05-03-2025</td>
+                                    <td style="text-align:center;">10</td>
+                                    <td></td>
+                                </tr>
+
+                                <tr style="background:#f9f9f9;">
+                                    <td style="text-align:center;">005</td>
+                                    <td style="text-align:center;">06-03-2025</td>
+                                    <td style="text-align:center;">31-03-2025</td>
+                                    <td style="text-align:center;">26</td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td style="text-align:center;">006</td>
+                                    <td style="text-align:center;">01-04-2025</td>
+                                    <td style="text-align:center;">15-04-2025</td>
+                                    <td style="text-align:center;">15</td>
+                                    <td></td>
+                                </tr>
+
+                                <!-- Footer -->
+                                <tr style="font-weight:bold;">
+                                    <td colspan="3" style="text-align:right;">Total days Masseurs:</td>
+                                    <td style="text-align:center;">104</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="modal-footer justify-content-center mt-3">
+                        <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
+                            id="close_change">Ok</button>
+                        <button type="button" class="btn-cancel-modal" id="save_change">Print</button>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 
@@ -424,7 +464,8 @@
             lengthChange: true,
             order: [0, 'asc'],
             searchable: false,
-            searching:true,
+            searching: true,
             bStateSave: true
         });
-    @endpush
+    </script>
+@endpush

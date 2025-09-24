@@ -75,14 +75,23 @@ class AppointmentController extends Controller
         $advertiserId = $request->advertiser_id;
         $date = $request->date; // Format: Y-m-d
         $currentId = $request->input('current_id');
+        $mode = $request->query('mode'); // 'grid' returns all + booked
         
 
-        // 1) Fetch already booked slots for that advertiser & date
-        $bookedSlots = Appointment::where('advertiser_id', $advertiserId)
+        // 1) Fetch already booked slots for that advertiser & date (consider ranges)
+        $appointments = Appointment::where('advertiser_id', $advertiserId)
             ->whereDate('date', $date)
-            ->pluck('time')
-            ->map(function($t){ return Carbon::parse($t)->format('H:i'); })
-            ->toArray();
+            ->get(['time','end_time','id']);
+        $bookedSlots = [];
+        foreach ($appointments as $apt) {
+            $start = Carbon::parse($apt->time);
+            $end = $apt->end_time ? Carbon::parse($apt->end_time) : (clone $start)->addMinutes(30);
+            $cursor = $start->copy();
+            while ($cursor < $end) {
+                $bookedSlots[] = $cursor->format('H:i');
+                $cursor->addMinutes(30);
+            }
+        }
 
         // 2) Generate all slots (8 AM → 8 PM, 30 mins interval)
         $slots = [];
@@ -91,20 +100,18 @@ class AppointmentController extends Controller
 
         while ($start < $end) {
             $slotTime = $start->format('H:i');
-            // 3) Check if slot is booked or not
-            if (!in_array($slotTime, $bookedSlots)) {
-                $slots[] = $slotTime;
-            }
+            $slots[] = $slotTime;
             $start->addMinutes(30);
         }
        
-        // 4) Ensure current appointment's slot is present if provided
+        // For legacy dropdown flows, exclude booked and optionally include current
+        $available = array_values(array_diff($slots, $bookedSlots));
         if (!empty($currentId)) {
             $current = Appointment::find($currentId);
             if ($current && $current->advertiser_id == $advertiserId && Carbon::parse($current->date)->isSameDay(Carbon::parse($date))) {
                 $currentTime = Carbon::parse($current->time)->format('H:i');
-                if (!in_array($currentTime, $slots)) {
-                    $slots[] = $currentTime;
+                if (!in_array($currentTime, $available)) {
+                    $available[] = $currentTime;
                 }
             }
         }
@@ -112,10 +119,17 @@ class AppointmentController extends Controller
 
         // 5) Sort slots for stable UI
         sort($slots, SORT_STRING);
-        
-       
+        sort($available, SORT_STRING);
+        sort($bookedSlots, SORT_STRING);
 
-        return success_response($slots, 'get all slots');
+        if ($mode === 'grid') {
+            return success_response([
+                'all' => $slots,
+                'booked' => $bookedSlots,
+            ], 'get all slots');
+        }
+
+        return success_response($available, 'get all slots');
        
     }
 
@@ -213,6 +227,7 @@ class AppointmentController extends Controller
         // Normalize time to canonical format HH:mm
         try {
             $data['time'] = Carbon::parse($data['time'])->format('H:i');
+            $data['end_time'] = Carbon::parse($data['time'])->addMinutes(30)->format('H:i');
         } catch (\Throwable $e) {
             return error_response('Invalid time format.', 422);
         }
@@ -290,12 +305,15 @@ class AppointmentController extends Controller
 			$validator = Validator::make($request->all(), [
 				'new_advertiser' => 'required|exists:users,id',
 				'new_appointment_date' => 'required|date',
-				'new_appointment_time_slot' => 'required',
+				// Either single slot OR a start/end time range from the new grid
+				'new_appointment_time_slot' => 'nullable',
+				'new_start_time' => 'nullable|date_format:H:i',
+				'new_end_time' => 'nullable|date_format:H:i|after:new_start_time',
 				'new_address' => 'required|string|max:255',
 				'new_latitude' => 'nullable|numeric',
 				'new_longitude' => 'nullable|numeric',
-				'new_source' => 'required|string',
-				'new_task_priority' => 'nullable',
+				'new_source' => 'required|string|in:database,referral,cold',
+				'new_task_priority' => 'nullable|in:high,medium,low',
 			]);
 
 			if ($validator->fails()) {
@@ -304,19 +322,42 @@ class AppointmentController extends Controller
 
 			$validated = $validator->validated();
 
-			// Prevent duplicate appointment for same advertiser, date and time
-			$alreadyExists = Appointment::where('advertiser_id', $validated['new_advertiser'])
+			// Determine start/end based on provided fields
+			$startTime = $validated['new_start_time'] ?? null;
+			$endTime = $validated['new_end_time'] ?? null;
+			if (!$startTime) {
+				// Fallback to single dropdown value as a 30-minute slot
+				if (empty($validated['new_appointment_time_slot'])) {
+					return error_response('Please select a time slot.', 422);
+				}
+				$startTime = Carbon::parse($validated['new_appointment_time_slot'])->format('H:i');
+				$endTime = Carbon::parse($startTime)->addMinutes(30)->format('H:i');
+			} else {
+				$startTime = Carbon::parse($startTime)->format('H:i');
+				$endTime = Carbon::parse($endTime)->format('H:i');
+			}
+
+			// Overlap check for the advertiser on the same date [time, end_time)
+			$overlapExists = Appointment::where('advertiser_id', $validated['new_advertiser'])
 				->whereDate('date', $validated['new_appointment_date'])
-				->where('time', $validated['new_appointment_time_slot'])
+				->where(function ($q) use ($startTime, $endTime) {
+					$q->where(function ($q2) use ($startTime, $endTime) {
+						$q2->where('time', '<', $endTime)
+						   ->where(function ($q3) use ($startTime) {
+							   $q3->whereNull('end_time')->orWhere('end_time', '>', $startTime);
+						   });
+					});
+				})
 				->exists();
-			if ($alreadyExists) {
-				return error_response('An appointment already exists for this advertiser at the selected date and time.', 422);
+			if ($overlapExists) {
+				return error_response('Selected time overlaps with an existing appointment.', 422);
 			}
 
 			$appointment = Appointment::create([
 				'advertiser_id' => $validated['new_advertiser'],
 				'date' => $validated['new_appointment_date'],
-				'time' => $validated['new_appointment_time_slot'],
+				'time' => $startTime,
+				'end_time' => $endTime,
 				'address' => $validated['new_address'],
 				'lat' => $request->input('new_latitude'),
 				'long' => $request->input('new_longitude'),
