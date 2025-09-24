@@ -9488,14 +9488,14 @@ border-top: 5px solid var(--peach);
     .listing-tag-tooltip:hover .listing-tag-tooltip-desc {
         opacity: 1;
     }
-
+    
     .profile--thumb--sec {
         position: relative;
         display: inline-block;
-      }
-      
-      /* Tooltip */
-      .profile--thumb--sec .custom-tooltip {
+    }
+    /* Tooltip */
+    
+    .profile--thumb--sec .custom-tooltip {
         visibility: hidden;
         opacity: 0;
         background-color: var(--peach);
@@ -9504,37 +9504,82 @@ border-top: 5px solid var(--peach);
         padding: 8px 14px;
         border-radius: 6px;
         position: absolute;
-        top: 50%;   /* center vertically */
-        left: 50%;  /* center horizontally */
-        transform: translate(-50%, -50%); /* exact center */
+        top: 50%;
+        /* center vertically */
+        left: 50%;
+        /* center horizontally */
+        transform: translate(-50%, -50%);
+        /* exact center */
         transition: opacity 0.3s;
         z-index: 10;
         font-size: 13px;
         font-weight: 500;
         white-space: nowrap;
-      }
-      
-      /* Arrow (optional, adjust position) */
-      .profile--thumb--sec .custom-tooltip::after {
+    }
+    /* Arrow (optional, adjust position) */
+    
+    .profile--thumb--sec .custom-tooltip::after {
         content: "";
         position: absolute;
-        bottom: -6px; /* arrow ko neeche dikhane ke liye */
+        bottom: -6px;
+        /* arrow ko neeche dikhane ke liye */
         left: 50%;
         transform: translateX(-50%);
         border-width: 6px;
         border-style: solid;
         border-color: var(--peach) transparent transparent transparent;
-      }
-      
-      /* Show on hover */
-      .profile--thumb--sec:hover .custom-tooltip {
+    }
+    /* Show on hover */
+    
+    .profile--thumb--sec:hover .custom-tooltip {
         visibility: visible;
         opacity: 1;
-      }
-      
-      .profile--thumb--sec img {
-          cursor: pointer;
-      }
+    }
+    
+    .profile--thumb--sec img {
+        cursor: pointer;
+    }
+    /* gen-prospect-list start*/
+    
+    .gen-prospect-list h2 {
+        margin-bottom: 20px;
+        font-size: 25px;
+        font-weight: 600;
+        color: var(--blue--text);
+    }
+    
+    .gen-prospect-list h3 {
+        margin: 20px 0px 25px;
+        border-bottom: 1px solid #ccc;
+        padding: 10px 0px;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--blue--text);
+    }
+    
+    .gen-prospect-list label {
+        font-size: 14px;
+        color: #0c223d;
+        font-weight: 600;
+    }
+    
+    .gen-prospect-list .radio-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .prospect-list-table {
+        margin: 50px 0px;
+    }
+    
+    .prospect-list-table h2 {
+        margin-bottom: 20px;
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--blue--text);
+    }
+    /* gen-prospect-list end */
     
     @media (min-width:300px) and (max-width:575px) {
         .form-inline-custom {
