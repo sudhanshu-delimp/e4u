@@ -180,7 +180,7 @@
                         Information Package</span>
                 </a>
                 <a class="collapse-item" href="{{ route('marketing.agencreate-prospect') }}">
-                    <img src="{{ asset('assets/app/img/create.png') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/prospect.png') }}">
                     <span style="{{ request()->segment(3) == 'create-prospect' ? 'color: #e5365a;' : '' }}">Prospect
                         List</span>
                 </a>
