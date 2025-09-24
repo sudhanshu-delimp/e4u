@@ -9194,6 +9194,13 @@ border-top: 5px solid var(--peach);
         padding: 0 5px;
     }
     
+    .extend_icon {
+        color: white;
+        background-color: #1cc88a;
+        border-radius: 15%;
+        padding: 0 5px;
+    }
+
     .pinup_brb_strip {
         position: absolute;
         top: 80%;
