@@ -137,7 +137,8 @@
     <!-- extend profile modal start here -->
     <div class="modal fade upload-modal" id="extend_profile" tabindex="-1" role="dialog" aria-labelledby="extendProfileTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" aria-modal="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-          <form id="extend_form">
+          <form action="{{ route('escort.account.listing_checkout')}}" method="POST" id="extend_form">
+            {{ csrf_field() }}
             <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
               <div class="modal-header">
                 <h5 class="modal-title">
@@ -162,21 +163,12 @@
                         <div class="col-sm-8 pr-2">
                           <select class="form-control select2 form-control-sm select_tag_remove_box_sadow width_hundred_present_imp"
                                   id="extendProfileId"
-                                  name="extend_profile_id"
+                                  name="escort_id[]"
                                   data-parsley-errors-container="#extend-profile-errors"
                                   required
                                   data-parsley-required-message="Select Profile">
                             <option value="">Select Profile</option>
-                            @foreach ($suspended_escorts as $profile)
-                              <option data-membership="{{ $profile['membership'] }}" 
-                                      value="{{ $profile['id'] }}" 
-                                      profile_name="{{ $profile['profile_name'] }}">
-                                {{ $profile['id'] }} - {{ $profile['name'] }}
-                                @if (isset($profile['state']['name']))
-                                  - {{ $profile['state']['name'] }}
-                                @endif
-                              </option>
-                            @endforeach
+                            
                           </select>
                           <span id="extend-profile-errors"></span>
                         </div>
@@ -201,16 +193,16 @@
                             </div>
                           </div>
                           <div class="col-sm-5 pr-1">
-                            <input type="date" id="extendDate" class="form-control form-control-sm removebox_shdow"
-                                   name="extend_date"
-                                   min="{{ \Carbon\Carbon::now()->addDay()->format('Y-m-d') }}"
-                                   value="{{ \Carbon\Carbon::now()->addDay()->format('Y-m-d') }}">
+                            <input type="hidden" name="membership[]" id="extendMembership">
+                            <input type="hidden" name="start_date[]" id="extendStartDate">
+                            <input type="date" id="extendEndDate" class="form-control form-control-sm removebox_shdow"
+                                   name="end_date[]">
                           </div>
                         </div>
                       </div>
       
                       <!-- Fee -->
-                      <div class="form-group row">
+                      {{-- <div class="form-group row">
                         <label class="col-sm-3 col-form-label" for="">Fee:</label>
                         <div class="col-sm-4">
                           <div class="input-group input-group-sm">
@@ -218,7 +210,7 @@
                             <span class="form-control" id="extendFeeLive" style="background-color: #e9ecef; border: 1px solid #ced4da;">0.00</span>
                           </div>
                         </div>
-                      </div>
+                      </div> --}}
       
                       <hr style="background-color: #0C223D" class="mt-4">
       
@@ -433,6 +425,24 @@
                 searchable: false,
                 bStateSave: false,
                 drawCallback: function(settings) {
+                    let records = settings.json;
+                    let $select = $('#extendProfileId');
+                    $select.empty();
+                    if (records.recordsTotal > 0) {
+                        $select.append('<option value="">-- Select Profile --</option>');
+                        $.each(records.data, function (i, item) {
+                            $select.append(
+                            $('<option>', {
+                                value: item.id,
+                                text: `${item.id} - ${item.name} - ${item.state.name}`,
+                                'data-start': item.start_date,
+                                'data-end': item.end_date,
+                                'data-membership':item.membership,
+                            })
+                            );
+                        });
+                    }
+
                     var api = this.api();
                     // var records = api.data().length;
                     var length = table.page.info().recordsTotal;
@@ -611,6 +621,67 @@
                 });
             });
 
+        });
+
+        var formatDateLocal = function(date) {
+            let y = date.getFullYear();
+            let m = String(date.getMonth() + 1).padStart(2, '0');
+            let d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        $(document).on('change','#extendProfileId', function () {
+            let endDate = $(this).find(':selected').data('end');
+            let membership = $(this).find(':selected').data('membership');
+            let startDate = $('#extendStartDate');
+            let $membershipField = $('#extendMembership');
+            let $dateField = $('#extendEndDate');
+            switch(membership){
+                case 'Platinum':{
+                    $membershipField.val(1);
+                }break;
+                case 'Gold':{
+                    $membershipField.val(2);
+                }break;
+                case 'Silver':{
+                    $membershipField.val(3);
+                }break;
+                case 'Free':{
+                    $membershipField.val(4);
+                }
+            }
+            if (endDate) {
+                let extendStartDate = new Date(endDate);
+                let extendEndDate = new Date(endDate);
+                extendStartDate.setDate(extendStartDate.getDate() + 1);
+                extendEndDate.setDate(extendEndDate.getDate() + 2);
+                startDate.val(formatDateLocal(extendStartDate));
+                $dateField.attr('min', formatDateLocal(extendEndDate)).val(formatDateLocal(extendEndDate));
+                if ($dateField.val() && $dateField.val() < formatDateLocal(extendEndDate)) {
+                    $dateField.val('');
+                }
+            } else {
+                $dateField.removeAttr('min');
+                $dateField.val('');
+            }
+        });
+
+        $('input[name="extend_days"]').on('change', function () {
+            let days = parseInt($(this).val(), 10);
+            let $select = $('#extendProfileId');
+            let endDate = $select.find(':selected').data('end');
+            let $dateField = $('#extendEndDate');
+
+            if (endDate && days) {
+                let newDate = new Date(endDate);
+                newDate.setDate(newDate.getDate() + days + 1);
+
+                $dateField.val(formatDateLocal(newDate));
+                $dateField.prop('readonly', true); // make readonly
+            } else {
+                $dateField.val('');
+                $dateField.prop('readonly', false);
+            }
         });
 
         $.ajaxSetup({

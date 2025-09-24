@@ -868,13 +868,13 @@
                             @if($escort->gallary->isNotEmpty())
                             @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[1,2,3,4,5,6,7])->get() as $key=>$media)
                             <div class="carousel-item {{($key == 0) ? "active" : ""}} " data-interval="10000">
-                            {{-- @if($media->pivot->position != 9 && $media->pivot->position != 8 && $media->pivot->position != 10) --}}
+                           
                             <div class="row">
                                 <div class="col-12 remove_padding_for_carousel">
                                     <img src="{{ asset($media->path) }}" class="d-block w-100" title="Click to view Media" alt="..." data-toggle="modal" data-target="#exampleModal" data-id="">
                                 </div>
                             </div>
-                            {{-- @endif --}}
+                            
                         </div>
                         @endforeach
                         @else
@@ -887,22 +887,28 @@
                         </div>
                         @endif
                         <!-- Modal -->
+                        @php 
+                            $galleryVideos = $escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get();
+                        @endphp
                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content border-0">
                                     <div class="modal-header d-flex justify-content-between align-items-center">                                       
                                         <ul class="nav nav-tabs justify-content-center border-0">
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">Photos</a>
+                                                <a class="nav-link active" id="menu1-tab" data-toggle="tab" href="#menu1">My Photos</a>
                                             </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">Videos</a>
-                                            </li>
+                                            @if ($galleryVideos->count()>0)
+                                                <li class="nav-item">
+                                                    <a class="nav-link" id="menu2-tab" data-toggle="tab" href="#menu2">My Videos</a>
+                                                </li>
+                                            @endif
                                         </ul>
                                         <button type="button" class="p-0" data-dismiss="modal" aria-label="Close">
                                             <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
                                         </button>
                                     </div>
+                                 
                                     <div class="modal-body p-1">
                                         <div class="tab-content" id="myTabContent">
                                             <div class="tab-pane fade show active" id="menu1" role="tabpanel" aria-labelledby="profile-tab">
@@ -914,19 +920,22 @@
                                                                 <img src="{{ ($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()) ? asset($escort->gallary()->wherePivotIn('position',[1])->select('path')->first()->path) : ''}}" alt="">
                                                                 
                                                             </div>
+                                                            <div class="small-images">
                                                             @foreach($escort->gallary()->wherePivot('type',0)->wherePivotIn('position',[2,3,4,5,6,7])->orderBy('position','asc')->get() as $key=>$media)
-                                                            <div class="gallery__item">
-                                                                <img src="{{ asset($media->path) }}" alt="">
-                                                            </div>
+                                                            
+                                                                <div class="gallery__item">
+                                                                    <img src="{{ asset($media->path) }}" alt="">
+                                                                </div>
 
-                                                        @endforeach
+                                                            @endforeach
+                                                        </div>
                                                     @endif
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="contact-tab">
-                                                <div class="row pl-0 ml-0 pr-1 pb-3" id="dvSource">
+                                                <div class="row px-3 pb-2" id="dvSource">
                                                     
-                                                            @foreach($escort->gallary()->wherePivot('type',1)->orderBy('position','asc')->get() as $key=>$media)
+                                                            @foreach($galleryVideos as $key=>$media)
                                                                 <div class="col-md-4" id="dm_2">
                                                                     <a href="#">
                                                                         <video style="z-index: 1" controls="" id="videoId_2" src="{{ asset($media->path) }}">

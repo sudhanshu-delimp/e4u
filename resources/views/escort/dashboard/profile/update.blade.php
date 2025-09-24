@@ -740,7 +740,7 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
 
                 if(!checkProfileDynamicMediaVideo()){
                     Swal.fire('Media',
-                        'Please attach video to this profile from the Media Repository or upload a new file (All are mendatory)',
+                        'Please attach video to this profile from the Media Repository or upload a new file',
                         'warning');
                     return false;  
                 }
@@ -1090,15 +1090,14 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
         }
 
         function checkProfileDynamicMediaVideo() {
-            let allFilled = true;
+            let dynamic_video = 0;
             $("input[name^='video_position']").each(function () {
-                if ($(this).val().trim() === "") {
-                    allFilled = false;
-                    return false; // break out of loop early
+                if ($(this).val().trim() != "") {
+                    dynamic_video++;
                 }
             });
 
-            return allFilled;
+            return dynamic_video;
         }
 
         function checkRates(){
@@ -1228,13 +1227,6 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                             'Please attach media to this profile from the Media Repository or upload a new file (All are mendatory)',
                             'warning');
                         return false;
-                    }
-
-                    if(!checkProfileDynamicMediaVideo()){
-                        Swal.fire('Media',
-                            'Please attach video to this profile from the Media Repository or upload a new file (All are mendatory)',
-                            'warning');
-                        return false;  
                     }
 
                     if(!validateWhoAmIContent()){
