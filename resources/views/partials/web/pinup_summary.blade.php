@@ -4,6 +4,7 @@
             <div href="#" class="tip mb-2 pinup-summary-img">
                 <img 
                 src="{{ !empty($user->defaultPinupImage)?asset($user->defaultPinupImage->path):asset('assets/app/img/home/home-demo.png') }}">
+                <span class="memmber_info"><i class="fa fa-user"></i> Member ID: {{$escort->user->member_id}}</span>
             </div>
         </div>
         <div class="col-md-6">
@@ -68,7 +69,7 @@
                 @php
                     $about = html_entity_decode(strip_tags($escort->about));
                 @endphp
-                <p class="pin-description">{{ $about }}</p>
+                <p class="pin-description text-justify">{{ $about }}</p>
                 <div class="row">
                     <div class="col-md-6 col-lg-4">
                         <div class="media align-items-center">
