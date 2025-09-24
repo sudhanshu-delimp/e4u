@@ -254,6 +254,10 @@ class EscortRepository extends BaseRepository implements EscortInterface
             $item->action .= ' <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('profile.description', $item->id) . '" data-id="' . $item->id . '"> <i class="fa fa-eye"></i>  View Profile</a></div>';
             $item->action .= '</div>';
 
+            $isExtended = $item->isListingExtended();
+
+            $item->is_extended = $isExtended->count;
+
             $itemArray = $item->toArray();
            
 
@@ -282,8 +286,8 @@ class EscortRepository extends BaseRepository implements EscortInterface
                 <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($item->activeUpcomingSuspend->start_date)) . " to ".date("d-m-Y", strtotime($item->activeUpcomingSuspend->end_date)).'</small>
                 </sup>';
             }
-            $isExtended = $item->isListingExtended();
-            if($isExtended->count > 0){
+            
+            if($isExtended->count){
                 $item->pro_name .= '<sup class="extend_icon listing-tag-tooltip ml-1">Extend
                 <small class="listing-tag-tooltip-desc">Extended from ' . date("d-m-Y", strtotime($isExtended->data->start_date)) . " to ".date("d-m-Y", strtotime($isExtended->data->end_date)).'</small>
                 </sup>';
