@@ -609,7 +609,7 @@
                         <h2>My Service</h2>
                     </div>
                     <div class="padding_20_tob_btm_side">
-                        <p>Check out what I enjoy the most with you in private. Let's have some fun. Feel free to ask me any questions about my services.</p>
+                        <p class="text-justify">Check out what I enjoy the most with you in private. Let's have some fun. Feel free to ask me any questions about my services.</p>
                         <div class="accordion-container">
                             <div class="set">
                                 <a>
@@ -870,9 +870,10 @@
                             <div class="carousel-item {{($key == 0) ? "active" : ""}} " data-interval="10000">
                            
                             <div class="row">
-                                <div class="col-12 remove_padding_for_carousel">
-                                    <img src="{{ asset($media->path) }}" class="d-block w-100" title="Click to view Media" alt="..." data-toggle="modal" data-target="#exampleModal" data-id="">
-                                </div>
+                                <div class="col-12 remove_padding_for_carousel profile--thumb--sec">
+                                    <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="">
+                                    <div class="custom-tooltip">I don't have any Playbox.</div>
+                                    </div>
                             </div>
                             
                         </div>
@@ -880,9 +881,10 @@
                         @else
                         <div class="carousel-item active " data-interval="10000">
                             <div class="row">
-                                <div class="col-12 remove_padding_for_carousel">
+                                <div class="col-12 remove_padding_for_carousel profile--thumb--sec">
                                     <img src="{{ asset('assets/app/img/service-provider/Frame-408.png') }}" class="d-block w-100" alt="..." data-toggle="modal" data-target="#exampleModal">
-                                </div>
+                                    <div class="custom-tooltip">I don't have any Playbox.</div>
+                                    </div>
                             </div>
                         </div>
                         @endif
@@ -1123,7 +1125,7 @@
             </a>
             <div class="content">
                 <div class="accodien_manage_padding_content">
-                    <p>
+                    <p class="text-justify">
                         Prices are all inclusive unless an extra is listed in My Serices. For Outcalls, price is rate + taxi to and from my location.
                     </p>
                 </div>
@@ -1136,7 +1138,7 @@
             </a>
             <div class="content">
                 <div class="accodien_manage_padding_content">
-                    <p>Donations are for my companionship and nothing else. It is not an offer or promise for prostitution or illegal activity.
+                    <p class="text-justify">Donations are for my companionship and nothing else. It is not an offer or promise for prostitution or illegal activity.
                         Anything that may occur between us is our choice as consenting adults.
                     </p>
                 </div>
