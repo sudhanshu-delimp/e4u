@@ -9488,6 +9488,47 @@ border-top: 5px solid var(--peach);
     .listing-tag-tooltip:hover .listing-tag-tooltip-desc {
         opacity: 1;
     }
+    /* gen-prospect-list start*/
+    
+    .gen-prospect-list h2 {
+        margin-bottom: 20px;
+        font-size: 25px;
+        font-weight: 600;
+        color: var(--blue--text);
+    }
+    
+    .gen-prospect-list h3 {
+        margin: 20px 0px 25px;
+        border-bottom: 1px solid #ccc;
+        padding: 10px 0px;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--blue--text);
+    }
+    
+    .gen-prospect-list label {
+        font-size: 14px;
+        color: #0c223d;
+        font-weight: 600;
+    }
+    
+    .gen-prospect-list .radio-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .prospect-list-table {
+        margin: 50px 0px;
+    }
+    
+    .prospect-list-table h2 {
+        margin-bottom: 20px;
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--blue--text);
+    }
+    /* gen-prospect-list end */
     
     @media (min-width:300px) and (max-width:575px) {
         .form-inline-custom {
