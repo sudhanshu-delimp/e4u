@@ -593,8 +593,6 @@
             $(".account_platform").parent().removeClass('d-none');
             $(".account_visit_page").parent().removeClass('d-none');
             
-
-            console.log('user details : ', user);
             let userType = parseInt(user.type);
 
             switch (userType) {
