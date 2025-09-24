@@ -6018,7 +6018,7 @@ margin-left: 10px;
     }
     
     .modal-dialog {
-        max-width: 642px !important;
+        max-width: 642px;
         margin: auto;
     }
     

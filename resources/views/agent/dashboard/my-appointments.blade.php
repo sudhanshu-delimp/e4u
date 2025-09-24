@@ -47,6 +47,63 @@
         .parsley-errors-list{
             padding-left: 0px;
         }
+        /* Wider modal for appointment forms */
+        .upload-modal .modal-dialog {
+            max-width: 960px;
+            width: 95%;
+        }
+        /* Slot grid styles */
+        
+        #slotGrid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(110px, 1fr));
+            gap: 10px;
+        }
+        #slotGrid button{
+            margin: 0px !important;
+        }
+        @media (min-width: 1360px) {
+            #slotGrid { grid-template-columns: repeat(5, minmax(110px, 1fr)); }
+        }
+        @media (max-width: 991px) {
+            #slotGrid { grid-template-columns: repeat(3, minmax(110px, 1fr)); }
+        }
+        @media (max-width: 575px) {
+            #slotGrid { grid-template-columns: repeat(2, minmax(100px, 1fr)); }
+        }
+        .slot-btn {
+            background: #ffffff;
+            color: #0C223D;
+            border: 1px solid #0C223D;
+            border-radius: 8px;
+            padding: 12px 10px;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+            width: 100%;
+            transition: background-color .15s ease, color .15s ease, box-shadow .15s ease, border-color .15s ease;
+        }
+        .slot-btn:hover {
+            background: #e8f0fe;
+            border-color: #ff3c5f;
+            color: #ff3c5f;
+        }
+        .slot-btn.selected {
+            background: #ff3c5f;
+            color: #ffffff;
+            border-color: #ff3c5f;
+            box-shadow: 0 0 0 2px rgba(26,115,232,.15);
+        }
+        .slot-btn.disabled,
+        .slot-btn:disabled {
+            background: #f1f3f4;
+            color: #9aa0a6;
+            border-color: #e0e0e0;
+            cursor: not-allowed;
+        }
+        .modal-dialog .appointment_madal{
+            width: 900px !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -103,19 +160,19 @@
                             <div class="mb-2 d-flex align-items-center justify-content-between flex-wrap gap-5">
                                 <div class="total_listing">
                                     <div><span>In Progress Appointments : </span></div>
-                                    <div><span class="totalInprogressTask">03</span></div>
+                                    <div><span class="totalInProgrssAppointment">0</span></div>
                                 </div>
                                 <div class="total_listing">
-                                    <div><span>Open Appointments : </span></div>
-                                    <div><span class="totalOpenTask">11</span></div>
+                                    <div><span>Over Due Appointments : </span></div>
+                                    <div><span class="totalOverDueAppointment">0</span></div>
                                 </div>
                                 <div class="total_listing">
                                     <div><span>Completed Appointments : </span></div>
-                                    <div><span class="totalCompletedTask">11</span></div>
+                                    <div><span class="totalCompletedAppointment">0</span></div>
                                 </div>
                             </div>
                             <div class="text-center small d-flex justify-content-end align-items-center gap-5 flex-wrap">
-                                <a href="{{ route('agent.view-planner') }}" class="btn-common text-white">View Planner</a>
+                                <a href="{{ route('agent.appointment.booking.list') }}" class="btn-common text-white">View Planner</a>
                                 <button type="button" class="btn-common" data-toggle="modal" id="new_appointment">New
                                     Appointment</button>
                             </div>
@@ -146,7 +203,7 @@
     <!-- New appointment Popup -->
     <div class="modal fade upload-modal" id="new_appointment_model" tabindex="-1" role="dialog"
         aria-labelledby="new_appointmentlabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog appointment_madal modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/new-appointment.png') }}"
@@ -184,14 +241,15 @@
                                     >
                                 </div>
 
-                                <!-- Time -->
+                                <!-- Time (Grid) -->
                                 <div class="form-group">
-                                    <label for="appointment_time"><b>Time Slot</b><span class="text-danger">*</span></label>
-                                    <select id="new_appointment_time_slot" name="new_appointment_time_slot" class="form-control" required>
-                                        <option value="">Select Time Slot</option>
-                                    </select>
+                                    <label><b>Time Slot</b><span class="text-danger">*</span></label>
+                                    <div id="slotGrid"></div>
+                                    <input type="hidden" id="new_start_time" name="new_start_time">
+                                    <input type="hidden" id="new_end_time" name="new_end_time">
+                                    <small class="form-text text-muted">Select continuous 30-minute slots.</small>
                                 </div>
-
+                                
 
 
                                 <!-- Address with Google Maps integration -->
@@ -708,6 +766,8 @@
     data-update-appointment="{{ route('agent.appointments.update', ['id' => '__ID__']) }}"
     data-reschedule-appointment="{{ route('agent.appointments.reschedule', ['id' => '__ID__']) }}"
     data-complete-appointment="{{ route('agent.appointments.complete', ['id' => '__ID__']) }}"
+    data-appointment-count="{{ route('agent.appointment.count') }}"
+    data-appointment-pdf-download="{{ route('agent.appointment.pdf.download', ['id' => '__ID__']) }}"
      >
     @endsection
     @section('script')
@@ -715,35 +775,177 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 
     <script>
-    // Generic Google Places Autocomplete initializer
-    function initPlacesAutocomplete(inputId, latId, lngId) {
+    // Google Maps helpers with two-way sync between input, map, and hidden lat/lng
+    var E4U_MAPS = {
+        instances: {},
+        geocoder: null
+    };
+
+    function ensureGeocoder() {
+        if (!E4U_MAPS.geocoder) {
+            E4U_MAPS.geocoder = new google.maps.Geocoder();
+        }
+        return E4U_MAPS.geocoder;
+    }
+
+    function reverseGeocodeToInput(latLng, inputEl) {
+        var geocoder = ensureGeocoder();
+        geocoder.geocode({ location: latLng }, function(results, status) {
+            if (status === 'OK' && results && results[0] && inputEl) {
+                inputEl.value = results[0].formatted_address || inputEl.value;
+            }
+        });
+    }
+
+    function initAddressMap(opts) {
         try {
-            var input = document.getElementById(inputId);
-            if (!input || !window.google || !google.maps || !google.maps.places) { return; }
-            if (input.getAttribute('data-gpa-init') === '1') { return; }
-            var autocomplete = new google.maps.places.Autocomplete(input, {
-                types: ['address'],
-                fields: ['geometry']
+            if (!window.google || !google.maps) { return; }
+            var mapId = opts.mapId, inputId = opts.inputId, latId = opts.latId, lngId = opts.lngId;
+            var mapEl = document.getElementById(mapId);
+            var inputEl = document.getElementById(inputId);
+            var latEl = document.getElementById(latId);
+            var lngEl = document.getElementById(lngId);
+            if (!mapEl || !inputEl || !latEl || !lngEl) { return; }
+
+            // Show map container only if we already have coordinates (e.g., Edit flow)
+            // Prevent double init per map element
+            if (E4U_MAPS.instances[mapId]) {
+                // If we re-open modal, also try to recenter using current values
+                var existing = E4U_MAPS.instances[mapId];
+                var lat = parseFloat(latEl.value);
+                var lng = parseFloat(lngEl.value);
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    var ll = { lat: lat, lng: lng };
+                    existing.map.setCenter(ll);
+                    existing.marker.setPosition(ll);
+                    // Ensure map is visible if we now have coordinates (Edit case)
+                    if (mapEl.style.display === 'none') {
+                        mapEl.style.display = 'block';
+                        google.maps.event.trigger(existing.map, 'resize');
+                        existing.map.setCenter(ll);
+                    }
+                }
+                return;
+            }
+
+            var startLat = parseFloat(latEl.value);
+            var startLng = parseFloat(lngEl.value);
+            var hasStart = !isNaN(startLat) && !isNaN(startLng);
+            var defaultCenter = hasStart ? { lat: startLat, lng: startLng } : (opts.defaultCenter || { lat: -23.4042066, lng: 119.9962819 }); // Sydney fallback
+
+            var map = new google.maps.Map(mapEl, {
+                center: defaultCenter,
+                zoom: hasStart ? 15 : 13,
+                streetViewControl: false,
+                mapTypeControl: false
             });
-            input.setAttribute('data-gpa-init', '1');
-            autocomplete.addListener('place_changed', function () {
-                var place = autocomplete.getPlace();
-                if (place && place.geometry && place.geometry.location) {
-                    var latEl = document.getElementById(latId);
-                    var lngEl = document.getElementById(lngId);
-                    if (latEl) { latEl.value = place.geometry.location.lat(); }
-                    if (lngEl) { lngEl.value = place.geometry.location.lng(); }
+
+            var marker = new google.maps.Marker({
+                position: defaultCenter,
+                map: map,
+                draggable: true
+            });
+
+            // If we have starting coordinates, show the map immediately (e.g., Edit modal)
+            if (hasStart) {
+                mapEl.style.display = 'block';
+                google.maps.event.trigger(map, 'resize');
+                map.setCenter(defaultCenter);
+            }
+
+            // Store
+            E4U_MAPS.instances[mapId] = { map: map, marker: marker };
+
+            // Autocomplete binding (guard to avoid double-init)
+            var autocomplete;
+            if (inputEl.getAttribute('data-gpa-init') !== '1') {
+                autocomplete = new google.maps.places.Autocomplete(inputEl, { types: ['address'], fields: ['geometry', 'formatted_address'] });
+                inputEl.setAttribute('data-gpa-init', '1');
+            }
+
+            var updateLatLngFields = function(latLng) {
+                latEl.value = latLng.lat();
+                lngEl.value = latLng.lng();
+            };
+
+            var setMarkerAndCenter = function(latLng, updateAddress) {
+                marker.setPosition(latLng);
+                map.panTo(latLng);
+                updateLatLngFields(latLng);
+                if (updateAddress) {
+                    reverseGeocodeToInput(latLng, inputEl);
+                }
+            };
+
+            if (autocomplete) {
+                autocomplete.addListener('place_changed', function() {
+                    var place = autocomplete.getPlace();
+                    if (place && place.geometry && place.geometry.location) {
+                        // Reveal the map when a place is selected for the first time
+                        if (mapEl.style.display === 'none') {
+                            mapEl.style.display = 'block';
+                            google.maps.event.trigger(map, 'resize');
+                        }
+                        setMarkerAndCenter(place.geometry.location, false);
+                        if (place.formatted_address) {
+                            inputEl.value = place.formatted_address;
+                        }
+                    }
+                });
+            }
+
+            // Hide map if address is cleared
+            inputEl.addEventListener('input', function(){
+                if (!this.value.trim()) {
+                    mapEl.style.display = 'none';
                 }
             });
+
+            map.addListener('click', function(e) {
+                setMarkerAndCenter(e.latLng, true);
+            });
+
+            marker.addListener('dragend', function(e) {
+                setMarkerAndCenter(e.latLng, true);
+            });
+
+            // If no lat/lng preset, do not auto-show via geolocation; keep hidden until user selects an address
         } catch (e) {
-            console.error('Places autocomplete init error', e);
+            console.error('Map init error', e);
         }
     }
-    // Google script callback - initialize for New Appointment field by default
+
+    // Google script callback - initialize New Appointment map by default
     function initAutocomplete() {
-        initPlacesAutocomplete('new_address', 'new_latitude', 'new_longitude');
+        initAddressMap({ mapId: 'map', inputId: 'new_address', latId: 'new_latitude', lngId: 'new_longitude' });
     }
     $(document).ready(function() {
+
+        var table = $('#taskList').DataTable({
+            processing: true,
+            serverSide: true,
+            lengthChange: false,
+            searching: false,
+            order: [[0, 'desc']],
+            
+            ajax: {
+                url: "{{ route('agent.appointments.datatable') }}",
+                type: 'GET'
+            },
+            columns: [
+                { 
+                    data: 'appointment_list', 
+                    name: 'appointment_list',
+                    orderable: false, 
+                    searchable: false, 
+                    searchable: false // explicitly set again for clarity
+                },
+                { data: 'map', name: 'map', orderable: false, searchable: false, className: 'text-center' },
+                { data: 'status_badge', name: 'status', orderable: false, searchable: false, className: 'text-center' },
+                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-center' },
+            ]
+        });
+
         const mmRoot = $('#manage-route');
         endpoint = {
             get_adverser: mmRoot.data('get-adverser'),
@@ -756,8 +958,11 @@
             update_tpl: mmRoot.data('update-appointment'),
             reschedule_tpl: mmRoot.data('reschedule-appointment'),
             complete_tpl: mmRoot.data('complete-appointment'),
+            appointment_count: mmRoot.data('appointment-count'),
+            pdf_download: mmRoot.data('appointment-pdf-download'),
             
         }
+
         function urlFor(tpl, id){ return (tpl || '').replace('__ID__', id); }
         // get Advertiser List data and append inside the option list
         $('#new_appointment').on('click', function() {
@@ -766,20 +971,18 @@
             ajaxRequest(endpoint.get_adverser, {}, 'GET',null , successPopulateAdvisorDropdown,  errorPopulateAdvisorDropdown);
         });
 
-        // Initialize autocomplete after modal is visible (ensures input has size)
+        // Initialize map + autocomplete after modal is visible (ensures container sizes)
         $('#new_appointment_model').on('shown.bs.modal', function() {
-            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
-                initPlacesAutocomplete('new_address', 'new_latitude', 'new_longitude');
+            if (typeof google !== 'undefined' && google.maps) {
+                initAddressMap({ mapId: 'map', inputId: 'new_address', latId: 'new_latitude', lngId: 'new_longitude' });
             }
-           // $('#new_address').trigger('focus');
         });
 
-        // Initialize Edit autocomplete after modal is visible
+        // Initialize Edit map + autocomplete after modal is visible
         $('#edit_appointment').on('shown.bs.modal', function() {
-            if (typeof google !== 'undefined' && google.maps && google.maps.places) {
-                initPlacesAutocomplete('edit_address', 'edit_latitude', 'edit_longitude');
+            if (typeof google !== 'undefined' && google.maps) {
+                initAddressMap({ mapId: 'edit_map', inputId: 'edit_address', latId: 'edit_latitude', lngId: 'edit_longitude' });
             }
-           // $('#edit_address').trigger('focus');
         });
 
         function successPopulateAdvisorDropdown(response, targetSelector = '#new_advertiser', selectedId = null) {
@@ -803,12 +1006,12 @@
         }
 
      
-        //Advisor on change
+        //Advisor/date change -> load grid data
         $('#new_advertiser, #new_appointment_date').on('change', function() {
             let advertiserId = $('#new_advertiser').val();
             let date = $('#new_appointment_date').val();
             if (advertiserId && date) {
-                ajaxRequest(endpoint.get_slot_list + `?advertiser_id=${encodeURIComponent(advertiserId)}&date=${encodeURIComponent(date)}`, {}, 'GET', null, successPopulateTimeSlot, errorResponseForNewAppointment);
+                ajaxRequest(endpoint.get_slot_list + `?mode=grid&advertiser_id=${encodeURIComponent(advertiserId)}&date=${encodeURIComponent(date)}`, {}, 'GET', null, populateSlotGrid, errorResponseForNewAppointment);
             }
         });
 
@@ -837,24 +1040,80 @@
                 dropdown.val(String(selectedValue));
             }
         }
+        // Build selectable grid with continuity enforcement
+        function populateSlotGrid(resp){
+            const data = resp && resp.data ? resp.data : { all: [], booked: [] };
+            const all = data.all || [];
+            const booked = new Set(data.booked || []);
+            const grid = $('#slotGrid');
+            grid.empty();
+            const selected = new Set();
 
-        let table = $('#taskList').DataTable({
-            processing: true,
-            serverSide: true,
-            lengthChange: false,
-            searching: false,
-            
-            ajax: {
-                url: "{{ route('agent.appointments.datatable') }}",
-                type: 'GET'
-            },
-            columns: [
-                { data: 'appointment_list', name: 'appointment_list' },
-                { data: 'map', name: 'map', orderable: false, searchable: false, className: 'text-center' },
-                { data: 'status_badge', name: 'status', orderable: true, searchable: true, className: 'text-center' },
-                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-center' },
-            ]
-        });
+            function addMinutes(hhmm, mins){
+                var parts = hhmm.split(':');
+                var h = parseInt(parts[0], 10);
+                var m = parseInt(parts[1], 10);
+                var total = h*60 + m + mins;
+                var nh = Math.floor(total/60)%24;
+                var nm = total%60;
+                return String(nh).padStart(2,'0')+':'+String(nm).padStart(2,'0');
+            }
+
+            function diffMinutes(a,b){
+                var ap=a.split(':'), bp=b.split(':');
+                return (parseInt(bp[0],10)*60+parseInt(bp[1],10)) - (parseInt(ap[0],10)*60+parseInt(ap[1],10));
+            }
+
+            function updateHidden() {
+                if (selected.size === 0) { $('#new_start_time').val(''); $('#new_end_time').val(''); return; }
+                const arr = Array.from(selected).sort();
+                $('#new_start_time').val(arr[0]);
+                // end is last + 30 mins
+                var end = addMinutes(arr[arr.length-1], 30);
+                $('#new_end_time').val(end);
+            }
+
+            function isContinuous(arr){
+                for (let i=1;i<arr.length;i++){
+                    if (diffMinutes(arr[i-1], arr[i]) !== 30) return false;
+                }
+                return true;
+            }
+
+            all.forEach(function(slot){
+                const label = to12HourLabel(slot);
+                const disabled = booked.has(slot);
+                const btn = $(`<button type="button" class="slot-btn${disabled? ' disabled':''}" ${disabled? 'disabled':''} data-slot="${slot}">${label}</button>`);
+                btn.on('click', function(){
+                    const val = $(this).data('slot');
+                    if (selected.has(val)) {
+                        selected.delete(val);
+                        $(this).removeClass('selected');
+                    } else {
+                        selected.add(val);
+                        const arr = Array.from(selected).sort();
+                        if (!isContinuous(arr)) {
+                            selected.delete(val);
+                            $('#success_task_title').text('Error');
+                            $('#image_icon').attr('src', endpoint.error_image);
+                            $('#success_msg').text('Please select continuous 30-minute slots.');
+                            $('#successModal').modal('show');
+                            return;
+                        }
+                        $(this).addClass('selected');
+                    }
+                    updateHidden();
+                });
+                grid.append(btn);
+            });
+
+            // clear selection when grid reloads
+            $('#new_start_time').val('');
+            $('#new_end_time').val('');
+        }
+
+
+       
 
         function ajaxRequest(url, data = {}, method = 'GET', token = null, successCallback = null, errorCallback = null) {
             $.ajax({
@@ -895,6 +1154,14 @@
                 form.parsley().validate();
                 return;
             }
+            // Ensure time range selected via grid
+            if (!$('#new_start_time').val() || !$('#new_end_time').val()) {
+                $('#success_task_title').text('Error');
+                $('#image_icon').attr('src', endpoint.error_image);
+                $('#success_msg').text('Please select one or more continuous 30-minute slots.');
+                $('#successModal').modal('show');
+                return;
+            }
             ajaxRequest(endpoint.save_appointment, form.serialize(), 'POST', endpoint.csrf_token, successAppointmentCreate, errorAppointmentCreate);
         });
 
@@ -904,6 +1171,11 @@
             $("#image_icon").attr("src", endpoint.success_image);
             $('#newAppointmentForm')[0].reset(); 
             $('#new_appointment_model').modal('hide');
+            // reload after added new record
+            table.ajax.reload(null, false);
+             //update new count in the current list page
+             appointmentCountUpdate();
+
                 $('#successModal').modal('show');
                 setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
         }
@@ -953,6 +1225,10 @@
                 } else {
                     $('#edit_date_created_text').text('--');
                 }
+                // After fields are populated, ensure the edit map is initialized and visible if lat/long exist
+                if (typeof google !== 'undefined' && google.maps) {
+                    initAddressMap({ mapId: 'edit_map', inputId: 'edit_address', latId: 'edit_latitude', lngId: 'edit_longitude' });
+                }
             }, function(xhr){ console.log('load edit failed', xhr); });
         });
 
@@ -970,6 +1246,7 @@
         });
 
         $(document).on('click', '[data-target="#view_appointment"][data-toggle="modal"]', function(){
+            appointmentCountUpdate();
             currentAppointmentId = $(this).data('id');
             ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
                 var a = resp.data || {};
@@ -985,6 +1262,17 @@
                 $('#view_source').val((a.source || '').charAt(0).toUpperCase()+ (a.source || '').slice(1));
                 $("#view_appointment .task_priority[value="+ (a.importance || 'medium') + "]").prop('checked', true);
             }, function(xhr){ console.log('load view failed', xhr); });
+        });
+
+        // Redirect to PDF download on Print
+        $('#view_appointment form').on('submit', function(e){
+            e.preventDefault();
+            if (!currentAppointmentId) { return; }
+            //var url = urlFor(endpoint.pdf_download, encodeURIComponent(currentAppointmentId));
+
+            var encodedId = btoa(String(currentAppointmentId)); // Base64
+            var url = urlFor(endpoint.pdf_download, encodedId);
+            window.open(url, '_blank');
         });
 
 
@@ -1042,7 +1330,10 @@
                 $('#success_msg').text(resp.message || 'Appointment updated');
                 $('#successModal').modal('show');
                 setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
-                $('#taskList').DataTable().ajax.reload(null, false);
+                table.ajax.reload(null, false);
+               //update new count in the current list page
+               appointmentCountUpdate();
+
             }, function(xhr){
                 var msg = (xhr.responseJSON && xhr.responseJSON.message) ? xhr.responseJSON.message : 'Update failed';
                 $('#success_task_title').text('Error');
@@ -1066,6 +1357,11 @@
                 $('#image_icon').attr('src', endpoint.success_image);
                 $('#success_msg').text(resp.message || 'Appointment rescheduled');
                 $('#successModal').modal('show');
+                //table reload after uodate table
+                table.ajax.reload(null, false);
+                //update new count in the current list page
+                appointmentCountUpdate();
+
                 setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
                 $('#taskList').DataTable().ajax.reload(null, false);
             }, function(xhr){
@@ -1097,6 +1393,10 @@
                 $('#image_icon').attr('src', endpoint.success_image);
                 $('#success_msg').text(resp.message || 'Appointment completed');
                 $('#successModal').modal('show');
+                //update datetable due to update status
+                table.ajax.reload(null, false); 
+                //update new count in the current list page
+                appointmentCountUpdate();
                 setTimeout(function(){ $('#successModal').modal('hide'); }, 2000);
                 $('#taskList').DataTable().ajax.reload(null, false);
             }, function(xhr){
@@ -1110,17 +1410,28 @@
 
 
 
-
         function errorResponseForNewAppointment(xhr, status, error) {
             console.log(error, 'error');
             alert('Error: ' + error);
         }
 
-        
+        function appointmentCountUpdate(){
+            ajaxRequest(endpoint.appointment_count, {}, 'GET', null, function(resp){
+                var countVal  = resp.data || {};
+                console.log('countVal');
+                $('.totalInProgrssAppointment').text(countVal.in_progress || 0);
+                $('.totalOverDueAppointment').text(countVal.overdue || 0);
+                $('.totalCompletedAppointment').text(countVal.completed || 0);
+            }, function(xhr){ console.log('load view failed', xhr); });
+        }
+        appointmentCountUpdate();
 
+       
     });
-    </script>
 
+
+
+    </script>
 
 
 

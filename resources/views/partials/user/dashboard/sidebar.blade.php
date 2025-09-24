@@ -150,17 +150,17 @@
          <div class="py-0 collapse-inner rounded mb-2">
             <a class="collapse-item" href="{{ route('user.my-legbox',['escort']) }}">
                <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/escort-listing.png')}}">
-               <span class="pl-3" style="{{request()->is('user-dashboard/my-legbox/escort') ? 'color: #e5365a;' : ''}} ">Escort List</span>
+               <span style="{{request()->is('user-dashboard/my-legbox/escort') ? 'color: #e5365a;' : ''}} ">Escort List</span>
             </a>
             <a class="collapse-item" href="{{ route('user.my-legbox',['massage']) }}">
                <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/mc-listings.png')}}">
-               <span class="pl-3" style="{{request()->is('user-dashboard/my-legbox/massage') ? 'color: #e5365a;' : ''}} ">Massage List</span>
+               <span style="{{request()->is('user-dashboard/my-legbox/massage') ? 'color: #e5365a;' : ''}} ">Massage List</span>
             </a>
             {{-- <a class="collapse-item" href="{{ route('user.notes')}}">
                <svg width="19" height="22" viewBox="0 0 19 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M0 5.7207V3.7207H2V2.7207C2 1.6207 2.9 0.720703 4 0.720703H10V7.7207L12.5 6.2207L15 7.7207V0.720703H16C17 0.720703 18 1.7207 18 2.7207V12.5207C17.1 12.0207 16.1 11.7207 15 11.7207C11.7 11.7207 9 14.4207 9 17.7207C9 18.8207 9.3 19.8207 9.8 20.7207H4C2.9 20.7207 2 19.7207 2 18.7207V17.7207H0V15.7207H2V11.7207H0V9.7207H2V5.7207H0ZM2 3.7207V5.7207H4V3.7207H2ZM2 17.7207H4V15.7207H2V17.7207ZM2 11.7207H4V9.7207H2V11.7207ZM14 13.7207V16.7207H11V18.7207H14V21.7207H16V18.7207H19V16.7207H16V13.7207H14Z" fill="#C2CFE0"/>
                </svg>
-               <span class="pl-3" style="{{request()->segment(3) == 'my-legbox-notes' ? 'color: #e5365a;' : ''}}">Notes</span>
+               <span style="{{request()->segment(3) == 'my-legbox-notes' ? 'color: #e5365a;' : ''}}">Notes</span>
             </a> --}}
          </div>
       </div>
@@ -177,15 +177,13 @@
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
                 <a class="collapse-item" href="{{ route('user.list') }}">
-                    <img src="{{ asset('assets/app/img/icons-list.png') }}">
-                    <span class="pl-3"
-                        style="{{ request()->segment(3) == 'list' ? 'color: #e5365a;' : '' }}">My Noteboxes</span>
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/notebox.png') }}">
+                    <span style="{{ request()->segment(3) == 'list' ? 'color: #e5365a;' : '' }}">My Noteboxes</span>
                 </a>
 
                 <a class="collapse-item" href="{{ route('user.new') }}">
-                    <img src="{{ asset('assets/app/img/icons-bug.png') }}">
-                    <span class="pl-3"
-                        style="{{ request()->segment(3) == 'new' ? 'color: #e5365a;' : '' }}">Add Notebox</span>
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/add-note.png') }}">
+                    <span style="{{ request()->segment(3) == 'new' ? 'color: #e5365a;' : '' }}">Add Notebox</span>
                 </a>
             </div>
         </div>

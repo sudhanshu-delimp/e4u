@@ -9,9 +9,12 @@
         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" data-target="#reschedule_appointment" data-toggle="modal" data-id="{{ $appointment->id }}">
             <i class="fa fa-calendar"></i>Reschedule Appointment</a>
         <div class="dropdown-divider"></div>
+        @if($appointment->status != 'completed')
         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" data-target="#complete_appointment" data-toggle="modal" data-id="{{ $appointment->id }}">
             <i class="fa fa-check-circle"></i>Completed Appointment</a>
-        <div class="dropdown-divider"></div>
+            <div class="dropdown-divider"></div>
+        @endif
+        
         <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 create-tour-sec-dropdown" href="#" data-target="#view_appointment" data-toggle="modal" data-id="{{ $appointment->id }}">
             <i class="fa fa-eye"></i>View Appointment</a>
     </div>

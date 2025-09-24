@@ -18,6 +18,41 @@ class AppointmentController extends Controller
           return view('agent.dashboard.my-appointments');
     }
 
+    public function appointmentBookingList(){
+        return view('agent.dashboard.view-planner');
+    }
+
+    public function appointmentcountDayWeekMonth(){
+        $today = Carbon::today('UTC');
+        $weekStart = Carbon::now('UTC')->startOfWeek();
+        $monthStart = Carbon::now('UTC')->startOfMonth();
+        
+
+        
+        try{
+         
+            $result = Appointment::where('agent_id', Auth::id())
+                ->selectRaw(
+                    "SUM(CASE WHEN date = ? THEN 1 ELSE 0 END) as today_count, " .
+                    "SUM(CASE WHEN date >= ? THEN 1 ELSE 0 END) as week_count, " .
+                    "SUM(CASE WHEN date >= ? THEN 1 ELSE 0 END) as month_count",
+                    [
+                        $today->toDateString(),
+                        $weekStart->toDateString(),
+                        $monthStart->toDateString()
+                    ]
+                )
+                ->first();
+        return success_response($result, 'Appointment rescheduled');
+        } catch (\Throwable $e) {
+            dd($e);
+            return error_response('Appointment not found', 404);
+        }
+
+       
+
+    }
+
     public function getAdverser(){
         //type 4 means onley get Massage center
         $auth = Auth::user();
@@ -40,14 +75,23 @@ class AppointmentController extends Controller
         $advertiserId = $request->advertiser_id;
         $date = $request->date; // Format: Y-m-d
         $currentId = $request->input('current_id');
+        $mode = $request->query('mode'); // 'grid' returns all + booked
         
 
-        // 1) Fetch already booked slots for that advertiser & date
-        $bookedSlots = Appointment::where('advertiser_id', $advertiserId)
+        // 1) Fetch already booked slots for that advertiser & date (consider ranges)
+        $appointments = Appointment::where('advertiser_id', $advertiserId)
             ->whereDate('date', $date)
-            ->pluck('time')
-            ->map(function($t){ return Carbon::parse($t)->format('H:i'); })
-            ->toArray();
+            ->get(['time','end_time','id']);
+        $bookedSlots = [];
+        foreach ($appointments as $apt) {
+            $start = Carbon::parse($apt->time);
+            $end = $apt->end_time ? Carbon::parse($apt->end_time) : (clone $start)->addMinutes(30);
+            $cursor = $start->copy();
+            while ($cursor < $end) {
+                $bookedSlots[] = $cursor->format('H:i');
+                $cursor->addMinutes(30);
+            }
+        }
 
         // 2) Generate all slots (8 AM → 8 PM, 30 mins interval)
         $slots = [];
@@ -56,20 +100,18 @@ class AppointmentController extends Controller
 
         while ($start < $end) {
             $slotTime = $start->format('H:i');
-            // 3) Check if slot is booked or not
-            if (!in_array($slotTime, $bookedSlots)) {
-                $slots[] = $slotTime;
-            }
+            $slots[] = $slotTime;
             $start->addMinutes(30);
         }
        
-        // 4) Ensure current appointment's slot is present if provided
+        // For legacy dropdown flows, exclude booked and optionally include current
+        $available = array_values(array_diff($slots, $bookedSlots));
         if (!empty($currentId)) {
             $current = Appointment::find($currentId);
             if ($current && $current->advertiser_id == $advertiserId && Carbon::parse($current->date)->isSameDay(Carbon::parse($date))) {
                 $currentTime = Carbon::parse($current->time)->format('H:i');
-                if (!in_array($currentTime, $slots)) {
-                    $slots[] = $currentTime;
+                if (!in_array($currentTime, $available)) {
+                    $available[] = $currentTime;
                 }
             }
         }
@@ -77,25 +119,39 @@ class AppointmentController extends Controller
 
         // 5) Sort slots for stable UI
         sort($slots, SORT_STRING);
-        
-       
+        sort($available, SORT_STRING);
+        sort($bookedSlots, SORT_STRING);
 
-        return success_response($slots, 'get all slots');
+        if ($mode === 'grid') {
+            return success_response([
+                'all' => $slots,
+                'booked' => $bookedSlots,
+            ], 'get all slots');
+        }
+
+        return success_response($available, 'get all slots');
        
     }
 
     public function datatable(Request $request)
     {
-        $query = Appointment::query()
-            ->select(['appointments.*'])
-            ->with(['advertiser:id,name,member_id']);
+		$query = Appointment::query()
+			->where('agent_id', Auth::id())
+			->select(['appointments.*'])
+			->orderByRaw("FIELD(importance, 'high','medium','low')")
+			->orderBy('created_at', 'DESC')
+			->with(['advertiser:id,name,member_id']);
 
         return DataTables::of($query)
+			// Disable server-side filtering for the computed HTML column
+			->filterColumn('appointment_list', function ($query, $keyword) {
+				// no-op: do not change the query for this column
+			})
             ->addColumn('appointment_list', function ($row) {
-                $source = strtolower($row->source ?? 'database');
-                $color = '#ff0000';
-                if ($source === 'referral') { $color = '#ff8c00'; }
-                if ($source === 'cold') { $color = '#8b4513'; }
+                $importance = strtolower($row->importance ?? 'high');
+                $color = '#F31818';
+                if ($importance === 'medium') { $color = '#FFA113'; }
+                if ($importance === 'low') { $color = '#87632C'; }
 
                 $name = $row->advertiser->name ?? null;
                 $label = $name ? ($name.' ('.$row->advertiser->member_id.')') : $row->advertiser->member_id;
@@ -108,8 +164,8 @@ class AppointmentController extends Controller
             ->addColumn('status_badge', function ($row) {
                 $status = $row->status;
                 $map = [
-                    'in_progress' => ['label' => 'In Progress', 'bg' => '#36b9cc'],   // Blue for in progress
-                    'over_due'    => ['label' => 'Overdue',     'bg' => '#e74a3b'],   // Red for overdue
+                    'in_progress' => ['label' => 'In Progress', 'bg' => '#4e73df'],   // Blue for in progress
+                    'over_due'    => ['label' => 'Overdue',     'bg' => '#9d1d08'],   // Red for overdue
                     'completed'   => ['label' => 'Completed',   'bg' => '#1cc88a'],   // Green for completed
                 ];
                 $cfg = $map[$status];
@@ -171,6 +227,7 @@ class AppointmentController extends Controller
         // Normalize time to canonical format HH:mm
         try {
             $data['time'] = Carbon::parse($data['time'])->format('H:i');
+            $data['end_time'] = Carbon::parse($data['time'])->addMinutes(30)->format('H:i');
         } catch (\Throwable $e) {
             return error_response('Invalid time format.', 422);
         }
@@ -248,12 +305,15 @@ class AppointmentController extends Controller
 			$validator = Validator::make($request->all(), [
 				'new_advertiser' => 'required|exists:users,id',
 				'new_appointment_date' => 'required|date',
-				'new_appointment_time_slot' => 'required',
+				// Either single slot OR a start/end time range from the new grid
+				'new_appointment_time_slot' => 'nullable',
+				'new_start_time' => 'nullable|date_format:H:i',
+				'new_end_time' => 'nullable|date_format:H:i|after:new_start_time',
 				'new_address' => 'required|string|max:255',
 				'new_latitude' => 'nullable|numeric',
 				'new_longitude' => 'nullable|numeric',
-				'new_source' => 'required|string',
-				'new_task_priority' => 'nullable',
+				'new_source' => 'required|string|in:database,referral,cold',
+				'new_task_priority' => 'nullable|in:high,medium,low',
 			]);
 
 			if ($validator->fails()) {
@@ -262,19 +322,42 @@ class AppointmentController extends Controller
 
 			$validated = $validator->validated();
 
-			// Prevent duplicate appointment for same advertiser, date and time
-			$alreadyExists = Appointment::where('advertiser_id', $validated['new_advertiser'])
+			// Determine start/end based on provided fields
+			$startTime = $validated['new_start_time'] ?? null;
+			$endTime = $validated['new_end_time'] ?? null;
+			if (!$startTime) {
+				// Fallback to single dropdown value as a 30-minute slot
+				if (empty($validated['new_appointment_time_slot'])) {
+					return error_response('Please select a time slot.', 422);
+				}
+				$startTime = Carbon::parse($validated['new_appointment_time_slot'])->format('H:i');
+				$endTime = Carbon::parse($startTime)->addMinutes(30)->format('H:i');
+			} else {
+				$startTime = Carbon::parse($startTime)->format('H:i');
+				$endTime = Carbon::parse($endTime)->format('H:i');
+			}
+
+			// Overlap check for the advertiser on the same date [time, end_time)
+			$overlapExists = Appointment::where('advertiser_id', $validated['new_advertiser'])
 				->whereDate('date', $validated['new_appointment_date'])
-				->where('time', $validated['new_appointment_time_slot'])
+				->where(function ($q) use ($startTime, $endTime) {
+					$q->where(function ($q2) use ($startTime, $endTime) {
+						$q2->where('time', '<', $endTime)
+						   ->where(function ($q3) use ($startTime) {
+							   $q3->whereNull('end_time')->orWhere('end_time', '>', $startTime);
+						   });
+					});
+				})
 				->exists();
-			if ($alreadyExists) {
-				return error_response('An appointment already exists for this advertiser at the selected date and time.', 422);
+			if ($overlapExists) {
+				return error_response('Selected time overlaps with an existing appointment.', 422);
 			}
 
 			$appointment = Appointment::create([
 				'advertiser_id' => $validated['new_advertiser'],
 				'date' => $validated['new_appointment_date'],
-				'time' => $validated['new_appointment_time_slot'],
+				'time' => $startTime,
+				'end_time' => $endTime,
 				'address' => $validated['new_address'],
 				'lat' => $request->input('new_latitude'),
 				'long' => $request->input('new_longitude'),
@@ -289,4 +372,131 @@ class AppointmentController extends Controller
 			return error_response('Something went wrong while creating the appointment.', 500);
 		}
     }
+
+    public function appointmentCount()
+    {
+        try {
+            $agentId = Auth::id();
+            
+            $today = Carbon::today()->toDateString();
+            $result = Appointment::where('agent_id', $agentId)
+                ->selectRaw(
+                    "COALESCE(SUM(CASE WHEN status = 'in_progress' THEN 1 ELSE 0 END), 0) AS in_progress,\n" .
+                    "COALESCE(SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END), 0) AS completed,\n" .
+                    "COALESCE(SUM(CASE WHEN status = 'over_due'THEN 1 ELSE 0 END), 0) AS overdue",
+                   
+                )
+                ->first();
+
+            $data = [
+                'in_progress' => (int) ($result->in_progress ?? 0),
+                'completed' => (int) ($result->completed ?? 0),
+                'overdue' => (int) ($result->overdue ?? 0),
+            ];
+
+            return success_response($data, 'Appointment counts fetched successfully');
+        } catch (\Throwable $e) {
+            return error_response('Failed to fetch appointment counts.', 500);
+        }
+    }
+
+
+	public function appointmentPdfDownload($id)
+    {
+        try {
+            $decodedId = (int) base64_decode($id);
+			$data = Appointment::with(['advertiser:id,name,member_id'])->find($decodedId);
+            if (is_null($data)) {
+                abort(404); // Throws a NotFoundHttpException
+            }
+            $pdfDetail['date'] = Carbon::parse($data->date)->format('M d, Y');
+            $pdfDetail['time'] = Carbon::parse($data->time)->format('h:i A');
+			$name = optional($data->advertiser)->name;
+			$memberId = optional($data->advertiser)->member_id;
+			$label = $memberId ? (trim(($name ?? '').' ('.$memberId.')')) : ($name ?? '');
+            $pdfDetail['advertiser'] = $label;
+            $pdfDetail['address'] = $data->address;
+            $pdfDetail['point_of_contact'] = $data->point_of_contact;
+            $pdfDetail['mobile'] = $data->mobile;
+            $pdfDetail['summary'] = $data->summary;
+            $pdfDetail['source'] = $data->source;
+            $pdfDetail['importance'] = $data->importance;
+            $pdfDetail['map'] = $data->address;
+            $pdfDetail['create_date'] = Carbon::parse($data->created_at)->format('M d, Y');
+
+            return view('agent.dashboard.partials.appointment-pdf-download', compact('data', 'pdfDetail'));
+        } catch (\Throwable $e) {
+            abort(404);
+        }
+    }
+
+	public function calendarEvents(Request $request)
+	{
+		$start = $request->query('start'); // ISO date
+		$end = $request->query('end');     // ISO date
+		$agentId = Auth::id();
+
+		$query = Appointment::query()
+			->where('agent_id', $agentId)
+			->when($start, function ($q) use ($start) {
+				$q->whereDate('date', '>=', $start);
+			})
+			->when($end, function ($q) use ($end) {
+				$q->whereDate('date', '<=', $end);
+			})
+			->with(['advertiser:id,name,member_id'])
+			->select(['id','date','time','importance','status','address','advertiser_id']);
+
+		$events = $query->get()->map(function ($apt) {
+            $importance = strtolower($apt->importance ?? 'high');
+            $color = '#F31818';
+            if ($importance == 'medium') { $color = '#FFA113'; }
+            if ($importance == 'low') { $color = '#87632C'; }
+			$startDateTime = Carbon::parse($apt->date.' '.$apt->time)->format('Y-m-d\TH:i:s');
+			$titleName = optional($apt->advertiser)->name ?: (optional($apt->advertiser)->member_id ?? 'Appointment');
+			$title = $titleName.' - '.Carbon::parse($apt->time)->format('h:i A'). '-' . Carbon::parse($apt->time)->addMinutes(30)->format('h:i A');
+			return [
+				'id' => $apt->id,
+				'title' => $title,
+				'start' => $startDateTime,
+				'backgroundColor' => $color,
+				'borderColor' => $color,
+				'textColor' => '#ffffff',
+				'extendedProps' => [
+					'importance' => $apt->importance,
+					'status' => $apt->status,
+				],
+			];
+		});
+
+      //  dd($events);
+
+		return response()->json($events);
+	}
+
+	public function appointmentDetails($id)
+	{
+		$appointment = Appointment::with(['advertiser:id,name,member_id'])->find($id);
+		if (!$appointment) {
+			return error_response('Appointment not found', 404);
+		}
+		$detail = [
+			'date' => Carbon::parse($appointment->date)->format('M d, Y'),
+			'time' => Carbon::parse($appointment->time)->format('h:i A'),
+			'advertiser' => (function () use ($appointment) {
+				$name = optional($appointment->advertiser)->name;
+				$memberId = optional($appointment->advertiser)->member_id;
+				return $memberId ? (trim(($name ?? '').' ('.$memberId.')')) : ($name ?? '');
+			})(),
+			'address' => $appointment->address,
+			'point_of_contact' => $appointment->point_of_contact,
+			'mobile' => $appointment->mobile,
+			'summary' => $appointment->summary,
+			'source' => $appointment->source,
+			'importance' => $appointment->importance,
+            'status' => ucfirst(str_replace("_", " ",$appointment->status)),
+			'create_date' => Carbon::parse($appointment->created_at)->format('M d, Y'),
+		];
+		return success_response($detail, 'Appointment details');
+	}
 }

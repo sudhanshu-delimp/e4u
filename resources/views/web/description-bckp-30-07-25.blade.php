@@ -346,8 +346,8 @@
                         <table class="table table_striped mb-0">
                             <thead class="table_heading_bgcolor_color">
                                 <tr>
-                                    <th scope="col">Arriving</th>
-                                    <th scope="col">Departing</th>
+                                    <th class="text-center" scope="col">Arriving</th>
+                                    <th class="text-center" "scope="col">Departing</th>
                                 </tr>
                             </thead>
                             <tbody>

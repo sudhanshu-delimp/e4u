@@ -35,6 +35,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('send:playmate_disable')->daily();
         $schedule->command('send:playmate_disable')->daily();
         $schedule->command('passwords:send-expiry-notices')->dailyAt('10:00');
+        $schedule->command('appointments:update-status')->everySixHours();
         //$schedule->command('resetPassword')->daily();
     }
     // protected function schedule(Schedule $schedule)

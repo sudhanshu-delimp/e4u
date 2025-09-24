@@ -208,7 +208,7 @@
             <span>Analytics</span>
         </a>
         <div id="Analytics" class="collapse @if (request()->segment(2) == 'advertiser-profiles' ||
-                request()->segment(2) == 'advertiser-social-media' ||
+                request()->segment(2) == 'advertiser-social-media' || request()->segment(2) == 'toursummary' ||
                 request()->segment(2) == 'prospets-memberships') show @endif;"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 
@@ -217,22 +217,28 @@
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                         src="{{ asset('assets/app/img/user.png') }}">
                     <span
-                        style="{{ request()->segment(2) == 'advertiser-profiles' ? 'color: #e5365a;' : '' }}">Advertiser
-                        Profiles</span>
+                        style="{{ request()->segment(2) == 'advertiser-profiles' ? 'color: #e5365a;' : '' }}">Profile Summary</span>
                 </a>
-                <a class="collapse-item" href="{{ route('agent.advertiser-social-media') }}">
+                {{-- <a class="collapse-item" href="{{ route('agent.advertiser-social-media') }}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
                     <span
                         style="{{ request()->segment(2) == 'advertiser-social-media' ? 'color: #e5365a;' : '' }}">Advertiser
                         Social Media</span>
-                </a>
+                </a> --}}
                 <a class="collapse-item" href="{{ route('agent.prospets-memberships') }}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                         src="{{ asset('assets/app/img/membership.png') }}">
                     <span
                         style="{{ request()->segment(2) == 'prospets-memberships' ? 'color: #e5365a;' : '' }}">Prospets
                         & Memberships</span>
+                </a>
+                
+                <a class="collapse-item" href="{{ route('agent.toursummary') }}">
+                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                        src="{{ asset('assets/dashboard/img/menu-icon/tour-summary.png') }}">
+                    <span
+                        style="{{ request()->segment(2) == 'toursummary' ? 'color: #e5365a;' : '' }}">Tour Summary</span>
                 </a>
             </div>
         </div>
