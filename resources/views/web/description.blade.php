@@ -1777,9 +1777,9 @@ let carousel = new bootstrap.Carousel(myCarousel, {
             success: function(data) {
                 if(data.error) {
                     Swal.fire(
-                        'Info!',
-                        'Please login first to like & dislike the profile.',
-                        'info'
+                        'Error!',
+                        'Something is wrong please try later.',
+                        'error'
                     );
                 } else {
                     if (data.like == 1) {
