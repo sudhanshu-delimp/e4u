@@ -595,8 +595,9 @@
             
 
             console.log('user details : ', user);
+            let userType = parseInt(user.type);
 
-            switch (user.type) {
+            switch (userType) {
                 case 0:
                     // user
                     var myLegBox = userDetails.my_leg_box;
