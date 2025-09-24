@@ -2147,6 +2147,12 @@ $(document).ready(function() {
     
 });
 
+$('#exampleModal').on('hidden.bs.modal', function () {
+    $(this).find('video').each(function() {
+        this.pause();
+        this.currentTime = 0; // reset to start
+    });
+});
 
 </script>
 @endpush
