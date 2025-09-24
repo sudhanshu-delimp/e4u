@@ -220,7 +220,7 @@ class GlobalMonitoringLoggedInController extends Controller
                         ->with([
                             'loginAttempts',
                             'playmates:id',
-                            'escorts:id',
+                            'escorts:id,user_id',
                             'listedEscorts:id',
                             'agentEscorts:id',
                             'escortsAgents:id',
