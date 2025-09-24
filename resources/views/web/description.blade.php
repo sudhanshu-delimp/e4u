@@ -1123,7 +1123,7 @@
             </a>
             <div class="content">
                 <div class="accodien_manage_padding_content">
-                    <p>
+                    <p class="text-justify">
                         Prices are all inclusive unless an extra is listed in My Serices. For Outcalls, price is rate + taxi to and from my location.
                     </p>
                 </div>
@@ -1136,7 +1136,7 @@
             </a>
             <div class="content">
                 <div class="accodien_manage_padding_content">
-                    <p>Donations are for my companionship and nothing else. It is not an offer or promise for prostitution or illegal activity.
+                    <p class="text-justify">Donations are for my companionship and nothing else. It is not an offer or promise for prostitution or illegal activity.
                         Anything that may occur between us is our choice as consenting adults.
                     </p>
                 </div>
