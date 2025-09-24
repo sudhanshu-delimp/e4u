@@ -53,19 +53,23 @@
             width: 95%;
         }
         /* Slot grid styles */
+        
         #slotGrid {
             display: grid;
-            grid-template-columns: repeat(4, minmax(120px, 1fr));
+            grid-template-columns: repeat(4, minmax(110px, 1fr));
             gap: 10px;
         }
+        #slotGrid button{
+            margin: 0px !important;
+        }
         @media (min-width: 1360px) {
-            #slotGrid { grid-template-columns: repeat(5, minmax(120px, 1fr)); }
+            #slotGrid { grid-template-columns: repeat(5, minmax(110px, 1fr)); }
         }
         @media (max-width: 991px) {
             #slotGrid { grid-template-columns: repeat(3, minmax(110px, 1fr)); }
         }
         @media (max-width: 575px) {
-            #slotGrid { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
+            #slotGrid { grid-template-columns: repeat(2, minmax(100px, 1fr)); }
         }
         .slot-btn {
             background: #ffffff;
@@ -196,7 +200,7 @@
     <!-- New appointment Popup -->
     <div class="modal fade upload-modal" id="new_appointment_model" tabindex="-1" role="dialog"
         aria-labelledby="new_appointmentlabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="width: 900px !important;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/new-appointment.png') }}"
