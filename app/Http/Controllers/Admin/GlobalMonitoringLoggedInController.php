@@ -238,7 +238,7 @@ class GlobalMonitoringLoggedInController extends Controller
                             }
                         ])
                         ->first();
-                        dd($userDetails);
+                        //dd($userDetails);
                     break;
                 case 4:
                     # massage...
