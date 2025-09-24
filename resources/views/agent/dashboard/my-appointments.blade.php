@@ -85,13 +85,13 @@
         }
         .slot-btn:hover {
             background: #e8f0fe;
-            border-color: #1a73e8;
-            color: #1a73e8;
+            border-color: #ff3c5f;
+            color: #ff3c5f;
         }
         .slot-btn.selected {
-            background: #1a73e8;
+            background: #ff3c5f;
             color: #ffffff;
-            border-color: #1a73e8;
+            border-color: #ff3c5f;
             box-shadow: 0 0 0 2px rgba(26,115,232,.15);
         }
         .slot-btn.disabled,
@@ -100,6 +100,9 @@
             color: #9aa0a6;
             border-color: #e0e0e0;
             cursor: not-allowed;
+        }
+        .modal-dialog .appointment_madal{
+            width: 900px !important;
         }
     </style>
 @endsection
@@ -200,7 +203,7 @@
     <!-- New appointment Popup -->
     <div class="modal fade upload-modal" id="new_appointment_model" tabindex="-1" role="dialog"
         aria-labelledby="new_appointmentlabel" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="width: 900px !important;">
+        <div class="modal-dialog appointment_madal modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title"> <img src="{{ asset('assets/dashboard/img/new-appointment.png') }}"
@@ -246,7 +249,7 @@
                                     <input type="hidden" id="new_end_time" name="new_end_time">
                                     <small class="form-text text-muted">Select continuous 30-minute slots.</small>
                                 </div>
-
+                                
 
 
                                 <!-- Address with Google Maps integration -->

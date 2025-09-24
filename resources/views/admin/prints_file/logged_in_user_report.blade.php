@@ -121,58 +121,63 @@
 
                 </div>
                 <div class="info-grid">
-                    <div class="info-item {{ $userData['account_member_id'] != null ? '' : 'd-none' }}">
+                    <div class="info-item {{ ($userData['account_member_id'] == '') ? 'd-none' : '' }}">
                         <label>Member ID</label>
                         <span class="account_member_id">{{$userData['account_member_id']}}</span>
                     </div>
-                    <div class="info-item {{ $userData['account_member_name'] != null ? '' : 'd-none' }}">
+                    <div class="info-item {{ ($userData['account_member_name'] == '' ) ? 'd-none' : '' }}">
                         <label>Member</label>
                         <span class="account_member_name">{{ $userData['account_member_name'] }}</span>
                     </div>
-                    <div class="info-item {{ $userData['account_ip_address'] != null ? '' : 'd-none' }}">
+                    <div class="info-item {{ $userData['account_ip_address'] == '' ? 'd-none' : '' }}">
                         <label>IP Address</label>
                         <span class="account_ip_address">{{ $userData['account_ip_address'] }}</span>
                     </div>
-                    <div class="info-item {{ $userData['account_platform'] != null ? '' : 'd-none' }}">
+                    <div class="info-item {{ $userData['account_platform'] == '' ? 'd-none' : '' }}">
                         <label>Platform</label>
                         <span class="account_platform">{{ $userData['account_platform'] }}</span>
                     </div>
-                    <div class="info-item {{ $userData['account_visit_page'] != null ? '' : 'd-none' }}">
+                    <div class="info-item {{ $userData['account_visit_page'] == '' ? 'd-none' : '' }}">
                         <label>Page</label>
                         <span class="account_visit_page">{{ $userData['account_visit_page'] }}</span>
                     </div>
-                    <div class="info-item {{ $userData['account_listed_profile_count'] != null ? '' : 'd-none' }}">
+                    <div class="info-item {{ ($userData['account_listed_profile_count'] == '' ) ? 'd-none' : '' }}">
                         <label>Listed Profiles (Escort)</label>
                         <span class="account_listed_profile_count">{{ $userData['account_listed_profile_count'] }}</span>
                     </div>
-                    <div class="info-item {{ $userData['account_masseurs_count'] != null ? '' : 'd-none' }}">
+                    <div class="info-item {{ $userData['account_masseurs_count'] == '' ? 'd-none' : '' }}">
                         <label>Published Masseurs (Massage Centre)</label>
                         <span class="account_masseurs_count">{{ $userData['account_masseurs_count'] }}</span>
                     </div>
-                    <div class="info-item {{ $userData['account_massage_legbox'] != null ? '' : 'd-none' }}">
+                    <div class="info-item {{ $userData['account_massage_legbox'] == '' ? 'd-none' : '' }}">
                         <label>Massage Legboxes (Massage Centre)</label>
                         <span class="account_massage_legbox">{{ $userData['account_massage_legbox'] }}</span>
                     </div>
-                    <div class="info-item {{ $userData['account_list_adervtiser_count'] != null ? '' : 'd-none' }}">
+                    <div class="info-item {{ $userData['account_list_adervtiser_count'] == '' ? 'd-none' : '' }}">
                         <label>List Advertisers (Escort)</label>
                         <span class="account_list_adervtiser_count">{{ $userData['account_list_adervtiser_count'] }}</span>
                     </div>
-                    <div class="info-item {{ $userData['account_legbox_count'] != null ? '' : 'd-none' }}">
+                    <div class="info-item {{ $userData['account_legbox_count'] == '' ? 'd-none' : '' }}">
                         <label>Escort Legboxes (Viewer)</label>
                         <span class="account_legbox_count">{{ $userData['account_legbox_count'] }}</span>
                     </div>
-                    <div class="info-item {{ $userData['account_escort_playmates'] != null ? '' : 'd-none' }}">
+                    <div class="info-item {{ $userData['account_escort_playmates'] == '' ? 'd-none' : '' }}">
                         <label>Playmates</label>
                         <span class="account_escort_playmates">{{ $userData['account_escort_playmates'] }}</span>
                     </div>
-                    <div class="info-item {{ $userData['account_refer_by_advertiser_agent'] != null ? '' : 'd-none' }}">
+                    <div class="info-item {{ $userData['account_refer_by_advertiser_agent'] == '' ? 'd-none' : '' }}">
                         <label>Reffered By Advertisers</label>
                         <span class="account_refer_by_advertiser_agent">{{ $userData['account_refer_by_advertiser_agent'] }}</span>
                     </div>
-                    <div class="info-item {{ $userData['account_refer_by_massage_center_agent'] != null ? '' : 'd-none' }}">
+                    <div class="info-item {{ $userData['account_refer_by_massage_center_agent'] == '' ? 'd-none' : '' }}">
                         <label>Reffered By Massage Centers</label>
                         <span class="account_refer_by_massage_center_agent">{{ $userData['account_refer_by_massage_center_agent'] }}</span>
                     </div>
+                    <div class="info-item {{ ($userData['account_idle_prefrence_time'] == '') ? 'd-none' : '' }}">
+                        <label>Idle Preference Time (Minutes)</label>
+                        <span class="account_idle_prefrence_time">{{ $userData['account_idle_prefrence_time'] }}</span>
+                    </div>
+                    
                 </div>
             </div>
         </div>

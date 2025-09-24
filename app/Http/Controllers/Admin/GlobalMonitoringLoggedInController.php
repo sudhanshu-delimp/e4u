@@ -15,15 +15,18 @@ class GlobalMonitoringLoggedInController extends Controller
     function index()
     {
         # get users who are online but inactive for more than 6 hours
-        $inactiveUsers = LoginAttempt::where('type', 1)
+        $activeUsers = LoginAttempt::where('type', 1)
             ->where('online', 'yes')
-            ->where('updated_at', '<', Carbon::now()->subHours(6))
             ->get();
 
-        if ($inactiveUsers->count() > 0) {
-            foreach ($inactiveUsers as $user) {
-                $user->online = 'no';
-                $user->save();
+        if ($activeUsers->count() > 0) {
+            foreach ($activeUsers as $user) {
+                $minutes = $user->idle_preference_time ?? 30;
+
+                if ($user->updated_at < Carbon::now()->subMinutes($minutes)) {
+                    $user->online = 'no';
+                    $user->save();
+                }
             }
         }
 
@@ -32,16 +35,14 @@ class GlobalMonitoringLoggedInController extends Controller
 
     public function getLoggedInUserDataTableListingAjax($type = NULL, $callbyFunc = false)
     {
-        
-
         $search = request()->get('search')['value'];
         $dataTableData = [];
 
         $loggedInUsers = LoginAttempt::where('type', 1)
             ->where('online', 'yes')
             ->whereNotNull('user_id')
-            ->with(['user:id,member_id,name,type,status'])
-            ->select('id', 'user_id', 'ip_address', 'device', 'type', 'page') // only columns from login_attempts table
+            ->with(['user:id,member_id,name,type,status,idle_preference_time'])
+            ->select('id', 'user_id', 'ip_address', 'device', 'type', 'page','updated_at') // only columns from login_attempts table
             ->get()
             ->unique('user_id')
             ->values();
@@ -77,6 +78,38 @@ class GlobalMonitoringLoggedInController extends Controller
             ->addColumn('member', fn($row) => $row->user->name ?? '-')
             ->addColumn('ip_adress', fn($row) => $row->ip_address ?? '-')
             ->addColumn('platform', fn($row) => $row->device ?? '-')
+            ->addColumn('idle_preference_time', function($row){
+                if($row->user->type == 1){
+                    return '-';
+                }
+                return $row->user->idle_preference_time ?? '30';
+            })
+            // ->addColumn('idle_time', function ($row) {
+            //     if($row->user->type == 1){
+            //         return '-- : --';
+            //     }
+            //     $idlePref = $row->user->idle_preference_time ?? 30;
+
+            //     // difference in seconds from last activity
+            //     $diffInSeconds = Carbon::now()->diffInSeconds($row->updated_at);
+
+            //     //dd($row->updated_at, Carbon::now(), $diffInSeconds);
+
+            //     if ($diffInSeconds > ($idlePref * 60)) {
+            //         // how long user has been idle after preference time
+            //         $idleSeconds = $diffInSeconds - ($idlePref * 60);
+
+            //         // format into mm:ss
+            //         $minutes = floor($idleSeconds / 60);
+            //         $seconds = $idleSeconds % 60;
+
+                    
+
+            //         return sprintf("%02d:%02d", $minutes, $seconds);
+            //     }
+
+            //     return "00:00"; // not yet idle
+            // })
             ->addColumn('page', fn($row) => $row->page ?? '-')
             ->addColumn('action', function ($row) {
                 $status = $row->user->status == 'Suspended' ? 'Active' : 'Suspend';
@@ -122,20 +155,21 @@ class GlobalMonitoringLoggedInController extends Controller
             'account_visit_page'=> $commonData->account_visit_page ?? '-',
 
             // for type 0
-            'account_legbox_count'=> isset($specificUserData->account_legbox_count) ?  $specificUserData->account_legbox_count : null,
-            'account_massage_legbox'=> isset($specificUserData->account_massage_legbox) ? $specificUserData->account_massage_legbox : null,
+            'account_legbox_count'=> isset($specificUserData->account_legbox_count) ?  $specificUserData->account_legbox_count : '',
+            'account_massage_legbox'=> isset($specificUserData->account_massage_legbox) ? $specificUserData->account_massage_legbox : '',
             // for type 3
-            'account_list_adervtiser_count'=> isset($specificUserData->account_list_adervtiser_count) ? $specificUserData->account_list_adervtiser_count : null,
-            'account_listed_profile_count'=> isset($specificUserData->account_listed_profile_count) ? $specificUserData->account_listed_profile_count : null,
-            'account_escort_playmates'=> isset($specificUserData->account_escort_playmates) ? $specificUserData->account_escort_playmates : null,
-            'account_legbox_count'=> isset($specificUserData->account_legbox_count) ? $specificUserData->account_legbox_count : null,
+            'account_list_adervtiser_count'=> isset($specificUserData->account_list_adervtiser_count) ? $specificUserData->account_list_adervtiser_count : '',
+            'account_listed_profile_count'=> isset($specificUserData->account_listed_profile_count) ? $specificUserData->account_listed_profile_count : '',
+            'account_escort_playmates'=> isset($specificUserData->account_escort_playmates) ? $specificUserData->account_escort_playmates : '',
+            'account_legbox_count'=> isset($specificUserData->account_legbox_count) ? $specificUserData->account_legbox_count : '',
             // for type 4
-            'account_masseurs_count'=> isset($specificUserData->account_masseurs_count) ? $specificUserData->account_masseurs_count : null,
+            'account_masseurs_count'=> isset($specificUserData->account_masseurs_count) ? $specificUserData->account_masseurs_count : '',
             // for type 5
-            'account_refer_by_advertiser_agent' => isset($specificUserData->account_refer_by_advertiser_agent) ? $specificUserData->account_refer_by_advertiser_agent : null,
-            'account_refer_by_massage_center_agent' => isset($specificUserData->account_refer_by_massage_center_agent) ?  $specificUserData->account_refer_by_massage_center_agent : null,
+            'account_refer_by_advertiser_agent' => isset($specificUserData->account_refer_by_advertiser_agent) ? $specificUserData->account_refer_by_advertiser_agent : '',
+            'account_refer_by_massage_center_agent' => isset($specificUserData->account_refer_by_massage_center_agent) ?  $specificUserData->account_refer_by_massage_center_agent : '',
+            'account_idle_prefrence_time' => isset($specificUserData->account_idle_prefrence_time) ?  $specificUserData->account_idle_prefrence_time : '',
         ];
-        
+
 
         return view('admin.prints_file.logged_in_user_report',['userData'=>$userData]);
         
@@ -156,10 +190,28 @@ class GlobalMonitoringLoggedInController extends Controller
                         ->with(['loginAttempts','playmates:id','escorts:id','myLegBox:id','massageCenterLegBox:id'])
                         ->first();
                     break;
+                case 1:
+                    # Admin...
+                    $userDetails = User::where('id', $userId)
+                        ->with(['loginAttempts','playmates:id','escorts:id','myLegBox:id','massageCenterLegBox:id'])
+                        ->first();
+                    break;
                 case 2:
                     # code...
+                    $totalAgents = 0;
+                    $toalMassageCenters = 0;
+                    $totalEscort = 0;
+                    $totalListedEscort = 0;
+                    $totalViewers = 0;
+
                     $userDetails = User::where('id', $userId)
-                        ->with('loginAttempts','playmates','escorts','agentEscorts','escortsAgents','myLegBox','massageCenterLegBox','my_agent');
+                        ->with('loginAttempts');
+                        $userDetails->total_agents = $totalAgents;
+                        $userDetails->toal_massage_centers = $toalMassageCenters;
+                        $userDetails->total_escort = $totalEscort;
+                        $userDetails->total_listed_escort = $totalListedEscort;
+                        $userDetails->total_viewers = $totalViewers;
+
                     break;
                 case 3:
                     # escort...
@@ -177,6 +229,12 @@ class GlobalMonitoringLoggedInController extends Controller
                         ->withCount([
                             'escorts as viewerLegBoxCount' => function ($q) {
                                 $q->whereHas('viewerLegBox');
+                            },
+                            'escorts as listedProfileCount' => function ($q) {
+                                $q->where('enabled', 1);
+                            },
+                            'escorts as advertiserProfileCount' => function ($q) {
+                                $q->whereIn('enabled', [0,1]);
                             }
                         ])
                         ->first();
