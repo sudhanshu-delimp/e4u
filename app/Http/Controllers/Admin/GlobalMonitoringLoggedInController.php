@@ -35,8 +35,6 @@ class GlobalMonitoringLoggedInController extends Controller
 
     public function getLoggedInUserDataTableListingAjax($type = NULL, $callbyFunc = false)
     {
-        
-
         $search = request()->get('search')['value'];
         $dataTableData = [];
 
@@ -157,20 +155,21 @@ class GlobalMonitoringLoggedInController extends Controller
             'account_visit_page'=> $commonData->account_visit_page ?? '-',
 
             // for type 0
-            'account_legbox_count'=> isset($specificUserData->account_legbox_count) ?  $specificUserData->account_legbox_count : null,
-            'account_massage_legbox'=> isset($specificUserData->account_massage_legbox) ? $specificUserData->account_massage_legbox : null,
+            'account_legbox_count'=> isset($specificUserData->account_legbox_count) ?  $specificUserData->account_legbox_count : '',
+            'account_massage_legbox'=> isset($specificUserData->account_massage_legbox) ? $specificUserData->account_massage_legbox : '',
             // for type 3
-            'account_list_adervtiser_count'=> isset($specificUserData->account_list_adervtiser_count) ? $specificUserData->account_list_adervtiser_count : null,
-            'account_listed_profile_count'=> isset($specificUserData->account_listed_profile_count) ? $specificUserData->account_listed_profile_count : null,
-            'account_escort_playmates'=> isset($specificUserData->account_escort_playmates) ? $specificUserData->account_escort_playmates : null,
-            'account_legbox_count'=> isset($specificUserData->account_legbox_count) ? $specificUserData->account_legbox_count : null,
+            'account_list_adervtiser_count'=> isset($specificUserData->account_list_adervtiser_count) ? $specificUserData->account_list_adervtiser_count : '',
+            'account_listed_profile_count'=> isset($specificUserData->account_listed_profile_count) ? $specificUserData->account_listed_profile_count : '',
+            'account_escort_playmates'=> isset($specificUserData->account_escort_playmates) ? $specificUserData->account_escort_playmates : '',
+            'account_legbox_count'=> isset($specificUserData->account_legbox_count) ? $specificUserData->account_legbox_count : '',
             // for type 4
-            'account_masseurs_count'=> isset($specificUserData->account_masseurs_count) ? $specificUserData->account_masseurs_count : null,
+            'account_masseurs_count'=> isset($specificUserData->account_masseurs_count) ? $specificUserData->account_masseurs_count : '',
             // for type 5
-            'account_refer_by_advertiser_agent' => isset($specificUserData->account_refer_by_advertiser_agent) ? $specificUserData->account_refer_by_advertiser_agent : null,
-            'account_refer_by_massage_center_agent' => isset($specificUserData->account_refer_by_massage_center_agent) ?  $specificUserData->account_refer_by_massage_center_agent : null,
+            'account_refer_by_advertiser_agent' => isset($specificUserData->account_refer_by_advertiser_agent) ? $specificUserData->account_refer_by_advertiser_agent : '',
+            'account_refer_by_massage_center_agent' => isset($specificUserData->account_refer_by_massage_center_agent) ?  $specificUserData->account_refer_by_massage_center_agent : '',
+            'account_idle_prefrence_time' => isset($specificUserData->account_idle_prefrence_time) ?  $specificUserData->account_idle_prefrence_time : '',
         ];
-        
+
 
         return view('admin.prints_file.logged_in_user_report',['userData'=>$userData]);
         
@@ -230,6 +229,12 @@ class GlobalMonitoringLoggedInController extends Controller
                         ->withCount([
                             'escorts as viewerLegBoxCount' => function ($q) {
                                 $q->whereHas('viewerLegBox');
+                            },
+                            'escorts as listedProfileCount' => function ($q) {
+                                $q->where('enabled', 1);
+                            },
+                            'escorts as advertiserProfileCount' => function ($q) {
+                                $q->whereIn('enabled', [0,1]);
                             }
                         ])
                         ->first();
