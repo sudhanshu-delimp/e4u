@@ -41,7 +41,7 @@
         
     
    <form class="v-form-design" 
-      id="notificationForm"   {{-- ✅ added --}}
+      id="notificationForm"  
       name="notification_setting"  
       method="post" 
       action="{{ route('user.update_notification_setting') }}">
@@ -57,7 +57,7 @@
             <div class="custom-control custom-switch">
                 <input type="checkbox" 
                        class="custom-control-input" 
-                       id="advertiser_email"   {{-- ✅ unique ID --}}
+                       id="advertiser_email"   
                        name="advertiser_email" 
                        value="1"
                        {{ $setting->viewer_notification_setting?->advertiser_email == '1' ? 'checked' : '' }}>
@@ -67,7 +67,7 @@
             <div class="custom-control custom-switch">
                 <input type="checkbox" 
                        class="custom-control-input" 
-                       id="advertiser_text"   {{-- ✅ unique ID --}}
+                       id="advertiser_text"   
                        name="advertiser_text" 
                        value="1"
                        {{ $setting->viewer_notification_setting?->advertiser_text == '1' ? 'checked' : '' }}>
@@ -92,7 +92,7 @@
             <div class="custom-control custom-switch">
                 <input type="checkbox" 
                        class="custom-control-input" 
-                       id="escort_text"   {{-- ✅ unique ID --}}
+                       id="escort_text"   
                        name="escort_text" 
                        value="1"
                        {{ $setting->viewer_notification_setting?->escort_text == '1' ? 'checked' : '' }}>
@@ -111,27 +111,27 @@
                 <input class="form-check-input" 
                        type="radio" 
                        name="idle_time" 
-                       id="idle_time_15"   {{-- ✅ renamed --}}
+                       id="idle_time_15"  
                        value="15"
-                       {{ $setting->viewer_notification_setting?->idle_time == '15' ? 'checked' : '' }}>
+                       {{ $setting->viewer_notification_setting?->idle_preference_time == '15' ? 'checked' : '' }}>
                 <label class="form-check-label" for="idle_time_15">15 minutes</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" 
                        type="radio" 
                        name="idle_time" 
-                       id="idle_time_30"   {{-- ✅ renamed --}}
+                       id="idle_time_30"  
                        value="30"
-                       {{ $setting->viewer_notification_setting?->idle_time == '30' ? 'checked' : '' }}>
+                       {{ $setting->viewer_notification_setting?->idle_preference_time == '30' ? 'checked' : '' }}>
                 <label class="form-check-label" for="idle_time_30">30 minutes</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" 
                        type="radio" 
                        name="idle_time" 
-                       id="idle_time_60"   {{-- ✅ renamed --}}
+                       id="idle_time_60"   
                        value="60"
-                       {{ $setting->viewer_notification_setting?->idle_time == '60' ? 'checked' : '' }}>
+                       {{ $setting->viewer_notification_setting?->idle_preference_time == '60' ? 'checked' : '' }}>
                 <label class="form-check-label" for="idle_time_60">60 minutes</label>
             </div> 
         </div>
@@ -166,11 +166,10 @@
         <input type="submit" id="saveNotificationBtn" value="Save" class="btn btn-primary shadow-none" name="submit">
     </div>
 </form>
+</div>
 
 
 
-    
-    </div>
     <div class="row mt-5">
         <div class="col-lg-12">
             <h3 class="h3 mb-4">Set Legbox Notifications </h3>
@@ -220,8 +219,9 @@
             </div>
         </div>
     </div>
-    <!--middle content end here-->
 </div>
+
+
 
 @endsection
 @push('script')
@@ -259,13 +259,11 @@
   $(document).on('submit', 'form[name="notification_setting"]', function(e) 
       {
          e.preventDefault(); 
-        let form = $('#notificationForm');
-        let formData = form.serialize(); // get all form data
-        let url = form.attr('action');
+        let form = $('#notificationForm')[0];
+        let formData = new FormData(form);
+        let url = $('#notificationForm').attr('action');
          swal_waiting_popup({'title':'Updating Settings'});
-    
-        console.log(formData);
-        return false;
+
 
          $.ajax({
                url: url,

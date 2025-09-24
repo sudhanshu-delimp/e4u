@@ -19,6 +19,8 @@ class ViewerPrefrenceController extends Controller
          // Save or update to database
          $preference = ViewerInterest::where('user_id',  $user->id)->first();
 
+       
+
         //  dd($preference);
 
          return view('user.dashboard.change-features',['preference'=>$preference]);

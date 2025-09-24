@@ -26,7 +26,7 @@ class UserNotificationSettings extends Migration
             $table->enum('escort_email', ['0','1'])->default('0')->nullable()->comment('1 => ON, 0 => Off');;
             $table->enum('escort_text', ['0','1'])->default('1')->nullable()->comment('1 => ON, 0 => Off');;
             $table->enum('is_escort_notification_on', ['0','1'])->default('1')->nullable()->comment('1 => ON, 0 => Off');
-            $table->enum('idle_time', ['15','30','60'])->default('60')->nullable();
+            $table->enum('idle_preference_time', ['15','30','60'])->default('60')->nullable();
             $table->enum('twofa', ['1','2'])->default('2')->nullable()->comment('1 => Email, 2=> Text');
             $table->timestamps();
            

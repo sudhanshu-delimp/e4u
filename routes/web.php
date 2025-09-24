@@ -83,7 +83,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('user.update.password.expiry');
         Route::get('/notifications-features', [UserController::class, 'notificationsFeatures'])->name('user.profile.notifications');
         
-        Route::get('/update-notification-setting', [NotificationSetting::class, 'viewwer_update_notification_setting'])->name('user.update_notification_setting');
+        Route::post('update-notification-setting', [NotificationSetting::class, 'viewwer_update_notification_setting'])->name('user.update_notification_setting');
         
         Route::post('upload-avatar/{id}',[UserController::class,'storeMyAvatar'])->name('user.save.avatar');
         Route::post('remove-avatar',[UserController::class,'removeMyAvatar'])->name('user.avatar.remove');
