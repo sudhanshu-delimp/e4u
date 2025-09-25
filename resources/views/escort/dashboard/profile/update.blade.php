@@ -89,13 +89,13 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
          <div class="row">
             <div class="col-md-12">
                <div class="row">
-                  <div class="col-lg-4">
+                  <div class="col-lg-3">
                      <div class="form_process">
                         <div class="steps_to_filled_from">Step 1</div>
                         <p>About me</p>
                      </div>
                   </div>
-                  <div class="col-lg-4">
+                  <div class="col-lg-3">
                      <div class="form_process">
                         <div class="steps_to_filled_from">Step 2</div>
                         <p>My Services & Rates</p>
@@ -107,22 +107,22 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                         <p>My Availability</p>
                      </div>
                   </div>
-                  {{-- 
+                  
                   <div class="col-lg-3">
                      <div class="form_process">
                         <div class="steps_to_filled_from">Step 4</div>
-                        <p>Check fee summary and pay</p>
+                        <p>My Playmates</p>
                      </div>
                   </div>
-                  --}}
+                 
                   <div class="col-lg-1">
-                     <div id="percent" style="font-size: 48px;font-weight: 700;">40%</div>
+                     <div id="percent" style="font-size: 48px;font-weight: 700;">25%</div>
                   </div>
                </div>
                <div class="manage_process_bar_padding">
                   <div class="progress define_process_bar_width">
-                     <div class="progress-bar define_process_bar_color" role="progressbar" style="width: 40%"
-                        aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">
+                     <div class="progress-bar define_process_bar_color" role="progressbar" style="width: 25%"
+                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
                      </div>
                   </div>
                </div>
@@ -146,13 +146,20 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                         <li class="nav-item">
                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available"
                               role="tab" aria-controls="contact" aria-selected="false">My Availability</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="playmates-tab" data-toggle="tab" href="#playmates" role="tab" aria-controls="my-playmates" aria-selected="false">
+                                    My Playmates</a>
+                            </li>
+                             
+                        {{-- <li class="nav-item">
+                            <a class="nav-link" id="pricing-tab" data-toggle="tab" href="#pricing" role="tab" aria-controls="contact" aria-selected="false">My Playmates</a>
+                        </li> --}}
+                    
                      </ul>
-                     </li>
-                     {{-- 
-                     <li class="nav-item">
-                        <a class="nav-link" id="pricing-tab" data-toggle="tab" href="#pricing" role="tab" aria-controls="contact" aria-selected="false">Check fee summary and pay</a>
-                     </li>
-                     --}}
+                     
+                    
                      @if (request()->segment(2) == 'profile' && request()->segment(3))
                      <form id="my_escort_profile"
                         action="{{ route('escort.setting.profile', request()->segment(3)) }}" method="post"
@@ -168,6 +175,7 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                         @include('escort.dashboard.profile.partials.services-dash-tab')
                         @include('escort.dashboard.profile.partials.available-dash-tab')
                         {{-- @include('escort.dashboard.profile.partials.pricing-dash-tab') --}}
+                        @include('escort.dashboard.profile.partials.playmates-dash-tab')
                      </div>
                      @else
                      <form id="my_escort_profile"
@@ -182,6 +190,7 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                            ])
                            @include('escort.dashboard.profile.partials.services-dash-tab')
                            @include('escort.dashboard.profile.partials.available-dash-tab')
+                           @include('escort.dashboard.profile.partials.playmates-dash-tab')
                            {{-- @include('escort.dashboard.profile.partials.pricing-dash-tab') --}}
                         </div>
                      </form>
