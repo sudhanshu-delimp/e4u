@@ -118,7 +118,10 @@
                                 <input class="form-check-input" type="radio" name="idle_time" id="idle_60" value="60" {{ (auth()->user() && auth()->user()->idle_preference_time != null && auth()->user()->idle_preference_time == 60) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="idle_60">60 minutes</label>
                             </div>
-                        
+                             <!-- Info -->
+                             <div class="pt-1">
+                                <i>Set the Idle time you want before you are logged out of your Console.</i>
+                            </div>
                         </div>
                         <div class="form-group">
                             <h3 class="h3">2FA Authentication</h3>

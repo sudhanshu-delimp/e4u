@@ -1,13 +1,15 @@
 <?php
 
 namespace App\Models;
-use App\Models\AccountSetting;
 use App\Models\AgentDetail;
+use App\Models\ViewerSetting;
+use App\Models\AccountSetting;
 use App\Models\AgentBankDetail;
 use App\Models\PasswordSecurity;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
+use App\Models\ViewerNotificationSetting;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -551,6 +553,11 @@ class User extends Authenticatable
     public function account_setting()
     {
       return $this->belongsTo(AccountSetting::class, 'id','user_id');
+    }
+
+     public function viewer_settings()
+    {
+      return $this->belongsTo(ViewerSetting::class, 'id','user_id');
     }
 
 

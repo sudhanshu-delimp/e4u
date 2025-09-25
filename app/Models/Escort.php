@@ -99,6 +99,17 @@ class Escort extends Model
         return $this->hasMany(Purchase::class, 'escort_id','id');
     }
 
+    public function isListingExtended(){
+        $purchases = $this->purchase()
+        ->where('utc_end_time', '>=', Carbon::now('UTC'))
+        ->orderBy('utc_end_time', 'desc')
+        ->get();
+        return (object)[
+            'count' => $purchases->count() > 1,
+            'data' => $purchases->first()
+        ];
+    }
+
     public function brb()
     {
         return $this->hasMany('App\Models\EscortBrb', 'profile_id');
