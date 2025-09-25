@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 
 use App\Models\User;
+use App\Models\ViewerSetting;
 use App\Models\AccountSetting;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Events\Registered;
@@ -48,7 +49,7 @@ class CreateDefaultAccountSettings
                ########### For Viewer ##########################
                if($user &&  $user->type=='0')
                {
-                   ViewerNotificationSetting::create([
+                   ViewerSetting::create([
                         'user_id'=>$user['id'],
                         'user_type'=>$user->type
                     ]);

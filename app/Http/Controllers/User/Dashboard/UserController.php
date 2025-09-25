@@ -387,7 +387,7 @@ class UserController extends Controller
     public function notificationsFeatures()
     {
 
-        $setting = User::with('viewer_notification_setting')->where('id',auth()->user()->id)->first();
+        $setting = User::with('viewer_settings')->where('id',auth()->user()->id)->first();
         return view('user.dashboard.profileNotifications',compact('setting'));
     }
     public function updateAvailablePlaymate()

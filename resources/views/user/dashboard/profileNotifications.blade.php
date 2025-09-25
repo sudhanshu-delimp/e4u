@@ -60,7 +60,7 @@
                        id="advertiser_email"   
                        name="advertiser_email" 
                        value="1"
-                       {{ $setting->viewer_notification_setting?->advertiser_email == '1' ? 'checked' : '' }}>
+                       {{ $setting->viewer_settings?->advertiser_email == '1' ? 'checked' : '' }}>
                 <label class="custom-control-label" for="advertiser_email">Email</label>
             </div>
 
@@ -70,7 +70,7 @@
                        id="advertiser_text"   
                        name="advertiser_text" 
                        value="1"
-                       {{ $setting->viewer_notification_setting?->advertiser_text == '1' ? 'checked' : '' }}>
+                       {{ $setting->viewer_settings?->advertiser_text == '1' ? 'checked' : '' }}>
                 <label class="custom-control-label" for="advertiser_text">Text</label>
             </div>
 
@@ -85,7 +85,7 @@
                        id="escort_email"   {{-- ✅ unique ID --}}
                        name="escort_email" 
                        value="1"
-                       {{ $setting->viewer_notification_setting?->escort_email == '1' ? 'checked' : '' }}>
+                       {{ $setting->viewer_settings?->escort_email == '1' ? 'checked' : '' }}>
                 <label class="custom-control-label" for="escort_email">Email</label>
             </div>
 
@@ -95,7 +95,7 @@
                        id="escort_text"   
                        name="escort_text" 
                        value="1"
-                       {{ $setting->viewer_notification_setting?->escort_text == '1' ? 'checked' : '' }}>
+                       {{ $setting->viewer_settings?->escort_text == '1' ? 'checked' : '' }}>
                 <label class="custom-control-label" for="escort_text">Text</label>
             </div>
 
@@ -113,7 +113,7 @@
                        name="idle_time" 
                        id="idle_time_15"  
                        value="15"
-                       {{ $setting->viewer_notification_setting?->idle_preference_time == '15' ? 'checked' : '' }}>
+                       {{ $setting->viewer_settings?->idle_preference_time == '15' ? 'checked' : '' }}>
                 <label class="form-check-label" for="idle_time_15">15 minutes</label>
             </div>
             <div class="form-check form-check-inline">
@@ -122,7 +122,7 @@
                        name="idle_time" 
                        id="idle_time_30"  
                        value="30"
-                       {{ $setting->viewer_notification_setting?->idle_preference_time == '30' ? 'checked' : '' }}>
+                       {{ $setting->viewer_settings?->idle_preference_time == '30' ? 'checked' : '' }}>
                 <label class="form-check-label" for="idle_time_30">30 minutes</label>
             </div>
             <div class="form-check form-check-inline">
@@ -131,7 +131,7 @@
                        name="idle_time" 
                        id="idle_time_60"   
                        value="60"
-                       {{ $setting->viewer_notification_setting?->idle_preference_time == '60' ? 'checked' : '' }}>
+                       {{ $setting->viewer_settings?->idle_preference_time == '60' ? 'checked' : '' }}>
                 <label class="form-check-label" for="idle_time_60">60 minutes</label>
             </div> 
         </div>
@@ -145,7 +145,7 @@
                        name="twofa" 
                        id="twofa_email"   {{-- ✅ unique ID --}}
                        value="1"
-                       {{ $setting->viewer_notification_setting?->twofa == '1' ? 'checked' : '' }}>
+                       {{ $setting->viewer_settings?->twofa == '1' ? 'checked' : '' }}>
                 <label class="form-check-label" for="twofa_email">Email</label>
             </div>
             <div class="form-check">
@@ -154,7 +154,7 @@
                        name="twofa" 
                        id="twofa_text"   {{-- ✅ unique ID --}}
                        value="2"
-                       {{ $setting->viewer_notification_setting?->twofa == '2' ? 'checked' : '' }}>
+                       {{ $setting->viewer_settings?->twofa == '2' ? 'checked' : '' }}>
                 <label class="form-check-label" for="twofa_text">Text</label>
             </div>
 
@@ -254,8 +254,6 @@
 
 
 <script>
-
-
   $(document).on('submit', 'form[name="notification_setting"]', function(e) 
       {
          e.preventDefault(); 
@@ -263,8 +261,6 @@
         let formData = new FormData(form);
         let url = $('#notificationForm').attr('action');
          swal_waiting_popup({'title':'Updating Settings'});
-
-
          $.ajax({
                url: url,
                method: 'POST',
@@ -282,12 +278,6 @@
                }
          });
       });
-
- 
-
-
 </script>    
-
-
 
 @endpush

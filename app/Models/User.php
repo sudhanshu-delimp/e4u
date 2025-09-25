@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use App\Models\AgentDetail;
+use App\Models\ViewerSetting;
 use App\Models\AccountSetting;
 use App\Models\AgentBankDetail;
 use App\Models\PasswordSecurity;
@@ -554,9 +555,9 @@ class User extends Authenticatable
       return $this->belongsTo(AccountSetting::class, 'id','user_id');
     }
 
-     public function viewer_notification_setting()
+     public function viewer_settings()
     {
-      return $this->belongsTo(ViewerNotificationSetting::class, 'id','user_id');
+      return $this->belongsTo(ViewerSetting::class, 'id','user_id');
     }
 
 
