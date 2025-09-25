@@ -159,15 +159,14 @@
 
                 @if (request()->segment(2) == 'create-profile')
                     <button id="show_draft-2" name="save" type="submit" class="nex_sterp_btn"
-                        style="display:none" >
+                        >
                         Save Profile
                     </button>
                 @endif
-                {{--                <button id="show_draft-3" name="save and pay"  type="submit" class="nex_sterp_btn" --}}{{-- style="display:none" --}}{{-- >Save and Pay</button> --}}
-                <a href="#playmates" class="nex_sterp_btn hideDraft" id="playmates-tab" data-toggle="tab" role="tab" aria-controls="playmates" aria-selected="false">Next Step
+               
+                {{-- <a href="#playmates" class="nex_sterp_btn hideDraft" id="playmates-tab" data-toggle="tab" role="tab" aria-controls="playmates" aria-selected="false">Next Step
                 <i class="fas fa-arrow-right"></i>
-                </a>
-                {{--                <button id="show_draft"  type="submit" class="save_profile_btn" style="display:none">Save as draft</button> --}}
+                </a> --}}
             </div>
         </div>
     </div>
