@@ -37,6 +37,9 @@
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+    <div class="row">  
+=======
     <div class="row">        
         <form class="v-form-design" action="{{ route('user.profile.update.notifications') }}" method="POST">
             {{ csrf_field() }}
@@ -111,9 +114,139 @@
              </div>
             <input type="submit" value="save" class="btn btn-primary shadow-none" name="submit">
         </div>
+>>>>>>> 58c41ac244c25eae7c53a541828aa8505613467f
         
-        </form>
+    
+   <form class="v-form-design" 
+      id="notificationForm"  
+      name="notification_setting"  
+      method="post" 
+      action="{{ route('user.update_notification_setting') }}">
+    @csrf
+
+    <div class="col-md-12">
+
+        <!-- Alert Notifications -->
+        <div class="form-group">
+            <h3 class="h3">Alert notifications</h3>
+
+            <p class="my-3">From an Advertiser:</p>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" 
+                       class="custom-control-input" 
+                       id="advertiser_email"   
+                       name="advertiser_email" 
+                       value="1"
+                       {{ $setting->viewer_settings?->advertiser_email == '1' ? 'checked' : '' }}>
+                <label class="custom-control-label" for="advertiser_email">Email</label>
+            </div>
+
+            <div class="custom-control custom-switch">
+                <input type="checkbox" 
+                       class="custom-control-input" 
+                       id="advertiser_text"   
+                       name="advertiser_text" 
+                       value="1"
+                       {{ $setting->viewer_settings?->advertiser_text == '1' ? 'checked' : '' }}>
+                <label class="custom-control-label" for="advertiser_text">Text</label>
+            </div>
+
+            <div class="mt-2">
+                <i>How an Escort or Massage Centre will communicate with you, including when on Tour.</i>
+            </div>
+
+            <p class="my-3">By Escorts4U:</p>
+            <div class="custom-control custom-switch">
+                <input type="checkbox" 
+                       class="custom-control-input" 
+                       id="escort_email"   {{-- ✅ unique ID --}}
+                       name="escort_email" 
+                       value="1"
+                       {{ $setting->viewer_settings?->escort_email == '1' ? 'checked' : '' }}>
+                <label class="custom-control-label" for="escort_email">Email</label>
+            </div>
+
+            <div class="custom-control custom-switch">
+                <input type="checkbox" 
+                       class="custom-control-input" 
+                       id="escort_text"   
+                       name="escort_text" 
+                       value="1"
+                       {{ $setting->viewer_settings?->escort_text == '1' ? 'checked' : '' }}>
+                <label class="custom-control-label" for="escort_text">Text</label>
+            </div>
+
+            <div class="mt-2">
+                <i>How Escorts4U will communicate with you.</i>
+            </div>
+        </div>
+
+        <!-- Idle Time Preference -->
+        <div class="form-group">
+            <h3 class="h3">Idle Time Preference</h3>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" 
+                       type="radio" 
+                       name="idle_time" 
+                       id="idle_time_15"  
+                       value="15"
+                       {{ $setting->viewer_settings?->idle_preference_time == '15' ? 'checked' : '' }}>
+                <label class="form-check-label" for="idle_time_15">15 minutes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" 
+                       type="radio" 
+                       name="idle_time" 
+                       id="idle_time_30"  
+                       value="30"
+                       {{ $setting->viewer_settings?->idle_preference_time == '30' ? 'checked' : '' }}>
+                <label class="form-check-label" for="idle_time_30">30 minutes</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" 
+                       type="radio" 
+                       name="idle_time" 
+                       id="idle_time_60"   
+                       value="60"
+                       {{ $setting->viewer_settings?->idle_preference_time == '60' ? 'checked' : '' }}>
+                <label class="form-check-label" for="idle_time_60">60 minutes</label>
+            </div> 
+        </div>
+
+        <!-- 2FA Authentication -->
+        <div class="form-group">
+            <h3 class="h3">2FA Authentication</h3>
+            <div class="form-check">
+                <input class="form-check-input" 
+                       type="radio" 
+                       name="twofa" 
+                       id="twofa_email"   {{-- ✅ unique ID --}}
+                       value="1"
+                       {{ $setting->viewer_settings?->twofa == '1' ? 'checked' : '' }}>
+                <label class="form-check-label" for="twofa_email">Email</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" 
+                       type="radio" 
+                       name="twofa" 
+                       id="twofa_text"   {{-- ✅ unique ID --}}
+                       value="2"
+                       {{ $setting->viewer_settings?->twofa == '2' ? 'checked' : '' }}>
+                <label class="form-check-label" for="twofa_text">Text</label>
+            </div>
+
+            <div class="pt-1">
+                <i>How your authentification code will be sent to you.</i>
+            </div>
+        </div>
+
+        <input type="submit" id="saveNotificationBtn" value="Save" class="btn btn-primary shadow-none" name="submit">
     </div>
+</form>
+</div>
+
+
+
     <div class="row mt-5">
         <div class="col-lg-12">
             <h3 class="h3 mb-4">Set Legbox Notifications </h3>
@@ -163,8 +296,9 @@
             </div>
         </div>
     </div>
-    <!--middle content end here-->
 </div>
+
+
 
 @endsection
 @push('script')
@@ -176,7 +310,6 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
    $(document).ready(function() {
@@ -196,207 +329,32 @@
    });
  </script>
 
-<script type="text/javascript">
 
-    $('#userProfile').parsley({
-
-    });
-
-
-
-    $('#userProfile').on('submit', function(e) {
-        e.preventDefault();
-
-        var form = $(this);
-
-        if (form.parsley().isValid()) {
-
-            var url = form.attr('action');
-            var data = new FormData(form[0]);
-            console.log('data');
-            console.log(data);
-
-            $.ajax({
-                method: form.attr('method'),
-                url: url,
-                data: data,
-                contentType: false,
-                processData: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    if (!data.error) {
-                        $.toast({
-                            heading: 'Success',
-                            text: 'Details successfully saved',
-                            icon: 'success',
-                            loader: true,
-                            position: 'top-right', // Change it to false to disable loader
-                            loaderBg: '#9EC600' // To change the background
-                        });
-
-                    } else {
-                        $.toast({
-                            heading: 'Error',
-                            text: 'Records Not update',
-                            icon: 'error',
-                            loader: true,
-                            position: 'top-right', // Change it to false to disable loader
-                            loaderBg: '#9EC600' // To change the background
-                        });
-
-                    }
-                },
-
-            });
-        }
-    });
-    $('#city').select2({
-        allowClear: true,
-        placeholder :'Select City',
-        createTag: function(params) {
-            var term = $.trim(params.term);
-
-            if (term === '') {
-                return null;
-            }
-            return {
-                id: term,
-                text: term,
-                newTag: false // add additional parameters
-            }
-        },
-        tags: false,
-        minimumInputLength: 2,
-        tokenSeparators: [','],
-        ajax: {
-            url: "{{ route('city.list') }}",
-            dataType: "json",
-            type: "GET",
-            data: function(params) {
-                console.log(params);
-                var queryParameters = {
-                    query: params.term,
-                    state_id: $('#state').val()
-                }
-                return queryParameters;
-            },
-            processResults: function(data) {
-                return {
-                    results: $.map(data, function(item) {
-
-                        return {
-                            text: item.name,
-                            id: item.id
-                        }
-                    })
-                };
-            }
-        }
-    });
-
-    $('#state').select2({
-        allowClear: true,
-        placeholder :'Select State',
-        createTag: function(params) {
-            var term = $.trim(params.term);
-
-            if (term === '') {
-                return null;
-            }
-            return {
-                id: term,
-                text: term,
-                newTag: false // add additional parameters
-            }
-        },
-        tags: false,
-        minimumInputLength: 2,
-        tokenSeparators: [','],
-        ajax: {
-            url: "{{ route('state.list') }}",
-            dataType: "json",
-            type: "GET",
-            data: function(params) {
-                console.log(params);
-                var queryParameters = {
-                    query: params.term,
-                    country_id: $('#country').val()
-                }
-                return queryParameters;
-            },
-            processResults: function(data) {
-                return {
-                    results: $.map(data, function(item) {
-
-                        return {
-                            text: item.name,
-                            id: item.id
-                        }
-                    })
-                };
-            }
-        }
-    });
-
-
-    $('#country').on('change', function(e) {
-        if($(this).val()) {
-            $('#state').prop('disabled', false);
-            $('#state').select2('open');
-        } else {
-            $('#state').prop('disabled', true);
-        }
-    });
-
-    $('#state').on('change', function(e) {
-        if($(this).val()) {
-            $('#city').prop('disabled', false);
-            $('#city').select2('open');
-        } else {
-            $('#city').prop('disabled', true);
-        }
-    });
-    $('.akhplaymate').on('click', function(e) {
-        var id = $(this).val();
-        if($(this).is(":checked") == true)
-        {
-            $.post({
-                    type: 'POST',
-                    url: "{{ route('escort.dashboard.my-playmates') }}",
-                    data: {
-                        available_playmate: id,
-                        
-                        //membership: membership,
-
-                    },
-                    headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
-                }).done(function (data) {
-                    console.log(data);
-                });
-           
-        } 
-        if($(this).is(":checked") == false)
-        {
-            $.post({
-                    type: 'POST',
-                    url: "{{ route('escort.dashboard.my-playmates') }}",
-                    data: {
-                        available_playmate: null,
-                        
-                        //membership: membership,
-
-                    },
-                    headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
-                }).done(function (data) {
-                    console.log(data);
-                });
-        }
-        
-    });
-
-
-</script>
+<script>
+  $(document).on('submit', 'form[name="notification_setting"]', function(e) 
+      {
+         e.preventDefault(); 
+        let form = $('#notificationForm')[0];
+        let formData = new FormData(form);
+        let url = $('#notificationForm').attr('action');
+         swal_waiting_popup({'title':'Updating Settings'});
+         $.ajax({
+               url: url,
+               method: 'POST',
+               data: formData,
+               contentType: false,
+               processData: false, 
+               success: function(response) {
+                     Swal.close();
+                     swal_success_popup(response.message);
+               },
+               error: function(xhr) {
+                     Swal.close();
+                     console.log(xhr);
+                    swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+               }
+         });
+      });
+</script>    
 
 @endpush

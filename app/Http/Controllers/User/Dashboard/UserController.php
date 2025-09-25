@@ -384,9 +384,12 @@ class UserController extends Controller
             return response()->json([ 'type' => 1,'message' => 'An error occurred while removing avatar. Please try again.' ], 500);
         }
     }
+
     public function notificationsFeatures()
     {
-        return view('user.dashboard.profileNotifications');
+
+        $setting = User::with('viewer_settings')->where('id',auth()->user()->id)->first();
+        return view('user.dashboard.profileNotifications',compact('setting'));
     }
 
     public function updateNotificationsFeatures(Request $request)
