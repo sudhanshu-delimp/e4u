@@ -453,7 +453,7 @@ class GlobalMonitoringController extends Controller
 
         $result = $result->get()->toArray();
 
-        foreach ($result as $escort) {
+        foreach ($result as $index=>$escort) {
             if (!empty($escort['purchase'])) {
                 $days = 0;
                 $left = 0;
@@ -479,23 +479,37 @@ class GlobalMonitoringController extends Controller
                     $totalAmount += $purchase['amount'] ?? 0;
                 }
 
+                $badgeEscort = Escort::where('id', $escort['id'])->first();
+
                 # BRB badge
-                $brb = $escort['profile_name'];
-                if (!empty($escort['brb'][0]['brb_time'])) {
-                    $brb = '<span id="brb_' . $escort['id'] . '">' .
-                        $escort['profile_name'] .
-                        ' <sup title="Brb at ' . date('d-m-Y h:i A', strtotime($escort['brb'][0]['brb_time'])) .
-                        '" class="brb_icon">BRB</sup></span>';
+                $brbBadge = '';
+                if (!empty($escort['brb'][0]['selected_time'])) {
+                    $brbBadge = "<sup class='brb_icon listing-tag-tooltip ml-1'>BRB <small class='listing-tag-tooltip-desc'>Brb  " . date('d-m-Y h:i A', strtotime($escort['brb'][0]['selected_time']))."</small></sup>";
                 }
 
                 # Suspension badge
                 $suspensionBadge = '';
-                if (!empty($escort['suspend_profile'])) {
-                    $suspensionBadge = "<sup title='Suspended From " .
-                        Carbon::parse($escort['suspend_profile'][0]['start_date'])->format('d-m-Y h:i A') .
-                        ' To ' .
-                        Carbon::parse($escort['suspend_profile'][0]['end_date'])->format('d-m-Y h:i A') .
-                        "' class='brb_icon' style='background-color: #2e59d9;'>SUS</sup></span>";
+                if (!empty($badgeEscort->activeUpcomingSuspend)) {
+                    $suspensionBadge = '<sup class="suspend_icon listing-tag-tooltip ml-1">SUS
+                    <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($badgeEscort->activeUpcomingSuspend->start_date)) . " to ".date("d-m-Y", strtotime($badgeEscort->activeUpcomingSuspend->end_date)).'</small>
+                    </sup>';
+                }
+
+                # Extended badge
+                $extendBadge = '';
+                
+                if (!empty($badgeEscort->isListingExtended()) && $badgeEscort->isListingExtended()->count > 0) {
+                    $extendBadge = '<sup class="extend_icon listing-tag-tooltip ml-1">Extend
+                <small class="listing-tag-tooltip-desc">Extended from ' . date("d-m-Y", strtotime($badgeEscort->start_date)) . " to ".date("d-m-Y", strtotime($badgeEscort->end_date)).'</small>
+                </sup>';
+                }
+
+                # Pinup badge
+                $pinupBadge = '';
+                if($badgeEscort->latestActivePinup){
+                    $pinupBadge = '<sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
+                    <small class="listing-tag-tooltip-desc">Pinup from ' . date("d-m-Y", strtotime($badgeEscort->latestActivePinup->start_date)) . " to ".date("d-m-Y", strtotime($badgeEscort->latestActivePinup->end_date)).'</small>
+                    </sup>';
                 }
 
                 # Member Id
@@ -509,7 +523,7 @@ class GlobalMonitoringController extends Controller
                     'member_id'    => $memberId,
                     'member'       => $escort['name'],
                     'city'         => config("escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName"),
-                    'profile_name' => $escort['profile_name'] ? $brb . $suspensionBadge : 'NA',
+                    'profile_name' => $escort['profile_name'] ? $escort['profile_name'] . $brbBadge. $suspensionBadge . $extendBadge . $pinupBadge : 'NA',
                     'type'         => !empty($escort['purchase'][0]['membership'])
                                         ? getMembershipType($escort['purchase'][0]['membership'])
                                         : "NA",
@@ -555,30 +569,30 @@ class GlobalMonitoringController extends Controller
     public function escortListedProfile($escortId)
     {
         if($escortId != null){
-            $escorts = Escort::where('id',$escortId)->with('durations','purchase','user')->whereIn('membership', ['1','2','3']);
+            $escorts = Escort::where('id',$escortId)->with('durations','purchase','user','brb','pinup','suspendProfile')->whereIn('membership', ['1','2','3']);
             
         }else{
-            $escorts = Escort::with('durations','purchase','user')->whereIn('membership', ['1','2','3']);
+            $escorts = Escort::with('durations','purchase','user','brb','pinup','suspendProfile')->whereIn('membership', ['1','2','3']);
         }
         
         
-        # Get suspended escort profile only
-        $suspendProfileIds = SuspendProfile::where('utc_start_date', '<=', Carbon::now('UTC'))
-        ->where('utc_end_date', '>=', Carbon::now('UTC'))
-        ->pluck('escort_profile_id')
-        ->unique();
+        // # Get suspended escort profile only
+        // $suspendProfileIds = SuspendProfile::where('utc_start_date', '<=', Carbon::now('UTC'))
+        // ->where('utc_end_date', '>=', Carbon::now('UTC'))
+        // ->pluck('escort_profile_id')
+        // ->unique();
 
-        # Suspend by admin console through report by viewers
-        $query = $escorts
-                ->with('suspendProfile')
-                ->whereHas('user', function($q) {
-                    $q->where('status', 1);
-                })
-            ->whereNotIn('id', $suspendProfileIds);  
+        // # Suspend by admin console through report by viewers
+        // $query = $escorts
+        //         ->with('suspendProfile')
+        //         ->whereHas('user', function($q) {
+        //             $q->where('status', 1);
+        //         })
+        //     ->whereNotIn('id', $suspendProfileIds);  
 
-            $query->where('enabled', 1);
+            $escorts->where('enabled', 1);
     
-        return $query;
+        return $escorts;
     }
     
     public function dataTableEscortSingleListingAjax($id)
