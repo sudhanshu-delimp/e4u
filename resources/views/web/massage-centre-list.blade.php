@@ -308,7 +308,7 @@
             <!-- ================     service provider start here     ========================= -->
 
             {{-- <div class="modal defult-modal" id="forhelp"> --}}
-            <div class="modal fade defult-modal" id="forhelp">
+            <div class="modal fade defult-modal" id="forhelp"> 
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content rounded-0">
                         <!-- Modal body -->
@@ -351,9 +351,9 @@
                                     </div>
                                     <div class="tab-pane p-3" id="tabs-2" role="tabpanel">
                                         <ol class="pl-3">
-                                            <li>You can undertake a search for an Escort [for Escort page] Massage Centre
-                                                [for Massage
-                                                Centre page] within your Location, which is the default, or Australia wide
+                                            <li>You can undertake a search for an  <a style="color: var(--peach);" href="{{ url('all-escorts-list') }}"
+                                                title=""> Escort </a> <a style="color: var(--peach);" href="{{ route('find.massage.centre') }}"
+                                                title="">Massage Centre </a> within your Location, which is the default, or Australia wide
                                                 by selecting ‘Australia’.</li>
                                             <li>Searching by Member ID is the most efficient manner. </li>
                                         </ol>

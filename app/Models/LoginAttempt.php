@@ -13,4 +13,9 @@ class LoginAttempt extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    public function escorts()
+    {
+        return $this->hasMany(Escort::class, 'user_id', 'user_id');
+    }
+
 }

@@ -1297,13 +1297,13 @@ class WebController extends Controller
     {
         
         $userId = !empty(auth()->user()) ? auth()->user()->id : NULL;
-        if(!$userId){
-            return response()->json(['error' => true ]);
-        }
+        // if(!$userId){
+        //     return response()->json(['error' => true ]);
+        // }
         $ipAddress = AttemptLogin::Where('user_id', $userId)->first();
 
         if($ipAddress == null){
-           $ipAddress = $this->getUserIP();
+           $ipAddress = $this->getClientIP();
         }else{
             $ipAddress = $ipAddress->ip_address; 
         }
@@ -1317,6 +1317,7 @@ class WebController extends Controller
             'like' => $like,
             'ip_address' => $ipAddress,
         ];
+
         $todayVote = $this->_getUserLikeDislike($escort_id, $ipAddress, $userId);
 
         $error = 0;
@@ -1344,6 +1345,28 @@ class WebController extends Controller
         }
 
         return response()->json(compact('error','lp','dp', 'like'));
+    }
+
+    function getClientIP() {
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP'])) {
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ipaddress = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])[0]; // first IP if multiple
+        } elseif(isset($_SERVER['HTTP_X_FORWARDED'])) {
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        } elseif(isset($_SERVER['HTTP_X_CLUSTER_CLIENT_IP'])) {
+            $ipaddress = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
+        } elseif(isset($_SERVER['HTTP_FORWARDED_FOR'])) {
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        } elseif(isset($_SERVER['HTTP_FORWARDED'])) {
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        } elseif(isset($_SERVER['REMOTE_ADDR'])) {
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        } else {
+            $ipaddress = 'UNKNOWN';
+        }
+        return $ipaddress;
     }
 
 

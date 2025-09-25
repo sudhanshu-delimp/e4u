@@ -524,6 +524,7 @@ class EscortController extends Controller
             'agent_communications' => $request->agent_communications,
             'notification_features' => $request->notification_feature,
             'available_playmate' => $playmateAvailable,
+            'idle_preference_time' => $request->idle_time,
         ];
 
         $error = true;

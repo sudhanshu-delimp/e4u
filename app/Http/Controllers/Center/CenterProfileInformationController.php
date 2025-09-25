@@ -29,6 +29,8 @@ use App\Repositories\MassageProfile\MassageMediaInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Repositories\MassageProfile\MassageAvailabilityInterface;
 use App\Models\EscortCovidReport;
+use App\Models\User;
+
 //use Illuminate\Http\Request;
 
 class CenterProfileInformationController extends Controller
@@ -639,5 +641,14 @@ class CenterProfileInformationController extends Controller
             $type = 2;  //2=>image; 3=>video (banner)
         }
         return [$type, 'attatchment/'.$str];
+    }
+
+    public function updateNotificationsFeatures(Request $request)
+    {
+        if(auth()->user()){
+            User::where('id',auth()->user()->id)->update(['idle_preference_time'=> $request->idle_time]);
+        }
+ 
+        return redirect()->back()->with('success','Features updated successfully.');
     }
 }

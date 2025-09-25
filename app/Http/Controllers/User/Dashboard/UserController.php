@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\User\UserInterface;
 use App\Http\Requests\StoreAvatarMediaRequest;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class UserController extends Controller
 {
@@ -389,6 +390,15 @@ class UserController extends Controller
 
         $setting = User::with('viewer_settings')->where('id',auth()->user()->id)->first();
         return view('user.dashboard.profileNotifications',compact('setting'));
+    }
+
+    public function updateNotificationsFeatures(Request $request)
+    {
+        if(auth()->user()){
+            User::where('id',auth()->user()->id)->update(['idle_preference_time'=> $request->idle_time]);
+        }
+
+        return redirect()->back()->with('success','Features updated successfully.');
     }
     public function updateAvailablePlaymate()
     {

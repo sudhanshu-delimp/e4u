@@ -23,8 +23,33 @@ class TrackLastPageVisitMiddlware
             return $next($request);
         }
         
-        if(auth()->user() != null && auth()->user()->type != 1) {
-            $attempt = AttemptLogin::where('user_id', auth()->id())
+        if(auth()->user() != null) {
+
+            # if user is suspended or blocked then logout the console
+            if (auth()->user()->status == 'Suspended' || auth()->user()->status == 3 || auth()->user()->status == 'Blocked' || auth()->user()->status == 4) {
+                auth()->logout();
+
+                return redirect()->route('/')
+                    ->withErrors(['message' => 'You have been logged out due to suspended by admin.']);
+            }
+
+             $lastActivity = AttemptLogin::where('user_id', auth()->user()->id)
+            ->value('updated_at');
+
+            # logout user if their idle time is more than their preference time
+            if ($lastActivity && now()->diffInMinutes($lastActivity) > (int)auth()->user()->idle_preference_time) {
+                auth()->logout();
+
+                return redirect()->route('/')
+                    ->withErrors(['message' => 'You have been logged out due to inactivity.']);
+            }
+
+            # Update activity timestamp
+            AttemptLogin::where('user_id', auth()->user()->id)
+            ->update(['updated_at' => now()]);
+
+
+            $attempt = AttemptLogin::where('user_id', auth()->user()->id)
                 ->latest()
                 ->first();
 
@@ -71,11 +96,6 @@ class TrackLastPageVisitMiddlware
                     'type' => 1,
                 ]);
             }
-        }
-
-        if(auth()->user() != null && auth()->user()->type == 1) {
-            AttemptLogin::where('user_id', auth()->id())
-                ->delete();
         }
 
         return $next($request);

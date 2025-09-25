@@ -51,7 +51,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/api.php'));
 
             Route::prefix('admin-dashboard')
-                ->middleware(['web', 'admin'])
+                ->middleware(['web', 'admin','TrackLoginUserInfo'])
                 ->namespace('App\Http\Controllers\Admin')
                 ->group(base_path('routes/admin.php'));
 
