@@ -569,10 +569,14 @@ class GlobalMonitoringController extends Controller
     public function escortListedProfile($escortId)
     {
         if($escortId != null){
-            $escorts = Escort::where('id',$escortId)->with('durations','purchase','user','brb','pinup','suspendProfile')->whereIn('membership', ['1','2','3']);
+            $escorts = Escort::where('id',$escortId)->with(['durations','purchase','user','brb' => function ($query) {
+                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                },'pinup','suspendProfile'])->whereIn('membership', ['1','2','3']);
             
         }else{
-            $escorts = Escort::with('durations','purchase','user','brb','pinup','suspendProfile')->whereIn('membership', ['1','2','3']);
+            $escorts = Escort::with(['durations','purchase','user','brb' => function ($query) {
+                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                },'pinup','suspendProfile'])->whereIn('membership', ['1','2','3']);
         }
         
         
