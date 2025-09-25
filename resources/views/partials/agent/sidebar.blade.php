@@ -182,7 +182,7 @@
                 <a class="collapse-item" href="{{ route('marketing.agencreate-prospect') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/prospect.png') }}">
                     <span style="{{ request()->segment(3) == 'create-prospect' ? 'color: #e5365a;' : '' }}">Prospect
-                        List</span>
+                        Lists</span>
                 </a>
                 <a class="collapse-item" href="{{ route('agent.database-centers') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/data-center.png') }}">
