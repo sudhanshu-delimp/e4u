@@ -45,7 +45,7 @@ class EscortStatisticsController extends Controller
         if($user != null){
             $today = Carbon::now();
             
-            $myStatistics['critical_information_upcoming_profile'] = Escort::where('user_id', $user->id)->where('start_date', '>', $today)
+            $myStatistics['critical_information_upcoming_profile'] = Escort::where('user_id', $user->id)->where('utc_end_time', '>', $today)
             ->count();
 
             $myStatistics['critical_information_profile_currenlty_posted'] = Escort::where('user_id', $user->id)->where('enabled',1)->count();
