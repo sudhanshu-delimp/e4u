@@ -176,8 +176,7 @@
                 <a class="collapse-item" href="{{ route('marketing.create-information-package') }}">
                     <img src="{{ asset('assets/app/img/helptips.png') }}">
                     <span
-                        style="{{ request()->segment(3) == 'create-information-package' ? 'color: #e5365a;' : '' }}">Create
-                        Information Package</span>
+                        style="{{ request()->segment(3) == 'create-information-package' ? 'color: #e5365a;' : '' }}">Information Packages</span>
                 </a>
                 <a class="collapse-item" href="{{ route('marketing.agencreate-prospect') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/prospect.png') }}">

@@ -10,10 +10,6 @@
         .card {
             box-shadow: 0 2px 6px rgba(0, 0, 0, .06);
         }
-        .modal-dialog.print-list-modal{
-          max-width:1000px !important;
-          width: 100%;
-        }
     </style>
     @endsection @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5"> {{-- Page Heading --}} <div class="row">
@@ -167,7 +163,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title">
                         <img src="{{ asset('assets/dashboard/img/merge.png') }}"
-                            style="width:45px; padding-right:10px;">
+                            class="custompopicon">
                         <span class="text-white">Merge Type</span>
                     </h5>
 
