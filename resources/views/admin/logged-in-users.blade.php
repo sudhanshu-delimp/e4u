@@ -593,10 +593,9 @@
             $(".account_platform").parent().removeClass('d-none');
             $(".account_visit_page").parent().removeClass('d-none');
             
+            let userType = parseInt(user.type);
 
-            console.log('user details : ', user);
-
-            switch (user.type) {
+            switch (userType) {
                 case 0:
                     // user
                     var myLegBox = userDetails.my_leg_box;

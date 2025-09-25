@@ -187,13 +187,13 @@ class GlobalMonitoringLoggedInController extends Controller
                 case 0:
                     # viewer...
                     $userDetails = User::where('id', $userId)
-                        ->with(['loginAttempts','playmates:id','escorts:id','myLegBox:id','massageCenterLegBox:id'])
+                        ->with(['loginAttempts','playmates:id','escorts:id,user_id','myLegBox:id','massageCenterLegBox:id'])
                         ->first();
                     break;
                 case 1:
                     # Admin...
                     $userDetails = User::where('id', $userId)
-                        ->with(['loginAttempts','playmates:id','escorts:id','myLegBox:id','massageCenterLegBox:id'])
+                        ->with(['loginAttempts','playmates:id','escorts:id,user_id','myLegBox:id','massageCenterLegBox:id'])
                         ->first();
                     break;
                 case 2:
@@ -220,7 +220,7 @@ class GlobalMonitoringLoggedInController extends Controller
                         ->with([
                             'loginAttempts',
                             'playmates:id',
-                            'escorts:id',
+                            'escorts:id,user_id',
                             'listedEscorts:id',
                             'agentEscorts:id',
                             'escortsAgents:id',
@@ -231,10 +231,10 @@ class GlobalMonitoringLoggedInController extends Controller
                                 $q->whereHas('viewerLegBox');
                             },
                             'escorts as listedProfileCount' => function ($q) {
-                                $q->where('enabled', 1);
+                                $q->where('enabled', 1)->where('profile_name', '!=', NULL);
                             },
                             'escorts as advertiserProfileCount' => function ($q) {
-                                $q->whereIn('enabled', [0,1]);
+                                $q->whereIn('enabled', [0,1])->where('profile_name', '!=', NULL);
                             }
                         ])
                         ->first();
