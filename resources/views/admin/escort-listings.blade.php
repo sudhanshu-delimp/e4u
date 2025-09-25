@@ -27,6 +27,12 @@
         border-radius: 15%;
         padding: 0 5px;
     }
+    .extend_icon {
+        color: white;
+        background-color: #1cc88a;
+        border-radius: 15%;
+        padding: 0 5px;
+    }
     #escort_listings_paginate span{
         display:contents;
     }
