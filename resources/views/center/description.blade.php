@@ -730,7 +730,7 @@
             <div class="row pt-2">
                 <div class="col-5">
                     <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#mysendmessage">
-                    <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Me</button>
+                    <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Us</button>
                 </div>
                 <div class="col-7 text-right">
                     <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#sendcarlat"><img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Report Advertiser</button>

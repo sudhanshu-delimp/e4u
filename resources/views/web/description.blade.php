@@ -1345,7 +1345,7 @@
             <!-- if viewer not login -->
             <div class="modal-body pb-0 teop-text" >
                 <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
-                    <span id="Lname">Message Me is only available to Viewers.
+                    <span id="Lname">Message Us is only available to Viewers.
                         Please log in or Register to access Message Us.</span>
                 </h6>
                 <div class="modal-footer text-center justify-content-center pt-0" >
