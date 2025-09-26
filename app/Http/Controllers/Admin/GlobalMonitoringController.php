@@ -744,7 +744,7 @@ class GlobalMonitoringController extends Controller
                 }
 
                 if ($startDate && $endDate) {
-                    // If end_date is after or equal to start_date, calculate days (inclusive)
+                    # If end_date is after or equal to start_date, calculate days (inclusive)
                     if ($endDate->gte($startDate)) {
                         $days = $startDate->diffInDays($endDate) + 1 ;
                     }

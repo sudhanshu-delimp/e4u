@@ -870,7 +870,7 @@
                             <div class="carousel-item {{($key == 0) ? "active" : ""}} " data-interval="10000">
                            
                             <div class="row">
-                                <div class="col-12 remove_padding_for_carousel profile--thumb--sec">
+                                <div class="col-12 remove_padding_for_carousel  profile--thumb--sec">
                                     <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="">
                                     <div class="custom-tooltip">I don't have any Playbox.</div>
                                     </div>
@@ -2147,6 +2147,12 @@ $(document).ready(function() {
     
 });
 
+
+$('#exampleModal').on('shown.bs.modal', function () {
+    console.log("Modal opened:", $(this).attr('id'));
+    // add media view count while open modal
+    {{ saving_escort_stats($escort->user->id, $escort->id,'media_views_count') }} 
+});
 
 </script>
 @endpush

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
+use App\Models\Escort;
 use App\Models\Reviews;
 use Illuminate\Http\Request;
 use App\Repositories\Escort\EscortInterface;
@@ -68,6 +69,11 @@ class MessageReviewController extends Controller
         } else {
             $data = 'You are not allowed to give review';
         }
+
+        # add statistics for escort profile view
+        $userId = Escort::where('id', $escort_id)->pluck('user_id');
+        saving_escort_stats($userId, $escort_id,'reviews_count');
+
         return response()->json(compact('data','error'));
     }
 }
