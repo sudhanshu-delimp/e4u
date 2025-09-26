@@ -102,110 +102,6 @@
                 </div>
             </div>
 
-            {{-- <div class="col-sm-12">
-                <div class="table-responsive">
-                  <table class="table" id="RegistrationsReportTable" style="width: 100%">
-                    <thead class="table-bg">
-                      <tr>
-                        <th scope="col">Ref</th>
-                        <th scope="col">Member ID</th>
-                        <th scope="col">Mobile</th>
-                        <th scope="col">Home State</th>
-                        <th scope="col">Agent ID</th>
-                        <th scope="col">Status</th>
-                        <th scope="col" class="text-center">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="sorting_1">1435</td>
-                        <td>V40161</td>
-                        <td>5438 028 733</td>
-                        <td>Qld</td>
-                        <td>A125</td>
-                        <td>On Hold</td>
-                        <td class="text-center">
-                          <div class="dropdown no-arrow">
-                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                              aria-haspopup="true" aria-expanded="false">
-                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                            </a>
-                            <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                              aria-labelledby="dropdownMenuLink">
-                              <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal" data-target="#confirm-popup"
-                                href="#">
-                                <i class="fa fa-pause-circle"></i> On Hold
-                              </a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal" data-target="#confirm-popup"
-                                href="#">
-                                <i class="fa fa-check-circle "></i> Registered
-                              </a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal" data-target="#confirm-popup"
-                                href="#">
-                                <i class="fa fa-times-circle "></i> Rejected
-                              </a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal" data-target="#confirm-popup"
-                                href="#">
-                                <i class="fa fa-ban "></i> Cancelled
-                              </a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal" data-target="#confirm-popup"
-                                href="#">
-                                <i class="fa fa-user-slash"></i> Suspended
-                              </a>
-                              <div class="dropdown-divider"></div>
-                              <a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report" href="#"
-                                data-id="1435">
-                                <i class="fa fa-eye mr-2"></i> View
-                              </a>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-              
-                      <!-- Hidden expandable row (will show Registration report) -->
-                        <tr class="report-row d-none my-account-card" id="report-1435">
-                            <td colspan="7">
-                            <!-- yaha Ajax se registration data load hoga -->
-                            <div class="card border p-3">
-                                <h2 class="font-weight-bold">My Registrations Report</h2>
-                                <div class="table-responsive">
-                                <table class="table mb-0">
-                                    <tbody>
-                                    <tr>
-                                        <th>Ref:</th>
-                                        <td class="border-0">1435</td>
-                                        <th>Member ID:</th>
-                                        <td class="border-0">V40161</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Mobile:</th>
-                                        <td class="border-0">5438 028 733</td>
-                                        <th>Home State:</th>
-                                        <td class="border-0">Qld</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Agent ID:</th>
-                                        <td class="border-0">A125</td>
-                                        <th>Status:</th>
-                                        <td class="report_status border-0">On Hold</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                </div>
-                            </div>
-                            </td>
-                        </tr>
-  
-                    </tbody>
-                  </table>
-                </div>
-            </div>
-               --}}
-
             <div class="col-lg-12">
                 <div class="table-responsive">
                     <table class="table" id="RegistrationsReportTable" style="width: 100%">
@@ -232,12 +128,10 @@
                                 <td>On Hold</td>
                                 <td class="text-center">
                                     <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                                </a>
+                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                             <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
                                                 data-target="#confirm-popup" href="#">
                                                 <i class="fa fa-pause-circle"></i> On Hold
@@ -270,33 +164,7 @@
                                         </div>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr class="report-row d-none table-detail-row" id="report-1435">
-                                <td colspan="7">
-                                    <div class="card p-3">
-                                        <h5 class="font-weight-bold">Registration Details</h5>
-                                        <table class="table mb-0">
-                                            <tr>
-                                                <th>Ref:</th>
-                                                <td class="border-0">1435</td>
-                                                <th>Member ID:</th>
-                                                <td class="border-0">V40161</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Mobile:</th>
-                                                <td class="border-0">5438 028 733</td>
-                                                <th>Home State:</th>
-                                                <td class="border-0">Qld</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Agent ID:</th>
-                                                <td class="border-0">A125</td>
-                                                <th>Status:</th>
-                                                <td class="border-0">On Hold</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </td>
+                               
                             </tr>
 
                             <!-- === Row 2 === -->
@@ -348,7 +216,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr class="report-row d-none table-detail-row" id="report-1436">
+                            {{-- <tr class="report-row d-none table-detail-row" id="report-1436">
                                 <td colspan="7">
                                     <div class="card p-3">
                                         <h5 class="font-weight-bold">Registration Details</h5>
@@ -374,7 +242,7 @@
                                         </table>
                                     </div>
                                 </td>
-                            </tr>
+                            </tr> --}}
 
                         </tbody>
                     </table>
@@ -530,37 +398,60 @@
 @push('script')
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
-
-
+  
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll(".toggle-report").forEach(btn => {
-                btn.addEventListener("click", function(e) {
-                    e.preventDefault();
-                    let id = this.getAttribute("data-id");
-                    let row = document.getElementById("report-" + id);
-
-                    if (row.classList.contains("d-none")) {
-                        row.classList.remove("d-none");
-                        this.innerHTML = '<i class="fa fa-times mr-2"></i> Close';
-                    } else {
-                        row.classList.add("d-none");
-                        this.innerHTML = '<i class="fa fa-eye mr-2"></i> View';
-                    }
-                });
-            });
-        });
-    </script>
-       <script>
-  $(document).ready(function () {
-    $('#RegistrationsReportTable').DataTable({
-      language: {
-        search: "Search: _INPUT_",
-        searchPlaceholder: "Search by Member ID"
-      },
-      paging: true,
-      order: [[0, 'desc']]
+        $(document).ready(function () {
+    var table = $('#RegistrationsReportTable').DataTable({
+        language: {
+            search: "Search: _INPUT_",
+            searchPlaceholder: "Search by Member ID"
+        },
+        paging: true,
+        order: [[0, 'desc']]
     });
-  });
-</script>
+
+    // Toggle child rows
+    $('#RegistrationsReportTable tbody').on('click', '.toggle-report', function (e) {
+        e.preventDefault();
+        var tr = $(this).closest('tr');
+        var row = table.row(tr);
+        var dataId = $(this).data("id");
+
+        if (row.child.isShown()) {
+            row.child.hide();
+            $(this).html('<i class="fa fa-eye mr-2"></i> View');
+        } else {
+            // Replace below with dynamic HTML if needed
+            var childHtml = `
+                <div class="card p-3">
+                    <h5 class="font-weight-bold text-blue-primary">Registration Details</h5>
+                    <table class="table mb-0">
+                        <tr>
+                            <th>Ref:</th><td class="border-0">${dataId}</td>
+                            <th>Member ID:</th><td class="border-0">V40161</td>
+                        </tr>
+                       
+                        <tr>
+                            <th>Mobile:</th>
+                            <td class="border-0">5438 111 222</td>
+                            <th>Home State:</th>
+                            <td class="border-0">NSW</td>
+                        </tr>
+                        <tr>
+                            <th>Agent ID:</th>
+                            <td class="border-0">A126</td>
+                            <th>Status:</th>
+                            <td class="border-0">Registered</td>
+                        </tr>
+                        <!-- Add other rows -->
+                    </table>
+                </div>
+            `;
+            row.child(childHtml).show();
+            $(this).html('<i class="fa fa-times mr-2"></i> Close');
+        }
+    });
+});
+
+    </script>
 @endpush
