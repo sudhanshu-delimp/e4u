@@ -83,7 +83,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <span style="color: var(--peach);">Membership Type reshuffles every 2 hours. </span>
+                                <span style="color: var(--peach);font-size: 14px;">Membership Type reshuffles every 15 minutes. </span>
                             </div>
                             <div class="col-md-8 ryt_srch_btn">
                             <div class="display_inline_block">

@@ -49,7 +49,7 @@ function checkCommonCityAndGender($cityId, $genderId, $escort) {
                     <div class="row">
                         <div class="col-md-4">
                             <h5 class="normal_heading mb-0">Search Filters</h5>
-                            <span style="color:#FF3349">Membership Type reshuffles every 2 hours. </span>
+                            <span style="color: var(--peach);font-size: 14px;">Membership Type reshuffles every 15 minutes. </span>
                         </div>
                         <div class="col-md-8 ryt_srch_btn">
                             <div class="display_inline_block pad_ryt">

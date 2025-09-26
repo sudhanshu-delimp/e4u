@@ -61,7 +61,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <span style="color:#FF3349">Listings reshuffle every two hours. </span>
+                                <span style="color:#FF3349">Listings reshuffle every 15 minutes. </span>
                             </div>
                             <div class="col-md-8 ryt_srch_btn">
                                 <div class="display_inline_block">
