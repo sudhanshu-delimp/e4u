@@ -193,7 +193,7 @@
     <a href="{{ url('playbox') }}" target="_blank">
         <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
     </a>
-    <div class="custom-tooltip">I don't have any Playbox.</div>
+    <div class="custom-tooltip">Click to view My Media</div>
 </div>
                 <ul class="profile_page_social_profiles">
                     @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
@@ -872,7 +872,7 @@
                             <div class="row">
                                 <div class="col-12 remove_padding_for_carousel profile--thumb--sec">
                                     <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="">
-                                    <div class="custom-tooltip">I don't have any Playbox.</div>
+                                    <div class="custom-tooltip">Click to view My Media</div>
                                     </div>
                             </div>
                             
