@@ -51,128 +51,120 @@
            
             <div class="col-md-12" id="profile_and_tour_options">
 
-                <form class="v-form-design" method="POST" action="{{ route('set-viewer-preference') }}">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-12">
-                          @php
-                            $features = $preference && $preference->features ? json_decode($preference->features) : [];
-                            $notifications = $preference && $preference->notifications ? json_decode($preference->notifications) : [];
-                            $interests = $preference && $preference->interests ? json_decode($preference->interests) : [];
-                          @endphp
+    <form class="v-form-design" id="change_features_id" name="change_features" method="POST" action="{{ route('change-features') }}">
+    @csrf
+    <div class="row">
+        <div class="col-md-12">
 
-                            <!-- Features -->
-                            <div class="form-group">
-                                <h3 class="h3">Features</h3>
-                                {{-- <div class="form-check">
-                                    <input class="form-check-input" id="feature_favorites" type="checkbox" {{ in_array('favorites', $features) ? 'checked' : ''}} name="features[]" value="favorites">
-                                    <label class="form-check-label" for="feature_favorites">Flag your favorite Escorts and view your Favorites
-                                        list</label>
-                                </div> --}}
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="feature_alerts" name="features[]" value="alerts" checked>
-                                    <label class="custom-control-label" for="feature_alerts">Receive Alert Notifications from Escorts</label>
-                                </div>
-                                
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="feature_chatting" name="features[]" value="chatting" checked>
-                                    <label class="custom-control-label" for="feature_chatting">Participate in direct chatting with Escorts</label>
-                                </div>
-                                
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="feature_reviews" name="features[]" value="reviews" checked>
-                                    <label class="custom-control-label" for="feature_reviews">Write Reviews</label>
-                                </div>
-                                
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="feature_legbox" name="features[]" value="legbox" checked>
-                                    <label class="custom-control-label" for="feature_legbox">Enable My Legbox</label>
-                                </div>
-                                
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="feature_notebox" name="features[]" value="notebox" checked>
-                                    <label class="custom-control-label" for="feature_notebox">Enable My Notebox</label>
-                                </div>
-                                
-                                <div class="pt-1"><i>These features are enabled by default unless you disable them.</i></div>
-                            </div>
-                             <!-- Listings Preferences -->
-                             <div class="form-group">
-                                <h3 class="h3">Listings Preferences</h3>
-                                <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="listView" id="gridView" value="grid" checked>
-                                <label class="form-check-label" for="gridView">
-                                    Grid View
-                                </label>
-                                </div>
+            <!-- Features -->
+            <div class="form-group">
+                <h3 class="h3">Features</h3>
 
-                                <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="listView" id="listView" value="list">
-                                <label class="form-check-label" for="listView">
-                                    List View
-                                </label>
-                                </div>
-                                
-                                <div class="pt-1"><i>Select your preferred option on how you view Advertiser Listings.</i></div>
-                            </div>
-                            <!-- Alert Notifications -->
-                            {{-- <div class="form-group">
-                                <label>Alert notifications</label><br>
-                                <div class="form-check">
-                                    @php
-                                        $prefNotification = isset($preference->notifications) ? json_decode($preference->notifications) : [];
-                                    @endphp
-                                    <input class="form-check-input" type="checkbox" {{ (isset($preference->notifications) && in_array('email', $prefNotification)) ? 'checked' : ''}} id="notifications_email" name="notifications[]" value="email">
-                                    <label class="form-check-label" for="notifications_email">Email</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" {{ in_array('text', $notifications) ? 'checked' : ''}} type="checkbox" id="notifications_text" name="notifications[]" value="text">
-                                    <label class="form-check-label" for="notifications_text">Text</label>
-                                </div>
-                                <div class="pt-1"><i>These features are enabled by default unless you disable them.</i></div>
-                            </div> --}}
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="feature_alerts"
+                           name="features_push_notifications_from_escorts" value="1"
+                           {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_push_notifications_from_escorts == '1' ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="feature_alerts">Receive Alert Notifications from Escorts</label>
+                </div>
 
-                            <!-- Interests -->
-                            <div class="form-group">
-                                <h3 class="h3">What are your interests?</h3>
-                                <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" id="interest_female" type="checkbox" 
-                                           name="interests[]" value="6" checked>
-                                    <label class="custom-control-label" for="interest_female">Female</label>
-                                </div>
-                                
-                                <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" id="interest_male" type="checkbox" 
-                                           name="interests[]" value="1" {{ in_array('1', $interests) ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="interest_male">Male</label>
-                                </div>
-                                
-                                <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" id="interest_trans" type="checkbox" 
-                                           name="interests[]" value="3" {{ in_array('3', $interests) ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="interest_trans">Trans</label>
-                                </div>
-                                
-                                <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" id="interest_cross" type="checkbox" 
-                                           name="interests[]" value="4" {{ in_array('4', $interests) ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="interest_cross">Cross dresser</label>
-                                </div>
-                                
-                                <div class="custom-control custom-switch">
-                                    <input class="custom-control-input" id="interest_couples" type="checkbox" 
-                                           name="interests[]" value="5" {{ in_array('5', $interests) ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="interest_couples">Couples</label>
-                                </div>
-                                
-                              <div class="pt-1"><i>By selecting a particular interest, we can refine your Escorts View page.</i></div>
-                            </div>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="feature_chatting"
+                           name="features_direct_chatting_with_escorts" value="1"
+                           {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_direct_chatting_with_escorts == '1' ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="feature_chatting">Participate in direct chatting with Escorts</label>
+                </div>
 
-                        </div>
-                    </div>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="feature_reviews"
+                           name="features_write_reviews" value="1"
+                           {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_write_reviews == '1' ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="feature_reviews">Write Reviews</label>
+                </div>
 
-                    <input type="submit" value="Save" class="btn-common" name="submit">
-                </form>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="feature_legbox"
+                           name="features_enable_my_legbox" value="1"
+                           {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_enable_my_legbox == '1' ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="feature_legbox">Enable My Legbox</label>
+                </div>
+
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="feature_notebox"
+                           name="features_enable_my_notebox" value="1"
+                           {{ isset($setting->viewer_settings) && $setting->viewer_settings->features_enable_my_notebox == '1' ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="feature_notebox">Enable My Notebox</label>
+                </div>
+
+                <div class="pt-1"><i>These features are enabled by default unless you disable them.</i></div>
+            </div>
+
+            <!-- Listings Preferences -->
+            <div class="form-group">
+                <h3 class="h3">Listings Preferences</h3>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="listings_preferences_view" id="gridView" value="1"
+                        {{ isset($setting->viewer_settings) && $setting->viewer_settings->listings_preferences_view == '1' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="gridView">Grid View</label>
+                </div>
+
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="listings_preferences_view" id="listView" value="2"
+                        {{ isset($setting->viewer_settings) && $setting->viewer_settings->listings_preferences_view == '2' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="listView">List View</label>
+                </div>
+
+                <div class="pt-1"><i>Select your preferred option on how you view Advertiser Listings.</i></div>
+            </div>
+
+            <!-- Interests -->
+            <div class="form-group">
+                <h3 class="h3">What are your interests?</h3>
+
+                <div class="custom-control custom-switch">
+                    <input class="custom-control-input" id="interest_female" type="checkbox"
+                           name="interests_with_female" value="1"
+                           {{ isset($setting->viewer_settings) && $setting->viewer_settings->interests_with_female == '1' ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="interest_female">Female</label>
+                </div>
+
+                <div class="custom-control custom-switch">
+                    <input class="custom-control-input" id="interest_male" type="checkbox"
+                           name="interests_with_male" value="1"
+                           {{ isset($setting->viewer_settings) && $setting->viewer_settings->interests_with_male == '1' ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="interest_male">Male</label>
+                </div>
+
+                <div class="custom-control custom-switch">
+                    <input class="custom-control-input" id="interest_trans" type="checkbox"
+                           name="interests_with_trans" value="1"
+                           {{ isset($setting->viewer_settings) && $setting->viewer_settings->interests_with_trans == '1' ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="interest_trans">Trans</label>
+                </div>
+
+                <div class="custom-control custom-switch">
+                    <input class="custom-control-input" id="interest_cross" type="checkbox"
+                           name="interests_with_cross_dresser" value="1"
+                           {{ isset($setting->viewer_settings) && $setting->viewer_settings->interests_with_cross_dresser == '1' ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="interest_cross">Cross dresser</label>
+                </div>
+
+                <div class="custom-control custom-switch">
+                    <input class="custom-control-input" id="interest_couples" type="checkbox"
+                           name="interests_with_couples" value="1"
+                           {{ isset($setting->viewer_settings) && $setting->viewer_settings->interests_with_couples == '1' ? 'checked' : '' }}>
+                    <label class="custom-control-label" for="interest_couples">Couples</label>
+                </div>
+
+                <div class="pt-1"><i>By selecting a particular interest, we can refine your Escorts View page.</i></div>
+            </div>
+
+        </div>
+    </div>
+
+    <input type="submit" value="Save" class="btn-common" name="submit">
+</form>
+
 
             </div>
         </div>
@@ -180,59 +172,31 @@
     </div>
 @endsection
 @push('script')
-    <!-- file upload plugin start here -->
-
-
-
-    <!-- file upload plugin end here -->
-    <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-
-
-    <script type="text/javascript">
-        $('#userProfile').parsley({
-
-        });
-
-        $('#userProfile').on('submit', function(e) {
-            e.preventDefault();
-
-            var form = $(this);
-
-            if (form.parsley().isValid()) {
-
-                var url = form.attr('action');
-                var data = new FormData(form[0]);
-                $.ajax({
-                    method: form.attr('method'),
-                    url: url,
-                    data: data,
-                    contentType: false,
-                    processData: false,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data) {
-                        if (data.error == true) {
-                            var msg = "Saved";
-                            $('.comman_msg').text(msg);
-                            //$("#my_account_modal").show();
-                            $("#comman_modal").modal('show');
-                            $('input[type=password]').each(function() {
-                                $(this).val('');
-                            });
-                            //location.reload();
-
-                        } else {
-                            $('.comman_msg').html("Please enter your correct current password");
-                            $("#comman_modal").modal('show');
-
-                        }
-                    },
-
-                });
-            }
-        });
-    </script>
+ 
+<script>
+$(document).on('submit', 'form[name="change_features"]', function(e) 
+{
+e.preventDefault(); 
+let form = $('#change_features_id')[0];
+let formData = new FormData(form);
+let url = $('#change_features_id').attr('action');
+    swal_waiting_popup({'title':'Updating Settings'});
+    $.ajax({
+        url: url,
+        method: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false, 
+        success: function(response) {
+                Swal.close();
+                swal_success_popup(response.message);
+        },
+        error: function(xhr) {
+                Swal.close();
+                console.log(xhr);
+            swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+        }
+    });
+});
+</script>
 @endpush

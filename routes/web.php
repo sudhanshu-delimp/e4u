@@ -10,11 +10,13 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\BlogsController;
 use App\Mail\sendPlaymateAccountDisableMail;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\NotificationSetting;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Center\CenterController;
 use App\Http\Controllers\Escort\EscortController;
 use App\Http\Controllers\Escort\PinUpsController;
+use App\Http\Controllers\AccountSettingController;
 use App\Http\Controllers\SupportTicketsController;
 use App\Http\Controllers\User\Auth\LoginController;
 use App\Http\Controllers\Escort\ConciergeController;
@@ -81,7 +83,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/change-password', [UserController::class, 'updatePassword'])->name('user.update.password');
         Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('user.update.password.expiry');
         Route::get('/notifications-features', [UserController::class, 'notificationsFeatures'])->name('user.profile.notifications');
-        Route::post('/update-notifications-features', [UserController::class, 'updateNotificationsFeatures'])->name('user.profile.update.notifications');
+        
+        Route::post('update-notification-setting', [AccountSettingController::class, 'viewer_update_setting'])->name('user.update_notification_setting');
+        
         Route::post('upload-avatar/{id}',[UserController::class,'storeMyAvatar'])->name('user.save.avatar');
         Route::post('remove-avatar',[UserController::class,'removeMyAvatar'])->name('user.avatar.remove');
         Route::post('/update-profile/{id}', [UserController::class, 'update'])->name('user.update.profile');
@@ -216,8 +220,8 @@ Route::middleware('auth')->group(function () {
             return view('user.dashboard.punterbox.code-of-conduct');
         })->name('user.code-of-conduct');
 
-        Route::get('/change-features',[ViewerPrefrenceController::class, 'getViewerPrefrence'])->name('change-features');
-        Route::post('/viewer-prefrence',[ViewerPrefrenceController::class, 'setViewerPrefrence'])->name('set-viewer-preference');
+        Route::get('/change-features',[AccountSettingController::class, 'get_viewer_features'])->name('change-features');
+        Route::post('/change-features',[AccountSettingController::class, 'viewer_change_features'])->name('change-features');
         Route::post('/logout', [LoginController::class,'logout'])->name('logout');
         });
         ################ End All Authencated User Url #################################

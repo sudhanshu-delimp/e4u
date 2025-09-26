@@ -137,6 +137,13 @@ Route::get('toursummary',function(){
     return view('agent.dashboard.Marketing.create-prospect');
 })->name('marketing.agencreate-prospect');
 
+
+
+Route::get('Marketing/printreport',function(){
+    return view('agent.dashboard.Marketing.printreport');
+})->name('printreport');
+
+
 Route::get('agent-messages',function(){
     return view('agent.dashboard.agent-messages');
 })->name('agent.agent-messages');

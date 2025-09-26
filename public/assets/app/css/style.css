@@ -4839,6 +4839,22 @@ i.fa.fa-heart-o{
         width: 100%;
     }
     
+    .d_custom_pinup_img .memmber_info {
+        position: absolute;
+        left: 25px;
+        top: 10px;
+        color: #fff;
+        background: #ff3c5a;
+        padding: 5px;
+        border-radius: 5px;
+        font-size: 12px;
+    }
+    
+    .d_custom_pinup_img .memmber_info i {
+        color: #fff;
+        font-size: 14px;
+    }
+    
     .gallery {
         display: grid;
         grid-template-columns: 2fr 3fr;

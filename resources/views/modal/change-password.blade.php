@@ -53,7 +53,7 @@ if (auth()->check()) {
                 <h5 class="modal-title" id="changePasswordLabel" style="color:white">
                     <i class="fa fa-key fa-lg fa-fw" style="color: white;"></i>
                   
-                    Change Password 
+                    Change Password  
                 </h5>
                 
             </div>

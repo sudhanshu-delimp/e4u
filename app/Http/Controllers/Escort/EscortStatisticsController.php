@@ -61,7 +61,7 @@ class EscortStatisticsController extends Controller
             $escortStatistics = EscortStatistics::where('user_id', $user->id)
                 ->get();
             
-            $myStatistics['critical_information_upcoming_profile'] = Escort::where('user_id', $user->id)->where('utc_end_time', '>', $today->toDateString())
+            $myStatistics['critical_information_upcoming_profile'] = Escort::where('user_id', $user->id)->where('utc_end_time', '>', $today)
             ->count();
 
             $myStatistics['critical_information_profile_currenlty_posted'] = Escort::where('user_id', $user->id)->where('enabled',1)->count();
