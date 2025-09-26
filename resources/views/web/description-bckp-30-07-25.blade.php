@@ -181,7 +181,7 @@
     <a href="{{ url('playbox') }}" target="_blank">
         <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
     </a>
-    <div class="custom-tooltip">I don't have any Playbox.</div>
+    <div class="custom-tooltip">Click to view My Media</div>
 </div>
                 <ul class="profile_page_social_profiles">
                     @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
@@ -1804,7 +1804,7 @@
                             <ul>
                                 <li>Only review if you had direct contact with the Escort.</li>
                                 <li>Do not write fake or abusive reviews, as they will not be published.</li>
-                                <li>To contact this Escort click on <span style="color: #FF3C5F; ">Message Me</span>.</li>
+                                <li>To contact this Escort click on <span style="color: #FF3C5F; ">Message Us</span>.</li>
                             </ul>
                         </div>
                     </div>

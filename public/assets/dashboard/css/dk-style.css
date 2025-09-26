@@ -9200,7 +9200,7 @@ border-top: 5px solid var(--peach);
         border-radius: 15%;
         padding: 0 5px;
     }
-
+    
     .pinup_brb_strip {
         position: absolute;
         top: 80%;
@@ -9586,7 +9586,31 @@ border-top: 5px solid var(--peach);
         font-weight: 600;
         color: var(--blue--text);
     }
+    
+    .modal-dialog.print-list-modal {
+        max-width: 1000px !important;
+        width: 100%;
+    }
     /* gen-prospect-list end */
+    /* Information Packages */
+    
+    .btn-appointment {
+        background: #fff;
+        border: 1px solid #ccc;
+        color: #0c223d;
+        font-weight: 500;
+        padding: 3px 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        text-decoration: none;
+    }
+    
+    .btn-appointment:hover {
+        background-color: var(--peach);
+        color: #fff;
+        border: 1px solid var(--peach);
+    }
+    /* end */
     
     @media (min-width:300px) and (max-width:575px) {
         .form-inline-custom {
