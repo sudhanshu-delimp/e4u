@@ -39,8 +39,8 @@
                     <div class="circle">✔</div>
                     <p class="step-title">1. Listings</p>
                 </div>
-                <div class="step">
-                    <div class="circle"></div>
+                <div class="step active">
+                    <div class="circle">✔</div>
                     <p class="step-title">2. Payment</p>
                 </div>
                 <div class="step">

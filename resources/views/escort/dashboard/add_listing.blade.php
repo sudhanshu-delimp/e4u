@@ -61,7 +61,7 @@
             
                     <!-- Header -->
                     <div class="listing-header" style="text-align:right; margin-bottom:15px;">
-                        <button type="button" class="nex_sterp_btn" id="add_listing" disabled>Add Listing</button>
+                        <button type="button" class="nex_sterp_btn mr-0" id="add_listing" disabled>Add Listing</button>
                     </div>
             
                     <!-- Listings Area -->
@@ -109,7 +109,7 @@
             
                     <!-- Footer -->
                     <div class="listing-footer" style="text-align:right; margin-top:20px;">
-                        <button type="submit" class="save_profile_btn" id="escort-form-submit-btn" >Proceed to Payment</button>
+                        <button type="submit" class="save_profile_btn mr-0" id="escort-form-submit-btn" >Proceed to Payment</button>
                     </div>
                 </form>
             </div>
