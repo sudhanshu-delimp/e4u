@@ -973,7 +973,7 @@
     <div class="row pt-2 eqal-bx">
         <div class="col-xl-5 col-sm-12 my-1 text-center">
             <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#mysendmessage">
-            <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Us</button>
+            <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Me</button>
         </div>
         <div class="col-xl-7 col-sm-12 my-1 text-center">
             <button type="button" class="btn profile_message_btn_cc" id="reportAdvertiserBtn" data-toggle="modal"><img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Report Advertiser</button>
@@ -1319,7 +1319,7 @@
             <div class="modal-header main_bg_color">
                
                 
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Us </h5>
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Me </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
@@ -1345,8 +1345,8 @@
             <!-- if viewer not login -->
             <div class="modal-body pb-0 teop-text" >
                 <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
-                    <span id="Lname">Message Us is only available to Viewers.
-                        Please log in or Register to access Message Us.</span>
+                    <span id="Lname">Message Me is only available to Viewers.
+                        Please log in or Register to access Message Me.</span>
                 </h6>
                 <div class="modal-footer text-center justify-content-center pt-0" >
                 <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>
