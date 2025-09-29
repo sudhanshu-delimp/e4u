@@ -64,7 +64,7 @@ class EscortStatisticsController extends Controller
             $myStatistics['critical_information_upcoming_profile'] = Escort::where('user_id', $user->id)->where('utc_end_time', '>', $today)
             ->count();
 
-            $myStatistics['critical_information_profile_currenlty_posted'] = Escort::where('user_id', $user->id)->where('enabled',1)->count();
+            $myStatistics['critical_information_profile_currenlty_posted'] = Escort::where('profile_name', '!=', null)->where('user_id', $user->id)->where('enabled',1)->count();
 
             $myStatistics['mystatistics_profile_views_today'] = $escortStatistics->where('date', $today->toDateString())->sum('profile_views_count');
 
