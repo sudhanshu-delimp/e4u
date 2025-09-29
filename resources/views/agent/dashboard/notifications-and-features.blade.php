@@ -49,7 +49,8 @@
         </div>
         <div class="col-md-12" id="profile_and_tour_options">
   
-           <form class="v-form-design" id="profile_notification_options" action="http://127.0.0.1:8000/escort-dashboard/notification-update" method="POST">
+           <form class="v-form-design" id="profile_notification_options" action="{{route('agent.profile.update.notifications')}}" method="POST">
+            {{ csrf_field() }}
                <div class="row">
                    <div class="col-md-12">
                        <div class="form-group notification_checkbox_div">
@@ -106,18 +107,21 @@
                        <div class="form-group">
                             <h3 class="h3">Idle Time Preference</h3>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="idle_time" id="idle_15" value="15">
+                                <input class="form-check-input" type="radio" name="idle_time" id="idle_15" value="15" {{ (auth()->user() && auth()->user()->idle_preference_time != null && auth()->user()->idle_preference_time == 15) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="idle_15">15 minutes</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="idle_time" id="idle_30" value="30" checked>
+                                <input class="form-check-input" type="radio" name="idle_time" id="idle_30" value="30" {{ (auth()->user() && auth()->user()->idle_preference_time != null && auth()->user()->idle_preference_time == 30) ? 'checked' : (auth()->user()->idle_preference_time == null ? 'checked' : '') }}>
                                 <label class="form-check-label" for="idle_30">30 minutes</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="idle_time" id="idle_60" value="60">
+                                <input class="form-check-input" type="radio" name="idle_time" id="idle_60" value="60" {{ (auth()->user() && auth()->user()->idle_preference_time != null && auth()->user()->idle_preference_time == 60) ? 'checked' : '' }}>
                                 <label class="form-check-label" for="idle_60">60 minutes</label>
                             </div>
-                        
+                             <!-- Info -->
+                             <div class="pt-1">
+                                <i>Set the Idle time you want before you are logged out of your Console.</i>
+                            </div>
                         </div>
                         <div class="form-group">
                             <h3 class="h3">2FA Authentication</h3>

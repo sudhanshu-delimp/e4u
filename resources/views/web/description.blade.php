@@ -193,7 +193,7 @@
     <a href="{{ url('playbox') }}" target="_blank">
         <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
     </a>
-    <div class="custom-tooltip">I don't have any Playbox.</div>
+    <div class="custom-tooltip">Click to view My Media</div>
 </div>
                 <ul class="profile_page_social_profiles">
                     @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
@@ -609,7 +609,7 @@
                         <h2>My Service</h2>
                     </div>
                     <div class="padding_20_tob_btm_side">
-                        <p>Check out what I enjoy the most with you in private. Let's have some fun. Feel free to ask me any questions about my services.</p>
+                        <p class="text-justify">Check out what I enjoy the most with you in private. Let's have some fun. Feel free to ask me any questions about my services.</p>
                         <div class="accordion-container">
                             <div class="set">
                                 <a>
@@ -870,9 +870,10 @@
                             <div class="carousel-item {{($key == 0) ? "active" : ""}} " data-interval="10000">
                            
                             <div class="row">
-                                <div class="col-12 remove_padding_for_carousel">
-                                    <img src="{{ asset($media->path) }}" class="d-block w-100" title="Click to view Media" alt="..." data-toggle="modal" data-target="#exampleModal" data-id="">
-                                </div>
+                                <div class="col-12 remove_padding_for_carousel  profile--thumb--sec">
+                                    <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="">
+                                    <div class="custom-tooltip">Click to view My Media</div>
+                                    </div>
                             </div>
                             
                         </div>
@@ -880,9 +881,10 @@
                         @else
                         <div class="carousel-item active " data-interval="10000">
                             <div class="row">
-                                <div class="col-12 remove_padding_for_carousel">
+                                <div class="col-12 remove_padding_for_carousel profile--thumb--sec">
                                     <img src="{{ asset('assets/app/img/service-provider/Frame-408.png') }}" class="d-block w-100" alt="..." data-toggle="modal" data-target="#exampleModal">
-                                </div>
+                                    <div class="custom-tooltip">I don't have any Playbox.</div>
+                                    </div>
                             </div>
                         </div>
                         @endif
@@ -971,7 +973,7 @@
     <div class="row pt-2 eqal-bx">
         <div class="col-xl-5 col-sm-12 my-1 text-center">
             <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#mysendmessage">
-            <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Us</button>
+            <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Me</button>
         </div>
         <div class="col-xl-7 col-sm-12 my-1 text-center">
             <button type="button" class="btn profile_message_btn_cc" id="reportAdvertiserBtn" data-toggle="modal"><img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Report Advertiser</button>
@@ -1123,7 +1125,7 @@
             </a>
             <div class="content">
                 <div class="accodien_manage_padding_content">
-                    <p>
+                    <p class="text-justify">
                         Prices are all inclusive unless an extra is listed in My Serices. For Outcalls, price is rate + taxi to and from my location.
                     </p>
                 </div>
@@ -1136,7 +1138,7 @@
             </a>
             <div class="content">
                 <div class="accodien_manage_padding_content">
-                    <p>Donations are for my companionship and nothing else. It is not an offer or promise for prostitution or illegal activity.
+                    <p class="text-justify">Donations are for my companionship and nothing else. It is not an offer or promise for prostitution or illegal activity.
                         Anything that may occur between us is our choice as consenting adults.
                     </p>
                 </div>
@@ -1317,7 +1319,7 @@
             <div class="modal-header main_bg_color">
                
                 
-                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Us </h5>
+                <h5 class="modal-title popup_modal_title_new" id="exampleModalLabel"> <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="custompopicon"> Message Me </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
@@ -1344,7 +1346,7 @@
             <div class="modal-body pb-0 teop-text" >
                 <h6 class="popu_heading_style mb-4 mt-4 " style="text-align: center; color:#0C223D;">
                     <span id="Lname">Message Me is only available to Viewers.
-                        Please log in or Register to access Message Us.</span>
+                        Please log in or Register to access Message Me.</span>
                 </h6>
                 <div class="modal-footer text-center justify-content-center pt-0" >
                 <a href="{{ route('viewer.login') }}" type="button" class="site_btn_primary" id="loginUrl" style="text-decoration: none;">Login</a>
@@ -1408,7 +1410,7 @@
                         <div class="col">
                             <div class="form-group popup_massage_box">
                                 <p class="font-weight-bold">What is wrong:</p>
-                                <textarea name="description" id="reportDesc" required class="form-control popup_massage_box p-2" id="exampleFormControlTextarea1" rows="5" placeholder="Message (500 characters)">{{isset($spamReportAdvertiser->report_desc) ? $spamReportAdvertiser->report_desc : '' }}</textarea>
+                                <textarea name="description" id="reportDesc" required class="form-control popup_massage_box p-2" id="exampleFormControlTextarea1" rows="5" placeholder="Message (500 characters)">{{-- isset($spamReportAdvertiser->report_desc) ? $spamReportAdvertiser->report_desc : '' --}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -1777,9 +1779,9 @@ let carousel = new bootstrap.Carousel(myCarousel, {
             success: function(data) {
                 if(data.error) {
                     Swal.fire(
-                        'Info!',
-                        'Please login first to like & dislike the profile.',
-                        'info'
+                        'Error!',
+                        'Something is wrong please try later.',
+                        'error'
                     );
                 } else {
                     if (data.like == 1) {
@@ -2068,7 +2070,8 @@ $(document).ready(function() {
                     if(response.data){
                         let desc = response.data.report_desc;
                         let tag = response.data.report_tag;
-                        $("#reportDesc").text(desc);
+                        //$("#reportDesc").text(desc);
+                         $("#reportDesc").text('');
                         $('input[name="report_tag"][value="' + response.data.report_tag + '"]').prop('checked', true);
                     }
                     
@@ -2145,6 +2148,39 @@ $(document).ready(function() {
     
 });
 
+$('#exampleModal').on('hidden.bs.modal', function () {
+    $(this).find('video').each(function() {
+        this.pause();
+        this.currentTime = 0; // reset to start
+    });
+});
+
+$('#exampleModal').on('shown.bs.modal', function () {
+    console.log("Modal opened:", $(this).attr('id'));
+    // add media view count while open modal
+    var formData = {
+        'escort_id' : '{{$escort->id}}',
+        'user_id' : '{{$escort->user->id}}'  
+    };
+
+    let url = "{{ route('save.escort.stats')}}";
+    saveEscortAjaxStats(formData, url, 'GET');
+});
+
+function saveEscortAjaxStats(formData, url, type)
+{
+    $.ajax({
+        method: type,
+        url: url,
+        data: formData,
+        contentType: type === 'GET' ? 'application/x-www-form-urlencoded; charset=UTF-8' : false,
+        processData: type === 'GET',
+        headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
+        success: function (response) {
+            console.log(response);  
+        }
+    });
+}
 
 </script>
 @endpush

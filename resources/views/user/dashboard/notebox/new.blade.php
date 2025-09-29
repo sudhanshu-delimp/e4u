@@ -33,12 +33,12 @@
                   <li>My Notebox is a closed publication for you only. Each Notebox contains personal
                      information about the Escort which only you can see (like a diary note).</li>
                   <li>Status Type filters meanings:
-                     <ol>
+                     <ul style="list-style-type: disc;">
                         <li>Average means looks ok and pleasant enough but the sex was wanting.</li>
                         <li>Dog means an absolutely ugly and disgusting Escort.</li>
                         <li>Great fuck means had a great and wonderful time.</li>
                         <li>Waste of time means the Escort was nothing like they represented in their profile.</li>
-                     </ol>
+                     </ul>
                   </li>
                   <li>Rating scale is a linear numeric scale where Punters can rate the likelihood of meeting
                      the Escort again. The question the Viewer should pose when applying the rating is

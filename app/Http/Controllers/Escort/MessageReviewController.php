@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Escort;
 
 use App\Http\Controllers\Controller;
+use App\Models\Escort;
 use App\Models\Reviews;
 use Illuminate\Http\Request;
 use App\Repositories\Escort\EscortInterface;
@@ -51,7 +52,7 @@ class MessageReviewController extends Controller
                 'star_rating' => $request->rating ? $request->rating : NULL,
                 'user_id' => auth()->user()->id,
                 'escort_id' => $escort_id,
-                'status' => 'pending', 
+                'status' => 'pending',  
             ];
             $id = null;
             $reviewExist = Reviews::where('user_id', auth()->user()->id)->first();
@@ -68,6 +69,12 @@ class MessageReviewController extends Controller
         } else {
             $data = 'You are not allowed to give review';
         }
+
+        # add statistics for escort profile view and added stats for reviews and recommendation
+        $userId = Escort::where('id', $escort_id)->pluck('user_id');
+        saving_escort_stats($userId, $escort_id,'reviews_count');
+        saving_escort_stats($userId, $escort_id,'recommendation_count');
+
         return response()->json(compact('data','error'));
     }
 }

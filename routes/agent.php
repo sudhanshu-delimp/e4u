@@ -137,6 +137,13 @@ Route::get('toursummary',function(){
     return view('agent.dashboard.Marketing.create-prospect');
 })->name('marketing.agencreate-prospect');
 
+
+
+Route::get('Marketing/printreport',function(){
+    return view('agent.dashboard.Marketing.printreport');
+})->name('printreport');
+
+
 Route::get('agent-messages',function(){
     return view('agent.dashboard.agent-messages');
 })->name('agent.agent-messages');
@@ -184,6 +191,8 @@ Route::get('Marketing/saved-reports',function(){
 Route::get('notifications-and-features',function(){
     return view('agent.dashboard.notifications-and-features');
 })->name('agent.notifications-and-features');
+
+Route::post('/update-notifications-features', [AgentRequestController::class, 'updateNotificationsFeatures'])->name('agent.profile.update.notifications');
 
 Route::get('agent-task-list',[AgentTaskController::class,'index'])->name('agent.task-list'); 
 

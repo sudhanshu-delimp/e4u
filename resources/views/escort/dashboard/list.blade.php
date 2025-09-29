@@ -142,7 +142,7 @@
             <div class="modal-content" style="width: 800px;position: absolute;top: 30px;">
               <div class="modal-header">
                 <h5 class="modal-title">
-                  <img src="/assets/app/img/extend-30.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
+                  <img src="/assets/app/img/profile-30.png" class="custompopicon" alt="extend" style="margin-right: 10px;">
                   Extend Profile
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -180,23 +180,22 @@
                         <div class="col-sm-9 row">
                           <div class="col-sm-6">
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay1" value="1">
+                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay1" value="1" disabled>
                               <label class="form-check-label" for="extendDay1">1 day</label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay5" value="5">
+                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay5" value="5" disabled>
                               <label class="form-check-label" for="extendDay5">5 days</label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay10" value="10">
+                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay10" value="10" disabled>
                               <label class="form-check-label" for="extendDay10">10 days</label>
                             </div>
                           </div>
                           <div class="col-sm-5 pr-1">
                             <input type="hidden" name="membership[]" id="extendMembership">
                             <input type="hidden" name="start_date[]" id="extendStartDate">
-                            <input type="date" id="extendEndDate" class="form-control form-control-sm removebox_shdow"
-                                   name="end_date[]">
+                            <input type="date" id="extendEndDate" class="form-control form-control-sm removebox_shdow" name="end_date[]" required disabled>
                           </div>
                         </div>
                       </div>
@@ -412,6 +411,13 @@
     
     <script>
         var table;
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $(document).ready(function() {
             var shouldHide = "{{ $type == 'past' ? false : true }}";
             table = $("#sailorTable").DataTable({
@@ -431,15 +437,17 @@
                     if (records.recordsTotal > 0) {
                         $select.append('<option value="">-- Select Profile --</option>');
                         $.each(records.data, function (i, item) {
-                            $select.append(
-                            $('<option>', {
-                                value: item.id,
-                                text: `${item.id} - ${item.name} - ${item.state.name}`,
-                                'data-start': item.start_date,
-                                'data-end': item.end_date,
-                                'data-membership':item.membership,
-                            })
-                            );
+                            if(!item.is_extended){
+                                $select.append(
+                                    $('<option>', {
+                                    value: item.id,
+                                    text: `${item.id} - ${item.name} - ${item.state.name}`,
+                                    'data-start': item.start_date,
+                                    'data-end': item.end_date,
+                                    'data-membership':item.membership,
+                                    })
+                                );
+                            }
                         });
                     }
 
@@ -636,6 +644,15 @@
             let startDate = $('#extendStartDate');
             let $membershipField = $('#extendMembership');
             let $dateField = $('#extendEndDate');
+            let profileId = $(this).val();
+            if($.trim(profileId)!=""){
+                $dateField.removeAttr('disabled');
+                $("input[name='extend_days']").removeAttr('disabled');
+            }
+            else{
+                $dateField.attr('disabled','disabled');
+                $("input[name='extend_days']").attr('disabled','disabled');
+            }
             switch(membership){
                 case 'Platinum':{
                     $membershipField.val(1);
@@ -677,18 +694,53 @@
                 newDate.setDate(newDate.getDate() + days + 1);
 
                 $dateField.val(formatDateLocal(newDate));
-                $dateField.prop('readonly', true); // make readonly
+                //$dateField.prop('readonly', true); // make readonly
             } else {
                 $dateField.val('');
-                $dateField.prop('readonly', false);
+                //$dateField.prop('readonly', false);
             }
         });
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        $(document).on('change', '#extendEndDate, #extendProfileId, .extend-period', function() {
+            let startDate = $('#extendStartDate').val();
+            let endDate = $('#extendEndDate').val();
+            let escortId = $('#extendProfileId').find(':selected').val();
+            let formButton = document.querySelector("#extend_profile form button[type='submit']");
+            
+            if(startDate && escortId){
+                console.log(escortId, startDate, endDate);
+                $.ajax({
+                url: '/escort-dashboard/listing/validate-date-range',
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                },
+                data: {startDate,endDate,escortId},
+                beforeSend:function (){
+                    formButton.disabled = true;
+                    console.log(formButton);
+                },
+                success: function (response) {
+                    if(response.success){
+                        $('#extendEndDate').val('');
+                        Swal.fire({
+                            title: 'Listings',
+                            text: `${response.message}`,
+                            icon: 'warning'
+                        });
+                    }
+                    formButton.disabled = false;
+
+                },
+                error: function (xhr, status, error) {
+                console.error('Error in location filter:', error);
+                }
+                });
             }
         });
+
+        
         $(document).on('click', '.delete-center122', function(e) {
             e.preventDefault();
             var $this = $(this);

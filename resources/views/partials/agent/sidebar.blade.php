@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand text-left pb-3" href="{{ asset('/') }}">
         <img src="{{ asset('assets/app/img/logo.svg') }} " alt="">
@@ -176,13 +176,12 @@
                 <a class="collapse-item" href="{{ route('marketing.create-information-package') }}">
                     <img src="{{ asset('assets/app/img/helptips.png') }}">
                     <span
-                        style="{{ request()->segment(3) == 'create-information-package' ? 'color: #e5365a;' : '' }}">Create
-                        Information Package</span>
+                        style="{{ request()->segment(3) == 'create-information-package' ? 'color: #e5365a;' : '' }}">Information Packages</span>
                 </a>
                 <a class="collapse-item" href="{{ route('marketing.agencreate-prospect') }}">
-                    <img src="{{ asset('assets/app/img/create.png') }}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/prospect.png') }}">
                     <span style="{{ request()->segment(3) == 'create-prospect' ? 'color: #e5365a;' : '' }}">Prospect
-                        List</span>
+                        Lists</span>
                 </a>
                 <a class="collapse-item" href="{{ route('agent.database-centers') }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/data-center.png') }}">

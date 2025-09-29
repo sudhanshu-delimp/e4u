@@ -61,7 +61,7 @@
                                         </a>
                                     </div>
                                 </div>
-                                <span style="color:#FF3349">Listings reshuffle every two hours. </span>
+                                <span style="color:#FF3349">Listings reshuffle every 15 minutes. </span>
                             </div>
                             <div class="col-md-8 ryt_srch_btn">
                                 <div class="display_inline_block">
@@ -308,7 +308,7 @@
             <!-- ================     service provider start here     ========================= -->
 
             {{-- <div class="modal defult-modal" id="forhelp"> --}}
-            <div class="modal fade defult-modal" id="forhelp">
+            <div class="modal fade defult-modal" id="forhelp"> 
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content rounded-0">
                         <!-- Modal body -->
@@ -339,7 +339,7 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div class="tab-pane p-3 active show" id="tabs-1" role="tabpanel">
-                                        <p><b>Your Geolocation will automatically determine your Location and list Profiles according to that Location. You can:</b></p>
+                                        <p>Your Geolocation will automatically determine your Location and list Profiles according to that Location. You can:</p>
                                         <ol class="pl-3">
                                             <li>Filter the search criteria by selecting your preferred filter and then
                                                 selecting the refresh button ‘Apply Filters’.</li>
@@ -351,15 +351,13 @@
                                     </div>
                                     <div class="tab-pane p-3" id="tabs-2" role="tabpanel">
                                         <ol class="pl-3">
-                                            <li>You can undertake a search for an Escort [for Escort page] Massage Centre
-                                                [for Massage
-                                                Centre page] within your Location, which is the default, or Australia wide
+                                            <li>You can undertake a search for an Massage Centre within your Location, which is the default, or Australia wide
                                                 by selecting ‘Australia’.</li>
                                             <li>Searching by Member ID is the most efficient manner. </li>
                                         </ol>
                                     </div>
                                     <div class="tab-pane p-3" id="tabs-3" role="tabpanel">
-                                        <p><b>The Shortlist feature will only remain current for the session. You can:</b></p>
+                                        <p>The Shortlist feature will only remain current for the session. You can:</p>
                                         <ol class="pl-3">
                                             <li>Add or remove Profiles by clicking the Short List button displayed on the
                                                 Profile.</li>

@@ -9,11 +9,13 @@ use App\Models\Escort;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\EscortMedia;
+use App\Models\EscortStatistics;
 use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 if (!function_exists('calculateTatalFee')) {
     /**
@@ -469,3 +471,86 @@ if (!function_exists('error_response')) {
     }
 }
 
+// if (!function_exists('get_user_ip_adrress')) {
+
+//     function get_user_ip_adrress() {
+//         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+//             $ip = $_SERVER['HTTP_CLIENT_IP'];
+//         } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+//             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+//         } else {
+//             $ip = $_SERVER['REMOTE_ADDR'];
+//         }
+//         return $ip;
+//     }
+// }
+
+if (!function_exists('saving_escort_stats')) {
+
+    function saving_escort_stats($userId, $escortId, $profileViewType)
+    {
+        $today     = now(config('app.escort_server_timezone'))->toDateString();
+        $todayDateUnderscore = str_replace('-', '_', $today);
+
+        # --- Clear yesterday's escort session keys ---
+        if (Session::get('last_session_date') !== $today) {
+            # Only clear escort-related session keys, keep other session data safe
+            foreach (Session::all() as $key => $value) {
+                if (str_starts_with($key, 'escort_stat_')) {
+                    Session::forget($key);
+                }
+            }
+            Session::put('last_session_date', $today);
+            Session::save();
+        }
+
+        # --- Unique session key per escort per day ---
+        $sessionKey = "escort_id_{$escortId}_date_{$todayDateUnderscore}_".$profileViewType;
+
+        # Already profile viewed today?
+        if (Session::get($sessionKey) === $sessionKey) {
+            return false; // Already counted
+        }
+
+        # Save session for this escort
+        Session::put([$sessionKey => $sessionKey]);
+        Session::save(); // media_views_count
+
+        $field = [
+            'profile_views_count' => $profileViewType == 'profile_views_count' ? 1 : 0,
+            'media_views_count' => $profileViewType == 'media_views_count' ? 1 : 0, 
+            'playbox_views_count' => $profileViewType == 'playbox_views_count' ? 1 : 0,
+            'reviews_count' => $profileViewType == 'reviews_count' ? 1 : 0,
+            'recommendation_count' => $profileViewType == 'recommendation_count' ? 1 : 0,
+        ];
+
+        // --- Update statistics in DB ---
+        $stat = EscortStatistics::where('user_id', $userId)
+            ->where('escort_id', $escortId)
+            ->where('date', $today)
+            ->first();
+
+        if ($stat) {
+            $stat->profile_views_count  += $field['profile_views_count'] ?? 0;
+            $stat->media_views_count    += $field['media_views_count'] ?? 0;
+            $stat->playbox_views_count  += $field['playbox_views_count'] ?? 0;
+            $stat->reviews_count        += $field['reviews_count'] ?? 0;
+            $stat->recommendation_count += $field['recommendation_count'] ?? 0;
+            $stat->save();
+        } else {
+            EscortStatistics::create([
+                'user_id'               => $userId,
+                'escort_id'             => $escortId,
+                'date'                  => $today,
+                'profile_views_count'   => $field['profile_views_count'] ?? 0,
+                'media_views_count'     => $field['media_views_count'] ?? 0,
+                'playbox_views_count'   => $field['playbox_views_count'] ?? 0,
+                'reviews_count'         => $field['reviews_count'] ?? 0,
+                'recommendation_count'  => $field['recommendation_count'] ?? 0,
+            ]);
+        }
+
+        return true;
+    }
+     
+}

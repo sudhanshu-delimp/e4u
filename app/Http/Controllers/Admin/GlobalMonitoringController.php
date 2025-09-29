@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Escort;
 use App\Models\MassageProfile;
 use App\Models\EscortPinup;
+use App\Models\EscortViewerInteractions;
+use App\Models\SuspendProfile;
 use App\Repositories\Escort\EscortInterface;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 use App\Repositories\Service\ServiceInterface;
@@ -15,6 +17,7 @@ use Illuminate\Support\Facades\Cache;
 use Exception;
 // use Yajra\DataTables\Facades\DataTables;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class GlobalMonitoringController extends Controller
 {
@@ -437,32 +440,7 @@ class GlobalMonitoringController extends Controller
         $recordTotal = 0;
         $dataTableData = [];
 
-        $result = Escort::with([
-            'user',
-            'purchase' => function ($query) use ($type, $ascDesc) {
-                if ($type == 'past') {
-                    $query->where('end_date', '<', date('Y-m-d'));
-                    $ascDesc = 'DESC';
-                } else {
-                    $query->where('end_date', '>=', date('Y-m-d'));
-                }
-
-                $query->orderBy('start_date', $ascDesc);
-            },
-            'Brb' => function ($query) {
-                $query->where('brb_time', '>', date('Y-m-d H:i:s'))
-                    ->where('active', 'Y')
-                    ->orderBy('brb_time', 'desc');
-            },
-            'suspendProfile' => function ($query) {
-                $today = Carbon::now(config('app.timezone'));
-                $query->where('utc_start_date', '<=', $today)
-                    ->where('utc_end_date', '>=', $today)
-                    ->where('status', true);
-            }
-        ])
-            ->whereHas('purchase')
-            ->where('profile_name', '!=', null);
+        $result = $this->escortListedProfile(null);
 
         if ($search) {
             $result = $result->where(function ($query) use ($search) {
@@ -475,163 +453,89 @@ class GlobalMonitoringController extends Controller
 
         $result = $result->get()->toArray();
 
-        // For count
-        $resultNoLImit = Escort::with(['user', 'purchase' => function ($query2) use ($type, $ascDesc) {
-            if ($type == 'past') {
-                $query2->where('end_date', '<', date('Y-m-d'));
-                $ascDesc = 'DESC';
-            } else {
-                $query2->where('end_date', '>=', date('Y-m-d'));
-            }
-            $query2->orderBy('start_date', $ascDesc);
-        }])
-            ->whereHas('purchase')
-            ->with([
-                'Brb' => function ($query2) {
-                    $query2->where('brb_time', '>', date('Y-m-d H:i:s'))->where('active', 'Y')->orderBy('brb_time', 'desc');
-                }
-            ])
-            ->where('profile_name', '!=', null);
+        foreach ($result as $index=>$escort) {
+            if (!empty($escort['purchase'])) {
+                $days = 0;
+                $left = 0;
+                $totalAmount = 0;
 
-        if ($search) {
-            $resultNoLImit = $resultNoLImit->where(function ($query2) use ($search) {
-                $query2->where('id', 'like', "%{$search}%")
-                    ->orWhere('profile_name', 'LIKE', "%{$search}%")
-                    ->orWhere('name', 'LIKE', "%{$search}%");
-            });
-        }
-        $resultNoLImit = $resultNoLImit->get();
-        foreach ($resultNoLImit as $escort2) {
-            if ($escort2['purchase']) {
-
-                foreach ($escort2['purchase'] as $purchase2) {
-                    $recordTotal++;
-                }
-            }
-        }
-
-        $i = 1;
-
-        foreach ($result as $escort) {
-            if ($escort['purchase']) {
                 foreach ($escort['purchase'] as $purchase) {
-                    $daysDiff = 0;
-                    $brb = $escort['profile_name'];
-                    $totalAmount = 0;
-                    if (isset($escort['brb'][0]['brb_time'])) {
-                        $brb =
-                            '<span id="brb_' .
-                            $escort['id'] .
-                            '" >' .
-                            $escort['profile_name'] .
-                            ' <sup
-                                            title="Brb at ' .
-                            date(
-                                'd-m-Y h:i A',
-                                strtotime($escort['brb'][0]['brb_time']),
-                            ) .
-                            '"
-                                            class="brb_icon">BRB</sup></span>';
-                    }
-                    // if (!empty($purchase['start_date'])) {
-                    //     $daysDiff = Carbon::parse(
-                    //         $purchase['end_date'],
-                    //     )->diffInDays(Carbon::parse($purchase['start_date']));
-                    //     if ($purchase['start_date'] == $purchase['end_date']) {
-                    //         $daysDiff = 1;
-                    //     }
-                    //     [$discount, $rate] = calculateTatalFee(
-                    //         $purchase['membership'],
-                    //         $daysDiff,
-                    //     );
-                    //     $totalAmount = $rate;
-                    //     $totalAmount -= $discount;
-                    //     $totalAmount = formatIndianCurrency($totalAmount);
-                    // }
-                    //dd($escort['user']['member_id']);
-                    $memberId = isset($escort['user']['member_id']) ? $escort['user']['member_id'] : '';
+                    # Dates calculation
+                    $startDate = Carbon::parse($purchase['utc_start_time']);
+                    $endDate   = Carbon::parse($purchase['utc_end_time']);
+                    $now       = Carbon::now();
 
-                    # date calucaltion 
-                    $startDate = Carbon::parse(date('d-m-Y', strtotime($purchase['start_date'])))->startOfDay();
-                    $endDate = Carbon::parse(date('d-m-Y', strtotime($purchase['end_date'])))->startOfDay();
-                    $now = Carbon::now()->startOfDay();
-                    $left = $endDate->diffInDays($now) + 1;   
-                    $days = 0;
+                    $days += $endDate->gte($startDate) ? $startDate->diffInDays($endDate) + 1 : 0;
 
-                    if($startDate > $now){
+                    if ($startDate > $now) {
                         $left = '-';
-                    }
-                    
-                    if($endDate < $now){
+                    } elseif ($endDate < $now) {
                         $left = 0;
+                    } else {
+                        $left = $endDate->diffInDays($now) + 1;
                     }
 
-                    if ($startDate && $endDate) {
-                        // If end_date is after or equal to start_date, calculate days (inclusive)
-                        if ($endDate->gte($startDate)) {
-                            $days = $startDate->diffInDays($endDate) + 1 ;
-                        }
-                    }
-
-                    if(count($escort['suspend_profile']) > 0){
-                        # get timezone of escort
-                        // $escortTimezone = config('app.escort_server_timezone');
-                        // if($escort && $escort['state_id'] && $escort['city_id']){
-                        //     $escortTimezone = config('escorts.profile.states')[$escort['state_id']]['cities'][$escort['city_id']]['timeZone'];
-                        // }
-
-                        $suspensionBadge = "<sup title='Suspended Form " . Carbon::parse($escort['suspend_profile'][0]['start_date'])->format('d-m-Y h:i A') . ' To '.Carbon::parse($escort['suspend_profile'][0]['end_date'])->format('d-m-Y h:i A').
-                        "' class='brb_icon' style='background-color: #2e59d9;'>SUS</sup></span>";
-                    }else{
-                        $suspensionBadge = '';
-                    }
-
-                    $dataTableData[] = [
-                        //'sl_no' => $i++,
-                        'id' => $escort['id'],
-                        'total_record' => intval($recordTotal),
-                        'server_time' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
-                        'member_id' => $memberId,
-                        'member' => $escort['name'],
-                        //  'city' => config(
-                        //     "escorts.profile.states.$escort[state_id].stateName",
-                        // ),
-                        'city' =>
-                        config(
-                            "escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName",
-                        ),
-                        'profile_name' => $escort['profile_name'] ? $brb. $suspensionBadge : 'NA',
-                        //'city' =>
-                        // config(
-                        //     "escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName",
-                        // ) .
-                        //     '<br>' .
-                        //     config("escorts.profile.states.$escort[state_id].stateName"),
-
-                        'type' => $purchase['membership'] ? getMembershipType($purchase['membership']) : "NA",
-                        'start_date' => date(
-                            'd-m-Y',
-                            strtotime($purchase['start_date']),
-                        ),
-                        'end_date' => date('d-m-Y', strtotime($purchase['end_date'])),
-                        'days' => $days,
-                        // 'membership' => $purchase['membership'] ? getMembershipType($purchase['membership']) : "NA",
-                        // 'fee' => $totalAmount,
-                        'left_days' => $left,
-                        'fee' => $totalAmount,
-                        'upTime' => $this->getAppUptime(),
-
-                    ];
+                    // Add fee if exists (assuming purchase has 'amount')
+                    $totalAmount += $purchase['amount'] ?? 0;
                 }
+
+                $badgeEscort = Escort::where('id', $escort['id'])->first();
+
+                # BRB badge
+                $brbBadge = '';
+                if (!empty($escort['brb'][0]['selected_time'])) {
+                    $brbBadge = "<sup class='brb_icon listing-tag-tooltip ml-1'>BRB <small class='listing-tag-tooltip-desc'>Brb  " . date('d-m-Y h:i A', strtotime($escort['brb'][0]['selected_time']))."</small></sup>";
+                }
+
+                # Suspension badge
+                $suspensionBadge = '';
+                if (!empty($badgeEscort->activeUpcomingSuspend)) {
+                    $suspensionBadge = '<sup class="suspend_icon listing-tag-tooltip ml-1">SUS
+                    <small class="listing-tag-tooltip-desc">Suspend from ' . date("d-m-Y", strtotime($badgeEscort->activeUpcomingSuspend->start_date)) . " to ".date("d-m-Y", strtotime($badgeEscort->activeUpcomingSuspend->end_date)).'</small>
+                    </sup>';
+                }
+
+                # Extended badge
+                $extendBadge = '';
+                
+                if (!empty($badgeEscort->isListingExtended()) && $badgeEscort->isListingExtended()->count > 0) {
+                    $extendBadge = '<sup class="extend_icon listing-tag-tooltip ml-1">Extend
+                <small class="listing-tag-tooltip-desc">Extended from ' . date("d-m-Y", strtotime($badgeEscort->start_date)) . " to ".date("d-m-Y", strtotime($badgeEscort->end_date)).'</small>
+                </sup>';
+                }
+
+                # Pinup badge
+                $pinupBadge = '';
+                if($badgeEscort->latestActivePinup){
+                    $pinupBadge = '<sup class="pinup_icon listing-tag-tooltip ml-1">Pin Up
+                    <small class="listing-tag-tooltip-desc">Pinup from ' . date("d-m-Y", strtotime($badgeEscort->latestActivePinup->start_date)) . " to ".date("d-m-Y", strtotime($badgeEscort->latestActivePinup->end_date)).'</small>
+                    </sup>';
+                }
+
+                # Member Id
+                $memberId = $escort['user']['member_id'] ?? '';
+
+                # Add row to DataTable once per escort
+                $dataTableData[] = [
+                    'id'           => $escort['id'],
+                    'total_record' => intval($recordTotal),
+                    'server_time'  => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
+                    'member_id'    => $memberId,
+                    'member'       => $escort['name'],
+                    'city'         => config("escorts.profile.states.$escort[state_id].cities.$escort[city_id].cityName"),
+                    'profile_name' => $escort['profile_name'] ? $escort['profile_name'] . $brbBadge. $suspensionBadge . $extendBadge . $pinupBadge : 'NA',
+                    'type'         => !empty($escort['purchase'][0]['membership'])
+                                        ? getMembershipType($escort['purchase'][0]['membership'])
+                                        : "NA",
+                    'start_date'   => date('d-m-Y', strtotime($escort['purchase'][0]['start_date'])),
+                    'end_date'     => date('d-m-Y', strtotime($escort['purchase'][0]['end_date'])),
+                    'days'         => $days,
+                    'left_days'    => $left,
+                    'fee'          => $totalAmount,
+                    'upTime'       => $this->getAppUptime(),
+                ];
             }
         }
-        // print_r($dataTableData);die;
-        $data = array(
-            "draw"            => intval(request()->input('draw')),
-            "recordsTotal"    => intval($recordTotal),
-            "recordsFiltered" => intval($recordTotal),
-            "data"            => $dataTableData
-        );
 
         $actionButtons = `<div class="dropdown no-arrow ml-3">
                                     <input type="hidden" class="tortalRecords" value="` . $recordTotal . `">
@@ -661,33 +565,43 @@ class GlobalMonitoringController extends Controller
             ->rawColumns(['profile_name'])
             ->make(true);
     }
+
+    public function escortListedProfile($escortId)
+    {
+        if($escortId != null){
+            $escorts = Escort::where('id',$escortId)->with(['durations','purchase','user','brb' => function ($query) {
+                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                },'pinup','suspendProfile'])->whereIn('membership', ['1','2','3']);
+            
+        }else{
+            $escorts = Escort::with(['durations','purchase','user','brb' => function ($query) {
+                    $query->where('brb_time', '>', Carbon::now('UTC'))->where('active', 'Y')->orderBy('brb_time', 'desc');
+                },'pinup','suspendProfile'])->whereIn('membership', ['1','2','3']);
+        }
+        
+        
+        // # Get suspended escort profile only
+        // $suspendProfileIds = SuspendProfile::where('utc_start_date', '<=', Carbon::now('UTC'))
+        // ->where('utc_end_date', '>=', Carbon::now('UTC'))
+        // ->pluck('escort_profile_id')
+        // ->unique();
+
+        // # Suspend by admin console through report by viewers
+        // $query = $escorts
+        //         ->with('suspendProfile')
+        //         ->whereHas('user', function($q) {
+        //             $q->where('status', 1);
+        //         })
+        //     ->whereNotIn('id', $suspendProfileIds);  
+
+            $escorts->where('enabled', 1);
+    
+        return $escorts;
+    }
     
     public function dataTableEscortSingleListingAjax($id)
     {
-        $type = 'current';
-        $ascDesc = 'DESC';
-
-        $result = Escort::with([
-            'user',
-            'purchase' => function ($query) use ($type, $ascDesc) {
-                if ($type == 'past') {
-                    $query->where('end_date', '<', date('Y-m-d'));
-                    $ascDesc = 'DESC';
-                } else {
-                    $query->where('end_date', '>=', date('Y-m-d'));
-                }
-
-                $query->orderBy('start_date', $ascDesc);
-            },
-            'Brb' => function ($query) {
-                $query->where('brb_time', '>', date('Y-m-d H:i:s'))
-                    ->where('active', 'Y')
-                    ->orderBy('brb_time', 'desc');
-            }
-        ])
-            ->whereHas('purchase')
-            ->where('profile_name', '!=', null)
-            ->where('id', $id);
+        $result = $this->escortListedProfile($id);
 
         $escort = $result->first()->toArray();
         $dataTableData = [];
@@ -712,21 +626,6 @@ class GlobalMonitoringController extends Controller
                         '"
                                             class="brb_icon">BRB</sup></span>';
                 }
-                // if (!empty($purchase['start_date'])) {
-                //     $daysDiff = Carbon::parse(
-                //         $purchase['end_date'],
-                //     )->diffInDays(Carbon::parse($purchase['start_date']));
-                //     if ($purchase['start_date'] == $purchase['end_date']) {
-                //         $daysDiff = 1;
-                //     }
-                //     [$discount, $rate] = calculateTatalFee(
-                //         $purchase['membership'],
-                //         $daysDiff,
-                //     );
-                //     $totalAmount = $rate;
-                //     $totalAmount -= $discount;
-                //     $totalAmount = formatIndianCurrency($totalAmount);
-                // }
 
                 # date calucaltion 
                 $startDate = Carbon::parse(date('d-m-Y', strtotime($purchase['start_date'])))->startOfDay();
@@ -744,7 +643,7 @@ class GlobalMonitoringController extends Controller
                 }
 
                 if ($startDate && $endDate) {
-                    // If end_date is after or equal to start_date, calculate days (inclusive)
+                    # If end_date is after or equal to start_date, calculate days (inclusive)
                     if ($endDate->gte($startDate)) {
                         $days = $startDate->diffInDays($endDate) + 1 ;
                     }
