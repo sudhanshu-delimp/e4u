@@ -110,7 +110,7 @@
                     <h5 class="modal-title">
                         <img src="{{ asset('assets/dashboard/img/search.png') }}"
                         class="custompopicon">
-                        <span class="text-white">Search</span>
+                        <span class="text-white">Search </span>
                     </h5>
 
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

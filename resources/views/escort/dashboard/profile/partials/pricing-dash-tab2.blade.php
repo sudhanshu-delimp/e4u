@@ -124,7 +124,7 @@
                     </div>
                     
                     <div class="text-right mt-3">
-                        <button type="submit" class="save_profile_btn" id="escort-form-submit-btn">Pay</button>
+                        <button type="submit" class="save_profile_btn mr-0" id="escort-form-submit-btn">Pay</button>
                     </div>
                 </div>                
             </div>
