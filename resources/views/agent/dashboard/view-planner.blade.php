@@ -97,7 +97,7 @@
         selectable: false,
         eventDisplay: 'block',
         displayEventTime: false,
-        editable: true,
+       // editable: true,
         eventDurationEditable: false,
         snapDuration: '00:30:00',
         events: {
@@ -107,40 +107,40 @@
             console.error('Failed to load calendar events.');
           }
         },
-        eventDrop: function(info) {
-          // Reschedule via AJAX when an event is dragged to a new date
-          var revert = function(){ info.revert(); };
-          var event = info.event;
-          var id = event.id;
-          if (!id) { return revert(); }
-          var start = event.start; // Date object
-          if (!start) { return revert(); }
-          // Build payload: date YYYY-MM-DD, time HH:mm (24h)
-          var pad = function(n){ return (n<10?('0'+n):''+n); };
-          var date = start.getFullYear() + '-' + pad(start.getMonth()+1) + '-' + pad(start.getDate());
-          var time = pad(start.getHours()) + ':' + pad(start.getMinutes());
+        // eventDrop: function(info) {
+        //   // Reschedule via AJAX when an event is dragged to a new date
+        //   var revert = function(){ info.revert(); };
+        //   var event = info.event;
+        //   var id = event.id;
+        //   if (!id) { return revert(); }
+        //   var start = event.start; // Date object
+        //   if (!start) { return revert(); }
+        //   // Build payload: date YYYY-MM-DD, time HH:mm (24h)
+        //   var pad = function(n){ return (n<10?('0'+n):''+n); };
+        //   var date = start.getFullYear() + '-' + pad(start.getMonth()+1) + '-' + pad(start.getDate());
+        //   var time = pad(start.getHours()) + ':' + pad(start.getMinutes());
 
-          var url = '{{ route('agent.appointments.reschedule', ['id' => '___ID___']) }}'.replace('___ID___', id);
-          var csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-          $.ajax({
-            url: url,
-            method: 'POST',
-            dataType: 'json',
-            headers: { 'X-CSRF-TOKEN': csrf },
-            data: { date: date, time: time },
-            success: function(resp) {
-              if (!resp || resp.status !== true) {
-                revert();
-                return;
-              }
-              // Refresh events to reflect any server-side changes
-              calendar.refetchEvents();
-            },
-            error: function() {
-              revert();
-            }
-          });
-        },
+        //   var url = '{{ route('agent.appointments.reschedule', ['id' => '___ID___']) }}'.replace('___ID___', id);
+        //   var csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+        //   $.ajax({
+        //     url: url,
+        //     method: 'POST',
+        //     dataType: 'json',
+        //     headers: { 'X-CSRF-TOKEN': csrf },
+        //     data: { date: date, time: time },
+        //     success: function(resp) {
+        //       if (!resp || resp.status !== true) {
+        //         revert();
+        //         return;
+        //       }
+        //       // Refresh events to reflect any server-side changes
+        //       calendar.refetchEvents();
+        //     },
+        //     error: function() {
+        //       revert();
+        //     }
+        //   });
+        // },
         eventClick: function(info) {
           info.jsEvent.preventDefault();
           const id = info.event.id;
