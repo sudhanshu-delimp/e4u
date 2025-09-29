@@ -501,7 +501,8 @@
                                             <input id="edit_date" name="appointment_date"  type="date"
                                             class="form-control" 
                                             required
-                                            min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" >
+                                            {{-- min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"  --}}
+                                            >
                                         </div>
 
                                         <!-- Time Slot -->
