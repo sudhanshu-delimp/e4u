@@ -186,7 +186,9 @@ class AppointmentController extends Controller
         $appointment = Appointment::with(['advertiser:id,name'])
             ->select([
                 'appointments.*', // select all columns
-                DB::raw("DATE_FORMAT(appointments.date, '%H:%i') as formatted_time"),
+                // NEW: Formatted Start Time (e.g., 10:00 AM)
+                DB::raw("DATE_FORMAT(appointments.start_time, '%h:%i %p') as formatted_start_time"),
+                DB::raw("DATE_FORMAT(appointments.end_time, '%h:%i %p') as formatted_end_time"),
                 DB::raw("DATE_FORMAT(appointments.created_at, '%m-%d-%Y') as created_at_formatted")
             ])
             ->find($id);

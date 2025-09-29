@@ -622,13 +622,13 @@
                         <div class="row" id="task_form_button">
                             <div class="task-form-wrapper mx-auto mb-4 col-md-11" style="cursor:pointer;">
                                 <div class="col-md-12 card shadow-sm rounded-3">
-                                    <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10"
+                                    {{-- <div class="toggle-task-form card-header cursor-pointer text-white d-flex justify-content-between align-items-center g-10"
                                         style="background:#C2CFE0;">
                                         <h6 class="mb-0 text-dark">View Appointment</h6>
                                         <i class="top-icon-bg fas fa-chevron-down fa-fw"></i>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="task-form-body p-2" style="display: block; height:350px; overflow:auto;">
+                                    <div class="task-form-body p-2" style="display: block; ">
                                         <!-- Hidden Task ID -->
                                         <input name="task_id" value="31" type="hidden">
 
@@ -645,9 +645,15 @@
 
                                         <!-- Time -->
                                         <div class="form-group">
-                                            <label for="view_time"><b>Time</b><span class="text-danger">*</span></label>
-                                            <input id="view_time" name="appointment_time" type="text" class="form-control" readonly>
+                                            <label>Appointment Time:</label>
+                                            <p id="view_appointment_time_display" class="form-control-static">--</p>
                                         </div>
+
+                                        {{-- <div class="form-group">
+                                            <label>Location:</label>
+                                            <p id="view_appointment_address_display" class="form-control-static">--</p>
+                                            <div id="view_map_container" style="height: 300px; width: 100%; border: 1px solid #ccc; margin-top: 10px;"></div>
+                                        </div> --}}
                                         <!-- Advertiser -->
                                         <!-- Address + Google Maps -->
                                         <div class="form-group">
@@ -1490,6 +1496,8 @@
             currentAppointmentId = $(this).data('id');
             ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
                 var a = resp.data || {};
+                 const timeDisplay = `${a.formatted_start_time || 'N/A'} - ${a.formatted_end_time || 'N/A'}`;
+                $('#view_appointment_time_display').text(timeDisplay);
                 $('#view_date').val(a.date);
                 $('#view_time').val(a.time);
                 $('#view_advertiser').val(a.advertiser_id);
@@ -1501,6 +1509,7 @@
                 $('#view_summary').val(a.summary);
                 $('#view_source').val((a.source || '').charAt(0).toUpperCase()+ (a.source || '').slice(1));
                 $("#view_appointment .task_priority[value="+ (a.importance || 'medium') + "]").prop('checked', true);
+
             }, function(xhr){ console.log('load view failed', xhr); });
         });
 
