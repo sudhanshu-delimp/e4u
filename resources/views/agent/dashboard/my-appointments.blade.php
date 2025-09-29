@@ -375,7 +375,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <form method="POST" action="#">
+                    <form method="POST" action="#" id="rescheduleAppointmentForm" data-parsley-validate>
                         <div class="row" id="task_form_button">
                             <div class="col-md-12 mb-3">
                                 <input type="hidden" id="reschedule_appointment_id" name="reschedule_advertiser_id" value="">
@@ -1595,19 +1595,22 @@
         // Submit Reschedule
         $('#reschedule_appointment form').on('submit', function(e){
             e.preventDefault();
-            if (!currentAppointmentId) { return; }
+            var appointmentId = $('#reschedule_appointment_id').val();
+            if (!appointmentId) { 
+                alert('No appointment selected for reschedule');
+                return; 
+            }
             var payload = {
                 date: $('#reschedule_date').val(),
                 start_time: $('#reschedule_start_time').val(),    
                 end_time: $('#reschedule_end_time').val()
             };
-            console.log(payload);
 
-            if(!$('#reschedule_start_time').val() || !$('#reschedule_end_time').val()) {
+            if(!payload.start_time || !payload.end_time) {
                 alert('Please select one or more continuous 30-minute slots.');
                 return;
             }
-            ajaxRequest(urlFor(endpoint.reschedule_tpl, currentAppointmentId), payload, 'POST', endpoint.csrf_token, function(resp){
+            ajaxRequest(urlFor(endpoint.reschedule_tpl, appointmentId), payload, 'POST', endpoint.csrf_token, function(resp){
                 $('#reschedule_appointment').modal('hide');
                 $('#success_task_title').text('Success');
                 $('#image_icon').attr('src', endpoint.success_image);
