@@ -71,6 +71,9 @@ class EscortStatisticsController extends Controller
             $myStatistics['profile_statistics_profile_views_today'] = $escortStatistics->where('date', $today->toDateString())->sum('profile_views_count');
 
             $myStatistics['profile_statistics_profile_views_this_week'] = $escortStatistics->whereBetween('date', [$lastWeekStart->toDateString(), $lastWeekEnd->toDateString()])->sum('profile_views_count');
+            $myStatistics['mystatistics_recommendations_this_week'] = $escortStatistics->whereBetween('date', [$lastWeekStart->toDateString(), $lastWeekEnd->toDateString()])->sum('recommendation_count');
+
+            
 
             $myStatistics['profile_statistics_profile_year_to_date'] = $escortStatistics->whereBetween('date', [$lastYearStart->toDateString(), $lastYearEnd->toDateString()])->sum('profile_views_count');
 
@@ -85,8 +88,6 @@ class EscortStatisticsController extends Controller
             $myStatistics['mystatistics_media_views_today'] = $escortStatistics->where('date', $today->toDateString())->sum('media_views_count');
             $myStatistics['media_statistics_media_views_this_week'] = $escortStatistics->whereBetween('date', [$lastWeekStart->toDateString(), $lastWeekEnd->toDateString()])->sum('media_views_count');
             $myStatistics['media_statistics_media_year_to_date'] = $escortStatistics->whereBetween('date', [$lastYearStart->toDateString(), $lastYearEnd->toDateString()])->sum('media_views_count');
-
-            // dd($myStatistics['media_statistics_media_views_today']);
 
             # Recommendation statistics - waynes ( reviews + likes from logged in users only)
             $myStatistics['feedback_recommendations_today'] = $escortStatistics->where('date', $today->toDateString())->sum('recommendation_count');

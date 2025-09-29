@@ -344,6 +344,7 @@ Route::get('/escort-profile/{id}/{city?}/{membershipId?}', [App\Http\Controllers
 Route::get('/center-profile/{id}', [App\Http\Controllers\WebController::class,'centerProfileDescription'])->name('center.profile.description');
 Route::post('/store-message/{id}', [App\Http\Controllers\Escort\MessageReviewController::class,'saveMessage'])->name('store.message');
 Route::post('/review-advertiser/{id}', [App\Http\Controllers\Escort\MessageReviewController::class,'SaveReviewAdvertiser'])->name('review.advertiser');
+Route::get('/save-advertiser-stats', [WebController::class,'saveAdvertiserStats'])->name('save.escort.stats');
 
 /********** Advertiser spam report by viewer **********/
 Route::get('/advertiser-get-spam-report', [AdvertiserSpamReportController::class,'getSpamReportForAdvertiser'])->name('advertiser.get.spam.report');

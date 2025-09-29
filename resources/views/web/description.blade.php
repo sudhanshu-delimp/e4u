@@ -2158,8 +2158,29 @@ $('#exampleModal').on('hidden.bs.modal', function () {
 $('#exampleModal').on('shown.bs.modal', function () {
     console.log("Modal opened:", $(this).attr('id'));
     // add media view count while open modal
-    {{ saving_escort_stats($escort->user->id, $escort->id,'media_views_count') }} 
+    var formData = {
+        'escort_id' : '{{$escort->id}}',
+        'user_id' : '{{$escort->user->id}}'  
+    };
+
+    let url = "{{ route('save.escort.stats')}}";
+    saveEscortAjaxStats(formData, url, 'GET');
 });
+
+function saveEscortAjaxStats(formData, url, type)
+{
+    $.ajax({
+        method: type,
+        url: url,
+        data: formData,
+        contentType: type === 'GET' ? 'application/x-www-form-urlencoded; charset=UTF-8' : false,
+        processData: type === 'GET',
+        headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
+        success: function (response) {
+            console.log(response);  
+        }
+    });
+}
 
 </script>
 @endpush

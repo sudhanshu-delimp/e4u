@@ -514,7 +514,7 @@ if (!function_exists('saving_escort_stats')) {
 
         # Save session for this escort
         Session::put([$sessionKey => $sessionKey]);
-        Session::save();
+        Session::save(); // media_views_count
 
         $field = [
             'profile_views_count' => $profileViewType == 'profile_views_count' ? 1 : 0,

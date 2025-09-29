@@ -70,9 +70,10 @@ class MessageReviewController extends Controller
             $data = 'You are not allowed to give review';
         }
 
-        # add statistics for escort profile view
+        # add statistics for escort profile view and added stats for reviews and recommendation
         $userId = Escort::where('id', $escort_id)->pluck('user_id');
         saving_escort_stats($userId, $escort_id,'reviews_count');
+        saving_escort_stats($userId, $escort_id,'recommendation_count');
 
         return response()->json(compact('data','error'));
     }
