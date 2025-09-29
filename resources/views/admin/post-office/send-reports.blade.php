@@ -19,261 +19,255 @@
 </style>
 @endsection
 @section('content')
-<div id="wrapper">
-   <div id="content-wrapper" class="d-flex flex-column">
-      <div id="content">
-        <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-            <!--middle content-->
-            <div class="row">
-                <div class="custom-heading-wrapper col-md-12">
-                    <h1 class="h1">New Communication</h1>
-                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
-                </div>
-                <div class="col-md-12 mb-4">
-                    <div class="card collapse" id="notes">
-                        <div class="card-body">
-                            <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                            <ol>
-                            <li>The Post Office is a repository of all template emails deployed in the Website, be it
-                            auto-generated or manual generated.</li>
-                            <li>Select the template you wish to use and then click the Preview button to view the
-                            template in full before you deploy it, ensuring you have selected the correct template.</li>
-                            <li>You can preview the recipients to check you have the correct Members before emailing
-                            the recipients.</li>
-                            </ol>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">                    
-                    <div class="email-content">
-                        <h2>Email Content</h2>
-                        <div class="section-one">
-                            <div class="form-group">
-                                <label for="template">Use Template</label>
-                                <select id="template">
-                                    <option>--- Select Template ---</option>
-                                    <option>Mobile SIM</option>
-                                    <option>Offer Alert</option>
-                                    <option>Reminder</option>
-                                </select>
-                            </div>
-
-                            <button onclick="previewTemplate()" type="button" data-toggle="modal" data-target="#previewTemplate">Preview</button>
-                        </div>
-                        <div class="common-section">
-                            <div class="form-group">
-                                <label for="additionalText">Additional Text</label>
-                                <textarea id="additionalText" rows="3" placeholder="Add extra info here..."></textarea>
-                            </div>
-                        </div>
-
-                        <h3>Filter Member Types</h3>
-                        <div class="filter-row">
-                            <label>Member Type</label>
-                            <div class="radio-group">
-                                <label><input type="radio" name="memberType" checked> All</label>
-                                <label><input type="radio" name="memberType"> Female</label>
-                                <label><input type="radio" name="memberType"> Male</label>
-                                <label><input type="radio" name="memberType"> Trans</label>
-                                <label><input type="radio" name="memberType"> Center</label>
-                                <label><input type="radio" name="memberType"> Viewer</label>
-                                <label><input type="radio" name="memberType"> Agent</label>
-                            </div>
-                        </div>
-
-                        <div class="common-section">
-                            <div class="form-group">
-                                <label for="location">Location</label>
-                                <select id="location">
-                                    <option>All</option>
-                                    <option>New South Wales</option>
-                                    <option>Western Australia</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <h3>Filter Users</h3>
-                        <div class="filter-row">
-                            <label>User Status</label>
-                            <div class="radio-group">
-                                <label><input type="radio" name="userStatus" checked> Enabled</label>
-                                <label><input type="radio" name="userStatus"> Suspended</label>
-                                <label><input type="radio" name="userStatus"> Inactive</label>
-                                <label><input type="radio" name="userStatus"> All</label>
-                            </div>
-                        </div>
-
-                        <div class="filter-row">
-                            <label>User Emails</label>
-                            <div class="radio-group">
-                                <label><input type="radio" name="emailType" checked> All</label>
-                                <label><input type="radio" name="emailType"> Australian</label>
-                                <label><input type="radio" name="emailType"> Generic</label>
-                                <label><input type="radio" name="emailType"> E4U</label>
-                            </div>
-                        </div>
-                        <div class="common-section">
-
-                            <div class="form-group">
-                                <label for="user">Select User</label>
-                                <select id="user">
-                                    <option>All</option>
-                                    <option>E60123 - Joy</option>
-                                    <option>E20158 - Mary</option>
-                                </select>
-                            </div>
-                        </div>
-                        <h3>Options</h3>
-                        <div class="common-section">
-                            <div class="form-group">
-                                <label for="copy">Copy To</label>
-                                <select id="copy" name="copy[]" multiple size="3">
-                                    <option value="wayne@blackboxtech.com.au" selected>wayne@blackboxtech.com.au</option>
-                                    <option value="xyz@blackboxtech.com.au">xyz@blackboxtech.com.au</option>
-                                    <option value="abs@blackboxtech.com.au">abs@blackboxtech.com.au</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="common-section">
-                            <div class="form-group">
-                                <label>Trial Run Only</label>
-                                <div class="radio-group">
-                                    <label><input type="radio" name="trialRun" checked> On</label>
-                                    <label><input type="radio" name="trialRun"> Off</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="buttons">
-                            <button onclick="showRecipients()">Show Recipients</button>
-                            <button class="primary">Email Recipients</button>
-                        </div>
-
-                        <!-- stat recipient-container -->
-                        <div class="recipient-container table-responsive">
-                            <!-- when Email Recipients selected, Trial Run must be On -->
-
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td style="font-weight: bold; width:220px;">Total Recipients:</td>
-                                        <td>2</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: bold; width:220px;">Total Valid Recipients:</td>
-                                        <td>2</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: bold; width:220px;">Total Invalid Recipients:</td>
-                                        <td>0</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Member ID</th>
-                                        <th>Name</th>
-                                        <th>Email address</th>
-                                        <th>Location</th>
-                                        <th>Verified</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1.</td>
-                                        <td>E60123</td>
-                                        <td>Joy</td>
-                                        <td><a href="mailto:Joy@gmail.com">Joy@gmail.com</a></td>
-                                        <td>Western Australia</td>
-                                        <td class="verified">OK</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>E20158</td>
-                                        <td>Mary</td>
-                                        <td><a href="mailto:Mary@e4u.com.au">Mary@e4u.com.au</a></td>
-                                        <td>New South Wales</td>
-                                        <td class="verified">OK</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- when Email Recipients selected, Trial Run must be Off -->
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td style="font-weight: bold; width:220px;">Total attempted emails:</td>
-                                        <td>2</td>
-                                        <td rowspan="6" class="button-cell" style="vertical-align: center; text-align: center;">
-                                            <button class="email-report" type="button" data-toggle="modal" data-target="#emailReport">See Email Report</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: bold; width:220px;">Total successful emails:</td>
-                                        <td>2</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: bold; width:220px;">Total invalid emails:</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: bold; width:220px;">Total failed emails:</td>
-                                        <td>0</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: bold; width:220px;">Total time taken:</td>
-                                        <td>0.068 seconds</td>
-                                    </tr>
-                                    <tr style="font-weight: bold; width:220px;">
-                                        <td>Email run finished at:</td>
-                                        <td>08:36 am.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Member ID</th>
-                                        <th>Name</th>
-                                        <th>Email address</th>
-                                        <th>Location</th>
-                                        <th>Verified</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <tr>
-                                        <td>1.</td>
-                                        <td>E60123</td>
-                                        <td>Joy</td>
-                                        <td><a href="mailto:Joy@gmail.com">Joy@gmail.com</a></td>
-                                        <td>Western Australia</td>
-                                        <td class="verified">OK</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>E20158</td>
-                                        <td>Mary</td>
-                                        <td><a href="mailto:Mary@e4u.com.au">Mary@e4u.com.au</a></td>
-                                        <td>New South Wales</td>
-                                        <td class="verified">OK</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- end -->
-                    </div>  
+<div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
+    <!--middle content-->
+    <div class="row">
+        <div class="custom-heading-wrapper col-md-12">
+            <h1 class="h1">New Communication</h1>
+            <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                    <ol>
+                    <li>The Post Office is a repository of all template emails deployed in the Website, be it
+                    auto-generated or manual generated.</li>
+                    <li>Select the template you wish to use and then click the Preview button to view the
+                    template in full before you deploy it, ensuring you have selected the correct template.</li>
+                    <li>You can preview the recipients to check you have the correct Members before emailing
+                    the recipients.</li>
+                    </ol>
                 </div>
             </div>
         </div>
-      </div>
-   </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">                    
+            <div class="email-content">
+                <h2>Email Content</h2>
+                <div class="section-one">
+                    <div class="form-group">
+                        <label for="template">Use Template</label>
+                        <select id="template">
+                            <option>--- Select Template ---</option>
+                            <option>Mobile SIM</option>
+                            <option>Offer Alert</option>
+                            <option>Reminder</option>
+                        </select>
+                    </div>
+
+                    <button onclick="previewTemplate()" type="button" data-toggle="modal" data-target="#previewTemplate">Preview</button>
+                </div>
+                <div class="common-section">
+                    <div class="form-group">
+                        <label for="additionalText">Additional Text</label>
+                        <textarea id="additionalText" rows="3" placeholder="Add extra info here..."></textarea>
+                    </div>
+                </div>
+
+                <h3>Filter Member Types</h3>
+                <div class="filter-row">
+                    <label>Member Type</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="memberType" checked> All</label>
+                        <label><input type="radio" name="memberType"> Female</label>
+                        <label><input type="radio" name="memberType"> Male</label>
+                        <label><input type="radio" name="memberType"> Trans</label>
+                        <label><input type="radio" name="memberType"> Center</label>
+                        <label><input type="radio" name="memberType"> Viewer</label>
+                        <label><input type="radio" name="memberType"> Agent</label>
+                    </div>
+                </div>
+
+                <div class="common-section">
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <select id="location">
+                            <option>All</option>
+                            <option>New South Wales</option>
+                            <option>Western Australia</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h3>Filter Users</h3>
+                <div class="filter-row">
+                    <label>User Status</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="userStatus" checked> Enabled</label>
+                        <label><input type="radio" name="userStatus"> Suspended</label>
+                        <label><input type="radio" name="userStatus"> Inactive</label>
+                        <label><input type="radio" name="userStatus"> All</label>
+                    </div>
+                </div>
+
+                <div class="filter-row">
+                    <label>User Emails</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="emailType" checked> All</label>
+                        <label><input type="radio" name="emailType"> Australian</label>
+                        <label><input type="radio" name="emailType"> Generic</label>
+                        <label><input type="radio" name="emailType"> E4U</label>
+                    </div>
+                </div>
+                <div class="common-section">
+
+                    <div class="form-group">
+                        <label for="user">Select User</label>
+                        <select id="user">
+                            <option>All</option>
+                            <option>E60123 - Joy</option>
+                            <option>E20158 - Mary</option>
+                        </select>
+                    </div>
+                </div>
+                <h3>Options</h3>
+                <div class="common-section">
+                    <div class="form-group">
+                        <label for="copy">Copy To</label>
+                        <select id="copy" name="copy[]" multiple size="3">
+                            <option value="wayne@blackboxtech.com.au" selected>wayne@blackboxtech.com.au</option>
+                            <option value="xyz@blackboxtech.com.au">xyz@blackboxtech.com.au</option>
+                            <option value="abs@blackboxtech.com.au">abs@blackboxtech.com.au</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="common-section">
+                    <div class="form-group">
+                        <label>Trial Run Only</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="trialRun" checked> On</label>
+                            <label><input type="radio" name="trialRun"> Off</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button onclick="showRecipients()">Show Recipients</button>
+                    <button class="primary">Email Recipients</button>
+                </div>
+
+                <!-- stat recipient-container -->
+                <div class="recipient-container table-responsive">
+                    <!-- when Email Recipients selected, Trial Run must be On -->
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: bold; width:220px;">Total Recipients:</td>
+                                <td>2</td>
+
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; width:220px;">Total Valid Recipients:</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; width:220px;">Total Invalid Recipients:</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Member ID</th>
+                                <th>Name</th>
+                                <th>Email address</th>
+                                <th>Location</th>
+                                <th>Verified</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1.</td>
+                                <td>E60123</td>
+                                <td>Joy</td>
+                                <td><a href="mailto:Joy@gmail.com">Joy@gmail.com</a></td>
+                                <td>Western Australia</td>
+                                <td class="verified">OK</td>
+                            </tr>
+                            <tr>
+                                <td>2.</td>
+                                <td>E20158</td>
+                                <td>Mary</td>
+                                <td><a href="mailto:Mary@e4u.com.au">Mary@e4u.com.au</a></td>
+                                <td>New South Wales</td>
+                                <td class="verified">OK</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- when Email Recipients selected, Trial Run must be Off -->
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td style="font-weight: bold; width:220px;">Total attempted emails:</td>
+                                <td>2</td>
+                                <td rowspan="6" class="button-cell" style="vertical-align: center; text-align: center;">
+                                    <button class="email-report" type="button" data-toggle="modal" data-target="#emailReport">See Email Report</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; width:220px;">Total successful emails:</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; width:220px;">Total invalid emails:</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; width:220px;">Total failed emails:</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td style="font-weight: bold; width:220px;">Total time taken:</td>
+                                <td>0.068 seconds</td>
+                            </tr>
+                            <tr style="font-weight: bold; width:220px;">
+                                <td>Email run finished at:</td>
+                                <td>08:36 am.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Member ID</th>
+                                <th>Name</th>
+                                <th>Email address</th>
+                                <th>Location</th>
+                                <th>Verified</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>1.</td>
+                                <td>E60123</td>
+                                <td>Joy</td>
+                                <td><a href="mailto:Joy@gmail.com">Joy@gmail.com</a></td>
+                                <td>Western Australia</td>
+                                <td class="verified">OK</td>
+                            </tr>
+                            <tr>
+                                <td>2.</td>
+                                <td>E20158</td>
+                                <td>Mary</td>
+                                <td><a href="mailto:Mary@e4u.com.au">Mary@e4u.com.au</a></td>
+                                <td>New South Wales</td>
+                                <td class="verified">OK</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- end -->
+            </div>  
+        </div>
+    </div>
 </div>
 
 

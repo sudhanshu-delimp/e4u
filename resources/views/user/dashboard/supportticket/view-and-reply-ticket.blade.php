@@ -60,7 +60,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <div class="box-body table table-hover">
+            <div class="box-body table-responsive">
                 <table class="table table-hover" id="supportTicketsTable">
                     <thead id="table-sec" class="table-bg">
                     <tr>

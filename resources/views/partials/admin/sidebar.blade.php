@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <!-- <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
         <img src="{{ asset('assets/app/img/logo.svg') }} " alt="">
@@ -952,7 +952,7 @@
                             <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                                 src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
                             <span
-                                style="{{ request()->segment(3) == 'operator-manage' ? 'color: #e5365a;' : '' }}">Manage</span>
+                                style="{{ request()->segment(3) == 'operator-manage' ? 'color: #e5365a;' : '' }}">Manage Operator</span>
                         </a>
                     </div>
 
