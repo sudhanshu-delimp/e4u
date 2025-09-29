@@ -55,8 +55,6 @@ class EscortStatisticsController extends Controller
             $lastYearStart = $today->copy()->startOfYear();
             $lastYearEnd   = $today->copy()->endOfYear(); 
 
-            //dd($lastWeekStart, $lastWeekEnd, $lastYearStart, $lastYearEnd);   
-
             # profile views statistics
             $escortStatistics = EscortStatistics::where('user_id', $user->id)
                 ->get();
