@@ -427,28 +427,37 @@ class AppointmentController extends Controller
 				$q->whereDate('date', '<=', $end);
 			})
 			->with(['advertiser:id,name,member_id'])
-			->select(['id','date','time','importance','status','address','advertiser_id']);
+			->select(['id','date','start_time','end_time','importance','status','address','advertiser_id']);
 
 		$events = $query->get()->map(function ($apt) {
             $importance = strtolower($apt->importance ?? 'high');
             $color = '#F31818';
             if ($importance == 'medium') { $color = '#FFA113'; }
             if ($importance == 'low') { $color = '#87632C'; }
-			$startDateTime = Carbon::parse($apt->date.' '.$apt->time)->format('Y-m-d\TH:i:s');
-			$titleName = optional($apt->advertiser)->name ?: (optional($apt->advertiser)->member_id ?? 'Appointment');
-			$title = $titleName.' - '.Carbon::parse($apt->time)->format('h:i A'). '-' . Carbon::parse($apt->time)->addMinutes(30)->format('h:i A');
-			return [
-				'id' => $apt->id,
-				'title' => $title,
-				'start' => $startDateTime,
-				'backgroundColor' => $color,
-				'borderColor' => $color,
-				'textColor' => '#ffffff',
-				'extendedProps' => [
-					'importance' => $apt->importance,
-					'status' => $apt->status,
-				],
-			];
+
+            // FIX 1: Use start_time and end_time for FullCalendar
+            $startDateTime = Carbon::parse($apt->date.' '.$apt->start_time)->format('Y-m-d\TH:i:s');
+            $endDateTime = Carbon::parse($apt->date.' '.$apt->end_time)->format('Y-m-d\TH:i:s'); // CRITICAL: Add end time
+
+            // FIX 2: Create a proper title using start_time and end_time
+            $startTimeFormatted = Carbon::parse($apt->start_time)->format('h:i A');
+            $endTimeFormatted = Carbon::parse($apt->end_time)->format('h:i A');
+            
+            $titleName = optional($apt->advertiser)->name ?: (optional($apt->advertiser)->member_id ?? 'Appointment');
+            $title = $titleName.' ('.$this->returnStatus($apt->status).') ' . $startTimeFormatted . ' - ' . $endTimeFormatted; // Added status to title for clarity
+			return  [
+                'id' => $apt->id,
+                'title' => $title,
+                'start' => $startDateTime,
+                'end' => $endDateTime, 
+                'backgroundColor' => $color,
+                'borderColor' => $color,
+                'textColor' => '#ffffff',
+                'extendedProps' => [
+                    'importance' => $apt->importance,
+                    'status' => $apt->status,
+                ],
+            ];
 		});
 
       //  dd($events);
@@ -459,12 +468,13 @@ class AppointmentController extends Controller
 	public function appointmentDetails($id)
 	{
 		$appointment = Appointment::with(['advertiser:id,name,member_id'])->find($id);
+        //dd($appointment);
 		if (!$appointment) {
 			return error_response('Appointment not found', 404);
 		}
 		$detail = [
 			'date' => Carbon::parse($appointment->date)->format('M d, Y'),
-			'time' => Carbon::parse($appointment->time)->format('h:i A'),
+			'time' => Carbon::parse($appointment->start_time)->format('h:i A') . ' - ' . Carbon::parse($appointment->end_time)->format('h:i A'),
 			'advertiser' => (function () use ($appointment) {
 				$name = optional($appointment->advertiser)->name;
 				$memberId = optional($appointment->advertiser)->member_id;
@@ -481,4 +491,13 @@ class AppointmentController extends Controller
 		];
 		return success_response($detail, 'Appointment details');
 	}
+
+    public function returnStatus($status){
+                $map = [
+                    'in_progress' => 'In Progress',   
+                    'over_due'    =>'Overdue',   
+                    'completed'   =>'Completed',
+                ];
+                return $map[$status];
+    }
 }
