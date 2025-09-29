@@ -81,11 +81,11 @@ class AppointmentController extends Controller
         // 1) Fetch already booked slots for that advertiser & date (consider ranges)
         $appointments = Appointment::where('advertiser_id', $advertiserId)
             ->whereDate('date', $date)
-            ->get(['time','end_time','id']);
+            ->get(['start_time', 'end_time', 'id']);
         $bookedSlots = [];
         foreach ($appointments as $apt) {
-            $start = Carbon::parse($apt->time);
-            $end = $apt->end_time ? Carbon::parse($apt->end_time) : (clone $start)->addMinutes(30);
+            $start = Carbon::parse($apt->start_time);
+            $end = $apt->end_time ? Carbon::parse($apt->end_time) : (clone $start)->addMinutes(30); 
             $cursor = $start->copy();
             while ($cursor < $end) {
                 $bookedSlots[] = $cursor->format('H:i');
@@ -155,7 +155,7 @@ class AppointmentController extends Controller
 
                 $name = $row->advertiser->name ?? null;
                 $label = $name ? ($name.' ('.$row->advertiser->member_id.')') : $row->advertiser->member_id;
-                $dateTime = (Carbon::parse($row->time)->format('h:i a')).' | '.(Carbon::parse($row->date)->format('d-m-Y'));
+                $dateTime = (Carbon::parse($row->start_time)->format('h:i a')).' | '.(Carbon::parse($row->date)->format('d-m-Y'));
                 return '<label class="mb-0 cursor-pointer"><i class="fas fa-circle mr-2" style="color: '.$color.'"></i>'.e($label).'</label> <small class="text-muted"> ( '.$dateTime.' ) </small>';
             })
             ->addColumn('map', function ($row) {
@@ -186,7 +186,7 @@ class AppointmentController extends Controller
         $appointment = Appointment::with(['advertiser:id,name'])
             ->select([
                 'appointments.*', // select all columns
-                DB::raw("DATE_FORMAT(appointments.time, '%H:%i') as formatted_time"),
+                DB::raw("DATE_FORMAT(appointments.date, '%H:%i') as formatted_time"),
                 DB::raw("DATE_FORMAT(appointments.created_at, '%m-%d-%Y') as created_at_formatted")
             ])
             ->find($id);
@@ -198,7 +198,7 @@ class AppointmentController extends Controller
 
     public function update(Request $request, $id)
     {
-       // dd($request->all());
+
         $appointment = Appointment::find($id);
         if (!$appointment) {
             return error_response('Appointment not found', 404);
@@ -206,7 +206,8 @@ class AppointmentController extends Controller
 
         $validator = Validator::make($request->all(), [
             'date' => 'required|date',
-            'time' => 'required',
+            'start_time' => 'required|date_format:H:i', 
+            'end_time' => 'required|date_format:H:i|after:start_time',
             'advertiser_id' => 'required|exists:users,id',
             'address' => 'required|string|max:255',
             'lat' => 'nullable|numeric',
@@ -223,15 +224,6 @@ class AppointmentController extends Controller
         }
 
         $data = $validator->validated();
-
-        // Normalize time to canonical format HH:mm
-        try {
-            $data['time'] = Carbon::parse($data['time'])->format('H:i');
-            $data['end_time'] = Carbon::parse($data['time'])->addMinutes(30)->format('H:i');
-        } catch (\Throwable $e) {
-            return error_response('Invalid time format.', 422);
-        }
-
        
         DB::beginTransaction();
         try {
@@ -256,31 +248,32 @@ class AppointmentController extends Controller
 
         $validator = Validator::make($request->all(), [
             'date' => 'required|date',
-            'time' => 'required',
+            'start_time' => 'required|date_format:H:i',
+            'end_time' => 'required|date_format:H:i|after:start_time',
         ]);
         if ($validator->fails()) {
             return error_response($validator->errors()->first(), 422, $validator->errors());
         }
         $data = $validator->validated();
 
-        // Normalize time to 24-hour HH:mm even if frontend submits 12-hour
-        try {
-            $data['time'] = Carbon::parse($data['time'])->format('H:i');
-        } catch (\Throwable $e) {
-            return error_response('Invalid time format.', 422);
-        }
+        $startTime = $data['start_time'];
+        $endTime = $data['end_time'];
 
-        $exists = Appointment::where('advertiser_id', $appointment->advertiser_id)
+         $overlapExists = Appointment::where('advertiser_id', $appointment->advertiser_id)
             ->whereDate('date', $data['date'])
-            ->where('time', $data['time'])
-            ->where('id', '!=', $appointment->id)
+            ->where('id', '!=', $appointment->id) 
+            ->where(function ($query) use ($startTime, $endTime) {
+                $query->where('start_time', '<', $endTime)
+                    ->where('end_time', '>', $startTime);
+            })
             ->exists();
-        if ($exists) {
+        if ($overlapExists) {
             return error_response('Another appointment exists at the selected date and time.', 422);
         }
 
         $appointment->date = $data['date'];
-        $appointment->time = $data['time'];
+        $appointment->start_time = $startTime;
+        $appointment->end_time = $endTime;
         $appointment->status = 'in_progress';
         $appointment->save();
 
@@ -305,8 +298,7 @@ class AppointmentController extends Controller
 			$validator = Validator::make($request->all(), [
 				'new_advertiser' => 'required|exists:users,id',
 				'new_appointment_date' => 'required|date',
-				// Either single slot OR a start/end time range from the new grid
-				'new_appointment_time_slot' => 'nullable',
+				//'new_appointment_time_slot' => 'nullable',
 				'new_start_time' => 'nullable|date_format:H:i',
 				'new_end_time' => 'nullable|date_format:H:i|after:new_start_time',
 				'new_address' => 'required|string|max:255',
@@ -321,34 +313,21 @@ class AppointmentController extends Controller
 			}
 
 			$validated = $validator->validated();
-
+            
 			// Determine start/end based on provided fields
-			$startTime = $validated['new_start_time'] ?? null;
-			$endTime = $validated['new_end_time'] ?? null;
-			if (!$startTime) {
-				// Fallback to single dropdown value as a 30-minute slot
-				if (empty($validated['new_appointment_time_slot'])) {
-					return error_response('Please select a time slot.', 422);
-				}
-				$startTime = Carbon::parse($validated['new_appointment_time_slot'])->format('H:i');
-				$endTime = Carbon::parse($startTime)->addMinutes(30)->format('H:i');
-			} else {
-				$startTime = Carbon::parse($startTime)->format('H:i');
-				$endTime = Carbon::parse($endTime)->format('H:i');
-			}
+			$startTime = $validated['new_start_time'];
+			$endTime = $validated['new_end_time'];
+			$startTime = Carbon::parse($startTime)->format('H:i');
+			$endTime = Carbon::parse($endTime)->format('H:i');
 
 			// Overlap check for the advertiser on the same date [time, end_time)
-			$overlapExists = Appointment::where('advertiser_id', $validated['new_advertiser'])
-				->whereDate('date', $validated['new_appointment_date'])
-				->where(function ($q) use ($startTime, $endTime) {
-					$q->where(function ($q2) use ($startTime, $endTime) {
-						$q2->where('time', '<', $endTime)
-						   ->where(function ($q3) use ($startTime) {
-							   $q3->whereNull('end_time')->orWhere('end_time', '>', $startTime);
-						   });
-					});
-				})
-				->exists();
+			 $overlapExists = Appointment::where('advertiser_id', $validated['new_advertiser'])
+                ->whereDate('date', $validated['new_appointment_date'])
+                ->where(function ($query) use ($startTime, $endTime) {
+                    $query->where('start_time', '<', $endTime)
+                        ->where('end_time', '>', $startTime);
+                })
+                ->exists();
 			if ($overlapExists) {
 				return error_response('Selected time overlaps with an existing appointment.', 422);
 			}
@@ -356,7 +335,7 @@ class AppointmentController extends Controller
 			$appointment = Appointment::create([
 				'advertiser_id' => $validated['new_advertiser'],
 				'date' => $validated['new_appointment_date'],
-				'time' => $startTime,
+				'start_time' => $startTime,
 				'end_time' => $endTime,
 				'address' => $validated['new_address'],
 				'lat' => $request->input('new_latitude'),
@@ -369,6 +348,7 @@ class AppointmentController extends Controller
 
 			return success_response($appointment, 'Appointment created successfully', 200);
 		} catch (\Throwable $e) {
+            dd($e);
 			return error_response('Something went wrong while creating the appointment.', 500);
 		}
     }
