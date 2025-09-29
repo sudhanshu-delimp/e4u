@@ -155,7 +155,7 @@ class AppointmentController extends Controller
 
                 $name = $row->advertiser->name ?? null;
                 $label = $name ? ($name.' ('.$row->advertiser->member_id.')') : $row->advertiser->member_id;
-                $dateTime = (Carbon::parse($row->start_time)->format('h:i a')).' | '.(Carbon::parse($row->date)->format('d-m-Y'));
+                $dateTime = (Carbon::parse($row->start_time)->format('h:i a')).'-'.(Carbon::parse($row->end_time)->format('h:i a')).' | '.(Carbon::parse($row->date)->format('d-m-Y'));
                 return '<label class="mb-0 cursor-pointer"><i class="fas fa-circle mr-2" style="color: '.$color.'"></i>'.e($label).'</label> <small class="text-muted"> ( '.$dateTime.' ) </small>';
             })
             ->addColumn('map', function ($row) {

@@ -1061,7 +1061,7 @@
             let advertiserId = $('#new_advertiser').val();
             let date = $('#new_appointment_date').val();
             if (advertiserId && date) {
-                ajaxRequest(endpoint.get_slot_list + `?mode=grid&advertiser_id=${encodeURIComponent(advertiserId)}&date=${encodeURIComponent(date)}`, {}, 'GET', null, populateSlotGrid, errorResponseForNewAppointment);
+                ajaxRequest(endpoint.get_slot_list + `?mode=grid&advertiser_id=${encodeURIComponent(advertiserId)}&date=${encodeURIComponent(date)}`, {}, 'GET', null, loadNewAppointmentSlots, errorResponseForNewAppointment);
             }
         });
 
@@ -1077,283 +1077,126 @@
             } catch (e) { return hhmm; }
         }
 
-        // function successPopulateTimeSlot(response, targetSelector = '#new_appointment_time_slot', selectedValue = null, opts = { appendMissing: false }) {
-        //     const dropdown = $(targetSelector);
-        //     dropdown.empty().append('<option value="">Select Time Slot</option>');
-        //     if (response && response.data && Array.isArray(response.data)) {
-        //         response.data.forEach(function(slot) {
-        //             const label = to12HourLabel(slot);
-        //             dropdown.append(`<option value="${slot}">${label}</option>`);
-        //         });
-        //     }
-        //     if (selectedValue !== null && selectedValue !== undefined) {
-        //         dropdown.val(String(selectedValue));
-        //     }
-        // }
+        function addMinutes(hhmm, mins) {
+            var parts = hhmm.split(':');
+            var h = parseInt(parts[0], 10);
+            var m = parseInt(parts[1], 10);
+            var total = h * 60 + m + mins;
+            var nh = Math.floor(total / 60) % 24;
+            var nm = total % 60;
+            return String(nh).padStart(2, '0') + ':' + String(nm).padStart(2, '0');
+        }
 
-        // Build selectable grid with continuity enforcement
-        function populateSlotGrid(resp, gridId = '#slotGrid', startTimeId = '#new_start_time', endTimeId = '#new_end_time'){
+        function diffMinutes(a, b) {
+            var ap = a.split(':'), bp = b.split(':');
+            return (parseInt(bp[0], 10) * 60 + parseInt(bp[1], 10)) - (parseInt(ap[0], 10) * 60 + parseInt(ap[1], 10));
+        }
+
+        function isContinuous(arr) {
+            for (let i = 1; i < arr.length; i++) {
+                if (diffMinutes(arr[i - 1], arr[i]) !== 30) return false;
+            }
+            return true;
+        }
+
+        function populateUnifiedSlotGrid(resp, config) {
             const data = resp && resp.data ? resp.data : { all: [], booked: [] };
             const all = data.all || [];
             const booked = new Set(data.booked || []);
-            const grid = $(gridId);
+            const grid = $(config.gridId);
             grid.empty();
             const selected = new Set();
 
-            function addMinutes(hhmm, mins){
-                var parts = hhmm.split(':');
-                var h = parseInt(parts[0], 10);
-                var m = parseInt(parts[1], 10);
-                var total = h*60 + m + mins;
-                var nh = Math.floor(total/60)%24;
-                var nm = total%60;
-                return String(nh).padStart(2,'0')+':'+String(nm).padStart(2,'0');
-            }
-
-            function diffMinutes(a,b){
-                var ap=a.split(':'), bp=b.split(':');
-                return (parseInt(bp[0],10)*60+parseInt(bp[1],10)) - (parseInt(ap[0],10)*60+parseInt(ap[1],10));
-            }
-
+            
+            // Convert current times to minutes only if they exist (for Edit/Reschedule)
+            const currentStartInMin = config.currentStart ? (parseInt(config.currentStart.split(':')[0]) * 60 + parseInt(config.currentStart.split(':')[1])) : null;
+            const currentEndInMin = config.currentEnd ? (parseInt(config.currentEnd.split(':')[0]) * 60 + parseInt(config.currentEnd.split(':')[1])) : null;
+            
+            // ----------------------------------------------------------------------
+            // --- Inner Helper: updateHidden (Dynamic IDs use config) ---
             function updateHidden() {
-                if (selected.size === 0) { 
-                    $(startTimeId).val('');
-                    $(endTimeId).val('');
-                    return; 
+                if (selected.size === 0) {
+                    $(config.startTimeId).val('');
+                    $(config.endTimeId).val('');
+                    return;
                 }
                 const arr = Array.from(selected).sort();
-                $(startTimeId).val(arr[0]);
+                $(config.startTimeId).val(arr[0]);
                 // end is last + 30 mins
-                var end = addMinutes(arr[arr.length-1], 30);
-                $(endTimeId).val(end);
+                var end = addMinutes(arr[arr.length - 1], 30);
+                $(config.endTimeId).val(end);
             }
+            // ----------------------------------------------------------------------
 
-            function isContinuous(arr){
-                for (let i=1;i<arr.length;i++){
-                    if (diffMinutes(arr[i-1], arr[i]) !== 30) return false;
-                }
-                return true;
-            }
+            all.forEach(function(slot) {
+                let isDisabled = booked.has(slot);
+                let isCurrentSelected = false;
 
-            all.forEach(function(slot){
-                const label = to12HourLabel(slot);
-                const disabled = booked.has(slot);
-                const btn = $(`<button type="button" class="slot-btn${disabled? ' disabled':''}" ${disabled? 'disabled':''} data-slot="${slot}">${label}</button>`);
-                btn.on('click', function(){
-                    const val = $(this).data('slot');
-                    if (selected.has(val)) {
-                        selected.delete(val);
-                        $(this).removeClass('selected');
-                    } else {
-                        selected.add(val);
-                        const arr = Array.from(selected).sort();
-                        if (!isContinuous(arr)) {
-                            selected.delete(val);
-                            $('#success_task_title').text('Error');
-                            $('#image_icon').attr('src', endpoint.error_image);
-                            $('#success_msg').text('Please select continuous 30-minute slots.');
-                            $('#successModal').modal('show');
-                            return;
-                        }
-                        $(this).addClass('selected');
+                if (currentStartInMin !== null) {
+                    const slotInMin = parseInt(slot.split(':')[0]) * 60 + parseInt(slot.split(':')[1]);
+                    
+                    // Check if slot belongs to CURRENT appointment's time range
+                    isCurrentSelected = slotInMin >= currentStartInMin && slotInMin < currentEndInMin;
+                    
+                    // If it's the current selected slot, it must NOT be disabled.
+                    if (isCurrentSelected) {
+                        isDisabled = false; 
                     }
-                    updateHidden();
-                });
-                grid.append(btn);
-            });
-
-            // clear selection when grid reloads
-            $('#new_start_time').val('');
-            $('#new_end_time').val('');
-        }
-
-        // New function for Edit modal - Copy and modify from populateSlotGrid
-        function populateEditSlotGrid(resp, currentStart, currentEnd){
-            const data = resp && resp.data ? resp.data : { all: [], booked: [] };
-            const all = data.all || [];
-            const booked = new Set(data.booked || []);
-            const grid = $('#editSlotGrid'); // New ID for Edit Grid Container
-            grid.empty();
-            const selected = new Set();
-            const currentStartInMin = currentStart ? (parseInt(currentStart.split(':')[0])*60 + parseInt(currentStart.split(':')[1])) : null;
-            const currentEndInMin = currentEnd ? (parseInt(currentEnd.split(':')[0])*60 + parseInt(currentEnd.split(':')[1])) : null;
-
-            // Helper functions (addMinutes, diffMinutes, isContinuous, updateHidden) should be defined outside or inside this function
-
-              function addMinutes(hhmm, mins){
-                var parts = hhmm.split(':');
-                var h = parseInt(parts[0], 10);
-                var m = parseInt(parts[1], 10);
-                var total = h*60 + m + mins;
-                var nh = Math.floor(total/60)%24;
-                var nm = total%60;
-                return String(nh).padStart(2,'0')+':'+String(nm).padStart(2,'0');
-            }
-
-             function diffMinutes(a,b){
-                var ap=a.split(':'), bp=b.split(':');
-                return (parseInt(bp[0],10)*60+parseInt(bp[1],10)) - (parseInt(ap[0],10)*60+parseInt(ap[1],10));
-            }
-
-            function isContinuous(arr){
-                for (let i=1;i<arr.length;i++){
-                    if (diffMinutes(arr[i-1], arr[i]) !== 30) return false;
                 }
-                return true;
-            }
-
-            function updateHidden() {
-                // Use new hidden fields for Edit
-                if (selected.size === 0) { $('#edit_start_time').val(''); $('#edit_end_time').val(''); return; }
-                const arr = Array.from(selected).sort();
-                $('#edit_start_time').val(arr[0]);
-                var end = addMinutes(arr[arr.length-1], 30);
-                $('#edit_end_time').val(end);
-            }
-            
-            // --- Rendering and Pre-selection Logic ---
-            all.forEach(function(slot){
-                const slotInMin = parseInt(slot.split(':')[0])*60 + parseInt(slot.split(':')[1]);
                 
-                // Check if slot belongs to CURRENT appointment's time range
-                const isCurrentSelected = currentStartInMin !== null && slotInMin >= currentStartInMin && slotInMin < currentEndInMin;
+                const label = to12HourLabel(slot); // Assuming to12HourLabel is globally available
+                const btn = $(`<button type="button" class="slot-btn${isDisabled ? ' disabled' : ''}" ${isDisabled ? 'disabled' : ''} data-slot="${slot}">${label}</button>`);
                 
-                // Check if slot is booked by ANOTHER user
-                const isDisabled = booked.has(slot) && !isCurrentSelected;
-                
-                const label = to12HourLabel(slot); // Use your existing to12HourLabel
-                
-                const btn = $(`<button type="button" class="slot-btn${isDisabled? ' disabled':''}" ${isDisabled? 'disabled':''} data-slot="${slot}">${label}</button>`);
-                
-                if(isCurrentSelected){
+                // Pre-select the current booking's slots (Only for Edit/Reschedule)
+                if (isCurrentSelected) {
                     selected.add(slot);
                     btn.addClass('selected');
                 }
 
-                btn.on('click', function(){
-                    const val = $(this).data('slot');
-                    if (selected.has(val)) {
-                        selected.delete(val);
-                        $(this).removeClass('selected');
-                    } else {
-                        selected.add(val);
-                        const arr = Array.from(selected).sort();
-                        if (!isContinuous(arr)) {
+                // Click Handler (Same continuity logic)
+                if (!isDisabled) {
+                    btn.on('click', function() {
+                        const val = $(this).data('slot');
+                        if (selected.has(val)) {
                             selected.delete(val);
                             $(this).removeClass('selected');
-                            $('#success_task_title').text('Error');
-                            $('#image_icon').attr('src', endpoint.error_image);
-                            $('#success_msg').text('Please select continuous 30-minute slots.');
-                            $('#successModal').modal('show');
-                        return;
+                        } else {
+                            selected.add(val);
+                            const arr = Array.from(selected).sort();
+                            if (!isContinuous(arr)) {
+                                selected.delete(val);
+                                $(this).removeClass('selected');
+                                // Use your standard error notification logic here
+                                $('#success_task_title').text('Error');
+                                $('#image_icon').attr('src', endpoint.error_image);
+                                $('#success_msg').text('Please select continuous 30-minute slots.');
+                                $('#successModal').modal('show');
+                                return;
+                            }
+                            $(this).addClass('selected');
                         }
-                        $(this).addClass('selected');
-                    }
-                    updateHidden();
-                });
+                        updateHidden();
+                    });
+                }
                 grid.append(btn);
             });
 
-            // Initial update of hidden fields with pre-selected values
+            // Initial update of hidden fields with pre-selected values (or clear for Add)
             updateHidden();
         }
 
-
-            var rescheduleAppointmentId = null; 
-            var rescheduleAdvertiserId = null; // Store Advertiser ID temporarily
-        function populateRescheduleSlotGrid(resp, currentStart, currentEnd){
-            const data = resp && resp.data ? resp.data : { all: [], booked: [] };
-            const all = data.all || [];
-            const booked = new Set(data.booked || []);
-            const grid = $('#rescheduleSlotGrid'); // New ID for Edit Grid Container
-            grid.empty();
-            const selected = new Set();
-            const currentStartInMin = currentStart ? (parseInt(currentStart.split(':')[0])*60 + parseInt(currentStart.split(':')[1])) : null;
-            const currentEndInMin = currentEnd ? (parseInt(currentEnd.split(':')[0])*60 + parseInt(currentEnd.split(':')[1])) : null;
-
-            // Helper functions (addMinutes, diffMinutes, isContinuous, updateHidden) should be defined outside or inside this function
-
-              function addMinutes(hhmm, mins){
-                var parts = hhmm.split(':');
-                var h = parseInt(parts[0], 10);
-                var m = parseInt(parts[1], 10);
-                var total = h*60 + m + mins;
-                var nh = Math.floor(total/60)%24;
-                var nm = total%60;
-                return String(nh).padStart(2,'0')+':'+String(nm).padStart(2,'0');
-            }
-
-             function diffMinutes(a,b){
-                var ap=a.split(':'), bp=b.split(':');
-                return (parseInt(bp[0],10)*60+parseInt(bp[1],10)) - (parseInt(ap[0],10)*60+parseInt(ap[1],10));
-            }
-
-            function isContinuous(arr){
-                for (let i=1;i<arr.length;i++){
-                    if (diffMinutes(arr[i-1], arr[i]) !== 30) return false;
-                }
-                return true;
-            }
-
-            function updateHidden() {
-                // Use new hidden fields for Edit
-                if (selected.size === 0) { $('#reschedule_start_time').val(''); $('#reschedule_start_time').val(''); return; }
-                const arr = Array.from(selected).sort();
-                $('#reschedule_start_time').val(arr[0]);
-                var end = addMinutes(arr[arr.length-1], 30);
-                $('#reschedule_end_time').val(end);
-            }
-            
-            // --- Rendering and Pre-selection Logic ---
-            all.forEach(function(slot){
-                const slotInMin = parseInt(slot.split(':')[0])*60 + parseInt(slot.split(':')[1]);
-                
-                // Check if slot belongs to CURRENT appointment's time range
-                const isCurrentSelected = currentStartInMin !== null && slotInMin >= currentStartInMin && slotInMin < currentEndInMin;
-                
-                // Check if slot is booked by ANOTHER user
-                const isDisabled = booked.has(slot) && !isCurrentSelected;
-                
-                const label = to12HourLabel(slot); // Use your existing to12HourLabel
-                
-                const btn = $(`<button type="button" class="slot-btn${isDisabled? ' disabled':''}" ${isDisabled? 'disabled':''} data-slot="${slot}">${label}</button>`);
-                
-                if(isCurrentSelected){
-                    selected.add(slot);
-                    btn.addClass('selected');
-                }
-
-                btn.on('click', function(){
-                    const val = $(this).data('slot');
-                    if (selected.has(val)) {
-                        selected.delete(val);
-                        $(this).removeClass('selected');
-                    } else {
-                        selected.add(val);
-                        const arr = Array.from(selected).sort();
-                        if (!isContinuous(arr)) {
-                            selected.delete(val);
-                            $(this).removeClass('selected');
-                            $('#success_task_title').text('Error');
-                            $('#image_icon').attr('src', endpoint.error_image);
-                            $('#success_msg').text('Please select continuous 30-minute slots.');
-                            $('#successModal').modal('show');
-                        return;
-                        }
-                        $(this).addClass('selected');
-                    }
-                    updateHidden();
-                });
-                grid.append(btn);
+        function loadNewAppointmentSlots(resp) {
+            populateUnifiedSlotGrid(resp, {
+                gridId: '#slotGrid',
+                startTimeId: '#new_start_time',
+                endTimeId: '#new_end_time',
+                currentStart: null, // No pre-selection for new appointment
+                currentEnd: null
             });
-
-            // Initial update of hidden fields with pre-selected values
-            updateHidden();
         }
 
-
-
-       
+        var rescheduleAppointmentId = null; 
+        var rescheduleAdvertiserId = null; // Store Advertiser ID temporarily
 
         function ajaxRequest(url, data = {}, method = 'GET', token = null, successCallback = null, errorCallback = null) {
             $.ajax({
@@ -1448,7 +1291,14 @@
                     
                      ajaxRequest(endpoint.get_slot_list + `?mode=grid&advertiser_id=${encodeURIComponent(a.advertiser_id)}&current_id=${encodeURIComponent(a.id)}&date=${encodeURIComponent(a.date)}`, {}, 'GET', null, function(r){
                         // 2. Populate the new grid
-                        populateEditSlotGrid(r, currentStart, currentEnd); 
+                       // populateEditSlotGrid(r, currentStart, currentEnd); 
+                       populateUnifiedSlotGrid(r, {
+                            gridId: '#editSlotGrid',
+                            startTimeId: '#edit_start_time',
+                            endTimeId: '#edit_end_time',
+                            currentStart: currentStart, 
+                            currentEnd: currentEnd
+                        });
                     });
                 } 
                 $('#edit_address').val(a.address);
@@ -1487,7 +1337,14 @@
 
                 // For manual changes, there is no pre-selected slot, so pass null for current times
             ajaxRequest(endpoint.get_slot_list + `?mode=grid&advertiser_id=${encodeURIComponent(advertiserId)}&date=${encodeURIComponent(date)}&current_id=${encodeURIComponent(currentAppointmentId)}`, {}, 'GET', null, function(response){
-                populateEditSlotGrid(response, null, null);
+                //populateEditSlotGrid(response, null, null);
+                populateUnifiedSlotGrid(response, {
+                gridId: '#editSlotGrid',
+                startTimeId: '#edit_start_time',
+                endTimeId: '#edit_end_time',
+                currentStart: null, 
+                currentEnd: null
+            });
             });
         });
 
@@ -1538,14 +1395,21 @@
                     const currentStart = a.start_time || null; 
                     const currentEnd = a.end_time || null;
                     ajaxRequest(endpoint.get_slot_list + `?mode=grid&advertiser_id=${encodeURIComponent(rescheduleAdvertiserId)}&current_id=${encodeURIComponent(a.id)}&date=${encodeURIComponent(a.date)}`, {}, 'GET', null, function(r){
-                        populateRescheduleSlotGrid(r, currentStart, currentEnd); 
-                    });
+                        populateUnifiedSlotGrid(r, {
+                            gridId: '#rescheduleSlotGrid',
+                            startTimeId: '#reschedule_start_time',
+                            endTimeId: '#reschedule_end_time',
+                            currentStart: currentStart, 
+                            currentEnd: currentEnd
+                        });
+                   });
                 }
             });
         });
 
         // Reschedule date change -> reload slots
         $('#reschedule_date').on('change', function(){
+           
             let date = $(this).val();
             if (!rescheduleAdvertiserId || !date) { 
                 $('#rescheduleSlotGrid').empty();
@@ -1553,9 +1417,15 @@
                 $('#reschedule_end_time').val('');
                 return;
             }
-            console.log();
-            ajaxRequest(endpoint.get_slot_list + `?mode=grid&advertiser_id=${encodeURIComponent(rescheduleAdvertiserId)}&date=${encodeURIComponent(date)}&current_id=${encodeURIComponent(rescheduleAppointmentId)}`, {}, 'GET', null, function(response){
-                populateRescheduleSlotGrid(response, null, null);
+           
+            ajaxRequest(endpoint.get_slot_list + `?mode=grid&advertiser_id=${encodeURIComponent(rescheduleAdvertiserId)}&date=${encodeURIComponent(date)}&current_id=${encodeURIComponent(rescheduleAppointmentId)}`, {}, 'GET', null, function(r){
+                        populateUnifiedSlotGrid(r, { 
+                        gridId: '#rescheduleSlotGrid',
+                        startTimeId: '#reschedule_start_time',
+                        endTimeId: '#reschedule_end_time',
+                        currentStart: null, 
+                        currentEnd: null
+                    });
             });
         });
 
