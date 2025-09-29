@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion sidebaar-custom"
+<ul class="sticky-top navbar-nav bg-gradient-primary sidebar sidebar-dark accordion sidebaar-custom db-custom-sidebar"
     id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <!-- <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">

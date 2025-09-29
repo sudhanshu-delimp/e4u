@@ -15,7 +15,7 @@
             height: 150px !important;
         }
 
-        #listings_paginate span {
+          #listings_paginate span {
             display: contents;
         }
 

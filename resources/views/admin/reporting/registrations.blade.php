@@ -276,12 +276,11 @@
                 </div>
 
                 <div class="modal-body pb-0 teop-text text-center">
-                    <h6 class="popu_heading_style mt-2">
-                        <span id="Lname">Are you sure you want to perform this action.</span>
-                    </h6>
-
-                </div>
-
+                    <h5 class="popu_heading_style mt-2">
+                       Are you sure you want to perform this action.
+                    </h5>
+     
+              </div>
                 <div class="modal-footer justify-content-center border-0 pb-4">
 
                     <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal"

@@ -36,7 +36,7 @@
                               
                               <div class="col-lg-12 col-md-12 col-sm-12">
                                  <div class="bothsearch-form" style="gap: 10px;">
-                                    <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#addStaffnew">Add New Staff Member</button>
+                                    <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#addStaffnew">Add New Staff Member</button>
                                  </div>
                               </div>
                            </div>                                    

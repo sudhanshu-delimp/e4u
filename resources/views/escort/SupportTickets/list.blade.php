@@ -31,10 +31,9 @@
     </div>
 </div>
 {{-- end --}}
-    <div id="content">
         <div class="row">
             <div class="col-md-12">
-                <div class="box-body table table-hover">
+                <div class="box-body table-responsive">
                     <table class="table table-hover" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                         <tr>
@@ -56,8 +55,6 @@
                 </div>
             </div>
         </div>
-    </div>
-  <!--middle content end here-->
   <!--right side bar start from here-->
 </div>
 
@@ -122,7 +119,7 @@
         initComplete: function() {
                     if ($('#returnToReportBtn').length === 0) {
                         $('.dataTables_filter').append(
-                            '<button id="returnToReportBtn" class="create-tour-sec my-3">Return to Report</button>'
+                            '<button id="returnToReportBtn" class="create-tour-sec my-3 mr-0">Return to Report</button>'
                         );
                     }
                     $('#returnToReportBtn').on('click', function() {
