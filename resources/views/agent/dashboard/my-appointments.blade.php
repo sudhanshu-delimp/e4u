@@ -1496,11 +1496,12 @@
             currentAppointmentId = $(this).data('id');
             ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
                 var a = resp.data || {};
+                console.log(a);
                  const timeDisplay = `${a.formatted_start_time || 'N/A'} - ${a.formatted_end_time || 'N/A'}`;
                 $('#view_appointment_time_display').text(timeDisplay);
                 $('#view_date').val(a.date);
                 $('#view_time').val(a.time);
-                $('#view_advertiser').val(a.advertiser_id);
+                $('#view_advertiser').val(a.advertiser.name);
                 $('#view_address').val(a.address);
                 $('#view_latitude').val(a.lat);
                 $('#view_longitude').val(a.long);
