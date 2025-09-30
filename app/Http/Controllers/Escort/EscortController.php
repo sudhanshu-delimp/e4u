@@ -818,4 +818,30 @@ class EscortController extends Controller
             ], 500);
         }
     }
+
+    public function getAvailablePlaymates(Request $request){
+        try {
+            $response['success'] = false;
+            $selectedStateId = $request->input('state_id');
+            $accountUserId = auth()->user()->id;
+            $userIds = User::where('current_state_id', $selectedStateId)->pluck('id');
+            $escorts = Escort::whereIn('user_id', $userIds)
+            ->where('state_id', $selectedStateId)
+            ->where('user_id', '!=', $currentUserId)
+            ->get();
+
+            if($conflictExists){
+                $response['success'] = true;
+                $response['playmates'] = $escorts;
+            }
+
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
