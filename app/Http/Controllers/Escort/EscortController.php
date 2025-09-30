@@ -480,7 +480,7 @@ class EscortController extends Controller
             //'city_id'=>$request->city_id,
             //'country_id'=>$request->country_id,
             // 'state_id'=>$request->state_id,
-            'email' => $request->email ? $request->email : null,
+           // 'email' => $request->email ? $request->email : null,
             //'social_links'=>$request->social_links,
         ];
 
