@@ -158,7 +158,7 @@
                 @endif
 
                 @if (request()->segment(2) == 'create-profile')
-                    <button id="show_draft-2" name="save" type="submit" class="nex_sterp_btn"
+                    <button id="show_draft-2" name="save" type="submit" class="nex_sterp_btn" style="display: none"
                         >
                         Save Profile
                     </button>
