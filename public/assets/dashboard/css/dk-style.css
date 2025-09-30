@@ -4053,6 +4053,18 @@ tr.bg {
     padding: 13px 6px !important;
 }
 
+.btn-custom-success {
+    color: rgb(255, 255, 255);
+    background-color: rgb(28, 200, 138);
+    border-color: rgb(28, 200, 138);
+}
+
+.btn-custom-success:hover {
+    background-color: #3a4c62;
+    border-color: #3a4c62;
+    color: #fff;
+}
+
 .btn-primary:hover {
     color: #fff;
     background-color: #0c223dcf;
