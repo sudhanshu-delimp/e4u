@@ -9709,6 +9709,29 @@ button:disabled {
     cursor: not-allowed;
 }
 
+.playmates-tab h2 {
+    font-size: 24px;
+    color: var(--blue--text);
+    font-weight: bold;
+}
+
+.playmates-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+}
+
+.playmates-card-grid .card h3 {
+    font-size: 14px;
+    color: var(--blue--text);
+    font-weight: bold;
+}
+
+.playmates-card-grid .card label {
+    font-size: 13px;
+    color: var(--blue--text);
+}
+
 
 /* end */
 
