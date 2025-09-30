@@ -11,7 +11,8 @@ class Appointment extends Model
     protected $fillable = [
         'advertiser_id',
         'date',
-        'time',
+        'start_time',
+        'end_time',
         'address',
         'lat',
         'long',

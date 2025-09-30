@@ -870,7 +870,7 @@
                             <div class="carousel-item {{($key == 0) ? "active" : ""}} " data-interval="10000">
                            
                             <div class="row">
-                                <div class="col-12 remove_padding_for_carousel profile--thumb--sec">
+                                <div class="col-12 remove_padding_for_carousel  profile--thumb--sec">
                                     <img src="{{ asset($media->path) }}" class="d-block w-100" title=" " alt="..." data-toggle="modal" data-target="#exampleModal" data-id="">
                                     <div class="custom-tooltip">Click to view My Media</div>
                                     </div>
@@ -1410,7 +1410,7 @@
                         <div class="col">
                             <div class="form-group popup_massage_box">
                                 <p class="font-weight-bold">What is wrong:</p>
-                                <textarea name="description" id="reportDesc" required class="form-control popup_massage_box p-2" id="exampleFormControlTextarea1" rows="5" placeholder="Message (500 characters)">{{isset($spamReportAdvertiser->report_desc) ? $spamReportAdvertiser->report_desc : '' }}</textarea>
+                                <textarea name="description" id="reportDesc" required class="form-control popup_massage_box p-2" id="exampleFormControlTextarea1" rows="5" placeholder="Message (500 characters)">{{-- isset($spamReportAdvertiser->report_desc) ? $spamReportAdvertiser->report_desc : '' --}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -2070,7 +2070,8 @@ $(document).ready(function() {
                     if(response.data){
                         let desc = response.data.report_desc;
                         let tag = response.data.report_tag;
-                        $("#reportDesc").text(desc);
+                        //$("#reportDesc").text(desc);
+                         $("#reportDesc").text('');
                         $('input[name="report_tag"][value="' + response.data.report_tag + '"]').prop('checked', true);
                     }
                     
@@ -2153,6 +2154,33 @@ $('#exampleModal').on('hidden.bs.modal', function () {
         this.currentTime = 0; // reset to start
     });
 });
+
+$('#exampleModal').on('shown.bs.modal', function () {
+    console.log("Modal opened:", $(this).attr('id'));
+    // add media view count while open modal
+    var formData = {
+        'escort_id' : '{{$escort->id}}',
+        'user_id' : '{{$escort->user->id}}'  
+    };
+
+    let url = "{{ route('save.escort.stats')}}";
+    saveEscortAjaxStats(formData, url, 'GET');
+});
+
+function saveEscortAjaxStats(formData, url, type)
+{
+    $.ajax({
+        method: type,
+        url: url,
+        data: formData,
+        contentType: type === 'GET' ? 'application/x-www-form-urlencoded; charset=UTF-8' : false,
+        processData: type === 'GET',
+        headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
+        success: function (response) {
+            console.log(response);  
+        }
+    });
+}
 
 </script>
 @endpush

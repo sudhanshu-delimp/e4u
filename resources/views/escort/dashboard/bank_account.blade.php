@@ -101,7 +101,7 @@
    <div class="row mb-2">
       <div class="col-lg-12 col-md-12 col-sm-12">
 
-         <div class="bothsearch-form">
+         <div class="bothsearch-form d-flex gap-20">
             <button type="button" class="create-tour-sec dctour" data-toggle="modal"  data-target="#payid">PayID</button>
             <button type="button" class="create-tour-sec dctour" data-toggle="modal"  data-target="#SetPinModal">Change PIN</button>
             <button type="button" class="create-tour-sec dctour" data-toggle="modal"  id="commission-modal" data-target="#commission-report2">Add New Account</button>

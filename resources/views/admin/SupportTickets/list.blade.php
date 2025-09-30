@@ -35,8 +35,6 @@
 </style>
 @endsection
 @section('content')
-
-<div id="content">
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
         <div class="row">
             <div class="custom-heading-wrapper col-md-12">
@@ -58,7 +56,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="box-body table table-hover custom-tabale-layout">
+                <div class="box-body table-responsive custom-tabale-layout">
                     <table class="table table-hover" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                             <tr>
@@ -79,7 +77,6 @@
             </div>
         </div>
     </div>
-</div>
 
 <div class="modal fade upload-modal center" id="conversation_modal" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLongTitle" data-keyboard="false" data-backdrop="static" aria-hidden="true">

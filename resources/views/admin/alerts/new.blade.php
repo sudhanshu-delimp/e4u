@@ -28,6 +28,7 @@
                <ol class="level-1">
                   <li>You can create an Alert, published in the Footer, for:</li>
                      <ol class="level-2 ">
+                        <li>Employment, and adjust lettering accordingly.</li>
                         <li>New features launched in the Website.</li>
                         <li>Scammer Alerts; and</li>
                         <li>Website updates.</li>
@@ -39,16 +40,10 @@
       </div>
    </div>
    <div class="row">
-      <div class="col-sm-12 col-md-12 col-lg-12 ">            
-         <div class="row mb-3">            
-            <div class="col-md-12 col-sm-12 d-flex justify-content-end"style="gap: 50px;">
-               <div class="bothsearch-form" style="gap: 10px;">
-                  <button type="button" class="create-tour-sec dctour " data-toggle="modal" data-target="#Create_Notice">New Notice</button>
-               </div>
-               <div class="bothsearch-form" style="gap: 10px;">
-                  <button type="button" class="create-tour-sec dctour" data-toggle="modal" data-target="#Create_Alert">New Alert</button>
-               </div>
-            </div>
+      <div class="col-sm-12 col-md-12 col-lg-12 "> 
+         <div class="d-flex justify-content-end gap-20 my-3">
+               <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#Create_Notice">New Notice</button>
+               <button type="button" class="btn-common mr-0" data-toggle="modal" data-target="#Create_Alert">New Alert</button>
          </div>
          <div class="table-responsive">
             <table class="table" id="AlertTable">
@@ -63,7 +58,7 @@
                         
                      </th>
                      <th scope="col">
-                     type 
+                     Type 
                         
                      </th>
                      <th scope="col">
@@ -75,7 +70,7 @@
                <tbody class="table-content">
                   <tr class="row-color">
                      <td width="10%" class="theme-color">REF1001010</td>
-                     <td class="theme-color">12/31/2022</td>
+                     <td class="theme-color">12-31-2022</td>
                      <td class="theme-color">New Frature</td>
                      <td class="theme-color">Published</td>
                      <td class="text-center">
@@ -114,18 +109,19 @@
             <form>
                <div class="row">
                   <div class="col-12 mb-3 d-flex justify-content-start align-items-center">
-                     <h6 class="mb-1">Motion : </h6>
+                     <label class="mb-1 label">Motion : </label>
                     <div class="pl-3">
                     <input type="radio" name="motion" id="motion"><lable name="motion"> Static</lable>
                     <input type="radio" name="motion" id="motion"><lable name="motion"> Scrolling</lable>
                     </div>
                   </div>
                   <div class="col-12 mb-3">
+                     <label for="Descrioption" class="label">Descrioption</label>
                      <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="up to 200 characters" rows="3"></textarea>
                   </div>
                   <div class="col-12">
                      <div class="form-group mb-0">
-                        <label class="form-check-label pr-4" for="exampleCheck1">Date:<span class="ml-1" style="font-weight: 300;">12/31/2022</span></label>
+                        <label class="form-check-label pr-4" for="exampleCheck1">Date: <span class="ml-1">12-31-2022</span></label>
                      </div>
                   </div>
                </div>
@@ -152,25 +148,30 @@
             <form>
                <div class="row">
                   <div class="col-12 mb-3">
+                     <label for="Alert Type" class="label">Select Alert Type</label>
                      <select class="form-control rounded-0">
                         <option class="text-secondary">Select Alert Type</option>
+                        <option class="text-secondary">Employment</option>
                         <option class="text-secondary">New Features</option>
                         <option class="text-secondary">Scammer Alerts</option>
                         <option class="text-secondary">Website Updates</option>
                      </select>
                   </div>
                   <div class="col-12 mb-3">
+                     <label for="Subject" class="label">Subject</label>
                      <input type="text" class="form-control rounded-0" placeholder="Subject ">
                   </div>
                   <div class="col-12 mb-3">
+                     <label for="Descrioption" class="label">Descrioption</label>
                      <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="up to 500 characters" rows="3"></textarea>
                   </div>
                   <div class="col-12 mb-3">
+                     <label for="Message" class="label">Message</label>
                      <textarea class="form-control rounded-0" id="editor1" name="editor1" placeholder="Message" rows="1" cols="1"></textarea>
                   </div>
                   <div class="col-12">
                      <div class="form-group mb-0">
-                        <label class="form-check-label pr-4" for="exampleCheck1">Date:<span class="ml-1" style="font-weight: 300;">12/31/2022</span></label>
+                        <label class="form-check-label pr-4" for="exampleCheck1">Date: <span class="ml-1">12-31-2022</span></label>
                      </div>
                   </div>
                </div>

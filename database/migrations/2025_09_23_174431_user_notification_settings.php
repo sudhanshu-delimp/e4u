@@ -58,8 +58,6 @@ class UserNotificationSettings extends Migration
      */
     public function down()
     {
-        Schema::table('user_notification_settings', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('viewer_settings');
     }
 }

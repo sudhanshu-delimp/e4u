@@ -55,7 +55,7 @@
     
         <div class="row">
             <div class="col-md-12">
-                <div class="box-body table table-hover table-responsive-xl">
+                <div class="box-body table-responsive-xl">
                     <table class="table table-hover" id="supportTicketsTable">
                         <thead id="table-sec" class="table-bg">
                         <tr>

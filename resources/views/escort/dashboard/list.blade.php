@@ -93,7 +93,7 @@
                                     data-target="#add_brb" id="btn_add_brb">Add BRB</button>
                                 <button style="padding: 10px;" class="btn btn-primary" data-toggle="modal"
                                     data-target="#suspend_profile" id="btn_suspend_profile">Suspend Profile</button>
-                                <button style="padding: 10px;" class="btn btn-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
+                                <button style="padding: 10px;" class="btn btn-custom-success" data-toggle="modal" data-target="#extend_profile" id="btn_extend_profile"> Extend Profile  </button>
                                 </div>
                                 <div class="pinup-tooltip-wrapper">
                                     <button style="padding: 10px;" class="btn btn-warning" data-toggle="modal"
@@ -180,22 +180,22 @@
                         <div class="col-sm-9 row">
                           <div class="col-sm-6">
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay1" value="1">
+                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay1" value="1" disabled>
                               <label class="form-check-label" for="extendDay1">1 day</label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay5" value="5">
+                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay5" value="5" disabled>
                               <label class="form-check-label" for="extendDay5">5 days</label>
                             </div>
                             <div class="form-check form-check-inline">
-                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay10" value="10">
+                              <input class="form-check-input extend-period" type="radio" name="extend_days" id="extendDay10" value="10" disabled>
                               <label class="form-check-label" for="extendDay10">10 days</label>
                             </div>
                           </div>
                           <div class="col-sm-5 pr-1">
                             <input type="hidden" name="membership[]" id="extendMembership">
                             <input type="hidden" name="start_date[]" id="extendStartDate">
-                            <input type="date" id="extendEndDate" class="form-control form-control-sm removebox_shdow" name="end_date[]" required>
+                            <input type="date" id="extendEndDate" class="form-control form-control-sm removebox_shdow" name="end_date[]" required disabled>
                           </div>
                         </div>
                       </div>
@@ -644,6 +644,15 @@
             let startDate = $('#extendStartDate');
             let $membershipField = $('#extendMembership');
             let $dateField = $('#extendEndDate');
+            let profileId = $(this).val();
+            if($.trim(profileId)!=""){
+                $dateField.removeAttr('disabled');
+                $("input[name='extend_days']").removeAttr('disabled');
+            }
+            else{
+                $dateField.attr('disabled','disabled');
+                $("input[name='extend_days']").attr('disabled','disabled');
+            }
             switch(membership){
                 case 'Platinum':{
                     $membershipField.val(1);
@@ -685,10 +694,10 @@
                 newDate.setDate(newDate.getDate() + days + 1);
 
                 $dateField.val(formatDateLocal(newDate));
-                $dateField.prop('readonly', true); // make readonly
+                //$dateField.prop('readonly', true); // make readonly
             } else {
                 $dateField.val('');
-                $dateField.prop('readonly', false);
+                //$dateField.prop('readonly', false);
             }
         });
 

@@ -137,7 +137,7 @@ Route::get('advertiser-reviews',function(){
 })->name('admin.advertiser-reviews');
 
 Route::get('registrations-reports',function(){
-    return view('admin.registrations');
+    return view('admin.reporting.registrations');
 })->name('admin.registrations-reports');
 
 

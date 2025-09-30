@@ -990,6 +990,8 @@ class WebController extends Controller
         $media = $this->escortMedia->get_videos($escort->user_id);
         $path = $this->escortMedia->findByVideoposition($escort->user_id,1)['path'];
 
+        # add statistics for escort profile view
+        saving_escort_stats($escort->user_id, $id,'profile_views_count');
 
         $escortId =[];
 
@@ -1333,6 +1335,13 @@ class WebController extends Controller
             }
         }
 
+        # add stats after like
+        $escortUser = Escort::where('id', $escort_id)->first();
+        if($escortUser != null) {
+            saving_escort_stats($escortUser->user_id, $escort_id, 'recommendation_count');
+        }   
+        
+
         $total = EscortLike::where('escort_id', $escort_id)->count();
         if($total > 0) {
             $likeCount = EscortLike::where('like',1)->where('escort_id',$escort_id)->count();
@@ -1467,5 +1476,17 @@ class WebController extends Controller
 
         return response()->json(compact('error','lp','dp'));
 
+    }
+
+    public function saveAdvertiserStats(Request $request)
+    {
+        //dd($request->all());
+        if($request->has(['escort_id', 'user_id'])) {
+            saving_escort_stats($request->user_id, $request->escort_id,'media_views_count'); 
+        }
+
+        
+
+        return response()->json(['status' => true, 'stats'=>'Stats saved succsessfully.']);  
     }
 }
