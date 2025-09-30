@@ -39,7 +39,7 @@
          </div> 
           <div class="row">
             <div class="col-md-12">
-               <div class="table-responsive">
+               <div class="table-responsive custom-badge">
                   <table class="table table-bordered" id="EmailRequestTable">
                      <thead class="table-bg">
                         <tr>
