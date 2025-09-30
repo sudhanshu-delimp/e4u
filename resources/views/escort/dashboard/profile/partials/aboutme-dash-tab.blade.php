@@ -57,10 +57,14 @@
 
     .grid-container {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 10px;
     }
-
+    @media (max-width: 450px){
+        .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+    }
     .grid-container>div {
         background-color: rgba(255, 255, 255, 0.8);
     }
