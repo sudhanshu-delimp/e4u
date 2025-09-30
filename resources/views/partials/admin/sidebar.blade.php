@@ -403,13 +403,7 @@
                         <span style="{{ request()->is('*escort-listings*') ? 'color: #e5365a;' : '' }}">Escort
                             Listings</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.logged-in-users') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/login-user.png') }}">
-                        <span style="{{ request()->is('*logged-in-users*') ? 'color: #e5365a;' : '' }}">Logged in
-                            Users</span>
-                    </a>
-
+                    
                     <a class="collapse-item" href="{{ route('admin.massage-centre-listings') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png') }}">
@@ -417,15 +411,20 @@
                             style="{{ request()->is('*massage-centre-listings*') ? 'color: #e5365a;' : '' }}">Massage
                             Centre Listings</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.visitors') }}">
-                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                            src="{{ asset('assets/dashboard/img/menu-icon/visitors.png') }}">
-                        <span style="{{ request()->is('*visitors*') ? 'color: #e5365a;' : '' }}">Visitors</span>
-                    </a>
                     <a class="collapse-item" href="{{ route('admin.pin-up-listings') }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/visitors.png') }}">
                         <span style="{{ request()->is('*pinup-listings*') ? 'color: #e5365a;' : '' }}">Pin Up Listings</span>
+                    </a>
+                    <a class="collapse-item" href="{{ route('admin.logged-in-users') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/login-user.png') }}">
+                        <span style="{{ request()->is('*logged-in-users*') ? 'color: #e5365a;' : '' }}">Users Logged In</span>
+                    </a>
+                    <a class="collapse-item" href="{{ route('admin.visitors') }}">
+                        <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                            src="{{ asset('assets/dashboard/img/menu-icon/visitors.png') }}">
+                        <span style="{{ request()->is('*visitors*') ? 'color: #e5365a;' : '' }}">Visitors</span>
                     </a>
                 </div>
             </div>

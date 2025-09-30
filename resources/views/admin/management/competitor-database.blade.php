@@ -36,21 +36,10 @@
                     <div class="container-fluid mt-2" style="padding: 0px 0px;">
                        
                         <div class="row">
-                            <div class="col-lg-4 col-md-12 col-sm-12">
-                                <form class="search-form-bg navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="search-form-bg-i form-control border-0 small" placeholder="Search " aria-label="Search" aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn-right-icon" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-lg-8 col-md-12 col-sm-12">
+                            
+                            <div class="col-sm-12">
                                 <div class="bothsearch-form">
-                                    <button type="button" class="btn btn-primary create-tour-sec dctour" data-toggle="modal" data-target="#Competitor">Add Competitor</button>
+                                    <button type="button" class="btn-common" data-toggle="modal" data-target="#Competitor">Add Competitor</button>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +48,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive-xl">
-                                <table class="table">
+                                <table class="table" id="competitorDatabase">
                                     <thead class="table-bg">
                                         <tr>
                                             <th scope="col">#</th>
@@ -68,7 +57,7 @@
                                             <th scope="col">Home Country</th>
                                             <th scope="col">Rating</th>
                                             <th scope="col">Date Added</th>
-                                            <th scope="col">
+                                            <th scope="col ">
                                                 Completed
                                                 <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M13.6139 15.125L10.4473 11.9583H12.8223V4.04167H10.4473L13.6139 0.875L16.7806 4.04167H14.4056V11.9583H16.7806L13.6139 15.125ZM0.947266 13.5417V11.9583H8.86393V13.5417H0.947266ZM0.947266 8.79167V7.20833H6.48893V8.79167H0.947266ZM0.947266 4.04167V2.45833H4.11393V4.04167H0.947266Z" fill="white"></path>
@@ -77,15 +66,15 @@
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="table-content">
-                                        <tr class="row-color">
-                                            <td class="theme-color">1</td>
-                                            <td class="theme-color">Mayfair Confidential</td>
-                                            <td class="theme-color">mayfairconfidential.com.au</td>
-                                            <td class="theme-color">Australia</td>
-                                            <td class="theme-color">2</td>
-                                            <td class="theme-color">01-03-2021</td>
-                                            <td class="theme-color"><img src="{{ asset('assets/app/img/actionone.png')}}" class="img-fluid img_resize_in_smscreen"></td>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Mayfair Confidential</td>
+                                            <td>mayfairconfidential.com.au</td>
+                                            <td>Australia</td>
+                                            <td>2</td>
+                                            <td>01-03-2021</td>
+                                            <td><img src="{{ asset('assets/app/img/actionone.png')}}" class="img-fluid img_resize_in_smscreen"></td>
                                             <td>
                                                 <div class="dropdown no-arrow ml-3">
                                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -99,14 +88,14 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr class="row-color">
-                                            <td class="theme-color">1</td>
-                                            <td class="theme-color">Mayfair Confidential</td>
-                                            <td class="theme-color">mayfairconfidential.com.au</td>
-                                            <td class="theme-color">Australia</td>
-                                            <td class="theme-color">2</td>
-                                            <td class="theme-color">01-03-2021</td>
-                                            <td class="theme-color">
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Mayfair Confidential</td>
+                                            <td>mayfairconfidential.com.au</td>
+                                            <td>Australia</td>
+                                            <td>2</td>
+                                            <td>01-03-2021</td>
+                                            <td>
                                                 <img src="{{ asset('assets/app/img/actiontwo.png')}}" class="img-fluid img_resize_in_smscreen">
                                             </td>
                                             <td>
@@ -197,7 +186,7 @@
                 </form>
             </div>
             <div class="modal-footer pt-0">
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn-success-modal">Save</button>
             </div>
         </div>
     </div>
@@ -247,9 +236,34 @@
                 </form>
             </div>
             <div class="modal-footer pt-0">
-                <button type="button" class="btn btn-primary">Update</button>
+                <button type="button" class="btn-success-modal">Update</button>
             </div>
         </div>
     </div>
 </div>
 @endsection
+
+@push('script')
+  
+
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+<script>
+      var table = $("#competitorDatabase").DataTable({
+      language: {
+         search: "Search: _INPUT_",
+         searchPlaceholder: "Search by Name..."
+      },
+      info: true,
+      paging: true,
+      lengthChange: true,
+      searching: true,
+      bStateSave: true,
+      order: [[1, 'desc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10
+   });
+
+ </script>
+  
+@endpush
