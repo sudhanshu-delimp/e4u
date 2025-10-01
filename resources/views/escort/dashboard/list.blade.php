@@ -701,6 +701,11 @@
             }
         });
 
+        $(document).on('change', '#extendEndDate', function() {
+            let selected = document.querySelector('.extend-period:checked');
+            selected.checked = false;
+        });
+
         $(document).on('change', '#extendEndDate, #extendProfileId, .extend-period', function() {
             let startDate = $('#extendStartDate').val();
             let endDate = $('#extendEndDate').val();
