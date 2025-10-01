@@ -33,6 +33,7 @@ class AdvertiserReviewsController extends Controller
             ->addColumn('viewer_id', fn($row) => $row->user->id ?? '-')
             ->addColumn('mobile', fn($row) => $row->escort->user->phone ?? '-')
             ->addColumn('status', fn($row) => Str::title($row->status) ?? 'Pending')
+            ->addColumn('review', fn($row) => $row->description != null && $row->description != '' ? Str::title($row->description) : '-')
             ->addColumn('action', function ($row) {
 
                 $statusActionHtml = '

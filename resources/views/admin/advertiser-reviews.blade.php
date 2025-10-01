@@ -139,6 +139,7 @@
                                     Mobile
                                 </th>
                                 <th scope="col">Status</th>
+                                <th scope="col">Review</th>
                                 <th scope="col" class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -288,7 +289,7 @@
     <!--right side bar end-->
     </div>
 
-
+    {{-- confirm modal --}}
     <div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -329,10 +330,10 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content basic-modal">
                 <div class="modal-header border-0">
-                    <h5 class="modal-title d-flex align-items-center success-modal-title" id="confirmPopupLabel">
+                    <h5 class="modal-title d-flex align-items-center " id="confirmPopupLabel">
                         <img src="{{ asset('assets/dashboard/img/published.png') }}" id="custompopicon" alt="published"
                             class="custompopicon">
-                        Published
+                        <span class="success-modal-title">Published</span>
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
@@ -358,38 +359,6 @@
         </div>
     </div>
 
-
-    {{-- rejected modal --}}
-    {{-- <div class="modal fade upload-modal" id="rejected-popup" tabindex="-1" role="dialog"
-        aria-labelledby="rejectedPopupLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content basic-modal">
-                <div class="modal-header border-0">
-                    <h5 class="modal-title d-flex align-items-center" id="rejectedPopupLabel">
-                        <img src="{{ asset('assets/dashboard/img/rejected.png') }}" alt="rejected" class="custompopicon">
-                        Rejected
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">
-                            <img src="{{ asset('assets/app/img/newcross.png') }}"
-                                class="img-fluid img_resize_in_smscreen">
-                        </span>
-                    </button>
-                </div>
-
-                <div class="modal-body text-center">
-                    <p style="font-size: 16px; color: #333; font-weight: bold;">We’re inform you that your query has been
-                        <br> Rejected.</p>
-
-                </div>
-
-                <div class="modal-footer justify-content-center border-0 pb-4">
-                    <button type="button" class="btn-success-modal px-4" data-dismiss="modal"
-                        aria-label="Close">OK</button>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 @endsection
 @push('script')
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
@@ -456,6 +425,25 @@
             'reviewId' :reviewId,
             'status' :status,
         }
+
+        let imageUrl = '{{ asset("assets/dashboard/img/rejected.png") }}';
+        if(status == 'published'){
+            $(".success-modal-title").text('Published');
+            imageUrl = '{{ asset("assets/dashboard/img/published.png") }}';
+            $("#custompopicon").attr('src', imageUrl );
+
+            $(".success-modal-text").text('We’re happy to inform you that your review has been published.');
+
+        }else if(status == 'rejected'){
+            $(".success-modal-title").text('Rejected');
+            imageUrl = '{{ asset("assets/dashboard/img/rejected.png") }}';
+            $("#custompopicon").attr('src', imageUrl );
+            $(".success-modal-text").text('We’re happy to inform you that your review has been rejected.');
+        }else{
+            $(".success-modal-title").text('Pending');
+            $("#custompopicon").attr('src', imageUrl);
+            $(".success-modal-text").text('We’re sorry to inform you that your review has been updated to pending.');
+        }
         
         var url = "{{route('admin.advertiser.reviews-status')}}";
         updateMemberReportStatus(reviewData, url);
@@ -474,21 +462,6 @@
             },
             success: function(response) {
                 if(response.error == false){
-                    if(response.member_status == 'published'){
-                        $(".success-modal-title").text('Published');
-                        $("#custompopicon").attr('src', '{{ asset("assets/dashboard/img/published.png") }}' );
-
-                        $(".success-modal-text").text('We’re happy to inform you that your review has been successfully published.');
-
-                    }else if(response.member_status == 'rejected'){
-                        $(".success-modal-title").text('Rejected');
-                        $("#custompopicon").attr('src', '{{ asset("assets/dashboard/img/rejected.png") }}' );
-                        $(".success-modal-text").text('We’re happy to inform you that your review has been successfully rejected.');
-                    }else{
-                        $(".success-modal-title").text('Pending');
-                        $("#custompopicon").attr('src', '{{ asset("assets/dashboard/img/rejected.png") }}' );
-                        $(".success-modal-text").text('We’re sorry to inform you that your review has been updated to pending.');
-                    }
 
                     $('#advertiserReviewTable').DataTable().ajax.reload(null, false);
                     var myModal = new bootstrap.Modal(document.getElementById('confirm_publish_popup'));
@@ -570,6 +543,7 @@
                 { data: 'viewer_id', name: 'viewer_id' },
                 { data: 'mobile', name: 'mobile' },
                 { data: 'status', name: 'status'},
+                { data: 'review', name: 'review'},
                 { data: 'action', name: 'action', orderable: false }
             ]
         });
