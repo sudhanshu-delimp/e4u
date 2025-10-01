@@ -148,6 +148,32 @@ Route::get('agent-messages',function(){
     return view('agent.dashboard.agent-messages');
 })->name('agent.agent-messages');
 
+
+Route::get('services-kpis',function(){
+    return view('agent.dashboard.Communication.services-kpis');
+})->name('agent.services-kpis');
+
+
+Route::get('classifications-laws',function(){
+    return view('agent.dashboard.Communication.classifications-laws');
+})->name('agent.classifications-laws');
+
+
+
+Route::get('guidelines-procedures',function(){
+    return view('agent.dashboard.Communication.guidelines-procedures');
+})->name('agent.guidelines-procedures');
+
+
+Route::get('signing-up-advertiser',function(){
+    return view('agent.dashboard.Communication.signing-up-advertiser');
+})->name('agent.signing-up-advertiser');
+
+
+Route::get('media',function(){
+    return view('agent.dashboard.Communication.media');
+})->name('agent.media');
+
     Route::get('Marketing/create-information-package',function(){
     return view('agent.dashboard.Marketing.create-information-package');
 })->name('marketing.create-information-package');

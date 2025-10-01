@@ -149,18 +149,30 @@ Route::get('registrations-reports',function(){
 })->name('admin.registrations-reports');
 
 
-Route::get('commission-statements',function(){
+Route::get('management/commission-statements',function(){
     return view('admin.management.operator.commission-statements');
 })->name('admin.commission-statements');
 
-Route::get('commission-summary',function(){
+Route::get('management/commission-summary',function(){
     return view('admin.management.operator.commission-summary');
 })->name('admin.commission-summary');
 
-Route::get('operator-manage',function(){
+Route::get('management/operator-manage',function(){
     return view('admin.management.operator.operator-manage');
 })->name('admin.operator-manage');
 
+
+Route::get('management/tours',function(){
+    return view('admin.management.statistics.tours');
+})->name('admin.tours');
+
+Route::get('management/profile',function(){
+    return view('admin.management.statistics.profile');
+})->name('admin.profile');
+
+Route::get('/admin-dashboard/management/statistics/num',function(){
+    return view('admin.management.statistics.num');
+})->name('admin.num');
 
 Route::get('support-tickets',function(){
     return view('admin.support-tickets');
