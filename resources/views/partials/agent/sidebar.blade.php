@@ -251,7 +251,7 @@
     
         <!-- Communication Collapse -->
         <div id="Communication" 
-             class="collapse @if(in_array(request()->segment(2), ['agent-messages','services-kpis','classifications-laws','guidelines-procedures','signing-up-advertiser','media'])) show @endif" 
+             class="collapse @if(in_array(request()->segment(2), ['agent-messages','guidelines','forms'])) show @endif" 
              aria-labelledby="headingTwo" data-parent="#accordionSidebar">
     
             <div class="py-0 collapse-inner rounded mb-2">
@@ -261,16 +261,27 @@
                     <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png')}}">
                     <span style="{{request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : ''}}">Messages</span>
                 </a>
+
+                  <!-- Guidelines -->
+                  <a class="collapse-item" href="{{ route('agent.guidelines')}}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/guide.png')}}">
+                    <span style="{{request()->segment(2) == 'guidelines' ? 'color: #e5365a;' : ''}}">Guidelines</span>
+                    </a>
+                     <!-- Forms -->
+                  <a class="collapse-item" href="{{ route('agent.forms')}}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/guide.png')}}">
+                    <span style="{{request()->segment(2) == 'forms' ? 'color: #e5365a;' : ''}}">Forms</span>
+                    </a>
     
                 <!-- Guidelines Parent -->
-                <a class="collapse-item collapsed nav-link" href="#" data-toggle="collapse" data-target="#GuidelinesSubmenu"
+               {{--  <a class="collapse-item collapsed nav-link" href="#" data-toggle="collapse" data-target="#GuidelinesSubmenu"
                    aria-expanded="false" aria-controls="GuidelinesSubmenu">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/guide.png')}}">
                     <span>Guidelines</span>
                 </a>
     
                 <!-- Guidelines Submenu -->
-                {{-- <div id="GuidelinesSubmenu" 
+                <div id="GuidelinesSubmenu" 
                      class="collapse @if(in_array(request()->segment(2), ['services-kpis','classifications-laws','guidelines-procedures','signing-up-advertiser','media'])) show @endif" 
                      data-parent="#Communication">
     

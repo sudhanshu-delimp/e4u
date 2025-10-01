@@ -10207,39 +10207,60 @@ button:disabled {
 /* guideline-info */
 
 .guideline-info li {
-    font-size: 20px;
+    font-size: 18px !important;
     color: var(--blue--text);
-    font-weight: bold;
+    font-weight: bold !important;
     padding-left: 40px;
-    margin-bottom: 25px;
+    margin-bottom: 25px !important;
 }
 
 .guideline-info li p {
-    font-size: 16px;
+    font-size: 16px !important;
     color: #444;
-    font-weight: 500;
+    font-weight: 500 !important;
 }
 
 .guideline-info li ul {
     margin-top: 25px;
 }
 
+.guideline-info ol h2 {
+    font-size: 18px !important;
+    color: var(--blue--text);
+    font-weight: bold !important;
+    margin-top: 25px!important;
+}
+
+.guideline-info ol li ul {
+    padding-left: 20px;
+}
+
 .guideline-info ol li a {
-    font-size: 16px;
+    font-size: 16px !important;
+}
+
+.guideline-info ol .ol2 {
+    padding-left: 20px;
+}
+
+.guideline-info ol .ol2 li {
+    font-weight: 500 !important;
+    color: var(--blue--text);
+    margin-bottom: 0px !important;
+    padding-left: 15px;
 }
 
 .guideline-info li ul li {
-    font-weight: 500;
+    font-weight: 500 !important;
     color: #444;
-    font-weight: 500;
-    margin-bottom: 5px;
-    font-size: 16px;
+    margin-bottom: 0px !important;
+    font-size: 16px !important;
     padding-left: 15px;
     list-style-type: disc;
 }
 
 .guideline-info .level-2 li {
-    font-weight: 500;
+    font-weight: 500 !important;
 }
 
 .guideline-info .level-2 li ul {
@@ -10248,10 +10269,33 @@ button:disabled {
 
 .guideline-info .level-2 li ul li {
     color: #444;
-    font-weight: 500;
-    margin-bottom: 5px;
-    font-size: 16px;
+    font-weight: 500 !important;
+    margin-bottom: 0px !important;
+    font-size: 16px !important;
     padding-left: 15px;
+}
+
+.guide-note ol li {
+    font-weight: 500 !important;
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+    color: #000;
+}
+
+.guide-document {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.guide-document a {
+    font-size: 20px;
+}
+
+.guide-document i {
+    font-size: 50px;
+    color: #c2cfe0;
 }
 
 
