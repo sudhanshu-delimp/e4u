@@ -270,7 +270,7 @@
                 </a>
     
                 <!-- Guidelines Submenu -->
-                <div id="GuidelinesSubmenu" 
+                {{-- <div id="GuidelinesSubmenu" 
                      class="collapse @if(in_array(request()->segment(2), ['services-kpis','classifications-laws','guidelines-procedures','signing-up-advertiser','media'])) show @endif" 
                      data-parent="#Communication">
     
@@ -296,7 +296,7 @@
                             <span style="{{request()->segment(2) == 'media' ? 'color: #e5365a;' : ''}}">Media</span>
                         </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </li>
