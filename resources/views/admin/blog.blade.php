@@ -230,7 +230,8 @@
 <i class="fas fa-angle-up"></i>
 </a>
 <!-- CKEditor Script -->
-{{-- <script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script> --}}
+
+<script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
 <script>
   CKEDITOR.replace('editor1', {
     fullPage: false, // Set to true only if you're editing full HTML pages
@@ -247,6 +248,15 @@
     removeButtons: 'PasteFromWord' // Optional: hide buttons you don’t need
   });
 </script>
+
+@endsection
+
+@push('script')
+  
+
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+
+
 
 <script>
     const dropArea = document.getElementById('drop-area');
@@ -285,12 +295,6 @@
       }
     }
   </script>
-@endsection
-
-@push('script')
-  
-
-<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
       var table = $("#BlogListTable").DataTable({

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
@@ -215,5 +216,9 @@ Route::post('/check-agent-email',[AgentController::class,'check_agent_email'])->
 Route::post('/approve-agent-account',[AgentController::class,'approve_agent_account'])->name('admin.approve-agent-account');
 
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');
+
+
+// Blog Management
+Route::get('/blog', [BlogController::class, 'list'])->name('admin.blog.list');
 
 

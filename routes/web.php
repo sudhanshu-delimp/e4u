@@ -705,9 +705,6 @@ Route::get('/admin-dashboard/post-office/reports',function(){
     return view('admin.post-office.reports');
 })->name('admin.reports');
 
-Route::get('/admin-dashboard/blog',function(){
-    return view('admin.blog');
-})->name('admin.blog');
 
 
 Route::get('/admin-dashboard/management/punterbox-reports',function(){

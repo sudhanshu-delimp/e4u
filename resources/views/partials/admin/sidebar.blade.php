@@ -645,7 +645,7 @@
                     src="{{ asset('assets/dashboard/img/menu-icon/alert.png') }}">
                 <span style="{{ request()->is('*new*') ? 'color: #e5365a;' : '' }}">Alerts</span>
             </a>
-            <a class="nav-link collapsed" href="{{ route('admin.blog') }}">
+            <a class="nav-link collapsed" href="{{ route('admin.blog.list') }}">
                 <svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" width="64px" height="64px" viewBox="0 0 512 512"
                 xml:space="preserve" fill="#000000">
