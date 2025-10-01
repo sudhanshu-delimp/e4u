@@ -31,7 +31,7 @@ class AdvertiserReviewsController extends Controller
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->updated_at)))
             ->addColumn('escort_id', fn($row) => $row->escort->id ?? '-')
             ->addColumn('viewer_id', fn($row) => $row->user->id ?? '-')
-            ->addColumn('mobile', fn($row) => $row->escort->user->phone ?? '-')
+            ->addColumn('mobile', fn($row) => $row->user->phone ?? '-')
             ->addColumn('status', fn($row) => Str::title($row->status) ?? 'Pending')
             ->addColumn('review', fn($row) => $row->description != null && $row->description != '' ? Str::title($row->description) : '-')
             ->addColumn('action', function ($row) {
@@ -108,7 +108,7 @@ class AdvertiserReviewsController extends Controller
         $allCount   = Reviews::count();
 
         # If you still want to return reviews with relations
-        $advertiserReviews = Reviews::with(['escort','user'])->get();
+        $advertiserReviews = Reviews::with(['escort','user'])->orderByRaw("FIELD(status, 'pending','published','rejected')")->get();
 
         $reports = [
             'today'    => $todayCount,
