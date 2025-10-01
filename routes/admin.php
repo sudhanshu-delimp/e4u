@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
+use App\Http\Controllers\Admin\AdvertiserReviewsController;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
@@ -132,9 +133,16 @@ Route::get('member-single-escort-reports-ajax',[AdvertiserReportContoller::class
 Route::get('print-single-escort-reports',[AdvertiserReportContoller::class, 'printSingleMemberEscortReport'])->name('admin.print.single-member-reports');
 Route::post('advertiser-report-status',[AdvertiserReportContoller::class, 'updateMemberReportStatus'])->name('admin.advertiser.report-status');
 
-Route::get('advertiser-reviews',function(){
-    return view('admin.advertiser-reviews');
-})->name('admin.advertiser-reviews');
+# Advertiser reviews section
+Route::get('advertiser-reviews',[AdvertiserReviewsController::class, 'index'])->name('admin.advertiser-reviews');
+Route::get('advertiser-reviews-ajax',[AdvertiserReviewsController::class, 'getReviewsByAjax'])->name('admin.advertiser-reviews.ajax');
+Route::get('member-single-escort-reviews-ajax',[AdvertiserReviewsController::class, 'getSingleMemberEscortReviews'])->name('admin.single-member-reviews.ajax');
+Route::get('print-single-reviews',[AdvertiserReviewsController::class, 'printSingleMemberEscortReviews'])->name('admin.print.single-member-reviews');
+Route::post('advertiser-reviews-status',[AdvertiserReviewsController::class, 'updateMemberReviewsStatus'])->name('admin.advertiser.reviews-status');
+
+// Route::get('advertiser-reviews',function(){
+//     return view('admin.advertiser-reviews');
+// })->name('admin.advertiser-reviews');
 
 Route::get('registrations-reports',function(){
     return view('admin.reporting.registrations');
