@@ -650,7 +650,7 @@
 
 
                     <!-- Changes to this Policy -->
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-header">
                             <a class="card-link collapsed" data-toggle="collapse" href="#addPolicy" aria-expanded="false">
                             Changes to this Policy
@@ -682,7 +682,7 @@
                             </div>
                         </div>
                         </div>
-                    </div>    
+                    </div>     --}}
                     <!-- end -->
                 </div>
             </div>
