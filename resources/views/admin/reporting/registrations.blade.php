@@ -47,7 +47,7 @@
         <!--middle content-->
         <div class="row">
             <div class="custom-heading-wrapper col-md-12">
-                <h1 class="h1">Registrations Reports</h1>
+                <h1 class="h1">Registrations</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b>
                 </span>
             </div>
@@ -103,7 +103,7 @@
             </div>
 
             <div class="col-lg-12">
-                <div class="table-responsive">
+                <div class="table-responsive custom-badge">
                     <table class="table" id="RegistrationsReportTable" style="width: 100%">
                         <thead class="table-bg">
                             <tr>
@@ -125,7 +125,7 @@
                                 <td>5438 028 733</td>
                                 <td>Qld</td>
                                 <td>A125</td>
-                                <td>On Hold</td>
+                                <td> <span class="badge badge-secondary">On Hold</span></td>
                                 <td class="text-center">
                                     <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -174,7 +174,7 @@
                                 <td>5438 111 222</td>
                                 <td>NSW</td>
                                 <td>A126</td>
-                                <td>Registered</td>
+                                <td><span class="badge badge-success">Registered</span></td>
                                 <td class="text-center">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -276,12 +276,11 @@
                 </div>
 
                 <div class="modal-body pb-0 teop-text text-center">
-                    <h6 class="popu_heading_style mt-2">
-                        <span id="Lname">Are you sure you want to perform this action.</span>
-                    </h6>
-
-                </div>
-
+                    <h5 class="popu_heading_style mt-2">
+                       Are you sure you want to perform this action.
+                    </h5>
+     
+              </div>
                 <div class="modal-footer justify-content-center border-0 pb-4">
 
                     <button type="button" class="btn-success-modal saveStatus" data-dismiss="modal"

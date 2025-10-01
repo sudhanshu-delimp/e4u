@@ -1,10 +1,6 @@
-<style>
-    .sidebar {
-        height: auto;
-    }
-</style>
+
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion db-custom-sidebar" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand text-left pb-0" href="{{ route('home') }}">

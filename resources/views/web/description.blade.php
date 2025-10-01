@@ -1204,6 +1204,7 @@
                 <!-- Carousel -->
                 <div id="reviewCarousel" class="carousel slide carousel-slide " data-bs-ride="carousel">
                     <div class="carousel-inner">
+                        
                         @foreach($reviews as $key => $review)
                         <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
                             @php
@@ -1232,7 +1233,7 @@
                                 @endfor
                                 <li class="list-inline-item testi_icon_color"><b class="">{{$review->star_rating}}</b></li>
                             </ul>
-                            <p class="custome-text-date">Reviewed [{{$review->created_at->format('d-m-Y')}}]</p>
+                            <p class="custome-text-date">Reviewed {{$review->created_at->format('d-m-Y')}}</p>
                             <div class="review-text">
                                 {{ $review->description }}
                             </div>

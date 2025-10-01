@@ -97,7 +97,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group d-flex gap-20">
                         <button type="button" id="showRecipients" class="btn-common mr-0" disabled>Show Recipients</button>
                         <button type="button" id="proceedBtn" class="btn-common mr-0">Proceed</button>
                     </div>

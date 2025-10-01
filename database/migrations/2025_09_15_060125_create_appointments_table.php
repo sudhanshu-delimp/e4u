@@ -17,7 +17,8 @@ class CreateAppointmentsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('advertiser_id')->index();
             $table->date('date'); //Appointment date
-            $table->time('time'); // Appointment time
+            $table->time('start_time'); 
+             $table->time('end_time'); 
             $table->string('address')->nullable();
             $table->decimal('lat',10,7)->nullable(); //latitude
             $table->decimal('long',10,7)->nullable(); // longitude

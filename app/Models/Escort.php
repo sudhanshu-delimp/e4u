@@ -442,7 +442,7 @@ class Escort extends Model
 
     public function reviews()
     {
-        return $this->hasMany('App\Models\Reviews', 'escort_id', 'id');
+        return $this->hasMany(Reviews::class, 'escort_id', 'id');
     }
 
     ///////////////////
