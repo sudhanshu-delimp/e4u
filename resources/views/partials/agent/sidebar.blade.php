@@ -244,44 +244,64 @@
     </li>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Communication"
-            aria-expanded="false" aria-controls="collapseTwo">
-            <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                src="{{ asset('assets/dashboard/img/menu-icon/ccone.png') }}">
-
+            aria-expanded="false" aria-controls="Communication">
+            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/communication.png') }}">
             <span>Communication</span>
         </a>
-        <div id="Communication" class="collapse @if (request()->segment(2) == 'agent-messages') show @endif;"
-            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-
+    
+        <!-- Communication Collapse -->
+        <div id="Communication" 
+             class="collapse @if(in_array(request()->segment(2), ['agent-messages','services-kpis','classifications-laws','guidelines-procedures','signing-up-advertiser','media'])) show @endif" 
+             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+    
             <div class="py-0 collapse-inner rounded mb-2">
-                {{-- <a class="collapse-item" href="{{ route('agent.advertiser-profiles') }}">
-                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                        src="{{ asset('assets/app/img/user.png') }}">
-                    <span
-                        style="{{ request()->segment(2) == 'advertiser-profiles' ? 'color: #e5365a;' : '' }}">Advertiser
-                        Profiles</span>
-                </a>
-                <a class="collapse-item" href="{{ route('agent.advertiser-social-media') }}">
-                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                        src="{{ asset('assets/dashboard/img/menu-icon/at.png') }}">
-                    <span
-                        style="{{ request()->segment(2) == 'advertiser-social-media' ? 'color: #e5365a;' : '' }}">Advertiser
-                        Social Media</span>
-                </a>
-                <a class="collapse-item" href="{{ route('agent.prospets-memberships') }}">
-                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                        src="{{ asset('assets/app/img/membership.png') }}">
-                    <span
-                        style="{{ request()->segment(2) == 'prospets-memberships' ? 'color: #e5365a;' : '' }}">Prospets
-                        & Memberships</span>
-                </a> --}}
+    
+                <!-- Messages -->
                 <a class="collapse-item" href="{{ route('agent.agent-messages')}}">
-                  <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png')}}">
-                  <span style="{{request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : ''}}">Messages</span>
-              </a>
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png')}}">
+                    <span style="{{request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : ''}}">Messages</span>
+                </a>
+    
+                <!-- Guidelines Parent -->
+                <a class="collapse-item collapsed nav-link" href="#" data-toggle="collapse" data-target="#GuidelinesSubmenu"
+                   aria-expanded="false" aria-controls="GuidelinesSubmenu">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/guide.png')}}">
+                    <span>Guidelines</span>
+                </a>
+    
+                <!-- Guidelines Submenu -->
+                {{-- <div id="GuidelinesSubmenu" 
+                     class="collapse @if(in_array(request()->segment(2), ['services-kpis','classifications-laws','guidelines-procedures','signing-up-advertiser','media'])) show @endif" 
+                     data-parent="#Communication">
+    
+                    <div class="py-0 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('agent.services-kpis') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/guideline.png')}}">
+                            <span style="{{request()->segment(2) == 'services-kpis' ? 'color: #e5365a;' : ''}}">Services - KPIs</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('agent.classifications-laws') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/guideline.png')}}">
+                            <span style="{{request()->segment(2) == 'classifications-laws' ? 'color: #e5365a;' : ''}}">Classifications Laws</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('agent.guidelines-procedures') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/guideline.png')}}">
+                            <span style="{{request()->segment(2) == 'guidelines-procedures' ? 'color: #e5365a;' : ''}}">Guidelines & Procedures</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('agent.signing-up-advertiser') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/guideline.png')}}">
+                            <span style="{{request()->segment(2) == 'signing-up-advertiser' ? 'color: #e5365a;' : ''}}">Signing Up Advertiser</span>
+                        </a>
+                        <a class="collapse-item" href="{{ route('agent.media') }}">
+                            <img src="{{ asset('assets/dashboard/img/menu-icon/guideline.png')}}">
+                            <span style="{{request()->segment(2) == 'media' ? 'color: #e5365a;' : ''}}">Media</span>
+                        </a>
+                    </div>
+                </div> --}}
             </div>
         </div>
     </li>
+    
+    
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Community"
             aria-expanded="true" aria-controls="collapseTwo">
