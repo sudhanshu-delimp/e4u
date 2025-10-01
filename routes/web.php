@@ -619,18 +619,6 @@ Route::get('/admin-dashboard/management/memberships',function(){
     return view('admin.management.memberships');
 })->name('admin.memberships');
 
-Route::get('/admin-dashboard/management/statistics/tours',function(){
-    return view('admin.management.statistics.tours');
-})->name('admin.tours');
-
-Route::get('/admin-dashboard/management/statistics/profile',function(){
-    return view('admin.management.statistics.profile');
-})->name('admin.profile');
-
-Route::get('/admin-dashboard/management/statistics/num',function(){
-    return view('admin.management.statistics.num');
-})->name('admin.num');
-
 Route::get('/admin-dashboard/reports/credit',function(){
     return view('admin.reports.credit');
 })->name('admin.credit');
