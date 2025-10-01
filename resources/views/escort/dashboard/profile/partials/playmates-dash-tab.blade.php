@@ -1,43 +1,155 @@
+
 <div class="tab-pane fade" id="playmates" role="tabpanel" aria-labelledby="my-playmates">
     <div class="col-lg-12">
-        <div class="member-id">
+        <div class="member-id pl-0 pb-2 pt-3">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="#C2CFE0" />
+                <path
+                    d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z"
+                    fill="#C2CFE0" />
             </svg>
-            <span>Member ID: {{ auth()->user()->member_id}}</span>
+            <span>Member ID: {{ auth()->user()->member_id }}</span>
         </div>
     </div>
-    <div class="about_me_drop_down_info ">
-        <div class="padding_20_all_side payment_form_bg">
-            <div class="row margin_zero_for_row">
-                
-            </div>
-        </div>
-    </div>
-   
-    <!-- check out btns -->
-    
-    <div class="tab_btm_btns_preview_and_next">
-        <div class="row pt-3 pb-3">
-            <div class="col-lg-4 col-md-4 col-sm-4 col-12 a_text_white_hover previous_bt_center_in_sm">
-                <a class="nex_sterp_btn btn_width_hundred" id="contact-tab" data-toggle="tab" href="#available"
-                    role="tab" aria-controls="contact" aria-selected="true">
-                    <i class="fas fa-arrow-left"></i>&nbsp;Previous Step</a>
-            </div>
-            <div class="col-lg-8 col-md-8 col-sm-8 col-12 text-right a_text_white_hover previous_bt_center_in_sm">
-                @if (request()->segment(2) == 'create-profile')
-                    <a data-toggle="modal" data-id="{{ $escort->id }}" data-target="#view-listing"
-                        class="save_profile_btn preview-profile" href="#">Preview</a>
-                @endif
+    <div class="about_me_drop_down_info profile-sec playmates-tab">
+            <div class="row">
+                <!-- Profile Dropdown -->
+                <div class="col-lg-6">
+                    
+                    <!-- Available Playmates -->
+                    <h2 class="mt-3 mb-0">Available Playmates</h2>
+                    <div class="form-group">
+                        <label for="profileSearch"></label>
+                            <input type="text" class="form-control" id="profileSearch"
+                                placeholder="Search profile...">
+                    </div>
 
-                @if (request()->segment(2) == 'create-profile')
-                    <button id="show_draft-2" name="save" type="submit" class="nex_sterp_btn"
-                        {{-- style="display:none" --}}>
-                        Save Profile
-                    </button>
-                @endif
+                </div>
+                <div class="col-lg-12 my-3">
+                    <!-- Playmate Card -->
+                    <div class="playmates-card-grid"> 
+                        <!-- Card 1 -->
+                        <div class="card shadow-sm">
+                            <img src="{{ asset('assets/app/img/banner/mcc1.jpg') }}" class="card-img-top" alt="Playmate 1">
+                            <div class="card-body">
+                                <h3>Playmate 1</h3>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input"
+                                        type="checkbox" id="playmate1">
+                                        <label class="form-check-label ml-2" for="playmate1">Add as playmate</label> 
+                                </div>
+                            </div>
+                        </div>    
+                        <!-- Card 2 -->
+                        <div class="card shadow-sm">
+                            <img src="{{ asset('assets/app/img/banner/mcc2.jpg') }}" class="card-img-top" alt="Playmate 2">
+                            <div class="card-body">
+                                <h3>Playmate 2</h3>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input"
+                                        type="checkbox" id="playmate2">
+                                        <label class="form-check-label ml-2" for="playmate2">Add as playmate</label> 
+                                </div>
+                            </div>
+                        </div>  
+                        <!-- Card 3 -->
+                        <div class="card shadow-sm">
+                            <img src="{{ asset('assets/app/img/banner/mcc3.jpg') }}" class="card-img-top" alt="Playmate 3">
+                            <div class="card-body">
+                                <h3>Playmate 3</h3>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input"
+                                        type="checkbox" id="playmate3">
+                                        <label class="form-check-label ml-2" for="playmate3">Add as playmate</label> 
+                                </div>
+                            </div>
+                        </div> 
+                         <!-- Card 4 -->
+                         <div class="card shadow-sm">
+                            <img src="{{ asset('assets/app/img/banner/mcc6.jpg') }}" class="card-img-top" alt="Playmate 4">
+                            <div class="card-body">
+                                <h3>Playmate 4</h3>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input"
+                                        type="checkbox" id="playmate4">
+                                        <label class="form-check-label ml-2" for="playmate4">Add as playmate</label> 
+                                </div>
+                            </div>
+                        </div> 
+                         <!-- Card 5 -->
+                         <div class="card shadow-sm">
+                            <img src="{{ asset('assets/app/img/banner/mcc3.jpg') }}" class="card-img-top" alt="Playmate 3">
+                            <div class="card-body">
+                                <h3>Playmate 5</h3>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input"
+                                        type="checkbox" id="playmate5">
+                                        <label class="form-check-label ml-2" for="playmate5">Add as playmate</label> 
+                                </div>
+                            </div>
+                        </div> 
+                         <!-- Card 6 -->
+                         <div class="card shadow-sm">
+                            <img src="{{ asset('assets/app/img/banner/mcc4.jpg') }}" class="card-img-top" alt="Playmate 3">
+                            <div class="card-body">
+                                <h3>Playmate 6</h3>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input"
+                                        type="checkbox" id="playmate6">
+                                        <label class="form-check-label ml-2" for="playmate6">Add as playmate</label> 
+                                </div>
+                            </div>
+                        </div> 
+                         <!-- Card 7 -->
+                         <div class="card shadow-sm">
+                            <img src="{{ asset('assets/app/img/banner/mcc5.jpg') }}" class="card-img-top" alt="Playmate 3">
+                            <div class="card-body">
+                                <h3>Playmate 7</h3>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input"
+                                        type="checkbox" id="playmate7">
+                                        <label class="form-check-label ml-2" for="playmate7">Add as playmate</label> 
+                                </div>
+                            </div>
+                        </div> 
+                         <!-- Card 8 -->
+                         <div class="card shadow-sm">
+                            <img src="{{ asset('assets/app/img/banner/mcc6.jpg') }}" class="card-img-top" alt="Playmate 8">
+                            <div class="card-body">
+                                <h3>Playmate 8</h3>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input"
+                                        type="checkbox" id="playmate8">
+                                        <label class="form-check-label ml-2" for="playmate8">Add as playmate</label> 
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
             </div>
+    </div>
+    
+<!-- check out btns -->
+
+<div class="tab_btm_btns_preview_and_next">
+    <div class="row pt-3 pb-3">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-12 a_text_white_hover previous_bt_center_in_sm">
+            <a class="nex_sterp_btn btn_width_hundred" id="contact-tab" data-toggle="tab" href="#available"
+                role="tab" aria-controls="contact" aria-selected="true">
+                <i class="fas fa-arrow-left"></i>&nbsp;Previous Step</a>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-12 text-right a_text_white_hover previous_bt_center_in_sm">
+            @if (request()->segment(2) == 'create-profile')
+                <a data-toggle="modal" data-id="{{ $escort->id }}" data-target="#view-listing"
+                    class="save_profile_btn preview-profile" href="#">Preview</a>
+            @endif
+
+            @if (request()->segment(2) == 'create-profile')
+                <button id="show_draft-2" name="save" type="submit" class="nex_sterp_btn">
+                    Save Profile
+                </button>
+            @endif
         </div>
     </div>
-    <!-- check out btns -->
+</div>
+<!-- check out btns -->
 </div>
