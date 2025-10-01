@@ -613,7 +613,7 @@
                         <div class="accordion-container">
                             <div class="set">
                                 <a>
-                                On You - Fun Stuff
+                                Fun Stuff - on Viewer
                                 <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="content">
@@ -695,7 +695,7 @@
                             </div>
                             <div class="set">
                                 <a>
-                                On You - Kinky Stuff
+                                Kinky Stuff - on Viewer
                                 <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="content">
@@ -775,7 +775,7 @@
                             </div>
                             <div class="set">
                                 <a>
-                                On me - Fun Stuff
+                                Fun Stuff - on Me
                                 <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="content">
