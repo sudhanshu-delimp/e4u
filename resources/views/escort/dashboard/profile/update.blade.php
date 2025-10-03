@@ -147,16 +147,12 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available"
                               role="tab" aria-controls="contact" aria-selected="false">My Availability</a>
                             </li>
-
-                            {{-- <li class="nav-item">
+                        @if(ENV('MODULE_PHASE')==='TESTING')
+                            <li class="nav-item">
                                 <a class="nav-link" id="playmates-tab" data-toggle="tab" href="#playmates" role="tab" aria-controls="my-playmates" aria-selected="false">
                                     My Playmates</a>
-                            </li> --}}
-                             
-                        {{-- <li class="nav-item">
-                            <a class="nav-link" id="pricing-tab" data-toggle="tab" href="#pricing" role="tab" aria-controls="contact" aria-selected="false">My Playmates</a>
-                        </li> --}}
-                    
+                            </li>  
+                        @endif
                      </ul>
                      
                     
@@ -175,7 +171,9 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                         @include('escort.dashboard.profile.partials.services-dash-tab')
                         @include('escort.dashboard.profile.partials.available-dash-tab')
                         {{-- @include('escort.dashboard.profile.partials.pricing-dash-tab') --}}
-                        {{-- @include('escort.dashboard.profile.partials.playmates-dash-tab') --}}
+                        @if(ENV('MODULE_PHASE')==='TESTING')
+                            @include('escort.dashboard.profile.partials.playmates-dash-tab')
+                        @endif
                      </div>
                      @else
                      <form id="my_escort_profile"
@@ -190,7 +188,9 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                            ])
                            @include('escort.dashboard.profile.partials.services-dash-tab')
                            @include('escort.dashboard.profile.partials.available-dash-tab')
-                           {{-- @include('escort.dashboard.profile.partials.playmates-dash-tab') --}}
+                           @if(ENV('MODULE_PHASE')==='TESTING')
+                            @include('escort.dashboard.profile.partials.playmates-dash-tab')
+                           @endif
                            {{-- @include('escort.dashboard.profile.partials.pricing-dash-tab') --}}
                         </div>
                      </form>
@@ -270,6 +270,7 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
 @endsection
 @push('script')
 <script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
+<script src="{{ asset('js/escort/profile_playmate.js') }}"></script>
     <script>
         $(document).on('keypress', 'form input', function(event) {
             return event.keyCode !== 13;
@@ -647,8 +648,6 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                     });
                 }
             });
-
-
 
             $('#LocationInformation').on('submit', function(e) {
                 e.preventDefault();

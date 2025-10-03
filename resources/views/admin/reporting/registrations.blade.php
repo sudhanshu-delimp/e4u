@@ -103,7 +103,7 @@
             </div>
 
             <div class="col-lg-12">
-                <div class="table-responsive">
+                <div class="table-responsive custom-badge">
                     <table class="table" id="RegistrationsReportTable" style="width: 100%">
                         <thead class="table-bg">
                             <tr>
@@ -125,7 +125,7 @@
                                 <td>5438 028 733</td>
                                 <td>Qld</td>
                                 <td>A125</td>
-                                <td>On Hold</td>
+                                <td> <span class="badge badge-secondary">On Hold</span></td>
                                 <td class="text-center">
                                     <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -174,7 +174,7 @@
                                 <td>5438 111 222</td>
                                 <td>NSW</td>
                                 <td>A126</td>
-                                <td>Registered</td>
+                                <td><span class="badge badge-success">Registered</span></td>
                                 <td class="text-center">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"

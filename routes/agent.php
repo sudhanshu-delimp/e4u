@@ -148,6 +148,18 @@ Route::get('agent-messages',function(){
     return view('agent.dashboard.agent-messages');
 })->name('agent.agent-messages');
 
+
+
+Route::get('guidelines',function(){
+    return view('agent.dashboard.Communication.guidelines');
+})->name('agent.guidelines');
+
+
+Route::get('forms',function(){
+    return view('agent.dashboard.Communication.forms');
+})->name('agent.forms');
+
+
     Route::get('Marketing/create-information-package',function(){
     return view('agent.dashboard.Marketing.create-information-package');
 })->name('marketing.create-information-package');

@@ -220,7 +220,7 @@
                                     <li>If you have any queries regarding your appointed Agent, contact the Escorts4U help centre by raising a Support Ticket. Please include the Agent ID number. </li>
                                  </ol>
                                  <h5 class="d_sub_heading">Home State</h5>
-                                 <p>If you want to change your Home State, contact the Escorts4U help centre by raising a <a class=" " href="{{ url('escort-dashboard/submitticket') }}" style="font-size: 16px;"><span class="custom_links_design">Support Ticket.</span></a> You can not change your Home State, only Escorts4U support staff can change your Home State. You will have to provide proof that you have relocated to a new Home State.</p>
+                                 <p>If you want to change your Home State, contact the Escorts4U help centre by raising a <a href="{{ url('submit_ticket') }}" style="font-size: 16px;"><span class="custom_links_design">Support Ticket.</span></a> You can not change your Home State, only Escorts4U support staff can change your Home State. You will have to provide proof that you have relocated to a new Home State.</p>
                               </div>
                            </div>
                         </div>

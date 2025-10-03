@@ -236,8 +236,8 @@ class CenterController extends Controller
         $data = [
             'name' => $request->name,
             // 'gender' => $request->gender,
-            // 'contact_type' => $request->contact_type,
-            'phone' => $request->phone,
+            'contact_type' => $request->contact_type,
+            //'phone' => $request->phone,
             //'city_id'=>$request->city_id,
             //'country_id'=>$request->country_id,
             // 'state_id'=>$request->state_id,

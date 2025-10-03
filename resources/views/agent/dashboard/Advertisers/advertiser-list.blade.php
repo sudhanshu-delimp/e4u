@@ -64,28 +64,24 @@
 
             <div class="row">
                <div class="col-sm-12 col-md-12 col-lg-12">
-                  <div class="row">
-                     <div class="col-md-12">
-                        <div class="table-responsive-xl">
-                           <table class="table table-bordered text-center" id="myAdvertisersList">
-                              <thead class="table-bg">
-                                 <tr>
-                                    <th>Member ID</th>
-                                    <th>Name</th>
-                                    <th>Mobile</th>
-                                    <th>Email</th>
-                                    <th>Contact</th>
-                                    <th>Joined</th>
-                                    <th>Appointed</th>
-                                    <th>Earnings</th>
-                                    <th>Home State</th>
-                                    <th>Action</th>
-                                 </tr>
-                              </thead>
-                           </table>
-                        </div>
-                     </div>
-                  </div>
+                <div class="table-responsive">
+                  <table class="table table-bordered text-center" id="myAdvertisersList">
+                     <thead class="table-bg">
+                        <tr>
+                           <th>Member ID</th>
+                           <th>Name</th>
+                           <th>Mobile</th>
+                           <th>Email</th>
+                           <th>Contact</th>
+                           <th>Joined</th>
+                           <th>Appointed</th>
+                           <th>Earnings</th>
+                           <th>Home State</th>
+                           <th>Action</th>
+                        </tr>
+                     </thead>
+                  </table>
+               </div>
                </div>
             </div>
 
@@ -393,7 +389,7 @@ $(document).ready(function() {
                return `
                 <div class="dropdown no-arrow archive-dropdown text-center">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   <i class="fas fa-ellipsis-v text-gray-400"></i>
+                   <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                 </a>
                 <div class="dropdown-menu">
                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-toggle="modal" data-target="#createProfileModal"><i class="fa fa-plus"></i> Create Profile</a>

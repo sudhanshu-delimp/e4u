@@ -119,7 +119,7 @@ table td,th{
         </div>                             
 
         <div class="col-sm-12 col-md-12 col-lg-12 ">           
-            <div class="table-responsive">
+            <div class="table-responsive custom-badge">
                 <table class="table" id="AdvertiserReportTable" style="width: 100%">
                     <thead class="table-bg">
                         <tr>
@@ -389,7 +389,6 @@ $(document).ready(function() {
         e.preventDefault();
         
         var printReportId = $("#printReportId").val();
-        console.log('jiten ',printReportId);
         var printUrl = "{{route('admin.print.single-member-reports')}}?report_id="+printReportId;
         location.href = printUrl;
     });
