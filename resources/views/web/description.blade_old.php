@@ -1012,19 +1012,16 @@
             <h2><img src="{{ asset('assets/app/img/bedroom.svg') }}"> Playmates</h2>
         </div>
         <div class="padding_20_tob_btm_side reduse_pad">
-            @if($escort->playmates->count() > 0)
+            @if($escort->user->available_playmate && !is_null($escort->user->playmates) && $escort->user->playmates->count() > 0)
                 <p class="profile_description_contect_pera">Message me to arrange a play date.</p>
                 <div class="d-flex align-items-center justify-content-start gap-10 flex-wrap">
-                    
-                    @foreach($escort->playmates as $playmate)
-                        @php  
-                            $image = $playmate->gallary()->wherePivot('position', 1)->first();
-                        @endphp
+                    {{-- @if(!auth()->user()->playmates->isEmpty()) --}}
+                    @foreach($escort->user->playmates as $playmate)
                     <div>
                         
                         <a href="{{ route('profile.description',$playmate->id)}}" target="_blank">
                             <div class="playmates-pro-container">
-                                <img  alt="playmates Avatar" class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed custom-small-round-fixed" src="{{$image->path ? asset($image->path) : asset('assets/app/img/icons-profile.png') }}">
+                                <img  alt="playmates Avatar" class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed custom-small-round-fixed" src="{{$playmate->default_image ? asset($playmate->default_image) : asset('assets/app/img/icons-profile.png') }}">
                                 <div class="custom-tooltip">
                                     Hi, my name is {{ $playmate->name }}. <br>
                                     Click to view my Profile.
