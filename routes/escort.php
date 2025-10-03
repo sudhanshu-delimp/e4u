@@ -406,9 +406,9 @@ Route::post('notification-seen', [NotificationController::class, 'makeNotificati
 
 Route::get('customise-dashboard', [EscortController::class, 'customiseDashboard'])->name('escort.dashboard.customise-dashboard');
 Route::post('customise-dashboard', [EscortController::class, 'updateCustomiseDashboard'])->name('escort.dashboard.customise-dashboard');
-Route::post('available-playmates', [EscortController::class, 'getAvailablePlaymates'])->name('escort.available.playmates');
+Route::post('available-playmates', [PlaymateController::class, 'getAvailablePlaymates'])->name('escort.available_playmates');
 
- Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('escort.update-password');
+Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('escort.update-password');
 
 // Route::get('customise-dashboard',function(){
 //     return view('escort.dashboard.customise-dashboard');
