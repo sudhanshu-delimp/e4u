@@ -60,7 +60,7 @@
                 <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
 
                     <div class="total_listing">
-                        <div><span>Total Listings : </span></div>
+                        <div><span>Total Users : </span></div>
                         <div><span class="totalListing">4,456</span></div>
                     </div>
                 </div>
