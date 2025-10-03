@@ -364,7 +364,7 @@
 @push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    {{-- <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
         var table = $('#advProfileSummaryTable').DataTable({
@@ -381,5 +381,5 @@
             searching: true,
             bStateSave: true
         });
-    </script> --}}
+    </script>
 @endpush
