@@ -4,9 +4,10 @@ namespace App\Http\Controllers\User\Dashboard;
 
 use Auth;
 use Exception;
-use App\Models\User;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\MyLegbox;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Models\MyMassageLegbox;
 use App\Http\Controllers\Controller;
@@ -389,6 +390,7 @@ class UserController extends Controller
     {
 
         $setting = User::with('viewer_settings')->where('id',auth()->user()->id)->first();
+        //$setting = Notification::with('to_user')->where('from_user',auth()->user()->id)->get();
         return view('user.dashboard.profileNotifications',compact('setting'));
     }
 

@@ -83,6 +83,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/change-password', [UserController::class, 'updatePassword'])->name('user.update.password');
         Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('user.update.password.expiry');
         Route::get('/notifications-features', [UserController::class, 'notificationsFeatures'])->name('user.profile.notifications');
+        Route::get('/legbox-notification-list', [NotificationController::class, 'legbox_notification_list'])->name('user.legbox-notification-list');
+        Route::post('/enable-disable-legbox-notification', [NotificationController::class, 'enable_disable_legbox_notification'])->name('user.enable-disable-legbox-notification');
         
         Route::post('update-notification-setting', [AccountSettingController::class, 'viewer_update_setting'])->name('user.update_notification_setting');
         

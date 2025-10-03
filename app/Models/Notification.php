@@ -87,6 +87,19 @@ class Notification extends Model
         return $icon;
         
     }
+
+
+    public function to_user_data()
+    {
+        return $this->belongsTo('App\Models\User', 'to_user');
+
+    }
+
+     public function from_user_data()
+    {
+        return $this->belongsTo('App\Models\User', 'from_user');
+
+    }
 }
     
 
