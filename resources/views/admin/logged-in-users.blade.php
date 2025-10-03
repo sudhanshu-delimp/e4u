@@ -210,7 +210,7 @@
                         <div class="my-account-card" style="display: none; margin:10px;">
                             <div class="card-head">
 
-                                <h2><b>My Account details </b></h2>
+                                <h2 style="font-weight: 500;">My Account Details </h2>
                                 <input type="hidden" id="user_type">
                             </div>
                             <div class="info-grid">
@@ -418,6 +418,14 @@
                         $paginate.appendTo($timerSection);
                     }
                 },
+                columnDefs: [
+                    { width: "10%", targets: 0 },  // First column
+                    { width: "15%", targets: 1 },  // Second column
+                    { width: "10%", targets: 2 },   // Third column
+                    { width: "10%", targets: 4 },   
+                    { width: "35%", targets: 5 },   
+                ],
+                autoWidth: false ,
                 columns: [{
                         data: 'member_id',
                         name: 'member_id'
@@ -436,7 +444,8 @@
                     },
                     {
                         data: 'idle_preference_time',
-                        name: 'idle_preference_time'
+                        name: 'idle_preference_time',
+                        orderable : false
                     },
                     // {
                     //     data: 'idle_time',
@@ -444,7 +453,8 @@
                     // },
                     {
                         data: 'page',
-                        name: 'page'
+                        name: 'page',
+                        orderable : false
                     },
                     
                     {

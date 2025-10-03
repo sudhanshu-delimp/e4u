@@ -113,7 +113,7 @@
             <div class="my-account-card">
                 <div class="card-head" style="display: flex; justify-content:space-between;align-items:center;">
 
-                    <h2>My Account details </h2>
+                    <h2 style="font-weight: 500;">My Account Details </h2>
                     <form >
                         <button type="button" class="print-btn" onclick="window.print()"><span style="font-size: 12px;">🖨️</span> Print Report</button>
                         <a href="{{url()->previous()}}" class="btn-cancel-modal" id="cancel_print_report" style="text-decoration: none;">Close</a>
