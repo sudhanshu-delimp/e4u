@@ -145,15 +145,9 @@
             border-color: #e0e0e0;
             cursor: not-allowed;
         }
-<<<<<<< HEAD
-
-
-   
-=======
         .modal-dialog .appointment_madal{
             width: 900px !important;
         }
->>>>>>> 4f0884388fbf36f88e0b3e3be6a37f36d001af18
     </style>
 @endsection
 @section('content')
@@ -162,7 +156,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between">
             <div class="custom-heading-wrapper">
-                <h1 class="h1">My Appointment</h1>
+                <h1 class="h1">My Appointments</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
             <div class="back-to-dashboard">
