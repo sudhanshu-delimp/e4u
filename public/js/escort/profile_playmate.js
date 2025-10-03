@@ -1,5 +1,6 @@
 $(() => {
     var getAvailablePlaymates = function(){
+        let escortId = window.App.escortId;
         return $.ajax({
             url: `${window.App.baseUrl}escort-dashboard/available-playmates`,
             type: "POST",
@@ -7,8 +8,9 @@ $(() => {
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
             },
             dataType: "json",
-            data:{stateId},
+            data:{escortId,stateId},
         }).done(function (response) {
+            console.log('escorts',response.escorts);
             if (response.success) {
                 $(".playmates-card-grid").html(response.playmates_container_html);
             }

@@ -272,6 +272,8 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
 <script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
 <script src="{{ asset('js/escort/profile_playmate.js') }}"></script>
     <script>
+        window.App = window.App || {};
+        window.App.escortId = '{{$escort->id}}';
         $(document).on('keypress', 'form input', function(event) {
             return event.keyCode !== 13;
         });
