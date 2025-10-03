@@ -1193,6 +1193,28 @@
         margin-bottom: 20px;
     }
     
+    .btn-common {
+        font-family: Poppins;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 21px;
+        text-align: center;
+        flex-direction: row;
+        align-items: center;
+        padding: 10px 20px;
+        background: var(--blue--text);
+        border-radius: 3px;
+        border: 0;
+        color: var(--white);
+        text-transform: capitalize;
+        width: max-content;
+    }
+    
+    .btn-common:hover {
+        background-color: var(--peach);
+    }
+    
     .btn_become_pin_up {
         color: #fff;
         font-family: Poppins;

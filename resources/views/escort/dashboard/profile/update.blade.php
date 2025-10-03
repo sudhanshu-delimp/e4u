@@ -270,6 +270,7 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
 @endsection
 @push('script')
 <script src="{{ asset('js/escort/profile_and_media_gallery.js') }}"></script>
+<script src="{{ asset('js/escort/profile_playmate.js') }}"></script>
     <script>
         $(document).on('keypress', 'form input', function(event) {
             return event.keyCode !== 13;
@@ -647,8 +648,6 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                     });
                 }
             });
-
-
 
             $('#LocationInformation').on('submit', function(e) {
                 e.preventDefault();
