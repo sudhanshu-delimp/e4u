@@ -59,7 +59,7 @@
                                 <button class="btn-common mr-0" type="button" data-target="#printReport"
                                     data-toggle="modal">Print Report</button>
                             </div>
-                            <div class="table-responsive-lg">
+                            <div class="table-responsive">
                                 <table class="table w-100" id="advProfileSummaryTable">
                                     <thead class="table-bg">
                                         <tr>
