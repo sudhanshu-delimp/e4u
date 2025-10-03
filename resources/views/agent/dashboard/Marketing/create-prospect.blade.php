@@ -15,7 +15,7 @@
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5"> {{-- Page Heading --}} <div class="row">
             <div class="d-flex align-items-center justify-content-between col-md-12">
                 <div class="custom-heading-wrapper">
-                    <h1 class="h1"> Prospect Lists</h1> <span class="helpNoteLink" data-toggle="collapse"
+                    <h1 class="h1">Prospect Lists (Centres)</h1> <span class="helpNoteLink" data-toggle="collapse"
                         data-target="#notes" aria-expanded="true"><b>Help?</b></span>
                 </div> 
             </div>
@@ -28,12 +28,12 @@
                                 Territory. From time to time the Data will be updated. You will be notified when the Data is
                                 updated.</li>
                             <li>Use the search feature to create your prospect list (<b>List</b>). Once you have created the
-                                List, you can then apply the List in the following manner: <ul
-                                    style="list-style: lower-alpha;padding-left: 20px;margin-top: 8px;">
+                                List, you can then apply the List in the following manner: 
+                                <ol class="level-2">
                                     <li>merging the List into any of the marketing material provided.</li>
                                     <li>printing the List as a working sheet.</li>
                                     <li>working from the List via your computer screen.</li>
-                                </ul>
+                                </ol>
                             </li>
                             <li>A Massage Centre who becomes a Member will remain in the List.</li>
                             <li>You can access your Lists anytime from the Report List.</li>
@@ -246,7 +246,7 @@
                               <tr>
                                 <td class="text-center">369</td>
                                 <td>Body Heat Massage</td>
-                                <td>62 Gordon Rd East<br>Osborne Park</td>
+                                <td>62 Gordon Rd East Osborne Park</td>
                                 <td>6000</td>
                                 <td>0456 665 012</td>
                                 <td>9236 2587</td>
@@ -257,7 +257,7 @@
                               <tr>
                                 <td class="text-center">256</td>
                                 <td>Healthland</td>
-                                <td>510 Murray St<br>Perth</td>
+                                <td>510 Murray St Perth</td>
                                 <td>6000</td>
                                 <td>0426 610 881</td>
                                 <td>9325 2011</td>
@@ -268,7 +268,7 @@
                               <tr>
                                 <td class="text-center">147</td>
                                 <td>Esquire Spa and Massage</td>
-                                <td>11 Aberdeen St<br>Perth</td>
+                                <td>11 Aberdeen St Perth</td>
                                 <td>6000</td>
                                 <td></td>
                                 <td></td>
@@ -343,7 +343,7 @@
             const SAMPLE = [{
                     id: 1,
                     name: 'Body Heat Massage',
-                    address: '62 Gordon Rd',
+                    address: '62 Gordon Rd East Osborne Park',
                     postcode: '6000',
                     mobile: '0456 665 012',
                     business: '9236 2587'
@@ -351,7 +351,7 @@
                 {
                     id: 2,
                     name: 'Healthland',
-                    address: '510 Murray St',
+                    address: '510 Murray St Perth',
                     postcode: '6001',
                     mobile: '0426 610 881',
                     business: ''
@@ -359,7 +359,7 @@
                 {
                     id: 3,
                     name: 'Esquire Spa',
-                    address: '11 Aberdeen St',
+                    address: '11 Aberdeen St Perth',
                     postcode: '6002',
                     mobile: '',
                     business: '9325 2011'
@@ -395,7 +395,7 @@
                                   <div class="dropdown-divider"></div>
                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
                                       href="{{ route('printreport') }}" target="_blank"> <i class="fa fa-print"></i>
-                                      print</a>
+                                      Print</a>
                                         <div class="dropdown-divider"></div>
                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center"
                                       href="#" data-target="#view_list" data-toggle="modal"> <i class="fa fa-eye"></i>
