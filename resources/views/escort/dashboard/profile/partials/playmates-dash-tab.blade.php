@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <label for="profileSearch"></label>
                             <input type="text" class="form-control" id="profileSearch"
-                                placeholder="Search profile...">
+                                placeholder="Search Member Id...">
                     </div>
 
                 </div>

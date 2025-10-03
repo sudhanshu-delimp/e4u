@@ -26,13 +26,20 @@ class PlaymateController extends Controller
             $selectedStateId = $request->input('stateId');
             $escortId = $request->escortId;
             $accountUserId = auth()->user()->id;
-            $userIds = User::where('current_state_id', $selectedStateId)->pluck('id');
+            if(!empty($request->searchValue)){
+                $userIds = User::where(['current_state_id'=>$selectedStateId,'member_id'=>$request->searchValue])->pluck('id');
+            }
+            else{
+                $userIds = User::where('current_state_id', $selectedStateId)->pluck('id');
+            }
+            
             $escorts = Escort::whereIn('user_id', $userIds)
             ->where('state_id', $selectedStateId)
             ->where('user_id', '!=', $accountUserId)
             ->where('enabled',1)
             ->whereNotNull('name')
             ->get();
+            
 
             $playmateIds = Escort::find($escortId)->playmates()->pluck('playmate_id')->toArray();
 
