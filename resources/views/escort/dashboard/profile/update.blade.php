@@ -147,12 +147,11 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available"
                               role="tab" aria-controls="contact" aria-selected="false">My Availability</a>
                             </li>
-                        @if(ENV('MODULE_PHASE')==='TESTING')
+                        
                             <li class="nav-item">
                                 <a class="nav-link" id="playmates-tab" data-toggle="tab" href="#playmates" role="tab" aria-controls="my-playmates" aria-selected="false">
                                     My Playmates</a>
                             </li>  
-                        @endif
                      </ul>
                      
                     
@@ -171,9 +170,9 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                         @include('escort.dashboard.profile.partials.services-dash-tab')
                         @include('escort.dashboard.profile.partials.available-dash-tab')
                         {{-- @include('escort.dashboard.profile.partials.pricing-dash-tab') --}}
-                        @if(ENV('MODULE_PHASE')==='TESTING')
+                        
                             @include('escort.dashboard.profile.partials.playmates-dash-tab')
-                        @endif
+                        
                      </div>
                      @else
                      <form id="my_escort_profile"
@@ -188,9 +187,9 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                            ])
                            @include('escort.dashboard.profile.partials.services-dash-tab')
                            @include('escort.dashboard.profile.partials.available-dash-tab')
-                           @if(ENV('MODULE_PHASE')==='TESTING')
+                           
                             @include('escort.dashboard.profile.partials.playmates-dash-tab')
-                           @endif
+                           
                            {{-- @include('escort.dashboard.profile.partials.pricing-dash-tab') --}}
                         </div>
                      </form>
