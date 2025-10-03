@@ -418,7 +418,7 @@ class Escort extends Model
             'escort_playmate',
             'escort_id',
             'playmate_id'
-        );
+        )->withTimestamps();
     }
 
     public function addedBy()

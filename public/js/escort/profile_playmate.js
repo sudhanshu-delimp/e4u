@@ -1,5 +1,6 @@
 $(() => {
-    var getAvailablePlaymates = function(){
+    var getAvailablePlaymates = function(searchValue=''){
+        let escortId = window.App.escortId;
         return $.ajax({
             url: `${window.App.baseUrl}escort-dashboard/available-playmates`,
             type: "POST",
@@ -7,8 +8,9 @@ $(() => {
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
             },
             dataType: "json",
-            data:{stateId},
+            data:{escortId,stateId,searchValue},
         }).done(function (response) {
+            console.log('escorts',response.escorts);
             if (response.success) {
                 $(".playmates-card-grid").html(response.playmates_container_html);
             }
@@ -19,9 +21,16 @@ $(() => {
     
     let stateId = $("#state_id").val();
     if(stateId){
-        console.log('getAvailablePlaymates');
         getAvailablePlaymates();
     }
+    
+    $(document).on('keyup','#profileSearch', function(){
+        let obj = $(this);
+        let searchValue = obj.val();
+        if(searchValue.length > 3){
+            getAvailablePlaymates(searchValue);
+        }
+    });
 
     $('#myplaymates').on('submit', function(e) {
         e.preventDefault();

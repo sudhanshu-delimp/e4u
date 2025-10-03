@@ -24,16 +24,32 @@ class PlaymateController extends Controller
         try {
             $response['success'] = false;
             $selectedStateId = $request->input('stateId');
+            $escortId = $request->escortId;
             $accountUserId = auth()->user()->id;
-            $userIds = User::where('current_state_id', $selectedStateId)->pluck('id');
+            if(!empty($request->searchValue)){
+                $userIds = User::where(['current_state_id'=>$selectedStateId,'member_id'=>$request->searchValue])->pluck('id');
+            }
+            else{
+                $userIds = User::where('current_state_id', $selectedStateId)->pluck('id');
+            }
+            
             $escorts = Escort::whereIn('user_id', $userIds)
             ->where('state_id', $selectedStateId)
             ->where('user_id', '!=', $accountUserId)
             ->where('enabled',1)
             ->whereNotNull('name')
             ->get();
+            
+
+            $playmateIds = Escort::find($escortId)->playmates()->pluck('playmate_id')->toArray();
+
+            $escorts->map(function($escort) use ($playmateIds) {
+                $escort->is_playmate = in_array($escort->id, $playmateIds);
+                return $escort;
+            });
 
             $response['success'] = true;
+            $response['escorts'] = $escorts;
             $response['playmates_container_html'] = view('escort.dashboard.profile.partials.playmates_container',compact('escorts'))->render();
 
             return response()->json($response);

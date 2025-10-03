@@ -9,8 +9,8 @@
                 <h3>{{$escort->name}}</h3>
                 <div class="form-check-inline">
                     <input class="form-check-input"
-                        type="checkbox" id="playmate1" name="playmate[]" value="{{$escort->id}}">
-                        <label class="form-check-label ml-2" for="playmate1">Add as playmate</label> 
+                        type="checkbox" id="playmate{{$escort->id}}" name="playmate[]" value="{{$escort->id}}" {{($escort->is_playmate)?'checked':''}}>
+                        <label class="form-check-label ml-2" for="playmate{{$escort->id}}">Add as playmate</label> 
                 </div>
             </div>
         </div>
