@@ -161,7 +161,14 @@ class NotificationController extends BaseController
                     $query->select('id', 'state_id', 'member_id', 'name')
                         ->with('state');
                 }]);
-           
+
+
+        $search = request()->input('search.value');
+        if (!empty($search)) {
+                $listing->whereHas('from_user_data', function ($query) use ($search) {
+                    $query->where('member_id', 'like', "%{$search}%");
+                });
+        }   
 
         $total_listing = $listing->count();
         $listings = $listing->offset($start)->limit($limit)->orderByDesc('notifications.id')->get();
