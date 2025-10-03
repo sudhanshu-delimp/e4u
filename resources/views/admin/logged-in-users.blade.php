@@ -83,7 +83,7 @@
                             <th scope="col">
                                 Platform
                             </th>
-                            <th scope="col">Idle Prefe-rence<br/> Time (Minutes)</th>
+                            <th scope="col">Idle Preference<br/> Time (Minutes)</th>
                             {{-- <th scope="col">Idle Time <br/> (Minutes)</th> --}}
                             <th scope="col">Page</th>
                             <th scope="col">Action</th>
@@ -348,7 +348,8 @@
                     { width: "10%", targets: 0 },  // First column
                     { width: "17%", targets: 1 },  // Second column
                     { width: "8%", targets: 2 },   // Third column
-                    { width: "8%", targets: 4 },   
+                    { width: "15%", targets: 3 },   // Third column
+                    { width: "12%", targets: 4 },   
                     { width: "35%", targets: 5 },   
                 ],
                 autoWidth: false ,

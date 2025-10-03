@@ -103,7 +103,7 @@
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">
-                                Mem-ber ID
+                                Member ID
 
                             </th>
                             <th scope="col">
@@ -120,7 +120,7 @@
                             <th scope="col">Listed</th>
                             <th scope="col">De-listed</th>
                             <th scope="col">Days</th>
-                            <th scope="col">Rema-ining</th>
+                            <th scope="col">Remaining</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>

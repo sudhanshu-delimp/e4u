@@ -73,11 +73,11 @@ display: contents;
                             <th scope="col">
                                 Profile Name
                             </th>
-                            <th scope="col">Mass-eurs</th>
+                            <th scope="col">Masseurs</th>
                             <th scope="col">Listed</th>
                             <th scope="col">De-listed</th>
                             <th scope="col">Days</th>
-                            <th scope="col">Rema-ining</th>
+                            <th scope="col">Remaining</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
