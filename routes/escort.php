@@ -131,6 +131,7 @@ Route::post('update-about/{id}',[UpdateController::class,'storeAbout'])->name('e
 Route::post('services/{id}',[UpdateController::class,'storeServices'])->name('escort.store.services');
 Route::post('rates/{id}',[UpdateController::class,'storeRates'])->name('escort.store.rate');
 Route::post('availability/{id}',[UpdateController::class,'storeAvailability'])->name('escort.store.availability');
+Route::post('playmates/{id}',[UpdateController::class,'storePlaymates'])->name('escort.store.playmates');
 Route::get('check-profile-name',[UpdateController::class,'checkProfileName'])->name('escort.checkProfileName');
 
 Route::get('playmates/{id}', [EscortController::class, 'escortsPlayMates'])->name('escort.playmates');

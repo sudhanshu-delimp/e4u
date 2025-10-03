@@ -34,7 +34,6 @@ class PlaymateController extends Controller
             ->get();
 
             $response['success'] = true;
-            $response['playmates'] = $escorts;
             $response['playmates_container_html'] = view('escort.dashboard.profile.partials.playmates_container',compact('escorts'))->render();
 
             return response()->json($response);
