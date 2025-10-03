@@ -349,7 +349,7 @@
                     { width: "17%", targets: 1 },  // Second column
                     { width: "8%", targets: 2 },   // Third column
                     { width: "15%", targets: 3 },   // Third column
-                    { width: "12%", targets: 4 },   
+                    { width: "13%", targets: 4 },   
                     { width: "35%", targets: 5 },   
                 ],
                 autoWidth: false ,
