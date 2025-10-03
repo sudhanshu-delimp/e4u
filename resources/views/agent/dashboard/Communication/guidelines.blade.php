@@ -42,7 +42,7 @@
                                         <i class="fa fa-file"></i>
                                         <div>
                                             <a href="{{ asset('assets/dashboard/guidelines-pdf/Guidelines -Services-KPIs-(10-2025).pdf') }}" target="_blank"
-                                                class="custom_links_design">Performance KPIs</a>
+                                                class="custom_links_design" download="Performance_KPIs.pdf">Performance KPIs</a>
                                             <p>Key Performance Indicators for the
                                                 Agent when undertaking their duties</p>
                                         </div>
@@ -60,7 +60,7 @@
                                         <i class="fa fa-file"></i>
                                         <div>
                                             <a href="{{  asset('assets/dashboard/guidelines-pdf/Guidelines-Classifications-Laws-(10-2025).pdf') }}" target="_blank"
-                                                class="custom_links_design">Classification Laws</a>
+                                                class="custom_links_design" download="Classification_Laws.pdf">Classification Laws</a>
                                             <p>The essential principles associated
                                                 with Classification Laws.</p>
                                         </div>
@@ -77,7 +77,7 @@
                                         <i class="fa fa-file"></i>
                                         <div>
                                             <a href="{{  asset('assets/dashboard/guidelines-pdf/Procedure-Signing-Up-Advertiser-(10-2025).pdf') }}" target="_blank"
-                                                class="custom_links_design">Signing Up an Advertiser</a>
+                                                class="custom_links_design" download="Signing_Up_an_Advertiser.pdf">Signing Up an Advertiser</a>
                                             <p>The procedure to follow when
                                                 signing up an Advertiser online.</p>
                                         </div>
@@ -94,7 +94,7 @@
                                         <i class="fa fa-file"></i>
                                         <div>
                                             <a href="{{ asset('assets/dashboard/guidelines-pdf/Guidelines-Media-(10-2025).pdf')}}" target="_blank"
-                                                class="custom_links_design">Understanding Media</a>
+                                                class="custom_links_design" download="Understanding_Media.pdf">Understanding Media</a>
                                             <p>Rules about Media types and
                                                 dimensions.</p>
                                         </div>
