@@ -1634,4 +1634,12 @@ class UpdateController extends AppController
         $exists = $query->exists();
         return  $exists ? response()->json(false, 422) : response()->json(true, 200);
     }
+
+    public function storePlaymates(Request $request, $escortId)
+    {
+        $error = false;
+        $escort_id =  $request->input('escort_id');
+        return response()->json(['request'=>$request->all(),'$escort_id'=>$$escort_id]);
+       // return response()->json(compact('data', 'error'));
+    }
 }

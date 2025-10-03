@@ -649,8 +649,6 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                 }
             });
 
-
-
             $('#LocationInformation').on('submit', function(e) {
                 e.preventDefault();
 
