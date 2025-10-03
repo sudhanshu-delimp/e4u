@@ -63,7 +63,7 @@
                                 <table class="table w-100" id="advProfileSummaryTable">
                                     <thead class="table-bg">
                                         <tr>
-                                            <th>Member ID
+                                            <th>Member ID 
                                             </th>
                                             <th class="text-center">Name</th>
                                             <th class="text-center">Mobile</th>

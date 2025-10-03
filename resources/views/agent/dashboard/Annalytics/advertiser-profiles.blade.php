@@ -77,7 +77,7 @@
                                             <th scope="col" class="text-center">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="table-content">
+                                    <tbody>
                                         <tr>
                                             <td>E60165</td>
                                             <td class="text-center">Jane</td>

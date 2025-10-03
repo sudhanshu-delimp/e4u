@@ -16,11 +16,9 @@
                         <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                         <p></p>
                         <ol>
-                            <li>These Guidelines and Procedures are provided to assist you meet
-                                your obligations
+                            <li>These Guidelines and Procedures are provided to assist you meet your obligations
                                 under the Website’s Terms & Conditions.</li>
-                            <li>Click the Document you are looking for and it will download as a
-                                .pdf file for you to view.</li>
+                            <li>Click the Document you are looking for and it will download as a .pdf file for you to view.</li>
                         </ol>
                     </div>
                 </div>

@@ -24,26 +24,29 @@
                     </div>
 
                 </div>
+            </div>  
+            <div class="row">  
                 @if (request()->segment(2) == 'profile' && request()->segment(3))
-                <form class="my-availability-mon-sun" id="myplaymates"
-                    action="{{ route('escort.store.playmates', [$escort->id]) }}" method="Post">
-                    @csrf
+                    <form class="my-availability-mon-sun" id="myplaymates"
+                        action="{{ route('escort.store.playmates', [$escort->id]) }}" method="Post">
+                        @csrf
+                    @endif
+                    <div class="col-lg-12 my-3">
+                        <!-- Playmate Card -->
+                        <div class="playmates-card-grid">
+                            
+                        </div>
+                    </div>
+                
+            </div>    
+                    @if (request()->segment(2) == 'profile' && request()->segment(3))
+                    <div class="row pt-3">
+                        <div class="col-md-12 text-right" style="padding-right: 1.8rem;">
+                            <button id="my_playmates" type="submit" class="save_profile_btn">Update</button>
+                        </div>
+                    </div>
+                    </form>
                 @endif
-                <div class="col-lg-12 my-3">
-                    <!-- Playmate Card -->
-                    <div class="playmates-card-grid">
-                        
-                    </div>
-                </div>
-                @if (request()->segment(2) == 'profile' && request()->segment(3))
-                <div class="row pt-3">
-                    <div class="col-md-12 text-right" style="padding-right: 1.8rem;">
-                        <button id="my_playmates" type="submit" class="save_profile_btn">Update</button>
-                    </div>
-                </div>
-                </form>
-            @endif
-            </div>
     </div>
     
 <!-- check out btns -->
