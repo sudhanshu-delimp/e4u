@@ -268,7 +268,7 @@
                     </a>
                      <!-- Forms -->
                   <a class="collapse-item" href="{{ route('agent.forms')}}">
-                    <img src="{{ asset('assets/dashboard/img/menu-icon/guide.png')}}">
+                    <img src="{{ asset('assets/dashboard/img/menu-icon/form.png')}}">
                     <span style="{{request()->segment(2) == 'forms' ? 'color: #e5365a;' : ''}}">Forms</span>
                     </a>
     

@@ -183,7 +183,7 @@
                               <tr>
                                 <td class="text-center">369</td>
                                 <td>Body Heat Massage</td>
-                                <td>62 Gordon Rd East<br>Osborne Park</td>
+                                <td>62 Gordon Rd East Osborne Park</td>
                                 <td>6000</td>
                                 <td>0456 665 012</td>
                                 <td>9236 2587</td>
@@ -194,7 +194,7 @@
                               <tr>
                                 <td class="text-center">256</td>
                                 <td>Healthland</td>
-                                <td>510 Murray St<br>Perth</td>
+                                <td>510 Murray St Perth</td>
                                 <td>6000</td>
                                 <td>0426 610 881</td>
                                 <td>9325 2011</td>
@@ -205,7 +205,7 @@
                               <tr>
                                 <td class="text-center">147</td>
                                 <td>Esquire Spa and Massage</td>
-                                <td>11 Aberdeen St<br>Perth</td>
+                                <td>11 Aberdeen St Perth</td>
                                 <td>6000</td>
                                 <td></td>
                                 <td></td>

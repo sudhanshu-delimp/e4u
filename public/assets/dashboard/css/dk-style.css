@@ -19,9 +19,17 @@ max-height: 500px;
 overflow: auto;
 } */
 
+html {
+    overflow: hidden;
+}
+
 html,
 body {
     height: 100vh;
+}
+
+body {
+    overflow: auto;
 }
 
 .bg-first {

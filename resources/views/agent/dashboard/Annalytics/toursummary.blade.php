@@ -1,6 +1,7 @@
 @extends('layouts.agent')
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}">
 
     <style type="text/css">
         .select2-container .select2-choice,
@@ -58,36 +59,36 @@
                                 <button class="btn-common mr-0" type="button" data-target="#printReport"
                                     data-toggle="modal">Print Report</button>
                             </div>
-                            <div class="table-responsive-xl">
-                                <table class="table" id="advProfileSummaryTable">
+                            <div class="table-responsive-lg">
+                                <table class="table w-100" id="advProfileSummaryTable">
                                     <thead class="table-bg">
                                         <tr>
-                                            <th scope="col">Member ID
+                                            <th>Member ID
                                             </th>
-                                            <th scope="col">Name</th>
-                                            <th scope="col">Mobile</th>
-                                            <th scope="col">Number of Locations</th>
-                                            <th scope="col">Start Date</th>
-                                            <th scope="col">End Date</th>
-                                            <th scope="col">Total Days</th>
-                                            <th scope="col">Pin Up</th>
-                                            <th scope="col">Fee</th>
-                                            <th scope="col">Commissions</th>
-                                            <th scope="col" class="text-center">Action</th>
+                                            <th class="text-center">Name</th>
+                                            <th class="text-center">Mobile</th>
+                                            <th class="text-center">Number of Locations</th>
+                                            <th class="text-center">Start Date</th>
+                                            <th class="text-center">End Date</th>
+                                            <th class="text-center">Total Days</th>
+                                            <th class="text-center">Pin Up</th>
+                                            <th class="text-center">Fee</th>
+                                            <th class="text-center">Commission</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>E60165</td>
-                                            <td>Jane</td>
-                                            <td>0438 028 728</td>
-                                            <td>6</td>
-                                            <td>01-01-2025</td>
-                                            <td>15-04-2025</td>
-                                            <td>104</td>
-                                            <td>Yes</td>
-                                            <td> <span class="pr-3">$</span> 1,443.00</td>
-                                            <td> <span class="pr-3">$</span> 72.15</td>
+                                            <td class="text-center">Jane</td>
+                                            <td class="text-center">0438 028 728</td>
+                                            <td class="text-center">6</td>
+                                            <td class="text-center">01-01-2025</td>
+                                            <td class="text-center">15-04-2025</td>
+                                            <td class="text-center">104</td>
+                                            <td class="text-center">Yes</td>
+                                            <td class="text-center"> <span class="font-weight-bold">$</span> 1,443.00</td>
+                                            <td class="text-center"> <span class="font-weight-bold">$</span> 72.15</td>
                                             <td class="text-center">
                                                 <div class="dropdown no-arrow">
                                                     <a class="dropdown-toggle" href="#" role="button"
@@ -111,6 +112,8 @@
                                                 </div>
                                             </td>
                                         </tr>
+
+                                       
 
                                     </tbody>
                                 </table>
@@ -361,7 +364,7 @@
 @push('script')
     <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    {{-- <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
         var table = $('#advProfileSummaryTable').DataTable({
@@ -378,5 +381,5 @@
             searching: true,
             bStateSave: true
         });
-    </script>
+    </script> --}}
 @endpush
