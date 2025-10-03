@@ -44,7 +44,7 @@
                             <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
                             <div class="stat-label">Today</div>
                         </div>
-                        <div class="stat-number">2</div>
+                        <div class="stat-number">{{$reports['today']}}</div>
                     </div>
     
                     <div class="stat-card">
@@ -52,7 +52,7 @@
                             <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
                             <div class="stat-label">This Month</div>
                         </div>
-                        <div class="stat-number">25</div>
+                        <div class="stat-number">{{$reports['month']}}</div>
                     </div>
     
                     <div class="stat-card">
@@ -60,7 +60,7 @@
                             <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
                             <div class="stat-label">This Year</div>
                         </div>
-                        <div class="stat-number">125</div>
+                        <div class="stat-number">{{$reports['year']}}</div>
                     </div>
     
                     <div class="stat-card">
@@ -68,7 +68,7 @@
                             <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
                             <div class="stat-label">All Time</div>
                         </div>
-                        <div class="stat-number">1,258</div>
+                        <div class="stat-number">{{$reports['all_time']}}</div>
                     </div>
                 </div>
             </div> 
@@ -254,15 +254,50 @@
     </script>
   
     <script>
-        $(document).ready(function () {
-    var table = $('#EscortReviewTable').DataTable({
-        language: {
-            search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID"
-        },
-        paging: true,
-        order: [[0, 'desc']]
-    });
+        // $(document).ready(function () {
+        //     var table = $('#EscortReviewTable').DataTable({
+        //     language: {
+        //         search: "Search: _INPUT_",
+        //         searchPlaceholder: "Search by Member ID"
+        //     },
+        //     paging: true,
+        //     order: [[0, 'desc']]
+        // });
+
+        var table = $('#EscortReviewTable').DataTable({
+            language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Ref ID..."
+            },
+            processing: true,
+            serverSide: false,
+            paging: true,
+            info: true,
+            lengthChange: false,
+            searching: false,
+            bStateSave: true,
+            ordering: false,
+            ajax: {
+                url: "{{ route('escort.reviews-profile-by-ajax') }}",
+                type: "GET",
+                dataSrc: function(json) {
+                    return json.data;
+                }
+            },
+                drawCallback: function (settings) {
+            },
+            columns: [
+                { data: 'ref', name: 'ref' },
+                { data: 'date', name: 'date' },
+                { data: 'rating', name: 'rating' },
+                { 
+                    data: 'status', name: 'status',
+                    orderable: false,
+                    searchable: false
+                },
+                { data: 'action', name: 'action', orderable: false }
+            ]
+        });
 
     // Toggle child rows
     $('#EscortReviewTable tbody').on('click', '.toggle-report', function (e) {
@@ -270,6 +305,10 @@
         var tr = $(this).closest('tr');
         var row = table.row(tr);
         var dataId = $(this).data("id");
+        let routeUrl = '{{route("admin.single-member-reviews.ajax")}}';
+        let reviewId = dataId;
+
+        viewMemberReportAjax(reviewId, routeUrl);
 
         if (row.child.isShown()) {
             row.child.hide();
@@ -310,7 +349,38 @@
             $(this).html('<i class="fa fa-times mr-2"></i> Close');
         }
     });
-});
+
+    function viewMemberReportAjax(review_id, routeUrl)
+    {
+        const reportId = $(this).data('id');
+
+        $.ajax({
+            url: routeUrl, // replace with your actual route
+            method: 'GET',
+            data:{
+                'review_id':review_id
+            },
+            success: function(response) {
+                if(response.error == false){
+                    console.log(response.data);
+
+                    let status = (response.data.status == 'pending') ? 'Current' : response.data.status;
+
+                    $(".report_ref").text('#'+response.data.id +''+ response.data.escort_id);
+                    $(".report_date").text(response.data.formatted_created_at);
+                    $(".report_escort_id").text(response.data.escort_id);
+                    $(".report_viewer_id").text(response.data.user_id);
+                    $(".report_status").text(status);
+                    $(".report_comment").text(capitalizeFirstLetter(response.data.description));
+                    $(".report_mobile").text(response.data.user.phone);
+                }
+            },
+            error: function(xhr) {
+                console.error('Failed to fetch data');
+                $('#view-listing .modal-body').html('<p class="text-danger">Error loading data...</p>');
+            }
+        });
+    }
 
     </script>
 @endpush
