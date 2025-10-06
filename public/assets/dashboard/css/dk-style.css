@@ -19,18 +19,21 @@ max-height: 500px;
 overflow: auto;
 } */
 
+
+/* 
 html {
     overflow: hidden;
-}
+} */
 
 html,
 body {
     height: 100vh;
 }
 
-body {
+
+/* body {
     overflow: auto;
-}
+} */
 
 .bg-first {
     background-color: var(--blue--text) !important;
