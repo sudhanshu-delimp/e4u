@@ -29,6 +29,9 @@
     .messageBox {
         border-radius: 10px;
     }
+     .list_badge_class{
+        padding: 5px 10px 5px 10px;
+    }
 </style>
 @endsection
 @section('content')
@@ -233,6 +236,12 @@
                }
            })
        });
+
+
+    setInterval(function () {
+    table.ajax.reload(null, false); 
+    }, 15000);
+
    });
 
     $("#submit_message").on('click', function (e) {

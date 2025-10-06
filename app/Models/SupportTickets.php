@@ -34,4 +34,10 @@ class SupportTickets extends Model
     {
         return $this->belongsTo('App\Models\User', 'user_id');
     }
+
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'ref_number_id', 'ref_number');
+    }
 }

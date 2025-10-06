@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Exception;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -13,6 +14,11 @@ class Notification extends Model
     use HasFactory;
 
     protected $table = "notifications";
+
+    protected $fillable = [
+        'to_user',
+        'user_type',
+    ];
 
     public function getCreatedAtAttribute($value)
     {
@@ -31,20 +37,28 @@ class Notification extends Model
                 {
                     $notification_type = $data['notification_type'];
                     $title =  isset($data['title']) ? $data['title'] : '';
+                    $ref_number_id =  isset($data['ref_number_id']) ? $data['ref_number_id'] : 'NULL';
                     $message =  isset($data['message']) ? $data['message'] : '';
                     $notification_icon = $this->notificationIcon($notification_type);
                     $notification_listing_type = isset($data['notification_listing_type']) ? $data['notification_listing_type'] : '2';
+                   
 
                         $send_notification = [];
                         $send_to = array_unique($data['to_user']);
                         foreach ($send_to as $userId) 
                         {
+                            $user_type = User::where('id',$userId)->first();
+                            $usr_type = $user_type->type;
+
                             $send_notification[] = [
                                 'title' => $title,
                                 'message' => $message,
+                                'from_user' => auth()->user()->id,
                                 'to_user' => $userId,
+                                'user_type' => (string) $usr_type,
                                 'notification_icon' => $notification_icon,
                                 'notification_listing_type' => $notification_listing_type,
+                                'ref_number_id' => $ref_number_id,
                                 'notification_type' => $notification_type,
                                 'is_seen' => '0',
                                 'created_at' => date('Y-m-d H:i:s'),
