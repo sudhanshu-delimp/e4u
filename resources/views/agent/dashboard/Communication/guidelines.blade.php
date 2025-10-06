@@ -1,6 +1,11 @@
 @extends('layouts.agent')
 @section('style')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
+    <style>
+        #GuidelineTable td{
+            color: #000 !important;
+        }
+    </style>
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -36,7 +41,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr class="">
                                 <td>
                                     <div class="guide-document">
                                         <i class="fa fa-file"></i>
