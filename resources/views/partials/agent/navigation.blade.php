@@ -11,7 +11,7 @@
                         <div class="d-user-info">
                             <div class="gap-b escort_header_top_menu" style="display: grid; grid-template-columns: 1fr 1fr; font-size: 14px;">
                                 <span>
-                                    <b>Welcome back :  </b><span class="user-values">{{Str::title(auth()->user()->business_name) }}</span> <span class="separator">|</span> 
+                                    <b>Welcome back :  </b><span class="user-values">{{auth()->user()->business_name}}</span> <span class="separator">|</span> 
                                 </span>
                                 <span>
                                     <b>Membership ID :  </b><span class="user-values">{{auth()->user()->member_id }}</span> <span class="separator"></span>

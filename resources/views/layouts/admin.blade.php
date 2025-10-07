@@ -67,5 +67,4 @@
     
 @include('partials.admin.footer')
 
-@section('script')
-@show
+

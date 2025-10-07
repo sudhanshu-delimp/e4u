@@ -586,7 +586,7 @@
                             style="{{ request()->segment(3) == 'escorts' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Escorts</span>
                     </a>
                     {{-- centres --}}
-                    <a href="{{ route('admin.centres') }}" class="collapse-item">
+                    <a href="{{route('admin.centres.notifications.index')}}" class="collapse-item">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/c-notification.png') }}">
                         <span
                             style="{{ request()->segment(3) == 'centres' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Centres</span>
