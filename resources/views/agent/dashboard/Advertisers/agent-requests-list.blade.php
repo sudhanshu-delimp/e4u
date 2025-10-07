@@ -65,11 +65,15 @@
                                     
                                     <h6><b>Contact Method :</b>
 
-                                        @if (!empty($contact_by))
-                                        {!! implode(' | ', $contact_by) !!}
-                                        @else
-                                        NA
-                                        @endif
+                                        @php
+                                        if ($list->contact_by_mobile && !$list->contact_by_email) {
+                                            echo '<span class="ml-2">By Mobile</span>';
+                                        } elseif ($list->contact_by_email && !$list->contact_by_mobile) {
+                                            echo '<span class="ml-2">By Email</span>';
+                                        } elseif ($list->contact_by_email && $list->contact_by_mobile) {
+                                            echo '<span class="ml-2">By Mobile or By Email</span>';
+                                        }
+                                    @endphp
 
                                     </h6>
 

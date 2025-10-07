@@ -94,7 +94,9 @@
                               <img src="{{ $list->user->avatar_img ? asset('avatars/' . $list->user->avatar_img) : asset('assets/img/default_user.png') }}" alt="Face 1">
                            </div>
                            <div class="ms-3 name">
-                              <h5 class="primery_color normal_heading mb-0" data-toggle="modal" data-target="#Agent_Name"><a class="collapse-item" href="#"><b>{{$list->user->name ? $list->user->name : 'NA'}}</b></a></h5>
+                              <h5 class="primery_color normal_heading mb-0" data-toggle="modal" data-target="#Agent_Name"><a class="collapse-item" href="#">
+                                 <b>{{ $list->first_name.' ' .$list->last_name  }}</b>
+                              </a></h5>
                               <h6 class="text-muted mb-0 small">
                                  Member ID : {{$list->user->member_id}}
                                  <span class="px-3" >Ref : {{$list->ref_number}}</span>
@@ -109,15 +111,19 @@
                   <div class="card-body pt-4">
                      <div class="row">
                         <div class="col-md-12 list-sec pt-3">
-                           <h6><b>Mobile :</b> <span class="ml-2">{{$list->user->phone}}</span></h6>
+                           <h6><b>Mobile :</b> <span class="ml-2">{{$list->mobile_number}}</span></h6>
                            <h6><b>Email :</b> <span>{{$list->user->email}}</span></h6>
                            <h6><b>Home State :</b> <span class="ml-2">{{($list->user->state->iso2 ? $list->user->state->iso2 : 'NA')}}</span></h6>
                            <h6><b>Contact Method :</b> 
-                              @if (!empty($contact_by))
-                              {!! implode(' | ', $contact_by) !!}
-                              @else
-                              NA
-                              @endif
+                           @php
+                              if ($list->contact_by_mobile && !$list->contact_by_email) {
+                                 echo '<span class="ml-2">By Mobile</span>';
+                              } elseif ($list->contact_by_email && !$list->contact_by_mobile) {
+                                 echo '<span class="ml-2">By Email</span>';
+                              } elseif ($list->contact_by_email && $list->contact_by_mobile) {
+                                 echo '<span class="ml-2">By Mobile or By Email</span>';
+                              }
+                           @endphp
                         </h6>
                         <h6>
                            <b>Comments:</b> 
