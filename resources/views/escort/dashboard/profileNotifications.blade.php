@@ -396,9 +396,7 @@
         $('#method_Email_dummy').on('click', function(e) {
             var id = $(this).val();
 
-            // var url = "{{ route('escort.playmate.check') }}";
-
-            var url = "{{ route('escort.playmate.check') }}";
+            var url = "{{ route('escort.availabe-playmate.check') }}";
             if ($(this).is(":checked") == true) {
                 console.log("true");
 
