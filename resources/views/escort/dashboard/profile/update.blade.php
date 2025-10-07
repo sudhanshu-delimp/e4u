@@ -131,11 +131,14 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
          <div class="row">
             <div class="col-lg-12">
                <!-- Begin Page Content -->
+               @php
+                    $activeTab = request()->get('tab', 'about-me');
+               @endphp
                <div class="row">
                   <div class="col-md-12 remove_padding_in_ph">
                      <ul class="dk-tab nav gap_between_btns" id="myTab" role="tablist">
                         <li class="nav-item">
-                           <a class="nav-link active" id="home-tab" data-toggle="tab" href="#aboutme"
+                           <a class="nav-link {{$activeTab=='about-me'?'active':''}}" id="home-tab" data-toggle="tab" href="#aboutme"
                               role="tab" aria-controls="home" aria-selected="true">About me</a>
                         </li>
                         <li class="nav-item">
@@ -149,7 +152,7 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                             </li>
                         
                             <li class="nav-item">
-                                <a class="nav-link" id="playmates-tab" data-toggle="tab" href="#playmates" role="tab" aria-controls="my-playmates" aria-selected="false">
+                                <a class="nav-link {{$activeTab=='my-playmates'?'active':''}} {{request()->segment(2) == 'profile' && $escort->enabled?'':'d-none'}}" id="playmates-tab" data-toggle="tab" href="#playmates" role="tab" aria-controls="my-playmates" aria-selected="false">
                                     My Playmates</a>
                             </li>  
                      </ul>

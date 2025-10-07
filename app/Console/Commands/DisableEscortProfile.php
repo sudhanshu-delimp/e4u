@@ -51,6 +51,14 @@ class DisableEscortProfile extends Command
                 $purchase->update(['status' => 'expire']);
                 $escort = $purchase->escort;
                 if ($escort) {
+                    /**
+                     * Detach all playmates this escort added
+                     */
+                    $escort->playmates()->detach();
+                    /**
+                     * Detach this escort from other users who added them as a playmate
+                     */
+                    $escort->addedBy()->detach();
                     $escort->update([
                         'enabled' => 0,
                         'membership' => null,
