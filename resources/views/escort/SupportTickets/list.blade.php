@@ -6,6 +6,9 @@
     display: inline-block;
     margin: 10px 0px;
 }
+ .list_badge_class{
+        padding: 5px 10px 5px 10px;
+    }
 </style>
 @endsection
 @section('content')
@@ -219,6 +222,10 @@
         $("#conversation_modal").modal('show');
         _load_conversations({{ request()->segment(3) }});
     @endif
+
+    setInterval(function () {
+    table.ajax.reload(null, false); 
+    }, 15000);
 });
 
 

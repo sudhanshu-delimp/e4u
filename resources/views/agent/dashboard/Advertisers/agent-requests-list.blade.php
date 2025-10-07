@@ -164,7 +164,7 @@
      @endforeach
      @else
     <div class="col-12">
-        <div class="alert alert-warning text-center">No records found.</div>
+        <div class="alert alert-warning text-center">There are presently no Agent Requests from Advertisers in your Territory.</div>
     </div>
     @endif
 </div>

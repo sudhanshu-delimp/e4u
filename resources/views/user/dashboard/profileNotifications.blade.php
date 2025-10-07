@@ -185,7 +185,7 @@
                     </thead>
                     <tbody>
                         
-                        <td>E60587</td>
+                        <!-- <td>E60587</td>
                         <td>Western Australia</td>
                         <td>Joanne </td>
                         
@@ -206,7 +206,8 @@
                                          <div class="dropdown-divider"></div>
                                      </div>
                                      <div class="custom-tooltip-container">
-                                         <a class="dropdown-item align-item-custom" href="#"> <i class="fa fa-bell-slash" aria-hidden="true"></i>
+                                         <a class="dropdown-item align-item-custom" href="#"> 
+                                            <i class="fa fa-bell-slash" aria-hidden="true"></i>
                                             Disable</a>
                                      </div>
                                  </div>
@@ -214,7 +215,7 @@
                             </div>
                         </td> 
                     
-                    </tbody>
+                    </tbody> -->
               </table>
             </div>
         </div>
@@ -225,34 +226,7 @@
 
 @endsection
 @push('script')
-<!-- file upload plugin start here -->
-
-
-
-    <!-- file upload plugin end here -->
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script>
-   $(document).ready(function() {
-       $('#userNotificationList').DataTable({
-           responsive: true,
-           language: {
-               search: "Search: _INPUT_",
-               searchPlaceholder: "Search by Member ID...",
-               lengthMenu: "Show _MENU_ entries",
-               zeroRecords: "No matching records found",
-               info: "Showing _START_ to _END_ of _TOTAL_ entries",
-               infoEmpty: "No entries available",
-               infoFiltered: "(filtered from _MAX_ total entries)"
-           },
-           paging: true,
-       });
-   });
- </script>
-
-
 <script>
   $(document).on('submit', 'form[name="notification_setting"]', function(e) 
       {
@@ -278,6 +252,88 @@
                }
          });
       });
-</script>    
+</script>
+
+
+
+
+<script>
+   $(document).ready(function() {
+      load_notification();
+
+     $(document).on('click', '.notification-action', function(e) 
+      {
+             var requestId = $(this).data('id');
+             var action = $(this).data('action');
+    
+             var message = '';
+
+             if(action === 'enable')
+                message = 'Enabling';
+
+            if(action === 'disable')
+                message = 'Disabling';
+
+             $.ajax({
+               url: "{{ route('user.enable-disable-legbox-notification') }}", 
+               method: "POST",
+               data: {'requestId':requestId,'action':action,'message':message},
+               
+               success: function(response) {
+                     if (response.status) {
+                         swal_success_popup(response.message);
+                     }
+                     else
+                     {
+                         swal_error_popup(response.message);
+                     }  
+               },
+                  error: function(xhr) {
+                     Swal.close();
+                     swal_error_popup(xhr.responseJSON.message);
+                  }
+            });
+
+             
+      });
+
+   });
+
+   function load_notification()
+   {
+      var table = $('#userNotificationList').DataTable({
+            language: {
+            search: "Search: _INPUT_",
+            searchPlaceholder: "Search by Member ID..."
+         },   
+         info: true,
+         lengthChange: true,
+         searching: true,
+         bStateSave: true,
+         order: [[1, 'desc']],
+         processing: true,
+         serverSide: true,
+         paging: true,
+         ajax: {
+               url: "{{ route('user.legbox-notification-list') }}", 
+               type: "GET",
+               dataSrc: function(json) {
+                  // var totalRows = json.data.length; 
+                  //var totalRows = json.recordsTotal || json.recordsFiltered; 
+                  //$(".totalListing").text(totalRows);
+                  //console.log(json, json.per_page, json.current_page);
+                  return json.data;
+               }
+         },
+         columns: [
+               { data: 'user_member_id', name: 'user_member_id' },
+               { data: 'user_name', name: 'user_name' },
+               { data: 'user_message', name: 'user_message' },
+               { data: 'action', name: 'action', orderable: false }
+         ]
+      });
+   }
+
+ </script>
 
 @endpush

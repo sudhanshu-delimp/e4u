@@ -163,11 +163,11 @@
                         Save Profile
                     </button>
                 @endif
-                @if(ENV('MODULE_PHASE')==='TESTING')
+                
                 <a href="#playmates" class="nex_sterp_btn hideDraft" id="playmates-tab" data-toggle="tab" role="tab" aria-controls="playmates" aria-selected="false">Next Step
                 <i class="fas fa-arrow-right"></i>
                 </a>
-                @endif
+                
             </div>
         </div>
     </div>

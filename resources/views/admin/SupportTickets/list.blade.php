@@ -103,6 +103,7 @@
                     <form id="sendMessage">
                        <div class="reply-message-box">
                         <textarea class="messageBox" name="message" id="message" rows="4" required></textarea>
+                        <input type="hidden" name="reference_id" id="reference_id" >
                         <button class="btn-cancel-modal py-3" id="submit_message">Send</button>
                        </div>
                     </form>
@@ -202,6 +203,9 @@
        $(document).on('click', ".view_ticket", function() {
         
            ticketId = $(this).closest('tr').find('td:first').html();
+           reference_id = $(this).closest('tr').find('td:eq(1)').html();
+           //console.log('reference_id',reference_id);
+           $('#reference_id').val(reference_id);
            let resolved = "";
            $("#conv-main").html('');
            $("#sendMessage").parent().show()
@@ -282,6 +286,7 @@
     $("#submit_message").on('click', function (e) {
         e.preventDefault();
         var message = $("#message").val();
+        var reference_id = $("#reference_id").val();
 
         let data = {
             'title' : 'Please wait...',
@@ -295,7 +300,8 @@
             dataType: "json",
             data: {
                 ticketId: ticketId,
-                message: message
+                message: message,
+                reference_id:reference_id
             },
             url: "{{ route('admin.support-ticket.saveMessage') }}",
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},

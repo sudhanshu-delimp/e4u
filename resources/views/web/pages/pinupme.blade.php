@@ -130,7 +130,7 @@
                                 <span class="custom-icon-hover-tooltip">My Playbox</span>
                             </a></div>
                         <div class="col-md-6 align-self-center">
-                            <a href="{{ route('profile.description', $escort->id) }}" class="btn">View Profile</a>
+                            <a href="{{ route('profile.description', $escort->id) }}" class="btn-common">View Profile</a>
                         </div>
                     </div>
                     @if($escort->address)

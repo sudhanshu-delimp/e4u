@@ -43,4 +43,11 @@
 
     @section('style')
     @show
+    <style>
+        .inactive_li {
+            pointer-events: none; 
+            opacity:0.5;
+        }
+        
+    </style>
 </head>

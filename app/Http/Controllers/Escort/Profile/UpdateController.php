@@ -349,7 +349,7 @@ class UpdateController extends AppController
             'phone' => $request->phone ? $request->phone : ($escortDefault->phone ?: null),
             'address' => $request->address ? $request->address : ($escortDefault->address ?: null),
             'state_id' => $request->state_id  ? $request->state_id : ($escortDefault->state_id ?: null),
-            'playmate' => $request->playmate  ? $request->playmate : 'N',
+            //'playmate' => $request->playmate  ? $request->playmate : 'N',
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
 
@@ -634,6 +634,12 @@ class UpdateController extends AppController
                     $gallery->created_at = date('Y-m-d H:i:s');
                     $gallery->save();
                 }
+            }
+
+
+            if(!empty($request->playmate)){
+                $escort = Escort::find($id);
+                $escort->playmates()->sync($request->playmate);
             }
 
 
@@ -1633,5 +1639,16 @@ class UpdateController extends AppController
 
         $exists = $query->exists();
         return  $exists ? response()->json(false, 422) : response()->json(true, 200);
+    }
+
+    public function storePlaymates(Request $request, $escortId)
+    {
+        $error = false;
+        if($request->playmate){
+            $escort = Escort::find($escortId);
+            $escort->playmates()->sync($request->playmate);
+        }
+        return response()->json(['request'=>$request->all(),'escort_id'=>$escortId]);
+       // return response()->json(compact('data', 'error'));
     }
 }
