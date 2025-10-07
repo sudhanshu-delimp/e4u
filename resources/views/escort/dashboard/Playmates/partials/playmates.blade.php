@@ -187,7 +187,7 @@
                                                                                                   style="display: inline;">I
                         am available as a Playmate</label>
                 </div>
-                <form class="at-sec" method="post" action="" id="playmate_search"
+                {{-- <form class="at-sec" method="post" action="" id="playmate_search"
                       style="display: none;" {{(($playmate) ? "" : 'hidden' )}}>
                     <div class="at-lable">
                         <label for="Student">Search for Playmate</label>
@@ -196,7 +196,23 @@
                         <input type="hidden" name="h_escort_id" id="h_escort_id" value="{{auth()->user()->id}}">
                         
                     </div>
-                </form>
+                </form> --}}
+                <div class="col-lg-12 my-3">
+                    <!-- Playmate Card -->
+                    <div class="playmates-card-grid">
+                        <div class="card shadow-sm">
+                            <img src="{{ asset('assets/dashboard/img/girl.jpg') }}" class="card-img-top" alt="Playmate 1">
+                            <div class="card-body">
+                                <h3>My Playmates</h3>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input"
+                                        type="checkbox" id="playmate{{$escort->id}}" name="playmate[]" value="{{$escort->id}}" {{($escort->is_playmate)?'checked':''}}>
+                                        <label class="form-check-label ml-2" for="playmate{{$escort->id}}">Add as playmate</label> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-body active-play border-0 pt-0 mt-1 p-0" id="active_playmates"
                  style="display: none;" {{(($playmate) ? "" : 'hidden' )}}>
