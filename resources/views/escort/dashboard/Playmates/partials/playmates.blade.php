@@ -177,8 +177,8 @@
                     </ol>
                 </div>
             </div>--}}
-            <div class="card-body border-0 pt-0 mt-2 p-0">
-                <div class="mb-5">
+            <div class="card-body border-0 pt-0 mt-0 p-0">
+                <div class="mb-1">
                     @php
                         $playmate = auth()->user()->available_playmate
                     @endphp
@@ -198,26 +198,34 @@
                     </div>
                 </form> --}}
                 <div class="col-lg-12 my-3">
-                    <!-- Playmate Card -->
-                    <div class="playmates-card-grid">
-                        <div class="card shadow-sm">
-                            <img src="{{ asset('assets/dashboard/img/girl.jpg') }}" class="card-img-top" alt="Playmate 1">
-                            <div class="card-body">
-                                <h3>My Playmates</h3>
-                                <div class="form-check-inline">
-                                    <input class="form-check-input"
-                                        type="checkbox" id="playmate{{$escort->id}}" name="playmate[]" value="{{$escort->id}}" {{($escort->is_playmate)?'checked':''}}>
-                                        <label class="form-check-label ml-2" for="playmate{{$escort->id}}">Add as playmate</label> 
+                    <h2 class="custom-head py-3">My Active Playmates</h2>
+                    <form>
+                        <!-- Playmate Card -->
+                        <div class="playmates-card-grid">
+                            <div class="card shadow-sm border-0 p-0">
+                                <img src="{{ asset('assets/dashboard/img/girl.jpg') }}" class="card-img-top" alt="Playmate 1">
+                                <div class="card-body border-0 mt-0 px-2 py-3">
+                                    <h3>My Playmates</h3>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input"
+                                            type="checkbox" id="playmate{{$escort->id}}" name="playmate[]" value="{{$escort->id}}" {{($escort->is_playmate)?'checked':''}}>
+                                            <label class="form-check-label ml-2" for="playmate{{$escort->id}}">Add as playmate</label> 
+                                    </div>
                                 </div>
                             </div>
+                            
                         </div>
-                    </div>
+                        <div class="d-flex justify-content-end my-3">
+                            <button type="submit" class="save_profile_btn">Save</button>
+                        </div>
+                        
+                            
+                    </form>
                 </div>
             </div>
-            <div class="card-body active-play border-0 pt-0 mt-1 p-0" id="active_playmates"
-                 style="display: none;" {{(($playmate) ? "" : 'hidden' )}}>
-                <div class="at-lable  mt-0">
-                    <h2 class="primery_color normal_heading">My Active Playmates</h2>
+            <hr style="background-color: #0C223D">
+            <div class="card-body active-play border-0 pt-0 mt-1 p-0">
+                <div class="mt-0">
                     <ul class="results  mt-2 activePlaymate">
                         @if(!is_null(auth()->user()->playmates))
                             @foreach(auth()->user()->playmates as $playmate)
@@ -233,6 +241,32 @@
                             @endforeach
                         @endif
                     </ul>
+                    
+                    <div class="col-lg-12 my-3">
+                        <h2 class="custom-head py-3">Me as a Playmate Added By Others</h2>
+                        <form>
+                            <!-- Playmate Card -->
+                            <div class="playmates-card-grid">
+                                <div class="card shadow-sm border-0 p-0">
+                                    <img src="{{ asset('assets/dashboard/img/girl.jpg') }}" class="card-img-top" alt="Playmate 1">
+                                    <div class="card-body border-0 mt-0 px-2 py-3">
+                                        <h3>My Playmates</h3>
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input"
+                                                type="checkbox" id="playmate{{$escort->id}}" name="playmate[]" value="{{$escort->id}}" {{($escort->is_playmate)?'checked':''}}>
+                                                <label class="form-check-label ml-2" for="playmate{{$escort->id}}">Add as playmate</label> 
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="d-flex justify-content-end mt-3">
+                                <button type="submit" class="save_profile_btn">Save</button>
+                            </div>
+                            
+                                
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
