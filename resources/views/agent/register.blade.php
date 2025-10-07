@@ -19,7 +19,7 @@
                         <h1 class="text-uppercase">Agent Registration</h1>
                         <h2>Lodge your enquiry with us here</h2>
                         <p class="text-justify">If you have industry experience or you are well connected to Advertisers, then
-                            becoming an Escorts4U Agent may be for you.  Earn additional income as an</br> Agent. We will assist you in every regard to earn.                            
+                            becoming an Escorts4U Agent may be for you.  Earn additional income as an Agent. We will assist you in every regard to earn.                            
                             Register and we will be in touch to go over what being an Agent can do for you.                        
                             See also <span ><a href="{{ url('help-for-agents')}}" class="termsandconditions_text_color" style="font-size: 16px;">Help for Agent</a></span> and <a href="https://www.agencymanagement.com.au" style="font-size: 16px;" target="_blank" class="termsandconditions_text_color">Agency Management</a> for more information about benefits and your obligations.
                         </p>
