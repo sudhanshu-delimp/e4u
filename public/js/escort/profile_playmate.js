@@ -10,7 +10,6 @@ $(() => {
             dataType: "json",
             data:{escortId,stateId,searchValue},
         }).done(function (response) {
-            console.log('escorts',response.escorts);
             if (response.success) {
                 $(".playmates-card-grid").html(response.playmates_container_html);
             }
@@ -71,6 +70,10 @@ $(() => {
             });
         }
     });
+
+    $(document).on('click','input[name^="playmate"]',function(){
+        $(this).is(':checked')?$(this).next().text('Included as Playmate'):$(this).next().text('Add as Playmate');
+    })
 });
 
 
