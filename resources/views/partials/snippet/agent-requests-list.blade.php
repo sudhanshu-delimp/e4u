@@ -34,13 +34,16 @@
                                 <div class="col-md-6 list-sec pt-3">
                                     <h6><b>Home State:</b> <span class="ml-2">SA</span></h6>
                                     <h6><b>Contact Method:</b> 
-                                    @if($list->contact_by_email==1)
-                                    <span class="ml-2">By Email</span>
-                                    @endif
 
-                                     @if($list->contact_by_mobile==1)
-                                     |<span class="ml-2">By Mobile</span>
-                                     @endif
+                                    @php
+                                        if ($list->contact_by_mobile && !$list->contact_by_email) {
+                                            echo '<span class="ml-2">By Mobile</span>';
+                                        } elseif ($list->contact_by_email && !$list->contact_by_mobile) {
+                                            echo '<span class="ml-2">By Email</span>';
+                                        } elseif ($list->contact_by_email && $list->contact_by_mobile) {
+                                            echo '<span class="ml-2">By Mobile or By Email</span>';
+                                        }
+                                    @endphp
                                      
 
                                 </h6>
