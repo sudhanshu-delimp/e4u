@@ -124,13 +124,8 @@
         }
         .slot-btn:hover {
             background: #e8f0fe;
-<<<<<<< HEAD
-            border-color: #0C223D;;
-            color: #0C223D;;
-=======
             border-color: #ff3c5f;
             color: #ff3c5f;
->>>>>>> 4f0884388fbf36f88e0b3e3be6a37f36d001af18
         }
         .slot-btn.selected {
             background: #ff3c5f;

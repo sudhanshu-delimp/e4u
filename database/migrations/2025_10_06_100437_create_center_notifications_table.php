@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdminMakeNotificationsTable extends Migration
+class CreateCenterNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreateAdminMakeNotificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('admin_make_notifications', function (Blueprint $table) {
+        Schema::create('center_notifications', function (Blueprint $table) {
             $table->id();
-            $table->integer('ref')->unique();
             $table->string('heading');
             $table->date('start_date');
             $table->date('finish_date');
-            $table->enum('type', ['Adhoc', 'Template', 'Notice']);
-            $table->text('content');
-            $table->enum('status', ['Published', 'Completed', 'Removed'])->default('Published');
-            $table->unsignedBigInteger('member_id')->nullable(); // for Notice
+            $table->enum('type', ['Adhoc','Template', 'Notice']);
+            $table->text('content')->nullable();
+            $table->string('template_name')->nullable();
+            $table->unsignedBigInteger('member_id')->nullable();
+            $table->enum('status', ['Published','Completed','Removed'])->default('Published');
             $table->timestamps();
         });
     }
@@ -34,6 +34,6 @@ class CreateAdminMakeNotificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admin_make_notifications');
+        Schema::dropIfExists('center_notifications');
     }
 }

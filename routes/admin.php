@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\AgentController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Admin\AdvertiserReviewsController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
 use App\Http\Controllers\Admin\AdminMakeNotificationController;
+use App\Http\Controllers\Admin\CenterNotificationController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
@@ -19,7 +21,7 @@ use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {  
-    Route::get('', 'DashboardController@index')->name('admin.index');
+    Route::get('/admin-login', 'DashboardController@index')->name('admin.index');
 });
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
 Route::post('/update-account', [DashboardController::class, 'update'])->name('admin.account.update');
@@ -239,7 +241,11 @@ Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])
 
 
 // Notification system for admin
- Route::get('/', [AdminMakeNotificationController::class, 'index'])->name('admin_make_notifications.index');
- Route::post('/list', [AdminMakeNotificationController::class, 'list'])->name('admin_make_notifications.list');
- Route::post('/store', [AdminMakeNotificationController::class, 'store'])->name('admin_make_notifications.store');
- Route::post('/remove/{id}', [AdminMakeNotificationController::class, 'remove'])->name('admin_make_notifications.remove');
+
+Route::get('notifications/centres/list', [CenterNotificationController::class, 'index'])->name('admin.centres.notifications.index');
+//Route::post('/list', [AdminMakeNotificationController::class, 'list'])->name('admin_make_notifications.list');
+Route::post('/notifications/centres/store', [CenterNotificationController::class, 'store'])->name('admin.centres.notifications.store');
+//Route::post('/remove/{id}', [AdminMakeNotificationController::class, 'remove'])->name('admin_make_notifications.remove');
+
+
+
