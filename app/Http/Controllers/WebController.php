@@ -71,33 +71,19 @@ class WebController extends Controller
 
     public function applyFilterOnEscort($query,$str,$gender, $age, $location)
     {
-        # Get suspended escort profile only
-        $suspendProfileIds = SuspendProfile::where('utc_start_date', '<=', Carbon::now('UTC'))
-        ->where('utc_end_date', '>=', Carbon::now('UTC'))
-        ->pluck('escort_profile_id')
-        ->unique();
-
-        # Suspend by admin console through report by viewers
-        $query = $query
-                ->with('suspendProfile')
-                ->whereHas('user', function($q) {
+        # Exclude suspend profiles via escort and admin console
+        $query = $query->whereHas('user', function($q) {
                     $q->where('status', 1);
                 })
-            ->whereNotIn('id', $suspendProfileIds);  
+                ->whereDoesntHave('activeSuspendProfile'); 
 
-        // show playmate status with escort profile
+        # Apply check for the playmate drop down field
         if(isset($str['playmate_status']) && $str['playmate_status'] == 'with_playmates'){
-            $query = $query
-                ->with(['suspendProfile', 'user.playmates']) // eager load relations
-                ->whereHas('user.playmates');
+            $query = $query->whereHas('playmates');
         }
 
         if(isset($str['playmate_status']) && $str['playmate_status'] == 'without_playmates'){
-           $query = $query
-            ->with(['suspendProfile', 'user.playmates']) // eager load relations
-            ->whereDoesntHave('user', function ($q) {
-                $q->whereHas('playmates');
-            });
+            $query = $query->whereDoesntHave('playmates');
         } 
        
         # Not show specific profile to viewer if specific viewer is blocked by escort

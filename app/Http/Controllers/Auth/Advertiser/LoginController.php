@@ -236,7 +236,7 @@ class LoginController extends BaseController
             if($type == 3) {
                 $escort = new Escort();
                 $escort->user_id = auth()->user()->id;
-                $escort->enabled = 1;
+                //$escort->enabled = 1;
                 $escort->default_setting = 1;
                 $escort->save();
             }
