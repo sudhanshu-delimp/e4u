@@ -683,9 +683,7 @@ Route::get('/admin-dashboard/notifications/escorts',function(){
 })->name('admin.escorts');
 
 
-Route::get('/admin-dashboard/notifications/centres',function(){
-    return view('admin.notifications.centres');
-})->name('admin.centres');
+
 
 Route::get('/admin-dashboard/post-office/send-reports',function(){
     return view('admin.post-office.send-reports');
