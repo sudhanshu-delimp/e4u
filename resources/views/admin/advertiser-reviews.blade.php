@@ -521,12 +521,13 @@
                 searchPlaceholder: "Search by Escort ID..."
             },
             processing: true,
-            serverSide: true,
+            serverSide: false,
             paging: true,
             info: true,
-            searching: true,
+            lengthChange: false,
+            searching: false,
             bStateSave: true,
-           // ordering: false,
+            ordering: false,
             ajax: {
                 url: ajaxUrl,
                 type: method,
@@ -542,7 +543,11 @@
                 { data: 'escort_id', name: 'escort_id' },
                 { data: 'viewer_id', name: 'viewer_id' },
                 { data: 'mobile', name: 'mobile' },
-                { data: 'status', name: 'status'},
+                { 
+                    data: 'status', name: 'status',
+                    orderable: false,
+                    searchable: false
+                },
                 { data: 'review', name: 'review'},
                 { data: 'action', name: 'action', orderable: false }
             ]

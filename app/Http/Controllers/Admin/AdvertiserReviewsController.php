@@ -28,10 +28,10 @@ class AdvertiserReviewsController extends Controller
             
         return DataTables::of($advertiserReviews)
             ->addColumn('ref', fn($row) =>  $row->id . ($row->escort->id ?? ''))
-            ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->updated_at)))
+            ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
             ->addColumn('escort_id', fn($row) => $row->escort->id ?? '-')
             ->addColumn('viewer_id', fn($row) => $row->user->id ?? '-')
-            ->addColumn('mobile', fn($row) => $row->escort->user->phone ?? '-')
+            ->addColumn('mobile', fn($row) => $row->user->phone ?? '-')
             ->addColumn('status', fn($row) => Str::title($row->status) ?? 'Pending')
             ->addColumn('review', fn($row) => $row->description != null && $row->description != '' ? Str::title($row->description) : '-')
             ->addColumn('action', function ($row) {
@@ -102,13 +102,13 @@ class AdvertiserReviewsController extends Controller
         $yearStart  = Carbon::now($timezone)->startOfYear();
 
         # Use query filters instead of collection filters
-        $todayCount = Reviews::whereDate('updated_at', $today)->count();
-        $monthCount = Reviews::where('updated_at', '>=', $monthStart)->count();
-        $yearCount  = Reviews::where('updated_at', '>=', $yearStart)->count();
+        $todayCount = Reviews::whereDate('created_at', $today)->count();
+        $monthCount = Reviews::where('created_at', '>=', $monthStart)->count();
+        $yearCount  = Reviews::where('created_at', '>=', $yearStart)->count();
         $allCount   = Reviews::count();
 
         # If you still want to return reviews with relations
-        $advertiserReviews = Reviews::with(['escort','user'])->get();
+        $advertiserReviews = Reviews::with(['escort','user'])->orderByRaw("FIELD(status, 'pending','published','rejected')")->get();
 
         $reports = [
             'today'    => $todayCount,
@@ -153,7 +153,7 @@ class AdvertiserReviewsController extends Controller
                 ->first();
                 
             if ($report) {
-                $report->formatted_created_at = $report->updated_at->format('d-m-Y');
+                $report->formatted_created_at = $report->created_at->format('d-m-Y');
                 $report->user->state_id = $report->user->home_state;
             }
 
@@ -190,7 +190,7 @@ class AdvertiserReviewsController extends Controller
                 ->first();
                 
             if ($report) {
-                $report->formatted_created_at = $report->updated_at->format('d-m-Y');
+                $report->formatted_created_at = $report->created_at->format('d-m-Y');
                 $report->user->state_id = $report->user->home_state;
             }
 

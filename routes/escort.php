@@ -21,6 +21,7 @@ use App\Http\Controllers\Escort\Profile\UpdateController;
 use App\Http\Controllers\Escort\EscortDashboardController;
 use App\Http\Controllers\Escort\EscortStatisticsController;
 use App\Http\Controllers\Escort\EscortPolyPaymentController;
+use App\Http\Controllers\Escort\EscortReviewsController;
 use App\Http\Controllers\Escort\EscortTourPaymentController;
 use App\Http\Controllers\Escort\EscortSuspendProfileController;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
@@ -279,9 +280,12 @@ Route::get('transaction-summary',function(){
 Route::get('reccomendations',function(){
     return view('escort.dashboard.Reviews.reccomendations');
 });
-Route::get('view-reviews',function(){
-    return view('escort.dashboard.Reviews.view-reviews');
-});
+
+# Escort profile reviews
+Route::get('view-reviews',[EscortReviewsController::class, 'viewReviews'])->name('escort.view-reviews');
+Route::get('reviews-by-ajax',[EscortReviewsController::class, 'getEscortProfileReviewsByAjax'])->name('escort.reviews-profile-by-ajax');
+Route::get('advertiser-single-escort-reviews-ajax',[EscortReviewsController::class, 'getSingleEscortReviews'])->name('escort.single-escort-profile-reviews.ajax');
+
 Route::get('escort-agency-request',function(){
     return view('escort.dashboard.Communication.escort-agency-request');
 });
