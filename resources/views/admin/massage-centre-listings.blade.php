@@ -17,6 +17,9 @@
 #listings_paginate span{
 display: contents;
 }
+ table.dataTable thead th, table.dataTable tfoot th {
+            font-weight: normal !important;
+        }
 </style>
 @endsection
 @section('content')

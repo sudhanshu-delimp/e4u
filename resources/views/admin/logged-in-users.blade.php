@@ -22,6 +22,9 @@
         .d-none {
             display: none !important;
         }
+        table.dataTable thead th, table.dataTable tfoot th {
+            font-weight: normal !important;
+        }
     </style>
 @endsection
 @section('content')
