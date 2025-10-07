@@ -19,10 +19,10 @@ class EscortRegister
      *
      * @return void
      */
-    public $escode;
-    public function __construct($agent)
+    public $escort;
+    public function __construct($data)
     {
-        $this->escode = $agent;
+        $this->escort = $data;
     }
 
     /**

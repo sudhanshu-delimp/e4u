@@ -119,8 +119,7 @@ class RegisterController extends Controller
     {
 
         $password = $request->password;
-       $user = $this->create($request->all());
-
+        $user = $this->create($request->all());
         $userDataForEvent = [
             'id' => $user->id,
             'email' => $user->email,
@@ -169,7 +168,6 @@ class RegisterController extends Controller
             ]);
 
             $msg = "Hello! Your one time user code is ".$otp.". If you did not request this, you can ignore this text message.";
-
             $sendotp = new SendSms();
             $output = $sendotp->send($phone,$msg);
             return response()->json(compact('error','phone'));
