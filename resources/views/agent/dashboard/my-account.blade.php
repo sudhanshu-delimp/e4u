@@ -66,7 +66,7 @@
                                  <div class="col-md-6">
                                     <div class="form-group">
                                        <label for="my_name">Business Name</label>
-                                       <input type="text" class="form-control text-capitalize" name="business_name" placeholder=" Business Name" aria-describedby="emailHelp" value="{{ $user->business_name}} ">
+                                       <input type="text" class="form-control" name="business_name" placeholder=" Business Name" aria-describedby="emailHelp" value="{{ $user->business_name}} ">
                                     </div>
                                  </div>
                                  <div class="col-md-6">
