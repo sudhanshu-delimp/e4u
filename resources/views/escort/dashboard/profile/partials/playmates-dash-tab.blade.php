@@ -12,7 +12,7 @@
     </div>
     <div class="about_me_drop_down_info profile-sec playmates-tab">
         @if ($editMode)
-            @if($loginAccount->available_playmate===1)
+            @if($loginAccount->available_playmate==1)
                 @if (!$escort->enabled)
                     <div class="row alert alert-info">Access to playmate features requires a listed escort profile.</div>
                 @else
