@@ -95,14 +95,28 @@ const otpInputs = document.querySelectorAll(".otp-input");
 const hiddenOtp = document.getElementById("otp");
 
 console.log('otpInputs',otpInputs);
+let otpSubmitted = false;
+
+// function updateHiddenOtp() {
+//     let otp = "";
+//     otpInputs.forEach(input => otp += input.value);
+//     hiddenOtp.value = otp;
+
+//     if (otp.length === 6) {
+//         //document.getElementById("sendOtpSubmit").click();
+//     }
+// }
 
 function updateHiddenOtp() {
     let otp = "";
     otpInputs.forEach(input => otp += input.value);
     hiddenOtp.value = otp;
 
-    if (otp.length === 6) {
+    if (otp.length === 6 && !otpSubmitted) {
+        otpSubmitted = true; 
         document.getElementById("sendOtpSubmit").click();
+    } else if (otp.length < 6) {
+        otpSubmitted = false; 
     }
 }
 
