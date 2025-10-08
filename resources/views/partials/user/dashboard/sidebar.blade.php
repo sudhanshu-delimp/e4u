@@ -167,7 +167,7 @@
    </li>
 
    
-    <li class="nav-item @if(auth()->user()->viewer_settings->features_enable_my_notebox!='1') inactive_li @endif">
+    <li class="nav-item @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_notebox!='1') inactive_li @endif">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#notebox"
             aria-expanded="false" aria-controls="notebox">
             <img class="mr-2 pl-1 cstm--icon"
