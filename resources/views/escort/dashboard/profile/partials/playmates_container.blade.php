@@ -16,5 +16,5 @@
         </div>
     @endforeach
 @else
-    <div class="alert alert-info">No results available at the moment.</div>
+    <div class="alert alert-info">You do not presently have any Playmates.</div>
 @endif

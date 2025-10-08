@@ -69,7 +69,7 @@
                         <h4 class="mb-0">Summary</h4>
                         <div class="member-id">
                             <span class="pr-2 "><i class="fa fa-user"></i></span>
-                            <span>Member ID: {{ auth()->user()->member_id}}</span>
+                            <span>Member ID: {{ $loginAccount->member_id}}</span>
                         </div>
                     </div>
                 </div>    
