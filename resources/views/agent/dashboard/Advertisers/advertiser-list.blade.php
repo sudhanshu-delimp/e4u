@@ -97,7 +97,7 @@
    <div class="modal-dialog modal-lg modal-dialog-centered">
      <div class="modal-content">
        <div class="modal-header">
-         <h5 class="modal-title">Create Profile</h5>
+         <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/add-profile.png') }}" class="custompopicon"> Create Profile</h5>
          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
             class="img-fluid img_resize_in_smscreen"></span></button>
        </div>
@@ -124,7 +124,7 @@
    <div class="modal-dialog modal-lg modal-dialog-centered">
      <div class="modal-content">
        <div class="modal-header">
-         <h5>Edit Profile</h5>
+         <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/edit-profile.png') }}" class="custompopicon">Edit Profile</h5>
          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
             class="img-fluid img_resize_in_smscreen"></span></button>
        </div>
@@ -152,7 +152,7 @@
    <div class="modal-dialog modal-lg modal-dialog-centered">
      <div class="modal-content">
        <div class="modal-header">
-         <h5>Create Tour</h5>
+         <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/travel.png') }}" class="custompopicon"> Create Tour</h5>
          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
             class="img-fluid img_resize_in_smscreen"></span></button>
        </div>
@@ -186,7 +186,7 @@
    <div class="modal-dialog modal-lg modal-dialog-centered">
      <div class="modal-content">
        <div class="modal-header">
-         <h5>Edit Tour</h5>
+         <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/travel.png') }}" class="custompopicon"> Edit Tour</h5>
          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
             class="img-fluid img_resize_in_smscreen"></span></button>
        </div>
@@ -220,7 +220,7 @@
    <div class="modal-dialog modal-lg modal-dialog-centered">
      <div class="modal-content">
        <div class="modal-header">
-         <h5>Manage Media</h5>
+         <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/manage-media.png') }}" class="custompopicon"> Manage Media</h5>
          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
             class="img-fluid img_resize_in_smscreen"></span></button>
        </div>
@@ -244,7 +244,7 @@
    <div class="modal-dialog modal-lg modal-dialog-centered">
      <div class="modal-content">
        <div class="modal-header">
-         <h5>Manage Masseurs</h5>
+         <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/manage-masseuse.png') }}" class="custompopicon"> Manage Masseurs</h5>
          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
             class="img-fluid img_resize_in_smscreen"></span></button>
        </div>
@@ -270,7 +270,7 @@
    <div class="modal-dialog modal-lg modal-dialog-centered">
      <div class="modal-content">
        <div class="modal-header">
-         <h5>View Account</h5>
+         <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/view-task.png') }}" class="custompopicon"> View Account</h5>
          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
             class="img-fluid img_resize_in_smscreen"></span></button>
        </div>
@@ -289,7 +289,7 @@
    <div class="modal-dialog modal-lg modal-dialog-centered">
      <div class="modal-content">
        <div class="modal-header">
-         <h5>Edit Account</h5>
+         <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/edit-task.png') }}" class="custompopicon"> Edit Account</h5>
          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
             class="img-fluid img_resize_in_smscreen"></span></button>
        </div>
@@ -317,7 +317,7 @@
    <div class="modal-dialog modal-lg modal-dialog-centered">
      <div class="modal-content">
        <div class="modal-header">
-         <h5>Print Advertiser Summary</h5>
+         <h5 class="modal-title text-white"> <img src="{{ asset('assets/dashboard/img/printer.png') }}" class="custompopicon"> Print Advertiser Summary</h5>
          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
             class="img-fluid img_resize_in_smscreen"></span></button>
        </div>
