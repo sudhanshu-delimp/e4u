@@ -254,7 +254,7 @@
                                         <div class="form-check-inline">
                                             <input class="form-check-input"
                                                 type="checkbox" id="playmate{{$escort->id}}" name="playmate[]" value="{{$escort->id}}" {{($escort->is_playmate)?'checked':''}}>
-                                                <label class="form-check-label ml-2" for="playmate{{$escort->id}}">Add as playmate</label> 
+                                                <label class="form-check-label ml-2" for="playmate{{$escort->id}}">Included as a playmate</label> 
                                         </div>
                                     </div>
                                 </div>
