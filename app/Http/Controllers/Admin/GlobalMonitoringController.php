@@ -452,12 +452,16 @@ class GlobalMonitoringController extends Controller
         }
 
         $result = $result->get()->toArray();
+        $platinumTotal = 0;
+        $goldTotal = 0;
+        $silverTotal = 0;
 
         foreach ($result as $index=>$escort) {
             if (!empty($escort['purchase'])) {
                 $days = 0;
                 $left = 0;
                 $totalAmount = 0;
+                
 
                 foreach ($escort['purchase'] as $purchase) {
                     # Dates calculation
@@ -515,10 +519,23 @@ class GlobalMonitoringController extends Controller
                 # Member Id
                 $memberId = $escort['user']['member_id'] ?? '';
 
+                if(!empty($escort['purchase'][0]['membership'])){
+                    if($escort['purchase'][0]['membership'] == 1){
+                        $platinumTotal += 1;
+                    }elseif($escort['purchase'][0]['membership'] == 2){
+                        $goldTotal += 1;
+                    }elseif($escort['purchase'][0]['membership'] == 3){
+                        $silverTotal += 1;
+                    }
+                }
+
                 # Add row to DataTable once per escort
                 $dataTableData[] = [
                     'id'           => $escort['id'],
                     'total_record' => intval($recordTotal),
+                    // 'platinum_total' => intval($platinumTotal),
+                    // 'gold_total' => intval($goldTotal),
+                    // 'silver_total' => intval($silverTotal),
                     'server_time'  => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s A'),
                     'member_id'    => $memberId,
                     'member'       => $escort['name'],
@@ -563,6 +580,11 @@ class GlobalMonitoringController extends Controller
             ->addColumn('action', fn($row) => $actionButtons)
             ->rawColumns(['action']) // if you're returning HTML
             ->rawColumns(['profile_name'])
+            ->with([
+                'platinumTotal'=> intval($platinumTotal),
+                'goldTotal'=> intval($goldTotal),
+                'silverTotal'=> intval($silverTotal)
+                ])
             ->make(true);
     }
 

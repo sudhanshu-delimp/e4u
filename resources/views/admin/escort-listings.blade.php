@@ -3,6 +3,7 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <style type="text/css">
 .parsley-errors-list {
     list-style: none;
@@ -36,6 +37,9 @@
     #escort_listings_paginate span{
         display:contents;
     }
+    table.dataTable thead th, table.dataTable tfoot th {
+            font-weight: normal !important;
+        }
 </style>
 @endsection
 @section('content')
@@ -77,8 +81,20 @@
                         </div>
                     </form>
                 </div> --}}
-                <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
+                <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 20px;">
                   
+                    <div class="total_listing">
+                        <div><span>Platinum Listings : </span></div>
+                        <div><span class="platinumListing">4,456</span></div>
+                    </div>
+                    <div class="total_listing">
+                        <div><span>Gold Listings : </span></div>
+                        <div><span class="goldListing">4,456</span></div>
+                    </div>
+                    <div class="total_listing">
+                        <div><span>Silver Listings : </span></div>
+                        <div><span class="silverListing">4,456</span></div>
+                    </div>
                     <div class="total_listing">
                         <div><span>Total Listings : </span></div>
                         <div><span class="totalListing">4,456</span></div>
@@ -105,7 +121,7 @@
                             </th>
                             <th scope="col">Type</th>
                             <th scope="col">Listed</th>
-                            <th scope="col">De-list</th>
+                            <th scope="col">De-listed</th>
                             <th scope="col">Days</th>
                             <th scope="col">Remaining</th>
                             <th scope="col">Action</th>
@@ -283,6 +299,7 @@ CKEDITOR.replace('editor1', {
                 search: "Search: _INPUT_",
                 searchPlaceholder: "Search by Member ID..."
             },   
+            autoWidth: false,
             info: true,
             lengthChange: true,
             searching: true,
@@ -297,10 +314,15 @@ CKEDITOR.replace('editor1', {
                 dataSrc: function(json) {
                     // var totalRows = json.data.length; 
                     var totalRows = json.recordsTotal || json.recordsFiltered; 
-                    $(".totalListing").text(totalRows);
-                    console.log(json, json.per_page, json.current_page);
+                    console.log(json, );
                     //buildCustomPagination(json.recordsTotal, 3, 1);
                     // buildCustomPagination(json.recordsTotal, json.per_page, json.current_page);
+
+                    $(".totalListing").text(json.recordsTotal);
+                    $(".platinumListing").text(json.platinumTotal);
+                    $(".goldListing").text(json.goldTotal);
+                    $(".silverListing").text(json.silverTotal);
+
                     return json.data;
                 }
             },
@@ -320,20 +342,23 @@ CKEDITOR.replace('editor1', {
                 { data: 'member', name: 'member' },
                 { data: 'listing', name: 'listing' },
                 { data: 'profile_name', name: 'profile_name' },
-                { data: 'type', name: 'type' },
-                { data: 'start_date', name: 'start_date' },
-                { data: 'end_date', name: 'end_date' },
-                { data: 'days', name: 'days' },
-                { data: 'left_days', name: 'left_days' },
+                { data: 'type', name: 'type', orderable: false  },
+                { data: 'start_date', name: 'start_date', orderable: false  },
+                { data: 'end_date', name: 'end_date', orderable: false  },
+                { data: 'days', name: 'days' , orderable: false },
+                { data: 'left_days', name: 'left_days',orderable: false  },
                 { data: 'action', name: 'action', orderable: false }
             ],
             columnDefs: [
-                {
-                    targets: [0,1,2,3,4,5,6,7,8],
-                    createdCell: function(td) {
-                        $(td).addClass('theme-color');
-                    }
-                },
+                { width: "4%", targets: 0 },  // First column
+                { width: "15%", targets: 1 },   // Third column
+                { width: "5%", targets: 2 },   // Third column 
+                { width: "8%", targets: 4 },   
+                { width: "11%", targets: 5 },   
+                { width: "11%", targets: 6 },   
+                { width: "8%", targets: 8 },   
+                { width: "5%", targets: 7 },   
+                { width: "5%", targets: 9 },   
                 {
                     targets: 9,
                     orderable: false,

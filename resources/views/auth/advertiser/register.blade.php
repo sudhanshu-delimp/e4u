@@ -597,6 +597,7 @@
 
 
                             $("body").on("submit", "#SendOtp", function (e) {
+                                swal_waiting_popup({'title' : 'Validating your OTP.'});
                                 e.preventDefault();
                                 var form = $(this);
 
@@ -621,6 +622,7 @@
                                         'X-CSRF-Token': token
                                     },
                                     success: function (data) {
+                                         Swal.close();
                                         console.log(data);
 
                                         if (data.error == true) {

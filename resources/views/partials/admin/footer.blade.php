@@ -100,7 +100,8 @@
         
         </script>
 
-         
+        @section('script')
+        @show
        
         @stack('script')
 

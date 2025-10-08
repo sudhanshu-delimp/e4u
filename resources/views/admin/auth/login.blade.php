@@ -26,7 +26,7 @@
                                 @enderror
                            </div>
                         </div>
-                        <div class="form-group label_margin_zero_for_login">
+                         <div class="form-group label_margin_zero_for_login" style="position: relative;">
                            <label for="exampleInputPassword1">{{ __('Password') }}</label>
                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Please Enter Your Password" name="password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
                             <div class="termsandconditions_text_color">
@@ -34,7 +34,16 @@
                                 @error('password')
                                 {{ $message }}
                                 @enderror
+                                 
                             </div>
+                            <span toggle="#exampleInputPassword1" class="toggle-password" style="
+                              position: absolute;
+                              top: 38px;
+                              right: 15px;
+                              cursor: pointer;">
+                              <i class="fa fa-eye" id="toggleEyeIcon"></i>
+                           </span>
+                           
                         </div>
                         <div id="formerror">
                         </div>
@@ -125,43 +134,6 @@
    @include('modal.two-step-verification')
 </div>
 
-{{-- <!--     <div class="container">
-        <div class="row">
-            <div class="col-lg-7 col-md-7">
-                <!-- <div class="reg_info">
-                    <h1 class="text-uppercase">Admin Login saif</h1>
-                </div> -->
-            <!-- </div> -->
-         <!--    <div class="reg_box_form_style col-lg-5 col-md-5">
-                <div class="regstractionform">
-                    <form id="admin-login" action="{{ route('admin.login')}}" method="post">
-                      
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" value="{{ old('email') }}" required class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Email Address" data-parsley-required-message="Email is required">
-                            <div class="termsandconditions_text_color">
-                                @error('email')
-                                {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">{{ __('Password') }}</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Please Enter Your Password" name="password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
-                            <div class="termsandconditions_text_color">
-                                <!-- error sms here -->
-                                @error('password')
-                                {{ $message }}
-                                @enderror
-                            <!-- </div>
-                        </div>
-                        <button type="submit" id="submit_button" class="btn site_btn_primary">Login</button>
-                    </form>
-
-                </div>
-            </div> -->
-       <!--  </div>
-    </div> -->  --}}
 </section>
                     
 @endsection
@@ -345,5 +317,20 @@ $(document).ready(function() {
       });
     });
 });
+</script>
+
+<script>
+     document.addEventListener("DOMContentLoaded", function () {
+        const toggleIcon = document.querySelector(".toggle-password");
+        const passwordInput = document.querySelector("#exampleInputPassword1");
+        const eyeIcon = document.querySelector("#toggleEyeIcon");
+
+        toggleIcon.addEventListener("click", function () {
+            const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
+            passwordInput.setAttribute("type", type);
+            eyeIcon.classList.toggle("fa-eye");
+            eyeIcon.classList.toggle("fa-eye-slash");
+        });
+    });
 </script>
 @endsection

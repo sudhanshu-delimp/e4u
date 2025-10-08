@@ -57,10 +57,14 @@
 
     .grid-container {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 10px;
     }
-
+    @media (max-width: 450px){
+        .grid-container {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+    }
     .grid-container>div {
         background-color: rgba(255, 255, 255, 0.8);
     }
@@ -135,7 +139,7 @@
         color: #fff;
     }
 </style>
-<div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
+<div class="tab-pane fade {{$activeTab=='about-me'?'show active':''}}" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
     <div class="row pl-3">
         <div class="col-lg-3">
             <div class="member-id pl-0 pb-2 pt-3">

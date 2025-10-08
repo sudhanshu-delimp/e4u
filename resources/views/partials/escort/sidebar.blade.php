@@ -257,11 +257,7 @@
                     </img><span style="{{request()->segment(2) == 'credit-my-account' ? 'color: #e5365a;' : ''}}">Add Credit</span>
                 </a>
                 
-                <a class="collapse-item" href="{{url('escort-dashboard/revenue-manager')}}">
-                    <img width="16" height="17" viewBox="0 0 16 17" fill="none"
-                         src="{{asset('assets/dashboard/img/menu-icon/piggy-bank.png') }}">
-                    </img><span style="{{request()->segment(2) == 'revenue-manager' ? 'color: #e5365a;' : ''}}">Revenue Manager</span>
-                </a>
+                
                 <a class="collapse-item" href="{{url('escort-dashboard/transaction-summary')}}">
                     <img width="16" height="17" viewBox="0 0 16 17" fill="none"
                          src="{{asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">
@@ -421,8 +417,7 @@
         </div>
     </li>
 
-<?php
-/*  //hidden for Wayne 20240715
+ {{-- //hidden for Wayne 20240715 --}}
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reviews"
             aria-expanded="true" aria-controls="collapseTwo">
@@ -435,16 +430,14 @@
                 <img src="{{ asset('assets/dashboard/img/menu-icon/reviewone.png')}}">
                 <span style="{{request()->segment(2) == 'view-reviews' ? 'color: #e5365a;' : ''}}">View Reviews</span>
             </a>
-             <a class="collapse-item" href="{{url('escort-dashboard/reccomendations')}}">
+             {{-- <a class="collapse-item" href="{{url('escort-dashboard/reccomendations')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/reviewtwo.png')}}">
                 <span style="{{request()->segment(2) == 'reccomendations' ? 'color: #e5365a;' : ''}}">Recommendations</span>
-            </a>
+            </a> --}}
 
             </div>
         </div>
     </li>
-*/
-?>
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ugly" aria-expanded="true" aria-controls="collapseten">
             <img src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png')}}">

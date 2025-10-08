@@ -158,15 +158,15 @@
                 @endif
 
                 @if (request()->segment(2) == 'create-profile')
-                    <button id="show_draft-2" name="save" type="submit" class="nex_sterp_btn"
-                        >
+                    <button id="show_draft-2" name="save" type="submit" class="nex_sterp_btn">
                         Save Profile
                     </button>
                 @endif
-               
-                {{-- <a href="#playmates" class="nex_sterp_btn hideDraft" id="playmates-tab" data-toggle="tab" role="tab" aria-controls="playmates" aria-selected="false">Next Step
+                @if (request()->segment(2) == 'profile')
+                <a href="#playmates" class="nex_sterp_btn hideDraft" id="playmates-tab" data-toggle="tab" role="tab" aria-controls="playmates" aria-selected="false">Next Step
                 <i class="fas fa-arrow-right"></i>
-                </a> --}}
+                </a>
+                @endif
             </div>
         </div>
     </div>

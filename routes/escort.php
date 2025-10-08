@@ -116,7 +116,8 @@ Route::post('settings-my-rates',[ProfileInformationController::class,'storeRates
 Route::post('settings-availability',[ProfileInformationController::class,'storeAvailability'])->name('escort.settings.availability');
 Route::post('settings-services',[ProfileInformationController::class,'storeServices'])->name('escort.settings.services');
 Route::post('settings-socials-link',[ProfileInformationController::class,'storeSocialsLink'])->name('escort.settings.social');
-Route::post('/available-playmates',[ProfileInformationController::class,'escortplaymate'])->name('escort.playmate.check');
+Route::post('available-playmates',[ProfileInformationController::class,'escortplaymate'])->name('escort.playmate.check');
+Route::post('available-playmates-check',[ProfileInformationController::class,'escortplaymate'])->name('escort.availabe-playmate.check');
 
 //Route::post('settings-upload-avatar',[ProfileInformationController::class,'storeSocialsLink'])->name('settings.save.avatar');
 //////////////end settings
@@ -131,6 +132,7 @@ Route::post('update-about/{id}',[UpdateController::class,'storeAbout'])->name('e
 Route::post('services/{id}',[UpdateController::class,'storeServices'])->name('escort.store.services');
 Route::post('rates/{id}',[UpdateController::class,'storeRates'])->name('escort.store.rate');
 Route::post('availability/{id}',[UpdateController::class,'storeAvailability'])->name('escort.store.availability');
+Route::post('playmates/{id}',[UpdateController::class,'storePlaymates'])->name('escort.store.playmates');
 Route::get('check-profile-name',[UpdateController::class,'checkProfileName'])->name('escort.checkProfileName');
 
 Route::get('playmates/{id}', [EscortController::class, 'escortsPlayMates'])->name('escort.playmates');
@@ -263,9 +265,6 @@ Route::get('credit-my-account',function(){
 });
 Route::get('my-bank-account',function(){
     return view('escort.dashboard.Bookkeeping.my-bank-account');
-});
-Route::get('revenue-manager',function(){
-    return view('escort.dashboard.Bookkeeping.revenue-manager');
 });
 Route::get('transaction-history',function(){
     return view('escort.dashboard.Bookkeeping.transaction-history');
@@ -406,8 +405,9 @@ Route::post('notification-seen', [NotificationController::class, 'makeNotificati
 
 Route::get('customise-dashboard', [EscortController::class, 'customiseDashboard'])->name('escort.dashboard.customise-dashboard');
 Route::post('customise-dashboard', [EscortController::class, 'updateCustomiseDashboard'])->name('escort.dashboard.customise-dashboard');
+Route::post('available-playmates', [PlaymateController::class, 'getAvailablePlaymates'])->name('escort.available_playmates');
 
- Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('escort.update-password');
+Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('escort.update-password');
 
 // Route::get('customise-dashboard',function(){
 //     return view('escort.dashboard.customise-dashboard');

@@ -28,7 +28,7 @@ class RegisterListenerForEscort implements ShouldQueue
      */
     public function handle(EscortRegister $event)
     {
-        $user = $event->escode;
+        $user = $event->escort;
         Mail::to($user->email)->send(new RegisterEmailForEscort($user));
     }
 }

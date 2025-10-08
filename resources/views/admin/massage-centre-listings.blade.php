@@ -17,6 +17,9 @@
 #listings_paginate span{
 display: contents;
 }
+ table.dataTable thead th, table.dataTable tfoot th {
+            font-weight: normal !important;
+        }
 </style>
 @endsection
 @section('content')
@@ -75,7 +78,7 @@ display: contents;
                             </th>
                             <th scope="col">Masseurs</th>
                             <th scope="col">Listed</th>
-                            <th scope="col">De-list</th>
+                            <th scope="col">De-listed</th>
                             <th scope="col">Days</th>
                             <th scope="col">Remaining</th>
                             <th scope="col">Action</th>
@@ -200,19 +203,29 @@ display: contents;
                     $paginate.appendTo($timerSection);
                 }
             },
+            
             columns: [
                 { data: 'member_id', name: 'member_id' },
                 { data: 'member', name: 'member' },
                 { data: 'listing', name: 'listing' },
                 { data: 'profile_name', name: 'profile_name' },
                 { data: 'masseurs', name: 'masseurs' },
-                { data: 'start_date', name: 'start_date' },
-                { data: 'end_date', name: 'end_date' },
-                { data: 'days', name: 'days' },
-                { data: 'left_days', name: 'left_days' },
+                { data: 'start_date', name: 'start_date', orderable: false },
+                { data: 'end_date', name: 'end_date', orderable: false },
+                { data: 'days', name: 'days', orderable: false },
+                { data: 'left_days', name: 'left_days', orderable: false },
                 { data: 'action', name: 'action', orderable: false }
             ],
             columnDefs: [
+                { width: "4%", targets: 0 },  // First column
+                { width: "16%", targets: 1 },   // Third column
+                { width: "5%", targets: 2 },   // Third column 
+                { width: "8%", targets: 4 },   
+                { width: "10%", targets: 5 },   
+                { width: "10%", targets: 6 },   
+                { width: "8%", targets: 8 },   
+                { width: "5%", targets: 7 },   
+                { width: "5%", targets: 9 },   
                 {
                     targets: [0,1,2,3,4,5,6,7,8],
                     createdCell: function(td) {

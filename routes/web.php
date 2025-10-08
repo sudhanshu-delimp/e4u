@@ -83,6 +83,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/change-password', [UserController::class, 'updatePassword'])->name('user.update.password');
         Route::post('/change-password-expiry', [UserController::class, 'updatePasswordExpiry'])->name('user.update.password.expiry');
         Route::get('/notifications-features', [UserController::class, 'notificationsFeatures'])->name('user.profile.notifications');
+        Route::get('/legbox-notification-list', [NotificationController::class, 'legbox_notification_list'])->name('user.legbox-notification-list');
+        Route::post('/enable-disable-legbox-notification', [NotificationController::class, 'enable_disable_legbox_notification'])->name('user.enable-disable-legbox-notification');
         
         Route::post('update-notification-setting', [AccountSettingController::class, 'viewer_update_setting'])->name('user.update_notification_setting');
         
@@ -619,18 +621,6 @@ Route::get('/admin-dashboard/management/memberships',function(){
     return view('admin.management.memberships');
 })->name('admin.memberships');
 
-Route::get('/admin-dashboard/management/statistics/tours',function(){
-    return view('admin.management.statistics.tours');
-})->name('admin.tours');
-
-Route::get('/admin-dashboard/management/statistics/profile',function(){
-    return view('admin.management.statistics.profile');
-})->name('admin.profile');
-
-Route::get('/admin-dashboard/management/statistics/num',function(){
-    return view('admin.management.statistics.num');
-})->name('admin.num');
-
 Route::get('/admin-dashboard/reports/credit',function(){
     return view('admin.reports.credit');
 })->name('admin.credit');
@@ -693,9 +683,7 @@ Route::get('/admin-dashboard/notifications/escorts',function(){
 })->name('admin.escorts');
 
 
-Route::get('/admin-dashboard/notifications/centres',function(){
-    return view('admin.notifications.centres');
-})->name('admin.centres');
+
 
 Route::get('/admin-dashboard/post-office/send-reports',function(){
     return view('admin.post-office.send-reports');

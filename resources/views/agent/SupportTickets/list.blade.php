@@ -29,6 +29,9 @@
     .messageBox {
         border-radius: 10px;
     }
+    .list_badge_class{
+        padding: 5px 10px 5px 10px;
+    }
 </style>
 @endsection
 @section('content')
@@ -173,10 +176,16 @@
     $('#supportTicketsTable').on('init.dt', function () {
         $('.dataTables_filter input[type="search"]').attr('placeholder', 'Search By Ticket ID');
     });
+    
      $(document).on('click', ".view_ticket", function () {
         var ticketId = $(this).data("id");
         _load_conversations(ticketId);
     });
+
+
+    setInterval(function () {
+    table.ajax.reload(null, false); 
+    }, 15000);
       
    });
 

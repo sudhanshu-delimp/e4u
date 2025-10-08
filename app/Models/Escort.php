@@ -138,6 +138,13 @@ class Escort extends Model
         return $this->hasMany(SuspendProfile::class, 'escort_profile_id');
     }
 
+    public function activeSuspendProfile()
+    {
+        return $this->hasMany(SuspendProfile::class, 'escort_profile_id')
+        ->where('utc_start_date', '<=', Carbon::now('UTC'))
+        ->where('utc_end_date', '>=', Carbon::now('UTC'));
+    }
+
     public function activeUpcomingSuspend(){
         return $this->hasOne(SuspendProfile::class, 'escort_profile_id')
         ->where('utc_end_date', '>=', Carbon::now('UTC'))
@@ -411,14 +418,25 @@ class Escort extends Model
         return null;
     }
 
-    // public function playmates()
-    // {
-    //     return $this->belongsToMany(Escort::class, 'playmates', 'escort_id', 'playmate_id');
-    // }
-    // public function playmates()
-    // {
-    //     return $this->belongsToMany(Escort::class, 'playmates', 'user_id', 'playmate_id');
-    // }
+    public function playmates()
+    {
+        return $this->belongsToMany(
+            Escort::class,
+            'escort_playmate',
+            'escort_id',
+            'playmate_id'
+        )->withTimestamps();
+    }
+
+    public function addedBy()
+    {
+        return $this->belongsToMany(
+            Escort::class,
+            'escort_playmate',
+            'playmate_id',
+            'escort_id'
+        );
+    }
 
     public function getMemberIdAttribute()
     {
@@ -442,7 +460,7 @@ class Escort extends Model
 
     public function reviews()
     {
-        return $this->hasMany('App\Models\Reviews', 'escort_id', 'id');
+        return $this->hasMany(Reviews::class, 'escort_id', 'id');
     }
 
     ///////////////////

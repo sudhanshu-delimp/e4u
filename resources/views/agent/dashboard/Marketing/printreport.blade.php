@@ -81,7 +81,7 @@
             <tr>
                 <td style="border: 1px solid #000; padding: 6px;">369</td>
                 <td style="border: 1px solid #000; padding: 6px;">Body Heat Massage</td>
-                <td style="border: 1px solid #000; padding: 6px;">62 Gordon Rd East<br>Osborne Park</td>
+                <td style="border: 1px solid #000; padding: 6px;">62 Gordon Rd East Osborne Park</td>
                 <td style="border: 1px solid #000; padding: 6px;">6000</td>
                 <td style="border: 1px solid #000; padding: 6px;">0456 665 012</td>
                 <td style="border: 1px solid #000; padding: 6px;">9236 2587</td>
@@ -94,7 +94,7 @@
             <tr>
                 <td style="border: 1px solid #000; padding: 6px;">256</td>
                 <td style="border: 1px solid #000; padding: 6px;">Healthland</td>
-                <td style="border: 1px solid #000; padding: 6px;">510 Murray St<br>Perth</td>
+                <td style="border: 1px solid #000; padding: 6px;">510 Murray St Perth</td>
                 <td style="border: 1px solid #000; padding: 6px;">6000</td>
                 <td style="border: 1px solid #000; padding: 6px;">0426 610 881</td>
                 <td style="border: 1px solid #000; padding: 6px;">9325 2011</td>
@@ -107,7 +107,7 @@
             <tr>
                 <td style="border: 1px solid #000; padding: 6px;">147</td>
                 <td style="border: 1px solid #000; padding: 6px;">Esquire Spa and Massage</td>
-                <td style="border: 1px solid #000; padding: 6px;">11 Aberdeen St<br>Perth</td>
+                <td style="border: 1px solid #000; padding: 6px;">11 Aberdeen St Perth</td>
                 <td style="border: 1px solid #000; padding: 6px;">6000</td>
                 <td style="border: 1px solid #000; padding: 6px;"></td>
                 <td style="border: 1px solid #000; padding: 6px;"></td>

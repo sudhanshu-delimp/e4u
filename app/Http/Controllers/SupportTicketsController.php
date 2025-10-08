@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Models\SupportTickets;
 use App\Models\TicketConversations;
@@ -65,7 +66,10 @@ class SupportTicketsController extends AppController
     {
             
         
-            $tickets = SupportTickets::where('user_id', auth()->user()->id);
+            $tickets = SupportTickets::where('user_id', auth()->user()->id)
+                        ->withCount(['notifications as unread_notifications_count' => function ($query) {
+                        $query->where('is_seen', 0);
+                 }]);
             $search = request()->input('search.value');
 
             if (!empty($search)) {
@@ -109,9 +113,14 @@ class SupportTicketsController extends AppController
                             ->limit($limit)
                             ->get();
 
+                          
+           
             $i = 1;
             foreach ($tickets as $item) {
+
+               
                 $item->sn = ($start + $i);
+                $item->ref_number = ($item->unread_notifications_count>0) ? $item->ref_number.' <sup class="badge badge-danger list_badge_class">'.$item->unread_notifications_count.'</sup>' : $item->ref_number;
                 $item->file = ($item->file!="") ? '<a download="true" href = "'.asset('support_tickets/'.$item->file).'">Download</a>' : "No Documents";
                 $item->created_on = \Carbon\Carbon::parse($item->created_on)->format('d-m-Y');
                 $item->status_mod = "<span class='status' data-status-id='".$item->getRawOriginal('status')."'>$item->status</span>";
@@ -137,6 +146,7 @@ class SupportTicketsController extends AppController
 
     function conversations($ticket_id) {
 
+        
         $ticket = SupportTickets::with([
             'conversations',
             'conversations.user_from_admin',
@@ -147,6 +157,7 @@ class SupportTicketsController extends AppController
         ->where('id', $ticket_id)
         ->first();
 
+        Notification::where('ref_number_id', $ticket->ref_number)->update(['is_seen'=>'1']);
 
         $ticket->unread = 0;
         $ticket->save();

@@ -298,9 +298,7 @@
     var requestId = $(this).data('id');
     var rowData = table.row($(this).parents('tr')).data();
 
-    let contact_data = "";
-    if(rowData.contact_by_mobile!=0)
-    contact_data +=  'By Mobile';
+    
     
      let user_img = "{{ asset('assets/img/default_user.png') }}";
      let avatar_base = "{{ asset('avatars') }}/";
@@ -311,14 +309,17 @@
     }
       
 
-    if(rowData.contact_by_email!=0)
-    {
-      if (contact_data != "") {
-        contact_data += ' | ';
-       } 
-
-       contact_data +=  'By Email';
-    }
+    let contact_data = "";
+   if (rowData.contact_by_mobile && !rowData.contact_by_email) {
+   contact_data = "By Mobile";
+   } 
+   else if (rowData.contact_by_email && !rowData.contact_by_mobile) {
+   contact_data = "By Email";
+   } 
+   else if (rowData.contact_by_email && rowData.contact_by_mobile) {
+   contact_data = "By Mobile or By Email";
+   } 
+   
     
     
     var modal_html = `<div class="modal-dialog modal-dialog-centered" role="document">

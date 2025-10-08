@@ -22,6 +22,9 @@
         .d-none {
             display: none !important;
         }
+        table.dataTable thead th, table.dataTable tfoot th {
+            font-weight: normal !important;
+        }
     </style>
 @endsection
 @section('content')
@@ -60,7 +63,7 @@
                 <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
 
                     <div class="total_listing">
-                        <div><span>Total Listings : </span></div>
+                        <div><span>Total Users : </span></div>
                         <div><span class="totalListing">4,456</span></div>
                     </div>
                 </div>
@@ -107,80 +110,6 @@
             </div>
         </div>
 
-        {{-- <div class="col-md-12 " id="printArea">
-            <div class="my-account-card" style="display: none;">
-                <div class="card-head">
-
-                    <h2>My Account details </h2>
-                    <input type="hidden" id="user_type">
-                    <form action="{{ route('print.logged.user.single-details') }}" method="post">
-                        {{ csrf_field() }}
-                        <input name="user_id" type="hidden" id="user_print_id">
-                        <input name="user_data" type="hidden" id="user_print_data">
-                        <input name="common_print_data" type="hidden" id="common_print_data">
-                        <button type="submit" class="print-btn">🖨️ Print Report</button>
-                        <button type="button" class="btn-cancel-modal" id="cancel_print_report">Close</button>
-                    </form>
-                    
-
-                </div>
-                <div class="info-grid">
-                    <div class="info-item d-none">
-                        <label>Member ID</label>
-                        <span class="account_member_id">M60178</span>
-                    </div>
-                    <div class="info-item d-none">
-                        <label>Member</label>
-                        <span class="account_member_name">Lins Massage</span>
-                    </div>
-                    <div class="info-item d-none">
-                        <label>IP Address</label>
-                        <span class="account_ip_address">123.176.113.164</span>
-                    </div>
-                    <div class="info-item d-none">
-                        <label>Platform</label>
-                        <span class="account_platform">Firefox</span>
-                    </div>
-                    <div class="info-item d-none">
-                        <label>Page</label>
-                        <span class="account_visit_page">/escort-dashboard</span>
-                    </div>
-                    <div class="info-item d-none">
-                        <label>Listed Profiles (Escort)</label>
-                        <span class="account_listed_profile_count">08</span>
-                    </div>
-                    <div class="info-item d-none">
-                        <label>Published Masseurs (Massage Centre)</label>
-                        <span class="account_masseurs_count">02</span>
-                    </div>
-                    <div class="info-item d-none">
-                        <label>Massage Legboxes (Massage Centre)</label>
-                        <span class="account_massage_legbox">02</span>
-                    </div>
-                    <div class="info-item d-none">
-                        <label>List Advertisers (Escort)</label>
-                        <span class="account_list_adervtiser_count">01</span>
-                    </div>
-                    <div class="info-item d-none">
-                        <label>Escort Legboxes (Viewer)</label>
-                        <span class="account_legbox_count">04</span>
-                    </div>
-                    <div class="info-item d-none">
-                        <label>Playmates</label>
-                        <span class="account_escort_playmates">04</span>
-                    </div>
-                    <div class="info-item d-none">
-                        <label>Reffered By Advertisers</label>
-                        <span class="account_refer_by_advertiser_agent">04</span>
-                    </div>
-                    <div class="info-item d-none">
-                        <label>Reffered By Massage Centers</label>
-                        <span class="account_refer_by_massage_center_agent">04</span>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
-
     </div>
     </div>
 
@@ -210,7 +139,7 @@
                         <div class="my-account-card" style="display: none; margin:10px;">
                             <div class="card-head">
 
-                                <h2><b>My Account details </b></h2>
+                                <h2 style="font-weight: 500;">My Account Details </h2>
                                 <input type="hidden" id="user_type">
                             </div>
                             <div class="info-grid">
@@ -418,6 +347,15 @@
                         $paginate.appendTo($timerSection);
                     }
                 },
+                columnDefs: [
+                    { width: "10%", targets: 0 },  // First column
+                    { width: "17%", targets: 1 },  // Second column
+                    { width: "8%", targets: 2 },   // Third column
+                    { width: "15%", targets: 3 },   // Third column
+                    { width: "13%", targets: 4 },   
+                    { width: "35%", targets: 5 },   
+                ],
+                autoWidth: false ,
                 columns: [{
                         data: 'member_id',
                         name: 'member_id'
@@ -436,7 +374,8 @@
                     },
                     {
                         data: 'idle_preference_time',
-                        name: 'idle_preference_time'
+                        name: 'idle_preference_time',
+                        orderable : false
                     },
                     // {
                     //     data: 'idle_time',
@@ -444,7 +383,8 @@
                     // },
                     {
                         data: 'page',
-                        name: 'page'
+                        name: 'page',
+                        orderable : false
                     },
                     
                     {

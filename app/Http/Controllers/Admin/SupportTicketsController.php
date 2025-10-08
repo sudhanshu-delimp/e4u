@@ -382,6 +382,7 @@ class SupportTicketsController extends AppController
              $data = [
                 'title' => $title,
                 'to_user' => [$st->user->id],
+                'ref_number_id' => $request->reference_id,
                 'notification_type' =>  'support_ticket',
                 'notification_listing_type' =>  '1',
              ];

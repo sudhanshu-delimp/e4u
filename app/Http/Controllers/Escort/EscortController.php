@@ -480,7 +480,7 @@ class EscortController extends Controller
             //'city_id'=>$request->city_id,
             //'country_id'=>$request->country_id,
             // 'state_id'=>$request->state_id,
-            'email' => $request->email ? $request->email : null,
+           // 'email' => $request->email ? $request->email : null,
             //'social_links'=>$request->social_links,
         ];
 
@@ -807,6 +807,32 @@ class EscortController extends Controller
             if($conflictExists){
                 $response['success'] = true;
                 $response['message'] = "You have a Current or Upcomming Listing in {$conflictExists}. To create multiple Listings across Locations, use the Tour creator.";
+            }
+
+            return response()->json($response);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getAvailablePlaymates(Request $request){
+        try {
+            $response['success'] = false;
+            $selectedStateId = $request->input('state_id');
+            $accountUserId = auth()->user()->id;
+            $userIds = User::where('current_state_id', $selectedStateId)->pluck('id');
+            $escorts = Escort::whereIn('user_id', $userIds)
+            ->where('state_id', $selectedStateId)
+            ->where('user_id', '!=', $currentUserId)
+            ->get();
+
+            if($conflictExists){
+                $response['success'] = true;
+                $response['playmates'] = $escorts;
             }
 
             return response()->json($response);

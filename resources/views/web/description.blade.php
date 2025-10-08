@@ -193,7 +193,7 @@
     <a href="{{ url('playbox') }}" target="_blank">
         <img src="{{ asset('assets/app/img/MyPlaybox.png') }}" alt="My Playbox Icon">
     </a>
-    <div class="custom-tooltip">Click to view My Media</div>
+    <div class="custom-tooltip">I don't have any Playbox.</div>
 </div>
                 <ul class="profile_page_social_profiles">
                     @if(!empty($escort->user->profile_creator) && in_array(3,$escort->user->profile_creator))
@@ -613,7 +613,7 @@
                         <div class="accordion-container">
                             <div class="set">
                                 <a>
-                                On You - Fun Stuff
+                                Fun Stuff - on Viewer
                                 <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="content">
@@ -695,7 +695,7 @@
                             </div>
                             <div class="set">
                                 <a>
-                                On You - Kinky Stuff
+                                Kinky Stuff - on Viewer
                                 <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="content">
@@ -775,7 +775,7 @@
                             </div>
                             <div class="set">
                                 <a>
-                                On me - Fun Stuff
+                                Fun Stuff - on Me
                                 <i class="fa fa-angle-down"></i>
                                 </a>
                                 <div class="content">
@@ -1012,16 +1012,19 @@
             <h2><img src="{{ asset('assets/app/img/bedroom.svg') }}"> Playmates</h2>
         </div>
         <div class="padding_20_tob_btm_side reduse_pad">
-            @if($escort->user->available_playmate && !is_null($escort->user->playmates) && $escort->user->playmates->count() > 0)
+            @if($escort->playmates->count() > 0)
                 <p class="profile_description_contect_pera">Message me to arrange a play date.</p>
                 <div class="d-flex align-items-center justify-content-start gap-10 flex-wrap">
-                    {{-- @if(!auth()->user()->playmates->isEmpty()) --}}
-                    @foreach($escort->user->playmates as $playmate)
+                    
+                    @foreach($escort->playmates as $playmate)
+                        @php  
+                            $image = $playmate->gallary()->wherePivot('position', 1)->first();
+                        @endphp
                     <div>
                         
                         <a href="{{ route('profile.description',$playmate->id)}}" target="_blank">
                             <div class="playmates-pro-container">
-                                <img  alt="playmates Avatar" class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed custom-small-round-fixed" src="{{$playmate->default_image ? asset($playmate->default_image) : asset('assets/app/img/icons-profile.png') }}">
+                                <img  alt="playmates Avatar" class="profile-user-img img-responsive img-circle img-profile rounded-circle small-round-fixed custom-small-round-fixed" src="{{$image->path ? asset($image->path) : asset('assets/app/img/icons-profile.png') }}">
                                 <div class="custom-tooltip">
                                     Hi, my name is {{ $playmate->name }}. <br>
                                     Click to view my Profile.
@@ -1204,6 +1207,7 @@
                 <!-- Carousel -->
                 <div id="reviewCarousel" class="carousel slide carousel-slide " data-bs-ride="carousel">
                     <div class="carousel-inner">
+                        
                         @foreach($reviews as $key => $review)
                         <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
                             @php
@@ -1232,7 +1236,7 @@
                                 @endfor
                                 <li class="list-inline-item testi_icon_color"><b class="">{{$review->star_rating}}</b></li>
                             </ul>
-                            <p class="custome-text-date">Reviewed [{{$review->created_at->format('d-m-Y')}}]</p>
+                            <p class="custome-text-date">Reviewed {{$review->created_at->format('d-m-Y')}}</p>
                             <div class="review-text">
                                 {{ $review->description }}
                             </div>

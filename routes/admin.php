@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\AgentController;
@@ -9,15 +10,18 @@ use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
+use App\Http\Controllers\Admin\AdvertiserReviewsController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
+use App\Http\Controllers\Admin\AdminMakeNotificationController;
+use App\Http\Controllers\Admin\CenterNotificationController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
+use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
-use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {  
-    Route::get('', 'DashboardController@index')->name('admin.index');
+    Route::get('/admin-login', 'DashboardController@index')->name('admin.index');
 });
 Route::get('/update-account', [DashboardController::class, 'edit'])->name('admin.account.edit');
 Route::post('/update-account', [DashboardController::class, 'update'])->name('admin.account.update');
@@ -132,27 +136,46 @@ Route::get('member-single-escort-reports-ajax',[AdvertiserReportContoller::class
 Route::get('print-single-escort-reports',[AdvertiserReportContoller::class, 'printSingleMemberEscortReport'])->name('admin.print.single-member-reports');
 Route::post('advertiser-report-status',[AdvertiserReportContoller::class, 'updateMemberReportStatus'])->name('admin.advertiser.report-status');
 
-Route::get('advertiser-reviews',function(){
-    return view('admin.advertiser-reviews');
-})->name('admin.advertiser-reviews');
+# Advertiser reviews section
+Route::get('advertiser-reviews',[AdvertiserReviewsController::class, 'index'])->name('admin.advertiser-reviews');
+Route::get('advertiser-reviews-ajax',[AdvertiserReviewsController::class, 'getReviewsByAjax'])->name('admin.advertiser-reviews.ajax');
+Route::get('member-single-escort-reviews-ajax',[AdvertiserReviewsController::class, 'getSingleMemberEscortReviews'])->name('admin.single-member-reviews.ajax');
+Route::get('print-single-reviews',[AdvertiserReviewsController::class, 'printSingleMemberEscortReviews'])->name('admin.print.single-member-reviews');
+Route::post('advertiser-reviews-status',[AdvertiserReviewsController::class, 'updateMemberReviewsStatus'])->name('admin.advertiser.reviews-status');
+
+// Route::get('advertiser-reviews',function(){
+//     return view('admin.advertiser-reviews');
+// })->name('admin.advertiser-reviews');
 
 Route::get('registrations-reports',function(){
     return view('admin.reporting.registrations');
 })->name('admin.registrations-reports');
 
 
-Route::get('commission-statements',function(){
+Route::get('management/commission-statements',function(){
     return view('admin.management.operator.commission-statements');
 })->name('admin.commission-statements');
 
-Route::get('commission-summary',function(){
+Route::get('management/commission-summary',function(){
     return view('admin.management.operator.commission-summary');
 })->name('admin.commission-summary');
 
-Route::get('operator-manage',function(){
+Route::get('management/operator-manage',function(){
     return view('admin.management.operator.operator-manage');
 })->name('admin.operator-manage');
 
+
+Route::get('management/tours',function(){
+    return view('admin.management.statistics.tours');
+})->name('admin.tours');
+
+Route::get('management/profile',function(){
+    return view('admin.management.statistics.profile');
+})->name('admin.profile');
+
+Route::get('/admin-dashboard/management/statistics/num',function(){
+    return view('admin.management.statistics.num');
+})->name('admin.num');
 
 Route::get('support-tickets',function(){
     return view('admin.support-tickets');
@@ -215,5 +238,14 @@ Route::post('/check-agent-email',[AgentController::class,'check_agent_email'])->
 Route::post('/approve-agent-account',[AgentController::class,'approve_agent_account'])->name('admin.approve-agent-account');
 
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');
+
+
+// Notification system for admin
+
+Route::get('notifications/centres/list', [CenterNotificationController::class, 'index'])->name('admin.centres.notifications.index');
+//Route::post('/list', [AdminMakeNotificationController::class, 'list'])->name('admin_make_notifications.list');
+Route::post('/notifications/centres/store', [CenterNotificationController::class, 'store'])->name('admin.centres.notifications.store');
+//Route::post('/remove/{id}', [AdminMakeNotificationController::class, 'remove'])->name('admin_make_notifications.remove');
+
 
 
