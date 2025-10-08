@@ -68,8 +68,9 @@
             @if ($editMode)
                 <a data-toggle="modal" data-id="{{ $escort->id }}" data-target="#view-listing"
                     class="save_profile_btn preview-profile" href="#">Preview</a>
+            @else
+            <button id="show_draft-2" name="save" type="submit" class="nex_sterp_btn">Save Profile</button>
             @endif
-        <button id="show_draft-2" name="save" type="submit" class="nex_sterp_btn">Save Profile</button>
         </div>
     </div>
 </div>
