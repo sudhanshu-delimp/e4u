@@ -452,6 +452,7 @@ viewerRegistrationForm.submit(function(e) {
 
                  
                   $("body").on("submit","#SendOtp",function(e){
+                  swal_waiting_popup({'title' : 'Validating your OTP.'});  
                   e.preventDefault();
                   var form = $(this);
 
@@ -477,7 +478,7 @@ viewerRegistrationForm.submit(function(e) {
                      },
                      success: function(data) {
                         console.log(data);
-
+                        Swal.close();
                         if(data.error == true) {
                         //console.log(data);
                         window.location.href = "{{ route('find.all') }}";
