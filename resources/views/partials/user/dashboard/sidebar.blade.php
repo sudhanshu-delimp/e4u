@@ -140,7 +140,7 @@
     </li> --}}
 
 
-    <li class="nav-item @if(auth()->user()->viewer_settings->features_enable_my_legbox!='1') inactive_li @endif">
+    <li class="nav-item @if(isset(auth()->user()->viewer_settings) && auth()->user()->viewer_settings->features_enable_my_legbox!='1') inactive_li @endif">
       <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-controls="collapseTwo" aria-expanded="true">
       <img class="mr-2 pl-1 cstm--icon" src="{{asset('assets/dashboard/img/menu-icon/Icon_MyLegbox-light.png')}}">
          <span>My Legbox</span>
