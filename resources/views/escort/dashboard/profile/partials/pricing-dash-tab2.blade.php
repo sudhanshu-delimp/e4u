@@ -6,6 +6,10 @@
         border: 5px double grey;
     }
 </style>
+@php  
+
+$loginAccount = auth()->user();
+@endphp
 <div class="tab-pane fade" id="pricing" role="tabpanel" aria-labelledby="contact-tab">
     
     @php
