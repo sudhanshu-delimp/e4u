@@ -23,7 +23,7 @@
 @endsection
 @section('content')
 <section class="padding_top_eight_px padding_bottom_eight_px footer-links-si">
-   <div class="container">
+   <div class="container text-justify">
       <h1 class="home_heading_first">DMCA Notices</h1>
        <p>The United States Digital Millennium Copyright Act (<b>DMCA Act</b>) provides measures for
        owners of copyrighted material (<b>Material</b>) to address allegations of misuse of the Material.</p>
