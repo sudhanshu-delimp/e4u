@@ -9,6 +9,9 @@ $(() => {
             },
             dataType: "json",
             data:{escortId,stateId,searchValue},
+            beforeSend: function () {
+                $(".playmates-card-grid").html(`<div class="alert alert-info">Please wait while we find available playmates for you.</div>`);
+            },
         }).done(function (response) {
             if (response.success) {
                 $(".playmates-card-grid").html(response.playmates_container_html);
@@ -19,7 +22,7 @@ $(() => {
     }
     
     let stateId = $("#state_id").val();
-    if(stateId){
+    if(stateId && $(".playmates-card-grid").length > 0){
         getAvailablePlaymates();
     }
     
