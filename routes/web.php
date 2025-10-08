@@ -735,6 +735,8 @@ Route::post('/notification-seen', [NotificationController::class, 'makeNotificat
 
 
 Route::get('/send-password-expire', [DemoController::class, 'sendPasswordExpire']);
+Route::get('/send-testing', [DemoController::class, 'checkSmsSend']);
+Route::get('/check-sms-status', [DemoController::class, 'checkMessageStatus']);
 
 Route::post('/save-user-loggged-details', [WebController::class, 'userLoggedDetailStore'])->name('user.log-details');
 Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('update-password');
