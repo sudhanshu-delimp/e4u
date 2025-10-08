@@ -306,25 +306,14 @@ $loginAccount = auth()->user();
         $('#select2_country').select2();
     
         @if (request()->segment(2) == 'profile' && request()->segment(3))
-            //$('#read_more').parsley({});
             $('#LocationInformation').parsley({});
         @endif
-        $('#myability').parsley({
-
-        });
-        $('#myPolicy').parsley({
-
-        });
+        $('#myability').parsley({});
         $('#update_about_me').parsley({});
 
         jQuery(document).ready(function() {
             $('#state_id').change(function() {
                 var stateId = $(this).val();
-                if (stateId == 3903) {
-                    $('[name="license"]').attr('required', true);
-                } else {
-                    $('[name="license"]').attr('required', false);
-                }
                 var url = "{{ route('escort.stateByCity', ':id') }}";
                 url = url.replace(':id', stateId);
                 $.ajax({
@@ -347,11 +336,7 @@ $loginAccount = auth()->user();
 
             var url = $(location).attr('pathname');
 
-            if ($("#state_id").val() == 3903) {
-                $('[name="license"]').attr('required', true);
-            } else {
-                $('[name="license"]').attr('required', false);
-            }
+            
             $('#language').change(function() {
                 var languageValue = $('#language').val();
                 $("#show_language").show();
