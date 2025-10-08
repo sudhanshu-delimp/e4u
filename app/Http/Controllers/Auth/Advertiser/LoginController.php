@@ -244,7 +244,7 @@ class LoginController extends BaseController
             }
             $error = true;
             $this->guard()->user();
-            //return response()->json(compact('error','type'));
+            return response()->json(compact('error','type'));
            
         } 
         else 
