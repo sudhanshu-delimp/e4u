@@ -27,9 +27,9 @@ class CreateDefaultAccountSettings
 
        
 
-        if(isset($userdata['escode']) || isset($userdata['user']))
+        if(isset($userdata['escort']) || isset($userdata['user']))
         {
-            $user = isset($userdata['escode']) ? $userdata['escode'] : $userdata['user'];
+            $user = isset($userdata['escort']) ? $userdata['escort'] : $userdata['user'];
 
              Log::info($user);
 

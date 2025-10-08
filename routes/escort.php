@@ -116,7 +116,8 @@ Route::post('settings-my-rates',[ProfileInformationController::class,'storeRates
 Route::post('settings-availability',[ProfileInformationController::class,'storeAvailability'])->name('escort.settings.availability');
 Route::post('settings-services',[ProfileInformationController::class,'storeServices'])->name('escort.settings.services');
 Route::post('settings-socials-link',[ProfileInformationController::class,'storeSocialsLink'])->name('escort.settings.social');
-Route::post('/available-playmates',[ProfileInformationController::class,'escortplaymate'])->name('escort.playmate.check');
+Route::post('available-playmates',[ProfileInformationController::class,'escortplaymate'])->name('escort.playmate.check');
+Route::post('available-playmates-check',[ProfileInformationController::class,'escortplaymate'])->name('escort.availabe-playmate.check');
 
 //Route::post('settings-upload-avatar',[ProfileInformationController::class,'storeSocialsLink'])->name('settings.save.avatar');
 //////////////end settings
@@ -264,9 +265,6 @@ Route::get('credit-my-account',function(){
 });
 Route::get('my-bank-account',function(){
     return view('escort.dashboard.Bookkeeping.my-bank-account');
-});
-Route::get('revenue-manager',function(){
-    return view('escort.dashboard.Bookkeeping.revenue-manager');
 });
 Route::get('transaction-history',function(){
     return view('escort.dashboard.Bookkeeping.transaction-history');

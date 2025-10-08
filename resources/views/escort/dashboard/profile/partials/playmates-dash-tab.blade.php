@@ -1,5 +1,5 @@
 
-<div class="tab-pane fade" id="playmates" role="tabpanel" aria-labelledby="my-playmates">
+<div class="tab-pane fade {{$activeTab=='my-playmates'?'show active':''}}" id="playmates" role="tabpanel" aria-labelledby="my-playmates">
     <div class="col-lg-12">
         <div class="member-id pl-0 pb-2 pt-3">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

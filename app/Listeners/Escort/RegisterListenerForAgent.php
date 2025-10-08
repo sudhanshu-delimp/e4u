@@ -29,7 +29,7 @@ class RegisterListenerForAgent implements ShouldQueue
      */
     public function handle(EscortRegister $event)
     {
-        $user = $event->escode;
+        $user = $event->escort;
         if (!empty($user->agent_id)) {
             $agentUser = User::where('member_id', $user->agent_id)->select('id', 'email', 'phone', 'name')->first();
             if ($agentUser) {

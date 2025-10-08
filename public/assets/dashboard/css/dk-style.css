@@ -4847,6 +4847,12 @@ span.removeCross {
     flex-wrap: wrap;
 }
 
+.custom-head {
+    font-size: 24px;
+    color: var(--blue--text);
+    font-weight: bold;
+}
+
 
 /*     
 .custom-sidebar {
@@ -9743,7 +9749,7 @@ button:disabled {
 
 .playmates-card-grid {
     display: grid;
-    grid-template-columns: repeat(6, minmax(180px, 1fr));
+    grid-template-columns: repeat(5, minmax(180px, 1fr));
     gap: 10px;
 }
 

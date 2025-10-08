@@ -139,7 +139,7 @@
         color: #fff;
     }
 </style>
-<div class="tab-pane fade show active" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
+<div class="tab-pane fade {{$activeTab=='about-me'?'show active':''}}" id="aboutme" role="tabpanel" aria-labelledby="home-tab">
     <div class="row pl-3">
         <div class="col-lg-3">
             <div class="member-id pl-0 pb-2 pt-3">

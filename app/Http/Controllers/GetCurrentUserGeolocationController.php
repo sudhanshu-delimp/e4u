@@ -13,12 +13,19 @@ class GetCurrentUserGeolocationController extends Controller
         $lat = $request->input('data.lat');
         $lng = $request->input('data.lng');
 
-        // Call your helper function
+        // Call helper function
         $result = getRealTimeGeolocationOfUsers($lat, $lng);
-
+        //$result = getRealTimeGeolocationOfUsers('28.7041', '77.1025'); //delhi
         # update current user location in users table
         if(Auth::user()){
             $user = Auth::user();
+            $profiles = $user->listedEscorts->where('state_id','!=',$result['state']);
+            if($profiles->count() > 0){
+                foreach($profiles as $profile){
+                    $profile->playmates()->detach();
+                    $profile->addedBy()->detach();
+                }
+            }
             # if current state exist then update otheriwse update with state_id
             if(isset($result['state'])){
                 User::where('id', $user->id)->update([
