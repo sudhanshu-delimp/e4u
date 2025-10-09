@@ -131,7 +131,7 @@ class EscortReviewsController extends Controller
                     if ($row->status !== 'suspended') {
                         $statusActionHtml .= '
                             <a class="dropdown-item update-review-status d-flex justify-content-start gap-10 align-items-center" data-review-id="'.$row->id.'" data-ref="'.$row->id.$row->escort_id.'" data-toggle="modal"  href="#" data-status="suspended">
-                                <i class="fa fa-hourglass-half text-dark"></i> Suspended
+                                <i class="fa fa-hourglass-half text-dark"></i> Suspend
                             </a>
                             <div class="dropdown-divider"></div>';
                     }
@@ -141,7 +141,7 @@ class EscortReviewsController extends Controller
                         $statusActionHtml .= '
                             <a class="dropdown-item update-review-status d-flex justify-content-start gap-10 align-items-center" 
                                 href="#" data-toggle="modal" data-review-id="'.$row->id.'" data-ref="'.$row->id.$row->escort_id.'" data-status="published"> 
-                                <i class="fa fa-check-circle text-dark"></i> Published
+                                <i class="fa fa-check-circle text-dark"></i> Publish
                             </a>
                             <div class="dropdown-divider"></div>';
                     }
