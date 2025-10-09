@@ -359,7 +359,7 @@
             </div>
         </div>
     </div>
-
+ 
 @endsection
 @push('script')
     
@@ -529,7 +529,7 @@
             lengthChange: false,
             searching: true,
             bStateSave: true,
-            ordering: true,
+            ordering:false,
             ajax: {
                 url: ajaxUrl,
                 type: method,

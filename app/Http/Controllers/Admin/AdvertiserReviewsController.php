@@ -32,6 +32,18 @@ class AdvertiserReviewsController extends Controller
             ->addColumn('escort_id', fn($row) => $row->escort->id ?? '-')
             ->addColumn('viewer_id', fn($row) => $row->user->id ?? '-')
             ->addColumn('mobile', fn($row) => $row->user->phone ?? '-')
+            // ->addColumn('status', function($row){
+            //     $stLabel = Str::title($row->status) ?? 'Pending';
+            //     $status = '<span class="badge badge-success">'.$stLabel.' </span>';
+            //     if($row->status == 'suspended'){
+            //         $status = '<span class="badge badge-info">'.$stLabel.'</span>';
+            //     }
+            //     if($row->status == 'rejected'){
+            //         $status = '<span class="badge badge-danger">'.$stLabel.'</span>';
+            //     }
+
+            //     return $status;
+            // })
             ->addColumn('status', fn($row) => Str::title($row->status) ?? 'Pending')
             ->addColumn('review', fn($row) => $row->description != null && $row->description != '' ? Str::title($row->description) : '-')
             ->addColumn('action', function ($row) {
@@ -86,7 +98,7 @@ class AdvertiserReviewsController extends Controller
 
                 return $statusActionHtml;
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','status'])
              ->with([
                 'reports' => $reports
             ])
@@ -108,7 +120,7 @@ class AdvertiserReviewsController extends Controller
         $allCount   = Reviews::count();
 
         # If you still want to return reviews with relations
-        $advertiserReviews = Reviews::with(['escort','user'])->orderByRaw("FIELD(status, 'pending','published','rejected')")->get();
+        $advertiserReviews = Reviews::with(['escort','user'])->orderByRaw("FIELD(status, 'pending','published','rejected','suspended')")->orderBy('updated_at', 'desc')->get();
 
         $reports = [
             'today'    => $todayCount,

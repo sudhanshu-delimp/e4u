@@ -422,7 +422,7 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reviews"
             aria-expanded="true" aria-controls="collapseTwo">
              <img src="{{ asset('assets/dashboard/img/menu-icon/pachive.png')}}">
-             <span style="{{request()->segment(2) == 'social' ? 'color: #e5365a;' : ''}}">Reviews</span>
+             <span style="{{request()->segment(2) == 'social' ? 'color: #e5365a;' : ''}}">My Reviews</span>
         </a>
         <div id="reviews" class="collapse  @if(request()->segment(2) == 'view-reviews' || request()->segment(2) == 'reccomendations') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
