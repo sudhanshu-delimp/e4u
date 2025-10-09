@@ -244,6 +244,9 @@
                success: function(response) {
                      Swal.close();
                      swal_success_popup(response.message);
+                     setTimeout(function() {
+                    location.reload();
+                }, 2000);
                },
                error: function(xhr) {
                      Swal.close();
