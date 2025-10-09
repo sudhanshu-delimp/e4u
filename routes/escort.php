@@ -285,6 +285,8 @@ Route::get('reccomendations',function(){
 Route::get('view-reviews',[EscortReviewsController::class, 'viewReviews'])->name('escort.view-reviews');
 Route::get('reviews-by-ajax',[EscortReviewsController::class, 'getEscortProfileReviewsByAjax'])->name('escort.reviews-profile-by-ajax');
 Route::get('advertiser-single-escort-reviews-ajax',[EscortReviewsController::class, 'getSingleEscortReviews'])->name('escort.single-escort-profile-reviews.ajax');
+Route::post('user-review-status-update', [EscortReviewsController::class, "updateUserReviewStatus"])->name('user-review-status-update');
+Route::get('get-user-review-details/{id}', [EscortReviewsController::class, "getSingleUserReviewDetails"])->name('get-single-user-review-details');
 
 Route::get('escort-agency-request',function(){
     return view('escort.dashboard.Communication.escort-agency-request');

@@ -147,7 +147,7 @@ class AdvertiserReviewsController extends Controller
 
             $report = Reviews::where('id', $request->review_id)
                 ->with([
-                    'escort:id,user_id,city_id,state_id',
+                    'escort:id,user_id,city_id,state_id,name',
                     'user:id,email,phone,state_id',
                 ])
                 ->first();
@@ -184,7 +184,7 @@ class AdvertiserReviewsController extends Controller
         } else {
                 $report = Reviews::where('id', $request->report_id)
                 ->with([
-                    'escort:id,user_id,city_id,state_id',
+                    'escort:id,user_id,city_id,state_id,name',
                     'user:id,email,phone,state_id',
                 ])
                 ->first();

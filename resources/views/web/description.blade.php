@@ -1209,38 +1209,40 @@
                     <div class="carousel-inner">
                         
                         @foreach($reviews as $key => $review)
-                        <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
                             @php
-                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id){
+                                if($review->user && auth()->user() && auth()->user()->id == $review->user_id && $review->escort_id == $escort->id){
                                     $reviewAlreadyExist = true;
                                     $reviewExistsMessage = $review->description;
                                     $reviewExistsStarRating = $review->star_rating;
                                 }
                             @endphp
-                            <h5>
-                                @if (!empty($review->user->name))
-                                    {{ Str::title($review->user->name) }}
-                                @elseif (!empty($review->user->email))
-                                    {{ Str::title(explode('@', $review->user->email)[0]) }}
-                                @else
-                                    Username
-                                @endif
-                            </h5>
-                            <ul class="list-inline mb-0">
-                                @for($i=1; $i<= 5; $i++)
-                                    @if($i <= $review->star_rating)
-                                        <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                            
+                            <div class="carousel-item carousel-custome-item {{$key == 0 ? 'active' : ''}}">
+                                <h5>
+                                    @if (!empty($review->user->name))
+                                        {{ Str::title($review->user->name) }}
+                                    @elseif (!empty($review->user->email))
+                                        {{ Str::title(explode('@', $review->user->email)[0]) }}
                                     @else
-                                        <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
+                                        Username
                                     @endif
-                                @endfor
-                                <li class="list-inline-item testi_icon_color"><b class="">{{$review->star_rating}}</b></li>
-                            </ul>
-                            <p class="custome-text-date">Reviewed {{$review->created_at->format('d-m-Y')}}</p>
-                            <div class="review-text">
-                                {{ $review->description }}
+                                </h5>
+                                <ul class="list-inline mb-0">
+                                    @for($i=1; $i<= 5; $i++)
+                                        @if($i <= $review->star_rating)
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star"></i></li>
+                                        @else
+                                            <li class="list-inline-item testi_icon_color"><i class="fa fa-star-o"></i></li>
+                                        @endif
+                                    @endfor
+                                    {{--<li class="list-inline-item testi_icon_color"><b class="">{{$review->star_rating}}</b></li> --}}
+                                </ul>
+                                <p class="custome-text-date">Reviewed {{$review->created_at->format('d-m-Y')}}</p>
+                                <div class="review-text">
+                                    {{ $review->description }}
+                                </div>
                             </div>
-                        </div>
+                            
                         @endforeach
 
                     </div>
