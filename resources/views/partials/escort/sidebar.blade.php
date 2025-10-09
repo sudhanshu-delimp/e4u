@@ -428,7 +428,7 @@
             <div class="py-0 collapse-inner rounded mb-2">
             <a class="collapse-item" href="{{url('escort-dashboard/view-reviews')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/reviewone.png')}}">
-                <span style="{{request()->segment(2) == 'view-reviews' ? 'color: #e5365a;' : ''}}">View Reviews</span>
+                <span style="{{request()->segment(2) == 'view-reviews' ? 'color: #e5365a;' : ''}}">List</span>
             </a>
              {{-- <a class="collapse-item" href="{{url('escort-dashboard/reccomendations')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/reviewtwo.png')}}">

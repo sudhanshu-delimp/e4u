@@ -1153,7 +1153,13 @@ class WebController extends Controller
         }
 
 
+        // dd($escort->reviews);
         $reviews = $escort->reviews;
+        // $userEscortsProfile = Escort::where('user_id',$escort->user_id)->where('profile_name','!=',null)->where('enabled',1)->pluck('id');
+        // if($userEscortsProfile ->isNotEmpty()){
+        //     $reviews = Reviews::whereIn('escort_id',$userEscortsProfile)->where('status','published')->get();
+        // }
+
         // $reviews = Reviews::where('escort_id',$id)->where('status','approved')->with('user')->get()->unique('user_id');
         //dd($viewType);
         $user = DB::table('users')->where('id',(int)$escort->user_id)->select('contact_type')->first();
