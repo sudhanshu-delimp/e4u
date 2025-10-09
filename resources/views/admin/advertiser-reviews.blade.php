@@ -3,6 +3,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
+    
     <style type="text/css">
         .parsley-errors-list {
             list-style: none;
@@ -120,7 +121,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12 ">
 
                 <div class="table-responsive">
-                    <table class="table w-100" id="advertiserReviewTable">
+                    <table class="table" id="advertiserReviewTable">
                         <thead class="table-bg">
                             <tr>
                                 <th scope="col">
@@ -361,7 +362,8 @@
 
 @endsection
 @push('script')
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    
+    
     </script>
 
     <script>
@@ -521,13 +523,13 @@
                 searchPlaceholder: "Search by Escort ID..."
             },
             processing: true,
-            serverSide: false,
+            serverSide: true,
             paging: true,
             info: true,
             lengthChange: false,
-            searching: false,
+            searching: true,
             bStateSave: true,
-            ordering: false,
+            ordering: true,
             ajax: {
                 url: ajaxUrl,
                 type: method,
