@@ -140,7 +140,7 @@
     </div>
     <div class="row">
         <div class="col-6"><strong>Ref:</strong>#{{$report->id }}{{$report->escort_id}}</div>
-        <div class="col-6"><strong>Date:</strong> {{$report->updated_at->format('d-m-Y') }}</div>
+        <div class="col-6"><strong>Date:</strong> {{$report->created_at->format('d-m-Y') }}</div>
     </div>
 
     <div class="row">

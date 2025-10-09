@@ -5,12 +5,17 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
 
-
 <style type="text/css">
     .parsley-errors-list {
         list-style: none;
         color: rgb(248, 0, 0)
     }
+    /* #EscortReviewTable tbody td{
+        text-align: center !important;
+    } */
+    .escort-ratings {
+        justify-content : center;
+    } 
     </style>
 @endsection
 @section('content')
@@ -44,7 +49,7 @@
                             <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
                             <div class="stat-label">Today</div>
                         </div>
-                        <div class="stat-number">2</div>
+                        <div class="stat-number">{{$reports['today']}}</div>
                     </div>
     
                     <div class="stat-card">
@@ -52,7 +57,7 @@
                             <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
                             <div class="stat-label">This Month</div>
                         </div>
-                        <div class="stat-number">25</div>
+                        <div class="stat-number">{{$reports['month']}}</div>
                     </div>
     
                     <div class="stat-card">
@@ -60,7 +65,7 @@
                             <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
                             <div class="stat-label">This Year</div>
                         </div>
-                        <div class="stat-number">125</div>
+                        <div class="stat-number">{{$reports['year']}}</div>
                     </div>
     
                     <div class="stat-card">
@@ -68,7 +73,7 @@
                             <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
                             <div class="stat-label">All Time</div>
                         </div>
-                        <div class="stat-number">1,258</div>
+                        <div class="stat-number">{{$reports['all_time']}}</div>
                     </div>
                 </div>
             </div> 
@@ -79,10 +84,10 @@
                 <table class="table" id="EscortReviewTable" style="width: 100%">
                     <thead class="table-bg">
                         <tr>
-                            <th>Ref</th>
-                            <th>Date</th>
-                            <th>Rating</th>
-                            <th style="width: 100px;">Status</th>
+                            <th >Ref</th>
+                            <th >Date</th>
+                            <th class="text-center">Rating</th>
+                            <th class="text-center" style="width: 100px;">Status</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -130,48 +135,6 @@
                             </td>
                            
                         </tr>
-
-                        <!-- === Row 2 === -->
-                        <tr>
-                            <td>124</td>
-                            <td>20-05-2025</td>
-                            <td>
-                                <div class="escort-ratings">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li> 
-                                    <li><i class="far fa-star"></i></li>
-                                    <li><i class="far fa-star"></i></li>
-                                </div>
-                            </td>
-                            <td><span class="badge badge-danger">Suspended</span></td>
-                            <td class="text-center">
-                                <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                    </a>
-                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink">
-                                        
-                                        <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                            data-target="#confirm-popup" href="#">
-                                            <i class="fa fa-check-circle "></i> Published
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                            data-target="#confirm-popup" href="#">
-                                            <i class="fa fa-user-slash"></i> Suspended
-                                        </a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report"
-                                            href="#" data-id="1436">
-                                            <i class="fa fa-eye mr-2"></i> View
-                                        </a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -186,66 +149,68 @@
 <!--right side bar end-->
 </div>
 
-
-
-{{-- published modal --}}
-<div class="modal fade upload-modal" id="confirm-popup" tabindex="-1" role="dialog" aria-labelledby="confirmPopupLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content basic-modal">
-            <div class="modal-header border-0">
-                <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
-                    <img src="{{ asset('assets/dashboard/img/published.png') }}" alt="published" class="custompopicon">
-                    Published
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                    </span>
-                </button>
-            </div>
-
-            <div class="modal-body text-center">
-                <p style="font-size: 16px; color: #333; font-weight: bold;">We’re happy to inform you that your query has been <br> successfully resolved.</p>
-
-            </div>
-
-            <div class="modal-footer justify-content-center border-0 pb-4">
-                <button type="button" class="btn-success-modal px-4" data-dismiss="modal" aria-label="Close">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-{{-- rejected modal --}}
-<div class="modal fade upload-modal" id="rejected-popup" tabindex="-1" role="dialog" aria-labelledby="rejectedPopupLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content basic-modal">
-            <div class="modal-header border-0">
-                <h5 class="modal-title d-flex align-items-center" id="rejectedPopupLabel">
-                    <img src="{{ asset('assets/dashboard/img/rejected.png') }}" alt="rejected" class="custompopicon">
-                    Rejected
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        <img src="{{ asset('assets/app/img/newcross.png') }}" class="img-fluid img_resize_in_smscreen">
-                    </span>
-                </button>
-            </div>
-
-            <div class="modal-body text-center">
-                <p style="font-size: 16px; color: #333; font-weight: bold;">We’re inform you that your query has been <br> Rejected.</p>
-
-            </div>
-
-            <div class="modal-footer justify-content-center border-0 pb-4">
-                <button type="button" class="btn-success-modal px-4" data-dismiss="modal" aria-label="Close">OK</button>
+<!-- confirmation model -->
+    <div class="modal " id="confirm_modal" style=" padding-right: 15px;" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custome_modal_max_width">
+                <div class="modal-header main_bg_color border-0">
+                    <h5 class="modal-title text-white">
+                        <img src="/assets/dashboard/img/ban.png" class="custompopicon" id="modal-icon">
+                        <span style="color:white" id="modal_suspend_title">Review Suspended</span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                        Are you sure you want to <span class="bodyMessageTitle">suspend</span> this review from all profile?
+                    </h5>
+                </div>
+                <div class="modal-footer" style="justify-content: center;">
+                    <button type="button" class="btn-cancel-modal" data-dismiss="modal" id="close">No</button>
+                    <button type="submit" class="btn-success-modal" data-review-id="" data-review-status="" data-dismiss="modal" id="saveReviewInfo" >Yes</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- end -->
+    <!-- success model -->
+    <div class="modal " id="success_modal" style=" padding-right: 15px;" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content custome_modal_max_width">
+                <div class="modal-header main_bg_color border-0">
+                    <h5 class="modal-title text-white">
+                        <img src="/assets/dashboard/img/unblock.png" class="custompopicon" id="modal-icon">
+                        <span style="color:white" id="modal-title">Review <span class="modal_success_title">Suspended</span></span>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">
+                            <img src="http://127.0.0.1:8000/assets/app/img/newcross.png"
+                                class="img-fluid img_resize_in_smscreen">
+                        </span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
+                        <span id="comman_str"></span>
+                        <span class="success_common_msg">Status updated succesfully.</span>
+                    </h5>
+                </div>
+                <div class="modal-footer" style="justify-content: center;">
+                    <button type="submit" class="btn-success-modal" data-dismiss="modal" id="close">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end -->
+
+
 @endsection
 @push('script')
 
@@ -254,63 +219,174 @@
     </script>
   
     <script>
-        $(document).ready(function () {
-    var table = $('#EscortReviewTable').DataTable({
-        language: {
-            search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID"
-        },
-        paging: true,
-        order: [[0, 'desc']]
-    });
+
+        var escortReviewTable = $('#EscortReviewTable').DataTable({
+            language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Ref ID..."
+            },
+            processing: true,
+            serverSide: false,
+            paging: true,
+            info: true,
+            lengthChange: false,
+            searching: false,
+            bStateSave: true,
+            ordering: true,
+            ajax: {
+                url: "{{ route('escort.reviews-profile-by-ajax') }}",
+                type: "GET",
+                dataSrc: function(json) {
+                    return json.data;
+                }
+            },
+                drawCallback: function (settings) {
+            },
+            columns: [
+                { data: 'ref', name: 'ref' },
+                { data: 'date', name: 'date' },
+                { data: 'rating', name: 'rating', orderable: false },
+                { 
+                    data: 'status', name: 'status',
+                    orderable: false,
+                    searchable: false
+                },
+                { data: 'action', name: 'action', orderable: false }
+            ]
+        });
+
+        $(document).on('click', '.update-review-status', function(e) {
+            e.preventDefault(); // prevent default link behavior
+
+            const reviewId = $(this).attr('data-review-id');
+            const status = $(this).attr('data-status');
+            $("#saveReviewInfo").attr('data-review-id',reviewId);
+            $("#saveReviewInfo").attr('data-review-status',status);
+
+            $("#modal_suspend_title").text('Review '+capitalizeFirstLetter(status));
+            $(".bodyMessageTitle").text(status);
+            $(".modal_success_title").text(capitalizeFirstLetter(status));
+
+            var myModal = new bootstrap.Modal(document.getElementById('confirm_modal'));
+            myModal.show();
+        });
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
 
     // Toggle child rows
     $('#EscortReviewTable tbody').on('click', '.toggle-report', function (e) {
         e.preventDefault();
         var tr = $(this).closest('tr');
-        var row = table.row(tr);
+        var row = escortReviewTable.row(tr);
         var dataId = $(this).data("id");
+        let routeUrl = "{{ route('get-single-user-review-details', ':id') }}".replace(':id', dataId);
+        let reviewId = dataId;
 
-        if (row.child.isShown()) {
-            row.child.hide();
-            $(this).html('<i class="fa fa-eye mr-2"></i> View');
-        } else {
-            // Replace below with dynamic HTML if needed
-            var childHtml = `
-                <div class="card p-3">
-                    <h5 class="font-weight-bold text-blue-primary">Review Details</h5>
-                    <table class="table mb-0">
-                        <tr>
-                            <th>Ref:</th><td class="border-0">${dataId}</td>
-                            <th>Escort ID:</th><td class="border-0">V40161</td>
-                        </tr>
-                       
-                        <tr>
-                            <th>Mobile:</th>
-                            <td class="border-0">5438 111 222</td>
-                             <th>Escort’s Name:</th>
-                            <td class="border-0">A126</td>
-                        </tr>
-                        <tr>
-                            
-                            <th>Home State:</th>
-                            <td class="border-0">NSW</td>
-                            <th>Status:</th>
-                            <td class="border-0">Published</td>
-                        </tr>
-                        <tr>
-                            <th>Comments:</th>
-                            <td class="border-0">Best Escort and best services....</td>
-                        </tr>
-                        <!-- Add other rows -->
-                    </table>
-                </div>
-            `;
-            row.child(childHtml).show();
-            $(this).html('<i class="fa fa-times mr-2"></i> Close');
-        }
+        viewReviewReportAjax(row, reviewId, routeUrl, $(this));
+
     });
-});
+
+    function viewReviewReportAjax(row, review_id, routeUrl, obj)
+    {
+        const reportId = $(this).data('id');
+
+        $.ajax({
+            url: routeUrl, // replace with your actual route
+            method: 'GET',
+            success: function(response) {
+                
+                var childHtml = ``;
+
+                if(response.error == false){
+                    if (row.child.isShown()) {
+                        row.child.hide();
+                        obj.html('<i class="fa fa-eye mr-2"></i> View');
+                    } else {
+                        // Replace below with dynamic HTML if needed
+                        childHtml = `
+                            <div class="card p-3">
+                                <h5 class="font-weight-bold text-blue-primary">Review Details</h5>
+                                <table class="table mb-0">
+                                    <tr>
+                                        <th>Ref:</th><td class="border-0">`+response.data.id + response.data.escort_id+`</td>
+                                        <th>Escort ID:</th><td class="border-0">`+response.data.escort_id+`</td>
+                                    </tr>
+                                
+                                    <tr>
+                                        <th>Mobile:</th>
+                                        <td class="border-0">`+response.data.escort.user.phone+`</td>
+                                        <th>Escort’s Name:</th>
+                                        <td class="border-0">`+response.data.escort.name+`</td>
+                                    </tr>
+                                    <tr>
+                                        
+                                        <th>Home State:</th>
+                                        <td class="border-0">`+response.data.escort.user.state.name+`</td>
+                                        <th>Status:</th>
+                                        <td class="border-0">`+capitalizeFirstLetter(response.data.status)+`</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Viewer Name:</th>
+                                        <td class="border-0">`+response.data.user.name+`</td>
+                                        <th>Comments:</th>
+                                        <td class="border-0">`+response.data.description+`</td>
+                                    </tr>
+                                    <!-- Add other rows -->
+                                </table>
+                            </div>
+                        `;
+                        row.child(childHtml).show();
+                        obj.html('<i class="fa fa-times mr-2"></i> Close');
+                    }
+                }
+            },
+            error: function(xhr) {
+                console.error('Failed to fetch data');
+                $('#view-listing .modal-body').html('<p class="text-danger">Error loading data...</p>');
+            }
+        });
+    }
+
+    $(document).on('click', '#saveReviewInfo', function(e) {
+            e.preventDefault(); 
+
+            var reviewId = $(this).attr('data-review-id');
+            var status = $(this).attr('data-review-status');
+
+            $.ajax({
+                url: '{{ route("user-review-status-update") }}', // replace with your actual route
+                method: 'POST',
+                data:{
+                    'review_id':reviewId,
+                    'status':status,
+                },
+                success: function(response) {
+                    console.log(response);
+                    if(response.error == false){
+                        if(response.review_status == 'suspended'){
+                            $(".success-modal-title").text('Suspended');
+                            
+                            $(".success-modal-text").text('The review has been successfuly suspended.');
+
+                        }else{
+                            $(".success-modal-title").text('Published');
+                            $(".success-modal-text").text('The review has been successfuly published.');
+                        }
+
+                        $(".success_common_msg").text(response.message);
+
+                        $('#EscortReviewTable').DataTable().ajax.reload(null, false);
+                        var myModal = new bootstrap.Modal(document.getElementById('success_modal'));
+                        myModal.show();
+                    }
+                },
+                error: function(xhr) {
+                    $('#view-listing .modal-body').html('<p class="text-danger">Error loading data...</p>');
+                }
+            });
+        });
 
     </script>
 @endpush

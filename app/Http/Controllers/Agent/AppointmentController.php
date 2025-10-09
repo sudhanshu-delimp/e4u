@@ -60,6 +60,7 @@ class AppointmentController extends Controller
         $user = User::where([
             ['is_agent_assign', '=', '1'],
             ['assigned_agent_id', '=', $auth->id],
+            ['type', '=', '4']
         ])->select('id', 'name', 'member_id', 'email', 'is_agent_assign', 'assigned_agent_id')->get();
        
         
@@ -189,7 +190,7 @@ class AppointmentController extends Controller
                 // NEW: Formatted Start Time (e.g., 10:00 AM)
                 DB::raw("DATE_FORMAT(appointments.start_time, '%h:%i %p') as formatted_start_time"),
                 DB::raw("DATE_FORMAT(appointments.end_time, '%h:%i %p') as formatted_end_time"),
-                DB::raw("DATE_FORMAT(appointments.created_at, '%m-%d-%Y') as created_at_formatted")
+                DB::raw("DATE_FORMAT(appointments.created_at, '%d-%m-%Y') as created_at_formatted")
             ])
             ->find($id);
         if (!$appointment) {

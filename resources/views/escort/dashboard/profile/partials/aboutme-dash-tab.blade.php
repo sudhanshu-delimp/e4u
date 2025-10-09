@@ -148,7 +148,7 @@
                         d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z"
                         fill="#C2CFE0" />
                 </svg>
-                <span>Member ID: {{ auth()->user()->member_id }}</span>
+                <span>Member ID: {{ $loginAccount->member_id }}</span>
             </div>
         </div>
         <div class="col-lg-6">
@@ -216,8 +216,8 @@
                                             data-parsley-errors-container="#stageName-errors">
                                             <option value="" selected>-Choose Your Stage Name-</option>
                                             {{-- <option value="" selected disabled>-Not Set-</option> --}}
-                                            @if (!empty(auth()->user()->escorts_names))
-                                                @foreach (auth()->user()->escorts_names as $key => $name)
+                                            @if (!empty($loginAccount->escorts_names))
+                                                @foreach ($loginAccount->escorts_names as $key => $name)
                                                     <option value='{{ $name }}'
                                                         {{ $escort->name == $name ? 'selected' : '' }}>
                                                         {{ $name }}</option>
@@ -242,8 +242,8 @@
                                                 data-parsley-errors-container="#stageName-errors">
                                                 <option value="" selected>-Choose Your Stage Name-</option>
                                                 {{-- <option value="" selected disabled>-Not Set-</option> --}}
-                                                @if (!empty(auth()->user()->escorts_names))
-                                                    @foreach (auth()->user()->escorts_names as $key => $name)
+                                                @if (!empty($loginAccount->escorts_names))
+                                                    @foreach ($loginAccount->escorts_names as $key => $name)
                                                         <option value='{{ $name }}'
                                                             {{ $escort->name == $name ? 'selected' : '' }}>
                                                             {{ $name }}</option>
@@ -289,7 +289,7 @@
                                             <option style="font-weight: 500;" value="{{ $key }}"
                                                 @if ($escort->state_id != null) {{ $escort->state_id != null && $escort->state_id == $key ? 'selected' : '' }}
                                                     @else
-                                                    {{ auth()->user()->state_id == $key ? 'selected' : '' }} @endif>
+                                                    {{ $loginAccount->state_id == $key ? 'selected' : '' }} @endif>
                                                 {{ $state['stateName'] }} </option>
                                         @endforeach
                                     </select>
@@ -312,7 +312,7 @@
                                             <option id="{{ $escort->city_id }}" value="{{ $escort->city_id }}"
                                                 selected>{{ $escort->city->name }}</option>
                                         @else
-                                            @foreach (config('escorts.profile.states')[auth()->user()->state_id]['cities'] as $key => $city)
+                                            @foreach (config('escorts.profile.states')[$loginAccount->state_id]['cities'] as $key => $city)
                                                 <option id="{{ $key }}" value="{{ $key }}"
                                                     selected>{{ $city['cityName'] }}</option>
                                             @endforeach
@@ -350,7 +350,7 @@
                                 <div class="col-sm-6">
                                     <input type="text" id="phone" required name="phone"
                                         class="form-control form-control-sm select_tag_remove_box_sadow mt-2"
-                                        value="{{ $escort->phone ? $escort->phone : auth()->user()->phone }}"
+                                        value="{{ $escort->phone ? $escort->phone : $loginAccount->phone }}"
                                         placeholder="Mobile Number"
                                         data-parsley-required-message="Enter mobile number"
                                         data-parsley-group="group_one" data-parsley-errors-container="#mobile-errors">
@@ -1035,11 +1035,7 @@
 
                                         $escort->gender
                                             ? ($escortGender = $escort->getRawOriginal('gender'))
-                                            : ($escortGender = auth()->user()->gender);
-                                        // dd($escort);
-                                        // if(empty($escort->gender)){
-                                        //     $escortGender = auth()->user()->gender;
-                                        // }
+                                            : ($escortGender = $loginAccount->gender);
                                     @endphp
                                     <div class="row">
                                         <div class="col-lg-4 col-md-12 col-sm-12">

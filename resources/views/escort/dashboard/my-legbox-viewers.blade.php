@@ -262,12 +262,8 @@
                     { data: 'block_viewer', name: 'block_viewer' },                       // 9
                     { data: 'action', name: 'action', orderable: false, searchable: false } // 10
                 ],
-                columnDefs: [
-                    // {
-                    //     targets: 8,            // column index (e.g., 'id' column)
-                    //     width: "15%",          // set width here
-                    // }
-                ]
+               
+                autoWidth: false
             });
 
             // Event to set total count
