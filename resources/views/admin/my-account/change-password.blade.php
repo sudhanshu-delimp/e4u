@@ -63,7 +63,10 @@ form.v-form-design label {
                         <span class="toggle-password" toggle="#passwordN">
                           <i class="fa fa-eye"></i>
                       </span>
-                        <small id="emailHelp" class="form-text text-muted">Case sensative</small>
+                        
+                        <div class="pt-1">
+                          <small id="emailHelp"><i>Case sensitive</i></small>
+                      </div>
                       </div>
                     </div>
                     <div class="col-md-12">
@@ -76,7 +79,9 @@ form.v-form-design label {
                         <div class="termsandconditions_text_color">
                           <!-- error sms here -->
                                             </div>
-                        <small id="emailHelp" class="form-text text-muted">MUST be a minimum of six (8) characters long</small>
+                        <div class="pt-1">
+                          <small  id="emailHelp"><i>Must be a minimum of eight (8) characters long</i></small>
+                      </div>
                       </div>
                     </div>
                     <div class="col-md-12">

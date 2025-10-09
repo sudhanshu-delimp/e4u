@@ -267,9 +267,6 @@ Route::get('credit-my-account',function(){
 Route::get('my-bank-account',function(){
     return view('escort.dashboard.Bookkeeping.my-bank-account');
 });
-Route::get('revenue-manager',function(){
-    return view('escort.dashboard.Bookkeeping.revenue-manager');
-});
 Route::get('transaction-history',function(){
     return view('escort.dashboard.Bookkeeping.transaction-history');
 });

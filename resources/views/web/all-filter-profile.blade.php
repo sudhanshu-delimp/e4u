@@ -261,10 +261,10 @@
                             
                             <div class="display_inline_block mb-1 mr-2">
                                 <select class="custome_form_control_border_radus with_eight_em" 
-                                    id="playmate_status" name="playmate_status" value="{{ request()->get('playmate_status') }}">
-                                    <option value="none">Playmate Status</option>
-                                    <option value="with_playmates">With Playmates</option>
-                                    <option value="without_playmates">Without Playmates</option>
+                                    id="playmate_status" name="playmate_status">
+                                    <option value="">Playmates</option>
+                                    <option value="with_playmates" {{ request()->get('playmate_status') == 'with_playmates' ? 'selected' : '' }}>Have</option>
+                                    <option value="without_playmates" {{ request()->get('playmate_status') == 'without_playmates' ? 'selected' : '' }}>Not Have</option>
                                 </select>
                             </div>
                             <div class="display_inline_block mb-1 mr-2">

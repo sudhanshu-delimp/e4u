@@ -57,7 +57,9 @@
                           <i class="fa fa-eye"></i>
                       </span>
                      <div id="formerror"></div>
-                     <small class="form-text text-muted">Case sensitive</small>
+                     <div class="pt-1">
+                        <small><i>Case sensitive</i></small>
+                    </div>
                   </div>
 
                   <div class="form-group position-relative">
@@ -70,7 +72,9 @@
                         <span class="toggle-password" toggle="#new_password">
                           <i class="fa fa-eye"></i>
                       </span>
-                     <small class="form-text text-muted">Must be a minimum of 8 characters long</small>
+                     <div class="pt-1">
+                        <small><i>Must be a minimum of 8 characters long</i></small>
+                    </div>
                   </div>
 
                   <div class="form-group position-relative">
@@ -114,7 +118,10 @@
                            {{ $user->passwordSecurity->password_expiry_days == 90 ? 'checked' : '' }}>
                         <label class="form-check-label">Renew every 90 days</label>
                      </div>
-                     <small class="form-text text-muted">Default expiry is 30 days unless changed.</small>
+                     
+                     <div class="pt-1">
+                        <i>Default expiry is 30 days unless changed.</i>
+                    </div>
                   </div>
 
                   <div class="form-group mt-4">
@@ -129,7 +136,10 @@
                            {{ isset($user->passwordSecurity->password_notification) && in_array(2, $user->passwordSecurity->password_notification) ? 'checked' : '' }}>
                         <label class="form-check-label">Email</label>
                      </div>
-                     <small class="form-text text-muted">You will be notified 24 hours before password expiry.</small>
+                     
+                     <div class="pt-1">
+                        <i>You will be notified 24 hours before password expiry.</i>
+                    </div>
                   </div>
 
                   <input type="submit" value="Save" class="btn btn-primary shadow-none mt-4">

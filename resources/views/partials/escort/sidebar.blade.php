@@ -257,11 +257,7 @@
                     </img><span style="{{request()->segment(2) == 'credit-my-account' ? 'color: #e5365a;' : ''}}">Add Credit</span>
                 </a>
                 
-                <a class="collapse-item" href="{{url('escort-dashboard/revenue-manager')}}">
-                    <img width="16" height="17" viewBox="0 0 16 17" fill="none"
-                         src="{{asset('assets/dashboard/img/menu-icon/piggy-bank.png') }}">
-                    </img><span style="{{request()->segment(2) == 'revenue-manager' ? 'color: #e5365a;' : ''}}">Revenue Manager</span>
-                </a>
+                
                 <a class="collapse-item" href="{{url('escort-dashboard/transaction-summary')}}">
                     <img width="16" height="17" viewBox="0 0 16 17" fill="none"
                          src="{{asset('assets/dashboard/img/menu-icon/credit-card-settings.png') }}">

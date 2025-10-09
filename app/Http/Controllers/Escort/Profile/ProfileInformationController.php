@@ -75,7 +75,6 @@ class ProfileInformationController extends Controller
 
     public function showAboutMe()
     {
-
         $user = auth()->user();
         if(!$escort = $this->escort->findDefault($user->id,1)) {
             $escort = $this->escort->make();
@@ -83,31 +82,7 @@ class ProfileInformationController extends Controller
         list($service_one, $service_two, $service_three) = $this->service->findByCategory([1,2,3]);
         $durations = $this->duration->all();
         $availability = $escort->availability;
-        //$playmates = Playmate::all();
-        $users_for_available_playmate = $this->user->findPlaymates(auth()->user()->id);
-
-
-        /*$userId = auth()->user() ? auth()->user()->id : null; //request()->post('userId');
-        $users_for_available_playmate = $this->user->findPlaymates(auth()->user()->id);
-        return view('escort.dashboard.Playmates.playmates',compact('users_for_available_playmate','escort'));*/
-
-         /*$userall = $this->user->find(auth()->user()->id);
-
-         foreach($users_for_available_playmate as $allUser) {
-             //dd($allUser->escorts);
-             if(!empty($allUser->escorts)) {
-                 foreach($allUser->escorts as $escort) {
-                 echo "<pre>id :-".$escort->id."</br>";
-
-                 }
-             }
-
-
-         }
-        dd("hii");
-        $allEscorts = $userall->playmates;*/
-
-        return view('escort.dashboard.profile.information.profileInformation',compact('users_for_available_playmate','escort','service_one','service_two','service_three','availability','durations','user'));
+        return view('escort.dashboard.profile.information.profileInformation',compact('escort','service_one','service_two','service_three','availability','durations','user'));
     }
 
     public function escortplaymate(Request $request)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Escort;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Escort;
 use App\Repositories\User\UserInterface;
@@ -27,12 +28,13 @@ class PlaymateController extends Controller
             $escortId = $request->escortId;
             $accountUserId = auth()->user()->id;
             if(!empty($request->searchValue)){
-                $userIds = User::where(['current_state_id'=>$selectedStateId,'member_id'=>$request->searchValue])->pluck('id');
+                $userIds = User::where(['current_state_id'=>$selectedStateId,'member_id'=>$request->searchValue,'available_playmate'=>1])->pluck('id');
             }
             else{
-                $userIds = User::where('current_state_id', $selectedStateId)->pluck('id');
+                $userIds = User::where(['current_state_id'=>$selectedStateId,'available_playmate'=>1])->pluck('id');
             }
-            
+
+            $escortProfile = Escort::find($escortId);
             $escorts = Escort::whereIn('user_id', $userIds)
             ->where('state_id', $selectedStateId)
             ->where('user_id', '!=', $accountUserId)
@@ -41,7 +43,7 @@ class PlaymateController extends Controller
             ->get();
             
 
-            $playmateIds = Escort::find($escortId)->playmates()->pluck('playmate_id')->toArray();
+            $playmateIds = $escortProfile->playmates()->pluck('playmate_id')->toArray();
 
             $escorts->map(function($escort) use ($playmateIds) {
                 $escort->is_playmate = in_array($escort->id, $playmateIds);
@@ -50,6 +52,7 @@ class PlaymateController extends Controller
 
             $response['success'] = true;
             $response['escorts'] = $escorts;
+            
             $response['playmates_container_html'] = view('escort.dashboard.profile.partials.playmates_container',compact('escorts'))->render();
 
             return response()->json($response);

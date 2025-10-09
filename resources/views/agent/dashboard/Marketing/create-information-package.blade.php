@@ -219,10 +219,8 @@
                     </div>
 
                     <div class="modal-footer mt-3">
-                        <button type="button" class="btn-cancel-modal" data-dismiss="modal" value="close"
-                            id="close_change">Print</button>
-                            <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
-                            id="close_change">Email</button>
+                        <a  href="{{ route('printreport') }}" target="_blank" class="btn-cancel-modal text-white">Print</a>
+                            <a href="download-report" download="report" class="btn-success-modal text-white">Email</a>
                     </div>
                 </div>
             </div>

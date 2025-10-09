@@ -10,11 +10,11 @@
                 <div class="form-check-inline">
                     <input class="form-check-input"
                         type="checkbox" id="playmate{{$escort->id}}" name="playmate[]" value="{{$escort->id}}" {{($escort->is_playmate)?'checked':''}}>
-                        <label class="form-check-label ml-2" for="playmate{{$escort->id}}">Add as playmate</label> 
+                        <label class="form-check-label ml-2" for="playmate{{$escort->id}}">{{($escort->is_playmate)?'Included as Playmate':'Add as Playmate'}}</label> 
                 </div>
             </div>
         </div>
     @endforeach
 @else
-    <div class="alert alert-info">No results available at the moment.</div>
+    <div class="alert alert-info">You do not presently have any Playmates.</div>
 @endif

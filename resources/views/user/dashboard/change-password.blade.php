@@ -53,7 +53,9 @@
                             <span class="toggle-password" toggle="#current_password">
                                 <i class="fa fa-eye"></i>
                             </span>
-                            <small class="form-text text-muted">Case sensitive</small>
+                            <div class="pt-1">
+                              <small><i>Case sensitive</i></small>
+                          </div>
                         </div>
                     </div>
     
@@ -69,7 +71,9 @@
                                 <i class="fa fa-eye"></i>
                             </span>
                             <div class="termsandconditions_text_color"></div>
-                            <small class="form-text text-muted">MUST be a minimum of eight (8) characters long</small>
+                            <div class="pt-1">
+                              <small><i>Must be a minimum of eight (8) characters long</i></small>
+                          </div>
                         </div>
                     </div>
     
@@ -117,7 +121,9 @@
                     <input class="" name="password_expiry_days"  type="radio" value="90" @if($user->account_setting && $user->account_setting->password_expiry_days=='90') {{  'checked'  }}  @endif  >
                     <label class="form-check-label" for="flexCheckDefault">Renew every 90 days</label>
                 </div>
-                <small id="emailHelp" class="form-text text-muted">Unless you set your preferred Password Expiry, by default your password will renew every30 days.</small>
+                <div class="pt-1">
+                  <i id="emailHelp"> Unless you set your preferred Password Expiry, by default your password will renew every30 days.</i>
+             </div>
               </div>
               <div class="col-md-12 p-0 mt-4">
                 <div class="form-group mb-0">
@@ -131,7 +137,11 @@
                     <input class="form-check-input" name="is_email_notificaion_on" type="checkbox" id="flexCheckDefault" value="1" @if($user->account_setting && $user->account_setting->is_email_notificaion_on=='1') {{  'checked'  }}  @endif>
                     <label class="form-check-label" for="flexCheckDefault">Email</label>
                 </div>
-                <small id="emailHelp" class="form-text text-muted">If you select to be notified of your impending password expiry by Text or Email, you will receive a notification 24 hours prior to expiry date.</small>
+                
+               
+               <div class="pt-1">
+                <i id="emailHelp"> If you select to be notified of your impending password expiry by Text or Email, you will receive a notification 24 hours prior to expiry date.</i>
+              </div>
               </div>
               <input type="submit" value="Save" class="btn btn-primary shadow-none mt-4" name="submit">
           </form>

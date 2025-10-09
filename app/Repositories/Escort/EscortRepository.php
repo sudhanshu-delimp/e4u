@@ -248,6 +248,9 @@ class EscortRepository extends BaseRepository implements EscortInterface
            
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10 delete-center" href="' . route('escort.delete.profile', $item->id) . '" data-id="' . $item->id . '"> <i class="fa fa-trash"></i> Delete </a> <div class="dropdown-divider"></div>';
             $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', $item->id) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"> <i class="fa fa-pen"></i> Edit</a> <div class="dropdown-divider"></div>';
+            if($item->enabled=='Active'){
+            $item->action .= '<a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="' . route('escort.update.profile', ['id' => $item->id, 'tab' => 'my-playmates']) . '" data-id="' . $item->id . '" data-name="' . $item->name . '" data-category="' . ($item->id) . '"> <i class="fa fa-pen"></i> Include Playmates</a> <div class="dropdown-divider"></div>';
+            }
             if($item->latestActivePinup && empty($item->activeUpcomingSuspend)){
                 $item->action .= '<a class="dropdown-item" href="#" data-id="' . $item->id . '"  data-toggle="modal" data-target="#pinupSummary"><i class="fa fa-hand-pointer" aria-hidden="true"></i> Pin Up Summary</a> <div class="dropdown-divider"></div>';
             }

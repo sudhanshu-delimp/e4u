@@ -423,7 +423,7 @@ $(function() {
                         {
                             e.preventDefault();
                             var form = $(this);
-
+                            swal_waiting_popup({'title' : 'Validating your OTP.'});
                             console.log(ph);
                             // var url = form.attr('action');
                             var url = "{{ route('web.checkOTP')}}";
@@ -455,7 +455,7 @@ $(function() {
 
                                 },
                                 error: function(data) {
-
+                                Swal.close();
                                 console.log("error: a", data.responseJSON.errors);
                                 var errorsHtml = '<ul><li>';
                                 $.each(data.responseJSON.errors, function(key, value) {

@@ -152,22 +152,13 @@
                     <i class="fas fa-arrow-left"></i>&nbsp;Previous Step</a>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-8 col-12 text-right a_text_white_hover previous_bt_center_in_sm">
-                @if (request()->segment(2) == 'profile')
+                @if ($editMode)
                     <a data-toggle="modal" data-id="{{ $escort->id }}" data-target="#view-listing"
                         class="save_profile_btn preview-profile" href="#">Preview</a>
                 @endif
-
-                @if (request()->segment(2) == 'create-profile')
-                    <button id="show_draft-2" name="save" type="submit" class="nex_sterp_btn" style="display: none"
-                        >
-                        Save Profile
-                    </button>
-                @endif
-                
                 <a href="#playmates" class="nex_sterp_btn hideDraft" id="playmates-tab" data-toggle="tab" role="tab" aria-controls="playmates" aria-selected="false">Next Step
                 <i class="fas fa-arrow-right"></i>
                 </a>
-                
             </div>
         </div>
     </div>

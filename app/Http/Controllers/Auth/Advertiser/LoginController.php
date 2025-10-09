@@ -234,11 +234,13 @@ class LoginController extends BaseController
             $type = $user->type;
             //Create default profile here
             if($type == 3) {
+                if (!Escort::where('user_id', auth()->user()->id)->exists()) {
                 $escort = new Escort();
                 $escort->user_id = auth()->user()->id;
-                $escort->enabled = 1;
+                //$escort->enabled = 1;
                 $escort->default_setting = 1;
                 $escort->save();
+                }
             }
             $error = true;
             $this->guard()->user();
