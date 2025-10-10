@@ -530,6 +530,10 @@
             searching: true,
             bStateSave: true,
             ordering:false,
+            autoWidth: false,
+            columnDefs: [
+                { width: "12%", targets: 1 } 
+            ],
             ajax: {
                 url: ajaxUrl,
                 type: method,
@@ -541,7 +545,7 @@
             },
             columns: [
                 { data: 'ref', name: 'ref' },
-                { data: 'date', name: 'date' },
+                { data: 'date', name: 'date',  },
                 { data: 'escort_id', name: 'escort_id' },
                 { data: 'viewer_id', name: 'viewer_id' },
                 { data: 'mobile', name: 'mobile' },
