@@ -318,7 +318,7 @@
                             <div class="card p-3">
                                 <div class="d-flex justify-content-between">
                                     <h5 class="font-weight-bold text-blue-primary">Review Details</h5>
-                                    <button class="btn-cancel-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
+                                    <button class="btn-success-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
                                 </div>
                                 <table class="table mb-0">
                                     {{-- <tr>
