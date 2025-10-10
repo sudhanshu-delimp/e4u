@@ -36,6 +36,77 @@
                         </div>
                     </div>
                 </div>
+                {{-- my viewers --}}
+                <div class="row mb-5">
+
+                    <div class="col-md-12">
+                        <div class="table-responsive-xl">
+                            <table class="table table-hover">
+                                <thead class="table-bg">
+                                    <tr>
+                                        <th colspan="3" class="text-center">My Viewers</th>
+                                    </tr>
+
+                                </thead>
+                                <tbody class="table-content">
+                                    <tr>
+
+                                        <td class="text-center font-weight-bold">State</td>
+
+                                        <td class="text-center font-weight-bold">Viewers</td>
+                                        <td class="text-center font-weight-bold">Notifications</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ACT:</td>
+                                        <td class="text-center">10</td>
+                                        <td class="text-center">25</td>
+                                    </tr>
+                                    <tr>
+                                        <td>NSW:</td>
+                                        <td class="text-center">23</td>
+                                        <td class="text-center">54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Qld:</td>
+                                        <td class="text-center">33</td>
+                                        <td class="text-center">65</td>
+                                    </tr>
+                                    <tr>
+                                        <td>NT:</td>
+                                        <td class="text-center">44</td>
+                                        <td class="text-center">66</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SA:</td>
+                                        <td class="text-center">71</td>
+                                        <td class="text-center">11</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tas:</td>
+                                        <td class="text-center">22</td>
+                                        <td class="text-center">31</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Vic:</td>
+                                        <td class="text-center">54</td>
+                                        <td class="text-center">43</td>
+                                    </tr>
+                                    <tr>
+                                        <td>WA:</td>
+                                        <td class="text-center">3</td>
+                                        <td class="text-center">109</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold">Totals</td>
+                                        <td class="text-center">200</td>
+                                        <td class="text-center">250</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {{-- end --}}
                 <!--middle content-->
                 <div class="row">
                     <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
@@ -45,58 +116,60 @@
                         </div>
                     </div>
                     <div class="col-md-12">
-                        <div class="table-responsive-xl">
-                            <table id="sendNotificationTable" class="table table-bordered display" width="100%">
+                        <div class="table-responsive">
+                            <table id="sendNotificationTable" class="table table-hover display" width="100%">
                                 <thead class="table-bg">
                                     <tr>
-                                        <th scope="col">
+                                        <th class="text-center">
                                             <div class="ckbox">
                                                 <input type="checkbox" id="checkbox1">
                                             </div>
                                         </th>
-                                        <th scope="col">Viewer Name</th>
-                                        <th scope="col">
+                                        <th class="text-center">Viewer Name</th>
+                                        <th class="text-center">Tagged</th>
+                                        <th class="text-center">
                                             Home State
-                                            <svg width="17" height="16" viewBox="0 0 17 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg" style="margin-left: 5px;">
-                                                <path
-                                                    d="M13.6139 15.125L10.4473 11.9583H12.8223V4.04167H10.4473L13.6139 0.875L16.7806 4.04167H14.4056V11.9583H16.7806L13.6139 15.125ZM0.947266 13.5417V11.9583H8.86393V13.5417H0.947266ZM0.947266 8.79167V7.20833H6.48893V8.79167H0.947266ZM0.947266 4.04167V2.45833H4.11393V4.04167H0.947266Z"
-                                                    fill="white"></path>
-                                            </svg>
+
                                         </th>
-                                        <th scope="col">Contact Method</th>
-                                        <th scope="col">Block Viewer</th>
+
+                                        <th class="text-center">Contact Method</th>
+                                        <th class="text-center">Notification</th>
+                                        <th class="text-center">Block Viewer</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-content">
-                                    <tr class="row-color">
-                                        <td class="theme-color">
+                                    <tr>
+                                        <td class="text-center">
                                             <div class="ckbox">
                                                 <input type="checkbox" id="checkbox1">
                                             </div>
                                         </td>
-                                        <td class="theme-color"><img src="{{ asset('assets/app/img/profile-img.png') }}"
+                                        <td class="text-center"><img src="{{ asset('assets/app/img/profile-img.png') }}"
                                                 class="img-profile rounded-circle playmats-img ">Skusta clee</td>
-                                        <td class="theme-color">SA</td>
-                                        <td class="theme-color">By email</td>
-                                        <td class="theme-color">
+                                        <td class="text-center">10-10-2025</td>
+                                        <td class="text-center">SA</td>
+                                        <td class="text-center">Email</td>
+                                        <td class="text-center">By email</td>
+                                        <td class="text-center">
                                             <div class="custom-control custom-switch">
                                                 <input type="checkbox" class="custom-control-input" id="customSwitch_1">
                                                 <label class="custom-control-label" for="customSwitch_1"></label>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr class="row-color">
-                                        <td class="theme-color">
+                                    <tr>
+                                        <td class="text-center">
                                             <div class="ckbox">
                                                 <input type="checkbox" id="checkbox1">
                                             </div>
                                         </td>
-                                        <td class="theme-color"><img src="{{ asset('assets/app/img/profile-img.png') }}"
+                                        <td class="text-center"><img src="{{ asset('assets/app/img/profile-img.png') }}"
                                                 class="img-profile rounded-circle playmats-img ">Johny Bravo</td>
-                                        <td class="theme-color">SA</td>
-                                        <td class="theme-color">By Mobile</td>
-                                        <td class="theme-color">
+                                        <td class="text-center">11-10-20254</td>
+                                        <td class="text-center">WA</td>
+                                        <td class="text-center">Mobile</td>
+                                        <td class="text-center">Mobile</td>
+                                        <td class="text-center">
                                             <div class="custom-control custom-switch">
                                                 <input type="checkbox" class="custom-control-input" id="customSwitch_2">
                                                 <label class="custom-control-label" for="customSwitch_2"></label>
@@ -111,7 +184,7 @@
             </div>
         </div>
     </div>
-
+    {{-- Send Notification Popup --}}
     <div class="modal fade upload-modal" id="new-ban" tabindex="-1" role="dialog" aria-labelledby="new-ban"
         aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -135,19 +208,84 @@
                             <div class="col-12 mb-3">
                                 <div class="form-group text-left"
                                     style="border: 2px dashed #e3e6f0;padding: 15px 10px 35px 10px;">
-                                    <label class="form-check-label" for="exampleCheck1" style="color: #323C47;">You are
-                                        about to send notification to all viewers located in Home State. </label>
-                                    <!-- if only one selected -->
+                                    {{-- in not selected any --}}
+    <label class="form-check-label" for="exampleCheck1" style="color: #323C47; display:none">You are
+        about to send notification to all viewers located in Home State. </label>
 
-                                    <label class="form-check-label" for="exampleCheck1" style="color: #323C47;">You are
-                                        about to send notification to <span>[Viewers name]</span> and viewers located in
-                                        <span>[Location]</span>. </label>
+    <!-- if only one selected -->
+
+    <label class="form-check-label" for="exampleCheck1" style="color: #323C47;">You are
+        about to send notification to <span>Viewers name</span> and viewers located in
+        <span>Location</span>. </label>
+    <div class="card-body px-0">
+        <h4 class="NotesHeader"><b>Notes:</b> </h4>
+        <ol>
+            <li>The Viewer will only receive this Notification if they have the feature
+                enabled.</li>
+            <li>The Notification will identify you by your Membership ID and Stage Name.
+            </li>
+        </ol>
+    </div>
+    </div>
+    </div>
+    </div>
+    </form>
+    </div>
+    <div class="modal-footer pr-3">
+        <div class="col-10 pl-0">
+            <div class="form-group">
+                <label class="form-check-label pr-4" for="exampleCheck1">Date:<span
+                        class="ml-1">10-10-2025</span></label>
+                <label class="form-check-label pr-4" for="exampleCheck1"> No. of Viewers:<span
+                        class="ml-1">100</span></label>
+            </div>
+        </div>
+        <button type="button" class="btn-success-modal">Send</button>
+    </div>
+    </div>
+    </div>
+    </div>
+    {{-- end --}}
+
+
+    {{-- Notification invalid Popup --}}
+    <div class="modal fade upload-modal" id="invalidNotification" tabindex="-1" role="dialog" aria-labelledby="invalidNotification"
+        aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="invalidNotification"><img src="/assets/dashboard/img/invalid-notification.png"
+                            class="custompopicon" alt="cross"> Notification invalid</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
+                                class="img-fluid img_resize_in_smscreen"></span>
+                    </button>
+                </div>
+                <div class="modal-body pb-0">
+                    <form>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <select class="form-control rounded-0">
+                                    <option>Select Home State</option>
+                                </select>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <div class="form-group text-left"
+                                    style="border: 2px dashed #e3e6f0;padding: 15px 10px 35px 10px;">
+
+                                    <label class="form-check-label" for="exampleCheck1" style="color: #323C47;">Your
+                                        request to send a notification to
+                                        <span>Viewers name</span> if only one selected, or <span>Your Viewers</span> is
+                                        invalid as you do not have a current or impending Profile in <span>Location</span>.
+                                    </label>
                                     <div class="card-body px-0">
                                         <h4 class="NotesHeader"><b>Notes:</b> </h4>
                                         <ol>
-                                            <li>The Viewer will only receive this Notification if they have the feature
-                                                enabled.</li>
-                                            <li>The Notification will identify you by your Membership ID and Stage Name.
+                                            <li>You must have a posted or impending Profile (a part of a Tour) to use this
+                                                feature.</li>
+                                            <li>If you have enabled the Notification feature in your settings, you do not
+                                                need to use this feature as Notifications will be sent out automatically
+                                                whenever you create a Profile or Tour.
                                             </li>
                                         </ol>
                                     </div>
@@ -159,10 +297,9 @@
                 <div class="modal-footer pr-3">
                     <div class="col-10 pl-0">
                         <div class="form-group">
-                            <label class="form-check-label pr-4" for="exampleCheck1">Date:<span class="ml-1"
-                                    style="font-weight: 300;">12/31/2022</span></label>
-                            <label class="form-check-label pr-4" for="exampleCheck1"> No. of Viewers:<span class="ml-1"
-                                    style="font-weight: 300;">[total]</span></label>
+                            <label class="form-check-label pr-4" for="exampleCheck1">Date:<span
+                                    class="ml-1">10-10-2025</span></label>
+                           
                         </div>
                     </div>
                     <button type="button" class="btn-success-modal">Send</button>
@@ -170,6 +307,7 @@
             </div>
         </div>
     </div>
+    {{-- end --}}
 @endsection
 @push('script')
     <!-- file upload plugin start here -->
@@ -183,15 +321,6 @@
         $(document).ready(function() {
             $('#sendNotificationTable').DataTable({
                 responsive: true,
-                language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by ID or Profile Name...",
-                    lengthMenu: "Show _MENU_ entries",
-                    zeroRecords: "No matching records found",
-                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
-                    infoEmpty: "No entries available",
-                    infoFiltered: "(filtered from _MAX_ total entries)"
-                },
                 initComplete: function() {
                     if ($('#returnToReportBtn').length === 0) {
                         $('.dataTables_filter').append(
@@ -205,7 +334,7 @@
                 },
                 "language": {
                     "zeroRecords": "There is no record of the search criteria you entered.",
-                    searchPlaceholder: "Search by ID or Profile Name"
+                    searchPlaceholder: "Search by Viewer Name or Member ID"
                 },
                 paging: true
             });
