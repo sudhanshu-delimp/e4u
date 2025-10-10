@@ -71,7 +71,7 @@
                                                 <div class="form-group">
                                                     <label for="membership_num">Date Joined</label>
                                                     {{-- <input type="date" class="form-control" placeholder=" " aria-describedby="emailHelp"> --}}
-                                                    <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{Carbon\Carbon::parse($user->created_at)->format('d/m/Y')}}</label>
+                                                    <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">{{Carbon\Carbon::parse($user->created_at)->format('d-m-Y')}}</label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
