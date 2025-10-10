@@ -530,6 +530,7 @@
             searching: true,
             bStateSave: true,
             ordering:false,
+            autoWidth: false,
             ajax: {
                 url: ajaxUrl,
                 type: method,
