@@ -244,6 +244,7 @@ class LoginController extends BaseController
             }
             $error = true;
             $this->guard()->user();
+            $this->user->update_last_login($user);
             return response()->json(compact('error','type'));
            
         } 
