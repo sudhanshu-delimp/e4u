@@ -179,8 +179,8 @@ class EscortReviewsController extends Controller
             $report = Reviews::where('id', $id)
                 ->with([
                     'escort:id,user_id,city_id,state_id,name',
-                    'escort.user:id,phone,state_id',
-                    'user:id,email,phone,state_id,name',
+                    'escort.user:id,phone,state_id,member_id',
+                    'user:id,email,phone,state_id,name,member_id',
                 ])
                 ->first();
                 
