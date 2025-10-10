@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use App\Models\ViewerNotificationSetting;
+use Exception;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -72,6 +73,13 @@ class User extends Authenticatable
         'online',
         'member_id',
     ];
+
+    public $current_date;
+    public function __construct()
+    {
+
+        $this->current_date = date('Y-m-d H:i:s');
+    }
 
     public function getOnlineAttribute()
     {
@@ -566,6 +574,43 @@ class User extends Authenticatable
         //$otp = mt_rand(1000,9999);
         return $otp;
     }
+
+
+    public function update_last_login($user)
+    {
+            try 
+            {
+                $accountSetting = new AccountSetting;
+                $accountSetting = AccountSetting::where('user_id', $user->id)->first();
+                if(!$accountSetting)
+                {
+                     AccountSetting::create([
+                        'user_id'  => $user->id,
+                        'password_updated_date' => date('Y-m-d H:i:s'),
+                        'password_expiry_days'   => '30',
+                        'is_text_notificaion_on' => '0',
+                        'is_email_notificaion_on' => '0',
+                        'is_first_login' => '0',
+                        'last_login' =>  $this->current_date
+                    ]);
+                } 
+                else
+                {
+                    $accountSetting->last_login = $this->current_date;
+                    $accountSetting->save();
+                }  
+                return true;
+            } 
+            catch (Exception $e){
+            return false;
+            }
+
+    }
+
+        public function referrals()
+        {
+            return $this->hasMany(User::class, 'referred_by_agent_id');
+        }
 
     
 
