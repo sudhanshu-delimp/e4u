@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             let profileRow = document.createElement("div");
             profileRow.classList.add("profile");
             profileRow.innerHTML = `
-            <div class="d-flex align-items-center gap-2 p-2 border rounded bg-light">
+            <div class="d-flex align-items-center gap-2 p-2 border rounded bg-light my-2">
             <select name="profile[][]" class="form-select profile-dropdown w-25">
             ${availableProfiles.map(profile => `<option value="${profile.id}">${profile.name}</option>`).join("")}
             </select>
