@@ -169,6 +169,14 @@
             </div>
         </div>
         <div class="col-md-12 mt-4">
+            {{--<div class="card collapse" id="notes">
+                <div class="card-body">
+                    <h2 class="primery_color normal_heading"><b>Notes:</b></h2>
+                    <ol class="mb-0">
+
+                    </ol>
+                </div>
+            </div>--}}
             <div class="card-body border-0 pt-0 mt-0 p-0">
                 <div class="mb-1">
                     @php
@@ -179,26 +187,75 @@
                                                                                                   style="display: inline;">I
                         am available as a Playmate</label>
                 </div>
+                <div class="col-lg-12 my-3">
+                    <h2 class="custom-head py-3">My Active Playmates</h2>
+                    <form>
+                        <!-- Playmate Card -->
+                        <div class="playmates-card-grid">
+                            <div class="card shadow-sm border-0 p-0">
+                                <img src="{{ asset('assets/dashboard/img/girl.jpg') }}" class="card-img-top" alt="Playmate 1">
+                                <div class="card-body border-0 mt-0 px-2 py-3">
+                                    <h3>My Playmates</h3>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input"
+                                            type="checkbox" id="playmate{{$escort->id}}" name="playmate[]" value="{{$escort->id}}" {{($escort->is_playmate)?'checked':''}}>
+                                            <label class="form-check-label ml-2" for="playmate{{$escort->id}}">Add as playmate</label> 
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="d-flex justify-content-end my-3">
+                            <button type="submit" class="save_profile_btn">Save</button>
+                        </div>
+                        
+                            
+                    </form>
+                </div>
             </div>
+            <hr style="background-color: #0C223D">
             <div class="card-body active-play border-0 pt-0 mt-1 p-0">
                 <div class="mt-0">
-                    <div class="col-lg-12 my-3">
-                        @if($user->playmates->count()>0)
-                        <h2 class="custom-head py-3">My Active Playmates</h2>
-                        <ul class="results  mt-2 activePlaymate">
-                                @foreach($user->playmates as $escort)
-                                    <li id="rmlist_{{$escort->id}}" class="d_my_tooltip"><a
-                                            href="{{ route('profile.description',$escort->id)}}" target="_blank">
-                                            <img
-                                                src="{{ $escort->DefaultImage ? asset($escort->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
-                                                class="img-profile rounded-circle playmats-img">{{$escort->user->member_id . ' - ' .$escort->name}}
-                                        </a>
-                                        <span class="playmates_rmid" data-id="{{$escort->id}}">×</span>
-                                        <small class="mytool-tip">Remove</small>
-                                    </li>
-                                @endforeach
-                        </ul>
+                    <ul class="results  mt-2 activePlaymate">
+                        @if(!is_null(auth()->user()->playmates))
+                            @foreach(auth()->user()->playmates as $playmate)
+                                <li id="rmlist_{{$playmate->id}}" class="d_my_tooltip"><a
+                                        href="{{ route('profile.description',$playmate->id)}}" target="_blank">
+                                        <img
+                                            src="{{ $playmate->DefaultImage ? asset($playmate->DefaultImage) : asset('assets/app/img/icons-profile.png') }}"
+                                            class="img-profile rounded-circle playmats-img">{{$playmate->user->member_id . ' - ' .$playmate->name}}
+                                    </a>
+                                    <span class="playmates_rmid" value="{{$playmate->id}}">×</span>
+                                    <small class="mytool-tip">Remove</small>
+                                </li>
+                            @endforeach
                         @endif
+                    </ul>
+                    
+                    <div class="col-lg-12 my-3">
+                        <h2 class="custom-head py-3">Me as a Playmate Added By Others</h2>
+                        <form>
+                            <!-- Playmate Card -->
+                            <div class="playmates-card-grid">
+                                <div class="card shadow-sm border-0 p-0">
+                                    <img src="{{ asset('assets/dashboard/img/girl.jpg') }}" class="card-img-top" alt="Playmate 1">
+                                    <div class="card-body border-0 mt-0 px-2 py-3">
+                                        <h3>My Playmates</h3>
+                                        <div class="form-check-inline">
+                                            <input class="form-check-input"
+                                                type="checkbox" id="playmate{{$escort->id}}" name="playmate[]" value="{{$escort->id}}" {{($escort->is_playmate)?'checked':''}}>
+                                                <label class="form-check-label ml-2" for="playmate{{$escort->id}}">Included as a playmate</label> 
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="d-flex justify-content-end mt-3">
+                                <button type="submit" class="save_profile_btn">Save</button>
+                            </div>
+                            
+                                
+                        </form>
                     </div>
                 </div>
             </div>
@@ -221,63 +278,5 @@
             }
         });
     });
-
-    $('body').on('click', '.playmates_rmid', function(e) {
-    e.preventDefault();
-
-    const $btn = $(this);
-    const playmateId = $btn.data('id');
-    const url = `{{ route('escort.remove.playmate', ':id') }}`.replace(':id', playmateId);
-
-    // Optionally disable button to prevent multiple clicks
-    $btn.prop('disabled', true);
-
-    $.ajax({
-        method: "POST",
-        url: url,
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        beforeSend: function () {
-            Swal.fire({
-                title: 'Removing...',
-                text: 'Please wait while we remove this playmate.',
-                allowOutsideClick: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-        },
-        success: function (data) {
-            if (!data.error) {
-                $(`#rmlist_${playmateId}`).remove();
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Removed!',
-                    text: data.message || 'Playmate removed successfully.',
-                    timer: 1500,
-                    showConfirmButton: false
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: data.message || 'Failed to remove playmate.'
-                });
-            }
-        },
-        error: function(xhr, status, error) {
-            Swal.close();
-            Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'Something went wrong. Please try again.'
-            });
-        },
-        complete: function() {
-            $btn.prop('disabled', false); // re-enable button
-        }
-    });
-}); 
 </script>
 @endpush

@@ -9747,6 +9747,16 @@ button:disabled {
     font-weight: bold;
 }
 
+.playmate-badge {    
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 11px;
+    background: #ff3c5f;
+    padding: 1px 5px;
+    color: #fff;
+    border-radius: 4px;
+}
 .playmates-card-grid {
     display: grid;
     grid-template-columns: repeat(5, minmax(180px, 1fr));
@@ -9757,7 +9767,6 @@ button:disabled {
     height: 180px;
     width: 100%;
 }
-
 .playmates-card-grid .card h3 {
     font-size: 14px;
     color: var(--blue--text);
@@ -9768,7 +9777,10 @@ button:disabled {
     font-size: 13px;
     color: var(--blue--text);
 }
-
+.playmates-card-grid:has(.alert) {
+    grid-template-columns: 1fr !important;
+    width: 100%;
+} 
 
 /* end */
 

@@ -137,6 +137,7 @@
                     @endphp
                     <input type="checkbox" class="form-controll" value="Y" id="playmate" name="available_playmate" {{(($playmate) ? "checked" : '' )}}/> <label for="playmate" style="display: inline;">I am available as a Playmate</label>
                 </div>
+                <span>E503848</span>
                <form class="at-sec" method="post" action="" id="playmate_search" style="display: none;" {{(($playmate) ? "" : 'hidden' )}}>
                   <div class="at-lable">
                      <label for="Student">Search for Playmate</label>
@@ -158,6 +159,7 @@
                                                     <span class="playmates_id" value="{{$escort->id}}" data-path="{{$escort->DefaultImage}}" data-name="{{$escort->name}}">Add</span>
                                                     {{-- <span>{{Carbon\Carbon::parse($escort->start_date)->format('d/m/Y')}}</span>
                                                     <span>{{Carbon\Carbon::now()->format('d/m/Y')}}</span> --}}
+                                                    
 
                                             </li>
                                             {{-- @endif  --}}

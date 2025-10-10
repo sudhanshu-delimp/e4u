@@ -79,6 +79,7 @@ class ProfileInformationController extends Controller
         if(!$escort = $this->escort->findDefault($user->id,1)) {
             $escort = $this->escort->make();
         }
+        echo '</pre>';
         list($service_one, $service_two, $service_three) = $this->service->findByCategory([1,2,3]);
         $durations = $this->duration->all();
         $availability = $escort->availability;
@@ -450,37 +451,42 @@ class ProfileInformationController extends Controller
         return response()->json(compact('error'));
         //return
     }
-    public function removePlaymate($id)
+
+    public function removePlaymate($playmateId)
     {
-        //dd($id);
+        $error = false;
+        $message = 'Playmate removed successfully.';
 
-        $userId = auth()->user() ? auth()->user()->id : null; //request()->post('userId');
-        $index = [
-                'user_id' => $userId,
-                'playmate_id' => $id,
-                ];
-                $error = 0;
-                if(!is_null($userId)) {
-                    $result = Playmate::where('playmate_id',$id)->where('user_id', $userId)->delete();
+        try {
+            $user = auth()->user();
+            /**
+             * Get Login Escort All Profile Id those were attach with Playmate.
+             */
+            $escortPorfileIdsWithPlaymate = $user->listedEscorts
+            ->filter(fn($escort) => $escort->playmates->contains($playmateId))
+            ->pluck('id')
+            ->toArray();
 
+            /**
+             * Remove Playmate from Login Escort All Profile's Playlist.
+             */
+            $user->listedEscorts->each(function ($escort) use ($playmateId) {
+                $escort->playmates()->detach($playmateId);
+            });
 
-                }
-
-
-        return response()->json(compact('error'));
-        //return
-    }
-    /*public function myNewPlaymate()
-    {
-        //dd($id);
-        $user = auth()->user()->id;
-
-        if(!$escort = $this->escort->findDefault($user,1)) {
-            $escort = $this->escort->make();
+            /**
+             * Remove Login Escort attached Profiles from Playmate Escort's all Profiles.
+             */
+            $otherEscortProfile = Escort::find($playmateId);
+            $otherUser = $otherEscortProfile->user;
+            $otherUser->listedEscorts->each(function ($escort) use ($escortPorfileIdsWithPlaymate) {
+                $escort->playmates()->detach($escortPorfileIdsWithPlaymate);
+            });
+        } catch (\Exception $e) {
+            $error = true;
+            $message = 'Failed to remove playmate: ' . $e->getMessage();
         }
-        $userId = auth()->user() ? auth()->user()->id : null; //request()->post('userId');
-        $users_for_available_playmate = $this->user->findPlaymates(auth()->user()->id);
-        return view('escort.dashboard.Playmates.playmates',compact('users_for_available_playmate','escort'));
-        //return
-    }*/
+
+        return response()->json(compact('error', 'message'));
+    }
 }
