@@ -140,7 +140,7 @@
                                     Mobile
                                 </th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Review</th>
+                                {{-- <th scope="col">Review</th> --}}
                                 <th scope="col" class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -554,7 +554,7 @@
                     orderable: false,
                     searchable: false
                 },
-                { data: 'review', name: 'review'},
+                // { data: 'review', name: 'review'},
                 { data: 'action', name: 'action', orderable: false }
             ]
         });

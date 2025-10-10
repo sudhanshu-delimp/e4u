@@ -45,7 +45,7 @@ class AdvertiserReviewsController extends Controller
             //     return $status;
             // })
             ->addColumn('status', fn($row) => Str::title($row->status) ?? 'Pending')
-            ->addColumn('review', fn($row) => $row->description != null && $row->description != '' ? Str::title($row->description) : '-')
+            // ->addColumn('review', fn($row) => $row->description != null && $row->description != '' ? Str::title($row->description) : '-')
             ->addColumn('action', function ($row) {
 
                 $statusActionHtml = '
