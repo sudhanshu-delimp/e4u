@@ -74,13 +74,6 @@ class User extends Authenticatable
         'member_id',
     ];
 
-    public $current_date;
-    // public function __construct()
-    // {
-
-    //     $this->current_date = date('Y-m-d H:i:s');
-    // }
-
     public function getOnlineAttribute()
     {
         if (!$this->last_online_at) return false;
