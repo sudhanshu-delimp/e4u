@@ -81,7 +81,7 @@
 
         <div class="col-lg-12">
             <div class="table-responsive custom-badge">
-                <table class="table" id="EscortReviewTable" style="width: 100%">
+                <table class="table" id="EscortReviewTable">
                     <thead class="table-bg">
                         <tr>
                             <th >Ref</th>
