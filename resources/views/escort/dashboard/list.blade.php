@@ -42,6 +42,7 @@
 
         #btn_suspend_profile,
         #btn_add_brb,
+        #btn_extend_profile,
         #btn_pinup_profile {
             display: none;
         }
@@ -87,7 +88,7 @@
                     <div class="box-body table table-hover">
                         @if ($type != 'past')
                             <div>
-                                <div class="add--list">
+                                <div class="add--list listingActionButtons">
                                 <div class="">
                                 <button style="padding: 10px;" class="btn btn-info custom-btn-info" data-toggle="modal"
                                     data-target="#add_brb" id="btn_add_brb">Add BRB</button>
@@ -449,25 +450,7 @@
                                 );
                             }
                         });
-                    }
-
-                    var api = this.api();
-                    // var records = api.data().length;
-                    var length = table.page.info().recordsTotal;
-                    if (length == 0) {
-                        $('#btn_suspend_profile').hide();
-                        $('#btn_add_brb').hide();
-                        $('#btn_pinup_profile').hide();
-                    } else {
-                        $('#btn_suspend_profile').show();
-                        $('#btn_add_brb').show();
-                        $('#btn_pinup_profile').show();
-                    }
-
-                    if (length <= 10) {
-                        $('.dataTables_paginate').show();
-                    } else {
-                        $('.dataTables_paginate').show();
+                        $(".listingActionButtons button").show();
                     }
                 },
                 initComplete: function() {
