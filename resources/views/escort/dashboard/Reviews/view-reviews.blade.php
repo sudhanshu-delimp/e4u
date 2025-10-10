@@ -318,32 +318,43 @@
                             <div class="card p-3">
                                 <div class="d-flex justify-content-between">
                                     <h5 class="font-weight-bold text-blue-primary">Review Details</h5>
-                                    <button class="btn-cancel-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
+                                    <button class="btn-success-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
                                 </div>
                                 <table class="table mb-0">
-                                    <tr>
-                                        <th>Ref:</th><td class="border-0">`+response.data.id + response.data.escort_id+`</td>
+                                    {{-- <tr>
+                                         <th>Ref:</th><td class="border-0">`+response.data.id + response.data.escort_id+`</td>
                                         <th>Member ID:</th><td class="border-0">`+response.data.escort.user.member_id+`</td>
+                                     </tr> --}}
+                                    <tr>
+                                        <th>Viewer ID:</th><td class="border-0">`+response.data.user.member_id+`</td>
+                                        <th>Escort ID:</th><td class="border-0">`+response.data.escort.user.member_id+`</td>
+                                        
                                     </tr>
                                 
                                     <tr>
+                                        
                                         <th>Mobile:</th>
                                         <td class="border-0">`+response.data.escort.user.phone+`</td>
-                                        <th>Escort’s Name:</th>
-                                        <td class="border-0">`+response.data.escort.name+`</td>
+                                        <th>Home State:</th>
+                                        <td class="border-0">`+response.data.escort.user.state.name+`</td>
+                                        
+                                        
                                     </tr>
                                     <tr>
                                         
-                                        <th>Home State:</th>
-                                        <td class="border-0">`+response.data.escort.user.state.name+`</td>
-                                        <th>Status:</th>
-                                        <td class="border-0">`+capitalizeFirstLetter(response.data.status)+`</td>
-                                    </tr>
-                                    <tr>
+                                        
+                                        <th>Escort’s Name:</th>
+                                        <td class="border-0">`+response.data.escort.name+`</td>
                                         <th>Viewer Name:</th>
                                         <td class="border-0">`+response.data.user.name+`</td>
+                                    </tr>
+                                    <tr>
+                                        
+                                        <th>Status:</th>
+                                        <td class="border-0">`+capitalizeFirstLetter(response.data.status)+`</td>
                                         <th>Comments:</th>
                                         <td class="border-0">`+response.data.description+`</td>
+                                        
                                     </tr>
                                     <!-- Add other rows -->
                                 </table>

@@ -323,6 +323,20 @@ if (!function_exists('app_date_time_format')) {
      
 }
 
+if (!function_exists('convert_aus_date_time_format')) {
+
+     function convert_aus_date_time_format($datetime)
+     {
+        return \Carbon\Carbon::parse($datetime, 'UTC')  
+            ->setTimezone('Australia/Perth')            
+            ->format('d M Y, h:i A'); 
+            
+     }
+     
+}
+
+
+
 if (!function_exists('getRealTimeGeolocationOfUsers')) {
 
     function getRealTimeGeolocationOfUsers($lat, $lng)

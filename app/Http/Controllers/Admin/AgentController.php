@@ -25,7 +25,7 @@ class AgentController extends BaseController
 
     public function agent_list(Request $request)
     {
-
+        
         //$lists = User::where('type','5')->get();
         //dd($lists);
         return view('admin.management.agent');
@@ -54,7 +54,9 @@ class AgentController extends BaseController
 
     public function agent_data_pagination($start, $limit, $order_key, $dir)
     {
-        $agent = User::with('state','agent_detail')->where('type','5');
+        $agent = User::with('state','agent_detail','account_setting')
+                    ->withCount('referrals') 
+                    ->where('type','5');
 
       
         
@@ -90,16 +92,16 @@ class AgentController extends BaseController
         $total_agents = $agent->count();
         $agents = $agent->offset($start)->limit($limit)->get();
 
-
+            
          
 
 
         $i = 1;
-                //dd($agents);
+               
         foreach($agents as $key => $item) {
 
-            $item->no_of_client = 'NA';
-            $item->last_login = 'NA';
+            $item->no_of_client = (isset($item->referrals_count) && $item->referrals_count>0) ? $item->referrals_count : '0';
+            $item->last_login = ((isset($item->account_setting) && ($item->account_setting->last_login!=NULL)) ? convert_aus_date_time_format($item->account_setting->last_login) : 'NA');
             $item->agent_id = $item->id;
             $item->territory = isset($item->state->name) ? $item->state->name : 'NA';
 

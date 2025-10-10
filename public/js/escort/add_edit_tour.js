@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 <label for="end-date">End Date:</label>
                 <input type="date" name="end_date[]" class="form-control end-date">
             </div>
-            <div class="d-flex align-items-end justify-content-start">
+            <div class="d-flex align-items-end justify-content-start gap-10">
                 <button type="button" class="btn-success-modal addProfile" style="padding:6px 10px;">Add Profile</button>
                 <button type="button" class="btn-cancel-modal removeLocation" style="padding:6px 10px;">Remove</button>
             </div>
