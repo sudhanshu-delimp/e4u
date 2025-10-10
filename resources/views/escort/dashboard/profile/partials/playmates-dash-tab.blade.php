@@ -14,11 +14,11 @@
         @if ($editMode)
             @if($loginAccount->available_playmate==1)
                 @if (!$escort->enabled)
-                    <div class="row alert alert-info">Access to playmate features requires a listed escort profile.</div>
+                    <div class="row alert alert-info">Access to Playmate features requires a listed Escort Profile.</div>
                 @else
                     <div class="row">
                         <div class="col-lg-6">
-                            <h2 class="mt-3 mb-0">Available Playmates</h2>
+                            <h2 class="mt-3 mb-0">My Playmates</h2>
                             <div class="form-group">
                                 <label for="profileSearch"></label>
                                     <input type="text" class="form-control" id="profileSearch"
@@ -27,16 +27,16 @@
                         </div>
                     </div>  
                     <div class="row">  
+                        <div class="col-lg-12 my-3">
                         @if ($editMode)
                             <form class="my-availability-mon-sun" id="myplaymates"
                                 action="{{ route('escort.store.playmates', [$escort->id]) }}" method="Post">
                                 @csrf
                         @endif
-                            <div class="col-lg-12 my-3">
+                            
                                 <div class="playmates-card-grid">
                                         
                                 </div>
-                            </div>
                         @if ($editMode)
                             <div class="row pt-3">
                                 <div class="col-md-12 text-right" style="padding-right: 1.8rem;">
@@ -44,14 +44,16 @@
                                 </div>
                             </div>
                             </form>
+                            
+                        </div>
                         @endif    
                     </div>
                 @endif
             @else
-                <div class="row alert alert-info">You are not presently available as a Playmate. <a href="{{route('escort.profile.information')}}">Go to My Playmate settings</a>  to enable.</div> 
+                <div class="row alert alert-info">You are not presently available as a Playmate.<a href="{{route('escort.profile.information')}}">Go to My Playmate settings</a>&nbsp;to enable.</div> 
             @endif
         @else
-            <div class="row alert alert-info">Access to playmate features requires a listed escort profile.</div>
+            <div class="row alert alert-info">Access to Playmate features requires a listed Escort Profile.</div>
         @endif 
     </div>
     

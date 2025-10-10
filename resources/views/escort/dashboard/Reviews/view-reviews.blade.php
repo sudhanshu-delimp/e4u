@@ -23,7 +23,7 @@
     <!--middle content start here-->
         <div class="row">
             <div class="custom-heading-wrapper col-md-12">
-                <h1 class="h1">View Reviews</h1>
+                <h1 class="h1">Reviews</h1>
                 <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
             </div>
             <div class="col-md-12 mb-4">
@@ -81,7 +81,7 @@
 
         <div class="col-lg-12">
             <div class="table-responsive custom-badge">
-                <table class="table" id="EscortReviewTable" style="width: 100%">
+                <table class="table" id="EscortReviewTable">
                     <thead class="table-bg">
                         <tr>
                             <th >Ref</th>
@@ -168,7 +168,7 @@
                 </div>
                 <div class="modal-body">
                     <h5 class="popu_heading_style mb-0 mt-4" style="text-align: center;">
-                        Are you sure you want to <span class="bodyMessageTitle">suspend</span> this review from all profile?
+                        Are you sure that you want to <span class="bodyMessageTitle">suspend</span> this <br> Review <span class="bodyMessageSentence">from</span> all of your Profiles?
                     </h5>
                 </div>
                 <div class="modal-footer" style="justify-content: center;">
@@ -262,10 +262,13 @@
             const status = $(this).attr('data-status');
             $("#saveReviewInfo").attr('data-review-id',reviewId);
             $("#saveReviewInfo").attr('data-review-status',status);
+            var statusTitle = status == 'suspended' ? 'suspend' : 'publish';
+            var bodyMessageSentence = status == 'suspended' ? 'from' : 'on';
 
-            $("#modal_suspend_title").text('Review '+capitalizeFirstLetter(status));
-            $(".bodyMessageTitle").text(status);
-            $(".modal_success_title").text(capitalizeFirstLetter(status));
+            $("#modal_suspend_title").text('Review '+capitalizeFirstLetter(statusTitle));
+            $(".bodyMessageTitle").text(statusTitle);
+            $(".bodyMessageSentence").text(bodyMessageSentence);
+            $(".modal_success_title").text(capitalizeFirstLetter(statusTitle));
 
             var myModal = new bootstrap.Modal(document.getElementById('confirm_modal'));
             myModal.show();
@@ -274,6 +277,12 @@
         function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
         }
+
+        // Toggle child rows
+        $('#EscortReviewTable tbody').on('click', '.toggle-report-hide', function (e) {
+            console.log('hide report');
+            $(this).parents('tr').hide();
+        })
 
     // Toggle child rows
     $('#EscortReviewTable tbody').on('click', '.toggle-report', function (e) {
@@ -300,18 +309,21 @@
                 var childHtml = ``;
 
                 if(response.error == false){
-                    if (row.child.isShown()) {
-                        row.child.hide();
-                        obj.html('<i class="fa fa-eye mr-2"></i> View');
-                    } else {
+                    // if (row.child.isShown()) {
+                    //     row.child.hide();
+                    //     obj.html('<i class="fa fa-eye mr-2"></i> View');
+                    // } else {
                         // Replace below with dynamic HTML if needed
                         childHtml = `
                             <div class="card p-3">
-                                <h5 class="font-weight-bold text-blue-primary">Review Details</h5>
+                                <div class="d-flex justify-content-between">
+                                    <h5 class="font-weight-bold text-blue-primary">Review Details</h5>
+                                    <button class="btn-cancel-modal toggle-report-hide" style="font-size: 12px; padding: 5px 10px;" > Close </button>
+                                </div>
                                 <table class="table mb-0">
                                     <tr>
                                         <th>Ref:</th><td class="border-0">`+response.data.id + response.data.escort_id+`</td>
-                                        <th>Escort ID:</th><td class="border-0">`+response.data.escort_id+`</td>
+                                        <th>Member ID:</th><td class="border-0">`+response.data.escort.user.member_id+`</td>
                                     </tr>
                                 
                                     <tr>
@@ -338,8 +350,9 @@
                             </div>
                         `;
                         row.child(childHtml).show();
-                        obj.html('<i class="fa fa-times mr-2"></i> Close');
-                    }
+                        //obj.html('<i class="fa fa-times mr-2"></i> Close');
+                        obj.html('<i class="fa fa-eye mr-2"></i> View');
+                    // }
                 }
             },
             error: function(xhr) {

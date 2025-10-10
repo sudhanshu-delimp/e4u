@@ -239,9 +239,23 @@ class User extends Authenticatable
     {
         return $this->hasOne(PasswordSecurity::class);
     }
-    public function playmates()
+    public function getPlaymatesAttribute()
     {
-        return $this->belongsToMany(Escort::class, 'playmates', 'user_id', 'playmate_id');
+        $this->loadMissing('listedEscorts.playmates');
+        return $this->escorts
+                    ->flatMap(fn ($escort) => $escort->playmates)
+                    ->unique('id') 
+                    ->sortBy('name')
+                    ->values();
+    }
+    public function getAddedByAttribute()
+    {
+        $this->loadMissing('listedEscorts.addedBy');
+        return $this->escorts
+                    ->flatMap(fn ($escort) => $escort->addedBy)
+                    ->unique('id') 
+                    ->sortBy('name')
+                    ->values();
     }
     public function scopeInRole($q, $role)
     {

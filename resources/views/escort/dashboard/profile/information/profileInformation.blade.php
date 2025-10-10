@@ -515,16 +515,6 @@
            console.log('change='+selectedIdOne);
        }
    });
-//    $('body').on('change','#service_id_one', function(){
-//        var selectedIdOne = $('#service_id_one').val();
-//        var getNameOne = $(this).children(":selected").attr("id");
-//        if(selectedIdOne){
-//            $("#selected_service_one").append(" <li id='hideenclassOne_"+ selectedIdOne+"'><div class='my_service_anal' ><span class='dollar-sign'>"+getNameOne+"</span><input type='number' class='dollar-before input_border' name='price[]' placeholder='' min='0' oninput='this.value = Math.abs(this.value)' step=10 max=9999><input type='hidden' name='service_id[]' value="+ selectedIdOne +" placeholder=''><span><i class='fas fa-times akh1' data-sname='"+getNameOne+"' data-val="+ selectedIdOne+"  id='id_"+ selectedIdOne+"' value="+selectedIdOne+"></i></span></div></li> ");
-//            $("#service_id_one option[value="+ selectedIdOne +"]").attr('disabled','disabled');
-//            $("#service_id_one option[value="+ selectedIdOne +"]").remove();
-//            console.log('change='+selectedIdOne);
-//        }
-//    });
 
    $('#service_id_two').on('change', function(){
        var selectedIdTwo = $('#service_id_two').val();
@@ -576,11 +566,7 @@
    var val = $(this).val();
    var name = $(this).data('name');
    $(".show_playType").show();
-   console.log(name);
-   // $(this).is(':checked') ? $("#show_playType").append("<div class='selecated_languages' style='display: inline-block'><span class='languages_choosed_from_drop_down'>"+ name +" </span> </div> ") : '';
-
-   // $(this).is(':checked') ? $('#show_playType').show() : $('#show_playType').hide();
-   // });
+  
    if($(this).is(':checked'))
    {
        $("#show_playType").append("<div class='selecated_languages playT' style='display: inline-block' id='"+val+"'><span class='languages_choosed_from_drop_down'>"+ name +" </span> </div> ")
@@ -816,16 +802,6 @@
 
    });
 
-
-   // $('.resetdays').each(function( index ){
-   //     var days = $(this).attr('id');
-   //     console.log("day->"+days);
-   //     $('#'+ days).click(function(){
-   //         console.log($(this).data('day'));
-   //         $("."+$(this).data('day')+" option:selected").removeAttr("selected");
-   //     });
-   // });
-
    $('#banner-image-upload').on('change', function(e) {
        $('#banner-image-preview').attr('src', URL.createObjectURL(e.target.files[0]));
    });
@@ -1007,15 +983,7 @@
            $('#covid-file-block').hide();
        }
    })
-   // var numInput = document.querySelector('input');
-   // $(document).on("paste","input[type='number']", function(e) {
-   // if (e.originalEvent.clipboardData.getData('text').match(/[^\d(\.\d)*$]/))
-   // e.preventDefault(); //prevent the default behaviour
-   // })
-   // .on("keypress", function(e) {
-   // if (e.keyCode != 46 && e.keyCode > 31  && (e.keyCode < 48 || e.keyCode > 57))
-   //  e.preventDefault();
-   // });
+   
    $(document).ready(function(){
        $.each($( "input[name^='availability_time']" ), function( index, value ) {
            if($(value).is(':checked')) {
@@ -1041,21 +1009,11 @@
            console.log("select."+element_class);
            $('select.'+element_class).prop('selectedIndex',0);
            $('select.'+element_class).attr('disabled', false);
-           //$('input[name="covidreport"]').removeAttr('checked');
-           //var ch = $(" input[name='mytime[]']:checked").val();
            var ch = $('input.'+element_class+":checked").val();
            $('input.'+element_class+":checked").prop('checked', false);
            console.log(ch);
 
        });
-
-       // $('.sunday').click(function(){
-       //     var p_element = $(this);
-       //     $('select.sunday').prop('selectedIndex',0);
-       //     $('select.sunday').off('click');
-
-       //     console.log("select. ");
-       // });
 
    });
 
@@ -1074,40 +1032,6 @@
        tokenSeparators: [',']
 
    });
-
-   // $('.js-example-tokenizer').select2({
-   //     createTag: function (params) {
-   //         var term = $.trim(params.term);
-
-   //         // if (term === '') {
-   //         //     console.log("term");
-   //         // return null;
-   //         // }
-
-   //         return {
-   //         id: term,
-   //         text: term,
-   //         newTag: true // add additional parameters
-   //         }
-
-   //     }
-   // });
-   // $(document).ready(function(){
-   //     f ($('.js-example-tokenizer').find("option[value='" + data.id + "']").length) {
-   //         $('.js-example-tokenizer').val(data.id).trigger('change');
-   //     } else {
-   //         // Create a DOM Option and pre-select by default
-   //         var newOption = new Option(data.text, data.id, true, true);
-   //         // Append it to the select
-   //         $('.js-example-tokenizer').append(newOption).trigger('change');
-   //     }
-   // })
-   // $('body').on('change','#st_name',function(){
-   //     $(".results").append($(<p>helllog</p>));
-   // });
-
-
-
 
    $("body").on('click','.delete_stname',function(e){
        var id = $(this).attr('id');
@@ -1129,61 +1053,6 @@
       $('body').on('click', '.clickInput', function() {
            $('.showPlaymates').show();
       });
-      $('body').on('click', '.playmates_rmid', function(e) {
-           var id = $(this).attr('value');
-           var url = "{{route('escort.remove.playmate',':id')}}";
-           url = url.replace(':id',id);
-           $("#rmlist_"+id).remove();
-           $.ajax({
-                   method: "POST",
-                   url: url,
-                   headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
-                   success: function (data) {
-                       console.log(data);
-
-
-                   }
-               });
-
-      });
-        /*$('body').on('click', '.playmates_id', function(e) {
-           e.preventDefault();
-           var id = $(this).attr('value');
-           var name = $(this).data('name');
-           var path = $(this).data('path');
-           if(path == '') {
-               path = "{{asset('avatars/imageuser.png')}}";
-           }
-
-
-
-           $(".activePlaymate").append("<li><a href='#'><img src='"+path+"' class='img-profile rounded-circle'>&nbsp;&nbsp;"+name+"</a></li>");
-           console.log("list_"+id + "</br>path ="+path);
-
-           $("#list_"+id).remove();
-           var url = "{{route('escort.add.playmate',':id')}}";
-           url = url.replace(':id',id);
-               $.ajax({
-                   method: "POST",
-                   url: url,
-
-
-                   headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
-                   success: function (data) {
-                       console.log(data);
-                       // if(data.error == 1)
-                       // {
-                       // //$('#Lname').text(name +' has been removed from your Shortlist');
-                       // $('.class_msg').text(name +' has been remove from your Shortlist');
-                       // $('#add_wishlist').modal('show');
-                       // $('.myescort_'+Eid).html('<img class="listiconprofilelistview" src="{{ asset('assets/app/img/filter_btn.svg') }}"> Add to Shortlist')
-                       // $('#session_count').text(data.count_session);
-                       // //location.reload();
-                       // }
-
-                   }
-               });
-       });*/
    });
 
 

@@ -255,6 +255,10 @@
                         </div>
                     </div>
                     @endif
+                </div>
+
+                <div class="row">
+                    
                     @if(!in_array($user->gender, [6]))
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
@@ -292,6 +296,13 @@
                             </div>
                         </div>
                     </div>
+                    
+                    @endif
+                </div>
+
+                <div class="row">
+                    
+                    @if(!in_array($user->gender, [6]))
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="form-group row tab-about-me-row-padding">
                             <label class="col-sm-4 font-weight-500" for="exampleFormControlSelect1">Butt:</label>
@@ -318,6 +329,7 @@
                     </div>
                     @endif
                 </div>
+
                 <div class="row">
                     @if(in_array($user->gender, [1,2,3]))
                     <div class="col-lg-4 col-md-12 col-sm-12">
