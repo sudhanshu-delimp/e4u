@@ -111,8 +111,8 @@
                             <thead id="table-sec" class="table-bg">
                                 <tr>
                                     <th>ID</th>
-                                    <th style="width:150px;">Profile Name</th>
-                                    <th>Location</th>
+                                    <th style="width:100px;">Profile Name</th>
+                                    <th style="width: 200px">Location</th>
                                     <th>Stage Name</th>
                                     <th>Membership</th>
                                     <th>Mobile Number</th>
