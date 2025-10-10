@@ -49,11 +49,12 @@
     }
     .item4{
         width: 100%;
+        height: 100%;
         object-fit: cover;
     }
     img.img-thumbnail.defult-image {
-        width: 190px;
-        height: 135px;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
     }
     img.img-thumbnail.defult-image-3 {
