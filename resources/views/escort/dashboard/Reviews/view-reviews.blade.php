@@ -323,7 +323,7 @@
                                 <table class="table mb-0">
                                     <tr>
                                         <th>Ref:</th><td class="border-0">`+response.data.id + response.data.escort_id+`</td>
-                                        <th>Escort's Membership Number:</th><td class="border-0">`+response.data.escort.user.member_id+`</td>
+                                        <th>Member ID:</th><td class="border-0">`+response.data.escort.user.member_id+`</td>
                                     </tr>
                                 
                                     <tr>
