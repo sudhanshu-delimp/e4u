@@ -1,6 +1,10 @@
 @extends('layouts.escort')
 @section('style')
-
+<style>
+    select.form-select {
+    padding: 5px !important;
+}
+</style>
 @endsection
 @section('content')
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
@@ -64,8 +68,8 @@
                                                     <input type="date" name="end_date[]" class="form-control end-date" value="{{$tourLocation->end_date}}" min="{{$tourLocation->start_date}}" disabled="">
                                                 </div>
                                                 <div class="d-flex align-items-end justify-content-start gap-10">
-                                                <button type="button" class="btn btn-primary addProfile">Add Profile</button>
-                                                <button type="button" class="btn btn-danger removeLocation">Remove</button>
+                                                <button type="button" class="btn-success-modal addProfile" style="padding: 6px 10px;">Add Profile</button>
+                                                <button type="button" class="btn-cancel-modal removeLocation" style="padding: 6px 10px;">Remove</button>
                                                 </div>
                                             </div>
                                             <div class="profiles mt-3">
