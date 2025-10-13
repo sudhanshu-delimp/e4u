@@ -6221,7 +6221,7 @@ i.fa.fa-heart-o{
     }
     
     .carousel-nav-btn {
-        background-color: #001f3f;
+        background-color: var(--blue--text);
         color: #fff;
         border: none;
         width: 50px;
@@ -6234,6 +6234,10 @@ i.fa.fa-heart-o{
         justify-content: center;
         transition: 0.3s ease;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+    
+    .carousel-nav-btn:hover {
+        background-color: var(--peach);
     }
     /* end */
     /* all-escort-view-profil-btn */
