@@ -259,7 +259,7 @@
                             <div class="col-md-12 mb-3">
                                 <!-- Advertiser -->
                                 <div class="form-group">
-                                    <label for="advertiser"><b>Advertiser</b><span class="text-danger">*</span></label>
+                                    <label for="advertiser"><b>Advertiser's name</b><span class="text-danger">*</span></label>
                                     <select id="new_advertiser" name="new_advertiser" class="form-control" required>
                                         <option value="">Select Advertiser</option>
                                     </select>
@@ -341,7 +341,7 @@
 
                                 <div class="form-group">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <p class="m-0">Date Created: {{ date('m-d-Y') }}.</p>
+                                        <p class="m-0">Date Created: {{ date('d-m-Y') }}.</p>
                                         <div>
                                             <button type="button" class="btn-cancel-modal" data-dismiss="modal"
                                                 aria-label="Close">Cancel</button>
@@ -487,7 +487,7 @@
 
                                         <!-- Advertiser -->
                                         <div class="form-group">
-                                            <label for="edit_advertiser"><b>Advertiser</b><span
+                                            <label for="edit_advertiser"><b>Advertiser’s name</b><span
                                                     class="text-danger">*</span></label>
                                             <select id="edit_advertiser" name="advertiser" class="form-control" required>
                                                 <option value="">Select Advertiser</option>
@@ -634,7 +634,7 @@
                                         <input name="task_id" value="31" type="hidden">
 
                                         <div class="form-group">
-                                            <label for="view_advertiser"><b>Advertiser</b><span class="text-danger">*</span></label>
+                                            <label for="view_advertiser"><b>Advertiser’s name</b><span class="text-danger">*</span></label>
                                             <input id="view_advertiser" name="view_advertiser" type="text" class="form-control" readonly>
                                         </div>
 
@@ -1354,10 +1354,9 @@
             currentAppointmentId = $(this).data('id');
             ajaxRequest(urlFor(endpoint.show_tpl, currentAppointmentId), {}, 'GET', endpoint.csrf_token, function(resp){
                 var a = resp.data || {};
-                console.log(a);
                  const timeDisplay = `${a.formatted_start_time || 'N/A'} - ${a.formatted_end_time || 'N/A'}`;
                 $('#view_appointment_time_display').text(timeDisplay);
-                $('#view_date').val(a.date);
+                $('#view_date').val(a.date ? a.date.split('-').reverse().join('-') : '');
                 $('#view_time').val(a.time);
                 $('#view_advertiser').val(a.advertiser.name);
                 $('#view_address').val(a.address);

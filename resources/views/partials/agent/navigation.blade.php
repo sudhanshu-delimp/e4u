@@ -100,7 +100,8 @@
 
                         </li>
 
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        <li class="nav-item dropdown no-arrow mx-1 alert-tooltip-wrap">
+                             <span class="alert-tooltip">Alert Centre</span>
                             <a class="nav-link dropdown-toggle alert_notify_bell" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="top-icon-bg fas fa-bell fa-fw"></i>

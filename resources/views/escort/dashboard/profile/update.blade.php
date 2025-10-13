@@ -48,6 +48,7 @@
 $existDefaultService = $escort->services()->exists();
 $existAvailability = $escort->availability()->exists();
 $editMode = request()->segment(2) == 'profile' ? true:false;
+$loginAccount = auth()->user();
 @endphp
 <div class="d-flex flex-column container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
    <div class="row">
@@ -107,14 +108,12 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                         <p>My Availability</p>
                      </div>
                   </div>
-                  
                   <div class="col-lg-3">
-                     <div class="form_process">
-                        <div class="steps_to_filled_from">Step 4</div>
-                        <p>My Playmates</p>
-                     </div>
-                  </div>
-                 
+                    <div class="form_process">
+                       <div class="steps_to_filled_from">Step 4</div>
+                       <p>My Playmates</p>
+                    </div>
+                 </div>
                   <div class="col-lg-1">
                      <div id="percent" style="font-size: 48px;font-weight: 700;">25%</div>
                   </div>
@@ -149,54 +148,33 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                         <li class="nav-item">
                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#available"
                               role="tab" aria-controls="contact" aria-selected="false">My Availability</a>
-                            </li>
-                        
-                            <li class="nav-item">
-                                <a class="nav-link {{$activeTab=='my-playmates'?'active':''}} {{request()->segment(2) == 'profile' && $escort->enabled?'':'d-none'}}" id="playmates-tab" data-toggle="tab" href="#playmates" role="tab" aria-controls="my-playmates" aria-selected="false">
-                                    My Playmates</a>
-                            </li>  
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{$activeTab=='my-playmates'?'active':''}}" id="playmates-tab" data-toggle="tab" href="#playmates" role="tab" aria-controls="my-playmates" aria-selected="false">
+                                My Playmates</a>
+                        </li>
                      </ul>
                      
-                    
-                     @if (request()->segment(2) == 'profile' && request()->segment(3))
-                     <form id="my_escort_profile"
-                        action="{{ route('escort.setting.profile', request()->segment(3)) }}" method="post"
-                        enctype="multipart/form-data">
-                        @csrf
-                     </form>
-                     <input type="hidden" name="user_startDate" id="user_startDate"
-                        value="{{ date('Y-m-d', strtotime(auth()->user()->created_at)) }}">
-                     <div class="tab-content tab-content-bg" id="myTabContent">
-                        @include('escort.dashboard.profile.partials.aboutme-dash-tab', [
-                        'profile_type' => 'updated',
-                        ])
-                        @include('escort.dashboard.profile.partials.services-dash-tab')
-                        @include('escort.dashboard.profile.partials.available-dash-tab')
-                        {{-- @include('escort.dashboard.profile.partials.pricing-dash-tab') --}}
-                        
-                            @include('escort.dashboard.profile.partials.playmates-dash-tab')
-                        
-                     </div>
-                     @else
+                    @if(!$editMode)
                      <form id="my_escort_profile"
                         action="{{ route('escort.setting.profile', request()->segment(3)) }}" method="post"
                         enctype="multipart/form-data" data-parsley-validate>
-                        @csrf
+                        @csrf   
                         <input type="hidden" name="user_startDate" id="user_startDate"
-                           value="{{ date('Y-m-d', strtotime(auth()->user()->created_at)) }}">
+                           value="{{ date('Y-m-d', strtotime($loginAccount->created_at)) }}">
+                    @endif        
                         <div class="tab-content tab-content-bg" id="myTabContent">
                            @include('escort.dashboard.profile.partials.aboutme-dash-tab', [
                            'profile_type' => 'updated',
                            ])
                            @include('escort.dashboard.profile.partials.services-dash-tab')
                            @include('escort.dashboard.profile.partials.available-dash-tab')
-                           
-                            @include('escort.dashboard.profile.partials.playmates-dash-tab')
-                           
-                           {{-- @include('escort.dashboard.profile.partials.pricing-dash-tab') --}}
+                           @include('escort.dashboard.profile.partials.playmates-dash-tab')
                         </div>
+                    @if(!$editMode)
                      </form>
-                     @endif
+                    @endif 
+                     
                   </div>
                </div>
             </div>
@@ -328,25 +306,14 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
         $('#select2_country').select2();
     
         @if (request()->segment(2) == 'profile' && request()->segment(3))
-            //$('#read_more').parsley({});
             $('#LocationInformation').parsley({});
         @endif
-        $('#myability').parsley({
-
-        });
-        $('#myPolicy').parsley({
-
-        });
+        $('#myability').parsley({});
         $('#update_about_me').parsley({});
 
         jQuery(document).ready(function() {
             $('#state_id').change(function() {
                 var stateId = $(this).val();
-                if (stateId == 3903) {
-                    $('[name="license"]').attr('required', true);
-                } else {
-                    $('[name="license"]').attr('required', false);
-                }
                 var url = "{{ route('escort.stateByCity', ':id') }}";
                 url = url.replace(':id', stateId);
                 $.ajax({
@@ -369,11 +336,7 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
 
             var url = $(location).attr('pathname');
 
-            if ($("#state_id").val() == 3903) {
-                $('[name="license"]').attr('required', true);
-            } else {
-                $('[name="license"]').attr('required', false);
-            }
+            
             $('#language').change(function() {
                 var languageValue = $('#language').val();
                 $("#show_language").show();
@@ -623,8 +586,6 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                     $('#my_abilities').html('<div class="spinner-border"></div>');
                     var url = form.attr('action');
                     var data = new FormData($('#myability')[0]);
-                    
-
                     $.ajax({
                         method: form.attr('method'),
                         url: url,
@@ -1602,10 +1563,12 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
             const tabGroupMap = {
             'profile-tab': 'group_one',
             'contact-tab': 'group_two',
+            'playmates-tab': 'group_two',
             'pricing-tab': 'group_three',
             };
-
-            $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+            let editMode = '{{$editMode}}';
+            if(!editMode){
+                $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
                 if (allowTabChange) {
                     allowTabChange = false;
                     return;
@@ -1645,124 +1608,8 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                         }
                         $('.define_process_bar_color').attr('style', 'width :100%'); //.percent
                         $('#percent').html('100%');
-                    } else if (e.target.id == "massuers-tab") {
-
-                    } else if (e.target.id == "pricing-tab") {
-
-                        $('.define_process_bar_color').attr('style', 'width :100%'); //.percent
-                        $('#percent').html('100%');
-
-                        var name = $("#profile_name").val();
-                        $('#pro_name_tab').html(name);
-
-                        var user_createdat = new Date($("#user_startDate").val());
-                        var end = new Date($("#end_date").val());
-                        var start = new Date($("#start_date").val());
-                        var ss = start.setDate(start.getDate());
-                        var first_date = moment(ss).format('YYYY-MM-DD');
-
-                        var user_diff = end.getTime() - user_createdat.getTime();
-                        var diff = end.getTime() - start.getTime();
-                        var days = diff / (1000 * 3600 * 24);
-                        var user_diff_days = user_diff / (1000 * 3600 * 24);
-                        var plan = $("#membership").val();
-                        $('#start_date_tab').html(first_date);
-                        if (plan == 1) {
-                            var actual_rate = 8;
-                            if (days <= 21) {
-                                var rate = 8;
-                            } else {
-                                var rate = 7.5;
-                                var dis_rate = 0.5;
-                            }
-                            var plan_name = "Platinum";
-                        } else if (plan == 2) {
-                            var actual_rate = 6;
-                            if (days <= 21) {
-                                var rate = 6;
-                            } else {
-                                var rate = 5.7;
-                                var dis_rate = 0.3;
-                            }
-                            var plan_name = "Gold";
-                        } else if (plan == 3) {
-                            var actual_rate = 4;
-                            if (days <= 21) {
-                                var rate = 4;
-                            } else {
-                                var rate = 3.8;
-                                var dis_rate = 0.2;
-                            }
-                            var plan_name = "Silver";
-                        } else {
-
-                            var actual_rate = 0;
-                            var rate = 0;
-                            var dis_rate = 0;
-                            var plan_name = "Free";
-                            var payDays = days - 14;
-                            var userPayDays = user_diff_days - 14;
-                            days = userPayDays;
-                            if (userPayDays < 1) {
-                                var actual_rate = 0;
-                                var rate = 0;
-                                var dis_rate = 0;
-                            } else if (userPayDays <= 21 && userPayDays >= 1) {
-                                var rate = 4;
-                            } else {
-                                var rate = 3.8;
-                                var dis_rate = 0.2;
-                            }
-                        }
-                        $('#plan').html(plan_name);
-                        if (days > 1) {
-                            $('#duration_tab').html(days + " Days");
-                        } else {
-                            $('#duration_tab').html(days + " Day");
-                        }
-
-                        if (days !== null && days <= 21) {
-                            var total_rate = days * rate;
-                            var dis = 0;
-                            $('#rate_tab').html("$ " + rate.toFixed(2));
-                        } else {
-                            var days_21 = 21 * actual_rate;
-                            var above_day = days - 21;
-
-                            var total_rate = (above_day * rate + days_21);
-
-                            var dis = above_day * dis_rate;
-
-                            $('#rate_tab').html("$ " + rate.toFixed(2));
-                        }
-
-                        $('#dis_tab').html("$ " + dis.toFixed(2));
-                        var draft = $(".draft").val();
-                        if (draft == 1) {
-                            $('#total_rate').html("$ 0.00");
-                        } else {
-                            $('#total_rate').html("$ " + total_rate.toFixed(2));
-                        }
-                        $('#fee_tab').html("$ " + actual_rate.toFixed(2));
-
-                        $("#poli_payment").click(function(e) {
-                            $('#poli_payment').prop('disabled', true);
-                            $('#poli_payment').html('<div class="spinner-border"></div>');
-                            var escortId = $('#profile_id').val();
-                            var url = "{{ route('escort.poli.paymentUrl', ':id') }}";
-                            url = url.replace(':id', escortId);
-
-                            $('<form/>', {
-                                action: url,
-                                method: 'POST'
-                            }).append($('<input>', {
-                                type: 'hidden',
-                                name: '_token',
-                                value: '{{ csrf_token() }}'
-                            }), ).appendTo('body').submit();
-
-                        })
-                    } else {
+                    }
+                    else {
                         $('.define_process_bar_color').attr('style', 'width :25%'); //.percent
                         $('#percent').html('25%');
                     }
@@ -1770,6 +1617,7 @@ $editMode = request()->segment(2) == 'profile' ? true:false;
                     console.log('Validation failed');
                 });
             });
+            }
         });
 
         function update_escort(updateButton, form_data) {

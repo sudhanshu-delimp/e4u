@@ -9747,6 +9747,17 @@ button:disabled {
     font-weight: bold;
 }
 
+.playmate-badge {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 11px;
+    background: #ff3c5f;
+    padding: 1px 5px;
+    color: #fff;
+    border-radius: 4px;
+}
+
 .playmates-card-grid {
     display: grid;
     grid-template-columns: repeat(5, minmax(180px, 1fr));
@@ -9767,6 +9778,11 @@ button:disabled {
 .playmates-card-grid .card label {
     font-size: 13px;
     color: var(--blue--text);
+}
+
+.playmates-card-grid:has(.alert) {
+    grid-template-columns: 1fr !important;
+    width: 100%;
 }
 
 
@@ -9853,6 +9869,59 @@ button:disabled {
     position: relative;
     display: inline-block;
 }
+
+
+/* alert-tooltip */
+
+.alert-tooltip-wrap .alert-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    background-color: var(--peach);
+    color: #fff;
+    text-align: center;
+    padding: 0px 5px;
+    border-radius: 6px;
+    position: absolute;
+    top: 50%;
+    right: 40%;
+    transform: translate(-40%, -50%);
+    /* exact center */
+    transition: opacity 0.3s;
+    z-index: 10;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+
+/* Arrow (optional, adjust position) */
+
+.alert-tooltip-wrap .alert-tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: 6px;
+    right: 0%;
+    transform: translateX(91%) rotate(-90deg);
+    border-width: 8px;
+    border-style: solid;
+    border-color: var(--peach) transparent transparent transparent;
+}
+
+
+/* Show on hover */
+
+.alert-tooltip-wrap:hover .alert-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+/* .alert-tooltip-wrap img {
+    cursor: pointer;
+} */
+
+
+/* end */
 
 
 /* Tooltip */

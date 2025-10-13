@@ -55,7 +55,7 @@ class MessageReviewController extends Controller
                 'status' => 'pending',  
             ];
             $id = null;
-            $reviewExist = Reviews::where('user_id', auth()->user()->id)->first();
+            $reviewExist = Reviews::where('user_id', auth()->user()->id)->where('escort_id',$escort_id)->first();
             if($reviewExist != null){
                 Reviews::where('id',$reviewExist->id)->update($data);
                 $error = false;

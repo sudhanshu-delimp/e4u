@@ -3,6 +3,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/app/vendor/file-upload/css/pintura.min.css') }}">
+    
     <style type="text/css">
         .parsley-errors-list {
             list-style: none;
@@ -120,7 +121,7 @@
             <div class="col-sm-12 col-md-12 col-lg-12 ">
 
                 <div class="table-responsive">
-                    <table class="table w-100" id="advertiserReviewTable">
+                    <table class="table" id="advertiserReviewTable">
                         <thead class="table-bg">
                             <tr>
                                 <th scope="col">
@@ -139,7 +140,7 @@
                                     Mobile
                                 </th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Review</th>
+                                {{-- <th scope="col">Review</th> --}}
                                 <th scope="col" class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -358,10 +359,11 @@
             </div>
         </div>
     </div>
-
+ 
 @endsection
 @push('script')
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    
+    
     </script>
 
     <script>
@@ -524,9 +526,14 @@
             serverSide: true,
             paging: true,
             info: true,
+            lengthChange: false,
             searching: true,
             bStateSave: true,
-           // ordering: false,
+            ordering:false,
+            autoWidth: false,
+            columnDefs: [
+                { width: "12%", targets: 1 } 
+            ],
             ajax: {
                 url: ajaxUrl,
                 type: method,
@@ -538,12 +545,16 @@
             },
             columns: [
                 { data: 'ref', name: 'ref' },
-                { data: 'date', name: 'date' },
+                { data: 'date', name: 'date',  },
                 { data: 'escort_id', name: 'escort_id' },
                 { data: 'viewer_id', name: 'viewer_id' },
                 { data: 'mobile', name: 'mobile' },
-                { data: 'status', name: 'status'},
-                { data: 'review', name: 'review'},
+                { 
+                    data: 'status', name: 'status',
+                    orderable: false,
+                    searchable: false
+                },
+                // { data: 'review', name: 'review'},
                 { data: 'action', name: 'action', orderable: false }
             ]
         });

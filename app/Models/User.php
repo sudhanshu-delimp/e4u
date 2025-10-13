@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use App\Models\ViewerNotificationSetting;
+use Exception;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -231,9 +232,23 @@ class User extends Authenticatable
     {
         return $this->hasOne(PasswordSecurity::class);
     }
-    public function playmates()
+    public function getPlaymatesAttribute()
     {
-        return $this->belongsToMany(Escort::class, 'playmates', 'user_id', 'playmate_id');
+        $this->loadMissing('listedEscorts.playmates');
+        return $this->escorts
+                    ->flatMap(fn ($escort) => $escort->playmates)
+                    ->unique('id') 
+                    ->sortBy('name')
+                    ->values();
+    }
+    public function getAddedByAttribute()
+    {
+        $this->loadMissing('listedEscorts.addedBy');
+        return $this->escorts
+                    ->flatMap(fn ($escort) => $escort->addedBy)
+                    ->unique('id') 
+                    ->sortBy('name')
+                    ->values();
     }
     public function scopeInRole($q, $role)
     {
@@ -566,6 +581,43 @@ class User extends Authenticatable
         //$otp = mt_rand(1000,9999);
         return $otp;
     }
+
+
+    public function update_last_login($user)
+    {
+            try 
+            {
+                $accountSetting = new AccountSetting;
+                $accountSetting = AccountSetting::where('user_id', $user->id)->first();
+                if(!$accountSetting)
+                {
+                     AccountSetting::create([
+                        'user_id'  => $user->id,
+                        'password_updated_date' => date('Y-m-d H:i:s'),
+                        'password_expiry_days'   => '30',
+                        'is_text_notificaion_on' => '0',
+                        'is_email_notificaion_on' => '0',
+                        'is_first_login' => '0',
+                        'last_login' =>  date('Y-m-d H:i:s')
+                    ]);
+                } 
+                else
+                {
+                    $accountSetting->last_login = date('Y-m-d H:i:s');
+                    $accountSetting->save();
+                }  
+                return true;
+            } 
+            catch (Exception $e){
+            return false;
+            }
+
+    }
+
+        public function referrals()
+        {
+            return $this->hasMany(User::class, 'referred_by_agent_id');
+        }
 
     
 

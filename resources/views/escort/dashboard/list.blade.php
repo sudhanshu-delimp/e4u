@@ -42,6 +42,7 @@
 
         #btn_suspend_profile,
         #btn_add_brb,
+        #btn_extend_profile,
         #btn_pinup_profile {
             display: none;
         }
@@ -87,7 +88,7 @@
                     <div class="box-body table table-hover">
                         @if ($type != 'past')
                             <div>
-                                <div class="add--list">
+                                <div class="add--list listingActionButtons">
                                 <div class="">
                                 <button style="padding: 10px;" class="btn btn-info custom-btn-info" data-toggle="modal"
                                     data-target="#add_brb" id="btn_add_brb">Add BRB</button>
@@ -111,16 +112,16 @@
                             <thead id="table-sec" class="table-bg">
                                 <tr>
                                     <th>ID</th>
-                                    <th style="width:150px;">Profile Name</th>
-                                    <th>Location</th>
-                                    <th>Stage Name</th>
-                                    <th>Membership</th>
-                                    <th>Mobile Number</th>
-                                    <!-- <th>Competitor</th>-->
-                                    <th>Date Created</th>
+                                    <th class="w-auto">Profile Name</th>
+                                    <th class="w-auto">Location</th>
+                                    <th class="w-auto">Stage Name</th>
+                                    <th class="w-auto">Membership</th>
+                                    <th class="w-auto">Mobile Number</th>
+                                    <!-- <th class="w-auto">Competitor</th>-->
+                                    <th class="w-auto">Date Created</th>
                                     <th>Status</th>
                                     <!--<th>Joined E4U</th>-->
-                                    <th>Action</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                         </table>
@@ -449,25 +450,7 @@
                                 );
                             }
                         });
-                    }
-
-                    var api = this.api();
-                    // var records = api.data().length;
-                    var length = table.page.info().recordsTotal;
-                    if (length == 0) {
-                        $('#btn_suspend_profile').hide();
-                        $('#btn_add_brb').hide();
-                        $('#btn_pinup_profile').hide();
-                    } else {
-                        $('#btn_suspend_profile').show();
-                        $('#btn_add_brb').show();
-                        $('#btn_pinup_profile').show();
-                    }
-
-                    if (length <= 10) {
-                        $('.dataTables_paginate').show();
-                    } else {
-                        $('.dataTables_paginate').show();
+                        $(".listingActionButtons button").show();
                     }
                 },
                 initComplete: function() {

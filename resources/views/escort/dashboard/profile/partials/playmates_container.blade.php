@@ -4,7 +4,10 @@
         $image = $escort->gallary()->wherePivot('position', 1)->first();
         @endphp
         <div class="card shadow-sm">
+           <a href="{{ route('profile.description',$escort->id)}}" target="_blank">
             <img src="{{ asset($image->path) }}" class="card-img-top" alt="Playmate 1">
+            <span class="playmate-badge">{{$escort->user->member_id}}</span>
+           </a>
             <div class="card-body">
                 <h3>{{$escort->name}}</h3>
                 <div class="form-check-inline">
@@ -16,5 +19,5 @@
         </div>
     @endforeach
 @else
-    <div class="alert alert-info">No results available at the moment.</div>
+    <div class="alert alert-info">You do not presently have any Playmates.</div>
 @endif

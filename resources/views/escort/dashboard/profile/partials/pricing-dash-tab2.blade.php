@@ -6,6 +6,10 @@
         border: 5px double grey;
     }
 </style>
+@php  
+
+$loginAccount = auth()->user();
+@endphp
 <div class="tab-pane fade" id="pricing" role="tabpanel" aria-labelledby="contact-tab">
     
     @php
@@ -69,7 +73,7 @@
                         <h4 class="mb-0">Summary</h4>
                         <div class="member-id">
                             <span class="pr-2 "><i class="fa fa-user"></i></span>
-                            <span>Member ID: {{ auth()->user()->member_id}}</span>
+                            <span>Member ID: {{ $loginAccount->member_id}}</span>
                         </div>
                     </div>
                 </div>    
