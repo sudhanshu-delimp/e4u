@@ -42,7 +42,7 @@
                             <form id="locationForm">
                                 <!-- Tour Name Input -->
                                 <div class="mb-3">
-                                    <label for="tourName" class="form-label fw-bold">Tour Name</label>
+                                    <label for="tourName"class="form-label font-weight-bold">Tour Name</label>
                                     <input type="text" id="tourName" name="tour_name" class="form-control" value="{{$tour->name}}"  placeholder="Enter Tour Name">
                                 </div>
 
