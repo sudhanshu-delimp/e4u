@@ -36,7 +36,7 @@
                 </div>
             </div>        
             <div class="row tour-dashrow">
-                <div class="col-md-9 tour-dashcol">
+                <div class="col-md-9">
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <form id="locationForm">
