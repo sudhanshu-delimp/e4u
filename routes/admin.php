@@ -6,14 +6,15 @@ use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PDF\AgentPdfController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Admin\SupportTicketsController;
 use App\Http\Controllers\Admin\AdvertiserReportContoller;
 use App\Http\Controllers\Admin\GlobalMonitoringController;
 use App\Http\Controllers\Admin\AdvertiserReviewsController;
 use App\Http\Controllers\Admin\Analytics\ConsolesController;
-use App\Http\Controllers\Admin\AdminMakeNotificationController;
 use App\Http\Controllers\Admin\CenterNotificationController;
+use App\Http\Controllers\Admin\AdminMakeNotificationController;
 use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
@@ -249,3 +250,5 @@ Route::post('/notifications/centres/store', [CenterNotificationController::class
 
 
 
+################### PDF ###################
+Route::post('/generate-agent-info-pdf', [AgentPdfController::class, 'generate_agent_info_pdf'])->name('admin.generate-agent-info-pdf');
