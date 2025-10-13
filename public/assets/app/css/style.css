@@ -128,6 +128,10 @@
         background-color: rgb(12, 34, 61);
     }
     
+    .back_to_search_btn:hover a {
+        background-color: var(--peach);
+    }
+    
     a.back--search {
         position: fixed;
         right: 15px;
@@ -1414,6 +1418,15 @@
     button#legbox_btn:hover,
     .profile_message_btn_cc:hover {
         color: #ffff;
+        background-color: var(--peach);
+    }
+    
+    .profile_message_btn_cc:hover img {
+        filter: brightness(0) invert(1);
+    }
+    
+    #legbox_btn:hover span i {
+        color: #fff !important;
     }
     
     .profile_hr h4 {
@@ -3816,8 +3829,12 @@ i.fa.fa-heart-o{
         text-decoration: none;
     }
     
+    .add_reviews_btn:hover img {
+        filter: brightness(0) invert(1);
+    }
+    
     .add_reviews_btn:hover a {
-        color: #858796 !important;
+        color: #fff !important;
     }
     
     .manage_oprcity {
@@ -3874,6 +3891,7 @@ i.fa.fa-heart-o{
         background: var(--blue--text);
         color: white;
         width: 100%;
+        transition: filter 0.3s ease;
     }
     /*profile description Harmony page start here*/
     /*profile description start here*/

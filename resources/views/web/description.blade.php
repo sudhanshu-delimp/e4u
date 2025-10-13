@@ -973,10 +973,10 @@
     <div class="row pt-2 eqal-bx">
         <div class="col-xl-5 col-sm-12 my-1 text-center">
             <button type="button" class="btn profile_message_btn_cc" data-toggle="modal" data-target="#mysendmessage">
-            <img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Message Me</button>
+            <img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="image_20px_msg">Message Me</button>
         </div>
         <div class="col-xl-7 col-sm-12 my-1 text-center">
-            <button type="button" class="btn profile_message_btn_cc" id="reportAdvertiserBtn" data-toggle="modal"><img src="{{ asset('assets/app/img/messageicon.png') }}" class="image_20px_msg">Report Advertiser</button>
+            <button type="button" class="btn profile_message_btn_cc" id="reportAdvertiserBtn" data-toggle="modal"><img src="{{ asset('assets/app/img/smallsmsicon.png') }}" class="image_20px_msg">Report Advertiser</button>
         </div>
     </div>
     <div class="like_and_process_bar_padding d-flex align-items-center gap_tepx">
@@ -1698,7 +1698,7 @@
 </div>
 <!-- model start here 3-->
 
-<div class="modal" id="my_legbox" style="display: none">
+<div class="modal fade" id="my_legbox" style="display: none">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content custome_modal_max_width rounded-0">
             <div class="modal-header main_bg_color border-0">
