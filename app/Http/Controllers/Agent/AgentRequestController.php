@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Agent;
 
 use Exception;
 use App\Models\User;
+use App\Models\Agent;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -581,33 +582,35 @@ class AgentRequestController extends Controller
     {
 
         
-        $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_user', function ($q) {
-                $q->where('status', '=', 1)
-                ->where('receiver_agent_id', auth()->id());
-            })
-             ->with([
-                'user',
-                'user.state',
-                'advertiser_agent_request_user' => function ($q) {
-                    $q->where('status', '!=', 0)
-                    ->where('receiver_agent_id', auth()->id());
-                },
-            ]);
+        
+        // $query = AdvertiserAgentRequest::whereHas('advertiser_agent_request_user', function ($q) {
+        //         $q->where('status', '=', 1)
+        //         ->where('receiver_agent_id', auth()->id());
+        //     })
+        //      ->with([
+        //         'user',
+        //         'user.state',
+        //         'advertiser_agent_request_user' => function ($q) {
+        //             $q->where('status', '!=', 0)
+        //             ->where('receiver_agent_id', auth()->id());
+        //         },
+        //     ]);
             
-            $search = request()->input('search.value');
-             if (!empty($search)) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('ref_number', 'like', "%{$search}%")
-                    ->orWhereHas('user', function ($u) use ($search) {
-                    $u->where('member_id', 'like', "%{$search}%");
-                     });
-                });
-            }
+        $query  = User::with('state')->where('assigned_agent_id',auth()->id())->where('is_agent_assign','1');
+        
+
+        $search = request()->input('search.value');
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('member_id', 'like', "%{$search}%");
+            });
+        }
 
 
             switch ($order_key) {
+
                 case 1:
-                    $query->orderBy('ref_number', $dir);
+                    $query->orderBy('member_id ', $dir);
                     break;
 
                 default:
@@ -618,15 +621,19 @@ class AgentRequestController extends Controller
             $totalRequest = $query->count();
             $requestList = $query->offset($start)->limit($limit)->get();
 
+           
+
 
           foreach ($requestList as $item) {
 
-              $item->ref_number =  $item->ref_number;
-              $item->member_id =  $item->user->member_id;
-              $item->name =  $item->user->name;
-              $item->phone =  $item->user->phone;
-              $item->email =  $item->user->email;
-              $item->state =  isset($item->user->state->iso2) ? $item->user->state->iso2 : 'NA';
+                
+              $item->joined_date =  isset($item->created_at) ? date('d-m-Y',strtotime($item->created_at)) : 'NA';
+              $item->appointed_date =  isset($item->agent_assign_date) ? date('d-m-Y',strtotime($item->agent_assign_date)) : 'NA';
+              $item->earnings =  '';
+              $item->home_state  =  isset($item->state->iso2) ? $item->state->iso2 : '';
+              
+              
+              
           }
 
             return [$requestList, $totalRequest];

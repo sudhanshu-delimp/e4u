@@ -31,7 +31,7 @@
                      <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
                   </div>
                   <div class="back-to-dashboard">
-                     <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                     <a href="{{ route('agent.dashboard') }}">
                         <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
                      </a>
                   </div>
@@ -72,7 +72,6 @@
                            <th>Name</th>
                            <th>Mobile</th>
                            <th>Email</th>
-                           <th>Contact</th>
                            <th>Joined</th>
                            <th>Appointed</th>
                            <th>Earnings</th>
@@ -371,15 +370,14 @@ $(document).ready(function() {
       },
 
       columns: [
-         { data: 'member_id', name: 'member_id', orderable: true, defaultContent: 'NA' },
-         { data: 'name', name: 'name', orderable: true, defaultContent: 'NA' },
-         { data: 'mobile', name: 'mobile', orderable: true, defaultContent: 'NA' },
-         { data: 'email', name: 'email', orderable: true, defaultContent: 'NA' },
-         { data: 'contact_type', name: 'contact_type', orderable: true, defaultContent: 'NA' },
-         { data: 'joined_date', name: 'joined_date', orderable: true, defaultContent: 'NA' },
-         { data: 'appointed_date', name: 'appointed_date', orderable: true, defaultContent: 'NA' },
-         { data: 'earnings', name: 'earnings', orderable: true, defaultContent: 'NA' },
-         { data: 'state', name: 'state', orderable: true, defaultContent: 'NA' },
+         { data: 'member_id', name: 'member_id', orderable: true, defaultContent: '' },
+         { data: 'name', name: 'name', orderable: true, defaultContent: '' },
+         { data: 'mobile', name: 'mobile', orderable: true, defaultContent: '' },
+         { data: 'email', name: 'email', orderable: true, defaultContent: '' },
+         { data: 'joined_date', name: 'joined_date', orderable: true, defaultContent: '' },
+         { data: 'appointed_date', name: 'appointed_date', orderable: true, defaultContent: '' },
+         { data: 'earnings', name: 'earnings', orderable: true, defaultContent: '' },
+         { data: 'home_state', name: 'home_state', orderable: true, defaultContent: '' },
          {
             data: 'action',
             name: 'action',
