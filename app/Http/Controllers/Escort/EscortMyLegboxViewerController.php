@@ -272,7 +272,7 @@ class EscortMyLegboxViewerController extends Controller
             ->make(true);
     }
 
-    public function dashboard($type = 'dashbaord')
+    public function dashboard($type = 'escort')
     {
         $user_type = null;
         if (auth()->user() && auth()->user()->type == 0) {
