@@ -435,14 +435,14 @@ class WebController extends Controller
         $paginator = new LengthAwarePaginator(
             $sliced,
             $merged->count(),
-            $perPage,
+            20,
             $page,
             [
                 'path' => request()->url(),  // Only the base URL (without query)
                 'query' => request()->except(['ipinfo']) // Exclude the 'ipinfo' query parameters
             ]
         );
-
+        
         $all_services_tag = $service_one->merge($service_two)->merge($service_three);
 
         // we are not ue View type UI side 

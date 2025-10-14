@@ -720,9 +720,78 @@
         <!-- <div class="page-sec mb-5 mt-4">{!! $escorts->links('pagination::bootstrap-4') !!}</div> -->
 
         {{-- Custom Pagination with Bootstrap --}}
-        <div class="page-sec mb-5 mt-4">
+        {{-- <div class="page-sec mb-5 mt-4">
             {{ $paginator->links('pagination::custom-bootstrap') }}
-        </div>
+        </div> --}}
+
+
+        {{-- OR use fully custom pagination --}}
+
+
+            <nav aria-label="Page navigation" class="custom-pagination">
+                <ul class="d-flex justify-content-center list-unstyled">
+
+                    {{-- First Page --}}
+                    <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
+                        <a href="{{ $paginator->onFirstPage() ? '#' : $paginator->url(1) }}"
+                        style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
+                            <i class="fa fa-angle-double-left"></i> First
+                        </a>
+                    </li>
+
+                    {{-- Previous Page --}}
+                    <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
+                        <a href="{{ $paginator->onFirstPage() ? '#' : $paginator->previousPageUrl() }}"
+                        style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
+                            <i class="fa fa-angle-left"></i> Previous
+                        </a>
+                    </li>
+
+                    {{-- Pagination Numbers with Ellipsis --}}
+                    @php
+                        $total = $paginator->lastPage();
+                        $current = $paginator->currentPage();
+                        $start = max(1, $current - 2);
+                        $end = min($total, $current + 2);
+                    @endphp
+
+                    {{-- Left ellipsis --}}
+                    @if($start > 1)
+                        <li class="disabled mx-1"><span>...</span></li>
+                    @endif
+
+                    @for ($i = $start; $i <= $end; $i++)
+                        <li>
+                            <a href="{{ $paginator->url($i) }}"
+                                        style="background-color: {{ $i == $paginator->currentPage() ? '#F2F2F2' : '#0C223d'}}; font-weight: {{ $i == $paginator->currentPage() ? 'bold' : 'normal' }}; color: {{ $i == $paginator->currentPage() ? '#ff3c5f' : '#fff' }};">
+                                            {{ $i }}
+                                        </a>
+                        </li>
+                    @endfor
+
+                    {{-- Right ellipsis --}}
+                    @if($end < $total)
+                        <li class="disabled mx-1"><span>...</span></li>
+                    @endif
+
+                    {{-- Next Page --}}
+                    <li class="mx-1 {{ !$paginator->hasMorePages() ? 'disabled' : '' }}">
+                        <a href="{{ $paginator->hasMorePages() ? $paginator->nextPageUrl() : '#' }}"
+                        style="{{ !$paginator->hasMorePages() ? 'pointer-events:none; opacity:0.5;' : '' }}">
+                            Next <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+
+                    {{-- Last Page --}}
+                    <li class="mx-1 {{ $current == $total ? 'disabled' : '' }}">
+                        <a href="{{ $current == $total ? '#' : $paginator->url($total) }}"
+                        style="{{ $current == $total ? 'pointer-events:none; opacity:0.5;' : '' }}">
+                            Last <i class="fa fa-angle-double-right"></i>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
 
 
         </div>
@@ -731,38 +800,6 @@
 
 
 
-        {{-- new --}}
-        {{-- <nav aria-label="Page navigation" class="custom-pagination">
-            <ul class="d-flex justify-content-center">
-                <li>
-                <a href="#"><i class="fa fa-angle-double-left"></i> First</a>
-                </li>
-                <li>
-                <a href="#"><i class="fa fa-angle-left"></i> Previous</a>
-                </li>
-                <li class="disabled">
-                <span>...</span>
-                </li>
-                <li><a href="#">6</a></li>
-                <li><a href="#">7</a></li>
-                <li><a href="#">8</a></li>
-                <li  aria-current="page">
-                <a href="#" class="active">9</a>
-                </li>
-                <li><a href="#">10</a></li>
-                <li><a href="#">11</a></li>
-                <li><a href="#">12</a></li>
-                <li class="disabled">
-                <span>...</span>
-                </li>
-                <li>
-                <a href="#">Next <i class="fa fa-angle-right"></i></a>
-                </li>
-                <li>
-                <a href="#">Last <i class="fa fa-angle-double-right"></i></a>
-                </li>
-            </ul>
-        </nav> --}}
 
     </section>
     <!-- ================       service provider end here        ========================= -->

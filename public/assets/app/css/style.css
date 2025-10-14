@@ -2269,9 +2269,9 @@ i.fa.fa-heart-o{
     
     .custom-pagination ul li a {
         background-color: var(--blue--text);
-        color: #fff !important;
+        color: #fff;
         padding: 4px 20px;
-        border: 1px solid #fff;
+        border: 1px solid #2e4969;
         text-align: center;
         cursor: pointer;
         display: flex;
@@ -2282,9 +2282,9 @@ i.fa.fa-heart-o{
     
     .custom-pagination ul li span {
         background-color: var(--blue--text);
-        color: #fff !important;
+        color: #fff;
         padding: 4px 20px;
-        border: 1px solid #fff;
+        border: 1px solid #2e4969;
         text-align: center;
         display: flex;
         align-items: center;
@@ -2293,7 +2293,10 @@ i.fa.fa-heart-o{
     }
     
     .custom-pagination ul li a.active {
-        background-color: #9E9E9E
+        background-color: #F2F2F2;
+        color: var(--peach);
+        font-weight: bold;
+        border: 1px solid #2e4969;
     }
     
     .custom-pagination ul li.active a {
@@ -2301,7 +2304,9 @@ i.fa.fa-heart-o{
     }
     
     .custom-pagination ul li a:hover {
-        background-color: #9E9E9E;
+        background-color: #F2F2F2 !important;
+        color: var(--peach) !important;
+        border: 1px solid #2e4969;
     }
     
     .custom-pagination ul li a {
@@ -2309,6 +2314,10 @@ i.fa.fa-heart-o{
         text-decoration: none;
         font-weight: 400;
         font-size: 14px;
+    }
+    
+    .custom-pagination ul li a:hover i {
+        color: var(--peach);
     }
     
     .custom-pagination ul li a i {
