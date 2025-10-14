@@ -2263,6 +2263,58 @@ i.fa.fa-heart-o{
     }
     /*paginaction start here*/
     
+    .custom-pagination ul li {
+        list-style: none;
+    }
+    
+    .custom-pagination ul li a {
+        background-color: var(--blue--text);
+        color: #fff !important;
+        padding: 4px 20px;
+        border: 1px solid #fff;
+        text-align: center;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+    }
+    
+    .custom-pagination ul li span {
+        background-color: var(--blue--text);
+        color: #fff !important;
+        padding: 4px 20px;
+        border: 1px solid #fff;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+    }
+    
+    .custom-pagination ul li a.active {
+        background-color: #9E9E9E
+    }
+    
+    .custom-pagination ul li.active a {
+        font-weight: 600;
+    }
+    
+    .custom-pagination ul li a:hover {
+        background-color: #9E9E9E;
+    }
+    
+    .custom-pagination ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 400;
+        font-size: 14px;
+    }
+    
+    .custom-pagination ul li a i {
+        color: #fff;
+    }
+    
     .change_pagination_style .page-link {
         color: black;
         border: 1px solid #0c223d;

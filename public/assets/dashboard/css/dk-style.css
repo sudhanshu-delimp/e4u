@@ -7942,6 +7942,13 @@ button:disabled {
     font-size: 14px;
 }
 
+.dropdown-menu-right .dropdown-divider {
+    height: 0;
+    margin: .5rem 0;
+    overflow: hidden;
+    border-top: 1px solid #ccc !important;
+}
+
 
 /* Buttons */
 

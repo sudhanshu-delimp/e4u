@@ -727,6 +727,43 @@
 
         </div>
         </div>
+
+
+
+
+        {{-- new --}}
+        {{-- <nav aria-label="Page navigation" class="custom-pagination">
+            <ul class="d-flex justify-content-center">
+                <li>
+                <a href="#"><i class="fa fa-angle-double-left"></i> First</a>
+                </li>
+                <li>
+                <a href="#"><i class="fa fa-angle-left"></i> Previous</a>
+                </li>
+                <li class="disabled">
+                <span>...</span>
+                </li>
+                <li><a href="#">6</a></li>
+                <li><a href="#">7</a></li>
+                <li><a href="#">8</a></li>
+                <li  aria-current="page">
+                <a href="#" class="active">9</a>
+                </li>
+                <li><a href="#">10</a></li>
+                <li><a href="#">11</a></li>
+                <li><a href="#">12</a></li>
+                <li class="disabled">
+                <span>...</span>
+                </li>
+                <li>
+                <a href="#">Next <i class="fa fa-angle-right"></i></a>
+                </li>
+                <li>
+                <a href="#">Last <i class="fa fa-angle-double-right"></i></a>
+                </li>
+            </ul>
+        </nav> --}}
+
     </section>
     <!-- ================       service provider end here        ========================= -->
     <!-- ==============        pagination start here            ====================-->
