@@ -9,10 +9,12 @@
         #cke_1_contents {
             height: 150px !important;
         }
-         li.parsley-required {
-         list-style: none;
+
+        li.parsley-required {
+            list-style: none;
         }
-        .parsley-errors-list{
+
+        .parsley-errors-list {
             padding-left: 0px;
         }
     </style>
@@ -133,9 +135,8 @@
                 <div class="modal-body pb-0">
                     <form method="POST" id="createNotificationForm"
                         action="{{ route('admin.centres.notifications.store') }}" data-parsley-validate>
-
+                        @csrf
                         <div class="row">
-
                             <!-- Auto-generated Date (readonly) -->
                             <div class="col-12 mb-3">
                                 <input type="text" class="form-control rounded-0" placeholder="Date (Auto-generated)"
@@ -176,7 +177,7 @@
 
 
                             <div id="templateSelect" style="display: none;" class="col-12 mb-3">
-                                <select id="templateList" class="form-control rounded-0">
+                                <select id="template_name" name="template_name" class="form-control rounded-0">
                                     <option value="">-- Choose a Template --</option>
                                     <option value="Check out our Visa services. Go to Concierge and select- Visa.">Check
                                         out our Visa services. Go to Concierge and select- Visa.</option>
@@ -201,13 +202,13 @@
 
                             <!-- Notice Section -->
                             <div id="noticeSection" class="col-12 mb-3" style="display: none;">
-                                <input type="text" id="memberId" class="form-control"
+                                <input type="text" id="member_id" name="member_id" class="form-control"
                                     placeholder="Member Id e.g. 123456">
                             </div>
 
                             <!-- content -->
                             <div class="col-12 mb-3" id="contentField">
-                                <textarea id="content" class="form-control" placeholder="up to 250 characters..."></textarea>
+                                <textarea id="content" name="content" class="form-control" placeholder="up to 250 characters..."></textarea>
 
                             </div>
                         </div>
@@ -238,7 +239,7 @@
                 </div>
                 <div class="modal-body pb-0 agent-tour">
                     <div class="py-4 text-center" id="success_form_html">
-                        <h4 id="success_msg">Are you sure you want to mark this Appointment as completed?</h4>
+                        <h4 id="success_msg"></h4>
                         <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal"
                             aria-label="Close">OK</button>
                     </div>
@@ -252,115 +253,115 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-    <div id="manage-route" 
-        data-scrf-token="{{ csrf_token() }}" 
+    <div id="manage-route" data-scrf-token="{{ csrf_token() }}"
         data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
-        data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
-        {{-- data-show-appointment="{{ route('agent.appointments.show', ['id' => '__ID__']) }}"> --}}
-    @endsection
-    @section('script')
-        <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-        <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-        <script>
-            function toggleFields() {
-               var type = document.getElementById('type').value;
+    data-error-image="{{ asset('assets/dashboard/img/alert.png') }}" {{-- data-show-appointment="{{ route('agent.appointments.show', ['id' => '__ID__']) }}"> --}} @endsection
+    @section('script') <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+    </script>
+    <script>
+        function toggleFields() {
+            var type = document.getElementById('type').value;
 
-               var templateSelect = document.getElementById('templateSelect');
-               var noticeSection = document.getElementById('noticeSection');
-               var contentField = document.getElementById('contentField');
+            var templateSelect = document.getElementById('templateSelect');
+            var noticeSection = document.getElementById('noticeSection');
+            var contentField = document.getElementById('contentField');
 
-               if (type === 'Template') {
-                  templateSelect.style.display = 'block';
-                  noticeSection.style.display = 'none';
-                  contentField.style.display = 'none';
-               } else if (type === 'Notice') {
-                  templateSelect.style.display = 'none';
-                  noticeSection.style.display = 'block';
-                  contentField.style.display = 'block';
-               } else if (type === 'Adhoc') {
-                  templateSelect.style.display = 'none';
-                  noticeSection.style.display = 'none';
-                  contentField.style.display = 'block';
-               } else {
-                  templateSelect.style.display = 'none';
-                  noticeSection.style.display = 'none';
-                  contentField.style.display = 'none';
-               }
+            if (type === 'Template') {
+                templateSelect.style.display = 'block';
+                noticeSection.style.display = 'none';
+                contentField.style.display = 'none';
+            } else if (type === 'Notice') {
+                templateSelect.style.display = 'none';
+                noticeSection.style.display = 'block';
+                contentField.style.display = 'block';
+            } else if (type === 'Adhoc') {
+                templateSelect.style.display = 'none';
+                noticeSection.style.display = 'none';
+                contentField.style.display = 'block';
+            } else {
+                templateSelect.style.display = 'none';
+                noticeSection.style.display = 'none';
+                contentField.style.display = 'none';
             }
-        </script>
-        <script>
-            const mmRoot = $('#manage-route');
-            endpoint = 
-                csrf_token: mmRoot.data('scrf-token'),
-                success_image: mmRoot.data('success-image'),
-                error_image: mmRoot.data('error-image'),   
+        }
+    </script>
+    <script>
+        const mmRoot = $('#manage-route');
+        endpoint = {
+            csrf_token: mmRoot.data('scrf-token'),
+            success_image: mmRoot.data('success-image'),
+            error_image: mmRoot.data('error-image'),
+        }
+        $('#createNotificationForm').on('submit', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            console.log(form);
+            if (!form.parsley().isValid()) {
+                form.parsley().validate();
+                return;
             }
+            let formData = form.serialize();
 
-
-
-
-            $('#createNotificationForm').on('submit', function(e) {
-                e.preventDefault();
-                var form = $(this);
-                console.log(form);
-                if (!form.parsley().isValid()) {
-                    form.parsley().validate();
-                    return;
-                }
-                let formData = form.serialize();
-
-                //Ajax request
-                $.ajax({
-                    url: form.attr('action'),
-                    type: "POST",
-                     _token: endpoint.csrf_token,
-                    data: formData,
-                    success: function(response) {
-                        $('#success_msg').text(request.message || 'Saved successfully');
-                        $('#success_task_title').text('Success');
-                        $("#image_icon").attr("src", endpoint.success_image);
-                        $('#new_appointment_model').modal('hide');
+            //Ajax request
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                _token: endpoint.csrf_token,
+                data: formData,
+                success: function(response) {
+                    if (response.status === true) {
+                        $('#createNotification').modal('hide');
+                        let msg = response.message ? response.message : 'Something went wrong';
+                        $("#image_icon").attr("src", endpoint.error_image);
+                        $('#success_task_title').text('Error');
+                        $('#success_msg').text(msg);
+                        $('#successModal').modal('show');
                         form[0].reset();
                         $('#successModal').modal('show');
                         setTimeout(function() {
                             $('#successModal').modal('hide');
                         }, 2000);
                     }
-                })
 
-
-            });
-        </script>
-
-
-        <script></script>
-
-
-
-
-
-
-
-        <script>
-            var table = $("#centerNotificationTable").DataTable({
-                language: {
-                    search: "Search: _INPUT_",
-                    searchPlaceholder: "Search by Ref..."
                 },
-                info: true,
-                paging: true,
-                lengthChange: true,
-                searching: true,
-                bStateSave: true,
-                order: [
-                    [1, 'desc']
-                ],
-                lengthMenu: [
-                    [10, 25, 50, 100],
-                    [10, 25, 50, 100]
-                ],
-                pageLength: 10
-            });
-        </script>
+                error: function(xhr, status, error) {
+                    let msg = 'Something went wrong';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        msg = xhr.responseJSON.message;
+                    }
+                    $("#image_icon").attr("src", endpoint.error_image);
+                    $('#success_task_title').text('Error');
+                    $('#success_msg').text(msg);
+                    $('#successModal').modal('show');
+                }
 
-    @endsection
+            })
+
+
+        });
+    </script>
+
+    <script>
+        var table = $("#centerNotificationTable").DataTable({
+            language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Ref..."
+            },
+            info: true,
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            bStateSave: true,
+            order: [
+                [1, 'desc']
+            ],
+            lengthMenu: [
+                [10, 25, 50, 100],
+                [10, 25, 50, 100]
+            ],
+            pageLength: 10
+        });
+    </script>
+
+@endsection

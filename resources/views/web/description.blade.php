@@ -1509,7 +1509,7 @@
     </div>
 </div>
 
-<!-- model start here 3-->
+<!-- model start here 3 Review and Rating-->
 <div class="modal fade add_reviews" id="add_reviews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content custome_modal_max_width">
@@ -1523,7 +1523,7 @@
                 </span>
                 </button>
             </div>
-            <form id="reviewAdvertiser" action="{{ route('review.advertiser',[$escort->id])}}" method="post">
+            <form id="reviewAdvertiser" action="{{ route('review.advertiser',[$escort->id])}}" method="post" data-parsley-validate>
                 @csrf
                 {{--  <input type="hidden" value="" name="star_rating">--}}
                 <div class="modal-body">                    
@@ -1531,7 +1531,16 @@
                         <div class="col">
                             <div class="form-group popup_massage_box">
                                 <p class="font-weight-bold">Tell us about your experience:</p>
-                                <textarea name="description" class="form-control popup_massage_box p-2" id="review_textarea" rows="5" placeholder="Message (500 characters)">{{$reviewExistsMessage}}</textarea>
+                                <textarea name="description" 
+                                class="form-control popup_massage_box p-2" id="review_textarea" rows="5" 
+                                placeholder="Message (500 characters)"
+                                 required
+                            data-parsley-required-message="Please enter your review"
+                            data-parsley-maxlength="500"
+                            data-parsley-maxlength-message="Maximum 500 characters allowed">
+                                
+                                {{$reviewExistsMessage}}
+                                </textarea>
                             </div>
                         </div>
                     </div>
@@ -1637,7 +1646,7 @@
                     </span>
                 </button>
             </div>
-            <form id="reviewAdvertiser" action="{{ route('review.advertiser',[$escort->id])}}" method="post">
+            <form id="reviewAdvertiser" action="{{ route('review.advertiser',[$escort->id])}}" method="post" data-parsley-validate>
                 @csrf
                 <div class="modal-body">
                     <p class="mb-1 mt-3"><b>Notes</b></p>
@@ -1753,6 +1762,43 @@
         </div>
     </div>
     {{-- end --}}
+
+/* Conformation alert box  */
+
+<div class="modal fade" id="review-submitted-popup" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content custome_modal_max_width">
+ 
+            <!-- Header with navy background and [X] -->
+            <div class="modal-header" style="background-color: #0e2346; color: white; display: flex; justify-content: space-between; align-items: center; border-radius:0px">
+                <img src="{{ asset('assets/app/img/tick.png')}}"
+                                class="custompopicon">
+                <h5 class="modal-title font-weight-bold" id="reportAdvertiserLabelNew">
+                    
+                    Review Submitted
+                    </h5>
+                <button type="button" class="close text-danger font-weight-bold" data-dismiss="modal" aria-label="Close" style="font-size: 20px;" >
+                <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+                </button>
+            </div>
+ 
+            <!-- if logi Body content -->
+           
+            <div class="modal-body text-left">
+                  <h6 class="popu_heading_style mb-4 mt-4">
+                    Your Review of <span id="review-escort-name"></span> has been submitted for approval.
+                </h6>
+             
+            </div>
+            <div class="modal-footer pt-0" style="justify-content: center; ">
+                <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal"
+                    id="close">Ok</button>
+            </div>
+ 
+        </div>
+    </div>
+</div>
+/* Conformation alert box  */
 @endsection
 @push('scripts')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
@@ -1809,14 +1855,18 @@ let carousel = new bootstrap.Carousel(myCarousel, {
         });
 
     });
-    $(document).on('submit', '#reviewAdvertiser',function(e){
+
+</script>
+
+<script>
+        $(document).on('submit', '#reviewAdvertiser',function(e){
         e.preventDefault();
         var form = $(this);
 
         if (form.parsley().isValid()) {
-
             var url = form.attr('action');
             var data = new FormData($('#reviewAdvertiser')[0]);
+            
             $.ajax({
                 method: 'POST',
                 url: url,
@@ -1827,9 +1877,14 @@ let carousel = new bootstrap.Carousel(myCarousel, {
                 headers: {'X-CSRF-TOKEN': $('input[name="_token"]').val() },
                 success: function (data) {
                     $('#reviewAdvertiser')[0].reset();
-                    $('#add_reviews').modal("hide");
+                    //$('#add_reviews').modal("hide");
+                    $('#add_reviews').toggle(); 
+                    $('#review-submitted-popup').modal("show");
+                    $('#review-escort-name').text("{{ $escort->name }}");
                     
                     if(!data.error){
+                        
+                       
                         $.toast({
                             heading: 'Success',
                             text: 'Record successfully updated',
@@ -1852,6 +1907,20 @@ let carousel = new bootstrap.Carousel(myCarousel, {
             });
         }
     });
+
+
+$('#review-submitted-popup #close').on('click', function() {
+    $('#review-submitted-popup').toggle();
+    $('.modal-backdrop').remove();
+});
+
+// Close when X icon clicked
+$('#review-submitted-popup .close').on('click', function() {
+   $('#review-submitted-popup').toggle();
+   $('.modal-backdrop').remove();
+});
+    
+    
 </script>
 <script>
     $('#messageMe').parsley({
