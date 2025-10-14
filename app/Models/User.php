@@ -74,13 +74,6 @@ class User extends Authenticatable
         'member_id',
     ];
 
-    public $current_date;
-    public function __construct()
-    {
-
-        $this->current_date = date('Y-m-d H:i:s');
-    }
-
     public function getOnlineAttribute()
     {
         if (!$this->last_online_at) return false;
@@ -605,12 +598,12 @@ class User extends Authenticatable
                         'is_text_notificaion_on' => '0',
                         'is_email_notificaion_on' => '0',
                         'is_first_login' => '0',
-                        'last_login' =>  $this->current_date
+                        'last_login' =>  date('Y-m-d H:i:s')
                     ]);
                 } 
                 else
                 {
-                    $accountSetting->last_login = $this->current_date;
+                    $accountSetting->last_login = date('Y-m-d H:i:s');
                     $accountSetting->save();
                 }  
                 return true;

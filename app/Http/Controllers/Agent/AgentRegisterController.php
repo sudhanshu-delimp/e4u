@@ -105,7 +105,7 @@ class AgentRegisterController extends Controller
                 'email' => $request->email,
                 'location' => config('escorts.profile.states')[$user->state_id]['stateName'] ?? null,
                 'agent_id'  => $user->member_id,
-                'create_at' => Carbon::now()->format('j F'),
+                'create_at' => date('d-m-Y'),
             ];
         
             event(new AgentRegistered($userDataForEvent));

@@ -91,7 +91,7 @@
 </a>
 
 <!-- add new Agent member popupform -->
-<div class="modal fade upload-modal" id="addStaffnew" tabindex="-1" role="dialog" aria-labelledby="addStaffnewLabel" aria-hidden="true">
+<!-- <div class="modal fade upload-modal" id="addStaffnew" tabindex="-1" role="dialog" aria-labelledby="addStaffnewLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content basic-modal">
          <div class="modal-header">
@@ -103,7 +103,7 @@
          <div class="modal-body">
             <form>
             <div class="row">
-               <!-- Section: Personal Details -->
+              
                <div class="col-12 my-2">
                   <h6 class="border-bottom pb-1 text-blue-primary">Personal Details</h6>
                </div>
@@ -163,7 +163,7 @@
                   </div>
                </div>
 
-               <!-- Section: Agreement Details -->
+              
                <div class="col-12 my-2">
                   <h6 class="border-bottom pb-1 text-blue-primary">Agreement Details</h6>
                </div>
@@ -184,7 +184,7 @@
                   </select>
                </div>
 
-               <!-- Section: Commission -->
+              
                <div class="col-12 my-2">
                   <h6 class="border-bottom pb-1 text-blue-primary">Commission</h6>
                </div>
@@ -203,8 +203,8 @@
          </div>
       </div>
    </div>
-</div>
- <!-- end -->
+</div> 
+ -->
  
 
 
@@ -212,7 +212,7 @@
 <div class="modal fade upload-modal" id="viewAgentdetails" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
 <div class="modal fade upload-modal" id="printAgentdetails" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
 <div class="modal fade upload-modal" id="addNewAgent" tabindex="-1" role="dialog" aria-labelledby="Edit_CompetitorLabel" aria-hidden="true"></div>
-
+<div id="print-container" style="display:none;"></div>
 
 @endsection
 @push('script')
@@ -307,7 +307,7 @@
          user_img = avatar_base + rowData.avatar_img;
          
 
-         var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
+         var modal_html =`<div id="account-row-${requestId}" class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
                                  <div class="modal-header">
                                     <h5 class="modal-title" id="confirmationPopup"> <img src="{{asset('assets/dashboard/img/view-merchant.png')}}" style="width:40px; margin-right:10px;" alt="Request Accepted"> 
@@ -339,10 +339,13 @@
                                        
                                                 <div class="d-flex justify-content-end mb-2">
                                                    <!-- Print Button -->
-                                                <button class="btn-success-modal d-block" onclick="printAgent('account-row-S60001')">
-                                                   <i class="fa fa-print text-white"></i> Print
-                                                </button>
-                                                <button type="button" class="btn-cancel-modal" data-dismiss="modal" aria-label="Close">Close</button>
+
+                                                    <button class="btn-success-modal d-block btn-print" data-agent='${JSON.stringify(rowData)}'>
+                                                         <i class="fa fa-print text-white"></i> Print
+                                                   </button>
+
+                                                
+                                                <button type="button" class="btn-cancel-modal ml-2" data-dismiss="modal" aria-label="Close">Close</button>
                                                 </div>
                                              </div>
                                                    
@@ -355,7 +358,9 @@
 
 
                $('#printAgentdetails').html(modal_html);
-               $('#printAgentdetails').modal('show');          
+               $('#printAgentdetails').modal('show');
+               
+               
 
       });
 
@@ -810,7 +815,77 @@
 
     ////////// End Submit Form ////////////////////////
 
+
+
+   
+
    });
+
+   
+$(document).on('click', '.btn-print', function() {
+    var avatarsPath = "{{ asset('avatars') }}";
+    var defaultUser = "{{ asset('assets/img/default_user.png') }}";
+    var rowData = $(this).data('agent');
+    let user_img = rowData.avatar_img ? avatarsPath + '/' + rowData.avatar_img : defaultUser;
+
+   var printContent = `
+    <div style="font-family:Arial; max-width:100%; overflow:hidden; box-sizing:border-box;">
+        <table style="border:none; border-collapse:collapse; width:auto; margin-bottom:5px;">
+            <tr>
+                <td style="vertical-align:middle; border:none;">
+                    <img src="${user_img}" style="margin-right:10px; max-height:50px; max-width:50px; object-fit:cover;">
+                </td>
+                <td style="vertical-align:middle; border:none;">
+                    <h4 style="margin:0; font-size:16px;">${rowData.name || 'NA'}</h4>
+                </td>
+            </tr>
+        </table>
+        <table style="width:100%; border-collapse:collapse; table-layout:fixed; font-size:14px;" border="1">
+            <tr>
+                <th style="width:30%; font-weight:bold; padding:6px;">Business Name</th>
+                <td style="width:70%; padding:6px; white-space:nowrap;">${rowData.business_name || 'NA'}</td>
+            </tr>
+            <tr>
+                <th style="font-weight:bold; padding:6px;">Mobile</th>
+                <td style="padding:6px; white-space:nowrap;">${rowData.business_number || 'NA'}</td>
+            </tr>
+            <tr>
+                <th style="font-weight:bold; padding:6px;">Email</th>
+                <td style="padding:6px;"><div style="word-wrap:break-word; overflow-wrap:anywhere;">${rowData.email || 'NA'}</div></td>
+            </tr>
+            <tr>
+                <th style="font-weight:bold; padding:6px;">ABN</th>
+                <td style="padding:6px; white-space:nowrap;">${rowData.abn || 'NA'}</td>
+            </tr>
+            <tr>
+                <th style="font-weight:bold; padding:6px;">Address</th>
+                <td style="padding:6px;"><div style="word-wrap:break-word; overflow-wrap:anywhere;">${rowData.business_address || 'NA'}</div></td>
+            </tr>
+        </table>
+    </div>`;
+
+
+      $.ajax({
+         url: "{{ route('admin.generate-agent-info-pdf') }}",
+         method: 'POST',
+         data: {
+            _token: '{{ csrf_token() }}',
+            html: printContent.trim()
+         },
+         xhrFields: {
+            responseType: 'blob'
+         },
+         success: function(response) {
+            var blob = new Blob([response], {type: 'application/pdf'});
+            var blobUrl = URL.createObjectURL(blob);
+            window.open(blobUrl); 
+         },
+         error: function(xhr, status, error) {
+            alert('PDF generation failed: ' + error);
+         }
+      });
+});
 
 </script>
 @endpush
+

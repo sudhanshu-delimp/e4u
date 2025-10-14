@@ -127,7 +127,7 @@ class RegisterController extends Controller
             'password' => $request->password,
             'agent_id' => $user->referred_by_agent_id ? $user->referred_by_agent_id : null,
             'location'  => config('escorts.profile.states')[$user->state_id]['stateName'] ?? null,
-            'create_at' => Carbon::now()->format('j F'),
+            'create_at' => date('d-m-Y'),
             'member_id' => $user->member_id,
         ];
 

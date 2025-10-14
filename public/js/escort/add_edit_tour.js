@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 <label for="end-date">End Date:</label>
                 <input type="date" name="end_date[]" class="form-control end-date">
             </div>
-            <div class="d-flex align-items-end justify-content-start gap-10">
+            <div class="d-flex align-items-end justify-content-end gap-10">
                 <button type="button" class="btn-success-modal addProfile" style="padding:6px 10px;">Add Profile</button>
                 <button type="button" class="btn-cancel-modal removeLocation" style="padding:6px 10px;">Remove</button>
             </div>
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             let profileRow = document.createElement("div");
             profileRow.classList.add("profile");
             profileRow.innerHTML = `
-            <div class="d-flex align-items-center gap-2 p-2 border rounded bg-light">
+            <div class="d-flex align-items-center gap-2 p-2 border rounded bg-light my-2">
             <select name="profile[][]" class="form-select profile-dropdown w-25">
             ${availableProfiles.map(profile => `<option value="${profile.id}">${profile.name}</option>`).join("")}
             </select>
