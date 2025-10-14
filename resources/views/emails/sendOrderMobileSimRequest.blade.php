@@ -67,12 +67,16 @@
                             <p style="font-size: 14px; line-height: 1.6; margin-bottom: 15px;">
                                 <strong>Note:</strong> your SIM will:
                             </p>
-                            <p style="font-size: 14px; line-height: 1.6; margin-bottom: 15px; margin-left:15px;">
-                                (a) be dispatched on the next business day; and
-                            </p>
-                            <p style="font-size: 14px; line-height: 1.6; margin-bottom: 15px; margin-left:15px;">
-                                (b) have been activated. Simply install the SIM into your phone and you can use it immediately.
-                            </p>
+                            <ol style="counter-reset: alphaList; margin: 8px 0 15px 25px; padding: 0; margin-left: 40px;">
+        <li style="font-size: 14px; line-height: 1.6; margin-bottom: 8px; list-style: none; position: relative;">
+            <span style="position: absolute; left: -22px;">(a)</span>
+            be dispatched on the next business day; and
+        </li>
+        <li style="font-size: 14px; line-height: 1.6; margin-bottom: 8px; list-style: none; position: relative;">
+            <span style="position: absolute; left: -22px;">(b)</span>
+            have been activated. Simply install the SIM into your phone and you can use it immediately.
+        </li>
+    </ol>
 
                             <!-- Closing -->
                             <p style="font-size: 15px; margin-top: 20px;">
