@@ -327,10 +327,19 @@
                                      </tr> --}}
                                     <tr>
                                         <th>Viewer ID:</th><td class="border-0">`+response.data.user.member_id+`</td>
-                                        <th>Escort ID:</th><td class="border-0">`+response.data.escort.user.member_id+`</td>
+                                        <th>Viewer Name:</th>
+                                        <td class="border-0">`+response.data.user.name+`</td>
+                                        
                                         
                                     </tr>
-                                
+                                    
+                                    <tr>
+                                        
+                                        <th>Escort ID:</th><td class="border-0">`+response.data.escort.user.member_id+`</td>
+                                        <th>Escort’s Name:</th>
+                                        <td class="border-0">`+response.data.escort.name+`</td>
+                                        
+                                    </tr>
                                     <tr>
                                         
                                         <th>Mobile:</th>
@@ -339,14 +348,6 @@
                                         <td class="border-0">`+response.data.escort.user.state.name+`</td>
                                         
                                         
-                                    </tr>
-                                    <tr>
-                                        
-                                        
-                                        <th>Escort’s Name:</th>
-                                        <td class="border-0">`+response.data.escort.name+`</td>
-                                        <th>Viewer Name:</th>
-                                        <td class="border-0">`+response.data.user.name+`</td>
                                     </tr>
                                     <tr>
                                         
