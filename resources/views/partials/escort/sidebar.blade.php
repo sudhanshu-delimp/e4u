@@ -286,7 +286,7 @@
             </a>
              <a class="collapse-item" href="{{url('escort-dashboard/send-notofications')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png')}}">
-                <span style="{{request()->segment(2) == 'send-notofications' ? 'color: #e5365a;' : ''}}">Legbox notifications</span>
+                <span style="{{request()->segment(2) == 'send-notofications' ? 'color: #e5365a;' : ''}}">Notifications</span>
             </a>
             <a class="collapse-item" href="{{ route('escort.dashboard.my-legbox-viewers')}}">
                <img src="{{ asset('assets/dashboard/img/menu-icon/legbox.png')}}">
