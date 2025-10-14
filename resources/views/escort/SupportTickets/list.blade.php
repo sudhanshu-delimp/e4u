@@ -7,7 +7,7 @@
     margin: 10px 0px;
 }
  .list_badge_class{
-        padding: 5px 10px 5px 10px;
+       padding: 2px 3px 2px 3px;
     }
 </style>
 @endsection
