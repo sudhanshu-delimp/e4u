@@ -293,10 +293,9 @@ class EscortMyLegboxViewerController extends Controller
                         ->whereDate('end_date', '>=', $today)
                         ->where('status', true);
                 }
-            ])->where('enabled', 1)->get(); // city_id
+            ])->where('enabled', 1)->get(); // city_id 
         }
         
         return view('user.dashboard.my-legbox',['escorts'=>$escorts, 'dashboardType'=>$type]);
     }
-
 }
