@@ -529,8 +529,8 @@
             lengthChange: false,
             searching: true,
             bStateSave: true,
-            ordering:false,
-            autoWidth: false,
+            // ordering:false,
+            // autoWidth: false,
             columnDefs: [
                 { width: "12%", targets: 1 } 
             ],
