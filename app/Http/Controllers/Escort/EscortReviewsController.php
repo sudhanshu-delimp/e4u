@@ -94,12 +94,13 @@ class EscortReviewsController extends Controller
             ->addColumn('rating', function($row){
 
                 $starRating = '<div class="escort-ratings text-center">';
-
+                
+                $rate = (int) $row->star_rating;
                 for($i=1; $i <= 5; $i++){
-                    if($row->star_rating <= $i){
-                        $starRating .= '<li><i class="far fa-star"></i></li>';
-                    } else {
+                    if($i <= $rate){
                         $starRating .= '<li><i class="fa fa-star"></i></li>';
+                    } else {
+                        $starRating .= '<li><i class="far fa-star"></i></li>';
                     }
                 }
 
