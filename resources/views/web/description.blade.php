@@ -1761,7 +1761,7 @@
     </div>
     {{-- end --}}
 
-/* Conformation alert box  */
+
 
 <div class="modal fade" id="review-submitted-popup" tabindex="-1" role="dialog" aria-labelledby="reportAdvertiserLabelNew" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -1796,7 +1796,7 @@
         </div>
     </div>
 </div>
-/* Conformation alert box  */
+
 @endsection
 @push('scripts')
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
