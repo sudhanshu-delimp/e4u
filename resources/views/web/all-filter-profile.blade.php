@@ -734,7 +734,7 @@
                     {{-- First Page --}}
                     <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
                         <a href="{{ $paginator->onFirstPage() ? '#' : $paginator->url(1) }}"
-                        style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
+                            style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
                             <i class="fa fa-angle-double-left"></i> First
                         </a>
                     </li>
@@ -742,42 +742,51 @@
                     {{-- Previous Page --}}
                     <li class="mx-1 {{ $paginator->onFirstPage() ? 'disabled' : '' }}">
                         <a href="{{ $paginator->onFirstPage() ? '#' : $paginator->previousPageUrl() }}"
-                        style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
+                            style="{{ $paginator->onFirstPage() ? 'pointer-events:none; opacity:0.5;' : '' }}">
                             <i class="fa fa-angle-left"></i> Previous
                         </a>
                     </li>
 
-                    {{-- Pagination Numbers with Ellipsis --}}
+                    {{-- Page Number Logic --}}
                     @php
                         $total = $paginator->lastPage();
                         $current = $paginator->currentPage();
+
+                        // Show up to 3 pages before and after current
                         $start = max(1, $current - 2);
                         $end = min($total, $current + 2);
                     @endphp
 
-                    {{-- Left ellipsis --}}
+                    {{-- Left Ellipsis (jump back 5 pages) --}}
                     @if($start > 1)
-                        <li class="disabled mx-1"><span>...</span></li>
+                        @php $jumpBack = max(1, $current - 5); @endphp
+                        <li class="mx-1">
+                            <a href="{{ $paginator->url($jumpBack) }}" title="Jump back 5 pages">...</a>
+                        </li>
                     @endif
 
+                    {{-- Page Numbers --}}
                     @for ($i = $start; $i <= $end; $i++)
                         <li>
                             <a href="{{ $paginator->url($i) }}"
-                                        style="background-color: {{ $i == $paginator->currentPage() ? '#F2F2F2' : '#0C223d'}}; font-weight: {{ $i == $paginator->currentPage() ? 'bold' : 'normal' }}; color: {{ $i == $paginator->currentPage() ? '#ff3c5f' : '#fff' }};">
-                                            {{ $i }}
-                                        </a>
+                                style="background-color: {{ $i == $paginator->currentPage() ? '#F2F2F2' : '#0C223d'}}; font-weight: {{ $i == $paginator->currentPage() ? 'bold' : 'normal' }}; color: {{ $i == $paginator->currentPage() ? '#ff3c5f' : '#fff' }};">
+                                {{ $i }}
+                            </a>
                         </li>
                     @endfor
 
-                    {{-- Right ellipsis --}}
+                    {{-- Right Ellipsis (jump forward 5 pages) --}}
                     @if($end < $total)
-                        <li class="disabled mx-1"><span>...</span></li>
+                        @php $jumpForward = min($total, $current + 5); @endphp
+                        <li class="mx-1">
+                            <a href="{{ $paginator->url($jumpForward) }}" title="Jump forward 5 pages">...</a>
+                        </li>
                     @endif
 
                     {{-- Next Page --}}
                     <li class="mx-1 {{ !$paginator->hasMorePages() ? 'disabled' : '' }}">
                         <a href="{{ $paginator->hasMorePages() ? $paginator->nextPageUrl() : '#' }}"
-                        style="{{ !$paginator->hasMorePages() ? 'pointer-events:none; opacity:0.5;' : '' }}">
+                            style="{{ !$paginator->hasMorePages() ? 'pointer-events:none; opacity:0.5;' : '' }}">
                             Next <i class="fa fa-angle-right"></i>
                         </a>
                     </li>
@@ -785,7 +794,7 @@
                     {{-- Last Page --}}
                     <li class="mx-1 {{ $current == $total ? 'disabled' : '' }}">
                         <a href="{{ $current == $total ? '#' : $paginator->url($total) }}"
-                        style="{{ $current == $total ? 'pointer-events:none; opacity:0.5;' : '' }}">
+                            style="{{ $current == $total ? 'pointer-events:none; opacity:0.5;' : '' }}">
                             Last <i class="fa fa-angle-double-right"></i>
                         </a>
                     </li>
