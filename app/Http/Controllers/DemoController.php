@@ -14,6 +14,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendPasswordExpiryReminderMail;
 
+use MessageMediaMessagesLib\Models;
+use MessageMediaMessagesLib\Exceptions;
+use MessageMediaMessagesLib\MessageMediaMessagesClient;
+
+
 class DemoController extends Controller
 {
     public function sendPasswordExpire(SendSms $sms){
@@ -89,6 +94,92 @@ class DemoController extends Controller
         $when = $days === 1 ? '24 hours' : "{$days} days";
         $date = $expiryDate->format('d M Y');
         return "Hi {$name}, your password will expire in {$when} (on {$date}). Please update it. - " . config('app.name');
+    }
+
+  
+
+
+
+
+    public function checkSmsSend(Request $request)
+    {
+        // API credentials from .env
+        $authUserName = env('SMS_API_KEY');
+        $authPassword = env('SMS_API_SECRET');
+        $useHmacAuthentication = false; // Usually false unless using HMAC
+
+        // Recipient number and message from request
+        $to = '+61480089451';       // Example: '+61491570156'
+        $text = 'Hello from Laravel!'; // Example: 'Hello from Laravel!'
+
+        // Initialize client
+        $client = new MessageMediaMessagesClient($authUserName, $authPassword, $useHmacAuthentication);
+        $messagesController = $client->getMessages();
+
+        // Prepare message
+        $body = new Models\SendMessagesRequest();
+        $body->messages = [];
+
+        $message = new Models\Message();
+        $message->content = $text;
+        $message->destinationNumber = $to;
+
+        $body->messages[] = $message;
+
+        try {
+            $result = $messagesController->sendMessages($body);
+
+            // Check remaining credits
+            $creditsResult = $messagesController->checkCreditsRemaining();
+
+            return response()->json([
+                'status' => 'success',
+                'response' => $result,
+                'remaining_credits' => $creditsResult,
+            ]);
+        } catch (Exceptions\SendMessages400Response $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => '400 Error: ' . $e->getMessage()
+            ], 400);
+        } catch (\MessageMediaMessagesLib\APIException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'API Error: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+
+    public function checkMessageStatus(Request $request)
+    {
+        // API credentials from .env
+        $authUserName = env('SMS_API_KEY');
+        $authPassword = env('SMS_API_SECRET');
+        $useHmacAuthentication = false;
+
+        // Message ID from request
+        $messageId = 'cfdf962c-19b7-4ccf-9692-80789a340c6f';
+
+        // Initialize client
+        $client = new MessageMediaMessagesClient($authUserName, $authPassword, $useHmacAuthentication);
+        $messagesController = $client->getMessages();
+
+        try {
+            // Get message status
+            $result = $messagesController->getMessageStatus($messageId);
+
+            return response()->json([
+                'status' => 'success',
+                'message_status' => $result
+            ]);
+        } catch (Exceptions\APIException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
 
