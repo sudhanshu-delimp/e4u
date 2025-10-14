@@ -40,7 +40,7 @@
                             <p style="font-size: 16px; font-weight: bold; margin: 0 0 15px 0;">Attention Operations</p>
 
                             <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">
-                                The following Escort Registration was made on the {{$user->create_at}}. Details of the registration are:
+                                The following Escort Registration was made on {{$user->create_at}}. Details of the registration are:
                             </p>
 
                             <table cellpadding="0" cellspacing="0" style="font-size: 15px; line-height: 1.8; margin-bottom: 20px; text-align: justify;">

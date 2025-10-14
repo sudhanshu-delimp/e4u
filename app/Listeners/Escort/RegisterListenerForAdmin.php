@@ -26,10 +26,17 @@ class RegisterListenerForAdmin implements ShouldQueue
      * @param  \App\Events\EscortRegister  $event
      * @return void
      */
+
     public function handle(EscortRegister $event)
     {
+        
         $user = $event->escort;
-        Mail::to(config('common.contactus_admin_email'))->send(new RegisterEmailForAdmin($user));
+        $ccEmail = config('common.contactus_cc_email'); // or any variable
+        Mail::to(config('common.contactus_admin_email'))
+            ->when(!empty($ccEmail), function ($mail) use ($ccEmail) {
+                $mail->cc($ccEmail);
+            })
+            ->send(new RegisterEmailForAdmin($user));
 		
     }
 }
