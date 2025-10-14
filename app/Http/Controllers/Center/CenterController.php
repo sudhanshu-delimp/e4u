@@ -11,6 +11,7 @@ use App\Models\Service;
 use App\Models\Duration;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\DashboardViewer;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -56,8 +57,8 @@ class CenterController extends Controller
 
 
         $escorts = $this->escort->all();
-
-        return view('center.dashboard.index', compact('escorts'));
+        $viewer_array = DashboardViewer::where('user_id', auth()->id())->first(); 
+        return view('center.dashboard.index', compact('escorts','viewer_array'));
         //return view('center.profile-info.create-profile', compact('escorts'));
     }
     public function escortList()
@@ -66,6 +67,38 @@ class CenterController extends Controller
 
         return view('center.dashboard.list', compact('escorts'));
     }
+
+    public function customiseDashboard(Request $request)
+    {
+        
+        $viewer_array = DashboardViewer::where('user_id', auth()->id())->first(); 
+        return view('center.dashboard.customise-dashboard', compact('viewer_array'));
+    }
+
+    public function updateCustomiseDashboard(Request $request)
+    {
+           $viewers = config('constants.dashboard_viewer.center');
+            $my_view = [];
+            foreach($viewers as $view) :
+                $my_view[$view['key']] = 0 ;
+            endforeach;
+
+          
+            $viewer = DashboardViewer::firstOrCreate(
+                ['user_id' => auth()->id()],
+                ['my_view' =>  $my_view]
+            );
+
+            $data = $viewer->my_view;
+            $data[$request->key] = (int) $request->value;
+
+            $viewer->update(['my_view' => $data]);
+            return response()->json(['success' => true, 'data' => $data]);
+    }
+
+
+
+
     public function dataTable()
     {
         list($escort, $count) = $this->massage_profile->massagePaginated(

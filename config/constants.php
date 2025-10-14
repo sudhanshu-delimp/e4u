@@ -55,7 +55,55 @@ return [
                                 'link'  =>   'submit_ticket'
                             ],
         
-                        ]
+                        ],
+
+            'center' => [
+
+                            [
+                                'key'   =>  'media_views',
+                                'name'  =>  'Media Views',
+                                'text'  =>  'View a complete summary of your Media Views.',
+                                'icon'  =>  'boxicon/center/media-views-today.png',
+                                'link'  =>   'center-dashboard/archive-view-photos',
+                            ],
+
+                            [
+                                'key'   => 'Support_Tickets',
+                                'name'  =>  'Support Tickets',
+                                'text'  =>  'View a complete summary of your Support Tickets.',
+                                'icon'  =>  'boxicon/icon_support-tickets.png',
+                                'link'  =>   'submit_ticket'
+                            ],
+
+                            [
+                                'key'   =>  'profile_views',
+                                'name'  =>  'Profile Views',
+                                'text'  =>  'View a complete summary of your Profile Views.',
+                                'icon'  =>  'boxicon/center/profile-views-today.png',
+                                'link'  =>   'center-dashboard/profile-informations',
+                            ],
+
+                            [
+                                'key'   =>  'recommendations',
+                                'name'  =>  'Recommendations',
+                                'text'  =>  'View a complete summary of your Recommendations.',
+                                'icon'  =>  'boxicon/center/recommendations-this-week.png',
+                                'link'  =>   '#',
+                            ],
+
+                            [
+                                'key'   =>  'reviews_posted',
+                                'name'  =>  'Reviews Posted',
+                                'text'  =>  'View a complete summary of your Reviews Posted.',
+                                'icon'  =>  'boxicon/center/reviews-posted-this-week.png',
+                                'link'  =>   '#',
+                            ],
+
+                            
+        
+                    ]
+
+
          ],
 
 
