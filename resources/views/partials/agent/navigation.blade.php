@@ -135,7 +135,7 @@
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border"></i>
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 saptate_by_border "></i>
                                     Member ID: {{auth()->user()->member_id }}
                                 </a>
                                 <a class="dropdown-item" href="#">
@@ -144,29 +144,27 @@
                                 </a>
                                         <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{ route('agent.account.edit') }}">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2"></i>
+                                     <img class="mr-2 ml-1 pr-1" style="filter: brightness(0) invert(0.2);width:25px;" src="{{asset('assets/dashboard/img/menu-icon/edit-my-account.png') }}">
                                     Edit My Account
                                 </a>
                                 <a class="dropdown-item" href="{{ route('agent.change.password') }}">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2"></i>
+                                    <img class="mr-2 ml-1 pr-1" src="{{asset('assets/dashboard/img/menu-icon/changePassword.png')}}">
                                     Change Password
                                 </a>
 
                                 
                                 <a class="dropdown-item" href="{{ route('agent.advertiser-list') }}">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2"></i>
-
+                                     <img class="mr-2 ml-1 pr-1" style="filter: brightness(0) invert(0.2); width:25px;" src="{{asset('assets/dashboard/img/menu-icon/lists.png') }}">
                                     List Advertisers
                                 </a>
                                 <a class="dropdown-item" href="{{ route('Commision.statements') }}">
-                                    <i class="fas fa-percent fa-sm fa-fw mr-2"></i>
+                                    <img class="mr-2 ml-1 pr-1" style="filter: brightness(0) invert(0.2); width:25px;" src="{{asset('assets/dashboard/img/menu-icon/discount.png') }}">
                                     Commission Summary
                                 </a>
                                 
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
-                                    {{-- <img src="{{ asset('assets/dashboard/img/menu-icon/logout.png') }}" alt=""> --}}
+                                    <img src="{{ asset('assets/dashboard/img/menu-icon/logout.png') }}" alt="">
                                     Logout
                                 </a>
                             </div>

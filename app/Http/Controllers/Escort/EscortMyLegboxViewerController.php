@@ -272,7 +272,7 @@ class EscortMyLegboxViewerController extends Controller
             ->make(true);
     }
 
-    public function dashboard($type = 'dashbaord')
+    public function dashboard($type = 'escort')
     {
         $user_type = null;
         if (auth()->user() && auth()->user()->type == 0) {
@@ -293,10 +293,9 @@ class EscortMyLegboxViewerController extends Controller
                         ->whereDate('end_date', '>=', $today)
                         ->where('status', true);
                 }
-            ])->where('enabled', 1)->get(); // city_id
+            ])->where('enabled', 1)->get(); // city_id 
         }
         
         return view('user.dashboard.my-legbox',['escorts'=>$escorts, 'dashboardType'=>$type]);
     }
-
 }
