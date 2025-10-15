@@ -225,7 +225,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        <img src="{{ asset('assets/dashboard/img/travel.png') }}" style="width:45px; padding-right:10px;">
+                        <img src="{{ asset('assets/dashboard/img/travel.png') }}" class="custompopicon">
                         <span class="text-white">  Cancel Tour</span>                        
                      </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -236,10 +236,10 @@
                 
                 <div class="modal-body pb-0 agent-tour">
                     <form>
-                        <p>You are about to cancel your Tour. Are you sure you want to cancel your Tour?</p>
+                        <h4>You are about to cancel your Tour. Are you sure you want to cancel your Tour?</h4>
                         <hr style="background-color: #0C223D" class="mt-3">
                         <div class="note">
-                            <h4>Notes:</h4>
+                            <p class="font-weight-bold">Notes:</p>
                             <ol>
                                 <li>If you cancel your Tour, any remaining Fees paid will be credited back to
                                     you. Cancellation is immediate.</li>
@@ -273,7 +273,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        <img src="{{ asset('assets/dashboard/img/cancel-travel.png') }}" style="width:45px; padding-right:10px;">
+                        <img src="{{ asset('assets/dashboard/img/cancel-travel.png') }}" class="custompopicon">
                         <span class="text-white">Cancellation of Tour - Confirmation</span>                        
                      </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -338,7 +338,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        <img src="{{ asset('assets/dashboard/img/travel.png') }}" style="width:45px; padding-right:10px;">
+                        <img src="{{ asset('assets/dashboard/img/travel.png') }}" class="custompopicon">
                         <span class="text-white" id="tour_summary">Tour Summary</span>                        
                      </h5>
                   

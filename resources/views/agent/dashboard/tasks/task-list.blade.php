@@ -459,7 +459,7 @@
             }
 
             completeHtml =
-                `<div class="mx-2 my-2 col-md-11"><h4 id="task_desc">Are you sure you want to mark selected tasks as completed?</h4></div>`;
+                `<div class="mx-2 my-3 col-md-12"><h4 id="task_desc">Are you sure you want to mark selected tasks as completed?</h4></div>`;
 
             $("#task_form_html").html(completeHtml);
             $("#save_button").text('Yes');

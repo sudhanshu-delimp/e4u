@@ -458,6 +458,10 @@ span.menu-active {
     overflow: hidden;
 }
 
+.card {
+    border: 1px solid #c2c8ce !important;
+}
+
 .card1 {
     position: relative;
     display: flex;
@@ -6291,7 +6295,7 @@ ul#accordionSidebar {
 .upload-modal h4 {
     color: #000;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 27px;
 }
 

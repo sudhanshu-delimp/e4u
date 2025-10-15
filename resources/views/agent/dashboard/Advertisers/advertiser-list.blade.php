@@ -111,7 +111,7 @@
              <textarea class="form-control" rows="3"></textarea>
            </div>
          </form>
-         <button type="button" class="btn btn-primary create-tour-sec dctour m-0">Save</button>
+         <button type="button" class="btn-success-modal m-0">Save</button>
        </div>
        
      </div>
@@ -140,7 +140,7 @@
          </form>
        </div>
        <div class="modal-footer">
-         <button type="button" class="btn btn-primary create-tour-sec dctour m-0">Update</button>
+         <button type="button" class="btn-success-modal m-0">Update</button>
        </div>
      </div>
    </div>
@@ -174,7 +174,7 @@
          </form>
        </div>
        <div class="modal-footer">
-         <button class="btn btn-primary">Save Tour</button>
+         <button class="btn-success-modal">Save Tour</button>
        </div>
      </div>
    </div>
@@ -208,7 +208,7 @@
          </form>
        </div>
        <div class="modal-footer">
-         <button class="btn btn-primary">Update Tour</button>
+         <button class="btn-success-modal">Update Tour</button>
        </div>
      </div>
    </div>
@@ -232,7 +232,7 @@
          </form>
        </div>
        <div class="modal-footer">
-         <button class="btn btn-primary">Update Media</button>
+         <button class="btn-success-modal">Update Media</button>
        </div>
      </div>
    </div>
@@ -258,7 +258,7 @@
          </ul>
        </div>
        <div class="modal-footer">
-         <button class="btn btn-primary">Save Changes</button>
+         <button class="btn-success-modal">Save Changes</button>
        </div>
      </div>
    </div>
@@ -305,7 +305,7 @@
          </form>
        </div>
        <div class="modal-footer">
-         <button class="btn btn-primary">Save Changes</button>
+         <button class="btn-success-modal">Save Changes</button>
        </div>
      </div>
    </div>
@@ -333,7 +333,7 @@
          </form>
        </div>
        <div class="modal-footer">
-         <button class="btn btn-primary" onclick="window.print()">Print</button>
+         <button class="btn-success-modal" onclick="window.print()">Print</button>
        </div>
      </div>
    </div>
