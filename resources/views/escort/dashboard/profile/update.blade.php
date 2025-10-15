@@ -1380,9 +1380,15 @@ $loginAccount = auth()->user();
                 $('#change_all').modal('hide');
             });
             $.each($("input[name^='availability_time']"), function(index, value) {
-                if ($(value).is(':checked')) {
-                    $(value).closest('.parent-row').find('select').attr('disabled', true);
+                let p_element = $(value).attr('id');
+                if(!p_element.endsWith('_til_ate')){
+                    if ($(value).is(':checked')) {
+                        $(value).closest('.parent-row').find('select').attr('disabled', true);
+                    }
+
                 }
+
+                
             });
 
             $(document).on('change',
@@ -1395,7 +1401,12 @@ $loginAccount = auth()->user();
                     var p_element = $(this).attr('id');
                     var weekName = $(this).attr('availability_time_key');
                     if ($('#' + p_element).is(":checked")) {
+                      if(p_element.endsWith('_til_ate')){
+                        $('#' + p_element).closest('.parent-row').find('select').attr('disabled', false);
+                      }else{
                         $('#' + p_element).closest('.parent-row').find('select').attr('disabled', true).val(0);
+                      }
+                        
                     } else {
                         $('#' + p_element).closest('.parent-row').find('select').attr('disabled', false);
                     }
