@@ -6219,7 +6219,12 @@ margin-left: 10px;
     max-width: 642px;
     margin: auto;
 }
-
+.modal-apointment-details{
+    width: 500px !important;
+}
+.modal-apointment-details #appointmentDetailBody table td, th{
+    padding: 5px !important;
+}
 .modal-footer {
     border: 0;
 }
