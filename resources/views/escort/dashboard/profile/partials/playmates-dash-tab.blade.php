@@ -22,7 +22,7 @@
                             <div class="form-group">
                                 <label for="profileSearch"></label>
                                     <input type="text" class="form-control" id="profileSearch"
-                                        placeholder="Search Member Id...">
+                                        placeholder="Search Member ID to add Playmate to the Profile...">
                             </div>
                         </div>
                     </div>  

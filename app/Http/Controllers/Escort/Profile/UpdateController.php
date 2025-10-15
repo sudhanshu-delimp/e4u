@@ -1645,34 +1645,36 @@ class UpdateController extends AppController
     {
         $error = false;
             $escort = Escort::find($escortId);
-            $playmateIds = $escort->playmates()->pluck('playmate_id')->toArray();
-            $checkedIds = (!empty($request->playmate))?$request->playmate:[];
-            $uncheckedIds = array_diff($playmateIds, $checkedIds);
             /**
              * Add and Remove Playmates to the login escort profile
              */
-            $escort->playmates()->sync($request->playmate);
-
-            /**
-             * Add login escort profile as playmate to others
-             */
-            if(!empty($request->playmate)){
-                foreach ($request->playmate as $playmateId) {
+            if($request->has('add_playmate')){
+                $escort->playmates()->syncWithoutDetaching($request->add_playmate);
+                /**
+                 * Add login escort profile as playmate to others
+                 */
+                foreach ($request->add_playmate as $playmateId) {
                     $otherEscort = Escort::find($playmateId);
                     if ($otherEscort) {
                         $otherEscort->playmates()->syncWithoutDetaching($escort->id);
                     }
                 }
             }
-
-            /**
-             * Remove login escort profile from the unchecked others
-             */
-            if(!empty($uncheckedIds)){
-                foreach ($uncheckedIds as $playmateId) {
-                    $otherEscort = Escort::find($playmateId);
-                    if ($otherEscort) {
-                        $otherEscort->playmates()->detach($escortId);
+            
+            if($request->has('update_playmate')){
+                $escort->playmates()->sync($request->update_playmate);
+                /**
+                 * Remove login escort profile from the unchecked others
+                 */
+                $playmateIds = $escort->playmates()->pluck('playmate_id')->toArray();
+                $checkedIds = (!empty($request->update_playmate))?$request->update_playmate:[];
+                $uncheckedIds = array_diff($playmateIds, $checkedIds);
+                if(!empty($uncheckedIds)){
+                    foreach ($uncheckedIds as $playmateId) {
+                        $otherEscort = Escort::find($playmateId);
+                        if ($otherEscort) {
+                            $otherEscort->playmates()->detach($escortId);
+                        }
                     }
                 }
             }
