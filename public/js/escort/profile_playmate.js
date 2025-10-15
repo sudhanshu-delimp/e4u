@@ -32,6 +32,9 @@ $(() => {
         if(searchValue.length > 3){
             getAvailablePlaymates(searchValue);
         }
+        if(searchValue.length === 0){
+            getAvailablePlaymates();
+        }
     });
 
     $('#myplaymates').on('submit', function(e) {
@@ -60,10 +63,11 @@ $(() => {
                         Swal.fire('Updated', '', 'success');
                         $('#my_playmates').prop('disabled', false);
                         $('#my_playmates').html('Save');
+                        getAvailablePlaymates();
                     } else {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Oops.. sumthing wrong Please try again',
+                            title: 'Oops.. somthing wrong Please try again',
                             text: data.message
                         });
                         $('#my_playmates').prop('disabled', false);
@@ -74,7 +78,7 @@ $(() => {
         }
     });
 
-    $(document).on('click','input[name^="playmate"]',function(){
+    $(document).on('click','input[name^="add_playmate"],input[name^="update_playmate"]',function(){
         $(this).is(':checked')?$(this).next().text('Included as Playmate'):$(this).next().text('Add as Playmate');
     })
 });
