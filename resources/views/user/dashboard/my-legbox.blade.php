@@ -100,7 +100,7 @@
                     <table id="escortCenterlegboxTable" class="table table-bordered display escortCenterlegboxTableClass" width="100%">
                         <thead class="bg-first">
                             <tr>
-                                <th class="text-left" style="background-color: #0c223d;">Escorts ID</th>
+                                <th class="text-left" style="background-color: #0c223d;">Escort's Member ID</th>
                                 <th class="text-left">Location</th>
                                 <th class="text-left">Stage Name</th>
                                 <th class="text-left">Gender</th>

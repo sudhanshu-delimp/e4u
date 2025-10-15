@@ -149,7 +149,7 @@ class ViewerEscortInteractionController extends Controller
 
              return DataTables::of($escorts)
                 ->addColumn('escort_id', function ($escort) {
-                    return $escort->id;
+                    return $escort->user->member_id;
                 })
                 ->addColumn('location', function($escort){
                     $state = City::where('state_id',$escort->state_id)->first();

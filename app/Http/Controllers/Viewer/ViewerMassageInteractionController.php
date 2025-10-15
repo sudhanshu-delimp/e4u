@@ -154,7 +154,7 @@ class ViewerMassageInteractionController extends Controller
                         }
                 })
                 ->addColumn('massage_id', function ($row) {
-                    return $row->id;
+                    return $row->user->member_id;
                 })
                 ->addColumn('location', function($row){
                     $state = City::where('state_id',$row->state_id)->first();
