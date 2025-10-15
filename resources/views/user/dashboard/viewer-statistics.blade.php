@@ -132,7 +132,7 @@
          <div class="modal-content">
              <div class="modal-header">
                  <h5 class="modal-title">
-                     <img src="{{ asset('assets/dashboard/img/reset-password.png')}}" style="width:45px; padding-right:10px;">
+                     <img src="{{ asset('assets/dashboard/img/reset-password.png')}}" class="custompopicon">
                      <span class="text-white">Reset Password Expiry</span>                        
                   </h5>
                
@@ -146,7 +146,7 @@
                      <!-- Password Expiry Options -->
                      <div class="row mb-3">
                          <div class="col-md-12">
-                             <label><strong>Password Expiry</strong></label><br>
+                             <label class="label">Password Expiry</label><br>
                  
                              <div class="form-check">
                                  <input class="form-check-input" type="radio" name="password_expiry" id="expiry_never" value="never">
@@ -198,7 +198,7 @@
        <div class="modal-content">
            <div class="modal-header">
                <h5 class="modal-title">
-                   <img src="{{ asset('assets/dashboard/img/reset-password.png')}}" style="width:45px; padding-right:10px;">
+                   <img src="{{ asset('assets/dashboard/img/reset-password.png')}}" class="custompopicon">
                    <span class="text-white">Password Expiry</span>                        
                </h5>
              
@@ -214,7 +214,7 @@
                </h1>
            </div>
            <div class="modal-footer" style="justify-content: center;">
-               <button type="submit" class="btn main_bg_color site_btn_primary" data-dismiss="modal" id="close">Ok</button>
+               <button type="submit" class="btn-success-modal" data-dismiss="modal" id="close">Ok</button>
            </div>
        </div>
    </div>

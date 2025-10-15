@@ -458,6 +458,10 @@ span.menu-active {
     overflow: hidden;
 }
 
+.card {
+    border: 1px solid #c2c8ce !important;
+}
+
 .card1 {
     position: relative;
     display: flex;
@@ -6293,7 +6297,6 @@ ul#accordionSidebar {
     font-size: 18px;
     font-weight: 500;
     line-height: 27px;
-    text-align: center;
 }
 
 .modal-image-first {
