@@ -57,10 +57,10 @@
 
     <div class="modal fade upload-modal" id="appointmentDetailModal" tabindex="-1" role="dialog"
     aria-labelledby="appointmentDetailModalLabel" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-apointment-details" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="appointmentDetailModalLabel">Appointment Details</h5>
+                <h5 class="modal-title" id="appointmentDetailModalLabel"><img src="{{ asset('assets/dashboard/img/view-ppointment.png') }}" class="custompopicon">Appointment Details </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                             class="img-fluid img_resize_in_smscreen"></span>
@@ -71,10 +71,10 @@
                     <div class="text-center py-4">Loading...</div>
                 </div>
             </div>
-            <div class="modal-body pb-0 agent-tour">
-                <div class="py-4 text-center" id="success_form_html">
+            <div class="modal-body p-1 agent-tour">
+                <div class="text-center" id="success_form_html">
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn-success-modal" data-dismiss="modal">Close</button>
                     </div>
                 </div>
 
