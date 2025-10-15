@@ -214,7 +214,7 @@
 
     {{-- Current Location --}}
 
-    <div class="modal programmatic" id="current_location">
+    <div class="upload-modal modal programmatic" id="current_location">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
@@ -231,7 +231,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h5 class="text-center">The current Location for Name is: <b>Location</b></h5>
+                            <h4 class="text-center">The current Location for Name is: <b>Location</b></h4>
                             <div class="modal-footer justify-content-center">
                                 <button type="button" class="btn-success-modal" data-dismiss="modal" value="close"
                                     id="close_change">Ok</button>

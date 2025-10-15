@@ -6291,8 +6291,9 @@ ul#accordionSidebar {
 .upload-modal h4 {
     color: #000;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 27px;
+    text-align: center;
 }
 
 .modal-image-first {

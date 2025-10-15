@@ -435,7 +435,7 @@ class WebController extends Controller
         $paginator = new LengthAwarePaginator(
             $sliced,
             $merged->count(),
-            20,
+            $perPage,
             $page,
             [
                 'path' => request()->url(),  // Only the base URL (without query)
