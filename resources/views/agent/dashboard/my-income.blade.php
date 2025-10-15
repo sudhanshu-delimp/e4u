@@ -10,9 +10,12 @@
              <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
          </div>
          <div class="back-to-dashboard">
-             <a href="{{ url()->previous() ?? route('dashboard.home') }}">
-                 <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+            
+            @if (request()->has('ref') && request('ref') =='dashboard')
+             <a href="{{ route('agent.dashboard') }}">
+                 <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard"> 
              </a>
+             @endif 
          </div>
      </div>
       <div class="col-md-12 mb-4">
