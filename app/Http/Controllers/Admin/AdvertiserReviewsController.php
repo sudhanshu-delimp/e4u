@@ -72,7 +72,7 @@ class AdvertiserReviewsController extends Controller
                     $statusActionHtml .= '
                         <a class="dropdown-item update-review-status d-flex justify-content-start gap-10 align-items-center" 
                             href="#" data-toggle="modal" data-id="'.$row->id.'" data-ref="'.$row->id.$row->escort_id.'" data-value="published" data-target="#confirm-popup">
-                            <i class="fa fa-check-circle text-dark"></i> Published
+                            <i class="fa fa-check-circle text-dark"></i> Publish
                         </a>
                         <div class="dropdown-divider"></div>';
                 }
@@ -82,7 +82,7 @@ class AdvertiserReviewsController extends Controller
                     $statusActionHtml .= '
                         <a class="dropdown-item update-review-status d-flex justify-content-start gap-10 align-items-center" 
                             href="#" data-toggle="modal" data-id="'.$row->id.'" data-ref="'.$row->id.$row->escort_id.'" data-value="rejected" data-target="#confirm-popup">
-                            <i class="fa fa-ban text-dark"></i> Rejected
+                            <i class="fa fa-ban text-dark"></i> Reject
                         </a>
                         <div class="dropdown-divider"></div>';
                 }
@@ -160,9 +160,12 @@ class AdvertiserReviewsController extends Controller
             $report = Reviews::where('id', $request->review_id)
                 ->with([
                     'escort:id,user_id,city_id,state_id,name',
-                    'user:id,email,phone,state_id',
+                    'escort.user:id,member_id',
+                    'user:id,email,phone,state_id,member_id',
                 ])
                 ->first();
+
+                //dd($report);
                 
             if ($report) {
                 $report->formatted_created_at = $report->created_at->format('d-m-Y');
@@ -197,7 +200,8 @@ class AdvertiserReviewsController extends Controller
                 $report = Reviews::where('id', $request->report_id)
                 ->with([
                     'escort:id,user_id,city_id,state_id,name',
-                    'user:id,email,phone,state_id',
+                    'escort.user:id,member_id',
+                    'user:id,email,phone,state_id,member_id',
                 ])
                 ->first();
                 

@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advertiser Review Report</title>
     <style>
-        @page {
+           
+        /* @page {
             size: A4;
             margin: 20mm;
-        }
+        } */
         body {
             font-family: Arial, sans-serif;
             background: #f4f4f4;
@@ -138,25 +139,48 @@
         <h2>My Report Information</h2>
         <button onclick="window.print()">Print Report</button>
     </div>
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-6"><strong>Ref:</strong>#{{$report->id }}{{$report->escort_id}}</div>
         <div class="col-6"><strong>Date:</strong> {{$report->created_at->format('d-m-Y') }}</div>
     </div>
 
     <div class="row">
-        <div class="col-6"><strong>Escort ID:</strong> {{$report->escort_id}}</div>
-        <div class="col-6"><strong>Viewer ID:</strong> {{$report->user_id}}</div>
+        <div class="col-6"><strong>Escort Member ID:</strong> {{$report->escort->member_id}}</div>
+        <div class="col-6"><strong>Viewer Member ID:</strong> {{$report->user->member_id}}</div>
     </div>
 
     <div class="row">
-        <div class="col-6"><strong>Mobile:</strong> {{$report->user->phone}}</div>
         <div class="col-6"><strong>Status:</strong> {{Str::title($report->status) ?? 'pending'}}</div>
+        <div class="col-6"><strong>Mobile:</strong> {{$report->user->phone}}</div>
     </div>
 
     <div class="row">
         <div class="col-12 " style="display: flex; margin-top:10px;">
             <div class="col-3"><strong>Comments:</strong></div><div class="col-9">{{Str::title($report->description)}}</div> </div>
-    </div>
+    </div> --}}
+    <table style="width:100%; border-collapse: collapse;">
+  <tr>
+    <td style="padding:10px 8px; vertical-align: top;"><strong style="display:inline-block; min-width:150px;">Ref:</strong> #{{ $report->id }}{{ $report->escort_id }}</td>
+    <td style="padding:10px 8px; vertical-align: top;"><strong style="display:inline-block; min-width:150px;">Date:</strong> {{ $report->created_at->format('d-m-Y') }}</td>
+  </tr>
+
+  <tr>
+    <td style="padding:10px 8px; vertical-align: top;"><strong style="display:inline-block; min-width:150px;">Escort ID:</strong> {{ $report->escort->member_id }}</td>
+    <td style="padding:10px 8px; vertical-align: top;"><strong style="display:inline-block; min-width:150px;">Viewer ID:</strong> {{ $report->user->member_id }}</td>
+  </tr>
+
+  <tr>
+    <td style="padding:10px 8px; vertical-align: top;"><strong style="display:inline-block; min-width:150px;">Status:</strong> {{ Str::title($report->status) ?? 'Pending' }}</td>
+    <td style="padding:10px 8px; vertical-align: top;"><strong style="display:inline-block; min-width:150px;">Mobile:</strong> {{ $report->user->phone }}</td>
+  </tr>
+
+  <tr>
+    <td style="padding:10px 8px; vertical-align: top;" colspan="4"><strong style="display:inline-block; min-width:150px;">Comments:</strong> {{ Str::title($report->description) }} </td>
+    {{-- <td style="padding:10px 8px; vertical-align: top;" colspan="3"></td> --}}
+
+  </tr>
+</table>
+
 
     <div class="notes">
         <strong>Notes:</strong>

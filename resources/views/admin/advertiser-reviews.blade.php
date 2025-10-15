@@ -228,10 +228,11 @@
                                             <td class="report_viewer_id">WA - Perth</td>
                                         </tr>
                                         <tr>
-                                            <th>Mobile:</th>
-                                            <td class="report_mobile">Adrian Weinstein</td>
+                                            
                                             <th >Status:</th>
                                             <td class="report_status">Current</td>
+                                            <th>Mobile:</th>
+                                            <td class="report_mobile">Adrian Weinstein</td>
                                         </tr>
 
                                         <tr>
@@ -300,7 +301,7 @@
                 <input type="hidden" id="status_data_value">
                 <h5 class="modal-title d-flex align-items-center" id="confirmPopupLabel">
                     <img src="{{ asset('assets/dashboard/img/question-mark.png') }}" alt="resolved"  class="custompopicon">
-                    <span>Confirmation ref : <span class="ref_class"></span></span>
+                    <span>Confirmation <span class="ref_clas"></span></span>
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">
@@ -311,7 +312,7 @@
 
             <div class="modal-body pb-0 teop-text text-center">
                 <h6 class="popu_heading_style mt-2">
-                    <span id="Lname">Are you sure you want to <span class="add_review_title">perform</span> this review.</span>
+                    <span id="Lname">Are you sure you want to <span class="add_review_title"></span> this Review?</span>
                 </h6>
 
             </div>
@@ -406,10 +407,11 @@
         let reportId = $(this).data('id');
         let status = $(this).data('value');
         let ref = $(this).data('ref');
+        let st = status == 'published' ? 'publish' : 'reject';
 
         $('#status_data_id').val(reportId);
         $('#status_data_value').val(status);
-        $('.add_review_title').text(status);
+        $('.add_review_title').text(st);
         $('.ref_class').text(ref);
         //$("#success-popup").modal('show');
 
@@ -495,12 +497,12 @@
                 if(response.error == false){
                     console.log(response.data);
 
-                    let status = (response.data.status == 'pending') ? 'Current' : response.data.status;
+                    let status = (response.data.status == 'pending') ? 'Pending' : response.data.status;
 
                     $(".report_ref").text('#'+response.data.id +''+ response.data.escort_id);
                     $(".report_date").text(response.data.formatted_created_at);
-                    $(".report_escort_id").text(response.data.escort_id);
-                    $(".report_viewer_id").text(response.data.user_id);
+                    $(".report_escort_id").text(response.data.escort.user.member_id);
+                    $(".report_viewer_id").text(response.data.user.member_id);
                     $(".report_status").text(status);
                     $(".report_comment").text(capitalizeFirstLetter(response.data.description));
                     $(".report_mobile").text(response.data.user.phone);
@@ -522,11 +524,11 @@
                 search: "Search: _INPUT_",
                 searchPlaceholder: "Search by Escort ID..."
             },
+
             processing: true,
             serverSide: true,
             paging: true,
             info: true,
-            lengthChange: false,
             searching: true,
             bStateSave: true,
             // ordering:false,
