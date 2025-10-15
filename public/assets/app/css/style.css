@@ -1212,7 +1212,7 @@
         flex-direction: row;
         align-items: center;
         padding: 10px 20px;
-        background: var(--blue--text);
+        background: var(--blue--text) !important;
         border-radius: 3px;
         border: 0;
         color: var(--white);
@@ -1221,7 +1221,7 @@
     }
     
     .btn-common:hover {
-        background-color: var(--peach);
+        background-color: var(--peach) !important;
     }
     
     .btn_become_pin_up {
