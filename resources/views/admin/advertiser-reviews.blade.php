@@ -124,34 +124,34 @@
                     <table class="table" id="advertiserReviewTable">
                         <thead class="table-bg">
                             <tr>
-                                <th scope="col">
+                                <th>
                                     Ref
 
                                 </th>
-                                <th scope="col">
+                                <th>
                                     Date
 
                                 </th>
-                                <th scope="col">
+                                <th>
                                     Escort ID
                                 </th>
-                                <th scope="col">Viewer ID</th>
-                                <th scope="col">
+                                <th>Viewer ID</th>
+                                <th>
                                     Mobile
                                 </th>
-                                <th scope="col">Status</th>
-                                {{-- <th scope="col">Review</th> --}}
-                                <th scope="col" class="text-center">Action</th>
+                                <th>Status</th>
+                                {{-- <th>Review</th> --}}
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
-                        <tbody class="table-content">
-                            <tr class="row-color">
-                                <td width="10%" class="theme-color">123</td>
-                                <td class="theme-color">25-05-2025</td>
-                                <td class="theme-color">E60110</td>
-                                <td class="theme-color">V60110</td>
-                                <td class="theme-color">12021021521</td>
-                                <td class="theme-color">Current</td>
+                        <tbody>
+                            <tr>
+                                <td width="10%" >123</td>
+                                <td >25-05-2025</td>
+                                <td >E60110</td>
+                                <td >V60110</td>
+                                <td >12021021521</td>
+                                <td >Current</td>
                                 <td class="text-center">
                                     <div class="dropdown no-arrow ml-3">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"

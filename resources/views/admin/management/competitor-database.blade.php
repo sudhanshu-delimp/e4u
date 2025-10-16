@@ -145,7 +145,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content basic-modal">
             <div class="modal-header">
-                <h5 class="modal-title" id="Competitor">Create Competitor</h5>
+                <h5 class="modal-title" id="Competitor"> <img src="{{ asset('assets/dashboard/img/vs.png') }}" class="custompopicon"> Create Competitor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
@@ -154,30 +154,31 @@
                 <form>
                     <div class="row">
                         <div class="col-12 mb-3">
+                            <label class="label">Competitor Name</label>
                             <input type="text" class="form-control rounded-0" placeholder="Competitor Name">
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-6 mb-3"><label class="label">Competitor Website</label>
                             <input type="text" class="form-control rounded-0" placeholder="Competitor Website">
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-6 mb-3"><label class="label">Rating</label>
                             <input type="text" class="form-control rounded-0" placeholder="Rating">
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-6 mb-3"><label class="label">Choose Home Country</label>
                             <select class="form-control rounded-0">
                                 <option>Choose Home Country</option>
                             </select>
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-6 mb-3"><label class="label">Select Home State</label>
                             <select class="form-control rounded-0">
                                 <option>Select Home State</option>
                             </select>
                         </div>
-                        <div class="col-12 mb-3">
+                        <div class="col-12 mb-3"><label class="label">Notes</label>
                             <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" placeholder="Notes" rows="3"></textarea>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group">
-                                <label class="form-check-label pr-4" for="exampleCheck1">Entered Data</label>
+                                <label class="form-check-label pr-4 label" for="exampleCheck1">Entered Data</label>
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Completed</label>
                             </div>
@@ -195,7 +196,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content basic-modal">
             <div class="modal-header">
-                <h5 class="modal-title" id="Edit_Competitor">Edit Competitor</h5>
+                <h5 class="modal-title" id="Edit_Competitor"> <img src="{{ asset('assets/dashboard/img/vs.png') }}" class="custompopicon"> Edit Competitor</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                 </button>
@@ -204,30 +205,31 @@
                 <form>
                     <div class="row">
                         <div class="col-12 mb-3">
+                            <label class="label">Competitor Name</label>
                             <input type="text" class="form-control rounded-0" placeholder="Competitor Name">
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-6 mb-3"><label class="label">Competitor Website</label>
                             <input type="text" class="form-control rounded-0" placeholder="Competitor Website">
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-6 mb-3"><label class="label">Rating</label>
                             <input type="text" class="form-control rounded-0" placeholder="Rating">
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-6 mb-3"><label class="label">Choose Home Country</label>
                             <select class="form-control rounded-0">
                                 <option>Choose Home Country</option>
                             </select>
                         </div>
-                        <div class="col-6 mb-3">
+                        <div class="col-6 mb-3"><label class="label">Select Home State</label>
                             <select class="form-control rounded-0">
                                 <option>Select Home State</option>
                             </select>
                         </div>
-                        <div class="col-12 mb-3">
+                        <div class="col-12 mb-3"><label class="label">Notes</label>
                             <textarea class="form-control rounded-0" id="exampleFormControlTextarea1" placeholder="Notes" rows="3"></textarea>
                         </div>
                         <div class="col-12 mb-3">
                             <div class="form-group">
-                                <label class="form-check-label pr-4" for="exampleCheck1">Entered Data</label>
+                                <label class="form-check-label pr-4 label" for="exampleCheck1">Entered Data</label>
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Completed</label>
                             </div>

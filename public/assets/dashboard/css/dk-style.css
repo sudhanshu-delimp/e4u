@@ -6229,12 +6229,15 @@ margin-left: 10px;
     max-width: 642px;
     margin: auto;
 }
-.modal-apointment-details{
+
+.modal-apointment-details {
     width: 500px !important;
 }
-.modal-apointment-details #appointmentDetailBody table td{
+
+.modal-apointment-details #appointmentDetailBody table td {
     padding: 5px !important;
 }
+
 .modal-footer {
     border: 0;
 }
@@ -6298,6 +6301,15 @@ ul#accordionSidebar {
 }
 
 .upload-modal h4 {
+    font-family: Poppins !important;
+    font-style: normal !important;
+    font-weight: 500 !important;
+    font-size: 20px !important;
+    line-height: 1.5 !important;
+    color: var(--blue--text);
+}
+
+.popu_heading_style {
     font-family: Poppins !important;
     font-style: normal !important;
     font-weight: 500 !important;
@@ -8101,6 +8113,21 @@ div#listings_wrapper .custom--common-table {
     float: left;
 }
 
+.paginate_button {
+    color: var(--blue--text);
+}
+
+.paginate_button:hover {
+    background-color: var(--blue--text);
+    color: #fff;
+}
+
+.paginate_button.current {
+    color: var(--peach);
+    font-weight: bold;
+    background-color: #F2F2F2;
+}
+
 .remove--icon:after {
     opacity: 0 !important;
 }
@@ -8444,15 +8471,22 @@ td {
     border-radius: 10px;
 }
 
+.stat-card-wrapper .stat-card .stat-top {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
 .stat-card-wrapper .stat-card .stat-top .stat-icon {
     background-color: var(--blue--text);
-    width: 50px;
-    height: 50px;
+    width: 35px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 100%;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
 }
 
 .stat-card-wrapper .stat-card .stat-top .stat-label,
@@ -8472,14 +8506,15 @@ td {
 
 .stats-container .stat-card {
     background-color: #fff;
-    /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); */
     padding: 16px;
     /* border-radius: 12px; */
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: center;
     gap: 6px;
-    border: 1px solid var(--blue--text);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 .125rem .25rem 0 rgba(58, 59, 69, .2) !important;
 }
 
 .my--play {

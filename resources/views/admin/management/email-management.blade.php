@@ -64,45 +64,45 @@
                         <table class="table" id="EmailManageTable">
                            <thead class="table-bg">
                               <tr>
-                                 <th scope="col">Server
+                                 <th>Server
                                  </th>
-                                 <th scope="col">Email Account</th>
-                                 <th scope="col">
+                                 <th>Email Account</th>
+                                 <th>
                                    Notification Address
                                  </th>
-                                 <th scope="col">Activation
+                                 <th>Activation
                                    Date</th>
-                                 <th scope="col">Member ID</th>
-                                 <th scope="col">Term</th>
-                                 <th scope="col">Status</th>
-                                 <th scope="col">Action</th>
+                                 <th>Member ID</th>
+                                 <th>Term</th>
+                                 <th>Status</th>
+                                 <th class="text-center">Action</th>
                               </tr>
                            </thead>
                            <tbody class="table-content">
                               <tr class="row-color">
-                                 <td class="theme-color">ax.email</td>
-                                 <td class="theme-color"><a href="maleto:julie@e4u.com.au">julie@e4u.com.au</a></td>
-                                 <td class="theme-color"><a href="maleto:julie.1996@gmail.com">julie.1996@gmail.com</a></td>
-                                 <td class="theme-color">11-06-2025 </td>
-                                 <td class="theme-color">E60125</td>
-                                 <td class="theme-color">12 months</td>
-                                 <td class="theme-color">Active</td>
-                                 <td class="theme-color">
-                                    <div class="dropdown no-arrow">
+                                 <td>ax.email</td>
+                                 <td><a href="maleto:julie@e4u.com.au">julie@e4u.com.au</a></td>
+                                 <td><a href="maleto:julie.1996@gmail.com">julie.1996@gmail.com</a></td>
+                                 <td>11-06-2025 </td>
+                                 <td>E60125</td>
+                                 <td>12 months</td>
+                                 <td>Active</td>
+                                 <td>
+                                    <div class="dropdown no-arrow text-center" >
                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Activate   <i class="fa fa-fw fa-check"></i></a>
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#">   <i class="fa fa-fw fa-check"></i> Activate</a>
                                            <div class="dropdown-divider"></div>
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" data-toggle="modal" data-target="#editEmailModal" >Edit <i class="fa fa-fw fa-pen"></i></a>
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-toggle="modal" data-target="#editEmailModal" > <i class="fa fa-fw fa-pen"></i> Edit</a>
                                            <div class="dropdown-divider"></div>
                                            
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" data-target="#renewEmailModal" data-toggle="modal" >Renew  <i class="fa fa-sync-alt"></i></a>
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-target="#renewEmailModal" data-toggle="modal" >  <i class="fa fa-sync-alt"></i> Renew</a>
                                            <div class="dropdown-divider"></div>
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Suspend  <i class="fa fa-fw fa-ban" ></i></a>
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" >  <i class="fa fa-fw fa-ban" ></i> Suspend</a>
                                            <div class="dropdown-divider"></div>
-                                           <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Deactivate   <i class="fa fa-fw fa-times" ></i></a>
+                                           <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" >   <i class="fa fa-fw fa-times" ></i> Deactivate</a>
                                            
                                            
                                         </div>
