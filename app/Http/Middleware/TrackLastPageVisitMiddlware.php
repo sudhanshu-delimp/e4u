@@ -77,6 +77,12 @@ class TrackLastPageVisitMiddlware
                 $countryId = $city->country_id;
             }
 
+            # Update visitor guest user to logged user
+            Visitor::where('ip_address',$this->getUserIp())->update([
+                'user_id' => auth()->user()->id,
+                'user_type' => 'user',
+            ]);
+
             // update auth user
             if ($attempt != null) {
                 AttemptLogin::where('user_id',auth()->user()->id)->update([

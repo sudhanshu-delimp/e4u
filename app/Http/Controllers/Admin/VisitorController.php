@@ -38,7 +38,9 @@ class VisitorController extends Controller
         # Remove visitor if there is no activity after 10 minutes
         $threshold = now('UTC')->subMinutes(5);
         
-        Visitor::where('updated_at', '<=', $threshold)->delete();
+        Visitor::where('updated_at', '<=', $threshold)
+       ->orWhere('user_id', '!=', null)
+       ->delete();
 
         # Get all visitors
         $visitors = Visitor::all();
