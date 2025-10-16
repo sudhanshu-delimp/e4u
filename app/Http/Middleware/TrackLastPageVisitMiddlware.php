@@ -117,13 +117,13 @@ class TrackLastPageVisitMiddlware
                     'page' => $path, // e.g. "dashboard/advertiser"
                     'device' => $this->getBrowser(),
                     'platform' => $this->getBrowser(),
-                    'country' => $this->getVisitorCountry(),
+                    'country' => $this->getVisitorCountry()[0],
                     'city' => null,
-                    'state' => null,
+                    'state' => $this->getVisitorCountry()[1],
                     'user_type' => 'guest',
                     'user_id' => null,
                     'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
-                    'origin' => $this->getVisitorCountry(),
+                    'origin' => $this->getVisitorCountry()[0],
                     'date' => now(config('app.escort_server_timezone')),
                 ]);
             }else{
@@ -133,14 +133,14 @@ class TrackLastPageVisitMiddlware
                     'ip_address' => $this->getUserIp(),
                     'device' => $this->getBrowser(),
                     'platform' => $this->getBrowser(),
-                    'country' => null,
+                    'country' => $this->getVisitorCountry()[0],
                     'city' => null,
-                    'state' => null,
+                    'state' => $this->getVisitorCountry()[1],
                     'user_type' => 'guest',
                     'user_id' => null,
                     'landed' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
                     'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
-                    'origin' => $this->getVisitorCountry(),
+                    'origin' => $this->getVisitorCountry()[0],
                     'date' => now(config('app.escort_server_timezone')),
                 ]);
             }
@@ -172,20 +172,23 @@ class TrackLastPageVisitMiddlware
 
         // Check if IP and Country are already stored in session
         if (Session::has('visitor_ip') && Session::get('visitor_ip') === $ip && Session::has('visitor_country')) {
-            return Session::get('visitor_country');
+            return [Session::get('visitor_country'),Session::get('visitor_state')];
         }
 
         // If not in session, fetch from API
         $response = Http::get("http://ip-api.com/json/{$ip}");
         $data = $response->json();
 
+        $visitorState = null;
         $visitorCountry = null;
         if ($data && isset($data['status']) && $data['status'] === 'success') {
             $visitorCountry = $data['country'];
+            $visitorState   = $data['regionName'];
 
             // Store in session for later use
             Session::put('visitor_ip', $ip);
             Session::put('visitor_country', $visitorCountry);
+            Session::put('visitor_state', $visitorState);
         }
 
         return $visitorCountry;
