@@ -206,7 +206,11 @@
             <div class="my-account-card">
                 <div class="card-head">                    
                     <h2 class="font-weight-bold">My Report Information </h2>
-                    <button class="print-btns"  type="button"><i class ="fa fa-print"></i> Print Report</button>
+                    <div>
+                        <button class="print-btns"  type="button"><i class ="fa fa-print"></i> Print Report</button>
+                        <button class="btn-cancel-modal close_report_btn"  type="button"> Close</button>
+                    </div>
+                    
                     <input type="hidden" id="printReportId" value="">
                 </div>
                 <table class="table  w-100 table-report-info"> 
@@ -368,6 +372,11 @@
     </script>
 
     <script>
+
+    $(document).on('click', '.close_report_btn', function(e) {
+        e.preventDefault();
+        $("#print-advertiser-reviews").hide();
+    });
 
     $(document).on('click', '.print-btns', function(e) {
         e.preventDefault();
