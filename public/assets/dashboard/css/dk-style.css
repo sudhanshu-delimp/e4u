@@ -8476,6 +8476,7 @@ td {
     align-items: center;
     justify-content: flex-start;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .stat-card-wrapper .stat-card .stat-top .stat-icon {
@@ -8509,6 +8510,7 @@ td {
     padding: 16px;
     /* border-radius: 12px; */
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     gap: 6px;
