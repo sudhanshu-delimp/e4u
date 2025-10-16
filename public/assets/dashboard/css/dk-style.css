@@ -458,9 +458,10 @@ span.menu-active {
     overflow: hidden;
 }
 
-.card {
+
+/* .card {
     border: 1px solid #c2c8ce !important;
-}
+} */
 
 .card1 {
     position: relative;
