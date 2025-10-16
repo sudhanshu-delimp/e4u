@@ -89,21 +89,6 @@ class TrackLastPageVisitMiddlware
                     'city' => $cityId,
                     'type' => 1,
                 ]);
-
-                // Visitor::where('user_id',auth()->user()->id)->update([
-                //     'page' => $path, // e.g. "dashboard/advertiser"
-                //     'ip_address' => $this->getUserIp(),
-                //     'device' => $this->getBrowser(),
-                //     'platform' => $this->getBrowser(),
-                //     'country' => $countryId,
-                //     'city' => $cityId,
-                //     'state' => $state,
-                //     'user_type' => 'user',
-                //     'user_id' => auth()->user()->id,
-                //     'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
-                //     'origin' => $this->getVisitorCountry(),
-                //     'date' => now(config('app.escort_server_timezone')),
-                // ]);
             } else {
                 AttemptLogin::create([
                     'user_id' => auth()->user()->id,
@@ -116,27 +101,9 @@ class TrackLastPageVisitMiddlware
                     'city' => $cityId,
                     'type' => 1,
                 ]);
-
-                // create auth visitor
-                //  Visitor::create([
-                //     'page' => $path, // e.g. "dashboard/advertiser"
-                //     'ip_address' => $this->getUserIp(),
-                //     'device' => $this->getBrowser(),
-                //     'platform' => $this->getBrowser(),
-                //     'country' => $countryId,
-                //     'city' => $cityId,
-                //     'state' => $state,
-                //     'user_type' => 'user',
-                //     'user_id' => auth()->user()->id,
-                //     'landed' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
-                //     'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
-                //     'origin' => $this->getVisitorCountry(),
-                //     'date' => now(config('app.escort_server_timezone')),
-                // ]);
             }
         }else{
             $visitor = Visitor::where('ip_address',$this->getUserIp())->first();
-            
             
             if($visitor != null){
                 # update visitor activity
@@ -196,8 +163,6 @@ class TrackLastPageVisitMiddlware
     public function getVisitorCountry() 
     {
         $ip = $this->getUserIp();
-
-        
 
         // Check if IP and Country are already stored in session
         if (Session::has('visitor_ip') && Session::get('visitor_ip') === $ip && Session::has('visitor_country')) {
