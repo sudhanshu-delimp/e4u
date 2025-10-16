@@ -39,7 +39,8 @@ class VisitorController extends Controller
         $threshold = now('UTC')->subMinutes(5);
 
         Visitor::where('updated_at', '<=', $threshold)
-       ->whereNotNull('user_id')
+       ->delete();
+        Visitor::where('user_id', '!=', null)
        ->delete();
 
         # Get all visitors
