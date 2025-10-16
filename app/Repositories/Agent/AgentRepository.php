@@ -13,6 +13,7 @@ use App\Models\AccountSetting;
 use App\Events\AgentRegistered;
 use App\Mail\agentApprovalEmail;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -25,10 +26,12 @@ class AgentRepository extends BaseRepository implements AgentInterface
     protected $setting;
     public $user_model;
     public $response = [];
+
     
-    public function __construct(Agent $agent, User $user_model, AccountSetting $setting)
+    public function __construct(Agent $agent, User $user_model,  AccountSetting $setting)
     {
         $this->agent = $agent;
+        $this->setting = $setting;
         $this->user_model = $user_model;
         $this->response = ['status' => false,'message' => ''];
        
@@ -135,7 +138,7 @@ class AgentRepository extends BaseRepository implements AgentInterface
                     ];
        
                     //event(new AgentRegistered($userDataForEvent));
-                    $this->user_model->create_account_setting($user);
+                    $this->setting->create_account_setting($user);
                   
                 }
 
@@ -173,6 +176,8 @@ class AgentRepository extends BaseRepository implements AgentInterface
             
              } 
                 catch (Exception $e) {
+
+                Log::info($e->getMessage());
                 logErrorLocal($e);
                   $this->response = ['status' => false,'message' => 'Error occured while making request...'];
                   return $this->response;
