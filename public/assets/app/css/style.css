@@ -1197,9 +1197,14 @@
         margin-bottom: 20px;
     }
     
+    a.btn-common {
+        text-decoration: none;
+        color: #fff;
+    }
+    
     .btn-common {
         font-family: Poppins;
-        font-size: 14px;
+        font-size: 16px;
         font-style: normal;
         font-weight: 500;
         line-height: 21px;
@@ -1207,7 +1212,7 @@
         flex-direction: row;
         align-items: center;
         padding: 10px 20px;
-        background: var(--blue--text);
+        background: var(--blue--text) !important;
         border-radius: 3px;
         border: 0;
         color: var(--white);
@@ -1216,7 +1221,7 @@
     }
     
     .btn-common:hover {
-        background-color: var(--peach);
+        background-color: var(--peach) !important;
     }
     
     .btn_become_pin_up {
