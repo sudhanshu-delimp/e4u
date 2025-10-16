@@ -239,7 +239,7 @@
                               <div class="modal-body pb-0">
                                     <div class="row">
                                        <div class="col-12 my-2 text-center">
-                                             <h4 id="task_desc">Notification Send successfully</h4>           
+                                             <h5 id="task_desc" class="popu_heading_style">Notification Send successfully</h5>           
                                        </div>
                                     </div>
                               </div>

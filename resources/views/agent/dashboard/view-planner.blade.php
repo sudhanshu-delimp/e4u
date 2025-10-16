@@ -15,34 +15,63 @@
 @endsection
 @section('content')
     <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
-        
-        
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between">
+            <div class="custom-heading-wrapper">
+                <h1 class="h1">View Appointments</h1>
+                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
+            </div>
+            <div class="back-to-dashboard">
+                <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <div class="card collapse" id="notes" style="">
+                    <div class="card-body">
+                        <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
+                        <p></p>
+                        <ol>
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+             
+
         <div class="row mt-5">
-            <div class="col-lg-12">
-                <div class="row">
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="appointment-box my-1">
-                            <div class="card shadow-sm py-4 px-5 text-center">
-                                <h4>Appointments Today</h4>
-                                <span id="summaryToday">0</span>
+            <div class="col-md-12">
+                <div class="stats-container">
+                    <div class="stat-card-wrapper">
+                        <div class="stat-card">
+                            <div class="stat-top">
+                                <div class="stat-icon"><i class="fas fa-calendar-day"></i></div>
+                                <div class="stat-label">Appointments Today</div>
                             </div>
+                            <div class="stat-number">5</div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="appointment-box my-1">
-                            <div class="card shadow-sm py-4 px-5 text-center">
-                                <h4>Appointments This Week</h4>
-                                <span id="summaryWeek">0</span>
+
+                        <div class="stat-card">
+                            <div class="stat-top">
+                                <div class="stat-icon"><i class="fas fa-calendar-week"></i></div>
+                                <div class="stat-label">Appointments This Week</div>
                             </div>
+                            <div class="stat-number">15</div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-12">
-                        <div class="appointment-box my-1">
-                            <div class="card shadow-sm py-4 px-5 text-center">
-                                <h4>Appointments This Month</h4>
-                                <span id="summaryMonth">0</span>
+
+                        <div class="stat-card">
+                            <div class="stat-top">
+                                <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+                                <div class="stat-label">Appointments This Month</div>
                             </div>
+                            <div class="stat-number">200</div>
                         </div>
+
+                        
                     </div>
                 </div>
             </div>

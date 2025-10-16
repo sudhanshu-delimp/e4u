@@ -70,18 +70,18 @@
                         <table class="table" id="EmailManageTable">
                            <thead class="table-bg">
                               <tr>
-                                 <th scope="col">Carrier
+                                 <th>Carrier
                                  </th>
-                                 <th scope="col">USIM</th>
-                                 <th scope="col">
+                                 <th>USIM</th>
+                                 <th>
                                    Number
                                  </th>
-                                 <th scope="col">Activation
+                                 <th>Activation
                                    Date</th>
-                                 <th scope="col">Member ID</th>
-                                 <th scope="col">Term</th>
-                                 <th scope="col">Status</th>
-                                 <th scope="col">Action</th>
+                                 <th>Member ID</th>
+                                 <th>Term</th>
+                                 <th>Status</th>
+                                 <th class="text-center">Action</th>
                               </tr>
                            </thead>
                            <tbody class="table-content">
@@ -94,21 +94,21 @@
                                  <td class="theme-color">-</td>
                                  <td class="theme-color">Available</td>
                                  <td class="theme-color">
-                                    <div class="dropdown no-arrow">
+                                    <div class="dropdown no-arrow text-center">
                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                        <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                        </a>
                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                          <a class="dropdown-item d-flex align-items-center justify-content-between" href="#">Activate   <i class="fa fa-fw fa-check"></i></a>
+                                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#">  <i class="fa fa-fw fa-check"></i> Activate </a>
                                           <div class="dropdown-divider"></div>
-                                          <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" data-toggle="modal" data-target="#editSIMModal" >Edit <i class="fa fa-fw fa-pen"></i></a>
+                                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-toggle="modal" data-target="#editSIMModal" > <i class="fa fa-fw fa-pen"></i> Edit</a>
                                           <div class="dropdown-divider"></div>
                                           
-                                          <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0);" data-target="#renewSIMModal" data-toggle="modal" >Renew  <i class="fa fa-sync-alt"></i></a>
+                                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="javascript:void(0);" data-target="#renewSIMModal" data-toggle="modal" >  <i class="fa fa-sync-alt"></i> Renew</a>
                                           <div class="dropdown-divider"></div>
-                                          <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Suspend  <i class="fa fa-fw fa-ban" ></i></a>
+                                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" >  <i class="fa fa-fw fa-ban" ></i> Suspend</a>
                                           <div class="dropdown-divider"></div>
-                                          <a class="dropdown-item d-flex align-items-center justify-content-between" href="#" >Deactivate   <i class="fa fa-fw fa-times" ></i></a>
+                                          <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" >   <i class="fa fa-fw fa-times" ></i> Deactivate</a>
                                           
                                           
                                        </div>
