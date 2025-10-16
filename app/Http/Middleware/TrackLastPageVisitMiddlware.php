@@ -191,7 +191,7 @@ class TrackLastPageVisitMiddlware
             Session::put('visitor_state', $visitorState);
         }
 
-        return $visitorCountry;
+        return [$visitorCountry, $visitorState];
     }
 
 
