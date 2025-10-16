@@ -4,8 +4,12 @@ namespace App\Http\Middleware;
 
 use App\Models\AttemptLogin;
 use App\Models\City;
+use App\Models\Visitor;
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class TrackLastPageVisitMiddlware
@@ -20,6 +24,16 @@ class TrackLastPageVisitMiddlware
     public function handle(Request $request, Closure $next)
     {
         if ($request->is('logout') || Str::contains($request->path(), 'logout')) {
+            return $next($request);
+        }
+
+        $path = $request->path();
+
+        if (Str::contains($path, 'get-notification') || Str::contains($path, 'get-geolocation-data') || Str::contains($path, 'state-name') || Str::contains($path, 'web.state.name') ) {
+            return $next($request);
+        }
+
+        if ($request->ajax() || $request->isMethod('post')) {
             return $next($request);
         }
         
@@ -56,15 +70,6 @@ class TrackLastPageVisitMiddlware
             $state = auth()->user()->state_id;
             $cityId = null;
             $countryId = null;
-            $path = $request->path();
-
-            if (Str::contains($path, 'get-notification') || Str::contains($path, 'get-geolocation-data') || Str::contains($path, 'state-name') || Str::contains($path, 'web.state.name') ) {
-                return $next($request);
-            }
-
-            if ($request->ajax() || $request->isMethod('post')) {
-                return $next($request);
-            }
 
             if($state != null){
                 $city = City::where('state_id',$state)->first();
@@ -72,6 +77,7 @@ class TrackLastPageVisitMiddlware
                 $countryId = $city->country_id;
             }
 
+            // update auth user
             if ($attempt != null) {
                 AttemptLogin::where('user_id',auth()->user()->id)->update([
                     'page' => $path, // e.g. "dashboard/advertiser"
@@ -83,6 +89,21 @@ class TrackLastPageVisitMiddlware
                     'city' => $cityId,
                     'type' => 1,
                 ]);
+
+                // Visitor::where('user_id',auth()->user()->id)->update([
+                //     'page' => $path, // e.g. "dashboard/advertiser"
+                //     'ip_address' => $this->getUserIp(),
+                //     'device' => $this->getBrowser(),
+                //     'platform' => $this->getBrowser(),
+                //     'country' => $countryId,
+                //     'city' => $cityId,
+                //     'state' => $state,
+                //     'user_type' => 'user',
+                //     'user_id' => auth()->user()->id,
+                //     'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
+                //     'origin' => $this->getVisitorCountry(),
+                //     'date' => now(config('app.escort_server_timezone')),
+                // ]);
             } else {
                 AttemptLogin::create([
                     'user_id' => auth()->user()->id,
@@ -95,7 +116,62 @@ class TrackLastPageVisitMiddlware
                     'city' => $cityId,
                     'type' => 1,
                 ]);
+
+                // create auth visitor
+                //  Visitor::create([
+                //     'page' => $path, // e.g. "dashboard/advertiser"
+                //     'ip_address' => $this->getUserIp(),
+                //     'device' => $this->getBrowser(),
+                //     'platform' => $this->getBrowser(),
+                //     'country' => $countryId,
+                //     'city' => $cityId,
+                //     'state' => $state,
+                //     'user_type' => 'user',
+                //     'user_id' => auth()->user()->id,
+                //     'landed' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
+                //     'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
+                //     'origin' => $this->getVisitorCountry(),
+                //     'date' => now(config('app.escort_server_timezone')),
+                // ]);
             }
+        }else{
+            $visitor = Visitor::where('ip_address',$this->getUserIp())->first();
+            
+            
+            if($visitor != null){
+                # update visitor activity
+                Visitor::where('ip_address',$this->getUserIp())->update([
+                    'page' => $path, // e.g. "dashboard/advertiser"
+                    'device' => $this->getBrowser(),
+                    'platform' => $this->getBrowser(),
+                    'country' => $this->getVisitorCountry(),
+                    'city' => null,
+                    'state' => null,
+                    'user_type' => 'guest',
+                    'user_id' => null,
+                    'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
+                    'origin' => $this->getVisitorCountry(),
+                    'date' => now(config('app.escort_server_timezone')),
+                ]);
+            }else{
+                # create visitor activity
+                Visitor::create([
+                    'page' => $path, // e.g. "dashboard/advertiser"
+                    'ip_address' => $this->getUserIp(),
+                    'device' => $this->getBrowser(),
+                    'platform' => $this->getBrowser(),
+                    'country' => null,
+                    'city' => null,
+                    'state' => null,
+                    'user_type' => 'guest',
+                    'user_id' => null,
+                    'landed' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
+                    'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
+                    'origin' => $this->getVisitorCountry(),
+                    'date' => now(config('app.escort_server_timezone')),
+                ]);
+            }
+            
         }
 
         return $next($request);
@@ -116,6 +192,34 @@ class TrackLastPageVisitMiddlware
         }
         return $ip;
     }
+
+    public function getVisitorCountry() 
+    {
+        $ip = $this->getUserIp();
+
+        
+
+        // Check if IP and Country are already stored in session
+        if (Session::has('visitor_ip') && Session::get('visitor_ip') === $ip && Session::has('visitor_country')) {
+            return Session::get('visitor_country');
+        }
+
+        // If not in session, fetch from API
+        $response = Http::get("http://ip-api.com/json/{$ip}");
+        $data = $response->json();
+
+        $visitorCountry = null;
+        if ($data && isset($data['status']) && $data['status'] === 'success') {
+            $visitorCountry = $data['country'];
+
+            // Store in session for later use
+            Session::put('visitor_ip', $ip);
+            Session::put('visitor_country', $visitorCountry);
+        }
+
+        return $visitorCountry;
+    }
+
 
     public function getBrowser() {
         $userAgent = $_SERVER['HTTP_USER_AGENT'];

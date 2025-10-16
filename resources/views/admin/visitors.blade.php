@@ -9,9 +9,7 @@
     color: rgb(248, 0, 0)
 }
 
-#cke_1_contents {
-    height: 150px !important;
-}
+
 </style>
 @endsection
 @section('content')
@@ -42,7 +40,7 @@
                   
                     <div class="total_listing">
                         <div><span>Total Visitors : </span></div>
-                        <div><span>456</span></div>
+                        <div><span class="totalVisitors">56</span></div>
                     </div>
                 </div>
             </div>
@@ -82,9 +80,9 @@
                     </tbody>
                     <tfoot class="bg-first">
                         <tr>
-                            <th colspan="2" class="text-left">Server time: <span>[10:23:51 am]</span></th>
-                            <th colspan="3" class="text-center">Refresh time:<span> [seconds]</span></th>
-                            <th colspan="2" class="text-right">Up time: <span>[214 days & 09 hours 12 minutes]</span></th>
+                            <th colspan="2" class="text-left">Server time: <span class="serverTime">[10:23:51 am]</span></th>
+                            <th colspan="3" class="text-center">Refresh time:<span class="refreshSeconds"> [seconds]</span></th>
+                            <th colspan="2" class="text-right">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -165,37 +163,90 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
-<script>
-CKEDITOR.replace('editor1', {
-    fullPage: true,
-    extraPlugins: 'docprops',
-    // Disable content filtering because if you use full page mode, you probably
-    // want to  freely enter any HTML content in source mode without any limitations.
-    allowedContent: true,
-    height: 320
-});
-</script>
+
 @endsection
 @push('script')
 
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
 <script>
-   var table = $("#visitorTable").DataTable({
-    language: {
-        search: "Search: _INPUT_",
-        searchPlaceholder: "Search by Date..."
-    },
-    info: true,
-    paging: true,
-    lengthChange: true,
-    searching: true,
-    bStateSave: true,
-    order: [[1, 'desc']],
-    lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
-    pageLength: 10
-});
+
+    $(document).ready(function(e) {
+        ajaxReload();
+        let countdown = 15;
+        setInterval(() => {
+            countdown--;
+            $(".refreshSeconds").text(' ' + countdown);
+
+            if (countdown <= 0) {
+                $('#visitorTable').DataTable().ajax.reload(null, false);
+                countdown = 15;
+            }
+
+        }, 1000);
+
+        $('#customSearch').on('keyup', function() {
+            $('#visitorTable').DataTable().search(this.value).draw();
+        });
+    })
+    
+
+    function ajaxReload() {
+        var visitorTable = $('#visitorTable').DataTable({
+            language: {
+                search: "Search: _INPUT_",
+                searchPlaceholder: "Search by Date..."
+            },
+            processing: true,
+            serverSide: true,
+            paging: true,
+            lengthChange: true,
+            info: true,
+            searching: true,
+            bStateSave: true,
+            order: [
+                [1, 'desc']
+            ],
+            lengthMenu: [
+                [10, 25, 50, 100],
+                [10, 25, 50, 100]
+            ],
+            ajax: {
+                url: "{{ route('admin.visitors-by-ajax') }}",
+                type: "GET",
+                dataSrc: function(json) {
+                    var totalRows = json.recordsTotal || json.recordsFiltered;
+                    $(".totalVisitors").text(totalRows);
+                    $(".uptimeClass").text(json.serverTime.upTime);
+                    $(".serverTime").text(json.serverTime.server_time);
+                    return json.data;
+                }
+            },
+            drawCallback: function(settings) {
+                
+                // Move dynamic elements below .timer_section
+                // const $info = $('#listings_info');
+                // const $paginate = $('#listings_paginate');
+                // const $timerSection = $('.customPaginationContainer');
+
+                // if ($info.length && $paginate.length && $timerSection.length) {
+                //     $info.appendTo($timerSection);
+                //     $paginate.appendTo($timerSection);
+                // }
+            },
+            columns: [
+                { data: 'date', name: 'date' },
+                { data: 'landed', name: 'landed' },
+                { data: 'idle', name: 'idle' },
+                { data: 'origin', name: 'origin' },
+                { data: 'ip', name: 'ip', orderable: false  },
+                { data: 'platform', name: 'platform', orderable: false  },
+                { data: 'page', name: 'page', orderable: false  }
+            ]
+        });
+    }
+
+// admin.visitors-by-ajax
 
  </script>
 @endpush

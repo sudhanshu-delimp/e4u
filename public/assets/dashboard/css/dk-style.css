@@ -6232,7 +6232,7 @@ margin-left: 10px;
 .modal-apointment-details{
     width: 500px !important;
 }
-.modal-apointment-details #appointmentDetailBody table td, th{
+.modal-apointment-details #appointmentDetailBody table td{
     padding: 5px !important;
 }
 .modal-footer {
