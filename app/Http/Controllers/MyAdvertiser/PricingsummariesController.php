@@ -19,14 +19,21 @@ class PricingsummariesController extends Controller
         $this->user = $user;
         $this->pricing = $pricing;
     }
+
+    
     public function showPricingsummary() {
-        $all = $this->pricing->all();
-        // foreach($all as $val) {
-        //     dd($val->memberships->name);
-        // }
-        // dd("sdfjk");
-        return view('agent.dashboard.Advertisers.pricingsummaries');
+        
+        $states = config('escorts.profile.states');
+        $advertings= config('agent.advertising');
+        $membership_types = config('agent.membership_types');
+        $no_of_members = config('agent.no_of_members');
+
+        
+        return view('agent.dashboard.Advertisers.pricingsummaries',compact('advertings', 'membership_types','states','no_of_members'));
     }
+
+
+
     public function PricingDataTable() {
         
        list($pricing, $count) = $this->pricing->paginatedPricingList(

@@ -94,46 +94,24 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr role="row">
-                                                            <td>Platinum</td>
-                                                            <td>Fixed</td>
-                                                            <td>per day</td>
-                                                            <td>$ 8.00 </td>
-                                                            <td>6.25</td>
-                                                            <td>$ 7.50 </td>
-                                                        </tr>
-                                                        <tr role="row">
-                                                            <td>Gold</td>
-                                                            <td>Fixed</td>
-                                                            <td>per day</td>
-                                                            <td>$ 6.00 </td>
-                                                            <td>5</td>
-                                                            <td>$ 5.70 </td>
-                                                        </tr>
-                                                        <tr role="row">
-                                                            <td>Silver</td>
-                                                            <td>Fixed</td>
-                                                            <td>per day</td>
-                                                            <td>$ 4.00 </td>
-                                                            <td>5</td>
-                                                            <td>$ 3.80 </td>
-                                                        </tr>
-                                                        <tr role="row">
-                                                            <td>Free<sup>(3)</sup></td>
-                                                            <td>21 days</td>
-                                                            <td>per day</td>
-                                                            <td>$ 0.00 </td>
-                                                            <td>N/A</td>
-                                                            <td>$ 0.00 </td>
-                                                        </tr>
-                                                        <tr role="row">
-                                                            <td>Pin-Up<sup>(4)</sup></td>
-                                                            <td>Fixed</td>
-                                                            <td>per week</td>
-                                                            <td>$ 475.00 </td>
-                                                            <td>0.00</td>
-                                                            <td>$ 475.00 </td>
-                                                        </tr>
+
+                                                            @foreach($advertings as $adverting)
+                                                                <tr role="row">
+                                                                    <td>{!! $adverting['membership_type'] !!}</td>
+                                                                    <td>{{ $adverting['period'] }}</td>
+                                                                    <td>{{ $adverting['frequency'] }}</td>
+                                                                    <td>${{ number_format($adverting['rate'], 2) }}</td>
+                                                                    <td>
+                                                                        @if(!empty($adverting['discount_percent']))
+                                                                            {{ $adverting['discount_percent'] }}
+                                                                        @else
+                                                                            N/A
+                                                                        @endif
+                                                                    </td>
+                                                                    <td>${{ number_format($adverting['discounted_rate'], 2) }}</td>
+                                                                </tr>
+                                                            @endforeach 
+                                                        
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -162,7 +140,7 @@
                                         <div class="table-responsive pl-2 pt-3 list-sec">
                                             <div id="myTable_wrapper" class="dataTables_wrapper no-footer">
 
-                                                {{--                                                        <h5 class="price-sec">Profile &amp; Tour Fees</h5>--}}
+                                                {{--  <h5 class="price-sec">Profile &amp; Tour Fees</h5>--}}
                                                 <table id="reckoner" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                         <tr role="row">
@@ -193,23 +171,25 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr role="row">
-                                                            <td><select style="border: 0;width:100%">
-                                                                    <option value="WA">WA</option>
-                                                                    <option value="SA">SA</option>
+                                                            <td>
+                                                                <select style="border: 0;width:100%">
+                                                                @foreach($states as $stateCode => $stateData)
+                                                                    <option value="{{ $stateCode }}">{{ $stateData['stateName'] }}</option>
+                                                                @endforeach    
                                                                 </select>
                                                             </td>
                                                             <td><input name="start" id="start_date" type="date" style="border: 0;width:100%"></td>
                                                             <td><input name="end" id="end_date" type="date" style="border: 0;width:100%"></td>
                                                             <td><select style="border: 0;width:100%">
-                                                                    <option value="Platinum">Platinum</option>
-                                                                    <option value="Gold">Gold</option>
-                                                                    <option value="Silver">Silver</option>
+                                                                   @foreach($membership_types as $key => $membership)
+                                                                    <option value="{{ $membership }}">{{ $membership }}</option>
+                                                                  @endforeach  
                                                                 </select>
                                                             </td>
                                                             <td><select style="border: 0;width:100%">
-                                                                    <option value="1">1</option>
-                                                                    <option value="2" selected>2</option>
-                                                                    <option value="3">3</option>
+                                                                    @foreach($no_of_members as $key => $members)
+                                                                    <option value="{{ $members }}">{{ $members }}</option>
+                                                                    @endforeach  
                                                                 </select>
                                                             </td>
                                                             <td class="d-flex align-items-center">
