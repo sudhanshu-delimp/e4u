@@ -25,7 +25,7 @@ class VisitorController extends Controller
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->date)))
             ->addColumn('landed', fn($row) => $row->landed ?? '-')
             ->addColumn('idle', fn($row) => $row->idle ?? '-')
-            ->addColumn('origin', fn($row) => $row->origin ?? '-')
+            ->addColumn('origin', fn($row) => $row->state ?? '-')
             ->addColumn('ip', fn($row) => $row->ip_address ?? '-')
             ->addColumn('platform', fn($row) => $row->platform ?? '-')
             ->addColumn('page', fn($row) => $row->page ?? '-')
