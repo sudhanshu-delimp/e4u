@@ -94,15 +94,25 @@ display: contents;
                             
                         </tr>
                     </tbody>
+                     <tr>
+                            <th colspan="10" class="border-0"></th>
+                        </tr>
+                    <tfoot class="bg-first">
+                        <tr>
+                            <th colspan="2" class="text-left">Server time: <span>10:23:51 am</span></th>
+                            <th colspan="3" class="text-center">Refresh time:<span> 15</span></th>
+                            <th colspan="2" class="text-right">Up time: <span>214 days & 09 hours 12 minutes</span></th>
+                        </tr>
+                    </tfoot>
                 </table>
-                <div class="timer_section">
+                {{-- <div class="timer_section">
                     <p>Server time: <span class="serverTime">10:23:51 am</span></p>
                     <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
                     <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
                 </div>
                 <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
                 <nav aria-label="Page navigation example" class="customPagination">
-                </nav>
+                </nav> --}}
             </div>
         </div>
        
@@ -179,7 +189,6 @@ display: contents;
         </div>
     </div>
 </div>
-
 @endsection
 @push('script')
 

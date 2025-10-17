@@ -71,18 +71,36 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tbody class="table-content"></tbody>
+                    <tbody class="table-content">
+                       
+                    </tbody>
+                     <tr>
+                            <th colspan="10" class="border-0"></th>
+                        </tr>
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="3">
+                                    Server time: <span id="server_time">--</span>
+                            </th>
+                            <th colspan="1" class="text-center">
+                                    Refresh time:<span id="refresh_time">--</span>
+                            </th>
+                            <th colspan="4" class="text-right">
+                                    Up time: <span id="server_up_time">--</span>
+                            </th>
+                        </tr>
+                    </tfoot>
                 </table>
 
                 {{-- TIMER + PAGINATION ORDER FIXED --}}
-                <div class="timer_section mt-3">
+                {{-- <div class="timer_section mt-3">
                     <p>Server time: <span id="server_time">--</span></p>
                     <p>Refresh time: <span id="refresh_time">15</span></p>
                     <p>Up time: <span id="server_up_time">--</span></p>
                 </div>
 
                 <div class="customPaginationContainer mt-3 d-flex justify-content-between"></div>
-                <nav aria-label="Page navigation example" class="customPagination"></nav>
+                <nav aria-label="Page navigation example" class="customPagination"></nav> --}}
             </div>
         </div>
     </div>

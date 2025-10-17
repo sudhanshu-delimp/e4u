@@ -96,26 +96,17 @@
                             <td colspan="10" class="theme-color text-center">Loading...</td>
                         </tr>
                     </tbody>
-                </table>
-                <table class="table" style="width:100%">
+                     <tr>
+                            <th colspan="10" class="border-0"></th>
+                        </tr>
                     <tfoot class="bg-first t-foot">
                         <tr>
-                            <th colspan="3" class="border-0">
-                                Server time: <span class="serverTime">10:23:51 am</span>
-                            </th>
-                            <th colspan="2" class="border-0 text-center">
-                                Refresh time:<span class="refreshSeconds"> 15</span>
-                            </th>
-                            <th colspan="2" class="border-0 text-right">
-                                Up time: <span class="uptimeClass">{{ getAppUptime() }}</span>
-                            </th>
+                            <th colspan="2" class="text-left border-0">Server time: <span class="serverTime">10:23:51 am</span></th>
+                            <th colspan="3" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                            <th colspan="2" class="text-right border-0">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
                         </tr>
                     </tfoot>
                 </table>
-                
-                <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
-                <nav aria-label="Page navigation example" class="customPagination">
-                </nav>
             </div>
         </div>
 
