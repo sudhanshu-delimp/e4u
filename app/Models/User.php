@@ -409,7 +409,9 @@ class User extends Authenticatable
 
     public function listedEscorts()
     {
-        return $this->hasMany('App\Models\Escort', 'user_id')->where('enabled',1);
+        return $this->hasMany('App\Models\Escort', 'user_id')
+        ->whereNotNull('name')
+        ->where('enabled',1);
     }
 
     public function interest()

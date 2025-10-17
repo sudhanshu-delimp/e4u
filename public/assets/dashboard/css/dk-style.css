@@ -40,6 +40,14 @@ body {
     color: var(--white);
 }
 
+.custom-nav-dropdown {
+    background-color: #F2F2F2 !important;
+}
+
+.custom-nav-dropdown .dropdown-item:hover {
+    background-color: #dfdfdf;
+}
+
 .bg-second {
     background-color: var(--peach) !important;
     color: var(--white);
@@ -458,9 +466,10 @@ span.menu-active {
     overflow: hidden;
 }
 
-.card {
+
+/* .card {
     border: 1px solid #c2c8ce !important;
-}
+} */
 
 .card1 {
     position: relative;
@@ -8476,6 +8485,7 @@ td {
     align-items: center;
     justify-content: flex-start;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .stat-card-wrapper .stat-card .stat-top .stat-icon {
@@ -8509,6 +8519,7 @@ td {
     padding: 16px;
     /* border-radius: 12px; */
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     gap: 6px;

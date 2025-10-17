@@ -156,7 +156,7 @@
                                 <img src="{{asset(auth()->user()->avatar_url)}}" class="img-profile rounded-circle avatarName custom-profile-pic">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right animated--grow-in"
+                            <div class="dropdown-menu dropdown-menu-right animated--grow-in custom-nav-dropdown"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2  saptate_by_border"></i>

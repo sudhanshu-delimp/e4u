@@ -10,6 +10,20 @@
 }
 
 
+#cke_1_contents {
+    height: 150px !important;
+}
+#listings_paginate span{
+display: contents;
+}
+ table.dataTable thead th, table.dataTable tfoot th {
+            font-weight: normal !important;
+        }
+        #visitorTable_paginate{
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
 </style>
 @endsection
 @section('content')
@@ -34,6 +48,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">    
         <div class="col-sm-12 col-md-12 col-lg-12 ">
             <div class="my-3">                
                 <div class="col-md-12 col-sm-12 d-flex justify-content-end" style="gap: 50px;">
@@ -44,8 +60,8 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="table" id="visitorTable">
+            <div class="visitor_table_class">
+                <table class="table" id="visitorTable" style="width:100%;">
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">
@@ -78,15 +94,25 @@
                             
                         </tr>
                     </tbody>
+                     <tr>
+                            <th colspan="10" class="border-0"></th>
+                        </tr>
                     <tfoot class="bg-first">
                         <tr>
-                            <th colspan="2" class="text-left">Server time: <span class="serverTime">[10:23:51 am]</span></th>
-                            <th colspan="3" class="text-center">Refresh time:<span class="refreshSeconds"> [seconds]</span></th>
-                            <th colspan="2" class="text-right">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                            <th colspan="2" class="text-left ">Server time: <span class="serverTime">10:23:51 am</span></th>
+                            <th colspan="3" class="text-center">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                            <th colspan="2" class="text-right">Up time: <span class="uptimeClass">{{getAppUptime()}}</span></th>
                         </tr>
                     </tfoot>
                 </table>
-                
+                {{-- <div class="timer_section">
+                    <p>Server time: <span class="serverTime">10:23:51 am</span></p>
+                    <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
+                    <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
+                </div>
+                <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
+                <nav aria-label="Page navigation example" class="customPagination">
+                </nav> --}}
             </div>
         </div>
        
@@ -163,7 +189,6 @@
         </div>
     </div>
 </div>
-
 @endsection
 @push('script')
 
@@ -204,13 +229,11 @@
             info: true,
             searching: true,
             bStateSave: true,
-            order: [
-                [1, 'desc']
-            ],
+            order: [[1, 'desc']],
             lengthMenu: [
-                [10, 25, 50, 100],
-                [10, 25, 50, 100]
+                [10, 25, 50, 100], [10, 25, 50, 100]
             ],
+            pageLength: 10,
             ajax: {
                 url: "{{ route('admin.visitors-by-ajax') }}",
                 type: "GET",
@@ -223,11 +246,10 @@
                 }
             },
             drawCallback: function(settings) {
-                
-                // Move dynamic elements below .timer_section
-                // const $info = $('#listings_info');
-                // const $paginate = $('#listings_paginate');
-                // const $timerSection = $('.customPaginationContainer');
+                const $info = $('#visitorTable_info');
+                const $paginate = $('#visitorTable_paginate');
+                const $timerSection = $('.timer_section');
+                const $customContainer = $('.customPaginationContainer');
 
                 // if ($info.length && $paginate.length && $timerSection.length) {
                 //     $info.appendTo($timerSection);
@@ -235,6 +257,7 @@
                 // }
                 $(".dataTables_empty").text('There are currently no Visitors.')
             },
+
             columns: [
                 { data: 'date', name: 'date' },
                 { data: 'landed', name: 'landed' },
@@ -246,7 +269,25 @@
             ]
         });
     }
+$(document).ready(function () {
+            function checkAndApplyResponsive() {
+                if ($(window).width() < 1500) {
+                    if (!$('.visitor_table_class').hasClass('table-responsive')) {
+                        $('.visitor_table_class').addClass('table-responsive');
+                    }
+                } else {
+                    $('.visitor_table_class').removeClass('table-responsive');
+                }
+            }
 
+            // Initial check
+            checkAndApplyResponsive();
+
+            // Recheck on window resize
+            $(window).resize(function () {
+                checkAndApplyResponsive();
+            });
+        });
 // admin.visitors-by-ajax
 
  </script>
