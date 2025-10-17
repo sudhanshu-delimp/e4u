@@ -58,46 +58,57 @@ display: contents;
                 </div>
             </div>
             <div class="massage_table_class">
-                <table class="table table-bordered" id="listings" style="width:100%;">
+                <table class="table" id="listings" style="width:100%;">
                     <thead class="table-bg">
                         <tr>
-                            <th scope="col">
+                            <th>
                                 Member ID
 
                             </th>
-                            <th scope="col">
+                            <th>
                                 Member
 
                             </th>
-                            <th scope="col">
+                            <th>
                                 Listing
                             </th>
-                            <th scope="col">
+                            <th>
                                 Profile Name
                             </th>
-                            <th scope="col">Masseurs</th>
-                            <th scope="col">Listed</th>
-                            <th scope="col">De-listed</th>
-                            <th scope="col">Days</th>
-                            <th scope="col">Remaining</th>
-                            <th scope="col">Action</th>
+                            <th>Masseurs</th>
+                            <th>Listed</th>
+                            <th>De-listed</th>
+                            <th>Days</th>
+                            <th>Remaining</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
+                        
                     <tbody class="table-content">
-                        <tr class="row-color">
+                        <tr>
                             <td colspan="10" class="theme-color text-center">Loading...</td>
                             </tr>
                     </tbody>
+                        <tr>
+                            <th colspan="10" class="border-0"></th>
+                        </tr>
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="3" class="text-left border-0">Server time: <span class="serverTime">10:23:51 am</span></th>
+                            <th colspan="3" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                            <th colspan="4" class="text-right border-0">Up time: <span class="uptimeClass">{{getAppUptime()}}</span></th>
+                        </tr>
+                    </tfoot>
                 </table>
                 
-                <div class="timer_section">
-                    <p>Server time: <span class="serverTime">10:23:51 am</span></p>
-                    <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
-                    <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
+                {{-- <div class="timer_section">
+                    <p></p>
+                    <p></p>
+                    <p></p>
                 </div>
                 <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
                 <nav aria-label="Page navigation example" class="customPagination">
-                </nav>
+                </nav> --}}
             </div>
         </div>
        

@@ -58,6 +58,9 @@
                     <tbody class="table-content">
                        
                     </tbody>
+                     <tr>
+                            <th colspan="10" class="border-0"></th>
+                        </tr>
                     <tfoot class="bg-first t-foot">
                         <tr>
                             <th colspan="3">

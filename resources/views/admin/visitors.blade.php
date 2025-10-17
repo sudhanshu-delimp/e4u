@@ -80,11 +80,14 @@
                             
                         </tr>
                     </tbody>
+                     <tr>
+                            <th colspan="10" class="border-0"></th>
+                        </tr>
                     <tfoot class="bg-first">
                         <tr>
-                            <th colspan="2" class="text-left">Server time: <span>[10:23:51 am]</span></th>
-                            <th colspan="3" class="text-center">Refresh time:<span> [seconds]</span></th>
-                            <th colspan="2" class="text-right">Up time: <span>[214 days & 09 hours 12 minutes]</span></th>
+                            <th colspan="2" class="text-left">Server time: <span>10:23:51 am</span></th>
+                            <th colspan="3" class="text-center">Refresh time:<span> 15</span></th>
+                            <th colspan="2" class="text-right">Up time: <span>214 days & 09 hours 12 minutes</span></th>
                         </tr>
                     </tfoot>
                 </table>
@@ -165,17 +168,6 @@
         </div>
     </div>
 </div>
-<script src="https://cdn.ckeditor.com/4.15.1/standard-all/ckeditor.js"></script>
-<script>
-CKEDITOR.replace('editor1', {
-    fullPage: true,
-    extraPlugins: 'docprops',
-    // Disable content filtering because if you use full page mode, you probably
-    // want to  freely enter any HTML content in source mode without any limitations.
-    allowedContent: true,
-    height: 320
-});
-</script>
 @endsection
 @push('script')
 
