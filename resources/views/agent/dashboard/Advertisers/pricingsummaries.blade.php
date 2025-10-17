@@ -3,7 +3,6 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/select2/select2.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/plugins/datatables/css/dataTables.bootstrap.min.css') }}">
 <style>
-<style type="text/css">
     .select2-container .select2-choice, .select2-result-label {
     font-size: 1.5em;
     height: 52px !important;
@@ -18,6 +17,19 @@
     .list-sec .table td, .table th{
     border: 1px solid #0c233d;
     }
+.remove-row{
+padding: 2px 8px 2px 8px !important;
+}   
+
+.input-error {
+        border-color: #dc3545 !important;  /* Bootstrap danger red */
+        background-color: #f8d7da !important;
+    }
+
+    .input-error::placeholder {
+        color: #721c24 !important;
+    }
+
 </style>
 @endsection
 @section('content')
@@ -144,8 +156,8 @@
                                                 <table id="reckoner" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                         <tr role="row">
-                                                            <th class="sorting_disabled" rowspan="1" colspan="5" style="width: 212px;" aria-label="Fees">
-                                                                <p><b>Profile / Tour Ready Reckoner</b></p>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
+                                                                <p style="padding-left: 100px;"><b>Profile / Tour Ready Reckoner</b></p>
                                                             </th>
                                                             <th>
                                                                 <button type="button" class="border-0 px-5 py-3 bg-second font-weight-bold" id="add-new-row">Add</button>
@@ -164,46 +176,23 @@
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">
                                                                 Membership Type
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">Number of
-                                                                Profiles</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">No. of Profiles</th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Fee</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Status"></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr role="row">
-                                                            <td>
-                                                                <select style="border: 0;width:100%">
-                                                                @foreach($states as $stateCode => $stateData)
-                                                                    <option value="{{ $stateCode }}">{{ $stateData['stateName'] }}</option>
-                                                                @endforeach    
-                                                                </select>
-                                                            </td>
-                                                            <td><input name="start" id="start_date" type="date" style="border: 0;width:100%"></td>
-                                                            <td><input name="end" id="end_date" type="date" style="border: 0;width:100%"></td>
-                                                            <td><select style="border: 0;width:100%">
-                                                                   @foreach($membership_types as $key => $membership)
-                                                                    <option value="{{ $membership }}">{{ $membership }}</option>
-                                                                  @endforeach  
-                                                                </select>
-                                                            </td>
-                                                            <td><select style="border: 0;width:100%">
-                                                                    @foreach($no_of_members as $key => $members)
-                                                                    <option value="{{ $members }}">{{ $members }}</option>
-                                                                    @endforeach  
-                                                                </select>
-                                                            </td>
-                                                            <td class="d-flex align-items-center">
-                                                                <label class="mb-0">$</label><input name="fee" id="fee" type="text" style="border: 0;width:100%" value="80.00">
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="custom-last-row">
+                                                        
+                                                        <!-- <tr class="custom-last-row">
                                                             <td class="border-0"></td>
+                                                             <td class="border-0"></td>
                                                             <td class="border-0"></td>
                                                             <td class="border-0"></td>
                                                             <td class="border-0"></td>
                                                             <td  class="font-weight-bold text-right">Total Fees:</td>
                                                             <td class="font-weight-bold text-left"><span>$</span>146.00</td>
-                                                        </tr>
+                                                        </tr> -->
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -575,43 +564,401 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
 @include('escort.dashboard.partials.playmates-modal')
-@endsection
-@push('script')
+
+
+
+
+
+
+
+<div class="modal upload-modal fade" id="membershipModal" tabindex="-1">
+   <div class="modal-dialog modal-lg modal-dialog-centered">
+     <div class="modal-content">
+       
+       <!-- Modal Header -->
+       <div class="modal-header">
+         <h5 class="modal-title text-white">
+           <img src="{{ asset('assets/dashboard/img/add-profile.png') }}" class="custompopicon"> 
+           Profile / Tour Ready Reckoner
+         </h5>
+         <button type="button" class="close" data-dismiss="modal">
+           <span aria-hidden="true">
+             <img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen">
+           </span>
+         </button>
+       </div>
+
+       <!-- Modal Body -->
+       <div class="modal-body">
+         <form>
+           
+           <!-- State -->
+           <div class="row g-3 mb-3">
+
+                <div class="col-md-4">
+                    <label>Location</label>
+                    <select id="state" name="state" class="form-control">
+                    @foreach($states as $stateCode => $stateData)
+                        <option value="{{ $stateCode }}">{{ $stateData['stateName'] }}</option>
+                    @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="start_date" class="form-label">Start Date</label>
+                    <input type="date" id="start_date" name="start_date" class="form-control" name="cal_start_date" id="cal_start_date">
+                    <div class="invalid-feedback d-none">Start date is required or invalid.</div>                              
+                </div>
+
+                <div class="col-md-4">
+                <label for="end_date" class="form-label">End Date</label>
+                <input type="date" id="end_date" name="end_date" class="form-control" name="cal_end_date" id="cal_end_date">
+                <div class="invalid-feedback d-none">End date is required or invalid.</div>
+                </div>
+
+
+            </div>
+
+           
+
+           <!-- Start Date & End Date in one row -->
+           <div class="row g-3 mb-3">
+             
+           </div>
+
+
+           <!-- Start Date & End Date in one row -->
+           <div class="row g-3 mb-3">
+             <div class="col-md-6">
+               <label for="start_date" class="form-label">Membership Type </label>
+              <select  class="form-control" name="cal_memship_type" id="cal_memship_type">
+                @foreach($membership_types as $key => $membership)
+                <option value="{{ $membership }}">{{ $membership }}</option>
+                @endforeach  
+            </select>
+             </div>
+             <div class="col-md-6">
+               <label for="end_date" class="form-label">No.</label>
+               <select  class="form-control" name="cal_members" id="cal_members">
+                  @foreach($no_of_members as $key => $members)
+                  <option value="{{ $members }}">{{ $members }}</option>
+                    @endforeach  
+                </select>
+             </div>
+           </div>
+
+        
+           <!-- Save Button -->
+           <div class="text-right">
+             <button type="submit" class="btn btn-primary create-tour-sec dctour m-0">Add</button>
+           </div>
+
+         </form>
+       </div>
+
+     </div>
+   </div>
+</div>
+
+
+
+
+
+
+
+ @endsection
+
+
+ @push('script')
 <script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 <script>
     $(document).ready(function(){
-        $('#add-new-row').on('click', function(){
-            var newRow = `
-             <tr role="row">
-                <td><select style="border: 0;width:100%">
-                        <option value="WA">WA</option>
-                        <option value="SA" selected>SA</option>
-                    </select>
+    
+        // $('#add-new-row').on('click', function(){
+        //     var newRow = `
+        //      <tr role="row">
+        //         <td><select style="border: 0;width:100%">
+        //                 <option value="WA">WA</option>
+        //                 <option value="SA" selected>SA</option>
+        //             </select>
+        //         </td>
+        //         <td><input name="start" id="start_date" type="date" style="border: 0;width:100%"></td>
+        //         <td><input name="end" id="end_date" type="date" style="border: 0;width:100%"></td>
+        //         <td><select style="border: 0;width:100%">
+        //                 <option value="Platinum">Platinum</option>
+        //                 <option value="Gold" selected>Gold</option>
+        //                 <option value="Silver">Silver</option>
+        //             </select>
+        //         </td>
+        //         <td><select style="border: 0;width:100%">
+        //                 <option value="1">1</option>
+        //                 <option value="2">2</option>
+        //                 <option value="3">3</option>
+        //             </select>
+        //         </td>
+        //         <td class="d-flex align-items-center">
+        //             <label class="mb-0">$</label><input name="fee" id="fee" type="text" style="border: 0;width:100%" value="80.00">
+        //         </td>
+        //     </tr>
+        //     `;
+        //     $('#reckoner tbody tr.custom-last-row').before(newRow);
+        // });
+
+
+    $('#add-new-row').on('click', function() {
+        var modal = new bootstrap.Modal(document.getElementById('membershipModal'));
+        modal.show();
+    });
+
+});
+
+
+
+
+ // ############ Calculater ###########
+
+   $(document).ready(function() {
+
+    $(document).ready(function () {
+
+    var usedDates = [];
+    var usedLocations = [];
+    var lastEndDate = null; // Track the last end date
+
+    function addBlankRow() {
+        $('#reckoner tbody tr.blank-row').remove();
+        var blankRow = `
+            <tr class="blank-row">
+                <td colspan="7" class="text-center text-muted">No Profile Added.</td>
+            </tr>
+        `;
+        $('#reckoner tbody').prepend(blankRow);
+    }
+
+    // Set next available start date after last added end date
+    function setNextStartDate() {
+        var nextStart;
+
+        if (lastEndDate) {
+            nextStart = new Date(lastEndDate);
+            nextStart.setDate(nextStart.getDate() + 1); // +1 day after last end date
+        } else {
+            nextStart = new Date();
+        }
+
+        nextStart.setHours(0, 0, 0, 0);
+
+        var yyyy = nextStart.getFullYear();
+        var mm = String(nextStart.getMonth() + 1).padStart(2, '0');
+        var dd = String(nextStart.getDate()).padStart(2, '0');
+        var nextStartStr = `${yyyy}-${mm}-${dd}`;
+
+        // Set min and value for start_date and end_date
+        $('#start_date').attr('min', nextStartStr).val(nextStartStr);
+        $('#end_date').attr('min', nextStartStr).val(nextStartStr);
+    }
+
+    addBlankRow();
+    updateTotal();
+    setNextStartDate();
+
+    $('#start_date, #end_date').on('input change', function () {
+        $(this).removeClass('input-error');
+        $(this).siblings('.invalid-feedback').addClass('d-none');
+    });
+
+    // Open modal event - always set correct next start date
+    $('#add-new-row').on('click', function () {
+        setNextStartDate();
+        var modal = new bootstrap.Modal(document.getElementById('membershipModal'));
+        modal.show();
+    });
+
+    $('#membershipModal form').on('submit', function (e) {
+        e.preventDefault();
+
+        var startDateInput = $('#start_date');
+        var endDateInput = $('#end_date');
+        var stateSelect = $('#state');
+
+        var stateText = stateSelect.find('option:selected').text();
+        var stateValue = stateSelect.val();
+        var startDate = startDateInput.val();
+        var endDate = endDateInput.val();
+        var membershipType = $('#cal_memship_type').val();
+        var members = parseInt($('#cal_members').val()) || 1;
+
+        var advertings = @json($advertings);
+        var hasError = false;
+
+        startDateInput.removeClass('input-error');
+        endDateInput.removeClass('input-error');
+        startDateInput.siblings('.invalid-feedback').addClass('d-none');
+        endDateInput.siblings('.invalid-feedback').addClass('d-none');
+
+        if (!startDate) {
+            startDateInput.addClass('input-error');
+            startDateInput.siblings('.invalid-feedback').removeClass('d-none').text('Start date is required.');
+            hasError = true;
+        }
+        if (!endDate) {
+            endDateInput.addClass('input-error');
+            endDateInput.siblings('.invalid-feedback').removeClass('d-none').text('End date is required.');
+            hasError = true;
+        }
+        if (!hasError && new Date(endDate) < new Date(startDate)) {
+            startDateInput.addClass('input-error');
+            endDateInput.addClass('input-error');
+            endDateInput.siblings('.invalid-feedback').removeClass('d-none').text('End date cannot be earlier than start date.');
+            hasError = true;
+        }
+        if (!hasError && usedLocations.includes(stateValue)) {
+            hasError = true;
+            stateSelect.addClass('input-error');
+        }
+
+        if (hasError) return;
+
+        var start = new Date(startDate);
+        var end = new Date(endDate);
+        var days = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+
+        var selectedAd = advertings.find(ad => ad.membership_type.replace(/(<([^>]+)>)/gi, "") === membershipType);
+        var rate = selectedAd.discounted_rate ?? selectedAd.rate;
+        var fee = 0;
+        if (selectedAd.frequency.toLowerCase().includes('day')) {
+            fee = rate * days * members;
+        } else if (selectedAd.frequency.toLowerCase().includes('week')) {
+            var weeks = Math.ceil(days / 7);
+            fee = rate * weeks * members;
+        } else {
+            fee = rate * days * members;
+        }
+        fee = fee.toFixed(2);
+
+        // Track used locations and dates
+        usedLocations.push(stateValue);
+        stateSelect.find(`option[value="${stateValue}"]`).remove();
+        usedDates.push(startDate, endDate);
+
+        // Save this as the last end date
+        lastEndDate = endDate;
+
+        // Add new row
+        var newRow = `
+            <tr data-location="${stateValue}">
+                <td>${stateText}</td>
+                <td>${startDate}</td>
+                <td>${endDate}</td>
+                <td>${membershipType}</td>
+                <td>${members}</td>
+                <td class="d-flex align-items-center" style="border-left:0;border-bottom:0;border-right:0;">
+                    <label class="mb-0">$</label>
+                    <input type="text" class="border-0" value="${fee}" readonly style="width:100%">
                 </td>
-                <td><input name="start" id="start_date" type="date" style="border: 0;width:100%"></td>
-                <td><input name="end" id="end_date" type="date" style="border: 0;width:100%"></td>
-                <td><select style="border: 0;width:100%">
-                        <option value="Platinum">Platinum</option>
-                        <option value="Gold" selected>Gold</option>
-                        <option value="Silver">Silver</option>
-                    </select>
-                </td>
-                <td><select style="border: 0;width:100%">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-                </td>
-                <td class="d-flex align-items-center">
-                    <label class="mb-0">$</label><input name="fee" id="fee" type="text" style="border: 0;width:100%" value="80.00">
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm remove-row">Remove</button>
                 </td>
             </tr>
-            `;
-            $('#reckoner tbody tr.custom-last-row').before(newRow);
-        });
+        `;
+
+        // $('#reckoner tbody tr.blank-row').remove();
+        // $('#reckoner tbody').prepend(newRow);
+
+        $('#reckoner tbody tr.blank-row').remove();
+        if ($('#reckoner tbody tr.custom-last-row').length > 0) {
+            $(newRow).insertBefore('#reckoner tbody tr.custom-last-row');
+        } else {
+            $('#reckoner tbody').append(newRow);
+        }
+
+        updateTotal();
+        $(this)[0].reset();
+
+        // Hide modal (Bootstrap 4)
+        //$('#membershipModal').modal('hide');
+        $('#membershipModal .close').trigger('click');
     });
+
+    // Remove row and restore location
+    $('#reckoner').on('click', '.remove-row', function () {
+        var row = $(this).closest('tr');
+        var locationValue = row.data('location');
+        var locationText = row.find('td:first').text();
+        var endDate = row.find('td:nth-child(3)').text();
+
+        usedLocations = usedLocations.filter(l => l !== locationValue);
+        usedDates = usedDates.filter(d => d !== endDate);
+
+        // Restore the location option
+        $('#state').append(`<option value="${locationValue}">${locationText}</option>`);
+
+        // If this was the last row, clear lastEndDate
+        if ($('#reckoner tbody tr').not('.blank-row, .custom-last-row').length === 1) {
+            lastEndDate = null;
+        }
+
+        row.remove();
+        updateTotal();
+        setNextStartDate();
+    });
+
+    function updateTotal() {
+        var total = 0;
+        var rowCount = 0;
+
+        $('#reckoner tbody tr').not('.custom-last-row, .blank-row').each(function () {
+            var feeVal = parseFloat($(this).find('input').val()) || 0;
+            total += feeVal;
+            rowCount++;
+        });
+
+        if (rowCount === 0) {
+            $('#reckoner tbody tr.custom-last-row').remove();
+            addBlankRow();
+        } else {
+            if ($('#reckoner tbody tr.custom-last-row').length === 0) {
+                var totalRow = `
+                    <tr class="custom-last-row">
+                        <td class="border-0"></td>
+                        <td class="border-0"></td>
+                        <td class="border-0"></td>
+                        <td class="border-0"></td>
+                        <td class="border-0"></td>
+                        <td class="font-weight-bold">Total Fees:</td>
+                        <td class="font-weight-bold text-left"><span>$</span>${total.toFixed(2)}</td>
+                    </tr>
+                `;
+                $('#reckoner tbody').append(totalRow);
+            } else {
+                $('#reckoner tbody tr.custom-last-row td:last').html('<span>$</span>' + total.toFixed(2));
+            }
+        }
+    }
+
+});
+});
+
+
+
+
+
+    // ############# End Calculater ###########
+
+   
 </script>
 @endpush
+
+
+
