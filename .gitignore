@@ -40,6 +40,7 @@ auth.json
 /old_bkp/
 /error_log
 .htaccess
+.htpasswd
 
 public/massageProfile/images/335/kirill-balobanov-2ris8oh5ng0-unsplash.jpg
 public/massageProfile/images/*

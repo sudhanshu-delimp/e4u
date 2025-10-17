@@ -133,7 +133,7 @@ Route::post('update-about/{id}',[UpdateController::class,'storeAbout'])->name('e
 Route::post('services/{id}',[UpdateController::class,'storeServices'])->name('escort.store.services');
 Route::post('rates/{id}',[UpdateController::class,'storeRates'])->name('escort.store.rate');
 Route::post('availability/{id}',[UpdateController::class,'storeAvailability'])->name('escort.store.availability');
-Route::post('playmates/{id}',[UpdateController::class,'storePlaymates'])->name('escort.store.playmates');
+
 Route::get('check-profile-name',[UpdateController::class,'checkProfileName'])->name('escort.checkProfileName');
 
 Route::get('playmates/{id}', [EscortController::class, 'escortsPlayMates'])->name('escort.playmates');
@@ -412,7 +412,7 @@ Route::post('notification-seen', [NotificationController::class, 'makeNotificati
 Route::get('customise-dashboard', [EscortController::class, 'customiseDashboard'])->name('escort.dashboard.customise-dashboard');
 Route::post('customise-dashboard', [EscortController::class, 'updateCustomiseDashboard'])->name('escort.dashboard.customise-dashboard');
 Route::post('available-playmates', [PlaymateController::class, 'getAvailablePlaymates'])->name('escort.available_playmates');
-
+Route::post('playmates/{id}',[PlaymateController::class,'storePlaymates'])->name('escort.store.playmates');
 Route::post('/update-password', [AgentAccountController::class, 'changePassword'])->name('escort.update-password');
 
 // Route::get('customise-dashboard',function(){
