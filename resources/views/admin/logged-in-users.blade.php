@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="logged_in_table_class">
-                <table class="table table-bordered" id="listings" style="width:100%;">
+                <table class="table" id="listings" style="width:100%;">
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">
@@ -97,12 +97,22 @@
                         </tr>
                     </tbody>
                 </table>
-
-                <div class="timer_section">
-                    <p>Server time: <span class="serverTime">10:23:51 am</span></p>
-                    <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
-                    <p>Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></p>
-                </div>
+                <table class="table" style="width:100%">
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="3" class="border-0">
+                                Server time: <span class="serverTime">10:23:51 am</span>
+                            </th>
+                            <th colspan="2" class="border-0 text-center">
+                                Refresh time:<span class="refreshSeconds"> 15</span>
+                            </th>
+                            <th colspan="2" class="border-0 text-right">
+                                Up time: <span class="uptimeClass">{{ getAppUptime() }}</span>
+                            </th>
+                        </tr>
+                    </tfoot>
+                </table>
+                
                 <div class="customPaginationContainer mt-4 d-flex justify-content-between"></div>
                 <nav aria-label="Page navigation example" class="customPagination">
                 </nav>

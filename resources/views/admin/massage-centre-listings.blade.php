@@ -46,6 +46,7 @@ display: contents;
             </div>
         </div>
     </div>
+    <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 ">
             <div class="row my-3">
                 
@@ -58,7 +59,7 @@ display: contents;
                 </div>
             </div>
             <div class="massage_table_class">
-                <table class="table table-bordered" id="listings" style="width:100%;">
+                <table class="table" id="listings" style="width:100%;">
                     <thead class="table-bg">
                         <tr>
                             <th scope="col">
@@ -102,16 +103,6 @@ display: contents;
         </div>
        
     </div>
-</div>
-
-<!--middle content end here-->
-<!--right side bar start from here-->
-</div>
-<!--right side bar end-->
-</div>
-
-<!-- See Email Report popup -->
-
 
 <div class="modal fade upload-modal bd-example-modal-lg" id="view-listing" tabindex="-1" role="dialog" aria-labelledby="emailReportLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered modal-dialog-custom" role="document">
