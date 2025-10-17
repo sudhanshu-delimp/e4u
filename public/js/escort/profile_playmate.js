@@ -10,7 +10,7 @@ $(() => {
             dataType: "json",
             data:{escortId,stateId,searchValue},
             beforeSend: function () {
-                $(".playmates-card-grid").html(`<div class="alert alert-info">Please wait while we find available playmates for you.</div>`);
+                $(".playmates-card-grid").html(`<div class="alert alert-info">Please wait a moment while we find your available Playmates.</div>`);
             },
         }).done(function (response) {
             if (response.success) {

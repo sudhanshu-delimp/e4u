@@ -1640,44 +1640,4 @@ class UpdateController extends AppController
         $exists = $query->exists();
         return  $exists ? response()->json(false, 422) : response()->json(true, 200);
     }
-
-    public function storePlaymates(Request $request, $escortId)
-    {
-        $error = false;
-            $escort = Escort::find($escortId);
-            /**
-             * Add and Remove Playmates to the login escort profile
-             */
-            if($request->has('add_playmate')){
-                $escort->playmates()->syncWithoutDetaching($request->add_playmate);
-                /**
-                 * Add login escort profile as playmate to others
-                 */
-                foreach ($request->add_playmate as $playmateId) {
-                    $otherEscort = Escort::find($playmateId);
-                    if ($otherEscort) {
-                        $otherEscort->playmates()->syncWithoutDetaching($escort->id);
-                    }
-                }
-            }
-            
-            if($request->has('update_playmate')){
-                $escort->playmates()->sync($request->update_playmate);
-                /**
-                 * Remove login escort profile from the unchecked others
-                 */
-                $playmateIds = $escort->playmates()->pluck('playmate_id')->toArray();
-                $checkedIds = (!empty($request->update_playmate))?$request->update_playmate:[];
-                $uncheckedIds = array_diff($playmateIds, $checkedIds);
-                if(!empty($uncheckedIds)){
-                    foreach ($uncheckedIds as $playmateId) {
-                        $otherEscort = Escort::find($playmateId);
-                        if ($otherEscort) {
-                            $otherEscort->playmates()->detach($escortId);
-                        }
-                    }
-                }
-            }
-        return response()->json(compact('error'));
-    }
 }
