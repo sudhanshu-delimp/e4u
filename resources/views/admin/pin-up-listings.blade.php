@@ -169,7 +169,7 @@ $(document).ready(function () {
             { data: 'start_date' },
             { data: 'end_date' },
             { data: 'status' },
-            { data: 'action', name: 'action', orderable: false },
+            { data: 'option', name: 'option', orderable: false },
         ]
     });
 
