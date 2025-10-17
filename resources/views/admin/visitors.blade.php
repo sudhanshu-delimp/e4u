@@ -233,6 +233,7 @@
                 //     $info.appendTo($timerSection);
                 //     $paginate.appendTo($timerSection);
                 // }
+                $(".dataTables_empty").text('There are currently no Visitors.')
             },
             columns: [
                 { data: 'date', name: 'date' },
