@@ -40,6 +40,14 @@ body {
     color: var(--white);
 }
 
+.custom-nav-dropdown {
+    background-color: #F2F2F2 !important;
+}
+
+.custom-nav-dropdown .dropdown-item:hover {
+    background-color: #dfdfdf;
+}
+
 .bg-second {
     background-color: var(--peach) !important;
     color: var(--white);
