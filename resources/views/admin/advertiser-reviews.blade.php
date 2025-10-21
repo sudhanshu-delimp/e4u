@@ -445,13 +445,13 @@
             imageUrl = '{{ asset("assets/dashboard/img/published.png") }}';
             $("#custompopicon").attr('src', imageUrl );
 
-            $(".success-modal-text").text('We’re happy to inform you that your review has been published.');
+            $(".success-modal-text").text('This Review is now Published');
 
         }else if(status == 'rejected'){
             $(".success-modal-title").text('Rejected');
             imageUrl = '{{ asset("assets/dashboard/img/rejected.png") }}';
             $("#custompopicon").attr('src', imageUrl );
-            $(".success-modal-text").text('We’re happy to inform you that your review has been rejected.');
+            $(".success-modal-text").text('This Review is now Rejected.');
         }else{
             $(".success-modal-title").text('Pending');
             $("#custompopicon").attr('src', imageUrl);
