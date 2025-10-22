@@ -38,6 +38,7 @@ class PlaymateController extends Controller
                 ->where('user_id', '!=', $accountUserId)
                 ->where('enabled',1)
                 ->whereNotNull('name')
+                ->whereDoesntHave('activeSuspendProfile')
                 ->get();
                 
 
