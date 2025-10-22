@@ -1,9 +1,18 @@
 <div class="container-fluid register-pin-up mb-5  pl-3 pl-lg-5 pr-3 pr-lg-5">
     <div class="row">
-        <div class="col-md-12 custom-heading-wrapper">
-           <h1 class="h1">Submit</h1>
-           <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
-        </div>
+        <div class="d-sm-flex align-items-center justify-content-between col-md-12">
+                <div class="custom-heading-wrapper">
+                    <h1 class="h1">Submit</h1>
+                    <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
+                    </h6>
+                </div>
+                
+                <div class="back-to-dashboard">
+                    <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                        <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                    </a>
+                </div>
+            </div>
         <div class="col-md-12 mb-4">
            <div class="card collapse" id="notes" style="">
               <div class="card-body">

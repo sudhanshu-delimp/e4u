@@ -173,9 +173,9 @@ Route::get('forms',function(){
 })->name('Commision.summary');
 
 
-Route::get('my-income',function(){
-    return view('agent.dashboard.my-income');
-})->name('agent.my-income');
+Route::get('Commision/my-income',function(){
+    return view('agent.dashboard.Commision.my-income');
+})->name('Commision.my-income');
 
 Route::get('my-statistics',function(){
     return view('agent.dashboard.my-statistics');

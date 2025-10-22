@@ -111,7 +111,7 @@
 
 
 
-                <a class="collapse-item" href="{{ route('agent.advertiser-list') }}">
+                <a class="collapse-item" href="{{ route('agent.advertiser-list', ['from' => 'sidebar']) }}">
 
                     <svg width="19" height="17" viewBox="0 0 19 17" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -146,7 +146,7 @@
 
             <span>Commission</span>
         </a>
-        <div id="Commision" class="collapse @if (request()->segment(3) == 'statements' || request()->segment(3) == 'summary') show @endif;"
+        <div id="Commision" class="collapse @if (request()->segment(3) == 'statements' || request()->segment(3) == 'summary' || request()->segment(3) == 'my-income') show @endif;"
             data-parent="#accordionSidebar" class="collapse" style="">
 
             <div class="py-0 collapse-inner rounded mb-2">
@@ -170,7 +170,11 @@
                     <span style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">Summary</span>
                 </a>
 
-                
+                 <a class="collapse-item" href="{{ route('Commision.my-income', ['from' => 'sidebar']) }}">
+                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
+                        src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
+                    <span style="{{ request()->segment(3) == 'my-income' ? 'color: #e5365a;' : '' }}">My Income</span>
+                </a>
 
 
                     
@@ -197,7 +201,7 @@
                     <span
                         style="{{ request()->segment(3) == 'create-information-package' ? 'color: #e5365a;' : '' }}">Information Packages</span>
                 </a>
-                <a class="collapse-item" href="{{ route('marketing.agencreate-prospect') }}">
+                <a class="collapse-item" href="{{ route('marketing.agencreate-prospect', ['from' => 'sidebar']) }}">
                     <img src="{{ asset('assets/dashboard/img/menu-icon/prospect.png') }}">
                     <span style="{{ request()->segment(3) == 'create-prospect' ? 'color: #e5365a;' : '' }}">Prospect
                         Lists</span>
