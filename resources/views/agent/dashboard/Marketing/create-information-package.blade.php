@@ -102,7 +102,7 @@
 
 
     {{-- search modal --}}
-    <div class="modal fade upload-modal show" id="search" tabindex="-1" role="dialog"
+    <div class="modal fade upload-modal" id="search" tabindex="-1" role="dialog"
         aria-labelledby="searchlabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -119,8 +119,8 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour text-center">
-                    <h5 class="my-2">Search the Information Package document you are looking
-                     for by the ID contained in the List.</h5>
+                    <h4 class="my-2">Search the Information Package document you are looking
+                     for by the ID contained in the List.</h4>
                     <form>
                         <div class="row mt-3">
                             <div class="col-md-6 mx-auto">

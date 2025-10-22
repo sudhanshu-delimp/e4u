@@ -20,7 +20,7 @@
     display: none;
 } */
 #escort_listings{
-    margin-bottom: 0px !important;
+    /* margin-bottom: 0px !important; */
 }
     .brb_icon {
         color: white;
@@ -105,49 +105,47 @@
                 <table class="table" id="escort_listings" style="width:100%;">
                     <thead class="table-bg">
                         <tr>
-                            <th scope="col">
+                            <th>
                                 Member ID
 
                             </th>
-                            <th scope="col">
+                            <th>
                                 Member
 
                             </th>
-                            <th scope="col">
+                            <th>
                                 Listing
                             </th>
-                            <th scope="col">
+                            <th>
                                 Profile Name
                             </th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Listed</th>
-                            <th scope="col">De-listed</th>
-                            <th scope="col">Days</th>
-                            <th scope="col">Remaining</th>
-                            <th scope="col">Action</th>
+                            <th>Type</th>
+                            <th>Listed</th>
+                            <th>De-listed</th>
+                            <th>Days</th>
+                            <th>Remaining</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody class="table-content">
-                        <tr class="row-color">
+                        <tr>
                             <td colspan="10" class="theme-color text-center">Loading...</td>
                         </tr>
                     </tbody>
+                     <tr>
+                        <th colspan="10" class="border-0"></th>
+                    </tr>
+                    <tfoot class="bg-first t-foot">
+                        <tr>
+                            <th colspan="2" class="text-left border-0">Server time: <span class="serverTime">10:23:51 am</span></th>
+                            <th colspan="4" class="text-center border-0">Refresh time:<span class="refreshSeconds"> 15</span></th>
+                            <th colspan="4" class="text-right border-0">Up time: <span class="uptimeClass">{{ getAppUptime() }}</span></th>
+                        </tr>
+                    </tfoot>
+                    
                 </table>
-                <div class="timer_section">
-                    <p>Server time: <span class="serverTime">10:23:51 am</span></p>
-                    <p>Refresh time:<span class="refreshSeconds"> 15</span></p>
-                    <p>Up time: <span class="uptimeClass">{{getAppUptime()}}</span></p>
-                </div>
-                <div class="customPaginationContainer mt-4 d-flex justify-content-between "></div>
-                
             </div>
         </div>
-       {{-- <div class="col-sm-12 col-md-12 col-lg-12">
-       <div class="timer_section">
-            <p>Server time: <span>[10:23:51 am]</span></p>
-            <p>Refresh time:<span> [seconds]</span></p>
-            <p>Up time: <span>[214 days & 09 hours 12 minutes]</span></p>
-        </div> --}}
        </div>
     </div>
 </div>

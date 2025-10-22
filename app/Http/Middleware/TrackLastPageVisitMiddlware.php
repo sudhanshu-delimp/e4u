@@ -4,8 +4,12 @@ namespace App\Http\Middleware;
 
 use App\Models\AttemptLogin;
 use App\Models\City;
+use App\Models\Visitor;
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class TrackLastPageVisitMiddlware
@@ -22,6 +26,16 @@ class TrackLastPageVisitMiddlware
         if ($request->is('logout') || Str::contains($request->path(), 'logout')) {
             return $next($request);
         }
+
+        $path = $request->path();
+
+        if (Str::contains($path, 'get-notification') || Str::contains($path, 'get-geolocation-data') || Str::contains($path, 'state-name') || Str::contains($path, 'web.state.name') ) {
+            return $next($request);
+        }
+
+        if ($request->ajax() || $request->isMethod('post')) {
+            return $next($request);
+        }
         
         if(auth()->user() != null) {
 
@@ -33,7 +47,8 @@ class TrackLastPageVisitMiddlware
                     ->withErrors(['message' => 'You have been logged out due to suspended by admin.']);
             }
 
-             $lastActivity = AttemptLogin::where('user_id', auth()->user()->id)
+            $lastActivity = AttemptLogin::where('user_id', auth()->user()->id)
+            ->where('email', '!=', 'admin@e4u.com.au')
             ->value('updated_at');
 
             # logout user if their idle time is more than their preference time
@@ -56,15 +71,6 @@ class TrackLastPageVisitMiddlware
             $state = auth()->user()->state_id;
             $cityId = null;
             $countryId = null;
-            $path = $request->path();
-
-            if (Str::contains($path, 'get-notification') || Str::contains($path, 'get-geolocation-data') || Str::contains($path, 'state-name') || Str::contains($path, 'web.state.name') ) {
-                return $next($request);
-            }
-
-            if ($request->ajax() || $request->isMethod('post')) {
-                return $next($request);
-            }
 
             if($state != null){
                 $city = City::where('state_id',$state)->first();
@@ -72,6 +78,13 @@ class TrackLastPageVisitMiddlware
                 $countryId = $city->country_id;
             }
 
+            # Update visitor guest user to logged user
+            Visitor::where('ip_address',$this->getUserIp())->update([
+                'user_id' => auth()->user()->id,
+                'user_type' => 'user',
+            ]);
+
+            // update auth user
             if ($attempt != null) {
                 AttemptLogin::where('user_id',auth()->user()->id)->update([
                     'page' => $path, // e.g. "dashboard/advertiser"
@@ -96,6 +109,43 @@ class TrackLastPageVisitMiddlware
                     'type' => 1,
                 ]);
             }
+        }else{
+            $visitor = Visitor::where('ip_address',$this->getUserIp())->first();
+            
+            if($visitor != null){
+                # update visitor activity
+                Visitor::where('ip_address',$this->getUserIp())->update([
+                    'page' => $path, // e.g. "dashboard/advertiser"
+                    'device' => $this->getBrowser(),
+                    'platform' => $this->getBrowser(),
+                    'country' => $this->getVisitorCountry()[0],
+                    'city' => null,
+                    'state' => $this->getVisitorCountry()[1],
+                    'user_type' => 'guest',
+                    'user_id' => null,
+                    'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
+                    'origin' => $this->getVisitorCountry()[0],
+                    'date' => now(config('app.escort_server_timezone')),
+                ]);
+            }else{
+                # create visitor activity
+                Visitor::create([
+                    'page' => $path, // e.g. "dashboard/advertiser"
+                    'ip_address' => $this->getUserIp(),
+                    'device' => $this->getBrowser(),
+                    'platform' => $this->getBrowser(),
+                    'country' => $this->getVisitorCountry()[0],
+                    'city' => null,
+                    'state' => $this->getVisitorCountry()[1],
+                    'user_type' => 'guest',
+                    'user_id' => null,
+                    'landed' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
+                    'idle' => Carbon::now(config('app.escort_server_timezone'))->format('h:i:s a'),
+                    'origin' => $this->getVisitorCountry()[0],
+                    'date' => now(config('app.escort_server_timezone')),
+                ]);
+            }
+            
         }
 
         return $next($request);
@@ -116,6 +166,35 @@ class TrackLastPageVisitMiddlware
         }
         return $ip;
     }
+
+    public function getVisitorCountry() 
+    {
+        $ip = $this->getUserIp();
+
+        // Check if IP and Country are already stored in session
+        if (Session::has('visitor_ip') && Session::get('visitor_ip') === $ip && Session::has('visitor_country')) {
+            return [Session::get('visitor_country'),Session::get('visitor_state')];
+        }
+
+        // If not in session, fetch from API
+        $response = Http::get("http://ip-api.com/json/{$ip}");
+        $data = $response->json();
+
+        $visitorState = null;
+        $visitorCountry = null;
+        if ($data && isset($data['status']) && $data['status'] === 'success') {
+            $visitorCountry = $data['country'];
+            $visitorState   = $data['regionName'];
+
+            // Store in session for later use
+            Session::put('visitor_ip', $ip);
+            Session::put('visitor_country', $visitorCountry);
+            Session::put('visitor_state', $visitorState);
+        }
+
+        return [$visitorCountry, $visitorState];
+    }
+
 
     public function getBrowser() {
         $userAgent = $_SERVER['HTTP_USER_AGENT'];

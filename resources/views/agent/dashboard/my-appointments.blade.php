@@ -826,6 +826,34 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 
     <script>
+        $(document).ready(function() {
+            var $dateInput = $('#new_appointment_date');
+            var userChanged = false;
+
+            // Highlight tomorrow when calendar opens
+            $dateInput.on('focus', function() {
+                if (!userChanged) {
+                    var tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    this.valueAsDate = tomorrow;
+                }
+            });
+
+            // Track if user has manually selected a date
+            $dateInput.on('input', function() {
+                userChanged = true;
+            });
+
+            // Clear the temporary value if user didn't select anything
+            $dateInput.on('blur', function() {
+                if (!userChanged) {
+                    $(this).val('');
+                }
+            });
+        });
+    </script>
+
+    <script>
     // Google Maps helpers with two-way sync between input, map, and hidden lat/lng
     var E4U_MAPS = {
         instances: {},
@@ -1571,6 +1599,7 @@
 
 
     </script>
+
 
 
 

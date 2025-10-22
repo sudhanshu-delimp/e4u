@@ -183,7 +183,7 @@
                     </button>
                 </div>
                 <div class="modal-body pb-0 agent-tour">
-                    <h5 class="my-2">Select the Marketing Information document to merge with:</h5>
+                    <h4 class="my-2">Select the Marketing Information document to merge with:</h4>
                     <form method="POST">
                         <div class="row my-3">
                             <div class="col-md-12">

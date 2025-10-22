@@ -100,7 +100,7 @@
                     <table id="escortCenterlegboxTable" class="table table-bordered display escortCenterlegboxTableClass" width="100%">
                         <thead class="bg-first">
                             <tr>
-                                <th class="text-left" style="background-color: #0c223d;">Escorts ID</th>
+                                <th class="text-left" style="background-color: #0c223d;">Escort's Member ID</th>
                                 <th class="text-left">Location</th>
                                 <th class="text-left">Stage Name</th>
                                 <th class="text-left">Gender</th>
@@ -139,7 +139,7 @@
          <table id="massagelistTable" class="table table-bordered">
             <thead class="bg-first">
                <tr>
-                  <th>Massage Centre ID</th>
+                  <th>Massage Member ID</th>
                   <th>Location</th>
                   <th>Business Name</th>
                   <th>Open Now</th>
@@ -258,7 +258,7 @@
                     <form method="post" action="#" id="ratingForm">
                         <div class="row mb-3">
                             <div class="col-md-12">
-                                    <h4><strong>Select Rating</strong></h4>
+                                    <label class="label">Select Rating</label>
                                     <div class=" d-flex align-items-center justify-content-start flex-wrap gap-10">
 
                                         <input type="hidden" name="escort_id" id="escort_rate_id">
@@ -328,7 +328,7 @@
                     <form method="post" action="#" id="massageCenterRatingForm">
                         <div class="row mb-3">
                             <div class="col-md-12">
-                                    <h4><strong>Select Rating</strong></h4>
+                                    <label class="label">Select Rating</label>
                                     <div class=" d-flex align-items-center justify-content-start flex-wrap gap-10">
  
                                         <input type="hidden" name="massage_id" id="massage_rate_id">
@@ -405,11 +405,14 @@
 
                     <div class="row">
                         <div class="col-md-12 my-3">
-                            <div class="form-group d-flex align-items-center justify-content-end gap-10">
+                            <div class="form-group d-flex align-items-center justify-content-center gap-10">
                                 <input type="hidden" id="removeEscortId" value="">
                                 <input type="hidden" id="removeEscortName" value="">
+                                <div class="d-flex align-items-center justify-content-center gap-10 ">
+                                    
                                 <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
                                 <button type="button" class="btn-success-modal removeEscortButton">Remove</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -449,11 +452,13 @@
 
                     <div class="row">
                         <div class="col-md-12 my-3">
-                            <div class="form-group d-flex align-items-center justify-content-end gap-10">
+                            <div class="form-group d-flex align-items-center justify-content-center gap-10">
                                 <input type="hidden" id="removeMassageId" value="">
                                 <input type="hidden" id="removeMassageName" value="">
-                                <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn-success-modal removeMassageButton">Remove</button>
+                                 <div class="d-flex align-items-center justify-content-center gap-10 ">
+                                    <button type="button" class="btn-cancel-modal" data-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn-success-modal removeMassageButton">Remove</button>
+                                 </div>
                             </div>
                         </div>
                     </div>
@@ -548,7 +553,7 @@
                 <div class="modal-body pb-0 agent-tour">
                     <div class="row">
                         <div class="col-md-12 my-4  text-center">
-                            <h5 class=" body_text mb-2">This Escort does not presently have any Listed Profiles.</h5>
+                            <h4 class=" body_text mb-2">This Escort does not presently have any Listed Profiles.</h4>
                         </div>
                     </div>
 

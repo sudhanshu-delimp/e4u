@@ -135,13 +135,14 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <img src="{{ asset('assets/app/img/newcross.png') }}" class=" ">
               </button>
-              <h3><img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}" class="custompopicon menu-icon my--play"> My Playbox s</h3>
+              <h3><img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}" class="custompopicon menu-icon my--play"> My Playbox</h3>
               <div class="modal-sec pb-0">
                 <h1 class="popu_heading_style mb-3 mt-3" style="text-align: center;">
-                    <span id="Lname " class="my_legbox_title">Full My Playbox content is only available to <strong>Viewers</strong>.</span>
+                    <span id="Lname " class="my_legbox_title">Full My Playbox content is only available to Viewers.</span>
+                    <span id="Lname " class="my_legbox_title">Please Log in or Register to access My Playbox.</span>
                     </h1>
                 <h1 class="popu_heading_style mb-3 mt-3" style="text-align: center;">
-                    <span id="Lname " class="my_legbox_title">Please <a href="{{route('viewer.login')}}" style="color: var(--peach);">Log in</a> or <a href="{{url('/register')}}" style="color: var(--peach);">Register</a> to access My Playbox.</span>
+                    
                 
                     <h1 class="popu_heading_style mb-4 mt-3" style="text-align: center;">    
                     <span id="Lname " class="my_legbox_title">Or to view an Escort’s Playbox, click the icon on the Escort’s Profile, if it has been made available.</span>
@@ -149,8 +150,8 @@
                 </div>
            </div>
            <div class="modal-footer justify-content-center pt-3">
-            <a href="{{route('viewer.login')}}" class="btn btn_advertiser">Login</a>
-            <a href="{{url('/register')}}" class="btn  btn_become_pin_up">Register</a>
+            <a href="{{route('viewer.login')}}" class="btn-common btn_advertiser">Login</a>
+            <a href="{{url('/register')}}" class="btn-common btn_become_pin_up">Register</a>
           </div>
         </div>
      </div>

@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
+use App\Http\Controllers\Admin\VisitorController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {  
@@ -108,9 +109,13 @@ Route::get('logged-user-status-update/{id}', [GlobalMonitoringLoggedInController
 //     return view('admin.logged-in-users');
 // })->name('admin.logged-in-users');
  
-Route::get('visitors', function(){
-    return view('admin.visitors');
-})->name('admin.visitors');
+# Visitors module
+Route::get('visitors', [VisitorController::class,'index'])->name('admin.visitors');
+Route::get('get-visitors-by-ajax', [VisitorController::class, "getVisitorsByAjax"])->name('admin.visitors-by-ajax');
+// Route::get('visitors', function(){
+//     return view('admin.visitors');
+// })->name('admin.visitors');
+
 
 Route::get('pinup-listings', function(){
     return view('admin.pin-up-listings');

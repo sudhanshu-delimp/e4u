@@ -232,6 +232,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(PasswordSecurity::class);
     }
+    public function playmates()
+    {
+        return $this->belongsToMany(Escort::class, 'playmates', 'user_id', 'playmate_id');
+    }
     public function getPlaymatesAttribute()
     {
         $this->loadMissing('listedEscorts.playmates');
@@ -405,7 +409,9 @@ class User extends Authenticatable
 
     public function listedEscorts()
     {
-        return $this->hasMany('App\Models\Escort', 'user_id')->where('enabled',1);
+        return $this->hasMany('App\Models\Escort', 'user_id')
+        ->whereNotNull('name')
+        ->where('enabled',1);
     }
 
     public function interest()
