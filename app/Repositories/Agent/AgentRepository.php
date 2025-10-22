@@ -144,7 +144,7 @@ class AgentRepository extends BaseRepository implements AgentInterface
 
             
                  /// Update agent detail
-                $agent = $user->agent_detail ?? $user->agent_detail()->create([]);
+                $agent = $user->agent_detail ?? $user->agent_detail()->create(['agent_id' =>$user->id]);
                 if (!empty($data['agreement_file'])) {
                     $file = $data['agreement_file'];
                     $filename = time().'.'.$file->getClientOriginalExtension();
