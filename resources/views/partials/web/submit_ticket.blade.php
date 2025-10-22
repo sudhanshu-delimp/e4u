@@ -7,11 +7,11 @@
                     </h6>
                 </div>
                 
-                <div class="back-to-dashboard">
+                {{-- <div class="back-to-dashboard">
                     <a href="{{ url()->previous() ?? route('dashboard.home') }}">
                         <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
                     </a>
-                </div>
+                </div> --}}
             </div>
         <div class="col-md-12 mb-4">
            <div class="card collapse" id="notes" style="">
