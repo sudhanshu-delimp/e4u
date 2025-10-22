@@ -362,6 +362,17 @@ $(document).ready(function() {
             eyeIcon.classList.toggle("fa-eye-slash");
         });
     });
+    
 </script>
+ 
 
+<script>
+let agent_pending_status = sessionStorage.getItem('agent_pending_status');
+  if (agent_pending_status) {
+        let formattedMessage = agent_pending_status.replace(/\n/g, '<br>');
+        swal_success_popup(formattedMessage);
+         sessionStorage.removeItem('agent_pending_status');
+  }
+
+</script>
 @endsection

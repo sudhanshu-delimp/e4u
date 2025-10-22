@@ -390,13 +390,20 @@ $(function() {
                    'X-CSRF-Token': token
                },
                 success: function(data) {
-                 Swal.close();
                   console.log(data);
                   var ph = data.phone;
                   $("#phoneId").attr('value',ph);
 
-                  if(data.error == 1) 
+                  if(data.error == 1 && data.status ==='Pending') 
                   {
+                    sessionStorage.setItem('agent_pending_status', 'Your account has been successfully created but is currently inactive.\n You will receive an email notification once it has been activated.');
+                    window.location.href = "{{ route('agent.login') }}";
+                    return false;
+                  }
+
+                  else (data.error == 1 && data.status !='Pending')
+                  {
+                        Swal.close();
                         setTimeout(() => {
                             $("#sendOtp_modal").modal({backdrop: 'static', keyboard: false});
                         }, 300); 
@@ -469,7 +476,7 @@ $(function() {
                             });
 
                         });
-                    }
+                     }
                },
                error: function(data) {
                 Swal.close();

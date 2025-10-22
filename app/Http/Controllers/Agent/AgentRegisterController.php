@@ -85,6 +85,7 @@ class AgentRegisterController extends Controller
             'type' => $data['type'],
             'password' => Hash::make($data['password']),
             'enabled' => 1,
+            'status' => 2
         ]);
     }
 
@@ -113,6 +114,7 @@ class AgentRegisterController extends Controller
             if($user) {
                 $error = 1;
                 $phone = $user->phone;
+                $status = $user->status;
                 $otp = $this->user->generateOTP();
                 $user->otp = $otp;
                 $user->save();
@@ -127,7 +129,7 @@ class AgentRegisterController extends Controller
                 $sendotp = new SendSms();
                 $output = $sendotp->send($phone,$msg);
                 //TODO:: don't send otp in the response, remove from bellow compact function
-                return response()->json(compact('error','phone'));
+                return response()->json(compact('error','phone','status'));
             } else {
                 $error = 0;
                 return response()->json(compact('error'));
