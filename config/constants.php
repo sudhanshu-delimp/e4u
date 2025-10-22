@@ -23,21 +23,21 @@ return [
     'dashboard_viewer' => [
 
             'escort' => [
-                            [
-                                'key'   =>  'My_Legbox_Viewers',
-                                'name'  =>  'My Legbox Viewers',
-                                'text'  =>  'View a complete summary of your Legbox Viewers.',
-                                'icon'  =>  'boxicon/icon_mylegbox.png',
-                                'link'  =>   '#',
-                            ],
+                            // [
+                            //     'key'   =>  'My_Legbox_Viewers',
+                            //     'name'  =>  'My Legbox Viewers',
+                            //     'text'  =>  'View a complete summary of your Legbox Viewers.',
+                            //     'icon'  =>  'boxicon/icon_mylegbox.png',
+                            //     'link'  =>   '#',
+                            // ],
 
-                            [
-                                'key'   =>  'My_Playbox_Summary',
-                                'name'  =>  'My Playbox Summary',
-                                'text'  =>  'View a complete financial and analytical summary of your My Playbox service.',
-                                'icon'  =>  'boxicon/icon_myplaybox.png',
-                                'link'  =>   'escort-dashboard/archive-myplaybox',
-                            ],
+                            // [
+                            //     'key'   =>  'My_Playbox_Summary',
+                            //     'name'  =>  'My Playbox Summary',
+                            //     'text'  =>  'View a complete financial and analytical summary of your My Playbox service.',
+                            //     'icon'  =>  'boxicon/icon_myplaybox.png',
+                            //     'link'  =>   'escort-dashboard/archive-myplaybox',
+                            // ],
 
                             [
                                 'key'   =>  'Manage_Media',

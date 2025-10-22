@@ -30,11 +30,13 @@
                      <h1 class="h1">Advertiser List</h1>
                      <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b></span>
                   </div>
+                  @if (request('from') !== 'sidebar')
                   <div class="back-to-dashboard">
                      <a href="{{ route('agent.dashboard') }}">
                         <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
                      </a>
                   </div>
+                  @endif
                </div>
 
                {{-- Notes Accordion --}}

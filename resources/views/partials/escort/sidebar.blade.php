@@ -197,7 +197,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('escort.archive-myplaybox') }}">
+        <a class="nav-link" href="{{ route('escort.archive-myplaybox', ['from' => 'sidebar']) }}">
             <img src="{{ asset('assets/dashboard/img/menu-icon/Icon_MyPlaybox-light.png') }}"/>
             <span class="{{ request()->routeIs('escort.archive-myplaybox') ? 'active-text' : '' }}">
                 My Playbox
@@ -278,7 +278,7 @@
              <img src="{{ asset('assets/dashboard/img/menu-icon/ccone.png')}}">
              <span>Communication</span>
         </a>
-        <div id="communication" class="collapse @if(request()->segment(2) == 'escort-agency-request' || request()->segment(2) == 'send-notofications' || request()->segment(2) == 'my-legbox-viewers' || request()->segment(2) == 'viewers-messages'  || request()->segment(2) == 'agent-messages' || request()->segment(2) == 'viewer-notes' || request()->segment(2) == 'viewer-messaging') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="communication" class="collapse @if(request()->segment(2) == 'escort-agency-request' || request()->segment(2) == 'send-notofications' || request()->segment(2) == 'my-legbox-viewers' || request()->segment(2) == 'viewers-messages'  || request()->segment(2) == 'agent-messages' || request()->segment(2) == 'viewer-notes' || request()->segment(2) == 'viewer-messaging' || request()->segment(2) == 'view-reviews') show @endif;" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="py-0 collapse-inner rounded mb-2">
             <a class="collapse-item" href="{{url('escort-dashboard/escort-agency-request')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/comtwo.png')}}">
@@ -288,13 +288,18 @@
                 <img src="{{ asset('assets/dashboard/img/menu-icon/ccthree.png')}}">
                 <span style="{{request()->segment(2) == 'send-notofications' ? 'color: #e5365a;' : ''}}">Notifications</span>
             </a>
-            <a class="collapse-item" href="{{ route('escort.dashboard.my-legbox-viewers')}}">
+            <a class="collapse-item" href="{{ route('escort.dashboard.my-legbox-viewers', ['from' => 'sidebar'])}}">
                <img src="{{ asset('assets/dashboard/img/menu-icon/legbox.png')}}">
                <span style="{{request()->segment(2) == 'my-legbox-viewers' ? 'color: #e5365a;' : ''}}">Legbox Viewer</span>
            </a>
            <a class="collapse-item" href="{{ route('escort.dashboard.agent-messages')}}">
               <img src="{{ asset('assets/dashboard/img/menu-icon/chat.png')}}">
               <span style="{{request()->segment(2) == 'agent-messages' ? 'color: #e5365a;' : ''}}">Messages</span>
+          </a>
+
+           <a class="collapse-item" href="{{url('escort-dashboard/view-reviews')}}">
+              <img src="{{ asset('assets/dashboard/img/menu-icon/reviewone.png')}}">
+              <span style="{{request()->segment(2) == 'view-reviews' ? 'color: #e5365a;' : ''}}">My Reviews</span>
           </a>
 
             {{--<a class="collapse-item" href="{{url('escort-dashboard/viewer-notes')}}">
@@ -418,7 +423,7 @@
     </li>
 
  {{-- //hidden for Wayne 20240715 --}}
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#reviews"
             aria-expanded="true" aria-controls="collapseTwo">
              <img src="{{ asset('assets/dashboard/img/menu-icon/pachive.png')}}">
@@ -430,14 +435,14 @@
                 <img src="{{ asset('assets/dashboard/img/menu-icon/reviewone.png')}}">
                 <span style="{{request()->segment(2) == 'view-reviews' ? 'color: #e5365a;' : ''}}">List</span>
             </a>
-             {{-- <a class="collapse-item" href="{{url('escort-dashboard/reccomendations')}}">
+             <a class="collapse-item" href="{{url('escort-dashboard/reccomendations')}}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/reviewtwo.png')}}">
                 <span style="{{request()->segment(2) == 'reccomendations' ? 'color: #e5365a;' : ''}}">Recommendations</span>
-            </a> --}}
+            </a> 
 
             </div>
         </div>
-    </li>
+    </li> --}}
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#ugly" aria-expanded="true" aria-controls="collapseten">
             <img src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png')}}">

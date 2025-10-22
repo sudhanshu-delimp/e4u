@@ -24,66 +24,6 @@
         <div class="row">
             {{-- box start --}}
             <div class="col-lg-4 box-wrapper">
-                <div class="my-custom-box shadow-sm mt-0">
-                    <a href="{{ route('escort.dashboard.escorts-statistics') }}">
-                        <div class="box-icon">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_escort-statistics.png') }}" class="my-svg-icons" alt="Escorts Statistics">
-                        </div>
-                        <h2>
-                            Escorts Statistics
-                        </h2>
-                    </a>
-
-                </div>
-            </div>
-            {{-- end --}}
-            {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
-                <div class="my-custom-box shadow-sm mt-0">
-                    <a href="{{ route('escort.dashboard.my-playmates') }}">
-                        <div class="box-icon">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates01.png') }}" class="my-svg-icons" alt=" My Playmates">
-                        </div>
-                        <h2>
-                           My Playmates
-                        </h2>
-                    </a>
-
-                </div>
-            </div>
-            {{-- end --}}
-            {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
-                <div class="my-custom-box shadow-sm mt-0">
-                    <a href="{{ route('escort.dashboard.my-spend') }}">
-                        <div class="box-icon">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-spend.png') }}" class="my-svg-icons" alt="My Spend">
-                        </div>
-                        <h2>
-                            My Spend
-                        </h2>
-                    </a>
-
-                </div>
-            </div>
-            {{-- end --}}
-            {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
-                <div class="my-custom-box shadow-sm">
-                    <a href="{{ route('escort.dashboard.my-statistics') }}">
-                        <div class="box-icon">
-                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.png') }}" class="my-svg-icons" alt="My Statistics">
-                        </div>
-                        <h2>
-                            My Statistics
-                        </h2>
-                    </a>
-
-                </div>
-            </div>
-            {{-- end --}}
-            {{-- box start --}}
-            <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
                     <a href="{{ route('escort.dashboard.task-list') }}">
                         <div class="box-icon">
@@ -112,7 +52,98 @@
                 </div>
             </div>
             {{-- end --}}
+            
+            {{-- box start --}}
+            <div class="col-lg-4 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('escort.dashboard.my-spend') }}">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-spend.png') }}" class="my-svg-icons" alt="My Spend">
+                        </div>
+                        <h2>
+                            My Spend
+                        </h2>
+                    </a>
 
+                </div>
+            </div>
+            {{-- end --}}
+            
+            {{-- box start --}}
+            <div class="col-lg-4 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('escort.dashboard.my-playmates') }}">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-playmates01.png') }}" class="my-svg-icons" alt=" My Playmates">
+                        </div>
+                        <h2>
+                           My Playmates
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            {{-- end --}}
+            {{-- box start --}}
+            <div class="col-lg-4 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('escort.archive-myplaybox') }}">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_myplaybox.png') }}" class="my-svg-icons" alt="My Playbox Summary">
+                        </div>
+                        <h2>
+                            My Playbox Summary
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            {{-- end --}}
+            {{-- box start --}}
+            <div class="col-lg-4 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('escort.dashboard.my-legbox-viewers') }}">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_mylegbox.png') }}" class="my-svg-icons" alt="My Legbox Summary">
+                        </div>
+                        <h2>
+                            My Legbox Summary
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            {{-- end --}}
+            {{-- box start --}}
+            <div class="col-lg-4 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('escort.dashboard.escorts-statistics') }}">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_escort-statistics.png') }}" class="my-svg-icons" alt="Escorts Statistics">
+                        </div>
+                        <h2>
+                            Escorts Statistics
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            {{-- end --}}
+            {{-- box start --}}
+            <div class="col-lg-4 box-wrapper">
+                <div class="my-custom-box shadow-sm">
+                    <a href="{{ route('escort.dashboard.my-statistics') }}">
+                        <div class="box-icon">
+                            <img src="{{ asset('assets/dashboard/img/boxicon/icon_my-statistics.png') }}" class="my-svg-icons" alt="My Statistics">
+                        </div>
+                        <h2>
+                            My Statistics
+                        </h2>
+                    </a>
+
+                </div>
+            </div>
+            {{-- end --}}
             {{-- box start --}}
             <div class="col-lg-4 box-wrapper">
                 <div class="my-custom-box shadow-sm">
