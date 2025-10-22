@@ -622,7 +622,7 @@ class User extends Authenticatable
 
         public function referrals()
         {
-            return $this->hasMany(User::class, 'referred_by_agent_id');
+            return $this->hasMany(User::class, 'assigned_agent_id');
         }
 
     

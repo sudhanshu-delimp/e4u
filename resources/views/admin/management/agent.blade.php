@@ -244,7 +244,7 @@
       }
       },
       columns: [
-      { data: 'agent_id', name: 'agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
+      { data: 'member_id', name: 'member_id', searchable: true, orderable:true ,defaultContent: 'NA'},
       { data: 'business_name', name: 'business_name', searchable: true, orderable:false ,defaultContent: 'NA'},
       { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
       { data: 'phone', name: 'phone', searchable: true, orderable:true ,defaultContent: 'NA'},
@@ -276,7 +276,7 @@
                },
                success: function(response) {
                   console.log(response)
-                  if (response.success) {
+                  if (response.status) {
                    swal_success_popup(response.message);
                    table.ajax.reload(null, false); 
                   }
@@ -298,6 +298,7 @@
       {
          var requestId = $(this).data('id');
          var rowData = table.row($(this).parents('tr')).data();
+         const safeData = JSON.stringify(rowData).replace(/'/g, "&apos;").replace(/"/g, "&quot;");
 
          console.log(rowData);
 
@@ -340,7 +341,7 @@
                                                 <div class="d-flex justify-content-end mb-2">
                                                    <!-- Print Button -->
 
-                                                    <button class="btn-success-modal d-block btn-print" data-agent='${JSON.stringify(rowData)}'>
+                                                    <button class="btn-success-modal d-block btn-print" data-agent='${safeData}'>
                                                          <i class="fa fa-print text-white"></i> Print
                                                    </button>
 

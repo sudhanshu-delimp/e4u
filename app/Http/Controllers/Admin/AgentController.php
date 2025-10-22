@@ -103,6 +103,7 @@ class AgentController extends BaseController
             $item->no_of_client = (isset($item->referrals_count) && $item->referrals_count>0) ? $item->referrals_count : '0';
             $item->last_login = ((isset($item->account_setting) && ($item->account_setting->last_login!=NULL)) ? convert_aus_date_time_format($item->account_setting->last_login) : 'NA');
             $item->agent_id = $item->id;
+            	
             $item->territory = isset($item->state->name) ? $item->state->name : 'NA';
 
             $suspend_html = "";
