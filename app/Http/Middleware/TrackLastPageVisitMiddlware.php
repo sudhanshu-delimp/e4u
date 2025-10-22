@@ -47,7 +47,8 @@ class TrackLastPageVisitMiddlware
                     ->withErrors(['message' => 'You have been logged out due to suspended by admin.']);
             }
 
-             $lastActivity = AttemptLogin::where('user_id', auth()->user()->id)
+            $lastActivity = AttemptLogin::where('user_id', auth()->user()->id)
+            ->where('email', '!=', 'admin@e4u.com.au')
             ->value('updated_at');
 
             # logout user if their idle time is more than their preference time
