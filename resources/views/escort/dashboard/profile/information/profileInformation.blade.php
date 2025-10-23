@@ -1018,19 +1018,28 @@
    // });
    $(document).ready(function(){
        $.each($( "input[name^='availability_time']" ), function( index, value ) {
-           if($(value).is(':checked')) {
-               $(value).closest('.parent-row').find('select').attr('disabled', true);
+          let p_element = $(value).attr('id');
+                if(!p_element.endsWith('_til_ate')){
+                    if ($(value).is(':checked')) {
+                        $(value).closest('.parent-row').find('select').attr('disabled', true);
+                    }
 
-           }
+                }
        });
 
        $(document).on('change', 'input.monday, input.tuesday, input.wednesday, input.thursday, input.friday, input.saturday, input.sunday', function() {
            var p_element = $(this).attr('id');
-           if($('#'+p_element).is(":checked")) {
-               $('#'+p_element).closest('.parent-row').find('select').attr('disabled', true).val(0);
-           } else {
-               $('#'+p_element).closest('.parent-row').find('select').attr('disabled', false);
-           }
+
+         if ($('#' + p_element).is(":checked")) {
+            if(p_element.endsWith('_til_ate')){
+                $('#' + p_element).closest('.parent-row').find('select').attr('disabled', false);
+            }else{
+                $('#' + p_element).closest('.parent-row').find('select').attr('disabled', true).val(0);
+            }
+    
+        } else {
+                $('#' + p_element).closest('.parent-row').find('select').attr('disabled', false);
+            }
        });
 
 
