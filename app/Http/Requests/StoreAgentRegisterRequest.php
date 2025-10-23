@@ -26,7 +26,7 @@ class StoreAgentRegisterRequest extends FormRequest
         return [
             'phone' => 'required|unique:users',
             'email' => 'required|unique:users',
-            'password' => 'required',
+            //'password' => 'required',
             'type' => 'required|in:5',
         ];
     }

@@ -338,7 +338,7 @@ $(document).ready(function() {
                 Swal.close();
                console.log("error: ", data.responseJSON.errors);
                $.each(data.responseJSON.errors, function(key, value) {
-                 errorsHtml = '<div class="alert alert-danger"><ul>';
+                 errorsHtml = '<div class="alert alert-danger" style="text-transform:none !important;"><ul>';
                  errorsHtml += '<li>' + value + '</li>'; //showing only the first error.
                });
 

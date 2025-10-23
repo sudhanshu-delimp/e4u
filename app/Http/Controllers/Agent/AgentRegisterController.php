@@ -83,7 +83,7 @@ class AgentRegisterController extends Controller
             'email' => $data['email'],
             'phone' => $data['phone'],
             'type' => $data['type'],
-            'password' => Hash::make($data['password']),
+            //'password' => Hash::make($data['password']),
             'enabled' => 1,
             'status' => 2
         ]);

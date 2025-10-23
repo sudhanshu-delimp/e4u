@@ -156,7 +156,7 @@ padding: 2px 8px 2px 8px !important;
                                                 <table id="reckoner" class="table table-striped dataTable no-footer custom--table-suport" width="100%" role="grid" aria-describedby="myTable_info" style="width: 100%;">
                                                     <thead class="text-center">
                                                         <tr role="row">
-                                                            <th class="sorting_disabled" rowspan="1" colspan="6" style="width: 212px;" aria-label="Fees">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="7" style="width: 212px;" aria-label="Fees">
                                                                 <p style="padding-left: 100px;"><b>Profile / Tour Ready Reckoner</b></p>
                                                             </th>
                                                             <th>
@@ -164,20 +164,21 @@ padding: 2px 8px 2px 8px !important;
                                                             </th>
                                                         </tr>
                                                         <tr role="row" class="custom--row text-left">
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Profile Name">
                                                             Location
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Profile Name">
                                                                 Start Date
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 212px;" aria-label="Profile Name">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Profile Name">
                                                                 End Date
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 158px;" aria-label="Date Created">
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Date Created">
                                                                 Membership Type
                                                             </th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 222px;" aria-label="Subscription Status">No. of Profiles</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1" style="width: 113px;" aria-label="Status">Fee</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Subscription Status">Profiles</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Status">Fee</th>
+                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Status">Days</th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Status"></th>
                                                         </tr>
                                                     </thead>
@@ -608,7 +609,7 @@ padding: 2px 8px 2px 8px !important;
                     <label>Location</label>
                     <select id="state" name="state" class="form-control">
                     @foreach($states as $stateCode => $stateData)
-                        <option value="{{ $stateCode }}">{{ $stateData['stateName'] }}</option>
+                        <option value="{{ $stateCode }}">{{ $stateData['stateAbbr'] }}</option>
                     @endforeach
                     </select>
                 </div>
@@ -647,7 +648,7 @@ padding: 2px 8px 2px 8px !important;
             </select>
              </div>
              <div class="col-md-6">
-               <label for="end_date" class="form-label">No.</label>
+               <label for="end_date" class="form-label">Profile</label>
                <select  class="form-control" name="cal_members" id="cal_members">
                   @foreach($no_of_members as $key => $members)
                   <option value="{{ $members }}">{{ $members }}</option>
@@ -740,7 +741,7 @@ padding: 2px 8px 2px 8px !important;
         $('#reckoner tbody tr.blank-row').remove();
         var blankRow = `
             <tr class="blank-row">
-                <td colspan="7" class="text-center text-muted">No Profile Added.</td>
+                <td colspan="8" class="text-center text-muted">No Profile Added.</td>
             </tr>
         `;
         $('#reckoner tbody').prepend(blankRow);
@@ -830,6 +831,8 @@ padding: 2px 8px 2px 8px !important;
 
         if (hasError) return;
 
+
+
         var start = new Date(startDate);
         var end = new Date(endDate);
         var days = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
@@ -863,12 +866,20 @@ padding: 2px 8px 2px 8px !important;
                 <td>${endDate}</td>
                 <td>${membershipType}</td>
                 <td>${members}</td>
-                <td class="d-flex align-items-center" style="border-left:0;border-bottom:0;border-right:0;">
-                    <label class="mb-0">$</label>
-                    <input type="text" class="border-0" value="${fee}" readonly style="width:100%">
-                </td>
+                
                 <td>
-                    <button type="button" class="btn btn-danger btn-sm remove-row">Remove</button>
+                   
+                    <input type="hidden" class="border-0" value="${fee}"  style="width:100%">
+                    ${fee}
+                </td>
+                <td>${days}</td>
+                <td>
+
+                        <a href="#" class="remove-row">
+                        <i class="top-icon-bg fas fa-trash fa-fw theme-text-color"></i>
+                        </a>
+
+                   
                 </td>
             </tr>
         `;
@@ -931,6 +942,7 @@ padding: 2px 8px 2px 8px !important;
             if ($('#reckoner tbody tr.custom-last-row').length === 0) {
                 var totalRow = `
                     <tr class="custom-last-row">
+                        <td class="border-0"></td>
                         <td class="border-0"></td>
                         <td class="border-0"></td>
                         <td class="border-0"></td>

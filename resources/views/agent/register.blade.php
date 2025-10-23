@@ -70,11 +70,11 @@
                            </select>
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="exampleInputPassword1">{{ __('Password') }}</label>
                             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Be mindful of what you have used in other websites" name="password" required autocomplete="new-password" data-parsley-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/" data-parsley-required-message="@lang('errors/validation/required.password')" data-parsley-pattern-message="@lang('errors/validation/valid.password')">
                             <div class="termsandconditions_text_color">
-                                <!-- error sms here -->
+                                
                                 @error('password')
                                 <strong>{{ $message }}</strong>
                                 @enderror
@@ -84,9 +84,9 @@
                             <label for="conformPassword">{{ __('Confirm Password') }}</label>
                             <input type="password" class="form-control" id="conformPassword" placeholder="Confirm your password" name="password_confirmation" data-parsley-equalto="#exampleInputPassword1" data-parsley-equalto-message="Confirm password should be the same password" required autocomplete="new-password" data-parsley-required-message="@lang('errors/validation/required.confirm_password')">
                             <div class="termsandconditions_text_color">
-                                <!-- error sms here -->
+                               
                             </div>
-                        </div>
+                        </div> -->
 
                         {{--<div class="form-check form-check-inline">
                             <input class="form-check-input" required type="radio" name="type" id="inlineRadio1" value="3"{{ old('type') == 3 ? ' checked' : null }}>
@@ -396,7 +396,7 @@ $(function() {
 
                   if(data.error == 1 && data.status ==='Pending') 
                   {
-                    sessionStorage.setItem('agent_pending_status', 'Your account has been successfully created but is currently inactive.\n You will receive an email notification once it has been activated.');
+                    sessionStorage.setItem('agent_pending_status', 'Your account has been successfully created but is currently inactive.\n \nYou will receive an email notification once it has been activated.');
                     window.location.href = "{{ route('agent.login') }}";
                     return false;
                   }

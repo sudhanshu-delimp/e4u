@@ -347,112 +347,228 @@ return [
 			"Delhi" => 10,
 		],
 		
+		// 'states' => [
+		// 	'4022'=>[
+		// 		"stateName" => 'Uttar Pradesh',
+		// 		'timeZone' => 'Asia/Kolkata',
+		// 		'cities'=>[
+		// 			57601 => [
+		// 				'cityName' => 'Agra',
+		// 				'timeZone' => 'Asia/Kolkata',
+		// 			],
+		// 		],
+		// 	],
+		// 	'4021'=>[
+		// 		"stateName" => 'Delhi',
+		// 		'timeZone' => 'Asia/Kolkata',
+		// 		'cities'=>[
+		// 			131679 => [
+		// 				'cityName' => 'Delhi',
+		// 				'timeZone' => 'Asia/Kolkata',
+		// 			],
+		// 		],
+		// 	],
+		// 	'3907'=>[
+		// 		"stateName" => 'Australian Capital Territory',
+		// 		'timeZone' => 'Australia/Sydney',
+		// 		'cities'=>[
+		// 			4566 => [
+		// 				'cityName' => 'Canberra',
+		// 				'timeZone' => 'Australia/Sydney',
+		// 			],
+		// 		],
+		// 	],
+		// 	'3909'=>[
+		// 		"stateName" => 'New South Wales',
+		// 		'timeZone' => 'Australia/Sydney',
+		// 		'cities'=>[
+		// 			7408 => [
+		// 				'cityName' => 'Sydney',
+		// 				'timeZone' => 'Australia/Sydney',
+		// 			],
+		// 		],
+		// 	],
+		// 	'3910'=>[
+		// 		"stateName" => 'Northern Territory',
+		// 		'timeZone' => 'Australia/Darwin',
+		// 		'cities'=>[
+		// 			4947 => [
+		// 				'cityName' => 'Darwin',
+		// 				'timeZone' => 'Australia/Darwin',
+		// 			],
+		// 		],
+		// 	],
+		// 	'3905'=>[
+		// 		"stateName" => 'Queensland',
+		// 		'timeZone' => 'Australia/Brisbane',
+		// 		'cities'=>[
+		// 			4411 => [
+		// 				'cityName' => 'Brisbane',
+		// 				'timeZone' => 'Australia/Brisbane',
+		// 			],
+		// 		],
+		// 	],
+		// 	'3904'=>[
+		// 		"stateName" => 'South Australia',
+		// 		'timeZone' => 'Australia/Adelaide',
+		// 		'cities'=>[
+		// 			3919 =>[
+		// 				'cityName' => 'Adelaide',
+		// 				'timeZone' => 'Australia/Adelaide',
+		// 			],
+
+		// 		],
+		// 	],
+		// 	'3908'=>[
+		// 		"stateName" => 'Tasmania',
+		// 		'timeZone' => 'Australia/Hobart',
+		// 		'cities'=>[
+		// 			5621 => [
+		// 				'cityName' => 'Hobart',
+		// 				'timeZone' => 'Australia/Hobart',
+		// 			],
+		// 		],
+		// 	],
+		// 	'3903'=>[
+		// 		"stateName" => 'Victoria',
+		// 		'timeZone' => 'Australia/Melbourne',
+		// 		'cities'=>[
+		// 			6235 =>[
+		// 				'cityName' => 'Melbourne',
+		// 				'timeZone' => 'Australia/Melbourne',
+		// 			],
+
+		// 		],
+		// 	],
+		// 	'3906'=>[
+		// 		"stateName" => 'Western Australia',
+		// 		'timeZone' => 'Australia/Perth',
+		// 		 'cities'=>[
+		// 			6839 => [
+		// 				'cityName' => 'Perth',
+		// 				'timeZone' => 'Australia/Perth',
+		// 			],
+
+		// 		],
+		// 	],
+
+		// ],
+
+
 		'states' => [
-			'4022'=>[
+			'4022' => [
 				"stateName" => 'Uttar Pradesh',
+				'stateAbbr' => 'UP',
 				'timeZone' => 'Asia/Kolkata',
-				'cities'=>[
+				'cities' => [
 					57601 => [
 						'cityName' => 'Agra',
 						'timeZone' => 'Asia/Kolkata',
 					],
 				],
 			],
-			'4021'=>[
+			'4021' => [
 				"stateName" => 'Delhi',
+				'stateAbbr' => 'DL',
 				'timeZone' => 'Asia/Kolkata',
-				'cities'=>[
+				'cities' => [
 					131679 => [
 						'cityName' => 'Delhi',
 						'timeZone' => 'Asia/Kolkata',
 					],
 				],
 			],
-			'3907'=>[
+			'3907' => [
 				"stateName" => 'Australian Capital Territory',
+				'stateAbbr' => 'ACT',
 				'timeZone' => 'Australia/Sydney',
-				'cities'=>[
+				'cities' => [
 					4566 => [
 						'cityName' => 'Canberra',
 						'timeZone' => 'Australia/Sydney',
 					],
 				],
 			],
-			'3909'=>[
+			'3909' => [
 				"stateName" => 'New South Wales',
+				'stateAbbr' => 'NSW',
 				'timeZone' => 'Australia/Sydney',
-				'cities'=>[
+				'cities' => [
 					7408 => [
 						'cityName' => 'Sydney',
 						'timeZone' => 'Australia/Sydney',
 					],
 				],
 			],
-			'3910'=>[
+			'3910' => [
 				"stateName" => 'Northern Territory',
+				'stateAbbr' => 'NT',
 				'timeZone' => 'Australia/Darwin',
-				'cities'=>[
+				'cities' => [
 					4947 => [
 						'cityName' => 'Darwin',
 						'timeZone' => 'Australia/Darwin',
 					],
 				],
 			],
-			'3905'=>[
+			'3905' => [
 				"stateName" => 'Queensland',
+				'stateAbbr' => 'QLD',
 				'timeZone' => 'Australia/Brisbane',
-				'cities'=>[
+				'cities' => [
 					4411 => [
 						'cityName' => 'Brisbane',
 						'timeZone' => 'Australia/Brisbane',
 					],
 				],
 			],
-			'3904'=>[
+			'3904' => [
 				"stateName" => 'South Australia',
+				'stateAbbr' => 'SA',
 				'timeZone' => 'Australia/Adelaide',
-				'cities'=>[
-					3919 =>[
+				'cities' => [
+					3919 => [
 						'cityName' => 'Adelaide',
 						'timeZone' => 'Australia/Adelaide',
 					],
-
 				],
 			],
-			'3908'=>[
+			'3908' => [
 				"stateName" => 'Tasmania',
+				'stateAbbr' => 'TAS',
 				'timeZone' => 'Australia/Hobart',
-				'cities'=>[
+				'cities' => [
 					5621 => [
 						'cityName' => 'Hobart',
 						'timeZone' => 'Australia/Hobart',
 					],
 				],
 			],
-			'3903'=>[
+			'3903' => [
 				"stateName" => 'Victoria',
+				'stateAbbr' => 'VIC',
 				'timeZone' => 'Australia/Melbourne',
-				'cities'=>[
-					6235 =>[
+				'cities' => [
+					6235 => [
 						'cityName' => 'Melbourne',
 						'timeZone' => 'Australia/Melbourne',
 					],
-
 				],
 			],
-			'3906'=>[
+			'3906' => [
 				"stateName" => 'Western Australia',
+				'stateAbbr' => 'WA',
 				'timeZone' => 'Australia/Perth',
-				 'cities'=>[
+				'cities' => [
 					6839 => [
 						'cityName' => 'Perth',
 						'timeZone' => 'Australia/Perth',
 					],
-
 				],
 			],
-
 		],
+
+
 		'subjects' => [
 			"1" => "Commendation",
 			"2" => "Were did you find Us?",
