@@ -425,7 +425,8 @@ class Escort extends Model
             'escort_playmate',
             'escort_id',
             'playmate_id'
-        )->withTimestamps();
+        )->withTimestamps()
+        ->whereDoesntHave('activeSuspendProfile');
     }
 
     public function addedBy()

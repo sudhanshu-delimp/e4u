@@ -11,7 +11,7 @@
          </div>
          <div class="back-to-dashboard">
             
-            @if (request()->has('ref') && request('ref') =='dashboard')
+            @if (request('from') !== 'sidebar')
              <a href="{{ route('agent.dashboard') }}">
                  <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard"> 
              </a>

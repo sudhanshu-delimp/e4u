@@ -46,27 +46,35 @@
 <div class="container-fluid pl-3 pl-lg-5 pr-3 pr-lg-5">
     <!--middle content-->
     <div class="row">
-            <div class="col-md-12 custom-heading-wrapper">
-                    <h1 class="h1"> Escort Listings</h1>
-                    <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"
-                    style="font-size:16px"><b>Help?</b> </span>
-            </div>            
-            <div class="col-md-12 mb-4">
-                <div class="card collapse" id="notes">
-                    <div class="card-body">
-                        <h3 class="NotesHeader"><b>Notes:</b> </h3>
-                        <ol>
-                            <li>All current (published) Listings are displayed in this table.</li>
-                            <li>You have limited Action access according to your security level.</li>
-                            <li>Prefixes:</li>
-                            <p>1. ACT &nbsp;&nbsp;2. NSW &nbsp;&nbsp;3. Vic &nbsp;&nbsp;4. Qld &nbsp;&nbsp;5. SA &nbsp;&nbsp;6. W A &nbsp;&nbsp;7. Tas &nbsp;&nbsp;8. NT</p>
-                        </ol>
+        <div class="d-sm-flex align-items-center justify-content-between col-md-12">
+            <div class="custom-heading-wrapper">
+                <h1 class="h1">Escort Listings</h1>
+                <h6 class="helpNoteLink" data-toggle="collapse" data-target="#notes" aria-expanded="true"><b>Help?</b>
+                </h6>
+            </div>
+             @if (request('from') !== 'sidebar')
+            <div class="back-to-dashboard">
+                <a href="{{ url()->previous() ?? route('dashboard.home') }}">
+                    <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+                </a>
+            </div>
+             @endif 
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card collapse" id="notes">
+                <div class="card-body">
+                    <h3 class="NotesHeader"><b>Notes:</b> </h3>
+                    <ol>
+                        <li>All current (published) Listings are displayed in this table.</li>
+                        <li>You have limited Action access according to your security level.</li>
+                        <li>Prefixes:</li>
+                        <p>1. ACT &nbsp;&nbsp;2. NSW &nbsp;&nbsp;3. Vic &nbsp;&nbsp;4. Qld &nbsp;&nbsp;5. SA &nbsp;&nbsp;6. W A &nbsp;&nbsp;7. Tas &nbsp;&nbsp;8. NT</p>
+                    </ol>
 
-                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-12 ">
+    </div>
             <div class="row my-3">
                 {{-- <div class="col-lg-4 col-md-12 col-sm-12">
                     <form class="search-form-bg navbar-search">
@@ -145,7 +153,6 @@
                     
                 </table>
             </div>
-        </div>
        </div>
     </div>
 </div>

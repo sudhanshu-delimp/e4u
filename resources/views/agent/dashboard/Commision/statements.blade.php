@@ -41,7 +41,7 @@
                   <li class="mb-0">All Commission paid to you under the Agent Agreement will be paid into your
                      nominated Bank Account. Commission is inclusive of GST.
                   </li>
-                  <li class="mb-0">Any queries regarding Commission must be raised by logging a <a href="http://localhost/e4u/public/agent-dashboard/submitticket" class="termsandconditions_text_color custom_links_design">Support Ticket</a> with
+                  <li class="mb-0">Any queries regarding Commission must be raised by logging a <a href="{{ url('submit_ticket') }}" class="termsandconditions_text_color custom_links_design">Support Ticket</a> with
                      E4U.
                   </li>
                </ol>
@@ -51,18 +51,6 @@
    </div>
    {{-- end --}}
   <div class="row">
-      <div class="col-md-6">
-         <div class="card Summary mb-4">
-            <div class="card-body pb-0">
-               <p><b>Agent Details</b> </p>
-               <ul class="mb-2">
-                  <li class="text-capitalize"><b style="color: #5D6D7E;">Name:</b>Well Done Accounts</li>
-                  <li><b style="color: #5D6D7E;">Contact:</b>Ava Lopez</li>
-                  <li><b style="color: #5D6D7E;">ABN:</b>83 517 839 569</li>
-               </ul>
-            </div>
-         </div>
-      </div>
       <div class="col-md-12">
          
          <div class="table-responsive-xl">

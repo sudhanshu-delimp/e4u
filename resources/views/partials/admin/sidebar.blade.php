@@ -396,27 +396,27 @@
                         <span style="{{ request()->is('*global-monitoring*') ? 'color: #e5365a;' : '' }}">Global
                             Monitoring</span>
                     </a> --}}
-                    <a class="collapse-item" href="{{ route('admin.escort-listings') }}">
+                    <a class="collapse-item" href="{{ route('admin.escort-listings', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/escort-listing.png') }}">
                         <span style="{{ request()->is('*escort-listings*') ? 'color: #e5365a;' : '' }}">Escort
                             Listings</span>
                     </a>
 
-                    <a class="collapse-item" href="{{ route('admin.massage-centre-listings') }}">
+                    <a class="collapse-item" href="{{ route('admin.massage-centre-listings', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/mc-listings.png') }}">
                         <span
                             style="{{ request()->is('*massage-centre-listings*') ? 'color: #e5365a;' : '' }}">Massage
                             Centre Listings</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.pin-up-listings') }}">
+                    <a class="collapse-item" href="{{ route('admin.pin-up-listings', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/visitors.png') }}">
                         <span style="{{ request()->is('*pinup-listings*') ? 'color: #e5365a;' : '' }}">Pin Up
                             Listings</span>
                     </a>
-                    <a class="collapse-item" href="{{ route('admin.logged-in-users') }}">
+                    <a class="collapse-item" href="{{ route('admin.logged-in-users', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/login-user.png') }}">
                         <span style="{{ request()->is('*logged-in-users*') ? 'color: #e5365a;' : '' }}">Users Logged
@@ -562,7 +562,7 @@
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
                     {{-- global --}}
-                    <a href="{{ route('admin.global') }}" class="collapse-item">
+                    <a href="{{ route('admin.global', ['from' => 'sidebar']) }}" class="collapse-item">
                         <img src="{{ asset('assets/dashboard/img/menu-icon/g-notification.png') }}">
                         <span
                             style="{{ request()->segment(3) == 'global' || request()->segment(3) == 'profile' ? 'color: #e5365a;' : '' }}">Global</span>
@@ -718,7 +718,7 @@
                     request()->is('*advertiser-reviews*')) show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="nav-link collapsed" href="{{ route('admin.registrations-reports') }}">
+                    <a class="nav-link collapsed" href="{{ route('admin.registrations-reports', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/registration-reports.png') }}">
                         <span
@@ -757,7 +757,7 @@
                     request()->is('*advertiser-suspensions*')) show @endif;"
                 aria-labelledby="headingTwo" data-parent="#accordionSidebar" style="">
                 <div class="py-0 collapse-inner rounded mb-2">
-                    <a class="nav-link collapsed" href="{{ route('admin.agent-requests') }}">
+                    <a class="nav-link collapsed" href="{{ route('admin.agent-requests', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
                         <span style="{{ request()->is('*agent-requests*') ? 'color: #e5365a;' : '' }}">Agent
@@ -768,7 +768,7 @@
                             src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
                         <span style="{{ request()->is('*credit*') ? 'color: #e5365a;' : '' }}">Credits</span>
                     </a>
-                    <a class="nav-link collapsed" href="{{ route('admin.transaction-summary') }}">
+                    <a class="nav-link collapsed" href="{{ route('admin.transaction-summary', ['from' => 'sidebar']) }}">
                         <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                             src="{{ asset('assets/dashboard/img/menu-icon/online.png') }}">
                         <span
@@ -788,7 +788,7 @@
 
         <li class="nav-item">
             {{-- <a class="nav-link" href="{{ route('admin.support-tickets') }}"> --}}
-            <a class="nav-link" href="{{ route('admin.support-ticket.list') }}">
+            <a class="nav-link" href="{{ route('admin.support-ticket.list', ['from' => 'sidebar']) }}">
                 <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                     src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
                 <span>Support Tickets </span>

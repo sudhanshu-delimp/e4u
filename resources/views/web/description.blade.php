@@ -1012,7 +1012,7 @@
             <h2><img src="{{ asset('assets/app/img/bedroom.svg') }}"> Playmates</h2>
         </div>
         <div class="padding_20_tob_btm_side reduse_pad">
-            @if($escort->playmates->count() > 0)
+            @if($escort->playmates->count() > 0 && $escort->activeSuspendProfile->count()==0)
                 <p class="profile_description_contect_pera">Message me to arrange a play date.</p>
                 <div class="d-flex align-items-center justify-content-start gap-10 flex-wrap">
                     

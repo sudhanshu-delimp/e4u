@@ -23,36 +23,23 @@
 
    
    <div class="row mb-4">
+      
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.my-income','ref=dashboard') }}">
+              <a href="{{ route('agent.my.appointment.list') }}">
                   <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-income.png') }}" alt="My Income">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-appointments.png') }}" alt="My Appointments">
                   </div>
                   <h2>
-                      My Income
+                     My Appointments
                   </h2>
               </a>
 
           </div>
       </div>
       {{-- end --}}
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-          <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.my-statistics') }}">
-                  <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-statistics.png') }}" alt=" My Statistics">
-                  </div>
-                  <h2>
-                     My Statistics
-                  </h2>
-              </a>
-
-          </div>
-      </div>
-      {{-- end --}}
+      
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
@@ -71,12 +58,12 @@
       {{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
-              <a href="{{ route('agent.my.appointment.list') }}">
+              <a href="{{ route('agent.my-statistics') }}">
                   <div class="box-icon">
-                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-appointments.png') }}" alt="My Appointments">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-statistics.png') }}" alt=" My Statistics">
                   </div>
                   <h2>
-                     My Appointments
+                     My Statistics
                   </h2>
               </a>
 
@@ -113,7 +100,53 @@
           </div>
       </div>
       {{-- end --}}
+      
+      {{-- end --}}
       {{-- box start --}}
+      <div class="col-lg-4 box-wrapper">
+         <div class="my-custom-box shadow-sm">
+             <a href="{{ route('marketing.agencreate-prospect') }}">
+                 <div class="box-icon">
+                     <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt=" Database (Centers)">
+                 </div>
+                 <h2>
+                  Database (Centers)
+                 </h2>
+             </a>
+
+         </div>
+     </div>
+     {{-- end --}}
+      {{-- box start --}}
+      <div class="col-lg-4 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ route('Commision.my-income') }}">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/agent/my-income.png') }}" alt="My Income">
+                  </div>
+                  <h2>
+                      My Income
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+     
+      {{-- box start --}}
+      <div class="col-lg-4 box-wrapper">
+          <div class="my-custom-box shadow-sm">
+              <a href="{{ url('submit_ticket') }}">
+                  <div class="box-icon">
+                      <img src="{{ asset('assets/dashboard/img/boxicon/icon_support-tickets.png') }}" alt="Support Tickets">
+                  </div>
+                  <h2>
+                     Support Tickets
+                  </h2>
+              </a>
+
+          </div>
+      </div>
+      {{-- end --}}{{-- box start --}}
       <div class="col-lg-4 box-wrapper">
           <div class="my-custom-box shadow-sm">
               <a href="{{ route('agent.logs-and-status') }}">
@@ -128,22 +161,6 @@
           </div>
       </div>
       {{-- end --}}
-
-      {{-- box start --}}
-      <div class="col-lg-4 box-wrapper">
-         <div class="my-custom-box shadow-sm">
-             <a href="{{ route('marketing.agencreate-prospect') }}">
-                 <div class="box-icon">
-                     <img src="{{ asset('assets/dashboard/img/boxicon/icon_logs-stats.png') }}" alt=" Database (Centres)">
-                 </div>
-                 <h2>
-                  Database (Centres)
-                 </h2>
-             </a>
-
-         </div>
-     </div>
-     {{-- end --}}
   </div>
 
 
