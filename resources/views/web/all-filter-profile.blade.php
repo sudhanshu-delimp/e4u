@@ -877,7 +877,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content custome_modal_max_width">
                 <div class="modal-header main_bg_color border-0">
-                    <h5 class="modal-title" id="exampleModalLabel"><img src="{{ asset('assets/dashboard/img/short-list-profile.png') }}"
+                    <h5 class="modal-title" id="exampleModalLabel"><img src="{{ asset('assets/app/img/my-legbox.png') }}"
                         class="custompopicon"> <span class="popup_modal_title_new">Add To Shortlist</span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">

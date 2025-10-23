@@ -315,6 +315,18 @@ Route::get('/grid-escort-list', [App\Http\Controllers\WebController::class,'grid
 Route::get('admin-login', [App\Http\Controllers\Admin\AuthController::class,'showLoginForm'])->name('admin.login');
 Route::post('/admin-login', [App\Http\Controllers\Admin\AuthController::class, 'login']);
 Route::post('/admin-logout', [App\Http\Controllers\Admin\AuthController::class,'logout'])->name('admin.logout');
+
+
+
+/********** OPERATOR Login**********/
+Route::get('operator-login', [App\Http\Controllers\Admin\AuthController::class,'showOperatorLoginForm'])->name('operator.login');
+/************ END ************/ 
+
+
+
+/********** Shareholder Login **********/
+Route::get('shareholder-login', [App\Http\Controllers\Admin\AuthController::class,'showShareholderLoginForm'])->name('shareholder.login');
+/************ END ************/ 
 // shortlist
 Route::post('/shortlist', [App\Http\Controllers\WebController::class,'saveShortList'])->name('web.save.shortlist');
 Route::post('/add-to-shortlist/{id}', [App\Http\Controllers\WebController::class,'addtocart'])->name('web.save.addtocart');
