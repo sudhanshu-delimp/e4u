@@ -65,9 +65,18 @@ class LoginController extends BaseController
                     return $this->sendFailedLoginResponse($request);
                 }
                 if ($user != null && $user->status && in_array($user->status, ['Suspended', 'Pending', 'Blocked'])) {
-            
+                    
+                    if($user->status == 'Pending')
+                    {
+                       $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';     
+                    }
+                    else
+                    {
+                       $messge = "Your account has been " . $user->status . ". Please contact to admin.";
+                    }
+
                     throw ValidationException::withMessages([
-                        'phone' => ["Your account has been " . $user->status . ". Please contact to admin."],
+                        'phone' => [$messge],
                         
                     ]);
                 }

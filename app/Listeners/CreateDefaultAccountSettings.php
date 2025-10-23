@@ -24,15 +24,15 @@ class CreateDefaultAccountSettings
     {
     
         $userdata  =  json_decode(json_encode($event),true);
-
-       
-
-        if(isset($userdata['escort']) || isset($userdata['user']))
+        if(isset($userdata['escort']) || isset($userdata['user']) || $userdata['agent'])
         {
-            $user = isset($userdata['escort']) ? $userdata['escort'] : $userdata['user'];
-
-             Log::info($user);
-
+            if (isset($userdata['escort'])) {
+                $user = $userdata['escort'];
+            } elseif (isset($userdata['user'])) {
+                $user = $userdata['user'];
+            } elseif (isset($userdata['agent'])) {
+                $user = $userdata['agent'];
+            }
 
             if(isset($user['id']))
             {
@@ -42,6 +42,7 @@ class CreateDefaultAccountSettings
                     'password_expiry_days'   => '30',
                     'is_text_notificaion_on' => '0',
                     'is_email_notificaion_on' => '0',
+                    'is_first_login' => '1',
                 ]);
 
                $user  = User::where('id',$user['id'])->first();

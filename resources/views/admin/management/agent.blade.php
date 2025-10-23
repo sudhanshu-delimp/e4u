@@ -601,7 +601,8 @@
       });
 
       ///////// Approve Agent //////////////////////////////
-      $(document).on('click', '.approve_account', function(e) {
+      $(document).on('click', '.approve_account', function(e) 
+      {
 
          swal_waiting_popup({'title':'Approving Account'});
          $.ajax({

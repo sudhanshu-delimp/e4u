@@ -101,7 +101,7 @@ class AgentRegisterController extends Controller
             $user = $this->create($request->all());
             $userDataForEvent = [
                 'id' => $user->id,
-                'name' => $user->name,
+                'name' => $user->business_name,
                 'phone' => $user->phone,
                 'email' => $request->email,
                 'location' => config('escorts.profile.states')[$user->state_id]['stateName'] ?? null,
