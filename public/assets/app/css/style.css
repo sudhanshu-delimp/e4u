@@ -3140,7 +3140,7 @@ i.fa.fa-heart-o{
     a.admin-login {
         color: #ffffff54;
         font-weight: 100;
-        margin-left: 10px;
+        /* margin-left: 10px; */
         font-family: 'Poppins';
         font-size: 13px;
     }
