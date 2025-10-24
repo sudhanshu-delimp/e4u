@@ -359,7 +359,7 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
                 }
             }
 
-            $stateFromDb = State::where('name','like','%'.$state.'%')->first();
+            $stateFromDb = State::where('name',$state)->first();
 
             $stateCapital = config('escorts.profile.states')[$stateFromDb->id] ?? null;
 
