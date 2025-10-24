@@ -366,6 +366,7 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
             $timezone = $stateCapital ? $stateCapital['timeZone'] : "UTC";
 
             $parms =[
+                'geo_state' => $state,
                 'state'=> $stateFromDb ? $stateFromDb->id : null,
                 'city'=> $stateCapital ? array_key_first($stateCapital['cities']) : null,
                 'home_state'=> auth()->user() ? auth()->user()->home_state : null,
@@ -380,6 +381,7 @@ if (!function_exists('getRealTimeGeolocationOfUsers')) {
             $timezone = $stateCapital ? $stateCapital['timeZone'] : "UTC";
 
             $parms =[
+                'geo_state' => $state,
                 'state'=>null,
                 'city'=>null,
                 'home_state'=> auth()->user()->home_state,
