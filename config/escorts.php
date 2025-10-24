@@ -321,6 +321,7 @@ return [
 			"7408" => "Sydney",
 			"57601" => "Agra",
 			"131679" => "Delhi",
+			"50859" => "Patna",
 		],
 		// 'state-cities' => [
 		// 	'3904'=>'South Australia'=>["3919" => "Adelaide"],

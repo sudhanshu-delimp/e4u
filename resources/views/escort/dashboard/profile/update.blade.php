@@ -1336,20 +1336,22 @@ $loginAccount = auth()->user();
             });
             $.each($("input[name^='availability_time']"), function(index, value) {
                 let p_element = $(value).attr('id');
-                 if(!p_element.endsWith('_til_ate')){
+                if(p_element.endsWith('_til_ate')){
                     if ($(value).is(':checked')) {
-                        $(value).closest('.parent-row').find('select').attr('disabled', true);
+                        var $selects = $('#' + p_element).closest('.parent-row').find('select');
+                        $selects.each(function(index){
+                            if(index >= 2){
+                                $(this).prop('disabled', true).val(0);
+                            } else {
+                                $(this).prop('disabled', false);
+                            }
+                        });
                     }
 
                 }else{
-                    var $selects = $('#' + p_element).closest('.parent-row').find('select');
-                    $selects.each(function(index){
-                        if(index >= 2){
-                            $(this).prop('disabled', true).val(0);
-                        } else {
-                            $(this).prop('disabled', false);
-                        }
-                    });
+                    if ($(value).is(':checked')) {
+                        $('#' + p_element).closest('.parent-row').find('select').attr('disabled', true);
+                    }
                 }
 
                 
