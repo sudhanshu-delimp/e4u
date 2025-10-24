@@ -326,7 +326,7 @@
                                                 <!-- Avatar -->
                                                 <div class="d-flex align-items-center mb-3">
                                                    <img src="${user_img}" alt="Avatar" class="rounded-circle mr-3" width="50" height="50">
-                                                   <h6 class="mb-0">${(rowData.name ? rowData.name : 'NA')}</h6>
+                                                   <h6 class="mb-0">${(rowData.contact_person ? rowData.contact_person : 'NA')}</h6>
                                                 </div>
                                        
                                                 <!-- Details Table -->
@@ -838,7 +838,7 @@ $(document).on('click', '.btn-print', function() {
                     <img src="${user_img}" style="margin-right:10px; max-height:50px; max-width:50px; object-fit:cover;">
                 </td>
                 <td style="vertical-align:middle; border:none;">
-                    <h4 style="margin:0; font-size:16px;">${rowData.name || 'NA'}</h4>
+                    <h4 style="margin:0; font-size:16px;">${rowData.contact_person || 'NA'}</h4>
                 </td>
             </tr>
         </table>

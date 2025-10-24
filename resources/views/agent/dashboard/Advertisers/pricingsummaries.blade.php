@@ -177,7 +177,7 @@ padding: 2px 8px 2px 8px !important;
                                                                 Membership Type
                                                             </th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Subscription Status">Profiles</th>
-                                                            <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Status">Fee</th>
+                                                            <th class="sorting_disabled text-center" rowspan="1" colspan="1"  aria-label="Status">Fee</th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Status">Days</th>
                                                             <th class="sorting_disabled" rowspan="1" colspan="1"  aria-label="Status"></th>
                                                         </tr>
@@ -862,22 +862,22 @@ padding: 2px 8px 2px 8px !important;
         var newRow = `
             <tr data-location="${stateValue}">
                 <td>${stateText}</td>
-                <td>${startDate}</td>
-                <td>${endDate}</td>
+                <td>${getFirstDayOfYear(startDate) }</td>
+                <td>${getFirstDayOfYear(endDate) }</td>
                 <td>${membershipType}</td>
                 <td>${members}</td>
                 
-                <td>
+                <td style="width:20%">
                    
-                    <input type="hidden" class="border-0" value="${fee}"  style="width:100%">
+                    <input type="hidden" class="border-0" value="${fee}"  >
                     ${fee}
                 </td>
                 <td>${days}</td>
                 <td>
 
-                        <a href="#" class="remove-row">
-                        <i class="top-icon-bg fas fa-trash fa-fw theme-text-color"></i>
-                        </a>
+                        <button type="button" class="btn btn-danger btn-sm remove-row">Remove</button>
+
+                       
 
                    
                 </td>
@@ -949,7 +949,7 @@ padding: 2px 8px 2px 8px !important;
                         <td class="border-0"></td>
                         <td class="border-0"></td>
                         <td class="font-weight-bold">Total Fees:</td>
-                        <td class="font-weight-bold text-left"><span>$</span>${total.toFixed(2)}</td>
+                        <td class="font-weight-bold text-center"><span>$</span>${total.toFixed(2)}</td>
                     </tr>
                 `;
                 $('#reckoner tbody').append(totalRow);
@@ -958,6 +958,29 @@ padding: 2px 8px 2px 8px !important;
             }
         }
     }
+
+
+    function getFirstDayOfYear(inputDate) 
+    {
+        var dateObj;
+
+        if (typeof inputDate === "string" || inputDate instanceof String) {
+            dateObj = new Date(inputDate);
+        } else if (inputDate instanceof Date) {
+            dateObj = inputDate;
+        } else {
+            throw new Error("Invalid input. Provide a date string or Date object.");
+        }
+
+        if (isNaN(dateObj.getTime())) {
+            throw new Error("Invalid date format.");
+        }
+        var day = String(dateObj.getDate()).padStart(2, '0');
+        var month = String(dateObj.getMonth() + 1).padStart(2, '0'); 
+        var year = dateObj.getFullYear();
+        return day + "-" + month + "-" + year;
+    }
+
 
 });
 });

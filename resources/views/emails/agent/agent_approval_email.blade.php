@@ -33,7 +33,7 @@
           <tr>
             <td style="padding: 30px;">
               
-              <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Dear {{$agent['business_name']}}, </b></p>
+              <p style="font-size: 16px; margin: 0 0 15px 0;">Dear {{$agent['contact_person']}},</p>
                 <p style="font-size: 16px; margin: 20px 0 15px 0;">Your Account has been approved.Your login credentials are :</p>
                 <!-- Details Table -->
                 <table width="100%" cellpadding="5" cellspacing="0" style="border-collapse: collapse; font-size: 15px; color: #2b3d50;">

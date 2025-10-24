@@ -68,7 +68,7 @@ class LoginController extends BaseController
                     
                     if($user->status == 'Pending')
                     {
-                       $messge = 'Your account is currently pending approval. You will be notified via email once it has been approved.';     
+                       $messge = 'your Account is currently pending approval.you will be notified via email once it has been approved.';     
                     }
                     else
                     {
