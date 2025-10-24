@@ -3,8 +3,8 @@
 
 Hi {{ $escort->user->name ?? $escort->user->member_id }},
 
-Your escort profile **{{ $escort->name ?? 'on our site' }}** listing is set to expire on  
-{{ \Carbon\Carbon::parse($escort->end_date)->format('Y-m-d') }}.
+Your Escort Profile **{{ $escort->name ?? 'on our site' }}** listing is set to expire on  
+{{ \Carbon\Carbon::parse($escort->end_date)->format('d-m-Y') }}.
 
 To continue being listed, please extend your profile listing before the expiry date.
 
