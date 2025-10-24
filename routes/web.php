@@ -320,12 +320,25 @@ Route::post('/admin-logout', [App\Http\Controllers\Admin\AuthController::class,'
 
 /********** OPERATOR Login**********/
 Route::get('operator-login', [App\Http\Controllers\Admin\AuthController::class,'showOperatorLoginForm'])->name('operator.login');
+
+
+
+Route::get('operator-dashboard/',function(){
+    return view('operator.dashboard.index');
+})->name('operator.index');
+
 /************ END ************/ 
 
 
 
 /********** Shareholder Login **********/
 Route::get('shareholder-login', [App\Http\Controllers\Admin\AuthController::class,'showShareholderLoginForm'])->name('shareholder.login');
+
+
+
+Route::get('shareholder-dashboard/',function(){
+    return view('shareholder.dashboard.index');
+})->name('shareholder.index');
 /************ END ************/ 
 // shortlist
 Route::post('/shortlist', [App\Http\Controllers\WebController::class,'saveShortList'])->name('web.save.shortlist');

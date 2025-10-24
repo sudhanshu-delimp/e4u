@@ -101,6 +101,13 @@ a:hover {
     color: #FF3C5F;
 }
 
+.sidebar-console-head {
+    color: var(--peach);
+    font-size: 16px;
+    padding-left: 16px;
+    padding-bottom: 24px;
+}
+
 p>a {
     font-size: 16px;
 }
