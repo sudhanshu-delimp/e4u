@@ -265,7 +265,7 @@
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label for="membership_num">Massage Centre Signed Up</label>
+                                       <label for="membership_num">Massage Centres (Signed Up)</label>
                                        <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">$20.00</label>
                                     </div>
                                  </div>
