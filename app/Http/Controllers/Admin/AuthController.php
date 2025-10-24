@@ -39,7 +39,13 @@ class AuthController extends Controller
     {
         return view('admin.auth.login');
     }
-
+    public function showOperatorLoginForm(){
+        return view('operator.auth.login');
+    }
+    
+    public function showShareholderLoginForm(){
+        return view('shareholder.auth.login');
+    }
     /**
      * Get the needed authorization credentials from the request.
      *
