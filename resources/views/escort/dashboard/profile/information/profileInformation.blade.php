@@ -992,6 +992,15 @@
                         $(value).closest('.parent-row').find('select').attr('disabled', true);
                     }
 
+                }else{
+                    var $selects = $('#' + p_element).closest('.parent-row').find('select');
+                    $selects.each(function(index){
+                        if(index >= 2){
+                            $(this).prop('disabled', true).val(0);
+                        } else {
+                            $(this).prop('disabled', false);
+                        }
+                    });
                 }
        });
 
@@ -1000,7 +1009,16 @@
 
          if ($('#' + p_element).is(":checked")) {
             if(p_element.endsWith('_til_ate')){
-                $('#' + p_element).closest('.parent-row').find('select').attr('disabled', false);
+                console.log(p_element);
+                var $selects = $('#' + p_element).closest('.parent-row').find('select');
+                $selects.each(function(index){
+                    console.log("index="+index);
+                    if(index >= 2){
+                        $(this).prop('disabled', true).val(0);
+                    } else {
+                        $(this).prop('disabled', false);
+                    }
+                });
             }else{
                 $('#' + p_element).closest('.parent-row').find('select').attr('disabled', true).val(0);
             }
