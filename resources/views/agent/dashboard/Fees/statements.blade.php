@@ -9,7 +9,7 @@
    <div class="row">
        {{-- Page Heading   --}}
       <div class="custom-heading-wrapper col-lg-12">
-         <h1 class="h1">Commission Statement</h1>
+         <h1 class="h1">Monthly Fee Report</h1>
          <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
       </div>
       <div class="col-md-12 mb-4">
@@ -57,25 +57,25 @@
             <table class="table" id="commissionStatementTable">
                <thead class="table-bg">
                   <tr>
-                     <th scope="col">Date</th>
-                     <th scope="col">Billing Period</th>
-                     <th scope="col">Agent ID</th>
-                     <th scope="col">Territory</th>
-                     <th scope="col">Commission</th>
-                     <th scope="col">Status</th>
-                     <th scope="col">Action</th>
+                     <th>Date</th>
+                     <th>Billing Period</th>
+                     <th>Agent ID</th>
+                     <th>Territory</th>
+                     <th>Commission</th>
+                     <th>Status</th>
+                     <th class="text-center">Action</th>
                   </tr>
                </thead>
                <tbody class="table-content">
-                  <tr class="row-color">
-                     <td class="theme-color">28-06-22</td>
-                     <td class="theme-color">28-05-22 to 27-06-22</td>
-                     <td class="theme-color">A600025</td>
-                     <td class="theme-color">WA</td>
-                     <td class="theme-color">$ 5,678.50</td>
-                     <td class="theme-color">Approved</td>
-                     <td class="theme-color">
-                        <div class="dropdown no-arrow">
+                  <tr>
+                     <td>28-06-22</td>
+                     <td>28-05-22 to 27-06-22</td>
+                     <td>A600025</td>
+                     <td>WA</td>
+                     <td>$ 5,678.50</td>
+                     <td>Approved</td>
+                     <td>
+                        <div class="dropdown no-arrow text-center">
                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                            </a>
@@ -87,15 +87,15 @@
                         </div>
                      </td>
                   </tr>
-                  <tr class="row-color">
-                     <td class="theme-color">28-06-22</td>
-                     <td class="theme-color">28-05-22 to 27-06-22</td>
-                     <td class="theme-color">A600025</td>
-                     <td class="theme-color">WA</td>
-                     <td class="theme-color">$ 5,678.50</td>
-                     <td class="theme-color">Pending</td>
-                     <td class="theme-color">
-                        <div class="dropdown no-arrow">
+                  <tr>
+                     <td>28-06-22</td>
+                     <td>28-05-22 to 27-06-22</td>
+                     <td>A600025</td>
+                     <td>WA</td>
+                     <td>$ 5,678.50</td>
+                     <td>Pending</td>
+                     <td>
+                        <div class="dropdown no-arrow text-center">
                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                            </a>

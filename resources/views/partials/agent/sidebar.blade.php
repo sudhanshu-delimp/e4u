@@ -139,38 +139,33 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Commision"
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Fees"
             aria-expanded="false" aria-controls="collapseTwo">
             <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                 src="{{ asset('assets/dashboard/img/menu-icon/commision.png') }}">
 
-            <span>Commission</span>
+            <span>Fees</span>
         </a>
-        <div id="Commision" class="collapse @if (request()->segment(3) == 'statements' || request()->segment(3) == 'summary' || request()->segment(3) == 'my-income') show @endif;"
+        <div id="Fees" class="collapse @if (request()->segment(3) == 'statements' || request()->segment(3) == 'summary' || request()->segment(3) == 'my-income') show @endif;"
             data-parent="#accordionSidebar" class="collapse" style="">
 
             <div class="py-0 collapse-inner rounded mb-2">
 
-                 {{-- <a class="collapse-item" href="{{ route('agent.my-income') }}">
-                    <img width="16" height="17" viewbox="0 0 16 17" fill="none"
-                        src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-                    <span style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">My Income</span>
-                </a> --}}
 
-                <a class="collapse-item" href="{{ route('Commision.statements') }}">
+                <a class="collapse-item" href="{{ route('Fees.statements') }}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
                     <span
-                        style="{{ request()->segment(3) == 'statements' ? 'color: #e5365a;' : '' }}">Statements</span>
+                        style="{{ request()->segment(3) == 'statements' ? 'color: #e5365a;' : '' }}">Monthly Report</span>
                 </a>
 
-                <a class="collapse-item" href="{{ route('Commision.summary') }}">
+                <a class="collapse-item" href="{{ route('Fees.summary') }}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
-                    <span style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">Summary</span>
+                    <span style="{{ request()->segment(3) == 'summary' ? 'color: #e5365a;' : '' }}">Fees Summary</span>
                 </a>
 
-                 <a class="collapse-item" href="{{ route('Commision.my-income', ['from' => 'sidebar']) }}">
+                 <a class="collapse-item" href="{{ route('Fees.my-income', ['from' => 'sidebar']) }}">
                     <img width="16" height="17" viewbox="0 0 16 17" fill="none"
                         src="{{ asset('assets/dashboard/img/menu-icon/file-document-multiple-outline.png') }}">
                     <span style="{{ request()->segment(3) == 'my-income' ? 'color: #e5365a;' : '' }}">My Income</span>

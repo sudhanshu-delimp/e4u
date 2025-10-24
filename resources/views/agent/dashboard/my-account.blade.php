@@ -247,7 +247,7 @@
             </div>
             <div class="card">
                <div class="card-header">
-                  <a class="card-link collapsed" data-toggle="collapse" href="#abbrieviations" aria-expanded="false">Commission</a>
+                  <a class="card-link collapsed" data-toggle="collapse" href="#abbrieviations" aria-expanded="false">Fees</a>
                </div>
                <div id="abbrieviations" class="collapse" data-parent="#accordion" style="">
                   <div class="card-body">
@@ -258,14 +258,14 @@
                               <div class="row">
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label for="membership_num">Advertising
+                                       <label for="membership_num">Advertiser
                                        </label>
                                        <span class="form-control form-back">5%</span>
                                     </div>
                                  </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
-                                       <label for="membership_num">Massage Centre (Registrations)</label>
+                                       <label for="membership_num">Massage Centre Signed Up</label>
                                        <label class="form-control form-back" placeholder=" " aria-describedby="emailHelp">$20.00</label>
                                     </div>
                                  </div>

@@ -164,18 +164,18 @@ Route::get('forms',function(){
     return view('agent.dashboard.Marketing.create-information-package');
 })->name('marketing.create-information-package');
 
-    Route::get('Commision/statements',function(){
-    return view('agent.dashboard.Commision.statements');
-})->name('Commision.statements');
+    Route::get('Fees/statements',function(){
+    return view('agent.dashboard.Fees.statements');
+})->name('Fees.statements');
 
-    Route::get('Commision/summary',function(){
-    return view('agent.dashboard.Commision.summary');
-})->name('Commision.summary');
+    Route::get('Fees/summary',function(){
+    return view('agent.dashboard.Fees.summary');
+})->name('Fees.summary');
 
 
-Route::get('Commision/my-income',function(){
-    return view('agent.dashboard.Commision.my-income');
-})->name('Commision.my-income');
+Route::get('Fees/my-income',function(){
+    return view('agent.dashboard.Fees.my-income');
+})->name('Fees.my-income');
 
 Route::get('my-statistics',function(){
     return view('agent.dashboard.my-statistics');

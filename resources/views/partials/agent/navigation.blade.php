@@ -157,9 +157,9 @@
                                      <img class="mr-2 ml-1 pr-1" style="filter: brightness(0) invert(0.2); width:25px;" src="{{asset('assets/dashboard/img/menu-icon/lists.png') }}">
                                     List Advertisers
                                 </a>
-                                <a class="dropdown-item" href="{{ route('Commision.statements') }}">
+                                <a class="dropdown-item" href="{{ route('Fees.statements') }}">
                                     <img class="mr-2 ml-1 pr-1" style="filter: brightness(0) invert(0.2); width:25px;" src="{{asset('assets/dashboard/img/menu-icon/discount.png') }}">
-                                    Commission Summary
+                                    Monthly Report
                                 </a>
                                 
                                 <div class="dropdown-divider"></div>
