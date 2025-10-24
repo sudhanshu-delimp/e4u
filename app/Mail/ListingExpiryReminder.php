@@ -30,7 +30,7 @@ class ListingExpiryReminder extends Mailable
      */
     public function build()
     {
-        return $this->subject('Your escort profile will expire soon')
+        return $this->subject('Your Escort Profile will expire soon')
                     ->markdown('emails.escort.listing_expiry_reminder');
     }
 }
