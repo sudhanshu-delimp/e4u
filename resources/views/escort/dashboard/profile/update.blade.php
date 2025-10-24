@@ -1183,51 +1183,6 @@ $loginAccount = auth()->user();
             }
         }
 
-
-
-
-        $("body").on('click', '.nex_sterp_btn', function(e) {
-            // e.preventDefault();
-            var id = $(this).attr('id');
-            $(this).removeClass('active');
-            $(".nav-link").removeClass('active');
-            $("#" + id).addClass('active');
-            switch (id) {
-                case 'profile-tab': {
-                    let dynamic_image = checkProfileDynamicMedia();
-                    if (dynamic_image < 8) {
-                        Swal.fire('Media',
-                            'Please attach media to this profile from the Media Repository or upload a new file (All are mendatory)',
-                            'warning');
-                        return false;
-                    }
-
-                    if(!validateWhoAmIContent()){
-                        return false;
-                    }
-                } break;
-                case 'contact-tab': {
-                     let existRates = checkRates();
-                     let editMode = '{{$editMode}}';
-                    if (!existRates && !editMode) {
-                        Swal.fire('Rates',
-                            'You must complete at least one rate value to proceed.',
-                            'warning');
-                        return false;
-                    }
-                } break;
-                case 'show_draft-2':{
-                    let checkAvailability = validateAvailability();
-                    if(checkAvailability){
-                        return false;
-                    }
-                } break;
-                default:{
-                   
-                }
-            }
-        });
-
         $('.covidreport').on('change', function(e) {
             if ($(this).val() == 1 || $(this).val() == 2) {
                 $('#covid-file-block').show();
@@ -1381,11 +1336,20 @@ $loginAccount = auth()->user();
             });
             $.each($("input[name^='availability_time']"), function(index, value) {
                 let p_element = $(value).attr('id');
-                if(!p_element.endsWith('_til_ate')){
+                 if(!p_element.endsWith('_til_ate')){
                     if ($(value).is(':checked')) {
                         $(value).closest('.parent-row').find('select').attr('disabled', true);
                     }
 
+                }else{
+                    var $selects = $('#' + p_element).closest('.parent-row').find('select');
+                    $selects.each(function(index){
+                        if(index >= 2){
+                            $(this).prop('disabled', true).val(0);
+                        } else {
+                            $(this).prop('disabled', false);
+                        }
+                    });
                 }
 
                 
@@ -1402,7 +1366,14 @@ $loginAccount = auth()->user();
                     var weekName = $(this).attr('availability_time_key');
                     if ($('#' + p_element).is(":checked")) {
                       if(p_element.endsWith('_til_ate')){
-                        $('#' + p_element).closest('.parent-row').find('select').attr('disabled', false);
+                        var $selects = $('#' + p_element).closest('.parent-row').find('select');
+                            $selects.each(function(index){
+                                if(index >= 2){
+                                    $(this).prop('disabled', true).val(0);
+                                } else {
+                                    $(this).prop('disabled', false);
+                                }
+                            });
                       }else{
                         $('#' + p_element).closest('.parent-row').find('select').attr('disabled', true).val(0);
                       }
@@ -1577,28 +1548,28 @@ $loginAccount = auth()->user();
             'playmates-tab': 'group_two',
             'pricing-tab': 'group_three',
             };
-            let editMode = '{{$editMode}}';
-            if(!editMode){
-                $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-                if (allowTabChange) {
-                    allowTabChange = false;
-                    return;
-                }
-                e.preventDefault();
 
+            let editMode = '{{$editMode}}';
+            
+            $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
                 const tabId     = e.target.id;               // e.g. 'profile-tab'
                 const nextGroup = tabGroupMap[tabId];        // e.g. 'group_one'
-                const $target   = $(e.target)
+                const $target   = $(e.target);
+                if(!editMode){
+                    if (allowTabChange) {
+                    allowTabChange = false;
+                    return;
+                    }
 
-                
-                
-                if (!nextGroup) {
+                    e.preventDefault();
+
+                    if (!nextGroup) {
                     allowTabChange = true;
                     return $target.tab('show');
-                }
-                parsleyForm.whenValidate({
-                    group: nextGroup
-                }).then(function() {
+                    }
+                    parsleyForm.whenValidate({
+                        group: nextGroup
+                    }).then(function() {
                     if(validateWhoAmIContent()){
                         allowTabChange = true;
                         $target.tab('show');
@@ -1606,30 +1577,83 @@ $loginAccount = auth()->user();
                     else{
                         return false;
                     }
-                    if (e.target.id == "profile-tab") {
-                        $('.define_process_bar_color').attr('style', 'width :80%'); //.percent
-                        $('#percent').html('80%');
-                    } else if (e.target.id == "contact-tab") {
-                        if ($(".draft").is(':checked')) {
-                            $(".hideDraft").hide();
-                            $("#show_draft").show();
-                        } else {
-                            $(".hideDraft").show();
-                            $("#show_draft").hide();
-                        }
-                        $('.define_process_bar_color').attr('style', 'width :100%'); //.percent
-                        $('#percent').html('100%');
-                    }
-                    else {
-                        $('.define_process_bar_color').attr('style', 'width :25%'); //.percent
-                        $('#percent').html('25%');
-                    }
-                }, function() {
-                    console.log('Validation failed');
-                });
+                    updateProgressBar(tabId);
+                    }, function() {
+                        console.log('Validation failed');
+                    });
+                }
+                else{
+                    updateProgressBar(tabId);
+                }
             });
-            }
+            
         });
+
+
+        $("body").on('click', '.nex_sterp_btn', function(e) {
+            var id = $(this).attr('id');
+            $(this).removeClass('active');
+            $(".nav-link").removeClass('active');
+            $("#" + id).addClass('active');
+            switch (id) {
+                case 'profile-tab': {
+                    let dynamic_image = checkProfileDynamicMedia();
+                    if (dynamic_image < 8) {
+                        Swal.fire('Media',
+                            'Please attach media to this profile from the Media Repository or upload a new file (All are mendatory)',
+                            'warning');
+                        return false;
+                    }
+
+                    if(!validateWhoAmIContent()){
+                        return false;
+                    }
+                } break;
+                case 'contact-tab': {
+                     let existRates = checkRates();
+                     let editMode = '{{$editMode}}';
+                    if (!existRates && !editMode) {
+                        Swal.fire('Rates',
+                            'You must complete at least one rate value to proceed.',
+                            'warning');
+                        return false;
+                    }
+                } break;
+                case 'playmates-tab':{
+                    let checkAvailability = validateAvailability();
+                    if(checkAvailability){
+                        return false;
+                    }
+                } break;
+                default:{
+                    
+                }
+            }
+            updateProgressBar(id);
+        });
+
+        var updateProgressBar = function(tab_id){
+            let progressBar = $('.define_process_bar_color');
+            let percentCont = $('#percent');
+            switch (tab_id) {
+                case 'home-tab': {
+                    progressBar.attr('style', 'width :25%');
+                    percentCont.html('25%');
+                } break;
+                case 'profile-tab': {
+                    progressBar.attr('style', 'width :50%');
+                    percentCont.html('50%');
+                } break;
+                case 'contact-tab': {
+                    progressBar.attr('style', 'width :75%');
+                    percentCont.html('75%');
+                } break;
+                case 'playmates-tab': {
+                    progressBar.attr('style', 'width :100%');
+                    percentCont.html('100%');
+                } break;
+            }
+        }
 
         function update_escort(updateButton, form_data) {
             updateButton.prop('disabled', true).html('<div class="spinner-border"></div>');

@@ -11,7 +11,7 @@
    <!--middle content end here-->
    <div class="row">
       <div class="custom-heading-wrapper col-lg-12">
-         <h1 class="h1">Commission Summary</h1>
+         <h1 class="h1">Fees Summary</h1>
          <span class="helpNoteLink font-weight-bold" data-toggle="collapse" data-target="#notes" aria-expanded="true">Help?</span>
       </div>
       <div class="col-md-12 mb-4">
@@ -19,29 +19,17 @@
             <div class="card-body">
                <p class="mb-0" style="font-size: 20px;"><b>Notes:</b> </p>
                <ol>
-                  <li>You can apply filters within the Commission Summary to suit your query or report type.</li>
-                  <li>All Commission paid to you under the Agent Agreement will be paid into your nominated Bank Account. Commission is inclusive of GST.</li>
+                  <li>You can apply filters within the Fees Summary to suit your query or report type.</li>
+                  <li>All Fees paid to you under the Agent Agreement will be paid into your nominated Bank Account. Fees is inclusive of GST.</li>
                
                </ol>
             </div>
          </div>
       </div>
-      <div class="col-md-6">
-         <div class="card Summary">
-            <div class="card-body pb-0">
-               <p><b>Agent Details</b> </p>
-               <ul class="mb-2">
-                  <li class="text-capitalize"><b style="color: #5D6D7E;">Name:</b>Well Done Accounts</li>
-                  <li><b style="color: #5D6D7E;">Contact:</b>Ava Lopez</li>
-                  <li><b style="color: #5D6D7E;">ABN:</b>83 517 839 569</li>
-               </ul>
-            </div>
-         </div>
-      </div>
       <div class="col-md-12 mt-4">
          <ul class="nav nav-tabs tab-sec">
-            <li class="active"><a href="#one" data-toggle="tab" class="active">Commission Summary (YoY)</a></li>
-            <li><a href="#two" data-toggle="tab" class="">Commission Summary (Advertiser)</a></li>
+            <li class="active"><a href="#one" data-toggle="tab" class="active">Fees Summary (YoY)</a></li>
+            <li><a href="#two" data-toggle="tab" class="">Fees Summary (Advertiser)</a></li>
          </ul>
       </div>
       <div class="col-md-12 mt-4">
@@ -461,9 +449,9 @@
                                              <option class="text-secondary">Highest Spend</option>
                                              <option class="text-secondary">Lowest Spend</option>
                                              <option class="text-secondary">Highest
-                                             Commission
+                                             Fees
                                              </option>
-                                             <option class="text-secondary">Lowest Commission</option>
+                                             <option class="text-secondary">Lowest Fees</option>
                                              </select>
                                              </td>
                                              <td class="form-back"><b>Total Advertisers</b></td>
@@ -495,7 +483,7 @@
                                        <td><b>PinUp</b></td>
                                        <td><b>Fixed</b></td>
                                        <td><b>Total Spend</b></td>
-                                       <td><b>Commission</b></td>
+                                       <td><b>Fees</b></td>
                                        <td><b>Action</b></td>
                                     </tr>
                                     <tr>
