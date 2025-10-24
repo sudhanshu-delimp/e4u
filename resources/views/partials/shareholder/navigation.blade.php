@@ -104,7 +104,7 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link pr-0 dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="{{ !auth()->user()->avatar_img ? asset('assets/dashboard/img/undraw_profile.svg') : asset('avatars/' . auth()->user()->avatar_img) }}"
+                <img src="{{ asset('assets/dashboard/img/undraw_profile.svg') }}"
                     class="img-profile rounded-circle avatarName">
             </a>
             <!-- Dropdown - User Information -->
