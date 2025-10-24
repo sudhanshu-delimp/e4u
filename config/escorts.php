@@ -321,6 +321,7 @@ return [
 			"7408" => "Sydney",
 			"57601" => "Agra",
 			"131679" => "Delhi",
+			"50859" => "Patna",
 		],
 		// 'state-cities' => [
 		// 	'3904'=>'South Australia'=>["3919" => "Adelaide"],
@@ -354,6 +355,16 @@ return [
 				'cities'=>[
 					57601 => [
 						'cityName' => 'Agra',
+						'timeZone' => 'Asia/Kolkata',
+					],
+				],
+			],
+			'4037'=>[
+				"stateName" => 'Bihar',
+				'timeZone' => 'Asia/Kolkata',
+				'cities'=>[
+					50859 => [
+						'cityName' => 'Patna',
 						'timeZone' => 'Asia/Kolkata',
 					],
 				],
