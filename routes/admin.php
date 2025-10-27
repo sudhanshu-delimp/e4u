@@ -242,6 +242,7 @@ Route::post('/update-agent',[AgentController::class,'update_agent'])->name('admi
 Route::post('/add-agent',[AgentController::class,'add_agent'])->name('admin.add-agent');
 Route::post('/check-agent-email',[AgentController::class,'check_agent_email'])->name('admin.check-agent-email');
 Route::post('/approve-agent-account',[AgentController::class,'approve_agent_account'])->name('admin.approve-agent-account');
+Route::post('/active-agent-account',[AgentController::class,'activate_user'])->name('admin.active-agent-account');
 
 Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])->name('admin.agent_list_data_table');
 

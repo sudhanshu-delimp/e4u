@@ -324,9 +324,8 @@ Route::get('/list-tour/{type}',[TourController::class, 'viewTourList']);
 Route::get('photo-video-verification',function(){
     return view('escort.dashboard.PhotoVideo.photo-video-verification');
 });
-Route::get('pricing',function(){
-    return view('escort.dashboard.Community.pricing');
-})->name('escort.dashboard.Community.pricing');
+
+
 
 
 Route::get('Community',function(){
@@ -334,8 +333,7 @@ Route::get('Community',function(){
 })->name('escort.dashboard.Community.abbreviations');
 //////////tour payment
 
-
-//////////////
+Route::get('pricing',[EscortController::class ,'showPricingsummary'])->name('escort.dashboard.Community.pricing');
 Route::post('poli-paymentUrl',[EscortPolyPaymentController::class,'polyPaymentUrl'])->name('escort.poli.paymentUrl');
 Route::get('paymentUrl-status-success/{id}',[EscortPolyPaymentController::class,'successUrl'])->name('escort.poly.paymentUrl.status.success');
 Route::get('paymentUrl-status-FailureURL/{id}',[EscortPolyPaymentController::class,'FailureURL'])->name('escort.poly.paymentUrl.status.FailureURL');

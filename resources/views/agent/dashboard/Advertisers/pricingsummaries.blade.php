@@ -731,7 +731,7 @@ padding: 2px 8px 2px 8px !important;
 
    $(document).ready(function() {
 
-    $(document).ready(function () {
+    
 
     var usedDates = [];
     var usedLocations = [];
@@ -983,7 +983,7 @@ padding: 2px 8px 2px 8px !important;
 
 
 });
-});
+
 
 
 
