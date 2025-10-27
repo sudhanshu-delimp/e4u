@@ -19,12 +19,7 @@
             position: relative;
         }
 
-        .doc-img {
-            box-shadow: 0 .125rem .25rem 0 rgba(58, 59, 69, .2) !important;
-            padding: 15px;
-            margin: 0 auto;
-            text-align: center;
-        }
+       
 
         p i {
             color: #000000;
