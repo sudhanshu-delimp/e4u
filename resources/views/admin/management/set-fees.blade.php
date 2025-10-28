@@ -147,7 +147,7 @@
                               </ol>
 
                               <div class="table-responsive">
-                                 <table class="table table-bordered membership-table mt-3">
+                                 <table class="table table-bordered membership-table mt-3 w-100" id="concierge_services">
                                     <thead class="bg-first text-center">
                                        <tr>
                                        <th class="text-center">Item</th>
@@ -158,91 +158,7 @@
                                        </tr>
                                     </thead>
                                     <tbody>
-                                       <tr>
-                                       <td class="text-center">10</td>
-                                       <td class="text-left">Travel</td>
-                                       <td class="text-center">per Service</td>
-                                       <td class="text-center">$ 75.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                       </tr>
-                                       <tr>
-                                       <td class="text-center">11</td>
-                                       <td class="text-left">Accommodation</td>
-                                       <td class="text-center">per Service</td>
-                                       <td class="text-center">$ 75.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                       </tr>
-                                       <tr>
-                                       <td class="text-center">12</td>
-                                       <td class="text-left">Mobile SIM</td>
-                                       <td class="text-center">per Service</td>
-                                       <td class="text-center">$ 75.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                       </tr>
-                                       <tr>
-                                       <td class="text-center">13</td>
-                                       <td class="text-left">Email Account</td>
-                                       <td class="text-center">per Service</td>
-                                       <td class="text-center">$ 75.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                       </tr>
-                                       <tr>
-                                       <td class="text-center">14</td>
-                                       <td class="text-left">Visa Migration & Education Placement</td>
-                                       <td class="text-center">per Service</td>
-                                       <td class="text-center">$ 75.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Concierge_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                       </tr>
+                                       
                                     </tbody>
                                  </table>
 
@@ -816,39 +732,12 @@
       </div>
    </div>
 </div>
-<div class="modal fade upload-modal" id="Concierge_Services" tabindex="-1" role="dialog" aria-labelledby="Concierge_ServicesLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="Concierge_Services"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Fees - Concierge Services</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-            </button>
-         </div>
-         <div class="modal-body pb-0">
-            <form>
-               <div class="row">
-                  <div class="col-6 mb-3">
-                     <label>Fee</label>
-                     <input type="text" class="form-control rounded-0" value="Travel">
-                  </div>
-                  <div class="col-6 mb-3">
-                     <label>Rate</label>
-                     <input type="text" class="form-control rounded-0" value="Per Service">
-                  </div>
-                  <div class="col-6 mb-3">
-                     <label>Amount</label>
-                     <input type="text" class="form-control rounded-0" value="$ 75.00">
-                  </div>
-               </div>
-            </form>
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn-success-modal">Save &amp; Update</button>
-         </div>
-      </div>
-   </div>
+
+<div class="modal fade upload-modal" id="concierge_services_modal" tabindex="-1" role="dialog" aria-labelledby="Concierge_ServicesLabel" aria-hidden="true">
+   
 </div>
+
+
 <div class="modal fade upload-modal" id="Support_Services" tabindex="-1" role="dialog" aria-labelledby="Support_ServicesLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -882,6 +771,8 @@
       </div>
    </div>
 </div>
+
+
 <div class="modal fade upload-modal" id="Agent_Operator" tabindex="-1" role="dialog" aria-labelledby="Agent_OperatorLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -918,6 +809,8 @@
       </div>
    </div>
 </div>
+
+
 <div class="modal fade upload-modal" id="playbox" tabindex="-1" role="dialog" aria-labelledby="playboxLabel" aria-hidden="true">
    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -950,6 +843,8 @@
       </div>
    </div>
 </div>
+
+
 @endsection
 @push('script')
 <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -1006,6 +901,119 @@ $(document).ready(function(){
    });
 
 
+
+    
+      var concierge_services = $("#concierge_services").DataTable({
+      language: {
+      search: "Search: _INPUT_",
+      searchPlaceholder: "Search by Fee Type...",
+      lengthMenu: "Show _MENU_ entries",
+      zeroRecords: "No matching records found",
+      info: "Showing _START_ to _END_ of _TOTAL_ entries",
+      infoEmpty: "No entries available",
+      infoFiltered: "(filtered from _MAX_ total entries)"
+      },
+
+      processing: true,
+      serverSide: true,
+      lengthChange: true,
+      searchable:false,
+      bStateSave: false,
+
+      ajax: {
+      url: "{{ route('admin.concierge_services_datatable') }}",
+      data: function (d) {
+      d.type = 'player';
+      }
+      },
+      columns: [
+            { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'fee', name: 'fee', searchable: true, orderable:false ,defaultContent: 'NA'},
+            { data: 'frequency', name: 'frequency', searchable: true, orderable:false,defaultContent: 'NA' },
+            { data: 'amount', name: 'amount', searchable: true, orderable:false,defaultContent: 'NA' },
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
+      ],
+
+      order: [[1, 'asc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10,
+      });
+
+
+      $(document).on('click', '.edit_item', function(e) 
+      {
+                  var rowData = $(this).data('id');
+                  var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
+                                     <form name="concierge_services_frm" method="post">
+                                       <div class="modal-content">
+                                          <div class="modal-header">
+                                             <h5 class="modal-title" id="Concierge_Services"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Fees - Concierge Services</h5>
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                                             </button>
+                                          </div>
+                                          <div class="modal-body pb-0">
+                                            
+                                                <div class="row">
+                                                   <div class="col-6 mb-3">
+                                                      <label>Fee</label>
+                                                      <input type="text" name="fee" class="form-control rounded-0" value="${(rowData.fee  ? rowData.fee : '')}" readonly>
+                                                   </div>
+                                                   <div class="col-6 mb-3">
+                                                      <label>Rate</label>
+                                                      <input type="text" name="frequency" class="form-control rounded-0" value="${(rowData.frequency ? rowData.frequency : '')}" readonly>
+                                                   </div>
+                                                   <div class="col-6 mb-3">
+                                                      <label>Amount</label>
+                                                      <input type="text" name="amount" class="form-control rounded-0" value="${(rowData.amount ? rowData.amount : '')}">
+                                                   </div>
+                                                </div>
+                                            
+                                          </div>
+                                          <div class="modal-footer">
+                                             <input type="hidden" type="hidden" name="concierge_services" value="concierge_services">
+                                              <input type="hidden" type="hidden" name="id" value="${(rowData.id ? rowData.id : '')}">
+                                             <input type="submit" class="btn-success-modal" id="update_concierge_services" value="Save &amp; Update">
+                                          </div>
+                                       </div>
+                                        </form>
+                                    </div>`;
+
+                  $('#concierge_services_modal').html(modal_html);
+                  $('#concierge_services_modal').modal({backdrop: 'static',  keyboard: false});          
+
+      });
+
+
+      $(document).on('submit', 'form[name="concierge_services_frm"]', function(e) 
+      {
+         console.log('dadadada');
+         e.preventDefault(); 
+         let form = $(this);
+         let formData = new FormData(this);
+         swal_waiting_popup({'title':'Updatin Data'});
+         $.ajax({
+               url: "{{ route('admin.update_fees_data') }}",
+               method: 'POST',
+               data: formData,
+               contentType: false,
+               processData: false, 
+               success: function(response) {
+                     concierge_services.ajax.reload(null, false); 
+                     $('#concierge_services_modal').modal('hide');
+                     Swal.close();
+                     swal_success_popup(response.message);
+               },
+               error: function(xhr) {
+                   $('#concierge_services_modal').modal('hide');
+                  swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+               }
+         });
+      });
+
+
+      
+   
    var today = moment().format('YYYY-MM-DD');
    // $("#start_date").attr({
    //    "min" : today,
@@ -1071,11 +1079,10 @@ $(document).ready(function(){
    //          console.log(val);
 
    // });
+
+
    $('body').on ('show.bs.modal', '#pricing-detail', function(event){
       button = $(event.relatedTarget);
-
-      //$('.parsley-required').css('list-style-type', 'disc');
-      //$("form #agent_bank").attr('autocomplete', 'on');
       const bank = $(button).data('name');
       if($(button).data('target') == "#commission-report") {
          $('#bank_name').attr('disabled',true);
@@ -1098,14 +1105,15 @@ $(document).ready(function(){
       if($(button).data('discount_amount') != "N/A") {
       $('#ac_amount').val($(button).data('discount_amount'));
       }
-      //   if($(button).data('percentage') == "N/A") {
-      //    $('#ac_amount').val('0');
-      //   }
+      
 
       $('#bankId').val($(button).data('id'));
       console.log("target = ", button);
-      //document.getElementById("bank_name").value = bank;
+      
    });
+
+
+   
    // $('body').on('change','#membership', function()
    // {
    //    //$("#membership").val('');

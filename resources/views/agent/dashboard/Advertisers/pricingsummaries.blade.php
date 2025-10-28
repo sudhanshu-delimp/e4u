@@ -109,18 +109,18 @@ padding: 2px 8px 2px 8px !important;
 
                                                             @foreach($advertings as $adverting)
                                                                 <tr role="row">
-                                                                    <td>{!! $adverting['membership_type'] !!}</td>
-                                                                    <td>{{ $adverting['period'] }}</td>
+                                                                    <td>{!! $adverting['memberships']['name'] !!}</td>
+                                                                    <td>{{ $adverting['days'] }}</td>
                                                                     <td>{{ $adverting['frequency'] }}</td>
-                                                                    <td>${{ number_format($adverting['rate'], 2) }}</td>
+                                                                    <td>${{ number_format($adverting['price'], 2) }}</td>
                                                                     <td>
-                                                                        @if(!empty($adverting['discount_percent']))
-                                                                            {{ $adverting['discount_percent'] }}
+                                                                        @if(!empty($adverting['percentage']))
+                                                                            {{ $adverting['percentage'] }}
                                                                         @else
                                                                             N/A
                                                                         @endif
                                                                     </td>
-                                                                    <td>${{ number_format($adverting['discounted_rate'], 2) }}</td>
+                                                                    <td>${{ number_format($adverting['discount_amount'], 2) }}</td>
                                                                 </tr>
                                                             @endforeach 
                                                         
@@ -642,8 +642,8 @@ padding: 2px 8px 2px 8px !important;
              <div class="col-md-6">
                <label for="start_date" class="form-label">Membership Type </label>
               <select  class="form-control" name="cal_memship_type" id="cal_memship_type">
-                @foreach($membership_types as $key => $membership)
-                <option value="{{ $membership }}">{{ $membership }}</option>
+                 @foreach($membership_types as $membership)
+                 <option value="{{ $membership['id'] }}">{{ $membership['name'] }}</option>
                 @endforeach  
             </select>
              </div>
@@ -837,12 +837,19 @@ padding: 2px 8px 2px 8px !important;
         var end = new Date(endDate);
         var days = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
 
-        var selectedAd = advertings.find(ad => ad.membership_type.replace(/(<([^>]+)>)/gi, "") === membershipType);
-        var rate = selectedAd.discounted_rate ?? selectedAd.rate;
+       
+
+        var selectedAd = advertings.find(ad => ad.membership_id === membershipType);
+
+         console.log('membershipType',membershipType);
+         console.log('selectedAd',selectedAd.price);
+         let membershipTypeName = selectedAd.memberships?.name;
+
+        var rate = selectedAd.discount_amount  ?? selectedAd.price;
         var fee = 0;
-        if (selectedAd.frequency.toLowerCase().includes('day')) {
+        if (selectedAd.frequency.toLowerCase().includes('1')) {
             fee = rate * days * members;
-        } else if (selectedAd.frequency.toLowerCase().includes('week')) {
+        } else if (selectedAd.frequency.toLowerCase().includes('2')) {
             var weeks = Math.ceil(days / 7);
             fee = rate * weeks * members;
         } else {
@@ -864,7 +871,7 @@ padding: 2px 8px 2px 8px !important;
                 <td>${stateText}</td>
                 <td>${getFirstDayOfYear(startDate) }</td>
                 <td>${getFirstDayOfYear(endDate) }</td>
-                <td>${membershipType}</td>
+                <td>${membershipTypeName}</td>
                 <td>${members}</td>
                 
                 <td style="width:20%">
