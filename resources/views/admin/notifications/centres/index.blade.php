@@ -58,52 +58,15 @@
                                                 <table class="table" id="centerNotificationTable">
                                                     <thead class="table-bg">
                                                         <tr>
-                                                            <th scope="col">Ref
-                                                            </th>
+                                                            <th scope="col">Ref</th>
                                                             <th scope="col">Start</th>
-
                                                             <th scope="col">Finish</th>
                                                             <th scope="col">Type</th>
                                                             <th scope="col">Status</th>
                                                             <th scope="col" class="text-center">Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody class="table-content">
-                                                        <tr class="row-color">
-                                                            <td class="theme-color">Maintenance</td>
-                                                            <td class="theme-color">08-06-2025</td>
-                                                            <td class="theme-color">09-06-2025</td>
-                                                            <td class="theme-color">Adhoc</td>
-                                                            <td class="theme-color">Published</td>
-
-                                                            <td class="theme-color text-center">
-                                                                <div class="dropdown no-arrow">
-                                                                    <a class="dropdown-toggle" href="#" role="button"
-                                                                        id="dropdownMenuLink" data-toggle="dropdown"
-                                                                        aria-haspopup="true" aria-expanded="false">
-                                                                        <i
-                                                                            class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                                    </a>
-                                                                    <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                                                        aria-labelledby="dropdownMenuLink" style="">
-                                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                            href="#"> <i
-                                                                                class="fa fa-fw fa-times"></i> Removed </a>
-                                                                        <div class="dropdown-divider"></div>
-
-                                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                            href="#"> <i class="fa fa-eye"></i> View
-                                                                        </a>
-                                                                        <div class="dropdown-divider"></div>
-                                                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10"
-                                                                            href="#"> <i
-                                                                                class="fa fa-fw fa-print"></i> Print </a>
-
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
+                                                    <tbody class="table-content"></tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -312,16 +275,16 @@
                 success: function(response) {
                     if (response.status === true) {
                         $('#createNotification').modal('hide');
-                        let msg = response.message ? response.message : 'Something went wrong';
-                        $("#image_icon").attr("src", endpoint.error_image);
-                        $('#success_task_title').text('Error');
+                        let msg = response.message ? response.message : 'Saved successfully';
+                        $("#image_icon").attr("src", endpoint.success_image);
+                        $('#success_task_title').text('Success');
                         $('#success_msg').text(msg);
-                        $('#successModal').modal('show');
                         form[0].reset();
                         $('#successModal').modal('show');
                         setTimeout(function() {
                             $('#successModal').modal('hide');
-                        }, 2000);
+                            table.ajax.reload(null, false);
+                        }, 1200);
                     }
 
                 },
@@ -348,19 +311,42 @@
                 search: "Search: _INPUT_",
                 searchPlaceholder: "Search by Ref..."
             },
-            info: true,
-            paging: true,
-            lengthChange: true,
-            searching: true,
-            bStateSave: true,
-            order: [
-                [1, 'desc']
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('admin.centres.notifications.index') }}",
+                type: 'GET'
+            },
+            columns: [
+                { data: 'ref', name: 'ref' },
+                { data: 'start_date', name: 'start_date' },
+                { data: 'finish_date', name: 'finish_date' },
+                { data: 'type', name: 'type' },
+                { data: 'status', name: 'status' },
+                { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' },
             ],
-            lengthMenu: [
-                [10, 25, 50, 100],
-                [10, 25, 50, 100]
-            ],
+            order: [[1, 'desc']],
+            lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
             pageLength: 10
+        });
+
+        // Event delegation for dynamic action buttons
+        $(document).on('click', '.js-view', function(e){
+            e.preventDefault();
+            const id = $(this).data('id');
+            // Implement view logic (modal or redirect)
+        });
+
+        $(document).on('click', '.js-print', function(e){
+            e.preventDefault();
+            const id = $(this).data('id');
+            // Implement print logic
+        });
+
+        $(document).on('click', '.js-remove', function(e){
+            e.preventDefault();
+            const id = $(this).data('id');
+            // Implement remove logic via AJAX to backend route
         });
     </script>
 
