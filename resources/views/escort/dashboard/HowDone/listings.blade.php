@@ -156,17 +156,17 @@
                         </div>
                     </div>
 
-                    <!-- Past -->
+                    <!-- Archive -->
                     <div class="card">
-                        <div class="card-header" id="headingPast">
+                        <div class="card-header" id="headingArchive">
                             <h2 class="mb-0">
-                                <a class="card-link collapsed" data-toggle="collapse" href="#collapsePast"
+                                <a class="card-link collapsed" data-toggle="collapse" href="#collapseArchive"
                                     aria-expanded="false">
-                                    Past
+                                    Archive
                                 </a>
                             </h2>
                         </div>
-                        <div id="collapsePast" class="collapse" aria-labelledby="headingPast" data-parent="#accordion">
+                        <div id="collapseArchive" class="collapse" aria-labelledby="headingArchive" data-parent="#accordion">
                             <div class="card-body">
 
                                 <h5><b>Overview</b></h5>
