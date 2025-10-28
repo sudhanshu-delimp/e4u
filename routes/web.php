@@ -512,9 +512,6 @@ Route::get('/escort-dashboard/my-spend',function(){
     return view('escort.dashboard.my-spend');
 })->name('escort.dashboard.my-spend');
 
-Route::get('/escort-dashboard/tour-schedule',[EscortTourScheduleContoller::class,'index'])->name('escort.dashboard.tour-schedule');
-Route::get('/escort-dashboard/tour-schedule-ajax',[EscortTourScheduleContoller::class,'tourScheduleAjax'])->name('escort.dashboard.tour-schedule-ajax');
-
 
 // Route::get('/escort-dashboard/tour-schedule',function(){
 //     return view('escort.dashboard.tour-schedule');

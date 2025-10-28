@@ -24,6 +24,7 @@ use App\Http\Controllers\Escort\EscortPolyPaymentController;
 use App\Http\Controllers\Escort\EscortReviewsController;
 use App\Http\Controllers\Escort\EscortTourPaymentController;
 use App\Http\Controllers\Escort\EscortSuspendProfileController;
+use App\Http\Controllers\Escort\EscortTourScheduleContoller;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
 
 //remove before prod
@@ -316,11 +317,16 @@ Route::get('visa-migration',function(){
     return view('escort.dashboard.Concierge.visa-migration');
 });
 
-Route::get('/list-tour/{type}',[TourController::class, 'viewTourList']);
+Route::get('/list-tour/{type}',[TourController::class, 'viewTourList'])->name('escort.view.tour.list');
 // Route::get('edit-tour',function(){
 //     return view('escort.dashboard.NewTour.edit-tour');
 
 // });
+
+Route::get('/tour-schedule',[EscortTourScheduleContoller::class,'index'])->name('escort.dashboard.tour-schedule');
+Route::post('/update-tour-status-ajax',[EscortTourScheduleContoller::class,'updateTourScheduleStatus'])->name('escort.dashboard.update-tour-status-ajax');
+Route::post('/get-tour-summary-ajax',[EscortTourScheduleContoller::class,'getTourSummaryAjax'])->name('escort.dashboard.get-tour-summary-ajax');
+
 Route::get('photo-video-verification',function(){
     return view('escort.dashboard.PhotoVideo.photo-video-verification');
 });

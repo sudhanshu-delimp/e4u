@@ -81,15 +81,35 @@
                         </thead>
                         
                         <tbody>
-                            <tr class="">
+                            @forelse ($tours as $tour)
+                                @php
+                                    $today = \Carbon\Carbon::today();
+                                    $start = \Carbon\Carbon::parse($tour->start_date);
+                                    $end = \Carbon\Carbon::parse($tour->end_date);
+                                    $tourStatus = 'current';
+                                    $colorCode = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+                                @endphp
+                                    <tr class="">
                                 <td class=" task-color bg-white"><i
-                                        class="fas fa-circle text-high taski mr-2"></i>Melbourne</td>
-                                <td class=" task-color text-center bg-white">10</td>
-                                <td class=" task-color text-center bg-white">01-01-2022</td>
-                                <td class=" task-color text-center bg-white">10-01-2022</td>
+                                        class="fas fa-circle text-high taski mr-2" style="color: {{$colorCode}}"></i>{{$tour->state->name}}</td>
+                                <td class=" task-color text-center bg-white">{{ \Carbon\Carbon::parse($tour->end_date)->diffInDays(\Carbon\Carbon::parse($tour->start_date)) + 1 }}</td>
+                                <td class=" task-color text-center bg-white">{{\Carbon\Carbon::parse($tour->start_date)->format('d-m-Y')}}</td>
+                                <td class=" task-color text-center bg-white">{{\Carbon\Carbon::parse($tour->end_date)->format('d-m-Y')}}</td>
+                               
+
                                 <td class="theme-color text-center bg-white">
-                                    <span
-                                        class="badge badge-danger-lighten task-1 bg-warning w-75">Current</span>
+                                    @if($tour->status != 'cancelled')
+                                        @if ($today->between($start, $end))
+                                            <span class="badge badge-danger-lighten task-1 bg-warning w-75">Current</span>
+                                        @elseif ($today->lt($start))
+                                            <span class="badge badge-danger-lighten task-1 bg-info w-75">Upcoming</span>
+                                        @else
+                                            <span class="badge badge-danger-lighten task-1 bg-success w-75">Completed</span>
+                                            @php $tourStatus = 'past'; @endphp
+                                        @endif
+                                    @else
+                                            <span class="badge badge-danger-lighten task-1 bg-danger w-75">Cancelled</span>
+                                    @endif
                                 </td>
                                 <td class="theme-color text-center bg-white">
                                     <div class="dropdown no-arrow">
@@ -101,117 +121,30 @@
                                         </a>
                                         <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-eye"></i> View</a>
+                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="{{ route('escort.view.tour.list',$tourStatus) }}"> <i class="fa fa-eye"></i> View</a>
+                                            @if($tourStatus != 'past')
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 "href="{{ route('escort.view.tour.list',$tourStatus) }}"> <i class="fa fa-pen"></i> Edit</a>
+                                            @endif
+                                            @if($tour->status != 'cancelled')
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 cancelTour" href="#" data-tour-id="{{$tour->id}}" data-toggle="modal"
+                                                    data-target="#new-ban-3"> <i class="fa fa-times"></i> Cancel</a>
+                                            @else
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 text-muted" href="#" style="background: #e7e7e7; cursor: not-allowed;"> <i class="fa fa-times text-muted" ></i> Cancel</a>
+                                            @endif
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 "href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-pen"></i> Edit</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
-                                                data-target="#new-ban-3"> <i class="fa fa-times"></i> Cancel</a>
-                                            <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
-                                                data-target="#tour_summary"> <i class="fa fa-list"></i> Tour Summary</a>
+                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 showTourSummary" href="#"  data-tour-id="{{$tour->id}}"> <i class="fa fa-list"></i> Tour Summary</a>
                                         </div>
                                     </div>
                                 </td>
                             </tr>
-                            <tr class="">
-                                <td class=" task-color bg-white"><i
-                                        class="fas fa-circle text-info taski mr-2"></i>Sydney</td>
-                                <td class=" task-color text-center bg-white">10</td>
-                                <td class=" task-color text-center bg-white">01-01-2022</td>
-                                <td class=" task-color text-center bg-white">10-01-2022</td>
-                                <td class="theme-color text-center bg-white">
-                                    <span
-                                        class="badge badge-danger-lighten task-1 bg-danger w-75">Upcoming</span>
-                                </td>
-                                <td class="theme-color text-center bg-white">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button"
-                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i
-                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-eye"></i> View</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 "href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-pen"></i> Edit</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
-                                                data-target="#new-ban-3"> <i class="fa fa-times"></i> Cancel</a>
-                                            <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
-                                                data-target="#tour_summary"> <i class="fa fa-list"></i> Tour Summary</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td class=" task-color bg-white"><i
-                                        class="fas fa-circle text-primary taski mr-2"></i>Perth</td>
-                                <td class=" task-color text-center bg-white">10</td>
-                                <td class=" task-color text-center bg-white">01-01-2022</td>
-                                <td class=" task-color text-center bg-white">10-01-2022</td>
-                                <td class="theme-color text-center bg-white">
-                                    <span class="badge badge-danger-lighten task-1">Completed</span>
-                                </td>
-                                <td class="theme-color text-center bg-white">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button"
-                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i
-                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-eye"></i> View</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item disabled d-flex align-items-center justify-content-start gap-10 "href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-pen"></i> Edit</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
-                                                data-target="#new-ban-3"> <i class="fa fa-times"></i> Cancel</a>
-                                            <div class="dropdown-divider"></div>
-                                                <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
-                                                data-target="#tour_summary"> <i class="fa fa-list"></i> Tour Summary</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="">
-                                <td class=" task-color bg-white"><i
-                                        class="fas fa-circle text-medium taski mr-2"></i>Adelaide</td>
-                                <td class=" task-color text-center bg-white">10</td>
-                                <td class=" task-color text-center bg-white">01-01-2022</td>
-                                <td class=" task-color text-center bg-white">10-01-2022</td>
-                                <td class="theme-color text-center bg-white">
-                                    <span class="badge badge-danger-lighten task-1">Completed</span>
-                                </td>
-                                <td class="theme-color text-center bg-white">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button"
-                                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i
-                                                class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                        aria-labelledby="dropdownMenuLink" style="">
-                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-eye"></i> View</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item disabled d-flex align-items-center justify-content-start gap-10 "href="{{ url('escort-dashboard/list-tour/current') }}"> <i class="fa fa-pen"></i> Edit</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
-                                            data-target="#new-ban-3"> <i class="fa fa-times"></i> Cancel</a>
-                                        <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 " href="#" data-toggle="modal"
-                                            data-target="#tour_summary"> <i class="fa fa-list"></i> Tour Summary</a>
-                                    </div>
-                                    </div>
-                                </td>
-                            </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-center">No Tours Found!</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -238,6 +171,7 @@
                     <form>
                         <h4>You are about to cancel your Tour. Are you sure you want to cancel your Tour?</h4>
                         <hr style="background-color: #0C223D" class="mt-3">
+                        <input type="hidden" id="cancel_tour_id" value="">
                         <div class="note">
                             <p class="font-weight-bold">Notes:</p>
                             <ol>
@@ -254,8 +188,8 @@
                                     <button type="button"
                                         class="btn-cancel-modal ml-2"
                                         data-dismiss="modal" aria-label="Close">Cancel</button>
-                                        <button type="submit"
-                                            class="btn-success-modal ml-2 " >Cancel Tour</button>
+                                        <button type="button"
+                                            class="btn-success-modal ml-2 cancelTourbtn" >Cancel Tour</button>
                                 </div>
                             </div>
                         </div>
@@ -351,28 +285,28 @@
                         <table class="table table-bordered ">
                             <tr>
                                 <th style="color: #0C223D; border-top:1px solid #e3e6f0;">Locations : </th>
-                                <td>4</td>
+                                <td class="location_count">4</td>
                                 <th style="color: #0C223D; border-top:1px solid #e3e6f0">Current Location : </th>
-                                <td>Delhi</td>
+                                <td class="location_current">Delhi</td>
                             </tr>
                             <tr>
                                
                                 <th style="color: #0C223D;">Current Profiles : </th>
-                                <td>Priya Sharma</td>
+                                <td class="current_profile">Priya Sharma</td>
                                 <th style="color: #0C223D;">Fees : </th>
-                                <td>$1,200</td>
+                                <td class="current_fees">$1,200</td>
                             </tr> 
                             <tr>
                                 <th style="color: #0C223D;">Tour start date : </th>
-                                <td>10-06-2025</td>
+                                <td class="tour_start_date">10-06-2025</td>
                                 <th style="color: #0C223D;">Tour end date : </th>
-                                <td>15-06-2025</td>    
+                                <td class="tour_end_date">15-06-2025</td>    
                             </tr> 
                             
                             <tr>
                                 <td colspan="4">
                                     
-                                    <div class="">Date : <span>{{ now()->format('d-m-Y') }}</span></div>
+                                    <div class="current_date">Date : <span>{{ now()->format('d-m-Y') }}</span></div>
                                 </td>
                             </tr>
                     </table>
@@ -385,6 +319,88 @@
 
   
 @endsection
-@section('script')
+@section('script') 
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+     <script>
+        $(document).ready(function() {
+            $(document).on('click', '.cancelTour', function(e) {
+                e.preventDefault();
+                let tour_id = $(this).attr('data-tour-id');
+                $('#cancel_tour_id').val(tour_id);
+            });
+
+            $(document).on('click', '.cancelTourbtn', function(e) {
+                e.preventDefault();
+                let tourId = $('#cancel_tour_id').val();
+                let actionUrl = '{{ route("escort.dashboard.update-tour-status-ajax") }}';
+                var formData = {
+                    tour_id: tourId,
+                    status: 'cancelled'
+                };
+
+                callAjax(formData, actionUrl);
+            });
+
+            $(document).on('click', '.showTourSummary', function(e) {
+                e.preventDefault();
+                let tourId = $(this).attr('data-tour-id');
+                let actionUrl = '{{ route("escort.dashboard.get-tour-summary-ajax") }}';
+                var formData = {
+                    tour_id: tourId
+                };
+
+                callAjax(formData, actionUrl);
+            });
+
+            function formatDate(dateStr) {
+                const d = new Date(dateStr);
+                const day = String(d.getDate()).padStart(2, '0');
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const year = d.getFullYear();
+                return `${day}-${month}-${year}`;
+            }
+
+            function callAjax(formData, actionUrl) 
+            {
+                $.ajax({
+                    url: actionUrl, // form action URL
+                    type: 'POST',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // CSRF token
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        if(response.type == 'cancel_tour' && response.status == 'success'){
+                            $('#cancel_tour_confirm').modal('show');
+                            $('#new-ban-3').modal('hide');
+
+                            setTimeout(() => {
+                                //location.href.reload();
+                            }, 3000);
+                        }
+
+                        if(response.type == 'tour_summary' && response.status == 'success'){
+                            let currentLocation = $(".live_current_location").text();
+                            $(".location_count").text(response.data.tour.locations.length);
+                            $(".location_current").text(currentLocation);
+                            $(".current_profile").text(response.data.profiles.map(p => p.escort.name).join(', '));
+                            $(".current_fees").text('$' + response.fees);
+
+                            $(".tour_start_date").text(formatDate(response.data.start_date));
+                            $(".tour_end_date").text(formatDate(response.data.end_date));
+                            $('#tour_summary').modal('show');
+                        }
+
+                        
+                    },
+                    error: function(xhr) {
+                        // handle error
+                        alert('Something went wrong. Please try again.');
+                    }
+                });
+            }
+
+        })
+    </script>
 @endsection
