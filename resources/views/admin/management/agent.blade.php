@@ -10,7 +10,7 @@
          <!--middle content-->
          <div class="row">
             <div class="custom-heading-wrapper col-md-12">
-               <h1 class="h1">Manage Agent</h1>
+               <h1 class="h1">Manage Agents</h1>
                <span class="helpNoteLink" data-toggle="collapse" data-target="#notes" style="font-size:16px"><b>Help?</b> </span>
             </div>
             <div class="col-md-12 mb-4">
@@ -623,6 +623,32 @@
                }
             });
       })
+
+      //////// Activate Account ////////////////////////////
+      $(document).on('click', '.active-account-btn', async function(e) 
+      {
+
+         if (await isConfirm({'action': 'Activate','text':' Activate This Account.'})) { 
+         swal_waiting_popup({'title':'Activating Account'});
+         $.ajax({
+               url: "{{ route('admin.active-agent-account') }}",
+               method: 'POST',
+               data: {'user_id':$(this).attr('data-id'),'status': '1'},
+               success: function(response) {
+                  table.ajax.reload(null, false); 
+                  Swal.close();
+                  swal_success_popup(response.message);
+               },
+               error: function(xhr) {
+                  Swal.close();
+                  swal_error_popup(xhr.responseJSON.message);
+               }
+            });
+         }
+      })
+
+
+
 
        ///////// Add New Agent //////////////////////////////
       $(document).on('click', '.add-agent-btn', function(e) 

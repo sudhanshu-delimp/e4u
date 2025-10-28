@@ -206,6 +206,22 @@ class AgentRepository extends BaseRepository implements AgentInterface
     }
 
 
+     public function activate_user(array $data)
+    {
+         $user = $this->agent->where('id',$data['user_id'])->firstOrFail(); 
+         if($user && $data['status']!="")
+         {
+             $user->update(['status' => '1']);
+             return $this->response = ['status' => true,'message' => 'Activated Successfully'];
+         }
+         else
+         {
+             return $this->response = ['status' => true,'message' => 'Error occured while activating the user'];
+         }
+
+    }
+
+
     public function sendApprovalEmail($user,$plainPassword)
     {
         $user['plainPassword'] = $plainPassword;

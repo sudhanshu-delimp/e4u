@@ -107,9 +107,15 @@ class AgentController extends BaseController
             $item->territory = isset($item->state->name) ? $item->state->name : 'NA';
 
             $suspend_html = "";
+            $activate_html ="";
+
             if($item->status!='Suspended')
             $suspend_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center account-suspend-btn" href="javascript:void(0)" data-id='.$item->id.'>   <i class="fa fa-ban"></i> Suspend</a>
                         <div class="dropdown-divider"></div>' ;  
+
+            if($item->status=='Suspended')
+            $activate_html = '<a class="dropdown-item d-flex justify-content-start gap-10 align-items-center active-account-btn" href="javascript:void(0)" data-id='.$item->id.'>   <i class="fa fa-check"></i> Activate</a>
+                        <div class="dropdown-divider"></div>' ;             
 
 
             $dropdown = '<div class="dropdown no-arrow ml-3">
@@ -118,8 +124,9 @@ class AgentController extends BaseController
                                              </a>
                                              <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
                                                 
+                                              
                                                <a class="dropdown-item view-account-btn d-flex justify-content-start gap-10 align-items-center" href="javascript:void(0)" data-id='.$item->id.'>  <i class="fa fa-eye "></i> View Account</a>
-                                                <div class="dropdown-divider"></div>'.$suspend_html.'
+                                                <div class="dropdown-divider"></div>'.$activate_html.$suspend_html.'
                                                 <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit-agent-btn" href="javascript:void(0)" data-id='.$item->id.'  data-toggle="modal"> <i class="fa fa-pen"></i> Edit </a>
                                              </div>
                                           </div>';
@@ -202,6 +209,17 @@ class AgentController extends BaseController
 
         $data = $request->all();
         $resposne = $this->agentRepo->change_user_status($data);
+        if($resposne['status'])
+        return $this->successResponse($resposne['message']);
+        else
+        return $this->validationError($resposne['message']);
+    }
+
+     public function activate_user(Request $request)
+    {
+
+        $data = $request->all();
+        $resposne = $this->agentRepo->activate_user($data);
         if($resposne['status'])
         return $this->successResponse($resposne['message']);
         else

@@ -416,7 +416,15 @@
         let reportId = $(this).data('id');
         let status = $(this).data('value');
         let ref = $(this).data('ref');
-        let st = status == 'published' ? 'publish' : 'reject';
+        //let st = status == 'published' ? 'publish' : 'reject';
+
+        if(status == 'pending'){
+            st = 'mark as pending';
+        }else if(status == 'rejected'){
+            st = 'reject';
+        }else{
+            st = 'publish';
+        }
 
         $('#status_data_id').val(reportId);
         $('#status_data_value').val(status);
@@ -424,9 +432,7 @@
         $('.ref_class').text(ref);
         //$("#success-popup").modal('show');
 
-
-        console.log(reportId, status);
-        
+        console.log(reportId, status);  
         
     });
 

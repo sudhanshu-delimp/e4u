@@ -942,7 +942,7 @@
                 <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
                        data-target="#manageAgentMenu" aria-expanded="false" aria-controls="manageAgentMenu">
                         <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
-                        <span>Agent </span>
+                        <span>Agents </span>
                     </a>
                     <div id="manageAgentMenu"
                          class="collapse @if(in_array(request()->segment(3), ['Agent'])) show @endif pl-3"
@@ -966,11 +966,11 @@
                          style="margin-left: 10px;">
                         <a class="collapse-item" href="{{ route('admin.commission-statements') }}">
                             <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
-                            <span style="{{ request()->segment(3) == 'commission-statements' ? 'color: #e5365a;' : '' }}">Commission Statements</span>
+                            <span style="{{ request()->segment(3) == 'commission-statements' ? 'color: #e5365a;' : '' }}">Monthly Report</span>
                         </a>
                         <a class="collapse-item" href="{{ route('admin.commission-summary') }}">
                             <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
-                            <span style="{{ request()->segment(3) == 'commission-summary' ? 'color: #e5365a;' : '' }}">Commission Summary</span>
+                            <span style="{{ request()->segment(3) == 'commission-summary' ? 'color: #e5365a;' : '' }}">Fees Summary</span>
                         </a>
                         <a class="collapse-item" href="{{ route('admin.operator-manage') }}">
                             <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
