@@ -56,7 +56,7 @@
                             <p class="my-3">
                             If you want to be a Pin Up in any of the Locations, if the Pin Up week is available during the days you are at that Location, then you can also add the Pin Up feature to the Location.
                             </p>
-                          <div class="mb-4">
+                          <div class="doc-img my-3">
                              <img src="{{ asset('assets/dashboard/img/new-tour.png') }}" alt="" class="w-100">
                           </div>
                         </div>
@@ -108,11 +108,11 @@
                   <!-- Current -->
                   <div class="card">
                     <div class="card-header" id="headingCurrent">
-                      <h2 class="mb-0">
-                        <a class="card-link collapsed" data-toggle="collapse" href="#collapseCurrent" aria-expanded="false">
-                          Current
-                        </a>
-                      </h2>
+                        <h2 class="mb-0">
+                          <a class="card-link collapsed" data-toggle="collapse" href="#collapseCurrent" aria-expanded="false">
+                            Current
+                          </a>
+                        </h2>
                     </div>
                     <div id="collapseCurrent" class="collapse" aria-labelledby="headingCurrent" data-parent="#accordion">
                       <div class="card-body">
@@ -130,25 +130,27 @@
                           <li>Comprehensive summary of your Tour schedule</li>
                         </ul>
                         
-                        <h5><b>How is it done</b></h5>
+                          <h5><b>How is it done</b></h5>
 
-
-                        <div class="d-flex items-center justify-content-between gap-10">
-                          <div class="">
-                            <p>
-                          You can view in detail all the particulars associated with your current Tour. You can also action a Tour from the Action list, such as Edit, Cancel, View and Tour Summary.
-                        </p>
-                        <p>
-                          The edit feature is particularly helpful for changing any Profile's start or finish date, Membership Type or to remove a Profile from the Tour. Any changes to the Tour will automatically adjust your Fee to reflect the changes, including any refund. Refunds will be added to your Account as a Credit to be used for future listings and Tours.
-                        </p>
-                        <p>
-                          The Tour Summary also displays the Fees paid for the Tour.
-                        </p>
-                          </div>
-                          <img src="{{ asset('assets/dashboard/img/tour-summarys.png') }}" alt="" class="w-50">
-                        </div>
-                        
-                        
+                            <div class="row">
+                              <div class="col-lg-7">
+                                <p>
+                                  You can view in detail all the particulars associated with your current Tour. You can also action a Tour from the Action list, such as Edit, Cancel, View and Tour Summary.
+                                </p>
+                                <p>
+                                  The edit feature is particularly helpful for changing any Profile's start or finish date, Membership Type or to remove a Profile from the Tour. Any changes to the Tour will automatically adjust your Fee to reflect the changes, including any refund. Refunds will be added to your Account as a Credit to be used for future listings and Tours.
+                                </p>
+                                <p>
+                                  The Tour Summary also displays the Fees paid for the Tour.
+                                </p>
+                              </div>
+                              <div class="col-lg-5">
+                                <div class="doc-img">
+                                  <img src="{{ asset('assets/dashboard/img/tour-summarys.png') }}" alt="" class="w-100">
+                                </div>
+                              </div>
+                            </div>
+                          
               
                       </div>
                     </div>

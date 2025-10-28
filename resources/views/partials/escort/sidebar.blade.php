@@ -159,7 +159,7 @@
 
             <a class="collapse-item" href="{{ url('escort-dashboard/list-tour/past') }}">
                 <img src="{{ asset('assets/dashboard/img/menu-icon/clipboard.png') }}">
-                <span class="{{ request()->segment(2) == 'list-tour' && request()->segment(3) == 'past' ? 'menu-active' : '' }}">Past</span>
+                <span class="{{ request()->segment(2) == 'list-tour' && request()->segment(3) == 'past' ? 'menu-active' : '' }}">Archive</span>
             </a>
             
         </div>

@@ -73,31 +73,6 @@ a {
     color: #ff3c5f;
 }
 
-.custom-ul {
-    padding-left: 20px;
-}
-
-.custom-ul li {
-    padding-left: 25px;
-}
-
-.sec-head {
-    border-bottom: 2px solid;
-    width: max-content;
-    margin: 25px 0px 15px 0px;
-}
-
-p {
-    text-align: justify;
-}
-
-.doc-img {
-    box-shadow: 0 .125rem .25rem 0 rgba(58, 59, 69, .2) !important;
-    padding: 15px;
-    margin: 0 auto;
-    text-align: center;
-}
-
 .escort-ratings li {
     list-style: none;
 }
@@ -10277,6 +10252,226 @@ button:disabled {
 .guide-document i {
     font-size: 50px;
     color: #c2cfe0;
+}
+
+
+/* end */
+
+
+/* card accordians */
+
+.parsley-errors-list {
+    list-style: none;
+    color: rgb(248, 0, 0)
+}
+
+.how--work {
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 270px 1fr;
+    gap: 24px;
+    width: 100%;
+    position: relative;
+}
+
+.custom-ul {
+    padding-left: 20px;
+}
+
+.custom-ul li {
+    padding-left: 25px;
+}
+
+.sec-head {
+    border-bottom: 2px solid;
+    width: max-content;
+    margin: 25px 0px 15px 0px;
+}
+
+p {
+    text-align: justify;
+}
+
+.doc-img {
+    box-shadow: 0 .125rem .25rem 0 rgba(58, 59, 69, .2) !important;
+    padding: 15px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+p i {
+    color: #000000;
+}
+
+.toc {
+    position: sticky;
+    top: 10px;
+    align-self: start;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(2, 6, 23, .06);
+    padding: 16px;
+}
+
+.toc a {
+    display: block;
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: #0c223d !important;
+    text-decoration: none;
+    border: 1px solid transparent;
+    font-weight: 500;
+}
+
+.toc a:hover {
+    color: #FF3C5F !important;
+}
+
+.card>.head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.card h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.pill {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    color: #4b5563;
+}
+
+.card>.head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.card h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.pill {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    color: #4b5563;
+}
+
+.card .inner {
+    padding: 14px 20px 22px;
+}
+
+details[open] {
+    /* background: linear-gradient(180deg, #fafbff, #ffffff); */
+}
+
+details {
+    background: #fafbff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 15px 20px;
+    margin: 20px 0;
+}
+
+details>summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-weight: 600;
+}
+
+details[open]>summary:first-of-type {
+    list-style-type: disclosure-open;
+}
+
+.chip {
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(125, 211, 252, .15);
+    color: var(--accent);
+    border: 1px solid rgba(125, 211, 252, .3);
+}
+
+.summary-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.steps p {
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+}
+
+.card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    padding: 0;
+}
+
+.callout {
+    padding: 12px 14px;
+    border: 1px dashed #e5e7eb;
+    border-radius: 14px;
+    background: rgba(94, 161, 255, .08);
+}
+
+.summary-title:hover {
+    color: #FF3C5F;
+}
+
+.summary-title ul {
+    padding: 8px 0 8px 24px;
+}
+
+.steps ul {
+    margin: 8px 0 8px 8px;
+}
+
+.how-it-done p {
+    margin-bottom: 0.8rem !important;
+}
+
+.how-it-done h5 {
+    font-weight: 500;
+}
+
+.custom-ul {
+    padding-left: 20px;
+}
+
+.custom-ul li {
+    padding-left: 25px;
+}
+
+.sec-head {
+    border-bottom: 2px solid;
+    width: max-content;
+    margin: 25px 0px 15px 0px;
+}
+
+.how-it-done p {
+    text-align: justify;
 }
 
 
