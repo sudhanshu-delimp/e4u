@@ -40,7 +40,7 @@ class CenterNotificationController extends Controller
                     }
 
                     $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-view" data-id="' . $row->id . '"><i class="fa fa-eye"></i> View</a>';
-                    $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-print" data-id="' . $row->id . '"><i class="fa fa-fw fa-print"></i> Print</a>';
+                    // $actions[] = '<a href="#" class="dropdown-item d-flex align-items-center justify-content-start gap-10 js-print" data-id="' . $row->id . '"><i class="fa fa-fw fa-print"></i> Print</a>';
 
                     $dropdown = '<div class="dropdown no-arrow">'
                         . '<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'
