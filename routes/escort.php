@@ -324,6 +324,7 @@ Route::get('/list-tour/{type}',[TourController::class, 'viewTourList'])->name('e
 // });
 
 Route::get('/tour-schedule',[EscortTourScheduleContoller::class,'index'])->name('escort.dashboard.tour-schedule');
+Route::get('/get-tour-schedule-ajax',[EscortTourScheduleContoller::class,'getTourScheduleByAjax'])->name('escort.dashboard.get-tour-schedule-ajax');
 Route::post('/update-tour-status-ajax',[EscortTourScheduleContoller::class,'updateTourScheduleStatus'])->name('escort.dashboard.update-tour-status-ajax');
 Route::post('/get-tour-summary-ajax',[EscortTourScheduleContoller::class,'getTourSummaryAjax'])->name('escort.dashboard.get-tour-summary-ajax');
 

@@ -67,11 +67,12 @@
         <div class="row mt-2">
             <div class="col-lg-12 mb-4">
                 <div class="table-responsive">
-                    <table class="table table-bordered ">
+                    <table class="table table-bordered " id="tourScheduleTable">
                         <thead style="background-color: #0C223D; color: #ffffff;">
                         
                         <tr class="text-center">
                             <th class="text-left">Location</th>
+                            <th>Tour Name</th>
                             <th>Days</th>
                             <th>Commencing</th>
                             <th>Completing</th>
@@ -80,7 +81,7 @@
                         </tr>
                         </thead>
                         
-                        <tbody>
+                        {{-- <tbody>
                             @forelse ($tours as $tour)
                                 @php
                                     $today = \Carbon\Carbon::today();
@@ -92,6 +93,7 @@
                                     <tr class="">
                                 <td class=" task-color bg-white"><i
                                         class="fas fa-circle text-high taski mr-2" style="color: {{$colorCode}}"></i>{{$tour->state->name}}</td>
+                                <td class=" task-color text-center bg-white">{{$tour->tour->name}}</td>
                                 <td class=" task-color text-center bg-white">{{ \Carbon\Carbon::parse($tour->end_date)->diffInDays(\Carbon\Carbon::parse($tour->start_date)) + 1 }}</td>
                                 <td class=" task-color text-center bg-white">{{\Carbon\Carbon::parse($tour->start_date)->format('d-m-Y')}}</td>
                                 <td class=" task-color text-center bg-white">{{\Carbon\Carbon::parse($tour->end_date)->format('d-m-Y')}}</td>
@@ -145,7 +147,7 @@
                                     <td colspan="6" class="text-center">No Tours Found!</td>
                                 </tr>
                             @endforelse
-                        </tbody>
+                        </tbody> --}}
                     </table>
                 </div>
             </div>       
@@ -161,7 +163,7 @@
                         <img src="{{ asset('assets/dashboard/img/travel.png') }}" class="custompopicon">
                         <span class="text-white">  Cancel Tour</span>                        
                      </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close cancelTourcloseSuccessBtn" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png') }}"
                                 class="img-fluid img_resize_in_smscreen"></span>
                     </button>
@@ -323,11 +325,50 @@
     <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
      <script>
         $(document).ready(function() {
+
+            var tourScheduleTable = $('#tourScheduleTable').DataTable({
+                responsive: true,
+                language: {
+                    search: "Search:",
+                    searchPlaceholder: "Search by location...",
+                    lengthMenu: "Show _MENU_ entries",
+                    zeroRecords: "No matching records found",
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    infoEmpty: "No entries available",
+                    infoFiltered: "(filtered from _MAX_ total entries)"
+                },
+                paging: true,
+                ajax: {
+                    url: "{{ route('escort.dashboard.get-tour-schedule-ajax') }}",
+                    type: "GET"
+                },
+                columns: [
+                    { data: 'state_name', name: 'state_name' },
+                    { data: 'tour_name', name: 'tour_name' },
+                    { data: 'days', name: 'days' },
+                    { data: 'start_date', name: 'start_date' },
+                    { data: 'end_date', name: 'end_date' },
+                    { data: 'status_badge', name: 'status_badge', orderable: false, searchable: false },
+                    { data: 'actions', name: 'actions', orderable: false, searchable: false }
+                ],
+                columnDefs: [
+                    { targets: [0], className: 'task-color ' }, // ✅ applies to these columns
+                    { targets: [1, 2, 3, 4], className: 'task-color text-center' }, // ✅ applies to these columns
+                    { targets: [5, 6], className: 'theme-color text-center text-light' } // ✅ applies to status & action columns
+                ]
+            });
+
+
             $(document).on('click', '.cancelTour', function(e) {
                 e.preventDefault();
                 let tour_id = $(this).attr('data-tour-id');
                 $('#cancel_tour_id').val(tour_id);
             });
+
+            // $(document).on('click', '.cancelTourcloseSuccessBtn', function(e) {
+            //     e.preventDefault();
+            //     //location.reload();
+            // });
 
             $(document).on('click', '.cancelTourbtn', function(e) {
                 e.preventDefault();
@@ -375,9 +416,7 @@
                             $('#cancel_tour_confirm').modal('show');
                             $('#new-ban-3').modal('hide');
 
-                            setTimeout(() => {
-                                //location.href.reload();
-                            }, 3000);
+                            tourScheduleTable.ajax.reload(null, false); // Reload DataTable without resetting pagination
                         }
 
                         if(response.type == 'tour_summary' && response.status == 'success'){
