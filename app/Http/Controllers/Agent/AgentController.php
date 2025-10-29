@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Agent;
 
+use App\Http\Controllers\BaseController;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Service;
 use App\Models\Duration;
 use App\Traits\ResizeImage;
@@ -32,7 +34,7 @@ use App\Repositories\Escort\AvailabilityInterface;
 use App\Http\Requests\Escort\UpdateRequestReadMore;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 
-class AgentController extends Controller
+class AgentController extends BaseController
 {
     protected $escort;
     protected $agentEscort;
@@ -751,4 +753,36 @@ class AgentController extends Controller
         }
 
     }
+
+
+    public function notificationsFeatures()
+    {
+
+        $setting = User::with('agent_settings')->where('id',auth()->user()->id)->first();
+        return view('agent.dashboard.notifications-and-features',compact('setting'));
+
+    }
+
+    public function updateNotificationsFeatures(Request $request)
+    {
+        $user = auth()->user();
+            $data = [
+                'direct_chatting_with_advertisers'      => $request->boolean('direct_chatting_with_advertisers') ? '1' : '0',
+                'advertiser_email'                      => $request->boolean('advertiser_email') ? '1' : '0',
+                'advertiser_text'                       => $request->boolean('advertiser_text') ? '1' : '0',
+                'call'                                  => $request->boolean('call_access') ? '1' : '0',
+                'escort_email'                          => $request->boolean('escort_email') ? '1' : '0',
+                'escort_text'                           => $request->boolean('escort_text') ? '1' : '0',
+                'idle_preference_time'                  => $request->input('idle_time', '60'),
+                'twofa'                                 => $request->input('twofa', '2'),
+            
+            ];
+
+            $setting = $user->agent_settings;
+            if ($setting) 
+            $setting->update($data);
+           
+         return $this->successResponse('Notification settings updated successfully!');
+    }
+    
 }

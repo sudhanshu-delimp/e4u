@@ -49,20 +49,27 @@
         </div>
         <div class="col-md-12" id="profile_and_tour_options">
   
-           <form class="v-form-design" id="profile_notification_options" action="{{route('agent.profile.update.notifications')}}" method="POST">
+           <form class="v-form-design" id="notification_setting" name="notification_setting" action="{{route('agent.update_notifications')}}" method="POST">
             {{ csrf_field() }}
                <div class="row">
                    <div class="col-md-12">
                        <div class="form-group notification_checkbox_div">
                            <h3 class="h3">Features</h3>
                            <div class="custom-control custom-switch">
-                             <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                             <label class="custom-control-label" for="customSwitch1">Receive Alert Notifications from Advertisers</label>
+                        <input type="checkbox" class="custom-control-input"
+                            name="advertiser_alert"
+                            id="advertiser_alert"
+                            {{ isset($setting->agent_settings)
+                                && ($setting->agent_settings->advertiser_email == '1'
+                                    || $setting->agent_settings->advertiser_text == '1')
+                                ? 'checked'
+                                : '' }}>
+                             <label class="custom-control-label" for="advertiser_alert">Receive Alert Notifications from Advertisers</label>
                            </div>
   
                            <div class="custom-control custom-switch">
-                             <input type="checkbox" class="custom-control-input" id="customSwitch2" checked>
-                             <label class="custom-control-label" for="customSwitch2">Participate in direct chatting with Advertisers</label>
+                             <input type="checkbox" class="custom-control-input" name="direct_chatting_with_advertisers"  id="direct_chatting_with_advertisers"  {{ isset($setting->agent_settings) && $setting->agent_settings->direct_chatting_with_advertisers == '1' ? 'checked' : '' }}>
+                             <label class="custom-control-label" for="direct_chatting_with_advertisers">Participate in direct chatting with Advertisers</label>
                            </div>
                            <div class="pt-1"><i>These features are enabled by default unless you disable them.</i></div>
                        </div>
@@ -73,31 +80,34 @@
                           <p class="my-3">From an Advertiser:</p>
   
                           <div class="custom-control custom-switch">
-                             <input type="checkbox" class="custom-control-input" id="alert-email">
-                             <label class="custom-control-label" for="alert-email">Email (A-Alert)</label>
+                             <input type="checkbox" class="custom-control-input" name="advertiser_email" id="advertiser_email"  {{ isset($setting->agent_settings) && $setting->agent_settings->advertiser_email == '1' ? 'checked' : '' }}>
+                             <label class="custom-control-label" for="advertiser_email">Email (A-Alert)</label>
                            </div>
   
                            <div class="custom-control custom-switch">
-                             <input type="checkbox" class="custom-control-input" id="text" checked>
-                             <label class="custom-control-label" for="text">Text</label>
+                             <input type="checkbox" class="custom-control-input" name="advertiser_text" id="advertiser_text" {{ isset($setting->agent_settings) && $setting->agent_settings->advertiser_text == '1' ? 'checked' : '' }}>
+                             <label class="custom-control-label" for="advertiser_text">Text</label>
                            </div>
                            <div class="pt-1"><i>How an Advertisers will communicate with you.</i></div>
 
                            <p class="my-3">By Escorts4U:</p>
 
                            <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="email">
-                            <label class="custom-control-label" for="email">Email</label>
+                            <input type="checkbox" class="custom-control-input" id="escort_email" name="escort_email"
+                            {{ isset($setting->agent_settings) && $setting->agent_settings->escort_email == '1' ? 'checked' : '' }}>
+                            <label class="custom-control-label" for="escort_email">Email</label>
                           </div>
  
                           <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="alert-text" checked>
-                            <label class="custom-control-label" for="alert-text">Text </label>
+                            <input type="checkbox" class="custom-control-input" id="escort_text" name="escort_text"
+                            {{ isset($setting->agent_settings) && $setting->agent_settings->escort_text == '1' ? 'checked' : '' }}>
+                            <label class="custom-control-label" for="escort_text">Text </label>
                           </div>
 
                           <div class="custom-control custom-switch">
-                           <input type="checkbox" class="custom-control-input" id="call-me">
-                           <label class="custom-control-label" for="call-me">Call me</label>
+                           <input type="checkbox" class="custom-control-input" name="call_access" id="call_access"
+                            {{ isset($setting->agent_settings) && $setting->agent_settings->call == '1' ? 'checked' : '' }}>
+                           <label class="custom-control-label" for="call_access">Call me</label>
                          </div>
                           <div class="pt-1"><i>How Escorts4U will communicate with you.</i></div>
 
@@ -106,16 +116,20 @@
                        
                        <div class="form-group">
                             <h3 class="h3">Idle Time Preference</h3>
+                            @php
+                                $idle = $setting->agent_settings->idle_preference_time ?? '60';
+                            @endphp
+
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="idle_time" id="idle_15" value="15" {{ (auth()->user() && auth()->user()->idle_preference_time != null && auth()->user()->idle_preference_time == 15) ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="idle_time" id="idle_15" value="15" {{ $idle == '15' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="idle_15">15 minutes</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="idle_time" id="idle_30" value="30" {{ (auth()->user() && auth()->user()->idle_preference_time != null && auth()->user()->idle_preference_time == 30) ? 'checked' : (auth()->user()->idle_preference_time == null ? 'checked' : '') }}>
+                                <input class="form-check-input" type="radio" name="idle_time" id="idle_30" value="30"  {{ $idle == '30' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="idle_30">30 minutes</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="idle_time" id="idle_60" value="60" {{ (auth()->user() && auth()->user()->idle_preference_time != null && auth()->user()->idle_preference_time == 60) ? 'checked' : '' }}>
+                                <input class="form-check-input" type="radio" name="idle_time" id="idle_60" value="60"  {{ $idle == '60' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="idle_60">60 minutes</label>
                             </div>
                              <!-- Info -->
@@ -125,16 +139,20 @@
                         </div>
                         <div class="form-group">
                             <h3 class="h3">2FA Authentication</h3>
+
+                            @php
+                                $twofa = $setting->agent_settings->twofa ?? '2';
+                            @endphp
                         
                             <!-- Email Option -->
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="auth" id="auth_email" value="1">
+                                <input class="form-check-input" type="radio" name="twofa" id="auth_email" value="1"  {{ $twofa == '1' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="auth_email">Email</label>
                             </div>
                         
                             <!-- Text Option (default selected) -->
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="auth" id="auth_text" value="2" checked>
+                                <input class="form-check-input" type="radio" name="twofa" id="auth_text" value="2" {{ $twofa == '2' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="auth_text">Text</label>
                             </div>
                         
@@ -147,6 +165,7 @@
                    </div>
                </div>
                <input type="submit" value="save" class="btn-common" name="submit">
+               @csrf
            </form>
        </div>
     </div>
@@ -198,376 +217,55 @@
 </div>
 @endsection
 @push('script')
-<!-- file upload plugin start here -->
-<!-- file upload plugin end here -->
-<script src="https://foliotek.github.io/Croppie/croppie.js"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('assets/plugins/toast-plugin/jquery.toast.min.js') }}"></script>
-<script type="text/javascript">
-    $('#userProfile').parsley({
-    
-    });
-    
-    
-    
-    $('#userProfile').on('submit', function(e) {
-        e.preventDefault();
-    
-        var form = $(this);
-    
-        if (form.parsley().isValid()) {
-    
-            var url = form.attr('action');
-            var data = new FormData(form[0]);
-            $.ajax({
-                method: form.attr('method'),
-                url: url,
-                data: data,
-                contentType: false,
-                processData: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    if (!data.error) {
-                        $.toast({
-                            heading: 'Success',
-                            text: 'Details successfully saved',
-                            icon: 'success',
-                            loader: true,
-                            position: 'top-right', // Change it to false to disable loader
-                            loaderBg: '#9EC600' // To change the background
-                        });
-    
-                    } else {
-                        $.toast({
-                            heading: 'Error',
-                            text: 'Records Not update',
-                            icon: 'error',
-                            loader: true,
-                            position: 'top-right', // Change it to false to disable loader
-                            loaderBg: '#9EC600' // To change the background
-                        });
-    
-                    }
-                },
-    
-            });
-        }
-    });
-    $('#city').select2({
-        allowClear: true,
-        placeholder :'Select City',
-        createTag: function(params) {
-            var term = $.trim(params.term);
-    
-            if (term === '') {
-                return null;
-            }
-            return {
-                id: term,
-                text: term,
-                newTag: false // add additional parameters
-            }
-        },
-        tags: false,
-        minimumInputLength: 2,
-        tokenSeparators: [','],
-        ajax: {
-            url: "{{ route('city.list') }}",
-            dataType: "json",
-            type: "GET",
-            data: function(params) {
-                console.log(params);
-                var queryParameters = {
-                    query: params.term,
-                    state_id: $('#state').val()
-                }
-                return queryParameters;
-            },
-            processResults: function(data) {
-                return {
-                    results: $.map(data, function(item) {
-    
-                        return {
-                            text: item.name,
-                            id: item.id
-                        }
-                    })
-                };
-            }
-        }
-    });
-    
-    $('#state').select2({
-        allowClear: true,
-        placeholder :'Select State',
-        createTag: function(params) {
-            var term = $.trim(params.term);
-    
-            if (term === '') {
-                return null;
-            }
-            return {
-                id: term,
-                text: term,
-                newTag: false // add additional parameters
-            }
-        },
-        tags: false,
-        minimumInputLength: 2,
-        tokenSeparators: [','],
-        ajax: {
-            url: "{{ route('state.list') }}",
-            dataType: "json",
-            type: "GET",
-            data: function(params) {
-                console.log(params);
-                var queryParameters = {
-                    query: params.term,
-                    country_id: $('#country').val()
-                }
-                return queryParameters;
-            },
-            processResults: function(data) {
-                return {
-                    results: $.map(data, function(item) {
-    
-                        return {
-                            text: item.name,
-                            id: item.id
-                        }
-                    })
-                };
-            }
-        }
-    });
-    
-    
-    $('#country').on('change', function(e) {
-        if($(this).val()) {
-            $('#state').prop('disabled', false);
-            $('#state').select2('open');
-        } else {
-            $('#state').prop('disabled', true);
-        }
-    });
-    
-    $('#state').on('change', function(e) {
-        if($(this).val()) {
-            $('#city').prop('disabled', false);
-            $('#city').select2('open');
-        } else {
-            $('#city').prop('disabled', true);
-        }
-    });
-    
-    
-</script>
 <script>
-    // function readURL(input) {
-    // if (input.files && input.files[0]) {
-    
-    // var reader = new FileReader();
-    
-    // reader.onload = function(e) {
-    //   $('.image-upload-wrap').hide();
-    
-    //   $('.file-upload-image').attr('src', e.target.result);
-    //   $('.file-upload-content').show();
-    
-    //   $('.image-title').html(input.files[0].name);
-    // };
-    
-    // reader.readAsDataURL(input.files[0]);
-    
-    // } else {
-    // removeUpload();
-    // }
-    // }
-    
-    function removeUpload() {
-    $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-    $('.file-upload-content').hide();
-    $('.image-upload-wrap').show();
-    }
-    $('.image-upload-wrap').bind('dragover', function () {
-        $('.image-upload-wrap').addClass('image-dropping');
-    });
-    $('.image-upload-wrap').bind('dragleave', function () {
-        $('.image-upload-wrap').removeClass('image-dropping');
-    });
-    $(".gambar").attr("src");
-    var $uploadCrop,
-    tempFilename,
-    rawImg,
-    imageId;
-    function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                $('.upload-demo').addClass('ready');
-                $('#cropImagePop').modal('show');
-                rawImg = e.target.result;
-                
-            }
-            reader.readAsDataURL(input.files[0]);
+$(document).ready(function() {
+    $('#advertiser_alert').on('change', function() {
+        if (!$(this).is(':checked')) {
+            $('#advertiser_email, #advertiser_text').prop('checked', false);
+        } else {
+           $('#advertiser_email, #advertiser_text').prop('checked', true);
         }
-        else {
-            removeUpload();
-        }
+    });
+
+
+    $('#advertiser_email, #advertiser_text').on('change', function() {
+        syncParentWithChildren();
+    });
+
+    function syncParentWithChildren() {
+        const allOff = !$('#advertiser_email').is(':checked') && !$('#advertiser_text').is(':checked');
+        $('#advertiser_alert').prop('checked', !allOff);
     }
-    
 
-    $uploadCrop = $('#upload-demo').croppie({
-        viewport: {
-            width: 150,
-            height: 200,
-        },
-        enforceBoundary: false,
-        enableExif: true
-    });
+    syncParentWithChildren();
+});
 
-    
-
-
-    $('#cropImagePop').on('shown.bs.modal', function(){
-        // alert('Shown pop');
-        $uploadCrop.croppie('bind', {
-            url: rawImg
-        }).then(function(){
-            console.log( '1jQuery bind complete');
-        });
-    });
-
-
-
-    // $('.item-img').on('change', function () {
-    //     imageId = $(this).data('id');
-    //     tempFilename = $(this).val();
-    //     $('#cancelCropBtn').data('id', imageId); readFile(this); 
-    //     console.log('id = '+imageId);
-    // });
-
-    // $('.gambar').on('change', function(){
-        
-    //     reader.onload = function (event) {
-    //     $uploadCrop.croppie('bind', {
-    //     url: event.target.result
-    //     }).then(function(){
-    //     console.log('jQuery complete');
-    //     });
-    //     }
-    //     reader.readAsDataURL(this.files[0]);
-    //     console.log('jQuery'+reader.readAsDataURL(this.files[0]) );
-    
-    // });
-
-    $('#cropImageBtn').on('click', function (ev) {
-        $uploadCrop.croppie('result', {
-            type: 'base64',
-            format: 'jpeg',
-            size: {width: 150, height: 200}
-        }).then(function (resp) { 
-            $('.file-upload-content').show();
-            $('#item-img-output').attr('src', resp);
-            //$('.file-upload-image').attr('src', e.target.result);
-           
-            $('#cropImagePop').modal('hide');
-        });
-    });
-    // $('.crop_image').click(function(event){
-    //     $uploadCrop.croppie('result', {
-    //     type: 'canvas',
-    //     size: 'viewport'
-    //     }).then(function(response){
-    //     $.ajax({
-    //     url:'{{ route('escort.save.avatar',auth()->user()->id)}}",
-    //     type:'POST',
-    //     data:{"image":response},
-    //     success:function(data){
-    //     $('#imageModel').modal('hide');
-    //     alert('Crop image has been uploaded');
-    //     }
-    //     })
-    //     });
-    // });
-    $("#my_avatar").on('submit',function(e){
-        e.preventDefault();
-        
-        var form = $(this);
-        var src = $("#item-img-output").attr('src');
-        var url = form.attr('action');
-        //console.log("hii"+ src);
-        var data = new FormData($('#my_avatar')[0]);
-        data.append('src',src);
-        $.ajax({
-                method: form.attr('method'),
-                url:url,
-                data:data,
-                contentType: false,
-                processData: false,
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                success: function (data) {
-                    console.log(data);
-                    if(data.type == 0){
-                        var msg = "Saved";
-                        var url = "{{asset('avatars/name')}}";
-                        url = url.replace('name',data.avatarName);
-                        $('.comman_msg').text(msg);
-                        //$("#my_account_modal").show();
-                        $("#comman_modal").modal('show');
-                        $(".avatarName").attr('src',url);
-                        $(".file-upload-content").hide();
-                        
-                        
-                        
-                    } else {
-                        var msg = "Sumthing wrong...";
-                        $('.comman_msg').text(msg);
-                        //$("#my_account_modal").show();
-                        $("#comman_modal").modal('show');
-                        location.reload();
-                    }
-                },
-                error: function (data) {
-                    $.toast({
-                        heading: 'Error!',
-                        text: data.responseJSON.message,
-                        icon: 'error',
-                        loader: true,
-                        position: 'top-right',      // Change it to false to disable loader
-                        loaderBg: '#9EC600'  // To change the background
-                    });
-                    
-                }
-            });
-    });
-    $(".delete_avatar").click(function()
-    {
-        $.post({
-                    type: 'POST',
-                    url: "{{ route('center.avatar.remove') }}",
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                }).done(function (data) {
-                    if(data.type == 0) {
-                        $('.Lname').html("Saved");
-                        $("#my_account_modal").modal('show');
-                        console.log("Oops..");
-                    } else {
-                        $('.Lname').html("Removed");
-                       // $("#my_account_modal").modal('show');
-                        $("#my_account_modal").show();
-                        console.log("ok");
-                    }
-                });
-       
-    });
-    $("#close").click(function()
-    {
-        $("#my_account_modal").hide();
-        location.reload();
-    });
+ $(document).on('submit', 'form[name="notification_setting"]', function(e) 
+      {
+         e.preventDefault(); 
+        let form = $('#notification_setting')[0];
+        let formData = new FormData(form);
+        let url = $('#notification_setting').attr('action');
+         swal_waiting_popup({'title':'Updating Settings'});
+         $.ajax({
+               url: url,
+               method: 'POST',
+               data: formData,
+               contentType: false,
+               processData: false, 
+               success: function(response) {
+                     Swal.close();
+                     swal_success_popup(response.message);
+                     setTimeout(function() {
+                    location.reload();
+                }, 2000);
+               },
+               error: function(xhr) {
+                     Swal.close();
+                     console.log(xhr);
+                    swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+               }
+         });
+      });
 </script>
 @endpush

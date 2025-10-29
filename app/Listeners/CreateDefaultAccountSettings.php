@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 
 use App\Models\User;
+use App\Models\AgentSetting;
 use App\Models\ViewerSetting;
 use App\Models\AccountSetting;
 use Illuminate\Support\Facades\Log;
@@ -56,6 +57,18 @@ class CreateDefaultAccountSettings
                     ]);
                }
                ########### For Viewer ##########################
+
+
+               ########## For Agent ###########################
+               if($user &&  $user->type=='5')
+               {
+                   AgentSetting::create([
+                        'user_id'=>$user['id'],
+                        'advertiser_email'=>'1',               
+                    ]);
+               }
+
+               ############ End For Agent ####################
 
             }    
            

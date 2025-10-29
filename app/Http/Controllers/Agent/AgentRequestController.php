@@ -661,18 +661,8 @@ class AgentRequestController extends Controller
 
     }
 
-    public function is_agent_assigned($agent_id)
-    {
 
-    }
 
-    public function updateNotificationsFeatures(Request $request)
-    {
-        if(auth()->user()){
-            User::where('id',auth()->user()->id)->update(['idle_preference_time'=> $request->idle_time]);
-        }
-
-        return redirect()->back()->with('success','Features updated successfully.');
-    }
+   
 
 }

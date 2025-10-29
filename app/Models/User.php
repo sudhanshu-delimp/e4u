@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Models;
+use Exception;
 use App\Models\AgentDetail;
+use App\Models\AgentSetting;
 use App\Models\ViewerSetting;
 use App\Models\AccountSetting;
 use App\Models\AgentBankDetail;
@@ -10,7 +12,6 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use App\Models\ViewerNotificationSetting;
-use Exception;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -580,6 +581,14 @@ class User extends Authenticatable
     {
       return $this->belongsTo(ViewerSetting::class, 'id','user_id');
     }
+
+
+    public function agent_settings()
+    {
+      return $this->belongsTo(AgentSetting::class, 'id','user_id');
+    }
+
+
 
 
      public function generateOTP(){
