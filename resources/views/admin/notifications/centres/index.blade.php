@@ -249,8 +249,10 @@
 </a>
 <div id="manage-route" data-scrf-token="{{ csrf_token() }}"
     data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
-    data-error-image="{{ asset('assets/dashboard/img/alert.png') }}" {{-- data-show-appointment="{{ route('agent.appointments.show', ['id' => '__ID__']) }}"> --}} @endsection
-    @section('script') <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
+    data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"> {{-- data-show-appointment="{{ route('agent.appointments.show', ['id' => '__ID__']) }}" --}}
+</div>
+@endsection
+@section('script') <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
     <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
     </script>
     <script>
@@ -287,52 +289,68 @@
             success_image: mmRoot.data('success-image'),
             error_image: mmRoot.data('error-image'),
         }
+        function ensureParsleyAndSubmit(form){
+            function proceed(){
+                try {
+                    if ($.fn.parsley) {
+                        var instance = form.parsley();
+                        if (!instance.isValid()) {
+                            instance.validate();
+                            return;
+                        }
+                    }
+                } catch(e) {
+                    // ignore and continue with submit
+                }
+
+                let formData = form.serialize();
+                $.ajax({
+                    url: form.attr('action'),
+                    type: "POST",
+                    _token: endpoint.csrf_token,
+                    data: formData,
+                    success: function(response) {
+                        if (response.status === true) {
+                            $('#createNotification').modal('hide');
+                            let msg = response.message ? response.message : 'Saved successfully';
+                            $("#image_icon").attr("src", endpoint.success_image);
+                            $('#success_task_title').text('Success');
+                            $('#success_msg').text(msg);
+                            form[0].reset();
+                            $('#successModal').modal('show');
+                            setTimeout(function() {
+                                $('#successModal').modal('hide');
+                                table.ajax.reload(null, false);
+                            }, 1200);
+                        }
+
+                    },
+                    error: function(xhr) {
+                        let msg = 'Something went wrong';
+                        if (xhr.responseJSON && xhr.responseJSON.message) {
+                            msg = xhr.responseJSON.message;
+                        }
+                        $("#image_icon").attr("src", endpoint.error_image);
+                        $('#success_task_title').text('Error');
+                        $('#success_msg').text(msg);
+                        $('#successModal').modal('show');
+                    }
+                });
+            }
+
+            if (!$.fn.parsley) {
+                $.getScript('https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js')
+                    .done(function(){ proceed(); })
+                    .fail(function(){ proceed(); });
+            } else {
+                proceed();
+            }
+        }
+
         $('#createNotificationForm').on('submit', function(e) {
             e.preventDefault();
             var form = $(this);
-            console.log(form);
-            if (!form.parsley().isValid()) {
-                form.parsley().validate();
-                return;
-            }
-            let formData = form.serialize();
-
-            //Ajax request
-            $.ajax({
-                url: form.attr('action'),
-                type: "POST",
-                _token: endpoint.csrf_token,
-                data: formData,
-                success: function(response) {
-                    if (response.status === true) {
-                        $('#createNotification').modal('hide');
-                        let msg = response.message ? response.message : 'Saved successfully';
-                        $("#image_icon").attr("src", endpoint.success_image);
-                        $('#success_task_title').text('Success');
-                        $('#success_msg').text(msg);
-                        form[0].reset();
-                        $('#successModal').modal('show');
-                        setTimeout(function() {
-                            $('#successModal').modal('hide');
-                            table.ajax.reload(null, false);
-                        }, 1200);
-                    }
-
-                },
-                error: function(xhr, status, error) {
-                    let msg = 'Something went wrong';
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        msg = xhr.responseJSON.message;
-                    }
-                    $("#image_icon").attr("src", endpoint.error_image);
-                    $('#success_task_title').text('Error');
-                    $('#success_msg').text(msg);
-                    $('#successModal').modal('show');
-                }
-
-            })
-
-
+            ensureParsleyAndSubmit(form);
         });
     </script>
 
