@@ -79,22 +79,24 @@
                                             default data at the time you make a change to data within a
                                             feature.
                                         </p>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <div class="doc-img">
-                                            <img src="{{ asset('assets/img/e4u-verified-dark.png') }}"
-                                                  alt="" class="w-100 rounded-sm">
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <h5><b>Features</b></h5>
+                                         <h5><b>Features</b></h5>
                                 <ul class="custom-ul">
                                     <li>About Me</li>
                                     <li>Statistics</li>
                                     <li>Covid 19</li>
                                     <li>Stage Names</li>
                                 </ul>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img">
+                                            <img src="{{ asset('assets/dashboard/img/my-additional-info-scr-2.png') }}"
+                                                  alt="" class="w-100 rounded-sm">
+                                        </div>
+                                    </div>
+                                </div>
+
+                               
 
                                 <h5><b>How is it done</b></h5>
                                     <div class="row">
@@ -154,20 +156,21 @@
                                             You have total flexibility across each day as to how you express
                                             your availability.
                                         </p>
+                                         <h5><b>Features</b></h5>
+                                <ul class="custom-ul">
+                                    <li>Calendar week</li>
+                                    <li>Flexible options</li>
+                                </ul>
                                     </div>
                                     <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/img/e4u-verified-dark.png') }}"
+                                            <img src="{{ asset('assets/dashboard/img/my-availability-scr-2.png') }}"
                                                   alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>
                                 </div>
 
-                                <h5><b>Features</b></h5>
-                                <ul class="custom-ul">
-                                    <li>Calendar week</li>
-                                    <li>Flexible options</li>
-                                </ul>
+                               
 
                                 <h5><b>How is it done</b></h5>
                                     <div class="row">
@@ -214,21 +217,22 @@
                                             Playmate or Playmates in a Profile, the Viewer understands
                                             that you and the Playmate are available together.
                                         </p>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <div class="doc-img">
-                                            <img src="{{ asset('assets/img/e4u-verified-dark.png') }}"
-                                                  alt="" class="w-100 rounded-sm">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <h5><b>Features</b></h5>
+                                        <h5><b>Features</b></h5>
                                 <ul class="custom-ul">
                                     <li>Enable and disable the feature</li>
                                     <li>Allocate Playmates according to the Location</li>
                                     <li>Attach as many as you like to a Profile</li>
                                 </ul>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img">
+                                            <img src="{{ asset('assets/dashboard/img/my-playmates-scr.png') }}"
+                                                  alt="" class="w-100 rounded-sm">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
 
                                 <h5><b>How is it done</b></h5>
                                     <div class="row">
@@ -304,6 +308,16 @@
                                     <li>Outcall</li>
                                 </ul>
 
+                                
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img">
+                                            <img src="{{ asset('assets/dashboard/img/rate-scr.png') }}"
+                                                  alt="" class="w-100 rounded-sm">
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <h5><b>How is it done</b></h5>
                                             <p>
                                                 Perhaps one of the easiest sections to do, simply insert your rate into the appropriate time slot
@@ -314,16 +328,6 @@
                                             <p>Whatever your selections, they become your default settings. You can edit them any time
                                                 including when you are in the Profile Creator.
                                             </p>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/rate-scr.png') }}"
-                                                  alt="" class="w-100 rounded-sm">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                
                                         
                             </div>
                         </div>
@@ -362,7 +366,17 @@
                                             <li>Kinky stuff - On Viewer</li>
                                             <li>Fun stuff - On Me</li>
                                         </ul>
-                                        <h5><b>How is it done</b></h5>
+                                        
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <div class="doc-img">
+                                            <img src="{{ asset('assets/dashboard/img/my-service-tag-scr.png') }}"
+                                                  alt="" class="w-100 rounded-sm">
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                       <h5><b>How is it done</b></h5>
                                         <p>
                                                 Click the drop down ‘Select’ and select the service you want to add. You can select as many
                                                 as you want from any group. Before you save, add any additional charges you might want
@@ -373,16 +387,7 @@
                                                 When you have completed your selections, Save the data. Whatever your selections, they
                                                 become your default settings. You can edit them any time including when you are in the
                                                 Profile Creator.
-                                            </p>
-                                    </div>
-                                    <div class="col-lg-5">
-                                        <div class="doc-img">
-                                            <img src="{{ asset('assets/dashboard/img/my-service-tag-scr.png') }}"
-                                                  alt="" class="w-100 rounded-sm">
-                                        </div>
-                                    </div>
-                                </div>
-                                        
+                                            </p> 
                             </div>
                         </div>
                     </div>

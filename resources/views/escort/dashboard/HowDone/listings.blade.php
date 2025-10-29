@@ -49,7 +49,7 @@
 
                                 <h5><b>Overview</b></h5>
                                 <div class="row my-4">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-7">
                                         <p>
                                             Use this feature to list a Profile in your Location. The Website
                                             operates geolocation and will know which Location you are in
@@ -61,8 +61,15 @@
                                             have multiple Listings, incorporating multiple Profiles, within
                                             your Location.
                                         </p>
+                                        <h5><b>Features</b></h5>
+                                <ul class="custom-ul">
+                                    <li>Profile section</li>
+                                    <li>Listing period</li>
+                                    <li>Membership Type</li>
+                                    <li>Payment</li>
+                                </ul>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-5">
                                         <div class="doc-img">
                                             <img src="{{ asset('assets/dashboard/img/add-listing-scr.png') }}"
                                                   alt="" class="w-100 rounded-sm">
@@ -70,13 +77,7 @@
                                     </div>
                                 </div>
 
-                                <h5><b>Features</b></h5>
-                                <ul class="custom-ul">
-                                    <li>Profile section</li>
-                                    <li>Listing period</li>
-                                    <li>Membership Type</li>
-                                    <li>Payment</li>
-                                </ul>
+                                
 
                                 <h5><b>How is it done</b></h5>
                                             <p>
@@ -119,15 +120,23 @@
 
                                 <h5><b>Overview</b></h5>
                                 <div class="row my-4">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-7">
                                         <p>
                                             All of you Current Listings are summarised here. Important
                                             information about your Listings can be gleamed from the report,
                                             like your start and finish dates, and the Fee you paid E4U for
                                             the Listing.
                                         </p>
+
+                                         <h5><b>Features</b></h5>
+                                <ul class="custom-ul">
+                                    <li>Search</li>
+                                    <li>Comprehensive data summary</li>
+                                    <li>Current Listings records</li>
+                                </ul>
+
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-5">
                                         <div class="doc-img">
                                             <img src="{{ asset('assets/dashboard/img/current-listing-scr.png') }}"
                                                   alt="" class="w-100 rounded-sm">
@@ -135,13 +144,7 @@
                                     </div>
                                 </div>
 
-                                <h5><b>Features</b></h5>
-                                <ul class="custom-ul">
-                                    <li>Search</li>
-                                    <li>Comprehensive data summary</li>
-                                    <li>Current Listings records</li>
-                                </ul>
-
+                               
                                 <h5><b>How is it done</b></h5>
                                 <p>
                                     After you list a Profile, the key data associated with the Profile and Listing are summarised
@@ -171,12 +174,19 @@
 
                                 <h5><b>Overview</b></h5>
                                 <div class="row my-4">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-7">
                                         <p>
                                             All of your completed Listings are summarised here.
                                         </p>
+
+                                         <h5><b>Features</b></h5>
+                                <ul class="custom-ul">
+                                    <li>Search</li>
+                                    <li>Comprehensive data summary</li>
+                                    <li>Historical records</li>
+                                </ul>   
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-5">
                                         <div class="doc-img">
                                             <img src="{{ asset('assets/dashboard/img/past-listing-scr.png') }}"
                                                   alt="" class="w-100 rounded-sm">
@@ -184,12 +194,7 @@
                                     </div>
                                 </div>
 
-                                <h5><b>Features</b></h5>
-                                <ul class="custom-ul">
-                                    <li>Search</li>
-                                    <li>Comprehensive data summary</li>
-                                    <li>Historical records</li>
-                                </ul>
+                               
 
                                 <h5><b>How is it done</b></h5>
                                 <p>

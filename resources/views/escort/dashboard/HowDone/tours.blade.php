@@ -48,16 +48,20 @@
                       <div class="card-body">
               
                         <h5><b>Overview</b></h5>
-                        <div class="">
-                            <p>
-                            Use this feature to create a New Tour. You can create as many Locations within the Tour as you like, and also as many Profiles for each Location you will be visiting.
-                          </p>
+                        <div class="row">
+                            <div class="col-lg-7">
+                              <p>
+                              Use this feature to create a New Tour. You can create as many Locations within the Tour as you like, and also as many Profiles for each Location you will be visiting.
+                            </p>
                             
                             <p class="my-3">
                             If you want to be a Pin Up in any of the Locations, if the Pin Up week is available during the days you are at that Location, then you can also add the Pin Up feature to the Location.
                             </p>
-                          <div class="doc-img my-3">
-                             <img src="{{ asset('assets/dashboard/img/new-tour.png') }}" alt="" class="w-100">
+                            </div>
+                            <div class="col-lg-5">
+                              <div class="doc-img">
+                              <img src="{{ asset('assets/dashboard/img/new-tour.png') }}" alt="" class="w-100">
+                            </div>
                           </div>
                         </div>
               
@@ -161,7 +165,7 @@
                     <div class="card-header" id="headingPast">
                       <h2 class="mb-0">
                         <a class="card-link collapsed" data-toggle="collapse" href="#collapsePast" aria-expanded="false">
-                          Past
+                          Archive
                         </a>
                       </h2>
                     </div>
