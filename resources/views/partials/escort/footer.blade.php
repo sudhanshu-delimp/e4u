@@ -59,6 +59,22 @@
             baseUrl: "{{ asset('') }}"
         };
         console.log(window.App);
+        var initJsDatePicker = function(){
+            $(".js_datepicker").attr('placeholder','DD-MM-YYYY');
+            $(".js_datepicker").attr('autocomplete','off');
+            $(".js_datepicker").datepicker({
+                dateFormat: "dd-mm-yy",
+                changeMonth: true,
+                changeYear: true,
+                showAnim: "slideDown",
+                constrainInput: false,
+                onSelect: function(dateText) {
+                    const event = new Event('change', { bubbles: true });
+                    this.dispatchEvent(event); // 👈 manually trigger change event
+                }
+            });
+        }
+        initJsDatePicker();
         </script>
         <script>
             $(document).ready(function(){
@@ -416,7 +432,7 @@ function int_datePicker(ele) {
                         </script>
                     @endif
                 @endforeach
-
+                        
 
                  @include('modal.change-password')
 

@@ -6,7 +6,8 @@ addListingButton.addEventListener("click", function() {
     let selectedLocations = $('select[name="escort_id[]"]').map(function() {
         return $(this).val();
     }).get().filter(val => val !== "");
-    $clone.find('input, select').val('');
+    $clone.find('input, select').val('').removeClass('hasDatepicker');
+    $clone.find('.js_datepicker').removeAttr('id');
     let $select = $clone.find('select[name="escort_id[]"]');
     $select.find('option').each(function() {
         let val = $(this).val();
@@ -16,6 +17,7 @@ addListingButton.addEventListener("click", function() {
     });
 
     $(".listing_area").append($clone);
+    initJsDatePicker();
     $("#add_listing").prop("disabled", true);
     updateSelectOptions();
 });
@@ -80,14 +82,7 @@ $(document).on('change', 'input[name="start_date[]"]', function() {
     let startDate = $(this).val();
     let endDate = $row.find('input[name="end_date[]"]');
     let escortId = $row.find('select[name="escort_id[]"] option:selected').val();
-    if (startDate) {
-        endDate.attr('min', startDate);
-        if (endDate.val() && endDate.val() < startDate) {
-            endDate.val('');
-        }
-    } else {
-        endDate.removeAttr('min');
-    }
+    endDate.datepicker('option', 'minDate', startDate);
     endDate = endDate.val();
     if(endDate && escortId){
         validateSelectedDateRange($row, {startDate,endDate,escortId});
@@ -105,6 +100,7 @@ $(document).on('change', 'input[name="end_date[]"]', function() {
 });
 
 var validateSelectedDateRange = function(object, requestPayload){
+    console.log('requestPayload',requestPayload);
     $.ajax({
         url: '/escort-dashboard/listing/validate-date-range',
         method: 'POST',

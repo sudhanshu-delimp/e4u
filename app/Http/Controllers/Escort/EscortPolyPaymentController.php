@@ -78,10 +78,12 @@ class EscortPolyPaymentController extends Controller
             $end_date = $listing['end_date'];
             $plan = $listing['membership'];
             $enable = 1;
+            
             $days = Carbon::parse($listing['end_date'])->diffInDays(Carbon::parse($listing['start_date']));
+
             $total_rate = null;
             $above_day = null;
-
+            
             $dis_rate = 0;
             if($plan == 1 ) {
                 $actual_rate = 8;
@@ -580,13 +582,12 @@ class EscortPolyPaymentController extends Controller
         $checkout = session()->get('checkout');
         foreach ($checkout as $startDate => $item) {
             $escortDetail = getEscortDetail($item['escort_id']);
-            $start_date = $item['start_date'].' 00:00:00';
-            $end_date = $item['end_date'].' 23:59:59';
-
+            $start_date = Carbon::createFromFormat('d-m-Y', $item['start_date'])->format('Y-m-d').' 00:00:00';
+            $end_date = Carbon::createFromFormat('d-m-Y', $item['end_date'])->format('Y-m-d').' 23:59:59';
+            
             $profileTimezone = config("escorts.profile.states.$escortDetail->state_id.cities.$escortDetail->city_id.timeZone");
 
             $localStartDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$start_date", $profileTimezone);
-
             $utcSartTime = $localStartDateTime->copy()->setTimezone('UTC');
 
             $localEndDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "$end_date", $profileTimezone);

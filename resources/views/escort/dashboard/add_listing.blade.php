@@ -83,13 +83,13 @@
                                 <!-- Start Date -->
                                 <div class="listing-field">
                                     <label>Start Date:</label>
-                                    <input type="date" name="start_date[]" class="profile_start" onkeydown="return false" required>
+                                    <input type="text" name="start_date[]" class="profile_start js_datepicker" onkeydown="return false" required>
                                 </div>
             
                                 <!-- End Date -->
                                 <div class="listing-field">
                                     <label>End Date:</label>
-                                    <input type="date" name="end_date[]" class="profile_end" onkeydown="return false" required>
+                                    <input type="text" name="end_date[]" class="profile_end js_datepicker" onkeydown="return false" required>
                                 </div>
             
                                 <!-- Membership Type -->
