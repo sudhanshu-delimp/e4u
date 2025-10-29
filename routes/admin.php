@@ -186,20 +186,12 @@ Route::get('/admin-dashboard/management/statistics/num',function(){
 Route::get('support-tickets',function(){
     return view('admin.support-tickets');
 })->name('admin.support-tickets');
+
+
 Route::post('update-pricing-detail',[PricingsummariesController::class ,'storePricingDetail'])->name('admin.save.pricing.details');
 Route::get('pricingsummaries-datatable',[PricingsummariesController::class ,'PricingDataTable'])->name('admin.myPricing.dataTable');
-// Route::get('/admin-dashboard/management/set-fees',function(){
-//     return view('admin.management.set-fees');
-// })->name('admin.set-fees');
-// Route::get('/my-legbox-list', function(){
-// 	return view('admin.legbox.list');
-// 	//echo "lsflkshdflsdf";
-// });
-// Route::get('/my-legbox-notes', function(){
-// 	return view('admin.legbox.notes');
-// });
-
-
+Route::get('concierge_services_datatable',[PricingsummariesController::class ,'concierge_services_datatable'])->name('admin.concierge_services_datatable');
+Route::post('update_fees_data',[PricingsummariesController::class ,'update_fees_data'])->name('admin.update_fees_data');
 
 
 Route::get('management/manage-suppliers',function(){
