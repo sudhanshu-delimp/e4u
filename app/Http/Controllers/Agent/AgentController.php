@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Agent;
 
 use Carbon\Carbon;
-use App\Models\User;
 use App\Models\Service;
 use App\Models\Duration;
 use App\Traits\ResizeImage;
@@ -752,16 +751,4 @@ class AgentController extends Controller
         }
 
     }
-
-
-    
-
-    public function notificationsFeatures()
-    {
-
-        $setting = User::with('viewer_settings')->where('id',auth()->user()->id)->first();
-        return view('agent.dashboard.notifications-and-features',compact('setting'));
-
-    }
-
 }

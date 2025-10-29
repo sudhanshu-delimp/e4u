@@ -200,11 +200,9 @@ Route::get('Marketing/saved-reports',function(){
 })->name('agent.saved-reports');
 
 
-// Route::get('notifications-and-features',function(){
-//     return view('agent.dashboard.notifications-and-features');
-// })->name('agent.notifications-and-features');
-
-Route::get('/notifications-and-features', [AgentController::class, 'notificationsFeatures'])->name('agent.notifications-and-features');
+Route::get('notifications-and-features',function(){
+    return view('agent.dashboard.notifications-and-features');
+})->name('agent.notifications-and-features');
 
 Route::post('/update-notifications-features', [AgentRequestController::class, 'updateNotificationsFeatures'])->name('agent.profile.update.notifications');
 
