@@ -15,5 +15,10 @@ class Tour extends Model
     {
         return $this->hasMany(TourLocation::class);
     }
+
+    public function user()
+    {
+        return $this->hasOne(user::class, 'id', 'user_id');
+    }
 }
 

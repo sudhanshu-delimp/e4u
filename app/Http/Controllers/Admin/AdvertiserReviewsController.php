@@ -29,21 +29,10 @@ class AdvertiserReviewsController extends Controller
         return DataTables::of($advertiserReviews)
             ->addColumn('ref', fn($row) =>  $row->id . ($row->escort->id ?? ''))
             ->addColumn('date', fn($row) => date('d-m-Y', strtotime($row->created_at)))
-            ->addColumn('escort_id', fn($row) => $row->escort->id ?? '-')
-            ->addColumn('viewer_id', fn($row) => $row->user->id ?? '-')
+            ->addColumn('escort_id', fn($row) => $row->escort->user->member_id ?? '-')
+            ->addColumn('viewer_id', fn($row) => $row->user->member_id ?? '-')
             ->addColumn('mobile', fn($row) => $row->user->phone ?? '-')
-            // ->addColumn('status', function($row){
-            //     $stLabel = Str::title($row->status) ?? 'Pending';
-            //     $status = '<span class="badge badge-success">'.$stLabel.' </span>';
-            //     if($row->status == 'suspended'){
-            //         $status = '<span class="badge badge-info">'.$stLabel.'</span>';
-            //     }
-            //     if($row->status == 'rejected'){
-            //         $status = '<span class="badge badge-danger">'.$stLabel.'</span>';
-            //     }
-
-            //     return $status;
-            // })
+          
             ->addColumn('status', fn($row) => Str::title($row->status) ?? 'Pending')
             // ->addColumn('review', fn($row) => $row->description != null && $row->description != '' ? Str::title($row->description) : '-')
             ->addColumn('action', function ($row) {
