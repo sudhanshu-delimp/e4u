@@ -806,7 +806,7 @@ return response()->json([
                 'name' => $request->tour_name,
                 'user_id' => auth()->id() // Assuming the user is logged in
             ]);
-
+            
             foreach ($request->locations as $location) {
                 // Create Tour Location
                 $tourLocation = TourLocation::create([

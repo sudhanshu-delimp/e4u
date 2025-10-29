@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Escort;
+
 class Playmate extends Model
 {
 	protected $guarded = ['id'];
-
+	
 	public function escorts()
 	{
 		return $this->belongsTo(Escort::class, 'playmate_id');
