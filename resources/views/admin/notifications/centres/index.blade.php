@@ -192,7 +192,7 @@
         <div class="modal-content basic-modal">
             <div class="modal-header">
                 <h5 class="modal-title" id="view-listings"><img src="{{ asset('assets/dashboard/img/create-notification.png') }}" alt="alert" style="width:29px;">
-                    Transaction Summary
+                    View Notification
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}"
@@ -204,7 +204,7 @@
                     <div class="col-12 mb-3">
                         <div id="listingModalContent">
                             <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
-                             
+
                             </table>
 
                         </div>
@@ -213,6 +213,7 @@
             </div>
             <div class="modal-footer pb-4 mb-2">
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
+                <button onclick="printDiv()">Print</button>
             </div>
         </div>
     </div>
@@ -253,255 +254,274 @@
 </div>
 @endsection
 @section('script') <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-    </script>
-    <script>
-        function toggleFields() {
-            var type = document.getElementById('type').value;
+<script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
+</script>
+<script>
+    function toggleFields() {
+        var type = document.getElementById('type').value;
 
-            var templateSelect = document.getElementById('templateSelect');
-            var noticeSection = document.getElementById('noticeSection');
-            var contentField = document.getElementById('contentField');
+        var templateSelect = document.getElementById('templateSelect');
+        var noticeSection = document.getElementById('noticeSection');
+        var contentField = document.getElementById('contentField');
 
-            if (type === 'Template') {
-                templateSelect.style.display = 'block';
-                noticeSection.style.display = 'none';
-                contentField.style.display = 'none';
-            } else if (type === 'Notice') {
-                templateSelect.style.display = 'none';
-                noticeSection.style.display = 'block';
-                contentField.style.display = 'block';
-            } else if (type === 'Adhoc') {
-                templateSelect.style.display = 'none';
-                noticeSection.style.display = 'none';
-                contentField.style.display = 'block';
-            } else {
-                templateSelect.style.display = 'none';
-                noticeSection.style.display = 'none';
-                contentField.style.display = 'none';
-            }
+        if (type === 'Template') {
+            templateSelect.style.display = 'block';
+            noticeSection.style.display = 'none';
+            contentField.style.display = 'none';
+        } else if (type === 'Notice') {
+            templateSelect.style.display = 'none';
+            noticeSection.style.display = 'block';
+            contentField.style.display = 'block';
+        } else if (type === 'Adhoc') {
+            templateSelect.style.display = 'none';
+            noticeSection.style.display = 'none';
+            contentField.style.display = 'block';
+        } else {
+            templateSelect.style.display = 'none';
+            noticeSection.style.display = 'none';
+            contentField.style.display = 'none';
         }
-    </script>
-    <script>
-        const mmRoot = $('#manage-route');
-        endpoint = {
-            csrf_token: mmRoot.data('scrf-token'),
-            success_image: mmRoot.data('success-image'),
-            error_image: mmRoot.data('error-image'),
-        }
-        function ensureParsleyAndSubmit(form){
-            function proceed(){
-                try {
-                    if ($.fn.parsley) {
-                        var instance = form.parsley();
-                        if (!instance.isValid()) {
-                            instance.validate();
-                            return;
-                        }
+    }
+</script>
+<script>
+    const mmRoot = $('#manage-route');
+    endpoint = {
+        csrf_token: mmRoot.data('scrf-token'),
+        success_image: mmRoot.data('success-image'),
+        error_image: mmRoot.data('error-image'),
+    }
+
+    function ensureParsleyAndSubmit(form) {
+        function proceed() {
+            try {
+                if ($.fn.parsley) {
+                    var instance = form.parsley();
+                    if (!instance.isValid()) {
+                        instance.validate();
+                        return;
                     }
-                } catch(e) {
-                    // ignore and continue with submit
                 }
+            } catch (e) {
+                // ignore and continue with submit
+            }
 
-                let formData = form.serialize();
-                $.ajax({
-                    url: form.attr('action'),
-                    type: "POST",
-                    _token: endpoint.csrf_token,
-                    data: formData,
-                    success: function(response) {
-                        if (response.status === true) {
-                            $('#createNotification').modal('hide');
-                            let msg = response.message ? response.message : 'Saved successfully';
-                            $("#image_icon").attr("src", endpoint.success_image);
-                            $('#success_task_title').text('Success');
-                            $('#success_msg').text(msg);
-                            form[0].reset();
-                            $('#successModal').modal('show');
-                            setTimeout(function() {
-                                $('#successModal').modal('hide');
-                                table.ajax.reload(null, false);
-                            }, 1200);
-                        }
-
-                    },
-                    error: function(xhr) {
-                        let msg = 'Something went wrong';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            msg = xhr.responseJSON.message;
-                        }
-                        $("#image_icon").attr("src", endpoint.error_image);
-                        $('#success_task_title').text('Error');
+            let formData = form.serialize();
+            $.ajax({
+                url: form.attr('action'),
+                type: "POST",
+                _token: endpoint.csrf_token,
+                data: formData,
+                success: function(response) {
+                    if (response.status === true) {
+                        $('#createNotification').modal('hide');
+                        let msg = response.message ? response.message : 'Saved successfully';
+                        $("#image_icon").attr("src", endpoint.success_image);
+                        $('#success_task_title').text('Success');
                         $('#success_msg').text(msg);
+                        form[0].reset();
                         $('#successModal').modal('show');
+                        setTimeout(function() {
+                            $('#successModal').modal('hide');
+                            table.ajax.reload(null, false);
+                        }, 1200);
                     }
-                });
-            }
 
-            if (!$.fn.parsley) {
-                $.getScript('https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js')
-                    .done(function(){ proceed(); })
-                    .fail(function(){ proceed(); });
-            } else {
-                proceed();
-            }
+                },
+                error: function(xhr) {
+                    let msg = 'Something went wrong';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        msg = xhr.responseJSON.message;
+                    }
+                    $("#image_icon").attr("src", endpoint.error_image);
+                    $('#success_task_title').text('Error');
+                    $('#success_msg').text(msg);
+                    $('#successModal').modal('show');
+                }
+            });
         }
 
-        $('#createNotificationForm').on('submit', function(e) {
-            e.preventDefault();
-            var form = $(this);
-            ensureParsleyAndSubmit(form);
-        });
-    </script>
+        if (!$.fn.parsley) {
+            $.getScript('https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js')
+                .done(function() {
+                    proceed();
+                })
+                .fail(function() {
+                    proceed();
+                });
+        } else {
+            proceed();
+        }
+    }
 
-    <script>
-        var table = $("#centerNotificationTable").DataTable({
-            language: {
-                search: "Search: _INPUT_",
-                searchPlaceholder: "Search by Ref..."
-            },
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ route('admin.centres.notifications.index') }}",
-                type: 'GET'
-            },
-            columns: [{
-                    data: 'ref',
-                    name: 'ref'
-                },
-                {
-                    data: 'start_date',
-                    name: 'start_date'
-                },
-                {
-                    data: 'finish_date',
-                    name: 'finish_date'
-                },
-                {
-                    data: 'type',
-                    name: 'type'
-                },
-                {
-                    data: 'status',
-                    name: 'status'
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false,
-                    className: 'text-center'
-                },
-            ],
-            order: [
-                [1, 'desc']
-            ],
-            lengthMenu: [
-                [10, 25, 50, 100],
-                [10, 25, 50, 100]
-            ],
-            pageLength: 10
-        });
+    $('#createNotificationForm').on('submit', function(e) {
+        e.preventDefault();
+        var form = $(this);
+        ensureParsleyAndSubmit(form);
+    });
+</script>
 
-        // Event delegation for dynamic action buttons
-        $(document).on('click', '.js-view', function(e) {
-            e.preventDefault();
-            const id = $(this).data('id');
-            const container = $('#listingModalContent');
-            container.html('<div class="text-center py-3">Loading...</div>');
-            $.ajax({
-                url: "{{ route('admin.centres.notifications.show', ['id' => '__ID__']) }}".replace('__ID__', id),
-                type: 'GET',
-                success: function(response){
-                    if(response.status === true){
-                        const d = response.data || {};
-                        const rows = [
-                            ['Ref', d.ref || ''],
-                            ['Heading', d.heading || ''],
-                            ['Type', d.type || ''],
-                            ['Status', d.status || ''],
-                            ['Member ID', d.member_id || ''],
-                            ['Start Date', d.start_date || ''],
-                            ['Finish Date', d.finish_date || ''],
-                            [d.template_name ? 'Template Name' : 'Content', (d.template_name || d.content || '')]
-                        ];
-                        let html = `
+<script>
+    var table = $("#centerNotificationTable").DataTable({
+        language: {
+            search: "Search: _INPUT_",
+            searchPlaceholder: "Search by Ref..."
+        },
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "{{ route('admin.centres.notifications.index') }}",
+            type: 'GET'
+        },
+        columns: [{
+                data: 'ref',
+                name: 'ref'
+            },
+            {
+                data: 'start_date',
+                name: 'start_date'
+            },
+            {
+                data: 'finish_date',
+                name: 'finish_date'
+            },
+            {
+                data: 'type',
+                name: 'type'
+            },
+            {
+                data: 'status',
+                name: 'status'
+            },
+            {
+                data: 'action',
+                name: 'action',
+                orderable: false,
+                searchable: false,
+                className: 'text-center'
+            },
+        ],
+        order: [
+            [1, 'desc']
+        ],
+        lengthMenu: [
+            [10, 25, 50, 100],
+            [10, 25, 50, 100]
+        ],
+        pageLength: 10
+    });
+
+    // Event delegation for dynamic action buttons
+    $(document).on('click', '.js-view', function(e) {
+        e.preventDefault();
+        const id = $(this).data('id');
+        const container = $('#listingModalContent');
+        container.html('<div class="text-center py-3">Loading...</div>');
+        $.ajax({
+            url: "{{ route('admin.centres.notifications.show', ['id' => '__ID__']) }}".replace('__ID__', id),
+            type: 'GET',
+            success: function(response) {
+                if (response.status === true) {
+                    const d = response.data || {};
+                    const rows = [
+                        ['Ref', d.ref || ''],
+                        ['Heading', d.heading || ''],
+                        ['Type', d.type || ''],
+                        ['Status', d.status || ''],
+                        ['Member ID', d.member_id || ''],
+                        ['Start Date', d.start_date || ''],
+                        ['Finish Date', d.finish_date || ''],
+                        [d.template_name ? 'Template Name' : 'Content', (d.template_name || d.content || '')]
+                    ];
+                    let html = `
                             <table style="width:100%; border-collapse: collapse; font-family: Arial, sans-serif; font-size: 14px;">
                               <tbody>
                         `;
-                        rows.forEach(function(r){
-                            html += `
+                    rows.forEach(function(r) {
+                        html += `
                                 <tr>
                                     <td style="text-align:left; border: 1px solid #ccc; padding: 8px;"><strong>${r[0]}</strong></td>
                                     <td style="border: 1px solid #ccc; padding: 8px; text-align:left;">${r[1] || ''}</td>
                                 </tr>
                             `;
-                        });
-                        html += '</tbody></table>';
-                        container.html(html);
-                        $('#view-listing').modal('show');
-                    } else {
-                        container.html('<div class="text-danger">Failed to load details.</div>');
-                    }
-                },
-                error: function(){
+                    });
+                    html += '</tbody></table>';
+                    container.html(html);
+                    $('#view-listing').modal('show');
+                } else {
                     container.html('<div class="text-danger">Failed to load details.</div>');
                 }
-            });
+            },
+            error: function() {
+                container.html('<div class="text-danger">Failed to load details.</div>');
+            }
         });
+    });
 
-        $(document).on('click', '.js-print', function(e) {
-            e.preventDefault();
-            const id = $(this).data('id');
-            // Implement print logic
-        });
+    $(document).on('click', '.js-print', function(e) {
+        e.preventDefault();
+        const id = $(this).data('id');
+        // Implement print logic
+    });
 
-        $(document).on('click', '.js-remove', function(e) {
-            e.preventDefault();
-            const id = $(this).data('id');
-            const modal = $('#successModal');
-            const body = $('#success_form_html');
-            const img = $('#image_icon');
-            $('#success_task_title').text('Confirmation');
-            img.attr('src', endpoint.error_image);
-            body.html('<h4>Are you sure you want to remove this notification?</h4>\
+    $(document).on('click', '.js-remove', function(e) {
+        e.preventDefault();
+        const id = $(this).data('id');
+        const modal = $('#successModal');
+        const body = $('#success_form_html');
+        const img = $('#image_icon');
+        $('#success_task_title').text('Confirmation');
+        img.attr('src', endpoint.error_image);
+        body.html('<h4>Are you sure you want to remove this notification?</h4>\
                 <div class="d-flex justify-content-center gap-10 mt-3">\
                     <button type="button" class="btn-success-modal shadow-none mr-2" id="confirmRemove">Yes, Remove</button>\
                     <button type="button" class="btn-cancel-modal shadow-none" data-dismiss="modal">Cancel</button>\
                 </div>');
-            modal.modal('show');
+        modal.modal('show');
 
-            body.off('click', '#confirmRemove').on('click', '#confirmRemove', function(){
-                // Disable button to prevent duplicate
-                $(this).prop('disabled', true);
-                $.ajax({
-                    url: "{{ route('admin.centres.notifications.remove', ['id' => '__ID__']) }}".replace('__ID__', id),
-                    type: 'POST',
-                    data: { _token: endpoint.csrf_token },
-                    success: function(response){
-                        $('#success_task_title').text('Success');
-                        img.attr('src', endpoint.success_image);
-                        body.html('<h4>' + (response.message || 'Status updated successfully') + '</h4>\
+        body.off('click', '#confirmRemove').on('click', '#confirmRemove', function() {
+            // Disable button to prevent duplicate
+            $(this).prop('disabled', true);
+            $.ajax({
+                url: "{{ route('admin.centres.notifications.remove', ['id' => '__ID__']) }}".replace('__ID__', id),
+                type: 'POST',
+                data: {
+                    _token: endpoint.csrf_token
+                },
+                success: function(response) {
+                    $('#success_task_title').text('Success');
+                    img.attr('src', endpoint.success_image);
+                    body.html('<h4>' + (response.message || 'Status updated successfully') + '</h4>\
                             <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>');
-                        setTimeout(function(){
-                            modal.modal('hide');
-                            table.ajax.reload(null, false);
-                        }, 1000);
-                    },
-                    error: function(xhr){
-                        let msg = 'Something went wrong';
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            msg = xhr.responseJSON.message;
-                        }
-                        $('#success_task_title').text('Error');
-                        img.attr('src', endpoint.error_image);
-                        body.html('<h4>' + msg + '</h4>\
-                            <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>');
+                    setTimeout(function() {
+                        modal.modal('hide');
+                        table.ajax.reload(null, false);
+                    }, 1000);
+                },
+                error: function(xhr) {
+                    let msg = 'Something went wrong';
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        msg = xhr.responseJSON.message;
                     }
-                });
+                    $('#success_task_title').text('Error');
+                    img.attr('src', endpoint.error_image);
+                    body.html('<h4>' + msg + '</h4>\
+                            <button type="button" class="btn-success-modal mt-3 shadow-none" data-dismiss="modal" aria-label="Close">OK</button>');
+                }
             });
         });
-    </script>
+    });
 
-    @endsection
+
+
+
+    function printDiv(id) {
+        var printContent = document.getElementById('listingModalContent').innerHTML;
+        var originalContent = document.body.innerHTML;
+
+        document.body.innerHTML = printContent; 
+        window.print(); 
+        document.body.innerHTML = originalContent; 
+    }
+</script>
+
+@endsection
