@@ -101,8 +101,8 @@
                     <div class="row">
                         <!-- Auto-generated Date (readonly) -->
                         <div class="col-12 mb-3">
-                            <input type="text" class="form-control rounded-0" placeholder="Date (Auto-generated)"
-                                readonly value="<?php echo date('Y-m-d'); ?>" required />
+                            <input type="date" class="form-control rounded-0" placeholder="Date (Auto-generated)"
+                                value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" required  />
                         </div>
 
                         <!-- Heading Field -->
@@ -115,7 +115,7 @@
                         <div class="col-12 mb-3">
                             <input type="text" name="start_date" id="start_date" onfocus="(this.type='date')"
                                 placeholder="Start Date" class="form-control rounded-0"
-                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" required />
+                                min="{{ \Carbon\Carbon::now()->format('d-m-Y') }}" required />
 
                         </div>
 
@@ -123,7 +123,7 @@
                         <div class="col-12 mb-3">
                             <input type="text" name="finish_date" id="finish_date" onfocus="(this.type='date')"
                                 placeholder="Finish Date" class="form-control rounded-0"
-                                min="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" required />
+                                min="{{ \Carbon\Carbon::now()->format('d-m-Y') }}" required />
 
                         </div>
                         <!-- Type Field (fixed Adhoc Content) -->
