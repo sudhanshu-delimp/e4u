@@ -252,6 +252,8 @@ Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])
 Route::get('notifications/centres/list', [CenterNotificationController::class, 'index'])->name('admin.centres.notifications.index');
 //Route::post('/list', [AdminMakeNotificationController::class, 'list'])->name('admin_make_notifications.list');
 Route::post('/notifications/centres/store', [CenterNotificationController::class, 'store'])->name('admin.centres.notifications.store');
+Route::get('/notifications/centres/{id}', [CenterNotificationController::class, 'show'])->name('admin.centres.notifications.show');
+Route::post('/notifications/centres/{id}/remove', [CenterNotificationController::class, 'updateStatus'])->name('admin.centres.notifications.remove');
 //Route::post('/remove/{id}', [AdminMakeNotificationController::class, 'remove'])->name('admin_make_notifications.remove');
 
 

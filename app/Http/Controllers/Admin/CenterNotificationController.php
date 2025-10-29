@@ -20,10 +20,10 @@ class CenterNotificationController extends Controller
                     return sprintf('#%05d', $row->id);
                 })
                 ->editColumn('start_date', function ($row) {
-                    return optional($row->start_date)->format('Y-m-d');
+                    return Carbon::parse($row['start_date'])->format('d-m-Y');
                 })
                 ->editColumn('finish_date', function ($row) {
-                    return optional($row->finish_date)->format('Y-m-d');
+                    return Carbon::parse($row['finish_date'])->format('d-m-Y');
                 })
                 ->editColumn('type', function ($row) {
                     return $row->type;
@@ -53,11 +53,45 @@ class CenterNotificationController extends Controller
 
                     return $dropdown;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action','start_date','finish_date'])
                 ->make(true);
         }
         return view('admin.notifications.centres.index');
           
+    }
+
+    public function updateStatus(Request $request, $id){
+        try {
+            $notification = CenterNotification::findOrFail($id);
+            if($notification->status !== 'Published'){
+                return error_response('Only Published notifications can be removed.', 422);
+            }
+            $notification->status = 'Removed';
+            $notification->save();
+            return success_response(['id' => $notification->id, 'status' => $notification->status], 'Notification removed successfully.');
+        } catch (\Exception $e) {
+            return error_response('Failed to update status: ' . $e->getMessage(), 500);
+        }
+    }
+
+    public function show($id){
+        try {
+            $n = CenterNotification::findOrFail($id);
+            return success_response([
+                'id' => $n->id,
+                'ref' => sprintf('#%05d', $n->id),
+                'heading' => $n->heading,
+                'start_date' => $n->start_date ? Carbon::parse($n->start_date)->format('d-m-Y') : null,
+                'finish_date' => $n->finish_date ? Carbon::parse($n->finish_date)->format('d-m-Y') : null,
+                'type' => $n->type,
+                'status' => $n->status,
+                'content' => $n->content,
+                'template_name' => $n->template_name,
+                'member_id' => $n->member_id,
+            ]);
+        } catch (\Exception $e) {
+            return error_response('Failed to fetch notification: ' . $e->getMessage(), 500);
+        }
     }
 
     public function store(Request $request){
