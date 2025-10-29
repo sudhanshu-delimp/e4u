@@ -47,7 +47,7 @@ whole lot more easy for you.</li>
 
                                 <h5><b>Overview</b></h5>
                                 <div class="row my-4">
-                                    <div class="col-lg-9">
+                                    <div class="col-lg-7">
                                         <p>
                                             Use this feature to store all of your photos, set up your default
                                             photos, and verify them. Verification is important as your photos,
@@ -56,9 +56,9 @@ whole lot more easy for you.</li>
                                             filter.
                                         </p>
                                     </div>
-                                    <div class="col-lg-3">
+                                    <div class="col-lg-5">
                                         <div class="doc-img">
-                                            <img src="{{ asset('assets/img/e4u-verified-dark.png') }}"
+                                            <img src="{{ asset('assets/app/img/e4u_verified_media.png') }}"
                                                   alt="" class="w-100 rounded-sm">
                                         </div>
                                     </div>

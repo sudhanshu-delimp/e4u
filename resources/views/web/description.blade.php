@@ -1011,7 +1011,7 @@
 
     <div class="box_shadow manage_padding_margin_bg_color">
         <div class="profile_card_border profile_description_contect">
-            <h2><img src="{{ asset('assets/app/img/bedroom.svg') }}"> Playmates</h2>
+            <h2><img src="{{ asset('assets/app/img/bedroom.svg') }}">My Playmates</h2>
         </div>
         <div class="padding_20_tob_btm_side reduse_pad">
             @if($escort->playmates->count() > 0 && $escort->activeSuspendProfile->count()==0)
@@ -1131,7 +1131,7 @@
             <div class="content">
                 <div class="accodien_manage_padding_content">
                     <p class="text-justify">
-                        Prices are all inclusive unless an extra is listed in My Serices. For Outcalls, price is rate + taxi to and from my location.
+                        Prices are all inclusive unless an extra is listed in My Serices. For Outcalls, price is rate + taxi to and from my Location.
                     </p>
                 </div>
             </div>

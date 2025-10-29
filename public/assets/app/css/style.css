@@ -1190,7 +1190,7 @@
     .home_heading_first {
         font-family: Poppins;
         font-style: normal;
-        font-weight: bold;
+        /* font-weight: 500; */
         font-size: 48px;
         line-height: 48px;
         color: #0C223D;
@@ -1246,7 +1246,7 @@
     
     .site_second_heading h2 {
         font-family: Poppins;
-        font-weight: 700;
+        /* font-weight: 500; */
         font-size: 48px;
         line-height: 72px;
     }
@@ -4766,7 +4766,7 @@ i.fa.fa-heart-o{
     
     .welcone_login_page_heading h1 {
         font-family: Poppins;
-        font-weight: 900;
+        /* font-weight: 900; */
         font-size: 48px;
         color: #0c213c;
     }
@@ -4774,7 +4774,7 @@ i.fa.fa-heart-o{
     .welcome_sub_login_heading {
         font-family: Poppins;
         font-size: 25px;
-        font-weight: 600;
+        /* font-weight: 600; */
         line-height: 36px;
         color: #0c213c;
     }
@@ -5222,7 +5222,7 @@ i.fa.fa-heart-o{
     .cms-page-title {
         font-family: Poppins;
         font-style: normal;
-        font-weight: bold;
+        /* font-weight: bold; */
         font-size: 48px;
         line-height: 48px;
         color: #0C223D;

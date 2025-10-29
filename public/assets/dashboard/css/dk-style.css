@@ -10275,22 +10275,10 @@ button:disabled {
     position: relative;
 }
 
-.custom-ul {
-    padding-left: 20px;
-}
-
-.custom-ul li {
-    padding-left: 25px;
-}
-
-.sec-head {
-    border-bottom: 2px solid;
-    width: max-content;
-    margin: 25px 0px 15px 0px;
-}
-
-p {
+.how-it-done p {
     text-align: justify;
+    margin-bottom: 0.8rem !important;
+    font-size: 18px !important;
 }
 
 .doc-img {
@@ -10298,9 +10286,10 @@ p {
     padding: 15px;
     margin: 0 auto;
     text-align: center;
+    border: 2px solid var(--blue--text);
 }
 
-p i {
+.how-it-done p i {
     color: #000000;
 }
 
@@ -10448,12 +10437,9 @@ details[open]>summary:first-of-type {
     margin: 8px 0 8px 8px;
 }
 
-.how-it-done p {
-    margin-bottom: 0.8rem !important;
-}
-
 .how-it-done h5 {
     font-weight: 500;
+    margin: 25px 0px;
 }
 
 .custom-ul {
@@ -10462,16 +10448,15 @@ details[open]>summary:first-of-type {
 
 .custom-ul li {
     padding-left: 25px;
+    font-size: 18px !important;
 }
 
-.sec-head {
+.how-it-done .sec-head {
     border-bottom: 2px solid;
     width: max-content;
     margin: 25px 0px 15px 0px;
-}
-
-.how-it-done p {
-    text-align: justify;
+    line-height: 20px;
+    font-size: 20px;
 }
 
 
