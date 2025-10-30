@@ -95,7 +95,7 @@ class CenterNotificationController extends Controller
     }
 
     public function store(Request $request){
-        $data =  $request->only(['heading','start_date', 'finish_date', 'type', 'content', 'member_id']);
+        $data =  $request->only(['heading','start_date', 'finish_date', 'type', 'content', 'member_id', 'template_name']);
         $start = Carbon::parse($data['start_date']);
         $end =  Carbon::parse($data['finish_date']);
         //Check condition 
@@ -117,5 +117,28 @@ class CenterNotificationController extends Controller
             return error_response('Failed to create notification: ' . $e->getMessage(), 500);
         }
        
+    }
+
+    public function pdfDownload($id)
+    {
+        try {
+            $decodedId = (int) base64_decode($id);
+			$data = CenterNotification::find($decodedId);
+            if (is_null($data)) {
+                abort(404); // Throws a NotFoundHttpException
+            }
+            $pdfDetail['ref'] = $data['id'];
+            $pdfDetail['heading'] = $data['heading'];
+            $pdfDetail['type'] = $data['type'];
+            $pdfDetail['status'] = $data['status'];
+            $pdfDetail['member_id'] = $data['member_id'];
+            $pdfDetail['start_date'] = Carbon::parse($data['start_date'])->format('M d, Y');
+            $pdfDetail['finish_date'] = Carbon::parse($data['finish_date'])->format('M d, Y');;
+            $pdfDetail['template_name'] = $data['finish_date'];
+            return view('admin.notifications.centres.center-notification-pdf-download',compact( 'pdfDetail'));
+           
+        } catch (\Throwable $e) {
+            abort(404);
+        }
     }
 }

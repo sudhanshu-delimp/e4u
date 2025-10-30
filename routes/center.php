@@ -20,6 +20,9 @@ Route::get('/list/data-table', [CenterController::class, 'dataTable'])->name('ce
 Route::post('/profile-contact-permission', [EscortController::class, 'profileTourPermissionUpdate'])->name('center.account.profile.contact.update');
 //Route::get('profile/{id}',[CenterController::class,'updateProfile'])->name('center.update.profile');
 Route::post('delete-profile/{id}',[CenterController::class,'deleteProfile'])->name('center.delete.profile');
+
+// SHS
+Route::get('active-notification',[CenterController::class,'getActiveNotification'])->name('center.active.notification');
 //Route::post('policy/{id}',[CenterController::class,'updatePolicy'])->name('center.update.policy');
 //Route::post('profile/{id}',[CenterController::class,'storeAboutMe'])->name('center.about.me');
 // Route::post('update-read-more/{id}',[CenterController::class,'storeReadMore'])->name('center.read.more');

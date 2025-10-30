@@ -102,7 +102,7 @@
                         <!-- Auto-generated Date (readonly) -->
                         <div class="col-12 mb-3">
                             <input type="date" class="form-control rounded-0" placeholder="Date (Auto-generated)"
-                                value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" required  />
+                                value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" required />
                         </div>
 
                         <!-- Heading Field -->
@@ -213,7 +213,7 @@
             </div>
             <div class="modal-footer pb-4 mb-2">
                 <button type="button" class="btn-cancel-modal" data-dismiss="modal">Close</button>
-                <button onclick="printDiv()">Print</button>
+                <button  type="submit" id="pdf-download" data-notification-id="" >Print</button>
             </div>
         </div>
     </div>
@@ -250,7 +250,10 @@
 </a>
 <div id="manage-route" data-scrf-token="{{ csrf_token() }}"
     data-success-image="{{ asset('assets/dashboard/img/unblock.png') }}"
-    data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"> {{-- data-show-appointment="{{ route('agent.appointments.show', ['id' => '__ID__']) }}" --}}
+    data-error-image="{{ asset('assets/dashboard/img/alert.png') }}"
+    data-pdf-download="{{route('admin.centres.pdf.download', ['id' => '__ID__'])}}"> 
+    
+
 </div>
 @endsection
 @section('script') <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
@@ -289,7 +292,9 @@
         csrf_token: mmRoot.data('scrf-token'),
         success_image: mmRoot.data('success-image'),
         error_image: mmRoot.data('error-image'),
+        pdf_download: mmRoot.data('pdf-download'),
     }
+    function urlFor(tpl, id){ return (tpl || '').replace('__ID__', id); }
 
     function ensureParsleyAndSubmit(form) {
         function proceed() {
@@ -446,6 +451,7 @@
                     });
                     html += '</tbody></table>';
                     container.html(html);
+                    $('#pdf-download').attr('data-notification-id', id);
                     $('#view-listing').modal('show');
                 } else {
                     container.html('<div class="text-danger">Failed to load details.</div>');
@@ -511,17 +517,16 @@
         });
     });
 
+    // Redirect new page and generate pdf
+    $('#pdf-download').on('click', function () {
+        var notificationId = $(this).attr('data-notification-id');
+        var encodedId = btoa(String(notificationId));
+        var url = urlFor(endpoint.pdf_download, encodedId);
+        window.open(url, '_blank');
+        
+    });
 
-
-
-    function printDiv(id) {
-        var printContent = document.getElementById('listingModalContent').innerHTML;
-        var originalContent = document.body.innerHTML;
-
-        document.body.innerHTML = printContent; 
-        window.print(); 
-        document.body.innerHTML = originalContent; 
-    }
+ 
 </script>
 
 
