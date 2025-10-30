@@ -132,9 +132,9 @@ class CenterNotificationController extends Controller
             $pdfDetail['type'] = $data['type'];
             $pdfDetail['status'] = $data['status'];
             $pdfDetail['member_id'] = $data['member_id'];
-            $pdfDetail['start_date'] = Carbon::parse($data['start_date'])->format('M d, Y');
-            $pdfDetail['finish_date'] = Carbon::parse($data['finish_date'])->format('M d, Y');;
-            $pdfDetail['template_name'] = $data['finish_date'];
+            $pdfDetail['start_date'] = Carbon::parse($data['start_date'])->format('d-m-Y');
+            $pdfDetail['finish_date'] = Carbon::parse($data['finish_date'])->format('d-m-Y');;
+            $pdfDetail['template_name'] = $data['template_name'];
             return view('admin.notifications.centres.center-notification-pdf-download',compact( 'pdfDetail'));
            
         } catch (\Throwable $e) {
