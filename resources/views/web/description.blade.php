@@ -2235,6 +2235,7 @@ $('#exampleModal').on('hidden.bs.modal', function () {
 $('#exampleModal').on('shown.bs.modal', function () {
     console.log("Modal opened:", $(this).attr('id'));
     // add media view count while open modal
+<<<<<<< Updated upstream
     var formData = {
         'escort_id' : '{{$escort->id}}',
         'user_id' : '{{$escort->user->id}}'  
@@ -2259,5 +2260,10 @@ function saveEscortAjaxStats(formData, url, type)
     });
 }
 
+=======
+    {{ saving_escort_stats($escort->user->id, $escort->id,'media_views_count') }} 
+});
+
+>>>>>>> Stashed changes
 </script>
 @endpush
