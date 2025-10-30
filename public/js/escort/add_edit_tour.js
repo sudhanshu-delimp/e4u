@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", async function() {
             let locationsContainer = document.getElementById("locationsContainer");
             let addLocationButton = document.getElementById("addLocation");
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             addLocationButton.addEventListener("click", function() {
                         let previousLocations = document.querySelectorAll(".location-group");
                         let lastEndDate = previousLocations.length ? previousLocations[previousLocations.length - 1].querySelector(".end-date").value : null;
-
+                        
                         let availableLocations = getAvailableLocations();
                         if (availableLocations.length === 0) {
                             alert("No more locations available.");
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                         newLocation.classList.add("location-group");
 
                         let nextStartDate = lastEndDate ? getNextDate(lastEndDate) : "";
-
+                        console.log("nextStartDate",nextStartDate);
                         newLocation.innerHTML = `
         <div class="card p-3 mb-3 shadow-sm">
         <!--- <h5 class="card-title">Location</h5>-->
@@ -33,11 +34,11 @@ document.addEventListener("DOMContentLoaded", async function() {
             </div>
             <div class="listing-field">
                 <label for="start-date">Start Date:</label>
-                <input type="date" name="start_date[]" class="form-control start-date" value="${nextStartDate}" min="${nextStartDate}">
+                <input type="text" name="start_date[]" class="form-control start-date js_datepicker" value="${nextStartDate}" min="${nextStartDate}">
             </div>
             <div class="listing-field">            
                 <label for="end-date">End Date:</label>
-                <input type="date" name="end_date[]" class="form-control end-date">
+                <input type="text" name="end_date[]" class="form-control end-date js_datepicker">
             </div>
             <div class="d-flex align-items-end justify-content-end gap-10">
                 <button type="button" class="btn-success-modal addProfile" style="padding:6px 10px;">Add Profile</button>
@@ -49,6 +50,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         `;
 
         locationsContainer.appendChild(newLocation);
+        initJsDatePicker();
         updateSaveButton();
         updateAllEndDatesMin();
         updateProfileButtonState(newLocation);
@@ -97,6 +99,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             `;
 
             profilesContainer.appendChild(profileRow);
+            initJsDatePicker();
             updateSaveButton();
             lockLocationFields(locationGroup, true);
             updateProfileDropdowns(locationGroup);
@@ -181,11 +184,20 @@ document.addEventListener("DOMContentLoaded", async function() {
         return allProfiles.filter(profile => !selectedProfiles.has(String(profile.id)));
     }
 
-    function getNextDate(date) {
-        let nextDate = new Date(date);
-        nextDate.setDate(nextDate.getDate() + 1);
-        return nextDate.toISOString().split("T")[0];
-    }
+    // function getNextDate(date) {
+    //     console.log('PREVIOUS_Date',date);
+    //     let nextDate = new Date(date);
+    //     console.log('NEXT_Date',nextDate);
+    //     nextDate.setDate(nextDate.getDate() + 1);
+    //     return nextDate;
+    // }
+
+    function getNextDate(dateStr) {
+        let [day, month, year] = dateStr.split('-');
+        let date = new Date(year, month - 1, day);
+        date.setDate(date.getDate() + 1);
+        return `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}`;
+      }
 
     function lockLocationFields(locationGroup, lock) {
         locationGroup.querySelector(".location-dropdown").disabled = lock;
@@ -259,6 +271,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
 function updateProfileButtonState(locationGroup) {
     let startDate = locationGroup.querySelector(".start-date").value;
+    console.log('startDate', startDate);
     let endDate = locationGroup.querySelector(".end-date").value;
     let addProfileButton = locationGroup.querySelector(".addProfile");
 

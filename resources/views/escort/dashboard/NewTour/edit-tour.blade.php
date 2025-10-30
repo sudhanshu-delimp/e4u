@@ -61,11 +61,11 @@
                                                 </div>
                                                 <div class="listing-field">
                                                     <label for="start-date">Start Date:</label>
-                                                    <input type="date" name="start_date[]" class="form-control start-date" value="{{$tourLocation->start_date}}" min="" disabled="">
+                                                    <input type="text" name="start_date[]" class="form-control start-date js_datepicker" value="{{$tourLocation->start_date_formatted}}" min="" disabled="">
                                                 </div>
                                                 <div class="listing-field">
                                                     <label for="end-date">End Date:</label>
-                                                    <input type="date" name="end_date[]" class="form-control end-date" value="{{$tourLocation->end_date}}" min="{{$tourLocation->start_date}}" disabled="">
+                                                    <input type="text" name="end_date[]" class="form-control end-date js_datepicker" value="{{$tourLocation->end_date_formatted}}" min="{{$tourLocation->start_date}}" disabled="">
                                                 </div>
                                                 <div class="d-flex align-items-end justify-content-start gap-10">
                                                 <button type="button" class="btn-success-modal addProfile" style="padding: 6px 10px;">Add Profile</button>
@@ -86,7 +86,7 @@
                                                                     <option value="3" {{($profile['tour_plan']=='3'?'selected':'')}}>Silver</option>
                                                                     <option value="4" {{($profile['tour_plan']=='4'?'selected':'')}}>Free</option>
                                                                 </select>
-                                                                <span class="profile-dates text-muted">Start: {{$tourLocation->start_date}}, End: {{$tourLocation->end_date}}</span>
+                                                                <span class="profile-dates text-muted">Start: {{$tourLocation->start_date_formatted}}, End: {{$tourLocation->end_date_formatted}}</span>
                                                                 <button type="button" class="btn btn-sm btn-danger removeProfile">Remove</button>
                                                             </div>
                                                         </div>

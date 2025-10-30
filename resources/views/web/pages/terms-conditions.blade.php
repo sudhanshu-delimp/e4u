@@ -1,19 +1,10 @@
 @extends('layouts.tnc')
 @section('style')
     <style>
-        .cms-page-title {
-            font-family: Poppins;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 48px;
-            line-height: 48px;
-            color: #0C223D;
-            margin-bottom: 50px;
-        }
 
         .cms-h2 {
             font-family: Poppins;
-            font-weight: 500;
+            /* font-weight: 500; */
             font-size: 24px;
             line-height: 36px;
             margin-top: 30px;

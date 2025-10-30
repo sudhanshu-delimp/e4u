@@ -65,7 +65,7 @@
 
                                 <h5><b>Overview</b></h5>
                                 <div class="row my-4">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-7">
                                         <p>
                                             This is the most important part of your Console and before
                                             you can undertake any activity in the Website, you must
@@ -82,8 +82,13 @@
                                             Member ID and Home State. The Member ID is your
                                             identity.
                                         </p>
+
+                                        <h5><b>Features</b></h5>
+                                <ul class="custom-ul">
+                                    <li>About Me</li>
+                                </ul>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-5">
                                         <div class="doc-img">
                                             <img src="{{ asset('assets/dashboard/img/my-account-scr.png') }}"
                                                   alt="" class="w-100 rounded-sm">
@@ -91,10 +96,7 @@
                                     </div>
                                 </div>
 
-                                <h5><b>Features</b></h5>
-                                <ul class="custom-ul">
-                                    <li>About Me</li>
-                                </ul>
+                                
 
                                 <h5><b>How is it done</b></h5>
                                 <p>
@@ -140,7 +142,7 @@
 
                                 <h5><b>Overview</b></h5>
                                 <div class="row my-4">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-7">
                                         <p>
                                             Set your preferences for how you would like certain features to
                                             operate within the Website. You can edit them any time.
@@ -149,8 +151,15 @@
                                             You have total flexibility across a range of features with
                                             preferences.
                                         </p>
+
+                                        <h5><b>Features</b></h5>
+                                <ul class="custom-ul">
+                                    <li>Profile Creator settings</li>
+                                    <li>How can Viewers Contact Me</li>
+                                    <li>Tour Options</li>
+                                </ul>
                                     </div>
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-5">
                                         <div class="doc-img">
                                             <img src="{{ asset('assets/dashboard/img/profile-and-tour-scr.png') }}"
                                                   alt="" class="w-100 rounded-sm">
@@ -158,12 +167,7 @@
                                     </div>
                                 </div>
 
-                                <h5><b>Features</b></h5>
-                                <ul class="custom-ul">
-                                    <li>Profile Creator settings</li>
-                                    <li>How can Viewers Contact Me</li>
-                                    <li>Tour Options</li>
-                                </ul>
+                                
 
                                 <h5><b>How is it done</b></h5>
                                 <p>
