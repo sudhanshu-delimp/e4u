@@ -778,10 +778,13 @@ class AgentController extends BaseController
             
             ];
 
-            $setting = $user->agent_settings;
-            if ($setting) 
-            $setting->update($data);
-           
+            $setting = $user->viewer_settings;
+            if ($setting) {
+                $setting->update($data);
+            } else {
+                $user->agent_settings()->create(array_merge($data, ['user_id' => $user->id]));
+            }
+
          return $this->successResponse('Notification settings updated successfully!');
     }
     

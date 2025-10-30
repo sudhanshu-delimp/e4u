@@ -196,7 +196,7 @@
                            </ol>
                         
                            <div class="table-responsive">
-                              <table class="table table-bordered membership-table mt-3">
+                              <table class="table table-bordered membership-table mt-3 w-100"  id="fee_support_services">
                                  <thead class="bg-first text-center">
                                     <tr>
                                        <th class="text-center">Item</th>
@@ -208,142 +208,7 @@
                                     </tr>
                                  </thead>
                                  <tbody>
-                                    <tr>
-                                       <td class="text-center">20</td>
-                                       <td class="text-left">Create Profile</td>
-                                       <td class="text-center">per Service</td>
-                                       <td class="text-center">$ 50.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td class="text-center">21</td>
-                                       <td class="text-left">Edit Profile</td>
-                                       <td class="text-center">per Service</td>
-                                       <td class="text-center">$ 20.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td class="text-center">22</td>
-                                       <td class="text-left">Create Tour</td>
-                                       <td class="text-center">per Service</td>
-                                       <td class="text-center">$ 50.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td class="text-center">23</td>
-                                       <td class="text-left">Edit Tour</td>
-                                       <td class="text-center">per Service</td>
-                                       <td class="text-center">$ 20.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td class="text-center">24</td>
-                                       <td class="text-left">Upload Media (for verification)</td>
-                                       <td class="text-center">per Service</td>
-                                       <td class="text-center">$ 20.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td class="text-center">25</td>
-                                       <td class="text-left">Complete Media Verification (excluding Platinum)</td>
-                                       <td class="text-center">per Service</td>
-                                       <td class="text-center">$ 10.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td class="text-center">26</td>
-                                       <td class="text-left">Complete Profile Information</td>
-                                       <td class="text-center">per Service</td>
-                                       <td class="text-center">$ 30.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
-                                    <tr>
-                                       <td class="text-center">27</td>
-                                       <td class="text-left">Organise Profiles and Media in Archives</td>
-                                       <td class="text-center">per Service</td>
-                                       <td class="text-center">$ 50.00</td>
-                                       <td class="text-center"> 
-                                          <div class="dropdown no-arrow">
-                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                             </a>
-                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center" href="#" data-toggle="modal" data-target="#Support_Services"><i class="fa fa-fw fa-pen "></i> Edit </a>
-                                                   
-                                             </div>
-                                          </div>
-                                       </td>
-                                    </tr>
+                                    
                                  </tbody>
                               </table>
                         
@@ -738,38 +603,8 @@
 </div>
 
 
-<div class="modal fade upload-modal" id="Support_Services" tabindex="-1" role="dialog" aria-labelledby="Support_ServicesLabel" aria-hidden="true">
-   <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-         <div class="modal-header">
-            <h5 class="modal-title" id="Support_Services"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Fees - Support Services (E4U Staff)</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
-            </button>
-         </div>
-         <div class="modal-body pb-0">
-            <form>
-               <div class="row">
-                  <div class="col-6 mb-3">
-                     <label>Fee</label>
-                     <input type="text" class="form-control rounded-0" value="Travel">
-                  </div>
-                  <div class="col-6 mb-3">
-                     <label>Rate</label>
-                     <input type="text" class="form-control rounded-0" value="Per Service">
-                  </div>
-                  <div class="col-6 mb-3">
-                     <label>Amount</label>
-                     <input type="text" class="form-control rounded-0" value="$ 75.00">
-                  </div>
-               </div>
-            </form>
-         </div>
-         <div class="modal-footer">
-            <button type="button" class="btn-success-modal">Save &amp; Update</button>
-         </div>
-      </div>
-   </div>
+<div class="modal fade upload-modal" id="support_fees_modal" tabindex="-1" role="dialog" aria-labelledby="Support_ServicesLabel" aria-hidden="true">
+   
 </div>
 
 
@@ -1011,75 +846,8 @@ $(document).ready(function(){
          });
       });
 
-
-      
-   
    var today = moment().format('YYYY-MM-DD');
-   // $("#start_date").attr({
-   //    "min" : today,
-   //    "value" : today,         // values (or variables) here
-   // });
-   // $("#end_date").attr({
-   //    "min" : today,
-   //    "value" : '',         // values (or variables) here
-   // });
-   // $("#commission-report").on("hidden.bs.modal", function (e) {
-   //    console.log("Modal hidden");
-   //    $("input[type=date]").val("");
-
-   //    $("#start_date").attr({
-   //       "min" : today,
-   //       "value" : today,
-   //    });
-   //    $("#end_date").attr({
-   //       "min" : today,
-   //       "value" : '',
-   //    });
-   //    $("#membership").val("");
-   //    $("#location").val("");
-   //    $("#showCal").html("");
-   // });
-   // $('body').on('click','#reset_form', function(){
-   //    $("input[type=date]").val("");
-
-   //    $("#start_date").attr({
-   //       "min" : today,
-   //       "value" : today,
-   //    });
-   //    $("#end_date").attr({
-   //       "min" : today,
-   //       "value" : '',
-   //    });
-   //    $("#membership").val("");
-   //    $("#location").val("");
-   //    $("#showCal").html("");
-   // })
-   // $('body').on('change','#start_date', function(){
-   //    $("#end_date").prop( "disabled", false );
-
-   //    var val = $(this).val();
-
-   //    var result = new Date(val);
-   //    var ss = result.setDate(result.getDate() + 1);
-   //    var first_date = moment(ss).format('YYYY-MM-DD');
-   //    $("#end_date").val('');
-   //    $("#membership").val('');
-   //    $("#location").val('');
-   //          $("#start_date").attr({
-   //          "min" : val,
-   //          "value" : val,         // values (or variables) here
-   //          });
-   //          $("#end_date").attr({
-   //          "min" : first_date,
-   //          "value" : first_date,         // values (or variables) here
-   //          });
-   //          //$('#start_date_tab').html(val);
-
-   //          console.log(first_date);
-   //          console.log(val);
-
-   // });
-
+  
 
    $('body').on ('show.bs.modal', '#pricing-detail', function(event){
       button = $(event.relatedTarget);
@@ -1113,91 +881,6 @@ $(document).ready(function(){
    });
 
 
-   
-   // $('body').on('change','#membership', function()
-   // {
-   //    //$("#membership").val('');
-   //    $("#location").val('');
-   // });
-   // $('body').on('change','#end_date', function()
-   // {
-   //    //$("#membership").val('');
-   //    $("#location").val('');
-   // });
-   // $('body').on('change','#end_date2', function()
-   // {
-
-   //    var val = $(this).val();
-
-   //    var result = new Date(val);
-   //    var ss = result.setDate(result.getDate() - 1);
-   //    var first_date = moment(ss).format('YYYY-MM-DD');
-   //          $("#end_date").attr({
-   //          "min" : val,
-   //          "value" : val,         // values (or variables) here
-   //          });
-   //          console.log(first_date);
-   //          console.log(val);
-
-   // });
-   // $('body').on('change','#location', function()
-   // {
-   //    var val = $(this).val();
-   //    console.log("hello if",val);
-   //    var end = new Date($("#end_date").val());
-   //    var start = new Date($("#start_date").val());
-
-   //    var ss = start.setDate(start.getDate());
-   //    var first_date = moment(ss).format('YYYY-MM-DD');
-   //    var diff = end.getTime() - start.getTime();
-   //    var days = diff / (1000 * 3600 * 24);
-   //    var plan = $("#membership").val();
-   //    var above_day = 0;
-   //    if(plan == 1 ) {
-   //          var actual_rate = 8;
-   //          if(days <= 21) {
-   //             var rate = 8;
-   //          } else {
-   //             var rate = 7.5;
-   //             var dis_rate = 0.5;
-   //          }
-   //          var plan_name = "Platinum";
-   //    } else if(plan == 2) {
-   //          var actual_rate = 6;
-   //          if(days <= 21) {
-   //             var rate = 6;
-   //          } else {
-   //             var rate = 5.7;
-   //             var dis_rate = 0.3;
-   //          }
-   //          var plan_name = "Gold";
-   //    } else  {
-   //          var actual_rate = 4;
-   //          if(days <= 21) {
-   //             var rate = 4;
-   //          } else {
-   //             var rate = 3.8;
-   //             var dis_rate = 0.2;
-   //          }
-   //          var plan_name = "Silver";
-   //    }
-   //    if(days !== null && days <= 21) {
-
-   //       var total_rate = days*rate;
-   //       var dis = 0;
-   //    } else {
-   //          var days_21 = 21*actual_rate;
-   //          var above_day = days - 21;
-
-   //          var total_rate = (above_day*rate + days_21);
-
-   //          var dis = above_day*dis_rate;
-
-   //    }
-
-   // $("#showCal").html("<b>Fee:</b> $"+total_rate.toFixed(2) +" </br><b>Days:</b> "+ days + " (21 Full Fee "+above_day+"  Discounted Fee) </br><b>Membership Type:</b> "+plan_name+ " ($"+rate+" per day) </br><b>Discount:</b> $"+dis.toFixed(2)+ "</br>");
-   // });
-
    $("#price").keyup(function(){
       var price = $(this).val();
       console.log("price = ", price);
@@ -1216,6 +899,7 @@ $(document).ready(function(){
 
 
    });
+
    $("body").on('submit','#agent_bank',function(e){
       e.preventDefault();
       var form = $(this);
@@ -1250,5 +934,117 @@ $(document).ready(function(){
 
    });
 });
+
+
+///////////// Set Fees - Support Services /////////////////
+var fee_support_services = $("#fee_support_services").DataTable({
+      language: {
+      search: "Search: _INPUT_",
+      searchPlaceholder: "Search by Fee Type...",
+      lengthMenu: "Show _MENU_ entries",
+      zeroRecords: "No matching records found",
+      info: "Showing _START_ to _END_ of _TOTAL_ entries",
+      infoEmpty: "No entries available",
+      infoFiltered: "(filtered from _MAX_ total entries)"
+      },
+
+      processing: true,
+      serverSide: true,
+      lengthChange: true,
+      searchable:false,
+      bStateSave: false,
+
+      ajax: {
+      url: "{{ route('admin.fee_support_services') }}",
+      data: function (d) {
+      d.type = 'player';
+      }
+      },
+      columns: [
+            { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+            { data: 'fee', name: 'fee', searchable: true, orderable:false ,defaultContent: 'NA'},
+            { data: 'frequency', name: 'frequency', searchable: true, orderable:false,defaultContent: 'NA' },
+            { data: 'amount', name: 'amount', searchable: true, orderable:false,defaultContent: 'NA' },
+            { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
+      ],
+
+      order: [[1, 'asc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10,
+      });
+
+
+        $(document).on('click', '.edit_item_fee_support_services', function(e) 
+      {
+                  var rowData = $(this).data('id');
+                  var modal_html =`<div class="modal-dialog modal-dialog-centered" role="document">
+                                     <form name="fee_support_services_frm" method="post">
+                                       <div class="modal-content">
+                                          <div class="modal-header">
+                                             <h5 class="modal-title" id="Concierge_Services"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Fees - Concierge Services</h5>
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
+                                             </button>
+                                          </div>
+                                          <div class="modal-body pb-0">
+                                            
+                                                <div class="row">
+                                                   <div class="col-6 mb-3">
+                                                      <label>Fee</label>
+                                                      <input type="text" name="fee" class="form-control rounded-0" value="${(rowData.fee  ? rowData.fee : '')}" readonly>
+                                                   </div>
+                                                   <div class="col-6 mb-3">
+                                                      <label>Rate</label>
+                                                      <input type="text" name="frequency" class="form-control rounded-0" value="${(rowData.frequency ? rowData.frequency : '')}" readonly>
+                                                   </div>
+                                                   <div class="col-6 mb-3">
+                                                      <label>Amount</label>
+                                                      <input type="text" name="amount" class="form-control rounded-0" value="${(rowData.amount ? rowData.amount : '')}">
+                                                   </div>
+                                                </div>
+                                            
+                                          </div>
+                                          <div class="modal-footer">
+                                             <input type="hidden" type="hidden" name="fee_support_services" value="fee_support_services">
+                                              <input type="hidden" type="hidden" name="id" value="${(rowData.id ? rowData.id : '')}">
+                                             <input type="submit" class="btn-success-modal" id="update_fee_support_services" value="Save &amp; Update">
+                                          </div>
+                                       </div>
+                                        </form>
+                                    </div>`;
+
+                  $('#support_fees_modal').html(modal_html);
+                  $('#support_fees_modal').modal({backdrop: 'static',  keyboard: false});          
+
+      });
+
+      $(document).on('submit', 'form[name="fee_support_services_frm"]', function(e) 
+      {
+        
+         e.preventDefault(); 
+         let form = $(this);
+         let formData = new FormData(this);
+         swal_waiting_popup({'title':'Updatin Data'});
+         $.ajax({
+               url: "{{ route('admin.update_fees_data') }}",
+               method: 'POST',
+               data: formData,
+               contentType: false,
+               processData: false, 
+               success: function(response) {
+                     fee_support_services.ajax.reload(null, false); 
+                     $('#support_fees_modal').modal('hide');
+                     Swal.close();
+                     swal_success_popup(response.message);
+               },
+               error: function(xhr) {
+                   $('#support_fees_modal').modal('hide');
+                  swal_error_popup(xhr.responseJSON.message || 'Something went wrong');
+               }
+         });
+      });
+
+///////////// Set Fees - Support Services /////////////////
+
 </script>
 @endpush

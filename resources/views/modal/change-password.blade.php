@@ -7,36 +7,42 @@ $password_updated_date = "";
 $password_expiry_days = "";
 $submit_url = "";
 
-if (auth()->check()) {
-    $user = auth()->user(); 
+if (auth()->check()) 
+{
+   
 
-    // First login check (assuming user first time come)
-    $open_pop_up = $user?->account_setting?->is_first_login === "1";
-
-    $password_updated_date = $user?->account_setting?->password_updated_date;
-    $password_expiry_days = $user?->account_setting?->password_expiry_days;
-
-    if ($open_pop_up === false  && $password_updated_date && ($password_expiry_days!='never'))
+    $user = auth()->user();
+   
+    if($user->type!=3)
     {
-        $updatedDate = Carbon::parse($password_updated_date); 
-        $expiryDate = $updatedDate->copy()->addDays($password_expiry_days); 
-        if (Carbon::now()->greaterThan($expiryDate)) {
-            $open_pop_up = true;
-            
-        }
-    }
+            // First login check (assuming user first time come)
+            $open_pop_up = $user?->account_setting?->is_first_login === "1";
 
-   if( $user->type==5)
-    $submit_url  = 'agent.update-password';
+            $password_updated_date = $user?->account_setting?->password_updated_date;
+            $password_expiry_days = $user?->account_setting?->password_expiry_days;
 
-    if( $user->type==3)
-    $submit_url  = 'escort.update-password';
+            if ($open_pop_up === false  && $password_updated_date && ($password_expiry_days!='never'))
+            {
+                $updatedDate = Carbon::parse($password_updated_date); 
+                $expiryDate = $updatedDate->copy()->addDays($password_expiry_days); 
+                if (Carbon::now()->greaterThan($expiryDate)) {
+                    $open_pop_up = true;
+                    
+                }
+            }
 
-    if( $user->type==4)
-    $submit_url  = 'center.update-password';
+            if( $user->type==5)
+            $submit_url  = 'agent.update-password';
 
-    if( $user->type=='0')
-    $submit_url  = 'update-password';
+            if( $user->type==3)
+            $submit_url  = 'escort.update-password';
+
+            if( $user->type==4)
+            $submit_url  = 'center.update-password';
+
+            if( $user->type=='0')
+            $submit_url  = 'update-password';
+    } 
 }
 @endphp
 
@@ -44,7 +50,7 @@ if (auth()->check()) {
 
 
 
-
+@if($open_pop_up)
 <div class="modal fade" id="change_Password_Modal" tabindex="-1" role="dialog" aria-labelledby="changePasswordLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -89,7 +95,7 @@ if (auth()->check()) {
         </div>
     </div>
 </div>
-
+@endif
 
 @if($open_pop_up)
 <script>
