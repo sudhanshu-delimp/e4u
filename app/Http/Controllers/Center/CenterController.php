@@ -30,6 +30,7 @@ use App\Repositories\Escort\AvailabilityInterface;
 use App\Http\Requests\Escort\UpdateRequestReadMore;
 use App\Http\Requests\Escort\StoreAvailabilityRequest;
 use App\Http\Requests\MassageProfile\UpdateRequestAboutMe;
+use App\Models\CenterNotification;
 use App\Repositories\MassageProfile\MassageProfileInterface;
 
 
@@ -454,6 +455,31 @@ class CenterController extends Controller
     //     return response()->json(compact('data','error'));
     // }
 
+    public function getActiveNotification(){
+        $userId = auth()->user()->member_id;
+        try {
+            $notification  = CenterNotification::where('status', 'Published')
+                ->where('start_date', '<=', now())
+                ->where(function($query) use ($userId) {
+                    $query->whereNull('member_id')
+                          ->orWhere('member_id', $userId);
+                })
+                ->orderBy('start_date', 'asc')
+                ->first();
+            $data = '';
+            if($notification){
+                if($notification->type == 'Template'){
+                    $data = $notification->template_name;
+                }else{
+                    $data = $notification->content;
+                }
+                return success_response($data, 'Active notification found.');
+            }else{
+                return error_response('No active notifications available.', 200);
+            }
+        } catch (\Throwable $e) {
+            return error_response('Failed to fetch active notification.', 500, ['error' => $e->getMessage()]);
+        }
+    } 
 
-    ////////////////////
 }

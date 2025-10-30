@@ -15,7 +15,7 @@ class CreateCenterNotificationsTable extends Migration
     {
         Schema::create('center_notifications', function (Blueprint $table) {
             $table->id();
-            $table->string('heading');
+            $table->string('heading');  
             $table->date('start_date');
             $table->date('finish_date');
             $table->enum('type', ['Adhoc','Template', 'Notice']);
