@@ -979,8 +979,11 @@ class WebController extends Controller
         $media = $this->escortMedia->get_videos($escort->user_id);
         $path = $this->escortMedia->findByVideoposition($escort->user_id,1)['path'];
 
+<<<<<<< Updated upstream
         //dd($escort);
 
+=======
+>>>>>>> Stashed changes
         # add statistics for escort profile view
         saving_escort_stats($escort->user_id, $id,'profile_views_count');
 
