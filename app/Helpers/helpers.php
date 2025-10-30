@@ -530,11 +530,7 @@ if (!function_exists('saving_escort_stats')) {
 
         # Save session for this escort
         Session::put([$sessionKey => $sessionKey]);
-<<<<<<< Updated upstream
         Session::save(); // media_views_count
-=======
-        Session::save();
->>>>>>> Stashed changes
 
         $field = [
             'profile_views_count' => $profileViewType == 'profile_views_count' ? 1 : 0,
