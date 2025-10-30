@@ -9,10 +9,13 @@ use App\Models\PricingSummary;
 use App\Models\FeesSupportService;
 use App\Http\Controllers\Controller;
 use App\Models\FeesConciergeService;
+use App\Models\VariablAgentOperator;
+use App\Models\VariablLoyaltyProgram;
 use App\Http\Controllers\BaseController;
 use App\Repositories\User\UserInterface;
 use App\Repositories\Escort\EscortInterface;
 use App\Repositories\Pricing\PricingInterface;
+use App\Models\CommissionPlaybox;
 
 class PricingsummariesController extends BaseController
 {
@@ -42,7 +45,90 @@ class PricingsummariesController extends BaseController
 
 
 
-    public function PricingDataTable() {
+    ######### Update Pricing Data ############
+    public function update_fees_data(Request $request)
+    {
+
+        if(isset($request->concierge_services) && $request->concierge_services=='concierge_services')
+        {
+            $feesConciergeService = FeesConciergeService::where('id',$request->id)->update(['amount'=>$request->amount]);
+            if($feesConciergeService)
+            return $this->successResponse('Updated Successfully');
+            else
+            return $this->validationError('Error occred while updating');
+           
+        }
+
+        if(isset($request->fee_support_services) && $request->fee_support_services=='fee_support_services')
+        {
+            $feesConciergeService = FeesSupportService::where('id',$request->id)->update(['amount'=>$request->amount]);
+            if($feesConciergeService)
+            return $this->successResponse('Updated Successfully');
+            else
+            return $this->validationError('Error occred while updating');
+           
+        }
+
+        if(isset($request->loyalty_program_advertisers) && $request->loyalty_program_advertisers=='loyalty_program_advertisers')
+        {
+            $feesConciergeService = VariablLoyaltyProgram::where('id',$request->id)
+                                    ->update([
+                                        'type'=>$request->type,
+                                        'level'=>$request->level,
+                                        'discription'=>$request->decs,
+                                        'amount'=>$request->amount,
+                                        'reward'=>$request->reward
+                                    ]);
+            if($feesConciergeService)
+            return $this->successResponse('Updated Successfully');
+            else
+            return $this->validationError('Error occred while updating');
+           
+        }
+
+        if(isset($request->agent_operator_fees) && $request->agent_operator_fees=='agent_operator_fees')
+        {
+            $feesConciergeService = VariablAgentOperator::where('id',$request->id)
+                                    ->update([
+                                        'rate'=>$request->rate,
+                                        'discription'=>$request->discription,
+                                        'amount'=>$request->amount,
+                                    ]);
+            if($feesConciergeService)
+            return $this->successResponse('Updated Successfully');
+            else
+            return $this->validationError('Error occred while updating');
+           
+        }
+
+        if(isset($request->commision_playbox_fees) && $request->commision_playbox_fees=='commision_playbox_fees')
+        {
+            $feesConciergeService = CommissionPlaybox::where('id',$request->id)
+                                    ->update([
+                                        'discription'=>$request->discription,
+                                        'amount'=>$request->amount,
+                                    ]);
+            if($feesConciergeService)
+            return $this->successResponse('Updated Successfully');
+            else
+            return $this->validationError('Error occred while updating');
+           
+        }
+
+
+
+
+
+        
+
+    }
+    ######### End Update Pricing Data ############
+
+
+
+    ###### Set Fees - Advertising     #############
+    public function PricingDataTable() 
+    {
         
        list($pricing, $count) = $this->pricing->paginatedPricingList(
             request()->get('start'),
@@ -65,7 +151,9 @@ class PricingsummariesController extends BaseController
 
         return response()->json($data);
     }
-    public function storePricingDetail(Request $request) {
+
+    public function storePricingDetail(Request $request) 
+    {
         
         //dd($request->all());
         $id = $request->pricingId; 
@@ -93,12 +181,13 @@ class PricingsummariesController extends BaseController
 
         return response()->json(compact('error','data'));
     }
+    ###### End Set Fees - Advertising     #############
 
 
 
-    
 
 
+    ###### Set Fees - Concierge Services    #############
     public function concierge_services_datatable()
     {
         list($result, $count) = $this->concierge_services_pagination(
@@ -168,32 +257,12 @@ class PricingsummariesController extends BaseController
         return [$fees_list, $total_fees];
     }
 
+    ###### End Set Fees - Concierge Services    #############
 
-    public function update_fees_data(Request $request)
-    {
 
-        if(isset($request->concierge_services) && $request->concierge_services=='concierge_services')
-        {
-            $feesConciergeService = FeesConciergeService::where('id',$request->id)->update(['amount'=>$request->amount]);
-            if($feesConciergeService)
-            return $this->successResponse('Updated Successfully');
-            else
-            return $this->validationError('Error occred while updating');
-           
-        }
 
-        if(isset($request->fee_support_services) && $request->fee_support_services=='fee_support_services')
-        {
-            $feesConciergeService = FeesSupportService::where('id',$request->id)->update(['amount'=>$request->amount]);
-            if($feesConciergeService)
-            return $this->successResponse('Updated Successfully');
-            else
-            return $this->validationError('Error occred while updating');
-           
-        }
 
-    }
-
+    ###### Set Fees - Support Services (E4U Staff)   #############
     public function fee_support_services_datatable()
     {
         list($result, $count) = $this->fee_support_services_pagination(
@@ -215,8 +284,8 @@ class PricingsummariesController extends BaseController
 
     public function fee_support_services_pagination($start, $limit, $order_key, $dir)
     {
+
         $fees = FeesSupportService::query();
-      
         $search = request()->input('search.value');
 
            if (!empty($search)) {
@@ -235,7 +304,7 @@ class PricingsummariesController extends BaseController
                     break;
                     
                 default:
-                    $fees->orderBy('id', 'Desc');
+                    $fees->orderBy('id', 'asc');
                     break;
             }
 
@@ -262,7 +331,225 @@ class PricingsummariesController extends BaseController
 
         return [$fees_list, $total_fees];
     }
+    ###### End Set Fees - Support Services (E4U Staff)   #############
 
 
+
+
+    ###### Set Variables - Loyalty Program Advertisers  #############
+    public function loyalty_program_datatable()
+    {
+        list($result, $count) = $this->loyalty_program_pagination(
+            request()->get('start'),
+            request()->get('length'),
+            (request()->get('order')[0]['column']),
+            request()->get('order')[0]['dir']
+        );
+        $data = array(
+           "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "data"            => $result
+        );
+
+        return response()->json($data);
+    }
+
+
+    public function loyalty_program_pagination($start, $limit, $order_key, $dir)
+    {
+        $fees = VariablLoyaltyProgram::query();
+      
+        $search = request()->input('search.value');
+
+           if (!empty($search)) {
+            $fees->where(function ($query) use ($search) {
+                $query->where('id', 'like', "%{$search}%")
+                ->orWhere('fee', 'like', "%{$search}%");
+            });
+            }
+
+            switch ($order_key) {
+                case 1:
+                    $fees->orderBy('id', $dir);
+                    break;
+                
+                    
+                default:
+                    $fees->orderBy('id', 'asc');
+                    break;
+            }
+
+      
+
+        $total_fees = $fees->count();
+        $fees_list = $fees->offset($start)->limit($limit)->get();
+        $i = 1;
+               
+        foreach($fees_list as $key => $item) {
+            $dropdown = '<div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit_item_loyalty_program_advertisers" href="javascript:void(0)" data-id=\'' . htmlspecialchars(json_encode($item), ENT_QUOTES, 'UTF-8') . '\' data-toggle="modal"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                         </div>';
+
+            $item->action = $dropdown;
+            $i++;
+        }
+
+        return [$fees_list, $total_fees];
+    }
+    ###### End Set Variables - Loyalty Program Advertisers  #############
+
+
+
+
+    ###### Set Variables - Agent & Operator #############
+    public function agent_operator_fees_datatable()
+    {
+        list($result, $count) = $this->agent_operator_fees_pagination(
+            request()->get('start'),
+            request()->get('length'),
+            (request()->get('order')[0]['column']),
+            request()->get('order')[0]['dir']
+        );
+        $data = array(
+           "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "data"            => $result
+        );
+
+        return response()->json($data);
+    }
+
+
+    public function agent_operator_fees_pagination($start, $limit, $order_key, $dir)
+    {
+        $fees = VariablAgentOperator::query();
+      
+        $search = request()->input('search.value');
+
+           if (!empty($search)) {
+            $fees->where(function ($query) use ($search) {
+                $query->where('id', 'like', "%{$search}%")
+                ->orWhere('rate', 'like', "%{$search}%");
+            });
+            }
+
+            switch ($order_key) {
+                case 1:
+                    $fees->orderBy('id', $dir);
+                    break;
+
+                default:
+                    $fees->orderBy('id', 'asc');
+                    break;
+            }
+
+      
+
+        $total_fees = $fees->count();
+        $fees_list = $fees->offset($start)->limit($limit)->get();
+        $i = 1;
+               
+        foreach($fees_list as $key => $item) {
+
+            $item->amount_perent =  ($item->amount!="" || 0) ? '$'.$item->amount.'%' : '0.00';
+            $dropdown = '<div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit_item_agent_operator_fees_modal" href="javascript:void(0)" data-id=\'' . htmlspecialchars(json_encode($item), ENT_QUOTES, 'UTF-8') . '\' data-toggle="modal"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                         </div>';
+
+            $item->action = $dropdown;
+            $i++;
+        }
+
+        return [$fees_list, $total_fees];
+    }
     
+    ###### End Set Variables - Agent & Operator  #############
+
+
+
+
+    ###### Set Commission - Playbox  #############
+    public function commision_playbox_fees_datatable()
+    {
+        list($result, $count) = $this->commision_playbox_fees_pagination(
+            request()->get('start'),
+            request()->get('length'),
+            (request()->get('order')[0]['column']),
+            request()->get('order')[0]['dir']
+        );
+        $data = array(
+           "draw"            => intval(request()->input('draw')),
+            "recordsTotal"    => intval($count),
+            "recordsFiltered" => intval($count),
+            "data"            => $result
+        );
+
+        return response()->json($data);
+    }
+
+
+    public function commision_playbox_fees_pagination($start, $limit, $order_key, $dir)
+    {
+        $fees = CommissionPlaybox::query();
+      
+        $search = request()->input('search.value');
+
+           if (!empty($search)) {
+            $fees->where(function ($query) use ($search) {
+                $query->where('id', 'like', "%{$search}%")
+                ->orWhere('discription', 'like', "%{$search}%");
+            });
+            }
+
+            switch ($order_key) {
+                case 1:
+                    $fees->orderBy('id', $dir);
+                    break;
+
+                default:
+                    $fees->orderBy('id', 'asc');
+                    break;
+            }
+
+      
+
+        $total_fees = $fees->count();
+        $fees_list = $fees->offset($start)->limit($limit)->get();
+        $i = 1;
+               
+        foreach($fees_list as $key => $item) {
+
+            $item->amount_perent =  ($item->amount!="" || 0) ? round($item->amount).'%' : '0.00';
+            $dropdown = '<div class="dropdown no-arrow">
+                                             <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                             </a>
+                                             <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
+                                                   <a class="dropdown-item d-flex justify-content-start gap-10 align-items-center edit_item_commision_playbox_fees" href="javascript:void(0)" data-id=\'' . htmlspecialchars(json_encode($item), ENT_QUOTES, 'UTF-8') . '\' data-toggle="modal"><i class="fa fa-fw fa-pen "></i> Edit </a>
+                                                   
+                                             </div>
+                         </div>';
+
+            $item->action = $dropdown;
+            $i++;
+        }
+
+        return [$fees_list, $total_fees];
+    }
+    
+    ###### End Set Commission - Playbox  #############
 }
