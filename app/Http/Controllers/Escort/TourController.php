@@ -65,10 +65,6 @@ class TourController extends Controller
     {
         $escorts = $this->escort->FindByUsers(auth()->user()->id);
         $tours = $this->tour->find($id);
-        //dd($tour->profiles);
-        //dd($tour->locations);
-        //$tour->tour_location;
-
         return view('escort.dashboard.archives.archive-tour-summer',compact('escorts','tours'));
     }
     public function viewTourList($type)
@@ -78,8 +74,6 @@ class TourController extends Controller
         $tours = $this->tour->all();
         $user_names = $escort->whereNotNull('state_id')->where('default_setting',0);
         $find_tour = null;
-
-        //dd($find_tour);
         return view('escort.dashboard.archives.archive-tour-view-profiles',compact('escorts','tours','find_tour','user_names', 'type'));
     }
     public function viewTourEdit($id)
@@ -778,13 +772,14 @@ return response()->json([
         $endDate = $request->input('end_date');
         $escort = $this->escort->FindByUsers(auth()->user()->id);
         // $escorts = $escort->where('state_id',$stateId)->toArray();
-        $escorts = $escort->where('state_id', $stateId);
+        $escorts = $escort->where('state_id', $stateId)->whereNotNull('name');
 
         $availableEscorts = $escorts->filter(function ($escort) use ($startDate, $endDate) {
             return !$escort->purchase()
                 ->where(function ($query) use ($startDate, $endDate) {
-                    $query->where('start_date', '<=', $endDate)
-                          ->where('end_date', '>=', $startDate);
+                    // $query->where('start_date', '<=', $endDate)
+                    //       ->where('end_date', '>=', $startDate);
+                    $query->overlapping($startDate, $endDate);
                 })->exists(); // true = overlap found, false = no overlap or no purchases
         })->values();
 

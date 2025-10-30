@@ -318,10 +318,6 @@ Route::get('visa-migration',function(){
 });
 
 Route::get('/list-tour/{type}',[TourController::class, 'viewTourList'])->name('escort.view.tour.list');
-// Route::get('edit-tour',function(){
-//     return view('escort.dashboard.NewTour.edit-tour');
-
-// });
 
 Route::get('/tour-schedule',[EscortTourScheduleContoller::class,'index'])->name('escort.dashboard.tour-schedule');
 Route::get('/get-tour-schedule-ajax',[EscortTourScheduleContoller::class,'getTourScheduleByAjax'])->name('escort.dashboard.get-tour-schedule-ajax');
