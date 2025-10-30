@@ -7,7 +7,7 @@ $password_updated_date = "";
 $password_expiry_days = "";
 $submit_url = "";
 
-if (auth()->check()) {
+if (auth()->check() && $user->type!=3) {
     $user = auth()->user(); 
 
     // First login check (assuming user first time come)

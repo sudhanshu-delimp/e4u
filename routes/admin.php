@@ -193,6 +193,8 @@ Route::get('pricingsummaries-datatable',[PricingsummariesController::class ,'Pri
 Route::get('concierge_services_datatable',[PricingsummariesController::class ,'concierge_services_datatable'])->name('admin.concierge_services_datatable');
 Route::post('update_fees_data',[PricingsummariesController::class ,'update_fees_data'])->name('admin.update_fees_data');
 
+Route::get('fee_support_services',[PricingsummariesController::class ,'fee_support_services_datatable'])->name('admin.fee_support_services');
+
 
 Route::get('management/manage-suppliers',function(){
     return view('admin.management/manage-suppliers');
