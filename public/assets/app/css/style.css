@@ -6395,7 +6395,7 @@ i.fa.fa-heart-o{
     
     .blog-title {
         font-size: 32px;
-        font-weight: 700;
+        /* font-weight: 700; */
         line-height: 1.2;
     }
     

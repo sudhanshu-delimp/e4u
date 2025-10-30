@@ -954,6 +954,53 @@
                         </a>
                        
                     </div>
+
+                    <!-- Manage People -->
+                    <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
+                       data-target="#managePeopleMenu" aria-expanded="false" aria-controls="managePeopleMenu">
+                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
+                        <span>Manage People</span>
+                    </a>
+                    <div id="managePeopleMenu"
+                         class="collapse @if(in_array(request()->segment(3), ['staff','manage-suppliers'])) show @endif pl-3"
+                         style="margin-left: 10px;">
+                        <a class="collapse-item" href="{{ route('admin.staff') }}">
+                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span style="{{ request()->segment(3) == 'staff' ? 'color: #e5365a;' : '' }}">Manage Staff</span>
+                        </a>
+                        <!-- <a class="collapse-item" href="{{ route('admin.agent') }}">
+                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span style="{{ request()->segment(3) == 'agent' ? 'color: #e5365a;' : '' }}">Manage Agents</span>
+                        </a> -->
+                        <a class="collapse-item" href="{{ route('admin.manage-suppliers') }}">
+                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
+                            <span style="{{ request()->segment(3) == 'manage-suppliers' ? 'color: #e5365a;' : '' }}">Manage Suppliers</span>
+                        </a>
+                    </div>
+
+
+                    <!-- Marketing -->
+                    <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
+                       data-target="#Marketing" aria-expanded="false" aria-controls="Marketing">
+                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
+                        <span>Marketing</span>
+                    </a>
+                    <div id="Marketing"
+                         class="collapse @if(in_array(request()->segment(3), ['marketing-templates-e4u','marketing-templates-agents'])) show @endif pl-3"
+                         style="margin-left: 10px;">
+
+                         
+                
+                            <a class="collapse-item" href="{{ route('admin.marketing-templates-agents') }}">
+                                <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/templates.png') }}">
+                                <span style="{{ request()->segment(3) == 'marketing-templates-agents' ? 'color: #e5365a;' : '' }}">Templates - Agents</span>
+                            </a>
+
+                             <a class="collapse-item" href="{{ route('admin.marketing-templates-e4u') }}">
+                                <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/templates.png') }}">
+                                <span style="{{ request()->segment(3) == 'marketing-templates-e4u' ? 'color: #e5365a;' : '' }}">Templates - E4U</span>
+                            </a>
+                    </div>
         
                     <!-- Operator -->
                     <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
@@ -1017,15 +1064,7 @@
                         <span style="{{ request()->segment(3) == 'logs-staff' ? 'color: #e5365a;' : '' }}">Logs - Staff</span>
                     </a>
         
-                    <a class="collapse-item" href="{{ route('admin.marketing-templates-e4u') }}">
-                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/templates.png') }}">
-                        <span style="{{ request()->segment(3) == 'marketing-templates-e4u' ? 'color: #e5365a;' : '' }}">Marketing Templates - E4U</span>
-                    </a>
-        
-                    <a class="collapse-item" href="{{ route('admin.marketing-templates-agents') }}">
-                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/templates.png') }}">
-                        <span style="{{ request()->segment(3) == 'marketing-templates-agents' ? 'color: #e5365a;' : '' }}">Marketing Templates - Agents</span>
-                    </a>
+                   
         
                     <a class="collapse-item" href="{{ route('admin.post-office') }}">
                         <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/postoffice.png') }}">
@@ -1042,28 +1081,7 @@
                         <span style="{{ request()->segment(3) == 'set-fees' ? 'color: #e5365a;' : '' }}">Set Fees & Variables - Users</span>
                     </a>
         
-                    <!-- Manage People -->
-                    <a class="nav-link collapse-item collapsed" href="#" data-toggle="collapse"
-                       data-target="#managePeopleMenu" aria-expanded="false" aria-controls="managePeopleMenu">
-                        <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/manage-people.png') }}">
-                        <span>Manage People</span>
-                    </a>
-                    <div id="managePeopleMenu"
-                         class="collapse @if(in_array(request()->segment(3), ['staff','manage-suppliers'])) show @endif pl-3"
-                         style="margin-left: 10px;">
-                        <a class="collapse-item" href="{{ route('admin.staff') }}">
-                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
-                            <span style="{{ request()->segment(3) == 'staff' ? 'color: #e5365a;' : '' }}">Manage Staff</span>
-                        </a>
-                        <!-- <a class="collapse-item" href="{{ route('admin.agent') }}">
-                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
-                            <span style="{{ request()->segment(3) == 'agent' ? 'color: #e5365a;' : '' }}">Manage Agents</span>
-                        </a> -->
-                        <a class="collapse-item" href="{{ route('admin.manage-suppliers') }}">
-                            <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/Upload-my-avatar.png') }}">
-                            <span style="{{ request()->segment(3) == 'manage-suppliers' ? 'color: #e5365a;' : '' }}">Manage Suppliers</span>
-                        </a>
-                    </div>
+                    
         
                     <a class="collapse-item" href="{{ route('admin.memberships') }}">
                         <img width="16" height="17" src="{{ asset('assets/dashboard/img/menu-icon/membership.png') }}">
