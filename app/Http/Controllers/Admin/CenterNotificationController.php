@@ -99,7 +99,7 @@ class CenterNotificationController extends Controller
         $start = Carbon::parse($data['start_date']);
         $end =  Carbon::parse($data['finish_date']);
         //Check condition 
-        $query = CenterNotification::where(function($q) use ($start, $end){
+        $query = CenterNotification::where('status', '=', 'Published')->where(function($q) use ($start, $end){
                 $q->whereBetween('start_date', [$start, $end])
                 ->orWhereBetween('finish_date', [$start, $end])
                 ->orWhere(function($q2) use ($start, $end){
