@@ -67,7 +67,7 @@ class PolyPaymentController extends Controller
         $total_rate = null;
         $above_day = null;
         // $days = $request->days;
-        $days = Carbon::parse($escort->end_date)->diffInDays(Carbon::parse($escort->start_date));
+        $days = Carbon::parse($escort->end_date)->diffInDays(Carbon::parse($escort->start_date))+1;
         if($days !== null && $days <= 21) {
             //$rate = $days*30/days;
             $total_rate = $days*30;

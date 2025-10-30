@@ -148,7 +148,7 @@ class EscortTourScheduleContoller extends Controller
         // tour_plan
         $price = Pricing::where('membership_id', $tour->profiles[0]->tour_plan)->first();
 
-        $diffDays = Carbon::parse($tour->end_date)->diffInDays(Carbon::parse($tour->start_date));
+        $diffDays = Carbon::parse($tour->end_date)->diffInDays(Carbon::parse($tour->start_date))+1;
 
         $tourFee = $price != null ? $price->discount_amount * ($diffDays + 1) : 0.00;
 

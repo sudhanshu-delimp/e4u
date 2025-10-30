@@ -122,51 +122,7 @@ class EscortAccountController extends Controller
     }
     public function editPassword()
     {
-
-
-
-
-        //2fa send msg testing
-        // $arr = [];
-        // $passwordData = PasswordSecurity::all();
-        // $mytime = Carbon::now();//->format('Y-m-d');
-        // echo "today date".$mytime."</br>";
-        // foreach($passwordData as $key=>$data) {
-        //     if($data->password_expiry_days != 0) {
-        //         $days = Carbon::parse($mytime)->diffInDays(Carbon::parse($data->password_updated_at));
-        //         echo "daye=".$days."</br>";
-        //         $arr += ['exp'=>$data->password_expiry_days,'day'=>$days];
-        //         // if($data->password_expiry_days < $days) {
-        //         // $user = $this->user->find($data->user_id);
-        //         // $user->password = null;
-        //         // $user->save();
-
-
-        //         // $arr +=  ["msg"=>"password reste"];
-
-        //         // }
-        //         $espiryDay = $data->password_expiry_days - 1;
-        //         if($espiryDay == $days) {
-        //         $user = $this->user->find($data->user_id);
-        //         $user->otp = "3333";
-        //         $user->save();
-        //         //2fa send msg
-        //         $arr +=  ["msg"=>"Your E4U password will expire in 1 day. Change your password now."];
-        //         $msg = "Your E4U password will expire in 1 day. Change your password now. ";
-        //         $sendotp = new SendSms();
-        //         $output = $sendotp->send($user->phone,$msg);
-        //         }
-        //     }
-        // }
-        // $passwordData = PasswordSecurity::all();
-        // $mytime = Carbon::now();
-        // $arr = [];
-
-        //dd($arr);
-
         $user = $this->user->find(auth()->user()->id);
-        // $user->password = Hash::make("Escort@123");
-        // $user->save();
         return view('escort.dashboard.change-password',compact('user'));
     }
     public function bankDetails()

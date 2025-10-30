@@ -26,6 +26,7 @@ use App\Http\Controllers\Escort\EscortTourPaymentController;
 use App\Http\Controllers\Escort\EscortSuspendProfileController;
 use App\Http\Controllers\Escort\EscortTourScheduleContoller;
 use App\Http\Controllers\Escort\Profile\ProfileInformationController;
+use App\Http\Controllers\Escort\NumController;
 
 //remove before prod
 Route::post('/test-paymentUrl', [EscortController::class, 'pinup_test_payment'])->name('escort.payment');
@@ -360,9 +361,8 @@ Route::get('report',function(){
 Route::post('ugly-mug-register',[MugsController::class,'create'])->name('escort.mug.register');
 Route::get('ugly-mug/dataTable', [MugsController::class, 'dataTable'])->name('escort.mug.dataTable');
 
-Route::get('add-report',function(){
-    return view('escort.dashboard.UglyMugsRegister.add-report');
-})->name('escort.add-report');
+Route::get('add-report',[NumController::class, 'addReport'])->name('escort.add-report');
+Route::post('add-report',[NumController::class, 'storeReport'])->name('escort.store-report');
 
 Route::get('my-reports',function(){
     return view('escort.dashboard.UglyMugsRegister.my-reports');

@@ -9,7 +9,10 @@ $submit_url = "";
 
 if (auth()->check()) 
 {
+   
+
     $user = auth()->user();
+   
     if($user->type!=3)
     {
             // First login check (assuming user first time come)
@@ -47,7 +50,7 @@ if (auth()->check())
 
 
 
-
+@if($open_pop_up)
 <div class="modal fade" id="change_Password_Modal" tabindex="-1" role="dialog" aria-labelledby="changePasswordLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -92,7 +95,7 @@ if (auth()->check())
         </div>
     </div>
 </div>
-
+@endif
 
 @if($open_pop_up)
 <script>

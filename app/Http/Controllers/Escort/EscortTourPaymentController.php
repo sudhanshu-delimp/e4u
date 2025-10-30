@@ -66,7 +66,7 @@ class EscortTourPaymentController extends Controller
         $tours = $this->tour->find($id);
         //dd($tours->tour_location);
         foreach($tours->tour_location as $key=>$tour) {
-            $days = Carbon::parse($tour->end_date)->diffInDays(Carbon::parse($tour->start_date));
+            $days = Carbon::parse($tour->end_date)->diffInDays(Carbon::parse($tour->start_date))+1;
             //$days[] += $tour->tour_plan;
             $total_days += $days;
             // echo $days."</br>";

@@ -73,49 +73,44 @@
          <!-- Report Form -->
          <div class="row">
             <div class="col-md-9 add-punterbox-report">
-               <form>
+               <form id="ugly_mug_registration" enctype="multipart/form-data" method="POST" action="route('escort.store-report')">
                   <div class="form-group">
                       <label class="required">Incident Date</label>
-                      <input type="date" class="form-control">
+                      <input type="date" class="form-control" name="incident_date">
                   </div>
                   <div class="form-group">
                       <label class="required">Incident State</label>
-                      <select class="custom-select">
-                              <option selected>Please Choose</option>
-                              <option value="act">ACT</option>
-                              <option value="nsw">NSW</option>
-                              <option value="nt">NT</option>
-                              <option value="qld">QLD</option>
-                              <option value="sa">SA</option>
-                              <option value="tas">Tas</option>
-                              <option value="vic">VIC</option>
-                              <option value="wa">WA</option>
+                      <select class="custom-select" name="incident_state" >
+                        <option selected>Please Choose</option>
+                        @foreach ($states as $state)
+                              <option value="{{ $state->id }}">{{ $state->iso2 }} - {{$state->name}}</option>
+                        @endforeach
                           </select>
                   </div>
       
                   <div class="form-group">
                       <label class="required">Incident Location</label>
-                      <input type="text" class="form-control" placeholder="Which city were you in">
+                      <input type="text" class="form-control" name="incident_location" placeholder="Which city were you in">
                   </div>
       
                   <div class="form-group">
                       <label>Offender's Name</label>
-                      <input type="text" class="form-control" placeholder="If known">
+                      <input type="text" class="form-control" name="offender_name" placeholder="If known">
                   </div>
       
                   <div class="form-group">
                       <label class="required">Offender's Mobile</label>
-                      <input type="text" class="form-control" placeholder="No spaces or any other characters - just numbers">
+                      <input type="number" class="form-control" name="offender_mobile" placeholder="No spaces or any other characters - just numbers">
                   </div>
       
                   <div class="form-group">
                       <label>Offender's Email</label>
-                      <input type="email" class="form-control" placeholder="If known">
+                      <input type="email" class="form-control" name="offender_email" placeholder="If known">
                   </div>
       
                   <div class="form-group">
                       <label class="required">Incident Nature</label>
-                      <select class="custom-select">
+                      <select class="custom-select" name="incident_nature">
                         <option selected>Please Choose</option>
                         <option>Fraud</option>
                         <option>No Show</option>
@@ -125,31 +120,31 @@
       
                   <div class="form-group">
                       <label>Platform</label>
-                      <input type="text" class="form-control" placeholder="If known">
+                      <input type="text" class="form-control" name="platform" placeholder="If known">
                   </div>
       
                   <div class="form-group">
                       <label>Profile Link</label>
-                      <input type="text" class="form-control" placeholder="Link or Membership ID or Ref">
+                      <input type="text" class="form-control" name="profile_link" placeholder="Link or Membership ID or Ref">
                   </div>
       
                   <div class="form-group">
                       <label class="required">What Happened</label>
-                      <textarea class="form-control" rows="4"></textarea>
+                      <textarea class="form-control" name="what_happend" rows="4"></textarea>
                   </div>
       
                   <div class="form-group">
                       <label class="required d-block">Rating</label>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" checked type="radio" name="rating" id="rate1">
+                          <input class="form-check-input" checked type="radio" name="rating" value="do_not_book" id="rate1">
                           <label class="form-check-label" for="rate1">Do not book</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" name="rating" id="rate2">
+                          <input class="form-check-input" type="radio" name="rating" value="exercise_caution" id="rate2">
                           <label class="form-check-label" for="rate2">Exercise caution</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" name="rating" id="rate3">
+                          <input class="form-check-input" type="radio" value="safe" name="rating" id="rate3">
                           <label class="form-check-label" for="rate3">Safe</label>
                       </div>
                   </div>
@@ -170,16 +165,16 @@
 <script type="text/javascript" src="{{ asset('assets/plugins/parsley/parsley.min.js') }}"></script>
 
 <script>
-    $('#ugly_mug_registration').parsley({});
+    //$('#ugly_mug_registration').parsley({});
 
     $("#ugly_mug_registration").on('submit', function(e){
         e.preventDefault();
 
         var form = $(this);
-        if (form.parsley().isValid()) {
+        if (form) {
             $("#submit").hide();
             $(".spinner-border").attr('hidden', false);
-            var url = "{{route('escort.mug.register')}}";
+            var url = "{{route('escort.store-report')}}";
             var data = new FormData(form[0]);
             $.ajax({
                 method: 'POST',
@@ -206,6 +201,22 @@
                     $(".spinner-border").attr('hidden', true);
                     $("#submit").show();
                 },
+                error: function(xhr){
+                    if(xhr.status === 422){
+                        let errors = xhr.responseJSON.errors;
+                        $('.error-text').remove(); // remove old errors
+                        $.each(errors, function(key, value){
+                            let input = $('[name="'+key+'"]');
+                            input.after('<span class="text-danger error-text">'+value[0]+'</span>');
+                        });
+                    } else {
+                        swal.fire(
+                            'Ugly mug registration',
+                            'Oops.. something wrong Please try again',
+                            'error'
+                        );
+                    }
+                }
 
             });
         }

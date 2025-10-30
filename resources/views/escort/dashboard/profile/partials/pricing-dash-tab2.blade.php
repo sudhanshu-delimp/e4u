@@ -98,7 +98,7 @@ $loginAccount = auth()->user();
                                 @foreach($data as $idx => $listing)
                                     @php
                                         if(!empty(($listing['start_date'])))
-                                            $daysDiff = Carbon\Carbon::parse($listing['end_date'])->diffInDays(Carbon\Carbon::parse($listing['start_date']));
+                                            $daysDiff = Carbon\Carbon::parse($listing['end_date'])->diffInDays(Carbon\Carbon::parse($listing['start_date']))+1;
                                             list($discount, $rate) = calculateChargeFee($listing['membership'], $daysDiff);
                                             $fullFee = $rate + $discount;
                                             $totalAmount += $rate;
