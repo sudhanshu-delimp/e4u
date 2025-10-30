@@ -159,13 +159,13 @@
                         </div>
                     </div>
 
-                    <!-- Archive -->
+                    <!-- Past -->
                     <div class="card">
                         <div class="card-header" id="headingArchive">
                             <h2 class="mb-0">
                                 <a class="card-link collapsed" data-toggle="collapse" href="#collapseArchive"
                                     aria-expanded="false">
-                                    Archive
+                                    Past
                                 </a>
                             </h2>
                         </div>

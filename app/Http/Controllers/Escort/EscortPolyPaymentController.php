@@ -79,7 +79,7 @@ class EscortPolyPaymentController extends Controller
             $plan = $listing['membership'];
             $enable = 1;
             
-            $days = Carbon::parse($listing['end_date'])->diffInDays(Carbon::parse($listing['start_date']));
+            $days = Carbon::parse($listing['end_date'])->diffInDays(Carbon::parse($listing['start_date']))+1;
 
             $total_rate = null;
             $above_day = null;
@@ -251,7 +251,7 @@ class EscortPolyPaymentController extends Controller
         $plan = $request->membership;
         $enable = $request->enable;
 
-        $days = Carbon::parse($request->end_date)->diffInDays(Carbon::parse($request->start_date));
+        $days = Carbon::parse($request->end_date)->diffInDays(Carbon::parse($request->start_date))+1;
         $total_rate = null;
         $above_day = null;
         // $days = $request->days;
@@ -390,7 +390,7 @@ class EscortPolyPaymentController extends Controller
         $plan = $request->membership;
         $enable = $request->enable;
 
-        $days = Carbon::parse($request->end_date)->diffInDays(Carbon::parse($request->start_date));
+        $days = Carbon::parse($request->end_date)->diffInDays(Carbon::parse($request->start_date))+1;
         $total_rate = null;
         $above_day = null;
         // $days = $request->days;

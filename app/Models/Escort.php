@@ -24,12 +24,12 @@ class Escort extends Model
 
     public function setStartDateAttribute($value)
     {
-        $this->attributes['start_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        $this->attributes['start_date'] = empty($value)?null:Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
 
     public function setEndDateAttribute($value)
     {
-        $this->attributes['end_date'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        $this->attributes['end_date'] = empty($value)?null:Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
 
     public function getGenderTypeAttribute($value)

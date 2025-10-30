@@ -347,7 +347,7 @@ class EscortController extends Controller
                     if (!empty($purchase['start_date'])) {
                         $daysDiff = Carbon::parse(
                             $purchase['end_date'],
-                        )->diffInDays(Carbon::parse($purchase['start_date']));
+                        )->diffInDays(Carbon::parse($purchase['start_date']))+1;
                         if($purchase['start_date'] == $purchase['end_date']) {
                             $daysDiff = 1;
                         }
