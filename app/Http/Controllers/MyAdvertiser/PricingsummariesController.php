@@ -92,7 +92,7 @@ class PricingsummariesController extends BaseController
                                     ->update([
                                         'rate'=>$request->rate,
                                         'discription'=>$request->discription,
-                                        'amount'=>$request->amount,
+                                        'percent'=>$request->percent,
                                     ]);
             if($feesConciergeService)
             return $this->successResponse('Updated Successfully');
@@ -315,6 +315,7 @@ class PricingsummariesController extends BaseController
         $i = 1;
                
         foreach($fees_list as $key => $item) {
+            $item->amount =  ($item->amount!="" || 0) ? '$'.$item->amount : '0.00';
             $dropdown = '<div class="dropdown no-arrow">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -459,7 +460,7 @@ class PricingsummariesController extends BaseController
                
         foreach($fees_list as $key => $item) {
 
-            $item->amount_perent =  ($item->amount!="" || 0) ? '$'.$item->amount.'%' : '0.00';
+            $item->percent = $item->percent;
             $dropdown = '<div class="dropdown no-arrow">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -533,7 +534,7 @@ class PricingsummariesController extends BaseController
                
         foreach($fees_list as $key => $item) {
 
-            $item->amount_perent =  ($item->amount!="" || 0) ? round($item->amount).'%' : '0.00';
+            $item->amount_perent =  $item->amount;
             $dropdown = '<div class="dropdown no-arrow">
                                              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>

@@ -892,7 +892,7 @@ var fee_support_services = $("#fee_support_services").DataTable({
                                      <form name="fee_support_services_frm" method="post">
                                        <div class="modal-content">
                                           <div class="modal-header">
-                                             <h5 class="modal-title" id="Concierge_Services"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Fees - Concierge Services</h5>
+                                             <h5 class="modal-title" id="Concierge_Services"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Fees - Support Services (E4U Staff)</h5>
                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                              <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                                              </button>
@@ -1010,7 +1010,7 @@ var loyalty_program_advertisers = $("#loyalty_program_advertisers").DataTable({
                                        <form name="loyalty_program_advertisers_modal_frm" method="post">
                                           <div class="modal-content">
                                              <div class="modal-header">
-                                                <h5 class="modal-title" id="Edit_Competitor"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Commission - Playbox</h5>
+                                                <h5 class="modal-title" id="Edit_Competitor"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon"> Set Variables - Loyalty Program Advertisers</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                                                 </button>
@@ -1124,8 +1124,7 @@ var agent_operator_fees = $("#agent_operator_fees").DataTable({
             { data: 'id', name: 'id', searchable: false, orderable:true ,defaultContent: 'NA'},
             { data: 'discription', name: 'discription', orderable:false, defaultContent: 'NA'},
             { data: 'rate', name: 'rate', searchable: true, orderable:false ,defaultContent: 'NA'},
-            
-            { data: 'amount_perent', name: 'amount_perent', searchable: false, orderable:false,defaultContent: 'NA' },
+            { data: 'percent', name: 'percent', searchable: false, orderable:false,defaultContent: 'NA' },
             { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
            
       ],
@@ -1163,8 +1162,8 @@ var agent_operator_fees = $("#agent_operator_fees").DataTable({
                                                          <input type="text" class="form-control rounded-0" name="rate"  value="${(rowData.rate  ? rowData.rate : '')}" required>
                                                       </div>
                                                       <div class="col-6 mb-3">
-                                                         <label>Amount</label>
-                                                         <input type="number"  class="form-control rounded-0" name="amount"  value="${(rowData.amount  ? rowData.amount : '')}" required>
+                                                         <label>Value</label>
+                                                         <input type="text"  class="form-control rounded-0" name="percent"  value="${(rowData.percent  ? rowData.percent : '')}" required>
                                                       </div>
 
                                                        <div class="col-12 mb-3">
@@ -1273,7 +1272,7 @@ var commision_playbox_fees = $("#commision_playbox_fees").DataTable({
                                        <form name="commision_playbox_fees_frm" method="post">
                                           <div class="modal-content">
                                              <div class="modal-header">
-                                                <h5 class="modal-title" id="Edit_Competitor"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Variables - Agent & Operator</h5>
+                                                <h5 class="modal-title" id="Edit_Competitor"><img src="{{ asset('assets/dashboard/img/add-fee.png')}}" class="custompopicon">Set Commission - Playbox</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true"><img src="{{ asset('assets/app/img/newcross.png')}}" class="img-fluid img_resize_in_smscreen"></span>
                                                 </button>
@@ -1284,7 +1283,7 @@ var commision_playbox_fees = $("#commision_playbox_fees").DataTable({
                                                      
                                                       <div class="col-12 mb-3">
                                                          <label>Amount</label>
-                                                         <input type="number"  class="form-control rounded-0" name="amount"  value="${(rowData.amount  ? rowData.amount : '')}" required>
+                                                         <input type="text"  class="form-control rounded-0" name="amount"  value="${(rowData.amount  ? rowData.amount : '')}" required>
                                                       </div>
 
                                                        <div class="col-12 mb-3">
