@@ -24,4 +24,14 @@ class Num extends Model
         'rating',
         'status',
     ];
+
+    public function state()
+    {
+        return $this->belongsTo(State::class, 'incident_state');
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'user_id');
+    }
 }

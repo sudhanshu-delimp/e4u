@@ -83,7 +83,7 @@
                       <select class="custom-select" name="incident_state" >
                         <option selected>Please Choose</option>
                         @foreach ($states as $state)
-                              <option value="{{ $state->id }}">{{ $state->iso2 }} - {{$state->name}}</option>
+                              <option value="{{ $state->id }}" {{$state->id == auth()->user()->state_id ? 'selected' : ''}}>{{ $state->iso2 }} - {{$state->name}}</option>
                         @endforeach
                           </select>
                   </div>
@@ -100,7 +100,7 @@
       
                   <div class="form-group">
                       <label class="required">Offender's Mobile</label>
-                      <input type="number" class="form-control" name="offender_mobile" placeholder="No spaces or any other characters - just numbers">
+                      <input type="number" class="form-control" min="8" name="offender_mobile" placeholder="No spaces or any other characters - just numbers">
                   </div>
       
                   <div class="form-group">
@@ -111,8 +111,7 @@
                   <div class="form-group">
                       <label class="required">Incident Nature</label>
                       <select class="custom-select" name="incident_nature">
-                        <option selected>Please Choose</option>
-                        <option>Fraud</option>
+                        <option selected >Fraud</option>
                         <option>No Show</option>
                         <option>Violence</option>
                      </select>
@@ -130,7 +129,7 @@
       
                   <div class="form-group">
                       <label class="required">What Happened</label>
-                      <textarea class="form-control" name="what_happend" rows="4"></textarea>
+                      <textarea class="form-control" name="what_happened" rows="4"></textarea>
                   </div>
       
                   <div class="form-group">
@@ -184,6 +183,8 @@
                 contentType: false,
                 processData: false,
                 success: function(data) {
+                    console.log('data', data);
+                    
                     if (data.status) {
                         swal.fire(
                             'Ugly mug registration',
@@ -199,15 +200,18 @@
                         );
                     }
                     $(".spinner-border").attr('hidden', true);
+                    $(".error_text").text('');
                     $("#submit").show();
                 },
                 error: function(xhr){
+                    console.log(xhr.status, );
+                    
                     if(xhr.status === 422){
-                        let errors = xhr.responseJSON.errors;
+                        let errors = JSON.parse(xhr.responseText).errors;
                         $('.error-text').remove(); // remove old errors
                         $.each(errors, function(key, value){
                             let input = $('[name="'+key+'"]');
-                            input.after('<span class="text-danger error-text">'+value[0]+'</span>');
+                            input.after('<span class="text-danger error-text error_text">'+value[0]+'</span>');
                         });
                     } else {
                         swal.fire(
