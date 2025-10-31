@@ -53,35 +53,16 @@ class AppointmentController extends Controller
 
     }
 
-    public function getAdverser(){
-        //type 4 means onley get Massage center
-        $auth = Auth::user();
 
-        $user = User::where([
-            ['is_agent_assign', '=', '1'],
-            ['assigned_agent_id', '=', $auth->id],
-            ['type', '=', '4']
-        ])->select('id', 'name', 'member_id', 'email', 'is_agent_assign', 'assigned_agent_id')->get();
-       
-        
-        if(!$user || $user->isEmpty()){
-            return error_response('No advertisers found', 404);
-        }
-        return success_response($user, 'get all advertisers');
-        
-    }
 
     public function getSlotList(Request $request)
     {
-        $advertiserId = $request->advertiser_id;
         $date = $request->date; // Format: Y-m-d
         $currentId = $request->input('current_id');
         $mode = $request->query('mode'); // 'grid' returns all + booked
-        
 
-        // 1) Fetch already booked slots for that advertiser & date (consider ranges)
-        $appointments = Appointment::where('advertiser_id', $advertiserId)
-            ->whereDate('date', $date)
+        // 1) Fetch already booked slots for the given date (GLOBAL overlap disabling)
+        $appointments = Appointment::whereDate('date', $date)
             ->get(['start_time', 'end_time', 'id']);
         $bookedSlots = [];
         foreach ($appointments as $apt) {
@@ -105,14 +86,19 @@ class AppointmentController extends Controller
             $start->addMinutes(30);
         }
        
-        // For legacy dropdown flows, exclude booked and optionally include current
+        // For legacy flows, exclude booked and optionally include current appointment's own slots
         $available = array_values(array_diff($slots, $bookedSlots));
         if (!empty($currentId)) {
             $current = Appointment::find($currentId);
-            if ($current && $current->advertiser_id == $advertiserId && Carbon::parse($current->date)->isSameDay(Carbon::parse($date))) {
-                $currentTime = Carbon::parse($current->time)->format('H:i');
-                if (!in_array($currentTime, $available)) {
-                    $available[] = $currentTime;
+            if ($current && Carbon::parse($current->date)->isSameDay(Carbon::parse($date))) {
+                $cursor = Carbon::parse($current->start_time);
+                $end = Carbon::parse($current->end_time);
+                while ($cursor < $end) {
+                    $ct = $cursor->format('H:i');
+                    if (!in_array($ct, $available)) {
+                        $available[] = $ct;
+                    }
+                    $cursor->addMinutes(30);
                 }
             }
         }
@@ -140,8 +126,7 @@ class AppointmentController extends Controller
 			->where('agent_id', Auth::id())
 			->select(['appointments.*'])
 			->orderByRaw("FIELD(importance, 'high','medium','low')")
-			->orderBy('created_at', 'DESC')
-			->with(['advertiser:id,name,member_id']);
+			->orderBy('created_at', 'DESC');
 
         return DataTables::of($query)
 			// Disable server-side filtering for the computed HTML column
@@ -154,8 +139,7 @@ class AppointmentController extends Controller
                 if ($importance === 'medium') { $color = '#FFA113'; }
                 if ($importance === 'low') { $color = '#87632C'; }
 
-                $name = $row->advertiser->name ?? null;
-                $label = $name ? ($name.' ('.$row->advertiser->member_id.')') : $row->advertiser->member_id;
+				$label = $row->advertiser_name ?? 'Appointment';
                 $dateTime = (Carbon::parse($row->start_time)->format('h:i a')).'-'.(Carbon::parse($row->end_time)->format('h:i a')).' | '.(Carbon::parse($row->date)->format('d-m-Y'));
                 return '<label class="mb-0 cursor-pointer"><i class="fas fa-circle mr-2" style="color: '.$color.'"></i>'.e($label).'</label> <small class="text-muted"> ( '.$dateTime.' ) </small>';
             })
@@ -184,7 +168,7 @@ class AppointmentController extends Controller
     public function show($id)
     {
         // Custom query for the 'time' column example:
-        $appointment = Appointment::with(['advertiser:id,name'])
+        $appointment = Appointment::query()
             ->select([
                 'appointments.*', // select all columns
                 // NEW: Formatted Start Time (e.g., 10:00 AM)
@@ -211,7 +195,7 @@ class AppointmentController extends Controller
             'date' => 'required|date',
             'start_time' => 'required|date_format:H:i', 
             'end_time' => 'required|date_format:H:i|after:start_time',
-            'advertiser_id' => 'required|exists:users,id',
+            'advertiser_name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'lat' => 'nullable|numeric',
             'long' => 'nullable|numeric',
@@ -262,8 +246,7 @@ class AppointmentController extends Controller
         $startTime = $data['start_time'];
         $endTime = $data['end_time'];
 
-         $overlapExists = Appointment::where('advertiser_id', $appointment->advertiser_id)
-            ->whereDate('date', $data['date'])
+         $overlapExists = Appointment::whereDate('date', $data['date'])
             ->where('id', '!=', $appointment->id) 
             ->where(function ($query) use ($startTime, $endTime) {
                 $query->where('start_time', '<', $endTime)
@@ -298,8 +281,8 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
 		try {
-			$validator = Validator::make($request->all(), [
-				'new_advertiser' => 'required|exists:users,id',
+            $validator = Validator::make($request->all(), [
+                'new_advertiser_name' => 'required|string|max:255',
 				'new_appointment_date' => 'required|date',
 				//'new_appointment_time_slot' => 'nullable',
 				'new_start_time' => 'nullable|date_format:H:i',
@@ -323,9 +306,8 @@ class AppointmentController extends Controller
 			$startTime = Carbon::parse($startTime)->format('H:i');
 			$endTime = Carbon::parse($endTime)->format('H:i');
 
-			// Overlap check for the advertiser on the same date [time, end_time)
-			 $overlapExists = Appointment::where('advertiser_id', $validated['new_advertiser'])
-                ->whereDate('date', $validated['new_appointment_date'])
+			// Overlap check on the same date [time, end_time) (GLOBAL)
+			 $overlapExists = Appointment::whereDate('date', $validated['new_appointment_date'])
                 ->where(function ($query) use ($startTime, $endTime) {
                     $query->where('start_time', '<', $endTime)
                         ->where('end_time', '>', $startTime);
@@ -336,7 +318,7 @@ class AppointmentController extends Controller
 			}
 
 			$appointment = Appointment::create([
-				'advertiser_id' => $validated['new_advertiser'],
+				'advertiser_name' => $validated['new_advertiser_name'],
 				'date' => $validated['new_appointment_date'],
 				'start_time' => $startTime,
 				'end_time' => $endTime,
@@ -388,16 +370,13 @@ class AppointmentController extends Controller
     {
         try {
             $decodedId = (int) base64_decode($id);
-			$data = Appointment::with(['advertiser:id,name,member_id'])->find($decodedId);
+			$data = Appointment::find($decodedId);
             if (is_null($data)) {
                 abort(404); // Throws a NotFoundHttpException
             }
             $pdfDetail['date'] = Carbon::parse($data->date)->format('M d, Y');
             $pdfDetail['time'] = Carbon::parse($data->start_time)->format('h:i A') . ' - ' . Carbon::parse($data->end_time)->format('h:i A');
-			$name = optional($data->advertiser)->name;
-			$memberId = optional($data->advertiser)->member_id;
-			$label = $memberId ? (trim(($name ?? '').' ('.$memberId.')')) : ($name ?? '');
-            $pdfDetail['advertiser'] = $label;
+			$pdfDetail['advertiser'] = $data->advertiser_name;
             $pdfDetail['address'] = $data->address;
             $pdfDetail['point_of_contact'] = $data->point_of_contact;
             $pdfDetail['mobile'] = $data->mobile;
@@ -427,8 +406,7 @@ class AppointmentController extends Controller
 			->when($end, function ($q) use ($end) {
 				$q->whereDate('date', '<=', $end);
 			})
-			->with(['advertiser:id,name,member_id'])
-			->select(['id','date','start_time','end_time','importance','status','address','advertiser_id']);
+			->select(['id','date','start_time','end_time','importance','status','address','advertiser_name']);
 
 		$events = $query->get()->map(function ($apt) {
             $importance = strtolower($apt->importance ?? 'high');
@@ -444,7 +422,7 @@ class AppointmentController extends Controller
             $startTimeFormatted = Carbon::parse($apt->start_time)->format('h:i A');
             $endTimeFormatted = Carbon::parse($apt->end_time)->format('h:i A');
             
-            $titleName = optional($apt->advertiser)->name ?: (optional($apt->advertiser)->member_id ?? 'Appointment');
+			$titleName = $apt->advertiser_name ?: 'Appointment';
             $title = $titleName.' ('.$this->returnStatus($apt->status).') ' . $startTimeFormatted . ' - ' . $endTimeFormatted; // Added status to title for clarity
 			return  [
                 'id' => $apt->id,
@@ -468,7 +446,7 @@ class AppointmentController extends Controller
 
 	public function appointmentDetails($id)
 	{
-		$appointment = Appointment::with(['advertiser:id,name,member_id'])->find($id);
+		$appointment = Appointment::find($id);
         //dd($appointment);
 		if (!$appointment) {
 			return error_response('Appointment not found', 404);
@@ -476,11 +454,7 @@ class AppointmentController extends Controller
 		$detail = [
 			'date' => Carbon::parse($appointment->date)->format('M d, Y'),
 			'time' => Carbon::parse($appointment->start_time)->format('h:i A') . ' - ' . Carbon::parse($appointment->end_time)->format('h:i A'),
-			'advertiser' => (function () use ($appointment) {
-				$name = optional($appointment->advertiser)->name;
-				$memberId = optional($appointment->advertiser)->member_id;
-				return $memberId ? (trim(($name ?? '').' ('.$memberId.')')) : ($name ?? '');
-			})(),
+			'advertiser' => ($appointment->advertiser_name ?? ''),
 			'address' => $appointment->address,
 			'point_of_contact' => $appointment->point_of_contact,
 			'mobile' => $appointment->mobile,
