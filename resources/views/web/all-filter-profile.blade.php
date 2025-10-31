@@ -38,7 +38,9 @@
             font-size: 16px;
         }
 
-        
+        .fiter_btns select {
+            text-transform: capitalize;
+        }
 
         
     </style>
@@ -78,7 +80,7 @@
                                     <h5 class="normal_heading mb-0">Search Filters</h5>
                                     <div class="display_inline_block helpquation">
                                         <a href="#" data-toggle="modal" data-target="#forhelp"
-                                            title="Filters explained">
+                                            >
                                             Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
                                         </a>
                                     </div>
@@ -95,7 +97,7 @@
                                                 $myLocation = true; 
                                             }
                                         @endphp
-                                        style=" padding-top: 2px;" title="Undertake a search within your Location only">
+                                        style=" padding-top: 2px;">
                                         <input type="radio" name="locationByRadio" {{ ($radio_location_filter != null || $myLocation) ? 'checked':'' }} value="your_location" id="yourLocation">
                                         <label for="yourLocation"
                                             style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7; margin-bottom: 7px;">
@@ -103,7 +105,7 @@
                                         </label>
                                     </div>
 
-                                    <div class="d-flex align-items-start" title="Undertake a search Australia wide">
+                                    <div class="d-flex align-items-start" >
                                         <input type="radio" name="locationByRadio" value="australia" id="australia" {{ ($radio_location_filter == null && $myLocation == false ) ? 'checked' : ''}}>
                                         <label for="australia"
                                             style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
@@ -141,9 +143,8 @@
                                     <div class="display_inline_block custom-refreshbuton">
                                         <div class="margin_btn_reset">
                                             <input type="hidden" name="apply_pagination_rule" id="apply_pagination_rule" value="0">
-                                            <button type="submit" class="btn reset_filter toltip-parent apply_pagination_button"
-                                                data-toggle="tooltip" title="" id="">
-                                                <span class="custom-toltip">Apply Change</span>
+                                            <button type="submit" class="btn reset_filter apply_pagination_button filter-tooltip-wrap">
+                                                <span class="filter-tooltip">Apply Change</span>
                                                 <i class="fa fa-repeat" aria-hidden="true"></i>
                                             </button>
                                         </div>
@@ -152,13 +153,13 @@
 
                                 <div class="display_inline_block">
                                     <div class="margin_btn_reset">
-                                        <button type="button" class="btn reset_filter toltip-parent" id="v_wishlist">
-                                            <a href="{{ route('web.show.showAddList') }}" data-toggle="tooltip"
-                                               
-                                                title=""> <i class="fa fa-list" aria-hidden="true"></i>
-                                                <span class="custom-toltip">View Shortlist</span>
-                                                <span class="badge badge-pill badge-danger"
-                                                    id="session_count">{{ count((array) session('cart')) }}</span>
+                                        <button type="button" class="btn reset_filter filter-tooltip-wrap" id="v_wishlist">
+                                            <a  href="{{ route('web.show.showAddList') }}" class="text-decoration-none">
+                                               <div class="d-flex align-items-center justify-content-center gap-5">
+                                                    <i class="fa fa-list" aria-hidden="true"></i>
+                                                    <span class="badge badge-pill badge-danger" id="session_count">0</span>
+                                               </div>
+                                                <span class="filter-tooltip">View Shortlist</span>
                                             </a>
                                         </button>
                                     </div>
@@ -168,7 +169,7 @@
                                         $query = Arr::except(request()->query(), ['ipinfo']);
                                     @endphp
                                     <a type="submit" href="{{ route('shortlist.clear-list', $query) }}"
-                                        class="btn reset_filter " data-toggle="tooltip" title="">
+                                        class="btn reset_filter " data-toggle="tooltip">
                                         Clear Shortlist
                                     </a>
                                 </div>
@@ -268,10 +269,16 @@
                                 </select>
                             </div>
                             <div class="display_inline_block mb-1 mr-2">
-                                <button type="button" class="btn verified_btn_bg_color verified_text_color"
+                                {{-- <button type="button" class="btn verified_btn_bg_color verified_text_color"
                                     data-toggle="tooltip" title="">
                                     <img src="{{ asset('assets/img/e4u-verified-dark.png') }}">
-                                </button>
+                                </button> --}}
+                                <select class="custome_form_control_border_radus padding_five_px with_eight_em"
+                                    id=""name="verify_list" title="Coming Soon" disabled>
+                                    <option value="all">All</option>
+                                    <option value="unverified">Unverified</option>
+                                    <option value="verified">Verified</option>
+                                </select>
                             </div>
                             <div class="display_inline_block mb-1 ">
                                 <input type="hidden" name="filter_button_submit" value="1">
@@ -335,7 +342,7 @@
                                                         </select>
                                                     </div>
                                                     <input type="reset" id="resetAll" class="btn reset_filter"
-                                                        title="Reset Service Tags" value="Clear Tags">
+                                                        value="Clear Tags">
                                                 </div>
                                             </div>
                                         </div>
@@ -353,7 +360,7 @@
                                             <div class="grid_list_icon_box display_inline_block grid--btn"
                                                 data-toggle="modal1" data-target="#" data-url="grid-escort-list">
                                                 <a href="#" class="{{$viewType == 'grid' ? 'active' : ''}}" id="grid-modal" data-toggle="tooltip">
-                                                    <span>Grid view</span>
+                                                    <span class="custom-toltip">Grid View</span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                                         viewBox="0 0 30 30" fill="none">
                                                         <path
@@ -378,7 +385,7 @@
                                             <div class="grid_list_icon_box display_inline_block list-btn">
                                                 <a href="#" class="{{$viewType == 'list' ? 'active' : ''}}" id="grid-list"
                                                     data-toggle="tooltip">
-                                                    <span>List view</span>
+                                                    <span class="custom-toltip">List View</span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24"
                                                         viewBox="0 0 27 24" fill="none">
                                                         <path
@@ -465,8 +472,7 @@
                                 <li>
                                     <h3>My Shortlist</h3>
                                 </li>
-                                <li><a href="#" data-toggle="modal" data-target="#forhelp"
-                                        title="Filters explained">Help <i class="fa fa-question-circle-o"
+                                <li><a href="#" data-toggle="modal" data-target="#forhelp">Help <i class="fa fa-question-circle-o"
                                             aria-hidden="true"></i></a></li>
                             </ul>
                         </div>

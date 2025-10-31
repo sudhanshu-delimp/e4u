@@ -42,6 +42,9 @@
             display: flex !important;
             gap: 10px !important;
         }
+        .fiter_btns  select{
+            text-transform: capitalize;
+        }
     </style>
 @endsection
 @section('content')
@@ -56,7 +59,7 @@
                                     <h5 class="normal_heading mb-0">Search Filters</h5>
                                     <div class="display_inline_block helpquation">
                                         <a href="#" data-toggle="modal" data-target="#forhelp"
-                                            title="Filters explained">
+                                            >
                                             Help <i class="fa fa-question-circle-o" aria-hidden="true"></i>
                                         </a>
                                     </div>
@@ -67,7 +70,7 @@
                                 <div class="display_inline_block">
                                     <div class="d-flex flex-column gap-2" style="width:105px;">
                                         <div class="d-flex align-items-start" style="padding-top: 2px;"
-                                            title="Undertake a search within your Location only">
+                                            >
                                             <input type="radio" name="locationByRadio" checked="checked"
                                                 value="your_location" id="yourLocation">
                                             <label for="yourLocation"
@@ -76,7 +79,7 @@
                                             </label>
                                         </div>
 
-                                        <div class="d-flex align-items-start" title="Undertake a search Australia wide">
+                                        <div class="d-flex align-items-start">
                                             <input type="radio" name="locationByRadio" value="australia" id="australia">
                                             <label for="australia"
                                                 style="margin-left: 8px; font-size: 12px; margin-top: -3px; color: #90a0b7;">
@@ -119,9 +122,9 @@
                                             <input type="hidden" name="apply_pagination_rule" id="apply_pagination_rule"
                                                 value="0">
                                             <button type="submit"
-                                                class="btn reset_filter toltip-parent apply_pagination_button"
+                                                class="btn reset_filter filter-tooltip-wrap apply_pagination_button"
                                                 data-toggle="tooltip" title="" id="">
-                                                <span class="custom-toltip">Apply Change</span>
+                                                <span class="filter-tooltip">Apply Change</span>
                                                 <i class="fa fa-repeat" aria-hidden="true"></i>
                                             </button>
                                         </div>
@@ -129,11 +132,14 @@
                                 </div>
                                 <div class="display_inline_block">
                                     <div class="margin_btn_reset">
-                                        <button type="button" class="btn reset_filter toltip-parent" id="v_wishlist">
-                                            <a href="{{ route('find.massage.centre') }}" data-toggle="tooltip"
-                                                title=""> <i class="fa fa-list" aria-hidden="true"></i>
-                                                <span class="custom-toltip">View Shortlist</span>
-                                                <span class="badge badge-pill badge-danger" id="session_count">0</span>
+                                        <button type="button" class="btn reset_filter filter-tooltip-wrap" id="v_wishlist">
+                                            <a href="{{ route('find.massage.centre') }}"
+                                                class="text-decoration-none">
+                                                <div class="d-flex align-items-center justify-content-center gap-5">
+                                                    <i class="fa fa-list" aria-hidden="true"></i>
+                                                    <span class="badge badge-pill badge-danger" id="session_count">0</span>
+                                                </div>
+                                                <span class="filter-tooltip">View Shortlist</span>
                                             </a>
                                         </button>
                                     </div>
@@ -206,7 +212,7 @@
                             <div class="display_inline_block mb-1 mr-2">
                                 <select class="custome_form_control_border_radus padding_five_px with_eight_em"
                                     id="" name="massage_services">
-                                    <option value="">All massage services</option>
+                                    <option value="">All Massage Services</option>
                                     @foreach (@config('escorts.profile.massage-services') as $key => $value)
                                         <option value="{{ $key }}"
                                             {{ request()->get('massage_services') == $key ? 'selected' : '' }}>
@@ -217,7 +223,7 @@
                             <div class="display_inline_block mb-1 mr-2">
                                 <select class="custome_form_control_border_radus padding_five_px with_eight_em"
                                     id=""name="other_services">
-                                    <option value="">All other service types</option>
+                                    <option value="">All Other Service Types</option>
                                     @foreach (@config('escorts.profile.other-services') as $key => $value)
                                         <option value="{{ $key }}"
                                             {{ request()->get('other_services') == $key ? 'selected' : '' }}>
@@ -226,15 +232,15 @@
                                 </select>
                             </div>
                             <div class="display_inline_block mb-1 mr-2">
-                                <button type="button" class="btn verified_btn_bg_color verified_text_color"
-                                    data-toggle="tooltip" title="View Verified Photos only">
-                                    <img src="{{ asset('assets/img/e4u-verified-dark.png') }}">
-                                </button>
+                                 <select class="custome_form_control_border_radus padding_five_px with_eight_em"
+                                    id=""name="other_services" title="Coming Soon" disabled>
+                                    <option value="all">All</option>
+                                    <option value="unverified">Unverified</option>
+                                    <option value="verified">Verified</option>
+                                </select>
                             </div>
                             <div class="display_inline_block mb-1">
-                                <button type="submit" class="btn reset_filter" data-toggle="tooltip"
-                                    title="Apply filters - Search
-                                ">
+                                <button type="submit" class="btn reset_filter">
                                     Apply Filters
                                 </button>
                             </div>
@@ -262,9 +268,8 @@
                             </div>
                             <div class="grid_list_icon_box display_inline_block grid--btn" data-toggle="modal1"
                                 data-target="#" data-url="grid-escort-list">
-                                <a href="#" class="active" id="grid-modal" data-toggle="tooltip"
-                                    title="Grid view">
-                                    <span>Grid view</span>
+                                <a href="#" class="active" id="grid-modal">
+                                    <span class="custom-toltip">Grid View</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
                                         viewBox="0 0 30 30" fill="none">
                                         <path
@@ -284,14 +289,11 @@
                                             stroke="#0C223D" stroke-width="3" stroke-linecap="round"
                                             stroke-linejoin="round" />
                                     </svg>
-                                    <!--  <img src="{{ asset('assets/app/img/grid-pic.svg') }}"> -->
                                 </a>
                             </div>
                             <div class="grid_list_icon_box display_inline_block list-btn">
-                                <a href="#" class=" " id="grid-list" data-toggle="tooltip"
-                                    title="List view">
-                                    <span>List view</span>
-                                    <!-- <img src="{{ asset('assets/app/img/line.svg') }}"> -->
+                                <a href="#" id="grid-list">
+                                    <span class="custom-toltip">List View</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="27" height="24"
                                         viewBox="0 0 27 24" fill="none">
                                         <path d="M1.83301 1.53516H25.1663M1.83301 11.7435H25.1663M1.83301 21.9518H25.1663"
