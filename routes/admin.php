@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Admin\VisitorController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ReportingController;
 use App\Http\Controllers\Admin\PDF\AgentPdfController;
 use App\Http\Controllers\Agent\AgentRequestController;
 use App\Http\Controllers\Admin\SupportTicketsController;
@@ -19,7 +21,6 @@ use App\Http\Controllers\Admin\Mannagement\SetFeesVariablesUsers;
 use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
-use App\Http\Controllers\Admin\VisitorController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {  
@@ -153,9 +154,12 @@ Route::post('advertiser-reviews-status',[AdvertiserReviewsController::class, 'up
 //     return view('admin.advertiser-reviews');
 // })->name('admin.advertiser-reviews');
 
-Route::get('registrations-reports',function(){
-    return view('admin.reporting.registrations');
-})->name('admin.registrations-reports');
+Route::get('get_registration_report', [ReportingController::class, 'getRegistrationReport'])->name('admin.get_registration_report');
+Route::get('registrations-reports',[ReportingController::class, 'userRegistrationReport'])->name('admin.registrations-reports');
+
+// Route::get('registrations-reports',function(){
+//     return view('admin.reporting.registrations');
+// })->name('admin.registrations-reports');
 
 
 Route::get('management/commission-statements',function(){
@@ -194,6 +198,10 @@ Route::get('concierge_services_datatable',[PricingsummariesController::class ,'c
 Route::post('update_fees_data',[PricingsummariesController::class ,'update_fees_data'])->name('admin.update_fees_data');
 
 Route::get('fee_support_services',[PricingsummariesController::class ,'fee_support_services_datatable'])->name('admin.fee_support_services');
+Route::get('loyalty_program_advertisers',[PricingsummariesController::class ,'loyalty_program_datatable'])->name('admin.loyalty_program_advertisers');
+Route::get('agent_operator_fees',[PricingsummariesController::class ,'agent_operator_fees_datatable'])->name('admin.agent_operator_fees');
+Route::get('commision_playbox_fees',[PricingsummariesController::class ,'commision_playbox_fees_datatable'])->name('admin.commision_playbox_fees');
+
 
 
 Route::get('management/manage-suppliers',function(){
@@ -246,6 +254,9 @@ Route::get('agent_list_data_table', [AgentController::class, 'agent_data_list'])
 Route::get('notifications/centres/list', [CenterNotificationController::class, 'index'])->name('admin.centres.notifications.index');
 //Route::post('/list', [AdminMakeNotificationController::class, 'list'])->name('admin_make_notifications.list');
 Route::post('/notifications/centres/store', [CenterNotificationController::class, 'store'])->name('admin.centres.notifications.store');
+Route::get('/notifications/centres/{id}', [CenterNotificationController::class, 'show'])->name('admin.centres.notifications.show');
+Route::post('/notifications/centres/{id}/remove', [CenterNotificationController::class, 'updateStatus'])->name('admin.centres.notifications.remove');
+Route::get('/notifications/centres/pdf-download/{id}', [CenterNotificationController::class, 'pdfDownload'])->name('admin.centres.pdf.download');
 //Route::post('/remove/{id}', [AdminMakeNotificationController::class, 'remove'])->name('admin_make_notifications.remove');
 
 

@@ -128,131 +128,6 @@
                         </thead>
                         <tbody>
 
-                            <!-- === Row 1 === -->
-                            <tr>
-                                <td>1435</td>
-                                <td>V40161</td>
-                                <td>5438 028 733</td>
-                                <td>Qld</td>
-                                <td>A125</td>
-                                <td> <span class="badge badge-secondary">On Hold</span></td>
-                                <td class="text-center">
-                                    <div class="dropdown no-arrow">
-                                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                                </a>
-                                                <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                                            <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                                data-target="#confirm-popup" href="#">
-                                                <i class="fa fa-pause-circle"></i> On Hold
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                                data-target="#confirm-popup" href="#">
-                                                <i class="fa fa-check-circle "></i> Registered
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                                data-target="#confirm-popup" href="#">
-                                                <i class="fa fa-times-circle "></i> Rejected
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                                data-target="#confirm-popup" href="#">
-                                                <i class="fa fa-ban "></i> Cancelled
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                                data-target="#confirm-popup" href="#">
-                                                <i class="fa fa-user-slash"></i> Suspended
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report"
-                                                href="#" data-id="1435">
-                                                <i class="fa fa-eye mr-2"></i> View
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                               
-                            </tr>
-
-                            <!-- === Row 2 === -->
-                            <tr>
-                                <td>1436</td>
-                                <td>V40162</td>
-                                <td>5438 111 222</td>
-                                <td>NSW</td>
-                                <td>A126</td>
-                                <td><span class="badge badge-success">Registered</span></td>
-                                <td class="text-center">
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                                data-target="#confirm-popup" href="#">
-                                                <i class="fa fa-pause-circle"></i> On Hold
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                                data-target="#confirm-popup" href="#">
-                                                <i class="fa fa-check-circle "></i> Registered
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                                data-target="#confirm-popup" href="#">
-                                                <i class="fa fa-times-circle "></i> Rejected
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                                data-target="#confirm-popup" href="#">
-                                                <i class="fa fa-ban "></i> Cancelled
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item d-flex align-items-center gap-10" data-toggle="modal"
-                                                data-target="#confirm-popup" href="#">
-                                                <i class="fa fa-user-slash"></i> Suspended
-                                            </a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="view_member_report dropdown-item d-flex align-items-center gap-10 toggle-report"
-                                                href="#" data-id="1436">
-                                                <i class="fa fa-eye mr-2"></i> View
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            {{-- <tr class="report-row d-none table-detail-row" id="report-1436">
-                                <td colspan="7">
-                                    <div class="card p-3">
-                                        <h5 class="font-weight-bold">Registration Details</h5>
-                                        <table class="table mb-0">
-                                            <tr>
-                                                <th>Ref:</th>
-                                                <td class="border-0">1436</td>
-                                                <th>Member ID:</th>
-                                                <td class="border-0">V40162</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Mobile:</th>
-                                                <td class="border-0">5438 111 222</td>
-                                                <th>Home State:</th>
-                                                <td class="border-0">NSW</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Agent ID:</th>
-                                                <td class="border-0">A126</td>
-                                                <th>Status:</th>
-                                                <td class="border-0">Registered</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr> --}}
 
                         </tbody>
                     </table>
@@ -404,63 +279,51 @@
     </div>
     {{-- end notes --}}
 @endsection
+
+
 @push('script')
-    <script type="text/javascript" charset="utf8" src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}">
-    </script>
-  
-    <script>
-        $(document).ready(function () {
-    var table = $('#RegistrationsReportTable').DataTable({
-        language: {
-            search: "Search: _INPUT_",
-            searchPlaceholder: "Search by Member ID"
-        },
-        paging: true,
-        order: [[0, 'desc']]
-    });
+<script type="text/javascript"  src="{{ asset('assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
 
-    // Toggle child rows
-    $('#RegistrationsReportTable tbody').on('click', '.toggle-report', function (e) {
-        e.preventDefault();
-        var tr = $(this).closest('tr');
-        var row = table.row(tr);
-        var dataId = $(this).data("id");
+<script>
 
-        if (row.child.isShown()) {
-            row.child.hide();
-            $(this).html('<i class="fa fa-eye mr-2"></i> View');
-        } else {
-            // Replace below with dynamic HTML if needed
-            var childHtml = `
-                <div class="card p-3">
-                    <h5 class="font-weight-bold text-blue-primary">Registration Details</h5>
-                    <table class="table mb-0">
-                        <tr>
-                            <th>Ref:</th><td class="border-0">${dataId}</td>
-                            <th>Member ID:</th><td class="border-0">V40161</td>
-                        </tr>
-                       
-                        <tr>
-                            <th>Mobile:</th>
-                            <td class="border-0">5438 111 222</td>
-                            <th>Home State:</th>
-                            <td class="border-0">NSW</td>
-                        </tr>
-                        <tr>
-                            <th>Agent ID:</th>
-                            <td class="border-0">A126</td>
-                            <th>Status:</th>
-                            <td class="border-0">Registered</td>
-                        </tr>
-                        <!-- Add other rows -->
-                    </table>
-                </div>
-            `;
-            row.child(childHtml).show();
-            $(this).html('<i class="fa fa-times mr-2"></i> Close');
-        }
-    });
-});
 
-    </script>
+ var table = $("#RegistrationsReportTable").DataTable({
+      language: {
+      search: "Search: _INPUT_",
+      searchPlaceholder: "Search by Member ID...",
+      lengthMenu: "Show _MENU_ entries",
+      zeroRecords: "No matching records found",
+      info: "Showing _START_ to _END_ of _TOTAL_ entries",
+      infoEmpty: "No entries available",
+      infoFiltered: "(filtered from _MAX_ total entries)"
+      },
+
+      processing: true,
+      serverSide: true,
+      lengthChange: true,
+      searchable:false,
+      bStateSave: false,
+
+      ajax: {
+      url: "{{ route('admin.get_registration_report') }}",
+      data: function (d) {
+      d.type = 'player';
+      }
+      },
+      columns: [
+      { data: 'id', name: 'id', searchable: true, orderable:true ,defaultContent: 'NA'},
+      { data: 'member_id', name: 'member_id', searchable: true, orderable:true ,defaultContent: 'NA'},
+      { data: 'phone', name: 'phone', searchable: true, orderable:true ,defaultContent: 'NA'},
+      { data: 'territory', name: 'territory', searchable: true, orderable:true ,defaultContent: 'NA'},
+      { data: 'referred_by_agent_id', name: 'referred_by_agent_id', searchable: true, orderable:true ,defaultContent: 'NA'},
+      { data: 'status', name: 'status', searchable: false, orderable:true,defaultContent: 'NA' },
+      { data: 'action', name: 'action', searchable: false, orderable:false, defaultContent: 'NA' },
+      ],
+
+      order: [[1, 'desc']],
+      lengthMenu: [[10, 25, 50, 100], [10, 25, 50, 100]],
+      pageLength: 10,
+      });
+      </script>
+
 @endpush

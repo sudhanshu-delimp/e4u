@@ -458,3 +458,5 @@ Route::get('tours',function(){
 })->name('escort.tours');
 
 Route::get('/my-statistics',[EscortStatisticsController::class,'index'])->name('escort.dashboard.my-statistics');
+
+

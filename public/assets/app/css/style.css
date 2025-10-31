@@ -3388,6 +3388,30 @@ i.fa.fa-heart-o{
         font-weight: 400;
     }
     
+    .mc_my_legbox_btn {
+        font-family: Poppins;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 27px;
+        background: var(--blue--text);
+        text-align: center;
+        color: #ffffff;
+        border-radius: 5px;
+    }
+    
+    .mc_my_legbox_btn:hover {
+        background-color: var(--peach);
+    }
+    
+    .mc_my_legbox_btn span i {
+        padding-right: 10px;
+    }
+    
+    .mc_my_legbox_btn:hover span i {
+        color: #fff;
+    }
+    
     .my_legbox {
         font-family: Poppins;
         font-style: normal;
