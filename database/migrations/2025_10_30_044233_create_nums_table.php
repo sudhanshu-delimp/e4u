@@ -26,8 +26,8 @@ class CreateNumsTable extends Migration
             $table->string('platform')->nullable(); // Platform name if known
             $table->string('profile_link')->nullable(); // URL or Membership ID
             $table->text('what_happened')->nullable(); // Description
-            $table->strin('rating')->nullable(); // Ratings options
-            $table->strin('status')->default(true); // Ratings options
+            $table->string('rating')->nullable(); // Ratings options
+            $table->string('status')->default(true); // Ratings options
             $table->timestamps();
         });
     }
