@@ -23,18 +23,19 @@ class TourLocation extends Model
         $this->attributes['end_date'] = empty($value)?null:Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
     }
     
-    public function tour()
-    {
-        return $this->belongsTo(Tour::class);
-    }
     public function state()
     {
         return $this->hasOne(State::class, 'id', 'state_id');
     }
 
+    public function tour()
+    {
+        return $this->belongsTo(Tour::class);
+    }
+    
     public function profiles()
     {
-        return $this->hasMany(TourProfile::class);
+        return $this->hasMany(TourProfile::class,'tour_location_id');
     }
 
     public function getStartDateFormattedAttribute()
