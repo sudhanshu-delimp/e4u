@@ -44,7 +44,7 @@ class NumController extends Controller
         $timeZone = config('escorts.profile.states')[Auth::user()->state_id] ?? 'UTC';
         
         $incidentDate = Carbon::parse($request->incident_date)->setTimezone($timeZone['timeZone'])->format('Y-m-d');
-       // dd( $incidentDate, Auth::user()->state_id);
+       
         $num = Num::create([
             'user_id'    => Auth::user()->id,
             'incident_date'    => $incidentDate,
@@ -154,7 +154,7 @@ class NumController extends Controller
                   <a class="dropdown-toggle" href="" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> 
                     <i class="fas fa-ellipsis fa-ellipsis-v fa-sm fa-fw text-gray-400"></i> </a> 
                     <div class="dot-dropdown dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
-                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10" href="#" data-id="'.$row->id.'"> <i class="fa fa-pen"></i> Edit</a>
+                    <a class="dropdown-item d-flex align-items-center justify-content-start gap-10 edit_report" href="'.route('escort.edit-my-reports',$row->id).'" data-id="'.$row->id.'"> <i class="fa fa-pen"></i> Edit</a>
                   </div></div>';
                 })
                 ->rawColumns(['ref','actions']) // only 'action' needs HTML rendering
@@ -165,4 +165,98 @@ class NumController extends Controller
 
         return view('escort.dashboard.UglyMugsRegister.my-reports',['nums'=>$nums, 'counts'=>$counts]);
     }
+
+    public function editMyReport(Request $request, $id)
+    {
+        // $validator = Validator::make($request->all(), [
+        //     'incident_state'    => 'required',
+        //     'incident_date'    => 'required',
+        //     'incident_location' => 'required',
+        //     'offender_mobile'   => 'required|min:8',
+        //     'incident_nature'   => 'required',
+        //     'profile_link'      => 'nullable',
+        //     'what_happened'     => 'required|string',
+        //     'rating'            => 'required|string',
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return response()->json([
+        //         'status'  => false,
+        //         'errors'  => $validator->errors(),
+        //     ], 422);
+        // }
+        $states = State::where('iso2', 'NOT REGEXP', '^[0-9]+$')->get();
+        $num = Num::where('id', $id)->where('user_id', Auth::user()->id)->with('state')->first();
+
+        return view('escort.dashboard.UglyMugsRegister.edit-report',['num' => $num, 'states' => $states]);
+
+        // if (!$num) {
+        //     return response()->json([
+        //         'status' => false,
+        //         'message' => 'Report not found or access denied.'
+        //     ], 404);
+        // }
+
+        // return response()->json([
+        //     'status' => true,
+        //     'data' => $num
+        // ]);
+    }  
+
+    public function updateMyReportByAjax(Request $request)
+    {
+        //dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'incident_state'    => 'required',
+            'incident_date'    => 'required',
+            'incident_location' => 'required',
+            'offender_mobile'   => 'required|min:8',
+            'incident_nature'   => 'required',
+            'profile_link'      => 'nullable',
+            'what_happened'     => 'required|string',
+            'rating'            => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status'  => false,
+                'errors'  => $validator->errors(),
+            ], 422);
+        }
+
+        $num = Num::where('id', $request->id)->where('user_id', Auth::user()->id)
+        ->update([
+            'incident_state'    => $request->incident_state,
+            'incident_date'    => $request->incident_date,
+            'incident_location' => $request->incident_location,
+            'offender_name'     => $request->offender_name,
+            'offender_mobile'   => $request->offender_mobile,
+            'offender_email'    => $request->offender_email,
+            'incident_nature'   => $request->incident_nature,
+            'platform'          => $request->platform,
+            'profile_link'      => $request->profile_link,
+            'what_happened'     => $request->what_happened,
+            'rating'            => $request->rating,
+        ]);
+
+         return response()->json([
+            'status'  => true,
+            'message' => 'Incident report updated successfully!',
+            'data'    => $num
+        ]);
+
+        return view('escort.dashboard.UglyMugsRegister.edit-report',['num' => $num, 'states' => $states]);
+
+        // if (!$num) {
+        //     return response()->json([
+        //         'status' => false,
+        //         'message' => 'Report not found or access denied.'
+        //     ], 404);
+        // }
+
+        // return response()->json([
+        //     'status' => true,
+        //     'data' => $num
+        // ]);
+    }   
 }
