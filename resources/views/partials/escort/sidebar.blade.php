@@ -448,12 +448,12 @@
             <img src="{{ asset('assets/dashboard/img/menu-icon/list-one_NUM-Blue.png')}}">
             <span >NUM</span>
         </a>
-            <div id="ugly" class=" collapse  @if(request()->segment(2) == 'numdashboard' || request()->segment(2) == 'add-report' || request()->segment(2) == 'my-reports' || request()->segment(2) == 'num-tips' ) show @endif;" aria-labelledby="headingten" data-parent="#accordionSidebar">
+            <div id="ugly" class=" collapse  @if(request()->segment(2) == 'num-dashboard' || request()->segment(2) == 'add-report' || request()->segment(2) == 'my-reports' || request()->segment(2) == 'num-tips' ) show @endif;" aria-labelledby="headingten" data-parent="#accordionSidebar">
                 <div class="py-0 collapse-inner rounded mb-2">
 
                     <a id="myAnchor" class="collapse-item show" href="{{ route('escort.numdashboard') }}">
                         <img src="{{ asset('assets/img/dashboard-24.png')}}">
-                        <span style="{{ request()->segment(2) == 'numdashboard' ? 'color: #e5365a;' : ''}}">dashboard</span>
+                        <span style="{{ request()->segment(2) == 'num-dashboard' ? 'color: #e5365a;' : ''}}">dashboard</span>
                     </a>
 
                     <a id="myAnchor" class="collapse-item show" href="{{ route('escort.add-report') }}">

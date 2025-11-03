@@ -20,7 +20,7 @@
    <!--middle content start here-->
    <div class="row">
     <div class="col-md-12 custom-heading-wrapper">
-        <h1 class="h1">Add Report</h1>
+        <h1 class="h1">Edit Report</h1>
             <span class="helpNoteLink" data-toggle="collapse" data-target="#notes"><b>Help?</b> </span>
       </div>
       <div class="col-md-12 mv-4">
@@ -76,79 +76,87 @@
                <form id="ugly_mug_registration" enctype="multipart/form-data" method="POST" action="route('escort.store-report')">
                   <div class="form-group">
                       <label class="required">Incident Date</label>
-                      <input type="date" class="form-control" name="incident_date">
+                      <input type="hidden" name="id" value="{{$num ? $num->id : ''}}">
+                      <input type="date" class="form-control" name="incident_date" value="{{$num ? $num->incident_date : ''}}">
                   </div>
                   <div class="form-group">
                       <label class="required">Incident State</label>
                       <select class="custom-select" name="incident_state" >
                         <option selected>Please Choose</option>
+                        @php
+                            $st = $num ? $num->incident_state : null;
+                            if($st == null){
+                                $st = auth()->user()->state_id;
+                            }
+                        @endphp
                         @foreach ($states as $state)
-                              <option value="{{ $state->id }}" {{$state->id == auth()->user()->state_id ? 'selected' : ''}}>{{ $state->iso2 }} - {{$state->name}}</option>
+                              <option value="{{ $state->id }}" {{$state->id == $st ? 'selected' : ''}}>{{ $state->iso2 }} - {{$state->name}}</option>
                         @endforeach
                           </select>
                   </div>
       
                   <div class="form-group">
                       <label class="required">Incident Location</label>
-                      <input type="text" class="form-control" name="incident_location" placeholder="Which city were you in">
+                      <input type="text" class="form-control" name="incident_location" value="{{$num ? $num->incident_location : ''}}" placeholder="Which city were you in">
                   </div>
       
                   <div class="form-group">
                       <label>Offender's Name</label>
-                      <input type="text" class="form-control" name="offender_name" placeholder="If known">
+                      <input type="text" class="form-control" name="offender_name" value="{{$num ? $num->offender_name : ''}}" placeholder="If known">
                   </div>
       
                   <div class="form-group">
                       <label class="required">Offender's Mobile</label>
-                      <input type="number" class="form-control" min="8" name="offender_mobile" placeholder="No spaces or any other characters - just numbers">
+                      <input type="number" class="form-control" min="8" value="{{$num ? $num->offender_mobile : ''}}" name="offender_mobile" placeholder="No spaces or any other characters - just numbers">
                   </div>
       
                   <div class="form-group">
                       <label>Offender's Email</label>
-                      <input type="email" class="form-control" name="offender_email" placeholder="If known">
+                      <input type="email" class="form-control" name="offender_email" value="{{$num ? $num->offender_email : ''}}" placeholder="If known">
                   </div>
       
-                  <div class="form-group">
-                      <label class="required">Incident Nature</label>
-                      <select class="custom-select" name="incident_nature">
-                        <option value="fraud" >Fraud</option>
-                        <option value="no_show">No Show</option>
-                        <option value="violence">Violence</option>
-                     </select>
-                  </div>
+                    <div class="form-group">
+                        <label class="required">Incident Nature</label>
+                        <select class="custom-select" name="incident_nature">
+                            <option value="fraud" {{ ($num && strtolower($num->incident_nature) == 'fraud') ? 'selected' : '' }}>Fraud</option>
+                            <option value="no_show" {{ ($num && strtolower($num->incident_nature) == 'no_show') ? 'selected' : '' }}>No Show</option>
+                            <option value="violence" {{ ($num && strtolower($num->incident_nature) == 'violence') ? 'selected' : '' }}>Violence</option>
+                        </select>
+                    </div>
+
       
                   <div class="form-group">
                       <label>Platform</label>
-                      <input type="text" class="form-control" name="platform" placeholder="If known">
+                      <input type="text" class="form-control" value="{{$num ? $num->platform : ''}}" name="platform" placeholder="If known">
                   </div>
       
                   <div class="form-group">
                       <label>Profile Link</label>
-                      <input type="text" class="form-control" name="profile_link" placeholder="Link or Membership ID or Ref">
+                      <input type="text" class="form-control" value="{{$num ? $num->profile_link : ''}}" name="profile_link" placeholder="Link or Membership ID or Ref">
                   </div>
       
                   <div class="form-group">
                       <label class="required">What Happened</label>
-                      <textarea class="form-control" name="what_happened" rows="4"></textarea>
+                      <textarea class="form-control" name="what_happened" rows="4">{{$num ? $num->what_happened : ''}}</textarea>
                   </div>
       
                   <div class="form-group">
                       <label class="required d-block">Rating</label>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" checked type="radio" name="rating" value="do_not_book" id="rate1">
+                          <input class="form-check-input" {{($num && $num->rating == 'do_not_book') ? 'checked' : ''}}  type="radio" name="rating" value="do_not_book" id="rate1">
                           <label class="form-check-label" for="rate1">Do not book</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" name="rating" value="exercise_caution" id="rate2">
+                          <input class="form-check-input" type="radio" {{($num && $num->rating == 'exercise_caution') ? 'checked' : ''}} name="rating" value="exercise_caution" id="rate2">
                           <label class="form-check-label" for="rate2">Exercise caution</label>
                       </div>
                       <div class="form-check d-flex align-items-center">
-                          <input class="form-check-input" type="radio" value="safe" name="rating" id="rate3">
+                          <input class="form-check-input" type="radio" {{($num && $num->rating == 'safe') ? 'checked' : ''}} value="safe" name="rating" id="rate3">
                           <label class="form-check-label" for="rate3">Safe</label>
                       </div>
                   </div>
       
-                  <button type="submit" class="save_profile_btn">Add Report</button>
+                  <button type="submit" class="save_profile_btn">Update Report</button>
                   <small class="d-block mt-2">Your report will remain <em>Pending</em> until approved by our Operations team.</small>
               </form>
             </div>
@@ -173,7 +181,7 @@
         if (form) {
             $("#submit").hide();
             $(".spinner-border").attr('hidden', false);
-            var url = "{{route('escort.store-report')}}";
+            var url = "{{route('escort.update-my-reports')}}";
             var data = new FormData(form[0]);
             $.ajax({
                 method: 'POST',
@@ -188,7 +196,7 @@
                     if (data.status) {
                         swal.fire(
                             'Ugly mug registration',
-                            'Mug registered successfully',
+                            'Mug updated successfully',
                             'success'
                         );
                         form[0].reset();

@@ -15,16 +15,21 @@
    <!--middle content start here-->
   
   <div class="row">
-   <div class="d-flex align-items-center justify-content-start mt-5 flex-wrap col-lg-12">
-       <h1 class="h1">>Code of Conduct</h1>
-   </div>
-   <div class="col-md-12 my-4">
-      <div class="back-to-dashboard">
+   <div class="d-flex align-items-center justify-content-between mt-5 flex-wrap col-lg-12">
+       <h1 class="h1">Code of Conduct</h1>
+       <div class="back-to-dashboard">
          <a href="{{ url()->previous() ?? route('user.add-report') }}">
              <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
          </a>
      </div>
    </div>
+   {{-- <div class="col-md-12 my-4">
+      <div class="back-to-dashboard">
+         <a href="{{ url()->previous() ?? route('user.add-report') }}">
+             <img src="{{ asset('assets/dashboard/img/crossimg.png') }}" alt="Back To Dashboard">
+         </a>
+     </div>
+   </div> --}}
 </div>
    <div class="row my-5">
       <div class="col-md-10 ">
