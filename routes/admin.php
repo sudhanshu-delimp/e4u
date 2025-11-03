@@ -20,6 +20,7 @@ use App\Http\Controllers\MyAdvertiser\PricingsummariesController;
 use App\Http\Controllers\Admin\GlobalMonitoringLoggedInController;
 use App\Http\Controllers\Admin\ReportAdvertiserSuspensionContoller;
 use App\Http\Controllers\Admin\VisitorController;
+use App\Http\Controllers\Admin\StaffController;
 
 ####### Track user info like device last page visit city ip address etc ########
 Route::middleware(['TrackLoginUserInfo'])->group(function () {  
@@ -228,7 +229,8 @@ Route::get('reports/advertiser-suspensions-list-ajax',[ReportAdvertiserSuspensio
 Route::get('admin/dataTable', [AgentRequestController::class, 'dataTable'])->name('admin.dataTable');
 Route::post('send-notiification', [NotificationController::class, 'sendNotification'])->name('admin.send-notiification');
 
-
+Route::get('/management/staff',[StaffController::class,'staff_list'])->name('admin.staff');
+Route::post('/management/add-staff',[StaffController::class,'add_sfaff'])->name('admin.add-staff');
 
 Route::get('/management/agent',[AgentController::class,'agent_list'])->name('admin.agent');
 Route::post('/suspend-agent',[AgentController::class,'suspend_agent'])->name('admin.suspend-agent');
