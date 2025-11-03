@@ -75,6 +75,11 @@ class User extends Authenticatable
         'member_id',
     ];
 
+    public function getTypeAttribute($value)
+    {
+       return (int) $value;
+    }
+
     public function getOnlineAttribute()
     {
         if (!$this->last_online_at) return false;
