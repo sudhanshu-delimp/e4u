@@ -15,12 +15,8 @@ class ChangeUserTypeToEnumInUsersTable extends Migration
     public function up(): void
     {
       
-        DB::statement("
-            ALTER TABLE `users`
-            MODIFY `type` ENUM('0', '1', '2', '3', '4', '5','6','7')
-            NOT NULL DEFAULT '0'
-            COMMENT '0=user; 1=admin; 2=sub-admin; 3=escort; 4=massage-center; 5=agents,6=operator,7=shareholder'
-        ");
+
+       
     }
 
     /**

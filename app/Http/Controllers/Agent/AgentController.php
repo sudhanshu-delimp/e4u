@@ -778,7 +778,7 @@ class AgentController extends BaseController
             
             ];
 
-            $setting = $user->viewer_settings;
+            $setting = $user->agent_settings;
             if ($setting) {
                 $setting->update($data);
             } else {
