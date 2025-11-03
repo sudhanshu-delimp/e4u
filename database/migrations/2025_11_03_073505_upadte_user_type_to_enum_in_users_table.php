@@ -15,7 +15,7 @@ class UpadteUserTypeToEnumInUsersTable extends Migration
     public function up()
     {
 
-         DB::statement("ALTER TABLE users CHANGE COLUMN type type VARCHAR(2) NOT NULL DEFAULT '0';");
+        DB::statement("ALTER TABLE users CHANGE COLUMN type type VARCHAR(2) NOT NULL DEFAULT '0';");
         DB::statement("
             ALTER TABLE `users`
             MODIFY `type` ENUM('0', '1', '2', '3', '4', '5','6','7')

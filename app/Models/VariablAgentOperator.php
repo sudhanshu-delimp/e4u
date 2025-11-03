@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class VariablAgentOperator extends Model
 {
     use HasFactory;
+
+
+    
 }
