@@ -1,7 +1,10 @@
 <div class="col-lg col-md-6 col-sm-6 mb-5">
     <div class="six_column_content_top d-flex justify-content-between mid_tit wish_span" style="z-index: 1;width: 90%;">
-            <span>
-                <img src="{{ asset('assets/img/verified media.png') }}" class="" title="This Escort's Media has been verified by E4U" style="width: 12px;height: 12px;"></span>
+           
+                 <div class="vrf-tooltip-wrap">
+                    <span ><img width="18" height="18" src="{{ asset('assets/img/verified media.png') }}"></span>            
+                    <span class="vrf-tooltip">Media Verified</span>
+                </div>
             <span class="six_column_fonts_top">{{ substr($escort->name,0,12)}}</span>
             {{-- <span class="add_to_favrate @if(in_array($escort->id,$user_type->myLegBox->pluck('id')->toArray())){{'null'}}@else{{'fill'}}@endif" id="legboxId_{{$escort->id}}"  data-escortId="{{$escort->id}}" data-userId="{{ auth()->user() ? auth()->user()->id : 'NA' }}">
                 @if($user_type->myLegBox->isNotEmpty())

@@ -34,22 +34,22 @@
                                                 @if (in_array($escort->id, $user_type->myLegBox->pluck('id')->toArray()))
                                                     <i class='fa fa-heart' style='color: #ff3c5f;'
                                                         aria-hidden='true'></i>
-                                                    <span class="custom-heart-text">Remove from My Legbox</span>
+                                                    <span class="custom-heart-text list-tool remove-tool">Remove from My Legbox</span>
                                                 @else
                                                     <i class="fa fa-heart-o" aria-hidden="true"></i>
-                                                    <span class="custom-heart-text">Add to My Legbox</span>
+                                                    <span class="custom-heart-text list-tool">Add to My Legbox</span>
                                                 @endif
                                             @endif
                                         </span>
                                     @else
                                         <span class="add_to_favrate custom--favourite" data-name="{{ $escort->name }}"><i
-                                                class="fa fa-heart-o" aria-hidden="true"></i> <span class="custom-heart-text">Add to My Legbox</span></span>
+                                                class="fa fa-heart-o" aria-hidden="true"></i> <span class="custom-heart-text list-tool">Add to My Legbox</span></span>
                                     @endif
                                 @else
                                     {{-- <span class="add_to_favrate" data-escortId="{{ $escort->id }}"
                                         data-name="{{ $escort->name }}"><i class="fa fa-heart-o" aria-hidden="true"
                                             title="Add to Legbox"></i></span> --}}
-                                        <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text">Add to My Legbox</span></span>
+                                        <span class="add_to_favrate custom--favourite" data-escortId="{{$escort->id}}" data-name="{{$escort->name}}"><i class="fa fa-heart-o" aria-hidden="true"></i><span class="custom-heart-text list-tool">Add to My Legbox</span></span>
                                 @endif
                             </div>
                             <div class="verify_image verify-image-custom">
