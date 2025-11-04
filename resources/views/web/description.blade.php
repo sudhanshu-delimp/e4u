@@ -557,9 +557,15 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-12">
-                                    <div class="mb-2">
-                                        <span class="about_box_small_heading">Play types:</span> @if(!empty($escort->play_type)) @foreach($escort->play_type as $playtype)<span class="about_box_small_heading_value">{{ config("escorts.profile.play-types.$playtype") }} </span>@endforeach @endif
-                                    </div>
+                                   <div class="mb-2">
+    <span class="about_box_small_heading">Play types:</span>
+    @if(!empty($escort->play_type))
+        <span class="about_box_small_heading_value">
+            {{ implode(', ', array_map(fn($playtype) => config("escorts.profile.play-types.$playtype"), $escort->play_type)) }}
+        </span>
+    @endif
+</div>
+
                                     <div class="mb-2">
                                         <span class="about_box_small_heading">Payment:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.Payments.$escort->payment_type") }}</span>
                                     </div>
