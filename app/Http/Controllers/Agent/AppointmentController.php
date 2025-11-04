@@ -374,7 +374,7 @@ class AppointmentController extends Controller
             if (is_null($data)) {
                 abort(404); // Throws a NotFoundHttpException
             }
-            $pdfDetail['date'] = Carbon::parse($data->date)->format('M d, Y');
+            $pdfDetail['date'] = Carbon::parse($data->date)->format('d-m-Y');
             $pdfDetail['time'] = Carbon::parse($data->start_time)->format('h:i A') . ' - ' . Carbon::parse($data->end_time)->format('h:i A');
 			$pdfDetail['advertiser'] = $data->advertiser_name;
             $pdfDetail['address'] = $data->address;
