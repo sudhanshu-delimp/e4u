@@ -19,8 +19,9 @@ class InfluencerController extends Controller
 
     public function store(Request $request)
     {
+        
         $validator = Validator::make($request->all(), [
-            'membership_id' => 'required',
+            'member_id' => 'required',
             'email' => 'required|email',
             'social_media' => 'required',
             'comments' => 'nullable|string',
@@ -34,44 +35,51 @@ class InfluencerController extends Controller
             ], 422);
         }
 
-        $member = User::where('member_id', $request->member_id)->first();
+        $memberId = $request->member_id ?? '';
+
+        $member = User::where('member_id', $memberId)->first();
 
         if($member == null){
-            return response()->json(['status' => false ,'message' => 'The provided Membership ID doesn’t exist, Please check and try again.'], 422);
+            return response()->json(['status' => false , 'type'=>'not_found','message' => 'The provided Membership ID doesn’t exist, Please check and try again.'], 200);
         }
 
-        $validator['status'] = 'pending';
-        $validator['social_media'] = json_encode($request->social_media);
-        $validator['ref_number'] = 'REF-' . $member->id . '-' . strtoupper(uniqid()) . '-' . rand(1000, 9999);
+        $social_media = json_encode($request->social_media);
+        $ref_number = 'REF-' . $member->id . '-' . strtoupper(uniqid()) . '-' . rand(1000, 9999);
 
-        $influencer = Influencer::create($validator);
+        $influencerExist = Influencer::where('member_id', $memberId)->first();
+        
+        if($influencerExist != null){
+            return response()->json(['status' => false, 'type'=>'found','message' => 'You have already submitted an influencer request.'], 200);
+        }
+
+        $influencer = Influencer::create([
+            'member_id' => $request->member_id,
+            'email' => $request->email,
+            'social_media' => $social_media,
+            'comments' => $request->comments,
+            'status' => 'pending',
+            'ref_number' => $ref_number,
+        ]);
 
         $location = config('escorts.profile.states')[$member->state_id];
 
         $body = [
             'ref_number' => $influencer->ref_number,
-            'email' => $request->email,
-            'member_id' => $request->membership_id,
+            'email' => $member->email ? $member->email : $request->email,
+            'member_id' => $request->member_id,
             'member_name' => $member->name,
             'subject' => 'Influencer Request',
-            'mobile' => $member->mobile,
-            'social_media' => $influencer->social_media,
-            'location' => $location,
+            'mobile' => $member->phone ?? 'N/A',
+            'social_media' => implode(', ',json_decode($influencer->social_media)),
+            'location' => $location['stateName'] ?? 'N/A',
             'comments' => $request->comments,
             'status' => 'pending',
+            'cc_email' => $request->has('cc_email') ? true : false,
         ];
-
-        // if(isset($request->has('cc_email'))) {
-        //     $body['cc_email'] = true;
-        // } else {
-        //     $body['cc_email'] = false;
-        // }
-
-        //$ccEmail = isset($request->has('cc_email'));
 
         Mail::to(config('escorts.mobileOrderSimRequest.admin'))->queue(new RequestInfluencerOperationCenterMail($body));
         Mail::to($request->email)->queue(new RequestInfluencerToUserMail($body));
 
-        return response()->json(['message' => 'Membership created successfully!']);
+        return response()->json(['status' => true ,'message' => 'Influencer request sent successfully.'], 200);
     }
 }

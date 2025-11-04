@@ -10,7 +10,7 @@ class Influencer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'membership_id',
+        'member_id',
         'email',
         'social_media',
         'comments',

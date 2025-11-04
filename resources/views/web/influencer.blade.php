@@ -126,7 +126,7 @@
                 <div class="mb-3">
                     <label for="membershipId" class="form-label">Membership ID <span class="text-danger">*</span></label>
                     <input type="text" class="form-control" id="membershipd" placeholder="Membership ID"
-                        name="membership_id" required>
+                        name="member_id" required>
                 </div>
 
                 <div class="mb-3">
@@ -277,21 +277,19 @@
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    console.log('data', data);
+                    console.log('data jiten', data);
 
-                    if (data.status) {
-                        // Reset form
-                        form.reset();
+                    if (data.status == true) {
 
                         // Show modal
                         document.getElementById('confirmationModal').style.display = 'block';
-                        form[0].reset();
+                        //form[0].reset();
                     } else {
-                        // swal.fire(
-                        //     'Ugly mug registration',
-                        //     'Oops.. something wrong Please try again',
-                        //     'error'
-                        // );
+                        swal.fire(
+                            'Influencer Request',
+                            data.message,
+                            data.type === 'found' ? 'success' : 'error'
+                        );
                     }
                     
                 },
@@ -308,7 +306,7 @@
                         });
                     } else {
                         swal.fire(
-                            'Ugly mug registration',
+                            'Influencer Request',
                             'Oops.. something wrong Please try again',
                             'error'
                         );

@@ -17,12 +17,13 @@
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="text-align: left;">
-                    <img src="http://127.0.0.1:8000/assets/app/img/logo.png" alt="E4U Logo" style="height: 50px;">
+                    
+                    <img src="{{ asset('assets/app/img/logo.png') }}" alt="E4U Logo" style="height: 50px;">
                   </td>
                   <td style="text-align: right; color: #ffffff; font-size: 16px; font-weight: bold;">
-                    Request to be an Influencer  [Title from form]<br>
-                    <span style="font-size: 13px; color: #cccccc;">(Ref: [insert ref number])<br>
-                      Member ID: [Member ID]</span>
+                    Request to be an Influencer  {{$body['member_id']}}<br>
+                    <span style="font-size: 13px; color: #cccccc;">(Ref: {{$body['ref_number']}})<br>
+                      Member ID: {{$body['member_id']}}</span>
                   </td>
                 </tr>
               </table>
@@ -34,7 +35,7 @@
             <td style="padding: 30px;">
               
               <!-- Greeting -->
-              <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Dear [salutation (&gt; My Account &gt; Edit My Account &gt; About Me &gt; My Name)],</b></p>
+              <p style="font-size: 16px; margin: 0 0 15px 0;"><b>Dear {{$body['member_name']}},</b></p>
 
               <!-- Main Message -->
               <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;"> Your request to become an Influencer has been submitted to our Operations team.
@@ -42,7 +43,7 @@
                 to discuss the role or forward some information to you about the role and benefits.</p>
 
               <p style="font-size: 15px; line-height: 1.6; margin-bottom: 15px;">  If you do not hear from us within <b>72 hours</b>, please lodge a Support Ticket by logging onto
-                your Dashboard, and quote the reference number: [Ref number (same as above)].</p>
+                your Dashboard, and quote the reference number: {{$body['ref_number']}}.</p>
 
               <!-- Closing -->
               <p style="font-size: 15px; margin-top: 20px;">
@@ -60,7 +61,7 @@
           <tr>
             <td>
               <em>This is an automatically generated email by the Escorts4U Operations Centre.<br>
-                &copy; Copyright 2024 Blackbox Tech Pty Ltd. All rights reserved.</em>
+                &copy; Copyright 2025 Blackbox Tech Pty Ltd. All rights reserved.</em>
             </td>
           </tr>
         </table>
