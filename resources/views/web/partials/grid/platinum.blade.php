@@ -1,7 +1,10 @@
 <div class="col-lg col-md-6 col-sm-6 mb-5 brb--text">
 
-<div class="five_column_content_top d-flex justify-content-between wish_span" style="z-index: 1;width: 90%;">
-            <span><img width="18" height="18" src="{{ asset('assets/img/verified media.png') }}" class="" title="This Escort's Media has been verified by E4U"></span>
+<div class="five_column_content_top  d-flex justify-content-between wish_span" style="z-index: 1;width: 90%;">
+            <div class="vrf-tooltip-wrap">
+                <span ><img width="18" height="18" src="{{ asset('assets/img/verified media.png') }}"></span>            
+                <span class="vrf-tooltip">Media Verified</span>
+            </div>
             <span class="card_tit">{{ substr($escort->name,0,15)}}</span>
             @if(auth()->user())
                 @if(auth()->user()->type == 0)

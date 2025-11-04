@@ -446,10 +446,11 @@
 
                             <div class="col-lg-12 col-md-12 col-12">
                                 <div class="mb-2">
-                                                <span class="about_box_small_heading">Available to:</span> @if(!empty($escort->available_to)) @foreach($escort->available_to as $available_to) <span class="about_box_small_heading_value">{{ config("escorts.profile.available-to.$available_to") }}</span>@endforeach @endif
+                                    <span class="about_box_small_heading">Available to:</span>
+                                    @if(!empty($escort->available_to))
+                                        {{ implode(', ', array_map(fn($item) => config("escorts.profile.available-to.$item"), $escort->available_to)) }}
+                                    @endif
                                 </div>
-                                
-                                
                             </div>
                         </div>
                     </div>
@@ -487,7 +488,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4 col-12">
                                 <div class="mb-2">
-                                    <span class="about_box_small_heading">Hair Colour:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.hair-colour.$escort->hair_color") }}</span>
+                                    <span class="about_box_small_heading">Hair colour:</span> <span class="about_box_small_heading_value">{{ config("escorts.profile.hair-colour.$escort->hair_color") }}</span>
                                 </div>
                                 <div class="mb-2">
                                     <span class="about_box_small_heading">Skin tone:</span> <span class="about_box_small_heading_value">{{config("escorts.profile.skin-tone.$escort->skin_tone") }}</span>
@@ -1276,7 +1277,7 @@
                         @else
                             <button type="button" class="btn add_reviews_btn all_btn_flx">
                                 <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                                <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
+                                <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
                             </button>
                         @endif
                     </div>
@@ -1309,7 +1310,7 @@
                 @else
                     <button type="button" class="btn add_reviews_btn all_btn_flx">
                         <img src="{{ asset('assets/app/img/feedbackicon.png') }}">
-                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Reviews</a>
+                        <a href="{{route("viewer.login")}}" style="color: white;">Login to Add Review</a>
                     </button>
                 @endif
             </div>

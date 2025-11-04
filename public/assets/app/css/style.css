@@ -250,6 +250,11 @@
         color: white;
     }
     
+    .home--header .navbar-light .navbar-nav .nav-link:focus,
+    .home--header .navbar-light .navbar-nav .nav-link:hover {
+        color: var(--blue--text);
+    }
+    
     .navbar-light .navbar-nav .nav-link:focus,
     .navbar-light .navbar-nav .nav-link:hover {
         color: white;
@@ -1227,7 +1232,6 @@
     .btn_become_pin_up {
         color: #fff;
         font-family: Poppins;
-        font-weight: 600;
         font-size: 16px;
         line-height: 27px;
         background-color: var(--blue--text);
@@ -1340,7 +1344,6 @@
     .btn_advertiser {
         color: #fff;
         font-family: Poppins;
-        font-weight: 600;
         font-size: 16px;
         padding: 8px 20px;
         line-height: 27px;
@@ -2139,7 +2142,7 @@ i.fa.fa-heart-o{
         background: rgba(12, 34, 61, 0.5);
         position: absolute;
         top: 0;
-        height: 33px;
+        height: 40px;
         width: 100%;
         padding: 5px;
         box-sizing: border-box;
@@ -3917,7 +3920,6 @@ i.fa.fa-heart-o{
     .add_reviews_btn a {
         font-family: Poppins;
         font-style: normal;
-        font-weight: 500;
         font-size: 16px;
         line-height: 27px;
         text-decoration: none;
@@ -6104,20 +6106,43 @@ i.fa.fa-heart-o{
     }
     
     .peach--text {
-        color: #ff3c5f;
+        color: var(--peach);
     }
     
     .custom--favourite span.custom-heart-text {
-        background: #ff3c5f;
+        background: var(--peach);
         position: absolute;
-        top: 38px;
-        right: 0px;
+        top: 6px;
+        right: 35px;
         color: #fff;
-        padding: 10px;
+        padding: 5px;
         border-radius: 3px;
-        font-size: 11px;
+        font-size: 12px;
         opacity: 0;
         visibility: hidden;
+    }
+    
+    .custom--favourite span.custom-heart-text.list-tool {
+        position: absolute;
+        top: -2px;
+        right: 25px;
+    }
+    
+    .custom--favourite span.custom-heart-text.remove-tool {
+        position: absolute;
+        top: -2px;
+        right: 25px;
+    }
+    
+    .custom--favourite span.custom-heart-text::after {
+        content: '';
+        position: absolute;
+        top: 35%;
+        left: 100%;
+        border-width: 5px;
+        transform: rotate(-90deg);
+        border-style: solid;
+        border-color: var(--peach) transparent transparent transparent;
     }
     
     .custom--favourite:hover span.custom-heart-text {
@@ -6137,20 +6162,43 @@ i.fa.fa-heart-o{
     
     .custom-gender-type-icon .custom-icon-hover-tooltip,
     .custom-available-time-icon .custom-icon-hover-tooltip {
-        background: #ff3c5f;
+        background: var(--peach);
         position: absolute;
         top: -30px;
         right: 0%;
         transform: translateX(0%);
         color: #fff;
-        padding: 6px 10px;
+        padding: 5px;
         border-radius: 4px;
-        font-size: 11px;
+        font-size: 10px;
         white-space: nowrap;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.2s ease-in-out;
         z-index: 999;
+    }
+    
+    .custom-available-time-icon .custom-icon-hover-tooltip::after {
+        content: '';
+        position: absolute;
+        top: 96%;
+        right: 4px;
+        margin-left: -5px;
+        border-width: 5px;
+        transform: rotate(0deg);
+        border-style: solid;
+        border-color: var(--peach) transparent transparent transparent;
+    }
+    
+    .custom-gender-type-icon .custom-icon-hover-tooltip::after {
+        content: '';
+        position: absolute;
+        top: 96%;
+        right: 4px;
+        border-width: 5px;
+        transform: rotate(0deg);
+        border-style: solid;
+        border-color: var(--peach) transparent transparent transparent;
     }
     
     .custom-gender-type-icon .icon-with-tooltip:hover .custom-icon-hover-tooltip,
@@ -6209,18 +6257,39 @@ i.fa.fa-heart-o{
     .custom-playbox span.custom-icon-hover-tooltip,
     .video--icon span.custom-icon-hover-tooltip {
         position: absolute;
-        color: rgb(255, 255, 255);
+        color: #fff;
         pointer-events: none;
-        right: -1rem;
+        left: 0;
         width: max-content;
-        top: 1.5rem;
-        z-index: 1;
+        top: -35px;
         visibility: hidden;
         opacity: 0;
-        font-size: 11px;
-        background: rgb(255, 60, 95);
-        padding: 10px;
+        font-size: 12px;
+        background: var(--peach);
+        padding: 5px;
         border-radius: 5px;
+    }
+    
+    .custom--available-section .video_icon span.custom--tooltip::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 10px;
+        border-width: 5px;
+        transform: rotate(0deg);
+        border-style: solid;
+        border-color: var(--peach) transparent transparent transparent;
+    }
+    
+    .video_icon.custom--video-section span.custom--tooltip::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 10px;
+        border-width: 5px;
+        transform: rotate(0deg);
+        border-style: solid;
+        border-color: var(--peach) transparent transparent transparent;
     }
     
     .custom-meet-pin li a,
@@ -6694,6 +6763,46 @@ i.fa.fa-heart-o{
     }
     
     .my-play-box-profile-icon:hover .custom-tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+    
+    .vrf-tooltip-wrap {
+        /* position: relative; */
+    }
+    
+    .vrf-tooltip {
+        visibility: hidden;
+        opacity: 0;
+        background-color: var(--peach);
+        color: #fff;
+        text-align: center;
+        padding: 5px;
+        border-radius: 4px;
+        font-size: 12px;
+        line-height: 1.4;
+        white-space: nowrap;
+        position: absolute;
+        top: 5px;
+        left: 18%;
+        transition: opacity 0.3s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+    
+    .vrf-tooltip::after {
+        content: '';
+        position: absolute;
+        top: 35%;
+        left: -6%;
+        margin-left: -5px;
+        border-width: 5px;
+        transform: rotate(90deg);
+        border-style: solid;
+        border-color: var(--peach) transparent transparent transparent;
+    }
+    
+    .vrf-tooltip-wrap:hover .vrf-tooltip {
         visibility: visible;
         opacity: 1;
     }
